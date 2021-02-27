@@ -3,15 +3,11 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use RectorPrefix20210227\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use RectorPrefix20210227\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use RectorPrefix20210227\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix20210227\Doctrine\Persistence\ManagerRegistry;
-use RectorPrefix20210227\Doctrine\Persistence\ObjectManager;
 use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -27,13 +23,17 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
      */
     public const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
     /**
-     * @var string[]
+     * @var ObjectType[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20210227\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20210227\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20210227\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20210227\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20210227\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private $doctrineManagerRegistryObjectTypes = [];
     /**
      * @var string[]
      */
     private $aliasesToNamespaces = [];
+    public function __construct()
+    {
+        $this->doctrineManagerRegistryObjectTypes = [new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityManagerInterface'), new \PHPStan\Type\ObjectType('Doctrine\\Persistence\\ObjectManager'), new \PHPStan\Type\ObjectType('Doctrine\\Common\\Persistence\\ObjectManager'), new \PHPStan\Type\ObjectType('Doctrine\\Persistence\\ManagerRegistry'), new \PHPStan\Type\ObjectType('Doctrine\\Common\\Persistence\\ManagerRegistry')];
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces doctrine alias with class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -58,7 +58,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node->var, self::ALLOWED_OBJECT_TYPES)) {
+        if (!$this->isObjectTypes($node->var, $this->doctrineManagerRegistryObjectTypes)) {
             return null;
         }
         if (!$this->isName($node->name, 'getRepository')) {

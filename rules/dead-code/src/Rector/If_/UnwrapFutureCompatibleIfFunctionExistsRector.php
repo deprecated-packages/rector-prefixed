@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\If_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\FeatureSupport\FunctionSupportResolver;
@@ -98,6 +99,6 @@ CODE_SAMPLE
             return \false;
         }
         // skip rector rules, as they decided if function exists in that particular projects
-        return $this->isObjectType($classLike, 'Rector\\Core\\Contract\\Rector\\RectorInterface');
+        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Rector\\Core\\Contract\\Rector\\RectorInterface'));
     }
 }

@@ -39,7 +39,7 @@ final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector
     /**
      * @var ObjectType[]
      */
-    private $objectTypesToInject = [];
+    private $injectObjectTypes = [];
     /**
      * @var ClassMethodNodeRemover
      */
@@ -138,7 +138,7 @@ CODE_SAMPLE
         }
         $abstractClassConstructorParamTypes = $this->resolveConstructorParamClassTypes($node);
         // process
-        $this->objectTypesToInject = [];
+        $this->injectObjectTypes = [];
         foreach ($childrenClasses as $childrenClass) {
             $constructorClassMethod = $childrenClass->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -153,6 +153,9 @@ CODE_SAMPLE
         $this->addInjectOrRequiredClassMethod($node);
         return $node;
     }
+    /**
+     * @param array<string, string> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->framework = $configuration[self::FRAMEWORK];
@@ -193,13 +196,13 @@ CODE_SAMPLE
             }
             $this->nodeRemover->removeParam($classMethod, $key);
             $this->classMethodNodeRemover->removeParamFromMethodBody($classMethod, $param);
-            $this->objectTypesToInject[] = $paramType;
+            $this->injectObjectTypes[] = $paramType;
         }
     }
     private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
-            if (!$this->isObjectTypes($param, $this->objectTypesToInject)) {
+            if (!$this->isObjectTypes($param, $this->injectObjectTypes)) {
                 continue;
             }
             unset($classMethod->params[$key]);
@@ -211,10 +214,10 @@ CODE_SAMPLE
     {
         /** @var string $className */
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($this->objectTypesToInject === []) {
+        if ($this->injectObjectTypes === []) {
             return;
         }
-        $injectClassMethod = $this->injectMethodFactory->createFromTypes($this->objectTypesToInject, $className, $this->framework);
+        $injectClassMethod = $this->injectMethodFactory->createFromTypes($this->injectObjectTypes, $className, $this->framework);
         $this->classInsertManipulator->addAsFirstMethod($class, $injectClassMethod);
     }
     private function popFirstObjectTypeFromUnionType(\PHPStan\Type\Type $paramType) : \PHPStan\Type\Type

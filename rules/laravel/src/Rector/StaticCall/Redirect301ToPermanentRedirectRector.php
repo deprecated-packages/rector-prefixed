@@ -6,6 +6,7 @@ namespace Rector\Laravel\Rector\StaticCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -16,9 +17,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class Redirect301ToPermanentRedirectRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var string[]
+     * @var ObjectType[]
      */
-    private const ROUTE_TYPES = ['Illuminate\\Support\\Facades\\Route', 'Illuminate\\Routing\\Route'];
+    private $routerObjectTypes = [];
+    public function __construct()
+    {
+        $this->routerObjectTypes = [new \PHPStan\Type\ObjectType('Illuminate\\Support\\Facades\\Route'), new \PHPStan\Type\ObjectType('Illuminate\\Routing\\Route')];
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change "redirect" call with 301 to "permanentRedirect"', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -53,7 +58,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node, self::ROUTE_TYPES)) {
+        if (!$this->isObjectTypes($node, $this->routerObjectTypes)) {
             return null;
         }
         if (!isset($node->args[2])) {

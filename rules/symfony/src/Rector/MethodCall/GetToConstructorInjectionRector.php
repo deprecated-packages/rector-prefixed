@@ -5,6 +5,7 @@ namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -16,11 +17,16 @@ final class GetToConstructorInjectionRector extends \Rector\Symfony\Rector\Metho
     /**
      * @var string
      */
-    public const GET_METHOD_AWARE_TYPES = '$getMethodAwareTypes';
+    public const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
     /**
-     * @var string[]
+     * @var ObjectType[]
      */
-    private $getMethodAwareTypes = ['Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait'];
+    private $getMethodAwareObjectTypes = [];
+    public function __construct()
+    {
+        $this->getMethodAwareObjectTypes[] = new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller');
+        $this->getMethodAwareObjectTypes[] = new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait');
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -61,7 +67,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node->var, $this->getMethodAwareTypes)) {
+        if (!$this->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
             return null;
         }
         if (!$this->isName($node->name, 'get')) {
@@ -69,8 +75,14 @@ CODE_SAMPLE
         }
         return $this->processMethodCallNode($node);
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->getMethodAwareTypes = $configuration[self::GET_METHOD_AWARE_TYPES] ?? [];
+        $getMethodAwareTypes = $configuration[self::GET_METHOD_AWARE_TYPES] ?? [];
+        foreach ($getMethodAwareTypes as $getMethodAwareType) {
+            $this->getMethodAwareObjectTypes[] = new \PHPStan\Type\ObjectType($getMethodAwareType);
+        }
     }
 }

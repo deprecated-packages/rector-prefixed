@@ -5,6 +5,7 @@ namespace Rector\NetteTesterToPHPUnit\Rector\StaticCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NetteTesterToPHPUnit\AssertManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -54,7 +55,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, 'Tester\\Assert')) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\Assert'))) {
             return null;
         }
         return $this->assertManipulator->processStaticCall($node);

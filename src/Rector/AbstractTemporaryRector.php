@@ -267,7 +267,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
         return $this->nodeTypeResolver->isObjectType($node, $type);
     }
     /**
-     * @param string[]|ObjectType[] $requiredTypes
+     * @param ObjectType[] $requiredTypes
      */
     protected function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
     {

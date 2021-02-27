@@ -90,7 +90,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
-        if (!$this->isObjectType($classLike, 'Twig_Extension')) {
+        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Twig_Extension'))) {
             return null;
         }
         $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);

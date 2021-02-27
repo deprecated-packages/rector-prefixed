@@ -27,6 +27,7 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use Rector\RemovingStatic\NodeFactory\SelfContainerFactory;
 use Rector\RemovingStatic\NodeFactory\SetUpFactory;
 use Rector\RemovingStatic\ValueObject\PHPUnitClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -42,13 +43,13 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      */
     public const STATIC_CLASS_TYPES = 'static_class_types';
     /**
-     * @var mixed[]
+     * @var ObjectType[]
      */
-    private $staticClassTypes = [];
+    private $staticObjectTypes = [];
     /**
      * @var ObjectType[]
      */
-    private $newProperties = [];
+    private $newPropertyObjectTypes = [];
     /**
      * @var PropertyNaming
      */
@@ -65,12 +66,17 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      * @var SetUpFactory
      */
     private $setUpFactory;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory)
+    /**
+     * @var SelfContainerFactory
+     */
+    private $selfContainerFactory;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory, \Rector\RemovingStatic\NodeFactory\SelfContainerFactory $selfContainerFactory)
     {
         $this->propertyNaming = $propertyNaming;
         $this->classInsertManipulator = $classInsertManipulator;
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
         $this->setUpFactory = $setUpFactory;
+        $this->selfContainerFactory = $selfContainerFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -126,18 +132,24 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip yourself
-        $this->newProperties = [];
+        $this->newPropertyObjectTypes = [];
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
-            if ($this->isObjectTypes($node, $this->staticClassTypes)) {
+            if ($this->isObjectTypes($node, $this->staticObjectTypes)) {
                 return null;
             }
             return $this->processClass($node);
         }
         return $this->processStaticCall($node);
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->staticClassTypes = $configuration[self::STATIC_CLASS_TYPES] ?? [];
+        $staticClassTypes = $configuration[self::STATIC_CLASS_TYPES] ?? [];
+        foreach ($staticClassTypes as $staticClassType) {
+            $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($staticClassType);
+        }
     }
     private function processClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
@@ -162,12 +174,11 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        foreach ($this->staticClassTypes as $type) {
-            $objectType = new \PHPStan\Type\ObjectType($type);
-            if (!$this->isObjectType($staticCall->class, $objectType)) {
+        foreach ($this->staticObjectTypes as $staticObjectType) {
+            if (!$this->isObjectType($staticCall->class, $staticObjectType)) {
                 continue;
             }
-            return $this->convertStaticCallToPropertyMethodCall($staticCall, $objectType);
+            return $this->convertStaticCallToPropertyMethodCall($staticCall, $staticObjectType);
         }
         return null;
     }
@@ -194,7 +205,7 @@ CODE_SAMPLE
             }
         }
         // update parent clsas if not already
-        if (!$this->isObjectType($class, 'Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+        if (!$this->isObjectType($class, new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase'))) {
             $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
         }
         return $class;
@@ -204,21 +215,20 @@ CODE_SAMPLE
      */
     private function collectNewPropertyObjectTypes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $this->newProperties = [];
+        $this->newPropertyObjectTypes = [];
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : void {
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return;
             }
-            foreach ($this->staticClassTypes as $type) {
-                $objectType = new \PHPStan\Type\ObjectType($type);
-                if (!$this->isObjectType($node->class, $objectType)) {
+            foreach ($this->staticObjectTypes as $staticObjectType) {
+                if (!$this->isObjectType($node->class, $staticObjectType)) {
                     continue;
                 }
-                $this->newProperties[] = $objectType;
+                $this->newPropertyObjectTypes[] = $staticObjectType;
             }
         });
-        $this->newProperties = \array_unique($this->newProperties);
-        return $this->newProperties;
+        $this->newPropertyObjectTypes = \array_unique($this->newPropertyObjectTypes);
+        return $this->newPropertyObjectTypes;
     }
     private function convertStaticCallToPropertyMethodCall(\PhpParser\Node\Expr\StaticCall $staticCall, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\MethodCall
     {
@@ -245,7 +255,7 @@ CODE_SAMPLE
     }
     private function createContainerGetTypeToPropertyAssign(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Expression
     {
-        $getMethodCall = $this->createContainerGetTypeMethodCall($objectType);
+        $getMethodCall = $this->selfContainerFactory->createGetTypeMethodCall($objectType);
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $getMethodCall);
@@ -266,17 +276,20 @@ CODE_SAMPLE
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         return $this->nodeFactory->createPrivatePropertyFromNameAndType($propertyName, $objectType);
     }
-    private function createContainerGetTypeMethodCall(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\MethodCall
-    {
-        $staticPropertyFetch = new \PhpParser\Node\Expr\StaticPropertyFetch(new \PhpParser\Node\Name('self'), 'container');
-        $getMethodCall = new \PhpParser\Node\Expr\MethodCall($staticPropertyFetch, 'get');
-        $className = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
-        if (!$className instanceof \PhpParser\Node\Name) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $getMethodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($className, 'class'));
-        return $getMethodCall;
-    }
+    //    private function createContainerGetTypeMethodCall(ObjectType $objectType): MethodCall
+    //    {
+    //        $staticPropertyFetch = new StaticPropertyFetch(new Name('self'), 'container');
+    //        $getMethodCall = new MethodCall($staticPropertyFetch, 'get');
+    //
+    //        $className = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
+    //        if (! $className instanceof Name) {
+    //            throw new ShouldNotHappenException();
+    //        }
+    //
+    //        $getMethodCall->args[] = new Arg(new ClassConstFetch($className, 'class'));
+    //
+    //        return $getMethodCall;
+    //    }
     private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {

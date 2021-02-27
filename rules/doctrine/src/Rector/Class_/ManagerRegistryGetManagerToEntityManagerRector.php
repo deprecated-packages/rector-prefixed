@@ -12,6 +12,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -169,7 +170,7 @@ CODE_SAMPLE
             if (!$class instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }
-            if (!$this->isObjectType($class, 'Doctrine\\Common\\Persistence\\ObjectManager')) {
+            if (!$this->isObjectType($class, new \PHPStan\Type\ObjectType('Doctrine\\Common\\Persistence\\ObjectManager'))) {
                 return null;
             }
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), self::ENTITY_MANAGER);
@@ -200,7 +201,7 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$this->isObjectType($assign->expr->var, 'Doctrine\\Common\\Persistence\\ManagerRegistry')) {
+        if (!$this->isObjectType($assign->expr->var, new \PHPStan\Type\ObjectType('Doctrine\\Common\\Persistence\\ManagerRegistry'))) {
             return \false;
         }
         return $this->isName($assign->expr->name, self::GET_MANAGER);

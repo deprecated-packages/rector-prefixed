@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\ObjectType;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
@@ -35,9 +36,14 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
      * @var PropertyVisibilityVendorLockResolver
      */
     private $propertyVisibilityVendorLockResolver;
+    /**
+     * @var ObjectType[]
+     */
+    private $excludedObjectTypes = [];
     public function __construct(\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver $propertyVisibilityVendorLockResolver)
     {
         $this->propertyVisibilityVendorLockResolver = $propertyVisibilityVendorLockResolver;
+        $this->excludedObjectTypes = [new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestCase'), new \PHPStan\Type\ObjectType('PHP_CodeSniffer\\Sniffs\\Sniff')];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -124,7 +130,7 @@ CODE_SAMPLE
         if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectTypes($classLike, ['PHPUnit\\Framework\\TestCase', 'PHP_CodeSniffer\\Sniffs\\Sniff'])) {
+        if ($this->isObjectTypes($classLike, $this->excludedObjectTypes)) {
             return \true;
         }
         if (!$classLike->isAbstract()) {

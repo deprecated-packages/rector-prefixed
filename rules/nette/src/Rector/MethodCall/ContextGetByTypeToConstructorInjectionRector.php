@@ -6,6 +6,7 @@ namespace Rector\Nette\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -79,7 +80,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-        if (!$this->isObjectType($node->var, 'Nette\\DI\\Container')) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\DI\\Container'))) {
             return null;
         }
         if (!$this->isName($node->name, 'getByType')) {

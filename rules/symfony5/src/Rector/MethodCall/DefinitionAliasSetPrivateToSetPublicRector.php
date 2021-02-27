@@ -7,9 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210227\Symfony\Component\DependencyInjection\Alias;
-use RectorPrefix20210227\Symfony\Component\DependencyInjection\Definition;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -19,9 +18,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DefinitionAliasSetPrivateToSetPublicRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var class-string<Alias>[]|class-string<Definition>[]
+     * @var ObjectType[]
      */
-    private const REQUIRED_CLASS_TYPES = ['Symfony\\Component\\DependencyInjection\\Alias', 'Symfony\\Component\\DependencyInjection\\Definition'];
+    private $definitionObjectTypes = [];
+    public function __construct()
+    {
+        $this->definitionObjectTypes = [new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\Alias'), new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\Definition')];
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrates from deprecated Definition/Alias->setPrivate() to Definition/Alias->setPublic()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -70,7 +73,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node->var, self::REQUIRED_CLASS_TYPES)) {
+        if (!$this->isObjectTypes($node->var, $this->definitionObjectTypes)) {
             return null;
         }
         if (!$this->isName($node->name, 'setPrivate')) {

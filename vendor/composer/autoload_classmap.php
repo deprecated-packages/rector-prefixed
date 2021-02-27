@@ -3033,6 +3033,7 @@ return array(
     'Rector\\RectorGenerator\\ValueObject\\Package' => $baseDir . '/packages/rector-generator/src/ValueObject/Package.php',
     'Rector\\RectorGenerator\\ValueObject\\RectorRecipe' => $baseDir . '/packages/rector-generator/src/ValueObject/RectorRecipe.php',
     'Rector\\RemovingStatic\\NodeAnalyzer\\StaticCallPresenceAnalyzer' => $baseDir . '/rules/removing-static/src/NodeAnalyzer/StaticCallPresenceAnalyzer.php',
+    'Rector\\RemovingStatic\\NodeFactory\\SelfContainerFactory' => $baseDir . '/rules/removing-static/src/NodeFactory/SelfContainerFactory.php',
     'Rector\\RemovingStatic\\NodeFactory\\SetUpFactory' => $baseDir . '/rules/removing-static/src/NodeFactory/SetUpFactory.php',
     'Rector\\RemovingStatic\\Printer\\FactoryClassPrinter' => $baseDir . '/rules/removing-static/src/Printer/FactoryClassPrinter.php',
     'Rector\\RemovingStatic\\Rector\\ClassMethod\\LocallyCalledStaticMethodToNonStaticRector' => $baseDir . '/rules/removing-static/src/Rector/ClassMethod/LocallyCalledStaticMethodToNonStaticRector.php',

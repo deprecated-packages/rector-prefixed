@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -26,11 +27,16 @@ final class TestsNodeAnalyzer
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
+    /**
+     * @var ObjectType[]
+     */
+    private $testCaseObjectTypes = [];
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->testCaseObjectTypes = [new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestCase'), new \PHPStan\Type\ObjectType('PHPUnit_Framework_TestCase')];
     }
     public function isInTestClass(\PhpParser\Node $node) : bool
     {
@@ -38,7 +44,7 @@ final class TestsNodeAnalyzer
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \false;
         }
-        return $this->nodeTypeResolver->isObjectTypes($classLike, ['PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->nodeTypeResolver->isObjectTypes($classLike, $this->testCaseObjectTypes);
     }
     public function isTestClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

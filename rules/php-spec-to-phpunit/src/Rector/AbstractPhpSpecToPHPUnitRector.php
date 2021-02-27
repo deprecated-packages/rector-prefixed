@@ -5,6 +5,7 @@ namespace Rector\PhpSpecToPHPUnit\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -60,6 +61,6 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \false;
         }
-        return $this->isObjectType($classLike, 'PhpSpec\\ObjectBehavior');
+        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('PhpSpec\\ObjectBehavior'));
     }
 }

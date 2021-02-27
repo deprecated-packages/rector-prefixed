@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -99,7 +100,7 @@ CODE_SAMPLE
             return null;
         }
         $argValue = $methodCall->args[2]->value;
-        if (!$this->isObjectType($argValue, 'DateTimeInterface')) {
+        if (!$this->isObjectType($argValue, new \PHPStan\Type\ObjectType('DateTimeInterface'))) {
             return null;
         }
         // nothing to change

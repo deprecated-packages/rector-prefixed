@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassLike;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -113,10 +114,10 @@ CODE_SAMPLE
             return \true;
         }
         //one of the cases when we are in the repo and it's extended from EntityRepository
-        if (!$this->isObjectType($classLike, 'Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return \true;
         }
-        if (!$this->isObjectType($methodCall->var, 'Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return \true;
         }
         return !$this->isName($methodCall->name, 'setParameters');
