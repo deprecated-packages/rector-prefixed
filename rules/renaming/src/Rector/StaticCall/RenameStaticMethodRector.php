@@ -48,7 +48,7 @@ final class RenameStaticMethodRector extends \Rector\Core\Rector\AbstractRector 
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->staticMethodRenames as $staticMethodRename) {
-            if (!$this->isObjectType($node->class, $staticMethodRename->getOldClass())) {
+            if (!$this->isObjectType($node->class, $staticMethodRename->getOldObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $staticMethodRename->getOldMethod())) {

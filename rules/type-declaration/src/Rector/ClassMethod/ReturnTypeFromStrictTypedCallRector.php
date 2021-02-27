@@ -17,7 +17,6 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\UnionType;
 use PhpParser\Node\UnionType as PhpParserUnionType;
 use PHPStan\Type\Type;
-use Rector\CodingStyle\ValueObject\ObjectMagicMethods;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\TypeDeclaration\NodeAnalyzer\TypeNodeUnwrapper;
@@ -92,7 +91,7 @@ CODE_SAMPLE
         if ($node->returnType !== null) {
             return null;
         }
-        if ($this->isNames($node, \Rector\CodingStyle\ValueObject\ObjectMagicMethods::METHOD_NAMES)) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && $node->isMagic()) {
             return null;
         }
         /** @var Return_[] $returns */

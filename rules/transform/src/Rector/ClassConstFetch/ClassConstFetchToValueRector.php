@@ -43,7 +43,7 @@ final class ClassConstFetchToValueRector extends \Rector\Core\Rector\AbstractRec
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->classConstFetchesToValues as $classConstFetchToValue) {
-            if (!$this->isObjectType($node->class, $classConstFetchToValue->getClass())) {
+            if (!$this->isObjectType($node->class, $classConstFetchToValue->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $classConstFetchToValue->getConstant())) {

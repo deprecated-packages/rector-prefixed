@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Visibility\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ChangeConstantVisibility
 {
     /**
@@ -23,9 +24,9 @@ final class ChangeConstantVisibility
         $this->constant = $constant;
         $this->visibility = $visibility;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getConstant() : string
     {

@@ -54,7 +54,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->renameClassConstFetches as $classConstantRename) {
-            if (!$this->isObjectType($node, $classConstantRename->getOldClass())) {
+            if (!$this->isObjectType($node, $classConstantRename->getOldObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {

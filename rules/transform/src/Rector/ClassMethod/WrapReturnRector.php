@@ -62,7 +62,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeMethodWraps as $typeMethodWrap) {
-            if (!$this->isObjectType($node, $typeMethodWrap->getType())) {
+            if (!$this->isObjectType($node, $typeMethodWrap->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node, $typeMethodWrap->getMethod())) {

@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class CallableInMethodCallToVariable
 {
     /**
@@ -23,9 +24,9 @@ final class CallableInMethodCallToVariable
         $this->methodName = $methodName;
         $this->argumentPosition = $argumentPosition;
     }
-    public function getClassType() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->classType;
+        return new \PHPStan\Type\ObjectType($this->classType);
     }
     public function getMethodName() : string
     {

@@ -22,16 +22,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DesiredStaticPropertyFetchTypeToDynamicRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var class-string[]
+     * @var ObjectType[]
      */
-    private $classTypes = [];
+    private $staticObjectTypes = [];
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
-        $this->classTypes = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
+        $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
+        foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
+            $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($typeToRemoveStaticFrom);
+        }
         $this->propertyNaming = $propertyNaming;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -69,21 +72,21 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // A. remove local fetch
-        foreach ($this->classTypes as $classType) {
-            if (!$this->nodeNameResolver->isInClassNamed($node, $classType)) {
+        foreach ($this->staticObjectTypes as $staticObjectType) {
+            if (!$this->nodeNameResolver->isInClassNamed($node, $staticObjectType)) {
                 continue;
             }
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $node->name);
         }
         // B. external property fetch
-        foreach ($this->classTypes as $classType) {
-            if (!$this->isObjectType($node->class, $classType)) {
+        foreach ($this->staticObjectTypes as $staticObjectType) {
+            if (!$this->isObjectType($node->class, $staticObjectType)) {
                 continue;
             }
-            $propertyName = $this->propertyNaming->fqnToVariableName($classType);
+            $propertyName = $this->propertyNaming->fqnToVariableName($staticObjectType);
             /** @var Class_ $class */
             $class = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            $this->addConstructorDependencyToClass($class, new \PHPStan\Type\ObjectType($classType), $propertyName);
+            $this->addConstructorDependencyToClass($class, $staticObjectType, $propertyName);
             $objectPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
             return new \PhpParser\Node\Expr\PropertyFetch($objectPropertyFetch, $node->name);
         }

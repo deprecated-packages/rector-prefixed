@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class NewToStaticCall
 {
     /**
@@ -23,9 +24,9 @@ final class NewToStaticCall
         $this->staticCallClass = $staticCallClass;
         $this->staticCallMethod = $staticCallMethod;
     }
-    public function getType() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->type;
+        return new \PHPStan\Type\ObjectType($this->type);
     }
     public function getStaticCallClass() : string
     {

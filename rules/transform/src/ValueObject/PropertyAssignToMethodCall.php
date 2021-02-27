@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class PropertyAssignToMethodCall
 {
     /**
@@ -23,9 +24,9 @@ final class PropertyAssignToMethodCall
         $this->oldPropertyName = $oldPropertyName;
         $this->newMethodName = $newMethodName;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getOldPropertyName() : string
     {

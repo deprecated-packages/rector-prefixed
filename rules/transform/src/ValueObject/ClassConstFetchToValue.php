@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ClassConstFetchToValue
 {
     /**
@@ -26,9 +27,9 @@ final class ClassConstFetchToValue
         $this->constant = $constant;
         $this->value = $value;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getConstant() : string
     {

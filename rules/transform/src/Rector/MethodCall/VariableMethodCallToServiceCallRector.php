@@ -85,7 +85,7 @@ CODE_SAMPLE
             if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }
-            if (!$this->isObjectType($node->var, $variableMethodCallsToServiceCalls->getVariableType())) {
+            if (!$this->isObjectType($node->var, $variableMethodCallsToServiceCalls->getVariableObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $variableMethodCallsToServiceCalls->getMethodName())) {

@@ -64,7 +64,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->classConstantVisibilityChanges as $classConstantVisibilityChange) {
-            if (!$this->isObjectType($node, $classConstantVisibilityChange->getClass())) {
+            if (!$this->isObjectType($node, $classConstantVisibilityChange->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node, $classConstantVisibilityChange->getConstant())) {

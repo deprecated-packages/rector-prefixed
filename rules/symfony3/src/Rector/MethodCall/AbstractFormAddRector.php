@@ -29,7 +29,7 @@ abstract class AbstractFormAddRector extends \Rector\Core\Rector\AbstractRector
     }
     protected function isFormAddMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectTypes($methodCall->var, $this->formObjectTypes)) {
+        if (!$this->nodeTypeResolver->isObjectTypes($methodCall->var, $this->formObjectTypes)) {
             return \false;
         }
         if (!$this->isName($methodCall->name, 'add')) {

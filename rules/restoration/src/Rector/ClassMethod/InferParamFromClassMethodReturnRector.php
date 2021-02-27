@@ -134,7 +134,7 @@ CODE_SAMPLE
     }
     private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!$this->nodeNameResolver->isInClassNamed($classMethod, $inferParamFromClassMethodReturn->getClass())) {
+        if (!$this->nodeNameResolver->isInClassNamed($classMethod, $inferParamFromClassMethodReturn->getObjectType())) {
             return null;
         }
         if (!$this->isName($classMethod->name, $inferParamFromClassMethodReturn->getParamMethod())) {

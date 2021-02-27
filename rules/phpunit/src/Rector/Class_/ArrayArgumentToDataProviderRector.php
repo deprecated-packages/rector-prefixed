@@ -187,7 +187,7 @@ CODE_SAMPLE
     }
     private function isMethodCallMatch(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : bool
     {
-        if (!$this->isObjectType($methodCall->var, $arrayArgumentToDataProvider->getClass())) {
+        if (!$this->isObjectType($methodCall->var, $arrayArgumentToDataProvider->getObjectType())) {
             return \false;
         }
         return $this->isName($methodCall->name, $arrayArgumentToDataProvider->getOldMethod());

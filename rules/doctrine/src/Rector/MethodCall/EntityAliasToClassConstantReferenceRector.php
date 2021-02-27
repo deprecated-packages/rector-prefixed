@@ -58,7 +58,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node->var, $this->doctrineManagerRegistryObjectTypes)) {
+        if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->doctrineManagerRegistryObjectTypes)) {
             return null;
         }
         if (!$this->isName($node->name, 'getRepository')) {

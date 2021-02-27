@@ -130,7 +130,7 @@ CODE_SAMPLE
         if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectTypes($classLike, $this->excludedObjectTypes)) {
+        if ($this->nodeTypeResolver->isObjectTypes($classLike, $this->excludedObjectTypes)) {
             return \true;
         }
         if (!$classLike->isAbstract()) {

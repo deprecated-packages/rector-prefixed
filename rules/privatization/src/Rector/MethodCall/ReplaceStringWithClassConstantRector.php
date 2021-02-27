@@ -98,7 +98,7 @@ CODE_SAMPLE
     }
     private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
     {
-        if (!$this->isOnClassMethodCall($methodCall, $replaceStringWithClassConstant->getClass(), $replaceStringWithClassConstant->getMethod())) {
+        if (!$this->isOnClassMethodCall($methodCall, $replaceStringWithClassConstant->getObjectType(), $replaceStringWithClassConstant->getMethod())) {
             return null;
         }
         $desiredArg = $methodCall->args[$replaceStringWithClassConstant->getArgPosition()] ?? null;

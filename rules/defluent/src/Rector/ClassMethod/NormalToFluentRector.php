@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
@@ -113,16 +114,16 @@ CODE_SAMPLE
         if (!$secondExpression->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        $firstMethodCallMatch = $this->matchMethodCall($firstExpression->expr);
-        if ($firstMethodCallMatch === null) {
+        $firstMethodCallMatchObjectType = $this->matchMethodCall($firstExpression->expr);
+        if (!$firstMethodCallMatchObjectType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        $secondMethodCallMatch = $this->matchMethodCall($secondExpression->expr);
-        if ($secondMethodCallMatch === null) {
+        $secondMethodCallMatchObjectType = $this->matchMethodCall($secondExpression->expr);
+        if (!$secondMethodCallMatchObjectType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
         // is the same type
-        return $firstMethodCallMatch === $secondMethodCallMatch;
+        return $firstMethodCallMatchObjectType->equals($secondMethodCallMatchObjectType);
     }
     private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -153,14 +154,14 @@ CODE_SAMPLE
             $fluentMethodCall->var = new \PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\ObjectType
     {
         foreach ($this->callsToFluent as $callToFluent) {
-            if (!$this->isObjectType($methodCall, $callToFluent->getClass())) {
+            if (!$this->isObjectType($methodCall, $callToFluent->getObjectType())) {
                 continue;
             }
             if ($this->isNames($methodCall->name, $callToFluent->getMethodNames())) {
-                return $callToFluent->getClass();
+                return $callToFluent->getObjectType();
             }
         }
         return null;

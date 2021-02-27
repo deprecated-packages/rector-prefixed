@@ -77,7 +77,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->callableInMethodCallToVariable as $callableInMethodCallToVariable) {
-            if (!$this->isObjectType($node->var, $callableInMethodCallToVariable->getClassType())) {
+            if (!$this->isObjectType($node->var, $callableInMethodCallToVariable->getObjectType())) {
                 continue;
             }
             if (!isset($node->args[$callableInMethodCallToVariable->getArgumentPosition()])) {

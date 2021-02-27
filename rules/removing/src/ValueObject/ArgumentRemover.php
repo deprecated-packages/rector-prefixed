@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Removing\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ArgumentRemover
 {
     /**
@@ -31,9 +32,9 @@ final class ArgumentRemover
         $this->position = $position;
         $this->value = $value;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getMethod() : string
     {

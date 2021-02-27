@@ -16,6 +16,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
+use PHPStan\Type\ObjectType;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -283,13 +284,13 @@ final class NodeNameResolver
         }
         return \false;
     }
-    public function isInClassNamed(\PhpParser\Node $node, string $desiredClassName) : bool
+    public function isInClassNamed(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
     {
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        return \is_a($className, $desiredClassName, \true);
+        return \is_a($className, $objectType->getClassName(), \true);
     }
     /**
      * @param string|Name|Identifier|ClassLike $name

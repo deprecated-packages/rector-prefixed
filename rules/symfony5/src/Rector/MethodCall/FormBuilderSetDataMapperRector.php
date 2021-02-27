@@ -8,6 +8,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,18 +18,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FormBuilderSetDataMapperRector extends \Rector\Core\Rector\AbstractRector
 {
-    /**
-     * @var string
-     */
-    private const REQUIRED_TYPE = 'Symfony\\Component\\Form\\FormConfigBuilderInterface';
-    /**
-     * @var string
-     */
-    private const ARG_CORRECT_TYPE = 'Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\DataMapper';
-    /**
-     * @var string
-     */
-    private const ARG_MAPPER_TYPE = 'Symfony\\Component\\Form\\Extension\\Core\\DataAccessor\\PropertyPathAccessor';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrates from deprecated Form Builder->setDataMapper(new PropertyPathMapper()) to Builder->setDataMapper(new DataMapper(new PropertyPathAccessor()))', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -69,18 +58,18 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, self::REQUIRED_TYPE)) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\FormConfigBuilderInterface'))) {
             return null;
         }
         if (!$this->isName($node->name, 'setDataMapper')) {
             return null;
         }
         $argumentValue = $node->args[0]->value;
-        if ($this->isObjectType($argumentValue, self::ARG_CORRECT_TYPE)) {
+        if ($this->isObjectType($argumentValue, new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\DataMapper'))) {
             return null;
         }
-        $propertyPathAccessor = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(self::ARG_MAPPER_TYPE));
-        $newArgumentValue = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(self::ARG_CORRECT_TYPE), [new \PhpParser\Node\Arg($propertyPathAccessor)]);
+        $propertyPathAccessor = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\Extension\\Core\\DataAccessor\\PropertyPathAccessor'));
+        $newArgumentValue = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\DataMapper'), [new \PhpParser\Node\Arg($propertyPathAccessor)]);
         $node->args[0]->value = $newArgumentValue;
         return $node;
     }

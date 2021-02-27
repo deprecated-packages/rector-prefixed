@@ -26,9 +26,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DesiredClassTypeToDynamicRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var class-string[]
+     * @var ObjectType[]
      */
-    private $classTypes = [];
+    private $staticObjectTypes = [];
     /**
      * @var PropertyNaming
      */
@@ -39,7 +39,10 @@ final class DesiredClassTypeToDynamicRector extends \Rector\Core\Rector\Abstract
     private $staticCallPresenceAnalyzer;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
-        $this->classTypes = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
+        $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
+        foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
+            $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($typeToRemoveStaticFrom);
+        }
         $this->propertyNaming = $propertyNaming;
         $this->staticCallPresenceAnalyzer = $staticCallPresenceAnalyzer;
     }
@@ -111,44 +114,43 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->classTypes as $classType) {
+        foreach ($this->staticObjectTypes as $staticObjectType) {
             // do not any dependencies to class itself
-            if ($this->isObjectType($node, $classType)) {
+            if ($this->isObjectType($node, $staticObjectType)) {
                 continue;
             }
-            $this->completeDependencyToConstructorOnly($node, $classType);
-            if ($this->staticCallPresenceAnalyzer->hasClassAnyMethodWithStaticCallOnType($node, $classType)) {
-                $singleObjectType = new \PHPStan\Type\ObjectType($classType);
-                $propertyExpectedName = $this->propertyNaming->fqnToVariableName($classType);
-                $this->addConstructorDependencyToClass($node, $singleObjectType, $propertyExpectedName);
+            $this->completeDependencyToConstructorOnly($node, $staticObjectType);
+            if ($this->staticCallPresenceAnalyzer->hasClassAnyMethodWithStaticCallOnType($node, $staticObjectType)) {
+                $propertyExpectedName = $this->propertyNaming->fqnToVariableName($staticObjectType);
+                $this->addConstructorDependencyToClass($node, $staticObjectType, $propertyExpectedName);
                 return $node;
             }
         }
         return null;
     }
-    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, string $classType) : void
+    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
-        $hasStaticCall = $this->staticCallPresenceAnalyzer->hasMethodStaticCallOnType($constructClassMethod, $classType);
+        $hasStaticCall = $this->staticCallPresenceAnalyzer->hasMethodStaticCallOnType($constructClassMethod, $objectType);
         if (!$hasStaticCall) {
             return;
         }
-        $propertyExpectedName = $this->propertyNaming->fqnToVariableName(new \PHPStan\Type\ObjectType($classType));
-        if ($this->isTypeAlreadyInParamMethod($constructClassMethod, $classType)) {
+        $propertyExpectedName = $this->propertyNaming->fqnToVariableName($objectType);
+        if ($this->isTypeAlreadyInParamMethod($constructClassMethod, $objectType)) {
             return;
         }
-        $constructClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($propertyExpectedName), null, new \PhpParser\Node\Name\FullyQualified($classType));
+        $constructClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($propertyExpectedName), null, new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
     }
-    private function isTypeAlreadyInParamMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $classType) : bool
+    private function isTypeAlreadyInParamMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\ObjectType $objectType) : bool
     {
         foreach ($classMethod->getParams() as $param) {
             if ($param->type === null) {
                 continue;
             }
-            if ($this->isName($param->type, $classType)) {
+            if ($this->isName($param->type, $objectType->getClassName())) {
                 return \true;
             }
         }

@@ -70,21 +70,20 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->newsToMethodCalls as $newToMethodCall) {
-            if (!$this->isObjectType($node, $newToMethodCall->getNewType())) {
+            if (!$this->isObjectType($node, $newToMethodCall->getNewObjectType())) {
                 continue;
             }
-            $serviceType = $newToMethodCall->getServiceType();
+            $serviceObjectType = $newToMethodCall->getServiceObjectType();
             $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-            if ($className === $serviceType) {
+            if ($className === $serviceObjectType->getClassName()) {
                 continue;
             }
             /** @var Class_ $classNode */
             $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            $propertyName = $this->getExistingFactoryPropertyName($classNode, $serviceType);
+            $propertyName = $this->getExistingFactoryPropertyName($classNode, $serviceObjectType);
             if ($propertyName === null) {
-                $propertyName = $this->getFactoryPropertyName($serviceType);
-                $factoryObjectType = new \PHPStan\Type\ObjectType($serviceType);
-                $this->addConstructorDependencyToClass($classNode, $factoryObjectType, $propertyName);
+                $propertyName = $this->getFactoryPropertyName($serviceObjectType->getClassName());
+                $this->addConstructorDependencyToClass($classNode, $serviceObjectType, $propertyName);
             }
             $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
             return new \PhpParser\Node\Expr\MethodCall($propertyFetch, $newToMethodCall->getServiceMethod(), $node->args);
@@ -100,10 +99,10 @@ CODE_SAMPLE
         \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
         $this->newsToMethodCalls = $newsToMethodCalls;
     }
-    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, string $factoryClass) : ?string
+    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType) : ?string
     {
         foreach ($class->getProperties() as $property) {
-            if (!$this->isObjectType($property, $factoryClass)) {
+            if (!$this->isObjectType($property, $factoryObjectType)) {
                 continue;
             }
             return $this->getName($property);

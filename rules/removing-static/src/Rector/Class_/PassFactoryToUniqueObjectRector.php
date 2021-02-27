@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\Naming\PropertyNaming;
@@ -16,7 +17,6 @@ use Rector\RemovingStatic\Printer\FactoryClassPrinter;
 use Rector\RemovingStatic\StaticTypesInClassResolver;
 use Rector\RemovingStatic\UniqueObjectFactoryFactory;
 use Rector\RemovingStatic\UniqueObjectOrServiceDetector;
-use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -28,11 +28,11 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
      * @api
      * @var string
      */
-    public const TYPES_TO_SERVICES = '$typesToServices';
+    public const TYPES_TO_SERVICES = 'types_to_services';
     /**
-     * @var string[]
+     * @var ObjectType[]
      */
-    private $typesToServices = [];
+    private $serviceObjectTypes = [];
     /**
      * @var PropertyNaming
      */
@@ -147,25 +147,30 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->refactorClass($node);
         }
-        foreach ($this->typesToServices as $type) {
-            if (!$this->isObjectType($node->class, $type)) {
+        foreach ($this->serviceObjectTypes as $serviceObjectType) {
+            if (!$this->isObjectType($node->class, $serviceObjectType)) {
                 continue;
             }
-            $objectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
             // is this object created via new somewhere else? use factory!
-            $variableName = $this->propertyNaming->fqnToVariableName($objectType);
+            $variableName = $this->propertyNaming->fqnToVariableName($serviceObjectType);
             $thisPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $variableName);
             return new \PhpParser\Node\Expr\MethodCall($thisPropertyFetch, $node->name, $node->args);
         }
         return $node;
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
+        $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
+        foreach ($typesToServices as $typeToService) {
+            $this->serviceObjectTypes[] = new \PHPStan\Type\ObjectType($typeToService);
+        }
     }
     private function refactorClass(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
     {
-        $staticTypesInClass = $this->staticTypesInClassResolver->collectStaticCallTypeInClass($class, $this->typesToServices);
+        $staticTypesInClass = $this->staticTypesInClassResolver->collectStaticCallTypeInClass($class, $this->serviceObjectTypes);
         foreach ($staticTypesInClass as $staticType) {
             $variableName = $this->propertyNaming->fqnToVariableName($staticType);
             $this->addConstructorDependencyToClass($class, $staticType, $variableName);

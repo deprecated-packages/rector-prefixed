@@ -134,7 +134,7 @@ CODE_SAMPLE
         // skip yourself
         $this->newPropertyObjectTypes = [];
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
-            if ($this->isObjectTypes($node, $this->staticObjectTypes)) {
+            if ($this->nodeTypeResolver->isObjectTypes($node, $this->staticObjectTypes)) {
                 return null;
             }
             return $this->processClass($node);
@@ -153,7 +153,7 @@ CODE_SAMPLE
     }
     private function processClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
-        if ($this->isObjectType($class, \Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE)) {
+        if ($this->isObjectType($class, new \PHPStan\Type\ObjectType(\Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE))) {
             return $this->processPHPUnitClass($class);
         }
         // add property with the object

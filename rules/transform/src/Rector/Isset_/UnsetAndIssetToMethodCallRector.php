@@ -64,7 +64,7 @@ CODE_SAMPLE
                 continue;
             }
             foreach ($this->issetUnsetToMethodCalls as $issetUnsetToMethodCall) {
-                if (!$this->isObjectType($arrayDimFetchNode, $issetUnsetToMethodCall->getType())) {
+                if (!$this->isObjectType($arrayDimFetchNode, $issetUnsetToMethodCall->getObjectType())) {
                     continue;
                 }
                 $newNode = $this->processArrayDimFetchNode($node, $arrayDimFetchNode, $issetUnsetToMethodCall);

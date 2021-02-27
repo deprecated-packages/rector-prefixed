@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -30,7 +29,6 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -104,7 +102,7 @@ final class NodeTypeResolver
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
     }
     /**
-     * @param string[]|ObjectType[] $requiredTypes
+     * @param ObjectType[] $requiredTypes
      */
     public function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
     {
@@ -115,28 +113,18 @@ final class NodeTypeResolver
         }
         return \false;
     }
-    /**
-     * @param ObjectType|string|mixed $requiredType
-     */
-    public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
+    public function isObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $requiredObjectType) : bool
     {
-        $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \RectorPrefix20210227\Nette\Utils\Strings::contains($requiredType, '*')) {
-            return $this->isFnMatch($node, $requiredType);
-        }
         $resolvedType = $this->resolve($node);
         if ($resolvedType instanceof \PHPStan\Type\MixedType) {
             return \false;
         }
         // this should also work with ObjectType and UnionType with ObjectType
         // use PHPStan types here
-        if (\is_string($requiredType)) {
-            $requiredType = new \PHPStan\Type\ObjectType($requiredType);
-        }
-        if ($resolvedType->equals($requiredType)) {
+        if ($resolvedType->equals($requiredObjectType)) {
             return \true;
         }
-        return $this->isMatchingUnionType($requiredType, $resolvedType);
+        return $this->isMatchingUnionType($requiredObjectType, $resolvedType);
     }
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
@@ -211,10 +199,7 @@ final class NodeTypeResolver
         }
         return \is_a($this->resolve($node), $staticTypeClass);
     }
-    /**
-     * @param ObjectType|string $desiredType
-     */
-    public function isObjectTypeOrNullableObjectType(\PhpParser\Node $node, $desiredType) : bool
+    public function isObjectTypeOrNullableObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $desiredObjectType) : bool
     {
         if ($node instanceof \PhpParser\Node\Param && $node->type instanceof \PhpParser\Node\NullableType) {
             /** @var Name|Identifier $node */
@@ -223,7 +208,7 @@ final class NodeTypeResolver
         if ($node instanceof \PhpParser\Node\Param && !$node->type instanceof \PhpParser\Node\Name) {
             return \false;
         }
-        if ($this->isObjectType($node, $desiredType)) {
+        if ($this->isObjectType($node, $desiredObjectType)) {
             return \true;
         }
         $nodeType = $this->getStaticType($node);
@@ -234,8 +219,7 @@ final class NodeTypeResolver
         if (!$unwrappedNodeType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        $desiredTypeString = $desiredType instanceof \PHPStan\Type\ObjectType ? $desiredType->getClassName() : $desiredType;
-        return \is_a($unwrappedNodeType->getClassName(), $desiredTypeString, \true);
+        return \is_a($unwrappedNodeType->getClassName(), $desiredObjectType->getClassName(), \true);
     }
     public function isNullableObjectType(\PhpParser\Node $node) : bool
     {
@@ -294,20 +278,20 @@ final class NodeTypeResolver
         }
         return \false;
     }
-    public function isMethodStaticCallOrClassMethodObjectType(\PhpParser\Node $node, string $type) : bool
+    public function isMethodStaticCallOrClassMethodObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             // method call is variable return
-            return $this->isObjectType($node->var, $type);
+            return $this->isObjectType($node->var, $objectType);
         }
         if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return $this->isObjectType($node->class, $type);
+            return $this->isObjectType($node->class, $objectType);
         }
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        return $this->isObjectType($classLike, $type);
+        return $this->isObjectType($classLike, $objectType);
     }
     private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver) : void
     {
@@ -315,42 +299,16 @@ final class NodeTypeResolver
             $this->nodeTypeResolvers[$nodeClass] = $nodeTypeResolver;
         }
     }
-    /**
-     * @param ObjectType|string|mixed $requiredType
-     */
-    private function ensureRequiredTypeIsStringOrObjectType($requiredType, string $location) : void
-    {
-        if (\is_string($requiredType)) {
-            return;
-        }
-        if ($requiredType instanceof \PHPStan\Type\ObjectType) {
-            return;
-        }
-        $reportedType = \is_object($requiredType) ? \get_class($requiredType) : $requiredType;
-        throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Value passed to "%s()" must be string or "%s". "%s" given', $location, \PHPStan\Type\ObjectType::class, $reportedType));
-    }
-    private function isFnMatch(\PhpParser\Node $node, string $requiredType) : bool
-    {
-        $objectType = $this->resolve($node);
-        $classNames = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
-        foreach ($classNames as $className) {
-            if (!\fnmatch($requiredType, $className, \FNM_NOESCAPE)) {
-                continue;
-            }
-            return \true;
-        }
-        return \false;
-    }
-    private function isMatchingUnionType(\PHPStan\Type\Type $requiredType, \PHPStan\Type\Type $resolvedType) : bool
+    private function isMatchingUnionType(\PHPStan\Type\ObjectType $requiredObjectType, \PHPStan\Type\Type $resolvedType) : bool
     {
         if (!$resolvedType instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
         foreach ($resolvedType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \PHPStan\Type\TypeWithClassName && $requiredType instanceof \PHPStan\Type\TypeWithClassName && \is_a($unionedType->getClassName(), $requiredType->getClassName(), \true)) {
+            if ($unionedType instanceof \PHPStan\Type\TypeWithClassName && \is_a($unionedType->getClassName(), $requiredObjectType->getClassName(), \true)) {
                 return \true;
             }
-            if (!$unionedType->equals($requiredType)) {
+            if (!$unionedType->equals($requiredObjectType)) {
                 continue;
             }
             return \true;

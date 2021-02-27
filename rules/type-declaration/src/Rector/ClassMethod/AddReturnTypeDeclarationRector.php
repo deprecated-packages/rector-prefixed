@@ -71,7 +71,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodReturnTypes as $methodReturnType) {
-            if (!$this->isObjectType($node, $methodReturnType->getClass())) {
+            if (!$this->isObjectType($node, $methodReturnType->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node, $methodReturnType->getMethod())) {

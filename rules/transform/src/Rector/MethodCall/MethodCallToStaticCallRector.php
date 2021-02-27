@@ -73,7 +73,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodCallsToStaticCalls as $methodCallToStaticCall) {
-            if (!$this->isObjectType($node->var, $methodCallToStaticCall->getOldClass())) {
+            if (!$this->isObjectType($node->var, $methodCallToStaticCall->getOldObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $methodCallToStaticCall->getOldMethod())) {

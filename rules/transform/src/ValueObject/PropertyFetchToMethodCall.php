@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class PropertyFetchToMethodCall
 {
     /**
@@ -36,9 +37,9 @@ final class PropertyFetchToMethodCall
         $this->newSetMethod = $newSetMethod;
         $this->newGetArguments = $newGetArguments;
     }
-    public function getOldType() : string
+    public function getOldObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->oldType;
+        return new \PHPStan\Type\ObjectType($this->oldType);
     }
     public function getOldProperty() : string
     {

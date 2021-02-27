@@ -86,7 +86,7 @@ CODE_SAMPLE
     {
         $hasChanged = \false;
         foreach ($this->methodsToYields as $methodToYield) {
-            if (!$this->isObjectType($node, $methodToYield->getType())) {
+            if (!$this->isObjectType($node, $methodToYield->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node, $methodToYield->getMethod())) {

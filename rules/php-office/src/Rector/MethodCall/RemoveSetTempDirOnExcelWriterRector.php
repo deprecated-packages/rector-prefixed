@@ -5,6 +5,7 @@ namespace Rector\PHPOffice\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -50,7 +51,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, 'PHPExcel_Writer_Excel5', 'setTempDir')) {
+        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('PHPExcel_Writer_Excel5'), 'setTempDir')) {
             return null;
         }
         $this->removeNode($node);

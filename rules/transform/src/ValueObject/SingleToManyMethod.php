@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class SingleToManyMethod
 {
     /**
@@ -23,9 +24,9 @@ final class SingleToManyMethod
         $this->singleMethodName = $singleMethodName;
         $this->manyMethodName = $manyMethodName;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getSingleMethodName() : string
     {

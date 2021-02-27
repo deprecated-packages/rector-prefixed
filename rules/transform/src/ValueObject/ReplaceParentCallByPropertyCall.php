@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ReplaceParentCallByPropertyCall
 {
     /**
@@ -23,9 +24,9 @@ final class ReplaceParentCallByPropertyCall
         $this->method = $method;
         $this->property = $property;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getMethod() : string
     {

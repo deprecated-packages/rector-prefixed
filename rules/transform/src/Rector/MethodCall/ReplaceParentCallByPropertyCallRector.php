@@ -58,7 +58,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->parentCallToProperties as $parentCallToProperty) {
-            if (!$this->isObjectType($node->var, $parentCallToProperty->getClass())) {
+            if (!$this->isObjectType($node->var, $parentCallToProperty->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $parentCallToProperty->getMethod())) {

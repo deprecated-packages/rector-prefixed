@@ -202,7 +202,7 @@ CODE_SAMPLE
     private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
-            if (!$this->isObjectTypes($param, $this->injectObjectTypes)) {
+            if (!$this->nodeTypeResolver->isObjectTypes($param, $this->injectObjectTypes)) {
                 continue;
             }
             unset($classMethod->params[$key]);

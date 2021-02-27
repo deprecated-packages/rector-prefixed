@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -94,7 +95,7 @@ CODE_SAMPLE
             if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
                 return null;
             }
-            if (!$this->isObjectType($class, $className)) {
+            if (!$this->isObjectType($class, new \PHPStan\Type\ObjectType($className))) {
                 return null;
             }
         }

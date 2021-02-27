@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class MethodCallToReturn
 {
     /**
@@ -18,9 +19,9 @@ final class MethodCallToReturn
         $this->class = $class;
         $this->method = $method;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getMethod() : string
     {

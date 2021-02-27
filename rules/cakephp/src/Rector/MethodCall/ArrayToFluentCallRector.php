@@ -104,7 +104,7 @@ CODE_SAMPLE
     private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\FactoryMethod
     {
         foreach ($this->factoryMethods as $factoryMethod) {
-            if (!$this->isObjectType($methodCall->var, $factoryMethod->getType())) {
+            if (!$this->isObjectType($methodCall->var, $factoryMethod->getObjectType())) {
                 continue;
             }
             if (!$this->isName($methodCall->name, $factoryMethod->getMethod())) {

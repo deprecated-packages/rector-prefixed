@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class WrapReturn
 {
     /**
@@ -23,9 +24,9 @@ final class WrapReturn
         $this->method = $method;
         $this->isArrayWrap = $isArrayWrap;
     }
-    public function getType() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->type;
+        return new \PHPStan\Type\ObjectType($this->type);
     }
     public function getMethod() : string
     {

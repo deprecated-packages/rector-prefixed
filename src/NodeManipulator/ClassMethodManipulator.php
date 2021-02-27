@@ -10,6 +10,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -130,7 +131,7 @@ final class ClassMethodManipulator
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         foreach ($classMethodNode->params as $paramNode) {
-            if (!$this->nodeTypeResolver->isObjectType($paramNode, $type)) {
+            if (!$this->nodeTypeResolver->isObjectType($paramNode, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
             $paramName = $this->nodeNameResolver->getName($paramNode);

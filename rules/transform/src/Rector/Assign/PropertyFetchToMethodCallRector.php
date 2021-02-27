@@ -114,7 +114,7 @@ CODE_SAMPLE
     private function matchPropertyFetchCandidate(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\Rector\Transform\ValueObject\PropertyFetchToMethodCall
     {
         foreach ($this->propertiesToMethodCalls as $propertyToMethodCall) {
-            if (!$this->isObjectType($propertyFetch->var, $propertyToMethodCall->getOldType())) {
+            if (!$this->isObjectType($propertyFetch->var, $propertyToMethodCall->getOldObjectType())) {
                 continue;
             }
             if (!$this->isName($propertyFetch, $propertyToMethodCall->getOldProperty())) {

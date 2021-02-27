@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class RenameProperty
 {
     /**
@@ -23,9 +24,9 @@ final class RenameProperty
         $this->oldProperty = $oldProperty;
         $this->newProperty = $newProperty;
     }
-    public function getType() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->type;
+        return new \PHPStan\Type\ObjectType($this->type);
     }
     public function getOldProperty() : string
     {

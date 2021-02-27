@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class MethodCallToAnotherMethodCallWithArguments
 {
     /**
@@ -31,9 +32,9 @@ final class MethodCallToAnotherMethodCallWithArguments
         $this->newMethod = $newMethod;
         $this->newArguments = $newArguments;
     }
-    public function getType() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->type;
+        return new \PHPStan\Type\ObjectType($this->type);
     }
     public function getOldMethod() : string
     {

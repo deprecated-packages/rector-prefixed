@@ -80,7 +80,7 @@ CODE_SAMPLE
     private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
     {
         foreach ($this->unprefixedMethodsToGetSet as $unprefixedMethodToGetSet) {
-            if (!$this->isObjectType($methodCall->var, $unprefixedMethodToGetSet->getType())) {
+            if (!$this->isObjectType($methodCall->var, $unprefixedMethodToGetSet->getObjectType())) {
                 continue;
             }
             if (!$this->isName($methodCall->name, $unprefixedMethodToGetSet->getUnprefixedMethod())) {

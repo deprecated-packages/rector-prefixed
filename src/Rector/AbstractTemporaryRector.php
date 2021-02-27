@@ -259,19 +259,9 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     {
         return $this->nodeNameResolver->getName($node);
     }
-    /**
-     * @param ObjectType|string $type
-     */
-    protected function isObjectType(\PhpParser\Node $node, $type) : bool
+    protected function isObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($node, $type);
-    }
-    /**
-     * @param ObjectType[] $requiredTypes
-     */
-    protected function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
-    {
-        return $this->nodeTypeResolver->isObjectTypes($node, $requiredTypes);
+        return $this->nodeTypeResolver->isObjectType($node, $objectType);
     }
     protected function isNumberType(\PhpParser\Node $node) : bool
     {
@@ -346,12 +336,12 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
             $this->addNodeAfterNode($ifStmt, $node);
         }
     }
-    protected function isOnClassMethodCall(\PhpParser\Node $node, string $type, string $methodName) : bool
+    protected function isOnClassMethodCall(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType, string $methodName) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$this->isObjectType($node->var, $type)) {
+        if (!$this->isObjectType($node->var, $objectType)) {
             return \false;
         }
         return $this->isName($node->name, $methodName);

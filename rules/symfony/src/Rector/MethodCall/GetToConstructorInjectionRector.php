@@ -67,7 +67,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
+        if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
             return null;
         }
         if (!$this->isName($node->name, 'get')) {

@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\ValueObject;
 
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 final class AddParamTypeDeclaration
 {
@@ -29,9 +30,9 @@ final class AddParamTypeDeclaration
         $this->position = $position;
         $this->paramType = $paramType;
     }
-    public function getClassName() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->className;
+        return new \PHPStan\Type\ObjectType($this->className);
     }
     public function getMethodName() : string
     {

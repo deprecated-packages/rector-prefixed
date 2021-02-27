@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony5\NodeFactory\OnSuccessLogoutClassMethodFactory;
 use Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory;
@@ -21,10 +22,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class LogoutSuccessHandlerToLogoutEventSubscriberRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var string
-     */
-    private const LOGOUT_SUCCESS_HANDLER_TYPE = 'Symfony\\Component\\Security\\Http\\Logout\\LogoutSuccessHandlerInterface';
-    /**
      * @var GetSubscribedEventsClassMethodFactory
      */
     private $getSubscribedEventsClassMethodFactory;
@@ -32,10 +29,15 @@ final class LogoutSuccessHandlerToLogoutEventSubscriberRector extends \Rector\Co
      * @var OnSuccessLogoutClassMethodFactory
      */
     private $onSuccessLogoutClassMethodFactory;
+    /**
+     * @var ObjectType
+     */
+    private $successHandlerObjectType;
     public function __construct(\Rector\Symfony5\NodeFactory\OnSuccessLogoutClassMethodFactory $onSuccessLogoutClassMethodFactory, \Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
         $this->onSuccessLogoutClassMethodFactory = $onSuccessLogoutClassMethodFactory;
+        $this->successHandlerObjectType = new \PHPStan\Type\ObjectType('Symfony\\Component\\Security\\Http\\Logout\\LogoutSuccessHandlerInterface');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -110,7 +112,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, self::LOGOUT_SUCCESS_HANDLER_TYPE)) {
+        if (!$this->isObjectType($node, $this->successHandlerObjectType)) {
             return null;
         }
         $this->refactorImplements($node);
@@ -132,7 +134,7 @@ CODE_SAMPLE
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {
-            if (!$this->isName($implement, self::LOGOUT_SUCCESS_HANDLER_TYPE)) {
+            if (!$this->isName($implement, $this->successHandlerObjectType->getClassName())) {
                 continue;
             }
             unset($class->implements[$key]);

@@ -28,9 +28,9 @@ final class NewToConstructorInjectionRector extends \Rector\Core\Rector\Abstract
      */
     public const TYPES_TO_CONSTRUCTOR_INJECTION = 'TYPES_TO_CONSTRUCTOR_INJECTION';
     /**
-     * @var string[]
+     * @var ObjectType[]
      */
-    private $typesToConstructorInjection = [];
+    private $constructorInjectionObjectTypes = [];
     /**
      * @var PropertyFetchFactory
      */
@@ -100,20 +100,26 @@ CODE_SAMPLE
         }
         return null;
     }
+    /**
+     * @param array<string, mixed[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->typesToConstructorInjection = $configuration[self::TYPES_TO_CONSTRUCTOR_INJECTION] ?? [];
+        $typesToConstructorInjections = $configuration[self::TYPES_TO_CONSTRUCTOR_INJECTION] ?? [];
+        foreach ($typesToConstructorInjections as $typesToConstructorInjection) {
+            $this->constructorInjectionObjectTypes[] = new \PHPStan\Type\ObjectType($typesToConstructorInjection);
+        }
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
-        foreach ($this->typesToConstructorInjection as $typeToConstructorInjection) {
+        foreach ($this->constructorInjectionObjectTypes as $constructorInjectionObjectType) {
             if (!$methodCall->var instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }
-            if (!$this->isObjectType($methodCall->var, $typeToConstructorInjection)) {
+            if (!$this->isObjectType($methodCall->var, $constructorInjectionObjectType)) {
                 continue;
             }
-            $methodCall->var = $this->propertyFetchFactory->createFromType($typeToConstructorInjection);
+            $methodCall->var = $this->propertyFetchFactory->createFromType($constructorInjectionObjectType->getClassName());
             return $methodCall;
         }
         return null;
@@ -123,7 +129,7 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\New_) {
             return;
         }
-        foreach ($this->typesToConstructorInjection as $typesToConstructorInjection) {
+        foreach ($this->constructorInjectionObjectTypes as $typesToConstructorInjection) {
             if (!$this->isObjectType($assign->expr, $typesToConstructorInjection)) {
                 continue;
             }
@@ -132,20 +138,19 @@ CODE_SAMPLE
     }
     private function refactorNew(\PhpParser\Node\Expr\New_ $new) : void
     {
-        foreach ($this->typesToConstructorInjection as $typeToConstructorInjection) {
-            if (!$this->isObjectType($new->class, $typeToConstructorInjection)) {
+        foreach ($this->constructorInjectionObjectTypes as $constructorInjectionObjectType) {
+            if (!$this->isObjectType($new->class, $constructorInjectionObjectType)) {
                 continue;
             }
             $classLike = $new->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 continue;
             }
-            $objectType = new \PHPStan\Type\ObjectType($typeToConstructorInjection);
-            $expectedPropertyName = $this->propertyNaming->getExpectedNameFromType($objectType);
+            $expectedPropertyName = $this->propertyNaming->getExpectedNameFromType($constructorInjectionObjectType);
             if (!$expectedPropertyName instanceof \Rector\Naming\ValueObject\ExpectedName) {
                 continue;
             }
-            $this->addConstructorDependencyToClass($classLike, $objectType, $expectedPropertyName->getName());
+            $this->addConstructorDependencyToClass($classLike, $constructorInjectionObjectType, $expectedPropertyName->getName());
         }
     }
 }

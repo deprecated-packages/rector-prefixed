@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Arguments\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ArgumentDefaultValueReplacer
 {
     /**
@@ -37,9 +38,9 @@ final class ArgumentDefaultValueReplacer
         $this->valueBefore = $valueBefore;
         $this->valueAfter = $valueAfter;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getMethod() : string
     {

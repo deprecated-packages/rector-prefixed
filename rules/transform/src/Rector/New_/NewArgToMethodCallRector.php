@@ -63,7 +63,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->newArgsToMethodCalls as $newArgToMethodCall) {
-            if (!$this->isObjectType($node->class, $newArgToMethodCall->getType())) {
+            if (!$this->isObjectType($node->class, $newArgToMethodCall->getObjectType())) {
                 continue;
             }
             if (!isset($node->args[0])) {

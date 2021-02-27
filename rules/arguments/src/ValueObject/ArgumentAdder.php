@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Arguments\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class ArgumentAdder
 {
     /**
@@ -46,9 +47,9 @@ final class ArgumentAdder
         $this->argumentType = $argumentType;
         $this->scope = $scope;
     }
-    public function getClass() : string
+    public function getObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->class;
+        return new \PHPStan\Type\ObjectType($this->class);
     }
     public function getMethod() : string
     {

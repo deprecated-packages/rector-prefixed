@@ -3,7 +3,6 @@
 namespace RectorPrefix20210227;
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
-use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
@@ -16,7 +15,6 @@ return static function (\RectorPrefix20210227\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename('Nette\\Utils\\Html', 'add', 'addHtml'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\DemoFile', 'notify', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\SomeSubscriber', 'old', 'new'),
-        new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
         // with array key
         new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('Nette\\Utils\\Html', 'addToArray', 'addToHtmlArray', 'hey'),
     ])]]);

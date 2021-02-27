@@ -15,8 +15,8 @@ use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
-use RectorPrefix20210227\Ramsey\Uuid\UuidInterface;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Naming\Naming\ConflictingNameResolver;
 use Rector\Naming\Naming\OverridenExistingNamesResolver;
@@ -201,7 +201,7 @@ final class BreakingVariableRenameGuard
      */
     private function isRamseyUuidInterface(\PhpParser\Node\Param $param) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($param, \RectorPrefix20210227\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($param, new \PHPStan\Type\ObjectType('Ramsey\\Uuid\\UuidInterface'));
     }
     /**
      * @TODO Remove once ParamRenamer created

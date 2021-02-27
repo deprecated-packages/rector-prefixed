@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -25,23 +26,23 @@ final class StaticCallPresenceAnalyzer
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function hasMethodStaticCallOnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
+    public function hasMethodStaticCallOnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\ObjectType $objectType) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($type) : bool {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($objectType) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
-            return $this->nodeTypeResolver->isObjectType($node->class, $type);
+            return $this->nodeTypeResolver->isObjectType($node->class, $objectType);
         });
     }
-    public function hasClassAnyMethodWithStaticCallOnType(\PhpParser\Node\Stmt\Class_ $class, string $type) : bool
+    public function hasClassAnyMethodWithStaticCallOnType(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
             // handled else where
             if ((string) $classMethod->name === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
-            $hasStaticCall = $this->hasMethodStaticCallOnType($classMethod, $type);
+            $hasStaticCall = $this->hasMethodStaticCallOnType($classMethod, $objectType);
             if ($hasStaticCall) {
                 return \true;
             }
