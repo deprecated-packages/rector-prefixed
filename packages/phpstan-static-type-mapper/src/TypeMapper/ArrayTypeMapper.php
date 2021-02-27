@@ -26,7 +26,7 @@ use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
 use Rector\TypeDeclaration\TypeNormalizer;
-use RectorPrefix20210226\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210227\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 /**
  * @see \Rector\PHPStanStaticTypeMapper\Tests\TypeMapper\ArrayTypeMapperTest
  */
@@ -55,7 +55,7 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     /**
      * @required
      */
-    public function autowireArrayTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower, \RectorPrefix20210226\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker) : void
+    public function autowireArrayTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower, \RectorPrefix20210227\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
         $this->typeNormalizer = $typeNormalizer;

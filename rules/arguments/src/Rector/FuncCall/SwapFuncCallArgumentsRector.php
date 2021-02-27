@@ -10,7 +10,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Arguments\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector\SwapFuncCallArgumentsRectorTest
  */
@@ -47,7 +47,7 @@ CODE_SAMPLE
 , [self::FUNCTION_ARGUMENT_SWAPS => [new \Rector\Arguments\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -81,7 +81,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $functionArgumentSwaps = $configuration[self::FUNCTION_ARGUMENT_SWAPS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Arguments\ValueObject\SwapFuncCallArguments::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Arguments\ValueObject\SwapFuncCallArguments::class);
         $this->functionArgumentSwaps = $functionArgumentSwaps;
     }
 }

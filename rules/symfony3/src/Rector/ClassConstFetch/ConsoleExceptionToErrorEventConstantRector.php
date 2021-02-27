@@ -27,7 +27,7 @@ final class ConsoleExceptionToErrorEventConstantRector extends \Rector\Core\Rect
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old event name with EXCEPTION to ERROR constant in Console in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('"console.exception"', 'Symfony\\Component\\Console\\ConsoleEvents::ERROR'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('Symfony\\Component\\Console\\ConsoleEvents::EXCEPTION', 'Symfony\\Component\\Console\\ConsoleEvents::ERROR')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

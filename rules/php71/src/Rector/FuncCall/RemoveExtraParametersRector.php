@@ -36,7 +36,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove extra parameters', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('strlen("asdf", 1);', 'strlen("asdf");')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

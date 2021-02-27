@@ -47,7 +47,7 @@ CODE_SAMPLE
 , [self::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

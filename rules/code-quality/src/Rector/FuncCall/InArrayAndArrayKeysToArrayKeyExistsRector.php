@@ -19,7 +19,7 @@ final class InArrayAndArrayKeysToArrayKeyExistsRector extends \Rector\Core\Recto
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify `in_array` and `array_keys` functions combination into `array_key_exists` when `array_keys` has one argument only', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('in_array("key", array_keys($array), true);', 'array_key_exists("key", $array);')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

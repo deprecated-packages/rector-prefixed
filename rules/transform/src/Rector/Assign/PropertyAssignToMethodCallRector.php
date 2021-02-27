@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\PropertyAssignToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\PropertyAssignToMethodCallRectorTest
  */
@@ -39,7 +39,7 @@ CODE_SAMPLE
 , [self::PROPERTY_ASSIGNS_TO_METHODS_CALLS => [new \Rector\Transform\ValueObject\PropertyAssignToMethodCall('SomeClass', 'oldProperty', 'newMethodCall')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -70,7 +70,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $propertyAssignsToMethodCalls = $configuration[self::PROPERTY_ASSIGNS_TO_METHODS_CALLS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($propertyAssignsToMethodCalls, \Rector\Transform\ValueObject\PropertyAssignToMethodCall::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($propertyAssignsToMethodCalls, \Rector\Transform\ValueObject\PropertyAssignToMethodCall::class);
         $this->propertyAssignsToMethodCalls = $propertyAssignsToMethodCalls;
     }
 }

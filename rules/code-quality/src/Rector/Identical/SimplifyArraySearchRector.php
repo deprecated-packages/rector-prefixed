@@ -31,7 +31,7 @@ final class SimplifyArraySearchRector extends \Rector\Core\Rector\AbstractRector
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify array_search to in_array', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('array_search("searching", $array) !== false;', 'in_array("searching", $array);'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('array_search("searching", $array, true) !== false;', 'in_array("searching", $array, true);')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

@@ -19,7 +19,7 @@ final class SimplifyStrposLowerRector extends \Rector\Core\Rector\AbstractRector
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify strpos(strtolower(), "...") calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('strpos(strtolower($var), "...")"', 'stripos($var, "...")"')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

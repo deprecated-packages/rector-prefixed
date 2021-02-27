@@ -37,7 +37,7 @@ CODE_SAMPLE
 , [self::INTERFACES_TO_REMOVE => ['SomeInterface']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

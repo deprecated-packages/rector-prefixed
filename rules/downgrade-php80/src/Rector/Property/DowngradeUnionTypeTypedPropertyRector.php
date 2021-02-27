@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp80\Rector\Property;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType;
 use Rector\DowngradePhp74\Rector\Property\AbstractDowngradeTypedPropertyRector;
@@ -33,7 +34,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

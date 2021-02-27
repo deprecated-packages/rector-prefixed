@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\FunctionLike;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Rector\Core\Rector\AbstractRector;
@@ -33,7 +34,7 @@ abstract class AbstractTypeDeclarationRector extends \Rector\Core\Rector\Abstrac
         $this->vendorLockResolver = $vendorLockResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

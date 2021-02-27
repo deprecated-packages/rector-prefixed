@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\Namespace_;
 
-use RectorPrefix20210226\Nette\Utils\Strings;
+use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -43,7 +43,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces old namespace by new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$someObject = new SomeOldNamespace\\SomeClass;', '$someObject = new SomeNewNamespace\\SomeClass;', [self::OLD_TO_NEW_NAMESPACES => ['SomeOldNamespace' => 'SomeNewNamespace']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -118,7 +118,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     {
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
         // first dummy implementation - improve
-        $cutOffFromTheLeft = \RectorPrefix20210226\Nette\Utils\Strings::length($nameInNewNamespace) - \RectorPrefix20210226\Nette\Utils\Strings::length($name->toString());
-        return \RectorPrefix20210226\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
+        $cutOffFromTheLeft = \RectorPrefix20210227\Nette\Utils\Strings::length($nameInNewNamespace) - \RectorPrefix20210227\Nette\Utils\Strings::length($name->toString());
+        return \RectorPrefix20210227\Nette\Utils\Strings::substring($nameInNewNamespace, $cutOffFromTheLeft);
     }
 }

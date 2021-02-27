@@ -30,7 +30,7 @@ abstract class AbstractDowngradeParamDeclarationRector extends \Rector\Core\Rect
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

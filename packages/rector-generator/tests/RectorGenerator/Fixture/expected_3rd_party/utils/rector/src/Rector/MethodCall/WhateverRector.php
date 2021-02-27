@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210226\Utils\Rector\Rector\MethodCall;
+namespace RectorPrefix20210227\Utils\Rector\Rector\MethodCall;
 
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -48,7 +48,7 @@ CODE_SAMPLE
 , [self::CLASS_TYPE_TO_METHOD_NAME => ['SomeClass' => 'configure']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes() : array
     {

@@ -12,8 +12,8 @@ use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use Rector\BetterPhpDocParser\PhpDocParser\TypeNodeAnalyzer;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210226\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TypeNodeAnalyzerTest extends \RectorPrefix20210226\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TypeNodeAnalyzerTest extends \RectorPrefix20210227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var string

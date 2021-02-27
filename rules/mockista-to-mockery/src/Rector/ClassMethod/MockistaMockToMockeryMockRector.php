@@ -16,7 +16,7 @@ use Rector\MockeryToProphecy\Collector\MockVariableCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use ReflectionMethod;
-use RectorPrefix20210226\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210227\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -71,7 +71,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

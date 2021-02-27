@@ -51,7 +51,7 @@ CODE_SAMPLE
 , [self::METHODS_BY_PARENT_TYPES => ['ParentClassWithNewConstructor' => \Rector\Core\ValueObject\MethodName::CONSTRUCT]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

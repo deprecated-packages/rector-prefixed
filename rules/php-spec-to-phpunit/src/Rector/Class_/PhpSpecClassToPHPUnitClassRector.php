@@ -54,7 +54,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

@@ -46,7 +46,7 @@ CODE_SAMPLE
 , [self::PARENT_CALLS_TO_PROPERTIES => [new \Rector\Transform\ValueObject\ReplaceParentCallByPropertyCall('SomeTypeToReplace', 'someMethodCall', 'someProperty')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

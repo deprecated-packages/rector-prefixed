@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\NewArgToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see https://github.com/symfony/symfony/pull/35308
  *
@@ -51,7 +51,7 @@ CODE_SAMPLE
 , [self::NEW_ARGS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\NewArgToMethodCall('Dotenv', \true, 'usePutenv')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -84,7 +84,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $newArgsToMethodCalls = $configuration[self::NEW_ARGS_TO_METHOD_CALLS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($newArgsToMethodCalls, \Rector\Transform\ValueObject\NewArgToMethodCall::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($newArgsToMethodCalls, \Rector\Transform\ValueObject\NewArgToMethodCall::class);
         $this->newArgsToMethodCalls = $newArgsToMethodCalls;
     }
 }

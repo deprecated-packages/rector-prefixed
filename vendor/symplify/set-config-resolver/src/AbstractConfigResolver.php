@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210226\Symplify\SetConfigResolver;
+namespace RectorPrefix20210227\Symplify\SetConfigResolver;
 
-use RectorPrefix20210226\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210226\Symplify\SetConfigResolver\Console\Option\OptionName;
-use RectorPrefix20210226\Symplify\SetConfigResolver\Console\OptionValueResolver;
-use RectorPrefix20210226\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210227\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210227\Symplify\SetConfigResolver\Console\Option\OptionName;
+use RectorPrefix20210227\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use RectorPrefix20210227\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractConfigResolver
 {
     /**
@@ -16,15 +16,15 @@ abstract class AbstractConfigResolver
     private $optionValueResolver;
     public function __construct()
     {
-        $this->optionValueResolver = new \RectorPrefix20210226\Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \RectorPrefix20210227\Symplify\SetConfigResolver\Console\OptionValueResolver();
     }
-    public function resolveFromInput(\RectorPrefix20210226\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInput(\RectorPrefix20210227\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configValue = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20210226\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
+        $configValue = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20210227\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
             if (!\file_exists($configValue)) {
                 $message = \sprintf('File "%s" was not found', $configValue);
-                throw new \RectorPrefix20210226\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
+                throw new \RectorPrefix20210227\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
             }
             return $this->createFileInfo($configValue);
         }
@@ -33,7 +33,7 @@ abstract class AbstractConfigResolver
     /**
      * @param string[] $fallbackFiles
      */
-    public function resolveFromInputWithFallback(\RectorPrefix20210226\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInputWithFallback(\RectorPrefix20210227\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {
@@ -44,7 +44,7 @@ abstract class AbstractConfigResolver
     /**
      * @param string[] $fallbackFiles
      */
-    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fallbackFiles as $fallbackFile) {
             $rootFallbackFile = \getcwd() . \DIRECTORY_SEPARATOR . $fallbackFile;
@@ -54,8 +54,8 @@ abstract class AbstractConfigResolver
         }
         return null;
     }
-    private function createFileInfo(string $configValue) : \RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFileInfo(string $configValue) : \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo($configValue);
+        return new \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }
 }

@@ -40,7 +40,7 @@ CODE_SAMPLE
 , [self::METHOD_NAMES_BY_TYPE => ['SomeObject' => 'getPath']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

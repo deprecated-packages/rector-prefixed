@@ -12,7 +12,7 @@ use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
 use Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector\MethodCallToAnotherMethodCallWithArgumentsRectorTest
  */
@@ -39,7 +39,7 @@ CODE_SAMPLE
 , [self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS => [new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey('Nette\\DI\\ServiceDefinition', 'setInject', 'addTag', 'inject')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -66,7 +66,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallRenamesWithAddedArguments = $configuration[self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);
         $this->methodCallRenamesWithAddedArguments = $methodCallRenamesWithAddedArguments;
     }
 }

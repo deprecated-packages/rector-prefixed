@@ -33,7 +33,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

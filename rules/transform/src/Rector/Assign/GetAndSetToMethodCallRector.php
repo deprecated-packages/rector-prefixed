@@ -70,7 +70,7 @@ CODE_SAMPLE
 , [self::TYPE_TO_METHOD_CALLS => ['SomeContainer' => [self::GET => 'getService']]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

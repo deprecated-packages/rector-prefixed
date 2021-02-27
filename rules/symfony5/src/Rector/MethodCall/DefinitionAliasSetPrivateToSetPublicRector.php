@@ -8,8 +8,8 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210226\Symfony\Component\DependencyInjection\Alias;
-use RectorPrefix20210226\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20210227\Symfony\Component\DependencyInjection\Alias;
+use RectorPrefix20210227\Symfony\Component\DependencyInjection\Definition;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -59,7 +59,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

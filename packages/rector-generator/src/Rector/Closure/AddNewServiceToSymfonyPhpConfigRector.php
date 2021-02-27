@@ -36,7 +36,7 @@ final class AddNewServiceToSymfonyPhpConfigRector extends \Rector\Core\Rector\Ab
         $this->rectorClass = $rectorClass;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

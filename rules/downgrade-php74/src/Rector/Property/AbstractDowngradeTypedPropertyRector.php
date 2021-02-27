@@ -22,7 +22,7 @@ abstract class AbstractDowngradeTypedPropertyRector extends \Rector\Core\Rector\
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

@@ -19,7 +19,7 @@ use Rector\Restoration\ValueObject\InferParamFromClassMethodReturn;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://github.com/eonx-com for sponsoring this rule
  *
@@ -87,7 +87,7 @@ CODE_SAMPLE
 , [self::PARAM_FROM_CLASS_METHOD_RETURNS => [new \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn('SomeClass', 'process', 'getNodeTypes')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -129,7 +129,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::PARAM_FROM_CLASS_METHOD_RETURNS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
     private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210226\Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder;
+namespace RectorPrefix20210227\Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder;
 
-use RectorPrefix20210226\PHPUnit\Framework\TestCase;
-use RectorPrefix20210226\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210226\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-final class StaticFixtureFinderTest extends \RectorPrefix20210226\PHPUnit\Framework\TestCase
+use RectorPrefix20210227\PHPUnit\Framework\TestCase;
+use RectorPrefix20210227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210227\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+final class StaticFixtureFinderTest extends \RectorPrefix20210227\PHPUnit\Framework\TestCase
 {
     public function testYieldDirectory() : void
     {
-        $files = \RectorPrefix20210226\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.php');
+        $files = \RectorPrefix20210227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.php');
         $files = \iterator_to_array($files);
         $this->assertCount(1, $files);
     }
     public function testYieldDirectoryThrowException() : void
     {
-        $files = \RectorPrefix20210226\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/FixtureMulti', '*.php');
+        $files = \RectorPrefix20210227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/FixtureMulti', '*.php');
         $files = \iterator_to_array($files);
         $this->assertCount(1, $files);
     }
     public function testYieldDirectoryExclusivelyThrowException() : void
     {
-        $this->expectException(\RectorPrefix20210226\Symplify\SymplifyKernel\Exception\ShouldNotHappenException::class);
-        $files = \RectorPrefix20210226\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/FixtureMulti', '*.php');
+        $this->expectException(\RectorPrefix20210227\Symplify\SymplifyKernel\Exception\ShouldNotHappenException::class);
+        $files = \RectorPrefix20210227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/FixtureMulti', '*.php');
         // this is needed to call the iterator
         $fileInfos = \iterator_to_array($files);
     }

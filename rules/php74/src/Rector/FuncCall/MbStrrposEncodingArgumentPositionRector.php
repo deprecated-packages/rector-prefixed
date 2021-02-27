@@ -23,7 +23,7 @@ final class MbStrrposEncodingArgumentPositionRector extends \Rector\Core\Rector\
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change mb_strrpos() encoding argument position', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('mb_strrpos($text, "abc", "UTF-8");', 'mb_strrpos($text, "abc", 0, "UTF-8");')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

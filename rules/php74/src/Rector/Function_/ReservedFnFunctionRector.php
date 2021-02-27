@@ -60,7 +60,7 @@ CODE_SAMPLE
 , [self::RESERVED_NAMES_TO_NEW_ONES => ['fn' => 'someFunctionName']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

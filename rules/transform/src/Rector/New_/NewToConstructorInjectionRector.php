@@ -78,7 +78,7 @@ CODE_SAMPLE
 , [self::TYPES_TO_CONSTRUCTOR_INJECTION => ['Validator']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

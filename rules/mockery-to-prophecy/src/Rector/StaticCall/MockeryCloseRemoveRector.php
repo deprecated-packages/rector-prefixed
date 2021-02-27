@@ -23,7 +23,7 @@ final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractRector
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

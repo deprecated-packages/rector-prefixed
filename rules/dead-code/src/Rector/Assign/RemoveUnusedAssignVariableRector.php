@@ -44,7 +44,7 @@ final class RemoveUnusedAssignVariableRector extends \Rector\Core\Rector\Abstrac
         $this->nextVariableUsageNodeFinder = $nextVariableUsageNodeFinder;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

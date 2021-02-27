@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210226\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use RectorPrefix20210227\Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,7 +20,7 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns redirect to route to short helper method in Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->redirect($this->generateUrl("homepage"));', '$this->redirectToRoute("homepage");')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -32,7 +32,7 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \RectorPrefix20210226\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
+        if ($parentClassName !== \RectorPrefix20210227\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
             return null;
         }
         if (!$this->isName($node->name, 'redirect')) {

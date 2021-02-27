@@ -26,7 +26,7 @@ final class RandomFunctionRector extends \Rector\Core\Rector\AbstractRector
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes rand, srand and getrandmax by new mt_* alternatives.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('rand();', 'mt_rand();')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

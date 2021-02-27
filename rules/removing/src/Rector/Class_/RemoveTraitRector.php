@@ -54,7 +54,7 @@ CODE_SAMPLE
 , [self::TRAITS_TO_REMOVE => ['TraitNameToRemove']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

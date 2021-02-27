@@ -6,7 +6,7 @@ namespace Rector\Composer\Rector;
 use Rector\Composer\Contract\Rector\CoreComposerRectorInterface;
 use Rector\Composer\Guard\VersionGuard;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use RectorPrefix20210226\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,7 +30,7 @@ final class ChangePackageVersionComposerRector implements \Rector\Composer\Contr
     {
         $this->versionGuard = $versionGuard;
     }
-    public function refactor(\RectorPrefix20210226\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
+    public function refactor(\RectorPrefix20210227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->packagesAndVersions as $packagesAndVersion) {
             $composerJson->changePackageVersion($packagesAndVersion->getPackageName(), $packagesAndVersion->getVersion());

@@ -52,7 +52,7 @@ CODE_SAMPLE
 , [self::PROPERTY_TO_VISIBILITY_BY_CLASS => ['FrameworkClass' => ['someProperty' => \Rector\Core\ValueObject\Visibility::PROTECTED]]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

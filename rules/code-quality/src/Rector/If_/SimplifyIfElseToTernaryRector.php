@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use RectorPrefix20210226\Nette\Utils\Strings;
+use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -49,7 +49,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -140,6 +140,6 @@ CODE_SAMPLE
     }
     private function isNodeTooLong(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        return \RectorPrefix20210226\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGTH_LIMIT;
+        return \RectorPrefix20210227\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGTH_LIMIT;
     }
 }

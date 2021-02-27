@@ -28,7 +28,7 @@ final class CombinedAssignRector extends \Rector\Core\Rector\AbstractRector
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify $value = $value + 5; assignments to shorter ones', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$value = $value + 5;', '$value += 5;')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

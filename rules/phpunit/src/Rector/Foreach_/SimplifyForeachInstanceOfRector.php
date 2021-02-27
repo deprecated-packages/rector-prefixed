@@ -36,7 +36,7 @@ CODE_SAMPLE
 , '$this->assertContainsOnlyInstancesOf(\\SplFileInfo::class, $foos);')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

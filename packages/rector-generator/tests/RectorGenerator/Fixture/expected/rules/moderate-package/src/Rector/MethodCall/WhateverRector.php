@@ -48,7 +48,7 @@ CODE_SAMPLE
 , [self::CLASS_TYPE_TO_METHOD_NAME => ['SomeClass' => 'configure']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes() : array
     {

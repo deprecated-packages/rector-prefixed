@@ -90,16 +90,16 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210226;
+namespace RectorPrefix20210227;
 
-use RectorPrefix20210226\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210226\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210226\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210226\Symfony\Component\Form\AbstractType
+use RectorPrefix20210227\Symfony\Component\Form\AbstractType;
+use RectorPrefix20210227\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210227\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20210227\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20210226\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20210227\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210226\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20210227\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
 \class_alias('SomeFormType', 'SomeFormType', \false);
@@ -107,7 +107,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

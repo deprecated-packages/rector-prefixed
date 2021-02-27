@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use RectorPrefix20210226\Nette\Utils\Strings;
+use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Identical;
@@ -47,7 +47,7 @@ CODE_SAMPLE
 , 'return strpos($docToken->getContent(), "\\n") === false;')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes() : array
     {
@@ -110,7 +110,7 @@ CODE_SAMPLE
         if (!$this->valueResolver->isFalse($returnedExpr)) {
             return !$this->valueResolver->isTrueOrFalse($nextNode->expr);
         }
-        if (!\RectorPrefix20210226\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if (!\RectorPrefix20210227\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return !$this->valueResolver->isTrueOrFalse($nextNode->expr);
         }
         return \true;

@@ -109,7 +109,7 @@ CODE_SAMPLE
 , [self::FRAMEWORK => \Rector\Core\ValueObject\FrameworkName::NETTE])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

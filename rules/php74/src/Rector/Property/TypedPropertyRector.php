@@ -86,7 +86,7 @@ CODE_SAMPLE
 , [self::CLASS_LIKE_TYPE_ONLY => \false])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

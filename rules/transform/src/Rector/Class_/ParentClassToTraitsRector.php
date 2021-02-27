@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\ParentClassToTraits;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * Can handle cases like:
  * - https://doc.nette.org/en/2.4/migration-2-4#toc-nette-smartobject
@@ -53,7 +53,7 @@ CODE_SAMPLE
 , [self::PARENT_CLASS_TO_TRAITS => ['Nette\\Object' => ['Nette\\SmartObject']]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -88,7 +88,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
         $this->parentClassToTraits = $parentClassToTraits;
     }
     private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class) : void

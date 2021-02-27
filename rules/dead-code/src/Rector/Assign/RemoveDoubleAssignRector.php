@@ -41,7 +41,7 @@ CODE_SAMPLE
 , '$value = 1;')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

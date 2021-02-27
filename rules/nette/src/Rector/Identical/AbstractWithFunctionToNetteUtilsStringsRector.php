@@ -15,7 +15,7 @@ use Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 abstract class AbstractWithFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Nette\Contract\WithFunctionToNetteUtilsStringsRectorInterface
 {
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

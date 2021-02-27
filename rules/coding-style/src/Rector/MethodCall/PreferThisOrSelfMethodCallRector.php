@@ -11,7 +11,7 @@ use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\PreferThisOrSelfMethodCallRectorTest
  */
@@ -67,7 +67,7 @@ CODE_SAMPLE
 , [self::TYPE_TO_PREFERENCE => ['PHPUnit\\Framework\\TestCase' => self::PREFER_SELF]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -95,7 +95,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allString($typeToPreference);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allString($typeToPreference);
         foreach ($typeToPreference as $preference) {
             $this->ensurePreferenceIsValid($preference);
         }

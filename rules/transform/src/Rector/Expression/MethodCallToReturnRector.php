@@ -13,7 +13,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\MethodCallToReturn;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210226\Webmozart\Assert\Assert;
+use RectorPrefix20210227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\Expression\MethodCallToReturnRector\MethodCallToReturnRectorTest
  */
@@ -60,7 +60,7 @@ CODE_SAMPLE
 , [self::METHOD_CALL_WRAPS => ['SomeClass' => ['deny']]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -80,7 +80,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];
-        \RectorPrefix20210226\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
+        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
         $this->methodCallWraps = $methodCallWraps;
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node

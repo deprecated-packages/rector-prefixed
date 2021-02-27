@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\FuncCall;
 
-use RectorPrefix20210226\Nette\Utils\Strings;
+use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -30,7 +30,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function call new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('view("...", []);', 'Laravel\\Templating\\render("...", []);', [self::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => 'Laravel\\Templating\\render']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -58,7 +58,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     }
     private function createName(string $newFunction) : \PhpParser\Node\Name
     {
-        if (\RectorPrefix20210226\Nette\Utils\Strings::contains($newFunction, '\\')) {
+        if (\RectorPrefix20210227\Nette\Utils\Strings::contains($newFunction, '\\')) {
             return new \PhpParser\Node\Name\FullyQualified($newFunction);
         }
         return new \PhpParser\Node\Name($newFunction);

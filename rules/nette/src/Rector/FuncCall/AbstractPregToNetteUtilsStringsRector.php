@@ -30,7 +30,7 @@ abstract class AbstractPregToNetteUtilsStringsRector extends \Rector\Core\Rector
         return $this->refactorFuncCall($node);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

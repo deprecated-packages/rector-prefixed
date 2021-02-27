@@ -30,7 +30,7 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
         $this->classInsertManipulator = $classInsertManipulator;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

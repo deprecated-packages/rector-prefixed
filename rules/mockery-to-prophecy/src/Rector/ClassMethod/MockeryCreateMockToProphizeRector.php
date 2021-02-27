@@ -38,7 +38,7 @@ final class MockeryCreateMockToProphizeRector extends \Rector\Core\Rector\Abstra
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

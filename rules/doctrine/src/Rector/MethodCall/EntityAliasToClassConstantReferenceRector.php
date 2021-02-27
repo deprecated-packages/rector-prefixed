@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use RectorPrefix20210226\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use RectorPrefix20210226\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use RectorPrefix20210226\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix20210226\Doctrine\Persistence\ManagerRegistry;
-use RectorPrefix20210226\Doctrine\Persistence\ObjectManager;
-use RectorPrefix20210226\Nette\Utils\Strings;
+use RectorPrefix20210227\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use RectorPrefix20210227\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use RectorPrefix20210227\Doctrine\ORM\EntityManagerInterface;
+use RectorPrefix20210227\Doctrine\Persistence\ManagerRegistry;
+use RectorPrefix20210227\Doctrine\Persistence\ObjectManager;
+use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -29,7 +29,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20210226\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20210226\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20210226\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20210226\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20210226\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20210227\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20210227\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20210227\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20210227\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20210227\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
@@ -47,7 +47,7 @@ CODE_SAMPLE
 , [self::ALIASES_TO_NAMESPACES => ['App' => 'App\\Entity']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \RectorPrefix20210226\Nette\Utils\Strings::contains($name, ':');
+        return \RectorPrefix20210227\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

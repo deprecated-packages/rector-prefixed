@@ -26,7 +26,7 @@ final class MockVariableToPropertyFetchRector extends \Rector\PhpSpecToPHPUnit\R
         $this->phpSpecMockCollector = $phpSpecMockCollector;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

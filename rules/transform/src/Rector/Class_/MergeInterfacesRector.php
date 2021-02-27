@@ -43,7 +43,7 @@ CODE_SAMPLE
 , [self::OLD_TO_NEW_INTERFACES => ['SomeOldInterface' => 'SomeInterface']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

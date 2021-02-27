@@ -50,7 +50,7 @@ CODE_SAMPLE
 , [self::STATIC_CALLS_TO_NEWS => [new \Rector\Transform\ValueObject\StaticCallToNew('JsonResponse', 'create')]])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

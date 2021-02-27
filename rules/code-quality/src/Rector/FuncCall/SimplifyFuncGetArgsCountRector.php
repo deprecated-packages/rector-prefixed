@@ -18,7 +18,7 @@ final class SimplifyFuncGetArgsCountRector extends \Rector\Core\Rector\AbstractR
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify count of func_get_args() to func_num_args()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('count(func_get_args());', 'func_num_args();')]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

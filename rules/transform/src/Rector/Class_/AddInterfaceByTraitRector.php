@@ -49,7 +49,7 @@ CODE_SAMPLE
 , [self::INTERFACE_BY_TRAIT => ['SomeTrait' => 'SomeInterface']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {

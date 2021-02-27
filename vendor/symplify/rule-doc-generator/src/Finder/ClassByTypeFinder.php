@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Finder;
 
-use RectorPrefix20210226\Nette\Loaders\RobotLoader;
+use RectorPrefix20210227\Nette\Loaders\RobotLoader;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\RuleClassWithFilePath;
-use RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassByTypeFinder
 {
     /**
@@ -15,7 +15,7 @@ final class ClassByTypeFinder
      */
     public function findByType(string $workingDirectory, array $directories, string $type) : array
     {
-        $robotLoader = new \RectorPrefix20210226\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20210227\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/robot_loader_temp');
         $robotLoader->addDirectory(...$directories);
         $robotLoader->ignoreDirs[] = '*tests*';
@@ -32,7 +32,7 @@ final class ClassByTypeFinder
             if ($reflectionClass->isAbstract()) {
                 continue;
             }
-            $fileInfo = new \RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo($file);
+            $fileInfo = new \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo($file);
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($workingDirectory);
             $desiredClasses[] = new \Symplify\RuleDocGenerator\ValueObject\RuleClassWithFilePath($class, $relativeFilePath);
         }

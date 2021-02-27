@@ -46,7 +46,7 @@ CODE_SAMPLE
 , [self::METHOD_CALL_TO_PROPERTY_FETCHES => ['someMethod' => 'someProperty']])]);
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
