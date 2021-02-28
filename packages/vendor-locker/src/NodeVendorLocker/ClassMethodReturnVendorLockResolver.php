@@ -8,9 +8,30 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Type\MixedType;
+use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer;
+use Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer;
+final class ClassMethodReturnVendorLockResolver
 {
+    /**
+     * @var ClassReflectionAncestorAnalyzer
+     */
+    private $classReflectionAncestorAnalyzer;
+    /**
+     * @var MethodReflectionContractAnalyzer
+     */
+    private $methodReflectionContractAnalyzer;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer $classReflectionAncestorAnalyzer, \Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer $methodReflectionContractAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    {
+        $this->classReflectionAncestorAnalyzer = $classReflectionAncestorAnalyzer;
+        $this->methodReflectionContractAnalyzer = $methodReflectionContractAnalyzer;
+        $this->nodeNameResolver = $nodeNameResolver;
+    }
     public function isVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -21,7 +42,7 @@ final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\Nod
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if (!$this->hasParentClassChildrenClassesOrImplementsInterface($classReflection)) {
+        if (!$this->classReflectionAncestorAnalyzer->hasAncestors($classReflection)) {
             return \false;
         }
         $methodName = $this->nodeNameResolver->getName($classMethod);
@@ -31,7 +52,7 @@ final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\Nod
         if ($classReflection->isTrait()) {
             return \false;
         }
-        return $this->isMethodVendorLockedByInterface($classReflection, $methodName);
+        return $this->methodReflectionContractAnalyzer->hasInterfaceContract($classReflection, $methodName);
     }
     private function isVendorLockedByParentClass(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {

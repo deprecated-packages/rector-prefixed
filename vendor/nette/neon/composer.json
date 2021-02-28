@@ -26,7 +26,6 @@
     ],
     "require": {
         "php": ">=7.1",
-        "ext-iconv": "*",
         "ext-json": "*"
     },
     "require-dev": {
@@ -41,7 +40,7 @@
     },
     "minimum-stability": "dev",
     "scripts": {
-        "phpstan": "phpstan analyse --level 5 src",
+        "phpstan": "phpstan analyse",
         "tester": "tester tests -s"
     },
     "extra": {

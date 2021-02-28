@@ -8,7 +8,8 @@ declare (strict_types=1);
 namespace RectorPrefix20210228\Nette\Neon;
 
 /**
- * Simple generator for Nette Object Notation.
+ * Converts value to NEON format.
+ * @internal
  */
 final class Encoder
 {

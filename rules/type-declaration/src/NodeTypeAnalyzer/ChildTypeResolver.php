@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\ChildPopulator;
+namespace Rector\TypeDeclaration\NodeTypeAnalyzer;
 
 use PhpParser\Node;
 use PhpParser\Node\Name;
@@ -13,23 +13,20 @@ use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
-abstract class AbstractChildPopulator
+final class ChildTypeResolver
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    /**
-     * @required
-     */
-    public function autowireAbstractChildPopulator(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper) : void
+    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }
     /**
      * @return Name|NullableType|UnionType|null
      */
-    protected function resolveChildTypeNode(\PHPStan\Type\Type $type) : ?\PhpParser\Node
+    public function resolveChildTypeNode(\PHPStan\Type\Type $type) : ?\PhpParser\Node
     {
         if ($type instanceof \PHPStan\Type\MixedType) {
             return null;

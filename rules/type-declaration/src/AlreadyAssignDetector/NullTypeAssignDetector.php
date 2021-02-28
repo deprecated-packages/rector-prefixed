@@ -5,15 +5,18 @@ namespace Rector\TypeDeclaration\AlreadyAssignDetector;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeTraverser;
 use Rector\NodeNestingScope\ScopeNestingComparator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
+use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
+use RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 /**
  * Should add extra null type
  */
-final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
+final class NullTypeAssignDetector
 {
     /**
      * @var ScopeNestingComparator
@@ -27,11 +30,21 @@ final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssign
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var PropertyAssignMatcher
+     */
+    private $propertyAssignMatcher;
+    /**
+     * @var SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->scopeNestingComparator = $scopeNestingComparator;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->propertyAssignMatcher = $propertyAssignMatcher;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     public function detect(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : ?bool
     {
@@ -54,5 +67,12 @@ final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssign
             return null;
         });
         return $needsNullType;
+    }
+    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName) : ?\PhpParser\Node\Expr
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+            return null;
+        }
+        return $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);
     }
 }

@@ -6,9 +6,30 @@ namespace Rector\VendorLocker\NodeVendorLocker;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class PropertyTypeVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer;
+final class PropertyTypeVendorLockResolver
 {
+    /**
+     * @var ClassReflectionAncestorAnalyzer
+     */
+    private $classReflectionAncestorAnalyzer;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var FamilyRelationsAnalyzer
+     */
+    private $familyRelationsAnalyzer;
+    public function __construct(\Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer $classReflectionAncestorAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)
+    {
+        $this->classReflectionAncestorAnalyzer = $classReflectionAncestorAnalyzer;
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
+    }
     public function isVendorLocked(\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var Scope $scope */
@@ -17,7 +38,7 @@ final class PropertyTypeVendorLockResolver extends \Rector\VendorLocker\NodeVend
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if (!$this->hasParentClassChildrenClassesOrImplementsInterface($classReflection)) {
+        if (!$this->classReflectionAncestorAnalyzer->hasAncestors($classReflection)) {
             return \false;
         }
         /** @var string $propertyName */

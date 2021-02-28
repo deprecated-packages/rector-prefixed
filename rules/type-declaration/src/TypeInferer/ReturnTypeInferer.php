@@ -7,8 +7,9 @@ use PhpParser\Node\FunctionLike;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
+use Rector\TypeDeclaration\Sorter\TypeInfererSorter;
 use Rector\TypeDeclaration\TypeNormalizer;
-final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
+final class ReturnTypeInferer
 {
     /**
      * @var ReturnTypeInfererInterface[]
@@ -21,9 +22,9 @@ final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abstra
     /**
      * @param ReturnTypeInfererInterface[] $returnTypeInferers
      */
-    public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer)
+    public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter)
     {
-        $this->returnTypeInferers = $this->sortTypeInferersByPriority($returnTypeInferers);
+        $this->returnTypeInferers = $typeInfererSorter->sort($returnTypeInferers);
         $this->typeNormalizer = $typeNormalizer;
     }
     public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type

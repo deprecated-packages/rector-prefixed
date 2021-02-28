@@ -56,7 +56,7 @@ abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\Matche
      * @param Assign|Foreach_ $node
      * @return FuncCall|StaticCall|MethodCall|null
      */
-    protected function matchCall(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function matchCall(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $node->expr;
@@ -72,7 +72,7 @@ abstract class AbstractMatcher implements \Rector\Naming\Contract\Matcher\Matche
     /**
      * @return ClassMethod|Function_|Closure|null
      */
-    protected function getFunctionLike(\PhpParser\Node $node) : ?\PhpParser\Node\FunctionLike
+    private function getFunctionLike(\PhpParser\Node $node) : ?\PhpParser\Node\FunctionLike
     {
         return $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
     }

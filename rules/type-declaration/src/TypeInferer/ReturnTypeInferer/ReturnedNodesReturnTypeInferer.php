@@ -19,10 +19,12 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
 use Rector\TypeDeclaration\TypeInferer\SilentVoidResolver;
-final class ReturnedNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
+use RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
      * @var Type[]
@@ -32,9 +34,24 @@ final class ReturnedNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeI
      * @var SilentVoidResolver
      */
     private $silentVoidResolver;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    /**
+     * @var SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    /**
+     * @var TypeFactory
+     */
+    private $typeFactory;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->silentVoidResolver = $silentVoidResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->typeFactory = $typeFactory;
     }
     /**
      * @param ClassMethod|Closure|Function_ $functionLike

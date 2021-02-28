@@ -20,17 +20,34 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
+use RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    /**
+     * @var TypeFactory
+     */
+    private $typeFactory;
+    /**
+     * @var SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->phpVersionProvider = $phpVersionProvider;
+        $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->typeFactory = $typeFactory;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike

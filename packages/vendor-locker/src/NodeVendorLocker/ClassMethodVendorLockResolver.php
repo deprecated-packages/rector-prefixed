@@ -7,9 +7,24 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\Php\PhpMethodReflection;
+use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ClassMethodVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+use Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer;
+final class ClassMethodVendorLockResolver
 {
+    /**
+     * @var MethodReflectionContractAnalyzer
+     */
+    private $methodReflectionContractAnalyzer;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer $methodReflectionContractAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    {
+        $this->methodReflectionContractAnalyzer = $methodReflectionContractAnalyzer;
+        $this->nodeNameResolver = $nodeNameResolver;
+    }
     /**
      * Checks for:
      * - interface required methods
@@ -27,7 +42,7 @@ final class ClassMethodVendorLockResolver extends \Rector\VendorLocker\NodeVendo
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if ($this->isMethodVendorLockedByInterface($classReflection, $classMethodName)) {
+        if ($this->methodReflectionContractAnalyzer->hasInterfaceContract($classReflection, $classMethodName)) {
             return \true;
         }
         foreach ($classReflection->getParents() as $parentClassReflection) {

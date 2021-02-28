@@ -13,8 +13,9 @@ use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver;
 use Rector\TypeDeclaration\ValueObject\NewType;
-final class ChildParamPopulator extends \Rector\TypeDeclaration\ChildPopulator\AbstractChildPopulator
+final class ChildParamPopulator
 {
     /**
      * @var NodeNameResolver
@@ -28,11 +29,16 @@ final class ChildParamPopulator extends \Rector\TypeDeclaration\ChildPopulator\A
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var ChildTypeResolver
+     */
+    private $childTypeResolver;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver $childTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->nodeRepository = $nodeRepository;
+        $this->childTypeResolver = $childTypeResolver;
     }
     /**
      * Add typehint to all children
@@ -76,7 +82,7 @@ final class ChildParamPopulator extends \Rector\TypeDeclaration\ChildPopulator\A
         if ($paramNode->type !== null) {
             return;
         }
-        $resolvedChildType = $this->resolveChildTypeNode($paramType);
+        $resolvedChildType = $this->childTypeResolver->resolveChildTypeNode($paramType);
         if ($resolvedChildType === null) {
             return;
         }

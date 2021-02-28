@@ -8,7 +8,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210228\Nette\Neon;
 
 /**
- * Representation of 'foo(bar=1)' literal
+ * Representation of NEON entity 'foo(bar=1)'
  */
 final class Entity extends \stdClass
 {

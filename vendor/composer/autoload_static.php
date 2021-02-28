@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
+class ComposerStaticInit55dda801b7cd4fb94bfa3af40a2eccd5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3682,12 +3682,12 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\Php74\\Rector\\Property\\TypedPropertyRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/TypedPropertyRector.php',
         'Rector\\Php74\\Rector\\StaticCall\\ExportToReflectionFunctionRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/StaticCall/ExportToReflectionFunctionRector.php',
         'Rector\\Php80\\Contract\\StrStartWithMatchAndRefactorInterface' => __DIR__ . '/../..' . '/rules/php80/src/Contract/StrStartWithMatchAndRefactorInterface.php',
-        'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\AbstractMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/AbstractMatchAndRefactor.php',
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\StrncmpMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/StrncmpMatchAndRefactor.php',
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\StrposMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/StrposMatchAndRefactor.php',
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\SubstrMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/SubstrMatchAndRefactor.php',
         'Rector\\Php80\\NodeAnalyzer\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeAnalyzer/PromotedPropertyResolver.php',
         'Rector\\Php80\\NodeAnalyzer\\SwitchAnalyzer' => __DIR__ . '/../..' . '/rules/php80/src/NodeAnalyzer/SwitchAnalyzer.php',
+        'Rector\\Php80\\NodeFactory\\StrStartsWithFuncCallFactory' => __DIR__ . '/../..' . '/rules/php80/src/NodeFactory/StrStartsWithFuncCallFactory.php',
         'Rector\\Php80\\NodeManipulator\\TokenManipulator' => __DIR__ . '/../..' . '/rules/php80/src/NodeManipulator/TokenManipulator.php',
         'Rector\\Php80\\NodeResolver\\ArgumentSorter' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/ArgumentSorter.php',
         'Rector\\Php80\\NodeResolver\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/PromotedPropertyResolver.php',
@@ -3709,6 +3709,7 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/NotIdentical/StrContainsRector.php',
         'Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Switch_/ChangeSwitchToMatchRector.php',
         'Rector\\Php80\\Rector\\Ternary\\GetDebugTypeRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Ternary/GetDebugTypeRector.php',
+        'Rector\\Php80\\ValueObjectFactory\\StrStartsWithFactory' => __DIR__ . '/../..' . '/rules/php80/src/ValueObjectFactory/StrStartsWithFactory.php',
         'Rector\\Php80\\ValueObject\\ArrayDimFetchAndConstFetch' => __DIR__ . '/../..' . '/rules/php80/src/ValueObject/ArrayDimFetchAndConstFetch.php',
         'Rector\\Php80\\ValueObject\\CondAndExpr' => __DIR__ . '/../..' . '/rules/php80/src/ValueObject/CondAndExpr.php',
         'Rector\\Php80\\ValueObject\\PropertyPromotionCandidate' => __DIR__ . '/../..' . '/rules/php80/src/ValueObject/PropertyPromotionCandidate.php',
@@ -4081,11 +4082,9 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\Transform\\ValueObject\\UnsetAndIssetToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/UnsetAndIssetToMethodCall.php',
         'Rector\\Transform\\ValueObject\\VariableMethodCallToServiceCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/VariableMethodCallToServiceCall.php',
         'Rector\\Transform\\ValueObject\\WrapReturn' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/WrapReturn.php',
-        'Rector\\TypeDeclaration\\AlreadyAssignDetector\\AbstractAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/AbstractAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\ConstructorAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/ConstructorAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\NullTypeAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/NullTypeAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\PropertyDefaultAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/PropertyDefaultAssignDetector.php',
-        'Rector\\TypeDeclaration\\ChildPopulator\\AbstractChildPopulator' => __DIR__ . '/../..' . '/rules/type-declaration/src/ChildPopulator/AbstractChildPopulator.php',
         'Rector\\TypeDeclaration\\ChildPopulator\\ChildParamPopulator' => __DIR__ . '/../..' . '/rules/type-declaration/src/ChildPopulator/ChildParamPopulator.php',
         'Rector\\TypeDeclaration\\ChildPopulator\\ChildReturnPopulator' => __DIR__ . '/../..' . '/rules/type-declaration/src/ChildPopulator/ChildReturnPopulator.php',
         'Rector\\TypeDeclaration\\Contract\\TypeInferer\\ParamTypeInfererInterface' => __DIR__ . '/../..' . '/rules/type-declaration/src/Contract/TypeInferer/ParamTypeInfererInterface.php',
@@ -4098,6 +4097,7 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\TypeDeclaration\\NodeAnalyzer\\ClassMethodAndPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeAnalyzer/ClassMethodAndPropertyAnalyzer.php',
         'Rector\\TypeDeclaration\\NodeAnalyzer\\TypeNodeUnwrapper' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeAnalyzer/TypeNodeUnwrapper.php',
         'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\CallTypeAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/CallTypeAnalyzer.php',
+        'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\ChildTypeResolver' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/ChildTypeResolver.php',
         'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\TraitTypeAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/TraitTypeAnalyzer.php',
         'Rector\\TypeDeclaration\\PHPStan\\Type\\ObjectTypeSpecifier' => __DIR__ . '/../..' . '/rules/type-declaration/src/PHPStan/Type/ObjectTypeSpecifier.php',
         'Rector\\TypeDeclaration\\PhpDocParser\\NonInformativeReturnTagRemover' => __DIR__ . '/../..' . '/rules/type-declaration/src/PhpDocParser/NonInformativeReturnTagRemover.php',
@@ -4122,10 +4122,9 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\TypeDeclaration\\Reflection\\ReflectionTypeResolver' => __DIR__ . '/../..' . '/rules/type-declaration/src/Reflection/ReflectionTypeResolver.php',
+        'Rector\\TypeDeclaration\\Sorter\\TypeInfererSorter' => __DIR__ . '/../..' . '/rules/type-declaration/src/Sorter/TypeInfererSorter.php',
         'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
         'Rector\\TypeDeclaration\\TypeAnalyzer\\AdvancedArrayAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAnalyzer/AdvancedArrayAnalyzer.php',
-        'Rector\\TypeDeclaration\\TypeInferer\\AbstractPriorityAwareTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/AbstractPriorityAwareTypeInferer.php',
-        'Rector\\TypeDeclaration\\TypeInferer\\AbstractTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/AbstractTypeInferer.php',
         'Rector\\TypeDeclaration\\TypeInferer\\AssignToPropertyTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/AssignToPropertyTypeInferer.php',
         'Rector\\TypeDeclaration\\TypeInferer\\ParamTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/ParamTypeInferer.php',
         'Rector\\TypeDeclaration\\TypeInferer\\ParamTypeInferer\\FunctionLikeDocParamTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/ParamTypeInferer/FunctionLikeDocParamTypeInferer.php',
@@ -4155,7 +4154,6 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\TypeDeclaration\\ValueObject\\NestedArrayType' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/NestedArrayType.php',
         'Rector\\TypeDeclaration\\ValueObject\\NewType' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/NewType.php',
         'Rector\\VendorLocker\\Contract\\NodeVendorLockerInterface' => __DIR__ . '/../..' . '/packages/vendor-locker/src/Contract/NodeVendorLockerInterface.php',
-        'Rector\\VendorLocker\\NodeVendorLocker\\AbstractNodeVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/AbstractNodeVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodParamVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodParamVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodReturnTypeOverrideGuard' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodReturnTypeOverrideGuard.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodReturnVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodReturnVendorLockResolver.php',
@@ -4163,6 +4161,8 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodVisibilityVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodVisibilityVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyTypeVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/PropertyTypeVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyVisibilityVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/PropertyVisibilityVendorLockResolver.php',
+        'Rector\\VendorLocker\\Reflection\\ClassReflectionAncestorAnalyzer' => __DIR__ . '/../..' . '/packages/vendor-locker/src/Reflection/ClassReflectionAncestorAnalyzer.php',
+        'Rector\\VendorLocker\\Reflection\\MethodReflectionContractAnalyzer' => __DIR__ . '/../..' . '/packages/vendor-locker/src/Reflection/MethodReflectionContractAnalyzer.php',
         'Rector\\VendorLocker\\VendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/VendorLockResolver.php',
         'Rector\\Visibility\\Rector\\ClassConst\\ChangeConstantVisibilityRector' => __DIR__ . '/../..' . '/rules/visibility/src/Rector/ClassConst/ChangeConstantVisibilityRector.php',
         'Rector\\Visibility\\Rector\\ClassMethod\\ChangeMethodVisibilityRector' => __DIR__ . '/../..' . '/rules/visibility/src/Rector/ClassMethod/ChangeMethodVisibilityRector.php',
@@ -4209,9 +4209,9 @@ class ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8c47690d8c055e1598145c6e5f1c0645::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit55dda801b7cd4fb94bfa3af40a2eccd5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit55dda801b7cd4fb94bfa3af40a2eccd5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit55dda801b7cd4fb94bfa3af40a2eccd5::$classMap;
 
         }, null, ClassLoader::class);
     }

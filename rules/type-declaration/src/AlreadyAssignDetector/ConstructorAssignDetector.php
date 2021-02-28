@@ -10,8 +10,23 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeTraverser;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ConstructorAssignDetector extends \Rector\TypeDeclaration\AlreadyAssignDetector\AbstractAssignDetector
+use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
+use RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+final class ConstructorAssignDetector
 {
+    /**
+     * @var PropertyAssignMatcher
+     */
+    private $propertyAssignMatcher;
+    /**
+     * @var SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    public function __construct(\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    {
+        $this->propertyAssignMatcher = $propertyAssignMatcher;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+    }
     public function isPropertyAssigned(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
         $isAssignedInConstructor = \false;
@@ -36,5 +51,12 @@ final class ConstructorAssignDetector extends \Rector\TypeDeclaration\AlreadyAss
             return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
         });
         return $isAssignedInConstructor;
+    }
+    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName) : ?\PhpParser\Node\Expr
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+            return null;
+        }
+        return $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);
     }
 }

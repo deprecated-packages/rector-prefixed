@@ -116,7 +116,6 @@ final class Decoder
                     $n++;
                     $result[] = $this->parse($indent . '  ', [], $value, \true);
                     $newIndent = isset($tokens[$n], $tokens[$n + 1]) ? (string) \substr($tokens[$n][0], 1) : '';
-                    // not last
                     if (\strlen($newIndent) > \strlen($indent)) {
                         $n++;
                         $this->error('Bad indentation');
@@ -158,7 +157,6 @@ final class Decoder
                 }
                 $hasValue = \true;
                 if (!isset($tokens[$n]) || $tokens[$n][0] !== self::BRACKETS[$t]) {
-                    // unexpected type of bracket or block-parser
                     $this->error();
                 }
             } elseif ($t === ']' || $t === '}' || $t === ')') {
@@ -200,7 +198,6 @@ final class Decoder
                         }
                         $this->addValue($result, $key, $this->parse($newIndent));
                         $newIndent = isset($tokens[$n], $tokens[$n + 1]) ? (string) \substr($tokens[$n][0], 1) : '';
-                        // not last
                         if (\strlen($newIndent) > \strlen($indent)) {
                             $n++;
                             $this->error('Bad indentation');
@@ -317,7 +314,7 @@ final class Decoder
             if ($code >= 0xd800 && $code <= 0xdfff) {
                 $this->error("Invalid UTF-8 (lone surrogate) {$sq}");
             }
-            return \iconv('UTF-32BE', 'UTF-8//IGNORE', \pack('N', $code));
+            return \function_exists('iconv') ? \iconv('UTF-32BE', 'UTF-8//IGNORE', \pack('N', $code)) : \mb_convert_encoding(\pack('N', $code), 'UTF-8', 'UTF-32BE');
         } elseif ($sq[1] === 'x' && \strlen($sq) === 4) {
             \trigger_error("Neon: '{$sq}' is deprecated, use '\\uXXXX' instead.", \E_USER_DEPRECATED);
             return \chr(\hexdec(\substr($sq, 2)));
@@ -327,7 +324,7 @@ final class Decoder
     }
     private function error(string $message = "Unexpected '%s'")
     {
-        $last = isset($this->tokens[$this->pos]) ? $this->tokens[$this->pos] : null;
+        $last = $this->tokens[$this->pos] ?? null;
         $offset = $last ? $last[1] : \strlen($this->input);
         $text = \substr($this->input, 0, $offset);
         $line = \substr_count($text, "\n");

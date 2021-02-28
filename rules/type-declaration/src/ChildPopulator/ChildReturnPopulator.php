@@ -10,7 +10,8 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class ChildReturnPopulator extends \Rector\TypeDeclaration\ChildPopulator\AbstractChildPopulator
+use Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver;
+final class ChildReturnPopulator
 {
     /**
      * @var NodeNameResolver
@@ -20,10 +21,15 @@ final class ChildReturnPopulator extends \Rector\TypeDeclaration\ChildPopulator\
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var ChildTypeResolver
+     */
+    private $childTypeResolver;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver $childTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
+        $this->childTypeResolver = $childTypeResolver;
     }
     /**
      * Add typehint to all children class methods
@@ -54,7 +60,7 @@ final class ChildReturnPopulator extends \Rector\TypeDeclaration\ChildPopulator\
         if (!$currentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
-        $resolvedChildTypeNode = $this->resolveChildTypeNode($returnType);
+        $resolvedChildTypeNode = $this->childTypeResolver->resolveChildTypeNode($returnType);
         if ($resolvedChildTypeNode === null) {
             return;
         }
