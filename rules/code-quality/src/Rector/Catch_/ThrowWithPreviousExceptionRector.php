@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Throw_;
@@ -118,7 +119,13 @@ CODE_SAMPLE
             // get previous code
             $new->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\MethodCall($catchedThrowableVariable, 'getCode'));
         }
-        $new->args[$exceptionArgumentPosition] = new \PhpParser\Node\Arg($catchedThrowableVariable);
+        $arg1 = $new->args[1];
+        if ($arg1->name instanceof \PhpParser\Node\Identifier && $arg1->name->toString() === 'previous') {
+            $new->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\MethodCall($catchedThrowableVariable, 'getCode'));
+            $new->args[$exceptionArgumentPosition] = $arg1;
+        } else {
+            $new->args[$exceptionArgumentPosition] = new \PhpParser\Node\Arg($catchedThrowableVariable);
+        }
         // null the node, to fix broken format preserving printers, see https://github.com/rectorphp/rector/issues/5576
         $new->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         // nothing more to add
