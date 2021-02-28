@@ -160,6 +160,24 @@ class PhpDocNode implements \PHPStan\PhpDocParser\Ast\Node
             return $tag->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
         }), 'value');
     }
+    /**
+     * @return TypeAliasTagValueNode[]
+     */
+    public function getTypeAliasTagValues(string $tagName = '@phpstan-type') : array
+    {
+        return \array_column(\array_filter($this->getTagsByName($tagName), static function (\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $tag) : bool {
+            return $tag->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasTagValueNode;
+        }), 'value');
+    }
+    /**
+     * @return TypeAliasImportTagValueNode[]
+     */
+    public function getTypeAliasImportTagValues(string $tagName = '@phpstan-import-type') : array
+    {
+        return \array_column(\array_filter($this->getTagsByName($tagName), static function (\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $tag) : bool {
+            return $tag->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode;
+        }), 'value');
+    }
     public function __toString() : string
     {
         return "/**\n * " . \implode("\n * ", $this->children) . '*/';

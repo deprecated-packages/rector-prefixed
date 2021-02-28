@@ -5,8 +5,8 @@ namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Else_;
@@ -100,7 +100,7 @@ CODE_SAMPLE
         }
         /** @var BooleanAnd $expr */
         $expr = $node->cond;
-        $conditions = $this->getBooleanAndConditions($expr);
+        $conditions = $this->nodeRepository->findBooleanAndConditions($expr);
         $ifNextReturnClone = $ifNextReturn instanceof \PhpParser\Node\Stmt\Return_ ? clone $ifNextReturn : new \PhpParser\Node\Stmt\Return_();
         $isInLoop = $this->isIfInLoop($node);
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Return_) {
@@ -153,23 +153,6 @@ CODE_SAMPLE
         }
         return !$this->isLastIfOrBeforeLastReturn($if);
     }
-    /**
-     * @return Expr[]
-     */
-    private function getBooleanAndConditions(\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd) : array
-    {
-        $ifs = [];
-        while ($booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp) {
-            $ifs[] = $booleanAnd->right;
-            $booleanAnd = $booleanAnd->left;
-            if (!$booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
-                $ifs[] = $booleanAnd;
-                break;
-            }
-        }
-        \krsort($ifs);
-        return $ifs;
-    }
     private function isIfStmtExprUsedInNextReturn(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr) {
@@ -194,7 +177,11 @@ CODE_SAMPLE
     {
         $ifs = [];
         $stmt = $this->isIfInLoop($if) && !$this->getIfNextReturn($if) ? [new \PhpParser\Node\Stmt\Continue_()] : [$return];
-        foreach ($conditions as $condition) {
+        $getNextReturnExpr = $this->getNextReturnExpr($if);
+        if ($getNextReturnExpr instanceof \PhpParser\Node\Stmt\Return_) {
+            $return->expr = $getNextReturnExpr->expr;
+        }
+        foreach ($conditions as $key => $condition) {
             $invertedCondition = $this->conditionInverter->createInvertedCondition($condition);
             $if = new \PhpParser\Node\Stmt\If_($invertedCondition);
             $if->stmts = $stmt;
@@ -209,6 +196,16 @@ CODE_SAMPLE
             return null;
         }
         return $nextNode;
+    }
+    private function getNextReturnExpr(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
+    {
+        $hasClosureParent = (bool) $this->betterNodeFinder->findParentType($if, \PhpParser\Node\Expr\Closure::class);
+        if ($hasClosureParent) {
+            return null;
+        }
+        return $this->betterNodeFinder->findFirstNext($if, function (\PhpParser\Node $node) : bool {
+            return $node instanceof \PhpParser\Node\Stmt\Return_ && $node->expr instanceof \PhpParser\Node\Expr;
+        });
     }
     private function isIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
     {

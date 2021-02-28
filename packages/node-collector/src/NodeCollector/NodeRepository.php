@@ -7,7 +7,10 @@ use RectorPrefix20210228\Nette\Utils\Arrays;
 use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Attribute;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -547,6 +550,23 @@ final class NodeRepository
             return null;
         }
         return $callerObjectType->getClassName();
+    }
+    /**
+     * @return Expr[]
+     */
+    public function findBooleanAndConditions(\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd) : array
+    {
+        $conditions = [];
+        while ($booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp) {
+            $conditions[] = $booleanAnd->right;
+            $booleanAnd = $booleanAnd->left;
+            if (!$booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+                $conditions[] = $booleanAnd;
+                break;
+            }
+        }
+        \krsort($conditions);
+        return $conditions;
     }
     private function collectArray(\PhpParser\Node\Expr\Array_ $array) : void
     {

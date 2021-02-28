@@ -148,6 +148,14 @@ class PhpDocParser
                 case '@template-use':
                     $tagValue = $this->parseExtendsTagValue('@use', $tokens);
                     break;
+                case '@phpstan-type':
+                case '@psalm-type':
+                    $tagValue = $this->parseTypeAliasTagValue($tokens);
+                    break;
+                case '@phpstan-import-type':
+                case '@psalm-import-type':
+                    $tagValue = $this->parseTypeAliasImportTagValue($tokens);
+                    break;
                 default:
                     $tagValue = new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode($this->parseOptionalDescription($tokens));
                     break;
@@ -282,6 +290,31 @@ class PhpDocParser
                 return new \PHPStan\PhpDocParser\Ast\PhpDoc\UsesTagValueNode($type, $description);
         }
         throw new \PHPStan\ShouldNotHappenException();
+    }
+    private function parseTypeAliasTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasTagValueNode
+    {
+        $alias = $tokens->currentTokenValue();
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        // support psalm-type syntax
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_EQUAL);
+        $type = $this->typeParser->parse($tokens);
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasTagValueNode($alias, $type);
+    }
+    private function parseTypeAliasImportTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode
+    {
+        $importedAlias = $tokens->currentTokenValue();
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        if (!$tokens->tryConsumeTokenValue('from')) {
+            throw new \PHPStan\PhpDocParser\Parser\ParserException($tokens->currentTokenValue(), $tokens->currentTokenType(), $tokens->currentTokenOffset(), \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        }
+        $importedFrom = $this->typeParser->parse($tokens);
+        \assert($importedFrom instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode);
+        $importedAs = null;
+        if ($tokens->tryConsumeTokenValue('as')) {
+            $importedAs = $tokens->currentTokenValue();
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        }
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode($importedAlias, $importedFrom, $importedAs);
     }
     private function parseOptionalVariableName(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : string
     {
