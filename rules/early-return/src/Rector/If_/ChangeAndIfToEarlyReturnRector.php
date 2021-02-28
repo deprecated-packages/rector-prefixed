@@ -132,6 +132,9 @@ CODE_SAMPLE
             $this->addNodeBeforeNode($if, $node);
         }
         $this->removeNode($node);
+        if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Return_ && $ifNextReturnClone->expr instanceof \PhpParser\Node\Expr) {
+            $this->addNodeAfterNode($ifNextReturnClone, $node);
+        }
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
@@ -139,10 +142,7 @@ CODE_SAMPLE
         if (!$this->ifManipulator->isIfWithOnlyOneStmt($if)) {
             return \true;
         }
-        if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
-            return \true;
-        }
-        if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
+        if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd || !$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
             return \true;
         }
         if ($this->isParentIfReturnsVoidOrParentIfHasNextNode($if)) {
