@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        if (!$this->nodeTypeResolver->isNullableType($firstArgValue) && !$this->isStaticType($firstArgValue, \PHPStan\Type\NullType::class)) {
+        if (!$this->nodeTypeResolver->isNullableType($firstArgValue) && !$this->nodeTypeResolver->isStaticType($firstArgValue, \PHPStan\Type\NullType::class)) {
             return null;
         }
         $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($firstArgValue, $this->nodeFactory->createNull());

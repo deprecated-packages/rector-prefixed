@@ -6,15 +6,16 @@ namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypeWithClassName;
+use Rector\Core\PhpParser\Parser\FunctionLikeParser;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
 use Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
 use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
@@ -34,11 +35,21 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var FunctionLikeParser
+     */
+    private $functionLikeParser;
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
+        $this->functionLikeParser = $functionLikeParser;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @return array<string, string>
@@ -52,13 +63,19 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         if ($this->nodeNameResolver->isName($node->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return [];
         }
-        $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        $methodName = $this->nodeNameResolver->getName($node->name);
+        if ($methodName === null) {
             return [];
         }
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        // magic interface handled esle where
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+        $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $classMethod = $this->resolveReflectionClassMethod($node, $methodName);
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+                return [];
+            }
+        }
+        $classReflection = $this->resolveClassReflectionByMethodCall($node);
+        if ($classReflection === null) {
             return [];
         }
         $returnedType = $this->nodeTypeResolver->getStaticType($node);
@@ -67,6 +84,12 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         }
         $constructorClassMethod = $this->nodeRepository->findClassMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $constructorClassMethod = $this->resolveReflectionClassMethodFromClassNameAndMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+                return [];
+            }
+        }
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
@@ -74,5 +97,34 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
     public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
+    }
+    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    {
+        $classReflection = $this->resolveClassReflectionByMethodCall($methodCall);
+        if ($classReflection === null) {
+            return null;
+        }
+        $methodReflection = $classReflection->getNativeMethod($methodName);
+        return $this->functionLikeParser->parseMethodReflection($methodReflection);
+    }
+    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    {
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return null;
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        $methodReflection = $classReflection->getNativeMethod($methodName);
+        return $this->functionLikeParser->parseMethodReflection($methodReflection);
+    }
+    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\ClassReflection
+    {
+        $callerClassName = $this->nodeRepository->resolveCallerClassName($methodCall);
+        if ($callerClassName === null) {
+            return null;
+        }
+        if (!$this->reflectionProvider->hasClass($callerClassName)) {
+            return null;
+        }
+        return $this->reflectionProvider->getClass($callerClassName);
     }
 }

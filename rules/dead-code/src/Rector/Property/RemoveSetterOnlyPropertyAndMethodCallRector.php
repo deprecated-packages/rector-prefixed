@@ -162,7 +162,7 @@ CODE_SAMPLE
         return $classMethodsToCheck;
     }
     /**
-     * @param ClassMethod[] $methodsToCheck
+     * @param array<string, ClassMethod> $methodsToCheck
      * @return string[]
      */
     private function getVendorLockedClassMethodNames(array $methodsToCheck) : array

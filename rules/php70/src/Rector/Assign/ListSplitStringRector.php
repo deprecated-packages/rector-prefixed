@@ -37,7 +37,7 @@ final class ListSplitStringRector extends \Rector\Core\Rector\AbstractRector
         if (!$node->var instanceof \PhpParser\Node\Expr\List_) {
             return null;
         }
-        if (!$this->isStaticType($node->expr, \PHPStan\Type\StringType::class)) {
+        if (!$this->nodeTypeResolver->isStaticType($node->expr, \PHPStan\Type\StringType::class)) {
             return null;
         }
         $node->expr = $this->nodeFactory->createFuncCall('str_split', [$node->expr]);

@@ -8,7 +8,6 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
-use Rector\CodingStyle\ValueObject\ObjectMagicMethods;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\TypeDeclaration\TypeInferer\SilentVoidResolver;
@@ -69,7 +68,7 @@ CODE_SAMPLE
         if ($node->returnType !== null) {
             return null;
         }
-        if ($this->isNames($node, \Rector\CodingStyle\ValueObject\ObjectMagicMethods::METHOD_NAMES)) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && $node->isMagic()) {
             return null;
         }
         if (!$this->silentVoidResolver->hasExlusiveVoid($node)) {

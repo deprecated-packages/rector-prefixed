@@ -12,7 +12,6 @@ use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210227\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -23,14 +22,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FluentChainMethodCallToNormalMethodCallRector extends \Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
 {
-    /**
-     * @var TypeChecker
-     */
-    private $typeChecker;
-    public function __construct(\RectorPrefix20210227\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
-    {
-        $this->typeChecker = $typeChecker;
-    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -79,6 +70,9 @@ CODE_SAMPLE
     private function isHandledByAnotherRule(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        return $this->typeChecker->isInstanceOf($parent, [\PhpParser\Node\Stmt\Return_::class, \PhpParser\Node\Arg::class]);
+        if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
+            return \true;
+        }
+        return $parent instanceof \PhpParser\Node\Arg;
     }
 }

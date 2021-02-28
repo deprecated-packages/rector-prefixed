@@ -3,15 +3,22 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Tests\Rector\ClassMethod\ReplaceMagicPropertyWithEventClassRector;
 
+use Iterator;
 use Rector\NetteKdyby\Rector\ClassMethod\ReplaceMagicPropertyWithEventClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceMagicPropertyWithEventClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
-    public function test() : void
+    /**
+     * @dataProvider provideData()
+     */
+    public function test(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $fixtureFileInfo = new \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc');
-        $this->doTestFileInfo($fixtureFileInfo);
+        $this->doTestFileInfo($fileInfo);
+    }
+    public function provideData() : \Iterator
+    {
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
     protected function getRectorClass() : string
     {

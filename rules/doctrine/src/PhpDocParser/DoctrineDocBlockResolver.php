@@ -3,10 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PhpDocParser;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode;
@@ -14,9 +16,7 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagVa
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use ReflectionClass;
 final class DoctrineDocBlockResolver
 {
     /**
@@ -32,10 +32,15 @@ final class DoctrineDocBlockResolver
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeRepository = $nodeRepository;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @param Class_|string|mixed $class
@@ -87,16 +92,19 @@ final class DoctrineDocBlockResolver
     }
     private function isStringClassEntity(string $class) : bool
     {
-        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($class)) {
+        if (!$this->reflectionProvider->hasClass($class)) {
             return \false;
         }
         $classNode = $this->nodeRepository->findClass($class);
         if ($classNode !== null) {
             return $this->isDoctrineEntityClass($classNode);
         }
-        $reflectionClass = new \ReflectionClass($class);
+        $classReflection = $this->reflectionProvider->getClass($class);
+        $resolvedPhpDocBlock = $classReflection->getResolvedPhpDoc();
+        if (!$resolvedPhpDocBlock instanceof \PHPStan\PhpDoc\ResolvedPhpDocBlock) {
+            return \false;
+        }
         // dummy check of 3rd party code without running it
-        $docCommentContent = (string) $reflectionClass->getDocComment();
-        return (bool) \RectorPrefix20210227\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
+        return (bool) \RectorPrefix20210228\Nette\Utils\Strings::match($resolvedPhpDocBlock->getPhpDocString(), self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
     }
 }

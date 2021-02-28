@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer;
-use RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -37,7 +37,7 @@ final class DesiredClassTypeToDynamicRector extends \Rector\Core\Rector\Abstract
      * @var StaticCallPresenceAnalyzer
      */
     private $staticCallPresenceAnalyzer;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
@@ -142,7 +142,7 @@ CODE_SAMPLE
         if ($this->isTypeAlreadyInParamMethod($constructClassMethod, $objectType)) {
             return;
         }
-        $constructClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($propertyExpectedName), null, new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
+        $constructClassMethod->params[] = $this->createParam($propertyExpectedName, $objectType);
     }
     private function isTypeAlreadyInParamMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\ObjectType $objectType) : bool
     {
@@ -155,5 +155,9 @@ CODE_SAMPLE
             }
         }
         return \false;
+    }
+    private function createParam(string $propertyName, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Param
+    {
+        return new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($propertyName), null, new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
     }
 }

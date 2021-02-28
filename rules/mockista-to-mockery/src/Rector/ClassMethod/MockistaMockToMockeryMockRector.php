@@ -11,12 +11,11 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\MockeryToProphecy\Collector\MockVariableCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
-use ReflectionMethod;
-use RectorPrefix20210227\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,7 +28,7 @@ final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\Abstract
      */
     private const METHODS_TO_REMOVE = ['freeze', 'assertExpectations'];
     /**
-     * @var string[]
+     * @var array<string, class-string>
      */
     private $mockVariableTypesByNames = [];
     /**
@@ -40,10 +39,15 @@ final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\Abstract
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\MockeryToProphecy\Collector\MockVariableCollector $mockVariableCollector, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\MockeryToProphecy\Collector\MockVariableCollector $mockVariableCollector, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->mockVariableCollector = $mockVariableCollector;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -216,10 +220,15 @@ CODE_SAMPLE
         if ($methodName === null) {
             return $expectsMethodCall;
         }
-        if (!\method_exists($mockVariableType, $methodName)) {
+        if (!$this->reflectionProvider->hasClass($mockVariableType)) {
             return $expectsMethodCall;
         }
-        $reflectionMethod = new \ReflectionMethod($mockVariableType, $methodName);
+        $classReflection = $this->reflectionProvider->getClass($mockVariableType);
+        if (!$classReflection->hasMethod($methodName)) {
+            return $expectsMethodCall;
+        }
+        $nativeReflectionClass = $classReflection->getNativeReflection();
+        $reflectionMethod = $nativeReflectionClass->getMethod($methodName);
         if ($reflectionMethod->getNumberOfRequiredParameters() === 0) {
             return $expectsMethodCall;
         }
@@ -238,10 +247,14 @@ CODE_SAMPLE
             return \false;
         }
         $mockVariableType = $this->mockVariableTypesByNames[$variableName];
+        if (!$this->reflectionProvider->hasClass($mockVariableType)) {
+            return \false;
+        }
+        $classReflection = $this->reflectionProvider->getClass($mockVariableType);
         $propertyName = $this->getName($node->name);
         if ($propertyName === null) {
             return \false;
         }
-        return \method_exists($mockVariableType, $propertyName);
+        return $classReflection->hasMethod($propertyName);
     }
 }

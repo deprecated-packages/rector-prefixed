@@ -22,7 +22,7 @@ final class ClassConstFetchTypeResolver implements \Rector\NodeTypeResolver\Cont
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

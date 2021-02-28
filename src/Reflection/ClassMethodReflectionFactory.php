@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -11,6 +12,14 @@ use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use ReflectionMethod;
 final class ClassMethodReflectionFactory
 {
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     public function createFromPHPStanTypeAndMethodName(\PHPStan\Type\Type $type, string $methodName) : ?\ReflectionMethod
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
@@ -35,9 +44,14 @@ final class ClassMethodReflectionFactory
     }
     public function createReflectionMethodIfExists(string $class, string $method) : ?\ReflectionMethod
     {
-        if (!\method_exists($class, $method)) {
+        if (!$this->reflectionProvider->hasClass($class)) {
             return null;
         }
-        return new \ReflectionMethod($class, $method);
+        $classReflection = $this->reflectionProvider->getClass($class);
+        $reflectionClass = $classReflection->getNativeReflection();
+        if (!$reflectionClass->hasMethod($method)) {
+            return null;
+        }
+        return $reflectionClass->getMethod($method);
     }
 }

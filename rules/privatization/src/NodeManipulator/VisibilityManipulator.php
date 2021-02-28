@@ -11,7 +11,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Exception\InvalidNodeTypeException;
 use Rector\Core\ValueObject\Visibility;
-use RectorPrefix20210227\Webmozart\Assert\Assert;
+use Rector\Privatization\ValueObject\ConstantVisibility;
+use RectorPrefix20210228\Webmozart\Assert\Assert;
 final class VisibilityManipulator
 {
     /**
@@ -86,7 +87,7 @@ final class VisibilityManipulator
      */
     public function changeNodeVisibility(\PhpParser\Node $node, int $visibility) : void
     {
-        \RectorPrefix20210227\Webmozart\Assert\Assert::oneOf($visibility, [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC, \Rector\Core\ValueObject\Visibility::ABSTRACT, \Rector\Core\ValueObject\Visibility::FINAL]);
+        \RectorPrefix20210228\Webmozart\Assert\Assert::oneOf($visibility, [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC, \Rector\Core\ValueObject\Visibility::ABSTRACT, \Rector\Core\ValueObject\Visibility::FINAL]);
         $this->replaceVisibilityFlag($node, $visibility);
     }
     /**
@@ -113,6 +114,16 @@ final class VisibilityManipulator
     public function removeFinal(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->flags -= \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+    }
+    public function makeClassConstPrivateOrWeaker(\PhpParser\Node\Stmt\ClassConst $classConst, ?\Rector\Privatization\ValueObject\ConstantVisibility $parentConstantVisibility) : void
+    {
+        if ($parentConstantVisibility !== null && $parentConstantVisibility->isProtected()) {
+            $this->makeProtected($classConst);
+        } elseif ($parentConstantVisibility !== null && $parentConstantVisibility->isPrivate() && !$parentConstantVisibility->isProtected()) {
+            $this->makePrivate($classConst);
+        } elseif ($parentConstantVisibility === null) {
+            $this->makePrivate($classConst);
+        }
     }
     /**
      * @param Class_|ClassMethod|Property|ClassConst $node

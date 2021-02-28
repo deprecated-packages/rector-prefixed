@@ -3,21 +3,21 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\NodeTypeCorrector;
 
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeTraverser;
-use RectorPrefix20210227\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 final class GenericClassStringTypeCorrector
 {
     /**
-     * @var ClassLikeExistenceChecker
+     * @var ReflectionProvider
      */
-    private $classLikeExistenceChecker;
-    public function __construct(\RectorPrefix20210227\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
-        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function correct(\PHPStan\Type\Type $mainType) : \PHPStan\Type\Type
     {
@@ -26,7 +26,7 @@ final class GenericClassStringTypeCorrector
             if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType) {
                 return $traverse($type);
             }
-            if (!$this->classLikeExistenceChecker->doesClassLikeExist($type->getValue())) {
+            if (!$this->reflectionProvider->hasClass($type->getValue())) {
                 return $traverse($type);
             }
             return new \PHPStan\Type\Generic\GenericClassStringType(new \PHPStan\Type\ObjectType($type->getValue()));

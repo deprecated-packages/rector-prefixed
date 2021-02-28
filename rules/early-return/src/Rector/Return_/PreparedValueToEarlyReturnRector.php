@@ -182,10 +182,11 @@ CODE_SAMPLE
         if (!$parent instanceof \PhpParser\Node\FunctionLike && !$parent instanceof \PhpParser\Node\Stmt\If_) {
             return [];
         }
-        if (!(\property_exists($parent, 'stmts') && $parent->stmts !== null)) {
+        if ($parent->stmts === []) {
             return [];
         }
-        if ($parent->stmts[(\is_countable($parent->stmts) ? \count($parent->stmts) : 0) - 1] !== $return) {
+        $firstItemPosition = \array_key_last($parent->stmts);
+        if ($parent->stmts[$firstItemPosition] !== $return) {
             return [];
         }
         return $this->collectIfs($parent->stmts, $return);

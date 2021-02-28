@@ -44,13 +44,15 @@ final class ReturnFluentChainMethodCallToNormalMethodCallRector extends \Rector\
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fluent interface calls to classic ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new SomeClass();
+
 return $someClass->someFunction()
-            ->otherFunction();
+        ->otherFunction();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 $someClass->someFunction();
 $someClass->otherFunction();
+
 return $someClass;
 CODE_SAMPLE
 )]);

@@ -13,8 +13,8 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\MutatingScope;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\Defluent\Reflection\MethodCallToClassMethodParser;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -81,9 +81,9 @@ final class FluentChainMethodCallNodeAnalyzer
         if (!$calleeStaticType->equals($methodReturnStaticType)) {
             return \false;
         }
-        if ($calleeStaticType instanceof \PHPStan\Type\TypeWithClassName) {
-            foreach (self::KNOWN_FACTORY_FLUENT_TYPES as $knownFactoryFluentTypes) {
-                if (\is_a($calleeStaticType->getClassName(), $knownFactoryFluentTypes, \true)) {
+        if ($calleeStaticType instanceof \PHPStan\Type\ObjectType) {
+            foreach (self::KNOWN_FACTORY_FLUENT_TYPES as $knownFactoryFluentType) {
+                if ($calleeStaticType->isInstanceOf($knownFactoryFluentType)->yes()) {
                     return \false;
                 }
             }

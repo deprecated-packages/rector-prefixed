@@ -123,10 +123,10 @@ CODE_SAMPLE
         if ($this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($expr)) {
             return $this->resolveString($isNegated, $expr);
         }
-        if ($this->isStaticType($expr, \PHPStan\Type\IntegerType::class)) {
+        if ($this->nodeTypeResolver->isStaticType($expr, \PHPStan\Type\IntegerType::class)) {
             return $this->resolveInteger($isNegated, $expr);
         }
-        if ($this->isStaticType($expr, \PHPStan\Type\FloatType::class)) {
+        if ($this->nodeTypeResolver->isStaticType($expr, \PHPStan\Type\FloatType::class)) {
             return $this->resolveFloat($isNegated, $expr);
         }
         if ($this->nodeTypeResolver->isNullableObjectType($expr)) {

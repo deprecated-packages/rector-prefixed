@@ -28,7 +28,7 @@ final class PropertyTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

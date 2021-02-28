@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\ValueObject;
 
+use PHPStan\Type\ObjectType;
 final class FuncCallToMethodCall
 {
     /**
@@ -27,9 +28,9 @@ final class FuncCallToMethodCall
     {
         return $this->oldFuncName;
     }
-    public function getNewClassName() : string
+    public function getNewObjectType() : \PHPStan\Type\ObjectType
     {
-        return $this->newClassName;
+        return new \PHPStan\Type\ObjectType($this->newClassName);
     }
     public function getNewMethodName() : string
     {

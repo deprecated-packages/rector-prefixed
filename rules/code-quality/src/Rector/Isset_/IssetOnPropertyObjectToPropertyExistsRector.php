@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,6 +23,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class IssetOnPropertyObjectToPropertyExistsRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change isset on property object to property_exists() and not null check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -74,11 +83,19 @@ CODE_SAMPLE
                 continue;
             }
             $propertyFetchVarType = $this->getObjectType($issetVar->var);
-            if ($propertyFetchVarType instanceof \PHPStan\Type\TypeWithClassName && \property_exists($propertyFetchVarType->getClassName(), $propertyFetchName)) {
-                $newNodes[] = $this->createNotIdenticalToNull($issetVar);
-                continue;
+            if ($propertyFetchVarType instanceof \PHPStan\Type\TypeWithClassName) {
+                if (!$this->reflectionProvider->hasClass($propertyFetchVarType->getClassName())) {
+                    continue;
+                }
+                $classReflection = $this->reflectionProvider->getClass($propertyFetchVarType->getClassName());
+                if (!$classReflection->hasProperty($propertyFetchName)) {
+                    $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($issetVar->var, $propertyFetchName, $issetVar);
+                } else {
+                    $newNodes[] = $this->createNotIdenticalToNull($issetVar);
+                }
+            } else {
+                $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($issetVar->var, $propertyFetchName, $issetVar);
             }
-            $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($issetVar->var, $propertyFetchName, $issetVar);
         }
         return $this->nodeFactory->createReturnBooleanAnd($newNodes);
     }

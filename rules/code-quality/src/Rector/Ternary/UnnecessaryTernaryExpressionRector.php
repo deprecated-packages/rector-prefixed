@@ -80,13 +80,13 @@ final class UnnecessaryTernaryExpressionRector extends \Rector\Core\Rector\Abstr
     private function processNonBinaryCondition(\PhpParser\Node\Expr $ifExpression, \PhpParser\Node\Expr $elseExpression, \PhpParser\Node\Expr $condition) : ?\PhpParser\Node
     {
         if ($this->valueResolver->isTrue($ifExpression) && $this->valueResolver->isFalse($elseExpression)) {
-            if ($this->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
+            if ($this->nodeTypeResolver->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
                 return $condition;
             }
             return new \PhpParser\Node\Expr\Cast\Bool_($condition);
         }
         if ($this->valueResolver->isFalse($ifExpression) && $this->valueResolver->isTrue($elseExpression)) {
-            if ($this->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
+            if ($this->nodeTypeResolver->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
                 return new \PhpParser\Node\Expr\BooleanNot($condition);
             }
             return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Cast\Bool_($condition));

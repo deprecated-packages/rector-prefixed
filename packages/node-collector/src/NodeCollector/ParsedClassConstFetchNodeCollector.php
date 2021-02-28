@@ -5,6 +5,7 @@ namespace Rector\NodeCollector\NodeCollector;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
@@ -12,11 +13,10 @@ use PHPStan\Type\UnionType;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use ReflectionClass;
 final class ParsedClassConstFetchNodeCollector
 {
     /**
-     * @var string[][][]
+     * @var array<string, array<string, class-string[]>>
      */
     private $classConstantFetchByClassAndName = [];
     /**
@@ -27,9 +27,14 @@ final class ParsedClassConstFetchNodeCollector
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * To prevent circular reference
@@ -59,12 +64,13 @@ final class ParsedClassConstFetchNodeCollector
             return;
         }
         // current class
+        /** @var string $classOfUse */
         $classOfUse = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $this->classConstantFetchByClassAndName[$className][$constantName][] = $classOfUse;
         $this->classConstantFetchByClassAndName[$className][$constantName] = \array_unique($this->classConstantFetchByClassAndName[$className][$constantName]);
     }
     /**
-     * @return string[][][]
+     * @return array<string, array<string, class-string[]>>
      */
     public function getClassConstantFetchByClassAndName() : array
     {
@@ -108,11 +114,14 @@ final class ParsedClassConstFetchNodeCollector
      */
     private function getConstantsDefinedInClass(string $className) : array
     {
-        $reflectionClass = new \ReflectionClass($className);
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return [];
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        $reflectionClass = $classReflection->getNativeReflection();
         $constants = $reflectionClass->getConstants();
         $currentClassConstants = \array_keys($constants);
-        $parentClassReflection = $reflectionClass->getParentClass();
-        if (!$parentClassReflection) {
+        if ($classReflection->getParentClass() !== \false) {
             return $currentClassConstants;
         }
         $parentClassConstants = \array_keys($constants);

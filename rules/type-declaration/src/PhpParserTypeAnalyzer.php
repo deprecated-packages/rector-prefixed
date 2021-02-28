@@ -8,8 +8,17 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
+use Rector\NodeNameResolver\NodeNameResolver;
 final class PhpParserTypeAnalyzer
 {
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    {
+        $this->nodeNameResolver = $nodeNameResolver;
+    }
     /**
      * @param Name|NullableType|UnionType|Identifier $possibleSubtype
      * @param Name|NullableType|UnionType|Identifier $possibleParentType
@@ -54,12 +63,10 @@ final class PhpParserTypeAnalyzer
     }
     private function unwrapNullableAndToString(\PhpParser\Node $node) : string
     {
-        if (!$node instanceof \PhpParser\Node\NullableType && \method_exists($node, 'toString')) {
-            return $node->toString();
+        if (!$node instanceof \PhpParser\Node\NullableType) {
+            return $this->nodeNameResolver->getName($node);
         }
-        /** @var NullableType $type */
-        $type = $node;
-        return $type->type->toString();
+        return $this->nodeNameResolver->getName($node->type);
     }
     private function isTraversableOrIterableSubtype(string $possibleSubtype, string $possibleParentType) : bool
     {

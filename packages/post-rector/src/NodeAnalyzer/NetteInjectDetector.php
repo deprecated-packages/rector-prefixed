@@ -4,12 +4,11 @@ declare (strict_types=1);
 namespace Rector\PostRector\NodeAnalyzer;
 
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
-use ReflectionClass;
-use ReflectionMethod;
 final class NetteInjectDetector
 {
     /**
@@ -20,10 +19,15 @@ final class NetteInjectDetector
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function isNetteInjectPreferred(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
@@ -51,10 +55,14 @@ final class NetteInjectDetector
         if ($className === null) {
             return \false;
         }
-        if (!\is_a($className, 'Nette\\Application\\IPresenter', \true)) {
+        if (!$this->reflectionProvider->hasClass($className)) {
             return \false;
         }
-        // has parent class
+        $classReflection = $this->reflectionProvider->getClass($className);
+        if (!$classReflection->isSubclassOf('Nette\\Application\\IPresenter')) {
+            return \false;
+        }
+        // has no parent class
         if ($class->extends === null) {
             return \false;
         }
@@ -64,16 +72,16 @@ final class NetteInjectDetector
             return \false;
         }
         // prefer local constructor
-        $classReflection = new \ReflectionClass($className);
+        $classReflection = $this->reflectionProvider->getClass($className);
         if ($classReflection->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
-            /** @var ReflectionMethod $constructorReflectionMethod */
             $constructorReflectionMethod = $classReflection->getConstructor();
+            $declaringClass = $constructorReflectionMethod->getDeclaringClass();
             // be sure its local constructor
-            if ($constructorReflectionMethod->class === $className) {
+            if ($declaringClass->getName() === $className) {
                 return \false;
             }
         }
-        $classReflection = new \ReflectionClass($parentClass);
+        $classReflection = $this->reflectionProvider->getClass($parentClass);
         return $classReflection->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
 }

@@ -5,6 +5,7 @@ namespace Rector\Transform\NodeFactory;
 
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ObjectType;
 use Rector\Naming\Naming\PropertyNaming;
 final class PropertyFetchFactory
 {
@@ -16,10 +17,10 @@ final class PropertyFetchFactory
     {
         $this->propertyNaming = $propertyNaming;
     }
-    public function createFromType(string $type) : \PhpParser\Node\Expr\PropertyFetch
+    public function createFromType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\PropertyFetch
     {
         $thisVariable = new \PhpParser\Node\Expr\Variable('this');
-        $propertyName = $this->propertyNaming->fqnToVariableName($type);
+        $propertyName = $this->propertyNaming->fqnToVariableName($objectType->getClassName());
         return new \PhpParser\Node\Expr\PropertyFetch($thisVariable, $propertyName);
     }
 }

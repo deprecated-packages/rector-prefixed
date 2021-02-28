@@ -6,6 +6,9 @@ namespace Rector\DeadCode\Rector\ClassConst;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\ShouldNotHappenException;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\NodeManipulator\ClassConstManipulator;
@@ -63,12 +66,13 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        /** @var string|null $class */
-        $class = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($class === null) {
-            return null;
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            throw new \PHPStan\ShouldNotHappenException();
         }
-        $nodeRepositoryFindInterface = $this->nodeRepository->findInterface($class);
+        $nodeRepositoryFindInterface = $this->nodeRepository->findInterface($classReflection->getName());
         // 0. constants declared in interfaces have to be public
         if ($nodeRepositoryFindInterface !== null) {
             $this->visibilityManipulator->makePublic($node);
@@ -76,12 +80,10 @@ CODE_SAMPLE
         }
         /** @var string $constant */
         $constant = $this->getName($node);
-        $directUseClasses = $this->nodeRepository->findDirectClassConstantFetches($class, $constant);
-        if ($directUseClasses !== []) {
-            return null;
-        }
-        $indirectUseClasses = $this->nodeRepository->findIndirectClassConstantFetches($class, $constant);
-        if ($indirectUseClasses !== []) {
+        $directUsingClassReflections = $this->nodeRepository->findDirectClassConstantFetches($classReflection, $constant);
+        $indirectUsingClassReflections = $this->nodeRepository->findIndirectClassConstantFetches($classReflection, $constant);
+        $usingClassReflections = \array_merge($directUsingClassReflections, $indirectUsingClassReflections);
+        if ($usingClassReflections !== []) {
             return null;
         }
         $this->removeNode($node);

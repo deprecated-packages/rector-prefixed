@@ -6,6 +6,7 @@ namespace Rector\NodeTypeResolver\NodeTypeResolver;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -18,7 +19,15 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
-     * @return string[]
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
+    /**
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {
@@ -40,18 +49,25 @@ final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
      */
     private function resolveParent(\PhpParser\Node\Name $name) : \PHPStan\Type\Type
     {
-        /** @var string|null $parentClassName */
-        $parentClassName = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        // missing parent class, probably unused parent:: call
-        if ($parentClassName === null) {
+        $className = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if ($className === null) {
             return new \PHPStan\Type\MixedType();
         }
-        $type = new \PHPStan\Type\ObjectType($parentClassName);
-        $parentParentClass = \get_parent_class($parentClassName);
-        if ($parentParentClass) {
-            $type = new \PHPStan\Type\UnionType([$type, new \PHPStan\Type\ObjectType($parentParentClass)]);
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return new \PHPStan\Type\MixedType();
         }
-        return $type;
+        $classReflection = $this->reflectionProvider->getClass($className);
+        $parentClassObjectTypes = [];
+        foreach ($classReflection->getParents() as $parentClassReflection) {
+            $parentClassObjectTypes[] = new \PHPStan\Type\ObjectType($parentClassReflection->getName());
+        }
+        if ($parentClassObjectTypes === []) {
+            return new \PHPStan\Type\MixedType();
+        }
+        if (\count($parentClassObjectTypes) === 1) {
+            return $parentClassObjectTypes[0];
+        }
+        return new \PHPStan\Type\UnionType($parentClassObjectTypes);
     }
     private function resolveFullyQualifiedName(\PhpParser\Node\Name $name) : string
     {

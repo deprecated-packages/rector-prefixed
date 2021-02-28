@@ -33,10 +33,9 @@ final class PhpParserNodeMapper
             if ($phpParserNodeMapper->getNodeType() !== \PhpParser\Node\Expr::class) {
                 return $phpParserNodeMapper->mapToPHPStan($node);
             }
-            if (!\is_a($node, \PhpParser\Node\Scalar\String_::class)) {
+            if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return $phpParserNodeMapper->mapToPHPStan($node);
             }
-            continue;
         }
         throw new \Rector\Core\Exception\NotImplementedYetException(\get_class($node));
     }

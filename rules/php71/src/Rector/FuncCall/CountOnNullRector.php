@@ -91,7 +91,7 @@ CODE_SAMPLE
         if ($this->nodeTypeResolver->isNullableArrayType($countedNode)) {
             return $this->castToArray($countedNode, $node);
         }
-        if ($this->nodeTypeResolver->isNullableType($countedNode) || $this->isStaticType($countedNode, \PHPStan\Type\NullType::class)) {
+        if ($this->nodeTypeResolver->isNullableType($countedNode) || $this->nodeTypeResolver->isStaticType($countedNode, \PHPStan\Type\NullType::class)) {
             $identical = new \PhpParser\Node\Expr\BinaryOp\Identical($countedNode, $this->nodeFactory->createNull());
             $ternary = new \PhpParser\Node\Expr\Ternary($identical, new \PhpParser\Node\Scalar\LNumber(0), $node);
             // prevent infinity loop re-resolution

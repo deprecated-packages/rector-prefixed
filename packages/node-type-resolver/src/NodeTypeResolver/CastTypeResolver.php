@@ -22,7 +22,7 @@ final class CastTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

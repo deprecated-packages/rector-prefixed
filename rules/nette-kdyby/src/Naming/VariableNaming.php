@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -28,9 +28,6 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-/**
- * @todo decouple to collector?
- */
 final class VariableNaming
 {
     /**
@@ -75,8 +72,8 @@ final class VariableNaming
         if ($name === null) {
             $name = $fallbackName;
         }
-        if (\RectorPrefix20210227\Nette\Utils\Strings::contains($name, '\\')) {
-            $name = (string) \RectorPrefix20210227\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\RectorPrefix20210228\Nette\Utils\Strings::contains($name, '\\')) {
+            $name = (string) \RectorPrefix20210228\Nette\Utils\Strings::after($name, '\\', -1);
         }
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);
@@ -113,7 +110,7 @@ final class VariableNaming
         if ($node instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return $this->resolveFromPropertyFetch($node);
         }
-        if ($this->isCall($node)) {
+        if ($node !== null && \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class])) {
             return $this->resolveFromMethodCall($node);
         }
         if ($node instanceof \PhpParser\Node\Expr\New_) {
@@ -188,21 +185,11 @@ final class VariableNaming
         }
         return $varName . \ucfirst($propertyName);
     }
-    private function isCall(?\PhpParser\Node $node) : bool
+    /**
+     * @param MethodCall|NullsafeMethodCall|StaticCall $node
+     */
+    private function resolveFromMethodCall(\PhpParser\Node $node) : ?string
     {
-        if (!$node instanceof \PhpParser\Node) {
-            return \false;
-        }
-        return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
-    }
-    private function resolveFromMethodCall(?\PhpParser\Node $node) : ?string
-    {
-        if (!$node instanceof \PhpParser\Node) {
-            return null;
-        }
-        if (!\property_exists($node, 'name')) {
-            return null;
-        }
         if ($node->name instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->resolveFromMethodCall($node->name);
         }

@@ -4,12 +4,10 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
-use PhpParser\Node\Stmt\Trait_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -69,16 +67,22 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        /** @var Class_|Interface_|Trait_|null $classLike */
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return \true;
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \true;
         }
         // unreliable to detect trait, interface doesn't make sense
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($classLike, [\PhpParser\Node\Stmt\Trait_::class, \PhpParser\Node\Stmt\Interface_::class])) {
+        if ($classReflection->isTrait()) {
             return \true;
         }
-        if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
+        if ($classReflection->isInterface()) {
+            return \true;
+        }
+        if ($classReflection->isAnonymous()) {
             return \true;
         }
         // skips interfaces by default too
@@ -86,6 +90,6 @@ CODE_SAMPLE
             return \true;
         }
         // skip magic methods - @see https://www.php.net/manual/en/language.oop5.magic.php
-        return $this->isName($classMethod, '__*');
+        return $classMethod->isMagic();
     }
 }

@@ -3,22 +3,30 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\PHPStan\Type;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 final class ObjectTypeSpecifier
 {
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     /**
      * @return AliasedObjectType|FullyQualifiedObjectType|ObjectType|MixedType
      */
@@ -42,7 +50,7 @@ final class ObjectTypeSpecifier
             return $sameNamespacedObjectType;
         }
         $className = \ltrim($objectType->getClassName(), '\\');
-        if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
+        if ($this->reflectionProvider->hasClass($className)) {
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);
         }
         // invalid type
@@ -56,7 +64,7 @@ final class ObjectTypeSpecifier
             return null;
         }
         $className = $objectType->getClassName();
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         foreach ($uses as $use) {
             foreach ($use->uses as $useUse) {
                 if ($useUse->alias === null) {
@@ -65,7 +73,7 @@ final class ObjectTypeSpecifier
                 $useName = $useUse->name->toString();
                 $alias = $useUse->alias->toString();
                 $fullyQualifiedName = $useUse->name->toString();
-                $processAliasedObject = $this->processAliasedObject($alias, $className, $useName, $parentNode, $fullyQualifiedName);
+                $processAliasedObject = $this->processAliasedObject($alias, $className, $useName, $parent, $fullyQualifiedName);
                 if ($processAliasedObject instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType) {
                     return $processAliasedObject;
                 }
@@ -123,7 +131,7 @@ final class ObjectTypeSpecifier
             return null;
         }
         $namespacedObject = $namespaceName . '\\' . \ltrim($objectType->getClassName(), '\\');
-        if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($namespacedObject)) {
+        if ($this->reflectionProvider->hasClass($namespacedObject)) {
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($namespacedObject);
         }
         return null;
@@ -131,12 +139,12 @@ final class ObjectTypeSpecifier
     private function matchPartialNamespaceObjectType(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\UseUse $useUse) : ?\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType
     {
         // partial namespace
-        if (!\RectorPrefix20210227\Nette\Utils\Strings::startsWith($objectType->getClassName(), $useUse->name->getLast() . '\\')) {
+        if (!\RectorPrefix20210228\Nette\Utils\Strings::startsWith($objectType->getClassName(), $useUse->name->getLast() . '\\')) {
             return null;
         }
-        $classNameWithoutLastUsePart = \RectorPrefix20210227\Nette\Utils\Strings::after($objectType->getClassName(), '\\', 1);
+        $classNameWithoutLastUsePart = \RectorPrefix20210228\Nette\Utils\Strings::after($objectType->getClassName(), '\\', 1);
         $connectedClassName = $useUse->name->toString() . '\\' . $classNameWithoutLastUsePart;
-        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($connectedClassName)) {
+        if (!$this->reflectionProvider->hasClass($connectedClassName)) {
             return null;
         }
         if ($objectType->getClassName() === $connectedClassName) {
@@ -152,7 +160,7 @@ final class ObjectTypeSpecifier
         if ($useUse->name->getLast() !== $objectType->getClassName()) {
             return null;
         }
-        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($useUse->name->toString())) {
+        if (!$this->reflectionProvider->hasClass($useUse->name->toString())) {
             return null;
         }
         if ($objectType->getClassName() === $useUse->name->toString()) {

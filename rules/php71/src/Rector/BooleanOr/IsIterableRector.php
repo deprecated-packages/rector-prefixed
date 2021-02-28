@@ -5,6 +5,8 @@ namespace Rector\Php71\Rector\BooleanOr;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use PhpParser\Node\Name;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Php71\IsArrayAndDualCheckToAble;
@@ -19,9 +21,14 @@ final class IsIterableRector extends \Rector\Core\Rector\AbstractRector
      * @var IsArrayAndDualCheckToAble
      */
     private $isArrayAndDualCheckToAble;
-    public function __construct(\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->isArrayAndDualCheckToAble = $isArrayAndDualCheckToAble;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -46,7 +53,7 @@ final class IsIterableRector extends \Rector\Core\Rector\AbstractRector
     }
     private function shouldSkip() : bool
     {
-        if (\function_exists('is_iterable')) {
+        if ($this->reflectionProvider->hasFunction(new \PhpParser\Node\Name('is_iterable'), null)) {
             return \false;
         }
         return !$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::IS_ITERABLE);

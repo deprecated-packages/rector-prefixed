@@ -8,7 +8,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use Rector\TypeDeclaration\TypeNormalizer;
-use RectorPrefix20210227\Webmozart\Assert\Assert;
 final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
 {
     /**
@@ -32,7 +31,7 @@ final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abstra
         return $this->inferFunctionLikeWithExcludedInferers($functionLike, []);
     }
     /**
-     * @param string[] $excludedInferers
+     * @param array<class-string<ReturnTypeInfererInterface>> $excludedInferers
      */
     public function inferFunctionLikeWithExcludedInferers(\PhpParser\Node\FunctionLike $functionLike, array $excludedInferers) : \PHPStan\Type\Type
     {
@@ -54,11 +53,10 @@ final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abstra
         return new \PHPStan\Type\MixedType();
     }
     /**
-     * @param string[] $excludedInferers
+     * @param array<class-string<ReturnTypeInfererInterface>> $excludedInferers
      */
     private function shouldSkipExcludedTypeInferer(\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface $returnTypeInferer, array $excludedInferers) : bool
     {
-        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsAOf($excludedInferers, \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface::class);
         foreach ($excludedInferers as $excludedInferer) {
             if (\is_a($returnTypeInferer, $excludedInferer)) {
                 return \true;

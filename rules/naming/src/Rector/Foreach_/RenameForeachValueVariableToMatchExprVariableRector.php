@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Foreach_;
 
-use RectorPrefix20210227\Doctrine\Inflector\Inflector;
+use RectorPrefix20210228\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
@@ -20,7 +20,7 @@ final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\
      * @var Inflector
      */
     private $inflector;
-    public function __construct(\RectorPrefix20210227\Doctrine\Inflector\Inflector $inflector)
+    public function __construct(\RectorPrefix20210228\Doctrine\Inflector\Inflector $inflector)
     {
         $this->inflector = $inflector;
     }
@@ -29,25 +29,25 @@ final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames value variable name in foreach loop to match expression variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    public function run()
-    {
-        $array = [];
-        foreach ($variables as $foo) {
-            $array[] = $property;
-        }
+public function run()
+{
+    $array = [];
+    foreach ($variables as $foo) {
+        $array[] = $property;
     }
+}
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
 {
-    public function run()
-    {
-        $array = [];
-        foreach ($variables as $variable) {
-            $array[] = $variable;
-        }
+public function run()
+{
+    $array = [];
+    foreach ($variables as $variable) {
+        $array[] = $variable;
     }
+}
 }
 CODE_SAMPLE
 )]);

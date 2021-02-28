@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210227\Doctrine\Common\Annotations;
+namespace RectorPrefix20210228\Doctrine\Common\Annotations;
 
 use BadMethodCallException;
 use function sprintf;

@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -69,7 +70,7 @@ CODE_SAMPLE
         if (!$toStringClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
-        if ($this->classManipulator->hasInterface($node, self::STRINGABLE)) {
+        if ($this->classManipulator->hasInterface($node, new \PHPStan\Type\ObjectType(self::STRINGABLE))) {
             return null;
         }
         // add interface

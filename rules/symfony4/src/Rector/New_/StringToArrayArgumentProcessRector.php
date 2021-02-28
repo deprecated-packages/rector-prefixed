@@ -17,8 +17,8 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210227\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20210227\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210228\Symfony\Component\Console\Input\StringInput;
+use RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -81,7 +81,7 @@ CODE_SAMPLE
             return null;
         }
         // type analyzer
-        if ($this->isStaticType($firstArgument, \PHPStan\Type\StringType::class)) {
+        if ($this->nodeTypeResolver->isStaticType($firstArgument, \PHPStan\Type\StringType::class)) {
             $this->processStringType($node, $argumentPosition, $firstArgument);
         }
         return $node;
@@ -114,8 +114,8 @@ CODE_SAMPLE
      */
     private function splitProcessCommandToItems(string $process) : array
     {
-        $privatesCaller = new \RectorPrefix20210227\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210227\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
+        $privatesCaller = new \RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210228\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {

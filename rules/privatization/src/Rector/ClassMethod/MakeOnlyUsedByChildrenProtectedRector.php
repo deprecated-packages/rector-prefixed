@@ -7,12 +7,14 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
-use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -84,6 +86,14 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
         $externalCalls = $this->classMethodExternalCallNodeAnalyzer->getExternalCalls($node);
         if ($externalCalls === []) {
             return null;
@@ -100,7 +110,7 @@ CODE_SAMPLE
             }
         }
         $methodName = $this->getName($node);
-        if ($this->isOverriddenInChildClass($className, $methodName)) {
+        if ($this->isOverriddenInChildClass($classReflection, $methodName)) {
             return null;
         }
         $this->visibilityManipulator->makeProtected($node);
@@ -127,17 +137,16 @@ CODE_SAMPLE
         }
         return !$classMethod->isPublic();
     }
-    private function isOverriddenInChildClass(string $className, string $methodName) : bool
+    private function isOverriddenInChildClass(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
-        $childrenClassNames = $this->familyRelationsAnalyzer->getChildrenOfClass($className);
-        foreach ($childrenClassNames as $childrenClassName) {
-            $reflectionClass = new \ReflectionClass($childrenClassName);
-            $isMethodExists = \method_exists($childrenClassName, $methodName);
-            if (!$isMethodExists) {
+        $childrenClassReflection = $this->familyRelationsAnalyzer->getChildrenOfClassReflection($classReflection);
+        foreach ($childrenClassReflection as $childClassReflection) {
+            if (!$childClassReflection->hasMethod($methodName)) {
                 continue;
             }
-            $isMethodInChildrenClass = $reflectionClass->getMethod($methodName)->class === $childrenClassName;
-            if ($isMethodInChildrenClass) {
+            $methodReflection = $childClassReflection->getNativeMethod($methodName);
+            $methodDeclaringClass = $methodReflection->getDeclaringClass();
+            if ($methodDeclaringClass->getName() === $childClassReflection->getName()) {
                 return \true;
             }
         }

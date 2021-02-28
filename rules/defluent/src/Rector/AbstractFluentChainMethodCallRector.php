@@ -29,17 +29,17 @@ abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\A
      */
     protected $nonFluentChainMethodCallFactory;
     /**
-     * @var FluentChainMethodCallRootExtractor
-     */
-    protected $fluentChainMethodCallRootExtractor;
-    /**
-     * @var SameClassMethodCallAnalyzer
-     */
-    protected $sameClassMethodCallAnalyzer;
-    /**
      * @var FluentMethodCallSkipper
      */
     protected $fluentMethodCallSkipper;
+    /**
+     * @var FluentChainMethodCallRootExtractor
+     */
+    private $fluentChainMethodCallRootExtractor;
+    /**
+     * @var SameClassMethodCallAnalyzer
+     */
+    private $sameClassMethodCallAnalyzer;
     /**
      * @required
      */

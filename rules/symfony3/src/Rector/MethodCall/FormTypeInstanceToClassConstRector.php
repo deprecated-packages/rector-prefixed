@@ -14,13 +14,13 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Symfony3\NodeFactory\BuilderFormNodeFactory;
 use Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory;
-use ReflectionClass;
 use ReflectionMethod;
-use RectorPrefix20210227\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use RectorPrefix20210228\Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -47,10 +47,15 @@ final class FormTypeInstanceToClassConstRector extends \Rector\Symfony3\Rector\M
      * @var ConfigureOptionsNodeFactory
      */
     private $configureOptionsNodeFactory;
-    public function __construct(\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory, \Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory, \Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->builderFormNodeFactory = $builderFormNodeFactory;
         $this->configureOptionsNodeFactory = $configureOptionsNodeFactory;
+        $this->reflectionProvider = $reflectionProvider;
         $this->controllerObjectTypes = [new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'), new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController')];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -186,14 +191,18 @@ CODE_SAMPLE
      */
     private function resolveNamesToArgs(string $className, array $argNodes) : array
     {
-        $reflectionClass = new \ReflectionClass($className);
-        $constructorReflectionMethod = $reflectionClass->getConstructor();
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return [];
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        $nativeClassReflection = $classReflection->getNativeReflection();
+        $constructorReflectionMethod = $nativeClassReflection->getConstructor();
         if (!$constructorReflectionMethod instanceof \ReflectionMethod) {
             return [];
         }
         $namesToArgs = [];
-        foreach ($constructorReflectionMethod->getParameters() as $reflectionParameter) {
-            $namesToArgs[$reflectionParameter->getName()] = $argNodes[$reflectionParameter->getPosition()];
+        foreach ($constructorReflectionMethod->getParameters() as $position => $reflectionParameter) {
+            $namesToArgs[$reflectionParameter->getName()] = $argNodes[$position];
         }
         return $namesToArgs;
     }

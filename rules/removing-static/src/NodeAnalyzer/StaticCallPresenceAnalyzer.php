@@ -42,8 +42,7 @@ final class StaticCallPresenceAnalyzer
             if ((string) $classMethod->name === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
-            $hasStaticCall = $this->hasMethodStaticCallOnType($classMethod, $objectType);
-            if ($hasStaticCall) {
+            if ($this->hasMethodStaticCallOnType($classMethod, $objectType)) {
                 return \true;
             }
         }

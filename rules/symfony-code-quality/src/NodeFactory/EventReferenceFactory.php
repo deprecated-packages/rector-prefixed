@@ -6,6 +6,7 @@ namespace Rector\SymfonyCodeQuality\NodeFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\SymfonyCodeQuality\ValueObject\EventNameToClassAndConstant;
 final class EventReferenceFactory
@@ -14,9 +15,14 @@ final class EventReferenceFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeFactory = $nodeFactory;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @param EventNameToClassAndConstant[] $eventNamesToClassConstants
@@ -24,7 +30,7 @@ final class EventReferenceFactory
      */
     public function createEventName(string $eventName, array $eventNamesToClassConstants) : \PhpParser\Node
     {
-        if (\class_exists($eventName)) {
+        if ($this->reflectionProvider->hasClass($eventName)) {
             return $this->nodeFactory->createClassConstReference($eventName);
         }
         // is string a that could be caught in constant, e.g. KernelEvents?

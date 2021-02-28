@@ -3,13 +3,14 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Route;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NetteToSymfony\ValueObject\RouteInfo;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
@@ -28,11 +29,16 @@ final class RouteInfoFactory
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
         $this->nodeRepository = $nodeRepository;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function createFromNode(\PhpParser\Node $node) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
@@ -114,10 +120,11 @@ final class RouteInfoFactory
             if ($presenterClass === null) {
                 return null;
             }
-            if (!\class_exists($presenterClass)) {
+            if (!$this->reflectionProvider->hasClass($presenterClass)) {
                 return null;
             }
-            if (\method_exists($presenterClass, 'run')) {
+            $classReflection = $this->reflectionProvider->getClass($presenterClass);
+            if ($classReflection->hasMethod('run')) {
                 return new \Rector\NetteToSymfony\ValueObject\RouteInfo($presenterClass, 'run', $routePath, $methods);
             }
         }
@@ -126,7 +133,7 @@ final class RouteInfoFactory
     private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $targetValue = $string->value;
-        if (!\RectorPrefix20210227\Nette\Utils\Strings::contains($targetValue, ':')) {
+        if (!\RectorPrefix20210228\Nette\Utils\Strings::contains($targetValue, ':')) {
             return null;
         }
         [$controller, $method] = \explode(':', $targetValue);
@@ -144,15 +151,18 @@ final class RouteInfoFactory
         if ($controllerClass === null) {
             return null;
         }
-        $methodName = null;
-        if (\method_exists($controllerClass, 'render' . \ucfirst($method))) {
-            $methodName = 'render' . \ucfirst($method);
-        } elseif (\method_exists($controllerClass, 'action' . \ucfirst($method))) {
-            $methodName = 'action' . \ucfirst($method);
-        }
-        if ($methodName === null) {
+        if (!$this->reflectionProvider->hasClass($controllerClass)) {
             return null;
         }
-        return new \Rector\NetteToSymfony\ValueObject\RouteInfo($controllerClass, $methodName, $routePath, []);
+        $controllerClassReflection = $this->reflectionProvider->getClass($controllerClass);
+        $renderMethodName = 'render' . \ucfirst($method);
+        if ($controllerClassReflection->hasMethod($renderMethodName)) {
+            return new \Rector\NetteToSymfony\ValueObject\RouteInfo($controllerClass, $renderMethodName, $routePath, []);
+        }
+        $actionMethodName = 'action' . \ucfirst($method);
+        if ($controllerClassReflection->hasMethod($actionMethodName)) {
+            return new \Rector\NetteToSymfony\ValueObject\RouteInfo($controllerClass, $actionMethodName, $routePath, []);
+        }
+        return null;
     }
 }

@@ -7,7 +7,6 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\NodeTypeResolver\Reflection\ClassReflectionTypesResolver;
 final class ParentClassLikeTypeCorrector
@@ -33,7 +32,7 @@ final class ParentClassLikeTypeCorrector
     public function correct(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
         if ($type instanceof \PHPStan\Type\TypeWithClassName) {
-            if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($type->getClassName())) {
+            if (!$this->reflectionProvider->hasClass($type->getClassName())) {
                 return $type;
             }
             $allTypes = $this->getClassLikeTypesByClassName($type->getClassName());
@@ -42,7 +41,7 @@ final class ParentClassLikeTypeCorrector
         $classNames = \PHPStan\Type\TypeUtils::getDirectClassNames($type);
         $allTypes = [];
         foreach ($classNames as $className) {
-            if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($className)) {
+            if (!$this->reflectionProvider->hasClass($className)) {
                 continue;
             }
             $allTypes = \array_merge($allTypes, $this->getClassLikeTypesByClassName($className));

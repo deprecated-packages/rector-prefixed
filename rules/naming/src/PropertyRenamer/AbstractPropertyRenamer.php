@@ -17,13 +17,9 @@ use Rector\Naming\Guard\RamseyUuidInterfaceGuard;
 use Rector\Naming\RenameGuard\PropertyRenameGuard;
 use Rector\Naming\ValueObject\PropertyRename;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210227\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\RenamerInterface
 {
-    /**
-     * @var RenameGuardInterface
-     */
-    protected $propertyRenameGuard;
     /**
      * @var ConflictingGuardInterface
      */
@@ -31,7 +27,7 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
     /**
      * @var PropertyFetchRenamer
      */
-    protected $propertyFetchRenamer;
+    private $propertyFetchRenamer;
     /**
      * @var NotPrivatePropertyGuard
      */
@@ -45,13 +41,17 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
      */
     private $dateTimeAtNamingConventionGuard;
     /**
+     * @var RenameGuardInterface
+     */
+    private $propertyRenameGuard;
+    /**
      * @var HasMagicGetSetGuard
      */
     private $hasMagicGetSetGuard;
     /**
      * @required
      */
-    public function autowireAbstractPropertyRenamer(\RectorPrefix20210227\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
+    public function autowireAbstractPropertyRenamer(\RectorPrefix20210228\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
     {
         $this->notPrivatePropertyGuard = $notPrivatePropertyGuard;
         $this->ramseyUuidInterfaceGuard = $ramseyUuidInterfaceGuard;

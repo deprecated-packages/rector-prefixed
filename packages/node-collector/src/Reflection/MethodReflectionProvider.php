@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeMethodReflection;
 use PHPStan\Reflection\ParameterReflection;
@@ -20,7 +21,6 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use ReflectionMethod;
 final class MethodReflectionProvider
 {
     /**
@@ -57,7 +57,7 @@ final class MethodReflectionProvider
         }
         return $parameterTypes;
     }
-    public function provideByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\ReflectionMethod
+    public function provideByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\MethodReflection
     {
         $className = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
@@ -67,18 +67,14 @@ final class MethodReflectionProvider
         if ($methodName === null) {
             return null;
         }
-        if (!\method_exists($className, $methodName)) {
+        if (!$this->reflectionProvider->hasClass($className)) {
             return null;
         }
-        return new \ReflectionMethod($className, $methodName);
-    }
-    public function provideByClassAndMethodName(string $class, string $method, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Reflection\MethodReflection
-    {
-        $classReflection = $this->reflectionProvider->getClass($class);
-        if (!$classReflection->hasMethod($method)) {
+        $classReflection = $this->reflectionProvider->getClass($className);
+        if (!$classReflection->hasMethod($methodName)) {
             return null;
         }
-        return $classReflection->getMethod($method, $scope);
+        return $classReflection->getNativeMethod($methodName);
     }
     /**
      * @return Type[]
@@ -126,15 +122,19 @@ final class MethodReflectionProvider
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
-        return $this->provideByClassAndMethodName($class, $method, $scope);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        return $classReflection->getMethod($method, $scope);
     }
     /**
      * @return ParameterReflection[]
      */
     public function getParameterReflectionsFromMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : array
     {
-        $methodReflectionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
-        return $methodReflectionVariant->getParameters();
+        $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+        return $parametersAcceptor->getParameters();
     }
     /**
      * @return string[]
@@ -145,12 +145,17 @@ final class MethodReflectionProvider
         $classes = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
         $parameterNames = [];
         foreach ($classes as $class) {
-            if (!\method_exists($class, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+            if (!$this->reflectionProvider->hasClass($class)) {
                 continue;
             }
-            $methodReflection = new \ReflectionMethod($class, \Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            $classReflection = $this->reflectionProvider->getClass($class);
+            if (!$classReflection->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+                continue;
+            }
+            $nativeClassReflection = $classReflection->getNativeReflection();
+            $methodReflection = $nativeClassReflection->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             foreach ($methodReflection->getParameters() as $reflectionParameter) {
-                $parameterNames[] = $reflectionParameter->name;
+                $parameterNames[] = $reflectionParameter->getName();
             }
         }
         return $parameterNames;
@@ -166,7 +171,8 @@ final class MethodReflectionProvider
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         foreach ($classes as $class) {
-            $methodReflection = $this->provideByClassAndMethodName($class, $methodName, $scope);
+            $classReflection = $this->reflectionProvider->getClass($class);
+            $methodReflection = $classReflection->getMethod($methodName, $scope);
             if ($methodReflection instanceof \PHPStan\Reflection\MethodReflection) {
                 return $methodReflection;
             }

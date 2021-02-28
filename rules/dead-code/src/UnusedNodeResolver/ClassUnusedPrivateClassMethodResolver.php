@@ -3,12 +3,13 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\UnusedNodeResolver;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
-use ReflectionMethod;
 final class ClassUnusedPrivateClassMethodResolver
 {
     /**
@@ -23,11 +24,16 @@ final class ClassUnusedPrivateClassMethodResolver
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->classManipulator = $classManipulator;
         $this->nodeRepository = $nodeRepository;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @return string[]
@@ -65,7 +71,7 @@ final class ClassUnusedPrivateClassMethodResolver
                 unset($unusedMethods[$key]);
             }
             // skip magic methods
-            if (\RectorPrefix20210227\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
+            if (\RectorPrefix20210228\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
                 unset($unusedMethods[$key]);
             }
         }
@@ -79,12 +85,13 @@ final class ClassUnusedPrivateClassMethodResolver
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
-        /** @var string[] $interfaces */
-        $interfaces = (array) \class_implements($className);
+        $classReflection = $this->reflectionProvider->getClass($className);
         $interfaceMethods = [];
-        foreach ($interfaces as $interface) {
-            $currentInterfaceMethods = \get_class_methods($interface);
-            $interfaceMethods = \array_merge($interfaceMethods, $currentInterfaceMethods);
+        foreach ($classReflection->getInterfaces() as $interfaceClassReflection) {
+            $nativeInterfaceClassReflection = $interfaceClassReflection->getNativeReflection();
+            foreach ($nativeInterfaceClassReflection->getMethods() as $reflectionMethod) {
+                $interfaceMethods[] = $reflectionMethod->getName();
+            }
         }
         return \array_diff($unusedMethods, $interfaceMethods);
     }
@@ -97,27 +104,34 @@ final class ClassUnusedPrivateClassMethodResolver
         if ($class->extends === null) {
             return $unusedMethods;
         }
-        /** @var string[] $parentClasses */
-        $parentClasses = (array) \class_parents($class);
+        $className = $this->nodeNameResolver->getName($class);
+        if ($className === null) {
+            return [];
+        }
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return [];
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
         $parentAbstractMethods = [];
-        foreach ($parentClasses as $parentClass) {
+        foreach ($classReflection->getParents() as $parentClassReflection) {
             foreach ($unusedMethods as $unusedMethod) {
                 if (\in_array($unusedMethod, $parentAbstractMethods, \true)) {
                     continue;
                 }
-                if ($this->isMethodAbstract($parentClass, $unusedMethod)) {
+                if ($this->isMethodAbstract($parentClassReflection, $unusedMethod)) {
                     $parentAbstractMethods[] = $unusedMethod;
                 }
             }
         }
         return \array_diff($unusedMethods, $parentAbstractMethods);
     }
-    private function isMethodAbstract(string $class, string $method) : bool
+    private function isMethodAbstract(\PHPStan\Reflection\ClassReflection $classReflection, string $method) : bool
     {
-        if (!\method_exists($class, $method)) {
+        if (!$classReflection->hasMethod($method)) {
             return \false;
         }
-        $reflectionMethod = new \ReflectionMethod($class, $method);
+        $nativeClassReflection = $classReflection->getNativeReflection();
+        $reflectionMethod = $nativeClassReflection->getMethod($method);
         return $reflectionMethod->isAbstract();
     }
 }

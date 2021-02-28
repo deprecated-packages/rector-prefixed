@@ -5,24 +5,34 @@ namespace Rector\PhpSpecToPHPUnit;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use ReflectionMethod;
 /**
  * Decorate setUp() and tearDown() with "void" when local TestClass class uses them
  */
 final class PHPUnitTypeDeclarationDecorator
 {
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        if (!\class_exists('PHPUnit\\Framework\\TestCase')) {
+        if (!$this->reflectionProvider->hasClass('PHPUnit\\Framework\\TestCase')) {
             return;
         }
         // skip test run
         if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;
         }
-        $reflectionMethod = new \ReflectionMethod('PHPUnit\\Framework\\TestCase', \Rector\Core\ValueObject\MethodName::SET_UP);
+        $classReflection = $this->reflectionProvider->getClass('PHPUnit\\Framework\\TestCase');
+        $nativeClassReflection = $classReflection->getNativeReflection();
+        $reflectionMethod = $nativeClassReflection->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
         if (!$reflectionMethod->hasReturnType()) {
             return;
         }

@@ -30,7 +30,6 @@ final class ChildReturnPopulator extends \Rector\TypeDeclaration\ChildPopulator\
      */
     public function populateChildren(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $returnType) : void
     {
-        $methodName = $this->nodeNameResolver->getName($classMethod);
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

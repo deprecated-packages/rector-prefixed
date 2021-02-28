@@ -48,7 +48,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

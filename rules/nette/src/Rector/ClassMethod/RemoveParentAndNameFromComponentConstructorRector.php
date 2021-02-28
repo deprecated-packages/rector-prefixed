@@ -8,9 +8,10 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\NodeAnalyzer\StaticCallAnalyzer;
@@ -47,11 +48,16 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
      * @var ParamFinder
      */
     private $paramFinder;
+    /**
+     * @var ObjectType
+     */
+    private $controlObjectType;
     public function __construct(\Rector\Nette\NodeFinder\ParamFinder $paramFinder, \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
     {
         $this->staticCallAnalyzer = $staticCallAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
         $this->paramFinder = $paramFinder;
+        $this->controlObjectType = new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -156,14 +162,19 @@ CODE_SAMPLE
     }
     private function isInsideNetteComponentClass(\PhpParser\Node $node) : bool
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
-        if ($this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Presenter'))) {
+        $classReflection = $scope->getClassReflection();
+        if ($classReflection === null) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        // presenter is not a component
+        if ($classReflection->isSubclassOf('Nette\\Application\\UI\\Presenter')) {
             return \false;
         }
-        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'));
+        return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
     }
     private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Stmt\ClassMethod
     {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210227\Symplify\PhpConfigPrinter\ExprResolver;
+namespace RectorPrefix20210228\Symplify\PhpConfigPrinter\ExprResolver;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -13,7 +13,7 @@ final class ServiceReferenceExprResolver
      * @var StringExprResolver
      */
     private $stringExprResolver;
-    public function __construct(\RectorPrefix20210227\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver $stringExprResolver)
+    public function __construct(\RectorPrefix20210228\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver $stringExprResolver)
     {
         $this->stringExprResolver = $stringExprResolver;
     }

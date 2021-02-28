@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -33,7 +32,6 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
-use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
@@ -129,6 +127,13 @@ final class NodeTypeResolver
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         $type = $this->resolveFirstType($node);
+        if ($type instanceof \PHPStan\Type\IntersectionType) {
+            foreach ($type->getTypes() as $intersectionedType) {
+                if ($intersectionedType instanceof \PHPStan\Type\TypeWithClassName) {
+                    return $this->parentClassLikeTypeCorrector->correct($intersectionedType);
+                }
+            }
+        }
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return $type;
         }
@@ -156,21 +161,20 @@ final class NodeTypeResolver
      */
     public function getStaticType(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        if ($this->isArrayExpr($node)) {
-            /** @var Expr $node */
-            return $this->resolveArrayType($node);
-        }
-        if ($node instanceof \PhpParser\Node\Arg) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException('Arg cannot have type, use $arg->value instead');
-        }
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Param::class, \PhpParser\Node\Scalar::class])) {
+        if ($node instanceof \PhpParser\Node\Param) {
             return $this->resolve($node);
         }
-        $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$node instanceof \PhpParser\Node\Expr) {
             return new \PHPStan\Type\MixedType();
         }
-        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
+        if ($this->arrayTypeAnalyzer->isArrayType($node)) {
+            return $this->resolveArrayType($node);
+        }
+        if ($node instanceof \PhpParser\Node\Scalar) {
+            return $this->resolve($node);
+        }
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if ($node instanceof \PhpParser\Node\Expr\New_) {
@@ -179,7 +183,7 @@ final class NodeTypeResolver
                 return $this->resolveAnonymousClassType($node);
             }
         }
-        $staticType = $nodeScope->getType($node);
+        $staticType = $scope->getType($node);
         if (!$staticType instanceof \PHPStan\Type\ObjectType) {
             return $staticType;
         }
@@ -192,6 +196,9 @@ final class NodeTypeResolver
         }
         return $this->isStaticType($node, \PHPStan\Type\FloatType::class);
     }
+    /**
+     * @param class-string<Type> $staticTypeClass
+     */
     public function isStaticType(\PhpParser\Node $node, string $staticTypeClass) : bool
     {
         if (!\is_a($staticTypeClass, \PHPStan\Type\Type::class, \true)) {
@@ -311,7 +318,9 @@ final class NodeTypeResolver
             if (!$unionedType->equals($requiredObjectType)) {
                 continue;
             }
-            return \true;
+            if ($unionedType->equals($requiredObjectType)) {
+                return \true;
+            }
         }
         return \false;
     }
@@ -344,13 +353,6 @@ final class NodeTypeResolver
             return $type;
         }
         return $this->resolveFirstType($node->var);
-    }
-    private function isArrayExpr(\PhpParser\Node $node) : bool
-    {
-        if (!$node instanceof \PhpParser\Node\Expr) {
-            return \false;
-        }
-        return $this->arrayTypeAnalyzer->isArrayType($node);
     }
     private function resolveArrayType(\PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {

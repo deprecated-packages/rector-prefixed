@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer;
 use Rector\NodeCollector\ValueObject\ArrayCallable;
@@ -29,9 +30,14 @@ final class ArrayThisCallToThisMethodCallRector extends \Rector\Core\Rector\Abst
      * @var ArrayCallableMethodReferenceAnalyzer
      */
     private $arrayCallableMethodReferenceAnalyzer;
-    public function __construct(\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->arrayCallableMethodReferenceAnalyzer = $arrayCallableMethodReferenceAnalyzer;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -92,10 +98,15 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node\Arg) {
             return null;
         }
-        if (!$arrayCallable->isExistingMethod()) {
+        if (!$this->reflectionProvider->hasClass($arrayCallable->getClass())) {
             return null;
         }
-        $reflectionMethod = $arrayCallable->getReflectionMethod();
+        $classReflection = $this->reflectionProvider->getClass($arrayCallable->getClass());
+        if (!$classReflection->hasMethod($arrayCallable->getMethod())) {
+            return null;
+        }
+        $nativeReflectionClass = $classReflection->getNativeReflection();
+        $reflectionMethod = $nativeReflectionClass->getMethod($arrayCallable->getMethod());
         $this->privatizeClassMethod($reflectionMethod);
         if ($reflectionMethod->getNumberOfParameters() > 0) {
             $classMethod = $this->nodeRepository->findClassMethod($arrayCallable->getClass(), $arrayCallable->getMethod());

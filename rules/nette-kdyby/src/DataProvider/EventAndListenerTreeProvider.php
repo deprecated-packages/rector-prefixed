@@ -94,10 +94,9 @@ final class EventAndListenerTreeProvider
             $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromMethodCall($methodCall);
             $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, $methodCall->args);
             $dispatchMethodCall = $this->dispatchMethodCallFactory->createFromEventClassName($eventClassName);
-            $listeningClassMethodsByClass = $this->getListeningClassMethodsInEventSubscriberByClass($eventClassName);
             // getter names by variable name and type
             $getterMethodsBlueprints = $this->resolveGetterMethodBlueprint($eventClassInNamespace);
-            $eventAndListenerTree = new \Rector\NetteKdyby\ValueObject\EventAndListenerTree($methodCall, $magicProperty, $eventClassName, $eventFileLocation, $eventClassInNamespace, $dispatchMethodCall, $listeningClassMethodsByClass, $getterMethodsBlueprints);
+            $eventAndListenerTree = new \Rector\NetteKdyby\ValueObject\EventAndListenerTree($methodCall, $magicProperty, $eventClassName, $eventFileLocation, $eventClassInNamespace, $dispatchMethodCall, $this->getListeningClassMethodsInEventSubscriberByClass($eventClassName), $getterMethodsBlueprints);
             $this->eventAndListenerTrees[] = $eventAndListenerTree;
         }
     }
@@ -110,7 +109,7 @@ final class EventAndListenerTreeProvider
         return $classLike->getProperty($methodName);
     }
     /**
-     * @return ClassMethod[][]
+     * @return array<class-string, ClassMethod[]>
      */
     private function getListeningClassMethodsInEventSubscriberByClass(string $eventClassName) : array
     {

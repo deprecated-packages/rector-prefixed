@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210227\Symfony\Component\Cache;
+namespace RectorPrefix20210228\Symfony\Component\Cache;
 
-use RectorPrefix20210227\Doctrine\Common\Cache\CacheProvider;
-use RectorPrefix20210227\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix20210227\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20210228\Doctrine\Common\Cache\CacheProvider;
+use RectorPrefix20210228\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20210228\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DoctrineProvider extends \RectorPrefix20210227\Doctrine\Common\Cache\CacheProvider implements \RectorPrefix20210227\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210227\Symfony\Component\Cache\ResettableInterface
+class DoctrineProvider extends \RectorPrefix20210228\Doctrine\Common\Cache\CacheProvider implements \RectorPrefix20210228\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210228\Symfony\Component\Cache\ResettableInterface
 {
     private $pool;
-    public function __construct(\RectorPrefix20210227\Psr\Cache\CacheItemPoolInterface $pool)
+    public function __construct(\RectorPrefix20210228\Psr\Cache\CacheItemPoolInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -28,14 +28,14 @@ class DoctrineProvider extends \RectorPrefix20210227\Doctrine\Common\Cache\Cache
      */
     public function prune()
     {
-        return $this->pool instanceof \RectorPrefix20210227\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
+        return $this->pool instanceof \RectorPrefix20210228\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
     }
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->pool instanceof \RectorPrefix20210227\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \RectorPrefix20210228\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
         $this->setNamespace($this->getNamespace());

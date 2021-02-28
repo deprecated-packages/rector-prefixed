@@ -3,7 +3,8 @@
 declare (strict_types=1);
 namespace Rector\CakePHP\Naming;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\CakePHP\ImplicitNameResolver;
 /**
  * @inspired https://github.com/cakephp/upgrade/blob/756410c8b7d5aff9daec3fa1fe750a3858d422ac/src/Shell/Task/AppUsesTask.php
@@ -29,9 +30,14 @@ final class CakePHPFullyQualifiedClassNameResolver
      * @var ImplicitNameResolver
      */
     private $implicitNameResolver;
-    public function __construct(\Rector\CakePHP\ImplicitNameResolver $implicitNameResolver)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\CakePHP\ImplicitNameResolver $implicitNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->implicitNameResolver = $implicitNameResolver;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * This value used to be directory
@@ -47,25 +53,22 @@ final class CakePHPFullyQualifiedClassNameResolver
         }
         // Chop Lib out as locations moves those files to the top level.
         // But only if Lib is not the last folder.
-        if (\RectorPrefix20210227\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
-            $pseudoNamespace = \RectorPrefix20210227\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
+        if (\RectorPrefix20210228\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
+            $pseudoNamespace = \RectorPrefix20210228\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
         }
         // B. is Cake native class?
         $cakePhpVersion = 'Cake\\' . $pseudoNamespace . '\\' . $shortClass;
-        if (\class_exists($cakePhpVersion)) {
-            return $cakePhpVersion;
-        }
-        if (\interface_exists($cakePhpVersion)) {
+        if ($this->reflectionProvider->hasClass($cakePhpVersion)) {
             return $cakePhpVersion;
         }
         // C. is not plugin nor lib custom App class?
-        if (\RectorPrefix20210227\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\RectorPrefix20210227\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
+        if (\RectorPrefix20210228\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\RectorPrefix20210228\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
             return 'App\\' . $pseudoNamespace . '\\' . $shortClass;
         }
         return $pseudoNamespace . '\\' . $shortClass;
     }
     private function normalizeFileSystemSlashes(string $pseudoNamespace) : string
     {
-        return \RectorPrefix20210227\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
+        return \RectorPrefix20210228\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
     }
 }

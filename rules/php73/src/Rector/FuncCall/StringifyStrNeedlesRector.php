@@ -60,7 +60,7 @@ CODE_SAMPLE
         if ($this->nodeTypeAnalyzer->isStringTypeExpr($needleArgNode)) {
             return null;
         }
-        if ($node->args[1]->value instanceof \PhpParser\Node\Expr\Cast\String_) {
+        if ($needleArgNode instanceof \PhpParser\Node\Expr\Cast\String_) {
             return null;
         }
         $node->args[1]->value = new \PhpParser\Node\Expr\Cast\String_($node->args[1]->value);

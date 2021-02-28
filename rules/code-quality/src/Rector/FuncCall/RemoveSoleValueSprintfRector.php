@@ -69,7 +69,7 @@ CODE_SAMPLE
             return null;
         }
         $valueArgument = $node->args[1]->value;
-        if (!$this->isStaticType($valueArgument, \PHPStan\Type\StringType::class)) {
+        if (!$this->nodeTypeResolver->isStaticType($valueArgument, \PHPStan\Type\StringType::class)) {
             return null;
         }
         return $valueArgument;

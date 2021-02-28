@@ -14,7 +14,8 @@ use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
+use RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider;
 /**
  * Factory so Symfony app can use services from PHPStan container
  * @see packages/NodeTypeResolver/config/config.yaml:17
@@ -25,11 +26,13 @@ final class PHPStanServicesFactory
      * @var Container
      */
     private $container;
-    public function __construct(\RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $containerFactory = new \PHPStan\DependencyInjection\ContainerFactory(\getcwd());
         $additionalConfigFiles = [];
         $additionalConfigFiles[] = $parameterProvider->provideStringParameter(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH);
+        $additionalConfigFiles[] = __DIR__ . '/../../config/phpstan/static-reflection.neon';
+        $additionalConfigFiles[] = __DIR__ . '/../../config/phpstan/better-infer.neon';
         $existingAdditionalConfigFiles = \array_filter($additionalConfigFiles, 'file_exists');
         $this->container = $containerFactory->create(\sys_get_temp_dir(), $existingAdditionalConfigFiles, []);
     }
@@ -88,5 +91,12 @@ final class PHPStanServicesFactory
     public function createTypeNodeResolver() : \PHPStan\PhpDoc\TypeNodeResolver
     {
         return $this->container->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class);
+    }
+    /**
+     * @api
+     */
+    public function createDynamicSourceLocatorProvider() : \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider
+    {
+        return $this->container->getByType(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
     }
 }

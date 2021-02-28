@@ -23,13 +23,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var ObjectType[]
-     */
-    private $requestObjectTypes = [];
-    /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
+    /**
+     * @var ObjectType[]
+     */
+    private $requestObjectTypes = [];
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
@@ -76,7 +76,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, 'Illuminate\\Http\\Request', ['request', 'httpRequest']);
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, new \PHPStan\Type\ObjectType('Illuminate\\Http\\Request'), ['request', 'httpRequest']);
         $variable = new \PhpParser\Node\Expr\Variable($requestName);
         $methodName = $this->getName($node->name);
         if ($methodName === null) {

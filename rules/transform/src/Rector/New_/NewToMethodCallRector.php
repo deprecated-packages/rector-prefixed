@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Transform\Rector\New_;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -11,14 +10,14 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
+use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\NewToMethodCall;
-use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210227\Webmozart\Assert\Assert;
+use RectorPrefix20210228\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\NewToMethodCallRectorTest
  */
@@ -32,6 +31,14 @@ final class NewToMethodCallRector extends \Rector\Core\Rector\AbstractRector imp
      * @var NewToMethodCall[]
      */
     private $newsToMethodCalls = [];
+    /**
+     * @var ClassNaming
+     */
+    private $classNaming;
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    {
+        $this->classNaming = $classNaming;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces creating object instances with "new" keyword with factory method.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -80,10 +87,12 @@ CODE_SAMPLE
             }
             /** @var Class_ $classNode */
             $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            $propertyName = $this->getExistingFactoryPropertyName($classNode, $serviceObjectType);
+            $propertyName = $this->getExistingFactoryPropertyName($classNode, $newToMethodCall->getServiceObjectType());
             if ($propertyName === null) {
-                $propertyName = $this->getFactoryPropertyName($serviceObjectType->getClassName());
-                $this->addConstructorDependencyToClass($classNode, $serviceObjectType, $propertyName);
+                $serviceObjectType = $newToMethodCall->getServiceObjectType();
+                $propertyName = $this->classNaming->getShortName($serviceObjectType->getClassName());
+                $propertyName = \lcfirst($propertyName);
+                $this->addConstructorDependencyToClass($classNode, $newToMethodCall->getServiceObjectType(), $propertyName);
             }
             $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
             return new \PhpParser\Node\Expr\MethodCall($propertyFetch, $newToMethodCall->getServiceMethod(), $node->args);
@@ -96,7 +105,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $newsToMethodCalls = $configuration[self::NEWS_TO_METHOD_CALLS] ?? [];
-        \RectorPrefix20210227\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
+        \RectorPrefix20210228\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
         $this->newsToMethodCalls = $newsToMethodCalls;
     }
     private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType) : ?string
@@ -108,11 +117,5 @@ CODE_SAMPLE
             return $this->getName($property);
         }
         return null;
-    }
-    private function getFactoryPropertyName(string $factoryFullQualifiedName) : string
-    {
-        $reflectionClass = new \ReflectionClass($factoryFullQualifiedName);
-        $shortName = $reflectionClass->getShortName();
-        return \RectorPrefix20210227\Nette\Utils\Strings::firstLower($shortName);
     }
 }

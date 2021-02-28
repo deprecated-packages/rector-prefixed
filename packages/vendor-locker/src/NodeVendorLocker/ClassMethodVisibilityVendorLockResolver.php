@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
 /**
@@ -23,67 +25,37 @@ final class ClassMethodVisibilityVendorLockResolver extends \Rector\VendorLocker
      */
     public function isParentLockedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        /** @var string $className */
-        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($this->isInterfaceMethod($classMethod, $className)) {
-            return \true;
+        /** @var Scope $scope */
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return \false;
         }
-        /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        return $this->hasParentMethod($className, $methodName);
-    }
-    public function isChildLockedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
-    {
-        /** @var string $className */
-        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        /** @var string $methodName */
-        $methodName = $this->nodeNameResolver->getName($classMethod);
-        return $this->hasChildMethod($className, $methodName);
-    }
-    private function isInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : bool
-    {
-        $interfaceMethodNames = $this->getInterfaceMethodNames($className);
-        return $this->nodeNameResolver->isNames($classMethod, $interfaceMethodNames);
-    }
-    private function hasParentMethod(string $className, string $methodName) : bool
-    {
-        /** @var string[] $parentClasses */
-        $parentClasses = (array) \class_parents($className);
-        foreach ($parentClasses as $parentClass) {
-            if (!\method_exists($parentClass, $methodName)) {
-                continue;
-            }
-            return \true;
-        }
-        return \false;
-    }
-    private function hasChildMethod(string $desiredClassName, string $methodName) : bool
-    {
-        foreach (\get_declared_classes() as $className) {
-            if ($className === $desiredClassName) {
-                continue;
-            }
-            if (!\is_a($className, $desiredClassName, \true)) {
-                continue;
-            }
-            if (\method_exists($className, $methodName)) {
+        /** @var ClassReflection[] $parentClassReflections */
+        $parentClassReflections = \array_merge($classReflection->getParents(), $classReflection->getInterfaces());
+        foreach ($parentClassReflections as $parentClassReflection) {
+            if ($parentClassReflection->hasMethod($methodName)) {
                 return \true;
             }
         }
         return \false;
     }
-    /**
-     * @return string[]
-     */
-    private function getInterfaceMethodNames(string $className) : array
+    public function isChildLockedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        /** @var string[] $interfaces */
-        $interfaces = (array) \class_implements($className);
-        $interfaceMethods = [];
-        foreach ($interfaces as $interface) {
-            $currentInterfaceMethods = \get_class_methods($interface);
-            $interfaceMethods = \array_merge($interfaceMethods, $currentInterfaceMethods);
+        /** @var Scope $scope */
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return \false;
         }
-        return $interfaceMethods;
+        $methodName = $this->nodeNameResolver->getName($classMethod);
+        $childrenClassReflections = $this->familyRelationsAnalyzer->getChildrenOfClassReflection($classReflection);
+        foreach ($childrenClassReflections as $childClassReflection) {
+            if ($childClassReflection->hasMethod($methodName)) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
@@ -17,7 +17,7 @@ use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     /**
@@ -59,7 +59,7 @@ final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implement
             return $nodes;
         }
         $smartFileInfo = $this->getSmartFileInfo($nodes);
-        if (!$smartFileInfo instanceof \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo) {
             return $nodes;
         }
         $useImportTypes = $this->useNodesToAddCollector->getObjectImportsByFileInfo($smartFileInfo);
@@ -73,12 +73,12 @@ final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implement
         $useImportTypes = $this->typeFactory->uniquateTypes($useImportTypes);
         $this->useNodesToAddCollector->clear($smartFileInfo);
         // A. has namespace? add under it
-        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
-        if ($namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $foundNode = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
+        if ($foundNode instanceof \PhpParser\Node\Stmt\Namespace_) {
             // first clean
-            $this->useImportsRemover->removeImportsFromNamespace($namespace, $removedShortUses);
+            $this->useImportsRemover->removeImportsFromNamespace($foundNode, $removedShortUses);
             // then add, to prevent adding + removing false positive of same short use
-            $this->useImportsAdder->addImportsToNamespace($namespace, $useImportTypes, $functionUseImportTypes);
+            $this->useImportsAdder->addImportsToNamespace($foundNode, $useImportTypes, $functionUseImportTypes);
             return $nodes;
         }
         $firstNode = $nodes[0];
@@ -100,7 +100,7 @@ final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implement
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
@@ -120,7 +120,7 @@ final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implement
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {
-            if (!\RectorPrefix20210227\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
+            if (!\RectorPrefix20210228\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
                 continue;
             }
             $namespacedUseImportTypes[] = $useImportType;

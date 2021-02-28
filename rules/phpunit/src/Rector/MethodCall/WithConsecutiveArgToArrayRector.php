@@ -9,13 +9,12 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeManipulator\MethodCallManipulator;
 use Rector\Core\Rector\AbstractRector;
-use ReflectionMethod;
-use RectorPrefix20210227\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,9 +29,14 @@ final class WithConsecutiveArgToArrayRector extends \Rector\Core\Rector\Abstract
      * @var MethodCallManipulator
      */
     private $methodCallManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->methodCallManipulator = $methodCallManipulator;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -105,7 +109,12 @@ CODE_SAMPLE
             return null;
         }
         $mockMethod = $this->inferMockedMethodName($node);
-        $reflectionMethod = new \ReflectionMethod($mockClass, $mockMethod);
+        if (!$this->reflectionProvider->hasClass($mockClass)) {
+            return null;
+        }
+        $classReflection = $this->reflectionProvider->getClass($mockClass);
+        $classReflection = $classReflection->getNativeReflection();
+        $reflectionMethod = $classReflection->getMethod($mockMethod);
         $numberOfParameters = $reflectionMethod->getNumberOfParameters();
         $values = [];
         foreach ($node->args as $arg) {

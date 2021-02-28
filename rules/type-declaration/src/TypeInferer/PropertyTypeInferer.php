@@ -67,7 +67,6 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
             $resolvedType = $this->varDocPropertyTypeInferer->inferProperty($property);
         }
         // default value type must be added to each resolved type if set
-        // @todo include in one of inferrers above
         $propertyDefaultValue = $property->props[0]->default;
         if ($propertyDefaultValue !== null) {
             $defaultValueType = $this->defaultValuePropertyTypeInferer->inferProperty($property);

@@ -23,7 +23,7 @@ final class ArrayDimFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

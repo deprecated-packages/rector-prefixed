@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\VarLikeIdentifier;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
@@ -45,12 +46,17 @@ final class AddUuidMirrorForRelationPropertyRector extends \Rector\Core\Rector\A
      * @var JoinColumnTagValueNodeFactory
      */
     private $joinColumnTagValueNodeFactory;
-    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Doctrine\JoinColumnTagValueNodeFactory $joinColumnTagValueNodeFactory)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Doctrine\JoinColumnTagValueNodeFactory $joinColumnTagValueNodeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
         $this->joinColumnTagValueNodeFactory = $joinColumnTagValueNodeFactory;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -162,7 +168,11 @@ CODE_SAMPLE
         if ($targetEntity === null) {
             return \true;
         }
-        if (!\property_exists($targetEntity, 'uuid')) {
+        if (!$this->reflectionProvider->hasClass($targetEntity)) {
+            return \true;
+        }
+        $classReflection = $this->reflectionProvider->getClass($targetEntity);
+        if (!$classReflection->hasProperty('uuid')) {
             return \true;
         }
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);

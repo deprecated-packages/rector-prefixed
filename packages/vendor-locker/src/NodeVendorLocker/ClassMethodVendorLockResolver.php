@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use ReflectionClass;
 final class ClassMethodVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
@@ -20,36 +20,27 @@ final class ClassMethodVendorLockResolver extends \Rector\VendorLocker\NodeVendo
      */
     public function isRemovalVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        /** @var string $classMethodName */
         $classMethodName = $this->nodeNameResolver->getName($classMethod);
-        /** @var Class_|Interface_|null $classLike */
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        /** @var Scope $scope */
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if ($this->isMethodVendorLockedByInterface($classLike, $classMethodName)) {
+        if ($this->isMethodVendorLockedByInterface($classReflection, $classMethodName)) {
             return \true;
         }
-        if ($classLike->extends === null) {
-            return \false;
-        }
-        /** @var string $className */
-        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        /** @var string[] $classParents */
-        $classParents = (array) \class_parents($className);
-        foreach ($classParents as $classParent) {
-            if (!\class_exists($classParent)) {
-                continue;
-            }
-            $parentClassReflection = new \ReflectionClass($classParent);
+        foreach ($classReflection->getParents() as $parentClassReflection) {
             if (!$parentClassReflection->hasMethod($classMethodName)) {
                 continue;
             }
-            $methodReflection = $parentClassReflection->getMethod($classMethodName);
-            if (!$methodReflection->isAbstract()) {
+            $methodReflection = $parentClassReflection->getNativeMethod($classMethodName);
+            if (!$methodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
                 continue;
             }
-            return \true;
+            if ($methodReflection->isAbstract()) {
+                return \true;
+            }
         }
         return \false;
     }

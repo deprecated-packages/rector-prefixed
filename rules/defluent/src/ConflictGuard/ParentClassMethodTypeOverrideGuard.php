@@ -4,18 +4,14 @@ declare (strict_types=1);
 namespace Rector\Defluent\ConflictGuard;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ReflectionProvider;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParentClassMethodTypeOverrideGuard
 {
-    /**
-     * @var ReflectionProvider
-     */
-    private $reflectionProvider;
     /**
      * @var NodeRepository
      */
@@ -24,9 +20,8 @@ final class ParentClassMethodTypeOverrideGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->reflectionProvider = $reflectionProvider;
         $this->nodeRepository = $nodeRepository;
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -44,20 +39,18 @@ final class ParentClassMethodTypeOverrideGuard
     }
     private function getParentClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Reflection\MethodReflection
     {
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return null;
+        }
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        $parentClassName = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName === null) {
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
-        if (!$this->reflectionProvider->hasClass($parentClassName)) {
-            return null;
-        }
-        $parentClassReflection = $this->reflectionProvider->getClass($parentClassName);
-        /** @var ClassReflection[] $parentClassesReflections */
-        $parentClassesReflections = \array_merge([$parentClassReflection], $parentClassReflection->getParents());
-        foreach ($parentClassesReflections as $parentClassesReflection) {
-            if (!$parentClassesReflection->hasMethod($methodName)) {
+        foreach ($classReflection->getParents() as $parentClassReflection) {
+            if (!$parentClassReflection->hasMethod($methodName)) {
                 continue;
             }
             return $parentClassReflection->getNativeMethod($methodName);

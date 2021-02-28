@@ -11,10 +11,11 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210227\Symfony\Component\Console\Helper\ProgressBar;
-use RectorPrefix20210227\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210227\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
+use RectorPrefix20210228\Symfony\Component\Console\Helper\ProgressBar;
+use RectorPrefix20210228\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 /**
  * Rector cycle has 3 steps:
@@ -79,9 +80,13 @@ final class RectorApplication
      */
     private $privatesAccessor;
     /**
+     * @var DynamicSourceLocatorProvider
+     */
+    private $dynamicSourceLocatorProvider;
+    /**
      * @param PostRunnerInterface[] $postRunners
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210227\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210227\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider $dynamicSourceLocatorProvider, array $postRunners)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -92,6 +97,7 @@ final class RectorApplication
         $this->nodeScopeResolver = $nodeScopeResolver;
         $this->privatesAccessor = $privatesAccessor;
         $this->postRunners = $postRunners;
+        $this->dynamicSourceLocatorProvider = $dynamicSourceLocatorProvider;
     }
     /**
      * @param SmartFileInfo[] $phpFileInfos
@@ -111,13 +117,13 @@ final class RectorApplication
         $this->refactorNodesWithRectors($phpFileInfos);
         // 3. apply post rectors
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->postFileRefactor($smartFileInfo);
             }, 'post rectors');
         }
         // 4. print to file or string
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->printFileInfo($smartFileInfo);
             }, 'printing');
         }
@@ -151,6 +157,7 @@ final class RectorApplication
             $filePaths[] = $fileInfo->getPathname();
         }
         $this->nodeScopeResolver->setAnalysedFiles($filePaths);
+        $this->dynamicSourceLocatorProvider->addFileInfos($fileInfos);
     }
     /**
      * @param SmartFileInfo[] $phpFileInfos
@@ -158,7 +165,7 @@ final class RectorApplication
     private function parseFileInfosToNodes(array $phpFileInfos) : void
     {
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->parseFileInfoToLocalCache($smartFileInfo);
             }, 'parsing');
         }
@@ -169,12 +176,12 @@ final class RectorApplication
     private function refactorNodesWithRectors(array $phpFileInfos) : void
     {
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->refactor($smartFileInfo);
             }, 'refactoring');
         }
     }
-    private function tryCatchWrapper(\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, callable $callback, string $phase) : void
+    private function tryCatchWrapper(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, callable $callback, string $phase) : void
     {
         $this->advance($smartFileInfo, $phase);
         try {
@@ -193,7 +200,7 @@ final class RectorApplication
             $this->errorAndDiffCollector->addThrowableWithFileInfo($throwable, $smartFileInfo);
         }
     }
-    private function printFileInfo(\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    private function printFileInfo(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         if ($this->removedAndAddedFilesCollector->isFileRemoved($fileInfo)) {
             // skip, because this file exists no more
@@ -210,7 +217,7 @@ final class RectorApplication
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \RectorPrefix20210227\Symfony\Component\Console\Helper\ProgressBar) {
+        if (!$progressBar instanceof \RectorPrefix20210228\Symfony\Component\Console\Helper\ProgressBar) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {
@@ -219,7 +226,7 @@ final class RectorApplication
         $redrawFrequency = (int) ($progressBar->getMaxSteps() / 20);
         $progressBar->setRedrawFrequency($redrawFrequency);
     }
-    private function advance(\RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $phase) : void
+    private function advance(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $phase) : void
     {
         if ($this->symfonyStyle->isVerbose()) {
             $relativeFilePath = $smartFileInfo->getRelativeFilePathFromDirectory(\getcwd());

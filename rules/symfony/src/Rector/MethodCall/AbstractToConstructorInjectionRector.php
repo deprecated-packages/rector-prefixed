@@ -22,7 +22,7 @@ abstract class AbstractToConstructorInjectionRector extends \Rector\Core\Rector\
     /**
      * @var PropertyNaming
      */
-    protected $propertyNaming;
+    private $propertyNaming;
     /**
      * @var ServiceMapProvider
      */

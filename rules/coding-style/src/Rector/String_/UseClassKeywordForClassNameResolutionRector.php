@@ -3,11 +3,12 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\String_;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +22,14 @@ final class UseClassKeywordForClassNameResolutionRector extends \Rector\Core\Rec
      * @see https://regex101.com/r/Vv41Qr/1/
      */
     private const CLASS_BEFORE_STATIC_ACCESS_REGEX = '#(?<class_name>[\\\\a-zA-Z0-9_\\x80-\\xff]*)::#';
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use `class` keyword for class name resolution in string instead of hardcoded string reference', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -60,13 +69,13 @@ CODE_SAMPLE
     public function getExistingClasses(\PhpParser\Node\Scalar\String_ $string) : array
     {
         /** @var mixed[] $matches */
-        $matches = \RectorPrefix20210227\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
+        $matches = \RectorPrefix20210228\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
         if (!isset($matches['class_name'])) {
             return [];
         }
         $classNames = [];
         foreach ($matches['class_name'] as $matchedClassName) {
-            if (!\class_exists($matchedClassName)) {
+            if (!$this->reflectionProvider->hasClass($matchedClassName)) {
                 continue;
             }
             $classNames[] = $matchedClassName;
@@ -83,7 +92,7 @@ CODE_SAMPLE
             return \preg_quote($className);
         }, $classNames);
         // @see https://regex101.com/r/8nGS0F/1
-        $parts = \RectorPrefix20210227\Nette\Utils\Strings::split($string->value, '#(' . \implode('|', $classNames) . ')#');
+        $parts = \RectorPrefix20210228\Nette\Utils\Strings::split($string->value, '#(' . \implode('|', $classNames) . ')#');
         return \array_filter($parts, function (string $className) : bool {
             return $className !== '';
         });
@@ -96,7 +105,7 @@ CODE_SAMPLE
     {
         $exprsToConcat = [];
         foreach ($parts as $part) {
-            if (\class_exists($part)) {
+            if ($this->reflectionProvider->hasClass($part)) {
                 $exprsToConcat[] = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified(\ltrim($part, '\\')), 'class');
             } else {
                 $exprsToConcat[] = new \PhpParser\Node\Scalar\String_($part);

@@ -73,23 +73,13 @@ CODE_SAMPLE
     }
     private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $methodCallVar = $methodCall->var;
-        $scope = $methodCallVar->getAttribute(\PHPStan\Analyser\Scope::class);
-        if ($scope === null) {
-            return \true;
-        }
-        $type = $scope->getType($methodCallVar);
+        $variableType = $this->getStaticType($methodCall->var);
         // From PropertyFetch → skip
-        if ($type instanceof \PHPStan\Type\ThisType) {
+        if ($variableType instanceof \PHPStan\Type\ThisType) {
             return \true;
         }
-        // Is Boolean return → skip
-        $scope = $methodCall->getAttribute(\PHPStan\Analyser\Scope::class);
-        if ($scope === null) {
-            return \true;
-        }
-        $type = $scope->getType($methodCall);
-        if ($type instanceof \PHPStan\Type\BooleanType) {
+        $methodCallReturnType = $this->getStaticType($methodCall);
+        if ($methodCallReturnType instanceof \PHPStan\Type\BooleanType) {
             return \true;
         }
         // No Args → skip

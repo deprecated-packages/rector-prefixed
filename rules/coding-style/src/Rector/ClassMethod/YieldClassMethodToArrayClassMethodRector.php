@@ -26,9 +26,9 @@ final class YieldClassMethodToArrayClassMethodRector extends \Rector\Core\Rector
     /**
      * @var string
      */
-    public const METHODS_BY_TYPE = '$methodsByType';
+    public const METHODS_BY_TYPE = 'methods_by_type';
     /**
-     * @var string[][]
+     * @var array<class-string, string[]>
      */
     private $methodsByType = [];
     /**
@@ -36,7 +36,7 @@ final class YieldClassMethodToArrayClassMethodRector extends \Rector\Core\Rector
      */
     private $nodeTransformer;
     /**
-     * @param string[][] $methodsByType
+     * @param array<class-string, string[]> $methodsByType
      */
     public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer, array $methodsByType = [])
     {

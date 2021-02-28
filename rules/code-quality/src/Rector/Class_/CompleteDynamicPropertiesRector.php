@@ -5,6 +5,8 @@ namespace Rector\CodeQuality\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Type;
 use Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer;
 use Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer;
@@ -33,11 +35,16 @@ final class CompleteDynamicPropertiesRector extends \Rector\Core\Rector\Abstract
      * @var ClassLikeAnalyzer
      */
     private $classLikeAnalyzer;
-    public function __construct(\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->missingPropertiesFactory = $missingPropertiesFactory;
         $this->localPropertyAnalyzer = $localPropertyAnalyzer;
         $this->classLikeAnalyzer = $classLikeAnalyzer;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -80,15 +87,21 @@ CODE_SAMPLE
         if ($this->shouldSkipClass($node)) {
             return null;
         }
+        $className = $this->getName($node);
+        if ($className === null) {
+            return null;
+        }
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return null;
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
         // special case for Laravel Collection macro magic
         $fetchedLocalPropertyNameToTypes = $this->localPropertyAnalyzer->resolveFetchedPropertiesToTypesFromClass($node);
         $propertiesToComplete = $this->resolvePropertiesToComplete($node, $fetchedLocalPropertyNameToTypes);
         if ($propertiesToComplete === []) {
             return null;
         }
-        /** @var string $className */
-        $className = $this->getName($node);
-        $propertiesToComplete = $this->filterOutExistingProperties($className, $propertiesToComplete);
+        $propertiesToComplete = $this->filterOutExistingProperties($classReflection, $propertiesToComplete);
         $newProperties = $this->missingPropertiesFactory->create($fetchedLocalPropertyNameToTypes, $propertiesToComplete);
         $node->stmts = \array_merge($newProperties, $node->stmts);
         return $node;
@@ -98,15 +111,19 @@ CODE_SAMPLE
         if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
             return \true;
         }
-        $className = $this->getName($class);
+        $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
             return \true;
         }
-        // properties are accessed via magic, nothing we can do
-        if (\method_exists($className, '__set')) {
+        if (!$this->reflectionProvider->hasClass($className)) {
             return \true;
         }
-        return \method_exists($className, '__get');
+        $classReflection = $this->reflectionProvider->getClass($className);
+        // properties are accessed via magic, nothing we can do
+        if ($classReflection->hasMethod('__set')) {
+            return \true;
+        }
+        return $classReflection->hasMethod('__get');
     }
     /**
      * @param array<string, Type> $fetchedLocalPropertyNameToTypes
@@ -123,13 +140,12 @@ CODE_SAMPLE
      * @param string[] $propertiesToComplete
      * @return string[]
      */
-    private function filterOutExistingProperties(string $className, array $propertiesToComplete) : array
+    private function filterOutExistingProperties(\PHPStan\Reflection\ClassReflection $classReflection, array $propertiesToComplete) : array
     {
         $missingPropertyNames = [];
         // remove other properties that are accessible from this scope
         foreach ($propertiesToComplete as $propertyToComplete) {
-            /** @var string $propertyToComplete */
-            if (\property_exists($className, $propertyToComplete)) {
+            if ($classReflection->hasProperty($propertyToComplete)) {
                 continue;
             }
             $missingPropertyNames[] = $propertyToComplete;

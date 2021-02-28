@@ -149,9 +149,9 @@ CODE_SAMPLE
         if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {
             return null;
         }
-        $tagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
-            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $tagValueNode);
+        $varTagValueNode = $phpDocInfo->getVarTagValueNode();
+        if ($varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $varTagValueNode);
         }
         return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type->getClassName())));
     }

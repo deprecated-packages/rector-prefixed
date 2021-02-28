@@ -6,12 +6,12 @@ namespace Rector\Php70\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeCollector\Reflection\MethodReflectionProvider;
 use Rector\NodeCollector\StaticAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -108,7 +108,7 @@ CODE_SAMPLE
             return 'self';
         }
         $methodReflection = $this->methodReflectionProvider->provideByMethodCall($methodCall);
-        if (!$methodReflection instanceof \ReflectionMethod) {
+        if (!$methodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
             return 'static';
         }
         if (!$methodReflection->isPrivate()) {

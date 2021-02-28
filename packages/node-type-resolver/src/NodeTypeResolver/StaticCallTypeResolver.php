@@ -6,8 +6,10 @@ namespace Rector\NodeTypeResolver\NodeTypeResolver;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeUtils;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -22,9 +24,14 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @required
@@ -34,7 +41,7 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {
@@ -51,13 +58,21 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
         if (!\is_string($methodName)) {
             return $classType;
         }
-        $classNames = \PHPStan\Type\TypeUtils::getDirectClassNames($classType);
+        if (!$classType instanceof \PHPStan\Type\ObjectType) {
+            return $classType;
+        }
+        if (!$this->reflectionProvider->hasClass($classType->getClassName())) {
+            return $classType;
+        }
+        $classReflection = $this->reflectionProvider->getClass($classType->getClassName());
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return $classType;
         }
-        foreach ($classNames as $className) {
-            if (!\method_exists($className, $methodName)) {
+        /** @var ClassReflection[] $currentAndParentClassReflections */
+        $currentAndParentClassReflections = \array_merge([$classReflection], $classReflection->getParents());
+        foreach ($currentAndParentClassReflections as $currentAndParentClassReflection) {
+            if (!$currentAndParentClassReflection->hasMethod($methodName)) {
                 continue;
             }
             return $scope->getType($node);

@@ -14,7 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,7 +30,7 @@ final class DesiredStaticCallTypeToDynamicRector extends \Rector\Core\Rector\Abs
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
@@ -72,8 +72,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->staticObjectTypes as $classType) {
-            if (!$this->isObjectType($node->class, $classType)) {
+        foreach ($this->staticObjectTypes as $objectType) {
+            if (!$this->isObjectType($node->class, $objectType)) {
                 continue;
             }
             // is the same class or external call?
@@ -81,7 +81,7 @@ CODE_SAMPLE
             if ($className === 'self') {
                 return $this->createFromSelf($node);
             }
-            $propertyName = $this->propertyNaming->fqnToVariableName($classType);
+            $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
             $currentMethodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             if ($currentMethodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 $propertyFetch = new \PhpParser\Node\Expr\Variable($propertyName);

@@ -5,11 +5,13 @@ namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\ElseIf_;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
@@ -111,7 +113,10 @@ CODE_SAMPLE
         if (!$isInLoop) {
             return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
         }
-        if (\property_exists($ifNextReturn, 'expr') && $ifNextReturn->expr instanceof \PhpParser\Node\Expr) {
+        if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Expression) {
+            return null;
+        }
+        if ($ifNextReturn->expr instanceof \PhpParser\Node\Expr) {
             $this->addNodeAfterNode(new \PhpParser\Node\Stmt\Return_(), $node);
         }
         return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
@@ -154,7 +159,7 @@ CODE_SAMPLE
     private function getBooleanAndConditions(\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd) : array
     {
         $ifs = [];
-        while (\property_exists($booleanAnd, 'left')) {
+        while ($booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp) {
             $ifs[] = $booleanAnd->right;
             $booleanAnd = $booleanAnd->left;
             if (!$booleanAnd instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {

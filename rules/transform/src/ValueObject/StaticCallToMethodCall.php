@@ -6,6 +6,7 @@ namespace Rector\Transform\ValueObject;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
+use PHPStan\Type\ObjectType;
 final class StaticCallToMethodCall
 {
     /**
@@ -30,6 +31,10 @@ final class StaticCallToMethodCall
         $this->staticMethod = $staticMethod;
         $this->classType = $classType;
         $this->methodName = $methodName;
+    }
+    public function getClassObjectType() : \PHPStan\Type\ObjectType
+    {
+        return new \PHPStan\Type\ObjectType($this->classType);
     }
     public function getClassType() : string
     {

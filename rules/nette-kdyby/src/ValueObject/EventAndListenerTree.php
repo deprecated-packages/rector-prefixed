@@ -18,7 +18,7 @@ final class EventAndListenerTree
      */
     private $eventFileLocation;
     /**
-     * @var ClassMethod[][]
+     * @var array<class-string, ClassMethod[]>
      */
     private $listenerMethodsByEventSubscriberClass = [];
     /**
@@ -42,7 +42,7 @@ final class EventAndListenerTree
      */
     private $onMagicProperty;
     /**
-     * @param ClassMethod[][] $listenerMethodsByEventSubscriberClass
+     * @param array<class-string, ClassMethod[]> $listenerMethodsByEventSubscriberClass
      * @param GetterMethodBlueprint[] $getterMethodsBlueprints
      */
     public function __construct(\PhpParser\Node\Expr\MethodCall $magicDispatchMethodCall, ?\PhpParser\Node\Stmt\Property $onMagicProperty, string $eventClassName, string $eventFileLocation, \PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace, \PhpParser\Node\Expr\MethodCall $eventDispatcherDispatchMethodCall, array $listenerMethodsByEventSubscriberClass, array $getterMethodsBlueprints)

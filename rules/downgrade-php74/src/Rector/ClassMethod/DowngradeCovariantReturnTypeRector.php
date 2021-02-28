@@ -5,19 +5,18 @@ namespace Rector\DowngradePhp74\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use Rector\DeadDocBlock\TagRemover\ReturnTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use ReflectionMethod;
-use ReflectionNamedType;
-use ReflectionType;
+use RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -31,9 +30,19 @@ final class DowngradeCovariantReturnTypeRector extends \Rector\Core\Rector\Abstr
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @var PrivatesCaller
+     */
+    private $privatesCaller;
+    /**
+     * @var ReturnTagRemover
+     */
+    private $returnTagRemover;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
+        $this->privatesCaller = $privatesCaller;
+        $this->returnTagRemover = $returnTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -44,13 +53,15 @@ class ChildType extends ParentType {}
 class A
 {
     public function covariantReturnTypes(): ParentType
-    { /* … */ }
+    {
+    }
 }
 
 class B extends A
 {
     public function covariantReturnTypes(): ChildType
-    { /* … */ }
+    {
+    }
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -60,7 +71,8 @@ class ChildType extends ParentType {}
 class A
 {
     public function covariantReturnTypes(): ParentType
-    { /* … */ }
+    {
+    }
 }
 
 class B extends A
@@ -69,7 +81,8 @@ class B extends A
      * @return ChildType
      */
     public function covariantReturnTypes(): ParentType
-    { /* … */ }
+    {
+    }
 }
 CODE_SAMPLE
 )]);
@@ -86,76 +99,66 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->shouldRefactor($node)) {
+        if ($node->returnType === null) {
             return null;
         }
-        /** @var string $parentReflectionMethodName */
-        $parentReflectionMethodName = $this->getDifferentReturnTypeNameFromAncestorClass($node);
+        $parentReturnType = $this->resolveDifferentAncestorReturnType($node, $node->returnType);
+        if ($parentReturnType instanceof \PHPStan\Type\MixedType) {
+            return null;
+        }
         // The return type name could either be a classname, without the leading "\",
         // or one among the reserved identifiers ("static", "self", "iterable", etc)
         // To find out which is the case, check if this name exists as a class
-        $newType = \Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($parentReflectionMethodName) ? new \PhpParser\Node\Name\FullyQualified($parentReflectionMethodName) : new \PhpParser\Node\Name($parentReflectionMethodName);
+        $parentReturnTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($parentReturnType);
+        if ($parentReturnTypeNode === null) {
+            return null;
+        }
         // Make it nullable?
-        if ($node->returnType instanceof \PhpParser\Node\NullableType) {
-            $newType = new \PhpParser\Node\NullableType($newType);
+        if ($node->returnType instanceof \PhpParser\Node\NullableType && !$parentReturnTypeNode instanceof \PhpParser\Node\NullableType && !$parentReturnTypeNode instanceof \PhpParser\Node\UnionType) {
+            $parentReturnTypeNode = new \PhpParser\Node\NullableType($parentReturnTypeNode);
         }
         // Add the docblock before changing the type
         $this->addDocBlockReturn($node);
-        $node->returnType = $newType;
+        $node->returnType = $parentReturnTypeNode;
         return $node;
     }
-    private function shouldRefactor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
-    {
-        return $this->getDifferentReturnTypeNameFromAncestorClass($classMethod) !== null;
-    }
-    private function getDifferentReturnTypeNameFromAncestorClass(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?string
+    /**
+     * @param UnionType|NullableType|Name|Node\Identifier $returnTypeNode
+     */
+    private function resolveDifferentAncestorReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node $returnTypeNode) : \PHPStan\Type\Type
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
-            return null;
+            return new \PHPStan\Type\MixedType();
         }
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return null;
+            return new \PHPStan\Type\MixedType();
         }
-        $nodeReturnType = $classMethod->returnType;
-        if ($nodeReturnType === null) {
-            return null;
+        if ($returnTypeNode instanceof \PhpParser\Node\UnionType) {
+            return new \PHPStan\Type\MixedType();
         }
-        if ($nodeReturnType instanceof \PhpParser\Node\UnionType) {
-            return null;
-        }
-        $nodeReturnTypeName = $this->getName($nodeReturnType instanceof \PhpParser\Node\NullableType ? $nodeReturnType->type : $nodeReturnType);
-        /** @var string $methodName */
-        $methodName = $this->getName($classMethod->name);
-        // Either Ancestor classes or implemented interfaces
-        $interfaceName = \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
-            return $interfaceReflection->getName();
-        }, $classReflection->getInterfaces());
-        $parentClassesNames = $classReflection->getParentClassesNames();
-        $parentClassLikes = \array_merge($parentClassesNames, $interfaceName);
-        foreach ($parentClassLikes as $parentClassLike) {
-            if (!\method_exists($parentClassLike, $methodName)) {
+        $bareReturnType = $returnTypeNode instanceof \PhpParser\Node\NullableType ? $returnTypeNode->type : $returnTypeNode;
+        $returnType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($bareReturnType);
+        $methodName = $this->getName($classMethod);
+        /** @var ClassReflection[] $parentClassesAndInterfaces */
+        $parentClassesAndInterfaces = \array_merge($classReflection->getParents(), $classReflection->getInterfaces());
+        foreach ($parentClassesAndInterfaces as $parentClassesOrInterface) {
+            if (!$parentClassesOrInterface->hasMethod($methodName)) {
                 continue;
             }
-            $parentReflectionMethod = new \ReflectionMethod($parentClassLike, $methodName);
-            $parentReflectionMethodReturnType = $parentReflectionMethod->getReturnType();
-            if ($this->isNotReflectionNamedTypeOrNotEqualsToNodeReturnTypeName($parentReflectionMethodReturnType, $nodeReturnTypeName)) {
+            $classMethodScope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            $parameterMethodReflection = $parentClassesOrInterface->getMethod($methodName, $classMethodScope);
+            /** @var Type $parentReturnType */
+            $parentReturnType = $this->privatesCaller->callPrivateMethod($parameterMethodReflection, 'getReturnType', []);
+            if ($parentReturnType->equals($returnType)) {
                 continue;
             }
             // This is an ancestor class with a different return type
-            /** @var ReflectionNamedType $parentReflectionMethodReturnType */
-            return $parentReflectionMethodReturnType->getName();
+            return $parentReturnType;
         }
-        return null;
-    }
-    private function isNotReflectionNamedTypeOrNotEqualsToNodeReturnTypeName(?\ReflectionType $reflectionType, ?string $nodeReturnTypeName) : bool
-    {
-        if (!$reflectionType instanceof \ReflectionNamedType) {
-            return \true;
-        }
-        return $reflectionType->getName() === $nodeReturnTypeName;
+        return new \PHPStan\Type\MixedType();
     }
     private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -164,5 +167,6 @@ CODE_SAMPLE
         $returnType = $classMethod->returnType;
         $type = $this->staticTypeMapper->mapPhpParserNodePHPStanType($returnType);
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $type);
+        $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $classMethod);
     }
 }

@@ -8,8 +8,8 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 final class FullyQualifiedNameMatcher
 {
     /**
@@ -20,10 +20,15 @@ final class FullyQualifiedNameMatcher
      * @var NameMatcher
      */
     private $nameMatcher;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Restoration\NameMatcher\NameMatcher $nameMatcher)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Restoration\NameMatcher\NameMatcher $nameMatcher, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nameMatcher = $nameMatcher;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @param string|Name|Identifier|FullyQualified|UnionType|NullableType|null $name
@@ -43,7 +48,7 @@ final class FullyQualifiedNameMatcher
                 return null;
             }
             $resolvedName = $this->nodeNameResolver->getName($name);
-            if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($resolvedName)) {
+            if ($this->reflectionProvider->hasClass($resolvedName)) {
                 return null;
             }
             $fullyQualified = $this->nameMatcher->makeNameFullyQualified($resolvedName);

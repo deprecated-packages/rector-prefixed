@@ -6,6 +6,7 @@ namespace Rector\PostRector\Rector;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\NodeVisitorAbstract;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
@@ -13,7 +14,7 @@ use Rector\Core\Configuration\Option;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     /**
@@ -40,7 +41,11 @@ final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract imple
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\RectorPrefix20210227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\RectorPrefix20210228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
@@ -48,6 +53,7 @@ final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract imple
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
@@ -85,7 +91,7 @@ final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract imple
         if (!$this->classNameImportSkipper->isFoundInUse($name)) {
             return $this->nameImporter->importName($name);
         }
-        if (\function_exists($name->getLast())) {
+        if ($this->reflectionProvider->hasFunction(new \PhpParser\Node\Name($name->getLast()), null)) {
             return $this->nameImporter->importName($name);
         }
         return null;

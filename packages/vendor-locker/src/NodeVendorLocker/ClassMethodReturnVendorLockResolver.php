@@ -3,52 +3,50 @@
 declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Interface_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Type\MixedType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     public function isVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classNode instanceof \PhpParser\Node\Stmt\ClassLike) {
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
-        if (!$this->hasParentClassChildrenClassesOrImplementsInterface($classNode)) {
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        /** @var string $methodName */
+        if (!$this->hasParentClassChildrenClassesOrImplementsInterface($classReflection)) {
+            return \false;
+        }
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        /** @var string|null $parentClassName */
-        $parentClassName = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== null) {
-            return $this->isVendorLockedByParentClass($parentClassName, $methodName);
+        if ($this->isVendorLockedByParentClass($classReflection, $methodName)) {
+            return \true;
         }
-        $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classNode instanceof \PhpParser\Node\Stmt\Class_) {
-            return $this->isMethodVendorLockedByInterface($classNode, $methodName);
+        if ($classReflection->isTrait()) {
+            return \false;
         }
-        if ($classNode instanceof \PhpParser\Node\Stmt\Interface_) {
-            return $this->isMethodVendorLockedByInterface($classNode, $methodName);
+        return $this->isMethodVendorLockedByInterface($classReflection, $methodName);
+    }
+    private function isVendorLockedByParentClass(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    {
+        foreach ($classReflection->getParents() as $parentClassReflections) {
+            if (!$parentClassReflections->hasMethod($methodName)) {
+                continue;
+            }
+            $parentClassMethodReflection = $parentClassReflections->getNativeMethod($methodName);
+            $parametersAcceptor = $parentClassMethodReflection->getVariants()[0];
+            if (!$parametersAcceptor instanceof \PHPStan\Reflection\FunctionVariantWithPhpDocs) {
+                continue;
+            }
+            // here we count only on strict types, not on docs
+            return !$parametersAcceptor->getNativeReturnType() instanceof \PHPStan\Type\MixedType;
         }
         return \false;
-    }
-    private function isVendorLockedByParentClass(string $parentClassName, string $methodName) : bool
-    {
-        $parentClass = $this->nodeRepository->findClass($parentClassName);
-        if ($parentClass !== null) {
-            $parentClassMethod = $parentClass->getMethod($methodName);
-            // validate type is conflicting
-            // parent class method in local scope → it's ok
-            if ($parentClassMethod !== null) {
-                return $parentClassMethod->returnType !== null;
-            }
-            // if not, look for it's parent parent
-        }
-        // validate type is conflicting
-        // parent class method in external scope → it's not ok
-        return \method_exists($parentClassName, $methodName);
     }
 }

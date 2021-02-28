@@ -235,6 +235,9 @@ final class IfManipulator
         $ifs[] = $currentIf;
         return $ifs;
     }
+    /**
+     * @param class-string<Node> $className
+     */
     public function isIfWithOnly(\PhpParser\Node $node, string $className) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\If_) {
@@ -315,6 +318,9 @@ final class IfManipulator
         }
         return $this->hasOnlyStmtOfType($if, \PhpParser\Node\Stmt\If_::class);
     }
+    /**
+     * @param class-string<Node> $desiredType
+     */
     private function hasOnlyStmtOfType(\PhpParser\Node\Stmt\If_ $if, string $desiredType) : bool
     {
         $stmts = $if->stmts;

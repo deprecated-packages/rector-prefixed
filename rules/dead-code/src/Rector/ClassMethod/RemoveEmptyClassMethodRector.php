@@ -86,7 +86,7 @@ CODE_SAMPLE
         if ($class->isFinal()) {
             return \false;
         }
-        if ($this->isName($classMethod, '__*')) {
+        if ($classMethod->isMagic()) {
             return \false;
         }
         if ($classMethod->isProtected()) {

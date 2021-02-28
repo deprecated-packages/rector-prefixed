@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PHPStan;
 
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\Generic\GenericObjectType;
@@ -45,10 +44,7 @@ final class TypeHasher
             return $this->resolveUniqueTypeWithClassNameHash($type);
         }
         if ($type instanceof \PHPStan\Type\ConstantType) {
-            if (\method_exists($type, 'getValue')) {
-                return \get_class($type) . $type->getValue();
-            }
-            throw new \PHPStan\ShouldNotHappenException();
+            return \get_class($type) . $type->getValue();
         }
         if ($type instanceof \PHPStan\Type\UnionType) {
             return $this->createUnionTypeHash($type);

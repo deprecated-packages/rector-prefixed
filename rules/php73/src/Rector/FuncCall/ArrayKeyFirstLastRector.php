@@ -6,6 +6,7 @@ namespace Rector\Php73\Rector\FuncCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -15,6 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * This needs to removed 1 floor above, because only nodes in arrays can be removed why traversing,
  * see https://github.com/nikic/PHP-Parser/issues/389
+ *
  * @see \Rector\Php73\Tests\Rector\FuncCall\ArrayKeyFirstLastRector\ArrayKeyFirstLastRectorTest
  */
 final class ArrayKeyFirstLastRector extends \Rector\Core\Rector\AbstractRector
@@ -31,6 +33,14 @@ final class ArrayKeyFirstLastRector extends \Rector\Core\Rector\AbstractRector
      * @var array<string, string>
      */
     private const PREVIOUS_TO_NEW_FUNCTIONS = ['reset' => self::ARRAY_KEY_FIRST, 'end' => self::ARRAY_KEY_LAST];
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make use of array_key_first() and array_key_last()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -94,6 +104,9 @@ CODE_SAMPLE
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARRAY_KEY_FIRST_LAST)) {
             return \false;
         }
-        return !(\function_exists(self::ARRAY_KEY_FIRST) && \function_exists(self::ARRAY_KEY_LAST));
+        if (!$this->reflectionProvider->hasFunction(new \PhpParser\Node\Name(self::ARRAY_KEY_FIRST), null)) {
+            return \true;
+        }
+        return !$this->reflectionProvider->hasFunction(new \PhpParser\Node\Name(self::ARRAY_KEY_LAST), null);
     }
 }

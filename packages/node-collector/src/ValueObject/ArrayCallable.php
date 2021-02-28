@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\ValueObject;
 
-use ReflectionMethod;
 final class ArrayCallable
 {
     /**
@@ -26,13 +25,5 @@ final class ArrayCallable
     public function getMethod() : string
     {
         return $this->method;
-    }
-    public function isExistingMethod() : bool
-    {
-        return \method_exists($this->class, $this->method);
-    }
-    public function getReflectionMethod() : \ReflectionMethod
-    {
-        return new \ReflectionMethod($this->class, $this->method);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use RectorPrefix20210227\Nette\Utils\Strings;
+use RectorPrefix20210228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeTraverser;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -31,9 +32,14 @@ final class ConstructorPropertyTypeInferer extends \Rector\TypeDeclaration\TypeI
      * @var ClassMethodPropertyFetchManipulator
      */
     private $classMethodPropertyFetchManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodPropertyFetchManipulator $classMethodPropertyFetchManipulator)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodPropertyFetchManipulator $classMethodPropertyFetchManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->classMethodPropertyFetchManipulator = $classMethodPropertyFetchManipulator;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
@@ -141,9 +147,9 @@ final class ConstructorPropertyTypeInferer extends \Rector\TypeDeclaration\TypeI
             return null;
         }
         // if the FQN has different ending than the original, it was aliased and we need to return the alias
-        if (!\RectorPrefix20210227\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName->toString())) {
+        if (!\RectorPrefix20210228\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName->toString())) {
             $className = $originalName->toString();
-            if (\class_exists($className)) {
+            if ($this->reflectionProvider->hasClass($className)) {
                 return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);
             }
             // @note: $fullyQualifiedName is a guess, needs real life test

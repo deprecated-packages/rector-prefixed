@@ -7,9 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Parser;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileSystem;
 final class ClassReflectionToAstResolver
 {
     /**
@@ -24,20 +25,24 @@ final class ClassReflectionToAstResolver
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210227\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Stmt\Class_
     {
-        $classReflection = $objectType->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (!$this->reflectionProvider->hasClass($objectType->getClassName())) {
             return null;
         }
-        $className = $objectType->getClassName();
-        return $this->getClass($classReflection, $className);
+        $classReflection = $this->reflectionProvider->getClass($objectType->getClassName());
+        return $this->getClass($classReflection, $objectType->getClassName());
     }
     private function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
     {
@@ -55,7 +60,6 @@ final class ClassReflectionToAstResolver
         }
         $reflectionClassName = $classReflection->getName();
         foreach ($classes as $class) {
-            $shortClassName = $class->name;
             if ($reflectionClassName === $className) {
                 return $class;
             }

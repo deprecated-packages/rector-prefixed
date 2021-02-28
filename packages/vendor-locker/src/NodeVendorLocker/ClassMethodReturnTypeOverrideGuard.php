@@ -5,26 +5,29 @@ namespace Rector\VendorLocker\NodeVendorLocker;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+//use PHPStan\Analyser\Scope;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\NodeVisitor;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodReturnTypeOverrideGuard
 {
     /**
-     * @var array<string, array<string>>
+     * @var array<class-string, array<string>>
      */
-    private const CHAOTIC_CLASS_METHOD_NAMES = [\PhpParser\NodeVisitor::class => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
+    private const CHAOTIC_CLASS_METHOD_NAMES = ['PhpParser\\NodeVisitor' => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
     /**
      * @var NodeNameResolver
      */
@@ -34,43 +37,48 @@ final class ClassMethodReturnTypeOverrideGuard
      */
     private $nodeTypeResolver;
     /**
-     * @var NodeRepository
+     * @var ReflectionProvider
      */
-    private $nodeRepository;
+    private $reflectionProvider;
+    /**
+     * @var FamilyRelationsAnalyzer
+     */
+    private $familyRelationsAnalyzer;
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->nodeRepository = $nodeRepository;
+        $this->reflectionProvider = $reflectionProvider;
+        $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
         $this->betterNodeFinder = $betterNodeFinder;
     }
     public function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         // 1. skip magic methods
-        if ($this->nodeNameResolver->isName($classMethod->name, '__*')) {
+        if ($classMethod->isMagic()) {
             return \true;
         }
         // 2. skip chaotic contract class methods
         if ($this->shouldSkipChaoticClassMethods($classMethod)) {
             return \true;
         }
-        // 3. skip has children and current has no return
-        $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        $hasChildren = $class instanceof \PhpParser\Node\Stmt\Class_ && $this->nodeRepository->hasClassChildren($class);
-        if (!$hasChildren) {
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
-        $hasReturn = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
-            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
-                return \false;
-            }
-            return $node->expr instanceof \PhpParser\Node\Expr;
-        });
-        if ($hasReturn) {
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $childrenClassReflections = $this->familyRelationsAnalyzer->getChildrenOfClassReflection($classReflection);
+        if ($childrenClassReflections === []) {
+            return \false;
+        }
+        if ($this->hasClassMethodExprReturn($classMethod)) {
             return \false;
         }
         return $classMethod->returnType === null;
@@ -92,13 +100,23 @@ final class ClassMethodReturnTypeOverrideGuard
         if ($className === null) {
             return \false;
         }
-        /** @var string $methodName */
-        $methodName = $this->nodeNameResolver->getName($classMethod);
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return \false;
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return \false;
+        }
         foreach (self::CHAOTIC_CLASS_METHOD_NAMES as $chaoticClass => $chaoticMethodNames) {
-            if (!\is_a($className, $chaoticClass, \true)) {
+            if (!$this->reflectionProvider->hasClass($chaoticClass)) {
                 continue;
             }
-            return \in_array($methodName, $chaoticMethodNames, \true);
+            $chaoticClassReflection = $this->reflectionProvider->getClass($chaoticClass);
+            if (!$classReflection->isSubclassOf($chaoticClassReflection->getName())) {
+                continue;
+            }
+            return $this->nodeNameResolver->isNames($classMethod, $chaoticMethodNames);
         }
         return \false;
     }
@@ -132,5 +150,14 @@ final class ClassMethodReturnTypeOverrideGuard
             }
         }
         return $isMatchingClassTypes;
+    }
+    private function hasClassMethodExprReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirst($classMethod->getStmts(), function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
+                return \false;
+            }
+            return $node->expr instanceof \PhpParser\Node\Expr;
+        });
     }
 }

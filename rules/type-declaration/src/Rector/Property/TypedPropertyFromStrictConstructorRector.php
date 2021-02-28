@@ -84,7 +84,8 @@ CODE_SAMPLE
             return null;
         }
         $node->type = $propertyTypeNode;
-        $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($node, $varType);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $this->varTagRemover->removeVarTagIfUseless($phpDocInfo, $node);
         return $node;
     }
 }

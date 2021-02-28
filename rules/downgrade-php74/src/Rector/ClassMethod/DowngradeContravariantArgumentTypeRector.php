@@ -98,8 +98,7 @@ CODE_SAMPLE
         // If it is the NullableType, extract the name from its inner type
         /** @var Node $paramType */
         $paramType = $param->type;
-        $isNullableType = $param->type instanceof \PhpParser\Node\NullableType;
-        if ($isNullableType) {
+        if ($param->type instanceof \PhpParser\Node\NullableType) {
             /** @var NullableType $nullableType */
             $nullableType = $paramType;
             $paramTypeName = $this->getName($nullableType->type);
@@ -111,18 +110,16 @@ CODE_SAMPLE
         }
         /** @var string $methodName */
         $methodName = $this->getName($functionLike);
-        // Either Ancestor classes or implemented interfaces
-        $interfaceNames = \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
-            return $interfaceReflection->getName();
-        }, $classReflection->getInterfaces());
-        $parentClassesNames = $classReflection->getParentClassesNames();
-        $parentClassLikes = \array_merge($parentClassesNames, $interfaceNames);
-        foreach ($parentClassLikes as $parentClassLike) {
-            if (!\method_exists($parentClassLike, $methodName)) {
+        // parent classes or implemented interfaces
+        /** @var ClassReflection[] $parentClassReflections */
+        $parentClassReflections = \array_merge($classReflection->getParents(), $classReflection->getInterfaces());
+        foreach ($parentClassReflections as $parentClassReflection) {
+            if (!$parentClassReflection->hasMethod($methodName)) {
                 continue;
             }
+            $nativeClassReflection = $parentClassReflection->getNativeReflection();
             // Find the param we're looking for
-            $parentReflectionMethod = new \ReflectionMethod($parentClassLike, $methodName);
+            $parentReflectionMethod = $nativeClassReflection->getMethod($methodName);
             $differentAncestorParamTypeName = $this->getDifferentParamTypeFromReflectionMethod($parentReflectionMethod, $paramName, $paramTypeName);
             if ($differentAncestorParamTypeName !== null) {
                 return $differentAncestorParamTypeName;
@@ -130,12 +127,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getDifferentParamTypeFromReflectionMethod(\ReflectionMethod $parentReflectionMethod, string $paramName, string $paramTypeName) : ?string
+    private function getDifferentParamTypeFromReflectionMethod(\ReflectionMethod $reflectionMethod, string $paramName, string $paramTypeName) : ?string
     {
         /** @var ReflectionParameter[] $parentReflectionMethodParams */
-        $parentReflectionMethodParams = $parentReflectionMethod->getParameters();
+        $parentReflectionMethodParams = $reflectionMethod->getParameters();
         foreach ($parentReflectionMethodParams as $reflectionParameter) {
-            if ($reflectionParameter->name === $paramName) {
+            if ($reflectionParameter->getName() === $paramName) {
                 /**
                  * Getting a ReflectionNamedType works from PHP 7.1 onwards
                  * @see https://www.php.net/manual/en/reflectionparameter.gettype.php#125334

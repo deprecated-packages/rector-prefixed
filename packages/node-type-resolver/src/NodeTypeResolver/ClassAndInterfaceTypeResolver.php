@@ -30,7 +30,7 @@ final class ClassAndInterfaceTypeResolver implements \Rector\NodeTypeResolver\Co
         $this->typeFactory = $typeFactory;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {
