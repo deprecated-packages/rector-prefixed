@@ -52,7 +52,7 @@ final class ExistingClassesProvider
     private function findClassesInDirectories(array $directories) : array
     {
         $robotLoader = new \RectorPrefix20210228\Nette\Loaders\RobotLoader();
-        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector_restore');
+        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector');
         foreach ($directories as $path) {
             $robotLoader->addDirectory(\getcwd() . '/' . $path);
         }

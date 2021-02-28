@@ -46,7 +46,7 @@ final class RunnableRectorFactory
     {
         // warning: if this hash is too short, the file can becom "identical"; took me 1 hour to find out
         $hash = \RectorPrefix20210228\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -15);
-        return \sprintf(\sys_get_temp_dir() . '/_rector_runnable_%s_%s', $hash, $smartFileInfo->getBasename('.inc'));
+        return \sprintf(\sys_get_temp_dir() . '/rector/runnable_%s_%s', $hash, $smartFileInfo->getBasename('.inc'));
     }
     private function getTemporaryClassSuffix() : string
     {

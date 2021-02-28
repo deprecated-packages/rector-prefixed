@@ -11,7 +11,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
 use Rector\Naming\ValueObject\ParamRename;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class ParamRenameFactory
@@ -29,12 +28,8 @@ final class ParamRenameFactory
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    public function create(\PhpParser\Node\Param $param, \Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface $expectedNameResolver) : ?\Rector\Naming\ValueObject\ParamRename
+    public function createFromResolvedExpectedName(\PhpParser\Node\Param $param, string $expectedName) : ?\Rector\Naming\ValueObject\ParamRename
     {
-        $expectedName = $expectedNameResolver->resolveIfNotYet($param);
-        if ($expectedName === null) {
-            return null;
-        }
         /** @var ClassMethod|Function_|Closure|ArrowFunction|null $functionLike */
         $functionLike = $this->betterNodeFinder->findParentType($param, \PhpParser\Node\FunctionLike::class);
         if ($functionLike === null) {

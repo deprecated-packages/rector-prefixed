@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1846200b1f1a460ac4e9b8561743652c
+class ComposerStaticInitebec8dbb67115756fbbc4b3298ed629f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2476,7 +2476,6 @@ class ComposerStaticInit1846200b1f1a460ac4e9b8561743652c
         'Rector\\BetterPhpDocParser\\Printer\\TagValueNodePrinter' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/TagValueNodePrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\WhitespaceDetector' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/WhitespaceDetector.php',
         'Rector\\BetterPhpDocParser\\Utils\\ArrayItemStaticHelper' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Utils/ArrayItemStaticHelper.php',
-        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\AbstractTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/AbstractTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\ColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/ColumnTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\EntityTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/EntityTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\JoinColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/JoinColumnTagValueNodeFactory.php',
@@ -3187,16 +3186,11 @@ class ComposerStaticInit1846200b1f1a460ac4e9b8561743652c
         'Rector\\MysqlToMysqli\\Rector\\FuncCall\\MysqlPConnectToMysqliConnectRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/FuncCall/MysqlPConnectToMysqliConnectRector.php',
         'Rector\\MysqlToMysqli\\Rector\\FuncCall\\MysqlQueryMysqlErrorWithLinkRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/FuncCall/MysqlQueryMysqlErrorWithLinkRector.php',
         'Rector\\Naming\\ArrayDimFetchRenamer' => __DIR__ . '/../..' . '/rules/naming/src/ArrayDimFetchRenamer.php',
-        'Rector\\Naming\\Contract\\ExpectedNameResolver\\ExpectedNameResolverInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/ExpectedNameResolver/ExpectedNameResolverInterface.php',
-        'Rector\\Naming\\Contract\\Guard\\ConflictingGuardAwareInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Guard/ConflictingGuardAwareInterface.php',
-        'Rector\\Naming\\Contract\\Guard\\ConflictingGuardInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Guard/ConflictingGuardInterface.php',
+        'Rector\\Naming\\Contract\\Guard\\ConflictingNameGuardInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Guard/ConflictingNameGuardInterface.php',
         'Rector\\Naming\\Contract\\Matcher\\MatcherInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Matcher/MatcherInterface.php',
-        'Rector\\Naming\\Contract\\RenameGuard\\RenameGuardInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameGuard/RenameGuardInterface.php',
         'Rector\\Naming\\Contract\\RenameParamValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameParamValueObjectInterface.php',
         'Rector\\Naming\\Contract\\RenamePropertyValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenamePropertyValueObjectInterface.php',
         'Rector\\Naming\\Contract\\RenameValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameValueObjectInterface.php',
-        'Rector\\Naming\\Contract\\RenamerInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenamerInterface.php',
-        'Rector\\Naming\\ExpectedNameResolver\\AbstractExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/AbstractExpectedNameResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\BoolPropertyExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/BoolPropertyExpectedNameResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\MatchParamTypeExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/MatchParamTypeExpectedNameResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\MatchPropertyTypeExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/MatchPropertyTypeExpectedNameResolver.php',
@@ -3205,7 +3199,6 @@ class ComposerStaticInit1846200b1f1a460ac4e9b8561743652c
         'Rector\\Naming\\Guard\\DateTimeAtNamingConventionGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/DateTimeAtNamingConventionGuard.php',
         'Rector\\Naming\\Guard\\HasMagicGetSetGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/HasMagicGetSetGuard.php',
         'Rector\\Naming\\Guard\\NotPrivatePropertyGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/NotPrivatePropertyGuard.php',
-        'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\AbstractPropertyConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/AbstractPropertyConflictingNameGuard.php',
         'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\BoolPropertyConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/BoolPropertyConflictingNameGuard.php',
         'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\MatchPropertyTypeConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/MatchPropertyTypeConflictingNameGuard.php',
         'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\UnderscoreCamelCaseConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/UnderscoreCamelCaseConflictingNameGuard.php',
@@ -4211,9 +4204,9 @@ class ComposerStaticInit1846200b1f1a460ac4e9b8561743652c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1846200b1f1a460ac4e9b8561743652c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1846200b1f1a460ac4e9b8561743652c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1846200b1f1a460ac4e9b8561743652c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitebec8dbb67115756fbbc4b3298ed629f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitebec8dbb67115756fbbc4b3298ed629f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitebec8dbb67115756fbbc4b3298ed629f::$classMap;
 
         }, null, ClassLoader::class);
     }

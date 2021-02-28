@@ -41,23 +41,23 @@ final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \Rector\Co
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames property to respect is/has/was method naming', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
-    private $full = false;
+private $full = false;
 
-    public function isFull()
-    {
-        return $this->full;
-    }
+public function isFull()
+{
+    return $this->full;
+}
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
 {
-    private $isFull = false;
+private $isFull = false;
 
-    public function isFull()
-    {
-        return $this->isFull;
-    }
+public function isFull()
+{
+    return $this->isFull;
+}
 
 }
 CODE_SAMPLE
@@ -78,7 +78,13 @@ CODE_SAMPLE
         if (!$this->nodeTypeResolver->isPropertyBoolean($node)) {
             return null;
         }
-        $propertyRename = $this->propertyRenameFactory->create($node, $this->boolPropertyExpectedNameResolver);
+        $expectedBoolName = $this->boolPropertyExpectedNameResolver->resolve($node);
+        if ($expectedBoolName === null) {
+            return null;
+        }
+        //        dump($expectedBoolName);
+        //        die;
+        $propertyRename = $this->propertyRenameFactory->createFromExpectedName($node, $expectedBoolName);
         if (!$propertyRename instanceof \Rector\Naming\ValueObject\PropertyRename) {
             return null;
         }

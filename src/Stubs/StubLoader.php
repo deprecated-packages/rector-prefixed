@@ -27,7 +27,7 @@ final class StubLoader
         }
         $robotLoader = new \RectorPrefix20210228\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory($stubDirectory);
-        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_rector_stubs');
+        $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector/stubs');
         $robotLoader->register();
         $robotLoader->rebuild();
         $this->areStubsLoaded = \true;

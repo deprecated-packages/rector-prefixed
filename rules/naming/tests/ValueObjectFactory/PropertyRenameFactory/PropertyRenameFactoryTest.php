@@ -46,7 +46,11 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20210228\Symplify\Pac
     public function test(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $fileInfoWithProperty, string $expectedName, string $currentName) : void
     {
         $property = $this->getPropertyFromFileInfo($fileInfoWithProperty);
-        $actualPropertyRename = $this->propertyRenameFactory->create($property, $this->matchPropertyTypeExpectedNameResolver);
+        $expectedPropertyName = $this->matchPropertyTypeExpectedNameResolver->resolve($property);
+        if ($expectedPropertyName === null) {
+            return;
+        }
+        $actualPropertyRename = $this->propertyRenameFactory->createFromExpectedName($property, $expectedPropertyName);
         $this->assertNotNull($actualPropertyRename);
         /** @var PropertyRename $actualPropertyRename */
         $this->assertSame($property, $actualPropertyRename->getProperty());

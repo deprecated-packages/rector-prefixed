@@ -111,7 +111,11 @@ CODE_SAMPLE
     }
     private function renameParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Expr\Variable
     {
-        $paramRename = $this->paramRenameFactory->create($param, $this->underscoreCamelCaseExpectedNameResolver);
+        $resolvedExpectedName = $this->underscoreCamelCaseExpectedNameResolver->resolve($param);
+        if ($resolvedExpectedName === null) {
+            return null;
+        }
+        $paramRename = $this->paramRenameFactory->createFromResolvedExpectedName($param, $resolvedExpectedName);
         if (!$paramRename instanceof \Rector\Naming\ValueObject\ParamRename) {
             return null;
         }

@@ -7,8 +7,17 @@ use PhpParser\Node;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Util\StaticRectorStrings;
-final class UnderscoreCamelCaseExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use Rector\NodeNameResolver\NodeNameResolver;
+final class UnderscoreCamelCaseExpectedNameResolver
 {
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    {
+        $this->nodeNameResolver = $nodeNameResolver;
+    }
     /**
      * @param Param|Property $node
      */

@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Naming\ExpectedNameResolver;
 
-use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\Naming\ValueObject\ExpectedName;
-final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use Rector\NodeNameResolver\NodeNameResolver;
+final class MatchPropertyTypeExpectedNameResolver
 {
     /**
      * @var PropertyNaming
@@ -18,19 +18,26 @@ final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\Expecte
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->propertyNaming = $propertyNaming;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @param Property $node
-     */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?string
     {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($phpDocInfo->getVarType());
         if (!$expectedName instanceof \Rector\Naming\ValueObject\ExpectedName) {
+            return null;
+        }
+        // skip if already has suffix
+        $currentName = $this->nodeNameResolver->getName($property);
+        if ($this->nodeNameResolver->endsWith($currentName, $expectedName->getName())) {
             return null;
         }
         return $expectedName->getName();

@@ -96,7 +96,11 @@ CODE_SAMPLE
             if ($this->shouldSkipParam($param, $expectedName, $node)) {
                 continue;
             }
-            $paramRename = $this->paramRenameFactory->create($param, $this->matchParamTypeExpectedNameResolver);
+            $expectedName = $this->matchParamTypeExpectedNameResolver->resolve($param);
+            if ($expectedName === null) {
+                continue;
+            }
+            $paramRename = $this->paramRenameFactory->createFromResolvedExpectedName($param, $expectedName);
             if (!$paramRename instanceof \Rector\Naming\ValueObject\ParamRename) {
                 continue;
             }

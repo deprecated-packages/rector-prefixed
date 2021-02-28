@@ -3,30 +3,44 @@
 declare (strict_types=1);
 namespace Rector\Naming\ExpectedNameResolver;
 
-use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\Naming\Naming\PropertyNaming;
-final class BoolPropertyExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+final class BoolPropertyExpectedNameResolver
 {
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @required
+     * @var NodeTypeResolver
      */
-    public function autowireBoolPropertyExpectedNameResolver(\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
+    private $nodeTypeResolver;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->propertyNaming = $propertyNaming;
+        $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @param Property $node
-     */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?string
     {
-        if (!$this->nodeTypeResolver->isPropertyBoolean($node)) {
+        if (!$this->nodeTypeResolver->isPropertyBoolean($property)) {
             return null;
         }
-        return $this->propertyNaming->getExpectedNameFromBooleanPropertyType($node);
+        $expectedName = $this->propertyNaming->getExpectedNameFromBooleanPropertyType($property);
+        if ($expectedName === null) {
+            return null;
+        }
+        // skip if already has suffix
+        $currentName = $this->nodeNameResolver->getName($property);
+        if ($this->nodeNameResolver->endsWith($currentName, $expectedName)) {
+            return null;
+        }
+        return $expectedName;
     }
 }

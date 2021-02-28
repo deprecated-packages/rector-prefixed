@@ -42,7 +42,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var Expr|null
      */
-    private $countValueVariable;
+    private $countValueVariableExpr;
     /**
      * @var Expr|null
      */
@@ -130,7 +130,7 @@ CODE_SAMPLE
         if (\count($init) > 2) {
             return null;
         }
-        if ($this->forAnalyzer->isCountValueVariableUsedInsideForStatements($node, $this->countValueVariable)) {
+        if ($this->forAnalyzer->isCountValueVariableUsedInsideForStatements($node, $this->countValueVariableExpr)) {
             return null;
         }
         if ($this->forAnalyzer->isAssignmentWithArrayDimFetchAsVariableInsideForStatements($node, $this->keyValueName)) {
@@ -172,7 +172,7 @@ CODE_SAMPLE
     private function reset() : void
     {
         $this->keyValueName = null;
-        $this->countValueVariable = null;
+        $this->countValueVariableExpr = null;
         $this->countValueName = null;
         $this->iteratedExpr = null;
     }
@@ -193,7 +193,7 @@ CODE_SAMPLE
             }
             $funcCall = $initExpr->expr;
             if ($this->nodeNameResolver->isFuncCallName($funcCall, self::COUNT)) {
-                $this->countValueVariable = $initExpr->var;
+                $this->countValueVariableExpr = $initExpr->var;
                 $this->countValueName = $this->getName($initExpr->var);
                 $this->iteratedExpr = $funcCall->args[0]->value;
             }

@@ -111,7 +111,11 @@ CODE_SAMPLE
     private function refactorClassProperties(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         foreach ($classLike->getProperties() as $property) {
-            $propertyRename = $this->propertyRenameFactory->create($property, $this->matchPropertyTypeExpectedNameResolver);
+            $expectedPropertyName = $this->matchPropertyTypeExpectedNameResolver->resolve($property);
+            if ($expectedPropertyName === null) {
+                continue;
+            }
+            $propertyRename = $this->propertyRenameFactory->createFromExpectedName($property, $expectedPropertyName);
             if (!$propertyRename instanceof \Rector\Naming\ValueObject\PropertyRename) {
                 continue;
             }

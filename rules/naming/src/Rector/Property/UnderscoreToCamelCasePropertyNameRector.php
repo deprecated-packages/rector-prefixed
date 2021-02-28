@@ -78,14 +78,14 @@ CODE_SAMPLE
         if (!\RectorPrefix20210228\Nette\Utils\Strings::contains($propertyName, '_')) {
             return null;
         }
-        $propertyRename = $this->propertyRenameFactory->create($node, $this->underscoreCamelCaseExpectedNameResolver);
+        $expectedPropertyName = $this->underscoreCamelCaseExpectedNameResolver->resolve($node);
+        if ($expectedPropertyName === null) {
+            return null;
+        }
+        $propertyRename = $this->propertyRenameFactory->createFromExpectedName($node, $expectedPropertyName);
         if (!$propertyRename instanceof \Rector\Naming\ValueObject\PropertyRename) {
             return null;
         }
-        $property = $this->underscoreCamelCasePropertyRenamer->rename($propertyRename);
-        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
-            return null;
-        }
-        return $node;
+        return $this->underscoreCamelCasePropertyRenamer->rename($propertyRename);
     }
 }
