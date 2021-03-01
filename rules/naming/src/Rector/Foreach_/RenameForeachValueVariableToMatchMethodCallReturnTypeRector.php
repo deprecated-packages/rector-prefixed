@@ -87,21 +87,21 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $variableAndCallAssign = $this->varValueAndCallForeachMatcher->match($node);
-        if (!$variableAndCallAssign instanceof \Rector\Naming\ValueObject\VariableAndCallForeach) {
+        $variableAndCallForeach = $this->varValueAndCallForeachMatcher->match($node);
+        if (!$variableAndCallForeach instanceof \Rector\Naming\ValueObject\VariableAndCallForeach) {
             return null;
         }
-        $expectedName = $this->expectedNameResolver->resolveForForeach($variableAndCallAssign->getCall());
+        $expectedName = $this->expectedNameResolver->resolveForForeach($variableAndCallForeach->getCall());
         if ($expectedName === null) {
             return null;
         }
-        if ($this->isName($variableAndCallAssign->getVariable(), $expectedName)) {
+        if ($this->isName($variableAndCallForeach->getVariable(), $expectedName)) {
             return null;
         }
-        if ($this->shouldSkip($variableAndCallAssign, $expectedName)) {
+        if ($this->shouldSkip($variableAndCallForeach, $expectedName)) {
             return null;
         }
-        $this->renameVariable($variableAndCallAssign, $expectedName);
+        $this->renameVariable($variableAndCallForeach, $expectedName);
         return $node;
     }
     private function shouldSkip(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : bool

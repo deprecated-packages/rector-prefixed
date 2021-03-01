@@ -4,8 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
 use RectorPrefix20210301\Nette\Utils\Strings;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
@@ -253,8 +252,7 @@ final class PropertyNaming
         }
         $classMethods = $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\ClassMethod::class);
         return \array_filter($classMethods, function (\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool {
-            $classMethodName = $this->nodeNameResolver->getName($classMethod);
-            return \RectorPrefix20210301\Nette\Utils\Strings::match($classMethodName, self::PREFIXED_CLASS_METHODS_REGEX) !== null;
+            return $this->isBoolishMethodName($classMethod);
         });
     }
     /**
@@ -263,23 +261,9 @@ final class PropertyNaming
      */
     private function filterClassMethodsWithPropertyFetchReturnOnly(array $prefixedClassMethods, \PhpParser\Node\Stmt\Property $property) : array
     {
-        $currentName = $this->nodeNameResolver->getName($property);
-        return \array_filter($prefixedClassMethods, function (\PhpParser\Node\Stmt\ClassMethod $classMethod) use($currentName) : bool {
-            if ((array) $classMethod->stmts === []) {
-                return \false;
-            }
-            $return = $classMethod->stmts[0];
-            if (!$return instanceof \PhpParser\Node\Stmt\Return_) {
-                return \false;
-            }
-            $node = $return->expr;
-            if (!$node instanceof \PhpParser\Node\Expr) {
-                return \false;
-            }
-            if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-                return \false;
-            }
-            return $this->nodeNameResolver->isName($node, $currentName);
+        $classMethodName = $this->nodeNameResolver->getName($property);
+        return \array_filter($prefixedClassMethods, function (\PhpParser\Node\Stmt\ClassMethod $classMethod) use($classMethodName) : bool {
+            return $this->doesClassMethodMatchReturnPropertyFetch($classMethod, $classMethodName);
         });
     }
     private function isPrefixedInterface(string $shortClassName) : bool
@@ -301,5 +285,22 @@ final class PropertyNaming
             return \true;
         }
         return \ctype_digit($char);
+    }
+    private function isBoolishMethodName(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        $classMethodName = $this->nodeNameResolver->getName($classMethod);
+        return (bool) \RectorPrefix20210301\Nette\Utils\Strings::match($classMethodName, self::PREFIXED_CLASS_METHODS_REGEX);
+    }
+    private function doesClassMethodMatchReturnPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $currentClassMethodName) : bool
+    {
+        $possibleReturn = $classMethod->stmts[0] ?? null;
+        if (!$possibleReturn instanceof \PhpParser\Node\Stmt\Return_) {
+            return \false;
+        }
+        $node = $possibleReturn->expr;
+        if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            return \false;
+        }
+        return $this->nodeNameResolver->isName($node->name, $currentClassMethodName);
     }
 }

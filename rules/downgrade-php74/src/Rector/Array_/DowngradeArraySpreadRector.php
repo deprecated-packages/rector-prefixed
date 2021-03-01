@@ -92,12 +92,15 @@ CODE_SAMPLE
     private function shouldRefactor(\PhpParser\Node\Expr\Array_ $array) : bool
     {
         // Check that any item in the array is the spread
-        return \array_filter($array->items, function (?\PhpParser\Node\Expr\ArrayItem $item) : bool {
-            if ($item === null) {
-                return \false;
+        foreach ($array->items as $item) {
+            if (!$item instanceof \PhpParser\Node\Expr\ArrayItem) {
+                continue;
             }
-            return $item->unpack;
-        }) !== [];
+            if ($item->unpack) {
+                return \true;
+            }
+        }
+        return \false;
     }
     private function refactorNode(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node
     {

@@ -3,28 +3,54 @@
 declare (strict_types=1);
 namespace Rector\Naming\Matcher;
 
-use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Variable;
-final class VariableAndCallAssignMatcher extends \Rector\Naming\Matcher\AbstractMatcher
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use Rector\Naming\ValueObject\VariableAndCallAssign;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class VariableAndCallAssignMatcher
 {
     /**
-     * @param Assign $node
+     * @var CallMatcher
      */
-    public function getVariableName(\PhpParser\Node $node) : ?string
+    private $callMatcher;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\Naming\Matcher\CallMatcher $callMatcher, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+        $this->callMatcher = $callMatcher;
+        $this->nodeNameResolver = $nodeNameResolver;
+    }
+    public function match(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Naming\ValueObject\VariableAndCallAssign
+    {
+        $call = $this->callMatcher->matchCall($assign);
+        if ($call === null) {
             return null;
         }
-        return $this->nodeNameResolver->getName($node->var);
+        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        $variableName = $this->nodeNameResolver->getName($assign->var);
+        if ($variableName === null) {
+            return null;
+        }
+        $functionLike = $this->getFunctionLike($assign);
+        if (!$functionLike instanceof \PhpParser\Node\FunctionLike) {
+            return null;
+        }
+        return new \Rector\Naming\ValueObject\VariableAndCallAssign($assign->var, $call, $assign, $variableName, $functionLike);
     }
     /**
-     * @param Assign $node
+     * @return ClassMethod|Function_|Closure|null
      */
-    public function getVariable(\PhpParser\Node $node) : \PhpParser\Node\Expr\Variable
+    private function getFunctionLike(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\FunctionLike
     {
-        /** @var Variable $variable */
-        $variable = $node->var;
-        return $variable;
+        return $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE) ?? $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
     }
 }

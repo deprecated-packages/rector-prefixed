@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117
+class ComposerStaticInit2ec729c9df0954e6050382f5b65a4e1c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3187,7 +3187,6 @@ class ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117
         'Rector\\MysqlToMysqli\\Rector\\FuncCall\\MysqlQueryMysqlErrorWithLinkRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/FuncCall/MysqlQueryMysqlErrorWithLinkRector.php',
         'Rector\\Naming\\ArrayDimFetchRenamer' => __DIR__ . '/../..' . '/rules/naming/src/ArrayDimFetchRenamer.php',
         'Rector\\Naming\\Contract\\Guard\\ConflictingNameGuardInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Guard/ConflictingNameGuardInterface.php',
-        'Rector\\Naming\\Contract\\Matcher\\MatcherInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/Matcher/MatcherInterface.php',
         'Rector\\Naming\\Contract\\RenameParamValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameParamValueObjectInterface.php',
         'Rector\\Naming\\Contract\\RenamePropertyValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenamePropertyValueObjectInterface.php',
         'Rector\\Naming\\Contract\\RenameValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameValueObjectInterface.php',
@@ -3203,7 +3202,7 @@ class ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117
         'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\MatchPropertyTypeConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/MatchPropertyTypeConflictingNameGuard.php',
         'Rector\\Naming\\Guard\\PropertyConflictingNameGuard\\UnderscoreCamelCaseConflictingNameGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/PropertyConflictingNameGuard/UnderscoreCamelCaseConflictingNameGuard.php',
         'Rector\\Naming\\Guard\\RamseyUuidInterfaceGuard' => __DIR__ . '/../..' . '/rules/naming/src/Guard/RamseyUuidInterfaceGuard.php',
-        'Rector\\Naming\\Matcher\\AbstractMatcher' => __DIR__ . '/../..' . '/rules/naming/src/Matcher/AbstractMatcher.php',
+        'Rector\\Naming\\Matcher\\CallMatcher' => __DIR__ . '/../..' . '/rules/naming/src/Matcher/CallMatcher.php',
         'Rector\\Naming\\Matcher\\ForeachMatcher' => __DIR__ . '/../..' . '/rules/naming/src/Matcher/ForeachMatcher.php',
         'Rector\\Naming\\Matcher\\VariableAndCallAssignMatcher' => __DIR__ . '/../..' . '/rules/naming/src/Matcher/VariableAndCallAssignMatcher.php',
         'Rector\\Naming\\NamespaceMatcher' => __DIR__ . '/../..' . '/rules/naming/src/NamespaceMatcher.php',
@@ -4204,9 +4203,9 @@ class ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2ec729c9df0954e6050382f5b65a4e1c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2ec729c9df0954e6050382f5b65a4e1c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2ec729c9df0954e6050382f5b65a4e1c::$classMap;
 
         }, null, ClassLoader::class);
     }

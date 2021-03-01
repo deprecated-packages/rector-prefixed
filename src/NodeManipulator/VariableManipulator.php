@@ -94,9 +94,7 @@ final class VariableManipulator
     public function filterOutChangedVariables(array $assignsOfArrayToVariable, \PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         return \array_filter($assignsOfArrayToVariable, function (\PhpParser\Node\Expr\Assign $assign) use($classMethod) : bool {
-            /** @var Variable $variable */
-            $variable = $assign->var;
-            return $this->isReadOnlyVariable($classMethod, $variable, $assign);
+            return $this->isReadOnlyVariable($classMethod, $assign);
         });
     }
     private function isTestCaseExpectedVariable(\PhpParser\Node\Expr\Variable $variable) : bool
@@ -112,8 +110,12 @@ final class VariableManipulator
      * Inspiration
      * @see \Rector\Core\NodeManipulator\PropertyManipulator::isReadOnlyProperty()
      */
-    private function isReadOnlyVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr\Assign $assign) : bool
+    private function isReadOnlyVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Assign $assign) : bool
     {
+        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        $variable = $assign->var;
         $variableUsages = $this->collectVariableUsages($classMethod, $variable, $assign);
         foreach ($variableUsages as $variableUsage) {
             $parent = $variableUsage->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
