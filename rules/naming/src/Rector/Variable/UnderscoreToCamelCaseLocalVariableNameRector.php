@@ -7,6 +7,7 @@ use RectorPrefix20210301\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
@@ -86,11 +87,49 @@ CODE_SAMPLE
         if (($parentNode instanceof \PhpParser\Node\Arg || $parentNode instanceof \PhpParser\Node\Param || $parentNode instanceof \PhpParser\Node\Stmt) && $this->isFoundInParentNode($node)) {
             return null;
         }
-        if ($this->isFoundInPreviousNode($node)) {
+        if ($this->isUsedNextPreviousAssignVar($node, $camelCaseName)) {
             return null;
         }
         $node->name = $camelCaseName;
         return $node;
+    }
+    private function isUsedNextPreviousAssignVar(\PhpParser\Node\Expr\Variable $variable, string $camelCaseName) : bool
+    {
+        $parent = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
+        }
+        if ($parent->var !== $variable) {
+            return \false;
+        }
+        $variableMethodNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$variableMethodNode instanceof \PhpParser\Node) {
+            return \false;
+        }
+        $usedInNext = (bool) $this->betterNodeFinder->findFirstNext($variable, function (\PhpParser\Node $node) use($variableMethodNode, $camelCaseName) : bool {
+            return $this->hasEqualVariable($node, $variableMethodNode, $camelCaseName);
+        });
+        if ($usedInNext) {
+            return \true;
+        }
+        return (bool) $this->betterNodeFinder->findFirstPreviousOfNode($variable, function (\PhpParser\Node $node) use($variableMethodNode, $camelCaseName) : bool {
+            return $this->hasEqualVariable($node, $variableMethodNode, $camelCaseName);
+        });
+    }
+    private function hasEqualVariable(\PhpParser\Node $node, ?\PhpParser\Node $variableMethodNode, string $camelCaseName) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        $methodNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if ($variableMethodNode !== $methodNode) {
+            return \false;
+        }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
+        }
+        return $this->isName($parent->var, $camelCaseName);
     }
     private function isReserved(string $string) : bool
     {
@@ -117,13 +156,5 @@ CODE_SAMPLE
             }
         }
         return \false;
-    }
-    private function isFoundInPreviousNode(\PhpParser\Node\Expr\Variable $variable) : bool
-    {
-        $previousNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$previousNode instanceof \PhpParser\Node\Expr) {
-            return \false;
-        }
-        return $this->isFoundInParentNode($variable);
     }
 }
