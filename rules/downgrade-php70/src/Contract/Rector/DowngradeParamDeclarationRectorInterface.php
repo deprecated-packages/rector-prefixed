@@ -10,5 +10,5 @@ interface DowngradeParamDeclarationRectorInterface
     /**
      * Indicate if the parameter must be removed
      */
-    public function shouldRemoveParamDeclaration(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool;
+    public function isNullableParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool;
 }
