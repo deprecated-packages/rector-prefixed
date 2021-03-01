@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use DateTimeInterface;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
@@ -67,11 +66,11 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
             'varbinary' => new \PHPStan\Type\StringType(),
             'set' => new \PHPStan\Type\StringType(),
             // date time objects
-            'date' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'datetime' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'timestamp' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'time' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'year' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'date' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
+            'datetime' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
+            'timestamp' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
+            'time' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
+            'year' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
         ];
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }

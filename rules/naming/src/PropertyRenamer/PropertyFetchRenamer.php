@@ -30,7 +30,7 @@ final class PropertyFetchRenamer
     {
         // 1. replace property fetch rename in whole class
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($currentName, $expectedName) : ?Node {
-            if ($this->nodeNameResolver->isLocalPropertyFetchNamed($node, $currentName) && $node instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            if ($node instanceof \PhpParser\Node\Expr\PropertyFetch && $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $currentName)) {
                 $node->name = new \PhpParser\Node\Identifier($expectedName);
                 return $node;
             }

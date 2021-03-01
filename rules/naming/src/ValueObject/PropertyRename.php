@@ -58,6 +58,10 @@ final class PropertyRename implements \Rector\Naming\Contract\RenamePropertyValu
     {
         return $this->currentName;
     }
+    public function isAlreadyExpectedName() : bool
+    {
+        return $this->currentName === $this->expectedName;
+    }
     public function getClassLike() : \PhpParser\Node\Stmt\ClassLike
     {
         return $this->classLike;

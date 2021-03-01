@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 
-use Iterator;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
@@ -71,7 +70,7 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
             // @see https://www.php.net/manual/en/language.types.iterable.php
             $types[] = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         } else {
-            $types[] = new \PHPStan\Type\ObjectType(\Iterator::class);
+            $types[] = new \PHPStan\Type\ObjectType('Iterator');
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }

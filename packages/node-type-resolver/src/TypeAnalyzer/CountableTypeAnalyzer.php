@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\TypeAnalyzer;
 
-use Countable;
 use PhpParser\Node;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -42,7 +41,7 @@ final class CountableTypeAnalyzer
     }
     private function isCountableObjectType(\PHPStan\Type\Type $type) : bool
     {
-        $countableObjectTypes = [new \PHPStan\Type\ObjectType(\Countable::class), new \PHPStan\Type\ObjectType('SimpleXMLElement'), new \PHPStan\Type\ObjectType('ResourceBundle')];
+        $countableObjectTypes = [new \PHPStan\Type\ObjectType('Countable'), new \PHPStan\Type\ObjectType('SimpleXMLElement'), new \PHPStan\Type\ObjectType('ResourceBundle')];
         if ($type instanceof \PHPStan\Type\UnionType) {
             return $this->isCountableUnionType($type, $countableObjectTypes);
         }

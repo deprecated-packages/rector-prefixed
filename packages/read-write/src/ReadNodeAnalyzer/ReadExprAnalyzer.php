@@ -9,28 +9,10 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\ReadWrite\NodeFinder\NodeUsageFinder;
-abstract class AbstractReadNodeAnalyzer
+final class ReadExprAnalyzer
 {
-    /**
-     * @var ParentScopeFinder
-     */
-    protected $parentScopeFinder;
-    /**
-     * @var NodeUsageFinder
-     */
-    protected $nodeUsageFinder;
-    /**
-     * @required
-     */
-    public function autowireAbstractReadNodeAnalyzer(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder) : void
-    {
-        $this->parentScopeFinder = $parentScopeFinder;
-        $this->nodeUsageFinder = $nodeUsageFinder;
-    }
-    protected function isCurrentContextRead(\PhpParser\Node\Expr $expr) : bool
+    public function isReadContext(\PhpParser\Node\Expr $expr) : bool
     {
         $parent = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Stmt\Return_) {

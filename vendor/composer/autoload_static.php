@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf
+class ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3217,10 +3217,10 @@ class ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf
         'Rector\\Naming\\ParamRenamer\\ParamRenamer' => __DIR__ . '/../..' . '/rules/naming/src/ParamRenamer/ParamRenamer.php',
         'Rector\\Naming\\PhpArray\\ArrayFilter' => __DIR__ . '/../..' . '/rules/naming/src/PhpArray/ArrayFilter.php',
         'Rector\\Naming\\PhpDoc\\VarTagValueNodeRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PhpDoc/VarTagValueNodeRenamer.php',
-        'Rector\\Naming\\PropertyRenamer\\AbstractPropertyRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/AbstractPropertyRenamer.php',
         'Rector\\Naming\\PropertyRenamer\\BoolPropertyRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/BoolPropertyRenamer.php',
         'Rector\\Naming\\PropertyRenamer\\MatchTypePropertyRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/MatchTypePropertyRenamer.php',
         'Rector\\Naming\\PropertyRenamer\\PropertyFetchRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/PropertyFetchRenamer.php',
+        'Rector\\Naming\\PropertyRenamer\\PropertyRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/PropertyRenamer.php',
         'Rector\\Naming\\PropertyRenamer\\UnderscoreCamelCasePropertyRenamer' => __DIR__ . '/../..' . '/rules/naming/src/PropertyRenamer/UnderscoreCamelCasePropertyRenamer.php',
         'Rector\\Naming\\RectorNamingInflector' => __DIR__ . '/../..' . '/rules/naming/src/RectorNamingInflector.php',
         'Rector\\Naming\\Rector\\Assign\\RenameVariableToMatchMethodCallReturnTypeRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Assign/RenameVariableToMatchMethodCallReturnTypeRector.php',
@@ -3783,8 +3783,8 @@ class ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf
         'Rector\\ReadWrite\\NodeAnalyzer\\ReadExprAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/NodeAnalyzer/ReadExprAnalyzer.php',
         'Rector\\ReadWrite\\NodeAnalyzer\\ReadWritePropertyAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/NodeAnalyzer/ReadWritePropertyAnalyzer.php',
         'Rector\\ReadWrite\\NodeFinder\\NodeUsageFinder' => __DIR__ . '/../..' . '/packages/read-write/src/NodeFinder/NodeUsageFinder.php',
-        'Rector\\ReadWrite\\ReadNodeAnalyzer\\AbstractReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/AbstractReadNodeAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\PropertyFetchReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/PropertyFetchReadNodeAnalyzer.php',
+        'Rector\\ReadWrite\\ReadNodeAnalyzer\\ReadExprAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/ReadExprAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\VariableReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/VariableReadNodeAnalyzer.php',
         'Rector\\RectorGenerator\\Command\\GenerateCommand' => __DIR__ . '/../..' . '/packages/rector-generator/src/Command/GenerateCommand.php',
         'Rector\\RectorGenerator\\Command\\InitRecipeCommand' => __DIR__ . '/../..' . '/packages/rector-generator/src/Command/InitRecipeCommand.php',
@@ -4204,9 +4204,9 @@ class ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita4c3ed5c3494d2e05896c157384eedbf::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7b6562ad30decb12e5853d23c2fe5117::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -3,11 +3,8 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use RectorPrefix20210301\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix20210301\Doctrine\ORM\EntityRepository;
 use RectorPrefix20210301\Nette\Utils\Strings;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
@@ -86,7 +83,7 @@ CODE_SAMPLE
             return null;
         }
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \RectorPrefix20210301\Doctrine\ORM\EntityRepository::class) {
+        if ($parentClassName !== 'Doctrine\\ORM\\EntityRepository') {
             return null;
         }
         /** @var string|null $className */
@@ -100,10 +97,10 @@ CODE_SAMPLE
         // remove parent class
         $node->extends = null;
         // add $repository property
-        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\RectorPrefix20210301\Doctrine\ORM\EntityRepository::class));
+        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'));
         // add $entityManager and assign to constuctor
         $repositoryAssign = $this->repositoryAssignFactory->create($node);
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\RectorPrefix20210301\Doctrine\ORM\EntityManagerInterface::class), $repositoryAssign);
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityManagerInterface'), $repositoryAssign);
         return $node;
     }
 }

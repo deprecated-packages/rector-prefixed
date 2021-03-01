@@ -9,7 +9,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210301\Symfony\Component\HttpFoundation\Request;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -63,7 +62,7 @@ CODE_SAMPLE
         if ($parentClassName !== 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller') {
             return null;
         }
-        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\RectorPrefix20210301\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
+        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpFoundation\\Request'), ['getSession', 'getFlashBag', 'add'])) {
             return null;
         }
         return $this->nodeFactory->createMethodCall('this', 'addFlash', $node->args);

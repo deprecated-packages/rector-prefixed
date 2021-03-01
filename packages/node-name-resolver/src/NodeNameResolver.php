@@ -165,7 +165,13 @@ final class NodeNameResolver
         if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
+        if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
         if (!$this->isName($node->var, 'this')) {
+            return \false;
+        }
+        if ($node->name instanceof \PhpParser\Node\Expr) {
             return \false;
         }
         return $this->isName($node->name, $name);
