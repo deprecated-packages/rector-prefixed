@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210228\Symplify\PackageBuilder\Reflection;
+namespace RectorPrefix20210301\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use RectorPrefix20210228\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+use RectorPrefix20210301\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
  */
@@ -29,7 +29,7 @@ final class PrivatesAccessor
         }
         $parentClass = \get_parent_class($object);
         if ($parentClass === \false) {
-            throw new \RectorPrefix20210228\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210301\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
         }
         return new \ReflectionProperty($parentClass, $propertyName);
     }

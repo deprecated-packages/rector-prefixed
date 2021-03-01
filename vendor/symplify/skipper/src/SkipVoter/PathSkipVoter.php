@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210228\Symplify\Skipper\SkipVoter;
+namespace RectorPrefix20210301\Symplify\Skipper\SkipVoter;
 
-use RectorPrefix20210228\Symplify\Skipper\Contract\SkipVoterInterface;
-use RectorPrefix20210228\Symplify\Skipper\Matcher\FileInfoMatcher;
-use RectorPrefix20210228\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
-final class PathSkipVoter implements \RectorPrefix20210228\Symplify\Skipper\Contract\SkipVoterInterface
+use RectorPrefix20210301\Symplify\Skipper\Contract\SkipVoterInterface;
+use RectorPrefix20210301\Symplify\Skipper\Matcher\FileInfoMatcher;
+use RectorPrefix20210301\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo;
+final class PathSkipVoter implements \RectorPrefix20210301\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var FileInfoMatcher
@@ -17,7 +17,7 @@ final class PathSkipVoter implements \RectorPrefix20210228\Symplify\Skipper\Cont
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\RectorPrefix20210228\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \RectorPrefix20210228\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\RectorPrefix20210301\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \RectorPrefix20210301\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
         $this->skippedPathsResolver = $skippedPathsResolver;
@@ -32,7 +32,7 @@ final class PathSkipVoter implements \RectorPrefix20210228\Symplify\Skipper\Cont
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
         return $this->fileInfoMatcher->doesFileInfoMatchPatterns($smartFileInfo, $skippedPaths);

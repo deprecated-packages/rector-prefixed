@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210228\Nette\Utils\Strings;
+use RectorPrefix20210301\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -25,8 +25,8 @@ use Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210301\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210301\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
@@ -85,8 +85,8 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, array $phpDocNodeFactories = [], array $stringTagMatchingPhpDocNodeFactories = [])
     {
         parent::__construct($typeParser, $constExprParser);
-        $this->privatesCaller = new \RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        $this->privatesAccessor = new \RectorPrefix20210228\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesCaller = new \RectorPrefix20210301\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesAccessor = new \RectorPrefix20210301\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
         $this->multilineSpaceFormatPreserver = $multilineSpaceFormatPreserver;
         $this->currentNodeProvider = $currentNodeProvider;
@@ -178,8 +178,8 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
             $originalContent = $this->getOriginalContentFromTokenIterator($tokenIterator);
             // we try to match original content without trimmed spaces
             $currentTextPattern = '#(?<line>' . \preg_quote($possibleMultilineText, '#') . ')#s';
-            $currentTextPattern = \RectorPrefix20210228\Nette\Utils\Strings::replace($currentTextPattern, self::SPACE_REGEX, '\\s+');
-            $match = \RectorPrefix20210228\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
+            $currentTextPattern = \RectorPrefix20210301\Nette\Utils\Strings::replace($currentTextPattern, self::SPACE_REGEX, '\\s+');
+            $match = \RectorPrefix20210301\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
             if (isset($match['line'])) {
                 $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT, $match['line']);
             }
@@ -191,7 +191,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $tag = $tokenIterator->currentTokenValue();
         $tokenIterator->next();
         // basic annotation
-        if (\RectorPrefix20210228\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
+        if (\RectorPrefix20210301\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
             return $tag;
         }
         // is not e.g "@var "

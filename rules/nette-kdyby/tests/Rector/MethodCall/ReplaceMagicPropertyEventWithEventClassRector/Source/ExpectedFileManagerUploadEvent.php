@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class FileManagerUploadEvent extends \RectorPrefix20210228\Symfony\Contracts\EventDispatcher\Event
+final class FileManagerUploadEvent extends \RectorPrefix20210301\Symfony\Contracts\EventDispatcher\Event
 {
     private \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser $user;
     public function __construct(\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser $user)

@@ -6,13 +6,13 @@ namespace Rector\TypeDeclaration\Tests\Rector\MethodCall\FormerNullableArgumentT
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
-use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo;
 final class FormerNullableArgumentToScalarTypedRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -5,8 +5,8 @@ namespace Rector\RectorGenerator\Guard;
 
 use Rector\RectorGenerator\FileSystem\TemplateFileSystem;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use RectorPrefix20210228\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210301\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo;
 final class OverrideGuard
 {
     /**
@@ -17,7 +17,7 @@ final class OverrideGuard
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\RectorPrefix20210228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
+    public function __construct(\RectorPrefix20210301\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
     {
         $this->templateFileSystem = $templateFileSystem;
         $this->symfonyStyle = $symfonyStyle;
@@ -40,7 +40,7 @@ final class OverrideGuard
     /**
      * @param array<string, mixed> $templateVariables
      */
-    private function doesFileInfoAlreadyExist(array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, \RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileInfo $templateFileInfo, string $targetDirectory) : bool
+    private function doesFileInfoAlreadyExist(array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, \RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo $templateFileInfo, string $targetDirectory) : bool
     {
         $destination = $this->templateFileSystem->resolveDestination($templateFileInfo, $templateVariables, $rectorRecipe, $targetDirectory);
         return \file_exists($destination);

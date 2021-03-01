@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210228\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
+namespace RectorPrefix20210301\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
 
-use RectorPrefix20210228\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210228\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210228\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210228\Symplify\PackageBuilder\Console\Command\CommandNaming;
+use RectorPrefix20210301\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210301\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210301\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210301\Symplify\PackageBuilder\Console\Command\CommandNaming;
 /**
  * @see \Symplify\ConsolePackageBuilder\Tests\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPassTest
  */
-final class NamelessConsoleCommandCompilerPass implements \RectorPrefix20210228\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class NamelessConsoleCommandCompilerPass implements \RectorPrefix20210301\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(\RectorPrefix20210228\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\RectorPrefix20210301\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $definitionClass = $definition->getClass();
             if ($definitionClass === null) {
                 continue;
             }
-            if (!\is_a($definitionClass, \RectorPrefix20210228\Symfony\Component\Console\Command\Command::class, \true)) {
+            if (!\is_a($definitionClass, \RectorPrefix20210301\Symfony\Component\Console\Command\Command::class, \true)) {
                 continue;
             }
-            $commandName = \RectorPrefix20210228\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName($definitionClass);
+            $commandName = \RectorPrefix20210301\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName($definitionClass);
             $definition->addMethodCall('setName', [$commandName]);
         }
     }

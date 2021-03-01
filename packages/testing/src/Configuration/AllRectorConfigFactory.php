@@ -5,8 +5,8 @@ namespace Rector\Testing\Configuration;
 
 use Rector\Testing\Finder\RectorsFinder;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
-use RectorPrefix20210228\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
-use RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210301\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileSystem;
 final class AllRectorConfigFactory
 {
     /**
@@ -28,7 +28,7 @@ final class AllRectorConfigFactory
     public function __construct()
     {
         $this->rectorsFinder = new \Rector\Testing\Finder\RectorsFinder();
-        $this->smartFileSystem = new \RectorPrefix20210228\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->smartFileSystem = new \RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileSystem();
         $phpConfigPrinterFactory = new \Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory();
         $this->smartPhpConfigPrinter = $phpConfigPrinterFactory->create();
         $this->configFilePath = \sys_get_temp_dir() . '/_rector_tests/all_rectors_config.php';

@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210228\Symfony\Component\HttpKernel\Controller;
+namespace RectorPrefix20210301\Symfony\Component\HttpKernel\Controller;
 
-use RectorPrefix20210228\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210228\Symfony\Component\Stopwatch\Stopwatch;
+use RectorPrefix20210301\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210301\Symfony\Component\Stopwatch\Stopwatch;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableControllerResolver implements \RectorPrefix20210228\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
+class TraceableControllerResolver implements \RectorPrefix20210301\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
 {
     private $resolver;
     private $stopwatch;
-    public function __construct(\RectorPrefix20210228\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \RectorPrefix20210228\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
+    public function __construct(\RectorPrefix20210301\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \RectorPrefix20210301\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
     {
         $this->resolver = $resolver;
         $this->stopwatch = $stopwatch;
@@ -27,7 +27,7 @@ class TraceableControllerResolver implements \RectorPrefix20210228\Symfony\Compo
     /**
      * {@inheritdoc}
      */
-    public function getController(\RectorPrefix20210228\Symfony\Component\HttpFoundation\Request $request)
+    public function getController(\RectorPrefix20210301\Symfony\Component\HttpFoundation\Request $request)
     {
         $e = $this->stopwatch->start('controller.get_callable');
         $ret = $this->resolver->getController($request);

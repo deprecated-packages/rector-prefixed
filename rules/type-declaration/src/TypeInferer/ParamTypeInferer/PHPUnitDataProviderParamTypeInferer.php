@@ -22,6 +22,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
+use PhpParser\Node\Expr\ArrayItem;
 final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
@@ -92,40 +93,24 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     private function resolveReturnStaticArrayTypeByParameterPosition(array $returns, int $parameterPosition) : \PHPStan\Type\Type
     {
         $paramOnPositionTypes = [];
-        foreach ($returns as $classMethodReturn) {
-            if (!$classMethodReturn->expr instanceof \PhpParser\Node\Expr\Array_) {
-                continue;
+        if (!$returns[0]->expr instanceof \PhpParser\Node\Expr\Array_) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        foreach ($returns[0]->expr->items as $singleDataProvidedSet) {
+            if (!$singleDataProvidedSet instanceof \PhpParser\Node\Expr\ArrayItem || !$singleDataProvidedSet->value instanceof \PhpParser\Node\Expr\Array_) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $type = $this->getTypeFromClassMethodReturn($classMethodReturn->expr);
-            if (!$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-                return $type;
-            }
-            foreach ($type->getValueTypes() as $position => $valueType) {
-                if ($position !== $parameterPosition) {
+            foreach ($singleDataProvidedSet->value->items as $position => $singleDataProvidedSetItem) {
+                if ($position !== $parameterPosition || !$singleDataProvidedSetItem instanceof \PhpParser\Node\Expr\ArrayItem) {
                     continue;
                 }
-                $paramOnPositionTypes[] = $valueType;
+                $paramOnPositionTypes[] = $this->nodeTypeResolver->resolve($singleDataProvidedSetItem->value);
             }
         }
         if ($paramOnPositionTypes === []) {
             return new \PHPStan\Type\MixedType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
-    }
-    private function getTypeFromClassMethodReturn(\PhpParser\Node\Expr\Array_ $classMethodReturnArrayNode) : \PHPStan\Type\Type
-    {
-        $arrayTypes = $this->nodeTypeResolver->resolve($classMethodReturnArrayNode);
-        // impossible to resolve
-        if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            return new \PHPStan\Type\MixedType();
-        }
-        // nest to 1 item
-        $arrayTypes = $arrayTypes->getValueTypes()[0];
-        // impossible to resolve
-        if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            return new \PHPStan\Type\MixedType();
-        }
-        return $arrayTypes;
     }
     /**
      * @param Yield_[] $yields
