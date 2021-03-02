@@ -9,7 +9,7 @@ interface PhpRectorInterface extends \PhpParser\NodeVisitor, \Rector\Core\Contra
 {
     /**
      * List of nodes this class checks, classes that implements \PhpParser\Node
-     * See beautiful map of all nodes https://github.com/rectorphp/rector/blob/master/docs/nodes_overview.md
+     * See beautiful map of all nodes https://github.com/rectorphp/php-parser-nodes-docs
      *
      * @return array<class-string<Node>>
      */
