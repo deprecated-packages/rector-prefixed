@@ -54,10 +54,6 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
-    /**
-     * @var array|mixed
-     */
-    private $typesToServices;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)
     {
         $this->propertyNaming = $propertyNaming;

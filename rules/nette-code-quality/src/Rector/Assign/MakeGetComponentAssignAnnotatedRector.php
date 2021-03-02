@@ -197,7 +197,7 @@ CODE_SAMPLE
             return new \PHPStan\Type\MixedType();
         }
         // has method
-        $method = $calledOnType->getMethod($methodName, $scope);
-        return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
+        $methodReflection = $calledOnType->getMethod($methodName, $scope);
+        return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
     }
 }

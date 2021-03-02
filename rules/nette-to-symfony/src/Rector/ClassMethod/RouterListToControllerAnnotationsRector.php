@@ -247,8 +247,8 @@ CODE_SAMPLE
         if (!$classReflection->hasMethod($methodName)) {
             return \false;
         }
-        $reflectionMethod = $classReflection->getNativeMethod($methodName);
-        $parametersAcceptor = $reflectionMethod->getVariants()[0];
+        $methodReflection = $classReflection->getNativeMethod($methodName);
+        $parametersAcceptor = $methodReflection->getVariants()[0];
         $returnType = $parametersAcceptor->getReturnType();
         if ($returnType instanceof \PHPStan\Type\TypeWithClassName) {
             return \is_a($returnType->getClassName(), 'Nette\\Application\\IRouter', \true);

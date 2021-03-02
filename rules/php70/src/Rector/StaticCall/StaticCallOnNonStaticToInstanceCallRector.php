@@ -152,15 +152,15 @@ CODE_SAMPLE
             return \false;
         }
         $classReflection = $this->reflectionProvider->getClass($className);
-        $nativeClassReflection = $classReflection->getNativeReflection();
-        $constructorMethodReflection = $nativeClassReflection->getConstructor();
-        if (!$constructorMethodReflection instanceof \ReflectionMethod) {
+        $reflectionClass = $classReflection->getNativeReflection();
+        $reflectionMethod = $reflectionClass->getConstructor();
+        if (!$reflectionMethod instanceof \ReflectionMethod) {
             return \true;
         }
-        if (!$constructorMethodReflection->isPublic()) {
+        if (!$reflectionMethod->isPublic()) {
             return \false;
         }
         // required parameters in constructor, nothing we can do
-        return !(bool) $constructorMethodReflection->getNumberOfRequiredParameters();
+        return !(bool) $reflectionMethod->getNumberOfRequiredParameters();
     }
 }

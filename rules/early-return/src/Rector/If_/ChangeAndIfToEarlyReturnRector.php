@@ -6,20 +6,15 @@ namespace Rector\EarlyReturn\Rector\If_;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Continue_;
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\For_;
-use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\Node\Stmt\While_;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\EarlyReturn\NodeTransformer\ConditionInverter;
+use Rector\EarlyReturn\NodeFactory\InvertedIfFactory;
+use Rector\NodeNestingScope\ContextAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -29,21 +24,22 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeAndIfToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var array<class-string<Stmt>>
-     */
-    public const LOOP_TYPES = [\PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class];
-    /**
      * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var ConditionInverter
+     * @var InvertedIfFactory
      */
-    private $conditionInverter;
-    public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+    private $invertedIfFactory;
+    /**
+     * @var ContextAnalyzer
+     */
+    private $contextAnalyzer;
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\EarlyReturn\NodeFactory\InvertedIfFactory $invertedIfFactory, \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer)
     {
         $this->ifManipulator = $ifManipulator;
-        $this->conditionInverter = $conditionInverter;
+        $this->invertedIfFactory = $invertedIfFactory;
+        $this->contextAnalyzer = $contextAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -102,7 +98,7 @@ CODE_SAMPLE
         $expr = $node->cond;
         $conditions = $this->nodeRepository->findBooleanAndConditions($expr);
         $ifNextReturnClone = $ifNextReturn instanceof \PhpParser\Node\Stmt\Return_ ? clone $ifNextReturn : new \PhpParser\Node\Stmt\Return_();
-        $isInLoop = $this->isIfInLoop($node);
+        $isInLoop = $this->contextAnalyzer->isInLoop($node);
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Return_) {
             $this->addNodeAfterNode($node->stmts[0], $node);
             return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
@@ -126,7 +122,7 @@ CODE_SAMPLE
      */
     private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone) : \PhpParser\Node\Stmt\If_
     {
-        $ifs = $this->createInvertedIfNodesFromConditions($node, $conditions, $ifNextReturnClone);
+        $ifs = $this->invertedIfFactory->createFromConditions($node, $conditions, $ifNextReturnClone);
         $this->mirrorComments($ifs[0], $node);
         foreach ($ifs as $if) {
             $this->addNodeBeforeNode($if, $node);
@@ -142,7 +138,10 @@ CODE_SAMPLE
         if (!$this->ifManipulator->isIfWithOnlyOneStmt($if)) {
             return \true;
         }
-        if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd || !$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
+        if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+            return \true;
+        }
+        if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
             return \true;
         }
         if ($this->isParentIfReturnsVoidOrParentIfHasNextNode($if)) {
@@ -169,26 +168,6 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param Expr[] $conditions
-     * @return If_[]
-     */
-    private function createInvertedIfNodesFromConditions(\PhpParser\Node\Stmt\If_ $if, array $conditions, \PhpParser\Node\Stmt\Return_ $return) : array
-    {
-        $ifs = [];
-        $stmt = $this->isIfInLoop($if) && !$this->getIfNextReturn($if) ? [new \PhpParser\Node\Stmt\Continue_()] : [$return];
-        $getNextReturnExpr = $this->getNextReturnExpr($if);
-        if ($getNextReturnExpr instanceof \PhpParser\Node\Stmt\Return_) {
-            $return->expr = $getNextReturnExpr->expr;
-        }
-        foreach ($conditions as $key => $condition) {
-            $invertedCondition = $this->conditionInverter->createInvertedCondition($condition);
-            $if = new \PhpParser\Node\Stmt\If_($invertedCondition);
-            $if->stmts = $stmt;
-            $ifs[] = $if;
-        }
-        return $ifs;
-    }
     private function getIfNextReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
@@ -196,21 +175,6 @@ CODE_SAMPLE
             return null;
         }
         return $nextNode;
-    }
-    private function getNextReturnExpr(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
-    {
-        $hasClosureParent = (bool) $this->betterNodeFinder->findParentType($if, \PhpParser\Node\Expr\Closure::class);
-        if ($hasClosureParent) {
-            return null;
-        }
-        return $this->betterNodeFinder->findFirstNext($if, function (\PhpParser\Node $node) : bool {
-            return $node instanceof \PhpParser\Node\Stmt\Return_ && $node->expr instanceof \PhpParser\Node\Expr;
-        });
-    }
-    private function isIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
-    {
-        $parentLoop = $this->betterNodeFinder->findParentTypes($if, self::LOOP_TYPES);
-        return $parentLoop !== null;
     }
     private function isParentIfReturnsVoidOrParentIfHasNextNode(\PhpParser\Node\Stmt\If_ $if) : bool
     {
@@ -223,7 +187,7 @@ CODE_SAMPLE
     }
     private function isNestedIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        if (!$this->isIfInLoop($if)) {
+        if (!$this->contextAnalyzer->isInLoop($if)) {
             return \false;
         }
         return (bool) $this->betterNodeFinder->findParentTypes($if, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);

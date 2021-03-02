@@ -15,15 +15,15 @@ final class InjectTagValueNodeToServiceTypeResolver
     /**
      * @var JMSDITypeResolver
      */
-    private $jmsDITypeResolver;
-    public function __construct(\Rector\DependencyInjection\TypeAnalyzer\JMSDITypeResolver $jmsDITypeResolver)
+    private $jmsdiTypeResolver;
+    public function __construct(\Rector\DependencyInjection\TypeAnalyzer\JMSDITypeResolver $jmsdiTypeResolver)
     {
-        $this->jmsDITypeResolver = $jmsDITypeResolver;
+        $this->jmsdiTypeResolver = $jmsdiTypeResolver;
     }
     public function resolve(\PhpParser\Node\Stmt\Property $property, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
         if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
-            return $this->jmsDITypeResolver->resolve($property, $phpDocTagValueNode);
+            return $this->jmsdiTypeResolver->resolve($property, $phpDocTagValueNode);
         }
         if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode) {
             return $phpDocInfo->getVarType();

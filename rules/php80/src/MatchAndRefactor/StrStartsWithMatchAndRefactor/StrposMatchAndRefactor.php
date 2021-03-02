@@ -28,12 +28,12 @@ final class StrposMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
     /**
      * @var StrStartsWithFuncCallFactory
      */
-    private $startsWithFuncCallFactory;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $startsWithFuncCallFactory)
+    private $strStartsWithFuncCallFactory;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
-        $this->startsWithFuncCallFactory = $startsWithFuncCallFactory;
+        $this->strStartsWithFuncCallFactory = $strStartsWithFuncCallFactory;
     }
     /**
      * @param Identical|NotIdentical $binaryOp
@@ -70,6 +70,6 @@ final class StrposMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
     {
         $strposFuncCall = $strStartsWith->getFuncCall();
         $strposFuncCall->name = new \PhpParser\Node\Name('str_starts_with');
-        return $this->startsWithFuncCallFactory->createStrStartsWith($strStartsWith);
+        return $this->strStartsWithFuncCallFactory->createStrStartsWith($strStartsWith);
     }
 }

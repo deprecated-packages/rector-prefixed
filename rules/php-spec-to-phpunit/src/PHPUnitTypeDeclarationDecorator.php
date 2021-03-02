@@ -31,8 +31,8 @@ final class PHPUnitTypeDeclarationDecorator
             return;
         }
         $classReflection = $this->reflectionProvider->getClass('PHPUnit\\Framework\\TestCase');
-        $nativeClassReflection = $classReflection->getNativeReflection();
-        $reflectionMethod = $nativeClassReflection->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
+        $reflectionClass = $classReflection->getNativeReflection();
+        $reflectionMethod = $reflectionClass->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
         if (!$reflectionMethod->hasReturnType()) {
             return;
         }

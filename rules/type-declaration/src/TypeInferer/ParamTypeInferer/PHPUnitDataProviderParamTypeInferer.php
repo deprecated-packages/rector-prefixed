@@ -92,21 +92,11 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
      */
     private function resolveReturnStaticArrayTypeByParameterPosition(array $returns, int $parameterPosition) : \PHPStan\Type\Type
     {
-        $paramOnPositionTypes = [];
-        if (!$returns[0]->expr instanceof \PhpParser\Node\Expr\Array_) {
+        $firstReturnedExpr = $returns[0]->expr;
+        if (!$firstReturnedExpr instanceof \PhpParser\Node\Expr\Array_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        foreach ($returns[0]->expr->items as $singleDataProvidedSet) {
-            if (!$singleDataProvidedSet instanceof \PhpParser\Node\Expr\ArrayItem || !$singleDataProvidedSet->value instanceof \PhpParser\Node\Expr\Array_) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
-            }
-            foreach ($singleDataProvidedSet->value->items as $position => $singleDataProvidedSetItem) {
-                if ($position !== $parameterPosition || !$singleDataProvidedSetItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                    continue;
-                }
-                $paramOnPositionTypes[] = $this->nodeTypeResolver->resolve($singleDataProvidedSetItem->value);
-            }
-        }
+        $paramOnPositionTypes = $this->resolveParamOnPositionTypes($firstReturnedExpr, $parameterPosition);
         if ($paramOnPositionTypes === []) {
             return new \PHPStan\Type\MixedType();
         }
@@ -154,5 +144,27 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->phpDocInfoFactory->createFromNodeOrEmpty($parent);
+    }
+    /**
+     * @return Type[]
+     */
+    private function resolveParamOnPositionTypes(\PhpParser\Node\Expr\Array_ $array, int $parameterPosition) : array
+    {
+        $paramOnPositionTypes = [];
+        foreach ($array->items as $singleDataProvidedSet) {
+            if (!$singleDataProvidedSet instanceof \PhpParser\Node\Expr\ArrayItem || !$singleDataProvidedSet->value instanceof \PhpParser\Node\Expr\Array_) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            }
+            foreach ($singleDataProvidedSet->value->items as $position => $singleDataProvidedSetItem) {
+                if ($position !== $parameterPosition) {
+                    continue;
+                }
+                if (!$singleDataProvidedSetItem instanceof \PhpParser\Node\Expr\ArrayItem) {
+                    continue;
+                }
+                $paramOnPositionTypes[] = $this->nodeTypeResolver->resolve($singleDataProvidedSetItem->value);
+            }
+        }
+        return $paramOnPositionTypes;
     }
 }

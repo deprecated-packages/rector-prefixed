@@ -78,10 +78,10 @@ final class CallTypeAnalyzer
             return [];
         }
         $methodReflection = $classReflection->getMethod($methodName, $scope);
-        $functionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+        $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
         $parameterTypes = [];
         /** @var ParameterReflection $parameterReflection */
-        foreach ($functionVariant->getParameters() as $parameterReflection) {
+        foreach ($parametersAcceptor->getParameters() as $parameterReflection) {
             $parameterTypes[] = $parameterReflection->getType();
         }
         return $parameterTypes;

@@ -19,6 +19,10 @@ use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
 final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
 {
     /**
+     * @var string
+     */
+    private const DATE_TIME_INTERFACE = 'DateTimeInterface';
+    /**
      * @var Type[]
      *
      * @see \Doctrine\DBAL\Platforms\MySqlPlatform::initializeDoctrineTypeMappings()
@@ -66,11 +70,11 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
             'varbinary' => new \PHPStan\Type\StringType(),
             'set' => new \PHPStan\Type\StringType(),
             // date time objects
-            'date' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
-            'datetime' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
-            'timestamp' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
-            'time' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
-            'year' => new \PHPStan\Type\ObjectType('DateTimeInterface'),
+            'date' => new \PHPStan\Type\ObjectType(self::DATE_TIME_INTERFACE),
+            'datetime' => new \PHPStan\Type\ObjectType(self::DATE_TIME_INTERFACE),
+            'timestamp' => new \PHPStan\Type\ObjectType(self::DATE_TIME_INTERFACE),
+            'time' => new \PHPStan\Type\ObjectType(self::DATE_TIME_INTERFACE),
+            'year' => new \PHPStan\Type\ObjectType(self::DATE_TIME_INTERFACE),
         ];
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }

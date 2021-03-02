@@ -46,8 +46,9 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
                 continue;
             }
             $node->name = $this->createName($newFunction);
+            return $node;
         }
-        return $node;
+        return null;
     }
     /**
      * @param mixed[] $configuration

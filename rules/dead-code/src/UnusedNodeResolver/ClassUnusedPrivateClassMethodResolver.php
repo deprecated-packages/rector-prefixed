@@ -130,8 +130,8 @@ final class ClassUnusedPrivateClassMethodResolver
         if (!$classReflection->hasMethod($method)) {
             return \false;
         }
-        $nativeClassReflection = $classReflection->getNativeReflection();
-        $reflectionMethod = $nativeClassReflection->getMethod($method);
+        $reflectionClass = $classReflection->getNativeReflection();
+        $reflectionMethod = $reflectionClass->getMethod($method);
         return $reflectionMethod->isAbstract();
     }
 }

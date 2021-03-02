@@ -109,10 +109,8 @@ final class PhpDocFromTypeDeclarationDecorator
      */
     private function isTypeMatch(\PhpParser\Node $typeNode, string $requireTypeNodeClass) : bool
     {
-        if (\is_a($requireTypeNodeClass, \PhpParser\Node::class, \true)) {
-            if (!\is_a($typeNode, $requireTypeNodeClass, \true)) {
-                return \false;
-            }
+        if (\is_a($requireTypeNodeClass, \PhpParser\Node::class, \true) && !\is_a($typeNode, $requireTypeNodeClass, \true)) {
+            return \false;
         }
         if (\is_a($requireTypeNodeClass, \PHPStan\Type\Type::class, \true)) {
             $returnType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($typeNode);

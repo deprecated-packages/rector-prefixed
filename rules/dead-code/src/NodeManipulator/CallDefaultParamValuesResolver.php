@@ -94,19 +94,19 @@ final class CallDefaultParamValuesResolver
             return $this->resolveFromFunctionLike($function);
         }
         // non existing function
-        $functionNameNode = new \PhpParser\Node\Name($functionName);
-        if (!$this->reflectionProvider->hasFunction($functionNameNode, null)) {
+        $name = new \PhpParser\Node\Name($functionName);
+        if (!$this->reflectionProvider->hasFunction($name, null)) {
             return [];
         }
-        $functionReflection = $this->reflectionProvider->getFunction($functionNameNode, null);
+        $functionReflection = $this->reflectionProvider->getFunction($name, null);
         if ($functionReflection->isBuiltin()) {
             return [];
         }
         $defaultValues = [];
         $parametersAcceptor = $functionReflection->getVariants()[0];
-        foreach ($parametersAcceptor->getParameters() as $key => $reflectionParameter) {
+        foreach ($parametersAcceptor->getParameters() as $key => $parameterReflection) {
             /** @var ReflectionParameter $nativeReflectionParameter */
-            $nativeReflectionParameter = $this->privatesAccessor->getPrivateProperty($reflectionParameter, 'reflection');
+            $nativeReflectionParameter = $this->privatesAccessor->getPrivateProperty($parameterReflection, 'reflection');
             if (!$nativeReflectionParameter->isDefaultValueAvailable()) {
                 continue;
             }

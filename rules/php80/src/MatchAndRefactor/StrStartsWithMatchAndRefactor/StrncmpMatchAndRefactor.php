@@ -52,10 +52,13 @@ final class StrncmpMatchAndRefactor implements \Rector\Php80\Contract\StrStartWi
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($binaryOp->left, self::FUNCTION_NAME)) {
             return $this->strStartsWithFactory->createFromFuncCall($binaryOp->left, $isPositive);
         }
-        if ($binaryOp->right instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($binaryOp->right, self::FUNCTION_NAME)) {
-            return $this->strStartsWithFactory->createFromFuncCall($binaryOp->right, $isPositive);
+        if (!$binaryOp->right instanceof \PhpParser\Node\Expr\FuncCall) {
+            return null;
         }
-        return null;
+        if (!$this->nodeNameResolver->isName($binaryOp->right, self::FUNCTION_NAME)) {
+            return null;
+        }
+        return $this->strStartsWithFactory->createFromFuncCall($binaryOp->right, $isPositive);
     }
     public function refactorStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : ?\PhpParser\Node
     {

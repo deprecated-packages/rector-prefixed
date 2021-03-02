@@ -10,6 +10,7 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\Stubs\PHPStanStubLoader;
 use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
+use RectorPrefix20210302\Symfony\Component\DependencyInjection\Container;
 use RectorPrefix20210302\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorContainerFactory
@@ -23,7 +24,8 @@ final class RectorContainerFactory
         // to override the configs without clearing cache
         $isDebug = \RectorPrefix20210302\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
         $environment = $this->createEnvironment($configFileInfos);
-        $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);
+        // mt_rand is needed to invalidate container cache in case of class changes to be registered as services
+        $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment . \mt_rand(0, 10000), $isDebug);
         if ($configFileInfos !== []) {
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);
             $rectorKernel->setConfigs($configFilePaths);
