@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\ValueObject;
 
-use RectorPrefix20210301\Nette\Utils\Strings;
+use RectorPrefix20210302\Nette\Utils\Strings;
 use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use RectorPrefix20210301\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210302\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinition
 {
     /**
@@ -48,7 +48,7 @@ final class RuleDefinition
     public function getRuleClass() : string
     {
         if ($this->ruleClass === null) {
-            throw new \RectorPrefix20210301\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210302\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->ruleClass;
     }
@@ -59,13 +59,13 @@ final class RuleDefinition
     public function getRuleFilePath() : string
     {
         if ($this->ruleFilePath === null) {
-            throw new \RectorPrefix20210301\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210302\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->ruleFilePath;
     }
     public function getRuleShortClass() : string
     {
-        return (string) \RectorPrefix20210301\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
+        return (string) \RectorPrefix20210302\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**
      * @return CodeSampleInterface[]

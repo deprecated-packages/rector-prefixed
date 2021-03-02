@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\CaseSensitive;
 use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\IndexInTable;
 use Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine\Short;
-use RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo;
 final class DoctrineTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\AbstractPhpDocInfoPrinterTest
 {
     /**
@@ -19,7 +19,7 @@ final class DoctrineTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\Php
     {
         $docComment = $this->smartFileSystem->readFile($docFilePath);
         $phpDocInfo = $this->createPhpDocInfoFromDocCommentAndNode($docComment, $node);
-        $fileInfo = new \RectorPrefix20210301\Symplify\SmartFileSystem\SmartFileInfo($docFilePath);
+        $fileInfo = new \RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo($docFilePath);
         $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
         $printedPhpDocInfo = $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
         $this->assertSame($docComment, $printedPhpDocInfo, $relativeFilePathFromCwd);

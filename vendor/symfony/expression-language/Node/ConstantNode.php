@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210301\Symfony\Component\ExpressionLanguage\Node;
+namespace RectorPrefix20210302\Symfony\Component\ExpressionLanguage\Node;
 
-use RectorPrefix20210301\Symfony\Component\ExpressionLanguage\Compiler;
+use RectorPrefix20210302\Symfony\Component\ExpressionLanguage\Compiler;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
-class ConstantNode extends \RectorPrefix20210301\Symfony\Component\ExpressionLanguage\Node\Node
+class ConstantNode extends \RectorPrefix20210302\Symfony\Component\ExpressionLanguage\Node\Node
 {
     private $isIdentifier;
     public function __construct($value, bool $isIdentifier = \false)
@@ -24,7 +24,7 @@ class ConstantNode extends \RectorPrefix20210301\Symfony\Component\ExpressionLan
         $this->isIdentifier = $isIdentifier;
         parent::__construct([], ['value' => $value]);
     }
-    public function compile(\RectorPrefix20210301\Symfony\Component\ExpressionLanguage\Compiler $compiler)
+    public function compile(\RectorPrefix20210302\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
         $compiler->repr($this->attributes['value']);
     }

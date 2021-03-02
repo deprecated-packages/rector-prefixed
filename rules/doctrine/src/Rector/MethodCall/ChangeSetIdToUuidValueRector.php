@@ -12,7 +12,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use RectorPrefix20210301\Ramsey\Uuid\Uuid;
+use RectorPrefix20210302\Ramsey\Uuid\Uuid;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -167,7 +167,7 @@ CODE_SAMPLE
     }
     private function createUuidStringNode() : \PhpParser\Node\Scalar\String_
     {
-        $uuidValue = \RectorPrefix20210301\Ramsey\Uuid\Uuid::uuid4();
+        $uuidValue = \RectorPrefix20210302\Ramsey\Uuid\Uuid::uuid4();
         $uuidValueString = $uuidValue->toString();
         return new \PhpParser\Node\Scalar\String_($uuidValueString);
     }
