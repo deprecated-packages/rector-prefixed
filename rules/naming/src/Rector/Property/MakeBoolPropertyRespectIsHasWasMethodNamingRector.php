@@ -82,8 +82,6 @@ CODE_SAMPLE
         if ($expectedBoolName === null) {
             return null;
         }
-        //        dump($expectedBoolName);
-        //        die;
         $propertyRename = $this->propertyRenameFactory->createFromExpectedName($node, $expectedBoolName);
         if (!$propertyRename instanceof \Rector\Naming\ValueObject\PropertyRename) {
             return null;

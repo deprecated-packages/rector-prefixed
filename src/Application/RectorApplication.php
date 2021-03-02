@@ -11,7 +11,8 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
+use Rector\Core\FileSystem\PhpFilesFinder;
+use Rector\Core\StaticReflection\DynamicSourceLocatorDecorator;
 use RectorPrefix20210302\Symfony\Component\Console\Helper\ProgressBar;
 use RectorPrefix20210302\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210302\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
@@ -80,13 +81,17 @@ final class RectorApplication
      */
     private $privatesAccessor;
     /**
-     * @var DynamicSourceLocatorProvider
+     * @var PhpFilesFinder
      */
-    private $dynamicSourceLocatorProvider;
+    private $phpFilesFinder;
+    /**
+     * @var DynamicSourceLocatorDecorator
+     */
+    private $dynamicSourceLocatorDecorator;
     /**
      * @param PostRunnerInterface[] $postRunners
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210302\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210302\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider $dynamicSourceLocatorProvider, array $postRunners)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210302\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210302\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\StaticReflection\DynamicSourceLocatorDecorator $dynamicSourceLocatorDecorator, array $postRunners)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -97,13 +102,15 @@ final class RectorApplication
         $this->nodeScopeResolver = $nodeScopeResolver;
         $this->privatesAccessor = $privatesAccessor;
         $this->postRunners = $postRunners;
-        $this->dynamicSourceLocatorProvider = $dynamicSourceLocatorProvider;
+        $this->phpFilesFinder = $phpFilesFinder;
+        $this->dynamicSourceLocatorDecorator = $dynamicSourceLocatorDecorator;
     }
     /**
-     * @param SmartFileInfo[] $phpFileInfos
+     * @param string[] $paths
      */
-    public function runOnFileInfos(array $phpFileInfos) : void
+    public function runOnPaths(array $paths) : void
     {
+        $phpFileInfos = $this->phpFilesFinder->findInPaths($paths);
         $fileCount = \count($phpFileInfos);
         if ($fileCount === 0) {
             return;
@@ -111,6 +118,8 @@ final class RectorApplication
         $this->prepareProgressBar($fileCount);
         // PHPStan has to know about all files!
         $this->configurePHPStanNodeScopeResolver($phpFileInfos);
+        // 0. add files and directories to static locator
+        $this->dynamicSourceLocatorDecorator->addPaths($paths);
         // 1. parse files to nodes
         $this->parseFileInfosToNodes($phpFileInfos);
         // 2. change nodes with Rectors
@@ -157,7 +166,6 @@ final class RectorApplication
             $filePaths[] = $fileInfo->getPathname();
         }
         $this->nodeScopeResolver->setAnalysedFiles($filePaths);
-        $this->dynamicSourceLocatorProvider->addFileInfos($fileInfos);
     }
     /**
      * @param SmartFileInfo[] $phpFileInfos

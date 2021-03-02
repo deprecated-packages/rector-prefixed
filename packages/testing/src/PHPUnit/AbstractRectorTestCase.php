@@ -143,14 +143,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210302\Symplify\Pac
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFileInfos);
         $this->originalTempFileInfo = $inputFileInfo;
-        // runnable?
-        if (!\file_exists($inputFileInfo->getPathname())) {
-            return;
-        }
-        if (!\RectorPrefix20210302\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \Rector\Testing\Contract\RunnableInterface::class)) {
-            return;
-        }
-        $this->assertOriginalAndFixedFileResultEquals($inputFileInfo, $expectedFileInfo);
+        $this->processRunnableTest($inputFileInfo, $expectedFileInfo);
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
@@ -269,5 +262,16 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210302\Symplify\Pac
         $stubLoader = new \Rector\Core\Stubs\StubLoader();
         $stubLoader->loadStubs();
         self::$isInitialized = \true;
+    }
+    private function processRunnableTest(\RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
+    {
+        // runnable?
+        if (!\file_exists($inputFileInfo->getPathname())) {
+            return;
+        }
+        if (!\RectorPrefix20210302\Nette\Utils\Strings::contains($inputFileInfo->getContents(), \Rector\Testing\Contract\RunnableInterface::class)) {
+            return;
+        }
+        $this->assertOriginalAndFixedFileResultEquals($inputFileInfo, $expectedFileInfo);
     }
 }
