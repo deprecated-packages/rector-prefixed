@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
-use RectorPrefix20210303\Nette\Utils\Strings;
+use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Identical;
-use PhpParser\Node\Expr\BinaryOp\Minus;
 use PhpParser\Node\Expr\Cast\Bool_;
-use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Nette\NodeAnalyzer\PregMatchAllAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -23,12 +23,20 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector\PregMatchFunctionToNetteUtilsStringsRectorTest
  */
-final class PregMatchFunctionToNetteUtilsStringsRector extends \Rector\Nette\Rector\FuncCall\AbstractPregToNetteUtilsStringsRector
+final class PregMatchFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
     private const FUNCTION_NAME_TO_METHOD_NAME = ['preg_match' => 'match', 'preg_match_all' => 'matchAll'];
+    /**
+     * @var PregMatchAllAnalyzer
+     */
+    private $pregMatchAllAnalyzer;
+    public function __construct(\Rector\Nette\NodeAnalyzer\PregMatchAllAnalyzer $pregMatchAllAnalyzer)
+    {
+        $this->pregMatchAllAnalyzer = $pregMatchAllAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_match() and preg_match_all() functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -55,6 +63,23 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
+    /**
+     * @param FuncCall|Identical $node
+     */
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+            return $this->refactorIdentical($node);
+        }
+        return $this->refactorFuncCall($node);
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
+    }
     public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
     {
         $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -77,7 +102,7 @@ CODE_SAMPLE
      */
     public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
-        $methodName = $this->matchFuncCallRenameToMethod($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
+        $methodName = $this->nodeNameResolver->matchNameFromMap($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
         if ($methodName === null) {
             return null;
         }
@@ -97,32 +122,22 @@ CODE_SAMPLE
         }
         return $matchStaticCall;
     }
+    /**
+     * @param Expr $expr
+     */
+    private function createBoolCast(?\PhpParser\Node $node, \PhpParser\Node $expr) : \PhpParser\Node\Expr\Cast\Bool_
+    {
+        if ($node instanceof \PhpParser\Node\Stmt\Return_ && $expr instanceof \PhpParser\Node\Expr\Assign) {
+            $expr = $expr->expr;
+        }
+        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+    }
     private function createMatchStaticCall(\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \PhpParser\Node\Expr\StaticCall
     {
         $args = [];
         $args[] = $funcCall->args[1];
         $args[] = $funcCall->args[0];
-        $args = $this->compensateMatchAllEnforcedFlag($methodName, $funcCall, $args);
+        $args = $this->pregMatchAllAnalyzer->compensateEnforcedFlag($methodName, $funcCall, $args);
         return $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', $methodName, $args);
-    }
-    /**
-     * Compensate enforced flag https://github.com/nette/utils/blob/e3dd1853f56ee9a68bfbb2e011691283c2ed420d/src/Utils/Strings.php#L487
-     * See https://stackoverflow.com/a/61424319/1348344
-     *
-     * @param Arg[] $args
-     * @return Arg[]
-     */
-    private function compensateMatchAllEnforcedFlag(string $methodName, \PhpParser\Node\Expr\FuncCall $funcCall, array $args) : array
-    {
-        if ($methodName !== 'matchAll') {
-            return $args;
-        }
-        if (\count($funcCall->args) !== 3) {
-            return $args;
-        }
-        $constFetch = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PREG_SET_ORDER'));
-        $minus = new \PhpParser\Node\Expr\BinaryOp\Minus($constFetch, new \PhpParser\Node\Scalar\LNumber(1));
-        $args[] = new \PhpParser\Node\Arg($minus);
-        return $args;
     }
 }

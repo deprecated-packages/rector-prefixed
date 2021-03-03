@@ -318,6 +318,14 @@ final class NodeNameResolver
     {
         return $this->classNaming->getShortName($name);
     }
+    /**
+     * @param array<string, string> $renameMap
+     */
+    public function matchNameFromMap(\PhpParser\Node $node, array $renameMap) : ?string
+    {
+        $name = $this->getName($node);
+        return $renameMap[$name] ?? null;
+    }
     private function isCallOrIdentifier(\PhpParser\Node $node) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Identifier::class]);

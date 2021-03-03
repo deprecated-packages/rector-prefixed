@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
 use RectorPrefix20210303\Nette\Utils\Strings;
+use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -16,6 +17,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Nette\Tests\Rector\FuncCall\PregFunctionToNetteUtilsStringsRector\PregFunctionToNetteUtilsStringsRectorTest
  */
-final class PregFunctionToNetteUtilsStringsRector extends \Rector\Nette\Rector\FuncCall\AbstractPregToNetteUtilsStringsRector
+final class PregFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
@@ -61,6 +64,23 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
+    /**
+     * @param FuncCall|Identical $node
+     */
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+            return $this->refactorIdentical($node);
+        }
+        return $this->refactorFuncCall($node);
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
+    }
     public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
     {
         $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -83,7 +103,7 @@ CODE_SAMPLE
      */
     public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
-        $methodName = $this->matchFuncCallRenameToMethod($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
+        $methodName = $this->nodeNameResolver->matchNameFromMap($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
         if ($methodName === null) {
             return null;
         }
@@ -105,6 +125,16 @@ CODE_SAMPLE
             return new \PhpParser\Node\Expr\Assign($funcCall->args[2]->value, $matchStaticCall);
         }
         return $matchStaticCall;
+    }
+    /**
+     * @param Expr $expr
+     */
+    private function createBoolCast(?\PhpParser\Node $node, \PhpParser\Node $expr) : \PhpParser\Node\Expr\Cast\Bool_
+    {
+        if ($node instanceof \PhpParser\Node\Stmt\Return_ && $expr instanceof \PhpParser\Node\Expr\Assign) {
+            $expr = $expr->expr;
+        }
+        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
     }
     private function createMatchStaticCall(\PhpParser\Node\Expr\FuncCall $funcCall, string $methodName) : \PhpParser\Node\Expr\StaticCall
     {

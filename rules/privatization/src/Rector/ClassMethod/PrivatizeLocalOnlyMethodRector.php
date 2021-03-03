@@ -19,6 +19,7 @@ use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver;
+use RectorPrefix20210303\Symfony\Component\Routing\Annotation\Route;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -192,6 +193,20 @@ CODE_SAMPLE
         if ($this->isNames($classMethod, ['create', 'create*'])) {
             return \true;
         }
+        if ($this->hasSymfonyRouteAttrGroup($classMethod)) {
+            return \true;
+        }
         return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
+    }
+    private function hasSymfonyRouteAttrGroup(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        foreach ($classMethod->attrGroups as $attrGroup) {
+            foreach ($attrGroup->attrs as $attr) {
+                if ($attr->name->toString() === \RectorPrefix20210303\Symfony\Component\Routing\Annotation\Route::class) {
+                    return \true;
+                }
+            }
+        }
+        return \false;
     }
 }

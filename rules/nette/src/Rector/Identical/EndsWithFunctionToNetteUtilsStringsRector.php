@@ -4,9 +4,11 @@ declare (strict_types=1);
 namespace Rector\Nette\Rector\Identical;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\UnaryMinus;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use PhpParser\Node\Expr\BooleanNot;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Nette\NodeAnalyzer\StrlenEndsWithResolver;
 use Rector\Nette\ValueObject\ContentExprAndNeedleExpr;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -14,8 +16,23 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/nette/utils/blob/master/src/Utils/Strings.php
  * @see \Rector\Nette\Tests\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector\EndsWithFunctionToNetteUtilsStringsRectorTest
  */
-final class EndsWithFunctionToNetteUtilsStringsRector extends \Rector\Nette\Rector\Identical\AbstractWithFunctionToNetteUtilsStringsRector
+final class EndsWithFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var StrlenEndsWithResolver
+     */
+    private $strlenEndsWithResolver;
+    public function __construct(\Rector\Nette\NodeAnalyzer\StrlenEndsWithResolver $strlenEndsWithResolver)
+    {
+        $this->strlenEndsWithResolver = $strlenEndsWithResolver;
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings::endsWith() over bare string-functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -30,41 +47,32 @@ class SomeClass
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
+use Nette\Utils\Strings;
+
 class SomeClass
 {
     public function end($needle)
     {
         $content = 'Hi, my name is Tom';
-
-        $yes = \Nette\Utils\Strings::endsWith($content, $needle);
+        $yes = Strings::endsWith($content, $needle);
     }
 }
 CODE_SAMPLE
 )]);
     }
-    public function getMethodName() : string
+    /**
+     * @param Identical|NotIdentical $node
+     */
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        return 'endsWith';
-    }
-    public function matchContentAndNeedleOfSubstrOfVariableLength(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
-    {
-        if (!$this->nodeNameResolver->isFuncCallName($node, 'substr')) {
+        $contentExprAndNeedleExpr = $this->strlenEndsWithResolver->resolveBinaryOpForFunction($node);
+        if (!$contentExprAndNeedleExpr instanceof \Rector\Nette\ValueObject\ContentExprAndNeedleExpr) {
             return null;
         }
-        /** @var FuncCall $node */
-        if (!$node->args[1]->value instanceof \PhpParser\Node\Expr\UnaryMinus) {
-            return null;
+        $staticCall = $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', 'endsWith', [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            return new \PhpParser\Node\Expr\BooleanNot($staticCall);
         }
-        /** @var UnaryMinus $unaryMinus */
-        $unaryMinus = $node->args[1]->value;
-        if (!$this->nodeNameResolver->isFuncCallName($unaryMinus->expr, 'strlen')) {
-            return null;
-        }
-        /** @var FuncCall $strlenFuncCall */
-        $strlenFuncCall = $unaryMinus->expr;
-        if ($this->nodeComparator->areNodesEqual($strlenFuncCall->args[0]->value, $variable)) {
-            return new \Rector\Nette\ValueObject\ContentExprAndNeedleExpr($node->args[0]->value, $strlenFuncCall->args[0]->value);
-        }
-        return null;
+        return $staticCall;
     }
 }
