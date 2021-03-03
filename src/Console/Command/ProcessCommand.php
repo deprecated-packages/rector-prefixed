@@ -17,7 +17,6 @@ use Rector\Core\FileSystem\PhpFilesFinder;
 use Rector\Core\Guard\RectorGuard;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
-use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputArgument;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputInterface;
@@ -60,10 +59,6 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
      */
     private $rectorNodeTraverser;
     /**
-     * @var StubLoader
-     */
-    private $stubLoader;
-    /**
      * @var NonPhpFileProcessor
      */
     private $nonPhpFileProcessor;
@@ -79,7 +74,7 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var PhpFilesFinder
      */
     private $phpFilesFinder;
-    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\Guard\RectorGuard $rectorGuard, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Stubs\StubLoader $stubLoader, \RectorPrefix20210303\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder)
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\Guard\RectorGuard $rectorGuard, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210303\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder)
     {
         $this->filesFinder = $filesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -89,7 +84,6 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         $this->rectorApplication = $rectorApplication;
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->rectorNodeTraverser = $rectorNodeTraverser;
-        $this->stubLoader = $stubLoader;
         $this->nonPhpFileProcessor = $nonPhpFileProcessor;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->symfonyStyle = $symfonyStyle;
@@ -118,7 +112,6 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         $this->configuration->validateConfigParameters();
         $this->configuration->setAreAnyPhpRectorsLoaded((bool) $this->rectorNodeTraverser->getPhpRectorCount());
         $this->rectorGuard->ensureSomeRectorsAreRegistered();
-        $this->stubLoader->loadStubs();
         $paths = $this->configuration->getPaths();
         $phpFileInfos = $this->phpFilesFinder->findInPaths($paths);
         $this->additionalAutoloader->autoloadWithInputAndSource($input);

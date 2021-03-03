@@ -12,10 +12,10 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use RectorPrefix20210303\Ramsey\Uuid\Uuid;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210303\Symfony\Component\Uid\Uuid;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -167,9 +167,8 @@ CODE_SAMPLE
     }
     private function createUuidStringNode() : \PhpParser\Node\Scalar\String_
     {
-        $uuidValue = \RectorPrefix20210303\Ramsey\Uuid\Uuid::uuid4();
-        $uuidValueString = $uuidValue->toString();
-        return new \PhpParser\Node\Scalar\String_($uuidValueString);
+        $uuidV4 = \RectorPrefix20210303\Symfony\Component\Uid\Uuid::v4();
+        return new \PhpParser\Node\Scalar\String_((string) $uuidV4);
     }
     private function isUuidType(\PhpParser\Node\Expr $expr) : bool
     {
@@ -178,6 +177,6 @@ CODE_SAMPLE
         if (!$argumentStaticType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return $argumentStaticType->getClassName() === 'Ramsey\\Uuid\\Uuid';
+        return $argumentStaticType->isInstanceOf('Ramsey\\Uuid\\Uuid')->yes();
     }
 }

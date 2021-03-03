@@ -17,7 +17,6 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Application\EnabledRectorClassProvider;
@@ -258,9 +257,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210303\Symplify\Pac
         self::$smartFileSystem = new \RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileSystem();
         self::$fixtureGuard = new \Rector\Testing\Guard\FixtureGuard();
         self::$rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
-        // load stubs
-        $stubLoader = new \Rector\Core\Stubs\StubLoader();
-        $stubLoader->loadStubs();
         self::$isInitialized = \true;
     }
     private function processRunnableTest(\RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void

@@ -19,14 +19,18 @@ final class StubLoader
         if ($this->areStubsLoaded) {
             return;
         }
-        $stubDirectory = __DIR__ . '/../../stubs';
-        // stubs might not exists on composer install, to prevent PHPStorm duplicated confusion
+        // these have to be loaded, as doctrine annotation parser only works with included files
+        $stubDirectories = [__DIR__ . '/../../stubs/DI/Annotation', __DIR__ . '/../../stubs/Doctrine/ORM/Mapping', __DIR__ . '/../../stubs/Gedmo/Mapping/Annotation', __DIR__ . '/../../stubs/JMS', __DIR__ . '/../../stubs/Sensio/Bundle/FrameworkExtraBundle/Configuration', __DIR__ . '/../../stubs/Symfony/Bundle/FrameworkExtraBundle/Configuration', __DIR__ . '/../../stubs/Symfony/Bridge/Doctrine/Validator/Constraints', __DIR__ . '/../../stubs/Symfony/Component/Validator', __DIR__ . '/../../stubs/Symfony/Component/Form', __DIR__ . '/../../stubs/Symfony/Component/Routing/Annotation', __DIR__ . '/../../stubs/Tester'];
         // @see https://github.com/rectorphp/rector/issues/1899
-        if (!\file_exists($stubDirectory)) {
+        $stubDirectories = \array_filter($stubDirectories, function (string $stubDirectory) : bool {
+            return \file_exists($stubDirectory);
+        });
+        // stubs might not exists on composer install, to prevent PHPStorm duplicated confusion
+        if ($stubDirectories === []) {
             return;
         }
         $robotLoader = new \RectorPrefix20210303\Nette\Loaders\RobotLoader();
-        $robotLoader->addDirectory($stubDirectory);
+        $robotLoader->addDirectory(...$stubDirectories);
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector/stubs');
         $robotLoader->register();
         $robotLoader->rebuild();
