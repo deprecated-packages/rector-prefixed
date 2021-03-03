@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc2e708c336db58627b26321f19b0ff5f
+class ComposerStaticInitb60c3184775cb11bc75958d2ea58e0bb
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -4020,6 +4020,7 @@ class ComposerStaticInitc2e708c336db58627b26321f19b0ff5f
         'Rector\\Testing\\TestingParser\\TestingParser' => __DIR__ . '/../..' . '/packages/testing/src/TestingParser/TestingParser.php',
         'Rector\\Testing\\ValueObject\\InputFilePathWithExpectedFile' => __DIR__ . '/../..' . '/packages/testing/src/ValueObject/InputFilePathWithExpectedFile.php',
         'Rector\\Transform\\NodeAnalyzer\\FuncCallStaticCallToMethodCallAnalyzer' => __DIR__ . '/../..' . '/rules/transform/src/NodeAnalyzer/FuncCallStaticCallToMethodCallAnalyzer.php',
+        'Rector\\Transform\\NodeFactory\\ConfigFileFactory' => __DIR__ . '/../..' . '/rules/transform/src/NodeFactory/ConfigFileFactory.php',
         'Rector\\Transform\\NodeFactory\\PropertyFetchFactory' => __DIR__ . '/../..' . '/rules/transform/src/NodeFactory/PropertyFetchFactory.php',
         'Rector\\Transform\\NodeFactory\\ProvideConfigFilePathClassMethodFactory' => __DIR__ . '/../..' . '/rules/transform/src/NodeFactory/ProvideConfigFilePathClassMethodFactory.php',
         'Rector\\Transform\\NodeFactory\\UnwrapClosureFactory' => __DIR__ . '/../..' . '/rules/transform/src/NodeFactory/UnwrapClosureFactory.php',
@@ -4034,6 +4035,7 @@ class ComposerStaticInitc2e708c336db58627b26321f19b0ff5f
         'Rector\\Transform\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Transform\\Rector\\Class_\\CommunityTestCaseRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/CommunityTestCaseRector.php',
         'Rector\\Transform\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/MergeInterfacesRector.php',
+        'Rector\\Transform\\Rector\\Class_\\NativeTestCaseRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/NativeTestCaseRector.php',
         'Rector\\Transform\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/ParentClassToTraitsRector.php',
         'Rector\\Transform\\Rector\\Expression\\MethodCallToReturnRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Expression/MethodCallToReturnRector.php',
         'Rector\\Transform\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
@@ -4211,9 +4213,9 @@ class ComposerStaticInitc2e708c336db58627b26321f19b0ff5f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb60c3184775cb11bc75958d2ea58e0bb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb60c3184775cb11bc75958d2ea58e0bb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb60c3184775cb11bc75958d2ea58e0bb::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -125,10 +125,13 @@ CODE_SAMPLE
     }
     private function isGetComponentMethodCallOrArrayDimFetchOnControl(\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\MethodCall && $this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), 'getComponent')) {
-            return \true;
+        if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
+            return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
-        return $this->isArrayDimFetchStringOnControlVariable($expr);
+        if (!$this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), 'getComponent')) {
+            return $this->isArrayDimFetchStringOnControlVariable($expr);
+        }
+        return \true;
     }
     private function resolveControlType(\PhpParser\Node\Expr\Assign $assign) : \PHPStan\Type\Type
     {

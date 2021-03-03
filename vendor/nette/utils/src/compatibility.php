@@ -7,9 +7,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210303\Nette\Utils;
 
+use RectorPrefix20210303\Nette;
 if (\false) {
     /** @deprecated use Nette\HtmlStringable */
-    interface IHtmlString
+    interface IHtmlString extends \RectorPrefix20210303\Nette\HtmlStringable
     {
     }
 } elseif (!\interface_exists(\RectorPrefix20210303\Nette\Utils\IHtmlString::class)) {
@@ -19,7 +20,7 @@ namespace RectorPrefix20210303\Nette\Localization;
 
 if (\false) {
     /** @deprecated use Nette\Localization\Translator */
-    interface ITranslator
+    interface ITranslator extends \RectorPrefix20210303\Nette\Localization\Translator
     {
     }
 } elseif (!\interface_exists(\RectorPrefix20210303\Nette\Localization\ITranslator::class)) {
