@@ -98,7 +98,7 @@ CODE_SAMPLE
     private function refactorPropertyFetch(\PhpParser\Node\Expr $propertyFetchExpr) : bool
     {
         foreach ($this->emptyStringProperties as $emptyStringProperty) {
-            if (!$this->areNamesEqual($emptyStringProperty, $propertyFetchExpr)) {
+            if (!$this->nodeNameResolver->areNamesEqual($emptyStringProperty, $propertyFetchExpr)) {
                 continue;
             }
             $emptyStringProperty->default = new \PhpParser\Node\Expr\Array_();

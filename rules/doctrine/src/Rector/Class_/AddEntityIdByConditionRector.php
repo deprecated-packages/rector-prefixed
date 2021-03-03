@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
+        if ($this->classAnalyzer->isAnonymousClass($class)) {
             return \true;
         }
         if (!$this->isTraitMatch($class)) {

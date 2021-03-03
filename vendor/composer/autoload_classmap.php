@@ -1638,7 +1638,7 @@ return array(
     'Rector\\AttributeAwarePhpDoc\\AttributeAwareNodeFactory\\Type\\AttributeAwareUnionTypeNodeFactory' => $baseDir . '/packages/attribute-aware-php-doc/src/AttributeAwareNodeFactory/Type/AttributeAwareUnionTypeNodeFactory.php',
     'Rector\\AttributeAwarePhpDoc\\Contract\\AttributeNodeAwareFactory\\AttributeAwareNodeFactoryAwareInterface' => $baseDir . '/packages/attribute-aware-php-doc/src/Contract/AttributeNodeAwareFactory/AttributeAwareNodeFactoryAwareInterface.php',
     'Rector\\AttributeAwarePhpDoc\\Contract\\AttributeNodeAwareFactory\\AttributeNodeAwareFactoryInterface' => $baseDir . '/packages/attribute-aware-php-doc/src/Contract/AttributeNodeAwareFactory/AttributeNodeAwareFactoryInterface.php',
-    'Rector\\Autodiscovery\\Analyzer\\ClassAnalyzer' => $baseDir . '/rules/autodiscovery/src/Analyzer/ClassAnalyzer.php',
+    'Rector\\Autodiscovery\\Analyzer\\ValueObjectClassAnalyzer' => $baseDir . '/rules/autodiscovery/src/Analyzer/ValueObjectClassAnalyzer.php',
     'Rector\\Autodiscovery\\Configuration\\CategoryNamespaceProvider' => $baseDir . '/rules/autodiscovery/src/Configuration/CategoryNamespaceProvider.php',
     'Rector\\Autodiscovery\\FileLocation\\ExpectedFileLocationResolver' => $baseDir . '/rules/autodiscovery/src/FileLocation/ExpectedFileLocationResolver.php',
     'Rector\\Autodiscovery\\Rector\\FileNode\\MoveEntitiesToEntityDirectoryRector' => $baseDir . '/rules/autodiscovery/src/Rector/FileNode/MoveEntitiesToEntityDirectoryRector.php',

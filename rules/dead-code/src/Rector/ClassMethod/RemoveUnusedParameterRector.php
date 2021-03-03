@@ -143,7 +143,7 @@ CODE_SAMPLE
         if ($this->shouldSkipOpenSourceProtectedMethod($classMethod)) {
             return \true;
         }
-        return $this->classNodeAnalyzer->isAnonymousClass($classLike);
+        return $this->classAnalyzer->isAnonymousClass($classLike);
     }
     /**
      * @param Param[] $parameters1

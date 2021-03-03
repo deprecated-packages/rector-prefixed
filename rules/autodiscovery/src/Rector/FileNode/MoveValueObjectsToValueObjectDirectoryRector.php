@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use RectorPrefix20210303\Controller;
 use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use Rector\Autodiscovery\Analyzer\ClassAnalyzer;
+use Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
@@ -40,7 +39,7 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
      */
     public const ENABLE_VALUE_OBJECT_GUESSING = 'enable_value_object_guessing';
     /**
-     * @var string[]|class-string<Controller>[]
+     * @var string[]
      */
     private const COMMON_SERVICE_SUFFIXES = ['Repository', 'Command', 'Mapper', 'Controller', 'Presenter', 'Factory', 'Test', 'TestCase', 'Service'];
     /**
@@ -56,17 +55,17 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
      */
     private $suffixes = [];
     /**
-     * @var ClassAnalyzer
-     */
-    private $classAnalyzer;
-    /**
      * @var MovedFileWithNodesFactory
      */
     private $movedFileWithNodesFactory;
-    public function __construct(\Rector\Autodiscovery\Analyzer\ClassAnalyzer $classAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory)
+    /**
+     * @var ValueObjectClassAnalyzer
+     */
+    private $valueObjectClassAnalyzer;
+    public function __construct(\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory, \Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer $valueObjectClassAnalyzer)
     {
-        $this->classAnalyzer = $classAnalyzer;
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
+        $this->valueObjectClassAnalyzer = $valueObjectClassAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -159,16 +158,17 @@ CODE_SAMPLE
         if (!$this->enableValueObjectGuessing) {
             return \false;
         }
-        return $this->classAnalyzer->isValueObjectClass($class);
+        return $this->valueObjectClassAnalyzer->isValueObjectClass($class);
     }
     private function isSuffixMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($className !== null) {
-            foreach ($this->suffixes as $suffix) {
-                if (\RectorPrefix20210303\Nette\Utils\Strings::endsWith($className, $suffix)) {
-                    return \true;
-                }
+        if ($className === null) {
+            return \false;
+        }
+        foreach ($this->suffixes as $suffix) {
+            if (\RectorPrefix20210303\Nette\Utils\Strings::endsWith($className, $suffix)) {
+                return \true;
             }
         }
         return \false;

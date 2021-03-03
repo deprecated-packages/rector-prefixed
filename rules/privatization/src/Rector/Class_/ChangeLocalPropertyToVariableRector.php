@@ -86,7 +86,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->classNodeAnalyzer->isAnonymousClass($node)) {
+        if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
         }
         $privatePropertyNames = $this->classManipulator->getPrivatePropertyNames($node);

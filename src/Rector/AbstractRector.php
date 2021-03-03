@@ -111,7 +111,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     /**
      * @var ClassAnalyzer
      */
-    protected $classNodeAnalyzer;
+    protected $classAnalyzer;
     /**
      * @var NodeRemover
      */
@@ -128,6 +128,10 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      * @var PropertyAdder
      */
     protected $propertyAdder;
+    /**
+     * @var NodesToRemoveCollector
+     */
+    protected $nodesToRemoveCollector;
     /**
      * @var SimpleCallableNodeTraverser
      */
@@ -157,10 +161,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     private $previousAppliedClass;
     /**
-     * @var NodesToRemoveCollector
-     */
-    private $nodesToRemoveCollector;
-    /**
      * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
@@ -188,7 +188,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $this->staticTypeMapper = $staticTypeMapper;
         $this->parameterProvider = $parameterProvider;
         $this->currentRectorProvider = $currentRectorProvider;
-        $this->classNodeAnalyzer = $classAnalyzer;
+        $this->classAnalyzer = $classAnalyzer;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->skipper = $skipper;
         $this->valueResolver = $valueResolver;
@@ -245,10 +245,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     protected function isName(\PhpParser\Node $node, string $name) : bool
     {
         return $this->nodeNameResolver->isName($node, $name);
-    }
-    protected function areNamesEqual(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
-    {
-        return $this->nodeNameResolver->areNamesEqual($firstNode, $secondNode);
     }
     /**
      * @param string[] $names
@@ -316,15 +312,12 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             $this->addNodeAfterNode($ifStmt, $node);
         }
     }
-    protected function isOnClassMethodCall(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType, string $methodName) : bool
+    protected function isOnClassMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Type\ObjectType $objectType, string $methodName) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$this->isObjectType($methodCall->var, $objectType)) {
             return \false;
         }
-        if (!$this->isObjectType($node->var, $objectType)) {
-            return \false;
-        }
-        return $this->isName($node->name, $methodName);
+        return $this->isName($methodCall->name, $methodName);
     }
     protected function isOpenSourceProjectType() : bool
     {
@@ -387,10 +380,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     {
         $this->nodeRemover->removeNodeFromStatements($nodeWithStatements, $nodeToRemove);
     }
-    protected function isNodeRemoved(\PhpParser\Node $node) : bool
-    {
-        return $this->nodesToRemoveCollector->isNodeRemoved($node);
-    }
     /**
      * @param Node[] $nodes
      */
@@ -409,7 +398,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     }
     private function shouldSkipCurrentNode(\PhpParser\Node $node) : bool
     {
-        if ($this->isNodeRemoved($node)) {
+        if ($this->nodesToRemoveCollector->isNodeRemoved($node)) {
             return \true;
         }
         if ($this->exclusionManager->isNodeSkippedByRector($node, $this)) {

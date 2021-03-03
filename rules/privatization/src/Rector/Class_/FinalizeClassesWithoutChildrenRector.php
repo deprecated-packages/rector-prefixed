@@ -70,7 +70,7 @@ CODE_SAMPLE
         if ($node->isAbstract()) {
             return null;
         }
-        if ($this->classNodeAnalyzer->isAnonymousClass($node)) {
+        if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
         }
         if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {

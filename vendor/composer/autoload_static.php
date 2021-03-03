@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b
+class ComposerStaticInitc2e708c336db58627b26321f19b0ff5f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2423,7 +2423,7 @@ class ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b
         'Rector\\AttributeAwarePhpDoc\\AttributeAwareNodeFactory\\Type\\AttributeAwareUnionTypeNodeFactory' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/AttributeAwareNodeFactory/Type/AttributeAwareUnionTypeNodeFactory.php',
         'Rector\\AttributeAwarePhpDoc\\Contract\\AttributeNodeAwareFactory\\AttributeAwareNodeFactoryAwareInterface' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Contract/AttributeNodeAwareFactory/AttributeAwareNodeFactoryAwareInterface.php',
         'Rector\\AttributeAwarePhpDoc\\Contract\\AttributeNodeAwareFactory\\AttributeNodeAwareFactoryInterface' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Contract/AttributeNodeAwareFactory/AttributeNodeAwareFactoryInterface.php',
-        'Rector\\Autodiscovery\\Analyzer\\ClassAnalyzer' => __DIR__ . '/../..' . '/rules/autodiscovery/src/Analyzer/ClassAnalyzer.php',
+        'Rector\\Autodiscovery\\Analyzer\\ValueObjectClassAnalyzer' => __DIR__ . '/../..' . '/rules/autodiscovery/src/Analyzer/ValueObjectClassAnalyzer.php',
         'Rector\\Autodiscovery\\Configuration\\CategoryNamespaceProvider' => __DIR__ . '/../..' . '/rules/autodiscovery/src/Configuration/CategoryNamespaceProvider.php',
         'Rector\\Autodiscovery\\FileLocation\\ExpectedFileLocationResolver' => __DIR__ . '/../..' . '/rules/autodiscovery/src/FileLocation/ExpectedFileLocationResolver.php',
         'Rector\\Autodiscovery\\Rector\\FileNode\\MoveEntitiesToEntityDirectoryRector' => __DIR__ . '/../..' . '/rules/autodiscovery/src/Rector/FileNode/MoveEntitiesToEntityDirectoryRector.php',
@@ -4211,9 +4211,9 @@ class ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit73ee2dcb824c6cafdddbb76475af5e8b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc2e708c336db58627b26321f19b0ff5f::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -196,7 +196,7 @@ CODE_SAMPLE
     private function shouldRemoveEmptyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         foreach ($staticCall->args as $arg) {
-            if ($this->isNodeRemoved($arg)) {
+            if ($this->nodesToRemoveCollector->isNodeRemoved($arg)) {
                 continue;
             }
             return \false;

@@ -129,7 +129,7 @@ CODE_SAMPLE
             if (!$this->isName($node->expr->var, 'this')) {
                 return null;
             }
-            if (!$this->areNamesEqual($onlyPropertyProperty, $node->expr->name)) {
+            if (!$this->nodeNameResolver->areNamesEqual($onlyPropertyProperty, $node->expr->name)) {
                 return null;
             }
             $isBooleanNot = \true;

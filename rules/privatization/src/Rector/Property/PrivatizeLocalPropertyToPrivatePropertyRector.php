@@ -127,7 +127,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
+        if ($this->classAnalyzer->isAnonymousClass($classLike)) {
             return \true;
         }
         if ($this->nodeTypeResolver->isObjectTypes($classLike, $this->excludedObjectTypes)) {

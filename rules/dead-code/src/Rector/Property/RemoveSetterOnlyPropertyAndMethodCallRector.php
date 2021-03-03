@@ -179,7 +179,7 @@ CODE_SAMPLE
     private function hasMethodSomeStmtsLeft(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ((array) $classMethod->stmts as $stmt) {
-            if (!$this->isNodeRemoved($stmt)) {
+            if (!$this->nodesToRemoveCollector->isNodeRemoved($stmt)) {
                 return \false;
             }
         }
