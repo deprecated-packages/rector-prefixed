@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Type\MixedType;
+use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\DeadDocBlock\TagRemover\ParamTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -18,12 +19,18 @@ use Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator;
 use Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Rector\TypeDeclaration\ValueObject\NewType;
+use Rector\VendorLocker\VendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
+ * @see https://wiki.php.net/rfc/scalar_type_hints_v5
+ * @see https://github.com/nikic/TypeUtil
+ * @see https://github.com/nette/type-fixer
+ * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3258
+ *
  * @see \Rector\TypeDeclaration\Tests\Rector\FunctionLike\ParamTypeDeclarationRector\ParamTypeDeclarationRectorTest
  */
-final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\FunctionLike\AbstractTypeDeclarationRector
+final class ParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ParamTypeInferer
@@ -41,12 +48,24 @@ final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\Fu
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer $traitTypeAnalyzer, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    /**
+     * @var VendorLockResolver
+     */
+    private $vendorLockResolver;
+    public function __construct(\Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer $traitTypeAnalyzer, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->childParamPopulator = $childParamPopulator;
         $this->traitTypeAnalyzer = $traitTypeAnalyzer;
         $this->paramTagRemover = $paramTagRemover;
+        $this->vendorLockResolver = $vendorLockResolver;
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

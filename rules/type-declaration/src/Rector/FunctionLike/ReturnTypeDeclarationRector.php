@@ -15,23 +15,30 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
+use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator;
 use Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover;
+use Rector\TypeDeclaration\PhpParserTypeAnalyzer;
 use Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard;
+use Rector\VendorLocker\VendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
+ * @see https://wiki.php.net/rfc/scalar_type_hints_v5
+ * @see https://github.com/nikic/TypeUtil
+ * @see https://github.com/nette/type-fixer
+ * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3258
  *
  * @see \Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector\ReturnTypeDeclarationRectorTest
  */
-final class ReturnTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\FunctionLike\AbstractTypeDeclarationRector
+final class ReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ReturnTypeInferer
@@ -53,13 +60,30 @@ final class ReturnTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\F
      * @var ClassMethodReturnTypeOverrideGuard
      */
     private $classMethodReturnTypeOverrideGuard;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard)
+    /**
+     * @var VendorLockResolver
+     */
+    private $vendorLockResolver;
+    /**
+     * @var PhpParserTypeAnalyzer
+     */
+    private $phpParserTypeAnalyzer;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->returnTypeAlreadyAddedChecker = $returnTypeAlreadyAddedChecker;
         $this->nonInformativeReturnTagRemover = $nonInformativeReturnTagRemover;
         $this->childReturnPopulator = $childReturnPopulator;
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
+        $this->vendorLockResolver = $vendorLockResolver;
+        $this->phpParserTypeAnalyzer = $phpParserTypeAnalyzer;
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
