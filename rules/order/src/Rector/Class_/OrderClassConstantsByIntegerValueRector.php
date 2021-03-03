@@ -8,8 +8,8 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Order\Order\OrderChangeAnalyzer;
 use Rector\Order\StmtOrder;
-use Rector\Order\StmtVisibilitySorter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,22 +20,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class OrderClassConstantsByIntegerValueRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Order\Order\OrderChangeAnalyzer
+     * @var OrderChangeAnalyzer
      */
     private $orderChangeAnalyzer;
     /**
      * @var StmtOrder
      */
     private $stmtOrder;
-    /**
-     * @var StmtVisibilitySorter
-     */
-    private $stmtVisibilitySorter;
-    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
+    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder)
     {
         $this->orderChangeAnalyzer = $orderChangeAnalyzer;
         $this->stmtOrder = $stmtOrder;
-        $this->stmtVisibilitySorter = $stmtVisibilitySorter;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

@@ -7,6 +7,7 @@ use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
@@ -93,9 +94,12 @@ CODE_SAMPLE
         $node->name = $camelCaseName;
         return $node;
     }
-    private function isUsedNextPreviousAssignVar(\PhpParser\Node\Expr\Variable $variable, string $camelCaseName) : bool
+    private function isUsedNextPreviousAssignVar(\PhpParser\Node $variable, string $camelCaseName) : bool
     {
         $parent = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            return $this->isUsedNextPreviousAssignVar($parent, $camelCaseName);
+        }
         if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
             return \false;
         }

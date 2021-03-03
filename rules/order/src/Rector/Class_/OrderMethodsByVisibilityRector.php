@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
+use Rector\Order\Order\OrderChangeAnalyzer;
 use Rector\Order\StmtOrder;
 use Rector\Order\StmtVisibilitySorter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -24,7 +25,7 @@ final class OrderMethodsByVisibilityRector extends \Rector\Core\Rector\AbstractR
      */
     private const PREFERRED_ORDER = [\Rector\Core\ValueObject\MethodName::CONSTRUCT, \Rector\Core\ValueObject\MethodName::DESCTRUCT, '__call', '__callStatic', '__get', '__set', '__isset', '__unset', '__sleep', '__wakeup', '__serialize', '__unserialize', '__toString', '__invoke', \Rector\Core\ValueObject\MethodName::SET_STATE, \Rector\Core\ValueObject\MethodName::CLONE, 'setUpBeforeClass', 'tearDownAfterClass', \Rector\Core\ValueObject\MethodName::SET_UP, \Rector\Core\ValueObject\MethodName::TEAR_DOWN];
     /**
-     * @var \Rector\Order\Order\OrderChangeAnalyzer
+     * @var OrderChangeAnalyzer
      */
     private $orderChangeAnalyzer;
     /**
