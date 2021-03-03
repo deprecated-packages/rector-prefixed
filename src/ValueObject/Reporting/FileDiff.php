@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\ValueObject\Reporting;
 
 use Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
-use RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
@@ -26,7 +26,7 @@ final class FileDiff
     /**
      * @param RectorWithFileAndLineChange[] $rectorWithFileAndLineChanges
      */
-    public function __construct(\RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithFileAndLineChanges = [])
+    public function __construct(\RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithFileAndLineChanges = [])
     {
         $this->smartFileInfo = $smartFileInfo;
         $this->diff = $diff;
@@ -45,7 +45,7 @@ final class FileDiff
     {
         return $this->smartFileInfo->getRelativeFilePath();
     }
-    public function getFileInfo() : \RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

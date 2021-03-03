@@ -7,7 +7,9 @@ use PhpParser\Node;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
-use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Order\StmtOrder;
+use Rector\Order\StmtVisibilitySorter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -15,8 +17,26 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Order\Tests\Rector\Class_\OrderClassConstantsByIntegerValueRector\OrderClassConstantsByIntegerValueRectorTest
  */
-final class OrderClassConstantsByIntegerValueRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderClassConstantsByIntegerValueRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var \Rector\Order\Order\OrderChangeAnalyzer
+     */
+    private $orderChangeAnalyzer;
+    /**
+     * @var StmtOrder
+     */
+    private $stmtOrder;
+    /**
+     * @var StmtVisibilitySorter
+     */
+    private $stmtVisibilitySorter;
+    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
+    {
+        $this->orderChangeAnalyzer = $orderChangeAnalyzer;
+        $this->stmtOrder = $stmtOrder;
+        $this->stmtVisibilitySorter = $stmtVisibilitySorter;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order class constant order by their integer value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -61,7 +81,7 @@ CODE_SAMPLE
         $sortedClassConstConstsByValue = $classConstConstsByValue;
         \asort($sortedClassConstConstsByValue);
         $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($sortedClassConstConstsByValue, $classConstConstsByValue);
-        if (!$this->hasOrderChanged($oldToNewKeys)) {
+        if (!$this->orderChangeAnalyzer->hasOrderChanged($oldToNewKeys)) {
             return null;
         }
         $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);

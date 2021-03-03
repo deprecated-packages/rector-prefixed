@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210302\Symplify\PhpConfigPrinter\ExprResolver;
+namespace RectorPrefix20210303\Symplify\PhpConfigPrinter\ExprResolver;
 
-use RectorPrefix20210302\Nette\Utils\Strings;
+use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -12,10 +12,10 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210302\Symplify\PhpConfigPrinter\Configuration\SymfonyFunctionNameProvider;
-use RectorPrefix20210302\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20210302\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory;
-use RectorPrefix20210302\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
+use RectorPrefix20210303\Symplify\PhpConfigPrinter\Configuration\SymfonyFunctionNameProvider;
+use RectorPrefix20210303\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20210303\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory;
+use RectorPrefix20210303\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
 final class StringExprResolver
 {
     /**
@@ -35,7 +35,7 @@ final class StringExprResolver
      * @var SymfonyFunctionNameProvider
      */
     private $symfonyFunctionNameProvider;
-    public function __construct(\RectorPrefix20210302\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory $constantNodeFactory, \RectorPrefix20210302\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210302\Symplify\PhpConfigPrinter\Configuration\SymfonyFunctionNameProvider $symfonyFunctionNameProvider)
+    public function __construct(\RectorPrefix20210303\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory $constantNodeFactory, \RectorPrefix20210303\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210303\Symplify\PhpConfigPrinter\Configuration\SymfonyFunctionNameProvider $symfonyFunctionNameProvider)
     {
         $this->constantNodeFactory = $constantNodeFactory;
         $this->commonNodeFactory = $commonNodeFactory;
@@ -58,14 +58,14 @@ final class StringExprResolver
         if ($this->isClassType($value)) {
             return $this->resolveClassType($skipClassesToConstantReference, $value);
         }
-        if (\RectorPrefix20210302\Nette\Utils\Strings::startsWith($value, '@=')) {
+        if (\RectorPrefix20210303\Nette\Utils\Strings::startsWith($value, '@=')) {
             $value = \ltrim($value, '@=');
             $expr = $this->resolve($value, $skipServiceReference, $skipClassesToConstantReference);
             $args = [new \PhpParser\Node\Arg($expr)];
-            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210302\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
+            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210303\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
         }
         // is service reference
-        if (\RectorPrefix20210302\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
+        if (\RectorPrefix20210303\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
             $refOrServiceFunctionName = $this->symfonyFunctionNameProvider->provideRefOrService();
             return $this->resolveServiceReferenceExpr($value, $skipServiceReference, $refOrServiceFunctionName);
         }
@@ -79,7 +79,7 @@ final class StringExprResolver
     }
     private function isFilePath(string $value) : bool
     {
-        return (bool) \RectorPrefix20210302\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
+        return (bool) \RectorPrefix20210303\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
     }
     /**
      * @return String_|ClassConstFetch

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix20210302\Nette\Utils\Strings;
+use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -72,8 +72,8 @@ final class VariableNaming
         if ($name === null) {
             $name = $fallbackName;
         }
-        if (\RectorPrefix20210302\Nette\Utils\Strings::contains($name, '\\')) {
-            $name = (string) \RectorPrefix20210302\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\RectorPrefix20210303\Nette\Utils\Strings::contains($name, '\\')) {
+            $name = (string) \RectorPrefix20210303\Nette\Utils\Strings::after($name, '\\', -1);
         }
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);

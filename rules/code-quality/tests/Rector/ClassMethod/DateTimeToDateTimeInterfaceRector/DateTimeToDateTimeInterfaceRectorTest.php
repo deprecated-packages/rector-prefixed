@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\ClassMethod\DateTimeToDateTimeInterfac
 use Iterator;
 use Rector\CodeQuality\Rector\ClassMethod\DateTimeToDateTimeInterfaceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
 final class DateTimeToDateTimeInterfaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

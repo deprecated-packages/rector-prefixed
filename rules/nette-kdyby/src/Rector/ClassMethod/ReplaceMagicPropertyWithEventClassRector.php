@@ -3,13 +3,15 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use RectorPrefix20210302\Nette\Utils\Strings;
+use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Rector\AbstractRector;
 use Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
 use Rector\NetteKdyby\Naming\EventClassNaming;
+use Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer;
 use Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -19,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteKdyby\Tests\Rector\ClassMethod\ReplaceMagicPropertyWithEventClassRector\ReplaceMagicPropertyWithEventClassRectorTest
  */
-final class ReplaceMagicPropertyWithEventClassRector extends \Rector\NetteKdyby\Rector\ClassMethod\AbstractKdybyEventSubscriberRector
+final class ReplaceMagicPropertyWithEventClassRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var EventClassNaming
@@ -33,11 +35,16 @@ final class ReplaceMagicPropertyWithEventClassRector extends \Rector\NetteKdyby\
      * @var EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
-    public function __construct(\Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator)
+    /**
+     * @var GetSubscribedEventsClassMethodAnalyzer
+     */
+    private $getSubscribedEventsClassMethodAnalyzer;
+    public function __construct(\Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
     {
         $this->eventClassNaming = $eventClassNaming;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
         $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
+        $this->getSubscribedEventsClassMethodAnalyzer = $getSubscribedEventsClassMethodAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -92,7 +99,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkipClassMethod($node)) {
+        if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
         }
         $this->replaceEventPropertyReferenceWithEventClassReference($node);
@@ -119,7 +126,7 @@ CODE_SAMPLE
             }
             $eventPropertyReferenceName = $this->valueResolver->getValue($arrayKey);
             // is property?
-            if (!\RectorPrefix20210302\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
+            if (!\RectorPrefix20210303\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
                 return null;
             }
             $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($eventPropertyReferenceName);

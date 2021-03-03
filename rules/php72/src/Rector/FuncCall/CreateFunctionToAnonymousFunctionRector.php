@@ -10,17 +10,16 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\Encapsed;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Parser\InlineCodeParser;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Php72\NodeFactory\AnonymousFunctionFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,15 +28,20 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php72\Tests\Rector\FuncCall\CreateFunctionToAnonymousFunctionRector\CreateFunctionToAnonymousFunctionRectorTest
  */
-final class CreateFunctionToAnonymousFunctionRector extends \Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
+final class CreateFunctionToAnonymousFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var InlineCodeParser
      */
     private $inlineCodeParser;
-    public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)
+    /**
+     * @var AnonymousFunctionFactory
+     */
+    private $anonymousFunctionFactory;
+    public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser, \Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory)
     {
         $this->inlineCodeParser = $inlineCodeParser;
+        $this->anonymousFunctionFactory = $anonymousFunctionFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -72,38 +76,22 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return Closure|null
      */
-    public function shouldSkip(\PhpParser\Node $node) : bool
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        return !$this->isName($node, 'create_function');
-    }
-    /**
-     * @param FuncCall $node
-     * @return Param[]
-     */
-    public function getParameters(\PhpParser\Node $node) : array
-    {
-        return $this->parseStringToParameters($node->args[0]->value);
-    }
-    /**
-     * @return Identifier|Name|NullableType|UnionType|null
-     */
-    public function getReturnType(\PhpParser\Node $node) : ?\PhpParser\Node
-    {
-        return null;
-    }
-    /**
-     * @param FuncCall $node
-     * @return Stmt[]
-     */
-    public function getBody(\PhpParser\Node $node) : array
-    {
-        return $this->parseStringToBody($node->args[1]->value);
+        if (!$this->isName($node, 'create_function')) {
+            return null;
+        }
+        $params = $this->createParamsFromString($node->args[0]->value);
+        $stmts = $this->parseStringToBody($node->args[1]->value);
+        $returnType = null;
+        return $this->anonymousFunctionFactory->create($params, $stmts, $returnType);
     }
     /**
      * @return Param[]
      */
-    private function parseStringToParameters(\PhpParser\Node\Expr $expr) : array
+    private function createParamsFromString(\PhpParser\Node\Expr $expr) : array
     {
         $content = $this->inlineCodeParser->stringify($expr);
         $content = '<?php $value = function(' . $content . ') {};';

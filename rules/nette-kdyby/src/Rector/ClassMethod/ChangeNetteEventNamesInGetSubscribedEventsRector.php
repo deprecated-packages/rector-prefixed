@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use RectorPrefix20210302\Nette\Utils\Strings;
+use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -11,6 +11,8 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Exception\NotImplementedYetException;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer;
 use Rector\NetteKdyby\NodeManipulator\GetSubscribedEventsArrayManipulator;
 use Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
 use Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector;
@@ -21,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteKdyby\Tests\Rector\ClassMethod\ChangeNetteEventNamesInGetSubscribedEventsRector\ChangeNetteEventNamesInGetSubscribedEventsRectorTest
  */
-final class ChangeNetteEventNamesInGetSubscribedEventsRector extends \Rector\NetteKdyby\Rector\ClassMethod\AbstractKdybyEventSubscriberRector
+final class ChangeNetteEventNamesInGetSubscribedEventsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var GetSubscribedEventsArrayManipulator
@@ -35,11 +37,16 @@ final class ChangeNetteEventNamesInGetSubscribedEventsRector extends \Rector\Net
      * @var ListeningMethodsCollector
      */
     private $listeningMethodsCollector;
-    public function __construct(\Rector\NetteKdyby\NodeManipulator\GetSubscribedEventsArrayManipulator $getSubscribedEventsArrayManipulator, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector $listeningMethodsCollector)
+    /**
+     * @var GetSubscribedEventsClassMethodAnalyzer
+     */
+    private $getSubscribedEventsClassMethodAnalyzer;
+    public function __construct(\Rector\NetteKdyby\NodeManipulator\GetSubscribedEventsArrayManipulator $getSubscribedEventsArrayManipulator, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector $listeningMethodsCollector, \Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
     {
         $this->getSubscribedEventsArrayManipulator = $getSubscribedEventsArrayManipulator;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
         $this->listeningMethodsCollector = $listeningMethodsCollector;
+        $this->getSubscribedEventsClassMethodAnalyzer = $getSubscribedEventsClassMethodAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -100,7 +107,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkipClassMethod($node)) {
+        if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
         }
         $this->visibilityManipulator->makeStatic($node);
@@ -143,8 +150,8 @@ CODE_SAMPLE
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->valueResolver->getValue($expr);
-        if (\RectorPrefix20210302\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
-            return (string) \RectorPrefix20210302\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
+        if (\RectorPrefix20210303\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
+            return (string) \RectorPrefix20210303\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }
         throw new \Rector\Core\Exception\NotImplementedYetException($kdybyEventName);
     }

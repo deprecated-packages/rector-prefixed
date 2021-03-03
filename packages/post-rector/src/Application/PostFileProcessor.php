@@ -8,8 +8,8 @@ use PhpParser\NodeTraverser;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210302\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210303\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
 final class PostFileProcessor
 {
     /**
@@ -27,7 +27,7 @@ final class PostFileProcessor
     /**
      * @param PostRectorInterface[] $postRectors
      */
-    public function __construct(\RectorPrefix20210302\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, array $postRectors)
+    public function __construct(\RectorPrefix20210303\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, array $postRectors)
     {
         $this->postRectors = $this->sortByPriority($postRectors);
         $this->skipper = $skipper;
@@ -68,7 +68,7 @@ final class PostFileProcessor
     private function shouldSkipPostRector(\Rector\PostRector\Contract\Rector\PostRectorInterface $postRector) : bool
     {
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if (!$smartFileInfo instanceof \RectorPrefix20210302\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo) {
             return \false;
         }
         return $this->skipper->shouldSkipElementAndFileInfo($postRector, $smartFileInfo);

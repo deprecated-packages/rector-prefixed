@@ -7,6 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer;
+use Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer;
+use Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -14,12 +18,30 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Symfony3\Tests\Rector\MethodCall\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRectorTest
  */
-final class ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector extends \Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
+final class ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
     private const OLD_TO_NEW_OPTION_NAME = ['type' => 'entry_type', 'options' => 'entry_options'];
+    /**
+     * @var FormAddMethodCallAnalyzer
+     */
+    private $formAddMethodCallAnalyzer;
+    /**
+     * @var FormOptionsArrayMatcher
+     */
+    private $formOptionsArrayMatcher;
+    /**
+     * @var FormCollectionAnalyzer
+     */
+    private $formCollectionAnalyzer;
+    public function __construct(\Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher, \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer)
+    {
+        $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
+        $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
+        $this->formCollectionAnalyzer = $formCollectionAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename `type` option to `entry_type` in CollectionType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -70,13 +92,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isFormAddMethodCall($node)) {
+        if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
         }
-        if (!$this->isCollectionType($node)) {
+        if (!$this->formCollectionAnalyzer->isCollectionType($node)) {
             return null;
         }
-        $optionsArray = $this->matchOptionsArray($node);
+        $optionsArray = $this->formOptionsArrayMatcher->match($node);
         if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }

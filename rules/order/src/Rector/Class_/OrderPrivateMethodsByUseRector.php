@@ -10,19 +10,28 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Order\StmtOrder;
 use Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Order\Tests\Rector\Class_\OrderPrivateMethodsByUseRector\OrderPrivateMethodsByUseRectorTest
  */
-final class OrderPrivateMethodsByUseRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderPrivateMethodsByUseRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
      */
     private const MAX_ATTEMPTS = 5;
+    /**
+     * @var StmtOrder
+     */
+    private $stmtOrder;
+    public function __construct(\Rector\Order\StmtOrder $stmtOrder)
+    {
+        $this->stmtOrder = $stmtOrder;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order private methods in order of their use', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

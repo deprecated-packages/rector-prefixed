@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210302;
+namespace RectorPrefix20210303;
 
 final class JustTwoExceptionWithoutNamespace
 {

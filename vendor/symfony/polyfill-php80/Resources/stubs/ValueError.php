@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210302;
+namespace RectorPrefix20210303;
 
 class ValueError extends \Error
 {
 }
-\class_alias('RectorPrefix20210302\\ValueError', 'ValueError', \false);
+\class_alias('RectorPrefix20210303\\ValueError', 'ValueError', \false);
