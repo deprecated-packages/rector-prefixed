@@ -53,6 +53,10 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
+    public const CAKEPHP_42 = __DIR__ . '/../../../../config/set/cakephp42.php';
+    /**
+     * @var string
+     */
     public const CAKEPHP_FLUENT_OPTIONS = __DIR__ . '/../../../../config/set/cakephp-fluent-options.php';
     /**
      * @var string

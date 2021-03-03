@@ -7,10 +7,13 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher;
+use Rector\Defluent\Skipper\FluentMethodCallSkipper;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Symfony\NodeAnalyzer\FluentNodeRemover;
 use RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,15 +24,30 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see \Rector\Defluent\Tests\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector\FluentChainMethodCallToNormalMethodCallRectorTest
  * @see \Rector\Defluent\Tests\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector\NewFluentChainMethodCallToNonFluentRectorTest
  */
-final class NewFluentChainMethodCallToNonFluentRector extends \Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
+final class NewFluentChainMethodCallToNonFluentRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var FluentNodeRemover
+     */
+    private $fluentNodeRemover;
+    /**
+     * @var AssignAndRootExprAndNodesToAddMatcher
+     */
+    private $assignAndRootExprAndNodesToAddMatcher;
+    /**
+     * @var FluentMethodCallSkipper
+     */
+    private $fluentMethodCallSkipper;
+    public function __construct(\RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover, \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper)
     {
         $this->typeChecker = $typeChecker;
+        $this->fluentNodeRemover = $fluentNodeRemover;
+        $this->assignAndRootExprAndNodesToAddMatcher = $assignAndRootExprAndNodesToAddMatcher;
+        $this->fluentMethodCallSkipper = $fluentMethodCallSkipper;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -61,14 +79,14 @@ CODE_SAMPLE
         if ($this->typeChecker->isInstanceOf($parent, [\PhpParser\Node\Stmt\Return_::class, \PhpParser\Node\Arg::class])) {
             return null;
         }
-        if ($this->shouldSkipMethodCall($node)) {
+        if ($this->fluentMethodCallSkipper->shouldSkipRootMethodCall($node)) {
             return null;
         }
-        $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls($node, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
+        $assignAndRootExprAndNodesToAdd = $this->assignAndRootExprAndNodesToAddMatcher->match($node, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
         if (!$assignAndRootExprAndNodesToAdd instanceof \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd) {
             return null;
         }
-        $this->removeCurrentNode($node);
+        $this->fluentNodeRemover->removeCurrentNode($node);
         $this->addNodesAfterNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);
         return null;
     }

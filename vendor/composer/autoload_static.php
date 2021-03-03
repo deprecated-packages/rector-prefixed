@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca
+class ComposerStaticInitab36a55161f05028b30a830c52ad139c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2961,11 +2961,13 @@ class ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca
         'Rector\\Defluent\\ConflictGuard\\ParentClassMethodTypeOverrideGuard' => __DIR__ . '/../..' . '/rules/defluent/src/ConflictGuard/ParentClassMethodTypeOverrideGuard.php',
         'Rector\\Defluent\\Contract\\ValueObject\\FirstCallFactoryAwareInterface' => __DIR__ . '/../..' . '/rules/defluent/src/Contract/ValueObject/FirstCallFactoryAwareInterface.php',
         'Rector\\Defluent\\Contract\\ValueObject\\RootExprAwareInterface' => __DIR__ . '/../..' . '/rules/defluent/src/Contract/ValueObject/RootExprAwareInterface.php',
+        'Rector\\Defluent\\Matcher\\AssignAndRootExprAndNodesToAddMatcher' => __DIR__ . '/../..' . '/rules/defluent/src/Matcher/AssignAndRootExprAndNodesToAddMatcher.php',
         'Rector\\Defluent\\NodeAnalyzer\\ExprStringTypeResolver' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/ExprStringTypeResolver.php',
         'Rector\\Defluent\\NodeAnalyzer\\FluentCallStaticTypeResolver' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/FluentCallStaticTypeResolver.php',
         'Rector\\Defluent\\NodeAnalyzer\\FluentChainMethodCallNodeAnalyzer' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/FluentChainMethodCallNodeAnalyzer.php',
         'Rector\\Defluent\\NodeAnalyzer\\FluentChainMethodCallRootExtractor' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/FluentChainMethodCallRootExtractor.php',
         'Rector\\Defluent\\NodeAnalyzer\\GetterMethodCallAnalyzer' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/GetterMethodCallAnalyzer.php',
+        'Rector\\Defluent\\NodeAnalyzer\\MethodCallSkipAnalyzer' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/MethodCallSkipAnalyzer.php',
         'Rector\\Defluent\\NodeAnalyzer\\NewFluentChainMethodCallNodeAnalyzer' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/NewFluentChainMethodCallNodeAnalyzer.php',
         'Rector\\Defluent\\NodeAnalyzer\\SameClassMethodCallAnalyzer' => __DIR__ . '/../..' . '/rules/defluent/src/NodeAnalyzer/SameClassMethodCallAnalyzer.php',
         'Rector\\Defluent\\NodeFactory\\FluentMethodCallAsArgFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/FluentMethodCallAsArgFactory.php',
@@ -2974,7 +2976,6 @@ class ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca
         'Rector\\Defluent\\NodeFactory\\SeparateReturnMethodCallFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/SeparateReturnMethodCallFactory.php',
         'Rector\\Defluent\\NodeFactory\\VariableFromNewFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/VariableFromNewFactory.php',
         'Rector\\Defluent\\NodeResolver\\FirstMethodCallVarResolver' => __DIR__ . '/../..' . '/rules/defluent/src/NodeResolver/FirstMethodCallVarResolver.php',
-        'Rector\\Defluent\\Rector\\AbstractFluentChainMethodCallRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/AbstractFluentChainMethodCallRector.php',
         'Rector\\Defluent\\Rector\\ClassMethod\\NormalToFluentRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/ClassMethod/NormalToFluentRector.php',
         'Rector\\Defluent\\Rector\\ClassMethod\\ReturnThisRemoveRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/ClassMethod/ReturnThisRemoveRector.php',
         'Rector\\Defluent\\Rector\\MethodCall\\FluentChainMethodCallToNormalMethodCallRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/MethodCall/FluentChainMethodCallToNormalMethodCallRector.php',
@@ -3974,6 +3975,7 @@ class ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca
         'Rector\\Symfony\\Exception\\InvalidConfigurationException' => __DIR__ . '/../..' . '/rules/symfony/src/Exception/InvalidConfigurationException.php',
         'Rector\\Symfony\\Exception\\XmlContainerNotExistsException' => __DIR__ . '/../..' . '/rules/symfony/src/Exception/XmlContainerNotExistsException.php',
         'Rector\\Symfony\\NodeAnalyzer\\DependencyInjectionMethodCallAnalyzer' => __DIR__ . '/../..' . '/rules/symfony/src/NodeAnalyzer/DependencyInjectionMethodCallAnalyzer.php',
+        'Rector\\Symfony\\NodeAnalyzer\\FluentNodeRemover' => __DIR__ . '/../..' . '/rules/symfony/src/NodeAnalyzer/FluentNodeRemover.php',
         'Rector\\Symfony\\NodeAnalyzer\\ServiceTypeMethodCallResolver' => __DIR__ . '/../..' . '/rules/symfony/src/NodeAnalyzer/ServiceTypeMethodCallResolver.php',
         'Rector\\Symfony\\Rector\\BinaryOp\\ResponseStatusCodeRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/BinaryOp/ResponseStatusCodeRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\ActionSuffixRemoverRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/ClassMethod/ActionSuffixRemoverRector.php',
@@ -4202,9 +4204,9 @@ class ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2efdd00001c8f57813f1a477ba1485ca::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitab36a55161f05028b30a830c52ad139c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitab36a55161f05028b30a830c52ad139c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitab36a55161f05028b30a830c52ad139c::$classMap;
 
         }, null, ClassLoader::class);
     }
