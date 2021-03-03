@@ -158,6 +158,6 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         if ($changeCount === 0) {
             return 'Rector is done!';
         }
-        return \sprintf('Rector changed %d file%s %s.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
+        return \sprintf('%d file%s %s by Rector.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
     }
 }
