@@ -5,16 +5,16 @@ namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\NodeVisitorAbstract;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\PostRector\Collector\PropertyToAddCollector;
-use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\PostRector\NodeAnalyzer\NetteInjectDetector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Adds new private properties to class + to constructor
  */
-final class PropertyAddingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
+final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var ClassDependencyManipulator
@@ -55,6 +55,29 @@ final class PropertyAddingPostRector extends \PhpParser\NodeVisitorAbstract impl
         $this->addProperties($node);
         $this->addPropertiesWithoutConstructor($node);
         return $node;
+    }
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    {
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add dependency properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+class SomeClass
+{
+    public function run()
+    {
+        return $this->value;
+    }
+}
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
+class SomeClass
+{
+    private $value;
+    public function run()
+    {
+        return $this->value;
+    }
+}
+CODE_SAMPLE
+)]);
     }
     private function addConstants(\PhpParser\Node\Stmt\Class_ $class) : void
     {

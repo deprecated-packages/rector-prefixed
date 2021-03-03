@@ -5,7 +5,6 @@ namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Name;
-use PhpParser\NodeVisitorAbstract;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
@@ -13,9 +12,10 @@ use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
-use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use RectorPrefix20210303\Symplify\PackageBuilder\Parameter\ParameterProvider;
-final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var ParameterProvider
@@ -75,6 +75,28 @@ final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract imple
     public function getPriority() : int
     {
         return 600;
+    }
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    {
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Imports fully qualified names', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+class SomeClass
+{
+    public function run(App\AnotherClass $anotherClass)
+    {
+    }
+}
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
+use App\AnotherClass;
+
+class SomeClass
+{
+    public function run(AnotherClass $anotherClass)
+    {
+    }
+}
+CODE_SAMPLE
+)]);
     }
     private function processNodeName(\PhpParser\Node\Name $name) : ?\PhpParser\Node
     {

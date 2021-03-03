@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Composer\Rector;
 
-use Rector\Composer\Contract\Rector\CoreComposerRectorInterface;
+use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Rector\Composer\Guard\VersionGuard;
 use Rector\Composer\ValueObject\ReplacePackageAndVersion;
 use RectorPrefix20210303\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Composer\Tests\Rector\ReplacePackageAndVersionComposerRector\ReplacePackageAndVersionComposerRectorTest
  */
-final class ReplacePackageAndVersionComposerRector implements \Rector\Composer\Contract\Rector\CoreComposerRectorInterface
+final class ReplacePackageAndVersionComposerRector implements \Rector\Composer\Contract\Rector\ComposerRectorInterface
 {
     /**
      * @var string

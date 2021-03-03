@@ -65,11 +65,11 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce) {
             return null;
         }
-        if ($this->isStringOrStaticNonNumbericString($node->left) && $this->isNumberType($node->right)) {
+        if ($this->isStringOrStaticNonNumbericString($node->left) && $this->nodeTypeResolver->isNumberType($node->right)) {
             $node->left = new \PhpParser\Node\Scalar\LNumber(0);
             return $node;
         }
-        if ($this->isStringOrStaticNonNumbericString($node->right) && $this->isNumberType($node->left)) {
+        if ($this->isStringOrStaticNonNumbericString($node->right) && $this->nodeTypeResolver->isNumberType($node->left)) {
             $node->right = new \PhpParser\Node\Scalar\LNumber(0);
             return $node;
         }

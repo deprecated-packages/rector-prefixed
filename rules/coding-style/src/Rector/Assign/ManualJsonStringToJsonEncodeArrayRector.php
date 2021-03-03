@@ -232,4 +232,12 @@ CODE_SAMPLE
         }
         return null;
     }
+    private function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
+    {
+        $currentExpression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+        if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {
+            return null;
+        }
+        return $currentExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+    }
 }

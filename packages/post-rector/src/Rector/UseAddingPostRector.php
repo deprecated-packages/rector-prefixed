@@ -7,7 +7,6 @@ use RectorPrefix20210303\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\NodeVisitorAbstract;
 use Rector\CodingStyle\Application\UseImportsAdder;
 use Rector\CodingStyle\Application\UseImportsRemover;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -15,10 +14,11 @@ use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
-final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
+final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var UseImportsAdder
@@ -96,6 +96,28 @@ final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implement
     {
         // must be after name importing
         return 500;
+    }
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    {
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add unique use imports collected during Rector run', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+class SomeClass
+{
+    public function run(AnotherClass $anotherClass)
+    {
+    }
+}
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
+use App\AnotherClass;
+
+class SomeClass
+{
+    public function run(AnotherClass $anotherClass)
+    {
+    }
+}
+CODE_SAMPLE
+)]);
     }
     /**
      * @param Node[] $nodes

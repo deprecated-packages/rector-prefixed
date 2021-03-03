@@ -107,7 +107,7 @@ CODE_SAMPLE
             $this->refactorClassConstFetch($argExpr);
             return null;
         }
-        if (!$this->isNumberType($argExpr)) {
+        if (!$this->nodeTypeResolver->isNumberType($argExpr)) {
             return null;
         }
         $mul = $this->mulByNumber($argExpr, 60);

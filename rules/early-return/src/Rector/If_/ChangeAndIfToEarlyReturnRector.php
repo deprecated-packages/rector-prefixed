@@ -160,7 +160,7 @@ CODE_SAMPLE
         $ifExprs = $this->betterNodeFinder->findInstanceOf($if->stmts, \PhpParser\Node\Expr::class);
         foreach ($ifExprs as $expr) {
             $isExprFoundInReturn = (bool) $this->betterNodeFinder->findFirst($return->expr, function (\PhpParser\Node $node) use($expr) : bool {
-                return $this->areNodesEqual($node, $expr);
+                return $this->nodeComparator->areNodesEqual($node, $expr);
             });
             if ($isExprFoundInReturn) {
                 return \true;
