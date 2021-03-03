@@ -233,10 +233,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const MOCKISTA_TO_MOCKERY = __DIR__ . '/../../../../config/set/mockista-to-mockery.php';
-    /**
-     * @var string
-     */
     public const MONOLOG_20 = __DIR__ . '/../../../../config/set/monolog20.php';
     /**
      * @var string

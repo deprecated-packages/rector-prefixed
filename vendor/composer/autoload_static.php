@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229
+class ComposerStaticInit3f11e436cca08a8427d434c5a780912b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -83,7 +83,6 @@ class ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229
             'Rector\\NetteCodeQuality\\' => 24,
             'Rector\\Naming\\' => 14,
             'Rector\\MysqlToMysqli\\' => 21,
-            'Rector\\MockistaToMockery\\' => 25,
             'Rector\\MockeryToProphecy\\' => 25,
             'Rector\\Legacy\\' => 14,
             'Rector\\Laravel\\' => 15,
@@ -412,10 +411,6 @@ class ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229
         'Rector\\MysqlToMysqli\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src',
-        ),
-        'Rector\\MockistaToMockery\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/mockista-to-mockery/src',
         ),
         'Rector\\MockeryToProphecy\\' => 
         array (
@@ -3195,9 +3190,6 @@ class ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229
         'Rector\\MockeryToProphecy\\Collector\\MockVariableCollector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Collector/MockVariableCollector.php',
         'Rector\\MockeryToProphecy\\Rector\\ClassMethod\\MockeryCreateMockToProphizeRector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Rector/ClassMethod/MockeryCreateMockToProphizeRector.php',
         'Rector\\MockeryToProphecy\\Rector\\StaticCall\\MockeryCloseRemoveRector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Rector/StaticCall/MockeryCloseRemoveRector.php',
-        'Rector\\MockistaToMockery\\MockistaDetector' => __DIR__ . '/../..' . '/rules/mockista-to-mockery/src/MockistaDetector.php',
-        'Rector\\MockistaToMockery\\Rector\\ClassMethod\\MockistaMockToMockeryMockRector' => __DIR__ . '/../..' . '/rules/mockista-to-mockery/src/Rector/ClassMethod/MockistaMockToMockeryMockRector.php',
-        'Rector\\MockistaToMockery\\Rector\\Class_\\MockeryTearDownRector' => __DIR__ . '/../..' . '/rules/mockista-to-mockery/src/Rector/Class_/MockeryTearDownRector.php',
         'Rector\\MysqlToMysqli\\Rector\\Assign\\MysqlAssignToMysqliRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/Assign/MysqlAssignToMysqliRector.php',
         'Rector\\MysqlToMysqli\\Rector\\FuncCall\\MysqlFuncCallToMysqliRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/FuncCall/MysqlFuncCallToMysqliRector.php',
         'Rector\\MysqlToMysqli\\Rector\\FuncCall\\MysqlPConnectToMysqliConnectRector' => __DIR__ . '/../..' . '/rules/mysql-to-mysqli/src/Rector/FuncCall/MysqlPConnectToMysqliConnectRector.php',
@@ -4223,9 +4215,9 @@ class ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3a0fe6a53c82203b4c6e6ef284cd7229::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f11e436cca08a8427d434c5a780912b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f11e436cca08a8427d434c5a780912b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f11e436cca08a8427d434c5a780912b::$classMap;
 
         }, null, ClassLoader::class);
     }

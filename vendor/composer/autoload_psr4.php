@@ -63,7 +63,6 @@ return array(
     'Rector\\NetteCodeQuality\\' => array($baseDir . '/rules/nette-code-quality/src'),
     'Rector\\Naming\\' => array($baseDir . '/rules/naming/src'),
     'Rector\\MysqlToMysqli\\' => array($baseDir . '/rules/mysql-to-mysqli/src'),
-    'Rector\\MockistaToMockery\\' => array($baseDir . '/rules/mockista-to-mockery/src'),
     'Rector\\MockeryToProphecy\\' => array($baseDir . '/rules/mockery-to-prophecy/src'),
     'Rector\\Legacy\\' => array($baseDir . '/rules/legacy/src'),
     'Rector\\Laravel\\' => array($baseDir . '/rules/laravel/src'),
