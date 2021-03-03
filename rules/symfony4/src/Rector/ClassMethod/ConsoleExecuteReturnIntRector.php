@@ -116,8 +116,11 @@ CODE_SAMPLE
     }
     private function isIntegerTernaryIfElse(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
-        /** @var Expr $if */
+        /** @var Expr|null $if */
         $if = $ternary->if;
+        if (!$if instanceof \PhpParser\Node\Expr) {
+            $if = $ternary->cond;
+        }
         /** @var Expr $else */
         $else = $ternary->else;
         $ifType = $this->getStaticType($if);
