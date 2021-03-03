@@ -1981,7 +1981,6 @@ return array(
     'Rector\\Core\\Configuration\\CurrentNodeProvider' => $baseDir . '/src/Configuration/CurrentNodeProvider.php',
     'Rector\\Core\\Configuration\\Option' => $baseDir . '/src/Configuration/Option.php',
     'Rector\\Core\\Configuration\\RenamedClassesDataCollector' => $baseDir . '/src/Configuration/RenamedClassesDataCollector.php',
-    'Rector\\Core\\Console\\Command\\AbstractCommand' => $baseDir . '/src/Console/Command/AbstractCommand.php',
     'Rector\\Core\\Console\\Command\\InitCommand' => $baseDir . '/src/Console/Command/InitCommand.php',
     'Rector\\Core\\Console\\Command\\ProcessCommand' => $baseDir . '/src/Console/Command/ProcessCommand.php',
     'Rector\\Core\\Console\\Command\\ShowCommand' => $baseDir . '/src/Console/Command/ShowCommand.php',

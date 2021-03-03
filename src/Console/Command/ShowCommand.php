@@ -5,13 +5,14 @@ namespace Rector\Core\Console\Command;
 
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
+use RectorPrefix20210303\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210303\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210303\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210303\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210303\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
-final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
+final class ShowCommand extends \RectorPrefix20210303\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle

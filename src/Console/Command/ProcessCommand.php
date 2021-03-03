@@ -12,19 +12,22 @@ use Rector\Core\Autoloading\AdditionalAutoloader;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Console\Output\OutputFormatterCollector;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\FileSystem\FilesFinder;
 use Rector\Core\FileSystem\PhpFilesFinder;
 use Rector\Core\Guard\RectorGuard;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
+use RectorPrefix20210303\Symfony\Component\Console\Application;
+use RectorPrefix20210303\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputArgument;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputOption;
 use RectorPrefix20210303\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210303\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210303\Symplify\PackageBuilder\Console\ShellCode;
-final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
+final class ProcessCommand extends \RectorPrefix20210303\Symfony\Component\Console\Command\Command
 {
     /**
      * @var FilesFinder
@@ -74,6 +77,10 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var PhpFilesFinder
      */
     private $phpFilesFinder;
+    /**
+     * @var ChangedFilesDetector
+     */
+    private $changedFilesDetector;
     public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\Guard\RectorGuard $rectorGuard, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210303\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder)
     {
         $this->filesFinder = $filesFinder;
@@ -146,6 +153,25 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
             return \RectorPrefix20210303\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         return \RectorPrefix20210303\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+    }
+    protected function initialize(\RectorPrefix20210303\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210303\Symfony\Component\Console\Output\OutputInterface $output) : void
+    {
+        $application = $this->getApplication();
+        if (!$application instanceof \RectorPrefix20210303\Symfony\Component\Console\Application) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $optionDebug = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DEBUG);
+        if ($optionDebug) {
+            $application->setCatchExceptions(\false);
+            // clear cache
+            $this->changedFilesDetector->clear();
+            return;
+        }
+        // clear cache
+        $optionClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
+        if ($optionClearCache) {
+            $this->changedFilesDetector->clear();
+        }
     }
     private function reportZeroCacheRectorsCondition() : void
     {

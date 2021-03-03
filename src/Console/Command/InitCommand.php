@@ -4,10 +4,11 @@ declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
 use Rector\RectorGenerator\TemplateInitializer;
+use RectorPrefix20210303\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210303\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210303\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210303\Symplify\PackageBuilder\Console\ShellCode;
-final class InitCommand extends \Rector\Core\Console\Command\AbstractCommand
+final class InitCommand extends \RectorPrefix20210303\Symfony\Component\Console\Command\Command
 {
     /**
      * @var TemplateInitializer
