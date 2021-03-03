@@ -7,25 +7,34 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector;
+use Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Ref: https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md#console
  * @see \Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\ContainerGetToConstructorInjectionRectorTest
  */
-final class ContainerGetToConstructorInjectionRector extends \Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ContainerGetToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
-    public const CONTAINER_AWARE_PARENT_TYPES = '$containerAwareParentTypes';
+    public const CONTAINER_AWARE_PARENT_TYPES = 'container_aware_parent_types';
     /**
      * @var string[]
      */
     private $containerAwareParentTypes = ['Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand', 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'];
+    /**
+     * @var DependencyInjectionMethodCallAnalyzer
+     */
+    private $dependencyInjectionMethodCallAnalyzer;
+    public function __construct(\Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer $dependencyInjectionMethodCallAnalyzer)
+    {
+        $this->dependencyInjectionMethodCallAnalyzer = $dependencyInjectionMethodCallAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -79,7 +88,7 @@ CODE_SAMPLE
         if (!\in_array($parentClassName, $this->containerAwareParentTypes, \true)) {
             return null;
         }
-        return $this->processMethodCallNode($node);
+        return $this->dependencyInjectionMethodCallAnalyzer->replaceMethodCallWithPropertyFetchAndDependency($node);
     }
     public function configure(array $configuration) : void
     {
