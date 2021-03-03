@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Symfony4\Rector\ClassMethod;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\Cast\Int_;
 use PhpParser\Node\Expr\Ternary;
@@ -90,7 +91,7 @@ CODE_SAMPLE
                 return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
             $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \PhpParser\Node\Stmt\Return_ && $this->nodeComparator->areNodesEqual($parentNode->expr, $node) && $node instanceof \PhpParser\Node\Expr\Cast\Int_) {
+            if ($this->isAReturnWithExprIntEquals($parentNode, $node)) {
                 $hasReturn = \true;
                 return null;
             }
@@ -100,18 +101,45 @@ CODE_SAMPLE
             if ($node->expr instanceof \PhpParser\Node\Expr\Cast\Int_) {
                 return null;
             }
+            if ($node->expr instanceof \PhpParser\Node\Expr\Ternary && $this->isIntegerTernaryIfElse($node->expr)) {
+                $hasReturn = \true;
+                return null;
+            }
             // is there return without nesting?
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($this->nodeComparator->areNodesEqual($parentNode, $classMethod)) {
                 $hasReturn = \true;
             }
             $this->setReturnTo0InsteadOfNull($node);
             return null;
         });
+        $this->processReturn0ToMethod($hasReturn, $classMethod);
+    }
+    private function isIntegerTernaryIfElse(\PhpParser\Node\Expr\Ternary $ternary) : bool
+    {
+        /** @var Expr $if */
+        $if = $ternary->if;
+        /** @var Expr $else */
+        $else = $ternary->else;
+        $ifType = $this->getStaticType($if);
+        $elseType = $this->getStaticType($else);
+        return $ifType instanceof \PHPStan\Type\IntegerType && $elseType instanceof \PHPStan\Type\IntegerType;
+    }
+    private function processReturn0ToMethod(bool $hasReturn, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    {
         if ($hasReturn) {
             return;
         }
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Scalar\LNumber(0));
+    }
+    private function isAReturnWithExprIntEquals(?\PhpParser\Node $parentNode, \PhpParser\Node $node) : bool
+    {
+        if (!$parentNode instanceof \PhpParser\Node\Stmt\Return_) {
+            return \false;
+        }
+        if (!$this->nodeComparator->areNodesEqual($parentNode->expr, $node)) {
+            return \false;
+        }
+        return $node instanceof \PhpParser\Node\Expr\Cast\Int_;
     }
     private function setReturnTo0InsteadOfNull(\PhpParser\Node\Stmt\Return_ $return) : void
     {

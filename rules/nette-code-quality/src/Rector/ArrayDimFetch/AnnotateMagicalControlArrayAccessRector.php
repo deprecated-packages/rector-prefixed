@@ -13,8 +13,13 @@ use PhpParser\Node\Stmt\Unset_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\Naming\ArrayDimFetchRenamer;
+use Rector\NetteCodeQuality\Naming\NetteControlNaming;
+use Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer;
+use Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer;
+use Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
 use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -24,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\ArrayDimFetch\AnnotateMagicalControlArrayAccessRector\AnnotateMagicalControlArrayAccessRectorTest
  */
-final class AnnotateMagicalControlArrayAccessRector extends \Rector\NetteCodeQuality\Rector\ArrayDimFetch\AbstractArrayDimFetchToAnnotatedControlVariableRector
+final class AnnotateMagicalControlArrayAccessRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var MethodNamesByInputNamesResolver
@@ -34,10 +39,37 @@ final class AnnotateMagicalControlArrayAccessRector extends \Rector\NetteCodeQua
      * @var ArrayDimFetchRenamer
      */
     private $arrayDimFetchRenamer;
-    public function __construct(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver, \Rector\Naming\ArrayDimFetchRenamer $arrayDimFetchRenamer)
+    /**
+     * @var ArrayDimFetchAnalyzer
+     */
+    private $arrayDimFetchAnalyzer;
+    /**
+     * @var ControlDimFetchAnalyzer
+     */
+    private $controlDimFetchAnalyzer;
+    /**
+     * @var NetteControlNaming
+     */
+    private $netteControlNaming;
+    /**
+     * @var AssignAnalyzer
+     */
+    private $assignAnalyzer;
+    public function __construct(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver, \Rector\Naming\ArrayDimFetchRenamer $arrayDimFetchRenamer, \Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer, \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer $assignAnalyzer)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
         $this->arrayDimFetchRenamer = $arrayDimFetchRenamer;
+        $this->arrayDimFetchAnalyzer = $arrayDimFetchAnalyzer;
+        $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
+        $this->netteControlNaming = $netteControlNaming;
+        $this->assignAnalyzer = $assignAnalyzer;
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -82,13 +114,6 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes() : array
-    {
-        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
-    }
-    /**
      * @param ArrayDimFetch $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
@@ -106,7 +131,7 @@ CODE_SAMPLE
         }
         $variableName = $this->netteControlNaming->createVariableName($controlName);
         $controlObjectType = $this->resolveControlType($node, $controlName);
-        $this->addAssignExpressionForFirstCase($variableName, $node, $controlObjectType);
+        $this->assignAnalyzer->addAssignExpressionForFirstCase($variableName, $node, $controlObjectType);
         $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->arrayDimFetchRenamer->renameToVariable($classMethod, $node, $variableName);
@@ -115,7 +140,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        if ($this->isBeingAssignedOrInitialized($arrayDimFetch)) {
+        if ($this->arrayDimFetchAnalyzer->isBeingAssignedOrInitialized($arrayDimFetch)) {
             return \true;
         }
         $parent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

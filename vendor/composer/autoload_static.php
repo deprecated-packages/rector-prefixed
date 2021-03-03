@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c
+class ComposerStaticInit0782c52ef6472169a90696fa16cc0cfa
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3256,11 +3256,12 @@ class ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c
         'Rector\\NetteCodeQuality\\FormControlTypeResolver\\VariableConstructorFormControlTypeResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/FormControlTypeResolver/VariableConstructorFormControlTypeResolver.php',
         'Rector\\NetteCodeQuality\\Naming\\NetteControlNaming' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Naming/NetteControlNaming.php',
         'Rector\\NetteCodeQuality\\NodeAdding\\FunctionLikeFirstLevelStatementResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeAdding/FunctionLikeFirstLevelStatementResolver.php',
+        'Rector\\NetteCodeQuality\\NodeAnalyzer\\ArrayDimFetchAnalyzer' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeAnalyzer/ArrayDimFetchAnalyzer.php',
+        'Rector\\NetteCodeQuality\\NodeAnalyzer\\AssignAnalyzer' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeAnalyzer/AssignAnalyzer.php',
         'Rector\\NetteCodeQuality\\NodeAnalyzer\\BinaryOpAnalyzer' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeAnalyzer/BinaryOpAnalyzer.php',
         'Rector\\NetteCodeQuality\\NodeAnalyzer\\ControlDimFetchAnalyzer' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeAnalyzer/ControlDimFetchAnalyzer.php',
         'Rector\\NetteCodeQuality\\NodeResolver\\FormVariableInputNameTypeResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeResolver/FormVariableInputNameTypeResolver.php',
         'Rector\\NetteCodeQuality\\NodeResolver\\MethodNamesByInputNamesResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeResolver/MethodNamesByInputNamesResolver.php',
-        'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\AbstractArrayDimFetchToAnnotatedControlVariableRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/AbstractArrayDimFetchToAnnotatedControlVariableRector.php',
         'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\AnnotateMagicalControlArrayAccessRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/AnnotateMagicalControlArrayAccessRector.php',
         'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\ChangeFormArrayAccessToAnnotatedControlVariableRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/ChangeFormArrayAccessToAnnotatedControlVariableRector.php',
         'Rector\\NetteCodeQuality\\Rector\\Assign\\ArrayAccessGetControlToGetComponentMethodCallRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/Assign/ArrayAccessGetControlToGetComponentMethodCallRector.php',
@@ -4200,9 +4201,9 @@ class ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb7d8fac846a1d8914a2a1265daa3825c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0782c52ef6472169a90696fa16cc0cfa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0782c52ef6472169a90696fa16cc0cfa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0782c52ef6472169a90696fa16cc0cfa::$classMap;
 
         }, null, ClassLoader::class);
     }

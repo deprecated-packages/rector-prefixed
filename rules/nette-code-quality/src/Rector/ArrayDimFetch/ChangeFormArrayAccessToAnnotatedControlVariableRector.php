@@ -10,6 +10,11 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Unset_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NetteCodeQuality\Naming\NetteControlNaming;
+use Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer;
+use Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer;
+use Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
 use Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker;
@@ -20,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\ArrayDimFetch\ChangeFormArrayAccessToAnnotatedControlVariableRector\ChangeFormArrayAccessToAnnotatedControlVariableRectorTest
  */
-final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Rector\NetteCodeQuality\Rector\ArrayDimFetch\AbstractArrayDimFetchToAnnotatedControlVariableRector
+final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var FormVariableInputNameTypeResolver
@@ -30,10 +35,37 @@ final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Recto
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var ArrayDimFetchAnalyzer
+     */
+    private $arrayDimFetchAnalyzer;
+    /**
+     * @var NetteControlNaming
+     */
+    private $netteControlNaming;
+    /**
+     * @var AssignAnalyzer
+     */
+    private $assignAnalyzer;
+    /**
+     * @var ControlDimFetchAnalyzer
+     */
+    private $controlDimFetchAnalyzer;
+    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210303\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer $assignAnalyzer, \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer)
     {
         $this->formVariableInputNameTypeResolver = $formVariableInputNameTypeResolver;
         $this->typeChecker = $typeChecker;
+        $this->arrayDimFetchAnalyzer = $arrayDimFetchAnalyzer;
+        $this->netteControlNaming = $netteControlNaming;
+        $this->assignAnalyzer = $assignAnalyzer;
+        $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
+    }
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes() : array
+    {
+        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -70,18 +102,11 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes() : array
-    {
-        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
-    }
-    /**
      * @param ArrayDimFetch $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->isBeingAssignedOrInitialized($node)) {
+        if ($this->arrayDimFetchAnalyzer->isBeingAssignedOrInitialized($node)) {
             return null;
         }
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -100,7 +125,7 @@ CODE_SAMPLE
         $controlType = $this->formVariableInputNameTypeResolver->resolveControlTypeByInputName($node->var, $inputName);
         $controlVariableName = $this->netteControlNaming->createVariableName($inputName);
         $controlObjectType = new \PHPStan\Type\ObjectType($controlType);
-        $this->addAssignExpressionForFirstCase($controlVariableName, $node, $controlObjectType);
+        $this->assignAnalyzer->addAssignExpressionForFirstCase($controlVariableName, $node, $controlObjectType);
         return new \PhpParser\Node\Expr\Variable($controlVariableName);
     }
 }
