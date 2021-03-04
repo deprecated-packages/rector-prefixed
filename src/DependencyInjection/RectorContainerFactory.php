@@ -3,25 +3,25 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection;
 
-use RectorPrefix20210303\Psr\Container\ContainerInterface;
+use RectorPrefix20210304\Psr\Container\ContainerInterface;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\Stubs\PHPStanStubLoader;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
-use RectorPrefix20210303\Symfony\Component\DependencyInjection\Container;
-use RectorPrefix20210303\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210304\Symfony\Component\DependencyInjection\Container;
+use RectorPrefix20210304\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorContainerFactory
 {
     /**
      * @param SmartFileInfo[] $configFileInfos
      * @api
      */
-    public function createFromConfigs(array $configFileInfos) : \RectorPrefix20210303\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFileInfos) : \RectorPrefix20210304\Psr\Container\ContainerInterface
     {
         // to override the configs without clearing cache
-        $isDebug = \RectorPrefix20210303\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
+        $isDebug = \RectorPrefix20210304\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
         $environment = $this->createEnvironment($configFileInfos);
         // mt_rand is needed to invalidate container cache in case of class changes to be registered as services
         $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment . \mt_rand(0, 10000), $isDebug);
@@ -34,7 +34,7 @@ final class RectorContainerFactory
         $rectorKernel->boot();
         return $rectorKernel->getContainer();
     }
-    public function createFromBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : \RectorPrefix20210303\Psr\Container\ContainerInterface
+    public function createFromBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : \RectorPrefix20210304\Psr\Container\ContainerInterface
     {
         $container = $this->createFromConfigs($bootstrapConfigs->getConfigFileInfos());
         $mainConfigFileInfo = $bootstrapConfigs->getMainConfigFileInfo();

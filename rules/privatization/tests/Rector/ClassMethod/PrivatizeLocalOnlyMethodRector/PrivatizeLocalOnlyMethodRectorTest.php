@@ -6,13 +6,13 @@ namespace Rector\Privatization\Tests\Rector\ClassMethod\PrivatizeLocalOnlyMethod
 use Iterator;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo;
 final class PrivatizeLocalOnlyMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210303\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

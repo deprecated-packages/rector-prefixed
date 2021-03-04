@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210303;
+namespace RectorPrefix20210304;
 
 /*
  * This file is part of the Symfony package.

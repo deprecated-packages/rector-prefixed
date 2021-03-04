@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210303\Symplify\SymplifyKernel\Tests\HttpKernel;
+namespace RectorPrefix20210304\Symplify\SymplifyKernel\Tests\HttpKernel;
 
-use RectorPrefix20210303\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use RectorPrefix20210304\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 /**
  * For testing
  */
-final class OnlyForTestsKernel extends \RectorPrefix20210303\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+final class OnlyForTestsKernel extends \RectorPrefix20210304\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
 }
