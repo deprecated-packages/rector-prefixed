@@ -23,7 +23,6 @@ use RectorPrefix20210304\Symplify\SetConfigResolver\Exception\SetNotFoundExcepti
 $autoloadIncluder = new \RectorPrefix20210304\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
-$autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210304\Symplify\PackageBuilder\Reflection\PrivatesCaller());
@@ -65,7 +64,7 @@ final class AutoloadIncluder
      */
     public function autoloadProjectAutoloaderFile() : void
     {
-        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../autoload.php');
+        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../../autoload.php');
     }
     public function autoloadFromCommandLine() : void
     {
