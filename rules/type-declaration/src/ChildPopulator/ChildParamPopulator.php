@@ -60,8 +60,8 @@ final class ChildParamPopulator
         foreach ($childrenClassLikes as $childClassLike) {
             if ($childClassLike instanceof \PhpParser\Node\Stmt\Class_) {
                 $usedTraits = $this->nodeRepository->findUsedTraitsInClass($childClassLike);
-                foreach ($usedTraits as $trait) {
-                    $this->addParamTypeToMethod($trait, $position, $functionLike, $paramType);
+                foreach ($usedTraits as $usedTrait) {
+                    $this->addParamTypeToMethod($usedTrait, $position, $functionLike, $paramType);
                 }
             }
             $this->addParamTypeToMethod($childClassLike, $position, $functionLike, $paramType);

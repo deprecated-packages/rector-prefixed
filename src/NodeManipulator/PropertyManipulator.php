@@ -76,8 +76,8 @@ final class PropertyManipulator
             return \true;
         }
         $privatePropertyFetches = $this->propertyFetchFinder->findPrivatePropertyFetches($property);
-        foreach ($privatePropertyFetches as $propertyFetch) {
-            if ($this->readWritePropertyAnalyzer->isRead($propertyFetch)) {
+        foreach ($privatePropertyFetches as $privatePropertyFetch) {
+            if ($this->readWritePropertyAnalyzer->isRead($privatePropertyFetch)) {
                 return \true;
             }
         }

@@ -53,8 +53,8 @@ CODE_SAMPLE
         }
         $firstExpr = \array_shift($livingCode);
         $node->expr = $firstExpr;
-        foreach ($livingCode as $expr) {
-            $newNode = new \PhpParser\Node\Stmt\Expression($expr);
+        foreach ($livingCode as $singleLivingCode) {
+            $newNode = new \PhpParser\Node\Stmt\Expression($singleLivingCode);
             $this->addNodeAfterNode($newNode, $node);
         }
         return null;

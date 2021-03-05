@@ -32,8 +32,8 @@ final class ChangePackageVersionComposerRector implements \Rector\Composer\Contr
     }
     public function refactor(\RectorPrefix20210305\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
-        foreach ($this->packagesAndVersions as $packagesAndVersion) {
-            $composerJson->changePackageVersion($packagesAndVersion->getPackageName(), $packagesAndVersion->getVersion());
+        foreach ($this->packagesAndVersions as $packageAndVersion) {
+            $composerJson->changePackageVersion($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());
         }
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition

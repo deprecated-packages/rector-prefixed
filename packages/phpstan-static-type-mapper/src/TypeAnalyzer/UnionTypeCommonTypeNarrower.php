@@ -68,8 +68,8 @@ final class UnionTypeCommonTypeNarrower
             $genericClassStrings = [];
             if ($unionedType->getGenericType() instanceof \PHPStan\Type\ObjectType) {
                 $parentClassReflections = $this->resolveClassParentClassesAndInterfaces($unionedType->getGenericType());
-                foreach ($parentClassReflections as $classReflection) {
-                    $genericClassStrings[] = $classReflection->getName();
+                foreach ($parentClassReflections as $parentClassReflection) {
+                    $genericClassStrings[] = $parentClassReflection->getName();
                 }
             }
             $availableTypes[] = $genericClassStrings;
@@ -92,8 +92,8 @@ final class UnionTypeCommonTypeNarrower
             }
             $typeClassReflections = $this->resolveClassParentClassesAndInterfaces($unionedType);
             $typeClassNames = [];
-            foreach ($typeClassReflections as $classReflection) {
-                $typeClassNames[] = $classReflection->getName();
+            foreach ($typeClassReflections as $typeClassReflection) {
+                $typeClassNames[] = $typeClassReflection->getName();
             }
             $availableTypes[] = $typeClassNames;
         }

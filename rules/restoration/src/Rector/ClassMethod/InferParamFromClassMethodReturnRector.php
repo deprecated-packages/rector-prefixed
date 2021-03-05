@@ -105,8 +105,8 @@ CODE_SAMPLE
         }
         $firstParam = $node->params[0];
         $paramName = $this->getName($firstParam);
-        foreach ($this->inferParamFromClassMethodReturn as $inferParamFromClassMethodReturn) {
-            $returnClassMethod = $this->matchReturnClassMethod($node, $inferParamFromClassMethodReturn);
+        foreach ($this->inferParamFromClassMethodReturn as $singleInferParamFromClassMethodReturn) {
+            $returnClassMethod = $this->matchReturnClassMethod($node, $singleInferParamFromClassMethodReturn);
             if (!$returnClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }

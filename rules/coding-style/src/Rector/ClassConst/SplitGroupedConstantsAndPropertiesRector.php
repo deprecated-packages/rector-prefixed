@@ -80,8 +80,8 @@ CODE_SAMPLE
         /** @var PropertyProperty $firstPropertyProperty */
         $firstPropertyProperty = \array_shift($allProperties);
         $node->props = [$firstPropertyProperty];
-        foreach ($allProperties as $anotherProperty) {
-            $nextProperty = new \PhpParser\Node\Stmt\Property($node->flags, [$anotherProperty], $node->getAttributes());
+        foreach ($allProperties as $allProperty) {
+            $nextProperty = new \PhpParser\Node\Stmt\Property($node->flags, [$allProperty], $node->getAttributes());
             $this->addNodeAfterNode($nextProperty, $node);
         }
         return $node;

@@ -74,9 +74,9 @@ final class GetSubscribedEventsClassMethodFactory
     {
         $getSubscribersClassMethod = $this->createClassMethod();
         $eventsToMethodsArray = new \PhpParser\Node\Expr\Array_();
-        foreach ($eventReferencesToMethodNames as $eventReferencesToMethodName) {
-            $priority = $eventReferencesToMethodName instanceof \Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodNameWithPriority ? $eventReferencesToMethodName->getPriority() : null;
-            $eventsToMethodsArray->items[] = $this->createArrayItemFromMethodAndPriority($priority, $eventReferencesToMethodName->getMethodName(), $eventReferencesToMethodName->getClassConstFetch());
+        foreach ($eventReferencesToMethodNames as $eventReferenceToMethodName) {
+            $priority = $eventReferenceToMethodName instanceof \Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodNameWithPriority ? $eventReferenceToMethodName->getPriority() : null;
+            $eventsToMethodsArray->items[] = $this->createArrayItemFromMethodAndPriority($priority, $eventReferenceToMethodName->getMethodName(), $eventReferenceToMethodName->getClassConstFetch());
         }
         $getSubscribersClassMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($eventsToMethodsArray);
         $this->decorateClassMethodWithReturnType($getSubscribersClassMethod);
@@ -152,8 +152,8 @@ final class GetSubscribedEventsClassMethodFactory
     {
         $eventItems = [];
         $alreadyUsedTags = [];
-        foreach ($methodNamesWithPriorities as $methodNamesWithPriority) {
-            foreach ($methodNamesWithPriority->getTags() as $tag) {
+        foreach ($methodNamesWithPriorities as $methodNameWithPriority) {
+            foreach ($methodNameWithPriority->getTags() as $tag) {
                 if (!$tag instanceof \Rector\Symfony\ValueObject\Tag\EventListenerTag) {
                     continue;
                 }

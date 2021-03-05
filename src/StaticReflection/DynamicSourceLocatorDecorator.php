@@ -41,8 +41,8 @@ final class DynamicSourceLocatorDecorator
         foreach ($directories as $directory) {
             $filesInfosInDirectory = $this->phpFilesFinder->findInPaths([$directory]);
             $filesInDirectory = [];
-            foreach ($filesInfosInDirectory as $fileInfosInDirectory) {
-                $filesInDirectory[] = $fileInfosInDirectory->getRealPath();
+            foreach ($filesInfosInDirectory as $fileInfoInDirectory) {
+                $filesInDirectory[] = $fileInfoInDirectory->getRealPath();
             }
             $this->dynamicSourceLocatorProvider->addFilesByDirectory($directory, $filesInDirectory);
         }

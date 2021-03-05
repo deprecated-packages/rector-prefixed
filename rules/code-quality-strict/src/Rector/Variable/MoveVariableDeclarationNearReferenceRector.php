@@ -188,7 +188,7 @@ CODE_SAMPLE
             return \false;
         }
         while ($next) {
-            foreach ($exprValues as $value) {
+            foreach ($exprValues as $exprValue) {
                 $isReAssign = (bool) $this->betterNodeFinder->findFirst($next, function (\PhpParser\Node $node) : bool {
                     $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
                     $node = $this->mayBeArrayDimFetch($node);

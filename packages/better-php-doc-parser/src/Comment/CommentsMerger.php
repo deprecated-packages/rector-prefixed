@@ -54,8 +54,8 @@ final class CommentsMerger
             return;
         }
         $commentContent = '';
-        foreach ($childrenComments as $comment) {
-            $commentContent .= $comment->getText() . \PHP_EOL;
+        foreach ($childrenComments as $childComment) {
+            $commentContent .= $childComment->getText() . \PHP_EOL;
         }
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, [new \PhpParser\Comment($commentContent)]);
     }

@@ -49,14 +49,14 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->staticCallsToFunctions as $staticCallsToFunctions) {
-            if (!$this->isObjectType($node, $staticCallsToFunctions->getObjectType())) {
+        foreach ($this->staticCallsToFunctions as $staticCallToFunction) {
+            if (!$this->isObjectType($node, $staticCallToFunction->getObjectType())) {
                 continue;
             }
-            if (!$this->isName($node->name, $staticCallsToFunctions->getMethod())) {
+            if (!$this->isName($node->name, $staticCallToFunction->getMethod())) {
                 continue;
             }
-            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified($staticCallsToFunctions->getFunction()), $node->args);
+            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified($staticCallToFunction->getFunction()), $node->args);
         }
         return null;
     }

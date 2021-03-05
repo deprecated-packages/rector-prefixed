@@ -76,26 +76,26 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->newsToMethodCalls as $newToMethodCall) {
-            if (!$this->isObjectType($node, $newToMethodCall->getNewObjectType())) {
+        foreach ($this->newsToMethodCalls as $newsToMethodCall) {
+            if (!$this->isObjectType($node, $newsToMethodCall->getNewObjectType())) {
                 continue;
             }
-            $serviceObjectType = $newToMethodCall->getServiceObjectType();
+            $serviceObjectType = $newsToMethodCall->getServiceObjectType();
             $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $serviceObjectType->getClassName()) {
                 continue;
             }
             /** @var Class_ $classNode */
             $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            $propertyName = $this->getExistingFactoryPropertyName($classNode, $newToMethodCall->getServiceObjectType());
+            $propertyName = $this->getExistingFactoryPropertyName($classNode, $newsToMethodCall->getServiceObjectType());
             if ($propertyName === null) {
-                $serviceObjectType = $newToMethodCall->getServiceObjectType();
+                $serviceObjectType = $newsToMethodCall->getServiceObjectType();
                 $propertyName = $this->classNaming->getShortName($serviceObjectType->getClassName());
                 $propertyName = \lcfirst($propertyName);
-                $this->addConstructorDependencyToClass($classNode, $newToMethodCall->getServiceObjectType(), $propertyName);
+                $this->addConstructorDependencyToClass($classNode, $newsToMethodCall->getServiceObjectType(), $propertyName);
             }
             $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-            return new \PhpParser\Node\Expr\MethodCall($propertyFetch, $newToMethodCall->getServiceMethod(), $node->args);
+            return new \PhpParser\Node\Expr\MethodCall($propertyFetch, $newsToMethodCall->getServiceMethod(), $node->args);
         }
         return $node;
     }

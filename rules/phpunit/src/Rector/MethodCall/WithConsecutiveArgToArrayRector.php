@@ -167,11 +167,11 @@ CODE_SAMPLE
     private function inferMockedMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $previousMethodCalls = $this->methodCallManipulator->findMethodCallsIncludingChain($methodCall);
-        foreach ($previousMethodCalls as $previousMethodCall) {
-            if (!$this->isName($previousMethodCall->name, 'method')) {
+        foreach ($previousMethodCalls as $previouMethodCall) {
+            if (!$this->isName($previouMethodCall->name, 'method')) {
                 continue;
             }
-            $firstArgumentValue = $previousMethodCall->args[0]->value;
+            $firstArgumentValue = $previouMethodCall->args[0]->value;
             if (!$firstArgumentValue instanceof \PhpParser\Node\Scalar\String_) {
                 continue;
             }

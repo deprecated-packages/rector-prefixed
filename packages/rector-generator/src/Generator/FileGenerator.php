@@ -42,8 +42,8 @@ final class FileGenerator
     public function generateFiles(array $templateFileInfos, array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $destinationDirectory) : array
     {
         $generatedFilePaths = [];
-        foreach ($templateFileInfos as $fileInfo) {
-            $generatedFilePaths[] = $this->generateFileInfoWithTemplateVariables($fileInfo, $templateVariables, $rectorRecipe, $destinationDirectory);
+        foreach ($templateFileInfos as $templateFileInfo) {
+            $generatedFilePaths[] = $this->generateFileInfoWithTemplateVariables($templateFileInfo, $templateVariables, $rectorRecipe, $destinationDirectory);
         }
         return $generatedFilePaths;
     }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b
+class ComposerStaticInit9765f4073c434a5999a8d8eacaebd3f3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3196,6 +3196,7 @@ class ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b
         'Rector\\Naming\\Contract\\RenamePropertyValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenamePropertyValueObjectInterface.php',
         'Rector\\Naming\\Contract\\RenameValueObjectInterface' => __DIR__ . '/../..' . '/rules/naming/src/Contract/RenameValueObjectInterface.php',
         'Rector\\Naming\\ExpectedNameResolver\\BoolPropertyExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/BoolPropertyExpectedNameResolver.php',
+        'Rector\\Naming\\ExpectedNameResolver\\InflectorSingularResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/InflectorSingularResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\MatchParamTypeExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/MatchParamTypeExpectedNameResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\MatchPropertyTypeExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/MatchPropertyTypeExpectedNameResolver.php',
         'Rector\\Naming\\ExpectedNameResolver\\UnderscoreCamelCaseExpectedNameResolver' => __DIR__ . '/../..' . '/rules/naming/src/ExpectedNameResolver/UnderscoreCamelCaseExpectedNameResolver.php',
@@ -4214,9 +4215,9 @@ class ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitac6c7d11e57f6837b33ea9654dca7f3b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9765f4073c434a5999a8d8eacaebd3f3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9765f4073c434a5999a8d8eacaebd3f3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9765f4073c434a5999a8d8eacaebd3f3::$classMap;
 
         }, null, ClassLoader::class);
     }

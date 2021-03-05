@@ -331,8 +331,8 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     protected function appendArgs(array $newArgs, array $appendingArgs) : array
     {
-        foreach ($appendingArgs as $oldArgument) {
-            $newArgs[] = new \PhpParser\Node\Arg($oldArgument->value);
+        foreach ($appendingArgs as $appendingArg) {
+            $newArgs[] = new \PhpParser\Node\Arg($appendingArg->value);
         }
         return $newArgs;
     }

@@ -362,15 +362,15 @@ final class NodeNameResolver
      */
     private function matchRectorBacktraceCall(array $backtrace) : ?array
     {
-        foreach ($backtrace as $singleTrace) {
-            if (!isset($singleTrace['object'])) {
+        foreach ($backtrace as $singleBacktrace) {
+            if (!isset($singleBacktrace['object'])) {
                 continue;
             }
             // match a Rector class
-            if (!\is_a($singleTrace['object'], \Rector\Core\Contract\Rector\RectorInterface::class)) {
+            if (!\is_a($singleBacktrace['object'], \Rector\Core\Contract\Rector\RectorInterface::class)) {
                 continue;
             }
-            return $singleTrace;
+            return $singleBacktrace;
         }
         return $backtrace[1] ?? null;
     }

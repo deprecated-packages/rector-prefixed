@@ -158,9 +158,9 @@ CODE_SAMPLE
             return \false;
         }
         $ifExprs = $this->betterNodeFinder->findInstanceOf($if->stmts, \PhpParser\Node\Expr::class);
-        foreach ($ifExprs as $expr) {
-            $isExprFoundInReturn = (bool) $this->betterNodeFinder->findFirst($return->expr, function (\PhpParser\Node $node) use($expr) : bool {
-                return $this->nodeComparator->areNodesEqual($node, $expr);
+        foreach ($ifExprs as $ifExpr) {
+            $isExprFoundInReturn = (bool) $this->betterNodeFinder->findFirst($return->expr, function (\PhpParser\Node $node) use($ifExpr) : bool {
+                return $this->nodeComparator->areNodesEqual($node, $ifExpr);
             });
             if ($isExprFoundInReturn) {
                 return \true;

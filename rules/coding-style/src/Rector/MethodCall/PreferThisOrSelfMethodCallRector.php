@@ -97,8 +97,8 @@ CODE_SAMPLE
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
         \RectorPrefix20210305\Webmozart\Assert\Assert::allString($typeToPreference);
-        foreach ($typeToPreference as $preference) {
-            $this->ensurePreferenceIsValid($preference);
+        foreach ($typeToPreference as $singleTypeToPreference) {
+            $this->ensurePreferenceIsValid($singleTypeToPreference);
         }
         $this->typeToPreference = $typeToPreference;
     }

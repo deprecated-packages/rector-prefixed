@@ -113,11 +113,11 @@ CODE_SAMPLE
             }
             return $this->refactorFuncCallToMethodCall($functionToMethodCall, $classLike, $node);
         }
-        foreach ($this->arrayFunctionsToMethodCalls as $arrayFunctionsToMethodCall) {
-            if (!$this->isName($node, $arrayFunctionsToMethodCall->getFunction())) {
+        foreach ($this->arrayFunctionsToMethodCalls as $arrayFunctionToMethodCall) {
+            if (!$this->isName($node, $arrayFunctionToMethodCall->getFunction())) {
                 continue;
             }
-            return $this->refactorArrayFunctionToMethodCall($arrayFunctionsToMethodCall, $node, $classLike);
+            return $this->refactorArrayFunctionToMethodCall($arrayFunctionToMethodCall, $node, $classLike);
         }
         return null;
     }

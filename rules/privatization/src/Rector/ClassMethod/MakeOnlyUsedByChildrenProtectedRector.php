@@ -100,8 +100,8 @@ CODE_SAMPLE
         }
         /** @var string $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        foreach ($externalCalls as $call) {
-            $class = $call->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        foreach ($externalCalls as $externalCall) {
+            $class = $externalCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
                 return null;
             }
@@ -141,7 +141,8 @@ CODE_SAMPLE
     {
         $childrenClassReflection = $this->familyRelationsAnalyzer->getChildrenOfClassReflection($classReflection);
         foreach ($childrenClassReflection as $childClassReflection) {
-            if (!$childClassReflection->hasMethod($methodName)) {
+            $singleChildrenClassReflectionHasMethod = $childClassReflection->hasMethod($methodName);
+            if (!$singleChildrenClassReflectionHasMethod) {
                 continue;
             }
             $methodReflection = $childClassReflection->getNativeMethod($methodName);

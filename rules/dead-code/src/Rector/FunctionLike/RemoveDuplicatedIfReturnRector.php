@@ -87,11 +87,11 @@ CODE_SAMPLE
         if ($ifWithOnlyReturnsByHash === []) {
             return null;
         }
-        foreach ($ifWithOnlyReturnsByHash as $stmts) {
+        foreach ($ifWithOnlyReturnsByHash as $ifWithOnlyReturns) {
             // keep first one
-            \array_shift($stmts);
-            foreach ($stmts as $stmt) {
-                $this->removeNode($stmt);
+            \array_shift($ifWithOnlyReturns);
+            foreach ($ifWithOnlyReturns as $ifWithOnlyReturn) {
+                $this->removeNode($ifWithOnlyReturn);
             }
         }
         return $node;

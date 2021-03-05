@@ -106,8 +106,8 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typesToConstructorInjections = $configuration[self::TYPES_TO_CONSTRUCTOR_INJECTION] ?? [];
-        foreach ($typesToConstructorInjections as $typesToConstructorInjection) {
-            $this->constructorInjectionObjectTypes[] = new \PHPStan\Type\ObjectType($typesToConstructorInjection);
+        foreach ($typesToConstructorInjections as $typeToConstructorInjection) {
+            $this->constructorInjectionObjectTypes[] = new \PHPStan\Type\ObjectType($typeToConstructorInjection);
         }
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall

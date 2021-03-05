@@ -139,8 +139,8 @@ CODE_SAMPLE
         $abstractClassConstructorParamTypes = $this->resolveConstructorParamClassTypes($node);
         // process
         $this->injectObjectTypes = [];
-        foreach ($childrenClasses as $childrenClass) {
-            $constructorClassMethod = $childrenClass->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        foreach ($childrenClasses as $childClass) {
+            $constructorClassMethod = $childClass->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }

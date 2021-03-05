@@ -108,11 +108,11 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     private function resolveYieldStaticArrayTypeByParameterPosition(array $yields, int $parameterPosition) : \PHPStan\Type\Type
     {
         $paramOnPositionTypes = [];
-        foreach ($yields as $classMethodYield) {
-            if (!$classMethodYield->value instanceof \PhpParser\Node\Expr\Array_) {
+        foreach ($yields as $yield) {
+            if (!$yield->value instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
-            $type = $this->getTypeFromClassMethodYield($classMethodYield->value);
+            $type = $this->getTypeFromClassMethodYield($yield->value);
             if (!$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
                 return $type;
             }

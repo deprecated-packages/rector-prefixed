@@ -17,8 +17,8 @@ final class StaticInstanceOf
         if ($element === null) {
             return \false;
         }
-        foreach ($array as $classLike) {
-            if (\is_a($element, $classLike, \true)) {
+        foreach ($array as $singleArray) {
+            if (\is_a($element, $singleArray, \true)) {
                 return \true;
             }
         }

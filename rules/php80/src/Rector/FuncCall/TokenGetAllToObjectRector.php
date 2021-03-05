@@ -105,8 +105,8 @@ CODE_SAMPLE
     private function replaceGetNameOrGetValue(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr $assignedExpr) : void
     {
         $tokensForeaches = $this->findForeachesOverTokenVariable($functionLike, $assignedExpr);
-        foreach ($tokensForeaches as $tokensForeach) {
-            $this->refactorTokenInForeach($tokensForeach);
+        foreach ($tokensForeaches as $tokenForeach) {
+            $this->refactorTokenInForeach($tokenForeach);
         }
     }
     /**

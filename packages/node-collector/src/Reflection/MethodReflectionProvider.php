@@ -52,8 +52,8 @@ final class MethodReflectionProvider
         }
         $parameterTypes = [];
         $parameterReflections = $this->getParameterReflectionsFromMethodReflection($methodReflection);
-        foreach ($parameterReflections as $phpParameterReflection) {
-            $parameterTypes[] = $phpParameterReflection->getType();
+        foreach ($parameterReflections as $parameterReflection) {
+            $parameterTypes[] = $parameterReflection->getType();
         }
         return $parameterTypes;
     }

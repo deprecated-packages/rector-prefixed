@@ -147,19 +147,19 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210305\Symplify\Pac
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
         $addedFilesWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-        foreach ($addedFilesWithContents as $addedFilesWithContent) {
-            if (!\RectorPrefix20210305\Nette\Utils\Strings::endsWith($addedFilesWithContent->getFilePath(), $expectedExtraFileName)) {
+        foreach ($addedFilesWithContents as $addedFileWithContent) {
+            if (!\RectorPrefix20210305\Nette\Utils\Strings::endsWith($addedFileWithContent->getFilePath(), $expectedExtraFileName)) {
                 continue;
             }
-            $this->assertStringEqualsFile($expectedExtraContentFilePath, $addedFilesWithContent->getFileContent());
+            $this->assertStringEqualsFile($expectedExtraContentFilePath, $addedFileWithContent->getFileContent());
             return;
         }
         $addedFilesWithNodes = $this->removedAndAddedFilesCollector->getAddedFilesWithNodes();
-        foreach ($addedFilesWithNodes as $addedFileWithNodes) {
-            if (!\RectorPrefix20210305\Nette\Utils\Strings::endsWith($addedFileWithNodes->getFilePath(), $expectedExtraFileName)) {
+        foreach ($addedFilesWithNodes as $addedFileWithNode) {
+            if (!\RectorPrefix20210305\Nette\Utils\Strings::endsWith($addedFileWithNode->getFilePath(), $expectedExtraFileName)) {
                 continue;
             }
-            $printedFileContent = $this->betterStandardPrinter->prettyPrintFile($addedFileWithNodes->getNodes());
+            $printedFileContent = $this->betterStandardPrinter->prettyPrintFile($addedFileWithNode->getNodes());
             $this->assertStringEqualsFile($expectedExtraContentFilePath, $printedFileContent);
             return;
         }

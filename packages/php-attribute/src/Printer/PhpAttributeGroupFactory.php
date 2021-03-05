@@ -79,9 +79,9 @@ final class PhpAttributeGroupFactory
                 $args[] = new \PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
             }
         } else {
-            foreach ($items as $value) {
-                $value = \PhpParser\BuilderHelpers::normalizeValue($value);
-                $args[] = new \PhpParser\Node\Arg($value);
+            foreach ($items as $item) {
+                $item = \PhpParser\BuilderHelpers::normalizeValue($item);
+                $args[] = new \PhpParser\Node\Arg($item);
             }
         }
         return $args;

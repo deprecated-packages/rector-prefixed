@@ -79,11 +79,11 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        foreach ($this->renamedAnnotations as $renamedAnnotationInType) {
-            if (!$this->isObjectType($classLike, $renamedAnnotationInType->getObjectType())) {
+        foreach ($this->renamedAnnotations as $renamedAnnotation) {
+            if (!$this->isObjectType($classLike, $renamedAnnotation->getObjectType())) {
                 continue;
             }
-            $this->docBlockTagReplacer->replaceTagByAnother($phpDocInfo, $renamedAnnotationInType->getOldAnnotation(), $renamedAnnotationInType->getNewAnnotation());
+            $this->docBlockTagReplacer->replaceTagByAnother($phpDocInfo, $renamedAnnotation->getOldAnnotation(), $renamedAnnotation->getNewAnnotation());
         }
         return $node;
     }

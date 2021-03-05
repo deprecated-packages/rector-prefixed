@@ -131,8 +131,8 @@ CODE_SAMPLE
         /** @var Expr $right */
         $right = \array_shift($coalescingNodes);
         $coalesceNode = new \PhpParser\Node\Expr\BinaryOp\Coalesce($left, $right);
-        foreach ($coalescingNodes as $nextCoalescingNode) {
-            $coalesceNode = new \PhpParser\Node\Expr\BinaryOp\Coalesce($coalesceNode, $nextCoalescingNode);
+        foreach ($coalescingNodes as $coalescingNode) {
+            $coalesceNode = new \PhpParser\Node\Expr\BinaryOp\Coalesce($coalesceNode, $coalescingNode);
         }
         return new \PhpParser\Node\Stmt\Return_($coalesceNode);
     }

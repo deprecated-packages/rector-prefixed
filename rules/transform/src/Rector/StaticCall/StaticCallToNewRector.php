@@ -61,11 +61,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->staticCallsToNews as $staticCallToNew) {
-            if (!$this->isName($node->class, $staticCallToNew->getClass())) {
+        foreach ($this->staticCallsToNews as $staticCallToNews) {
+            if (!$this->isName($node->class, $staticCallToNews->getClass())) {
                 continue;
             }
-            if (!$this->isName($node->name, $staticCallToNew->getMethod())) {
+            if (!$this->isName($node->name, $staticCallToNews->getMethod())) {
                 continue;
             }
             $class = $this->getName($node->class);

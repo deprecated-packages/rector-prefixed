@@ -24,8 +24,8 @@ final class StaticRectorStrings
      */
     public static function isInArrayInsensitive(string $checkedItem, array $array) : bool
     {
-        foreach ($array as $item) {
-            if (\RectorPrefix20210305\Nette\Utils\Strings::lower($item) === \RectorPrefix20210305\Nette\Utils\Strings::lower($checkedItem)) {
+        foreach ($array as $singleArray) {
+            if (\RectorPrefix20210305\Nette\Utils\Strings::lower($singleArray) === \RectorPrefix20210305\Nette\Utils\Strings::lower($checkedItem)) {
                 return \true;
             }
         }
@@ -78,9 +78,9 @@ final class StaticRectorStrings
      */
     public static function removeSuffixes(string $value, array $suffixesToRemove) : string
     {
-        foreach ($suffixesToRemove as $prefixToRemove) {
-            if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($value, $prefixToRemove)) {
-                $value = \RectorPrefix20210305\Nette\Utils\Strings::substring($value, 0, -\RectorPrefix20210305\Nette\Utils\Strings::length($prefixToRemove));
+        foreach ($suffixesToRemove as $suffixToRemove) {
+            if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($value, $suffixToRemove)) {
+                $value = \RectorPrefix20210305\Nette\Utils\Strings::substring($value, 0, -\RectorPrefix20210305\Nette\Utils\Strings::length($suffixToRemove));
             }
         }
         return $value;

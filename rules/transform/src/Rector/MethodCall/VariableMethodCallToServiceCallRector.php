@@ -81,27 +81,27 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->variableMethodCallsToServiceCalls as $variableMethodCallsToServiceCalls) {
+        foreach ($this->variableMethodCallsToServiceCalls as $variableMethodCallToServiceCall) {
             if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }
-            if (!$this->isObjectType($node->var, $variableMethodCallsToServiceCalls->getVariableObjectType())) {
+            if (!$this->isObjectType($node->var, $variableMethodCallToServiceCall->getVariableObjectType())) {
                 continue;
             }
-            if (!$this->isName($node->name, $variableMethodCallsToServiceCalls->getMethodName())) {
+            if (!$this->isName($node->name, $variableMethodCallToServiceCall->getMethodName())) {
                 continue;
             }
             $firstArgValue = $node->args[0]->value;
-            if (!$this->valueResolver->isValue($firstArgValue, $variableMethodCallsToServiceCalls->getArgumentValue())) {
+            if (!$this->valueResolver->isValue($firstArgValue, $variableMethodCallToServiceCall->getArgumentValue())) {
                 continue;
             }
             $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 continue;
             }
-            $serviceObjectType = new \PHPStan\Type\ObjectType($variableMethodCallsToServiceCalls->getServiceType());
+            $serviceObjectType = new \PHPStan\Type\ObjectType($variableMethodCallToServiceCall->getServiceType());
             $this->addConstructorDependency($serviceObjectType, $classLike);
-            return $this->createServiceMethodCall($serviceObjectType, $variableMethodCallsToServiceCalls->getServiceMethodName(), $node);
+            return $this->createServiceMethodCall($serviceObjectType, $variableMethodCallToServiceCall->getServiceMethodName(), $node);
         }
         return null;
     }

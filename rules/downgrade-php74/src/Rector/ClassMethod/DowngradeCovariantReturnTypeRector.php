@@ -144,12 +144,13 @@ CODE_SAMPLE
         $methodName = $this->getName($classMethod);
         /** @var ClassReflection[] $parentClassesAndInterfaces */
         $parentClassesAndInterfaces = \array_merge($classReflection->getParents(), $classReflection->getInterfaces());
-        foreach ($parentClassesAndInterfaces as $parentClassesOrInterface) {
-            if (!$parentClassesOrInterface->hasMethod($methodName)) {
+        foreach ($parentClassesAndInterfaces as $parentClassAndInterface) {
+            $parentClassAndInterfaceHasMethod = $parentClassAndInterface->hasMethod($methodName);
+            if (!$parentClassAndInterfaceHasMethod) {
                 continue;
             }
             $classMethodScope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            $parameterMethodReflection = $parentClassesOrInterface->getMethod($methodName, $classMethodScope);
+            $parameterMethodReflection = $parentClassAndInterface->getMethod($methodName, $classMethodScope);
             /** @var Type $parentReturnType */
             $parentReturnType = $this->privatesCaller->callPrivateMethod($parameterMethodReflection, 'getReturnType', []);
             if ($parentReturnType->equals($returnType)) {

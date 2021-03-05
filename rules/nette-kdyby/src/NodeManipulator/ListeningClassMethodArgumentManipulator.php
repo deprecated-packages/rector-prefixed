@@ -56,15 +56,15 @@ final class ListeningClassMethodArgumentManipulator
      */
     public function change(array $classMethodsByEventClass, ?\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : void
     {
-        foreach ($classMethodsByEventClass as $eventClassAndClassMethod) {
+        foreach ($classMethodsByEventClass as $classMethods) {
             // are attributes already replaced
-            $classMethod = $eventClassAndClassMethod->getClassMethod();
+            $classMethod = $classMethods->getClassMethod();
             $eventParameterReplaced = $classMethod->getAttribute(self::EVENT_PARAMETER_REPLACED);
             if ($eventParameterReplaced) {
                 continue;
             }
             $oldParams = $classMethod->params;
-            $eventClass = $eventAndListenerTree !== null ? $eventAndListenerTree->getEventClassName() : $eventClassAndClassMethod->getEventClass();
+            $eventClass = $eventAndListenerTree !== null ? $eventAndListenerTree->getEventClassName() : $classMethods->getEventClass();
             $this->changeClassParamToEventClass($eventClass, $classMethod);
             // move params to getter on event
             foreach ($oldParams as $oldParam) {

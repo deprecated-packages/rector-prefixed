@@ -148,18 +148,17 @@ CODE_SAMPLE
     {
         $newArrayItems = [];
         $fluentCalls = [];
-        foreach ($originalArrayItems as $arrayItem) {
-            if ($arrayItem === null) {
+        foreach ($originalArrayItems as $originalArrayItem) {
+            if ($originalArrayItem === null) {
                 continue;
             }
-            /** @var ArrayItem $arrayItem */
-            $key = $arrayItem->key;
+            $key = $originalArrayItem->key;
             if ($key instanceof \PhpParser\Node\Scalar\String_ && isset($arrayMap[$key->value])) {
                 /** @var string $methodName */
                 $methodName = $arrayMap[$key->value];
-                $fluentCalls[$methodName] = $arrayItem->value;
+                $fluentCalls[$methodName] = $originalArrayItem->value;
             } else {
-                $newArrayItems[] = $arrayItem;
+                $newArrayItems[] = $originalArrayItem;
             }
         }
         return new \Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass($newArrayItems, $fluentCalls);

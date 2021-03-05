@@ -171,12 +171,12 @@ CODE_SAMPLE
     private function refactorClass(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
     {
         $staticTypesInClass = $this->staticTypesInClassResolver->collectStaticCallTypeInClass($class, $this->serviceObjectTypes);
-        foreach ($staticTypesInClass as $staticType) {
-            $variableName = $this->propertyNaming->fqnToVariableName($staticType);
-            $this->addConstructorDependencyToClass($class, $staticType, $variableName);
+        foreach ($staticTypesInClass as $staticTypeInClass) {
+            $variableName = $this->propertyNaming->fqnToVariableName($staticTypeInClass);
+            $this->addConstructorDependencyToClass($class, $staticTypeInClass, $variableName);
             // is this an object? create factory for it next to this :)
             if ($this->uniqueObjectOrServiceDetector->isUniqueObject()) {
-                $factoryClass = $this->uniqueObjectFactoryFactory->createFactoryClass($class, $staticType);
+                $factoryClass = $this->uniqueObjectFactoryFactory->createFactoryClass($class, $staticTypeInClass);
                 $this->factoryClassPrinter->printFactoryForClass($factoryClass, $class);
             }
         }

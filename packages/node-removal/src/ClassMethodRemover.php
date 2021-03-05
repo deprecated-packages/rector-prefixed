@@ -35,11 +35,11 @@ final class ClassMethodRemover
     {
         $this->nodeRemover->removeNode($classMethod);
         $calls = $this->nodeRepository->findCallsByClassMethod($classMethod);
-        foreach ($calls as $classMethodCall) {
-            if ($classMethodCall instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
+        foreach ($calls as $call) {
+            if ($call instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
                 continue;
             }
-            $this->removeMethodCall($classMethodCall);
+            $this->removeMethodCall($call);
         }
     }
     /**

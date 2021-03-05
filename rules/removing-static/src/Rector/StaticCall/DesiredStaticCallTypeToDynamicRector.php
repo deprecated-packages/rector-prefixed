@@ -72,8 +72,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->staticObjectTypes as $objectType) {
-            if (!$this->isObjectType($node->class, $objectType)) {
+        foreach ($this->staticObjectTypes as $staticObjectType) {
+            if (!$this->isObjectType($node->class, $staticObjectType)) {
                 continue;
             }
             // is the same class or external call?
@@ -81,7 +81,7 @@ CODE_SAMPLE
             if ($className === 'self') {
                 return $this->createFromSelf($node);
             }
-            $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
+            $propertyName = $this->propertyNaming->fqnToVariableName($staticObjectType);
             $currentMethodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             if ($currentMethodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 $propertyFetch = new \PhpParser\Node\Expr\Variable($propertyName);

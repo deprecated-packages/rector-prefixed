@@ -192,9 +192,9 @@ CODE_SAMPLE
         // add all properties to class
         $class = $this->addNewPropertiesToClass($class, $newPropertyTypes);
         $parentSetUpStaticCallExpression = $this->setUpFactory->createParentStaticCall();
-        foreach ($newPropertyTypes as $type) {
+        foreach ($newPropertyTypes as $newPropertyType) {
             // container fetch assign
-            $assign = $this->createContainerGetTypeToPropertyAssign($type);
+            $assign = $this->createContainerGetTypeToPropertyAssign($newPropertyType);
             $setupClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
             // get setup or create a setup add add it there
             if ($setupClassMethod !== null) {
@@ -246,8 +246,8 @@ CODE_SAMPLE
     private function addNewPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $newProperties) : \PhpParser\Node\Stmt\Class_
     {
         $properties = [];
-        foreach ($newProperties as $objectType) {
-            $properties[] = $this->createPropertyFromType($objectType);
+        foreach ($newProperties as $newProperty) {
+            $properties[] = $this->createPropertyFromType($newProperty);
         }
         // add property to the start of the class
         $class->stmts = \array_merge($properties, $class->stmts);

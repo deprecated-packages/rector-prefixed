@@ -47,17 +47,17 @@ final class UseManipulator
     {
         /** @var Name[] $namedNodes */
         $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Name::class);
-        foreach ($namedNodes as $nameNode) {
+        foreach ($namedNodes as $namedNode) {
             /** node name before becoming FQN - attribute from @see NameResolver */
-            $originalName = $nameNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
+            $originalName = $namedNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
             if (!$originalName instanceof \PhpParser\Node\Name) {
                 continue;
             }
-            $parentNode = $nameNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $namedNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if (!$parentNode instanceof \PhpParser\Node) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->resolvedNodeNames[$originalName->toString()][] = new \Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
+            $this->resolvedNodeNames[$originalName->toString()][] = new \Rector\CodingStyle\ValueObject\NameAndParent($namedNode, $parentNode);
         }
     }
     private function resolveUsedClassNames(\PhpParser\Node $searchNode) : void

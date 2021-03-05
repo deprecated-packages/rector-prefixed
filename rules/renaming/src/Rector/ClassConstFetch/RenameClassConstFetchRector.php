@@ -53,17 +53,17 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->renameClassConstFetches as $classConstantRename) {
-            if (!$this->isObjectType($node, $classConstantRename->getOldObjectType())) {
+        foreach ($this->renameClassConstFetches as $renameClassConstFetch) {
+            if (!$this->isObjectType($node, $renameClassConstFetch->getOldObjectType())) {
                 continue;
             }
-            if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {
+            if (!$this->isName($node->name, $renameClassConstFetch->getOldConstant())) {
                 continue;
             }
-            if ($classConstantRename instanceof \Rector\Renaming\ValueObject\RenameClassAndConstFetch) {
-                return $this->createClassAndConstFetch($classConstantRename);
+            if ($renameClassConstFetch instanceof \Rector\Renaming\ValueObject\RenameClassAndConstFetch) {
+                return $this->createClassAndConstFetch($renameClassConstFetch);
             }
-            $node->name = new \PhpParser\Node\Identifier($classConstantRename->getNewConstant());
+            $node->name = new \PhpParser\Node\Identifier($renameClassConstFetch->getNewConstant());
             return $node;
         }
         return $node;

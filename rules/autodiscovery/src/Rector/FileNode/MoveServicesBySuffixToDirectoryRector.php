@@ -104,20 +104,20 @@ CODE_SAMPLE
      */
     private function processGroupNamesBySuffix(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, array $groupNamesBySuffix) : void
     {
-        foreach ($groupNamesBySuffix as $groupName) {
+        foreach ($groupNamesBySuffix as $groupNames) {
             // has class suffix
-            $suffixPattern = '\\w+' . $groupName . '(Test)?\\.php$';
+            $suffixPattern = '\\w+' . $groupNames . '(Test)?\\.php$';
             if (!\RectorPrefix20210305\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
                 continue;
             }
-            if ($this->isLocatedInExpectedLocation($groupName, $suffixPattern, $smartFileInfo)) {
+            if ($this->isLocatedInExpectedLocation($groupNames, $suffixPattern, $smartFileInfo)) {
                 continue;
             }
             // file is already in the group
-            if (\RectorPrefix20210305\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupName . '$#')) {
+            if (\RectorPrefix20210305\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupNames . '$#')) {
                 continue;
             }
-            $this->moveFileToGroupName($smartFileInfo, $fileNode, $groupName);
+            $this->moveFileToGroupName($smartFileInfo, $fileNode, $groupNames);
             return;
         }
     }

@@ -38,15 +38,15 @@ final class RectorsFinder
     {
         $foundClasses = $this->findClassesInDirectoriesByName($directories, '*Rector.php');
         $rectors = [];
-        foreach ($foundClasses as $class) {
-            if ($this->shouldSkipClass($class)) {
+        foreach ($foundClasses as $foundClass) {
+            if ($this->shouldSkipClass($foundClass)) {
                 continue;
             }
-            $reflectionClass = new \ReflectionClass($class);
+            $reflectionClass = new \ReflectionClass($foundClass);
             $rector = $reflectionClass->newInstanceWithoutConstructor();
             if (!$rector instanceof \Rector\Core\Contract\Rector\RectorInterface) {
                 // lowercase letter bug in RobotLoader
-                if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($class, 'rector')) {
+                if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($foundClass, 'rector')) {
                     continue;
                 }
                 throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('"%s" found something that looks like Rector but does not implements "%s" interface.', __METHOD__, \Rector\Core\Contract\Rector\RectorInterface::class));

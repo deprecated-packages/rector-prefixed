@@ -53,8 +53,8 @@ final class ExistingClassesProvider
     {
         $robotLoader = new \RectorPrefix20210305\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector');
-        foreach ($directories as $path) {
-            $robotLoader->addDirectory(\getcwd() . '/' . $path);
+        foreach ($directories as $directory) {
+            $robotLoader->addDirectory(\getcwd() . '/' . $directory);
         }
         $classNames = [];
         foreach (\array_keys($robotLoader->getIndexedClasses()) as $className) {

@@ -22,8 +22,8 @@ final class ExtendsTemplateTypeMapFallbackFactory
             return null;
         }
         $parentGenericTypeNames = $this->resolveParentGenericTypeNames($classReflection);
-        foreach ($extendsTags as $extendsTag) {
-            $extendsTagType = $extendsTag->getType();
+        foreach ($extendsTags as $extendTag) {
+            $extendsTagType = $extendTag->getType();
             if (!$extendsTagType instanceof \PHPStan\Type\Generic\GenericObjectType) {
                 continue;
             }

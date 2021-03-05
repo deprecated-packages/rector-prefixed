@@ -2411,6 +2411,7 @@ return array(
     'Rector\\Naming\\Contract\\RenamePropertyValueObjectInterface' => $baseDir . '/rules/naming/src/Contract/RenamePropertyValueObjectInterface.php',
     'Rector\\Naming\\Contract\\RenameValueObjectInterface' => $baseDir . '/rules/naming/src/Contract/RenameValueObjectInterface.php',
     'Rector\\Naming\\ExpectedNameResolver\\BoolPropertyExpectedNameResolver' => $baseDir . '/rules/naming/src/ExpectedNameResolver/BoolPropertyExpectedNameResolver.php',
+    'Rector\\Naming\\ExpectedNameResolver\\InflectorSingularResolver' => $baseDir . '/rules/naming/src/ExpectedNameResolver/InflectorSingularResolver.php',
     'Rector\\Naming\\ExpectedNameResolver\\MatchParamTypeExpectedNameResolver' => $baseDir . '/rules/naming/src/ExpectedNameResolver/MatchParamTypeExpectedNameResolver.php',
     'Rector\\Naming\\ExpectedNameResolver\\MatchPropertyTypeExpectedNameResolver' => $baseDir . '/rules/naming/src/ExpectedNameResolver/MatchPropertyTypeExpectedNameResolver.php',
     'Rector\\Naming\\ExpectedNameResolver\\UnderscoreCamelCaseExpectedNameResolver' => $baseDir . '/rules/naming/src/ExpectedNameResolver/UnderscoreCamelCaseExpectedNameResolver.php',

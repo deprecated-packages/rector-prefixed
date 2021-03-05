@@ -40,11 +40,11 @@ final class FuncCallToStaticCallRector extends \Rector\Core\Rector\AbstractRecto
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->funcCallsToStaticCalls as $funcCallsToStaticCall) {
-            if (!$this->isName($node, $funcCallsToStaticCall->getOldFuncName())) {
+        foreach ($this->funcCallsToStaticCalls as $funcCallToStaticCall) {
+            if (!$this->isName($node, $funcCallToStaticCall->getOldFuncName())) {
                 continue;
             }
-            return $this->nodeFactory->createStaticCall($funcCallsToStaticCall->getNewClassName(), $funcCallsToStaticCall->getNewMethodName(), $node->args);
+            return $this->nodeFactory->createStaticCall($funcCallToStaticCall->getNewClassName(), $funcCallToStaticCall->getNewMethodName(), $node->args);
         }
         return null;
     }

@@ -81,11 +81,11 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
      */
     private function processFuncCallArgumentValue(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg) : ?\PhpParser\Node
     {
-        foreach ($this->functionNamesWithAssertMethods as $functionNameWithAssertMethods) {
-            if (!$this->isName($funcCall, $functionNameWithAssertMethods->getFunctionName())) {
+        foreach ($this->functionNamesWithAssertMethods as $functionNameWithAssertMethod) {
+            if (!$this->isName($funcCall, $functionNameWithAssertMethod->getFunctionName())) {
                 continue;
             }
-            $this->renameMethod($node, $functionNameWithAssertMethods);
+            $this->renameMethod($node, $functionNameWithAssertMethod);
             $this->moveFunctionArgumentsUp($node, $funcCall, $requiredArg);
             return $node;
         }

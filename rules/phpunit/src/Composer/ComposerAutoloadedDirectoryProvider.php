@@ -72,13 +72,13 @@ final class ComposerAutoloadedDirectoryProvider
         if (isset($composerJsonAutoload['classmap'])) {
             /** @var string[] $classmap */
             $classmap = $composerJsonAutoload['classmap'];
-            foreach ($classmap as $fileOrDirectory) {
-                $fileOrDirectory = \getcwd() . '/' . $fileOrDirectory;
+            foreach ($classmap as $singleClassmap) {
+                $singleClassmap = \getcwd() . '/' . $singleClassmap;
                 // skip file, we look only for directories
-                if (\file_exists($fileOrDirectory)) {
+                if (\file_exists($singleClassmap)) {
                     continue;
                 }
-                $autoloadDirectories[] = $fileOrDirectory;
+                $autoloadDirectories[] = $singleClassmap;
             }
         }
         return \array_values($autoloadDirectories);
