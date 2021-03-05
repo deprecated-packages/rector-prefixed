@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210304\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20210305\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210304\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210305\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -18,7 +18,7 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
      * @var ServiceOptionAnalyzer
      */
     private $serviceOptionAnalyzer;
-    public function __construct(\RectorPrefix20210304\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210304\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer)
+    public function __construct(\RectorPrefix20210305\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210305\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;
@@ -37,6 +37,6 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \RectorPrefix20210304\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS;
+        return $key === \RectorPrefix20210305\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS;
     }
 }

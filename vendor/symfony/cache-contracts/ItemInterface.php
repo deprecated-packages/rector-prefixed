@@ -8,34 +8,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Contracts\Cache;
+namespace RectorPrefix20210305\Symfony\Contracts\Cache;
 
-use RectorPrefix20210304\Psr\Cache\CacheException;
-use RectorPrefix20210304\Psr\Cache\CacheItemInterface;
-use RectorPrefix20210304\Psr\Cache\InvalidArgumentException;
+use RectorPrefix20210305\Psr\Cache\CacheException;
+use RectorPrefix20210305\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210305\Psr\Cache\InvalidArgumentException;
 /**
  * Augments PSR-6's CacheItemInterface with support for tags and metadata.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface ItemInterface extends \RectorPrefix20210304\Psr\Cache\CacheItemInterface
+interface ItemInterface extends \RectorPrefix20210305\Psr\Cache\CacheItemInterface
 {
     /**
      * References the Unix timestamp stating when the item will expire.
      */
-    const METADATA_EXPIRY = 'expiry';
+    public const METADATA_EXPIRY = 'expiry';
     /**
      * References the time the item took to be created, in milliseconds.
      */
-    const METADATA_CTIME = 'ctime';
+    public const METADATA_CTIME = 'ctime';
     /**
      * References the list of tags that were assigned to the item, as string[].
      */
-    const METADATA_TAGS = 'tags';
+    public const METADATA_TAGS = 'tags';
     /**
      * Reserved characters that cannot be used in a key or tag.
      */
-    const RESERVED_CHARACTERS = '{}()/\\@:';
+    public const RESERVED_CHARACTERS = '{}()/\\@:';
     /**
      * Adds a tag to a cache item.
      *

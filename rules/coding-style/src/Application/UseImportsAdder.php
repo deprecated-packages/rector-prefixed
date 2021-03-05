@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Application;
 
-use RectorPrefix20210304\Nette\Utils\Strings;
+use RectorPrefix20210305\Nette\Utils\Strings;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
@@ -36,6 +36,9 @@ final class UseImportsAdder
         $useImportTypes = $this->diffFullyQualifiedObjectTypes($useImportTypes, $existingUseImportTypes);
         $functionUseImportTypes = $this->diffFullyQualifiedObjectTypes($functionUseImportTypes, $existingFunctionUseImports);
         $newUses = $this->createUses($useImportTypes, $functionUseImportTypes, null);
+        if ($newUses === []) {
+            return $stmts;
+        }
         // place after declare strict_types
         foreach ($stmts as $key => $stmt) {
             if ($stmt instanceof \PhpParser\Node\Stmt\Declare_) {
@@ -115,10 +118,10 @@ final class UseImportsAdder
     }
     private function isCurrentNamespace(string $namespaceName, \PHPStan\Type\ObjectType $objectType) : bool
     {
-        $afterCurrentNamespace = \RectorPrefix20210304\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
+        $afterCurrentNamespace = \RectorPrefix20210305\Nette\Utils\Strings::after($objectType->getClassName(), $namespaceName . '\\');
         if (!$afterCurrentNamespace) {
             return \false;
         }
-        return !\RectorPrefix20210304\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
+        return !\RectorPrefix20210305\Nette\Utils\Strings::contains($afterCurrentNamespace, '\\');
     }
 }

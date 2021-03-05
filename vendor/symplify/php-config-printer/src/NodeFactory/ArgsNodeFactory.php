@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210304\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210305\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
@@ -11,11 +11,11 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use RectorPrefix20210304\Symfony\Component\Yaml\Tag\TaggedValue;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver;
-use RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver;
+use RectorPrefix20210305\Symfony\Component\Yaml\Tag\TaggedValue;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver;
+use RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver;
 final class ArgsNodeFactory
 {
     /**
@@ -38,7 +38,7 @@ final class ArgsNodeFactory
      * @var TaggedServiceResolver
      */
     private $taggedServiceResolver;
-    public function __construct(\RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver $stringExprResolver, \RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver $taggedReturnsCloneResolver, \RectorPrefix20210304\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver $taggedServiceResolver)
+    public function __construct(\RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver $stringExprResolver, \RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver $taggedReturnsCloneResolver, \RectorPrefix20210305\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver $taggedServiceResolver)
     {
         $this->stringExprResolver = $stringExprResolver;
         $this->taggedReturnsCloneResolver = $taggedReturnsCloneResolver;
@@ -83,7 +83,7 @@ final class ArgsNodeFactory
             $expr = $this->resolveExpr($values);
             return [new \PhpParser\Node\Arg($expr)];
         }
-        throw new \RectorPrefix20210304\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
+        throw new \RectorPrefix20210305\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
     }
     public function resolveExpr($value, bool $skipServiceReference = \false, bool $skipClassesToConstantReference = \false) : \PhpParser\Node\Expr
     {
@@ -93,7 +93,7 @@ final class ArgsNodeFactory
         if ($value instanceof \PhpParser\Node\Expr) {
             return $value;
         }
-        if ($value instanceof \RectorPrefix20210304\Symfony\Component\Yaml\Tag\TaggedValue) {
+        if ($value instanceof \RectorPrefix20210305\Symfony\Component\Yaml\Tag\TaggedValue) {
             return $this->createServiceReferenceFromTaggedValue($value);
         }
         if (\is_array($value)) {
@@ -117,7 +117,7 @@ final class ArgsNodeFactory
         }
         return new \PhpParser\Node\Expr\Array_($arrayItems);
     }
-    private function createServiceReferenceFromTaggedValue(\RectorPrefix20210304\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
+    private function createServiceReferenceFromTaggedValue(\RectorPrefix20210305\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
     {
         // that's the only value
         if ($taggedValue->getTag() === self::TAG_RETURNS_CLONE) {

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Component\ExpressionLanguage;
+namespace RectorPrefix20210305\Symfony\Component\ExpressionLanguage;
 
-use RectorPrefix20210304\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix20210304\Symfony\Component\Cache\Adapter\ArrayAdapter;
+use RectorPrefix20210305\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20210305\Symfony\Component\Cache\Adapter\ArrayAdapter;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ParsedExpression::class);
+\class_exists(\RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ParsedExpression::class);
 /**
  * Allows to compile and evaluate expressions written in your own DSL.
  *
@@ -29,9 +29,9 @@ class ExpressionLanguage
     /**
      * @param ExpressionFunctionProviderInterface[] $providers
      */
-    public function __construct(\RectorPrefix20210304\Psr\Cache\CacheItemPoolInterface $cache = null, array $providers = [])
+    public function __construct(\RectorPrefix20210305\Psr\Cache\CacheItemPoolInterface $cache = null, array $providers = [])
     {
-        $this->cache = $cache ?: new \RectorPrefix20210304\Symfony\Component\Cache\Adapter\ArrayAdapter();
+        $this->cache = $cache ?: new \RectorPrefix20210305\Symfony\Component\Cache\Adapter\ArrayAdapter();
         $this->registerFunctions();
         foreach ($providers as $provider) {
             $this->registerProvider($provider);
@@ -68,7 +68,7 @@ class ExpressionLanguage
      */
     public function parse($expression, array $names)
     {
-        if ($expression instanceof \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ParsedExpression) {
+        if ($expression instanceof \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ParsedExpression) {
             return $expression;
         }
         \asort($names);
@@ -79,7 +79,7 @@ class ExpressionLanguage
         $cacheItem = $this->cache->getItem(\rawurlencode($expression . '//' . \implode('|', $cacheKeyItems)));
         if (null === ($parsedExpression = $cacheItem->get())) {
             $nodes = $this->getParser()->parse($this->getLexer()->tokenize((string) $expression), $names);
-            $parsedExpression = new \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ParsedExpression((string) $expression, $nodes);
+            $parsedExpression = new \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ParsedExpression((string) $expression, $nodes);
             $cacheItem->set($parsedExpression);
             $this->cache->save($cacheItem);
         }
@@ -95,7 +95,7 @@ class ExpressionLanguage
      */
     public function lint($expression, ?array $names) : void
     {
-        if ($expression instanceof \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ParsedExpression) {
+        if ($expression instanceof \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ParsedExpression) {
             return;
         }
         $this->getParser()->lint($this->getLexer()->tokenize((string) $expression), $names);
@@ -117,11 +117,11 @@ class ExpressionLanguage
         }
         $this->functions[$name] = ['compiler' => $compiler, 'evaluator' => $evaluator];
     }
-    public function addFunction(\RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ExpressionFunction $function)
+    public function addFunction(\RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ExpressionFunction $function)
     {
         $this->register($function->getName(), $function->getCompiler(), $function->getEvaluator());
     }
-    public function registerProvider(\RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface $provider)
+    public function registerProvider(\RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface $provider)
     {
         foreach ($provider->getFunctions() as $function) {
             $this->addFunction($function);
@@ -129,26 +129,26 @@ class ExpressionLanguage
     }
     protected function registerFunctions()
     {
-        $this->addFunction(\RectorPrefix20210304\Symfony\Component\ExpressionLanguage\ExpressionFunction::fromPhp('constant'));
+        $this->addFunction(\RectorPrefix20210305\Symfony\Component\ExpressionLanguage\ExpressionFunction::fromPhp('constant'));
     }
-    private function getLexer() : \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Lexer
+    private function getLexer() : \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Lexer
     {
         if (null === $this->lexer) {
-            $this->lexer = new \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Lexer();
+            $this->lexer = new \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Lexer();
         }
         return $this->lexer;
     }
-    private function getParser() : \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Parser
+    private function getParser() : \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Parser
     {
         if (null === $this->parser) {
-            $this->parser = new \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Parser($this->functions);
+            $this->parser = new \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Parser($this->functions);
         }
         return $this->parser;
     }
-    private function getCompiler() : \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Compiler
+    private function getCompiler() : \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Compiler
     {
         if (null === $this->compiler) {
-            $this->compiler = new \RectorPrefix20210304\Symfony\Component\ExpressionLanguage\Compiler($this->functions);
+            $this->compiler = new \RectorPrefix20210305\Symfony\Component\ExpressionLanguage\Compiler($this->functions);
         }
         return $this->compiler->reset();
     }

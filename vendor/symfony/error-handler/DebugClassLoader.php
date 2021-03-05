@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Component\ErrorHandler;
+namespace RectorPrefix20210305\Symfony\Component\ErrorHandler;
 
-use RectorPrefix20210304\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use RectorPrefix20210304\Doctrine\Persistence\Proxy;
-use RectorPrefix20210304\Mockery\MockInterface;
-use RectorPrefix20210304\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use RectorPrefix20210304\PHPUnit\Framework\MockObject\MockObject;
-use RectorPrefix20210304\Prophecy\Prophecy\ProphecySubjectInterface;
-use RectorPrefix20210304\ProxyManager\Proxy\ProxyInterface;
+use RectorPrefix20210305\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use RectorPrefix20210305\Doctrine\Persistence\Proxy;
+use RectorPrefix20210305\Mockery\MockInterface;
+use RectorPrefix20210305\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use RectorPrefix20210305\PHPUnit\Framework\MockObject\MockObject;
+use RectorPrefix20210305\Prophecy\Prophecy\ProphecySubjectInterface;
+use RectorPrefix20210305\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -111,8 +111,8 @@ class DebugClassLoader
     public static function enable() : void
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists(\RectorPrefix20210304\Symfony\Component\ErrorHandler\ErrorHandler::class);
-        \class_exists(\RectorPrefix20210304\Psr\Log\LogLevel::class);
+        \class_exists(\RectorPrefix20210305\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\RectorPrefix20210305\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -163,7 +163,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \RectorPrefix20210304\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210304\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210304\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210304\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210304\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210304\Mockery\MockInterface::class)) {
+                if (!\is_subclass_of($symbols[$i], \RectorPrefix20210305\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210305\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210305\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210305\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210305\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \RectorPrefix20210305\Mockery\MockInterface::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -352,7 +352,7 @@ class DebugClassLoader
             if (null !== (self::INTERNAL_TYPES[$use] ?? null)) {
                 foreach (self::INTERNAL_TYPES[$use] as $method => $returnType) {
                     if ('void' !== $returnType) {
-                        self::$returnTypes[$class] += [$method => [$returnType, $returnType, $class, '']];
+                        self::$returnTypes[$class] += [$method => [$returnType, $returnType, $use, '']];
                     }
                 }
             }
@@ -408,7 +408,7 @@ class DebugClassLoader
                 if ($canAddReturnType && 'docblock' !== $this->patchTypes['force']) {
                     $this->patchMethod($method, $returnType, $declaringFile, $normalizedType);
                 }
-                if (\strncmp($ns, $declaringClass, $len)) {
+                if (\false === \strpos($doc, '* @deprecated') && \strncmp($ns, $declaringClass, $len)) {
                     if ($canAddReturnType && 'docblock' === $this->patchTypes['force'] && \false === \strpos($method->getFileName(), \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR)) {
                         $this->patchMethod($method, $returnType, $declaringFile, $normalizedType);
                     } elseif ('' !== $declaringClass && $this->patchTypes['deprecations']) {
@@ -443,7 +443,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \RectorPrefix20210304\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \RectorPrefix20210305\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {

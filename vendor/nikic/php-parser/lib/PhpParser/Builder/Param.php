@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PhpParser\Builder;
 
-use RectorPrefix20210304\PhpParser;
+use RectorPrefix20210305\PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 class Param implements \PhpParser\Builder

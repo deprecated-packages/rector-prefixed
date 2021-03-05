@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210304\Utils\Rector\Rector\MethodCall;
+namespace RectorPrefix20210305\Utils\Rector\Rector\MethodCall;
 
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;

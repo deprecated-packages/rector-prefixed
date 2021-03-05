@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210304\spec\Rector\PhpSpecToPHPUnit\Tests\Rector\FileNode\RenameSpecFileToTestFileRector\Fixture;
+namespace RectorPrefix20210305\spec\Rector\PhpSpecToPHPUnit\Tests\Rector\FileNode\RenameSpecFileToTestFileRector\Fixture;
 
 class SomeFileSpec
 {

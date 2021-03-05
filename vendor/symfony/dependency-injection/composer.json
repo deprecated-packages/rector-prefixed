@@ -42,11 +42,11 @@
     },
     "provide": {
         "psr\/container-implementation": "1.0",
-        "symfony\/service-implementation": "1.0"
+        "symfony\/service-implementation": "1.0|2.0"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210304\\Symfony\\Component\\DependencyInjection\\": ""
+            "RectorPrefix20210305\\Symfony\\Component\\DependencyInjection\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

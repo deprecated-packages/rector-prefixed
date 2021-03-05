@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver;
 
 use Iterator;
-use RectorPrefix20210304\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210305\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\NodeTypeResolver\NodeTypeResolver\PropertyFetchTypeResolver
  */
@@ -15,12 +15,12 @@ final class Php74Test extends \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
     }
     public function provideData() : \Iterator
     {
-        return \RectorPrefix20210304\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/FixturePhp74');
+        return \RectorPrefix20210305\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/FixturePhp74');
     }
 }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Component\Config\Exception;
+namespace RectorPrefix20210305\Symfony\Component\Config\Exception;
 
 /**
  * Exception class for when a resource cannot be loaded or imported.
@@ -18,13 +18,13 @@ namespace RectorPrefix20210304\Symfony\Component\Config\Exception;
 class LoaderLoadException extends \Exception
 {
     /**
-     * @param string     $resource       The resource that could not be imported
-     * @param string     $sourceResource The original resource importing the new resource
-     * @param int        $code           The error code
-     * @param \Throwable $previous       A previous exception
-     * @param string     $type           The type of resource
+     * @param string          $resource       The resource that could not be imported
+     * @param string|null     $sourceResource The original resource importing the new resource
+     * @param int|null        $code           The error code
+     * @param \Throwable|null $previous       A previous exception
+     * @param string|null     $type           The type of resource
      */
-    public function __construct(string $resource, string $sourceResource = null, int $code = null, \Throwable $previous = null, string $type = null)
+    public function __construct(string $resource, string $sourceResource = null, ?int $code = 0, \Throwable $previous = null, string $type = null)
     {
         $message = '';
         if ($previous) {

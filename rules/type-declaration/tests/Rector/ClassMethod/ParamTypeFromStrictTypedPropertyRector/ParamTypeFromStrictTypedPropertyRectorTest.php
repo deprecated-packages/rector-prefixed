@@ -6,14 +6,14 @@ namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\ParamTypeFromStrictTyp
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\ClassMethod\ParamTypeFromStrictTypedPropertyRector;
-use RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo;
 final class ParamTypeFromStrictTypedPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210304\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

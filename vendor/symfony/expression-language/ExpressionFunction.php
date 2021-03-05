@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Component\ExpressionLanguage;
+namespace RectorPrefix20210305\Symfony\Component\ExpressionLanguage;
 
 /**
  * Represents a function that can be used in an expression.
@@ -76,11 +76,11 @@ class ExpressionFunction
         if (!$expressionFunctionName && \count($parts) > 1) {
             throw new \InvalidArgumentException(\sprintf('An expression function name must be defined when PHP function "%s" is namespaced.', $phpFunctionName));
         }
-        $compiler = function () use($phpFunctionName) {
-            return \sprintf('\\%s(%s)', $phpFunctionName, \implode(', ', \func_get_args()));
+        $compiler = function (...$args) use($phpFunctionName) {
+            return \sprintf('\\%s(%s)', $phpFunctionName, \implode(', ', $args));
         };
-        $evaluator = function () use($phpFunctionName) {
-            return $phpFunctionName(...\array_slice(\func_get_args(), 1));
+        $evaluator = function ($p, ...$args) use($phpFunctionName) {
+            return $phpFunctionName(...$args);
         };
         return new self($expressionFunctionName ?: \end($parts), $compiler, $evaluator);
     }

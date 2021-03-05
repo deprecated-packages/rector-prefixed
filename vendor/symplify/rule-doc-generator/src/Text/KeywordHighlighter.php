@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Text;
 
-use RectorPrefix20210304\Nette\Utils\Strings;
-use RectorPrefix20210304\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210305\Nette\Utils\Strings;
+use RectorPrefix20210305\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Throwable;
 /**
  * @see \Symplify\RuleDocGenerator\Tests\Text\KeywordHighlighterTest
@@ -44,18 +44,18 @@ final class KeywordHighlighter
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\RectorPrefix20210304\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\RectorPrefix20210305\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
     public function highlight(string $content) : string
     {
-        $words = \RectorPrefix20210304\Nette\Utils\Strings::split($content, '# #');
+        $words = \RectorPrefix20210305\Nette\Utils\Strings::split($content, '# #');
         foreach ($words as $key => $word) {
             if (!$this->isKeywordToHighlight($word)) {
                 continue;
             }
-            $words[$key] = \RectorPrefix20210304\Nette\Utils\Strings::replace('`' . $word . '`', self::COMMA_SPLIT_REGEX, function (array $match) : string {
+            $words[$key] = \RectorPrefix20210305\Nette\Utils\Strings::replace('`' . $word . '`', self::COMMA_SPLIT_REGEX, function (array $match) : string {
                 return $match['call'] . $match['quote'] . $match['comma'];
             });
         }
@@ -63,14 +63,14 @@ final class KeywordHighlighter
     }
     private function isKeywordToHighlight(string $word) : bool
     {
-        if (\RectorPrefix20210304\Nette\Utils\Strings::match($word, self::ANNOTATION_REGEX)) {
+        if (\RectorPrefix20210305\Nette\Utils\Strings::match($word, self::ANNOTATION_REGEX)) {
             return \true;
         }
         // already in code quotes
-        if (\RectorPrefix20210304\Nette\Utils\Strings::startsWith($word, '`')) {
+        if (\RectorPrefix20210305\Nette\Utils\Strings::startsWith($word, '`')) {
             return \false;
         }
-        if (\RectorPrefix20210304\Nette\Utils\Strings::endsWith($word, '`')) {
+        if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($word, '`')) {
             return \false;
         }
         // part of normal text
@@ -83,14 +83,14 @@ final class KeywordHighlighter
         if ($word === 'composer.json') {
             return \true;
         }
-        if ((bool) \RectorPrefix20210304\Nette\Utils\Strings::match($word, self::VARIABLE_CALL_OR_VARIABLE_REGEX)) {
+        if ((bool) \RectorPrefix20210305\Nette\Utils\Strings::match($word, self::VARIABLE_CALL_OR_VARIABLE_REGEX)) {
             return \true;
         }
-        return (bool) \RectorPrefix20210304\Nette\Utils\Strings::match($word, self::STATIC_CALL_REGEX);
+        return (bool) \RectorPrefix20210305\Nette\Utils\Strings::match($word, self::STATIC_CALL_REGEX);
     }
     private function isFunctionOrClass(string $word) : bool
     {
-        if (\RectorPrefix20210304\Nette\Utils\Strings::match($word, self::METHOD_NAME_REGEX)) {
+        if (\RectorPrefix20210305\Nette\Utils\Strings::match($word, self::METHOD_NAME_REGEX)) {
             return \true;
         }
         if (\function_exists($word)) {
@@ -101,7 +101,7 @@ final class KeywordHighlighter
         }
         if ($this->classLikeExistenceChecker->doesClassLikeExist($word)) {
             // not a class
-            if (!\RectorPrefix20210304\Nette\Utils\Strings::contains($word, '\\')) {
+            if (!\RectorPrefix20210305\Nette\Utils\Strings::contains($word, '\\')) {
                 return \in_array($word, [\Throwable::class, 'Exception'], \true);
             }
             return \true;

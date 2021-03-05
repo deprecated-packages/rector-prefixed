@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210304\Symfony\Component\HttpKernel\Exception;
+namespace RectorPrefix20210305\Symfony\Component\HttpKernel\Exception;
 
 /**
  * HttpException.
  *
  * @author Kris Wallsmith <kris@symfony.com>
  */
-class HttpException extends \RuntimeException implements \RectorPrefix20210304\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
+class HttpException extends \RuntimeException implements \RectorPrefix20210305\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
 {
     private $statusCode;
     private $headers;
-    public function __construct(int $statusCode, string $message = null, \Throwable $previous = null, array $headers = [], ?int $code = 0)
+    public function __construct(int $statusCode, ?string $message = '', \Throwable $previous = null, array $headers = [], ?int $code = 0)
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;

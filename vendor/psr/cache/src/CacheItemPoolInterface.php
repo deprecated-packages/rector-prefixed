@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210304\Psr\Cache;
+namespace RectorPrefix20210305\Psr\Cache;
 
 /**
  * CacheItemPoolInterface generates CacheItemInterface objects.
@@ -29,7 +29,7 @@ interface CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key);
+    public function getItem(string $key);
     /**
      * Returns a traversable set of cache items.
      *
@@ -46,7 +46,7 @@ interface CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = array());
+    public function getItems(array $keys = []);
     /**
      * Confirms if the cache contains specified cache item.
      *
@@ -64,7 +64,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if item exists in the cache, false otherwise.
      */
-    public function hasItem($key);
+    public function hasItem(string $key);
     /**
      * Deletes all items in the pool.
      *
@@ -85,12 +85,13 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem($key);
+    public function deleteItem(string $key);
     /**
      * Removes multiple items from the pool.
      *
      * @param string[] $keys
      *   An array of keys that should be removed from the pool.
+     *
      * @throws InvalidArgumentException
      *   If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
      *   MUST be thrown.
@@ -108,7 +109,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(\RectorPrefix20210304\Psr\Cache\CacheItemInterface $item);
+    public function save(\RectorPrefix20210305\Psr\Cache\CacheItemInterface $item);
     /**
      * Sets a cache item to be persisted later.
      *
@@ -118,7 +119,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(\RectorPrefix20210304\Psr\Cache\CacheItemInterface $item);
+    public function saveDeferred(\RectorPrefix20210305\Psr\Cache\CacheItemInterface $item);
     /**
      * Persists any deferred cache items.
      *
