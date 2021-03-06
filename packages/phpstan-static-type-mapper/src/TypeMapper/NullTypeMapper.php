@@ -11,7 +11,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind;
 final class NullTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
@@ -33,7 +33,7 @@ final class NullTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
      */
     public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
-        if ($kind !== \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_PROPERTY) {
+        if ($kind !== \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_PROPERTY) {
             return null;
         }
         return new \PhpParser\Node\Name('null');

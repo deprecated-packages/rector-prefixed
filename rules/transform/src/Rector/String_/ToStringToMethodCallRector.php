@@ -23,7 +23,7 @@ final class ToStringToMethodCallRector extends \Rector\Core\Rector\AbstractRecto
      */
     public const METHOD_NAMES_BY_TYPE = 'method_names_by_type';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $methodNamesByType = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -57,6 +57,9 @@ CODE_SAMPLE
         }
         return $this->processMethodCall($node);
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->methodNamesByType = $configuration[self::METHOD_NAMES_BY_TYPE] ?? [];
@@ -64,7 +67,7 @@ CODE_SAMPLE
     private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
-            if (!$this->isObjectType($string, new \PHPStan\Type\ObjectType($type))) {
+            if (!$this->isObjectType($string->expr, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
             return $this->nodeFactory->createMethodCall($string->expr, $methodName);

@@ -32,17 +32,11 @@ final class UnsetAndIssetToMethodCallRector extends \Rector\Core\Rector\Abstract
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined `__isset`/`__unset` calls to specific method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $container = new SomeContainer;
 isset($container["someKey"]);
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-$container = new SomeContainer;
-$container->hasService("someKey");
-CODE_SAMPLE
-, [self::ISSET_UNSET_TO_METHOD_CALL => [$unsetAndIssetToMethodCall]]), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-$container = new SomeContainer;
 unset($container["someKey"]);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 $container = new SomeContainer;
+$container->hasService("someKey");
 $container->removeService("someKey");
 CODE_SAMPLE
 , [self::ISSET_UNSET_TO_METHOD_CALL => [$unsetAndIssetToMethodCall]])]);

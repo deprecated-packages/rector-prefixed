@@ -2738,6 +2738,7 @@ return array(
     'Rector\\PHPStanStaticTypeMapper\\TypeMapper\\UnionTypeMapper' => $baseDir . '/packages/phpstan-static-type-mapper/src/TypeMapper/UnionTypeMapper.php',
     'Rector\\PHPStanStaticTypeMapper\\TypeMapper\\VoidTypeMapper' => $baseDir . '/packages/phpstan-static-type-mapper/src/TypeMapper/VoidTypeMapper.php',
     'Rector\\PHPStanStaticTypeMapper\\Utils\\TypeUnwrapper' => $baseDir . '/packages/phpstan-static-type-mapper/src/Utils/TypeUnwrapper.php',
+    'Rector\\PHPStanStaticTypeMapper\\ValueObject\\TypeKind' => $baseDir . '/packages/phpstan-static-type-mapper/src/ValueObject/TypeKind.php',
     'Rector\\PHPStanStaticTypeMapper\\ValueObject\\UnionTypeAnalysis' => $baseDir . '/packages/phpstan-static-type-mapper/src/ValueObject/UnionTypeAnalysis.php',
     'Rector\\PHPUnitSymfony\\Rector\\StaticCall\\AddMessageToEqualsResponseCodeRector' => $baseDir . '/rules/phpunit-symfony/src/Rector/StaticCall/AddMessageToEqualsResponseCodeRector.php',
     'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => $baseDir . '/rules/phpunit/src/Composer/ComposerAutoloadedDirectoryProvider.php',
