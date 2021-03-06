@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210305\Symfony\Component\Uid;
+namespace RectorPrefix20210306\Symfony\Component\Uid;
 
 /**
  * A v4 UUID contains a 122-bit random number.
@@ -17,7 +17,7 @@ namespace RectorPrefix20210305\Symfony\Component\Uid;
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class UuidV4 extends \RectorPrefix20210305\Symfony\Component\Uid\Uuid
+class UuidV4 extends \RectorPrefix20210306\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 4;
     public function __construct(string $uuid = null)

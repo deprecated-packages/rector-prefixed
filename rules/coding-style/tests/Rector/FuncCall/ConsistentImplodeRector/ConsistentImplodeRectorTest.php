@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\FuncCall\ConsistentImplodeRector;
 use Iterator;
 use Rector\CodingStyle\Rector\FuncCall\ConsistentImplodeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConsistentImplodeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

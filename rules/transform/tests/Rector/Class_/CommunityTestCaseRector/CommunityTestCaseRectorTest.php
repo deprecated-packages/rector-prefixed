@@ -7,22 +7,22 @@ use Iterator;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\Class_\CommunityTestCaseRector;
-use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileSystem;
 final class CommunityTestCaseRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
+    public function test(\RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
     {
         $this->doTestFileInfo($fileInfo);
         $this->assertFileWithContentWasAdded($addedFileWithContent);
     }
     public function provideData() : \Iterator
     {
-        $smartFileSystem = new \RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileSystem();
-        (yield [new \RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/some_class.php.inc'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/config/configured_rule.php', $smartFileSystem->readFile(__DIR__ . '/Expected/config/configured_rule.php'))]);
+        $smartFileSystem = new \RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileSystem();
+        (yield [new \RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/some_class.php.inc'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/config/configured_rule.php', $smartFileSystem->readFile(__DIR__ . '/Expected/config/configured_rule.php'))]);
     }
     protected function getRectorClass() : string
     {

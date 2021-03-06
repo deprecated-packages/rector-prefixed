@@ -6,13 +6,13 @@ namespace Rector\Privatization\Tests\Rector\ClassMethod\ChangeGlobalVariablesToP
 use Iterator;
 use Rector\Privatization\Rector\ClassMethod\ChangeGlobalVariablesToPropertiesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeGlobalVariablesToPropertiesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210305\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

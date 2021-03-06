@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210305\Symplify\Astral\Bundle;
+namespace RectorPrefix20210306\Symplify\Astral\Bundle;
 
-use RectorPrefix20210305\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210305\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use RectorPrefix20210305\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210305\Symplify\Astral\DependencyInjection\Extension\AstralExtension;
-use RectorPrefix20210305\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-final class AstralBundle extends \RectorPrefix20210305\Symfony\Component\HttpKernel\Bundle\Bundle
+use RectorPrefix20210306\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210306\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use RectorPrefix20210306\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210306\Symplify\Astral\DependencyInjection\Extension\AstralExtension;
+use RectorPrefix20210306\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+final class AstralBundle extends \RectorPrefix20210306\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    public function build(\RectorPrefix20210305\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function build(\RectorPrefix20210306\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $containerBuilder->addCompilerPass(new \RectorPrefix20210305\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \RectorPrefix20210306\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : ?\RectorPrefix20210305\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : ?\RectorPrefix20210306\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
-        return new \RectorPrefix20210305\Symplify\Astral\DependencyInjection\Extension\AstralExtension();
+        return new \RectorPrefix20210306\Symplify\Astral\DependencyInjection\Extension\AstralExtension();
     }
 }

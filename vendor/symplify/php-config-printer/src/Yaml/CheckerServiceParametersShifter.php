@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210305\Symplify\PhpConfigPrinter\Yaml;
+namespace RectorPrefix20210306\Symplify\PhpConfigPrinter\Yaml;
 
-use RectorPrefix20210305\Nette\Utils\Strings;
+use RectorPrefix20210306\Nette\Utils\Strings;
 use ReflectionClass;
-use RectorPrefix20210305\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use RectorPrefix20210305\Symplify\PackageBuilder\Strings\StringFormatConverter;
+use RectorPrefix20210306\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use RectorPrefix20210306\Symplify\PackageBuilder\Strings\StringFormatConverter;
 /**
  * @copy of https://github.com/symplify/symplify/blob/d4beda1b1af847599aa035ead755e03db81c7247/packages/easy-coding-standard/src/Yaml/CheckerServiceParametersShifter.php
  *
@@ -56,7 +56,7 @@ final class CheckerServiceParametersShifter
     private $stringFormatConverter;
     public function __construct()
     {
-        $this->stringFormatConverter = new \RectorPrefix20210305\Symplify\PackageBuilder\Strings\StringFormatConverter();
+        $this->stringFormatConverter = new \RectorPrefix20210306\Symplify\PackageBuilder\Strings\StringFormatConverter();
         $this->initializeServiceKeywords();
     }
     /**
@@ -90,10 +90,10 @@ final class CheckerServiceParametersShifter
             if ($serviceDefinition === []) {
                 continue;
             }
-            if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
+            if (\RectorPrefix20210306\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
                 $services = $this->processFixer($services, $serviceName, $serviceDefinition);
             }
-            if (\RectorPrefix20210305\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
+            if (\RectorPrefix20210306\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
                 $services = $this->processSniff($services, $serviceName, $serviceDefinition);
             }
             // cleanup parameters
@@ -103,7 +103,7 @@ final class CheckerServiceParametersShifter
     }
     private function isCheckerClass(string $checker) : bool
     {
-        return \RectorPrefix20210305\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \RectorPrefix20210305\Nette\Utils\Strings::endsWith($checker, 'Sniff');
+        return \RectorPrefix20210306\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \RectorPrefix20210306\Nette\Utils\Strings::endsWith($checker, 'Sniff');
     }
     /**
      * @param mixed[] $services
@@ -177,11 +177,11 @@ final class CheckerServiceParametersShifter
             }
             return $value;
         }
-        return \RectorPrefix20210305\Nette\Utils\Strings::replace($value, '#^@#', '@@');
+        return \RectorPrefix20210306\Nette\Utils\Strings::replace($value, '#^@#', '@@');
     }
     private function initializeServiceKeywords() : void
     {
-        $reflectionClass = new \ReflectionClass(\RectorPrefix20210305\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
+        $reflectionClass = new \ReflectionClass(\RectorPrefix20210306\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
         /** @var array<string, mixed> $constants */
         $constants = $reflectionClass->getConstants();
         if (\array_key_exists(self::SERVICE_KEYWORDS_KEY_CONST, $constants)) {

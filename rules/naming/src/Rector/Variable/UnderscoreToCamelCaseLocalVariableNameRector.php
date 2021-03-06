@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Variable;
 
-use RectorPrefix20210305\Nette\Utils\Strings;
+use RectorPrefix20210306\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -71,7 +71,7 @@ CODE_SAMPLE
         if ($nodeName === null) {
             return null;
         }
-        if (!\RectorPrefix20210305\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\RectorPrefix20210306\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
