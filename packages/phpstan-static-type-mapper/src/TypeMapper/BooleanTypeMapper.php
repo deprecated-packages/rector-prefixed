@@ -23,6 +23,9 @@ final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\BooleanType::class;

@@ -31,6 +31,9 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ObjectWithoutClassType::class;

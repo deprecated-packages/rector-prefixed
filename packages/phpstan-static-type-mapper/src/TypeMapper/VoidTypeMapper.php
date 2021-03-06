@@ -26,6 +26,9 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\VoidType::class;

@@ -38,6 +38,9 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\IterableType::class;

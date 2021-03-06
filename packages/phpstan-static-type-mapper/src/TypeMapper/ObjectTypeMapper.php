@@ -37,6 +37,9 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     {
         $this->reflectionProvider = $reflectionProvider;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ObjectType::class;

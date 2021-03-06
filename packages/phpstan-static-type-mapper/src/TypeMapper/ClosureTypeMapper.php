@@ -27,6 +27,9 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
     {
         $this->callableTypeMapper = $callableTypeMapper;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ClosureType::class;

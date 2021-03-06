@@ -13,6 +13,9 @@ use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 final class ThisTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ThisType::class;

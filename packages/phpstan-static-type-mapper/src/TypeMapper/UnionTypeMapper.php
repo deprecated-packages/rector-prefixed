@@ -70,6 +70,9 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\UnionType::class;

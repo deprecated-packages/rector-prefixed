@@ -23,6 +23,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\IntersectionType::class;

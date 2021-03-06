@@ -15,7 +15,6 @@ use PhpParser\Node\Expr\PreInc;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Unset_;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeManipulator\AssignManipulator;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -108,7 +107,7 @@ final class ForAnalyzer
             return $node instanceof \PhpParser\Node\Expr\ArrayDimFetch;
         });
     }
-    public function isAssignmentWithArrayDimFetchAsVariableInsideForStatements(\PhpParser\Node\Stmt\For_ $for, ?string $keyValueName) : bool
+    public function isAssignmentWithArrayDimFetchAsVariableInsideForStatements(\PhpParser\Node\Stmt\For_ $for, string $keyValueName) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($for->stmts, function (\PhpParser\Node $node) use($keyValueName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -116,9 +115,6 @@ final class ForAnalyzer
             }
             if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
                 return \false;
-            }
-            if ($keyValueName === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $arrayDimFetch = $node->var;
             if ($arrayDimFetch->dim === null) {

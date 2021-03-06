@@ -13,6 +13,9 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\Accessory\HasOffsetType::class;

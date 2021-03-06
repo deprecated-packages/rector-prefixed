@@ -81,13 +81,13 @@ CODE_SAMPLE
         return $this->isValueSwap($assign->var, $assign->expr);
     }
     /**
-     * @param Array_|List_ $node
+     * @param Array_|List_ $expr
      * @return Assign[]
      */
-    private function createStandaloneAssigns(\PhpParser\Node $node, \PhpParser\Node\Expr\Array_ $rightArray) : array
+    private function createStandaloneAssigns(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $rightArray) : array
     {
         $standaloneAssigns = [];
-        foreach ($node->items as $key => $leftArrayItem) {
+        foreach ($expr->items as $key => $leftArrayItem) {
             if ($leftArrayItem === null) {
                 continue;
             }

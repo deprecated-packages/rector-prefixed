@@ -15,7 +15,7 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ValueObjectClassAnalyzer
 {
     /**
-     * @var bool[]
+     * @var array<string, bool>
      */
     private $valueObjectStatusByClassName = [];
     /**
@@ -76,7 +76,7 @@ final class ValueObjectClassAnalyzer
         $this->valueObjectStatusByClassName[$className] = \true;
         return \true;
     }
-    private function analyseWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class, ?string $className) : bool
+    private function analyseWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class, string $className) : bool
     {
         // A. has all properties with serialize?
         if ($this->hasAllPropertiesWithSerialize($class)) {

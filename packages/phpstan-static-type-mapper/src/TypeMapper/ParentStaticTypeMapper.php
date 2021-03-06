@@ -13,6 +13,9 @@ use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType;
 final class ParentStaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType::class;

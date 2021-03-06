@@ -20,6 +20,9 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ClassStringType::class;

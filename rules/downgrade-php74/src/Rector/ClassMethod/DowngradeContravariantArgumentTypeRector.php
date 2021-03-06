@@ -85,7 +85,20 @@ class B extends A
 CODE_SAMPLE
 )]);
     }
-    public function isNullableParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
+    /**
+     * @param ClassMethod|Function_ $node
+     */
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    {
+        if ($node->params === []) {
+            return null;
+        }
+        foreach ($node->params as $param) {
+            $this->refactorParam($param, $node);
+        }
+        return null;
+    }
+    private function isNullableParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \false;
@@ -103,19 +116,6 @@ CODE_SAMPLE
         }
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
-    }
-    /**
-     * @param ClassMethod|Function_ $node
-     */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
-    {
-        if ($node->params === []) {
-            return null;
-        }
-        foreach ($node->params as $param) {
-            $this->refactorParam($param, $node);
-        }
-        return null;
     }
     private function getDifferentParamTypeFromAncestorClass(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : ?string
     {

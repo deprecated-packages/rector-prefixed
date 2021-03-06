@@ -22,6 +22,7 @@ use RectorPrefix20210306\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210306\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function RectorPrefix20210306\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use RectorPrefix20210306\Symfony\Component\Filesystem\Filesystem;
+use RectorPrefix20210306\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use RectorPrefix20210306\Symplify\PackageBuilder\Console\Command\CommandNaming;
 use RectorPrefix20210306\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use RectorPrefix20210306\Symplify\PackageBuilder\Parameter\ParameterProvider;

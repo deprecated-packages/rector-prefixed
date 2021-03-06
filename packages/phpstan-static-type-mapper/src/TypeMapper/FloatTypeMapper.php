@@ -23,6 +23,9 @@ final class FloatTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\FloatType::class;

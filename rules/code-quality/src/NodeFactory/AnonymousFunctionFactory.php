@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\NodeFactory;
 
-use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\ClosureUse;
 use PhpParser\Node\Expr\MethodCall;
@@ -41,16 +41,16 @@ final class AnonymousFunctionFactory
         $this->staticTypeMapper = $staticTypeMapper;
     }
     /**
-     * @param Variable|PropertyFetch $node
+     * @param Variable|PropertyFetch $expr
      */
-    public function create(\PHPStan\Reflection\Php\PhpMethodReflection $phpMethodReflection, \PhpParser\Node $node) : \PhpParser\Node\Expr\Closure
+    public function create(\PHPStan\Reflection\Php\PhpMethodReflection $phpMethodReflection, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Closure
     {
         /** @var FunctionVariantWithPhpDocs $functionVariantWithPhpDoc */
         $functionVariantWithPhpDoc = $phpMethodReflection->getVariants()[0];
         $anonymousFunction = new \PhpParser\Node\Expr\Closure();
         $newParams = $this->createParams($functionVariantWithPhpDoc->getParameters());
         $anonymousFunction->params = $newParams;
-        $innerMethodCall = new \PhpParser\Node\Expr\MethodCall($node, $phpMethodReflection->getName());
+        $innerMethodCall = new \PhpParser\Node\Expr\MethodCall($expr, $phpMethodReflection->getName());
         $innerMethodCall->args = $this->nodeFactory->createArgsFromParams($newParams);
         if (!$functionVariantWithPhpDoc->getReturnType() instanceof \PHPStan\Type\MixedType) {
             $returnType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($functionVariantWithPhpDoc->getReturnType());
@@ -62,8 +62,8 @@ final class AnonymousFunctionFactory
         } else {
             $anonymousFunction->stmts[] = new \PhpParser\Node\Stmt\Expression($innerMethodCall);
         }
-        if ($node instanceof \PhpParser\Node\Expr\Variable && !$this->nodeNameResolver->isName($node, 'this')) {
-            $anonymousFunction->uses[] = new \PhpParser\Node\Expr\ClosureUse($node);
+        if ($expr instanceof \PhpParser\Node\Expr\Variable && !$this->nodeNameResolver->isName($expr, 'this')) {
+            $anonymousFunction->uses[] = new \PhpParser\Node\Expr\ClosureUse($expr);
         }
         return $anonymousFunction;
     }

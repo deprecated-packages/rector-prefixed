@@ -20,6 +20,9 @@ final class TypeWithClassNameTypeMapper implements \Rector\PHPStanStaticTypeMapp
     {
         $this->stringTypeMapper = $stringTypeMapper;
     }
+    /**
+     * @return class-string<Type>
+     */
     public function getNodeClass() : string
     {
         return \PHPStan\Type\TypeWithClassName::class;

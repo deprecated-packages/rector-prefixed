@@ -244,19 +244,19 @@ CODE_SAMPLE
     /**
      * @param array<int, Node|null> $multiNodes
      */
-    private function getSameVarName(array $multiNodes, \PhpParser\Node $node) : ?\PhpParser\Node\Expr\Variable
+    private function getSameVarName(array $multiNodes, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
     {
         foreach ($multiNodes as $multiNode) {
             if ($multiNode === null) {
                 continue;
             }
             /** @var Variable|null $found */
-            $found = $this->betterNodeFinder->findFirst($multiNode, function (\PhpParser\Node $n) use($node) : bool {
+            $found = $this->betterNodeFinder->findFirst($multiNode, function (\PhpParser\Node $n) use($variable) : bool {
                 $n = $this->mayBeArrayDimFetch($n);
                 if (!$n instanceof \PhpParser\Node\Expr\Variable) {
                     return \false;
                 }
-                return $this->isName($n, (string) $this->getName($node));
+                return $this->isName($n, (string) $this->getName($variable));
             });
             if ($found !== null) {
                 return $found;
