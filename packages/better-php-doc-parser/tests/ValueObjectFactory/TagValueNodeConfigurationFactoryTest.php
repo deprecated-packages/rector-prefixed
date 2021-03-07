@@ -8,8 +8,8 @@ use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Doctrine\ColumnTagVa
 use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210306\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210306\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TagValueNodeConfigurationFactory

@@ -6,20 +6,20 @@ namespace Rector\NetteToSymfony\Tests\Rector\Class_\FormControlToControllerAndFo
 use Iterator;
 use Rector\NetteToSymfony\Rector\Class_\FormControlToControllerAndFormTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo;
 final class FormControlToControllerAndFormTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
+    public function test(\RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
         $this->doTestFileInfo($fileInfo);
         $this->doTestExtraFile($expectedExtraFileName, $expectedExtraContentFilePath);
     }
     public function provideData() : \Iterator
     {
-        (yield [new \RectorPrefix20210306\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'src/Controller/SomeFormController.php', __DIR__ . '/Source/extra_file.php']);
+        (yield [new \RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'src/Controller/SomeFormController.php', __DIR__ . '/Source/extra_file.php']);
     }
     protected function getRectorClass() : string
     {

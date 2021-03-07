@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\ArrayDimFetch\ChangeFormArrayAccessToAnnotatedControlVariableRector\Source;
 
-use RectorPrefix20210306\Nette\Application\UI\Form;
-final class FormWithTitleLocal extends \RectorPrefix20210306\Nette\Application\UI\Form
+use RectorPrefix20210307\Nette\Application\UI\Form;
+final class FormWithTitleLocal extends \RectorPrefix20210307\Nette\Application\UI\Form
 {
     public function __construct()
     {

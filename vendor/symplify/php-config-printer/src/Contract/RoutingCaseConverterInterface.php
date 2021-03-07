@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210306\Symplify\PhpConfigPrinter\Contract;
+namespace RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract;
 
 use PhpParser\Node\Stmt\Expression;
 interface RoutingCaseConverterInterface
