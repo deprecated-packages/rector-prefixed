@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\ValueObject;
 
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 final class AddReturnTypeDeclaration
 {
@@ -35,5 +36,9 @@ final class AddReturnTypeDeclaration
     public function getReturnType() : \PHPStan\Type\Type
     {
         return $this->returnType;
+    }
+    public function getObjectType() : \PHPStan\Type\ObjectType
+    {
+        return new \PHPStan\Type\ObjectType($this->class);
     }
 }

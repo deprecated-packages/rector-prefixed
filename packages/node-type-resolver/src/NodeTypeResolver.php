@@ -9,14 +9,9 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
@@ -39,12 +34,10 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
-use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
-use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -64,10 +57,6 @@ final class NodeTypeResolver
      */
     private $arrayTypeAnalyzer;
     /**
-     * @var TypeUnwrapper
-     */
-    private $typeUnwrapper;
-    /**
      * @var ClassAnalyzer
      */
     private $classAnalyzer;
@@ -84,24 +73,18 @@ final class NodeTypeResolver
      */
     private $reflectionProvider;
     /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
         }
         $this->objectTypeSpecifier = $objectTypeSpecifier;
-        $this->typeUnwrapper = $typeUnwrapper;
         $this->classAnalyzer = $classAnalyzer;
         $this->genericClassStringTypeCorrector = $genericClassStringTypeCorrector;
         $this->unionTypeFactory = $unionTypeFactory;
         $this->reflectionProvider = $reflectionProvider;
-        $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * Prevents circular dependency
@@ -139,12 +122,6 @@ final class NodeTypeResolver
         if ($resolvedType instanceof \PHPStan\Type\ObjectType) {
             return $this->isObjectTypeOfObjectType($resolvedType, $requiredObjectType);
         }
-        if ($requiredObjectType->isSuperTypeOf($resolvedType)->yes()) {
-            return \true;
-        }
-        if ($resolvedType->equals($requiredObjectType)) {
-            return \true;
-        }
         return $this->isMatchingUnionType($resolvedType, $requiredObjectType);
     }
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
@@ -153,21 +130,18 @@ final class NodeTypeResolver
         if ($type !== null) {
             return $type;
         }
-        $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if (!$node instanceof \PhpParser\Node\Expr) {
             return new \PHPStan\Type\MixedType();
         }
         // skip anonymous classes, ref https://github.com/rectorphp/rector/issues/1574
-        if ($node instanceof \PhpParser\Node\Expr\New_) {
-            $isAnonymousClass = $this->classAnalyzer->isAnonymousClass($node->class);
-            if ($isAnonymousClass) {
-                return new \PHPStan\Type\ObjectWithoutClassType();
-            }
+        if ($node instanceof \PhpParser\Node\Expr\New_ && $this->classAnalyzer->isAnonymousClass($node->class)) {
+            return new \PHPStan\Type\ObjectWithoutClassType();
         }
-        $type = $nodeScope->getType($node);
+        $type = $scope->getType($node);
         // hot fix for phpstan not resolving chain method calls
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $type;
@@ -244,28 +218,6 @@ final class NodeTypeResolver
         }
         return \is_a($this->resolve($node), $staticTypeClass);
     }
-    public function isObjectTypeOrNullableObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $desiredObjectType) : bool
-    {
-        if ($node instanceof \PhpParser\Node\Param && $node->type instanceof \PhpParser\Node\NullableType) {
-            /** @var Name|Identifier $node */
-            $node = $node->type->type;
-        }
-        if ($node instanceof \PhpParser\Node\Param && !$node->type instanceof \PhpParser\Node\Name) {
-            return \false;
-        }
-        if ($this->isObjectType($node, $desiredObjectType)) {
-            return \true;
-        }
-        $nodeType = $this->getStaticType($node);
-        if (!$nodeType instanceof \PHPStan\Type\UnionType) {
-            return \false;
-        }
-        $unwrappedNodeType = $this->typeUnwrapper->unwrapNullableType($nodeType);
-        if (!$unwrappedNodeType instanceof \PHPStan\Type\TypeWithClassName) {
-            return \false;
-        }
-        return \is_a($unwrappedNodeType->getClassName(), $desiredObjectType->getClassName(), \true);
-    }
     public function isNullableObjectType(\PhpParser\Node $node) : bool
     {
         return $this->isNullableTypeOfSpecificType($node, \PHPStan\Type\ObjectType::class);
@@ -339,37 +291,6 @@ final class NodeTypeResolver
         }
         return $this->isObjectType($classLike, $objectType);
     }
-    public function resolveObjectTypeToCompare(\PhpParser\Node $node) : ?\PHPStan\Type\ObjectType
-    {
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return $this->resolveStaticCallClassNameObjectTypeToCompare($node);
-        }
-        if ($node instanceof \PhpParser\Node\Stmt) {
-            $classLike = $node->getAttribute(\PhpParser\Node\Stmt\ClassLike::class);
-            if ($classLike === null) {
-                return null;
-            }
-            $className = $this->nodeNameResolver->getName($classLike);
-            if ($className === null) {
-                return null;
-            }
-            if (!$this->reflectionProvider->hasClass($className)) {
-                return null;
-            }
-            $classReflection = $this->reflectionProvider->getClass($className);
-            if ($classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-                return new \PHPStan\Type\ObjectType($classReflection->getName(), null, $classReflection);
-            }
-        }
-        $callerType = $this->resolve($node);
-        if ($callerType instanceof \PHPStan\Type\ThisType) {
-            $callerType = $callerType->getStaticObjectType();
-        }
-        if (!$callerType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        return $callerType;
-    }
     public function resolveObjectTypeFromScope(\PHPStan\Analyser\Scope $scope) : ?\PHPStan\Type\ObjectType
     {
         $classReflection = $scope->getClassReflection();
@@ -388,14 +309,8 @@ final class NodeTypeResolver
             $this->nodeTypeResolvers[$nodeClass] = $nodeTypeResolver;
         }
     }
-    /**
-     * @deprecated
-     */
     private function isMatchingUnionType(\PHPStan\Type\Type $resolvedType, \PHPStan\Type\ObjectType $requiredObjectType) : bool
     {
-        if (!$resolvedType instanceof \PHPStan\Type\UnionType) {
-            return \false;
-        }
         $type = \PHPStan\Type\TypeCombinator::removeNull($resolvedType);
         // for falsy nullables
         $type = \PHPStan\Type\TypeCombinator::remove($type, new \PHPStan\Type\Constant\ConstantBooleanType(\false));
@@ -473,27 +388,6 @@ final class NodeTypeResolver
             return $type;
         }
         return $otherType;
-    }
-    private function resolveStaticCallClassNameObjectTypeToCompare(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Type\ObjectType
-    {
-        $className = $this->nodeNameResolver->getName($staticCall->class);
-        if ($className === 'parent') {
-            /** @var Scope $scope */
-            $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            $classReflection = $scope->getClassReflection();
-            if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
-            }
-            $className = $classReflection->getName();
-        }
-        if ($className === null) {
-            return null;
-        }
-        if (!$this->reflectionProvider->hasClass($className)) {
-            return null;
-        }
-        $classReflection = $this->reflectionProvider->getClass($className);
-        return new \PHPStan\Type\ObjectType($classReflection->getName(), null, $classReflection);
     }
     private function isObjectTypeOfObjectType(\PHPStan\Type\ObjectType $resolvedObjectType, \PHPStan\Type\ObjectType $requiredObjectType) : bool
     {

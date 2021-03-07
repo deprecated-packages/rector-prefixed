@@ -7,7 +7,6 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Privatization\NodeFactory\ClassConstantFetchValueFactory;
@@ -99,11 +98,7 @@ CODE_SAMPLE
     }
     private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
     {
-        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($methodCall->var);
-        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        if (!$callerObjectType->isInstanceOf($replaceStringWithClassConstant->getClass())->yes()) {
+        if (!$this->isObjectType($methodCall->var, $replaceStringWithClassConstant->getObjectType())) {
             return null;
         }
         if (!$this->isName($methodCall->name, $replaceStringWithClassConstant->getMethod())) {

@@ -62,9 +62,8 @@ CODE_SAMPLE
         if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall && !$node->expr instanceof \PhpParser\Node\Expr\MethodCall && !$node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
             return null;
         }
-        $nodeStaticType = $this->getStaticType($node->expr);
-        // void type
-        if (!$nodeStaticType instanceof \PHPStan\Type\VoidType) {
+        $exprType = $this->nodeTypeResolver->resolve($node->expr);
+        if (!$exprType instanceof \PHPStan\Type\VoidType) {
             return null;
         }
         return $node->expr;

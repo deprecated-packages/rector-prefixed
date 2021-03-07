@@ -11,7 +11,7 @@ use Rector\NetteTesterToPHPUnit\AssertManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\NetteTesterPHPUnitRectorTest
+ * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\NetteTesterClassToPHPUnitClassRectorTest
  */
 final class NetteAssertToPHPUnitAssertRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -55,11 +55,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
-        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        if (!$objectType->isInstanceOf('Tester\\Assert')->yes()) {
+        if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('Tester\\Assert'))) {
             return null;
         }
         return $this->assertManipulator->processStaticCall($node);

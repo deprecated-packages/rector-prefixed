@@ -172,11 +172,9 @@ CODE_SAMPLE
     }
     private function isUuidType(\PhpParser\Node\Expr $expr) : bool
     {
-        $argumentStaticType = $this->getStaticType($expr);
-        // UUID is already set
-        if (!$argumentStaticType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
+        if ($expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            return $this->nodeTypeResolver->isObjectType($expr->class, new \PHPStan\Type\ObjectType('Ramsey\\Uuid\\Uuid'));
         }
-        return $argumentStaticType->isInstanceOf('Ramsey\\Uuid\\Uuid')->yes();
+        return $this->nodeTypeResolver->isObjectType($expr, new \PHPStan\Type\ObjectType('Ramsey\\Uuid\\Uuid'));
     }
 }

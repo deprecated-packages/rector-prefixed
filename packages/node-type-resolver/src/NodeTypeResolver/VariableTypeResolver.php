@@ -14,7 +14,6 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\VariableTypeResolverTest
@@ -29,10 +28,6 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
     /**
      * @var TraitNodeScopeCollector
      */
@@ -59,10 +54,6 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
      */
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Param) {
-            return $this->nodeTypeResolver->resolve($parent);
-        }
         $variableName = $this->nodeNameResolver->getName($node);
         if ($variableName === null) {
             return new \PHPStan\Type\MixedType();
@@ -74,13 +65,6 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         // get from annotation
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         return $phpDocInfo->getVarType();
-    }
-    /**
-     * @required
-     */
-    public function autowireVariableTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
-    {
-        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     private function resolveTypesFromScope(\PhpParser\Node\Expr\Variable $variable, string $variableName) : \PHPStan\Type\Type
     {

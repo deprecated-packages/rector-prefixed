@@ -56,11 +56,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->var);
-        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        if (!$callerObjectType->isInstanceOf('Doctrine\\ORM\\EntityRepository')->yes()) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return null;
         }
         if (!$this->isNames($node->name, self::ENTITY_REPOSITORY_PUBLIC_METHODS)) {

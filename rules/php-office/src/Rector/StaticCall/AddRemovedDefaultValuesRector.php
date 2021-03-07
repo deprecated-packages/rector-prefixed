@@ -57,12 +57,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
-        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
         foreach (\Rector\PHPOffice\ValueObject\PHPExcelMethodDefaultValues::METHOD_NAMES_BY_TYPE_WITH_VALUE as $type => $defaultValuesByMethodName) {
-            if (!$objectType->isInstanceOf($type)->yes()) {
+            if (!$this->isCallerObjectType($node, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
             foreach ($defaultValuesByMethodName as $methodName => $defaultValuesByPosition) {
@@ -94,5 +90,12 @@ CODE_SAMPLE
             }
             $node->args[$position] = $arg;
         }
+    }
+    /**
+     * @param StaticCall|MethodCall $node
+     */
+    private function isCallerObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
+    {
+        return $this->isObjectType($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class, $objectType);
     }
 }

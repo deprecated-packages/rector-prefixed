@@ -16,7 +16,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\NetteTesterPHPUnitRectorTest
+ * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\NetteTesterClassToPHPUnitClassRectorTest
  */
 final class NetteTesterClassToPHPUnitClassRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -76,11 +76,7 @@ CODE_SAMPLE
             $this->processAboveTestInclude($node);
             return null;
         }
-        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
-        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        if (!$objectType->isInstanceOf('Tester\\TestCase')->yes()) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {

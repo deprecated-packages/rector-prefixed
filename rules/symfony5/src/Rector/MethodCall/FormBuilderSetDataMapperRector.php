@@ -68,11 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->var);
-        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        if (!$callerObjectType->isInstanceOf('Symfony\\Component\\Form\\FormConfigBuilderInterface')->yes()) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\FormConfigBuilderInterface'))) {
             return null;
         }
         if (!$this->isName($node->name, 'setDataMapper')) {

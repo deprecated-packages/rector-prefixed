@@ -81,7 +81,7 @@ CODE_SAMPLE
         }
         $isModifiedNode = \false;
         foreach ($node->getParams() as $param) {
-            if (!$this->isDateTimeParam($param)) {
+            if (!$this->isObjectType($param, new \PHPStan\Type\ObjectType('DateTime'))) {
                 continue;
             }
             $this->refactorParamTypeHint($param);
@@ -93,10 +93,6 @@ CODE_SAMPLE
             return null;
         }
         return $node;
-    }
-    private function isDateTimeParam(\PhpParser\Node\Param $param) : bool
-    {
-        return $this->nodeTypeResolver->isObjectTypeOrNullableObjectType($param, new \PHPStan\Type\ObjectType('DateTime'));
     }
     private function refactorParamTypeHint(\PhpParser\Node\Param $param) : void
     {

@@ -6,7 +6,7 @@ namespace Rector\NodeTypeResolver\NodeTypeResolver;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -69,13 +69,15 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return $classType;
         }
-        /** @var ClassReflection[] $currentAndParentClassReflections */
-        $currentAndParentClassReflections = \array_merge([$classReflection], $classReflection->getParents());
-        foreach ($currentAndParentClassReflections as $currentAndParentClassReflection) {
-            if (!$currentAndParentClassReflection->hasMethod($methodName)) {
+        foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
+            if (!$ancestorClassReflection->hasMethod($methodName)) {
                 continue;
             }
-            return $scope->getType($node);
+            $methodReflection = $ancestorClassReflection->getMethod($methodName, $scope);
+            if ($methodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
+                $parametersAcceptor = $methodReflection->getVariants()[0];
+                return $parametersAcceptor->getReturnType();
+            }
         }
         return $classType;
     }

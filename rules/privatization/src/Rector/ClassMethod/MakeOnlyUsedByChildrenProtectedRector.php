@@ -100,11 +100,7 @@ CODE_SAMPLE
             if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
                 return null;
             }
-            $classObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($class);
-            if (!$classObjectType instanceof \PHPStan\Type\ObjectType) {
-                return null;
-            }
-            if (!$classObjectType->isInstanceOf($className)->yes()) {
+            if (!$this->isObjectType($class, new \PHPStan\Type\ObjectType($className))) {
                 return null;
             }
         }

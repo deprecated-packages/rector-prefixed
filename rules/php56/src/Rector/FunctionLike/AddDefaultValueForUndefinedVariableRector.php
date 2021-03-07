@@ -125,9 +125,9 @@ CODE_SAMPLE
             /** @var string $variableName */
             $variableName = $this->getName($node);
             // defined 100 %
-            /** @var Scope $nodeScope */
-            $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if ($nodeScope->hasVariableType($variableName)->yes()) {
+            /** @var Scope $scope */
+            $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            if ($scope->hasVariableType($variableName)->yes()) {
                 return null;
             }
             $undefinedVariables[] = $variableName;

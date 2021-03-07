@@ -6,7 +6,7 @@ namespace Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPU
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo;
-final class NetteTesterPHPUnitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class NetteTesterClassToPHPUnitClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
