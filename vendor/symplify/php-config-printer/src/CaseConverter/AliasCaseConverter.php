@@ -19,12 +19,6 @@ use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\MethodName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\VariableName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 use RectorPrefix20210307\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-/**
- * Handles this part:
- *
- * services:
- *     Some: Other <---
- */
 final class AliasCaseConverter implements \RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**

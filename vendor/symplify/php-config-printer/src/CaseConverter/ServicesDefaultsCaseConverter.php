@@ -11,12 +11,6 @@ use RectorPrefix20210307\Symplify\PhpConfigPrinter\NodeFactory\Service\AutoBindN
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\MethodName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\VariableName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-/**
- * Handles this part:
- *
- * services:
- *     _defaults: <---
- */
 final class ServicesDefaultsCaseConverter implements \RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**

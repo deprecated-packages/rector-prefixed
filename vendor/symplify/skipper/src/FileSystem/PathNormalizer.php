@@ -19,10 +19,6 @@ final class PathNormalizer
      * @see https://regex101.com/r/aVUDjM/2
      */
     private const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
-    /**
-     * "value*" → "*value*"
-     * "*value" → "*value*"
-     */
     public function normalizeForFnmatch(string $path) : string
     {
         // ends with *

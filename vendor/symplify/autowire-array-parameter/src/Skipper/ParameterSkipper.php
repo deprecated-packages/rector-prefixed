@@ -11,6 +11,7 @@ final class ParameterSkipper
 {
     /**
      * Classes that create circular dependencies
+     *
      * @var string[]
      * @noRector
      */

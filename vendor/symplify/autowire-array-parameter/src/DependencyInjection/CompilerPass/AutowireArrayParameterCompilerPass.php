@@ -22,15 +22,17 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210307\
 {
     /**
      * These namespaces are already configured by their bundles/extensions.
+     *
      * @var string[]
      */
     private const EXCLUDED_NAMESPACES = ['Doctrine', 'JMS', 'Symfony', 'Sensio', 'Knp', 'EasyCorp', 'Sonata', 'Twig'];
     /**
      * Classes that create circular dependencies
+     *
      * @var string[]
      * @noRector
      */
-    private $excludedFatalClasses = ['RectorPrefix20210307\\Symfony\\Component\\Form\\FormExtensionInterface', 'RectorPrefix20210307\\Symfony\\Component\\Asset\\PackageInterface', 'RectorPrefix20210307\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'RectorPrefix20210307\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'RectorPrefix20210307\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'RectorPrefix20210307\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'RectorPrefix20210307\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'RectorPrefix20210307\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private $excludedFatalClasses = ['RectorPrefix20210307\\Symfony\\Component\\Form\\FormExtensionInterface', 'RectorPrefix20210307\\Symfony\\Component\\Asset\\PackageInterface', 'RectorPrefix20210307\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'RectorPrefix20210307\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'RectorPrefix20210307\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'RectorPrefix20210307\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'RectorPrefix20210307\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'RectorPrefix20210307\\Sonata\\Twig\\Extension\\TemplateExtension', 'RectorPrefix20210307\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
      * @var DefinitionFinder
      */
@@ -80,13 +82,16 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210307\
         $resolvedClassName = $parameterBag->resolveValue($definition->getClass());
         // skip 3rd party classes, they're autowired by own config
         $excludedNamespacePattern = '#^(' . \implode('|', self::EXCLUDED_NAMESPACES) . ')\\\\#';
-        if ((bool) \RectorPrefix20210307\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
+        if (\RectorPrefix20210307\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
             return \true;
         }
         if (\in_array($resolvedClassName, $this->excludedFatalClasses, \true)) {
             return \true;
         }
         if ($definition->getFactory()) {
+            return \true;
+        }
+        if (!\class_exists($definition->getClass())) {
             return \true;
         }
         $reflectionClass = $containerBuilder->getReflectionClass($definition->getClass());

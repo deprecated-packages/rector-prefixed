@@ -6,6 +6,7 @@ namespace RectorPrefix20210307\Symplify\ComposerJsonManipulator\Sorter;
 use RectorPrefix20210307\Nette\Utils\Strings;
 /**
  * Mostly inspired by https://github.com/composer/composer/blob/master/src/Composer/Json/JsonManipulator.php
+ *
  * @see \Symplify\ComposerJsonManipulator\Tests\Sorter\ComposerPackageSorterTest
  */
 final class ComposerPackageSorter
@@ -22,6 +23,7 @@ final class ComposerPackageSorter
     private const REQUIREMENT_TYPE_REGEX = '#^(?<name>php|hhvm|ext|lib|\\D)#';
     /**
      * Sorts packages by importance (platform packages first, then PHP dependencies) and alphabetically.
+     *
      * @link https://getcomposer.org/doc/02-libraries.md#platform-packages
      *
      * @param array<string, string> $packages

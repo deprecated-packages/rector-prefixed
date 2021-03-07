@@ -11,12 +11,6 @@ use RectorPrefix20210307\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\MethodName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\VariableName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-/**
- * Handles this part:
- *
- * framework: <---
- *     key: value
- */
 final class ExtensionConverter implements \RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**

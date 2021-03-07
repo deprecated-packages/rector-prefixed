@@ -71,10 +71,8 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * Do not preslash all slashes (parent behavior), but only those:
-     *
      * - followed by "\"
-     * - by "'"
-     * - or the end of the string
+     * - by "'" - or the end of the string
      *
      * Prevents `Vendor\Class` => `Vendor\\Class`.
      */

@@ -34,6 +34,7 @@ final class SmartFileSystem extends \RectorPrefix20210307\Symfony\Component\File
     }
     /**
      * Converts given HTML code to plain text
+     *
      * @source https://github.com/nette/utils/blob/e7bd59f1dd860d25dbbb1ac720dddd0fa1388f4c/src/Utils/Html.php#L325-L331
      */
     public function htmlToText(string $html) : string
@@ -55,6 +56,7 @@ final class SmartFileSystem extends \RectorPrefix20210307\Symfony\Component\File
     }
     /**
      * Returns the last PHP error as plain string.
+     *
      * @source https://github.com/nette/utils/blob/ab8eea12b8aacc7ea5bdafa49b711c2988447994/src/Utils/Helpers.php#L31-L40
      */
     private function getLastError() : string

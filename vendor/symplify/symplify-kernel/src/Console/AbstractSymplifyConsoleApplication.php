@@ -23,6 +23,7 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210307\
     }
     /**
      * Add names to all commands by class-name convention
+     *
      * @param Command[] $commands
      */
     public function addCommands(array $commands) : void

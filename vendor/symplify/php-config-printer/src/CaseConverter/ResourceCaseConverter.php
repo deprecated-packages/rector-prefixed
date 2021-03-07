@@ -7,13 +7,6 @@ use PhpParser\Node\Stmt\Expression;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-/**
- * Handles this part:
- *
- * services:
- *     App\\: <--
- *          source: '../src'
- */
 final class ResourceCaseConverter implements \RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**

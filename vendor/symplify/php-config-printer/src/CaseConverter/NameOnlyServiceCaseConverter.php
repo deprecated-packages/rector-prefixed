@@ -11,12 +11,6 @@ use RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterfa
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\VariableName;
 use RectorPrefix20210307\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-/**
- * Handles this part:
- *
- * services:
- *     SomeNamespace\SomeClass: null <---
- */
 final class NameOnlyServiceCaseConverter implements \RectorPrefix20210307\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
