@@ -65,9 +65,9 @@ final class RectorKernel extends \RectorPrefix20210307\Symfony\Component\HttpKer
         $this->configs = $configs;
     }
     /**
-     * @return BundleInterface[]
+     * @return iterable<BundleInterface>
      */
-    public function registerBundles() : array
+    public function registerBundles() : iterable
     {
         return [new \RectorPrefix20210307\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210307\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle(), new \RectorPrefix20210307\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210307\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210307\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
     }

@@ -16,6 +16,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
+use Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,6 +25,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DowngradeTrailingCommasInParamUseRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var FollowedByCommaAnalyzer
+     */
+    private $followedByCommaAnalyzer;
+    public function __construct(\Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer $followedByCommaAnalyzer)
+    {
+        $this->followedByCommaAnalyzer = $followedByCommaAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove trailing commas in param or use list', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -99,9 +108,7 @@ CODE_SAMPLE
         if ($node->uses === []) {
             return $node;
         }
-        /** @var Closure $clean */
-        $clean = $this->cleanTrailingComma($node, $node->uses);
-        return $clean;
+        return $this->cleanTrailingComma($node, $node->uses);
     }
     /**
      * @param ClassMethod|Function_|Closure $node
@@ -118,8 +125,12 @@ CODE_SAMPLE
      */
     private function cleanTrailingComma(\PhpParser\Node $node, array $array) : \PhpParser\Node
     {
+        $lastPosition = \array_key_last($array);
+        $last = $array[$lastPosition];
+        if (!$this->followedByCommaAnalyzer->isFollowed($last)) {
+            return $node;
+        }
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
-        $last = $array[\array_key_last($array)];
         $last->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNC_ARGS_TRAILING_COMMA, \false);
         return $node;
     }

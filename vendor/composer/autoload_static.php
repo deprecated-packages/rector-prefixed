@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0
+class ComposerStaticInit92b99e8d4eb37068511abad30d1931b8
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3090,7 +3090,6 @@ class ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0
         'Rector\\Doctrine\\Uuid\\JoinTableNameResolver' => __DIR__ . '/../..' . '/rules/doctrine/src/Uuid/JoinTableNameResolver.php',
         'Rector\\DowngradePhp70\\Contract\\Rector\\DowngradeParamDeclarationRectorInterface' => __DIR__ . '/../..' . '/rules/downgrade-php70/src/Contract/Rector/DowngradeParamDeclarationRectorInterface.php',
         'Rector\\DowngradePhp70\\Contract\\Rector\\DowngradeReturnDeclarationRectorInterface' => __DIR__ . '/../..' . '/rules/downgrade-php70/src/Contract/Rector/DowngradeReturnDeclarationRectorInterface.php',
-        'Rector\\DowngradePhp70\\Rector\\FunctionLike\\AbstractDowngradeReturnDeclarationRector' => __DIR__ . '/../..' . '/rules/downgrade-php70/src/Rector/FunctionLike/AbstractDowngradeReturnDeclarationRector.php',
         'Rector\\DowngradePhp70\\Rector\\FunctionLike\\DowngradeTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/downgrade-php70/src/Rector/FunctionLike/DowngradeTypeDeclarationRector.php',
         'Rector\\DowngradePhp71\\Rector\\Array_\\SymmetricArrayDestructuringToListRector' => __DIR__ . '/../..' . '/rules/downgrade-php71/src/Rector/Array_/SymmetricArrayDestructuringToListRector.php',
         'Rector\\DowngradePhp71\\Rector\\ClassConst\\DowngradeClassConstantVisibilityRector' => __DIR__ . '/../..' . '/rules/downgrade-php71/src/Rector/ClassConst/DowngradeClassConstantVisibilityRector.php',
@@ -3107,6 +3106,7 @@ class ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0
         'Rector\\DowngradePhp73\\Rector\\FuncCall\\SetCookieOptionsArrayToArgumentsRector' => __DIR__ . '/../..' . '/rules/downgrade-php73/src/Rector/FuncCall/SetCookieOptionsArrayToArgumentsRector.php',
         'Rector\\DowngradePhp73\\Rector\\List_\\DowngradeListReferenceAssignmentRector' => __DIR__ . '/../..' . '/rules/downgrade-php73/src/Rector/List_/DowngradeListReferenceAssignmentRector.php',
         'Rector\\DowngradePhp73\\Rector\\String_\\DowngradeFlexibleHeredocSyntaxRector' => __DIR__ . '/../..' . '/rules/downgrade-php73/src/Rector/String_/DowngradeFlexibleHeredocSyntaxRector.php',
+        'Rector\\DowngradePhp73\\Tokenizer\\FollowedByCommaAnalyzer' => __DIR__ . '/../..' . '/rules/downgrade-php73/src/Tokenizer/FollowedByCommaAnalyzer.php',
         'Rector\\DowngradePhp74\\Rector\\Array_\\DowngradeArraySpreadRector' => __DIR__ . '/../..' . '/rules/downgrade-php74/src/Rector/Array_/DowngradeArraySpreadRector.php',
         'Rector\\DowngradePhp74\\Rector\\ArrowFunction\\ArrowFunctionToAnonymousFunctionRector' => __DIR__ . '/../..' . '/rules/downgrade-php74/src/Rector/ArrowFunction/ArrowFunctionToAnonymousFunctionRector.php',
         'Rector\\DowngradePhp74\\Rector\\ClassMethod\\DowngradeContravariantArgumentTypeRector' => __DIR__ . '/../..' . '/rules/downgrade-php74/src/Rector/ClassMethod/DowngradeContravariantArgumentTypeRector.php',
@@ -4221,9 +4221,9 @@ class ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita17b697ef1e1fb0da5fbf1b7c3f62bb0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit92b99e8d4eb37068511abad30d1931b8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit92b99e8d4eb37068511abad30d1931b8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit92b99e8d4eb37068511abad30d1931b8::$classMap;
 
         }, null, ClassLoader::class);
     }
