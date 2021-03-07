@@ -126,9 +126,9 @@ final class ForAnalyzer
             return $this->nodeNameResolver->isName($arrayDimFetch->dim, $keyValueName);
         });
     }
-    public function isValueVarUsedNext(\PhpParser\Node $node, string $iteratedVariableSingle) : bool
+    public function isValueVarUsedNext(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableSingle) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirstNext($node, function (\PhpParser\Node $node) use($iteratedVariableSingle) : bool {
+        return (bool) $this->betterNodeFinder->findFirstNext($for, function (\PhpParser\Node $node) use($iteratedVariableSingle) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;
             }

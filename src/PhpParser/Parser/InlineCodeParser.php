@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\PhpParser\Parser;
 
 use RectorPrefix20210307\Nette\Utils\Strings;
-use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -58,31 +58,25 @@ final class InlineCodeParser
         $nodes = (array) $this->parser->parse($content);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromString($nodes);
     }
-    /**
-     * @param string|Node $content
-     */
-    public function stringify($content) : string
+    public function stringify(\PhpParser\Node\Expr $expr) : string
     {
-        if (\is_string($content)) {
-            return $content;
+        if ($expr instanceof \PhpParser\Node\Scalar\String_) {
+            return $expr->value;
         }
-        if ($content instanceof \PhpParser\Node\Scalar\String_) {
-            return $content->value;
-        }
-        if ($content instanceof \PhpParser\Node\Scalar\Encapsed) {
+        if ($expr instanceof \PhpParser\Node\Scalar\Encapsed) {
             // remove "
-            $content = \trim($this->betterStandardPrinter->print($content), '""');
+            $expr = \trim($this->betterStandardPrinter->print($expr), '""');
             // use \$ → $
-            $content = \RectorPrefix20210307\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
+            $expr = \RectorPrefix20210307\Nette\Utils\Strings::replace($expr, self::PRESLASHED_DOLLAR_REGEX, '$');
             // use \'{$...}\' → $...
-            return \RectorPrefix20210307\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
+            return \RectorPrefix20210307\Nette\Utils\Strings::replace($expr, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
         }
-        if ($content instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
-            return $this->stringify($content->left) . $this->stringify($content->right);
+        if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+            return $this->stringify($expr->left) . $this->stringify($expr->right);
         }
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($content, [\PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
-            return $this->betterStandardPrinter->print($content);
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
+            return $this->betterStandardPrinter->print($expr);
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException(\get_class($content) . ' ' . __METHOD__);
+        throw new \Rector\Core\Exception\ShouldNotHappenException(\get_class($expr) . ' ' . __METHOD__);
     }
 }

@@ -2642,6 +2642,7 @@ return array(
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ParamTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ParamTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\PropertyFetchTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/PropertyFetchTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\PropertyTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/PropertyTypeResolver.php',
+    'Rector\\NodeTypeResolver\\NodeTypeResolver\\ReturnTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ReturnTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ScalarTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ScalarTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\StaticCallTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/StaticCallTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\TraitTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/TraitTypeResolver.php',

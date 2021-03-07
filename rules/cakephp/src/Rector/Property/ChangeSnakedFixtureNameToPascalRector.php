@@ -78,10 +78,11 @@ CODE_SAMPLE
             if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
-            if (!$arrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
+            $itemValue = $arrayItem->value;
+            if (!$itemValue instanceof \PhpParser\Node\Scalar\String_) {
                 continue;
             }
-            $this->renameFixtureName($arrayItem->value);
+            $this->renameFixtureName($itemValue);
         }
     }
     private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string) : void

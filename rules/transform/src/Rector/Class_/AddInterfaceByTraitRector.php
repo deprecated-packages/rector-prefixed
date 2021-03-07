@@ -6,9 +6,11 @@ namespace Rector\Transform\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -21,17 +23,9 @@ final class AddInterfaceByTraitRector extends \Rector\Core\Rector\AbstractRector
      */
     public const INTERFACE_BY_TRAIT = 'interface_by_trait';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $interfaceByTrait = [];
-    /**
-     * @var ClassManipulator
-     */
-    private $classManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
-    {
-        $this->classManipulator = $classManipulator;
-    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add interface by used trait', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -60,26 +54,28 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->classAnalyzer->isAnonymousClass($node)) {
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
-        $usedTraitNames = $this->classManipulator->getUsedTraits($node);
-        if ($usedTraitNames === []) {
-            return null;
-        }
-        $implementedInterfaceNames = $this->classManipulator->getImplementedInterfaceNames($node);
-        foreach (\array_keys($usedTraitNames) as $traitName) {
-            if (!isset($this->interfaceByTrait[$traitName])) {
+        foreach ($this->interfaceByTrait as $traitName => $interfaceName) {
+            if (!$classReflection->hasTraitUse($traitName)) {
                 continue;
             }
-            $interfaceNameToAdd = $this->interfaceByTrait[$traitName];
-            if (\in_array($interfaceNameToAdd, $implementedInterfaceNames, \true)) {
-                continue;
+            foreach ($node->implements as $implement) {
+                if ($this->isName($implement, $interfaceName)) {
+                    continue 2;
+                }
             }
-            $node->implements[] = new \PhpParser\Node\Name\FullyQualified($interfaceNameToAdd);
+            $node->implements[] = new \PhpParser\Node\Name\FullyQualified($interfaceName);
         }
         return $node;
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->interfaceByTrait = $configuration[self::INTERFACE_BY_TRAIT] ?? [];

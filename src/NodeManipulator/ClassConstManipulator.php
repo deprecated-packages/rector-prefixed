@@ -43,14 +43,11 @@ final class ClassConstManipulator
         $this->nodeRepository = $nodeRepository;
         $this->nodeComparator = $nodeComparator;
     }
-    /**
-     * @return ClassConstFetch[]
-     */
-    public function getAllClassConstFetch(\PhpParser\Node\Stmt\ClassConst $classConst) : array
+    public function hasClassConstFetch(\PhpParser\Node\Stmt\ClassConst $classConst) : bool
     {
         $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
-            return [];
+            return \false;
         }
         $searchInNodes = [$classLike];
         $usedTraitNames = $this->classManipulator->getUsedTraits($classLike);
@@ -61,7 +58,7 @@ final class ClassConstManipulator
             }
             $searchInNodes[] = $usedTraitName;
         }
-        return $this->betterNodeFinder->find($searchInNodes, function (\PhpParser\Node $node) use($classConst) : bool {
+        return (bool) $this->betterNodeFinder->find($searchInNodes, function (\PhpParser\Node $node) use($classConst) : bool {
             // itself
             if ($this->nodeComparator->areNodesEqual($node, $classConst)) {
                 return \false;

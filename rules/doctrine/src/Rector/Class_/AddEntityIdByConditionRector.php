@@ -5,9 +5,9 @@ namespace Rector\Doctrine\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
-use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\NodeFactory\EntityIdNodeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -26,10 +26,6 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
      */
     private $detectedTraits = [];
     /**
-     * @var ClassManipulator
-     */
-    private $classManipulator;
-    /**
      * @var EntityIdNodeFactory
      */
     private $entityIdNodeFactory;
@@ -37,11 +33,15 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
-        $this->classManipulator = $classManipulator;
         $this->entityIdNodeFactory = $entityIdNodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -106,12 +106,17 @@ CODE_SAMPLE
     }
     private function isTraitMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $usedTraits = $this->classManipulator->getUsedTraits($class);
-        foreach (\array_keys($usedTraits) as $traitName) {
-            foreach ($this->detectedTraits as $detectedTrait) {
-                if ($traitName === $detectedTrait) {
-                    return \true;
-                }
+        $className = $this->getName($class);
+        if ($className === null) {
+            return \false;
+        }
+        if (!$this->reflectionProvider->hasClass($className)) {
+            return \false;
+        }
+        $classReflection = $this->reflectionProvider->getClass($className);
+        foreach ($this->detectedTraits as $detectedTrait) {
+            if ($classReflection->hasTraitUse($detectedTrait)) {
+                return \true;
             }
         }
         return \false;

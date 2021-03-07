@@ -63,9 +63,7 @@ CODE_SAMPLE
         if (\count($node->consts) !== 1) {
             return null;
         }
-        // never used
-        $classConstFetches = $this->classConstManipulator->getAllClassConstFetch($node);
-        if ($classConstFetches !== []) {
+        if ($this->classConstManipulator->hasClassConstFetch($node)) {
             return null;
         }
         // skip enum

@@ -36,6 +36,7 @@ final class ClassManipulator
         $this->reflectionProvider = $reflectionProvider;
     }
     /**
+     * @deprecated
      * @param Class_|Trait_ $classLike
      * @return array<string, Name>
      */

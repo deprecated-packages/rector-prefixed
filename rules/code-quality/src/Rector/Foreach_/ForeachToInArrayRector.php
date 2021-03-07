@@ -98,7 +98,8 @@ CODE_SAMPLE
         if (!$this->valueResolver->isTrueOrFalse($returnToRemove->expr)) {
             return null;
         }
-        if ($return->expr === null) {
+        $returnedExpr = $return->expr;
+        if (!$returnedExpr instanceof \PhpParser\Node\Expr) {
             return null;
         }
         // cannot be "return true;" + "return true;"
@@ -106,7 +107,7 @@ CODE_SAMPLE
             return null;
         }
         $this->removeNode($returnToRemove);
-        $return = $this->createReturn($return->expr, $funcCall);
+        $return = $this->createReturn($returnedExpr, $funcCall);
         $this->commentsMerger->keepChildren($return, $node);
         return $return;
     }

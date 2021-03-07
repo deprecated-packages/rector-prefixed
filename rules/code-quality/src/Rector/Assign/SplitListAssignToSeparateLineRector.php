@@ -71,14 +71,15 @@ CODE_SAMPLE
         if (!$assign->var instanceof \PhpParser\Node\Expr\Array_ && !$assign->var instanceof \PhpParser\Node\Expr\List_) {
             return \true;
         }
-        if (!$assign->expr instanceof \PhpParser\Node\Expr\Array_) {
+        $assignExpr = $assign->expr;
+        if (!$assignExpr instanceof \PhpParser\Node\Expr\Array_) {
             return \true;
         }
-        if (\count($assign->var->items) !== \count($assign->expr->items)) {
+        if (\count($assign->var->items) !== \count($assignExpr->items)) {
             return \true;
         }
         // is value swap
-        return $this->isValueSwap($assign->var, $assign->expr);
+        return $this->isValueSwap($assign->var, $assignExpr);
     }
     /**
      * @param Array_|List_ $expr
