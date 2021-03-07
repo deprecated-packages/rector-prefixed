@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
+use Rector\CodingStyle\ValueObject\PreferenceSelfThis;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\Rector\AbstractRector;
@@ -23,20 +24,6 @@ final class PreferThisOrSelfMethodCallRector extends \Rector\Core\Rector\Abstrac
      * @var string
      */
     public const TYPE_TO_PREFERENCE = 'type_to_preference';
-    /**
-     * @api
-     * @var string
-     */
-    public const PREFER_SELF = self::SELF;
-    /**
-     * @api
-     * @var string
-     */
-    public const PREFER_THIS = 'this';
-    /**
-     * @var string[]
-     */
-    private const ALLOWED_OPTIONS = [self::PREFER_THIS, self::PREFER_SELF];
     /**
      * @var string
      */
@@ -65,7 +52,7 @@ class SomeClass extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::TYPE_TO_PREFERENCE => ['PHPUnit\\Framework\\TestCase' => self::PREFER_SELF]])]);
+, [self::TYPE_TO_PREFERENCE => ['PHPUnit\\Framework\\TestCase' => \Rector\CodingStyle\ValueObject\PreferenceSelfThis::PREFER_SELF]])]);
     }
     /**
      * @return array<class-string<Node>>
@@ -83,7 +70,7 @@ CODE_SAMPLE
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
-            if ($preference === self::PREFER_SELF) {
+            if ($preference === \Rector\CodingStyle\ValueObject\PreferenceSelfThis::PREFER_SELF) {
                 return $this->processToSelf($node);
             }
             return $this->processToThis($node);
@@ -91,7 +78,7 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, array<class-string, string>> $configuration
      */
     public function configure(array $configuration) : void
     {
@@ -138,9 +125,9 @@ CODE_SAMPLE
     }
     private function ensurePreferenceIsValid(string $preference) : void
     {
-        if (\in_array($preference, self::ALLOWED_OPTIONS, \true)) {
+        if (\in_array($preference, \Rector\CodingStyle\ValueObject\PreferenceSelfThis::ALLOWED_VALUES, \true)) {
             return;
         }
-        throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException(\sprintf('Preference configuration "%s" for "%s" is not valid. Use one of "%s"', $preference, self::class, \implode('", "', self::ALLOWED_OPTIONS)));
+        throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException(\sprintf('Preference configuration "%s" for "%s" is not valid. Use one of "%s"', $preference, self::class, \implode('", "', \Rector\CodingStyle\ValueObject\PreferenceSelfThis::ALLOWED_VALUES)));
     }
 }

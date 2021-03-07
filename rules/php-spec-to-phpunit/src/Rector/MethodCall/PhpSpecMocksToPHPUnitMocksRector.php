@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
@@ -119,6 +120,9 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $variable = $this->getName($param->var);
         $method = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         $methodsWithWThisMock = $classMocks[$variable];
+        if ($param->var instanceof \PhpParser\Node\Expr\Error) {
+            return null;
+        }
         // single use: "$mock = $this->createMock()"
         if (!$this->phpSpecMockCollector->isVariableMockInProperty($param->var)) {
             return $this->createNewMockVariableAssign($param, $name);

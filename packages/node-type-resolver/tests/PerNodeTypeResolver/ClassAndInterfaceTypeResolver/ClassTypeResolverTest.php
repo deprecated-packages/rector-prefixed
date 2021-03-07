@@ -5,16 +5,13 @@ namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTyp
 
 use Iterator;
 use PhpParser\Node\Stmt\Class_;
-use PHPStan\Type\Type;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\TypeWithClassName;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\AbstractNodeTypeResolverTest;
-use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\AnotherTrait;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentClass;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentInterface;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentTrait;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithTrait;
-use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ParentClass;
-use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterface;
-use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 /**
  * @see \Rector\NodeTypeResolver\NodeTypeResolver\ClassAndInterfaceTypeResolver
  */
@@ -23,19 +20,20 @@ final class ClassTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNode
     /**
      * @dataProvider dataProvider()
      */
-    public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
+    public function test(string $file, int $nodePosition, \PHPStan\Type\ObjectType $expectedObjectType) : void
     {
         $variableNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Stmt\Class_::class);
         $resolvedType = $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]);
-        $this->assertEquals($expectedType, $resolvedType);
+        $this->assertInstanceOf(\PHPStan\Type\TypeWithClassName::class, $resolvedType);
+        /** @var TypeWithClassName $resolvedType */
+        $this->assertEquals($expectedObjectType->getClassName(), $resolvedType->getClassName());
     }
     public function dataProvider() : \Iterator
     {
-        $unionTypeFactory = new \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory();
-        (yield [__DIR__ . '/Source/ClassWithParentInterface.php', 0, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentInterface::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterface::class])]);
-        (yield [__DIR__ . '/Source/ClassWithParentClass.php', 0, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentClass::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ParentClass::class])]);
-        (yield [__DIR__ . '/Source/ClassWithTrait.php', 0, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithTrait::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\AnotherTrait::class])]);
-        (yield [__DIR__ . '/Source/ClassWithParentTrait.php', 0, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentTrait::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithTrait::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\AnotherTrait::class])]);
-        (yield [__DIR__ . '/Source/AnonymousClass.php', 0, $unionTypeFactory->createUnionObjectType(['AnonymousClassdefa360846b84894d4be1b25c2ce6da9', \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ParentClass::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterface::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\AnotherTrait::class])]);
+        (yield [__DIR__ . '/Source/ClassWithParentInterface.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentInterface::class)]);
+        (yield [__DIR__ . '/Source/ClassWithParentClass.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentClass::class)]);
+        (yield [__DIR__ . '/Source/ClassWithTrait.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithTrait::class)]);
+        (yield [__DIR__ . '/Source/ClassWithParentTrait.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\ClassWithParentTrait::class)]);
+        (yield [__DIR__ . '/Source/AnonymousClass.php', 0, new \PHPStan\Type\ObjectType('AnonymousClassdefa360846b84894d4be1b25c2ce6da9')]);
     }
 }

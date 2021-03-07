@@ -43,12 +43,14 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\FormConfigBuilderInterface;
+use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
+use Symfony\Component\Form\Extension\Core\DataAccessor\PropertyPathAccessor;
 
 class SomeClass
 {
     public function run(FormConfigBuilderInterface $builder)
     {
-        $builder->setDataMapper(new \Symfony\Component\Form\Extension\Core\DataMapper\DataMapper(new \Symfony\Component\Form\Extension\Core\DataAccessor\PropertyPathAccessor()));
+        $builder->setDataMapper(new DataMapper(new PropertyPathAccessor()));
     }
 }
 CODE_SAMPLE
@@ -66,7 +68,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\FormConfigBuilderInterface'))) {
+        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->var);
+        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$callerObjectType->isInstanceOf('Symfony\\Component\\Form\\FormConfigBuilderInterface')->yes()) {
             return null;
         }
         if (!$this->isName($node->name, 'setDataMapper')) {

@@ -72,7 +72,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Symfony\\Component\\Console\\Command\\Command'))) {
+        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
+        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$objectType->isInstanceOf('Symfony\\Component\\Console\\Command\\Command')->yes()) {
             return null;
         }
         $commandName = $this->resolveCommandNameAndRemove($node);
@@ -99,7 +103,11 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('Symfony\\Component\\Console\\Command\\Command'))) {
+            $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->class);
+            if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+                return null;
+            }
+            if (!$objectType->isInstanceOf('Symfony\\Component\\Console\\Command\\Command')->yes()) {
                 return null;
             }
             $commandName = $this->matchCommandNameNodeInConstruct($node);

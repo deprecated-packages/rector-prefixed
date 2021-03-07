@@ -6,6 +6,7 @@ namespace Rector\Php54\Rector\Break_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Break_;
 use PhpParser\Node\Stmt\Continue_;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -87,26 +88,26 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param Break_|Continue_ $node
+     * @param Break_|Continue_ $stmt
      */
-    private function processVariableNum(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $numVariable) : ?\PhpParser\Node
+    private function processVariableNum(\PhpParser\Node\Stmt $stmt, \PhpParser\Node\Expr\Variable $numVariable) : ?\PhpParser\Node
     {
         $staticType = $this->getStaticType($numVariable);
         if ($staticType instanceof \PHPStan\Type\ConstantType) {
             if ($staticType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
                 if ($staticType->getValue() === 0) {
-                    $node->num = null;
-                    return $node;
+                    $stmt->num = null;
+                    return $stmt;
                 }
                 if ($staticType->getValue() > 0) {
-                    $node->num = new \PhpParser\Node\Scalar\LNumber($staticType->getValue());
-                    return $node;
+                    $stmt->num = new \PhpParser\Node\Scalar\LNumber($staticType->getValue());
+                    return $stmt;
                 }
             }
-            return $node;
+            return $stmt;
         }
         // remove variable
-        $node->num = null;
+        $stmt->num = null;
         return null;
     }
 }

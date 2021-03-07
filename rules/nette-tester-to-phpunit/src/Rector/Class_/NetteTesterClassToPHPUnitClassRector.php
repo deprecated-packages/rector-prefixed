@@ -76,7 +76,11 @@ CODE_SAMPLE
             $this->processAboveTestInclude($node);
             return null;
         }
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
+        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
+        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$objectType->isInstanceOf('Tester\\TestCase')->yes()) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {

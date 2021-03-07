@@ -8,8 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
-use PHPStan\Type\ObjectType;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -24,9 +25,14 @@ final class GetParameterToConstructorInjectionRector extends \Rector\Core\Rector
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->propertyNaming = $propertyNaming;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -69,7 +75,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'))) {
+        $varType = $this->nodeTypeResolver->resolve($node->var);
+        if (!$varType instanceof \PHPStan\Type\TypeWithClassName) {
+            return null;
+        }
+        $classReflection = $this->reflectionProvider->getClass($varType->getClassName());
+        if (!$classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
             return null;
         }
         if (!$this->isName($node->name, 'getParameter')) {
@@ -84,7 +95,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $this->addConstructorDependencyToClass($classLike, new \PHPStan\Type\StringType(), $propertyName);
+        $this->propertyAdder->addConstructorDependencyToClass($classLike, new \PHPStan\Type\StringType(), $propertyName, 0);
         return $this->nodeFactory->createPropertyFetch('this', $propertyName);
     }
 }

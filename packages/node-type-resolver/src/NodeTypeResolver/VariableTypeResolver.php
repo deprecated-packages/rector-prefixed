@@ -84,15 +84,15 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
     }
     private function resolveTypesFromScope(\PhpParser\Node\Expr\Variable $variable, string $variableName) : \PHPStan\Type\Type
     {
-        $nodeScope = $this->resolveNodeScope($variable);
-        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $this->resolveNodeScope($variable);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
-        if (!$nodeScope->hasVariableType($variableName)->yes()) {
+        if (!$scope->hasVariableType($variableName)->yes()) {
             return new \PHPStan\Type\MixedType();
         }
         // this → object type is easier to work with and consistent with the rest of the code
-        return $nodeScope->getVariableType($variableName);
+        return $scope->getVariableType($variableName);
     }
     private function resolveNodeScope(\PhpParser\Node\Expr\Variable $variable) : ?\PHPStan\Analyser\Scope
     {

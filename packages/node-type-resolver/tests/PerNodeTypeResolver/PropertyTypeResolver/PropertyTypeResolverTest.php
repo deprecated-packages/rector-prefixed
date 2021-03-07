@@ -37,7 +37,7 @@ final class PropertyTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerN
     {
         $unionTypeFactory = new \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory();
         (yield [__DIR__ . '/Source/MethodParamDocBlock.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyTypeResolver\Source\Html::class)]);
-        (yield [__DIR__ . '/Source/MethodParamDocBlock.php', 1, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyTypeResolver\Source\ClassThatExtendsHtml::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyTypeResolver\Source\Html::class])]);
+        (yield [__DIR__ . '/Source/MethodParamDocBlock.php', 1, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyTypeResolver\Source\ClassThatExtendsHtml::class)]);
         // mimics failing test from DomainDrivenDesign set
         $unionType = $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyTypeResolver\Source\SomeChild::class, new \PHPStan\Type\NullType()]);
         (yield [__DIR__ . '/Source/ActionClass.php', 0, $unionType]);

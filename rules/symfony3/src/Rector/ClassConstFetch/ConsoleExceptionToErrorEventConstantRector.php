@@ -43,7 +43,7 @@ final class ConsoleExceptionToErrorEventConstantRector extends \Rector\Core\Rect
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch && ($this->isObjectType($node, $this->consoleEventsObjectType) && $this->isName($node->name, 'EXCEPTION'))) {
+        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch && ($this->isObjectType($node->class, $this->consoleEventsObjectType) && $this->isName($node->name, 'EXCEPTION'))) {
             return $this->nodeFactory->createClassConstFetch($this->consoleEventsObjectType->getClassName(), 'ERROR');
         }
         if (!$node instanceof \PhpParser\Node\Scalar\String_) {

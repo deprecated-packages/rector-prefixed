@@ -11,12 +11,10 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -47,21 +45,6 @@ final class TypeFactory
         $types = $this->unwrapUnionedTypes($types);
         $types = $this->uniquateTypes($types);
         return $this->createUnionOrSingleType($types);
-    }
-    /**
-     * @param string[] $allTypes
-     * @return ObjectType|UnionType
-     */
-    public function createObjectTypeOrUnionType(array $allTypes) : \PHPStan\Type\Type
-    {
-        if (\count($allTypes) === 1) {
-            return new \PHPStan\Type\ObjectType($allTypes[0]);
-        }
-        if (\count($allTypes) > 1) {
-            // keep original order, UnionType internally overrides it → impossible to get first type back, e.g. class over interface
-            return $this->unionTypeFactory->createUnionObjectType($allTypes);
-        }
-        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
      * @param Type[] $types

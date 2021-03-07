@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Privatization\NodeFactory\ClassConstantFetchValueFactory;
@@ -90,7 +91,7 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, mixed[]> $configuration
      */
     public function configure(array $configuration) : void
     {
@@ -98,7 +99,14 @@ CODE_SAMPLE
     }
     private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
     {
-        if (!$this->isOnClassMethodCall($methodCall, $replaceStringWithClassConstant->getObjectType(), $replaceStringWithClassConstant->getMethod())) {
+        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($methodCall->var);
+        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$callerObjectType->isInstanceOf($replaceStringWithClassConstant->getClass())->yes()) {
+            return null;
+        }
+        if (!$this->isName($methodCall->name, $replaceStringWithClassConstant->getMethod())) {
             return null;
         }
         $desiredArg = $methodCall->args[$replaceStringWithClassConstant->getArgPosition()] ?? null;

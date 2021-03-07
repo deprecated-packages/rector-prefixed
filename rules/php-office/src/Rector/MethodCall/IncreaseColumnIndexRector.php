@@ -122,11 +122,11 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param Node|Node[] $node
+     * @param Node[] $node
      */
-    private function findVariableAssignName($node, string $variableName) : ?\PhpParser\Node
+    private function findVariableAssignName(array $node, string $variableName) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirst((array) $node, function (\PhpParser\Node $node) use($variableName) : bool {
+        return $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }

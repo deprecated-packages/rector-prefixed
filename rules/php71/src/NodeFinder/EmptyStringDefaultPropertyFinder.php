@@ -5,6 +5,7 @@ namespace Rector\Php71\NodeFinder;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\PropertyProperty;
@@ -27,13 +28,13 @@ final class EmptyStringDefaultPropertyFinder
     /**
      * @return PropertyProperty[]
      */
-    public function find(\PhpParser\Node $node) : array
+    public function find(\PhpParser\Node\Expr\Assign $assign) : array
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
-        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
             return [];
         }

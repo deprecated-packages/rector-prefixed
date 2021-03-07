@@ -5,10 +5,8 @@ namespace Rector\Doctrine\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -58,10 +56,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkip($node)) {
+        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->var);
+        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
             return null;
         }
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
+        if (!$callerObjectType->isInstanceOf('Doctrine\\ORM\\EntityRepository')->yes()) {
             return null;
         }
         if (!$this->isNames($node->name, self::ENTITY_REPOSITORY_PUBLIC_METHODS)) {
@@ -69,13 +68,5 @@ CODE_SAMPLE
         }
         $node->var = $this->nodeFactory->createPropertyFetch('this', 'repository');
         return $node;
-    }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
-    {
-        $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
-            return \true;
-        }
-        return !$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'));
     }
 }

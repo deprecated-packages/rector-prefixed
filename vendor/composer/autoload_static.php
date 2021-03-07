@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
+class ComposerStaticInita809f2626bdcb6e2b046d326d227ff1e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2736,6 +2736,7 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\CodingStyle\\ValueObject\\NameAndParent' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/NameAndParent.php',
         'Rector\\CodingStyle\\ValueObject\\NodeToRemoveAndConcatItem' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/NodeToRemoveAndConcatItem.php',
         'Rector\\CodingStyle\\ValueObject\\ObjectMagicMethods' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ObjectMagicMethods.php',
+        'Rector\\CodingStyle\\ValueObject\\PreferenceSelfThis' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/PreferenceSelfThis.php',
         'Rector\\CodingStyle\\ValueObject\\ReturnArrayClassMethodToYield' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ReturnArrayClassMethodToYield.php',
         'Rector\\Comments\\CommentRemover' => __DIR__ . '/../..' . '/packages/comments/src/CommentRemover.php',
         'Rector\\Comments\\NodeDocBlock\\DocBlockUpdater' => __DIR__ . '/../..' . '/packages/comments/src/NodeDocBlock/DocBlockUpdater.php',
@@ -3416,13 +3417,11 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\NodeTypeResolver\\FileSystem\\CurrentFileInfoProvider' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/FileSystem/CurrentFileInfoProvider.php',
         'Rector\\NodeTypeResolver\\NodeScopeAndMetadataDecorator' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeScopeAndMetadataDecorator.php',
         'Rector\\NodeTypeResolver\\NodeTypeCorrector\\GenericClassStringTypeCorrector' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeCorrector/GenericClassStringTypeCorrector.php',
-        'Rector\\NodeTypeResolver\\NodeTypeCorrector\\ParentClassLikeTypeCorrector' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeCorrector/ParentClassLikeTypeCorrector.php',
         'Rector\\NodeTypeResolver\\NodeTypeCorrector\\PregMatchTypeCorrector' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeCorrector/PregMatchTypeCorrector.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\ArrayDimFetchTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/ArrayDimFetchTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\CastTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/CastTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassAndInterfaceTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/ClassAndInterfaceTypeResolver.php',
-        'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassConstFetchTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/ClassConstFetchTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassMethodOrClassConstTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/ClassMethodOrClassConstTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\NameTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/NameTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\ParamTypeResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/NodeTypeResolver/ParamTypeResolver.php',
@@ -3453,7 +3452,6 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\RectorBetterReflectionSourceLocatorFactory' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php',
         'Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\SourceLocatorProvider\\DynamicSourceLocatorProvider' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php',
         'Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\SourceLocator\\IntermediateSourceLocator' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/Reflection/BetterReflection/SourceLocator/IntermediateSourceLocator.php',
-        'Rector\\NodeTypeResolver\\Reflection\\ClassReflectionTypesResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/Reflection/ClassReflectionTypesResolver.php',
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\ArrayTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/ArrayTypeAnalyzer.php',
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\CountableTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/CountableTypeAnalyzer.php',
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\StringTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/StringTypeAnalyzer.php',
@@ -3489,6 +3487,7 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\PHPOffice\\Rector\\StaticCall\\ChangePdfWriterRector' => __DIR__ . '/../..' . '/rules/php-office/src/Rector/StaticCall/ChangePdfWriterRector.php',
         'Rector\\PHPOffice\\Rector\\StaticCall\\ChangeSearchLocationToRegisterReaderRector' => __DIR__ . '/../..' . '/rules/php-office/src/Rector/StaticCall/ChangeSearchLocationToRegisterReaderRector.php',
         'Rector\\PHPOffice\\ValueObject\\ConditionalSetValue' => __DIR__ . '/../..' . '/rules/php-office/src/ValueObject/ConditionalSetValue.php',
+        'Rector\\PHPOffice\\ValueObject\\PHPExcelMethodDefaultValues' => __DIR__ . '/../..' . '/rules/php-office/src/ValueObject/PHPExcelMethodDefaultValues.php',
         'Rector\\PHPStanStaticTypeMapper\\Contract\\PHPStanStaticTypeMapperAwareInterface' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/Contract/PHPStanStaticTypeMapperAwareInterface.php',
         'Rector\\PHPStanStaticTypeMapper\\Contract\\TypeMapperInterface' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/Contract/TypeMapperInterface.php',
         'Rector\\PHPStanStaticTypeMapper\\DoctrineTypeAnalyzer' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/DoctrineTypeAnalyzer.php',
@@ -3784,6 +3783,7 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\Privatization\\TypeManipulator\\NormalizeTypeToRespectArrayScalarType' => __DIR__ . '/../..' . '/rules/privatization/src/TypeManipulator/NormalizeTypeToRespectArrayScalarType.php',
         'Rector\\Privatization\\ValueObject\\ConstantVisibility' => __DIR__ . '/../..' . '/rules/privatization/src/ValueObject/ConstantVisibility.php',
         'Rector\\Privatization\\ValueObject\\ReplaceStringWithClassConstant' => __DIR__ . '/../..' . '/rules/privatization/src/ValueObject/ReplaceStringWithClassConstant.php',
+        'Rector\\Privatization\\VisibilityGuard\\ChildClassMethodOverrideGuard' => __DIR__ . '/../..' . '/rules/privatization/src/VisibilityGuard/ChildClassMethodOverrideGuard.php',
         'Rector\\Privatization\\VisibilityGuard\\ClassMethodVisibilityGuard' => __DIR__ . '/../..' . '/rules/privatization/src/VisibilityGuard/ClassMethodVisibilityGuard.php',
         'Rector\\ReadWrite\\Contract\\ReadNodeAnalyzerInterface' => __DIR__ . '/../..' . '/packages/read-write/src/Contract/ReadNodeAnalyzerInterface.php',
         'Rector\\ReadWrite\\Guard\\VariableToConstantGuard' => __DIR__ . '/../..' . '/packages/read-write/src/Guard/VariableToConstantGuard.php',
@@ -4163,6 +4163,7 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
         'Rector\\TypeDeclaration\\ValueObject\\AddReturnTypeDeclaration' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/AddReturnTypeDeclaration.php',
         'Rector\\TypeDeclaration\\ValueObject\\NestedArrayType' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/NestedArrayType.php',
         'Rector\\TypeDeclaration\\ValueObject\\NewType' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/NewType.php',
+        'Rector\\TypeDeclaration\\ValueObject\\TypeStrictness' => __DIR__ . '/../..' . '/rules/type-declaration/src/ValueObject/TypeStrictness.php',
         'Rector\\VendorLocker\\Contract\\NodeVendorLockerInterface' => __DIR__ . '/../..' . '/packages/vendor-locker/src/Contract/NodeVendorLockerInterface.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodParamVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodParamVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodReturnTypeOverrideGuard' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/ClassMethodReturnTypeOverrideGuard.php',
@@ -4219,9 +4220,9 @@ class ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9788b78a0bf7cb5aa8a24e27532d0433::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita809f2626bdcb6e2b046d326d227ff1e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita809f2626bdcb6e2b046d326d227ff1e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita809f2626bdcb6e2b046d326d227ff1e::$classMap;
 
         }, null, ClassLoader::class);
     }

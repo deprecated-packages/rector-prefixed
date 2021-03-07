@@ -5,11 +5,10 @@ namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTyp
 
 use Iterator;
 use PhpParser\Node\Stmt\Interface_;
-use PHPStan\Type\Type;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\TypeWithClassName;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\AbstractNodeTypeResolverTest;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterfaceWithParentInterface;
-use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeParentInterface;
-use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 /**
  * @see \Rector\NodeTypeResolver\NodeTypeResolver\ClassAndInterfaceTypeResolver
  */
@@ -18,16 +17,16 @@ final class InterfaceTypeResolverTest extends \Rector\NodeTypeResolver\Tests\Per
     /**
      * @dataProvider dataProvider()
      */
-    public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
+    public function test(string $file, int $nodePosition, \PHPStan\Type\TypeWithClassName $expectedTypeWithClassName) : void
     {
         $variableNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Stmt\Interface_::class);
         $resolvedType = $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]);
-        $this->assertEquals($expectedType, $resolvedType);
+        $this->assertInstanceOf(\PHPStan\Type\TypeWithClassName::class, $resolvedType);
+        /** @var TypeWithClassName $resolvedType */
+        $this->assertEquals($expectedTypeWithClassName->getClassName(), $resolvedType->getClassName());
     }
     public function dataProvider() : \Iterator
     {
-        $unionTypeFactory = new \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory();
-        $unionType = $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterfaceWithParentInterface::class, \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeParentInterface::class]);
-        (yield [__DIR__ . '/Source/SomeInterfaceWithParentInterface.php', 0, $unionType]);
+        (yield [__DIR__ . '/Source/SomeInterfaceWithParentInterface.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterfaceWithParentInterface::class)]);
     }
 }

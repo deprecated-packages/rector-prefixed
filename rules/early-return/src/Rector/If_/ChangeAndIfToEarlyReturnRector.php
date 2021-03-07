@@ -96,18 +96,20 @@ CODE_SAMPLE
         }
         /** @var BooleanAnd $expr */
         $expr = $node->cond;
-        $conditions = $this->nodeRepository->findBooleanAndConditions($expr);
-        $ifNextReturnClone = $ifNextReturn instanceof \PhpParser\Node\Stmt\Return_ ? clone $ifNextReturn : new \PhpParser\Node\Stmt\Return_();
-        $isInLoop = $this->contextAnalyzer->isInLoop($node);
+        $booleanAndConditions = $this->nodeRepository->findBooleanAndConditions($expr);
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Return_) {
             $this->addNodeAfterNode($node->stmts[0], $node);
-            return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
+            return $this->processReplaceIfs($node, $booleanAndConditions, new \PhpParser\Node\Stmt\Return_());
+        }
+        if ($ifNextReturn instanceof \PhpParser\Node\Stmt\Return_ && $ifNextReturn->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+            return null;
         }
         $this->removeNode($ifNextReturn);
         $ifNextReturn = $node->stmts[0];
         $this->addNodeAfterNode($ifNextReturn, $node);
-        if (!$isInLoop) {
-            return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
+        $ifNextReturnClone = $ifNextReturn instanceof \PhpParser\Node\Stmt\Return_ ? clone $ifNextReturn : new \PhpParser\Node\Stmt\Return_();
+        if (!$this->contextAnalyzer->isInLoop($node)) {
+            return $this->processReplaceIfs($node, $booleanAndConditions, $ifNextReturnClone);
         }
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
@@ -115,7 +117,7 @@ CODE_SAMPLE
         if ($ifNextReturn->expr instanceof \PhpParser\Node\Expr) {
             $this->addNodeAfterNode(new \PhpParser\Node\Stmt\Return_(), $node);
         }
-        return $this->processReplaceIfs($node, $conditions, $ifNextReturnClone);
+        return $this->processReplaceIfs($node, $booleanAndConditions, $ifNextReturnClone);
     }
     /**
      * @param Expr[] $conditions

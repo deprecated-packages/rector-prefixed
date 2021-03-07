@@ -10,16 +10,15 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210307\Twig_SimpleFilter;
-use RectorPrefix20210307\Twig_SimpleFunction;
 /**
  * Covers https://twig.symfony.com/doc/1.x/deprecated.html#function
  *
@@ -28,7 +27,7 @@ use RectorPrefix20210307\Twig_SimpleFunction;
 final class SimpleFunctionAndFilterRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var array<string, class-string<Twig_SimpleFilter>|class-string<Twig_SimpleFunction>>
+     * @var array<string, class-string>>
      */
     private const OLD_TO_NEW_CLASSES = ['Twig_Function_Method' => 'Twig_SimpleFunction', 'Twig_Filter_Method' => 'Twig_SimpleFilter'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -86,11 +85,11 @@ CODE_SAMPLE
         if ($node->expr === null) {
             return null;
         }
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return null;
-        }
-        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Twig_Extension'))) {
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        /** @var ClassReflection $classReflection */
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection->isSubclassOf('Twig_Extension')) {
             return null;
         }
         $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
@@ -104,7 +103,8 @@ CODE_SAMPLE
             if (!$node->value instanceof \PhpParser\Node\Expr\New_) {
                 return null;
             }
-            return $this->processArrayItem($node, $this->getObjectType($node->value));
+            $newObjectType = $this->nodeTypeResolver->resolve($node->value);
+            return $this->processArrayItem($node, $newObjectType);
         });
         return $node;
     }

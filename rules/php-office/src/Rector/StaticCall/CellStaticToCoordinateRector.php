@@ -55,7 +55,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('PHPExcel_Cell'))) {
+        $staticClassObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
+        if (!$staticClassObjectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$staticClassObjectType->isInstanceOf('PHPExcel_Cell')->yes()) {
             return null;
         }
         if (!$this->isNames($node->name, self::DECOUPLED_METHODS)) {

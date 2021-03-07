@@ -8,6 +8,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
@@ -16,16 +17,16 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
+use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
 final class UnionTypeCommonTypeNarrower
 {
     /**
-     * Key = the winner
-     * Array = the group of types matched
+     * Key = the winner Array = the group of types matched
      *
-     * @var array<class-string<Node|\PHPStan\PhpDocParser\Ast\Node>, array<class-string<Node|\PHPStan\PhpDocParser\Ast\Node>>>
+     * @var array<string, array<class-string<Node>|class-string<\PHPStan\PhpDocParser\Ast\Node>|class-string<RectorInterface>>>
      */
-    private const PRIORITY_TYPES = [\PhpParser\Node\FunctionLike::class => [\PhpParser\Node\FunctionLike::class], \PhpParser\Node\Expr\BinaryOp::class => [\PhpParser\Node\Expr\BinaryOp::class, \PhpParser\Node\Expr::class], \PhpParser\Node\Expr::class => [\PhpParser\Node::class, \PhpParser\Node\Expr::class], \PhpParser\Node\Stmt::class => [\PhpParser\Node::class, \PhpParser\Node\Stmt::class], \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class => [\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\Node::class]];
+    private const PRIORITY_TYPES = [\PhpParser\Node\Stmt\ClassLike::class => [\PhpParser\Node\Stmt\ClassLike::class], \PhpParser\Node\FunctionLike::class => [\PhpParser\Node\FunctionLike::class], \PhpParser\Node\Expr\BinaryOp::class => [\PhpParser\Node\Expr\BinaryOp::class, \PhpParser\Node\Expr::class], \PhpParser\Node\Expr::class => [\PhpParser\Node::class, \PhpParser\Node\Expr::class], \PhpParser\Node\Stmt::class => [\PhpParser\Node::class, \PhpParser\Node\Stmt::class], \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class => [\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\Node::class], \PhpParser\Node::class => [\PhpParser\Node::class], \Rector\Core\Contract\Rector\RectorInterface::class => [\Rector\Core\Contract\Rector\RectorInterface::class]];
     /**
      * @var GenericClassStringTypeCorrector
      */
@@ -96,6 +97,9 @@ final class UnionTypeCommonTypeNarrower
             foreach ($typeClassReflections as $typeClassReflection) {
                 $typeClassNames[] = $typeClassReflection->getName();
             }
+            if ($typeClassNames === []) {
+                continue;
+            }
             $availableTypes[] = $typeClassNames;
         }
         return $this->narrowAvailableTypes($availableTypes);
@@ -121,6 +125,9 @@ final class UnionTypeCommonTypeNarrower
      */
     private function narrowAvailableTypes(array $availableTypes) : array
     {
+        if (\count($availableTypes) < 2) {
+            return [];
+        }
         /** @var string[] $sharedTypes */
         $sharedTypes = \array_intersect(...$availableTypes);
         return \array_values($sharedTypes);

@@ -55,7 +55,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\Assert'))) {
+        $objectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node);
+        if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$objectType->isInstanceOf('Tester\\Assert')->yes()) {
             return null;
         }
         return $this->assertManipulator->processStaticCall($node);

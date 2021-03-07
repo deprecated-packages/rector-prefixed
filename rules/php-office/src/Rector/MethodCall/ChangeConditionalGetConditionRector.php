@@ -57,7 +57,14 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('PHPExcel_Style_Conditional'), 'getCondition')) {
+        $callerObjectType = $this->nodeTypeResolver->resolveObjectTypeToCompare($node->var);
+        if (!$callerObjectType instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        if (!$callerObjectType->isInstanceOf('PHPExcel_Style_Conditional')->yes()) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'getCondition')) {
             return null;
         }
         $node->name = new \PhpParser\Node\Identifier('getConditions');
