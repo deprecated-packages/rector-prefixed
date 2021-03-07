@@ -29,8 +29,8 @@ final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\Coding
     public function shouldSkip(\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
-        $shortNames = $this->shortNameResolver->resolveForNode($node);
-        foreach ($shortNames as $shortName => $fullyQualifiedName) {
+        $shortNamesToFullyQualifiedNames = $this->shortNameResolver->resolveForNode($node);
+        foreach ($shortNamesToFullyQualifiedNames as $shortName => $fullyQualifiedName) {
             $shortNameLowered = \strtolower($shortName);
             if ($fullyQualifiedObjectType->getShortNameLowered() !== $shortNameLowered) {
                 continue;

@@ -47,7 +47,7 @@ CODE_SAMPLE
 , 'return strpos($docToken->getContent(), "\\n") === false;')]);
     }
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
