@@ -11,6 +11,8 @@ use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
@@ -73,15 +75,8 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        // skip big arrays and mixed[] constants
-        if ($constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            $currentVarType = $phpDocInfo->getVarType();
-            if ($currentVarType instanceof \PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \PHPStan\Type\MixedType) {
-                return null;
-            }
-            if ($this->hasTwoAndMoreGenericClassStringTypes($constType)) {
-                return null;
-            }
+        if ($this->shouldSkipConstantArrayType($constType, $phpDocInfo)) {
+            return null;
         }
         if ($this->typeComparator->isSubtype($constType, $phpDocInfo->getVarType())) {
             return null;
@@ -105,5 +100,29 @@ CODE_SAMPLE
             }
         }
         return $genericTypeNodeCount > 1;
+    }
+    /**
+     * Skip big arrays and mixed[] constants
+     */
+    private function shouldSkipConstantArrayType(\PHPStan\Type\Type $constType, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    {
+        if (!$constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+            return \false;
+        }
+        $currentVarType = $phpDocInfo->getVarType();
+        if ($currentVarType instanceof \PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \PHPStan\Type\MixedType) {
+            return \true;
+        }
+        if ($this->hasTwoAndMoreGenericClassStringTypes($constType)) {
+            return \true;
+        }
+        if (\count($constType->getValueTypes()) > 3) {
+            foreach ($constType->getValueTypes() as $constValueType) {
+                if ($constValueType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+                    return \true;
+                }
+            }
+        }
+        return \false;
     }
 }
