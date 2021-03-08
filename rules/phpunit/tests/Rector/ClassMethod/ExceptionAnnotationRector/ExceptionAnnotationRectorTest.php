@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector;
 use Iterator;
 use Rector\PHPUnit\Rector\ClassMethod\ExceptionAnnotationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo;
 final class ExceptionAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

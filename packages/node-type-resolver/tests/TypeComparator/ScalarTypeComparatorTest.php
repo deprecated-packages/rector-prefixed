@@ -10,8 +10,8 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator;
-use RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class ScalarTypeComparatorTest extends \RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class ScalarTypeComparatorTest extends \RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var ScalarTypeComparator

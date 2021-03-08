@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210307\Doctrine\Common\Annotations;
+namespace RectorPrefix20210308\Doctrine\Common\Annotations;
 
 use Exception;
 use function get_class;

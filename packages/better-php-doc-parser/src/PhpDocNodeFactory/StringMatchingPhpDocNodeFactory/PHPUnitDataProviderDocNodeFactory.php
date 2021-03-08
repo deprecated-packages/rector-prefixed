@@ -12,7 +12,7 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\Contract\PhpDocParserAwareInterface;
 use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode;
-use RectorPrefix20210307\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210308\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class PHPUnitDataProviderDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface, \Rector\BetterPhpDocParser\Contract\PhpDocParserAwareInterface
 {
     /**
@@ -23,7 +23,7 @@ final class PHPUnitDataProviderDocNodeFactory implements \Rector\BetterPhpDocPar
      * @var PhpDocParser
      */
     private $phpDocParser;
-    public function __construct(\RectorPrefix20210307\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
+    public function __construct(\RectorPrefix20210308\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
     {
         $this->privatesCaller = $privatesCaller;
     }

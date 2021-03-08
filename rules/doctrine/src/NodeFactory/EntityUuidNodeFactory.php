@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use RectorPrefix20210307\Ramsey\Uuid\Uuid;
+use RectorPrefix20210308\Ramsey\Uuid\Uuid;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;

@@ -12,9 +12,9 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
-use RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileSystem;
-final class PhpDocInfoTest extends \RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileSystem;
+final class PhpDocInfoTest extends \RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocInfo
@@ -40,7 +40,7 @@ final class PhpDocInfoTest extends \RectorPrefix20210307\Symplify\PackageBuilder
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
         $this->phpDocInfoPrinter = $this->getService(\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
-        $this->smartFileSystem = $this->getService(\RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->smartFileSystem = $this->getService(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileSystem::class);
         $this->docBlockTagReplacer = $this->getService(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer::class);
         $this->phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/doc.txt');
     }

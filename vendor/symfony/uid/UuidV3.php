@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210307\Symfony\Component\Uid;
+namespace RectorPrefix20210308\Symfony\Component\Uid;
 
 /**
  * A v3 UUID contains an MD5 hash of another UUID and a name.
@@ -19,7 +19,7 @@ namespace RectorPrefix20210307\Symfony\Component\Uid;
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class UuidV3 extends \RectorPrefix20210307\Symfony\Component\Uid\Uuid
+class UuidV3 extends \RectorPrefix20210308\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 3;
 }

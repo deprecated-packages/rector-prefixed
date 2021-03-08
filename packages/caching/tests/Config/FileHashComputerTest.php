@@ -7,9 +7,9 @@ use Iterator;
 use Rector\Caching\Config\FileHashComputer;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo;
-final class FileHashComputerTest extends \RectorPrefix20210307\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo;
+final class FileHashComputerTest extends \RectorPrefix20210308\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var FileHashComputer
@@ -25,8 +25,8 @@ final class FileHashComputerTest extends \RectorPrefix20210307\Symplify\PackageB
      */
     public function testHashIsIdentical(string $firstConfig, string $secondConfig) : void
     {
-        $configAHash = $this->fileHashComputer->compute(new \RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo($firstConfig));
-        $configBHash = $this->fileHashComputer->compute(new \RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo($secondConfig));
+        $configAHash = $this->fileHashComputer->compute(new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo($firstConfig));
+        $configBHash = $this->fileHashComputer->compute(new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo($secondConfig));
         $this->assertSame($configAHash, $configBHash);
     }
     public function provideDataForIdenticalHash() : \Iterator
@@ -37,6 +37,6 @@ final class FileHashComputerTest extends \RectorPrefix20210307\Symplify\PackageB
     public function testInvalidType() : void
     {
         $this->expectException(\Rector\Core\Exception\ShouldNotHappenException::class);
-        $this->fileHashComputer->compute(new \RectorPrefix20210307\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.xml'));
+        $this->fileHashComputer->compute(new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.xml'));
     }
 }

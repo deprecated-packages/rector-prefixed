@@ -55,7 +55,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\StaticCall) {
+        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\StaticCall || $firstArgumentValue instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if (!$this->isNames($firstArgumentValue, ['strpos', 'stripos'])) {
