@@ -25,6 +25,9 @@ final class EregToPcreTransformerTest extends \RectorPrefix20210308\PHPUnit\Fram
         $pcre = $this->eregToPcreTransformer->transform($ereg, \false);
         $this->assertSame($expectedPcre, $pcre);
     }
+    /**
+     * @return Iterator<string[]>
+     */
     public function provideDataCaseSensitive() : \Iterator
     {
         (yield ['hi', '#hi#m']);
@@ -37,6 +40,9 @@ final class EregToPcreTransformerTest extends \RectorPrefix20210308\PHPUnit\Fram
         $pcre = $this->eregToPcreTransformer->transform($ereg, \true);
         $this->assertSame($expectedPcre, $pcre);
     }
+    /**
+     * @return Iterator<string[]>
+     */
     public function provideDataCaseInsensitive() : \Iterator
     {
         (yield ['hi', '#hi#mi']);

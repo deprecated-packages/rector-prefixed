@@ -11,7 +11,6 @@ final class StaticCallOnNonStaticToInstanceCallRectorTest extends \Rector\Testin
 {
     /**
      * @dataProvider provideData()
-     * @requires PHP < 8.0
      */
     public function test(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {

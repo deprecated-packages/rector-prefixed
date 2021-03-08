@@ -17,6 +17,9 @@ final class FormControlToControllerAndFormTypeRectorTest extends \Rector\Testing
         $this->doTestFileInfo($fileInfo);
         $this->doTestExtraFile($expectedExtraFileName, $expectedExtraContentFilePath);
     }
+    /**
+     * @return Iterator<string[]|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         (yield [new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'src/Controller/SomeFormController.php', __DIR__ . '/Source/extra_file.php']);

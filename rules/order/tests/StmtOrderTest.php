@@ -31,6 +31,9 @@ final class StmtOrderTest extends \RectorPrefix20210308\Symplify\PackageBuilder\
         $this->stmtOrder = $this->getService(\Rector\Order\StmtOrder::class);
         $this->nodeNameResolver = $this->getService(\Rector\NodeNameResolver\NodeNameResolver::class);
     }
+    /**
+     * @return Iterator<array<int, array<int|string>>>
+     */
     public function dataProvider() : \Iterator
     {
         (yield [['first', 'second', 'third'], ['third', 'first', 'second'], [0 => 1, 1 => 2, 2 => 0]]);

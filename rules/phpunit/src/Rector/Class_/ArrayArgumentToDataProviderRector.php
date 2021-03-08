@@ -137,6 +137,9 @@ CODE_SAMPLE
         $node->stmts = \array_merge($node->stmts, $dataProviderClassMethods);
         return $node;
     }
+    /**
+     * @param array<string, ArrayArgumentToDataProvider[]> $arrayArgumentsToDataProviders
+     */
     public function configure(array $arrayArgumentsToDataProviders) : void
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];

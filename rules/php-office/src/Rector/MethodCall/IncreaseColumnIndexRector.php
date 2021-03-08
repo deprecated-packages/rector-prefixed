@@ -116,8 +116,9 @@ CODE_SAMPLE
         if (!$assignVariable instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if ($assignVariable->expr instanceof \PhpParser\Node\Scalar\LNumber) {
-            return $assignVariable->expr;
+        $assignedExpr = $assignVariable->expr;
+        if ($assignedExpr instanceof \PhpParser\Node\Scalar\LNumber) {
+            return $assignedExpr;
         }
         return null;
     }

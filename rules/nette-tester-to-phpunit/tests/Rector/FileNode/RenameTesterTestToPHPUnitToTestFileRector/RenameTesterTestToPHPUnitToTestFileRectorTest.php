@@ -19,6 +19,9 @@ final class RenameTesterTestToPHPUnitToTestFileRectorTest extends \Rector\Testin
         $this->doTestFileInfo($fixtureFileInfo);
         $this->assertFileWithContentWasAdded($expectedAddedFileWithContent);
     }
+    /**
+     * @return Iterator<AddedFileWithContent[]|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         $smartFileSystem = new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileSystem();
