@@ -76,11 +76,11 @@ CODE_SAMPLE
             $this->processAboveTestInclude($node);
             return null;
         }
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
-            return null;
-        }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $this->processUnderTestRun($node);
+            return null;
+        }
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
             return null;
         }
         $this->processExtends($node);
@@ -96,6 +96,9 @@ CODE_SAMPLE
     }
     private function processUnderTestRun(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
+        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
+            return;
+        }
         if ($this->isName($methodCall->name, 'run')) {
             $this->removeNode($methodCall);
         }

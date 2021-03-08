@@ -20,6 +20,7 @@ use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterfac
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -56,7 +57,9 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            if (\RectorPrefix20210308\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
+            if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
+                $name = '\\' . $type->getClassName();
+            } elseif (\RectorPrefix20210308\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
                 $name = '\\' . $type->getClassName();
             } else {
                 $name = $type->getClassName();
@@ -91,6 +94,10 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         if (!$type instanceof \PHPStan\Type\Generic\GenericObjectType) {
             // fallback
             return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
+        }
+        if ($type->getClassName() === 'iterable') {
+            // fallback
+            return new \PhpParser\Node\Name('iterable');
         }
         if ($type->getClassName() !== 'object') {
             // fallback

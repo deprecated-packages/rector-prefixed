@@ -45,8 +45,9 @@ abstract class AbstractRootExpr implements \Rector\Defluent\Contract\ValueObject
         if (!$currentStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        if ($currentStmt->expr instanceof \PhpParser\Node\Expr\Assign) {
-            return $currentStmt->expr;
+        $currentExpr = $currentStmt->expr;
+        if ($currentExpr instanceof \PhpParser\Node\Expr\Assign) {
+            return $currentExpr;
         }
         return null;
     }

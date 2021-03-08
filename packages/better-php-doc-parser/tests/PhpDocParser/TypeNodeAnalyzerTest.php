@@ -51,6 +51,9 @@ final class TypeNodeAnalyzerTest extends \RectorPrefix20210308\Symplify\PackageB
         $isIntersection = $this->typeNodeAnalyzer->isIntersectionAndNotNullable($typeNode);
         $this->assertSame($expectedIs, $isIntersection);
     }
+    /**
+     * @return Iterator<IntersectionTypeNode[]|bool[]>
+     */
     public function provideDataForIntersectionAndNotNullable() : \Iterator
     {
         (yield [new \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode([new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode(self::INT)]), \true]);

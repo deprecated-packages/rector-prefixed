@@ -77,7 +77,7 @@ CODE_SAMPLE
     private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
-            if (!$this->isObjectType($methodCall, new \PHPStan\Type\ObjectType($type))) {
+            if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
             if (!$this->isName($methodCall->name, '__toString')) {

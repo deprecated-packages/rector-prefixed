@@ -23,6 +23,9 @@ final class NameTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNodeT
         $resolvedType = $this->nodeTypeResolver->resolve($nameNodes[$nodePosition]);
         $this->assertEquals($expectedType, $resolvedType);
     }
+    /**
+     * @return Iterator<int[]|string[]|ObjectType[]>
+     */
     public function provideData() : \Iterator
     {
         $expectedObjectType = new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\Source\AnotherClass::class);

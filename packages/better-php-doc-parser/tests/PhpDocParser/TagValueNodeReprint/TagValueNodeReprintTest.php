@@ -34,6 +34,9 @@ final class TagValueNodeReprintTest extends \Rector\BetterPhpDocParser\Tests\Php
     {
         $this->doTestPrintedPhpDocInfo($fileInfo, $tagValueNodeClass);
     }
+    /**
+     * @return Iterator<mixed[]>
+     */
     public function provideData() : \Iterator
     {
         foreach ($this->getDirectoriesByTagValueNodes() as $tagValueNode => $directory) {
@@ -46,7 +49,7 @@ final class TagValueNodeReprintTest extends \Rector\BetterPhpDocParser\Tests\Php
         }
     }
     /**
-     * @return string[]
+     * @return array<class-string, string>
      */
     private function getDirectoriesByTagValueNodes() : array
     {

@@ -40,6 +40,9 @@ final class PhpDocTypeMapperTest extends \RectorPrefix20210308\Symplify\PackageB
         $phpStanType = $this->phpDocTypeMapper->mapToPHPStanType($typeNode, $nop, $nameScope);
         $this->assertInstanceOf($expectedPHPStanType, $phpStanType);
     }
+    /**
+     * @return Iterator<class-string<ArrayType>[]|ArrayShapeNode[]>
+     */
     public function provideData() : \Iterator
     {
         $arrayShapeNode = new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode([new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode(null, \true, new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string'))]);

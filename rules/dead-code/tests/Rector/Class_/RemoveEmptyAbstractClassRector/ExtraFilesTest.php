@@ -17,6 +17,9 @@ final class ExtraFilesTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCas
     {
         $this->doTestFileInfo($originalFileInfo, $extraFileInfos);
     }
+    /**
+     * @return Iterator<array<int, SmartFileInfo[]>|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         $extraFileInfos = [new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/UseAbstract.php')];

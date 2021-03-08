@@ -26,7 +26,7 @@ final class StaticTypeAnalyzer
             return \true;
         }
         if ($type instanceof \PHPStan\Type\ArrayType) {
-            return \false;
+            return $this->isAlwaysTruableArrayType($type);
         }
         if ($this->isNullable($type)) {
             return \false;
@@ -73,5 +73,10 @@ final class StaticTypeAnalyzer
             }
         }
         return \true;
+    }
+    private function isAlwaysTruableArrayType(\PHPStan\Type\ArrayType $arrayType) : bool
+    {
+        $itemType = $arrayType->getItemType();
+        return $itemType instanceof \PHPStan\Type\ConstantScalarType && $itemType->getValue();
     }
 }

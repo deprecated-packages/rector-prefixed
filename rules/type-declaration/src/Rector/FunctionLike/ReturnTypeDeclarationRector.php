@@ -12,7 +12,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\UnionType as PhpParserUnionType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\Core\Rector\AbstractRector;
@@ -23,6 +22,7 @@ use Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator;
 use Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover;
 use Rector\TypeDeclaration\PhpParserTypeAnalyzer;
 use Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker;
+use Rector\TypeDeclaration\TypeAnalyzer\ObjectTypeComparator;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard;
@@ -68,7 +68,11 @@ final class ReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractRect
      * @var PhpParserTypeAnalyzer
      */
     private $phpParserTypeAnalyzer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer)
+    /**
+     * @var ObjectTypeComparator
+     */
+    private $objectTypeComparator;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \Rector\TypeDeclaration\TypeAnalyzer\ObjectTypeComparator $objectTypeComparator)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->returnTypeAlreadyAddedChecker = $returnTypeAlreadyAddedChecker;
@@ -77,6 +81,7 @@ final class ReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractRect
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
         $this->vendorLockResolver = $vendorLockResolver;
         $this->phpParserTypeAnalyzer = $phpParserTypeAnalyzer;
+        $this->objectTypeComparator = $objectTypeComparator;
     }
     /**
      * @return array<class-string<Node>>
@@ -186,7 +191,7 @@ CODE_SAMPLE
             return \true;
         }
         $currentType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($functionLike->returnType);
-        if ($this->isCurrentObjectTypeSubType($currentType, $inferedType)) {
+        if ($this->objectTypeComparator->isCurrentObjectTypeSubType($currentType, $inferedType)) {
             return \true;
         }
         return $this->isNullableTypeSubType($currentType, $inferedType);
@@ -210,19 +215,6 @@ CODE_SAMPLE
             // type override with correct one
             $functionLike->returnType = $inferredReturnNode;
         }
-    }
-    /**
-     * E.g. current E, new type A, E extends A → true
-     */
-    private function isCurrentObjectTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
-    {
-        if (!$currentType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
-        }
-        if (!$inferedType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
-        }
-        return \is_a($currentType->getClassName(), $inferedType->getClassName(), \true);
     }
     private function isNullableTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
     {

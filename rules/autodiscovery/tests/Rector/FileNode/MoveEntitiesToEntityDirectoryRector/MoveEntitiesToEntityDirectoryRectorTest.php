@@ -19,6 +19,9 @@ final class MoveEntitiesToEntityDirectoryRectorTest extends \Rector\Testing\PHPU
         $this->doTestFileInfo($originalFileInfo);
         $this->assertFileWithContentWasAdded($expectedAddedFileWithContent);
     }
+    /**
+     * @return Iterator<AddedFileWithContent[]|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         $smartFileSystem = new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileSystem();

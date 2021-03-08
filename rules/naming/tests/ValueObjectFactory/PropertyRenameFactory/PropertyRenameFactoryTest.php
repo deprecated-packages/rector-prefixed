@@ -57,6 +57,9 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20210308\Symplify\Pac
         $this->assertSame($expectedName, $actualPropertyRename->getExpectedName());
         $this->assertSame($currentName, $actualPropertyRename->getCurrentName());
     }
+    /**
+     * @return Iterator<string[]|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         (yield [new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/skip_some_class.php.inc'), 'eliteManager', 'eventManager']);

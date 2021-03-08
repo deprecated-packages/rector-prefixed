@@ -68,6 +68,9 @@ final class StaticTypeMapperTest extends \RectorPrefix20210308\Symplify\PackageB
         $phpStanType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($node);
         $this->assertInstanceOf($expectedType, $phpStanType);
     }
+    /**
+     * @return Iterator<class-string<IterableType>[]|Identifier[]>
+     */
     public function provideDataForMapPhpParserNodePHPStanType() : \Iterator
     {
         (yield [new \PhpParser\Node\Identifier('iterable'), \PHPStan\Type\IterableType::class]);

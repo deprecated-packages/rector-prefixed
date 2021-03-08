@@ -123,12 +123,10 @@ CODE_SAMPLE
     }
     private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if ($return->expr === null) {
+        $returnExpr = $return->expr;
+        if (!$returnExpr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        if (!$return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
-            return null;
-        }
-        return $return->expr;
+        return $returnExpr;
     }
 }

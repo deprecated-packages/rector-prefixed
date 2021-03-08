@@ -121,10 +121,11 @@ CODE_SAMPLE
         }
         foreach ($classMethod->stmts as $statement) {
             if ($statement instanceof \PhpParser\Node\Stmt\Return_) {
-                if (!$statement->expr instanceof \PhpParser\Node\Expr\Array_) {
+                $returnedExpr = $statement->expr;
+                if (!$returnedExpr instanceof \PhpParser\Node\Expr\Array_) {
                     continue;
                 }
-                return $statement->expr;
+                return $returnedExpr;
             }
         }
         return null;

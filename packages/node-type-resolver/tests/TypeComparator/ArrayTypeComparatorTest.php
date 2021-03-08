@@ -36,6 +36,9 @@ final class ArrayTypeComparatorTest extends \RectorPrefix20210308\Symplify\Packa
         $areEqual = $this->arrayTypeComparator->isSubtype($firstArrayType, $secondArrayType);
         $this->assertSame($areExpectedEqual, $areEqual);
     }
+    /**
+     * @return Iterator<ArrayType[]|bool[]>
+     */
     public function provideData() : \Iterator
     {
         $unionTypeFactory = new \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory();

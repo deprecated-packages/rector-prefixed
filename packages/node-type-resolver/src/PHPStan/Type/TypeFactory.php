@@ -3,7 +3,9 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PHPStan\Type;
 
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -13,7 +15,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
@@ -74,15 +76,17 @@ final class TypeFactory
     {
         // unwrap union types
         $unwrappedTypes = [];
-        foreach ($types as $key => $type) {
-            if ($type instanceof \PHPStan\Type\UnionType) {
-                $unwrappedTypes = \array_merge($unwrappedTypes, $type->getTypes());
-                unset($types[$key]);
+        foreach ($types as $type) {
+            $flattenTypes = \PHPStan\Type\TypeUtils::flattenTypes($type);
+            foreach ($flattenTypes as $flattenType) {
+                if ($flattenType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+                    $unwrappedTypes = \array_merge($unwrappedTypes, $this->unwrapConstantArrayTypes($flattenType));
+                } else {
+                    $unwrappedTypes[] = $flattenType;
+                }
             }
         }
-        $types = \array_merge($types, $unwrappedTypes);
-        // re-index
-        return \array_values($types);
+        return $unwrappedTypes;
     }
     /**
      * @param Type[] $types
@@ -113,5 +117,19 @@ final class TypeFactory
             return new \PHPStan\Type\BooleanType();
         }
         return $type;
+    }
+    /**
+     * @return Type[]
+     */
+    private function unwrapConstantArrayTypes(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : array
+    {
+        $unwrappedTypes = [];
+        $flattenKeyTypes = \PHPStan\Type\TypeUtils::flattenTypes($constantArrayType->getKeyType());
+        $flattenItemTypes = \PHPStan\Type\TypeUtils::flattenTypes($constantArrayType->getItemType());
+        foreach ($flattenItemTypes as $position => $nestedFlattenItemType) {
+            $nestedFlattenKeyType = $flattenKeyTypes[$position];
+            $unwrappedTypes[] = new \PHPStan\Type\ArrayType($nestedFlattenKeyType, $nestedFlattenItemType);
+        }
+        return $unwrappedTypes;
     }
 }

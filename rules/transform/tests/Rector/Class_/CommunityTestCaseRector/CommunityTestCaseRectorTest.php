@@ -19,6 +19,9 @@ final class CommunityTestCaseRectorTest extends \Rector\Testing\PHPUnit\Abstract
         $this->doTestFileInfo($fileInfo);
         $this->assertFileWithContentWasAdded($addedFileWithContent);
     }
+    /**
+     * @return Iterator<AddedFileWithContent[]|SmartFileInfo[]>
+     */
     public function provideData() : \Iterator
     {
         $smartFileSystem = new \RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileSystem();

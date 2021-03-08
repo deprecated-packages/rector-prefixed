@@ -157,7 +157,7 @@ CODE_SAMPLE
     private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\ObjectType
     {
         foreach ($this->callsToFluent as $callToFluent) {
-            if (!$this->isObjectType($methodCall, $callToFluent->getObjectType())) {
+            if (!$this->isObjectType($methodCall->var, $callToFluent->getObjectType())) {
                 continue;
             }
             if ($this->isNames($methodCall->name, $callToFluent->getMethodNames())) {

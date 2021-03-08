@@ -96,7 +96,7 @@ CODE_SAMPLE
     private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return !$this->nodeTypeResolver->isObjectTypes($node, $this->requestObjectTypes);
+            return !$this->nodeTypeResolver->isObjectTypes($node->class, $this->requestObjectTypes);
         }
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

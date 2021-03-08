@@ -43,6 +43,9 @@ final class MultilineTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\Ph
         (yield [__DIR__ . '/Source/Multiline/multiline4.txt', new \PhpParser\Node\Stmt\Nop()]);
         (yield [__DIR__ . '/Source/Multiline/multiline5.txt', new \PhpParser\Node\Stmt\Nop()]);
     }
+    /**
+     * @return Iterator<string[]|Class_[]>
+     */
     public function provideDataClass() : \Iterator
     {
         (yield [__DIR__ . '/Source/Class_/some_entity_class.txt', new \PhpParser\Node\Stmt\Class_(\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Class_\SomeEntityClass::class)]);

@@ -102,10 +102,11 @@ final class IfManipulator
         if (!$insideIfNode instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        if (!$insideIfNode->expr instanceof \PhpParser\Node\Expr\Assign) {
+        $assignedExpr = $insideIfNode->expr;
+        if (!$assignedExpr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        return $insideIfNode->expr;
+        return $assignedExpr;
     }
     /**
      * Matches:

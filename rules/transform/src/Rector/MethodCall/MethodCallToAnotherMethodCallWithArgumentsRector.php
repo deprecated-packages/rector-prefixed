@@ -51,7 +51,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodCallRenamesWithAddedArguments as $methodCallRenameWithAddedArgument) {
-            if (!$this->isObjectType($node, $methodCallRenameWithAddedArgument->getObjectType())) {
+            if (!$this->isObjectType($node->var, $methodCallRenameWithAddedArgument->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $methodCallRenameWithAddedArgument->getOldMethod())) {

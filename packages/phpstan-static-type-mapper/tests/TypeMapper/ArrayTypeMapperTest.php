@@ -40,6 +40,9 @@ final class ArrayTypeMapperTest extends \RectorPrefix20210308\Symplify\PackageBu
         $actualTypeNode = $this->arrayTypeMapper->mapToPHPStanPhpDocTypeNode($arrayType);
         $this->assertSame($expectedResult, (string) $actualTypeNode);
     }
+    /**
+     * @return Iterator<string[]|ArrayType[]>
+     */
     public function provideDataWithoutKeys() : \Iterator
     {
         $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\StringType());

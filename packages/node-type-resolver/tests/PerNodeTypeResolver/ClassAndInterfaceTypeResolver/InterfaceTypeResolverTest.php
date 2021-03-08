@@ -25,6 +25,9 @@ final class InterfaceTypeResolverTest extends \Rector\NodeTypeResolver\Tests\Per
         /** @var TypeWithClassName $resolvedType */
         $this->assertEquals($expectedTypeWithClassName->getClassName(), $resolvedType->getClassName());
     }
+    /**
+     * @return Iterator<int[]|string[]|ObjectType[]>
+     */
     public function dataProvider() : \Iterator
     {
         (yield [__DIR__ . '/Source/SomeInterfaceWithParentInterface.php', 0, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\ClassAndInterfaceTypeResolver\Source\SomeInterfaceWithParentInterface::class)]);

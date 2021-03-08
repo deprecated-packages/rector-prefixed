@@ -98,9 +98,10 @@ final class SingletonClassMethodAnalyzer
         if (!$expr instanceof \PhpParser\Node\Expr\BooleanNot) {
             return null;
         }
-        if (!$expr->expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+        $negatedExpr = $expr->expr;
+        if (!$negatedExpr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return null;
         }
-        return $expr->expr;
+        return $negatedExpr;
     }
 }

@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,9 +30,14 @@ final class ChangeSetParametersArrayToArrayCollectionRector extends \Rector\Core
      * @var ArrayTypeAnalyzer
      */
     private $arrayTypeAnalyzer;
-    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    /**
+     * @var FluentChainMethodCallNodeAnalyzer
+     */
+    private $fluentChainMethodCallNodeAnalyzer;
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
+        $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
     }
     /**
      * @return array<class-string<Node>>
@@ -113,14 +119,19 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \true;
         }
-        //one of the cases when we are in the repo and it's extended from EntityRepository
+        // one of the cases when we are in the repo and it's extended from EntityRepository
         if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return \true;
         }
-        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
+        if (!$this->isName($methodCall->name, 'setParameters')) {
             return \true;
         }
-        return !$this->isName($methodCall->name, 'setParameters');
+        // compare root variable
+        $rootExpr = $this->fluentChainMethodCallNodeAnalyzer->resolveRootMethodCall($methodCall);
+        if (!$rootExpr instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \true;
+        }
+        return !$this->isObjectType($rootExpr, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\QueryBuilder'));
     }
     private function getNewArrayCollectionFromSetParametersArgument(\PhpParser\Node\Arg $arg) : \PhpParser\Node\Expr\New_
     {

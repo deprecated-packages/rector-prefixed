@@ -12,23 +12,15 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\NodeTraverser;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Rector\Core\Php\PhpVersionProvider;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
-    /**
-     * @var PhpVersionProvider
-     */
-    private $phpVersionProvider;
     /**
      * @var NodeTypeResolver
      */
@@ -41,9 +33,8 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
-        $this->phpVersionProvider = $phpVersionProvider;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeFactory = $typeFactory;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
@@ -63,16 +54,10 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
             if (!$value instanceof \PhpParser\Node\Expr) {
                 continue;
             }
-            $yieldValueStaticType = $this->nodeTypeResolver->getStaticType($value);
-            $types[] = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $yieldValueStaticType);
+            $types[] = $this->nodeTypeResolver->getStaticType($value);
         }
-        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE)) {
-            // @see https://www.php.net/manual/en/language.types.iterable.php
-            $types[] = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
-        } else {
-            $types[] = new \PHPStan\Type\ObjectType('Iterator');
-        }
-        return $this->typeFactory->createMixedPassedOrUnionType($types);
+        $types = $this->typeFactory->createMixedPassedOrUnionType($types);
+        return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType('Iterator', [$types]);
     }
     public function getPriority() : int
     {

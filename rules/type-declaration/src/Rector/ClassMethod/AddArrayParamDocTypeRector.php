@@ -8,9 +8,11 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DeadDocBlock\TagRemover\ParamTagRemover;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -29,10 +31,15 @@ final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRecto
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @var ParamTagRemover
+     */
+    private $paramTagRemover;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
+        $this->paramTagRemover = $paramTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -89,14 +96,15 @@ CODE_SAMPLE
             if ($this->shouldSkipParam($param)) {
                 continue;
             }
-            $type = $this->paramTypeInferer->inferParam($param);
-            if ($type instanceof \PHPStan\Type\MixedType) {
+            $paramType = $this->paramTypeInferer->inferParam($param);
+            if ($paramType instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
             $paramName = $this->getName($param);
-            $this->phpDocTypeChanger->changeParamType($phpDocInfo, $type, $param, $paramName);
+            $this->phpDocTypeChanger->changeParamType($phpDocInfo, $paramType, $param, $paramName);
         }
         if ($phpDocInfo->hasChanged()) {
+            $this->paramTagRemover->removeParamTagsIfUseless($phpDocInfo, $node);
             return $node;
         }
         return null;
@@ -108,23 +116,26 @@ CODE_SAMPLE
             return \true;
         }
         // not an array type
-        if (!$this->isName($param->type, 'array')) {
+        $paramType = $this->nodeTypeResolver->resolve($param->type);
+        // weird case for maybe interface
+        if ($paramType->isIterable()->maybe() && $paramType instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        // not an array type
-        $paramStaticType = $this->getStaticType($param);
-        if ($paramStaticType instanceof \PHPStan\Type\MixedType) {
+        $isArrayable = $paramType->isIterable()->yes() || $paramType->isArray()->yes() || ($paramType->isIterable()->maybe() || $paramType->isArray()->maybe());
+        if (!$isArrayable) {
+            return \true;
+        }
+        return $this->isArrayExplicitMixed($paramType);
+    }
+    private function isArrayExplicitMixed(\PHPStan\Type\Type $type) : bool
+    {
+        if (!$type instanceof \PHPStan\Type\ArrayType) {
             return \false;
         }
-        if (!$paramStaticType instanceof \PHPStan\Type\ArrayType) {
-            return \true;
+        $iterableValueType = $type->getIterableValueType();
+        if (!$iterableValueType instanceof \PHPStan\Type\MixedType) {
+            return \false;
         }
-        if (!$paramStaticType->getIterableValueType() instanceof \PHPStan\Type\MixedType) {
-            return \true;
-        }
-        // is defined mixed[] explicitly
-        /** @var MixedType $mixedType */
-        $mixedType = $paramStaticType->getIterableValueType();
-        return $mixedType->isExplicitMixed();
+        return $iterableValueType->isExplicitMixed();
     }
 }

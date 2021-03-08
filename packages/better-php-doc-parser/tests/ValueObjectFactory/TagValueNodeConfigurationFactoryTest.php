@@ -44,6 +44,9 @@ final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210308\S
         $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent($originalContent, $this->columnTagValueNodeFactory->create());
         $this->assertSame(':', $tagValueNodeConfiguration->getArrayEqualSign());
     }
+    /**
+     * @return Iterator<string[]>
+     */
     public function provideData() : \Iterator
     {
         (yield ['(type="integer", nullable=true, options={"default":0})']);

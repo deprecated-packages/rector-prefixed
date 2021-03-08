@@ -23,6 +23,7 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use Rector\TypeDeclaration\TypeInferer\SilentVoidResolver;
+use Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower;
 use RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
@@ -46,12 +47,17 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @var SplArrayFixedTypeNarrower
+     */
+    private $splArrayFixedTypeNarrower;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210308\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower)
     {
         $this->silentVoidResolver = $silentVoidResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->typeFactory = $typeFactory;
+        $this->splArrayFixedTypeNarrower = $splArrayFixedTypeNarrower;
     }
     /**
      * @param ClassMethod|Closure|Function_ $functionLike
@@ -73,12 +79,9 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         $hasSilentVoid = $this->silentVoidResolver->hasSilentVoid($functionLike);
         foreach ($localReturnNodes as $localReturnNode) {
-            if ($localReturnNode->expr === null) {
-                $this->types[] = new \PHPStan\Type\VoidType();
-                continue;
-            }
-            $exprType = $this->nodeTypeResolver->getStaticType($localReturnNode->expr);
-            $this->types[] = $exprType;
+            $returnedExprType = $this->nodeTypeResolver->getStaticType($localReturnNode);
+            $returnedExprType = $this->splArrayFixedTypeNarrower->narrow($returnedExprType);
+            $this->types[] = $returnedExprType;
         }
         if ($hasSilentVoid) {
             $this->types[] = new \PHPStan\Type\VoidType();

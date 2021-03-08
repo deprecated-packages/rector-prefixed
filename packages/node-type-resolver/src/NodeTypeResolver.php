@@ -9,10 +9,12 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
@@ -21,6 +23,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -37,6 +40,8 @@ use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
+use Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector;
+use Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
@@ -73,9 +78,17 @@ final class NodeTypeResolver
      */
     private $reflectionProvider;
     /**
+     * @var HasOffsetTypeCorrector
+     */
+    private $hasOffsetTypeCorrector;
+    /**
+     * @var IdentifierTypeResolver
+     */
+    private $identifierTypeResolver;
+    /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector $hasOffsetTypeCorrector, \Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver $identifierTypeResolver, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
@@ -85,6 +98,8 @@ final class NodeTypeResolver
         $this->genericClassStringTypeCorrector = $genericClassStringTypeCorrector;
         $this->unionTypeFactory = $unionTypeFactory;
         $this->reflectionProvider = $reflectionProvider;
+        $this->hasOffsetTypeCorrector = $hasOffsetTypeCorrector;
+        $this->identifierTypeResolver = $identifierTypeResolver;
     }
     /**
      * Prevents circular dependency
@@ -128,13 +143,17 @@ final class NodeTypeResolver
     {
         $type = $this->resolveByNodeTypeResolvers($node);
         if ($type !== null) {
-            return $type;
+            return $this->hasOffsetTypeCorrector->correct($type);
         }
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if (!$node instanceof \PhpParser\Node\Expr) {
+            // scalar type, e.g. from param type name
+            if ($node instanceof \PhpParser\Node\Identifier) {
+                return $this->identifierTypeResolver->resolve($node);
+            }
             return new \PHPStan\Type\MixedType();
         }
         // skip anonymous classes, ref https://github.com/rectorphp/rector/issues/1574
@@ -176,6 +195,9 @@ final class NodeTypeResolver
         if ($node instanceof \PhpParser\Node\Param) {
             return $this->resolve($node);
         }
+        if ($node instanceof \PhpParser\Node\Stmt\Return_) {
+            return $this->resolve($node);
+        }
         if (!$node instanceof \PhpParser\Node\Expr) {
             return new \PHPStan\Type\MixedType();
         }
@@ -196,10 +218,13 @@ final class NodeTypeResolver
             }
         }
         $staticType = $scope->getType($node);
-        if (!$staticType instanceof \PHPStan\Type\ObjectType) {
+        if ($staticType instanceof \PHPStan\Type\Generic\GenericObjectType) {
             return $staticType;
         }
-        return $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, $staticType);
+        if ($staticType instanceof \PHPStan\Type\ObjectType) {
+            return $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, $staticType);
+        }
+        return $staticType;
     }
     public function isNumberType(\PhpParser\Node $node) : bool
     {

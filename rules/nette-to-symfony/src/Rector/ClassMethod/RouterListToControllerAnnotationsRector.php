@@ -12,7 +12,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TypeWithClassName;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory;
 use Rector\Core\Rector\AbstractRector;
@@ -182,7 +181,7 @@ CODE_SAMPLE
             }
             if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
                 // for custom static route factories
-                return $this->isRouteStaticCallMatch($node->expr);
+                return $this->nodeTypeResolver->isObjectType($node->expr, new \PHPStan\Type\ObjectType('Nette\\Application\\IRouter'));
             }
             return \false;
         });
@@ -229,31 +228,6 @@ CODE_SAMPLE
                 $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation($classMethod, $symfonyRoutePhpDocTagValueNode);
             }
         }
-    }
-    private function isRouteStaticCallMatch(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
-    {
-        $className = $this->getName($staticCall->class);
-        if ($className === null) {
-            return \false;
-        }
-        $methodName = $this->getName($staticCall->name);
-        if ($methodName === null) {
-            return \false;
-        }
-        if (!$this->reflectionProvider->hasClass($className)) {
-            return \false;
-        }
-        $classReflection = $this->reflectionProvider->getClass($className);
-        if (!$classReflection->hasMethod($methodName)) {
-            return \false;
-        }
-        $methodReflection = $classReflection->getNativeMethod($methodName);
-        $parametersAcceptor = $methodReflection->getVariants()[0];
-        $returnType = $parametersAcceptor->getReturnType();
-        if ($returnType instanceof \PHPStan\Type\TypeWithClassName) {
-            return \is_a($returnType->getClassName(), 'Nette\\Application\\IRouter', \true);
-        }
-        return \false;
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

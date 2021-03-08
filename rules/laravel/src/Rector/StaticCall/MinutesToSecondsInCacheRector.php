@@ -83,7 +83,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToTimeMethodsAndPositions as $typeToTimeMethodAndPosition) {
-            if (!$this->isObjectType($node, $typeToTimeMethodAndPosition->getObjectType())) {
+            if (!$this->isObjectType($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class, $typeToTimeMethodAndPosition->getObjectType())) {
                 continue;
             }
             if (!$this->isName($node->name, $typeToTimeMethodAndPosition->getMethodName())) {
