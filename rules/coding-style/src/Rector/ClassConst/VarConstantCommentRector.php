@@ -116,11 +116,16 @@ CODE_SAMPLE
         if ($this->hasTwoAndMoreGenericClassStringTypes($constType)) {
             return \true;
         }
-        if (\count($constType->getValueTypes()) > 3) {
-            foreach ($constType->getValueTypes() as $constValueType) {
-                if ($constValueType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-                    return \true;
-                }
+        return $this->isHugeNestedConstantArrayTyp($constType);
+    }
+    private function isHugeNestedConstantArrayTyp(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
+    {
+        if (\count($constantArrayType->getValueTypes()) <= 3) {
+            return \false;
+        }
+        foreach ($constantArrayType->getValueTypes() as $constValueType) {
+            if ($constValueType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+                return \true;
             }
         }
         return \false;
