@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
@@ -29,7 +30,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
      * - bool because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
      * - null because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
      *
-     * @var array<class-string<\PHPStan\Type\Type>>
+     * @var array<class-string<Type>>
      */
     private const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
     /**

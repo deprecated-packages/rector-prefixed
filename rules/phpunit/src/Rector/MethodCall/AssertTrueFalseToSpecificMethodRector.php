@@ -56,7 +56,7 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\StaticCall || $firstArgumentValue instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\FuncCall && !$firstArgumentValue instanceof \PhpParser\Node\Expr\Empty_) {
             return null;
         }
         foreach ($this->functionNameWithAssertMethods as $functionNameWithAssertMethod) {

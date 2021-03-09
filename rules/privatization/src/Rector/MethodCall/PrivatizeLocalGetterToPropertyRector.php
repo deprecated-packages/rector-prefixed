@@ -93,9 +93,10 @@ CODE_SAMPLE
         if (!$onlyStmt instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
-        if (!$onlyStmt->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+        $returnedExpr = $onlyStmt->expr;
+        if (!$returnedExpr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-        return $onlyStmt->expr;
+        return $returnedExpr;
     }
 }
