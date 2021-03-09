@@ -31,6 +31,9 @@ final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNodeType() : string
     {
         return \PhpParser\Node\NullableType::class;

@@ -30,6 +30,9 @@ final class UnionTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\Php
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNodeType() : string
     {
         return \PhpParser\Node\UnionType::class;

@@ -35,6 +35,9 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->reflectionProvider = $reflectionProvider;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNodeType() : string
     {
         return \PhpParser\Node\Name::class;
