@@ -35,7 +35,7 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         $this->tagValueNodePrinter = $tagValueNodePrinter;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Inject>>
      */
     public function getClasses() : array
     {

@@ -4,10 +4,12 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer;
 
 use PhpParser\Node\FunctionLike;
+use PHPStan\Type\ClassStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use Rector\TypeDeclaration\Sorter\TypeInfererSorter;
+use Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer;
 use Rector\TypeDeclaration\TypeNormalizer;
 final class ReturnTypeInferer
 {
@@ -20,12 +22,17 @@ final class ReturnTypeInferer
      */
     private $typeNormalizer;
     /**
+     * @var GenericClassStringTypeNormalizer
+     */
+    private $genericClassStringTypeNormalizer;
+    /**
      * @param ReturnTypeInfererInterface[] $returnTypeInferers
      */
-    public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter)
+    public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter, \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer $genericClassStringTypeNormalizer)
     {
         $this->returnTypeInferers = $typeInfererSorter->sort($returnTypeInferers);
         $this->typeNormalizer = $typeNormalizer;
+        $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
     }
     public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
@@ -49,7 +56,8 @@ final class ReturnTypeInferer
             if ($type instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
-            return $type;
+            // normalize ConstStringType to ClassStringType
+            return $this->genericClassStringTypeNormalizer->normalize($type);
         }
         return new \PHPStan\Type\MixedType();
     }

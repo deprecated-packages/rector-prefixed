@@ -7,6 +7,7 @@ use PhpParser\Node\Param;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
+use Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer;
 final class ParamTypeInferer
 {
     /**
@@ -14,11 +15,16 @@ final class ParamTypeInferer
      */
     private $paramTypeInferers = [];
     /**
+     * @var GenericClassStringTypeNormalizer
+     */
+    private $genericClassStringTypeNormalizer;
+    /**
      * @param ParamTypeInfererInterface[] $paramTypeInferers
      */
-    public function __construct(array $paramTypeInferers)
+    public function __construct(\Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer $genericClassStringTypeNormalizer, array $paramTypeInferers)
     {
         $this->paramTypeInferers = $paramTypeInferers;
+        $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
     }
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
@@ -27,7 +33,7 @@ final class ParamTypeInferer
             if ($type instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
-            return $type;
+            return $this->genericClassStringTypeNormalizer->normalize($type);
         }
         return new \PHPStan\Type\MixedType();
     }

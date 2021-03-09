@@ -12,7 +12,9 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
@@ -86,6 +88,10 @@ final class ClassMethodReturnTypeOverrideGuard
     public function shouldSkipClassMethodOldTypeWithNewType(\PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType) : bool
     {
         if ($oldType instanceof \PHPStan\Type\MixedType) {
+            return \false;
+        }
+        // new generic string type is more advanced than old array type
+        if ($oldType instanceof \PHPStan\Type\ArrayType && $newType instanceof \PHPStan\Type\ArrayType && ($oldType->getItemType() instanceof \PHPStan\Type\StringType && $newType->getItemType() instanceof \PHPStan\Type\Generic\GenericClassStringType)) {
             return \false;
         }
         if ($oldType->isSuperTypeOf($newType)->yes()) {

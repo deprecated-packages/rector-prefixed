@@ -3355,6 +3355,7 @@ return array(
     'Rector\\TypeDeclaration\\Sorter\\TypeInfererSorter' => $baseDir . '/rules/type-declaration/src/Sorter/TypeInfererSorter.php',
     'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => $baseDir . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
     'Rector\\TypeDeclaration\\TypeAnalyzer\\AdvancedArrayAnalyzer' => $baseDir . '/rules/type-declaration/src/TypeAnalyzer/AdvancedArrayAnalyzer.php',
+    'Rector\\TypeDeclaration\\TypeAnalyzer\\GenericClassStringTypeNormalizer' => $baseDir . '/rules/type-declaration/src/TypeAnalyzer/GenericClassStringTypeNormalizer.php',
     'Rector\\TypeDeclaration\\TypeAnalyzer\\ObjectTypeComparator' => $baseDir . '/rules/type-declaration/src/TypeAnalyzer/ObjectTypeComparator.php',
     'Rector\\TypeDeclaration\\TypeInferer\\AssignToPropertyTypeInferer' => $baseDir . '/rules/type-declaration/src/TypeInferer/AssignToPropertyTypeInferer.php',
     'Rector\\TypeDeclaration\\TypeInferer\\ParamTypeInferer' => $baseDir . '/rules/type-declaration/src/TypeInferer/ParamTypeInferer.php',

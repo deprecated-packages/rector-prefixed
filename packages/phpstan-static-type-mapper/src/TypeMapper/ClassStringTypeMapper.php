@@ -4,9 +4,11 @@ declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
@@ -34,7 +36,13 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     {
         $attributeAwareIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('class-string');
         if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType) {
-            $genericTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getGenericType());
+            $genericType = $type->getGenericType();
+            if ($genericType instanceof \PHPStan\Type\ObjectType) {
+                $className = $genericType->getClassName();
+                $className = $this->normalizeType($className);
+                $genericType = new \PHPStan\Type\ObjectType($className);
+            }
+            $genericTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($attributeAwareIdentifierTypeNode, [$genericTypeNode]);
         }
         return $attributeAwareIdentifierTypeNode;
@@ -56,5 +64,15 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
+    }
+    private function normalizeType(string $classType) : string
+    {
+        if (\is_a($classType, \PhpParser\Node\Expr::class, \true)) {
+            return \PhpParser\Node\Expr::class;
+        }
+        if (\is_a($classType, \PhpParser\Node::class, \true)) {
+            return \PhpParser\Node::class;
+        }
+        return $classType;
     }
 }

@@ -20,7 +20,7 @@ use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 final class ScalarTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
-     * @return class-string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeClasses() : array
     {

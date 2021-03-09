@@ -46,7 +46,7 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         $this->tagValueNodePrinter = $tagValueNodePrinter;
     }
     /**
-     * @return string[]
+     * @return array<class-string<Table>>
      */
     public function getClasses() : array
     {

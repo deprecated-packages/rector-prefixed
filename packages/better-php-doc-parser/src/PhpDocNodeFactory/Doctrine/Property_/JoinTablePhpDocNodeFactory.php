@@ -45,7 +45,7 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         $this->tagValueNodePrinter = $tagValueNodePrinter;
     }
     /**
-     * @return string[]
+     * @return array<class-string<JoinTable>>
      */
     public function getClasses() : array
     {

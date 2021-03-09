@@ -130,6 +130,9 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         if ($arrayType->getKeyType() instanceof \PHPStan\Type\MixedType) {
             return \false;
         }
+        if ($this->isClassStringArrayType($arrayType)) {
+            return \true;
+        }
         // skip simple arrays, like "string[]", from converting to obvious "array<int, string>"
         if ($this->isIntegerKeyAndNonNestedArray($arrayType)) {
             return \false;
@@ -156,6 +159,10 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($arrayType->getItemType());
         $attributeAwareIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('array');
+        // is class-string[] list only
+        if ($this->isClassStringArrayType($arrayType)) {
+            $withKey = \false;
+        }
         if ($withKey) {
             $keyTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($arrayType->getKeyType());
             $genericTypes = [$keyTypeNode, $itemTypeNode];
@@ -210,5 +217,15 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericClassStringType);
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode(new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('array'), [$itemTypeNode]);
+    }
+    private function isClassStringArrayType(\PHPStan\Type\ArrayType $arrayType) : bool
+    {
+        if ($arrayType->getKeyType() instanceof \PHPStan\Type\MixedType) {
+            return $arrayType->getItemType() instanceof \PHPStan\Type\Generic\GenericClassStringType;
+        }
+        if ($arrayType->getKeyType() instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
+            return $arrayType->getItemType() instanceof \PHPStan\Type\Generic\GenericClassStringType;
+        }
+        return \false;
     }
 }

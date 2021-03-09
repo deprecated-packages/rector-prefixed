@@ -13,6 +13,7 @@ use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
 use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
 use Rector\TypeDeclaration\Sorter\TypeInfererSorter;
+use Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer;
 use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer;
 use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer;
 final class PropertyTypeInferer
@@ -38,15 +39,20 @@ final class PropertyTypeInferer
      */
     private $varDocPropertyTypeInferer;
     /**
+     * @var GenericClassStringTypeNormalizer
+     */
+    private $genericClassStringTypeNormalizer;
+    /**
      * @param PropertyTypeInfererInterface[] $propertyTypeInferers
      */
-    public function __construct(\Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, array $propertyTypeInferers)
+    public function __construct(\Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter, \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer $genericClassStringTypeNormalizer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, array $propertyTypeInferers)
     {
         $this->propertyTypeInferers = $typeInfererSorter->sort($propertyTypeInferers);
         $this->defaultValuePropertyTypeInferer = $defaultValuePropertyTypeInferer;
         $this->typeFactory = $typeFactory;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->varDocPropertyTypeInferer = $varDocPropertyTypeInferer;
+        $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
     }
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
@@ -75,7 +81,7 @@ final class PropertyTypeInferer
                 return $this->unionWithDefaultValueType($defaultValueType, $resolvedType);
             }
         }
-        return $resolvedType;
+        return $this->genericClassStringTypeNormalizer->normalize($resolvedType);
     }
     private function shouldUnionWithDefaultValue(\PHPStan\Type\Type $defaultValueType, \PHPStan\Type\Type $type) : bool
     {

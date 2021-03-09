@@ -39,7 +39,7 @@ CODE_SAMPLE
 , [self::PARENT_TYPES_TO_REMOVE => ['SomeParentClass']])]);
     }
     /**
-     * @return class-string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes() : array
     {
