@@ -31,6 +31,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
+ *
  * @see https://wiki.php.net/rfc/scalar_type_hints_v5
  * @see https://github.com/nikic/TypeUtil
  * @see https://github.com/nette/type-fixer
@@ -127,14 +128,14 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && $this->shouldSkipClassMethod($node)) {
             return null;
         }
-        $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
-        if ($inferedType instanceof \PHPStan\Type\MixedType) {
+        $inferedReturnType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
+        if ($inferedReturnType instanceof \PHPStan\Type\MixedType) {
             return null;
         }
-        if ($this->returnTypeAlreadyAddedChecker->isSameOrBetterReturnTypeAlreadyAdded($node, $inferedType)) {
+        if ($this->returnTypeAlreadyAddedChecker->isSameOrBetterReturnTypeAlreadyAdded($node, $inferedReturnType)) {
             return null;
         }
-        return $this->processType($node, $inferedType);
+        return $this->processType($node, $inferedReturnType);
     }
     /**
      * @param ClassMethod|Function_ $node

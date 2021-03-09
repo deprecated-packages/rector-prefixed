@@ -72,6 +72,7 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        return $this->isObjectType($assign->expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Presenter'));
+        $arrayDimFetch = $assign->expr;
+        return $this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Presenter'));
     }
 }

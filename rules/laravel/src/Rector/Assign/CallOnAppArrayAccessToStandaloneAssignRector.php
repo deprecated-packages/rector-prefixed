@@ -49,10 +49,11 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $methodCall = $node->expr;
-        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Illuminate\\Contracts\\Foundation\\Application'))) {
+        if (!$methodCall->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-        if (!$methodCall->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        $arrayDimFetch = $methodCall->var;
+        if (!$this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('Illuminate\\Contracts\\Foundation\\Application'))) {
             return null;
         }
         $arrayDimFetchDim = $methodCall->var->dim;

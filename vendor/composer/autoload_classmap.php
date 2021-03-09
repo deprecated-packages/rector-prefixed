@@ -2636,7 +2636,6 @@ return array(
     'Rector\\NodeTypeResolver\\NodeTypeCorrector\\HasOffsetTypeCorrector' => $baseDir . '/packages/node-type-resolver/src/NodeTypeCorrector/HasOffsetTypeCorrector.php',
     'Rector\\NodeTypeResolver\\NodeTypeCorrector\\PregMatchTypeCorrector' => $baseDir . '/packages/node-type-resolver/src/NodeTypeCorrector/PregMatchTypeCorrector.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver.php',
-    'Rector\\NodeTypeResolver\\NodeTypeResolver\\ArrayDimFetchTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ArrayDimFetchTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\CastTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/CastTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassAndInterfaceTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ClassAndInterfaceTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassMethodOrClassConstTypeResolver' => $baseDir . '/packages/node-type-resolver/src/NodeTypeResolver/ClassMethodOrClassConstTypeResolver.php',
