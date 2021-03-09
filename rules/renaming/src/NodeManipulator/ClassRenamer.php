@@ -20,12 +20,15 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\Configuration\Option;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeRemoval\NodeRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use RectorPrefix20210309\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210309\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ClassRenamer
 {
     /**
@@ -64,7 +67,15 @@ final class ClassRenamer
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210309\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @var NodeRemover
+     */
+    private $nodeRemover;
+    /**
+     * @var ParameterProvider
+     */
+    private $parameterProvider;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210309\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeRemoval\NodeRemover $nodeRemover, \RectorPrefix20210309\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
@@ -74,6 +85,8 @@ final class ClassRenamer
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->docBlockClassRenamer = $docBlockClassRenamer;
         $this->reflectionProvider = $reflectionProvider;
+        $this->nodeRemover = $nodeRemover;
+        $this->parameterProvider = $parameterProvider;
     }
     /**
      * @param array<string, string> $oldToNewClasses
@@ -131,9 +144,29 @@ final class ClassRenamer
             // also they might cause some rename
             return null;
         }
+        $last = $name->getLast();
+        $newNameName = new \PhpParser\Node\Name\FullyQualified($newName);
+        $newNameLastName = $newNameName->getLast();
+        $importNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
+        if ($last === $newNameLastName && $importNames) {
+            $this->removeUseName($name);
+        }
         $name = new \PhpParser\Node\Name\FullyQualified($newName);
         $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $parentNode);
         return $name;
+    }
+    private function removeUseName(\PhpParser\Node\Name $oldName) : void
+    {
+        $uses = $this->betterNodeFinder->findFirstPreviousOfNode($oldName, function (\PhpParser\Node $node) use($oldName) : bool {
+            return $node instanceof \PhpParser\Node\Stmt\UseUse && $this->nodeNameResolver->areNamesEqual($node, $oldName);
+        });
+        if (!$uses instanceof \PhpParser\Node\Stmt\UseUse) {
+            return;
+        }
+        if ($uses->alias !== null) {
+            return;
+        }
+        $this->nodeRemover->removeNode($uses);
     }
     /**
      * @param array<string, string> $oldToNewClasses
