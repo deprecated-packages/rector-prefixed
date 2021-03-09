@@ -22,7 +22,7 @@ final class ReservedObjectRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const RESERVED_KEYWORDS_TO_REPLACEMENTS = '$reservedKeywordsToReplacements';
+    public const RESERVED_KEYWORDS_TO_REPLACEMENTS = 'reserved_keywords_to_replacements';
     /**
      * @var string[]
      */

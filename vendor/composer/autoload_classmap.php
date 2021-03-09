@@ -1565,6 +1565,7 @@ return array(
     'RectorPrefix20210309\\UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'RectorPrefix20210309\\ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     'RectorPrefix20210309\\Webmozart\\Assert\\Assert' => $vendorDir . '/webmozart/assert/src/Assert.php',
+    'RectorPrefix20210309\\Webmozart\\Assert\\InvalidArgumentException' => $vendorDir . '/webmozart/assert/src/InvalidArgumentException.php',
     'RectorPrefix20210309\\Webmozart\\Assert\\Mixin' => $vendorDir . '/webmozart/assert/src/Mixin.php',
     'Rector\\Arguments\\NodeAnalyzer\\ArgumentAddingScope' => $baseDir . '/rules/arguments/src/NodeAnalyzer/ArgumentAddingScope.php',
     'Rector\\Arguments\\Rector\\ClassMethod\\ArgumentAdderRector' => $baseDir . '/rules/arguments/src/Rector/ClassMethod/ArgumentAdderRector.php',

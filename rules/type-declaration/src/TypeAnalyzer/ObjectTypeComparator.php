@@ -5,6 +5,7 @@ namespace Rector\TypeDeclaration\TypeAnalyzer;
 
 use PHPStan\Type\CallableType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 final class ObjectTypeComparator
 {
@@ -14,6 +15,9 @@ final class ObjectTypeComparator
      */
     public function isCurrentObjectTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $newType) : bool
     {
+        if ($newType instanceof \PHPStan\Type\ObjectWithoutClassType && $currentType instanceof \PHPStan\Type\ObjectType) {
+            return \true;
+        }
         if ($this->isBothCallable($currentType, $newType)) {
             return \true;
         }

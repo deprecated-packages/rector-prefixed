@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c
+class ComposerStaticInit18a85c818645444a25f343fdc64938f6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2350,6 +2350,7 @@ class ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c
         'RectorPrefix20210309\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'RectorPrefix20210309\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'RectorPrefix20210309\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
+        'RectorPrefix20210309\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'RectorPrefix20210309\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
         'Rector\\Arguments\\NodeAnalyzer\\ArgumentAddingScope' => __DIR__ . '/../..' . '/rules/arguments/src/NodeAnalyzer/ArgumentAddingScope.php',
         'Rector\\Arguments\\Rector\\ClassMethod\\ArgumentAdderRector' => __DIR__ . '/../..' . '/rules/arguments/src/Rector/ClassMethod/ArgumentAdderRector.php',
@@ -4229,9 +4230,9 @@ class ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit490e30a9a63f575c0f16ff6e777fbe6c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit18a85c818645444a25f343fdc64938f6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit18a85c818645444a25f343fdc64938f6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit18a85c818645444a25f343fdc64938f6::$classMap;
 
         }, null, ClassLoader::class);
     }

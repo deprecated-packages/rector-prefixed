@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -16,12 +17,15 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\TestClassResolver\TestClassResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use PHPStan\Reflection\ReflectionProvider;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Class_\AddSeeTestAnnotationRector\AddSeeTestAnnotationRectorTest
  */
 final class AddSeeTestAnnotationRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const SEE = 'see';
     /**
      * @var TestClassResolver
      */
@@ -104,7 +108,7 @@ CODE_SAMPLE
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
-        $seeTags = $phpDocInfo->getTagsByName('see');
+        $seeTags = $phpDocInfo->getTagsByName(self::SEE);
         // is the @see annotation already added
         foreach ($seeTags as $seeTag) {
             if (!$seeTag->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
@@ -125,7 +129,7 @@ CODE_SAMPLE
     }
     private function hasAlreadySeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $testCaseClassName) : bool
     {
-        $seePhpDocTagNodes = $phpDocInfo->getTagsByName('see');
+        $seePhpDocTagNodes = $phpDocInfo->getTagsByName(self::SEE);
         foreach ($seePhpDocTagNodes as $seePhpDocTagNode) {
             if (!$seePhpDocTagNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
                 continue;
@@ -140,7 +144,7 @@ CODE_SAMPLE
     }
     private function removeNonExistingClassSeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $seePhpDocTagNodes = $phpDocInfo->getTagsByName('see');
+        $seePhpDocTagNodes = $phpDocInfo->getTagsByName(self::SEE);
         foreach ($seePhpDocTagNodes as $seePhpDocTagNode) {
             if (!$seePhpDocTagNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
                 continue;
