@@ -46,6 +46,7 @@ final class ConsoleApplication extends \RectorPrefix20210309\Symfony\Component\C
         }
         $this->addCommands($commands);
         $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
+        $this->setDefaultCommand('process');
     }
     public function doRun(\RectorPrefix20210309\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210309\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
