@@ -6,6 +6,7 @@ namespace Rector\NodeTypeResolver\TypeComparator;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -63,6 +64,7 @@ final class TypeComparator
         if ($this->typeHasher->areTypesEqual($firstType, $secondType)) {
             return \true;
         }
+        // is template of
         return $this->areArrayTypeWithSingleObjectChildToParent($firstType, $secondType);
     }
     public function arePhpParserAndPhpStanPhpDocTypesEqual(\PhpParser\Node $phpParserNode, \PHPStan\PhpDocParser\Ast\Type\TypeNode $phpStanDocTypeNode, \PhpParser\Node $node) : bool
@@ -110,6 +112,20 @@ final class TypeComparator
         }
         $firstArrayItemType = $firstType->getItemType();
         $secondArrayItemType = $secondType->getItemType();
+        if ($this->isMutualObjectSubtypes($firstArrayItemType, $secondArrayItemType)) {
+            return \true;
+        }
+        if (!$firstArrayItemType instanceof \PHPStan\Type\Generic\GenericClassStringType) {
+            return \false;
+        }
+        if (!$secondArrayItemType instanceof \PHPStan\Type\Generic\GenericClassStringType) {
+            return \false;
+        }
+        // @todo resolve later better with template map, @see https://github.com/symplify/symplify/pull/3034/commits/4f6be8b87e52117b1aa1613b9b689ae958a9d6f4
+        return $firstArrayItemType->getGenericType() instanceof \PHPStan\Type\ObjectType && $secondArrayItemType->getGenericType() instanceof \PHPStan\Type\ObjectType;
+    }
+    private function isMutualObjectSubtypes(\PHPStan\Type\Type $firstArrayItemType, \PHPStan\Type\Type $secondArrayItemType) : bool
+    {
         if ($firstArrayItemType instanceof \PHPStan\Type\ObjectType && $secondArrayItemType instanceof \PHPStan\Type\ObjectType) {
             $firstFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($firstArrayItemType);
             $secondFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($secondArrayItemType);

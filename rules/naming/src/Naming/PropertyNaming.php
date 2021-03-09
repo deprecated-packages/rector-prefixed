@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
 use RectorPrefix20210309\Nette\Utils\Strings;
+use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
