@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210308\\Symfony\\Polyfill\\Uuid\\": ""
+            "RectorPrefix20210309\\Symfony\\Polyfill\\Uuid\\": ""
         },
         "files": [
             "bootstrap.php"

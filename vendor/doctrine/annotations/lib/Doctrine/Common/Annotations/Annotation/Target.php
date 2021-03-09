@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210308\Doctrine\Common\Annotations\Annotation;
+namespace RectorPrefix20210309\Doctrine\Common\Annotations\Annotation;
 
 use InvalidArgumentException;
 use function array_keys;

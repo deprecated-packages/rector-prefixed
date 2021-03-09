@@ -12,6 +12,7 @@ use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeParameterStrategy;
 use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\Generic\TemplateTypeVariance;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
 final class ExtendsTemplateTypeMapFallbackFactory
 {
@@ -73,6 +74,6 @@ final class ExtendsTemplateTypeMapFallbackFactory
     }
     private function createTemplateObjectType(\PHPStan\Type\Generic\TemplateTypeScope $templateTypeScope, string $parentGenericTypeName, \PHPStan\Type\TypeWithClassName $typeWithClassName) : \PHPStan\Type\Generic\TemplateObjectType
     {
-        return new \PHPStan\Type\Generic\TemplateObjectType($templateTypeScope, new \PHPStan\Type\Generic\TemplateTypeParameterStrategy(), \PHPStan\Type\Generic\TemplateTypeVariance::createInvariant(), $parentGenericTypeName, $typeWithClassName->getClassName());
+        return new \PHPStan\Type\Generic\TemplateObjectType($templateTypeScope, new \PHPStan\Type\Generic\TemplateTypeParameterStrategy(), \PHPStan\Type\Generic\TemplateTypeVariance::createInvariant(), $parentGenericTypeName, new \PHPStan\Type\ObjectType($typeWithClassName->getClassName()));
     }
 }

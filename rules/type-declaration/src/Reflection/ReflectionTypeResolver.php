@@ -17,7 +17,7 @@ use PHPStan\Type\TypeWithClassName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210308\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210309\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class ReflectionTypeResolver
 {
     /**
@@ -36,7 +36,7 @@ final class ReflectionTypeResolver
      * @var PrivatesCaller
      */
     private $privatesCaller;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210308\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210309\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;

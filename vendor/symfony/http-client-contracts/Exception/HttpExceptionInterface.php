@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210308\Symfony\Contracts\HttpClient\Exception;
+namespace RectorPrefix20210309\Symfony\Contracts\HttpClient\Exception;
 
-use RectorPrefix20210308\Symfony\Contracts\HttpClient\ResponseInterface;
+use RectorPrefix20210309\Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * Base interface for HTTP-related exceptions.
  *
  * @author Anton Chernikov <anton_ch1989@mail.ru>
  */
-interface HttpExceptionInterface extends \RectorPrefix20210308\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
+interface HttpExceptionInterface extends \RectorPrefix20210309\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
 {
-    public function getResponse() : \RectorPrefix20210308\Symfony\Contracts\HttpClient\ResponseInterface;
+    public function getResponse() : \RectorPrefix20210309\Symfony\Contracts\HttpClient\ResponseInterface;
 }

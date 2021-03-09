@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210308\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory;
+namespace RectorPrefix20210309\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
-use RectorPrefix20210308\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210308\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210308\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class TagsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210308\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class TagsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ final class TagsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2021030
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210308\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -47,6 +47,6 @@ final class TagsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2021030
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \RectorPrefix20210308\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::TAGS;
+        return $key === \RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::TAGS;
     }
 }

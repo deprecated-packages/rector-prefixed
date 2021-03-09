@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210308;
+namespace RectorPrefix20210309;
 
 use Rector\Php73\Rector\BooleanOr\IsCountableRector;
 use Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector;
@@ -12,8 +12,8 @@ use Rector\Php73\Rector\FuncCall\SensitiveDefineRector;
 use Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector;
 use Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use RectorPrefix20210308\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210308\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Php73\Rector\BooleanOr\IsCountableRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector::class);

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210308\Symplify\PhpConfigPrinter\Printer;
+namespace RectorPrefix20210309\Symplify\PhpConfigPrinter\Printer;
 
-use RectorPrefix20210308\Nette\Utils\Strings;
+use RectorPrefix20210309\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
@@ -12,8 +12,8 @@ use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\DeclareDeclare;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\PrettyPrinter\Standard;
-use RectorPrefix20210308\Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser;
-use RectorPrefix20210308\Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator;
+use RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser;
+use RectorPrefix20210309\Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator;
 final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
 {
     /**
@@ -48,7 +48,7 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      * @var EmptyLineNodeDecorator
      */
     private $emptyLineNodeDecorator;
-    public function __construct(\RectorPrefix20210308\Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser $importFullyQualifiedNamesNodeTraverser, \RectorPrefix20210308\Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator $emptyLineNodeDecorator)
+    public function __construct(\RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser $importFullyQualifiedNamesNodeTraverser, \RectorPrefix20210309\Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator $emptyLineNodeDecorator)
     {
         $this->importFullyQualifiedNamesNodeTraverser = $importFullyQualifiedNamesNodeTraverser;
         $this->emptyLineNodeDecorator = $emptyLineNodeDecorator;
@@ -62,11 +62,11 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
         $stmts = $this->prependStrictTypesDeclare($stmts);
         $printedContent = parent::prettyPrintFile($stmts);
         // remove trailing spaces
-        $printedContent = \RectorPrefix20210308\Nette\Utils\Strings::replace($printedContent, self::START_WITH_SPACE_REGEX, "\n");
+        $printedContent = \RectorPrefix20210309\Nette\Utils\Strings::replace($printedContent, self::START_WITH_SPACE_REGEX, "\n");
         // remove space before " :" in main closure
-        $printedContent = \RectorPrefix20210308\Nette\Utils\Strings::replace($printedContent, self::VOID_AFTER_FUNC_REGEX, '): void');
+        $printedContent = \RectorPrefix20210309\Nette\Utils\Strings::replace($printedContent, self::VOID_AFTER_FUNC_REGEX, '): void');
         // remove space between declare strict types
-        $printedContent = \RectorPrefix20210308\Nette\Utils\Strings::replace($printedContent, self::DECLARE_SPACE_STRICT_REGEX, 'declare(strict');
+        $printedContent = \RectorPrefix20210309\Nette\Utils\Strings::replace($printedContent, self::DECLARE_SPACE_STRICT_REGEX, 'declare(strict');
         return $printedContent . \PHP_EOL;
     }
     /**
@@ -78,7 +78,7 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     protected function pSingleQuotedString(string $string) : string
     {
-        return "'" . \RectorPrefix20210308\Nette\Utils\Strings::replace($string, self::QUOTE_SLASH_REGEX, '\\\\$0') . "'";
+        return "'" . \RectorPrefix20210309\Nette\Utils\Strings::replace($string, self::QUOTE_SLASH_REGEX, '\\\\$0') . "'";
     }
     protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $array) : string
     {
@@ -92,8 +92,8 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     private function indentFluentCallToNewline(string $content) : string
     {
-        $nextCallIndentReplacement = ')' . \PHP_EOL . \RectorPrefix20210308\Nette\Utils\Strings::indent('->', 8, ' ');
-        return \RectorPrefix20210308\Nette\Utils\Strings::replace($content, '#\\)->#', $nextCallIndentReplacement);
+        $nextCallIndentReplacement = ')' . \PHP_EOL . \RectorPrefix20210309\Nette\Utils\Strings::indent('->', 8, ' ');
+        return \RectorPrefix20210309\Nette\Utils\Strings::replace($content, '#\\)->#', $nextCallIndentReplacement);
     }
     /**
      * @param Node[] $stmts

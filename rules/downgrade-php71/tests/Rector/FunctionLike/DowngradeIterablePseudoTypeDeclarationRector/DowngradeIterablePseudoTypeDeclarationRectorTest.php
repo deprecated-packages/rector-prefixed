@@ -6,13 +6,13 @@ namespace Rector\DowngradePhp71\Tests\Rector\FunctionLike\DowngradeIterablePseud
 use Iterator;
 use Rector\DowngradePhp71\Rector\FunctionLike\DowngradeIterablePseudoTypeDeclarationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeIterablePseudoTypeDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

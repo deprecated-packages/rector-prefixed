@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210308\Symfony\Component\Cache;
+namespace RectorPrefix20210309\Symfony\Component\Cache;
 
-use RectorPrefix20210308\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20210309\Symfony\Contracts\Service\ResetInterface;
 /**
  * Resets a pool's local state.
  */
-interface ResettableInterface extends \RectorPrefix20210308\Symfony\Contracts\Service\ResetInterface
+interface ResettableInterface extends \RectorPrefix20210309\Symfony\Contracts\Service\ResetInterface
 {
 }

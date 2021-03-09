@@ -6,7 +6,7 @@ namespace Rector\Order\Tests\Rector\Class_\OrderMethodsByVisibilityRector;
 use Iterator;
 use Rector\Order\Rector\Class_\OrderMethodsByVisibilityRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
 final class OrderMethodsByVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
@@ -14,7 +14,7 @@ final class OrderMethodsByVisibilityRectorTest extends \Rector\Testing\PHPUnit\A
      * @requires PHP < 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

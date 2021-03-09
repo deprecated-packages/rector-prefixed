@@ -15,7 +15,7 @@ use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210308\Symfony\Component\Uid\Uuid;
+use RectorPrefix20210309\Symfony\Component\Uid\Uuid;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -167,7 +167,7 @@ CODE_SAMPLE
     }
     private function createUuidStringNode() : \PhpParser\Node\Scalar\String_
     {
-        $uuidV4 = \RectorPrefix20210308\Symfony\Component\Uid\Uuid::v4();
+        $uuidV4 = \RectorPrefix20210309\Symfony\Component\Uid\Uuid::v4();
         return new \PhpParser\Node\Scalar\String_((string) $uuidV4);
     }
     private function isUuidType(\PhpParser\Node\Expr $expr) : bool

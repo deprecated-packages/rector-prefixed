@@ -6,13 +6,13 @@ namespace Rector\Defluent\Tests\Rector\MethodCall\NewFluentChainMethodCallToNonF
 use Iterator;
 use Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
 final class NewFluentChainMethodCallToNonFluentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210308\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

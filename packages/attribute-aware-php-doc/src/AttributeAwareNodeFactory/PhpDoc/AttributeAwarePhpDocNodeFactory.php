@@ -10,7 +10,7 @@ use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwar
 use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-use RectorPrefix20210308\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210309\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class AttributeAwarePhpDocNodeFactory implements \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface, \Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwareNodeFactoryAwareInterface
 {
     /**
@@ -21,7 +21,7 @@ final class AttributeAwarePhpDocNodeFactory implements \Rector\AttributeAwarePhp
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    public function __construct(\RectorPrefix20210308\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
+    public function __construct(\RectorPrefix20210309\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
     }
