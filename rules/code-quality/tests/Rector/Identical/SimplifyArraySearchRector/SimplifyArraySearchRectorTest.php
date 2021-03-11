@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\Identical\SimplifyArraySearchRector;
 use Iterator;
 use Rector\CodeQuality\Rector\Identical\SimplifyArraySearchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
 final class SimplifyArraySearchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

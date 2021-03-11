@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20210311\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-final class FactoryConfiguratorServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+final class FactoryConfiguratorServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20210311\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -24,6 +24,6 @@ final class FactoryConfiguratorServiceOptionKeyYamlToPhpFactory implements \Rect
     }
     public function isMatch($key, $values) : bool
     {
-        return \in_array($key, [\RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlKey::FACTORY, \RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CONFIGURATOR], \true);
+        return \in_array($key, [\RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlKey::FACTORY, \RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CONFIGURATOR], \true);
     }
 }

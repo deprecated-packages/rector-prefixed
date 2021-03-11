@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\PhpConfigPrinter\Sorter;
+namespace RectorPrefix20210311\Symplify\PhpConfigPrinter\Sorter;
 
 final class YamlArgumentSorter
 {
@@ -28,6 +28,7 @@ final class YamlArgumentSorter
     }
     private function isAssociativeArray(array $array) : bool
     {
-        return \array_keys($array) !== \range(0, \count($array) - 1);
+        $zeroToItemCount = \range(0, \count($array) - 1);
+        return \array_keys($array) !== $zeroToItemCount;
     }
 }

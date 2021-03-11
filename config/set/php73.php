@@ -1,8 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309;
+namespace RectorPrefix20210311;
 
+use Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
 use Rector\Php73\Rector\BooleanOr\IsCountableRector;
 use Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector;
 use Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector;
@@ -12,8 +13,8 @@ use Rector\Php73\Rector\FuncCall\SensitiveDefineRector;
 use Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector;
 use Rector\Php73\Rector\String_\SensitiveHereNowDocRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210311\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210311\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Php73\Rector\BooleanOr\IsCountableRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector::class);
@@ -40,4 +41,5 @@ return static function (\RectorPrefix20210309\Symfony\Component\DependencyInject
     $services->set(\Rector\Php73\Rector\FuncCall\StringifyStrNeedlesRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector::class);
+    $services->set(\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector::class);
 };

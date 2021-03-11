@@ -6,13 +6,13 @@ namespace Rector\Symfony5\Tests\Rector\MethodCall\ValidatorBuilderEnableAnnotati
 use Iterator;
 use Rector\Symfony5\Rector\MethodCall\ValidatorBuilderEnableAnnotationMappingRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
 final class ValidatorBuilderEnableAnnotationMappingRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

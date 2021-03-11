@@ -6,13 +6,13 @@ namespace Rector\Php70\Tests\Rector\Assign\ListSplitStringRector;
 use Iterator;
 use Rector\Php70\Rector\Assign\ListSplitStringRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
 final class ListSplitStringRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210309\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

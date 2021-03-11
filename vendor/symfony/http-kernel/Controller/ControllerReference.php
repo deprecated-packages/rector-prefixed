@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210309\Symfony\Component\HttpKernel\Controller;
+namespace RectorPrefix20210311\Symfony\Component\HttpKernel\Controller;
 
-use RectorPrefix20210309\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
+use RectorPrefix20210311\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 /**
  * Acts as a marker and a data holder for a Controller.
  *

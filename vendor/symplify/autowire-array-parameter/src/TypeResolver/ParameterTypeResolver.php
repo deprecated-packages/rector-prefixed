@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\AutowireArrayParameter\TypeResolver;
+namespace RectorPrefix20210311\Symplify\AutowireArrayParameter\TypeResolver;
 
-use RectorPrefix20210309\Nette\Utils\Reflection;
+use RectorPrefix20210311\Nette\Utils\Reflection;
 use ReflectionMethod;
-use RectorPrefix20210309\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use RectorPrefix20210311\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 final class ParameterTypeResolver
 {
     /**
@@ -16,7 +16,7 @@ final class ParameterTypeResolver
      * @var array<string, string>
      */
     private $resolvedParameterTypesCached = [];
-    public function __construct(\RectorPrefix20210309\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
+    public function __construct(\RectorPrefix20210311\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
     {
         $this->paramTypeDocBlockResolver = $paramTypeDocBlockResolver;
     }
@@ -26,8 +26,8 @@ final class ParameterTypeResolver
         if ($docComment === \false) {
             return null;
         }
-        $declaringClassReflection = $reflectionMethod->getDeclaringClass();
-        $uniqueKey = $parameterName . $declaringClassReflection->getName() . $reflectionMethod->getName();
+        $declaringReflectionClass = $reflectionMethod->getDeclaringClass();
+        $uniqueKey = $parameterName . $declaringReflectionClass->getName() . $reflectionMethod->getName();
         if (isset($this->resolvedParameterTypesCached[$uniqueKey])) {
             return $this->resolvedParameterTypesCached[$uniqueKey];
         }
@@ -39,7 +39,7 @@ final class ParameterTypeResolver
         if (\ctype_lower($resolvedType[0])) {
             return null;
         }
-        $resolvedClass = \RectorPrefix20210309\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringClassReflection);
+        $resolvedClass = \RectorPrefix20210311\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringReflectionClass);
         $this->resolvedParameterTypesCached[$uniqueKey] = $resolvedClass;
         return $resolvedClass;
     }

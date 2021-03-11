@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\PhpConfigPrinter\NodeFactory\Service;
+namespace RectorPrefix20210311\Symplify\PhpConfigPrinter\NodeFactory\Service;
 
-use RectorPrefix20210309\Nette\Utils\Strings;
+use RectorPrefix20210311\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
 final class ServiceOptionNodeFactory
 {
     /**
@@ -21,7 +21,7 @@ final class ServiceOptionNodeFactory
     /**
      * @param ServiceOptionsKeyYamlToPhpFactoryInterface[] $serviceOptionKeyYamlToPhpFactories
      */
-    public function __construct(\RectorPrefix20210309\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer, array $serviceOptionKeyYamlToPhpFactories)
+    public function __construct(\RectorPrefix20210311\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer, array $serviceOptionKeyYamlToPhpFactories)
     {
         $this->serviceOptionKeyYamlToPhpFactories = $serviceOptionKeyYamlToPhpFactories;
         $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;
@@ -54,12 +54,12 @@ final class ServiceOptionNodeFactory
         if (!$this->serviceOptionAnalyzer->hasNamedArguments($servicesValues)) {
             return $servicesValues;
         }
-        return [\RectorPrefix20210309\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
+        return [\RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
     }
     private function shouldSkip(string $key) : bool
     {
         // options started by decoration_<option> are used as options of the method decorate().
-        if (\RectorPrefix20210309\Nette\Utils\Strings::startsWith($key, 'decoration_')) {
+        if (\RectorPrefix20210311\Nette\Utils\Strings::startsWith($key, 'decoration_')) {
             return \true;
         }
         return $key === 'alias';

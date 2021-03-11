@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309;
+namespace RectorPrefix20210311;
 
 use Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard;
 use Rector\Testing\PhpConfigPrinter\YamlFileContentProvider;
-use RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
-use RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-return static function (\RectorPrefix20210309\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210311\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
+use RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
+return static function (\RectorPrefix20210311\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
     $services->set(\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
-    $services->alias(\RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
+    $services->alias(\RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
     $services->set(\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
-    $services->alias(\RectorPrefix20210309\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+    $services->alias(\RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
 };

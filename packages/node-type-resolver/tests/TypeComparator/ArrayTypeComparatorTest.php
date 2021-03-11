@@ -16,8 +16,8 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\NodeTypeResolver\Tests\TypeComparator\Source\SomeGenericTypeObject;
 use Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
-use RectorPrefix20210309\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class ArrayTypeComparatorTest extends \RectorPrefix20210309\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210311\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class ArrayTypeComparatorTest extends \RectorPrefix20210311\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var ArrayTypeComparator

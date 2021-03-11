@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\SmartFileSystem\Tests\Normalizer;
+namespace RectorPrefix20210311\Symplify\SmartFileSystem\Tests\Normalizer;
 
 use Iterator;
-use RectorPrefix20210309\PHPUnit\Framework\TestCase;
-use RectorPrefix20210309\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-final class PathNormalizerTest extends \RectorPrefix20210309\PHPUnit\Framework\TestCase
+use RectorPrefix20210311\PHPUnit\Framework\TestCase;
+use RectorPrefix20210311\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+final class PathNormalizerTest extends \RectorPrefix20210311\PHPUnit\Framework\TestCase
 {
     /**
      * @var PathNormalizer
@@ -14,7 +14,7 @@ final class PathNormalizerTest extends \RectorPrefix20210309\PHPUnit\Framework\T
     private $pathNormalizer;
     protected function setUp() : void
     {
-        $this->pathNormalizer = new \RectorPrefix20210309\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
+        $this->pathNormalizer = new \RectorPrefix20210311\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
     }
     /**
      * @dataProvider provideData()
@@ -24,10 +24,13 @@ final class PathNormalizerTest extends \RectorPrefix20210309\PHPUnit\Framework\T
         $normalizedPath = $this->pathNormalizer->normalizePath($inputPath);
         $this->assertSame($expectedNormalizedPath, $normalizedPath);
     }
+    /**
+     * @return Iterator<string[]>
+     */
     public function provideData() : \Iterator
     {
         // based on Linux
         (yield ['/any/path', '/any/path']);
-        (yield ['RectorPrefix20210309\\any\\path', '/any/path']);
+        (yield ['RectorPrefix20210311\\any\\path', '/any/path']);
     }
 }

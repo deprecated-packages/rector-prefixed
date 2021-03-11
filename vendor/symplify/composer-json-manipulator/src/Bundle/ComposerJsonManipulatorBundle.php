@@ -1,15 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210309\Symplify\ComposerJsonManipulator\Bundle;
+namespace RectorPrefix20210311\Symplify\ComposerJsonManipulator\Bundle;
 
-use RectorPrefix20210309\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use RectorPrefix20210309\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210309\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
-final class ComposerJsonManipulatorBundle extends \RectorPrefix20210309\Symfony\Component\HttpKernel\Bundle\Bundle
+use RectorPrefix20210311\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210311\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
+final class ComposerJsonManipulatorBundle extends \RectorPrefix20210311\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    protected function createContainerExtension() : ?\RectorPrefix20210309\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : \RectorPrefix20210311\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension
     {
-        return new \RectorPrefix20210309\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
+        return new \RectorPrefix20210311\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
     }
 }

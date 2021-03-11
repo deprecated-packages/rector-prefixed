@@ -9,6 +9,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -134,6 +135,12 @@ CODE_SAMPLE
         }
         if ($this->shouldSkipType($inferredReturnType, $node, $phpDocInfo)) {
             return null;
+        }
+        if ($inferredReturnType instanceof \PHPStan\Type\Generic\GenericObjectType && $currentReturnType instanceof \PHPStan\Type\MixedType) {
+            $types = $inferredReturnType->getTypes();
+            if ($types[0] instanceof \PHPStan\Type\MixedType && $types[1] instanceof \PHPStan\Type\ArrayType) {
+                return null;
+            }
         }
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $inferredReturnType);
         $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);

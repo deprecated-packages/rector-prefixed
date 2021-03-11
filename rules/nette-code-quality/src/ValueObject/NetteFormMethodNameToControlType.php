@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\ValueObject;
 
-use RectorPrefix20210309\Nette\Forms\Controls\BaseControl;
+use RectorPrefix20210311\Nette\Forms\Controls\BaseControl;
 final class NetteFormMethodNameToControlType
 {
     /**

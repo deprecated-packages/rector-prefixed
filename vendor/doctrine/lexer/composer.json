@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210309\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+            "RectorPrefix20210311\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210309\\Doctrine\\Tests\\": "tests\/Doctrine"
+            "RectorPrefix20210311\\Doctrine\\Tests\\": "tests\/Doctrine"
         }
     },
     "extra": {

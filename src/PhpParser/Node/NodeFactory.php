@@ -56,9 +56,9 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
-use RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
+use RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\NodeFactoryTest
  */
@@ -197,13 +197,13 @@ final class NodeFactory
     }
     public function createPublicMethod(string $name) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($name);
+        $methodBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($name);
         $methodBuilder->makePublic();
         return $methodBuilder->getNode();
     }
     public function createParamFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Param
     {
-        $paramBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($name);
+        $paramBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($name);
         if ($type !== null) {
             $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
             if ($typeNode !== null) {
@@ -214,7 +214,7 @@ final class NodeFactory
     }
     public function createPublicInjectPropertyFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePublic();
         $property = $propertyBuilder->getNode();
         $this->addPropertyType($property, $type);
@@ -226,7 +226,7 @@ final class NodeFactory
     }
     public function createPrivatePropertyFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePrivate();
         $property = $propertyBuilder->getNode();
         $this->addPropertyType($property, $type);
@@ -282,7 +282,7 @@ final class NodeFactory
     }
     public function createStaticProtectedPropertyWithDefault(string $name, \PhpParser\Node $node) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makeProtected();
         $propertyBuilder->makeStatic();
         $propertyBuilder->setDefault($node);
@@ -292,7 +292,7 @@ final class NodeFactory
     }
     public function createProperty(string $name) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $property = $propertyBuilder->getNode();
         $this->decorateParentPropertyProperty($property);
         $this->phpDocInfoFactory->createFromNode($property);
@@ -300,7 +300,7 @@ final class NodeFactory
     }
     public function createPrivateProperty(string $name) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePrivate();
         $property = $propertyBuilder->getNode();
         $this->decorateParentPropertyProperty($property);
@@ -309,7 +309,7 @@ final class NodeFactory
     }
     public function createPublicProperty(string $name) : \PhpParser\Node\Stmt\Property
     {
-        $propertyBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
+        $propertyBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePublic();
         $property = $propertyBuilder->getNode();
         $this->decorateParentPropertyProperty($property);
@@ -336,7 +336,7 @@ final class NodeFactory
     public function createGetterClassMethodFromNameAndType(string $propertyName, ?\PhpParser\Node $typeNode) : \PhpParser\Node\Stmt\ClassMethod
     {
         $getterMethod = 'get' . \ucfirst($propertyName);
-        $methodBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
+        $methodBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
         $methodBuilder->makePublic();
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
         $return = new \PhpParser\Node\Stmt\Return_($propertyFetch);
@@ -436,7 +436,7 @@ final class NodeFactory
     }
     public function createPromotedPropertyParam(\Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : \PhpParser\Node\Param
     {
-        $paramBuilder = new \RectorPrefix20210309\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyMetadata->getName());
+        $paramBuilder = new \RectorPrefix20210311\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyMetadata->getName());
         $propertyType = $propertyMetadata->getType();
         if ($propertyType !== null) {
             $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
