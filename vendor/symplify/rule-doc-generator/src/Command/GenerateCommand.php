@@ -32,12 +32,12 @@ final class GenerateCommand extends \RectorPrefix20210311\Symplify\PackageBuilde
     }
     protected function execute(\RectorPrefix20210311\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210311\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        $workingDirectory = \getcwd();
         $paths = (array) $input->getArgument(\Symplify\RuleDocGenerator\ValueObject\Option::PATHS);
         $shouldCategorize = (bool) $input->getOption(\Symplify\RuleDocGenerator\ValueObject\Option::CATEGORIZE);
-        $markdownFileContent = $this->directoryToMarkdownPrinter->print($workingDirectory, $paths, $shouldCategorize);
         // dump markdown file
         $outputFilePath = (string) $input->getOption(\Symplify\RuleDocGenerator\ValueObject\Option::OUTPUT_FILE);
+        $markdownFileDirectory = \dirname($outputFilePath);
+        $markdownFileContent = $this->directoryToMarkdownPrinter->print($markdownFileDirectory, $paths, $shouldCategorize);
         $this->smartFileSystem->dumpFile($outputFilePath, $markdownFileContent);
         $outputFileInfo = new \RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo($outputFilePath);
         $message = \sprintf('File "%s" was created', $outputFileInfo->getRelativeFilePathFromCwd());

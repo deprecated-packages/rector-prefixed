@@ -73,7 +73,8 @@ final class SmartFileInfo extends \RectorPrefix20210311\Symfony\Component\Finder
         if (!\file_exists($directory)) {
             throw new \RectorPrefix20210311\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
         }
-        return \rtrim($this->smartFileSystem->makePathRelative($this->getNormalizedRealPath(), (string) \realpath($directory)), '/');
+        $relativeFilePath = $this->smartFileSystem->makePathRelative($this->getNormalizedRealPath(), (string) \realpath($directory));
+        return \rtrim($relativeFilePath, '/');
     }
     public function getRelativeFilePathFromCwdInTests() : string
     {
