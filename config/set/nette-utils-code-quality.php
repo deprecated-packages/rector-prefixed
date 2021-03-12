@@ -10,8 +10,8 @@ use Rector\Nette\Rector\FuncCall\PregMatchFunctionToNetteUtilsStringsRector;
 use Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector;
 use Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector;
 use Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
+use Rector\Nette\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector;
 use Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector;
-use Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector;
 use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use RectorPrefix20210312\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -28,5 +28,5 @@ return static function (\RectorPrefix20210312\Symfony\Component\DependencyInject
     $services->set(\Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector::class);
     $services->set(\Rector\Nette\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector::class);
     $services->set(\Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector::class);
-    $services->set(\Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector::class);
+    $services->set(\Rector\Nette\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector::class);
 };

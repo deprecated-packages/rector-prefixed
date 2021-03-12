@@ -10,7 +10,7 @@ use Rector\PSR4\Collector\RenamedClassesCollector;
 use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem;
 /**
- * @see \Rector\Renaming\Tests\Rector\Name\RenameClassRector\RenameNonPhpTest
+ * @see \Rector\Tests\Renaming\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
 final class NonPhpFileProcessor
 {

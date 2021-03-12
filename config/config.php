@@ -11,6 +11,7 @@ return static function (\RectorPrefix20210312\Symfony\Component\DependencyInject
     $containerConfigurator->import(__DIR__ . '/../packages/*/config/config.php');
     $containerConfigurator->import(__DIR__ . '/../rules/*/config/config.php');
     $containerConfigurator->import(__DIR__ . '/services.php');
+    $containerConfigurator->import(__DIR__ . '/services-rules.php');
     $containerConfigurator->import(__DIR__ . '/parameters.php');
     $containerConfigurator->import(__DIR__ . '/../utils/*/config/config.php', null, \true);
     $parameters = $containerConfigurator->parameters();
