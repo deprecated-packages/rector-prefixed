@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb2581947705c883c0779e10b7360af67
+class ComposerStaticInit3dcb19fe9427379de358cd63a6a50e79
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -43,7 +43,6 @@ class ComposerStaticInitb2581947705c883c0779e10b7360af67
             'Rector\\Renaming\\' => 16,
             'Rector\\Removing\\' => 16,
             'Rector\\RemovingStatic\\' => 22,
-            'Rector\\RectorGenerator\\' => 23,
             'Rector\\Privatization\\' => 21,
             'Rector\\PhpSpecToPHPUnit\\' => 24,
             'Rector\\Php80\\' => 13,
@@ -230,10 +229,6 @@ class ComposerStaticInitb2581947705c883c0779e10b7360af67
         'Rector\\RemovingStatic\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/removing-static/src',
-        ),
-        'Rector\\RectorGenerator\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/packages/rector-generator/src',
         ),
         'Rector\\Privatization\\' => 
         array (
@@ -3692,30 +3687,6 @@ class ComposerStaticInitb2581947705c883c0779e10b7360af67
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\PropertyFetchReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/ReadWrite/ReadNodeAnalyzer/PropertyFetchReadNodeAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\ReadExprAnalyzer' => __DIR__ . '/../..' . '/packages/ReadWrite/ReadNodeAnalyzer/ReadExprAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\VariableReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/ReadWrite/ReadNodeAnalyzer/VariableReadNodeAnalyzer.php',
-        'Rector\\RectorGenerator\\Command\\GenerateCommand' => __DIR__ . '/../..' . '/packages/rector-generator/src/Command/GenerateCommand.php',
-        'Rector\\RectorGenerator\\Command\\InitRecipeCommand' => __DIR__ . '/../..' . '/packages/rector-generator/src/Command/InitRecipeCommand.php',
-        'Rector\\RectorGenerator\\Composer\\ComposerPackageAutoloadUpdater' => __DIR__ . '/../..' . '/packages/rector-generator/src/Composer/ComposerPackageAutoloadUpdater.php',
-        'Rector\\RectorGenerator\\Config\\ConfigFilesystem' => __DIR__ . '/../..' . '/packages/rector-generator/src/Config/ConfigFilesystem.php',
-        'Rector\\RectorGenerator\\Contract\\InternalRectorInterface' => __DIR__ . '/../..' . '/packages/rector-generator/src/Contract/InternalRectorInterface.php',
-        'Rector\\RectorGenerator\\Exception\\ConfigurationException' => __DIR__ . '/../..' . '/packages/rector-generator/src/Exception/ConfigurationException.php',
-        'Rector\\RectorGenerator\\FileSystem\\TemplateFileSystem' => __DIR__ . '/../..' . '/packages/rector-generator/src/FileSystem/TemplateFileSystem.php',
-        'Rector\\RectorGenerator\\Finder\\TemplateFinder' => __DIR__ . '/../..' . '/packages/rector-generator/src/Finder/TemplateFinder.php',
-        'Rector\\RectorGenerator\\Generator\\FileGenerator' => __DIR__ . '/../..' . '/packages/rector-generator/src/Generator/FileGenerator.php',
-        'Rector\\RectorGenerator\\Generator\\RectorRecipeGenerator' => __DIR__ . '/../..' . '/packages/rector-generator/src/Generator/RectorRecipeGenerator.php',
-        'Rector\\RectorGenerator\\Guard\\OverrideGuard' => __DIR__ . '/../..' . '/packages/rector-generator/src/Guard/OverrideGuard.php',
-        'Rector\\RectorGenerator\\NodeFactory\\ConfigurationNodeFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/NodeFactory/ConfigurationNodeFactory.php',
-        'Rector\\RectorGenerator\\Provider\\NodeTypesProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/NodeTypesProvider.php',
-        'Rector\\RectorGenerator\\Provider\\PackageNamesProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/PackageNamesProvider.php',
-        'Rector\\RectorGenerator\\Provider\\RectorRecipeProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/RectorRecipeProvider.php',
-        'Rector\\RectorGenerator\\Provider\\SetsListProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/SetsListProvider.php',
-        'Rector\\RectorGenerator\\Rector\\Closure\\AddNewServiceToSymfonyPhpConfigRector' => __DIR__ . '/../..' . '/packages/rector-generator/src/Rector/Closure/AddNewServiceToSymfonyPhpConfigRector.php',
-        'Rector\\RectorGenerator\\TemplateFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/TemplateFactory.php',
-        'Rector\\RectorGenerator\\TemplateInitializer' => __DIR__ . '/../..' . '/packages/rector-generator/src/TemplateInitializer.php',
-        'Rector\\RectorGenerator\\TemplateVariablesFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/TemplateVariablesFactory.php',
-        'Rector\\RectorGenerator\\Testing\\ManualInteractiveInputProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Testing/ManualInteractiveInputProvider.php',
-        'Rector\\RectorGenerator\\ValueObjectFactory\\RectorRecipeInteractiveFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/ValueObjectFactory/RectorRecipeInteractiveFactory.php',
-        'Rector\\RectorGenerator\\ValueObject\\Package' => __DIR__ . '/../..' . '/packages/rector-generator/src/ValueObject/Package.php',
-        'Rector\\RectorGenerator\\ValueObject\\RectorRecipe' => __DIR__ . '/../..' . '/packages/rector-generator/src/ValueObject/RectorRecipe.php',
         'Rector\\RemovingStatic\\NodeAnalyzer\\StaticCallPresenceAnalyzer' => __DIR__ . '/../..' . '/rules/removing-static/src/NodeAnalyzer/StaticCallPresenceAnalyzer.php',
         'Rector\\RemovingStatic\\NodeFactory\\SelfContainerFactory' => __DIR__ . '/../..' . '/rules/removing-static/src/NodeFactory/SelfContainerFactory.php',
         'Rector\\RemovingStatic\\NodeFactory\\SetUpFactory' => __DIR__ . '/../..' . '/rules/removing-static/src/NodeFactory/SetUpFactory.php',
@@ -4126,9 +4097,9 @@ class ComposerStaticInitb2581947705c883c0779e10b7360af67
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb2581947705c883c0779e10b7360af67::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb2581947705c883c0779e10b7360af67::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb2581947705c883c0779e10b7360af67::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3dcb19fe9427379de358cd63a6a50e79::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3dcb19fe9427379de358cd63a6a50e79::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3dcb19fe9427379de358cd63a6a50e79::$classMap;
 
         }, null, ClassLoader::class);
     }

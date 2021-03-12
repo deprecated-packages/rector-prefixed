@@ -3,21 +3,33 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use Rector\RectorGenerator\TemplateInitializer;
 use RectorPrefix20210312\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210312\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210312\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210312\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210312\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210312\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem;
 final class InitCommand extends \RectorPrefix20210312\Symfony\Component\Console\Command\Command
 {
     /**
-     * @var TemplateInitializer
+     * @var FileSystemGuard
      */
-    private $templateInitializer;
-    public function __construct(\Rector\RectorGenerator\TemplateInitializer $templateInitializer)
+    private $fileSystemGuard;
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+    /**
+     * @var SymfonyStyle
+     */
+    private $symfonyStyle;
+    public function __construct(\RectorPrefix20210312\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210312\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
+        $this->fileSystemGuard = $fileSystemGuard;
+        $this->smartFileSystem = $smartFileSystem;
+        $this->symfonyStyle = $symfonyStyle;
         parent::__construct();
-        $this->templateInitializer = $templateInitializer;
     }
     protected function configure() : void
     {
@@ -25,7 +37,16 @@ final class InitCommand extends \RectorPrefix20210312\Symfony\Component\Console\
     }
     protected function execute(\RectorPrefix20210312\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210312\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
-        $this->templateInitializer->initialize(__DIR__ . '/../../../templates/rector.php.dist', 'rector.php');
+        $rectorTemplateFilePath = __DIR__ . '/../../../templates/rector.php.dist';
+        $this->fileSystemGuard->ensureFileExists($rectorTemplateFilePath, __METHOD__);
+        $rectorRootFilePath = \getcwd() . '/rector.php';
+        $doesFileExist = $this->smartFileSystem->exists($rectorRootFilePath);
+        if ($doesFileExist) {
+            $this->symfonyStyle->warning('Config file "rector.php" already exists');
+        } else {
+            $this->smartFileSystem->copy($rectorTemplateFilePath, $rectorRootFilePath);
+            $this->symfonyStyle->success('"rector.php" config file was added');
+        }
         return \RectorPrefix20210312\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

@@ -8,6 +8,7 @@ use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass;
 use Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader;
+use Rector\RectorGenerator\Bundle\RectorGeneratorBundle;
 use RectorPrefix20210312\Symfony\Component\Config\Loader\DelegatingLoader;
 use RectorPrefix20210312\Symfony\Component\Config\Loader\GlobFileLoader;
 use RectorPrefix20210312\Symfony\Component\Config\Loader\LoaderInterface;
@@ -69,7 +70,12 @@ final class RectorKernel extends \RectorPrefix20210312\Symfony\Component\HttpKer
      */
     public function registerBundles() : iterable
     {
-        return [new \RectorPrefix20210312\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210312\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle(), new \RectorPrefix20210312\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210312\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210312\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
+        $bundles = [new \RectorPrefix20210312\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210312\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle(), new \RectorPrefix20210312\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210312\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210312\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
+        // only for dev
+        if (\class_exists(\Rector\RectorGenerator\Bundle\RectorGeneratorBundle::class)) {
+            $bundles[] = new \Rector\RectorGenerator\Bundle\RectorGeneratorBundle();
+        }
+        return $bundles;
     }
     protected function build(\RectorPrefix20210312\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {

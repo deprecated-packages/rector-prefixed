@@ -7,7 +7,7 @@ use RectorPrefix20210312\Nette\Utils\Json;
 use RectorPrefix20210312\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
- * @see \Rector\BetterPhpDocParser\Tests\Printer\ArrayPartPhpDocTagPrinterTest
+ * @see \Rector\Tests\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinterTest
  */
 final class ArrayPartPhpDocTagPrinter
 {

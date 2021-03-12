@@ -50,6 +50,7 @@ use RectorPrefix20210312\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use RectorPrefix20210312\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210312\Symplify\PackageBuilder\Strings\StringFormatConverter;
 use RectorPrefix20210312\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210312\Symplify\SmartFileSystem\FileSystemGuard;
 use RectorPrefix20210312\Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use RectorPrefix20210312\Symplify\SmartFileSystem\Json\JsonFileSystem;
 use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem;
@@ -67,9 +68,9 @@ return static function (\RectorPrefix20210312\Symfony\Component\DependencyInject
         __DIR__ . '/../packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php',
         __DIR__ . '/../packages/Testing/PHPUnit/Runnable/NodeVisitor',
         __DIR__ . '/../packages/Testing/PHPUnit',
-        __DIR__ . '/../packages/rector-generator',
     ]);
     $services->alias(\RectorPrefix20210312\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
+    $services->set(\RectorPrefix20210312\Symplify\SmartFileSystem\FileSystemGuard::class);
     $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
     $services->set(\RectorPrefix20210312\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser::class);
     $services->set(\PhpParser\ParserFactory::class);

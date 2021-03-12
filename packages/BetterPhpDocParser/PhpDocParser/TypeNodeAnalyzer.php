@@ -10,7 +10,7 @@ use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 /**
- * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TypeNodeAnalyzerTest
+ * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TypeNodeAnalyzerTest
  */
 final class TypeNodeAnalyzer
 {

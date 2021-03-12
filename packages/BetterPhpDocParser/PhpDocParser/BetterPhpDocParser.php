@@ -28,7 +28,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use RectorPrefix20210312\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use RectorPrefix20210312\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
- * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
+ * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
 final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
 {

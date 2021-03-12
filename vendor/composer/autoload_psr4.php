@@ -23,7 +23,6 @@ return array(
     'Rector\\Renaming\\' => array($baseDir . '/rules/renaming/src'),
     'Rector\\Removing\\' => array($baseDir . '/rules/removing/src'),
     'Rector\\RemovingStatic\\' => array($baseDir . '/rules/removing-static/src'),
-    'Rector\\RectorGenerator\\' => array($baseDir . '/packages/rector-generator/src'),
     'Rector\\Privatization\\' => array($baseDir . '/rules/privatization/src'),
     'Rector\\PhpSpecToPHPUnit\\' => array($baseDir . '/rules/php-spec-to-phpunit/src'),
     'Rector\\Php80\\' => array($baseDir . '/rules/php80/src'),

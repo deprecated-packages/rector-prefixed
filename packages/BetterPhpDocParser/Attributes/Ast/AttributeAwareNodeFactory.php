@@ -12,7 +12,7 @@ use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwar
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 /**
- * @see \Rector\BetterPhpDocParser\Tests\Attributes\Ast\AttributeAwareNodeFactoryTest
+ * @see \Rector\Tests\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactoryTest
  */
 final class AttributeAwareNodeFactory
 {

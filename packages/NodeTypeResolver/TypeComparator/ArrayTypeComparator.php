@@ -11,7 +11,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
 /**
- * @see \Rector\NodeTypeResolver\Tests\TypeComparator\ArrayTypeComparatorTest
+ * @see \Rector\Tests\NodeTypeResolver\TypeComparator\ArrayTypeComparatorTest
  */
 final class ArrayTypeComparator
 {
