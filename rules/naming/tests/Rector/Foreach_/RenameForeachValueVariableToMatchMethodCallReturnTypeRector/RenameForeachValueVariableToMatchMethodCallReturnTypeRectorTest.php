@@ -6,13 +6,13 @@ namespace Rector\Naming\Tests\Rector\Foreach_\RenameForeachValueVariableToMatchM
 use Iterator;
 use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchMethodCallReturnTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameForeachValueVariableToMatchMethodCallReturnTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

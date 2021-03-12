@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210311\Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20210312\Symplify\PhpConfigPrinter\CaseConverter;
 
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
-use RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use RectorPrefix20210311\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-final class ExtensionConverter implements \RectorPrefix20210311\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+use RectorPrefix20210312\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20210312\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+final class ExtensionConverter implements \RectorPrefix20210312\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -25,7 +25,7 @@ final class ExtensionConverter implements \RectorPrefix20210311\Symplify\PhpConf
      * @var YamlKey
      */
     private $yamlKey;
-    public function __construct(\RectorPrefix20210311\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey)
+    public function __construct(\RectorPrefix20210312\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlKey = $yamlKey;
@@ -33,8 +33,8 @@ final class ExtensionConverter implements \RectorPrefix20210311\Symplify\PhpConf
     public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
         $args = $this->argsNodeFactory->createFromValues([$this->rootKey, [$key => $values]]);
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, \RectorPrefix20210311\Symplify\PhpConfigPrinter\ValueObject\MethodName::EXTENSION, $args);
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
+        $methodCall = new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, \RectorPrefix20210312\Symplify\PhpConfigPrinter\ValueObject\MethodName::EXTENSION, $args);
         return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
     public function match(string $rootKey, $key, $values) : bool

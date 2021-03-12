@@ -6,13 +6,13 @@ namespace Rector\DoctrineCodeQuality\Tests\Rector\Property\CorrectDefaultTypesOn
 use Iterator;
 use Rector\DoctrineCodeQuality\Rector\Property\CorrectDefaultTypesOnEntityPropertyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
 final class CorrectDefaultTypesOnEntityPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

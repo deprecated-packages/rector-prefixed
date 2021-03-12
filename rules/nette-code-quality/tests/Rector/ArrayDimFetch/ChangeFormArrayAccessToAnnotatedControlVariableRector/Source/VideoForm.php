@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\ArrayDimFetch\ChangeFormArrayAccessToAnnotatedControlVariableRector\Source;
 
-use RectorPrefix20210311\Nette\Application\UI\Form;
-final class VideoForm extends \RectorPrefix20210311\Nette\Application\UI\Form
+use RectorPrefix20210312\Nette\Application\UI\Form;
+final class VideoForm extends \RectorPrefix20210312\Nette\Application\UI\Form
 {
     public function __construct()
     {

@@ -50,12 +50,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210311\\App\\": "src\/"
+            "RectorPrefix20210312\\App\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210311\\App\\Tests\\": "tests\/"
+            "RectorPrefix20210312\\App\\Tests\\": "tests\/"
         }
     },
     "replace": {

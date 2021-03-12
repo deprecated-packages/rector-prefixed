@@ -6,13 +6,13 @@ namespace Rector\Php71\Tests\Rector\Assign\AssignArrayToStringRector;
 use Iterator;
 use Rector\Php71\Rector\Assign\AssignArrayToStringRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
 final class AssignArrayToStringRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210311\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

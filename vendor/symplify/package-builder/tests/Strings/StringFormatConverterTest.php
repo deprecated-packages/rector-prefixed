@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210311\Symplify\PackageBuilder\Tests\Strings;
+namespace RectorPrefix20210312\Symplify\PackageBuilder\Tests\Strings;
 
 use Iterator;
-use RectorPrefix20210311\PHPUnit\Framework\TestCase;
-use RectorPrefix20210311\Symplify\PackageBuilder\Strings\StringFormatConverter;
-final class StringFormatConverterTest extends \RectorPrefix20210311\PHPUnit\Framework\TestCase
+use RectorPrefix20210312\PHPUnit\Framework\TestCase;
+use RectorPrefix20210312\Symplify\PackageBuilder\Strings\StringFormatConverter;
+final class StringFormatConverterTest extends \RectorPrefix20210312\PHPUnit\Framework\TestCase
 {
     /**
      * @var StringFormatConverter
@@ -14,7 +14,7 @@ final class StringFormatConverterTest extends \RectorPrefix20210311\PHPUnit\Fram
     private $stringFormatConverter;
     protected function setUp() : void
     {
-        $this->stringFormatConverter = new \RectorPrefix20210311\Symplify\PackageBuilder\Strings\StringFormatConverter();
+        $this->stringFormatConverter = new \RectorPrefix20210312\Symplify\PackageBuilder\Strings\StringFormatConverter();
     }
     /**
      * @dataProvider provideCasesForCamelCaseToUnderscore()

@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210311\Symfony\Component\ExpressionLanguage\Node;
+namespace RectorPrefix20210312\Symfony\Component\ExpressionLanguage\Node;
 
-use RectorPrefix20210311\Symfony\Component\ExpressionLanguage\Compiler;
+use RectorPrefix20210312\Symfony\Component\ExpressionLanguage\Compiler;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
-class ArgumentsNode extends \RectorPrefix20210311\Symfony\Component\ExpressionLanguage\Node\ArrayNode
+class ArgumentsNode extends \RectorPrefix20210312\Symfony\Component\ExpressionLanguage\Node\ArrayNode
 {
-    public function compile(\RectorPrefix20210311\Symfony\Component\ExpressionLanguage\Compiler $compiler)
+    public function compile(\RectorPrefix20210312\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
         $this->compileArguments($compiler, \false);
     }

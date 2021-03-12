@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210311;
+namespace RectorPrefix20210312;
 
 \spl_autoload_register(function (string $class) : void {
     static $composerAutoloader;

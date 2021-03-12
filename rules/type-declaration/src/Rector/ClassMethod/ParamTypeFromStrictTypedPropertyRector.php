@@ -20,7 +20,7 @@ use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\TypeDeclaration\Reflection\ReflectionTypeResolver;
-use RectorPrefix20210311\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210312\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -36,7 +36,7 @@ final class ParamTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\A
      * @var ReflectionTypeResolver
      */
     private $reflectionTypeResolver;
-    public function __construct(\RectorPrefix20210311\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
+    public function __construct(\RectorPrefix20210312\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->reflectionTypeResolver = $reflectionTypeResolver;

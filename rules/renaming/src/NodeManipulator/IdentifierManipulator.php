@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\NodeManipulator;
 
-use RectorPrefix20210311\Nette\Utils\Strings;
+use RectorPrefix20210312\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -13,7 +13,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210311\Webmozart\Assert\Assert;
+use RectorPrefix20210312\Webmozart\Assert\Assert;
 /**
  * This class renames node identifier, e.g. ClassMethod rename:
  *
@@ -36,7 +36,7 @@ final class IdentifierManipulator
      */
     public function renameNodeWithMap(\PhpParser\Node $node, array $renameMethodMap) : void
     {
-        \RectorPrefix20210311\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
+        \RectorPrefix20210312\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
         $oldNodeMethodName = $this->resolveOldMethodName($node);
         if ($oldNodeMethodName === null) {
             return;
@@ -48,12 +48,12 @@ final class IdentifierManipulator
      */
     public function removeSuffix(\PhpParser\Node $node, string $suffixToRemove) : void
     {
-        \RectorPrefix20210311\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
+        \RectorPrefix20210312\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
         $name = $this->nodeNameResolver->getName($node);
         if ($name === null) {
             return;
         }
-        $newName = \RectorPrefix20210311\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
+        $newName = \RectorPrefix20210312\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
         $node->name = new \PhpParser\Node\Identifier($newName);
     }
     /**

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Stubs;
 
-use RectorPrefix20210311\Nette\Loaders\RobotLoader;
+use RectorPrefix20210312\Nette\Loaders\RobotLoader;
 final class StubLoader
 {
     /**
@@ -29,7 +29,7 @@ final class StubLoader
         if ($stubDirectories === []) {
             return;
         }
-        $robotLoader = new \RectorPrefix20210311\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20210312\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory(...$stubDirectories);
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector/stubs');
         $robotLoader->register();

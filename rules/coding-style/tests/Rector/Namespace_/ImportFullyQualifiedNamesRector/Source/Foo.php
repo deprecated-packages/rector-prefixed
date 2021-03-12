@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210311\Foo;
+namespace RectorPrefix20210312\Foo;
 
 final class Bar
 {
