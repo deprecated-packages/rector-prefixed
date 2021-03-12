@@ -13,9 +13,9 @@ use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
-use Rector\Legacy\Naming\FullyQualifiedNameResolver;
-use Rector\Legacy\NodeFactory\StaticMethodClassFactory;
-use Rector\Legacy\ValueObject\FunctionToStaticCall;
+use Rector\Transform\Naming\FullyQualifiedNameResolver;
+use Rector\Transform\NodeFactory\StaticMethodClassFactory;
+use Rector\Transform\ValueObject\FunctionToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
@@ -36,7 +36,7 @@ final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRec
      * @var FullyQualifiedNameResolver
      */
     private $fullyQualifiedNameResolver;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Legacy\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \Rector\Legacy\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Transform\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \Rector\Transform\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
     {
         $this->classNaming = $classNaming;
         $this->staticMethodClassFactory = $staticMethodClassFactory;
@@ -109,7 +109,7 @@ CODE_SAMPLE
                 continue;
             }
             $methodName = $this->classNaming->createMethodNameFromFunction($function);
-            $functionsToStaticCalls[] = new \Rector\Legacy\ValueObject\FunctionToStaticCall($functionName, $className, $methodName);
+            $functionsToStaticCalls[] = new \Rector\Transform\ValueObject\FunctionToStaticCall($functionName, $className, $methodName);
         }
         return $functionsToStaticCalls;
     }

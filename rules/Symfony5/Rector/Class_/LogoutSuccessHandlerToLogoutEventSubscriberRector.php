@@ -9,9 +9,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory;
+use Rector\Symfony\ValueObject\EventReferenceToMethodNameWithPriority;
 use Rector\Symfony5\NodeFactory\OnSuccessLogoutClassMethodFactory;
-use Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory;
-use Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodNameWithPriority;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -33,7 +33,7 @@ final class LogoutSuccessHandlerToLogoutEventSubscriberRector extends \Rector\Co
      * @var ObjectType
      */
     private $successHandlerObjectType;
-    public function __construct(\Rector\Symfony5\NodeFactory\OnSuccessLogoutClassMethodFactory $onSuccessLogoutClassMethodFactory, \Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
+    public function __construct(\Rector\Symfony5\NodeFactory\OnSuccessLogoutClassMethodFactory $onSuccessLogoutClassMethodFactory, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
         $this->onSuccessLogoutClassMethodFactory = $onSuccessLogoutClassMethodFactory;
@@ -124,7 +124,7 @@ CODE_SAMPLE
         $node->stmts[] = $this->onSuccessLogoutClassMethodFactory->createFromOnLogoutSuccessClassMethod($onLogoutSuccessClassMethod);
         // 3. add getSubscribedEvents() class method
         $classConstFetch = $this->nodeFactory->createClassConstReference('Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
-        $eventReferencesToMethodNames = [new \Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodNameWithPriority($classConstFetch, 'onLogout', 64)];
+        $eventReferencesToMethodNames = [new \Rector\Symfony\ValueObject\EventReferenceToMethodNameWithPriority($classConstFetch, 'onLogout', 64)];
         $getSubscribedEventsClassMethod = $this->getSubscribedEventsClassMethodFactory->create($eventReferencesToMethodNames);
         $node->stmts[] = $getSubscribedEventsClassMethod;
         $this->removeNode($onLogoutSuccessClassMethod);

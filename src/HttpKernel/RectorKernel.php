@@ -44,12 +44,12 @@ final class RectorKernel extends \RectorPrefix20210312\Symfony\Component\HttpKer
     public function getCacheDir() : string
     {
         // manually configured, so it can be replaced in phar
-        return \sys_get_temp_dir() . '/_rector';
+        return \sys_get_temp_dir() . '/rector/cache';
     }
     public function getLogDir() : string
     {
         // manually configured, so it can be replaced in phar
-        return \sys_get_temp_dir() . '/_rector_log';
+        return \sys_get_temp_dir() . '/rector/log';
     }
     public function registerContainerConfiguration(\RectorPrefix20210312\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {

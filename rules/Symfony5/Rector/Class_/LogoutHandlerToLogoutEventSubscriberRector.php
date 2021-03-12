@@ -9,9 +9,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory;
+use Rector\Symfony\ValueObject\EventReferenceToMethodName;
 use Rector\Symfony5\NodeFactory\OnLogoutClassMethodFactory;
-use Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory;
-use Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -33,7 +33,7 @@ final class LogoutHandlerToLogoutEventSubscriberRector extends \Rector\Core\Rect
      * @var ObjectType
      */
     private $logoutHandlerObjectType;
-    public function __construct(\Rector\Symfony5\NodeFactory\OnLogoutClassMethodFactory $onLogoutClassMethodFactory, \Rector\SymfonyCodeQuality\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
+    public function __construct(\Rector\Symfony5\NodeFactory\OnLogoutClassMethodFactory $onLogoutClassMethodFactory, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->onLogoutClassMethodFactory = $onLogoutClassMethodFactory;
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
@@ -105,7 +105,7 @@ CODE_SAMPLE
         $this->removeNode($logoutClassMethod);
         // 3. add getSubscribedEvents() class method
         $classConstFetch = $this->nodeFactory->createClassConstReference('Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
-        $eventReferencesToMethodNames = [new \Rector\SymfonyCodeQuality\ValueObject\EventReferenceToMethodName($classConstFetch, 'onLogout')];
+        $eventReferencesToMethodNames = [new \Rector\Symfony\ValueObject\EventReferenceToMethodName($classConstFetch, 'onLogout')];
         $getSubscribedEventsClassMethod = $this->getSubscribedEventsClassMethodFactory->create($eventReferencesToMethodNames);
         $node->stmts[] = $getSubscribedEventsClassMethod;
         return $node;
