@@ -18,11 +18,11 @@ final class PropertyMetadata
      * @var int
      */
     private $flags;
-    public function __construct(string $name, ?\PHPStan\Type\Type $type, int $falgs)
+    public function __construct(string $name, ?\PHPStan\Type\Type $type, int $flags)
     {
         $this->name = $name;
         $this->type = $type;
-        $this->flags = $falgs;
+        $this->flags = $flags;
     }
     public function getName() : string
     {

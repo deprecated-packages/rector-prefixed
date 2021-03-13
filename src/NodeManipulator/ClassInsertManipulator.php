@@ -62,6 +62,9 @@ final class ClassInsertManipulator
             $this->addAsFirstMethod($class, $property);
         }
     }
+    /**
+     * @internal Use PropertyAdder service instead
+     */
     public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type) : void
     {
         $existingProperty = $class->getProperty($name);

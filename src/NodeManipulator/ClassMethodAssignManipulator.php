@@ -60,6 +60,10 @@ final class ClassMethodAssignManipulator
      * @var CallReflectionResolver
      */
     private $callReflectionResolver;
+    /**
+     * @var array<string, string[]>
+     */
+    private $alreadyAddedClassMethodNames = [];
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210313\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeManipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->variableManipulator = $variableManipulator;
@@ -90,6 +94,8 @@ final class ClassMethodAssignManipulator
         }
         $classMethod->params[] = $this->nodeFactory->createParamFromNameAndType($name, $type);
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($assign);
+        $classMethodHash = \spl_object_hash($classMethod);
+        $this->alreadyAddedClassMethodNames[$classMethodHash][] = $name;
     }
     /**
      * @param Assign[] $variableAssigns
@@ -169,12 +175,16 @@ final class ClassMethodAssignManipulator
     }
     private function hasMethodParameter(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : bool
     {
-        foreach ($classMethod->params as $constructorParameter) {
-            if ($this->nodeNameResolver->isName($constructorParameter->var, $name)) {
+        foreach ($classMethod->params as $param) {
+            if ($this->nodeNameResolver->isName($param->var, $name)) {
                 return \true;
             }
         }
-        return \false;
+        $classMethodHash = \spl_object_hash($classMethod);
+        if (!isset($this->alreadyAddedClassMethodNames[$classMethodHash])) {
+            return \false;
+        }
+        return \in_array($name, $this->alreadyAddedClassMethodNames[$classMethodHash], \true);
     }
     /**
      * @return string[]

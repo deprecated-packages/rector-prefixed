@@ -115,9 +115,12 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210313\Symplify\Pac
         // can be implemented
         return '';
     }
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {
-        return \RectorPrefix20210313\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \RectorPrefix20210313\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively($directory, $suffix);
     }
     /**
      * @param SmartFileInfo[] $extraFileInfos

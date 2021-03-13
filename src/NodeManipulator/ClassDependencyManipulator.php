@@ -134,6 +134,10 @@ final class ClassDependencyManipulator
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $param = $this->nodeFactory->createPromotedPropertyParam($propertyMetadata);
         if ($constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            // parameter is already added
+            if ($this->hasMethodParameter($constructClassMethod, $propertyMetadata->getName())) {
+                return;
+            }
             $constructClassMethod->params[] = $param;
         } else {
             $constructClassMethod = $this->nodeFactory->createPublicMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
@@ -183,5 +187,14 @@ final class ClassDependencyManipulator
             return \false;
         }
         return $this->isParamInConstructor($class, $propertyMetadata->getName());
+    }
+    private function hasMethodParameter(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : bool
+    {
+        foreach ($classMethod->params as $param) {
+            if ($this->nodeNameResolver->isName($param->var, $name)) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }
