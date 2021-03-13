@@ -2,7 +2,7 @@
 
 namespace RectorPrefix20210313;
 
-#[Attribute(\Attribute::TARGET_CLASS)]
+#[Attribute(Attribute::TARGET_CLASS)]
 final class Attribute
 {
     public const TARGET_CLASS = 1;
@@ -20,4 +20,5 @@ final class Attribute
         $this->flags = $flags;
     }
 }
+#[Attribute(Attribute::TARGET_CLASS)]
 \class_alias('RectorPrefix20210313\\Attribute', 'Attribute', \false);
