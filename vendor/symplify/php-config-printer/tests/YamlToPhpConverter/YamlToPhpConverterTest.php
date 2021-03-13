@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210312\Symplify\PhpConfigPrinter\Tests\YamlToPhpConverter;
+namespace RectorPrefix20210313\Symplify\PhpConfigPrinter\Tests\YamlToPhpConverter;
 
-use RectorPrefix20210312\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210312\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel;
-use RectorPrefix20210312\Symplify\PhpConfigPrinter\YamlToPhpConverter;
-final class YamlToPhpConverterTest extends \RectorPrefix20210312\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210313\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel;
+use RectorPrefix20210313\Symplify\PhpConfigPrinter\YamlToPhpConverter;
+final class YamlToPhpConverterTest extends \RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var YamlToPhpConverter
@@ -14,8 +14,8 @@ final class YamlToPhpConverterTest extends \RectorPrefix20210312\Symplify\Packag
     private $yamlToPhpConverter;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210312\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel::class);
-        $this->yamlToPhpConverter = $this->getService(\RectorPrefix20210312\Symplify\PhpConfigPrinter\YamlToPhpConverter::class);
+        $this->bootKernel(\RectorPrefix20210313\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel::class);
+        $this->yamlToPhpConverter = $this->getService(\RectorPrefix20210313\Symplify\PhpConfigPrinter\YamlToPhpConverter::class);
     }
     public function test() : void
     {

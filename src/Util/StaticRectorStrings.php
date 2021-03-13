@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Util;
 
-use RectorPrefix20210312\Nette\Utils\Strings;
+use RectorPrefix20210313\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\Util\StaticRectorStringsTest
  */
@@ -25,7 +25,7 @@ final class StaticRectorStrings
     public static function isInArrayInsensitive(string $checkedItem, array $array) : bool
     {
         foreach ($array as $singleArray) {
-            if (\RectorPrefix20210312\Nette\Utils\Strings::lower($singleArray) === \RectorPrefix20210312\Nette\Utils\Strings::lower($checkedItem)) {
+            if (\RectorPrefix20210313\Nette\Utils\Strings::lower($singleArray) === \RectorPrefix20210313\Nette\Utils\Strings::lower($checkedItem)) {
                 return \true;
             }
         }
@@ -67,8 +67,8 @@ final class StaticRectorStrings
     public static function removePrefixes(string $value, array $prefixesToRemove) : string
     {
         foreach ($prefixesToRemove as $prefixToRemove) {
-            if (\RectorPrefix20210312\Nette\Utils\Strings::startsWith($value, $prefixToRemove)) {
-                $value = \RectorPrefix20210312\Nette\Utils\Strings::substring($value, \RectorPrefix20210312\Nette\Utils\Strings::length($prefixToRemove));
+            if (\RectorPrefix20210313\Nette\Utils\Strings::startsWith($value, $prefixToRemove)) {
+                $value = \RectorPrefix20210313\Nette\Utils\Strings::substring($value, \RectorPrefix20210313\Nette\Utils\Strings::length($prefixToRemove));
             }
         }
         return $value;
@@ -79,8 +79,8 @@ final class StaticRectorStrings
     public static function removeSuffixes(string $value, array $suffixesToRemove) : string
     {
         foreach ($suffixesToRemove as $suffixToRemove) {
-            if (\RectorPrefix20210312\Nette\Utils\Strings::endsWith($value, $suffixToRemove)) {
-                $value = \RectorPrefix20210312\Nette\Utils\Strings::substring($value, 0, -\RectorPrefix20210312\Nette\Utils\Strings::length($suffixToRemove));
+            if (\RectorPrefix20210313\Nette\Utils\Strings::endsWith($value, $suffixToRemove)) {
+                $value = \RectorPrefix20210313\Nette\Utils\Strings::substring($value, 0, -\RectorPrefix20210313\Nette\Utils\Strings::length($suffixToRemove));
             }
         }
         return $value;
@@ -93,7 +93,7 @@ final class StaticRectorStrings
     public static function constantToDashes(string $string) : string
     {
         $string = \strtolower($string);
-        return \RectorPrefix20210312\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
+        return \RectorPrefix20210313\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }
     public static function camelCaseToConstant(string $input) : string
     {
@@ -105,7 +105,7 @@ final class StaticRectorStrings
         if ($input === \strtolower($input)) {
             return $input;
         }
-        $matches = \RectorPrefix20210312\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_SPLIT_REGEX);
+        $matches = \RectorPrefix20210313\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_SPLIT_REGEX);
         $parts = [];
         foreach ($matches as $match) {
             $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);

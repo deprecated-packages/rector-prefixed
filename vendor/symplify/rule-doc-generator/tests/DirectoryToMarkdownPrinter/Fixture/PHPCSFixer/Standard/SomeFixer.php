@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Tests\DirectoryToMarkdownPrinter\Fixture\PHPCSFixer\Standard;
 
-use RectorPrefix20210312\PhpCsFixer\AbstractFixer;
-use RectorPrefix20210312\PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use RectorPrefix20210312\PhpCsFixer\Tokenizer\Tokens;
+use RectorPrefix20210313\PhpCsFixer\AbstractFixer;
+use RectorPrefix20210313\PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use RectorPrefix20210313\PhpCsFixer\Tokenizer\Tokens;
 use PHPStan\Rules\Rule;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class SomeFixer extends \RectorPrefix20210312\PhpCsFixer\AbstractFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class SomeFixer extends \RectorPrefix20210313\PhpCsFixer\AbstractFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -22,13 +22,13 @@ good code
 CODE_SAMPLE
 )]);
     }
-    protected function applyFix(\SplFileInfo $file, \RectorPrefix20210312\PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \RectorPrefix20210313\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
     }
     public function getDefinition()
     {
     }
-    public function isCandidate(\RectorPrefix20210312\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(\RectorPrefix20210313\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
     }
 }

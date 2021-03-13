@@ -7,8 +7,8 @@ use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Rector\Tests\Renaming\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
@@ -38,7 +38,7 @@ final class NonPhpFileProcessor
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
+    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
     {
         $this->configuration = $configuration;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
@@ -56,7 +56,7 @@ final class NonPhpFileProcessor
             $this->processFileInfo($nonPhpFileInfo);
         }
     }
-    public function processFileInfo(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function processFileInfo(\RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $oldContents = $smartFileInfo->getContents();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
@@ -68,7 +68,7 @@ final class NonPhpFileProcessor
         $this->reportFileContentChange($smartFileInfo, $newContents, $oldContents);
         return $newContents;
     }
-    private function reportFileContentChange(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContents, string $oldContents) : void
+    private function reportFileContentChange(\RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContents, string $oldContents) : void
     {
         $this->errorAndDiffCollector->addFileDiff($smartFileInfo, $newContents, $oldContents);
         if (!$this->configuration->isDryRun()) {

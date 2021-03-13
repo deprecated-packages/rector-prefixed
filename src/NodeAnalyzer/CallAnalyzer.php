@@ -14,7 +14,7 @@ final class CallAnalyzer
     /**
      * @var array<class-string<Expr>>
      */
-    private const OBJECT_CALLS = [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+    private const OBJECT_CALL_TYPES = [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     public function isObjectCall(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
@@ -25,8 +25,8 @@ final class CallAnalyzer
             $isObjectCallRight = $this->isObjectCall($expr->right);
             return $isObjectCallLeft || $isObjectCallRight;
         }
-        foreach (self::OBJECT_CALLS as $objectCall) {
-            if (\is_a($expr, $objectCall, \true)) {
+        foreach (self::OBJECT_CALL_TYPES as $objectCallType) {
+            if (\is_a($expr, $objectCallType, \true)) {
                 return \true;
             }
         }

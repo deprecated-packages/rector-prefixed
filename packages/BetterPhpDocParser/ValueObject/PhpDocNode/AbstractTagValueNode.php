@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
 
-use RectorPrefix20210312\Nette\Utils\Strings;
+use RectorPrefix20210313\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
@@ -14,7 +14,7 @@ use Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210312\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210313\Symplify\PackageBuilder\Php\TypeChecker;
 abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
 {
     use AttributeTrait;
@@ -132,7 +132,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     }
     protected function resolveOriginalContentSpacingAndOrder(?string $originalContent) : void
     {
-        $tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory(new \RectorPrefix20210312\Symplify\PackageBuilder\Php\TypeChecker());
+        $tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory(new \RectorPrefix20210313\Symplify\PackageBuilder\Php\TypeChecker());
         // prevent override
         if ($this->tagValueNodeConfiguration !== null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
@@ -142,7 +142,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     private function shouldPrintEmptyBrackets() : bool
     {
         // @todo decouple
-        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \RectorPrefix20210312\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
+        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \RectorPrefix20210313\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
             return \true;
         }
         if (!$this->tagValueNodeConfiguration->hasOpeningBracket()) {

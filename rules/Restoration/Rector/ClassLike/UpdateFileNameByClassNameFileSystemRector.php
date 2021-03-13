@@ -9,10 +9,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
- *
  * @see \Rector\Tests\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector\UpdateFileNameByClassNameFileSystemRectorTest
  */
 final class UpdateFileNameByClassNameFileSystemRector extends \Rector\Core\Rector\AbstractRector
@@ -50,7 +48,7 @@ CODE_SAMPLE
             return null;
         }
         $classShortName = $this->nodeNameResolver->getShortName($className);
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210312\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }

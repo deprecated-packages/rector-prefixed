@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use RectorPrefix20210312\Nette\Utils\Strings;
+use RectorPrefix20210313\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -59,7 +59,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
             if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
                 $name = '\\' . $type->getClassName();
-            } elseif (\RectorPrefix20210312\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
+            } elseif (\RectorPrefix20210313\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
                 $name = '\\' . $type->getClassName();
             } else {
                 $name = $type->getClassName();

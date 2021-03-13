@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use RectorPrefix20210312\Nette\Utils\Strings;
+use RectorPrefix20210313\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
@@ -91,7 +91,7 @@ CODE_SAMPLE
         if ($className === null) {
             return null;
         }
-        if (!\RectorPrefix20210312\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (!\RectorPrefix20210313\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         // remove parent class
