@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4b51a6b5732c7374a947e26dc623538c
+class ComposerStaticInit367e9a1aa9368145655aa53b2619ac54
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3434,6 +3434,7 @@ class ComposerStaticInit4b51a6b5732c7374a947e26dc623538c
         'Rector\\Symfony5\\NodeFactory\\BareLogoutClassMethodFactory' => __DIR__ . '/../..' . '/rules/Symfony5/NodeFactory/BareLogoutClassMethodFactory.php',
         'Rector\\Symfony5\\NodeFactory\\OnLogoutClassMethodFactory' => __DIR__ . '/../..' . '/rules/Symfony5/NodeFactory/OnLogoutClassMethodFactory.php',
         'Rector\\Symfony5\\NodeFactory\\OnSuccessLogoutClassMethodFactory' => __DIR__ . '/../..' . '/rules/Symfony5/NodeFactory/OnSuccessLogoutClassMethodFactory.php',
+        'Rector\\Symfony5\\Rector\\ClassMethod\\RouteCollectionBuilderToRoutingConfiguratorRector' => __DIR__ . '/../..' . '/rules/Symfony5/Rector/ClassMethod/RouteCollectionBuilderToRoutingConfiguratorRector.php',
         'Rector\\Symfony5\\Rector\\Class_\\LogoutHandlerToLogoutEventSubscriberRector' => __DIR__ . '/../..' . '/rules/Symfony5/Rector/Class_/LogoutHandlerToLogoutEventSubscriberRector.php',
         'Rector\\Symfony5\\Rector\\Class_\\LogoutSuccessHandlerToLogoutEventSubscriberRector' => __DIR__ . '/../..' . '/rules/Symfony5/Rector/Class_/LogoutSuccessHandlerToLogoutEventSubscriberRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => __DIR__ . '/../..' . '/rules/Symfony5/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
@@ -3714,9 +3715,9 @@ class ComposerStaticInit4b51a6b5732c7374a947e26dc623538c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4b51a6b5732c7374a947e26dc623538c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4b51a6b5732c7374a947e26dc623538c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4b51a6b5732c7374a947e26dc623538c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit367e9a1aa9368145655aa53b2619ac54::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit367e9a1aa9368145655aa53b2619ac54::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit367e9a1aa9368145655aa53b2619ac54::$classMap;
 
         }, null, ClassLoader::class);
     }

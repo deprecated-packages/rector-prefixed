@@ -3098,6 +3098,7 @@ return array(
     'Rector\\Symfony5\\NodeFactory\\BareLogoutClassMethodFactory' => $baseDir . '/rules/Symfony5/NodeFactory/BareLogoutClassMethodFactory.php',
     'Rector\\Symfony5\\NodeFactory\\OnLogoutClassMethodFactory' => $baseDir . '/rules/Symfony5/NodeFactory/OnLogoutClassMethodFactory.php',
     'Rector\\Symfony5\\NodeFactory\\OnSuccessLogoutClassMethodFactory' => $baseDir . '/rules/Symfony5/NodeFactory/OnSuccessLogoutClassMethodFactory.php',
+    'Rector\\Symfony5\\Rector\\ClassMethod\\RouteCollectionBuilderToRoutingConfiguratorRector' => $baseDir . '/rules/Symfony5/Rector/ClassMethod/RouteCollectionBuilderToRoutingConfiguratorRector.php',
     'Rector\\Symfony5\\Rector\\Class_\\LogoutHandlerToLogoutEventSubscriberRector' => $baseDir . '/rules/Symfony5/Rector/Class_/LogoutHandlerToLogoutEventSubscriberRector.php',
     'Rector\\Symfony5\\Rector\\Class_\\LogoutSuccessHandlerToLogoutEventSubscriberRector' => $baseDir . '/rules/Symfony5/Rector/Class_/LogoutSuccessHandlerToLogoutEventSubscriberRector.php',
     'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => $baseDir . '/rules/Symfony5/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
