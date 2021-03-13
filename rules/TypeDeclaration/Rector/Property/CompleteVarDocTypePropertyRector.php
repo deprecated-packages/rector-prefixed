@@ -11,6 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PHPStan\Type\NullType;
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector\CompleteVarDocTypePropertyRectorTest
  */
@@ -72,6 +73,9 @@ CODE_SAMPLE
     {
         $propertyType = $this->propertyTypeInferer->inferProperty($node);
         if ($propertyType instanceof \PHPStan\Type\MixedType) {
+            return null;
+        }
+        if (!$node->isPrivate() && $propertyType instanceof \PHPStan\Type\NullType) {
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
