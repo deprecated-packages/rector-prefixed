@@ -119,11 +119,12 @@ CODE_SAMPLE
         $entityReferenceExpr = $this->removeParentConstructAndCollectEntityReference($node);
         // 3. add $entityManager->getRepository() fetch assign
         $repositoryAssign = $this->repositoryNodeFactory->createRepositoryAssign($entityReferenceExpr);
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($classLike, 'entityManager', new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityManagerInterface'), $repositoryAssign);
+        $entityManagerObjectType = new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityManagerInterface');
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($classLike, 'entityManager', $entityManagerObjectType, $repositoryAssign);
         // 4. add $repository property
         $this->addRepositoryProperty($classLike, $entityReferenceExpr);
         // 5. add param + add property, dependency
-        $this->propertyAdder->addServiceConstructorDependencyToClass($classLike, 'Doctrine\\ORM\\EntityManagerInterface');
+        $this->propertyAdder->addServiceConstructorDependencyToClass($classLike, $entityManagerObjectType);
         return $node;
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

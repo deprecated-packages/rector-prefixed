@@ -11,6 +11,7 @@ use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
@@ -57,20 +58,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
-                $name = '\\' . $type->getClassName();
-            } elseif (\RectorPrefix20210313\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
-                $name = '\\' . $type->getClassName();
-            } else {
-                $name = $type->getClassName();
-            }
-            $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($name);
-            $genericTypeNodes = [];
-            foreach ($type->getTypes() as $genericType) {
-                $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);
-                $genericTypeNodes[] = $typeNode;
-            }
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($identifierTypeNode, $genericTypeNodes);
+            return $this->mapGenericObjectType($type);
         }
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('\\' . $type->getClassName());
     }
@@ -130,5 +118,30 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
+    }
+    private function mapGenericObjectType(\PHPStan\Type\Generic\GenericObjectType $genericObjectType) : \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode
+    {
+        $name = $this->resolveGenericObjectTypeName($genericObjectType);
+        $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($name);
+        $genericTypeNodes = [];
+        foreach ($genericObjectType->getTypes() as $key => $genericType) {
+            // mixed type on 1st item in iterator has no value
+            if ($name === 'Iterator' && $genericType instanceof \PHPStan\Type\MixedType && $key === 0) {
+                continue;
+            }
+            $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);
+            $genericTypeNodes[] = $typeNode;
+        }
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($identifierTypeNode, $genericTypeNodes);
+    }
+    private function resolveGenericObjectTypeName(\PHPStan\Type\Generic\GenericObjectType $genericObjectType) : string
+    {
+        if ($genericObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
+            return '\\' . $genericObjectType->getClassName();
+        }
+        if (\RectorPrefix20210313\Nette\Utils\Strings::contains($genericObjectType->getClassName(), '\\')) {
+            return '\\' . $genericObjectType->getClassName();
+        }
+        return $genericObjectType->getClassName();
     }
 }
