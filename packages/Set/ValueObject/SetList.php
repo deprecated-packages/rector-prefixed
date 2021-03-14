@@ -129,10 +129,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const EASY_ADMIN_BUNDLE_20 = __DIR__ . '/../../../config/set/easy-admin-bundle20.php';
-    /**
-     * @var string
-     */
     public const FLYSYSTEM_20 = __DIR__ . '/../../../config/set/flysystem-20.php';
     /**
      * @var string
