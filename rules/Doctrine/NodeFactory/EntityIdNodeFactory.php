@@ -43,9 +43,9 @@ final class EntityIdNodeFactory
     }
     public function createIdProperty() : \PhpParser\Node\Stmt\Property
     {
-        $uuidProperty = $this->nodeFactory->createPrivateProperty('id');
-        $this->decoratePropertyWithIdAnnotations($uuidProperty);
-        return $uuidProperty;
+        $idProperty = $this->nodeFactory->createPrivateProperty('id');
+        $this->decoratePropertyWithIdAnnotations($idProperty);
+        return $idProperty;
     }
     private function decoratePropertyWithIdAnnotations(\PhpParser\Node\Stmt\Property $property) : void
     {

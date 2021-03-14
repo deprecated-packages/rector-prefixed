@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit28a1f63fed057f75cc245f0f8355176c
+class ComposerStaticInit0be260ab9e87e0ab5948e9d0b673868c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2027,7 +2027,6 @@ class ComposerStaticInit28a1f63fed057f75cc245f0f8355176c
         'Rector\\BetterPhpDocParser\\Utils\\ArrayItemStaticHelper' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Utils/ArrayItemStaticHelper.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\ColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/ColumnTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\EntityTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/EntityTagValueNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\JoinColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/JoinColumnTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\AroundSpaces' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/AroundSpaces.php',
@@ -3710,9 +3709,9 @@ class ComposerStaticInit28a1f63fed057f75cc245f0f8355176c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit28a1f63fed057f75cc245f0f8355176c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit28a1f63fed057f75cc245f0f8355176c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit28a1f63fed057f75cc245f0f8355176c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0be260ab9e87e0ab5948e9d0b673868c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0be260ab9e87e0ab5948e9d0b673868c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0be260ab9e87e0ab5948e9d0b673868c::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1691,7 +1691,6 @@ return array(
     'Rector\\BetterPhpDocParser\\Utils\\ArrayItemStaticHelper' => $baseDir . '/packages/BetterPhpDocParser/Utils/ArrayItemStaticHelper.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\ColumnTagValueNodeFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/ColumnTagValueNodeFactory.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\EntityTagValueNodeFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/EntityTagValueNodeFactory.php',
-    'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\JoinColumnTagValueNodeFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/JoinColumnTagValueNodeFactory.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
     'Rector\\BetterPhpDocParser\\ValueObject\\AroundSpaces' => $baseDir . '/packages/BetterPhpDocParser/ValueObject/AroundSpaces.php',
