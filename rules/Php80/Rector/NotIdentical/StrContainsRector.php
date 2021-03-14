@@ -5,7 +5,9 @@ namespace Rector\Php80\Rector\NotIdentical;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
@@ -50,36 +52,43 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
     /**
-     * @param NotIdentical $node
+     * @param Identical|NotIdentical $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $funcCall = $this->matchNotIdenticalToFalse($node);
+        $funcCall = $this->matchIdenticalOrNotIdenticalToFalse($node);
         if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         $funcCall->name = new \PhpParser\Node\Name('str_contains');
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+            return new \PhpParser\Node\Expr\BooleanNot($funcCall);
+        }
         return $funcCall;
     }
     /**
-     * @return FuncCall|null
+     * @param Identical|NotIdentical $expr
      */
-    private function matchNotIdenticalToFalse(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical) : ?\PhpParser\Node\Expr
+    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\FuncCall
     {
-        if ($this->valueResolver->isFalse($notIdentical->left)) {
-            if (!$this->nodeNameResolver->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {
+        if ($this->valueResolver->isFalse($expr->left)) {
+            if (!$this->nodeNameResolver->isFuncCallNames($expr->right, self::OLD_STR_NAMES)) {
                 return null;
             }
-            return $notIdentical->right;
+            /** @var FuncCall $funcCall */
+            $funcCall = $expr->right;
+            return $funcCall;
         }
-        if ($this->valueResolver->isFalse($notIdentical->right)) {
-            if (!$this->nodeNameResolver->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
+        if ($this->valueResolver->isFalse($expr->right)) {
+            if (!$this->nodeNameResolver->isFuncCallNames($expr->left, self::OLD_STR_NAMES)) {
                 return null;
             }
-            return $notIdentical->left;
+            /** @var FuncCall $funcCall */
+            $funcCall = $expr->left;
+            return $funcCall;
         }
         return null;
     }
