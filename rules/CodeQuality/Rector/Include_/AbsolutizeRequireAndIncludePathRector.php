@@ -62,13 +62,14 @@ CODE_SAMPLE
         }
         /** @var string $includeValue */
         $includeValue = $this->valueResolver->getValue($node->expr);
-        // skip phar
-        if (\RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, 'phar://')) {
+        // skip phar and absolute paths
+        if (\RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, 'phar://') || \RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, '/')) {
             return null;
         }
         // add preslash to string
-        // keep dots
-        if (!\RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, '/') && !\RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, '.')) {
+        if (\RectorPrefix20210314\Nette\Utils\Strings::startsWith($includeValue, './')) {
+            $node->expr->value = \substr($includeValue, 1);
+        } else {
             $node->expr->value = '/' . $includeValue;
         }
         $node->expr = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\MagicConst\Dir(), $node->expr);
