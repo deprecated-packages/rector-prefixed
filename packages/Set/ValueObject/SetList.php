@@ -125,10 +125,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const DOCTRINE_SERVICES = __DIR__ . '/../../../config/set/doctrine-services.php';
-    /**
-     * @var string
-     */
     public const FLYSYSTEM_20 = __DIR__ . '/../../../config/set/flysystem-20.php';
     /**
      * @var string
