@@ -72,6 +72,8 @@ final class NodeComparator
         if ($firstNode->getEndTokenPos() !== $secondNode->getEndTokenPos()) {
             return \false;
         }
-        return \get_class($firstNode) === \get_class($secondNode);
+        $firstClass = \get_class($firstNode);
+        $secondClass = \get_class($secondNode);
+        return $firstClass === $secondClass;
     }
 }

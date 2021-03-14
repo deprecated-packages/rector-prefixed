@@ -100,8 +100,7 @@ CODE_SAMPLE
                 throw new \Rector\Core\Exception\ShouldNotHappenException('Number of attempts to reorder the methods exceeded');
             }
             $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($sortedAndOriginalClassMethods->getSortedClassMethods(), $sortedAndOriginalClassMethods->getOriginalClassMethods());
-            /** @var Class_ $node */
-            $node = $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
+            $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
             $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
         }
         return $node;

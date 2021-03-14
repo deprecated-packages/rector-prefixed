@@ -25,7 +25,7 @@ final class StaticRectorStrings
     public static function isInArrayInsensitive(string $checkedItem, array $array) : bool
     {
         foreach ($array as $singleArray) {
-            if (\RectorPrefix20210314\Nette\Utils\Strings::lower($singleArray) === \RectorPrefix20210314\Nette\Utils\Strings::lower($checkedItem)) {
+            if (\strtolower($singleArray) === \strtolower($checkedItem)) {
                 return \true;
             }
         }

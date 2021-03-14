@@ -42,6 +42,7 @@ final class ExpectExceptionMessageFactory
         if (!$this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {
             return null;
         }
-        return $this->argumentShiftingFactory->createFromMethodCall($methodCall, 'expectExceptionMessage');
+        $this->argumentShiftingFactory->removeAllButFirstArgMethodCall($methodCall, 'expectExceptionMessage');
+        return $methodCall;
     }
 }

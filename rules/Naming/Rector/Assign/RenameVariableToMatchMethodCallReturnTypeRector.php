@@ -149,9 +149,11 @@ CODE_SAMPLE
     private function isMultipleCall(\PhpParser\Node $callNode) : bool
     {
         $parentNode = $callNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $callNodeClass = \get_class($callNode);
         while ($parentNode) {
-            $usedNodes = $this->betterNodeFinder->find($parentNode, function (\PhpParser\Node $node) use($callNode) : bool {
-                if (\get_class($callNode) !== \get_class($node)) {
+            $usedNodes = $this->betterNodeFinder->find($parentNode, function (\PhpParser\Node $node) use($callNodeClass, $callNode) : bool {
+                $nodeClass = \get_class($node);
+                if ($callNodeClass !== $nodeClass) {
                     return \false;
                 }
                 /** @var FuncCall|StaticCall|MethodCall $node */

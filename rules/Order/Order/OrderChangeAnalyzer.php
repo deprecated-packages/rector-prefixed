@@ -10,6 +10,8 @@ final class OrderChangeAnalyzer
      */
     public function hasOrderChanged(array $oldToNewKeys) : bool
     {
-        return \array_keys($oldToNewKeys) !== \array_values($oldToNewKeys);
+        $keys = \array_keys($oldToNewKeys);
+        $values = \array_values($oldToNewKeys);
+        return $keys !== $values;
     }
 }

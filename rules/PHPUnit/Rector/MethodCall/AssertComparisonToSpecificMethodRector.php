@@ -79,8 +79,9 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
      */
     private function processCallWithBinaryOp(\PhpParser\Node $node, \PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
     {
+        $binaryOpClass = \get_class($binaryOp);
         foreach ($this->binaryOpWithAssertMethods as $binaryOpWithAssertMethod) {
-            if (\get_class($binaryOp) !== $binaryOpWithAssertMethod->getBinaryOpClass()) {
+            if ($binaryOpClass !== $binaryOpWithAssertMethod->getBinaryOpClass()) {
                 continue;
             }
             $this->identifierManipulator->renameNodeWithMap($node, ['assertTrue' => $binaryOpWithAssertMethod->getAssetMethodName(), 'assertFalse' => $binaryOpWithAssertMethod->getNotAssertMethodName()]);

@@ -512,7 +512,8 @@ final class NodeFactory
             $arrayItem = new \PhpParser\Node\Expr\ArrayItem($item->value);
         }
         if ($arrayItem !== null) {
-            return $this->createArrayItemWithKey($key, $arrayItem);
+            $this->decoreateArrayItemWithKey($key, $arrayItem);
+            return $arrayItem;
         }
         throw new \Rector\Core\Exception\NotImplementedYetException(\sprintf('Not implemented yet. Go to "%s()" and add check for "%s" node.', __METHOD__, \is_object($item) ? \get_class($item) : $item));
     }
@@ -578,12 +579,11 @@ final class NodeFactory
     /**
      * @param int|string|null $key
      */
-    private function createArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Expr\ArrayItem
+    private function decoreateArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem) : void
     {
         if ($key !== null) {
             $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);
         }
-        return $arrayItem;
     }
     /**
      * @param NotIdentical[]|BooleanAnd[] $exprs

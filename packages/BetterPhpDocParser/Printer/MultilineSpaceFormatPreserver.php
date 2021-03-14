@@ -41,18 +41,18 @@ final class MultilineSpaceFormatPreserver
     /**
      * Fix multiline BC break - https://github.com/phpstan/phpdoc-parser/pull/26/files
      */
-    public function fixMultilineDescriptions(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function fixMultilineDescriptions(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode) : void
     {
         $originalContent = $attributeAwareNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT);
         if (!$originalContent) {
-            return $attributeAwareNode;
+            return;
         }
         $nodeWithRestoredSpaces = $this->restoreOriginalSpacingInText($attributeAwareNode);
-        if ($nodeWithRestoredSpaces !== null) {
-            $attributeAwareNode = $nodeWithRestoredSpaces;
-            $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::HAS_DESCRIPTION_WITH_ORIGINAL_SPACES, \true);
+        if (!$nodeWithRestoredSpaces instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface) {
+            return;
         }
-        return $attributeAwareNode;
+        $attributeAwareNode = $nodeWithRestoredSpaces;
+        $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::HAS_DESCRIPTION_WITH_ORIGINAL_SPACES, \true);
     }
     /**
      * @param PhpDocTextNode|AttributeAwareNodeInterface $attributeAwareNode
@@ -85,9 +85,10 @@ final class MultilineSpaceFormatPreserver
         if ($newText === '') {
             return null;
         }
-        return $this->setNewTextToPhpDocNode($attributeAwareNode, $newText);
+        $this->decoratePhpDocNodeWithNewText($attributeAwareNode, $newText);
+        return $attributeAwareNode;
     }
-    private function setNewTextToPhpDocNode(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode, string $newText) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    private function decoratePhpDocNodeWithNewText(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode, string $newText) : void
     {
         if ($attributeAwareNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode && \property_exists($attributeAwareNode->value, 'description')) {
             $attributeAwareNode->value->description = $newText;
@@ -95,9 +96,12 @@ final class MultilineSpaceFormatPreserver
         if ($attributeAwareNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode) {
             $attributeAwareNode->text = $newText;
         }
-        if ($attributeAwareNode instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode && $attributeAwareNode->value instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode) {
-            $attributeAwareNode->value->value = $newText;
+        if (!$attributeAwareNode instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode) {
+            return;
         }
-        return $attributeAwareNode;
+        if (!$attributeAwareNode->value instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode) {
+            return;
+        }
+        $attributeAwareNode->value->value = $newText;
     }
 }

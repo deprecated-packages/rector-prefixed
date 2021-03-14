@@ -45,7 +45,8 @@ final class UnionTypeCommonTypeNarrower
         $sharedTypes = $this->narrowToSharedTypes($unionType);
         if ($sharedTypes !== []) {
             foreach (self::PRIORITY_TYPES as $winningType => $groupTypes) {
-                if (\array_intersect($groupTypes, $sharedTypes) === $groupTypes) {
+                $intersectedGroupTypes = \array_intersect($groupTypes, $sharedTypes);
+                if ($intersectedGroupTypes === $groupTypes) {
                     return new \PHPStan\Type\ObjectType($winningType);
                 }
             }
@@ -140,7 +141,8 @@ final class UnionTypeCommonTypeNarrower
         $sharedTypes = $this->narrowAvailableTypes($availableTypes);
         if ($sharedTypes !== []) {
             foreach (self::PRIORITY_TYPES as $winningType => $groupTypes) {
-                if (\array_intersect($groupTypes, $sharedTypes) === $groupTypes) {
+                $intersectedGroupTypes = \array_intersect($groupTypes, $sharedTypes);
+                if ($intersectedGroupTypes === $groupTypes) {
                     return new \PHPStan\Type\Generic\GenericClassStringType(new \PHPStan\Type\ObjectType($winningType));
                 }
             }

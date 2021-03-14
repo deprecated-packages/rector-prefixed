@@ -175,7 +175,7 @@ final class PhpDocInfoPrinter
         $output = '';
         /** @var StartAndEnd|null $startAndEnd */
         $startAndEnd = $attributeAwareNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END) ?: $startAndEnd;
-        $attributeAwareNode = $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($attributeAwareNode);
+        $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($attributeAwareNode);
         if ($startAndEnd !== null) {
             $isLastToken = $nodeCount === $key;
             $output = $this->addTokensFromTo($output, $this->currentTokenPosition, $startAndEnd->getStart(), $isLastToken);

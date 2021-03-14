@@ -104,11 +104,12 @@ CODE_SAMPLE
                 return null;
             }
             $newObjectType = $this->nodeTypeResolver->resolve($node->value);
-            return $this->processArrayItem($node, $newObjectType);
+            $this->processArrayItem($node, $newObjectType);
+            return $node;
         });
         return $node;
     }
-    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType) : \PhpParser\Node\Expr\ArrayItem
+    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType) : void
     {
         foreach (self::OLD_TO_NEW_CLASSES as $oldClass => $newClass) {
             $oldClassObjectType = new \PHPStan\Type\ObjectType($oldClass);
@@ -127,9 +128,8 @@ CODE_SAMPLE
             $arrayItem->value->class = new \PhpParser\Node\Name\FullyQualified($newClass);
             $oldArguments = $arrayItem->value->args;
             $this->createNewArrayItem($arrayItem, $oldArguments, $filterName);
-            return $arrayItem;
+            break;
         }
-        return $arrayItem;
     }
     /**
      * @param Arg[] $oldArguments

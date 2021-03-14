@@ -82,7 +82,9 @@ final class ReturnTypeAlreadyAddedChecker
             return \false;
         }
         $className = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        return \ltrim($this->nodeComparator->printWithoutComments($returnNode), '\\') === $className;
+        $nodeContent = $this->nodeComparator->printWithoutComments($returnNode);
+        $nodeContentWithoutPreslash = \ltrim($nodeContent, '\\');
+        return $nodeContentWithoutPreslash === $className;
     }
     /**
      * @param Identifier|Name|NullableType|PhpParserUnionType $returnTypeNode

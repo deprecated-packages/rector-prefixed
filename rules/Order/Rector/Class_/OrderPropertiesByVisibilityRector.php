@@ -75,6 +75,7 @@ CODE_SAMPLE
         if (!$this->orderChangeAnalyzer->hasOrderChanged($oldToNewKeys)) {
             return null;
         }
-        return $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
+        $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
+        return $node;
     }
 }

@@ -42,7 +42,7 @@ final class StmtOrder
     /**
      * @param array<int, int> $oldToNewKeys
      */
-    public function reorderClassStmtsByOldToNewKeys(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewKeys) : \PhpParser\Node\Stmt\ClassLike
+    public function reorderClassStmtsByOldToNewKeys(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewKeys) : void
     {
         $reorderedStmts = [];
         $stmtCount = \count($classLike->stmts);
@@ -61,7 +61,6 @@ final class StmtOrder
             }
             $classLike->stmts[$i] = $reorderedStmts[$i];
         }
-        return $classLike;
     }
     /**
      * @return array<int, string>

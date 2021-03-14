@@ -37,6 +37,7 @@ final class ExpectExceptionCodeFactory
         if (!$this->nodeNameResolver->isName($secondArgument->name, 'getCode')) {
             return null;
         }
-        return $this->argumentShiftingFactory->createFromMethodCall($methodCall, 'expectExceptionCode');
+        $this->argumentShiftingFactory->removeAllButFirstArgMethodCall($methodCall, 'expectExceptionCode');
+        return $methodCall;
     }
 }

@@ -17,7 +17,9 @@ final class ScalarTypeComparator
     {
         if ($firstType instanceof \PHPStan\Type\StringType && $secondType instanceof \PHPStan\Type\StringType) {
             // prevents "class-string" vs "string"
-            return \get_class($firstType) === \get_class($secondType);
+            $firstTypeClass = \get_class($firstType);
+            $secondTypeClass = \get_class($secondType);
+            return $firstTypeClass === $secondTypeClass;
         }
         if ($firstType instanceof \PHPStan\Type\IntegerType && $secondType instanceof \PHPStan\Type\IntegerType) {
             return \true;
