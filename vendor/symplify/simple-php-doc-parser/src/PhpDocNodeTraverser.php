@@ -14,6 +14,8 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
+use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
@@ -46,6 +48,9 @@ final class PhpDocNodeTraverser
         if ($node instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode) {
             return $this->traverseMethodTagValueNode($node, $docContent, $callable);
         }
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
+            return $this->traverseTypeNode($node, $docContent, $callable);
+        }
         return $node;
     }
     private function isValueNodeWithType(\PHPStan\PhpDocParser\Ast\Node $node) : bool
@@ -57,6 +62,15 @@ final class PhpDocNodeTraverser
         $typeNode = $callable($typeNode, $docContent);
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\NullableTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
             $typeNode->type = $this->traverseTypeNode($typeNode->type, $docContent, $callable);
+        }
+        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode) {
+            foreach ($typeNode->items as $key => $itemNode) {
+                $typeNode->items[$key] = $this->traverseTypeNode($itemNode, $docContent, $callable);
+            }
+            return $typeNode;
+        }
+        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode) {
+            $typeNode->valueType = $this->traverseTypeNode($typeNode->valueType, $docContent, $callable);
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
             foreach ($typeNode->genericTypes as $key => $genericType) {
