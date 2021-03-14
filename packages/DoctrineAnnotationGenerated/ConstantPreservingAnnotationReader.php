@@ -2,18 +2,18 @@
 
 namespace Rector\DoctrineAnnotationGenerated;
 
-use RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 /**
  * A reader for docblock annotations.
  */
-class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctrine\Common\Annotations\Reader
+class ConstantPreservingAnnotationReader implements \RectorPrefix20210314\Doctrine\Common\Annotations\Reader
 {
     /**
      * Global map for imports.
      *
      * @var array<string, class-string>
      */
-    private static $globalImports = ['ignoreannotation' => \RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
+    private static $globalImports = ['ignoreannotation' => \RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -21,7 +21,7 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
      *
      * @var array<string, true>
      */
-    private static $globalIgnoredNames = \RectorPrefix20210313\Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
+    private static $globalIgnoredNames = \RectorPrefix20210314\Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -66,19 +66,19 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
     public function __construct(\Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser $parser = null)
     {
         if (\extension_loaded('Zend Optimizer+') && (\ini_get('zend_optimizerplus.save_comments') === '0' || \ini_get('opcache.save_comments') === '0')) {
-            throw \RectorPrefix20210313\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \RectorPrefix20210314\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         if (\extension_loaded('Zend OPcache') && \ini_get('opcache.save_comments') === 0) {
-            throw \RectorPrefix20210313\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \RectorPrefix20210314\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         // Make sure that the IgnoreAnnotation annotation is loaded
-        \class_exists(\RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
-        $this->parser = $parser ?: new \RectorPrefix20210313\Doctrine\Common\Annotations\DocParser();
+        \class_exists(\RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
+        $this->parser = $parser ?: new \RectorPrefix20210314\Doctrine\Common\Annotations\DocParser();
         $this->preParser = new \Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser();
         $this->preParser->setImports(self::$globalImports);
         $this->preParser->setIgnoreNotImportedAnnotations(\true);
         $this->preParser->setIgnoredAnnotationNames(self::$globalIgnoredNames);
-        $this->phpParser = new \RectorPrefix20210313\Doctrine\Common\Annotations\PhpParser();
+        $this->phpParser = new \RectorPrefix20210314\Doctrine\Common\Annotations\PhpParser();
     }
     /**
      * Add a new annotation to the globally ignored annotation names with regard to exception handling.
@@ -103,7 +103,7 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
      */
     public function getClassAnnotations(\ReflectionClass $class)
     {
-        $this->parser->setTarget(\RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
+        $this->parser->setTarget(\RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
         $this->parser->setImports($this->getClassImports($class));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -129,7 +129,7 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
     {
         $class = $property->getDeclaringClass();
         $context = 'property ' . $class->getName() . '::$' . $property->getName();
-        $this->parser->setTarget(\RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
+        $this->parser->setTarget(\RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
         $this->parser->setImports($this->getPropertyImports($property));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -155,7 +155,7 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
     {
         $class = $method->getDeclaringClass();
         $context = 'method ' . $class->getName() . '::' . $method->getName() . '()';
-        $this->parser->setTarget(\RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
+        $this->parser->setTarget(\RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
         $this->parser->setImports($this->getMethodImports($method));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -246,7 +246,7 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210313\Doctri
         $ignoredAnnotationNames = self::$globalIgnoredNames;
         $annotations = $this->preParser->parse($class->getDocComment(), 'class ' . $class->name);
         foreach ($annotations as $annotation) {
-            if (!$annotation instanceof \RectorPrefix20210313\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
+            if (!$annotation instanceof \RectorPrefix20210314\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
                 continue;
             }
             foreach ($annotation->names as $annot) {

@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210313;
+namespace RectorPrefix20210314;
 
 class UnhandledMatchError extends \Error
 {
 }
-\class_alias('RectorPrefix20210313\\UnhandledMatchError', 'UnhandledMatchError', \false);
+\class_alias('RectorPrefix20210314\\UnhandledMatchError', 'UnhandledMatchError', \false);

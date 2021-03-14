@@ -4,12 +4,12 @@ declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Tests\DirectoryToMarkdownPrinter;
 
 use Iterator;
-use RectorPrefix20210313\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
-use RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210314\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
+use RectorPrefix20210314\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\RuleDocGenerator\DirectoryToMarkdownPrinter;
 use Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel;
-use RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo;
-final class DirectoryToMarkdownPrinterTest extends \RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo;
+final class DirectoryToMarkdownPrinterTest extends \RectorPrefix20210314\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var DirectoryToMarkdownPrinter
@@ -28,9 +28,9 @@ final class DirectoryToMarkdownPrinterTest extends \RectorPrefix20210313\Symplif
     public function test(string $directory, string $expectedFile, bool $shouldCategorize = \false) : void
     {
         $fileContent = $this->directoryToMarkdownPrinter->print(__DIR__, [$directory], $shouldCategorize);
-        $expectedFileInfo = new \RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo($expectedFile);
-        \RectorPrefix20210313\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateExpectedFixtureContent($fileContent, $expectedFileInfo);
-        $directoryFileInfo = new \RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo($directory);
+        $expectedFileInfo = new \RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo($expectedFile);
+        \RectorPrefix20210314\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateExpectedFixtureContent($fileContent, $expectedFileInfo);
+        $directoryFileInfo = new \RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo($directory);
         $this->assertStringEqualsFile($expectedFile, $fileContent, $directoryFileInfo->getRelativeFilePathFromCwd());
     }
     public function provideDataPHPStan() : \Iterator

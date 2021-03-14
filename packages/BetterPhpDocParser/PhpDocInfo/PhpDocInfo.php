@@ -32,8 +32,6 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
@@ -317,22 +315,6 @@ final class PhpDocInfo
         }
         return $this->tokens === [];
     }
-    /**
-     * @return string[]
-     */
-    public function getThrowsClassNames() : array
-    {
-        $throwsClasses = [];
-        foreach ($this->getThrowsTypes() as $throwsType) {
-            if ($throwsType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-                $throwsClasses[] = $throwsType->getFullyQualifiedName();
-            }
-            if ($throwsType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
-                $throwsClasses[] = $throwsType->getClassName();
-            }
-        }
-        return $throwsClasses;
-    }
     public function makeSingleLined() : void
     {
         $this->isSingleLine = \true;
@@ -410,16 +392,5 @@ final class PhpDocInfo
             }
         }
         throw new \Rector\Core\Exception\NotImplementedYetException(\get_class($phpDocTagValueNode));
-    }
-    /**
-     * @return Type[]
-     */
-    private function getThrowsTypes() : array
-    {
-        $throwsTypes = [];
-        foreach ($this->phpDocNode->getThrowsTagValues() as $throwsTagValueNode) {
-            $throwsTypes[] = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType($throwsTagValueNode, $this->node);
-        }
-        return $throwsTypes;
     }
 }

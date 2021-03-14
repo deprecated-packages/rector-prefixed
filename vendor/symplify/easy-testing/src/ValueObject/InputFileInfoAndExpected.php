@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210313\Symplify\EasyTesting\ValueObject;
+namespace RectorPrefix20210314\Symplify\EasyTesting\ValueObject;
 
-use RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFileInfoAndExpected
 {
     /**
@@ -17,7 +17,7 @@ final class InputFileInfoAndExpected
     /**
      * @param mixed $expected
      */
-    public function __construct(\RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, $expected)
+    public function __construct(\RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, $expected)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expected = $expected;
@@ -26,7 +26,7 @@ final class InputFileInfoAndExpected
     {
         return $this->inputFileInfo->getContents();
     }
-    public function getInputFileInfo() : \RectorPrefix20210313\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : \RectorPrefix20210314\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->inputFileInfo;
     }

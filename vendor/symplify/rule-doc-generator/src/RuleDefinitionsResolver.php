@@ -7,7 +7,7 @@ use ReflectionClass;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\RuleClassWithFilePath;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210313\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210314\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinitionsResolver
 {
     /**
@@ -21,7 +21,7 @@ final class RuleDefinitionsResolver
             $reflectionClass = new \ReflectionClass($ruleClassWithFilePath->getClass());
             $documentedRule = $reflectionClass->newInstanceWithoutConstructor();
             if (!$documentedRule instanceof \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface) {
-                throw new \RectorPrefix20210313\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+                throw new \RectorPrefix20210314\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
             }
             $ruleDefinition = $documentedRule->getRuleDefinition();
             $ruleDefinition->setRuleClass($ruleClassWithFilePath->getClass());

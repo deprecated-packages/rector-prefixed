@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Tests\Text;
 
 use Iterator;
-use RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210314\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel;
 use Symplify\RuleDocGenerator\Text\KeywordHighlighter;
-final class KeywordHighlighterTest extends \RectorPrefix20210313\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+final class KeywordHighlighterTest extends \RectorPrefix20210314\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var KeywordHighlighter
