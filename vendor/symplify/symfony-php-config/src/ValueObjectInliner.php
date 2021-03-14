@@ -42,12 +42,12 @@ final class ValueObjectInliner
     public static function resolveArgumentValues(\ReflectionClass $reflectionClass, object $object) : array
     {
         $argumentValues = [];
-        $constructorMethodReflection = $reflectionClass->getConstructor();
-        if (!$constructorMethodReflection instanceof \ReflectionMethod) {
+        $constructorReflectionMethod = $reflectionClass->getConstructor();
+        if (!$constructorReflectionMethod instanceof \ReflectionMethod) {
             // value object without constructor
             return [];
         }
-        foreach ($constructorMethodReflection->getParameters() as $reflectionParameter) {
+        foreach ($constructorReflectionMethod->getParameters() as $reflectionParameter) {
             $parameterName = $reflectionParameter->getName();
             $propertyReflection = $reflectionClass->getProperty($parameterName);
             $propertyReflection->setAccessible(\true);
@@ -93,6 +93,10 @@ final class ValueObjectInliner
         }
         return $inlineServiceConfigurator;
     }
+    /**
+     * @param mixed|mixed[] $resolvedValue
+     * @return mixed|mixed[]
+     */
     private static function inlineNestedArrayObjects($resolvedValue)
     {
         if (\is_array($resolvedValue)) {

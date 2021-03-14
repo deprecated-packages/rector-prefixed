@@ -9,6 +9,9 @@ use RectorPrefix20210314\Symfony\Component\DependencyInjection\Extension\Extensi
 use RectorPrefix20210314\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 final class AstralExtension extends \RectorPrefix20210314\Symfony\Component\DependencyInjection\Extension\Extension
 {
+    /**
+     * @param string[] $configs
+     */
     public function load(array $configs, \RectorPrefix20210314\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $phpFileLoader = new \RectorPrefix20210314\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210314\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));

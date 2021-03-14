@@ -28,6 +28,9 @@ final class SimpleNameResolverTest extends \RectorPrefix20210314\Symplify\Packag
         $resolvedName = $this->simpleNameResolver->getName($node);
         $this->assertSame($expectedName, $resolvedName);
     }
+    /**
+     * @return Iterator<string[]|Identifier[]>
+     */
     public function provideData() : \Iterator
     {
         $identifier = new \PhpParser\Node\Identifier('first name');

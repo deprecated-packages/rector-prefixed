@@ -4,17 +4,32 @@ declare (strict_types=1);
 namespace RectorPrefix20210314\Symplify\Astral\NodeFinder;
 
 use PhpParser\Node;
+use PhpParser\NodeFinder;
 use RectorPrefix20210314\Symplify\Astral\ValueObject\CommonAttributeKey;
 use RectorPrefix20210314\Symplify\PackageBuilder\Php\TypeChecker;
-final class ParentNodeFinder
+final class SimpleNodeFinder
 {
     /**
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210314\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var NodeFinder
+     */
+    private $nodeFinder;
+    public function __construct(\RectorPrefix20210314\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \PhpParser\NodeFinder $nodeFinder)
     {
         $this->typeChecker = $typeChecker;
+        $this->nodeFinder = $nodeFinder;
+    }
+    /**
+     * @template T of Node
+     * @param class-string<T> $nodeClass
+     * @return T[]
+     */
+    public function findByType(\PhpParser\Node $node, string $nodeClass) : array
+    {
+        return $this->nodeFinder->findInstanceOf($node, $nodeClass);
     }
     /**
      * @see https://phpstan.org/blog/generics-in-php-using-phpdocs for template

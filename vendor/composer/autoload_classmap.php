@@ -1314,7 +1314,7 @@ return array(
     'RectorPrefix20210314\\Symplify\\Astral\\Exception\\ShouldNotHappenException' => $vendorDir . '/symplify/astral/src/Exception/ShouldNotHappenException.php',
     'RectorPrefix20210314\\Symplify\\Astral\\HttpKernel\\AstralKernel' => $vendorDir . '/symplify/astral/src/HttpKernel/AstralKernel.php',
     'RectorPrefix20210314\\Symplify\\Astral\\Naming\\SimpleNameResolver' => $vendorDir . '/symplify/astral/src/Naming/SimpleNameResolver.php',
-    'RectorPrefix20210314\\Symplify\\Astral\\NodeFinder\\ParentNodeFinder' => $vendorDir . '/symplify/astral/src/NodeFinder/ParentNodeFinder.php',
+    'RectorPrefix20210314\\Symplify\\Astral\\NodeFinder\\SimpleNodeFinder' => $vendorDir . '/symplify/astral/src/NodeFinder/SimpleNodeFinder.php',
     'RectorPrefix20210314\\Symplify\\Astral\\NodeNameResolver\\ArgNodeNameResolver' => $vendorDir . '/symplify/astral/src/NodeNameResolver/ArgNodeNameResolver.php',
     'RectorPrefix20210314\\Symplify\\Astral\\NodeNameResolver\\AttributeNodeNameResolver' => $vendorDir . '/symplify/astral/src/NodeNameResolver/AttributeNodeNameResolver.php',
     'RectorPrefix20210314\\Symplify\\Astral\\NodeNameResolver\\ClassLikeNodeNameResolver' => $vendorDir . '/symplify/astral/src/NodeNameResolver/ClassLikeNodeNameResolver.php',
