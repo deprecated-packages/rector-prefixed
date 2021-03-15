@@ -24,8 +24,9 @@ class EnvPlaceholderParameterBag extends \RectorPrefix20210315\Symfony\Component
     private static $counter = 0;
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function get(string $name)
+    public function get($name)
     {
         if (0 === \strpos($name, 'env(') && ')' === \substr($name, -1) && 'env()' !== $name) {
             $env = \substr($name, 4, -1);
@@ -87,8 +88,9 @@ class EnvPlaceholderParameterBag extends \RectorPrefix20210315\Symfony\Component
     }
     /**
      * Merges the env placeholders of another EnvPlaceholderParameterBag.
+     * @param $this $bag
      */
-    public function mergeEnvPlaceholders(self $bag)
+    public function mergeEnvPlaceholders($bag)
     {
         if ($newPlaceholders = $bag->getEnvPlaceholders()) {
             $this->envPlaceholders += $newPlaceholders;

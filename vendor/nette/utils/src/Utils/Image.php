@@ -410,8 +410,9 @@ class Image
      * @param  int|string  $top in pixels or percent
      * @param  int  $opacity 0..100
      * @return static
+     * @param $this $image
      */
-    public function place(self $image, $left = 0, $top = 0, int $opacity = 100)
+    public function place($image, $left = 0, $top = 0, int $opacity = 100)
     {
         $opacity = \max(0, \min(100, $opacity));
         if ($opacity === 0) {

@@ -66,8 +66,9 @@ class RemoveUnusedDefinitionsPass extends \RectorPrefix20210315\Symfony\Componen
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210315\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);

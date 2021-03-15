@@ -61,8 +61,9 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210315\Symfony\Co
      * @param mixed $value
      *
      * @return mixed The processed value
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {

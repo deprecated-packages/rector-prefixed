@@ -60,8 +60,9 @@ class AutowirePass extends \RectorPrefix20210315\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         try {
             return $this->doProcessValue($value, $isRoot);

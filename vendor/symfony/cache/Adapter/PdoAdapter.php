@@ -380,9 +380,9 @@ class PdoAdapter extends \RectorPrefix20210315\Symfony\Component\Cache\Adapter\A
         return $failed;
     }
     /**
-     * @return \PDO|Connection
+     * @return object
      */
-    private function getConnection() : object
+    private function getConnection()
     {
         if (null === $this->conn) {
             if (\strpos($this->dsn, '://')) {
