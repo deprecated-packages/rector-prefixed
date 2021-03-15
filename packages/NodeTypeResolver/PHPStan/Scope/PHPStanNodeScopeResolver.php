@@ -100,8 +100,6 @@ final class PHPStanNodeScopeResolver
         $this->dependentFiles = [];
         // skip chain method calls, performance issue: https://github.com/phpstan/phpstan/issues/254
         $nodeCallback = function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void {
-            //            dump($node);
-            //            dump($scope);
             // traversing trait inside class that is using it scope (from referenced) - the trait traversed by Rector is different (directly from parsed file)
             if ($scope->isInTrait()) {
                 /** @var ClassReflection $classReflection */
