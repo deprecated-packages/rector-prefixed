@@ -3124,7 +3124,6 @@ return array(
     'Rector\\Symfony\\Rector\\Attribute\\ExtractAttributeRouteNameConstantsRector' => $baseDir . '/rules/Symfony/Rector/Attribute/ExtractAttributeRouteNameConstantsRector.php',
     'Rector\\Symfony\\Rector\\BinaryOp\\ResponseStatusCodeRector' => $baseDir . '/rules/Symfony/Rector/BinaryOp/ResponseStatusCodeRector.php',
     'Rector\\Symfony\\Rector\\ClassMethod\\ActionSuffixRemoverRector' => $baseDir . '/rules/Symfony/Rector/ClassMethod/ActionSuffixRemoverRector.php',
-    'Rector\\Symfony\\Rector\\ClassMethod\\NormalizeAutowireMethodNamingRector' => $baseDir . '/rules/Symfony/Rector/ClassMethod/NormalizeAutowireMethodNamingRector.php',
     'Rector\\Symfony\\Rector\\ClassMethod\\RemoveServiceFromSensioRouteRector' => $baseDir . '/rules/Symfony/Rector/ClassMethod/RemoveServiceFromSensioRouteRector.php',
     'Rector\\Symfony\\Rector\\ClassMethod\\ReplaceSensioRouteAnnotationWithSymfonyRector' => $baseDir . '/rules/Symfony/Rector/ClassMethod/ReplaceSensioRouteAnnotationWithSymfonyRector.php',
     'Rector\\Symfony\\Rector\\ClassMethod\\TemplateAnnotationToThisRenderRector' => $baseDir . '/rules/Symfony/Rector/ClassMethod/TemplateAnnotationToThisRenderRector.php',

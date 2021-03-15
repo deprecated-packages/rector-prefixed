@@ -477,10 +477,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const SYMFONY_AUTOWIRE = __DIR__ . '/../../../config/set/symfony-autowire.php';
-    /**
-     * @var string
-     */
     public const TWIG_112 = __DIR__ . '/../../../config/set/twig112.php';
     /**
      * @var string

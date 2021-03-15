@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2cb996123c082b77764d5307b2f0ac92
+class ComposerStaticInitc58561b990b264201b72318fe95b5884
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3460,7 +3460,6 @@ class ComposerStaticInit2cb996123c082b77764d5307b2f0ac92
         'Rector\\Symfony\\Rector\\Attribute\\ExtractAttributeRouteNameConstantsRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/Attribute/ExtractAttributeRouteNameConstantsRector.php',
         'Rector\\Symfony\\Rector\\BinaryOp\\ResponseStatusCodeRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/BinaryOp/ResponseStatusCodeRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\ActionSuffixRemoverRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/ClassMethod/ActionSuffixRemoverRector.php',
-        'Rector\\Symfony\\Rector\\ClassMethod\\NormalizeAutowireMethodNamingRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/ClassMethod/NormalizeAutowireMethodNamingRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\RemoveServiceFromSensioRouteRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/ClassMethod/RemoveServiceFromSensioRouteRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\ReplaceSensioRouteAnnotationWithSymfonyRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/ClassMethod/ReplaceSensioRouteAnnotationWithSymfonyRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\TemplateAnnotationToThisRenderRector' => __DIR__ . '/../..' . '/rules/Symfony/Rector/ClassMethod/TemplateAnnotationToThisRenderRector.php',
@@ -3709,9 +3708,9 @@ class ComposerStaticInit2cb996123c082b77764d5307b2f0ac92
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2cb996123c082b77764d5307b2f0ac92::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2cb996123c082b77764d5307b2f0ac92::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2cb996123c082b77764d5307b2f0ac92::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc58561b990b264201b72318fe95b5884::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc58561b990b264201b72318fe95b5884::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc58561b990b264201b72318fe95b5884::$classMap;
 
         }, null, ClassLoader::class);
     }
