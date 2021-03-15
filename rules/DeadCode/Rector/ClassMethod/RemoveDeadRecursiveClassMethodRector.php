@@ -91,7 +91,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall|ArrayCallable $methodCall
      */
-    private function shouldSkipCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, $methodCall) : bool
+    private function shouldSkipCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, object $methodCall) : bool
     {
         if ($this->classMethodVendorLockResolver->isRemovalVendorLocked($classMethod)) {
             return \true;

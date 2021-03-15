@@ -183,7 +183,7 @@ class Table
      *
      * @return $this
      */
-    public function setColumnMaxWidth(int $columnIndex, int $width)
+    public function setColumnMaxWidth(int $columnIndex, int $width) : self
     {
         if (!$this->output->getFormatter() instanceof \RectorPrefix20210315\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface) {
             throw new \LogicException(\sprintf('Setting a maximum column width is only supported when using a "%s" formatter, got "%s".', \RectorPrefix20210315\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface::class, \get_debug_type($this->output->getFormatter())));
@@ -226,9 +226,8 @@ class Table
     }
     /**
      * Adds a row to the table, and re-renders the table.
-     * @return $this
      */
-    public function appendRow($row)
+    public function appendRow($row) : self
     {
         if (!$this->output instanceof \RectorPrefix20210315\Symfony\Component\Console\Output\ConsoleSectionOutput) {
             throw new \RectorPrefix20210315\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Output should be an instance of "%s" when calling "%s".', \RectorPrefix20210315\Symfony\Component\Console\Output\ConsoleSectionOutput::class, __METHOD__));
@@ -245,26 +244,17 @@ class Table
         $this->rows[$column] = $row;
         return $this;
     }
-    /**
-     * @return $this
-     */
-    public function setHeaderTitle(?string $title)
+    public function setHeaderTitle(?string $title) : self
     {
         $this->headerTitle = $title;
         return $this;
     }
-    /**
-     * @return $this
-     */
-    public function setFooterTitle(?string $title)
+    public function setFooterTitle(?string $title) : self
     {
         $this->footerTitle = $title;
         return $this;
     }
-    /**
-     * @return $this
-     */
-    public function setHorizontal(bool $horizontal = \true)
+    public function setHorizontal(bool $horizontal = \true) : self
     {
         $this->horizontal = $horizontal;
         return $this;

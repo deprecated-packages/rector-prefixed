@@ -37,10 +37,7 @@ class PrototypeConfigurator extends \RectorPrefix20210315\Symfony\Component\Depe
     private $resource;
     private $excludes;
     private $allowParent;
-    /**
-     * @param bool $allowParent
-     */
-    public function __construct(\RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \RectorPrefix20210315\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, $allowParent)
+    public function __construct(\RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \RectorPrefix20210315\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
     {
         $definition = new \RectorPrefix20210315\Symfony\Component\DependencyInjection\Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
@@ -71,7 +68,7 @@ class PrototypeConfigurator extends \RectorPrefix20210315\Symfony\Component\Depe
      *
      * @return $this
      */
-    public final function exclude($excludes)
+    public final function exclude($excludes) : self
     {
         $this->excludes = (array) $excludes;
         return $this;

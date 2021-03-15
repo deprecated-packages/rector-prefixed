@@ -60,9 +60,8 @@ class ResolveNoPreloadPass extends \RectorPrefix20210315\Symfony\Component\Depen
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210315\Symfony\Component\DependencyInjection\Reference && \RectorPrefix20210315\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);

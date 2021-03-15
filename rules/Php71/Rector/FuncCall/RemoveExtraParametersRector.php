@@ -94,7 +94,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @param MethodReflection|FunctionReflection $reflection
      */
-    private function resolveMaximumAllowedParameterCount($reflection) : int
+    private function resolveMaximumAllowedParameterCount(object $reflection) : int
     {
         $parameterCounts = [0];
         foreach ($reflection->getVariants() as $parametersAcceptor) {

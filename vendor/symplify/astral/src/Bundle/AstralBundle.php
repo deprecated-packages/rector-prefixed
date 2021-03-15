@@ -13,7 +13,7 @@ final class AstralBundle extends \RectorPrefix20210315\Symfony\Component\HttpKer
     {
         $containerBuilder->addCompilerPass(new \RectorPrefix20210315\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : ?\RectorPrefix20210315\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : \RectorPrefix20210315\Symplify\Astral\DependencyInjection\Extension\AstralExtension
     {
         return new \RectorPrefix20210315\Symplify\Astral\DependencyInjection\Extension\AstralExtension();
     }

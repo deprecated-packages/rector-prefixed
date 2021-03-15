@@ -51,10 +51,7 @@ class ResolveParameterPlaceHoldersPass extends \RectorPrefix20210315\Symfony\Com
         $this->bag->resolve();
         $this->bag = null;
     }
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (\is_string($value)) {
             try {

@@ -69,10 +69,7 @@ class AnalyzeServiceReferencesPass extends \RectorPrefix20210315\Symfony\Compone
             $this->aliases = $this->definitions = [];
         }
     }
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         $lazy = $this->lazy;
         $inExpression = $this->inExpression();

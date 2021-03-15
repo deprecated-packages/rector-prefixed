@@ -78,9 +78,8 @@ class ResolveBindingsPass extends \RectorPrefix20210315\Symfony\Component\Depend
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210315\Symfony\Component\DependencyInjection\TypedReference && $value->getType() === (string) $value) {
             // Already checked

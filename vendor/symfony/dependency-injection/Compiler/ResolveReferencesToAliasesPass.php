@@ -36,9 +36,8 @@ class ResolveReferencesToAliasesPass extends \RectorPrefix20210315\Symfony\Compo
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210315\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);

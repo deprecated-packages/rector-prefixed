@@ -29,10 +29,8 @@ class BufferedOutput extends \RectorPrefix20210315\Symfony\Component\Console\Out
     }
     /**
      * {@inheritdoc}
-     * @param string $message
-     * @param bool $newline
      */
-    protected function doWrite($message, $newline)
+    protected function doWrite(string $message, bool $newline)
     {
         $this->buffer .= $message;
         if ($newline) {
