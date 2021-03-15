@@ -112,9 +112,9 @@ CODE_SAMPLE
         $arrayFilterFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_filter'), $args);
         return new \PhpParser\Node\Expr\Assign($arrayDimFetch->var, $arrayFilterFuncCall);
     }
-    private function forLoopFillsAnotherArray(\PhpParser\Node\Stmt\Foreach_ $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    private function forLoopFillsAnotherArray(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
-        $loopVar = $node->expr;
+        $loopVar = $foreach->expr;
         if (!$loopVar instanceof \PhpParser\Node\Expr\Variable) {
             return \false;
         }
@@ -124,11 +124,11 @@ CODE_SAMPLE
         }
         return $loopVar->name !== $varThatIsModified->name;
     }
-    private function isSimpleCall(\PhpParser\Node\Expr\FuncCall $funcCallNode, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    private function isSimpleCall(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
-        if (\count($funcCallNode->args) !== 1) {
+        if (\count($funcCall->args) !== 1) {
             return \false;
         }
-        return $this->nodeComparator->areNodesEqual($funcCallNode->args[0], $foreach->valueVar);
+        return $this->nodeComparator->areNodesEqual($funcCall->args[0], $foreach->valueVar);
     }
 }

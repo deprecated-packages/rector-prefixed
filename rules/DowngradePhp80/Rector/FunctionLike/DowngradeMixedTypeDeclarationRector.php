@@ -60,10 +60,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        $mixedType = new \PHPStan\Type\MixedType();
         foreach ($node->getParams() as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, \PHPStan\Type\MixedType::class);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $mixedType);
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PHPStan\Type\MixedType::class);
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $mixedType);
         return $node;
     }
 }

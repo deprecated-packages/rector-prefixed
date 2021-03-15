@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp71\Rector\FunctionLike;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Type\VoidType;
@@ -29,7 +30,7 @@ final class DowngradeVoidTypeDeclarationRector extends \Rector\Core\Rector\Abstr
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\Closure::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -55,11 +56,12 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ClassMethod|Function_ $node
+     * @param ClassMethod|Function_|Closure $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PHPStan\Type\VoidType::class);
+        $voidType = new \PHPStan\Type\VoidType();
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $voidType);
         return $node;
     }
 }

@@ -84,6 +84,10 @@ final class PhpDocTypeChanger
         if ($paramTagValueNode !== null) {
             // already set
             $currentType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($paramTagValueNode->type, $param);
+            // avoid overriding better type
+            if ($this->typeComparator->isSubtype($currentType, $newType)) {
+                return;
+            }
             if ($this->typeComparator->areTypesEqual($currentType, $newType)) {
                 return;
             }

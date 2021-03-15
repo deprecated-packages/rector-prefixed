@@ -72,7 +72,10 @@ CODE_SAMPLE
         foreach ($node->params as $param) {
             $this->refactorParamType($param, $node);
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PhpParser\Node\NullableType::class);
+        if (!$node->returnType instanceof \PhpParser\Node\NullableType) {
+            return null;
+        }
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
         return $node;
     }
     private function isNullableParam(\PhpParser\Node\Param $param) : bool

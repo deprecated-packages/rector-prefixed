@@ -1,18 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp80\Rector\FunctionLike;
+namespace Rector\DowngradePhp80\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\StaticType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\DowngradePhp80\Rector\FunctionLike\DowngradeStaticTypeDeclarationRector\DowngradeStaticTypeDeclarationRectorTest
+ * @see \Rector\Tests\DowngradePhp80\Rector\ClassMethod\DowngradeStaticTypeDeclarationRector\DowngradeStaticTypeDeclarationRectorTest
  */
 final class DowngradeStaticTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -29,7 +31,7 @@ final class DowngradeStaticTypeDeclarationRector extends \Rector\Core\Rector\Abs
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -57,14 +59,21 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ClassMethod|Function_ $node
+     * @param ClassMethod $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($node->getParams() as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, \PHPStan\Type\StaticType::class);
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PHPStan\Type\StaticType::class);
+        $staticType = new \PHPStan\Type\StaticType($classReflection->getName());
+        foreach ($node->getParams() as $param) {
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $staticType);
+        }
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $staticType);
         return $node;
     }
 }

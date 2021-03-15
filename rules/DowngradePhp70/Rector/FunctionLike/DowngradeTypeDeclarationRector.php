@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp70\Rector\FunctionLike;
 
 use PhpParser\Node;
-use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Type\ArrayType;
@@ -62,17 +61,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $this->refactorParams($node);
+        foreach ($node->params as $param) {
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class]);
+        }
         $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
         return $node;
-    }
-    /**
-     * @param ClassMethod|Function_ $functionLike
-     */
-    private function refactorParams(\PhpParser\Node\FunctionLike $functionLike) : void
-    {
-        foreach ($functionLike->params as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $functionLike, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class]);
-        }
     }
 }

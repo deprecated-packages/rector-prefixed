@@ -5,9 +5,11 @@ namespace Rector\DowngradePhp74\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ThisType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -19,9 +21,14 @@ final class DowngradeSelfTypeDeclarationRector extends \Rector\Core\Rector\Abstr
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
+        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @return array<class-string<Node>>
@@ -57,7 +64,19 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PHPStan\Type\ThisType::class);
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($scope === null) {
+            // in a trait
+            $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $classReflection = $this->reflectionProvider->getClass($className);
+        } else {
+            $classReflection = $scope->getClassReflection();
+        }
+        if ($classReflection === null) {
+            return null;
+        }
+        $thisType = new \PHPStan\Type\ThisType($classReflection);
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $thisType);
         return $node;
     }
 }

@@ -65,9 +65,15 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->getParams() as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, \PhpParser\Node\UnionType::class);
+            if (!$param->type instanceof \PhpParser\Node\UnionType) {
+                continue;
+            }
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node);
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, \PhpParser\Node\UnionType::class);
+        if (!$node->returnType instanceof \PhpParser\Node\UnionType) {
+            return null;
+        }
+        $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
         return $node;
     }
 }
