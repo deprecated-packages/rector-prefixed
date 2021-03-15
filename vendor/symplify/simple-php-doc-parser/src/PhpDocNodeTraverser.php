@@ -1,14 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210314\Symplify\SimplePhpDocParser;
+namespace RectorPrefix20210315\Symplify\SimplePhpDocParser;
 
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueParameterNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
@@ -27,11 +29,6 @@ use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
  */
 final class PhpDocNodeTraverser
 {
-    /**
-     * @template T as Node
-     * @param T $node
-     * @return T
-     */
     public function traverseWithCallable(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent, callable $callable) : \PHPStan\PhpDocParser\Ast\Node
     {
         if ($node instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode) {
@@ -64,23 +61,17 @@ final class PhpDocNodeTraverser
             $typeNode->type = $this->traverseTypeNode($typeNode->type, $docContent, $callable);
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode) {
-            foreach ($typeNode->items as $key => $itemNode) {
-                $typeNode->items[$key] = $this->traverseTypeNode($itemNode, $docContent, $callable);
-            }
+            $this->traverseArrayShapeNode($typeNode, $docContent, $callable);
             return $typeNode;
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode) {
             $typeNode->valueType = $this->traverseTypeNode($typeNode->valueType, $docContent, $callable);
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
-            foreach ($typeNode->genericTypes as $key => $genericType) {
-                $typeNode->genericTypes[$key] = $this->traverseTypeNode($genericType, $docContent, $callable);
-            }
+            $this->traverseGenericTypeNode($typeNode, $docContent, $callable);
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode) {
-            foreach ($typeNode->types as $key => $subTypeNode) {
-                $typeNode->types[$key] = $this->traverseTypeNode($subTypeNode, $docContent, $callable);
-            }
+            $this->traverseUnionIntersectionType($typeNode, $docContent, $callable);
         }
         return $typeNode;
     }
@@ -91,13 +82,15 @@ final class PhpDocNodeTraverser
         }
         foreach ($methodTagValueNode->parameters as $key => $methodTagValueParameterNode) {
             /** @var MethodTagValueParameterNode $methodTagValueParameterNode */
-            $methodTagValueNode->parameters[$key] = $this->traverseWithCallable($methodTagValueParameterNode, $docContent, $callable);
+            $methodTagValueParameterNode = $this->traverseWithCallable($methodTagValueParameterNode, $docContent, $callable);
+            $methodTagValueNode->parameters[$key] = $methodTagValueParameterNode;
         }
         return $callable($methodTagValueNode, $docContent);
     }
     private function traversePhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $docContent, callable $callable) : void
     {
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {
+            /** @var PhpDocChildNode $phpDocChildNode */
             $phpDocChildNode = $this->traverseWithCallable($phpDocChildNode, $docContent, $callable);
             $phpDocNode->children[$key] = $phpDocChildNode;
             if ($phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode) {
@@ -106,7 +99,30 @@ final class PhpDocNodeTraverser
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
-            $phpDocChildNode->value = $this->traverseWithCallable($phpDocChildNode->value, $docContent, $callable);
+            /** @var PhpDocTagValueNode $traversedValue */
+            $traversedValue = $this->traverseWithCallable($phpDocChildNode->value, $docContent, $callable);
+            $phpDocChildNode->value = $traversedValue;
+        }
+    }
+    private function traverseGenericTypeNode(\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode $genericTypeNode, string $docContent, callable $callable) : void
+    {
+        foreach ($genericTypeNode->genericTypes as $key => $genericType) {
+            $genericTypeNode->genericTypes[$key] = $this->traverseTypeNode($genericType, $docContent, $callable);
+        }
+    }
+    /**
+     * @param UnionTypeNode|IntersectionTypeNode $node
+     */
+    private function traverseUnionIntersectionType(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent, callable $callable) : void
+    {
+        foreach ($node->types as $key => $subTypeNode) {
+            $node->types[$key] = $this->traverseTypeNode($subTypeNode, $docContent, $callable);
+        }
+    }
+    private function traverseArrayShapeNode(\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode $arrayShapeNode, string $docContent, callable $callable) : void
+    {
+        foreach ($arrayShapeNode->items as $key => $itemNode) {
+            $arrayShapeNode->items[$key] = $this->traverseTypeNode($itemNode, $docContent, $callable);
         }
     }
 }

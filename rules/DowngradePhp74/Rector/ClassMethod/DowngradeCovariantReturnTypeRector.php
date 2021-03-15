@@ -10,13 +10,14 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadDocBlock\TagRemover\ReturnTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210314\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210315\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -38,7 +39,7 @@ final class DowngradeCovariantReturnTypeRector extends \Rector\Core\Rector\Abstr
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \RectorPrefix20210314\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \RectorPrefix20210315\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->privatesCaller = $privatesCaller;
@@ -155,6 +156,9 @@ CODE_SAMPLE
             }
             $classMethodScope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             $parameterMethodReflection = $parentClassAndInterface->getMethod($methodName, $classMethodScope);
+            if (!$parameterMethodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
+                continue;
+            }
             /** @var Type $parentReturnType */
             $parentReturnType = $this->privatesCaller->callPrivateMethod($parameterMethodReflection, 'getReturnType', []);
             if ($parentReturnType->equals($returnType)) {
