@@ -130,7 +130,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210315\Symplify\Pac
         self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210315\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, \false);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        // needed for PHPStan, because the analyzed file is just create in /temp
+        // needed for PHPStan, because the analyzed file is just created in /temp
         /** @var NodeScopeResolver $nodeScopeResolver */
         $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
