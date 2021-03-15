@@ -11,7 +11,6 @@ use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
 use Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector;
 use Rector\DeadCode\Rector\Cast\RecastingRemovalRector;
-use Rector\DeadCode\Rector\Class_\RemoveEmptyAbstractClassRector;
 use Rector\DeadCode\Rector\Class_\RemoveUnusedDoctrineEntityMethodAndPropertyRector;
 use Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector;
 use Rector\DeadCode\Rector\ClassConst\RemoveUnusedPrivateConstantRector;
@@ -101,7 +100,6 @@ return static function (\RectorPrefix20210315\Symfony\Component\DependencyInject
     $services->set(\Rector\DeadCode\Rector\Return_\RemoveDeadConditionAboveReturnRector::class);
     $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedConstructorParamRector::class);
     $services->set(\Rector\DeadCode\Rector\If_\RemoveDeadInstanceOfRector::class);
-    $services->set(\Rector\DeadCode\Rector\Class_\RemoveEmptyAbstractClassRector::class);
     $services->set(\Rector\DeadCode\Rector\For_\RemoveDeadLoopRector::class);
     // docblock
     $services->set(\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector::class);

@@ -17,7 +17,7 @@ trait PropertyTrait
      *
      * @return $this
      */
-    public final function property(string $name, $value) : self
+    public final function property(string $name, $value)
     {
         $this->definition->setProperty($name, static::processValue($value, \true));
         return $this;

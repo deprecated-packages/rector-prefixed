@@ -96,8 +96,9 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210315\Symfony\Compone
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210315\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             // Reference found in ArgumentInterface::getValues() are not inlineable

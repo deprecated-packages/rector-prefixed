@@ -399,8 +399,9 @@ class ContainerBuilder extends \RectorPrefix20210315\Symfony\Component\Dependenc
      * Sets a service.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service)
+    public function set(string $id, $service)
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
@@ -523,8 +524,9 @@ class ContainerBuilder extends \RectorPrefix20210315\Symfony\Component\Dependenc
      * constructor.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
+     * @param $this $container
      */
-    public function merge(self $container)
+    public function merge($container)
     {
         if ($this->isCompiled()) {
             throw new \RectorPrefix20210315\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot merge on a compiled container.');

@@ -2117,7 +2117,6 @@ return array(
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedParameterRector' => $baseDir . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedParameterRector.php',
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => $baseDir . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => $baseDir . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
-    'Rector\\DeadCode\\Rector\\Class_\\RemoveEmptyAbstractClassRector' => $baseDir . '/rules/DeadCode/Rector/Class_/RemoveEmptyAbstractClassRector.php',
     'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedDoctrineEntityMethodAndPropertyRector' => $baseDir . '/rules/DeadCode/Rector/Class_/RemoveUnusedDoctrineEntityMethodAndPropertyRector.php',
     'Rector\\DeadCode\\Rector\\Concat\\RemoveConcatAutocastRector' => $baseDir . '/rules/DeadCode/Rector/Concat/RemoveConcatAutocastRector.php',
     'Rector\\DeadCode\\Rector\\Expression\\RemoveDeadStmtRector' => $baseDir . '/rules/DeadCode/Rector/Expression/RemoveDeadStmtRector.php',

@@ -81,10 +81,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const DEAD_CODE_STRICT = __DIR__ . '/../../../config/set/dead-code-strict.php';
-    /**
-     * @var string
-     */
     public const DOCTRINE_25 = __DIR__ . '/../../../config/set/doctrine25.php';
     /**
      * @var string

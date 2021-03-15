@@ -2,12 +2,45 @@
 
 namespace Rector\DoctrineAnnotationGenerated;
 
-use function class_exists;
-use function constant;
 use RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute;
 use RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes;
 use RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum;
+use RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
 use RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionProperty;
+use RuntimeException;
+use stdClass;
+use function array_keys;
+use function array_map;
+use function array_pop;
+use function array_values;
+use function class_exists;
+use function constant;
+use function count;
+use function defined;
+use function explode;
+use function gettype;
+use function implode;
+use function in_array;
+use function interface_exists;
+use function is_array;
+use function is_object;
+use function json_encode;
+use function ltrim;
+use function preg_match;
+use function reset;
+use function rtrim;
+use function sprintf;
+use function stripos;
+use function strlen;
+use function strpos;
+use function strrpos;
+use function strtolower;
+use function substr;
+use function trim;
+use const PHP_VERSION_ID;
 /**
  * A parser for docblock annotations.
  *
@@ -86,16 +119,14 @@ final class ConstantPreservingDocParser
      * @var bool[] indexed by namespace name
      */
     private $ignoredAnnotationNamespaces = [];
-    /**
-     * @var string
-     */
+    /** @var string */
     private $context = '';
     /**
      * Hash-map for caching annotation metadata.
      *
      * @var array<class-string, mixed[]>
      */
-    private static $annotationMetadata = [\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::class => ['is_annotation' => \true, 'has_constructor' => \true, 'properties' => [], 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'attribute_types' => ['value' => ['required' => \false, 'type' => 'array', 'array_type' => 'string', 'value' => 'array<string>']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class => ['is_annotation' => \true, 'has_constructor' => \false, 'targets_literal' => 'ANNOTATION_ANNOTATION', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION, 'default_property' => 'name', 'properties' => ['name' => 'name', 'type' => 'type', 'required' => 'required'], 'attribute_types' => ['value' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'type' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'required' => ['required' => \false, 'type' => 'boolean', 'value' => 'boolean']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes::class => ['is_annotation' => \true, 'has_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true, 'array_type' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class, 'value' => 'array<' . \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class . '>']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum::class => ['is_annotation' => \true, 'has_constructor' => \true, 'targets_literal' => 'ANNOTATION_PROPERTY', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true], 'literal' => ['type' => 'array', 'required' => \false]]]];
+    private static $annotationMetadata = [\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'properties' => [], 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'attribute_types' => ['value' => ['required' => \false, 'type' => 'array', 'array_type' => 'string', 'value' => 'array<string>']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_ANNOTATION', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_ANNOTATION, 'default_property' => 'name', 'properties' => ['name' => 'name', 'type' => 'type', 'required' => 'required'], 'attribute_types' => ['value' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'type' => ['required' => \true, 'type' => 'string', 'value' => 'string'], 'required' => ['required' => \false, 'type' => 'boolean', 'value' => 'boolean']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true, 'array_type' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class, 'value' => 'array<' . \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class . '>']]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum::class => ['is_annotation' => \true, 'has_constructor' => \true, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_PROPERTY', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY, 'default_property' => 'value', 'properties' => ['value' => 'value'], 'attribute_types' => ['value' => ['type' => 'array', 'required' => \true], 'literal' => ['type' => 'array', 'required' => \false]]], \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class => ['is_annotation' => \true, 'has_constructor' => \false, 'has_named_argument_constructor' => \false, 'targets_literal' => 'ANNOTATION_CLASS', 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS, 'default_property' => null, 'properties' => [], 'attribute_types' => []]];
     /**
      * Hash-map for handle types declaration.
      *
@@ -122,6 +153,8 @@ final class ConstantPreservingDocParser
      * fully qualified class names.
      *
      * @param bool[] $names indexed by annotation name
+     *
+     * @return void
      */
     public function setIgnoredAnnotationNames(array $names)
     {
@@ -131,6 +164,8 @@ final class ConstantPreservingDocParser
      * Sets the annotation namespaces that are ignored during the parsing process.
      *
      * @param bool[] $ignoredAnnotationNamespaces indexed by annotation namespace name
+     *
+     * @return void
      */
     public function setIgnoredAnnotationNamespaces($ignoredAnnotationNamespaces)
     {
@@ -140,6 +175,8 @@ final class ConstantPreservingDocParser
      * Sets ignore on not-imported annotations.
      *
      * @param bool $bool
+     *
+     * @return void
      */
     public function setIgnoreNotImportedAnnotations($bool)
     {
@@ -149,6 +186,10 @@ final class ConstantPreservingDocParser
      * Sets the default namespaces.
      *
      * @param string $namespace
+     *
+     * @return void
+     *
+     * @throws RuntimeException
      */
     public function addNamespace($namespace)
     {
@@ -161,6 +202,10 @@ final class ConstantPreservingDocParser
      * Sets the imports.
      *
      * @param array<string, class-string> $imports
+     *
+     * @return void
+     *
+     * @throws RuntimeException
      */
     public function setImports(array $imports)
     {
@@ -173,6 +218,8 @@ final class ConstantPreservingDocParser
      * Sets current target context as bitmask.
      *
      * @param int $target
+     *
+     * @return void
      */
     public function setTarget($target)
     {
@@ -183,6 +230,9 @@ final class ConstantPreservingDocParser
      *
      * @param string $input   The docblock string to parse.
      * @param string $context The parsing context.
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      *
      * @phpstan-return list<object> Array of annotations. If no annotations are found, an empty array is returned.
      */
@@ -223,6 +273,8 @@ final class ConstantPreservingDocParser
      * @param int $token Type of token.
      *
      * @return bool True if tokens match; false otherwise.
+     *
+     * @throws AnnotationException
      */
     private function match(int $token) : bool
     {
@@ -236,6 +288,8 @@ final class ConstantPreservingDocParser
      *
      * If any of them matches, this method updates the lookahead token; otherwise
      * a syntax error is raised.
+     *
+     * @throws AnnotationException
      *
      * @phpstan-param list<mixed[]> $tokens
      */
@@ -287,6 +341,9 @@ final class ConstantPreservingDocParser
      * Collects parsing metadata for a given annotation class
      *
      * @param class-string $name The annotation name
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function collectAnnotationMetadata(string $name) : void
     {
@@ -294,23 +351,20 @@ final class ConstantPreservingDocParser
             self::$metadataParser = new self();
             self::$metadataParser->setIgnoreNotImportedAnnotations(\true);
             self::$metadataParser->setIgnoredAnnotationNames($this->ignoredAnnotationNames);
-            self::$metadataParser->setImports(['enum' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum::class, 'target' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::class, 'attribute' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class, 'attributes' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes::class]);
+            self::$metadataParser->setImports(['enum' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum::class, 'target' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::class, 'attribute' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class, 'attributes' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes::class, 'namedargumentconstructor' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class]);
             // Make sure that annotations from metadata are loaded
             \class_exists(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Enum::class);
             \class_exists(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::class);
             \class_exists(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attribute::class);
             \class_exists(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes::class);
+            \class_exists(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor::class);
         }
         $class = new \ReflectionClass($name);
         $docComment = $class->getDocComment();
         // Sets default values for annotation metadata
         $constructor = $class->getConstructor();
         $metadata = ['default_property' => null, 'has_constructor' => $constructor !== null && $constructor->getNumberOfParameters() > 0, 'constructor_args' => [], 'properties' => [], 'property_types' => [], 'attribute_types' => [], 'targets_literal' => null, 'targets' => \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_ALL, 'is_annotation' => \strpos($docComment, '@Annotation') !== \false];
-        if (\PHP_VERSION_ID < 80000 && $class->implementsInterface(\RectorPrefix20210315\Doctrine\Common\Annotations\NamedArgumentConstructorAnnotation::class)) {
-            foreach ($constructor->getParameters() as $parameter) {
-                $metadata['constructor_args'][$parameter->getName()] = ['position' => $parameter->getPosition(), 'default' => $parameter->isOptional() ? $parameter->getDefaultValue() : null];
-            }
-        }
+        $metadata['has_named_argument_constructor'] = $metadata['has_constructor'] && $class->implementsInterface(\RectorPrefix20210315\Doctrine\Common\Annotations\NamedArgumentConstructorAnnotation::class);
         // verify that the class is really meant to be an annotation
         if ($metadata['is_annotation']) {
             self::$metadataParser->setTarget(\RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
@@ -319,6 +373,13 @@ final class ConstantPreservingDocParser
                     $metadata['targets'] = $annotation->targets;
                     $metadata['targets_literal'] = $annotation->literal;
                     continue;
+                }
+                if ($annotation instanceof \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor) {
+                    $metadata['has_named_argument_constructor'] = $metadata['has_constructor'];
+                    if ($metadata['has_named_argument_constructor']) {
+                        // choose the first argument as the default property
+                        $metadata['default_property'] = $constructor->getParameters()[0]->getName();
+                    }
                 }
                 if (!$annotation instanceof \RectorPrefix20210315\Doctrine\Common\Annotations\Annotation\Attributes) {
                     continue;
@@ -357,6 +418,10 @@ final class ConstantPreservingDocParser
                 }
                 // choose the first property as default property
                 $metadata['default_property'] = \reset($metadata['properties']);
+            } elseif ($metadata['has_named_argument_constructor']) {
+                foreach ($constructor->getParameters() as $parameter) {
+                    $metadata['constructor_args'][$parameter->getName()] = ['position' => $parameter->getPosition(), 'default' => $parameter->isOptional() ? $parameter->getDefaultValue() : null];
+                }
             }
         }
         self::$annotationMetadata[$name] = $metadata;
@@ -403,6 +468,9 @@ final class ConstantPreservingDocParser
     /**
      * Annotations ::= Annotation {[ "*" ]* [Annotation]}*
      *
+     * @throws AnnotationException
+     * @throws ReflectionException
+     *
      * @phpstan-return list<object>
      */
     private function Annotations() : array
@@ -442,6 +510,9 @@ final class ConstantPreservingDocParser
      * SimpleName     ::= identifier | null | false | true
      *
      * @return object|false False if it is not a valid annotation.
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function Annotation()
     {
@@ -482,9 +553,9 @@ final class ConstantPreservingDocParser
                 if ($this->isIgnoredAnnotation($name)) {
                     return \false;
                 }
-                throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'CODE_SAMPLE'
+                throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 The annotation "@%s" in %s was never imported. Did you maybe forget to add a "use" statement for this annotation?
-CODE_SAMPLE
+EXCEPTION
 , $name, $this->context));
             }
         }
@@ -504,12 +575,12 @@ CODE_SAMPLE
             if ($this->isIgnoredAnnotation($originalName) || $this->isIgnoredAnnotation($name)) {
                 return \false;
             }
-            throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'CODE_SAMPLE'
+            throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 The class "%s" is not annotated with @Annotation.
 Are you sure this class can be used as annotation?
 If so, then you need to add @Annotation to the _class_ doc comment of "%s".
 If it is indeed no annotation, then you need to add @IgnoreAnnotation("%s") to the _class_ doc comment of %s.
-CODE_SAMPLE
+EXCEPTION
 , $name, $name, $originalName, $this->context));
         }
         //if target is nested annotation
@@ -518,17 +589,18 @@ CODE_SAMPLE
         $this->isNestedAnnotation = \true;
         //if annotation does not support current target
         if ((self::$annotationMetadata[$name]['targets'] & $target) === 0 && $target) {
-            throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'CODE_SAMPLE'
+            throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::semanticalError(\sprintf(<<<'EXCEPTION'
 Annotation @%s is not allowed to be declared on %s. You may only use this annotation on these code elements: %s.
-CODE_SAMPLE
+EXCEPTION
 , $originalName, $this->context, self::$annotationMetadata[$name]['targets_literal']));
         }
-        $values = $this->MethodCall();
+        $arguments = $this->MethodCall();
+        $values = $this->resolvePositionalValues($arguments, $name);
         if (isset(self::$annotationMetadata[$name]['enum'])) {
             // checks all declared attributes
             foreach (self::$annotationMetadata[$name]['enum'] as $property => $enum) {
                 // checks if the attribute is a valid enumerator
-                if (isset($values[$property]) && !\in_array($values[$property], $enum['value'], \true)) {
+                if (isset($values[$property]) && !\in_array($values[$property], $enum['value'])) {
                     throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::enumeratorError($property, $name, $this->context, $enum['literal'], $values[$property]);
                 }
             }
@@ -562,7 +634,7 @@ CODE_SAMPLE
                 throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::attributeTypeError($property, $originalName, $this->context, 'a(n) ' . $type['value'], $values[$property]);
             }
         }
-        if (\is_subclass_of($name, \RectorPrefix20210315\Doctrine\Common\Annotations\NamedArgumentConstructorAnnotation::class)) {
+        if (self::$annotationMetadata[$name]['has_named_argument_constructor']) {
             if (\PHP_VERSION_ID >= 80000) {
                 return new $name(...$values);
             }
@@ -572,11 +644,11 @@ CODE_SAMPLE
             }
             foreach ($values as $property => $value) {
                 if (!isset(self::$annotationMetadata[$name]['constructor_args'][$property])) {
-                    throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'CODE_SAMPLE'
+                    throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
 The annotation @%s declared on %s does not have a property named "%s"
 that can be set through its named arguments constructor.
 Available named arguments: %s
-CODE_SAMPLE
+EXCEPTION
 , $originalName, $this->context, $property, \implode(', ', \array_keys(self::$annotationMetadata[$name]['constructor_args']))));
                 }
                 $positionalValues[self::$annotationMetadata[$name]['constructor_args'][$property]['position']] = $value;
@@ -592,10 +664,10 @@ CODE_SAMPLE
         foreach ($values as $property => $value) {
             if (!isset(self::$annotationMetadata[$name]['properties'][$property])) {
                 if ($property !== 'value') {
-                    throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'CODE_SAMPLE'
+                    throw \RectorPrefix20210315\Doctrine\Common\Annotations\AnnotationException::creationError(\sprintf(<<<'EXCEPTION'
 The annotation @%s declared on %s does not have a property named "%s".
 Available properties: %s
-CODE_SAMPLE
+EXCEPTION
 , $originalName, $this->context, $property, \implode(', ', self::$annotationMetadata[$name]['properties'])));
                 }
                 // handle the case if the property has no annotations
@@ -612,6 +684,9 @@ CODE_SAMPLE
      * MethodCall ::= ["(" [Values] ")"]
      *
      * @return mixed[]
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function MethodCall() : array
     {
@@ -630,6 +705,9 @@ CODE_SAMPLE
      * Values ::= Array | Value {"," Value}* [","]
      *
      * @return mixed[]
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function Values() : array
     {
@@ -641,30 +719,25 @@ CODE_SAMPLE
             }
             $token = $this->lexer->lookahead;
             $value = $this->Value();
-            if (!\is_object($value) && !\is_array($value)) {
-                throw $this->syntaxError('Value', $token);
-            }
             $values[] = $value;
         }
+        $namedArguments = [];
+        $positionalArguments = [];
         foreach ($values as $k => $value) {
             if (\is_object($value) && $value instanceof \stdClass) {
-                $values[$value->name] = $value->value;
-            } elseif (!isset($values['value'])) {
-                $values['value'] = $value;
+                $namedArguments[$value->name] = $value->value;
             } else {
-                if (!\is_array($values['value'])) {
-                    $values['value'] = [$values['value']];
-                }
-                $values['value'][] = $value;
+                $positionalArguments[$k] = $value;
             }
-            unset($values[$k]);
         }
-        return $values;
+        return ['named_arguments' => $namedArguments, 'positional_arguments' => $positionalArguments];
     }
     /**
      * Constant ::= integer | string | float | boolean
      *
      * @return mixed
+     *
+     * @throws AnnotationException
      */
     private function Constant()
     {
@@ -741,6 +814,8 @@ CODE_SAMPLE
     }
     /**
      * Identifier ::= string
+     *
+     * @throws AnnotationException
      */
     private function Identifier() : string
     {
@@ -761,6 +836,9 @@ CODE_SAMPLE
      * Value ::= PlainValue | FieldAssignment
      *
      * @return mixed
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function Value()
     {
@@ -774,6 +852,9 @@ CODE_SAMPLE
      * PlainValue ::= integer | string | float | boolean | Array | Annotation
      *
      * @return mixed
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function PlainValue()
     {
@@ -812,6 +893,9 @@ CODE_SAMPLE
     /**
      * FieldAssignment ::= FieldName "=" PlainValue
      * FieldName ::= identifier
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function FieldAssignment() : \stdClass
     {
@@ -827,6 +911,9 @@ CODE_SAMPLE
      * Array ::= "{" ArrayEntry {"," ArrayEntry}* [","] "}"
      *
      * @return mixed[]
+     *
+     * @throws AnnotationException
+     * @throws ReflectionException
      */
     private function Arrayx() : array
     {
@@ -862,6 +949,9 @@ CODE_SAMPLE
      * KeyValuePair ::= Key ("=" | ":") PlainValue | Constant
      * Key ::= string | integer | Constant
      *
+     * @throws AnnotationException
+     * @throws ReflectionException
+     *
      * @phpstan-return array{mixed, mixed}
      */
     private function ArrayEntry() : array
@@ -894,5 +984,45 @@ CODE_SAMPLE
             }
         }
         return \false;
+    }
+    /**
+     * Resolve positional arguments (without name) to named ones
+     *
+     * @param array<string,mixed> $arguments
+     *
+     * @return array<string,mixed>
+     */
+    private function resolvePositionalValues(array $arguments, string $name) : array
+    {
+        $positionalArguments = $arguments['positional_arguments'] ?? [];
+        $values = $arguments['named_arguments'] ?? [];
+        if (self::$annotationMetadata[$name]['has_named_argument_constructor'] && self::$annotationMetadata[$name]['default_property'] !== null) {
+            // We must ensure that we don't have positional arguments after named ones
+            $positions = \array_keys($positionalArguments);
+            $lastPosition = null;
+            foreach ($positions as $position) {
+                if ($lastPosition === null && $position !== 0 || $lastPosition !== null && $position !== $lastPosition + 1) {
+                    throw $this->syntaxError('Positional arguments after named arguments is not allowed');
+                }
+                $lastPosition = $position;
+            }
+            foreach (self::$annotationMetadata[$name]['constructor_args'] as $property => $parameter) {
+                $position = $parameter['position'];
+                if (isset($values[$property]) || !isset($positionalArguments[$position])) {
+                    continue;
+                }
+                $values[$property] = $positionalArguments[$position];
+            }
+        } else {
+            if (\count($positionalArguments) > 0 && !isset($values['value'])) {
+                if (\count($positionalArguments) === 1) {
+                    $value = \array_pop($positionalArguments);
+                } else {
+                    $value = \array_values($positionalArguments);
+                }
+                $values['value'] = $value;
+            }
+        }
+        return $values;
     }
 }

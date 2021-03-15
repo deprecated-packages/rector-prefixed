@@ -132,8 +132,9 @@ class Container implements \RectorPrefix20210315\Symfony\Component\DependencyInj
      *
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service)
+    public function set(string $id, $service)
     {
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
