@@ -49,6 +49,9 @@ use Rector\DeadCode\Rector\Stmt\RemoveUnreachableStatementRector;
 use Rector\DeadCode\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector;
 use Rector\DeadCode\Rector\Ternary\TernaryToBooleanOrFalseToBooleanAndRector;
 use Rector\DeadCode\Rector\TryCatch\RemoveDeadTryCatchRector;
+use Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector;
+use Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector;
+use Rector\DeadDocBlock\Rector\Node\RemoveNonExistingVarAnnotationRector;
 use Rector\PHPUnit\Rector\ClassMethod\RemoveEmptyTestMethodRector;
 use RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
@@ -100,4 +103,8 @@ return static function (\RectorPrefix20210315\Symfony\Component\DependencyInject
     $services->set(\Rector\DeadCode\Rector\If_\RemoveDeadInstanceOfRector::class);
     $services->set(\Rector\DeadCode\Rector\Class_\RemoveEmptyAbstractClassRector::class);
     $services->set(\Rector\DeadCode\Rector\For_\RemoveDeadLoopRector::class);
+    // docblock
+    $services->set(\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessParamTagRector::class);
+    $services->set(\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector::class);
+    $services->set(\Rector\DeadDocBlock\Rector\Node\RemoveNonExistingVarAnnotationRector::class);
 };

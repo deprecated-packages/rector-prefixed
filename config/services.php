@@ -58,16 +58,6 @@ return static function (\RectorPrefix20210315\Symfony\Component\DependencyInject
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode']);
-    $services->load('Rector\\', __DIR__ . '/../packages')->exclude([
-        // @todo move to value object
-        __DIR__ . '/../packages/AttributeAwarePhpDoc/Ast',
-        __DIR__ . '/../packages/BetterPhpDocParser/Attributes/Ast/PhpDoc',
-        __DIR__ . '/../packages/BetterPhpDocParser/Attributes/Attribute',
-        __DIR__ . '/../packages/BetterPhpDocParser/PhpDocInfo/PhpDocInfo.php',
-        __DIR__ . '/../packages/*/{ValueObject,Contract,Exception}',
-        __DIR__ . '/../packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php',
-        __DIR__ . '/../packages/Testing/PHPUnit',
-    ]);
     $services->alias(\RectorPrefix20210315\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
     $services->set(\RectorPrefix20210315\Symplify\SmartFileSystem\FileSystemGuard::class);
     $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
