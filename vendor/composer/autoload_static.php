@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
+class ComposerStaticInit74865cb0e0f79a1b1f1fda415dfcc1ec
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -19,6 +19,7 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -26,6 +27,8 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         array (
             'Symplify\\SymfonyPhpConfig\\' => 26,
             'Symplify\\RuleDocGenerator\\' => 26,
+            'Symfony\\Polyfill\\Php74\\' => 23,
+            'Symfony\\Polyfill\\Php72\\' => 23,
         ),
         'R' => 
         array (
@@ -50,7 +53,6 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
             'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\' => 43,
             'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\' => 44,
             'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => 44,
-            'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => 44,
             'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => 47,
             'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\' => 54,
             'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 52,
@@ -103,6 +105,14 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         'Symplify\\RuleDocGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
+        ),
+        'Symfony\\Polyfill\\Php74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
+        ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Rector\\Core\\' => 
         array (
@@ -188,10 +198,6 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
-        ),
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -1647,7 +1653,6 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
         'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
         'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
         'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
         'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
         'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
@@ -3668,6 +3673,8 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
         'Rector\\Visibility\\Rector\\Property\\ChangePropertyVisibilityRector' => __DIR__ . '/../..' . '/rules/Visibility/Rector/Property/ChangePropertyVisibilityRector.php',
         'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
         'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
+        'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
+        'Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill-php74/Php74.php',
         'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
         'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
         'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
@@ -3708,9 +3715,9 @@ class ComposerStaticInit654c8f4a0919835dd9f0a82309608371
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit654c8f4a0919835dd9f0a82309608371::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit654c8f4a0919835dd9f0a82309608371::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit654c8f4a0919835dd9f0a82309608371::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit74865cb0e0f79a1b1f1fda415dfcc1ec::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit74865cb0e0f79a1b1f1fda415dfcc1ec::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit74865cb0e0f79a1b1f1fda415dfcc1ec::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,14 +1,9 @@
 {
-    "name": "symfony\/polyfill-php72",
+    "name": "symfony/polyfill-php72",
     "type": "library",
     "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
-    "keywords": [
-        "polyfill",
-        "shim",
-        "compatibility",
-        "portable"
-    ],
-    "homepage": "https:\/\/symfony.com",
+    "keywords": ["polyfill", "shim", "compatibility", "portable"],
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -17,19 +12,15 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.1"
     },
     "autoload": {
-        "psr-4": {
-            "RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\": ""
-        },
-        "files": [
-            "bootstrap.php"
-        ]
+        "psr-4": { "Symfony\\Polyfill\\Php72\\": "" },
+        "files": [ "bootstrap.php" ]
     },
     "minimum-stability": "dev",
     "extra": {
@@ -37,8 +28,8 @@
             "dev-main": "1.22-dev"
         },
         "thanks": {
-            "name": "symfony\/polyfill",
-            "url": "https:\/\/github.com\/symfony\/polyfill"
+            "name": "symfony/polyfill",
+            "url": "https://github.com/symfony/polyfill"
         }
     }
 }

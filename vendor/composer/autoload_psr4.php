@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symplify\\SymfonyPhpConfig\\' => array($vendorDir . '/symplify/symfony-php-config/src'),
     'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
+    'Symfony\\Polyfill\\Php74\\' => array($vendorDir . '/symfony/polyfill-php74'),
+    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
     'Rector\\' => array($baseDir . '/packages', $baseDir . '/rules'),
@@ -29,7 +31,6 @@ return array(
     'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\' => array($vendorDir . '/symfony/polyfill-uuid'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),
-    'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\' => array($vendorDir . '/symfony/polyfill-intl-normalizer'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\' => array($vendorDir . '/symfony/polyfill-intl-grapheme'),
