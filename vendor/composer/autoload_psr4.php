@@ -28,7 +28,6 @@ return array(
     'RectorPrefix20210316\\Symplify\\Astral\\' => array($vendorDir . '/symplify/astral/src'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\' => array($vendorDir . '/symfony/polyfill-uuid'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
-    'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\' => array($vendorDir . '/symfony/polyfill-php74'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

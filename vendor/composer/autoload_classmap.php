@@ -1307,7 +1307,6 @@ return array(
     'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\Mbstring' => $vendorDir . '/symfony/polyfill-mbstring/Mbstring.php',
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\Php72' => $vendorDir . '/symfony/polyfill-php72/Php72.php',
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\Php73' => $vendorDir . '/symfony/polyfill-php73/Php73.php',
-    'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\Php74' => $vendorDir . '/symfony/polyfill-php74/Php74.php',
     'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\Php80' => $vendorDir . '/symfony/polyfill-php80/Php80.php',
     'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\Uuid' => $vendorDir . '/symfony/polyfill-uuid/Uuid.php',
     'RectorPrefix20210316\\Symplify\\Astral\\Bundle\\AstralBundle' => $vendorDir . '/symplify/astral/src/Bundle/AstralBundle.php',
