@@ -161,9 +161,9 @@ class UnicodeString extends \RectorPrefix20210316\Symfony\Component\String\Abstr
         return \grapheme_strlen($this->string);
     }
     /**
-     * @return static
+     * @return mixed
      */
-    public function normalize(int $form = self::NFC) : \RectorPrefix20210316\parent
+    public function normalize(int $form = self::NFC)
     {
         $str = clone $this;
         if (\in_array($form, [self::NFC, self::NFKC], \true)) {

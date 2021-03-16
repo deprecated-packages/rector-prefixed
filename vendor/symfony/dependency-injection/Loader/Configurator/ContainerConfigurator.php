@@ -66,7 +66,7 @@ class ContainerConfigurator extends \RectorPrefix20210316\Symfony\Component\Depe
     /**
      * @return static
      */
-    public final function withPath(string $path) : self
+    public final function withPath(string $path)
     {
         $clone = clone $this;
         $clone->path = $clone->file = $path;

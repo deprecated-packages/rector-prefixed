@@ -7,7 +7,7 @@ use RectorPrefix20210316\Symfony\Component\HttpKernel\Bundle\Bundle;
 use RectorPrefix20210316\Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension;
 final class MarkdownDiffBundle extends \RectorPrefix20210316\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    protected function createContainerExtension() : \RectorPrefix20210316\Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension
+    protected function createContainerExtension() : ?\RectorPrefix20210316\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         return new \RectorPrefix20210316\Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension();
     }

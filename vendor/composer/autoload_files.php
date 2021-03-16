@@ -6,15 +6,19 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
     '6e3fae29631ef280660b3cdad06f25a8' => $vendorDir . '/symfony/deprecation-contracts/function.php',
-    '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
-    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
-    '0d59ee240a4cd96ddbb4ff164fccea4d' => $vendorDir . '/symfony/polyfill-php73/bootstrap.php',
     '9b38cf48e83f5d8f60375221cd213eee' => $vendorDir . '/phpstan/phpstan/bootstrap.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
-    '8825ede83f2f289127722d4e842cf7e8' => $vendorDir . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-    'e69f7f6ee287b969198c3c9d6777bd38' => $vendorDir . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-    '09f6b20656683369174dd6fa83b7e5fb' => $vendorDir . '/symfony/polyfill-uuid/bootstrap.php',
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
+    '0333f8b5cd538ebe8681405ac533a9e1' => $vendorDir . '/symfony/polyfill/src/bootstrap.php',
+    '848a06382c1c883893a9c9833ae2b551' => $vendorDir . '/symfony/polyfill/src/Apcu/bootstrap.php',
+    'acf59695ef9115a36483a1d0a770cb98' => $vendorDir . '/symfony/polyfill/src/Ctype/bootstrap.php',
+    '5bea57cdb4ad2ea22b305ab861fa7a70' => $vendorDir . '/symfony/polyfill/src/Uuid/bootstrap.php',
+    '0782f09865a7e9f4ebd12e5f68b3135f' => $vendorDir . '/symfony/polyfill/src/Iconv/bootstrap.php',
+    'f38c346c3a1bb49bd02ba8e9177d7e56' => $vendorDir . '/symfony/polyfill/src/Intl/Grapheme/bootstrap.php',
+    '957101f585e4a9a2c29a37969ab22028' => $vendorDir . '/symfony/polyfill/src/Intl/Idn/bootstrap.php',
+    '946db64f9a5c0688514fdcdafcabe7d2' => $vendorDir . '/symfony/polyfill/src/Intl/Icu/bootstrap.php',
+    'a4e34e0535907b5c234b9abc547237ca' => $vendorDir . '/symfony/polyfill/src/Intl/MessageFormatter/bootstrap.php',
+    '299b3c040b39cb03c6eceb9bb272ad1d' => $vendorDir . '/symfony/polyfill/src/Intl/Normalizer/bootstrap.php',
+    'e59f725579f9974327c76777296d6dcc' => $vendorDir . '/symfony/polyfill/src/Mbstring/bootstrap.php',
 );

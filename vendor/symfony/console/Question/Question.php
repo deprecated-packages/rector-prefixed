@@ -68,7 +68,7 @@ class Question
      *
      * @return $this
      */
-    public function setMultiline(bool $multiline) : self
+    public function setMultiline(bool $multiline)
     {
         $this->multiline = $multiline;
         return $this;
@@ -168,7 +168,7 @@ class Question
      *
      * @return $this
      */
-    public function setAutocompleterCallback(callable $callback = null) : self
+    public function setAutocompleterCallback(callable $callback = null)
     {
         if ($this->hidden && null !== $callback) {
             throw new \RectorPrefix20210316\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
@@ -260,7 +260,7 @@ class Question
     /**
      * @return $this
      */
-    public function setTrimmable(bool $trimmable) : self
+    public function setTrimmable(bool $trimmable)
     {
         $this->trimmable = $trimmable;
         return $this;

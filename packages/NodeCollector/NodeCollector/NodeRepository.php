@@ -260,7 +260,7 @@ final class NodeRepository
     /**
      * @param MethodReflection|ReflectionMethod $methodReflection
      */
-    public function findClassMethodByMethodReflection(object $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
+    public function findClassMethodByMethodReflection($methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $methodReflection->getName();
         $declaringClass = $methodReflection->getDeclaringClass();

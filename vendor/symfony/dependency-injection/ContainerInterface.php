@@ -29,8 +29,9 @@ interface ContainerInterface extends \RectorPrefix20210316\Psr\Container\Contain
     public const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * Sets a service.
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service);
+    public function set(string $id, $service);
     /**
      * Gets a service.
      *

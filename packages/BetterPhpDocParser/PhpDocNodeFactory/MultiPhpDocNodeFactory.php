@@ -148,7 +148,7 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
     /**
      * @param ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation
      */
-    private function resolveEntityClass(object $annotation, \PhpParser\Node $node) : string
+    private function resolveEntityClass($annotation, \PhpParser\Node $node) : string
     {
         if ($annotation instanceof \Doctrine\ORM\Mapping\Embedded) {
             return $this->resolveFqnTargetEntity($annotation->class, $node);

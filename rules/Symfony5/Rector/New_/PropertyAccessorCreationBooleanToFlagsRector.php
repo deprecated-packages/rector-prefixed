@@ -70,11 +70,12 @@ CODE_SAMPLE
     }
     private function prepareFlags(bool $currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $classConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
-        $magicSet = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
+        $magicGetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
+        $magicSetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
         if (!$currentValue) {
-            return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($classConstFetch, $magicSet);
+            return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($magicGetClassConstFetch, $magicSetClassConstFetch);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
+        $magicCallClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL');
+        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($magicCallClassConstFetch, $magicGetClassConstFetch), $magicSetClassConstFetch);
     }
 }

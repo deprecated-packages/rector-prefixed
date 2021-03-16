@@ -266,15 +266,17 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
     }
     /**
      * Returns an object representing HTML text.
+     * @return $this
      */
-    public static function fromHtml(string $html) : self
+    public static function fromHtml(string $html)
     {
         return (new static())->setHtml($html);
     }
     /**
      * Returns an object representing plain text.
+     * @return $this
      */
-    public static function fromText(string $text) : self
+    public static function fromText(string $text)
     {
         return (new static())->setText($text);
     }

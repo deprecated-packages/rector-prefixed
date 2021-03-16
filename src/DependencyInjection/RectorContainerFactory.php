@@ -24,7 +24,7 @@ final class RectorContainerFactory
         $isDebug = \RectorPrefix20210316\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
         $environment = $this->createEnvironment($configFileInfos);
         // mt_rand is needed to invalidate container cache in case of class changes to be registered as services
-        $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment . \mt_rand(0, 10000), $isDebug);
+        $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment . \mt_rand(0, 1000), $isDebug);
         if ($configFileInfos !== []) {
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);
             $rectorKernel->setConfigs($configFilePaths);

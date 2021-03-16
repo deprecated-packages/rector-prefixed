@@ -17,8 +17,9 @@ final class ArgumentAndParameterFactory
     /**
      * @param array<string, mixed> $arguments
      * @param array<string, mixed> $properties
+     * @return object
      */
-    public function create(string $className, array $arguments, array $properties) : object
+    public function create(string $className, array $arguments, array $properties)
     {
         $object = new $className(...$arguments);
         foreach ($properties as $name => $value) {

@@ -21,15 +21,19 @@ class SingleCommandApplication extends \RectorPrefix20210316\Symfony\Component\C
     private $version = 'UNKNOWN';
     private $autoExit = \true;
     private $running = \false;
-    public function setVersion(string $version) : self
+    /**
+     * @return $this
+     */
+    public function setVersion(string $version)
     {
         $this->version = $version;
         return $this;
     }
     /**
      * @final
+     * @return $this
      */
-    public function setAutoExit(bool $autoExit) : self
+    public function setAutoExit(bool $autoExit)
     {
         $this->autoExit = $autoExit;
         return $this;

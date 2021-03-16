@@ -91,7 +91,10 @@ class DecoratorServicePass extends \RectorPrefix20210316\Symfony\Component\Depen
             $container->setAlias($inner, $id)->setPublic($public);
         }
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
             return new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());

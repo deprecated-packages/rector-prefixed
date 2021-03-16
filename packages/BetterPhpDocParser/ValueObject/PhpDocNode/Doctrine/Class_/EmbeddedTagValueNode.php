@@ -30,7 +30,7 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     {
         return $this->items['class'];
     }
-    public function getFullyQualifiedTargetEntity() : string
+    public function getFullyQualifiedTargetEntity() : ?string
     {
         return $this->fullyQualifiedClassName;
     }

@@ -18,7 +18,7 @@ trait TagTrait
      *
      * @return $this
      */
-    public final function tag(string $name, array $attributes = []) : self
+    public final function tag(string $name, array $attributes = [])
     {
         if ('' === $name) {
             throw new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The tag name for service "%s" must be a non-empty string.', $this->id));

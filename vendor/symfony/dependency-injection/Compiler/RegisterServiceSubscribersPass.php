@@ -26,7 +26,10 @@ use RectorPrefix20210316\Symfony\Contracts\Service\ServiceSubscriberInterface;
  */
 class RegisterServiceSubscribersPass extends \RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Definition || $value->isAbstract() || $value->isSynthetic() || !$value->hasTag('container.service_subscriber')) {
             return parent::processValue($value, $isRoot);

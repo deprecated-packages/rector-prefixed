@@ -26,6 +26,9 @@ use RectorPrefix20210316\Symplify\PackageBuilder\DependencyInjection\CompilerPas
 use RectorPrefix20210316\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use RectorPrefix20210316\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
 use RectorPrefix20210316\Symplify\Skipper\Bundle\SkipperBundle;
+/**
+ * @todo possibly remove symfony/http-kernel and use the container build only
+ */
 final class RectorKernel extends \RectorPrefix20210316\Symfony\Component\HttpKernel\Kernel implements \RectorPrefix20210316\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**

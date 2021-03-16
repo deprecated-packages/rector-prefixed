@@ -22,7 +22,7 @@ final class PhpConfigPrinterBundle extends \RectorPrefix20210316\Symfony\Compone
         $this->registerDefaultImplementations($containerBuilder);
         $containerBuilder->addCompilerPass(new \RectorPrefix20210316\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : \RectorPrefix20210316\Symplify\PhpConfigPrinter\DependencyInjection\Extension\PhpConfigPrinterExtension
+    protected function createContainerExtension() : ?\RectorPrefix20210316\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
         return new \RectorPrefix20210316\Symplify\PhpConfigPrinter\DependencyInjection\Extension\PhpConfigPrinterExtension();
     }

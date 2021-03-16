@@ -23,7 +23,7 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         return $this->items['targetEntity'];
     }
-    public function getFullyQualifiedTargetEntity() : string
+    public function getFullyQualifiedTargetEntity() : ?string
     {
         return $this->fullyQualifiedTargetEntity;
     }
