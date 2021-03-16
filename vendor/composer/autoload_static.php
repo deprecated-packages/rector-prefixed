@@ -4,24 +4,22 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
+class ComposerStaticInit0e2d60842d51988df314f71862a2f4bd
 {
     public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '0333f8b5cd538ebe8681405ac533a9e1' => __DIR__ . '/..' . '/symfony/polyfill/src/bootstrap.php',
-        '848a06382c1c883893a9c9833ae2b551' => __DIR__ . '/..' . '/symfony/polyfill/src/Apcu/bootstrap.php',
-        'acf59695ef9115a36483a1d0a770cb98' => __DIR__ . '/..' . '/symfony/polyfill/src/Ctype/bootstrap.php',
-        '5bea57cdb4ad2ea22b305ab861fa7a70' => __DIR__ . '/..' . '/symfony/polyfill/src/Uuid/bootstrap.php',
-        '0782f09865a7e9f4ebd12e5f68b3135f' => __DIR__ . '/..' . '/symfony/polyfill/src/Iconv/bootstrap.php',
-        'f38c346c3a1bb49bd02ba8e9177d7e56' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Grapheme/bootstrap.php',
-        '957101f585e4a9a2c29a37969ab22028' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Idn/bootstrap.php',
-        '946db64f9a5c0688514fdcdafcabe7d2' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/bootstrap.php',
-        'a4e34e0535907b5c234b9abc547237ca' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/MessageFormatter/bootstrap.php',
-        '299b3c040b39cb03c6eceb9bb272ad1d' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Normalizer/bootstrap.php',
-        'e59f725579f9974327c76777296d6dcc' => __DIR__ . '/..' . '/symfony/polyfill/src/Mbstring/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -50,7 +48,15 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
             'RectorPrefix20210316\\Symplify\\ComposerJsonManipulator\\' => 54,
             'RectorPrefix20210316\\Symplify\\AutowireArrayParameter\\' => 53,
             'RectorPrefix20210316\\Symplify\\Astral\\' => 37,
-            'RectorPrefix20210316\\Symfony\\Polyfill\\' => 38,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\' => 43,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\' => 44,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\' => 44,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => 44,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => 44,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => 47,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\' => 54,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 52,
+            'RectorPrefix20210316\\Symfony\\Polyfill\\Ctype\\' => 44,
             'RectorPrefix20210316\\Symfony\\Contracts\\Service\\' => 47,
             'RectorPrefix20210316\\Symfony\\Contracts\\HttpClient\\' => 50,
             'RectorPrefix20210316\\Symfony\\Contracts\\EventDispatcher\\' => 55,
@@ -173,9 +179,41 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         array (
             0 => __DIR__ . '/..' . '/symplify/astral/src',
         ),
-        'RectorPrefix20210316\\Symfony\\Polyfill\\' => 
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill/src',
+            0 => __DIR__ . '/..' . '/symfony/polyfill-uuid',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
+        ),
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'RectorPrefix20210316\\Symfony\\Contracts\\Service\\' => 
         array (
@@ -620,8 +658,7 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'PhpParser\\Parser\\Tokens' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Parser/Tokens.php',
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
-        'RectorPrefix20210316\\Attribute' => __DIR__ . '/..' . '/symfony/polyfill/src/Php80/Resources/stubs/Attribute.php',
-        'RectorPrefix20210316\\Collator' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Resources/stubs/Collator.php',
+        'RectorPrefix20210316\\Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'RectorPrefix20210316\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
         'RectorPrefix20210316\\Composer\\Semver\\CompilingMatcher' => __DIR__ . '/..' . '/composer/semver/src/CompilingMatcher.php',
         'RectorPrefix20210316\\Composer\\Semver\\Constraint\\Bound' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Bound.php',
@@ -702,16 +739,12 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'RectorPrefix20210316\\Doctrine\\Inflector\\Rules\\Word' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Word.php',
         'RectorPrefix20210316\\Doctrine\\Inflector\\RulesetInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/RulesetInflector.php',
         'RectorPrefix20210316\\Doctrine\\Inflector\\WordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/WordInflector.php',
-        'RectorPrefix20210316\\IntlDateFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Resources/stubs/IntlDateFormatter.php',
-        'RectorPrefix20210316\\IntlException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/MessageFormatter/Resources/stubs/IntlException.php',
         'RectorPrefix20210316\\Jean85\\Exception\\ProvidedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ProvidedPackageException.php',
         'RectorPrefix20210316\\Jean85\\Exception\\ReplacedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ReplacedPackageException.php',
         'RectorPrefix20210316\\Jean85\\Exception\\VersionMissingExceptionInterface' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/VersionMissingExceptionInterface.php',
         'RectorPrefix20210316\\Jean85\\PrettyVersions' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/PrettyVersions.php',
         'RectorPrefix20210316\\Jean85\\Version' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Version.php',
-        'RectorPrefix20210316\\JsonException' => __DIR__ . '/..' . '/symfony/polyfill/src/Php73/Resources/stubs/JsonException.php',
-        'RectorPrefix20210316\\Locale' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Resources/stubs/Locale.php',
-        'RectorPrefix20210316\\MessageFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/MessageFormatter/Resources/stubs/MessageFormatter.php',
+        'RectorPrefix20210316\\JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'RectorPrefix20210316\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'RectorPrefix20210316\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'RectorPrefix20210316\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -762,8 +795,7 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'RectorPrefix20210316\\Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'RectorPrefix20210316\\Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'RectorPrefix20210316\\Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
-        'RectorPrefix20210316\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Normalizer/Resources/stubs/Normalizer.php',
-        'RectorPrefix20210316\\NumberFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Resources/stubs/NumberFormatter.php',
+        'RectorPrefix20210316\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'RectorPrefix20210316\\Psr\\Cache\\CacheException' => __DIR__ . '/..' . '/psr/cache/src/CacheException.php',
         'RectorPrefix20210316\\Psr\\Cache\\CacheItemInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemInterface.php',
         'RectorPrefix20210316\\Psr\\Cache\\CacheItemPoolInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemPoolInterface.php',
@@ -804,7 +836,7 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'RectorPrefix20210316\\SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
         'RectorPrefix20210316\\SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
         'RectorPrefix20210316\\SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
-        'RectorPrefix20210316\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill/src/Php80/Resources/stubs/Stringable.php',
+        'RectorPrefix20210316\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'RectorPrefix20210316\\Symfony\\Component\\Cache\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractAdapter.php',
         'RectorPrefix20210316\\Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractTagAwareAdapter.php',
         'RectorPrefix20210316\\Symfony\\Component\\Cache\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/symfony/cache/Adapter/AdapterInterface.php',
@@ -1617,59 +1649,15 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'RectorPrefix20210316\\Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'RectorPrefix20210316\\Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
         'RectorPrefix20210316\\Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Apcu\\Apcu' => __DIR__ . '/..' . '/symfony/polyfill/src/Apcu/Apcu.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill/src/Ctype/Ctype.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill/src/Iconv/Iconv.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Grapheme/Grapheme.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Collator' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Collator.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Currencies' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Currencies.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\AmPmTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/AmPmTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\DayOfWeekTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/DayOfWeekTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\DayOfYearTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/DayOfYearTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\DayTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/DayTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\FullTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/FullTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\Hour1200Transformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/Hour1200Transformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\Hour1201Transformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/Hour1201Transformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\Hour2400Transformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/Hour2400Transformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\Hour2401Transformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/Hour2401Transformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\HourTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/HourTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\MinuteTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/MinuteTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\MonthTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/MonthTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\QuarterTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/QuarterTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\SecondTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/SecondTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\TimezoneTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/TimezoneTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\Transformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/Transformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\DateFormat\\YearTransformer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/DateFormat/YearTransformer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/ExceptionInterface.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\MethodArgumentNotImplementedException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/MethodArgumentNotImplementedException.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\MethodArgumentValueNotImplementedException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/MethodArgumentValueNotImplementedException.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\MethodNotImplementedException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/MethodNotImplementedException.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\NotImplementedException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/NotImplementedException.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Exception/RuntimeException.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Icu' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Icu.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\IntlDateFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/IntlDateFormatter.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\Locale' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/Locale.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Icu\\NumberFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Icu/NumberFormatter.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Idn\\Idn' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Idn/Idn.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Idn\\Info' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Idn/Info.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\DisallowedRanges' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Idn/Resources/unidata/DisallowedRanges.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\Regex' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Idn/Resources/unidata/Regex.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\MessageFormatter\\MessageFormatter' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/MessageFormatter/MessageFormatter.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill/src/Intl/Normalizer/Normalizer.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill/src/Mbstring/Mbstring.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill/src/Php72/Php72.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill/src/Php73/Php73.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill/src/Php74/Php74.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill/src/Php80/Php80.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill/src/Php81/Php81.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\Binary' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/Binary.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\BinaryNoFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/BinaryNoFuncOverload.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\BinaryOnFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/BinaryOnFuncOverload.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/TestListener.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\TestListenerForV7' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/TestListenerForV7.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\TestListenerForV9' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/TestListenerForV9.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Util\\TestListenerTrait' => __DIR__ . '/..' . '/symfony/polyfill/src/Util/TestListenerTrait.php',
-        'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill/src/Uuid/Uuid.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill-php74/Php74.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'RectorPrefix20210316\\Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
         'RectorPrefix20210316\\Symplify\\Astral\\Bundle\\AstralBundle' => __DIR__ . '/..' . '/symplify/astral/src/Bundle/AstralBundle.php',
         'RectorPrefix20210316\\Symplify\\Astral\\Contract\\NodeNameResolverInterface' => __DIR__ . '/..' . '/symplify/astral/src/Contract/NodeNameResolverInterface.php',
         'RectorPrefix20210316\\Symplify\\Astral\\DependencyInjection\\Extension\\AstralExtension' => __DIR__ . '/..' . '/symplify/astral/src/DependencyInjection/Extension/AstralExtension.php',
@@ -1903,8 +1891,8 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
         'RectorPrefix20210316\\Symplify\\SymplifyKernel\\Strings\\KernelUniqueHasher' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/KernelUniqueHasher.php',
         'RectorPrefix20210316\\Symplify\\SymplifyKernel\\Strings\\StringsConverter' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/StringsConverter.php',
         'RectorPrefix20210316\\Symplify\\SymplifyKernel\\ValueObject\\KernelBootAndApplicationRun' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/KernelBootAndApplicationRun.php',
-        'RectorPrefix20210316\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill/src/Php80/Resources/stubs/UnhandledMatchError.php',
-        'RectorPrefix20210316\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill/src/Php80/Resources/stubs/ValueError.php',
+        'RectorPrefix20210316\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'RectorPrefix20210316\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'RectorPrefix20210316\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'RectorPrefix20210316\\Webmozart\\Assert\\InvalidArgumentException' => __DIR__ . '/..' . '/webmozart/assert/src/InvalidArgumentException.php',
         'RectorPrefix20210316\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
@@ -3727,9 +3715,9 @@ class ComposerStaticInita3621ded039803cad2d568daa40ab6ab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita3621ded039803cad2d568daa40ab6ab::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita3621ded039803cad2d568daa40ab6ab::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita3621ded039803cad2d568daa40ab6ab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0e2d60842d51988df314f71862a2f4bd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0e2d60842d51988df314f71862a2f4bd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0e2d60842d51988df314f71862a2f4bd::$classMap;
 
         }, null, ClassLoader::class);
     }
