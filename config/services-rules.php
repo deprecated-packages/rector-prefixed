@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210315;
+namespace RectorPrefix20210316;
 
 use Rector\Core\Configuration\Option;
 use Rector\PSR4\Composer\PSR4NamespaceMatcher;
 use Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
-use RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210315\Symfony\Component\Yaml\Parser;
-use RectorPrefix20210315\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter;
-return static function (\RectorPrefix20210315\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210316\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210316\Symfony\Component\Yaml\Parser;
+use RectorPrefix20210316\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter;
+return static function (\RectorPrefix20210316\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM, []);
     $services = $containerConfigurator->services();
@@ -18,6 +18,6 @@ return static function (\RectorPrefix20210315\Symfony\Component\DependencyInject
     $services->alias(\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface::class, \Rector\PSR4\Composer\PSR4NamespaceMatcher::class);
     $services->load('Rector\\', __DIR__ . '/../rules')->exclude([__DIR__ . '/../rules/*/{ValueObject,Rector,Contract,Exception}']);
     // symfony code-quality
-    $services->set(\RectorPrefix20210315\Symfony\Component\Yaml\Parser::class);
-    $services->set(\RectorPrefix20210315\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter::class);
+    $services->set(\RectorPrefix20210316\Symfony\Component\Yaml\Parser::class);
+    $services->set(\RectorPrefix20210316\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter::class);
 };

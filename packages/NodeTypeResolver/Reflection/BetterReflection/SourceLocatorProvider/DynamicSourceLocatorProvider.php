@@ -9,7 +9,7 @@ use PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher;
 use PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocator;
 use PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocator;
 use Rector\NodeTypeResolver\Contract\SourceLocatorProviderInterface;
-use RectorPrefix20210315\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210316\Symplify\SmartFileSystem\SmartFileInfo;
 final class DynamicSourceLocatorProvider implements \Rector\NodeTypeResolver\Contract\SourceLocatorProviderInterface
 {
     /**
@@ -28,7 +28,7 @@ final class DynamicSourceLocatorProvider implements \Rector\NodeTypeResolver\Con
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
     }
-    public function setFileInfo(\RectorPrefix20210315\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setFileInfo(\RectorPrefix20210316\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->files = [$fileInfo->getRealPath()];
     }

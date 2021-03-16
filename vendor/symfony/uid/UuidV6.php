@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210315\Symfony\Component\Uid;
+namespace RectorPrefix20210316\Symfony\Component\Uid;
 
 /**
  * A v6 UUID is lexicographically sortable and contains a 60-bit timestamp and 62 extra unique bits.
@@ -19,7 +19,7 @@ namespace RectorPrefix20210315\Symfony\Component\Uid;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class UuidV6 extends \RectorPrefix20210315\Symfony\Component\Uid\Uuid
+class UuidV6 extends \RectorPrefix20210316\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 6;
     private static $seed;
@@ -45,7 +45,7 @@ class UuidV6 extends \RectorPrefix20210315\Symfony\Component\Uid\Uuid
     public function getTime() : float
     {
         $time = '0' . \substr($this->uid, 0, 8) . \substr($this->uid, 9, 4) . \substr($this->uid, 15, 3);
-        return \RectorPrefix20210315\Symfony\Component\Uid\BinaryUtil::timeToFloat($time);
+        return \RectorPrefix20210316\Symfony\Component\Uid\BinaryUtil::timeToFloat($time);
     }
     public function getNode() : string
     {

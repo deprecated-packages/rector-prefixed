@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210315\Composer\Semver\Constraint;
+namespace RectorPrefix20210316\Composer\Semver\Constraint;
 
 class Bound
 {
@@ -59,7 +59,7 @@ class Bound
      *
      * @return bool
      */
-    public function compareTo(\RectorPrefix20210315\Composer\Semver\Constraint\Bound $other, $operator)
+    public function compareTo(\RectorPrefix20210316\Composer\Semver\Constraint\Bound $other, $operator)
     {
         if (!\in_array($operator, array('<', '>'), \true)) {
             throw new \InvalidArgumentException('Does not support any other operator other than > or <.');
@@ -85,13 +85,13 @@ class Bound
      */
     public static function zero()
     {
-        return new \RectorPrefix20210315\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
+        return new \RectorPrefix20210316\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
     }
     /**
      * @return self
      */
     public static function positiveInfinity()
     {
-        return new \RectorPrefix20210315\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
+        return new \RectorPrefix20210316\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
     }
 }
