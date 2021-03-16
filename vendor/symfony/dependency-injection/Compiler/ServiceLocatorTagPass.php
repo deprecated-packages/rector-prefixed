@@ -26,10 +26,7 @@ use RectorPrefix20210316\Symfony\Component\DependencyInjection\ServiceLocator;
 final class ServiceLocatorTagPass extends \RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     use PriorityTaggedServiceTrait;
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
             if ($value->getTaggedIteratorArgument()) {

@@ -33,9 +33,8 @@ final class AnnotationItemsResolver
     /**
      * @see https://ocramius.github.io/blog/fast-php-object-to-array-conversion/
      * @return mixed[]
-     * @param object $object
      */
-    private function resolvePrivatePropertyValues($object) : array
+    private function resolvePrivatePropertyValues(object $object) : array
     {
         $items = [];
         foreach ((array) $object as $messedPropertyName => $value) {

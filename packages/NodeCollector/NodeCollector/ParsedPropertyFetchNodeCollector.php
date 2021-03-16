@@ -32,16 +32,9 @@ final class ParsedPropertyFetchNodeCollector
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-    }
-    /**
-     * To prevent circular reference
-     * @required
-     */
-    public function autowireParsedPropertyFetchNodeCollector(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
-    {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function collect(\PhpParser\Node $node) : void

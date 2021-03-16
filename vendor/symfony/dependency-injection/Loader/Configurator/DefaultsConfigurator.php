@@ -35,7 +35,7 @@ class DefaultsConfigurator extends \RectorPrefix20210316\Symfony\Component\Depen
      *
      * @throws InvalidArgumentException when an invalid tag name or attribute is provided
      */
-    public final function tag(string $name, array $attributes = [])
+    public final function tag(string $name, array $attributes = []) : self
     {
         if ('' === $name) {
             throw new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');

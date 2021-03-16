@@ -56,9 +56,8 @@ class ParameterBag implements \RectorPrefix20210316\Symfony\Component\Dependency
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
@@ -101,9 +100,8 @@ class ParameterBag implements \RectorPrefix20210316\Symfony\Component\Dependency
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         return \array_key_exists((string) $name, $this->parameters);
     }

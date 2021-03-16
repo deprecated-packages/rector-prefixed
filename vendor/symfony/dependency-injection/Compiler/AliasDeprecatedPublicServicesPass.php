@@ -23,9 +23,8 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210316\Symf
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());

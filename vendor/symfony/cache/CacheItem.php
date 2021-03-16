@@ -57,7 +57,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function set($value)
+    public function set($value) : self
     {
         $this->value = $value;
         return $this;
@@ -67,7 +67,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration) : self
     {
         if (null === $expiration) {
             $this->expiry = null;
@@ -83,7 +83,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time) : self
     {
         if (null === $time) {
             $this->expiry = null;
@@ -99,7 +99,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
     /**
      * {@inheritdoc}
      */
-    public function tag($tags) : self
+    public function tag($tags) : \RectorPrefix20210316\Symfony\Contracts\Cache\ItemInterface
     {
         if (!$this->isTaggable) {
             throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));

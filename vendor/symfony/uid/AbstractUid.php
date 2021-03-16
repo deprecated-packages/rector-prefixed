@@ -32,7 +32,7 @@ abstract class AbstractUid implements \JsonSerializable
      *
      * @throws \InvalidArgumentException When the passed value is not valid
      */
-    public static abstract function fromString(string $uid);
+    public static abstract function fromString(string $uid) : self;
     /**
      * Returns the identifier as a raw binary string.
      */
@@ -75,10 +75,7 @@ abstract class AbstractUid implements \JsonSerializable
         }
         return $this->uid === $other->uid;
     }
-    /**
-     * @param $this $other
-     */
-    public function compare($other) : int
+    public function compare(self $other) : int
     {
         return \strlen($this->uid) - \strlen($other->uid) ?: $this->uid <=> $other->uid;
     }

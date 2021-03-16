@@ -96,10 +96,7 @@ class MergeExtensionConfigurationPass implements \RectorPrefix20210316\Symfony\C
 class MergeExtensionConfigurationParameterBag extends \RectorPrefix20210316\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag
 {
     private $processedEnvPlaceholders;
-    /**
-     * @param mixed $parameterBag
-     */
-    public function __construct($parameterBag)
+    public function __construct(parent $parameterBag)
     {
         parent::__construct($parameterBag->all());
         $this->mergeEnvPlaceholders($parameterBag);
@@ -149,9 +146,8 @@ class MergeExtensionConfigurationContainerBuilder extends \RectorPrefix20210316\
     }
     /**
      * {@inheritdoc}
-     * @return $this
      */
-    public function addCompilerPass(\RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
+    public function addCompilerPass(\RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \RectorPrefix20210316\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0) : self
     {
         throw new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }

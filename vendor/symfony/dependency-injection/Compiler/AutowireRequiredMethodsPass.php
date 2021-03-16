@@ -21,9 +21,8 @@ class AutowireRequiredMethodsPass extends \RectorPrefix20210316\Symfony\Componen
 {
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
         if (!$value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {

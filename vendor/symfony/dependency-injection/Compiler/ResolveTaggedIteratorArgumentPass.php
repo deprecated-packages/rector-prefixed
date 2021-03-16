@@ -21,9 +21,8 @@ class ResolveTaggedIteratorArgumentPass extends \RectorPrefix20210316\Symfony\Co
     use PriorityTaggedServiceTrait;
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210316\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             return parent::processValue($value, $isRoot);
