@@ -18,7 +18,7 @@ use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionParameter;
-use RectorPrefix20210316\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class CallDefaultParamValuesResolver
 {
     /**
@@ -37,7 +37,7 @@ final class CallDefaultParamValuesResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210316\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->nodeRepository = $nodeRepository;
         $this->nodeNameResolver = $nodeNameResolver;

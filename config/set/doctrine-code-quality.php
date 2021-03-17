@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210316;
+namespace RectorPrefix20210317;
 
 use Rector\Doctrine\Rector\Class_\ManagerRegistryGetManagerToEntityManagerRector;
 use Rector\DoctrineCodeQuality\Rector\Class_\InitializeDefaultEntityCollectionRector;
@@ -17,9 +17,9 @@ use Rector\Privatization\Rector\MethodCall\ReplaceStringWithClassConstantRector;
 use Rector\Privatization\ValueObject\ReplaceStringWithClassConstant;
 use Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector;
 use Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
-use RectorPrefix20210316\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210316\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Doctrine\Rector\Class_\ManagerRegistryGetManagerToEntityManagerRector::class);
     $services->set(\Rector\DoctrineCodeQuality\Rector\Class_\InitializeDefaultEntityCollectionRector::class);

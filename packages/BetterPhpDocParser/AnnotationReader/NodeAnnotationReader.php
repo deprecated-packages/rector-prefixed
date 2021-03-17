@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\AnnotationReader;
 
-use RectorPrefix20210316\Doctrine\Common\Annotations\AnnotationException;
-use RectorPrefix20210316\Doctrine\Common\Annotations\Reader;
+use RectorPrefix20210317\Doctrine\Common\Annotations\AnnotationException;
+use RectorPrefix20210317\Doctrine\Common\Annotations\Reader;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -41,17 +41,14 @@ final class NodeAnnotationReader
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\DoctrineAnnotationGenerated\PhpDocNode\ConstantReferenceIdentifierRestorer $constantReferenceIdentifierRestorer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210316\Doctrine\Common\Annotations\Reader $reader, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\DoctrineAnnotationGenerated\PhpDocNode\ConstantReferenceIdentifierRestorer $constantReferenceIdentifierRestorer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210317\Doctrine\Common\Annotations\Reader $reader, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reader = $reader;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->constantReferenceIdentifierRestorer = $constantReferenceIdentifierRestorer;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @return object|null
-     */
-    public function readAnnotation(\PhpParser\Node $node, string $annotationClass)
+    public function readAnnotation(\PhpParser\Node $node, string $annotationClass) : ?object
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return $this->readPropertyAnnotation($node, $annotationClass);
@@ -64,10 +61,7 @@ final class NodeAnnotationReader
         }
         return null;
     }
-    /**
-     * @return object|null
-     */
-    public function readClassAnnotation(\PhpParser\Node\Stmt\Class_ $class, string $annotationClassName)
+    public function readClassAnnotation(\PhpParser\Node\Stmt\Class_ $class, string $annotationClassName) : ?object
     {
         $classReflection = $this->createClassReflectionFromNode($class);
         $nativeClassReflection = $classReflection->getNativeReflection();
@@ -76,15 +70,12 @@ final class NodeAnnotationReader
             /** @var object[] $classAnnotations */
             $classAnnotations = $this->reader->getClassAnnotations($nativeClassReflection);
             return $this->matchNextAnnotation($classAnnotations, $annotationClassName, $class);
-        } catch (\RectorPrefix20210316\Doctrine\Common\Annotations\AnnotationException $annotationException) {
+        } catch (\RectorPrefix20210317\Doctrine\Common\Annotations\AnnotationException $annotationException) {
             // unable to load
             return null;
         }
     }
-    /**
-     * @return object|null
-     */
-    public function readPropertyAnnotation(\PhpParser\Node\Stmt\Property $property, string $annotationClassName)
+    public function readPropertyAnnotation(\PhpParser\Node\Stmt\Property $property, string $annotationClassName) : ?object
     {
         $reflectionProperty = $this->getNativePropertyReflection($property);
         if (!$reflectionProperty instanceof \ReflectionProperty) {
@@ -95,15 +86,12 @@ final class NodeAnnotationReader
             /** @var object[] $propertyAnnotations */
             $propertyAnnotations = $this->reader->getPropertyAnnotations($reflectionProperty);
             return $this->matchNextAnnotation($propertyAnnotations, $annotationClassName, $property);
-        } catch (\RectorPrefix20210316\Doctrine\Common\Annotations\AnnotationException $annotationException) {
+        } catch (\RectorPrefix20210317\Doctrine\Common\Annotations\AnnotationException $annotationException) {
             // unable to load
             return null;
         }
     }
-    /**
-     * @return object|null
-     */
-    private function readMethodAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $annotationClassName)
+    private function readMethodAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $annotationClassName) : ?object
     {
         /** @var string $className */
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -126,7 +114,7 @@ final class NodeAnnotationReader
                 $this->constantReferenceIdentifierRestorer->restoreObject($methodAnnotation);
                 return $methodAnnotation;
             }
-        } catch (\RectorPrefix20210316\Doctrine\Common\Annotations\AnnotationException $annotationException) {
+        } catch (\RectorPrefix20210317\Doctrine\Common\Annotations\AnnotationException $annotationException) {
             // unable to load
             return null;
         }
@@ -141,9 +129,8 @@ final class NodeAnnotationReader
     }
     /**
      * @param object[] $annotations
-     * @return object|null
      */
-    private function matchNextAnnotation(array $annotations, string $annotationClassName, \PhpParser\Node $node)
+    private function matchNextAnnotation(array $annotations, string $annotationClassName, \PhpParser\Node $node) : ?object
     {
         foreach ($annotations as $annotation) {
             if (!\is_a($annotation, $annotationClassName, \true)) {

@@ -6,7 +6,7 @@ namespace Rector\DoctrineAnnotationGenerated\PhpDocNode;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector;
 use Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector;
-use RectorPrefix20210316\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * @see https://github.com/rectorphp/rector/pull/3275/files
  */
@@ -24,16 +24,13 @@ final class ConstantReferenceIdentifierRestorer
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-    public function __construct(\RectorPrefix20210316\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
     {
         $this->privatesAccessor = $privatesAccessor;
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->annotationVisibilityDetector = $annotationVisibilityDetector;
     }
-    /**
-     * @param object $annotation
-     */
-    public function restoreObject($annotation) : void
+    public function restoreObject(object $annotation) : void
     {
         // restore constant value back to original value
         $identifierToResolvedValues = \Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::provide();
@@ -79,9 +76,8 @@ final class ConstantReferenceIdentifierRestorer
     /**
      * @param mixed[] $value
      * @param array<string, mixed> $identifierToResolvedValues
-     * @param object $annotation
      */
-    private function restoreNestedValue(array $value, array $identifierToResolvedValues, bool $isPrivate, $annotation, string $propertyName) : void
+    private function restoreNestedValue(array $value, array $identifierToResolvedValues, bool $isPrivate, object $annotation, string $propertyName) : void
     {
         foreach ($value as $key => $nestedValue) {
             $originalIdentifier = $this->matchIdentifierBasedOnResolverValue($identifierToResolvedValues, $nestedValue);

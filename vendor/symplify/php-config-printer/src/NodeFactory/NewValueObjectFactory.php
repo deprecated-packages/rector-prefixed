@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210316\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Arg;
@@ -11,10 +11,7 @@ use PhpParser\Node\Name\FullyQualified;
 use ReflectionClass;
 final class NewValueObjectFactory
 {
-    /**
-     * @param object $valueObject
-     */
-    public function create($valueObject) : \PhpParser\Node\Expr\New_
+    public function create(object $valueObject) : \PhpParser\Node\Expr\New_
     {
         $valueObjectClass = \get_class($valueObject);
         $propertyValues = $this->resolvePropertyValuesFromValueObject($valueObjectClass, $valueObject);
@@ -23,9 +20,8 @@ final class NewValueObjectFactory
     }
     /**
      * @return mixed[]
-     * @param object $valueObject
      */
-    private function resolvePropertyValuesFromValueObject(string $valueObjectClass, $valueObject) : array
+    private function resolvePropertyValuesFromValueObject(string $valueObjectClass, object $valueObject) : array
     {
         $reflectionClass = new \ReflectionClass($valueObjectClass);
         $propertyValues = [];

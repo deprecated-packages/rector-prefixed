@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\Console\Style;
+namespace RectorPrefix20210317\Symfony\Component\Console\Style;
 
 /**
  * Output style helpers.
@@ -73,24 +73,20 @@ interface StyleInterface
      * Asks a question.
      *
      * @return mixed
-     * @param callable $validator
      */
-    public function ask(string $question, ?string $default = null, $validator = null);
+    public function ask(string $question, ?string $default = null, callable $validator = null);
     /**
      * Asks a question with the user input hidden.
      *
      * @return mixed
-     * @param callable $validator
      */
-    public function askHidden(string $question, $validator = null);
+    public function askHidden(string $question, callable $validator = null);
     /**
      * Asks for confirmation.
      *
      * @return bool
-     * @param string $question
-     * @param bool $default
      */
-    public function confirm($question, $default = \true);
+    public function confirm(string $question, bool $default = \true);
     /**
      * Asks a choice question.
      *

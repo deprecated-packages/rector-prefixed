@@ -8,26 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\EventDispatcher;
+namespace RectorPrefix20210317\Symfony\Component\EventDispatcher;
 
 /**
  * A read-only proxy for an event dispatcher.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ImmutableEventDispatcher implements \RectorPrefix20210316\Symfony\Component\EventDispatcher\EventDispatcherInterface
+class ImmutableEventDispatcher implements \RectorPrefix20210317\Symfony\Component\EventDispatcher\EventDispatcherInterface
 {
     private $dispatcher;
-    public function __construct(\RectorPrefix20210316\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
     /**
      * {@inheritdoc}
-     * @param object $event
-     * @return object
      */
-    public function dispatch($event, string $eventName = null)
+    public function dispatch(object $event, string $eventName = null) : object
     {
         return $this->dispatcher->dispatch($event, $eventName);
     }
@@ -41,7 +39,7 @@ class ImmutableEventDispatcher implements \RectorPrefix20210316\Symfony\Componen
     /**
      * {@inheritdoc}
      */
-    public function addSubscriber(\RectorPrefix20210316\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function addSubscriber(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
@@ -55,7 +53,7 @@ class ImmutableEventDispatcher implements \RectorPrefix20210316\Symfony\Componen
     /**
      * {@inheritdoc}
      */
-    public function removeSubscriber(\RectorPrefix20210316\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function removeSubscriber(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }

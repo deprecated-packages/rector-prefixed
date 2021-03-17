@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\Uid;
+namespace RectorPrefix20210317\Symfony\Component\Uid;
 
 /**
  * @experimental in 5.2
@@ -32,7 +32,7 @@ abstract class AbstractUid implements \JsonSerializable
      *
      * @throws \InvalidArgumentException When the passed value is not valid
      */
-    public static abstract function fromString(string $uid);
+    public static abstract function fromString(string $uid) : self;
     /**
      * Returns the identifier as a raw binary string.
      */
@@ -42,7 +42,7 @@ abstract class AbstractUid implements \JsonSerializable
      */
     public function toBase58() : string
     {
-        return \strtr(\sprintf('%022s', \RectorPrefix20210316\Symfony\Component\Uid\BinaryUtil::toBase($this->toBinary(), \RectorPrefix20210316\Symfony\Component\Uid\BinaryUtil::BASE58)), '0', '1');
+        return \strtr(\sprintf('%022s', \RectorPrefix20210317\Symfony\Component\Uid\BinaryUtil::toBase($this->toBinary(), \RectorPrefix20210317\Symfony\Component\Uid\BinaryUtil::BASE58)), '0', '1');
     }
     /**
      * Returns the identifier as a base-32 case insensitive string.
@@ -75,10 +75,7 @@ abstract class AbstractUid implements \JsonSerializable
         }
         return $this->uid === $other->uid;
     }
-    /**
-     * @param $this $other
-     */
-    public function compare($other) : int
+    public function compare(self $other) : int
     {
         return \strlen($this->uid) - \strlen($other->uid) ?: $this->uid <=> $other->uid;
     }

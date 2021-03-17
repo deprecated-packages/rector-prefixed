@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\DependencyInjection;
+namespace RectorPrefix20210317\Symfony\Component\DependencyInjection;
 
-use RectorPrefix20210316\Psr\Container\ContainerInterface;
-use RectorPrefix20210316\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use RectorPrefix20210317\Psr\Container\ContainerInterface;
+use RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * Turns public and "container.reversible" services back to their ids.
  *
@@ -23,22 +23,21 @@ final class ReverseContainer
     private $reversibleLocator;
     private $tagName;
     private $getServiceId;
-    public function __construct(\RectorPrefix20210316\Symfony\Component\DependencyInjection\Container $serviceContainer, \RectorPrefix20210316\Psr\Container\ContainerInterface $reversibleLocator, string $tagName = 'container.reversible')
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Container $serviceContainer, \RectorPrefix20210317\Psr\Container\ContainerInterface $reversibleLocator, string $tagName = 'container.reversible')
     {
         $this->serviceContainer = $serviceContainer;
         $this->reversibleLocator = $reversibleLocator;
         $this->tagName = $tagName;
         $this->getServiceId = \Closure::bind(function (object $service) : ?string {
             return (\array_search($service, $this->services, \true) ?: \array_search($service, $this->privates, \true)) ?: null;
-        }, $serviceContainer, \RectorPrefix20210316\Symfony\Component\DependencyInjection\Container::class);
+        }, $serviceContainer, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Container::class);
     }
     /**
      * Returns the id of the passed object when it exists as a service.
      *
      * To be reversible, services need to be either public or be tagged with "container.reversible".
-     * @param object $service
      */
-    public function getId($service) : ?string
+    public function getId(object $service) : ?string
     {
         if ($this->serviceContainer === $service) {
             return 'service_container';
@@ -53,9 +52,8 @@ final class ReverseContainer
     }
     /**
      * @throws ServiceNotFoundException When the service is not reversible
-     * @return object
      */
-    public function getService(string $id)
+    public function getService(string $id) : object
     {
         if ($this->serviceContainer->has($id)) {
             return $this->serviceContainer->get($id);
@@ -64,7 +62,7 @@ final class ReverseContainer
             return $this->reversibleLocator->get($id);
         }
         if (isset($this->serviceContainer->getRemovedIds()[$id])) {
-            throw new \RectorPrefix20210316\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is private and cannot be accessed by reference. You should either make it public, or tag it as "%s".', $id, $this->tagName));
+            throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is private and cannot be accessed by reference. You should either make it public, or tag it as "%s".', $id, $this->tagName));
         }
         // will throw a ServiceNotFoundException
         $this->serviceContainer->get($id);

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210316\Symplify\PackageBuilder\Reflection;
+namespace RectorPrefix20210317\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
 use ReflectionMethod;
-use RectorPrefix20210316\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210317\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesCallerTest
  */
@@ -41,10 +41,7 @@ final class PrivatesCaller
         $methodReflection->invokeArgs($object, [&$argument]);
         return $argument;
     }
-    /**
-     * @param object $object
-     */
-    private function createAccessibleMethodReflection($object, string $methodName) : \ReflectionMethod
+    private function createAccessibleMethodReflection(object $object, string $methodName) : \ReflectionMethod
     {
         $reflectionMethod = new \ReflectionMethod(\get_class($object), $methodName);
         $reflectionMethod->setAccessible(\true);
@@ -59,6 +56,6 @@ final class PrivatesCaller
             return;
         }
         $errorMessage = \sprintf('Value passed to "%s()" method cannot be null', $location);
-        throw new \RectorPrefix20210316\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
+        throw new \RectorPrefix20210317\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
     }
 }

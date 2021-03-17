@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\HttpFoundation;
+namespace RectorPrefix20210317\Symfony\Component\HttpFoundation;
 
 /**
  * Represents a cookie.
@@ -41,21 +41,18 @@ class Cookie
     public static function fromString(string $cookie, bool $decode = \false)
     {
         $data = ['expires' => 0, 'path' => '/', 'domain' => null, 'secure' => \false, 'httponly' => \false, 'raw' => !$decode, 'samesite' => null];
-        $parts = \RectorPrefix20210316\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
+        $parts = \RectorPrefix20210317\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
         $part = \array_shift($parts);
         $name = $decode ? \urldecode($part[0]) : $part[0];
         $value = isset($part[1]) ? $decode ? \urldecode($part[1]) : $part[1] : null;
-        $data = \RectorPrefix20210316\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts) + $data;
+        $data = \RectorPrefix20210317\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts) + $data;
         $data['expires'] = self::expiresTimestamp($data['expires']);
         if (isset($data['max-age']) && ($data['max-age'] > 0 || $data['expires'] > \time())) {
             $data['expires'] = \time() + (int) $data['max-age'];
         }
         return new static($name, $value, $data['expires'], $data['path'], $data['domain'], $data['secure'], $data['httponly'], $data['raw'], $data['samesite']);
     }
-    /**
-     * @return $this
-     */
-    public static function create(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = self::SAMESITE_LAX)
+    public static function create(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = self::SAMESITE_LAX) : self
     {
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
@@ -96,7 +93,7 @@ class Cookie
      *
      * @return static
      */
-    public function withValue(?string $value)
+    public function withValue(?string $value) : self
     {
         $cookie = clone $this;
         $cookie->value = $value;
@@ -107,7 +104,7 @@ class Cookie
      *
      * @return static
      */
-    public function withDomain(?string $domain)
+    public function withDomain(?string $domain) : self
     {
         $cookie = clone $this;
         $cookie->domain = $domain;
@@ -120,7 +117,7 @@ class Cookie
      *
      * @return static
      */
-    public function withExpires($expire = 0)
+    public function withExpires($expire = 0) : self
     {
         $cookie = clone $this;
         $cookie->expire = self::expiresTimestamp($expire);
@@ -151,7 +148,7 @@ class Cookie
      *
      * @return static
      */
-    public function withPath(string $path)
+    public function withPath(string $path) : self
     {
         $cookie = clone $this;
         $cookie->path = '' === $path ? '/' : $path;
@@ -162,7 +159,7 @@ class Cookie
      *
      * @return static
      */
-    public function withSecure(bool $secure = \true)
+    public function withSecure(bool $secure = \true) : self
     {
         $cookie = clone $this;
         $cookie->secure = $secure;
@@ -173,7 +170,7 @@ class Cookie
      *
      * @return static
      */
-    public function withHttpOnly(bool $httpOnly = \true)
+    public function withHttpOnly(bool $httpOnly = \true) : self
     {
         $cookie = clone $this;
         $cookie->httpOnly = $httpOnly;
@@ -184,7 +181,7 @@ class Cookie
      *
      * @return static
      */
-    public function withRaw(bool $raw = \true)
+    public function withRaw(bool $raw = \true) : self
     {
         if ($raw && \false !== \strpbrk($this->name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $this->name));
@@ -198,7 +195,7 @@ class Cookie
      *
      * @return static
      */
-    public function withSameSite(?string $sameSite)
+    public function withSameSite(?string $sameSite) : self
     {
         if ('' === $sameSite) {
             $sameSite = null;

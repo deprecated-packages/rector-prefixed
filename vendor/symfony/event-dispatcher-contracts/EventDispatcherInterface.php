@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Contracts\EventDispatcher;
+namespace RectorPrefix20210317\Symfony\Contracts\EventDispatcher;
 
-use RectorPrefix20210316\Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
+use RectorPrefix20210317\Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
 /**
  * Allows providing hooks on domain-specific lifecycles by dispatching events.
  */
-interface EventDispatcherInterface extends \RectorPrefix20210316\Psr\EventDispatcher\EventDispatcherInterface
+interface EventDispatcherInterface extends \RectorPrefix20210317\Psr\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Dispatches an event to all registered listeners.
@@ -25,5 +25,5 @@ interface EventDispatcherInterface extends \RectorPrefix20210316\Psr\EventDispat
      *
      * @return object The passed $event MUST be returned
      */
-    public function dispatch($event, string $eventName = null);
+    public function dispatch(object $event, string $eventName = null) : object;
 }

@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\Cache;
+namespace RectorPrefix20210317\Symfony\Component\Cache;
 
-use RectorPrefix20210316\Psr\Log\LoggerInterface;
-use RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use RectorPrefix20210316\Symfony\Component\Cache\Exception\LogicException;
-use RectorPrefix20210316\Symfony\Contracts\Cache\ItemInterface;
+use RectorPrefix20210317\Psr\Log\LoggerInterface;
+use RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use RectorPrefix20210317\Symfony\Component\Cache\Exception\LogicException;
+use RectorPrefix20210317\Symfony\Contracts\Cache\ItemInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\ItemInterface
+final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\ItemInterface
 {
     private const METADATA_EXPIRY_OFFSET = 1527506807;
     protected $key;
@@ -57,7 +57,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function set($value)
+    public function set($value) : self
     {
         $this->value = $value;
         return $this;
@@ -67,14 +67,14 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration) : self
     {
         if (null === $expiration) {
             $this->expiry = null;
         } elseif ($expiration instanceof \DateTimeInterface) {
             $this->expiry = (float) $expiration->format('U.u');
         } else {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Expiration date must implement DateTimeInterface or be null, "%s" given.', \get_debug_type($expiration)));
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Expiration date must implement DateTimeInterface or be null, "%s" given.', \get_debug_type($expiration)));
         }
         return $this;
     }
@@ -83,7 +83,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time) : self
     {
         if (null === $time) {
             $this->expiry = null;
@@ -92,34 +92,34 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
         } elseif (\is_int($time)) {
             $this->expiry = $time + \microtime(\true);
         } else {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Expiration date must be an integer, a DateInterval or null, "%s" given.', \get_debug_type($time)));
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Expiration date must be an integer, a DateInterval or null, "%s" given.', \get_debug_type($time)));
         }
         return $this;
     }
     /**
      * {@inheritdoc}
      */
-    public function tag($tags) : self
+    public function tag($tags) : \RectorPrefix20210317\Symfony\Contracts\Cache\ItemInterface
     {
         if (!$this->isTaggable) {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
         }
         if (!\is_iterable($tags)) {
             $tags = [$tags];
         }
         foreach ($tags as $tag) {
             if (!\is_string($tag) && !(\is_object($tag) && \method_exists($tag, '__toString'))) {
-                throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache tag must be string or object that implements __toString(), "%s" given.', \is_object($tag) ? \get_class($tag) : \gettype($tag)));
+                throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache tag must be string or object that implements __toString(), "%s" given.', \is_object($tag) ? \get_class($tag) : \gettype($tag)));
             }
             $tag = (string) $tag;
             if (isset($this->newMetadata[self::METADATA_TAGS][$tag])) {
                 continue;
             }
             if ('' === $tag) {
-                throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException('Cache tag length must be greater than zero.');
+                throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException('Cache tag length must be greater than zero.');
             }
             if (\false !== \strpbrk($tag, self::RESERVED_CHARACTERS)) {
-                throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache tag "%s" contains reserved characters "%s".', $tag, self::RESERVED_CHARACTERS));
+                throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache tag "%s" contains reserved characters "%s".', $tag, self::RESERVED_CHARACTERS));
             }
             $this->newMetadata[self::METADATA_TAGS][$tag] = $tag;
         }
@@ -142,13 +142,13 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
     public static function validateKey($key) : string
     {
         if (!\is_string($key)) {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
         if ('' === $key) {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException('Cache key length must be greater than zero.');
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException('Cache key length must be greater than zero.');
         }
         if (\false !== \strpbrk($key, self::RESERVED_CHARACTERS)) {
-            throw new \RectorPrefix20210316\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" contains reserved characters "%s".', $key, self::RESERVED_CHARACTERS));
+            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" contains reserved characters "%s".', $key, self::RESERVED_CHARACTERS));
         }
         return $key;
     }
@@ -157,7 +157,7 @@ final class CacheItem implements \RectorPrefix20210316\Symfony\Contracts\Cache\I
      *
      * @internal
      */
-    public static function log(?\RectorPrefix20210316\Psr\Log\LoggerInterface $logger, string $message, array $context = [])
+    public static function log(?\RectorPrefix20210317\Psr\Log\LoggerInterface $logger, string $message, array $context = [])
     {
         if ($logger) {
             $logger->warning($message, $context);

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210316\Nette\Loaders;
+namespace RectorPrefix20210317\Nette\Loaders;
 
-use RectorPrefix20210316\Nette;
+use RectorPrefix20210317\Nette;
 use SplFileInfo;
 /**
  * Nette auto loader is responsible for loading classes and interfaces.
@@ -49,7 +49,7 @@ class RobotLoader
     public function __construct()
     {
         if (!\extension_loaded('tokenizer')) {
-            throw new \RectorPrefix20210316\Nette\NotSupportedException('PHP extension Tokenizer is not loaded.');
+            throw new \RectorPrefix20210317\Nette\NotSupportedException('PHP extension Tokenizer is not loaded.');
         }
     }
     /**
@@ -187,7 +187,7 @@ class RobotLoader
                 foreach ($classes as $class) {
                     $info =& $this->classes[$class];
                     if (isset($info['file'])) {
-                        throw new \RectorPrefix20210316\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
+                        throw new \RectorPrefix20210317\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
                     }
                     $info = ['file' => $file, 'time' => \filemtime($file)];
                     unset($this->missing[$class]);
@@ -199,10 +199,10 @@ class RobotLoader
      * Creates an iterator scaning directory for PHP files, subdirectories and 'netterobots.txt' files.
      * @throws Nette\IOException if path is not found
      */
-    private function createFileIterator(string $dir) : \RectorPrefix20210316\Nette\Utils\Finder
+    private function createFileIterator(string $dir) : \RectorPrefix20210317\Nette\Utils\Finder
     {
         if (!\is_dir($dir)) {
-            throw new \RectorPrefix20210316\Nette\IOException("File or directory '{$dir}' not found.");
+            throw new \RectorPrefix20210317\Nette\IOException("File or directory '{$dir}' not found.");
         }
         if (\is_string($ignoreDirs = $this->ignoreDirs)) {
             \trigger_error(__CLASS__ . ': $ignoreDirs must be an array.', \E_USER_WARNING);
@@ -218,7 +218,7 @@ class RobotLoader
             \trigger_error(__CLASS__ . ': $acceptFiles must be an array.', \E_USER_WARNING);
             $acceptFiles = \preg_split('#[,\\s]+#', $acceptFiles);
         }
-        $iterator = \RectorPrefix20210316\Nette\Utils\Finder::findFiles($acceptFiles)->filter(function (\SplFileInfo $file) use(&$disallow) {
+        $iterator = \RectorPrefix20210317\Nette\Utils\Finder::findFiles($acceptFiles)->filter(function (\SplFileInfo $file) use(&$disallow) {
             return $file->getRealPath() === \false ? \true : !isset($disallow[\str_replace('\\', '/', $file->getRealPath())]);
         })->from($dir)->exclude($ignoreDirs)->filter($filter = function (\SplFileInfo $dir) use(&$disallow) {
             if ($dir->getRealPath() === \false) {
@@ -253,7 +253,7 @@ class RobotLoader
                 $info =& $this->classes[$class];
             }
             if (isset($info['file'])) {
-                throw new \RectorPrefix20210316\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
+                throw new \RectorPrefix20210317\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
             }
             $info = ['file' => $file, 'time' => \filemtime($file)];
         }
@@ -342,7 +342,7 @@ class RobotLoader
      */
     public function setTempDirectory(string $dir) : self
     {
-        \RectorPrefix20210316\Nette\Utils\FileSystem::createDir($dir);
+        \RectorPrefix20210317\Nette\Utils\FileSystem::createDir($dir);
         $this->tempDirectory = $dir;
         return $this;
     }

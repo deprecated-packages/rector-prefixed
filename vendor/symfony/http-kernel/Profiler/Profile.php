@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210316\Symfony\Component\HttpKernel\Profiler;
+namespace RectorPrefix20210317\Symfony\Component\HttpKernel\Profiler;
 
-use RectorPrefix20210316\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
+use RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 /**
  * Profile.
  *
@@ -55,9 +55,8 @@ class Profile
     }
     /**
      * Sets the parent token.
-     * @param $this $parent
      */
-    public function setParent($parent)
+    public function setParent(self $parent)
     {
         $this->parent = $parent;
     }
@@ -166,17 +165,13 @@ class Profile
     }
     /**
      * Adds the child token.
-     * @param $this $child
      */
-    public function addChild($child)
+    public function addChild(self $child)
     {
         $this->children[] = $child;
         $child->setParent($this);
     }
-    /**
-     * @return $this|null
-     */
-    public function getChildByToken(string $token)
+    public function getChildByToken(string $token) : ?self
     {
         foreach ($this->children as $child) {
             if ($token === $child->getToken()) {
@@ -223,7 +218,7 @@ class Profile
     /**
      * Adds a Collector.
      */
-    public function addCollector(\RectorPrefix20210316\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector)
+    public function addCollector(\RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector)
     {
         $this->collectors[$collector->getName()] = $collector;
     }
