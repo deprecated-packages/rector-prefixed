@@ -46,9 +46,8 @@ final class VariableConstructorFormControlTypeResolver implements \Rector\NetteC
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
@@ -71,10 +70,7 @@ final class VariableConstructorFormControlTypeResolver implements \Rector\NetteC
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-    /**
-     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
-     */
-    public function setResolver($methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

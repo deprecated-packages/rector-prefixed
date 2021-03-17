@@ -85,9 +85,8 @@ class ControllerResolver implements \RectorPrefix20210317\Symfony\Component\Http
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
-     * @param string $controller
      */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
@@ -118,9 +117,8 @@ class ControllerResolver implements \RectorPrefix20210317\Symfony\Component\Http
      * Returns an instantiated controller.
      *
      * @return object
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
         return new $class();
     }

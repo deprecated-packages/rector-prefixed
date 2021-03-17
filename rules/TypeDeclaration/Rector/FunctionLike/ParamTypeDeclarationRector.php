@@ -127,7 +127,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -142,10 +142,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Param $param
-     * @param int $position
      */
-    private function refactorParam($param, $functionLike, $position) : void
+    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : void
     {
         if ($this->shouldSkipParam($param, $functionLike, $position)) {
             return;
@@ -170,12 +168,7 @@ CODE_SAMPLE
         $this->paramTagRemover->removeParamTagsIfUseless($functionLikePhpDocInfo, $functionLike);
         $this->childParamPopulator->populateChildClassMethod($functionLike, $position, $inferedType);
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     * @param int $position
-     */
-    private function shouldSkipParam($param, $functionLike, $position) : bool
+    private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
     {
         if ($this->vendorLockResolver->isClassMethodParamLockedIn($functionLike, $position)) {
             return \true;

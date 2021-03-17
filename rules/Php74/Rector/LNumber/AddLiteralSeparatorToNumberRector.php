@@ -41,7 +41,7 @@ final class AddLiteralSeparatorToNumberRector extends \Rector\Core\Rector\Abstra
     /**
      * @param mixed[] $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $limitValue = $configuration[self::LIMIT_VALUE] ?? 1000000;
         \RectorPrefix20210317\Webmozart\Assert\Assert::integer($limitValue);
@@ -81,7 +81,7 @@ CODE_SAMPLE
     /**
      * @param LNumber|DNumber $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::LITERAL_SEPARATOR)) {
             return null;
@@ -107,9 +107,8 @@ CODE_SAMPLE
     }
     /**
      * @param LNumber|DNumber $node
-     * @param string $numericValueAsString
      */
-    private function shouldSkip($node, $numericValueAsString) : bool
+    private function shouldSkip(\PhpParser\Node $node, string $numericValueAsString) : bool
     {
         if ($numericValueAsString < $this->limitValue) {
             return \true;
@@ -131,10 +130,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param string $string
-     * @param int $length
      */
-    private function strSplitNegative($string, $length) : array
+    private function strSplitNegative(string $string, int $length) : array
     {
         $inversed = \strrev($string);
         /** @var string[] $chunks */

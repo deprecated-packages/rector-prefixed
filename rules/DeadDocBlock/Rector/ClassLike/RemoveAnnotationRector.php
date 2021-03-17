@@ -63,7 +63,7 @@ CODE_SAMPLE
     /**
      * @param ClassLike|FunctionLike|Property|ClassConst $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->annotationsToRemove === []) {
             return null;
@@ -83,7 +83,7 @@ CODE_SAMPLE
     /**
      * @param array<string, string[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $annotationsToRemove = $configuration[self::ANNOTATIONS_TO_REMOVE] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allString($annotationsToRemove);

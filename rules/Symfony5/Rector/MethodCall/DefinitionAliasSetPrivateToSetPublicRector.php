@@ -69,9 +69,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->definitionObjectTypes)) {
             return null;
@@ -83,10 +83,7 @@ CODE_SAMPLE
         $argValue = $argValue instanceof \PhpParser\Node\Expr\ConstFetch ? $this->createNegationConsFetch($argValue) : new \PhpParser\Node\Expr\BooleanNot($argValue);
         return $this->nodeFactory->createMethodCall($node->var, 'setPublic', [$argValue]);
     }
-    /**
-     * @param \PhpParser\Node\Expr\ConstFetch $constFetch
-     */
-    private function createNegationConsFetch($constFetch) : \PhpParser\Node\Expr\ConstFetch
+    private function createNegationConsFetch(\PhpParser\Node\Expr\ConstFetch $constFetch) : \PhpParser\Node\Expr\ConstFetch
     {
         if ($this->valueResolver->isFalse($constFetch)) {
             return $this->nodeFactory->createTrue();

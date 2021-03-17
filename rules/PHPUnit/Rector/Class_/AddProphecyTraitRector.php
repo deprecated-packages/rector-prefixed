@@ -79,9 +79,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -89,10 +89,7 @@ CODE_SAMPLE
         $this->classInsertManipulator->addAsFirstTrait($node, self::PROPHECY_TRAIT);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function shouldSkipClass($class) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($class)) {
             return \true;
@@ -103,10 +100,7 @@ CODE_SAMPLE
         }
         return $this->classManipulator->hasTrait($class, self::PROPHECY_TRAIT);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function hasProphesizeMethodCall($class) : bool
+    private function hasProphesizeMethodCall(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
             return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'prophesize');

@@ -118,9 +118,9 @@ CODE_SAMPLE
     }
     /**
      * Process Node of matched type
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestListener'))) {
             return null;
@@ -135,11 +135,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function processClassMethod($class, $classMethod) : void
+    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach (self::LISTENER_METHOD_TO_HOOK_INTERFACES as $methodName => $hookClassAndMethod) {
             /** @var string $methodName */

@@ -76,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -103,7 +103,7 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncCallToMethodCall::class);

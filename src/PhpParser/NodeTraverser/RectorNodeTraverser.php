@@ -54,9 +54,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     }
     /**
      * @return Node[]
-     * @param \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode
      */
-    public function traverseFileNode($fileNode) : array
+    public function traverseFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
     {
         $this->prepareNodeVisitors();
         if ($this->enabledRectorClassProvider->isConfigured()) {

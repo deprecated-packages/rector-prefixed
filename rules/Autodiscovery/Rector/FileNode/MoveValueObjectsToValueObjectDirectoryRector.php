@@ -112,9 +112,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FileNode $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
@@ -131,19 +131,13 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->types = $configuration[self::TYPES] ?? [];
         $this->suffixes = $configuration[self::SUFFIXES] ?? [];
         $this->enableValueObjectGuessing = $configuration[self::ENABLE_VALUE_OBJECT_GUESSING] ?? \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function isValueObjectMatch($class) : bool
+    private function isValueObjectMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->isSuffixMatch($class)) {
             return \true;
@@ -165,10 +159,7 @@ CODE_SAMPLE
         }
         return $this->valueObjectClassAnalyzer->isValueObjectClass($class);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function isSuffixMatch($class) : bool
+    private function isSuffixMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
@@ -181,10 +172,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param string $className
-     */
-    private function isKnownServiceType($className) : bool
+    private function isKnownServiceType(string $className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
             if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {

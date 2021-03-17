@@ -82,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->getParams() === []) {
             return null;
@@ -107,10 +107,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     */
-    private function shouldSkipParam($param) : bool
+    private function shouldSkipParam(\PhpParser\Node\Param $param) : bool
     {
         // type missing at all
         if ($param->type === null) {
@@ -128,10 +125,7 @@ CODE_SAMPLE
         }
         return $this->isArrayExplicitMixed($paramType);
     }
-    /**
-     * @param \PHPStan\Type\Type $type
-     */
-    private function isArrayExplicitMixed($type) : bool
+    private function isArrayExplicitMixed(\PHPStan\Type\Type $type) : bool
     {
         if (!$type instanceof \PHPStan\Type\ArrayType) {
             return \false;

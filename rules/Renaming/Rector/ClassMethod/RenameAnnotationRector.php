@@ -72,7 +72,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -87,10 +87,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);

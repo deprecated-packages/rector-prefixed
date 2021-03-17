@@ -119,10 +119,8 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     /**
      * @return array<string, mixed>
-     * @param string $joinColumnsKey
-     * @param string $inverseJoinColumnsKey
      */
-    private function createJoinColumnItems($joinColumnsKey, $inverseJoinColumnsKey) : array
+    private function createJoinColumnItems(string $joinColumnsKey, string $inverseJoinColumnsKey) : array
     {
         $items = [];
         if ($this->joinColumns !== []) {

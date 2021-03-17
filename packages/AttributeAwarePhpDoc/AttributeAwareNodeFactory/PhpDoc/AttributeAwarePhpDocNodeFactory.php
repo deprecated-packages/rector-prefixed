@@ -29,18 +29,14 @@ final class AttributeAwarePhpDocNodeFactory implements \Rector\AttributeAwarePhp
     {
         return \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param PhpDocNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $this->phpDocNodeTraverser->traverseWithCallable($node, $docContent, function (\PHPStan\PhpDocParser\Ast\Node $node) use($docContent) : AttributeAwareNodeInterface {
             if ($node instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface) {
@@ -50,10 +46,7 @@ final class AttributeAwarePhpDocNodeFactory implements \Rector\AttributeAwarePhp
         });
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode($node->children);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
-     */
-    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

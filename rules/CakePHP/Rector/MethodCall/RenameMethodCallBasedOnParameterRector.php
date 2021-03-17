@@ -53,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $callWithParamRename = $this->matchTypeAndMethodName($node);
         if (!$callWithParamRename instanceof \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter) {
@@ -64,19 +64,13 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($callWithParamRename->getNewMethod());
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $callsWithParamNames = $configuration[self::CALLS_WITH_PARAM_RENAMES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
         $this->callsWithParamRenames = $callsWithParamNames;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function matchTypeAndMethodName($methodCall) : ?\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter
+    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter
     {
         if (\count($methodCall->args) < 1) {
             return null;

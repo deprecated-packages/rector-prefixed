@@ -53,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->keyVar === null) {
             return null;
@@ -79,11 +79,7 @@ CODE_SAMPLE
         $this->removeForeachValueAndUseArrayKeys($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function refactorArrayForeachValue($array, $foreach) : \PhpParser\Node\Expr\Array_
+    private function refactorArrayForeachValue(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Expr\Array_
     {
         foreach ($array->items as $key => $arrayItem) {
             if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
@@ -100,20 +96,13 @@ CODE_SAMPLE
         }
         return $array;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function isVariableUsedInForeach($variable, $foreach) : bool
+    private function isVariableUsedInForeach(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($foreach->stmts, function (\PhpParser\Node $node) use($variable) : bool {
             return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function removeForeachValueAndUseArrayKeys($foreach) : void
+    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         // remove key value
         $foreach->valueVar = $foreach->keyVar;

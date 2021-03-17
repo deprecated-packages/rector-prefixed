@@ -55,10 +55,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node) : ?\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
         if (!$autoImportNames) {
@@ -101,10 +98,7 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     */
-    private function processNodeName($name) : ?\PhpParser\Node
+    private function processNodeName(\PhpParser\Node\Name $name) : ?\PhpParser\Node
     {
         if ($name->isSpecialClassName()) {
             return $name;

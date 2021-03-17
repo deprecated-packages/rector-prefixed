@@ -88,7 +88,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->params === []) {
             return null;
@@ -98,11 +98,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    private function isNullableParam($param, $functionLike) : bool
+    private function isNullableParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \false;
@@ -121,11 +117,7 @@ CODE_SAMPLE
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    private function getDifferentParamTypeFromAncestorClass($param, $functionLike) : ?string
+    private function getDifferentParamTypeFromAncestorClass(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : ?string
     {
         $scope = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -169,12 +161,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \ReflectionMethod $reflectionMethod
-     * @param string $paramName
-     * @param string $paramTypeName
-     */
-    private function getDifferentParamTypeFromReflectionMethod($reflectionMethod, $paramName, $paramTypeName) : ?string
+    private function getDifferentParamTypeFromReflectionMethod(\ReflectionMethod $reflectionMethod, string $paramName, string $paramTypeName) : ?string
     {
         /** @var ReflectionParameter[] $parentReflectionMethodParams */
         $parentReflectionMethodParams = $reflectionMethod->getParameters();
@@ -202,9 +189,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Param $param
      */
-    private function refactorParam($param, $functionLike) : void
+    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : void
     {
         if (!$this->isNullableParam($param, $functionLike)) {
             return;
@@ -214,9 +200,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Param $param
      */
-    private function decorateWithDocBlock($functionLike, $param) : void
+    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;

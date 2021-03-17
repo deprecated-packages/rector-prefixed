@@ -24,10 +24,7 @@ class RemoveEmptyControllerArgumentLocatorsPass implements \RectorPrefix20210317
     {
         $this->controllerLocator = $controllerLocator;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $controllerLocator = $container->findDefinition($this->controllerLocator);
         $controllers = $controllerLocator->getArgument(0);

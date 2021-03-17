@@ -153,9 +153,8 @@ abstract class Input implements \RectorPrefix20210317\Symfony\Component\Console\
      * Escapes a token through escapeshellarg if it contains unsafe chars.
      *
      * @return string
-     * @param string $token
      */
-    public function escapeToken($token)
+    public function escapeToken(string $token)
     {
         return \preg_match('{^[\\w-]+$}', $token) ? $token : \escapeshellarg($token);
     }

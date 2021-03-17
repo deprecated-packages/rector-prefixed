@@ -57,7 +57,7 @@ final class ImportCaseConverter implements \RectorPrefix20210317\Symplify\PhpCon
     /**
      * @param mixed[] $arguments
      */
-    private function createImportMethodCall($arguments) : \PhpParser\Node\Stmt\Expression
+    private function createImportMethodCall(array $arguments) : \PhpParser\Node\Stmt\Expression
     {
         $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
         $args = $this->createArgs($arguments);
@@ -68,7 +68,7 @@ final class ImportCaseConverter implements \RectorPrefix20210317\Symplify\PhpCon
      * @param mixed[] $arguments
      * @return Arg[]
      */
-    private function createArgs($arguments) : array
+    private function createArgs(array $arguments) : array
     {
         $args = [];
         foreach ($arguments as $name => $value) {
@@ -80,11 +80,7 @@ final class ImportCaseConverter implements \RectorPrefix20210317\Symplify\PhpCon
         }
         return $args;
     }
-    /**
-     * @param string $name
-     * @param mixed[] $arguments
-     */
-    private function shouldSkipDefaultValue($name, $value, $arguments) : bool
+    private function shouldSkipDefaultValue(string $name, $value, array $arguments) : bool
     {
         // skip default value for "ignore_errors"
         if ($name === \RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS && $value === \false) {

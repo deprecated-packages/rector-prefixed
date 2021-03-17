@@ -31,11 +31,8 @@ class TimeDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();
@@ -69,7 +66,7 @@ class TimeDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
      *
      * @param StopwatchEvent[] $events The request events
      */
-    public function setEvents($events)
+    public function setEvents(array $events)
     {
         foreach ($events as $event) {
             $event->ensureStopped();

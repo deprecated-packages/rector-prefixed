@@ -78,10 +78,7 @@ CODE_SAMPLE
     {
         return [\PhpParser\Node::class];
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -103,10 +100,7 @@ CODE_SAMPLE
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function shouldSkip($node) : bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Nop) {
             return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
@@ -116,11 +110,7 @@ CODE_SAMPLE
         }
         return \true;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param string $variableName
-     */
-    private function hasVariableName($node, $variableName) : bool
+    private function hasVariableName(\PhpParser\Node $node, string $variableName) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

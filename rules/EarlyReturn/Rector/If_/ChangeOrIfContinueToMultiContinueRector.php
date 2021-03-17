@@ -72,9 +72,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->ifManipulator->isIfWithOnly($node, \PhpParser\Node\Stmt\Continue_::class)) {
             return null;
@@ -84,10 +84,7 @@ CODE_SAMPLE
         }
         return $this->processMultiIfContinue($node);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function processMultiIfContinue($if) : \PhpParser\Node\Stmt\If_
+    private function processMultiIfContinue(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node\Stmt\If_
     {
         $node = clone $if;
         /** @var Continue_ $continue */
@@ -105,10 +102,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
-     * @param \PhpParser\Node\Expr $expr
-     * @param \PhpParser\Node\Stmt\Continue_ $continue
      */
-    private function createMultipleIfs($expr, $continue, $ifs) : array
+    private function createMultipleIfs(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt\Continue_ $continue, array $ifs) : array
     {
         while ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             $ifs = \array_merge($ifs, $this->collectLeftbooleanOrToIfs($expr, $continue, $ifs));
@@ -120,10 +115,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
-     * @param \PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr
-     * @param \PhpParser\Node\Stmt\Continue_ $continue
      */
-    private function collectLeftbooleanOrToIfs($booleanOr, $continue, $ifs) : array
+    private function collectLeftbooleanOrToIfs(\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, \PhpParser\Node\Stmt\Continue_ $continue, array $ifs) : array
     {
         $left = $booleanOr->left;
         if (!$left instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {

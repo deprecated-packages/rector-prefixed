@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param New_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToStaticCalls as $typeToStaticCall) {
             if (!$this->isObjectType($node->class, $typeToStaticCall->getObjectType())) {
@@ -66,10 +66,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $typeToStaticCalls = $configuration[self::TYPE_TO_STATIC_CALLS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($typeToStaticCalls, \Rector\Transform\ValueObject\NewToStaticCall::class);

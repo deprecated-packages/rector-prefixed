@@ -31,10 +31,7 @@ class SessionListener extends \RectorPrefix20210317\Symfony\Component\HttpKernel
     {
         parent::__construct($container, $debug);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         parent::onKernelRequest($event);
         if (!$event->isMasterRequest() || !$this->container->has('session')) {

@@ -69,7 +69,6 @@ final class BetterNodeFinder
         return null;
     }
     /**
-     * @template T of \PhpParser\Node
      * @param array<class-string<T>> $types
      * @return T|null
      */

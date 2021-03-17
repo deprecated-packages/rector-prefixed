@@ -98,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->classMethodNestingLevel = 0;
         if ($this->shouldSkipClassMethod($node)) {
@@ -109,10 +109,7 @@ CODE_SAMPLE
         $this->addDoesNotPerformAssertions($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function shouldSkipClassMethod($classMethod) : bool
+    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($classMethod)) {
             return \true;
@@ -126,18 +123,12 @@ CODE_SAMPLE
         }
         return $this->containsAssertCall($classMethod);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function addDoesNotPerformAssertions($classMethod) : void
+    private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addPhpDocTagNode(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode());
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function containsAssertCall($classMethod) : bool
+    private function containsAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         ++$this->classMethodNestingLevel;
         // probably no assert method in the end
@@ -159,10 +150,7 @@ CODE_SAMPLE
         $this->containsAssertCallByClassMethod[$cacheHash] = $hasNestedAssertCall;
         return $hasNestedAssertCall;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function hasDirectAssertCall($classMethod) : bool
+    private function hasDirectAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -186,10 +174,7 @@ CODE_SAMPLE
             return \false;
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function hasNestedAssertCall($classMethod) : bool
+    private function hasNestedAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $currentClassMethod = $classMethod;
         // over and over the same method :/
@@ -211,7 +196,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function findClassMethod($node) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function findClassMethod(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
@@ -230,7 +215,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function findClassMethodByParsingReflection($node) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function findClassMethodByParsingReflection(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
@@ -255,11 +240,7 @@ CODE_SAMPLE
         }
         return $this->findClassMethodInFile($fileName, $methodName);
     }
-    /**
-     * @param string $fileName
-     * @param string $methodName
-     */
-    private function findClassMethodInFile($fileName, $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function findClassMethodInFile(string $fileName, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         // skip already anayzed method to prevent cycling
         if (isset($this->analyzedMethodsInFileName[$fileName][$methodName])) {

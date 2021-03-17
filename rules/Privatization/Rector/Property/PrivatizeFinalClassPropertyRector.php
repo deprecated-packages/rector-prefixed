@@ -41,9 +41,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -65,21 +65,14 @@ CODE_SAMPLE
         $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkipProperty($property) : bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if (\count($property->props) !== 1) {
             return \true;
         }
         return !$property->isProtected();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function isPropertyVisibilityGuardedByParent($property, $class) : bool
+    private function isPropertyVisibilityGuardedByParent(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->extends === null) {
             return \false;

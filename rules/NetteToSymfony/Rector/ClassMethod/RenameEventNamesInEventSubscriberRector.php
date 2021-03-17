@@ -73,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -97,10 +97,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function renameArrayKeys($return) : void
+    private function renameArrayKeys(\PhpParser\Node\Stmt\Return_ $return) : void
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -123,10 +120,7 @@ CODE_SAMPLE
             $this->processMethodArgument($className, $methodName, $eventInfo);
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     */
-    private function matchStringKeys($arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
+    private function matchStringKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
     {
         if (!$arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
             return null;
@@ -140,10 +134,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     */
-    private function matchClassConstKeys($arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
+    private function matchClassConstKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
     {
         if (!$arrayItem->key instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return null;
@@ -156,12 +147,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param string $class
-     * @param string $method
-     * @param \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo
-     */
-    private function processMethodArgument($class, $method, $eventInfo) : void
+    private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : void
     {
         $classMethodNode = $this->nodeRepository->findClassMethod($class, $method);
         if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -172,11 +158,7 @@ CODE_SAMPLE
         }
         $classMethodNode->params[0]->type = new \PhpParser\Node\Name\FullyQualified($eventInfo->getEventClass());
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     * @param \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo
-     */
-    private function resolveClassConstAliasMatch($arrayItem, $eventInfo) : bool
+    private function resolveClassConstAliasMatch(\PhpParser\Node\Expr\ArrayItem $arrayItem, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : bool
     {
         $classConstFetchNode = $arrayItem->key;
         if (!$classConstFetchNode instanceof \PhpParser\Node\Expr) {

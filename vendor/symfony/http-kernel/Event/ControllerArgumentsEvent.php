@@ -38,10 +38,7 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210317\Symfony\Compo
     {
         return $this->controller;
     }
-    /**
-     * @param callable $controller
-     */
-    public function setController($controller)
+    public function setController(callable $controller)
     {
         $this->controller = $controller;
     }
@@ -49,10 +46,7 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210317\Symfony\Compo
     {
         return $this->arguments;
     }
-    /**
-     * @param mixed[] $arguments
-     */
-    public function setArguments($arguments)
+    public function setArguments(array $arguments)
     {
         $this->arguments = $arguments;
     }

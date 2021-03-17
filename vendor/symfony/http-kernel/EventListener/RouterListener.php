@@ -68,10 +68,7 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
         $this->projectDir = $projectDir;
         $this->debug = $debug;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    private function setCurrentRequest($request = null)
+    private function setCurrentRequest(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (null !== $request) {
             try {
@@ -84,16 +81,12 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
     /**
      * After a sub-request is done, we need to reset the routing context to the parent request so that the URL generator
      * operates on the correct context again.
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
-    public function onKernelFinishRequest($event)
+    public function onKernelFinishRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         $this->setCurrentRequest($this->requestStack->getParentRequest());
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         $this->setCurrentRequest($request);
@@ -126,10 +119,7 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
             throw new \RectorPrefix20210317\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException($e->getAllowedMethods(), $message, $e);
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    public function onKernelException($event)
+    public function onKernelException(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         if (!$this->debug || !($e = $event->getThrowable()) instanceof \RectorPrefix20210317\Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             return;

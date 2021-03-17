@@ -43,7 +43,7 @@ final class NativeTypeClassTreeResolver
         if (!$nativeType instanceof \PHPStan\Type\MixedType) {
             return $nativeType;
         }
-        return \PHPStan\Type\TypehintHelper::decideTypeFromReflection($parameterReflection->getType(), null, $classReflection->getName(), $parameterReflection->isVariadic());
+        return \PHPStan\Type\TypehintHelper::decideTypeFromReflection($parameterReflection->getType(), null, $classReflection->getName());
     }
     private function resolveNativeType(\ReflectionParameter $reflectionParameter) : \PHPStan\Type\Type
     {

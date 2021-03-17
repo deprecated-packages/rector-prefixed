@@ -129,7 +129,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip yourself
         $this->newPropertyObjectTypes = [];
@@ -144,17 +144,14 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $staticClassTypes = $configuration[self::STATIC_CLASS_TYPES] ?? [];
         foreach ($staticClassTypes as $staticClassType) {
             $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($staticClassType);
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function processClass($class) : ?\PhpParser\Node\Stmt\Class_
+    private function processClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($this->isObjectType($class, new \PHPStan\Type\ObjectType(\Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE))) {
             return $this->processPHPUnitClass($class);
@@ -171,10 +168,7 @@ CODE_SAMPLE
         }
         return $class;
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function processStaticCall($staticCall) : ?\PhpParser\Node\Expr\MethodCall
+    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classLike = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -188,10 +182,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function processPHPUnitClass($class) : ?\PhpParser\Node\Stmt\Class_
+    private function processPHPUnitClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         // add property with the object
         $newPropertyTypes = $this->collectNewPropertyObjectTypes($class);
@@ -221,9 +212,8 @@ CODE_SAMPLE
     }
     /**
      * @return ObjectType[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectNewPropertyObjectTypes($class) : array
+    private function collectNewPropertyObjectTypes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $this->newPropertyObjectTypes = [];
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : void {
@@ -240,11 +230,7 @@ CODE_SAMPLE
         $this->newPropertyObjectTypes = \array_unique($this->newPropertyObjectTypes);
         return $this->newPropertyObjectTypes;
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     * @param \PHPStan\Type\ObjectType $objectType
-     */
-    private function convertStaticCallToPropertyMethodCall($staticCall, $objectType) : \PhpParser\Node\Expr\MethodCall
+    private function convertStaticCallToPropertyMethodCall(\PhpParser\Node\Expr\StaticCall $staticCall, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Expr\MethodCall
     {
         // create "$this->someService" instead
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
@@ -256,9 +242,8 @@ CODE_SAMPLE
     }
     /**
      * @param ObjectType[] $newProperties
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addNewPropertiesToClass($class, $newProperties) : \PhpParser\Node\Stmt\Class_
+    private function addNewPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $newProperties) : \PhpParser\Node\Stmt\Class_
     {
         $properties = [];
         foreach ($newProperties as $newProperty) {
@@ -268,10 +253,7 @@ CODE_SAMPLE
         $class->stmts = \array_merge($properties, $class->stmts);
         return $class;
     }
-    /**
-     * @param \PHPStan\Type\ObjectType $objectType
-     */
-    private function createContainerGetTypeToPropertyAssign($objectType) : \PhpParser\Node\Stmt\Expression
+    private function createContainerGetTypeToPropertyAssign(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Expression
     {
         $getMethodCall = $this->selfContainerFactory->createGetTypeMethodCall($objectType);
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
@@ -279,12 +261,7 @@ CODE_SAMPLE
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $getMethodCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $setupClassMethod
-     * @param \PhpParser\Node\Stmt\Expression $parentSetupStaticCall
-     * @param \PhpParser\Node\Stmt\Expression $assign
-     */
-    private function updateSetUpMethod($setupClassMethod, $parentSetupStaticCall, $assign) : void
+    private function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign) : void
     {
         $parentSetUpStaticCallPosition = $this->getParentSetUpStaticCallPosition($setupClassMethod);
         if ($parentSetUpStaticCallPosition === null) {
@@ -294,10 +271,7 @@ CODE_SAMPLE
             \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
         }
     }
-    /**
-     * @param \PHPStan\Type\ObjectType $objectType
-     */
-    private function createPropertyFromType($objectType) : \PhpParser\Node\Stmt\Property
+    private function createPropertyFromType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         return $this->nodeFactory->createPrivatePropertyFromNameAndType($propertyName, $objectType);
@@ -316,10 +290,7 @@ CODE_SAMPLE
     //
     //        return $getMethodCall;
     //    }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $setupClassMethod
-     */
-    private function getParentSetUpStaticCallPosition($setupClassMethod) : ?int
+    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
             if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {

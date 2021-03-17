@@ -76,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -91,10 +91,7 @@ CODE_SAMPLE
         $this->addConstraintsOptionToFollowingAddMethodCalls($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function shouldSkip($methodCall) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isName($methodCall->name, 'createFormBuilder')) {
             return \true;
@@ -104,11 +101,7 @@ CODE_SAMPLE
         }
         return !$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\Array_;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \PhpParser\Node\Expr\Array_ $optionsArrayNode
-     */
-    private function isSuccessfulRemovalCascadeValidationOption($methodCall, $optionsArrayNode) : bool
+    private function isSuccessfulRemovalCascadeValidationOption(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Array_ $optionsArrayNode) : bool
     {
         foreach ($optionsArrayNode->items as $key => $arrayItem) {
             if ($arrayItem === null) {
@@ -129,10 +122,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function addConstraintsOptionToFollowingAddMethodCalls($methodCall) : void
+    private function addConstraintsOptionToFollowingAddMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Validator\\Constraints\\Valid'));
         $constraintsArrayItem = new \PhpParser\Node\Expr\ArrayItem($new, new \PhpParser\Node\Scalar\String_('constraints'));

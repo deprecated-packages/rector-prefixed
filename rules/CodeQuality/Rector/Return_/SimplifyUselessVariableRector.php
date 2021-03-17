@@ -53,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -86,10 +86,7 @@ CODE_SAMPLE
         $this->removeNode($previousNode);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function shouldSkip($return) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr\Variable) {
             return \true;
@@ -113,29 +110,22 @@ CODE_SAMPLE
         }
         return $this->isPreviousExpressionVisuallySimilar($previousExpression, $previousNode);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function hasSomeComment($expr) : bool
+    private function hasSomeComment(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr->getComments() !== []) {
             return \true;
         }
         return $expr->getDocComment() !== null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function isReturnWithVarAnnotation($return) : bool
+    private function isReturnWithVarAnnotation(\PhpParser\Node\Stmt\Return_ $return) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($return);
         return !$phpDocInfo->getVarType() instanceof \PHPStan\Type\MixedType;
     }
     /**
      * @param AssignOp|Assign $previousNode
-     * @param \PhpParser\Node\Stmt\Expression $previousExpression
      */
-    private function isPreviousExpressionVisuallySimilar($previousExpression, $previousNode) : bool
+    private function isPreviousExpressionVisuallySimilar(\PhpParser\Node\Stmt\Expression $previousExpression, \PhpParser\Node $previousNode) : bool
     {
         $prePreviousExpression = $previousExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
         if (!$prePreviousExpression instanceof \PhpParser\Node\Stmt\Expression) {

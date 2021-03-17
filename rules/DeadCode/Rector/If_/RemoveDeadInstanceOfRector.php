@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($node)) {
             return null;
@@ -75,11 +75,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     * @param \PhpParser\Node\Expr\Instanceof_ $instanceof
-     */
-    private function processMayDeadInstanceOf($if, $instanceof) : ?\PhpParser\Node\Stmt\If_
+    private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof) : ?\PhpParser\Node\Stmt\If_
     {
         $previousVar = $this->betterNodeFinder->findFirstPrevious($if, function (\PhpParser\Node $node) use($instanceof) : bool {
             if ($node === $instanceof->expr) {
@@ -106,11 +102,7 @@ CODE_SAMPLE
         $this->removeNode($if);
         return $if;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param string $name
-     */
-    private function isSameObject($node, $name) : bool
+    private function isSameObject(\PhpParser\Node $node, string $name) : bool
     {
         $parentPreviousVar = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentPreviousVar instanceof \PhpParser\Node\Param) {

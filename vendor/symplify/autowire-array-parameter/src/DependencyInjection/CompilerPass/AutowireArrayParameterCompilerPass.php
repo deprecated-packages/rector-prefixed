@@ -55,10 +55,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
         $this->parameterTypeResolver = new \RectorPrefix20210317\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
         $this->parameterSkipper = new \RectorPrefix20210317\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    public function process($containerBuilder) : void
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {
@@ -72,11 +69,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
             $this->processParameters($containerBuilder, $constructorReflectionMethod, $definition);
         }
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     */
-    private function shouldSkipDefinition($containerBuilder, $definition) : bool
+    private function shouldSkipDefinition(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         if ($definition->isAbstract()) {
             return \true;
@@ -112,12 +105,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
         $constructorReflectionMethod = $reflectionClass->getConstructor();
         return !$constructorReflectionMethod->getParameters();
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \ReflectionMethod $reflectionMethod
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     */
-    private function processParameters($containerBuilder, $reflectionMethod, $definition) : void
+    private function processParameters(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $reflectionParameters = $reflectionMethod->getParameters();
         foreach ($reflectionParameters as $reflectionParameter) {
@@ -140,7 +128,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
      * @param Definition[] $definitions
      * @return Definition[]
      */
-    private function filterOutAbstractDefinitions($definitions) : array
+    private function filterOutAbstractDefinitions(array $definitions) : array
     {
         foreach ($definitions as $key => $definition) {
             if ($definition->isAbstract()) {
@@ -153,7 +141,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
      * @param Definition[] $definitions
      * @return Reference[]
      */
-    private function createReferencesFromDefinitions($definitions) : array
+    private function createReferencesFromDefinitions(array $definitions) : array
     {
         $references = [];
         $definitionOfTypeNames = \array_keys($definitions);

@@ -42,7 +42,7 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         $yieldNodes = $this->findCurrentScopeYieldNodes($functionLike);
         if ($yieldNodes === []) {
@@ -65,9 +65,8 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
     }
     /**
      * @return Yield_[]|YieldFrom[]
-     * @param \PhpParser\Node\FunctionLike $functionLike
      */
-    private function findCurrentScopeYieldNodes($functionLike) : array
+    private function findCurrentScopeYieldNodes(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $yieldNodes = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$yieldNodes) : ?int {
@@ -86,7 +85,7 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
     /**
      * @param Yield_|YieldFrom $yieldExpr
      */
-    private function resolveYieldValue($yieldExpr) : ?\PhpParser\Node\Expr
+    private function resolveYieldValue(\PhpParser\Node\Expr $yieldExpr) : ?\PhpParser\Node\Expr
     {
         if ($yieldExpr instanceof \PhpParser\Node\Expr\Yield_) {
             return $yieldExpr->value;

@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $entityTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);

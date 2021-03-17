@@ -59,12 +59,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param callable $callback
-     * @param float $beta
-     * @param mixed[] $metadata
      */
-    public function get($key, $callback, $beta = null, &$metadata = null)
+    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
     {
         $item = $this->getItem($key);
         $metadata = $item->getMetadata();
@@ -77,9 +73,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function delete($key) : bool
+    public function delete(string $key) : bool
     {
         return $this->deleteItem($key);
     }
@@ -121,9 +116,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $keys
      */
-    public function getItems($keys = [])
+    public function getItems(array $keys = [])
     {
         foreach ($keys as $key) {
             if (!\is_string($key) || !isset($this->expiries[$key])) {
@@ -149,9 +143,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param mixed[] $keys
      */
-    public function deleteItems($keys)
+    public function deleteItems(array $keys)
     {
         foreach ($keys as $key) {
             $this->deleteItem($key);
@@ -162,9 +155,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
             return \false;
@@ -208,9 +200,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         return $this->save($item);
     }
@@ -227,9 +218,8 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param string $prefix
      */
-    public function clear($prefix = '')
+    public function clear(string $prefix = '')
     {
         if ('' !== $prefix) {
             $now = \microtime(\true);
@@ -273,10 +263,7 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     {
         $this->clear();
     }
-    /**
-     * @param mixed[] $keys
-     */
-    private function generateItems($keys, $now, $f)
+    private function generateItems(array $keys, $now, $f)
     {
         foreach ($keys as $i => $key) {
             if (!($isHit = isset($this->expiries[$key]) && ($this->expiries[$key] > $now || !$this->deleteItem($key)))) {
@@ -327,11 +314,7 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
         }
         return $value;
     }
-    /**
-     * @param string $key
-     * @param bool $isHit
-     */
-    private function unfreeze($key, &$isHit)
+    private function unfreeze(string $key, bool &$isHit)
     {
         if ('N;' === ($value = $this->values[$key])) {
             return null;

@@ -97,9 +97,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Attribute::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Attribute $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::CLASS_NAME)) {
             return null;

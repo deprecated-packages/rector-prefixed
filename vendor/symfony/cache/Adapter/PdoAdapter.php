@@ -150,10 +150,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * Adds the Table to the Schema if the adapter uses this Connection.
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     * @param \Doctrine\DBAL\Connection $forConnection
      */
-    public function configureSchema($schema, $forConnection) : void
+    public function configureSchema(\RectorPrefix20210317\Doctrine\DBAL\Schema\Schema $schema, \RectorPrefix20210317\Doctrine\DBAL\Connection $forConnection) : void
     {
         // only update the schema for this connection
         if ($forConnection !== $this->getConnection()) {
@@ -194,9 +192,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doFetch($ids)
+    protected function doFetch(array $ids)
     {
         $now = \time();
         $expired = [];
@@ -234,9 +231,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    protected function doHave($id)
+    protected function doHave(string $id)
     {
         $sql = "SELECT 1 FROM {$this->table} WHERE {$this->idCol} = :id AND ({$this->lifetimeCol} IS NULL OR {$this->lifetimeCol} + {$this->timeCol} > :time)";
         $stmt = $this->getConnection()->prepare($sql);
@@ -247,9 +243,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         $conn = $this->getConnection();
         if ('' === $namespace) {
@@ -274,9 +269,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDelete($ids)
+    protected function doDelete(array $ids)
     {
         $sql = \str_pad('', (\count($ids) << 1) - 1, '?,');
         $sql = "DELETE FROM {$this->table} WHERE {$this->idCol} IN ({$sql})";
@@ -290,10 +284,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
      */
-    protected function doSave($values, $lifetime)
+    protected function doSave(array $values, int $lifetime)
     {
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
@@ -388,9 +380,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         return $failed;
     }
     /**
-     * @return object
+     * @return \PDO|Connection
      */
-    private function getConnection()
+    private function getConnection() : object
     {
         if (null === $this->conn) {
             if (\strpos($this->dsn, '://')) {
@@ -454,10 +446,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         }
         return $this->serverVersion;
     }
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
-    private function addTableToSchema($schema) : void
+    private function addTableToSchema(\RectorPrefix20210317\Doctrine\DBAL\Schema\Schema $schema) : void
     {
         $types = ['mysql' => 'binary', 'sqlite' => 'text', 'pgsql' => 'string', 'oci' => 'string', 'sqlsrv' => 'string'];
         if (!isset($types[$this->driver])) {

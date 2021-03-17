@@ -64,10 +64,7 @@ final class RectorSetProvider extends \RectorPrefix20210317\Symplify\SetConfigRe
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
         throw new \RectorPrefix20210317\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
-    /**
-     * @param \ReflectionClass $setListReflectionClass
-     */
-    private function hydrateSetsFromConstants($setListReflectionClass) : void
+    private function hydrateSetsFromConstants(\ReflectionClass $setListReflectionClass) : void
     {
         foreach ($setListReflectionClass->getConstants() as $name => $setPath) {
             if (!\file_exists($setPath)) {

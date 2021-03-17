@@ -73,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -111,10 +111,7 @@ CODE_SAMPLE
         $this->coalescingNodes = [];
         $this->nodesToRemove = [];
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isReturnNull($node) : bool
+    private function isReturnNull(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
             return \false;
@@ -127,7 +124,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $coalescingNodes
      */
-    private function createReturnCoalesceNode($coalescingNodes) : \PhpParser\Node\Stmt\Return_
+    private function createReturnCoalesceNode(array $coalescingNodes) : \PhpParser\Node\Stmt\Return_
     {
         /** @var Expr $left */
         $left = \array_shift($coalescingNodes);

@@ -57,9 +57,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->doesLastStatementBreakFlow($node)) {
             return null;
@@ -82,10 +82,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function doesLastStatementBreakFlow($if) : bool
+    private function doesLastStatementBreakFlow(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $lastStmt = \end($if->stmts);
         return !($lastStmt instanceof \PhpParser\Node\Stmt\Return_ || $lastStmt instanceof \PhpParser\Node\Stmt\Throw_ || $lastStmt instanceof \PhpParser\Node\Stmt\Continue_ || $lastStmt instanceof \PhpParser\Node\Stmt\Expression && $lastStmt->expr instanceof \PhpParser\Node\Expr\Exit_);

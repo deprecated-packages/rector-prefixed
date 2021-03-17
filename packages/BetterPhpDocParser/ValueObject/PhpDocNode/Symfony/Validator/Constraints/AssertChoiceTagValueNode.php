@@ -12,17 +12,11 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
  */
 final class AssertChoiceTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
-    /**
-     * @param string $class
-     */
-    public function isCallbackClass($class) : bool
+    public function isCallbackClass(string $class) : bool
     {
         return $class === ($this->items['callback'][0] ?? null);
     }
-    /**
-     * @param string $newClass
-     */
-    public function changeCallbackClass($newClass) : void
+    public function changeCallbackClass(string $newClass) : void
     {
         $this->items['callback'][0] = $newClass;
     }

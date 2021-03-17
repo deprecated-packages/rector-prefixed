@@ -43,9 +43,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param BooleanAnd $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isTrueOrBooleanAndTrues($node->left)) {
             return $node->right;
@@ -55,10 +55,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isTrueOrBooleanAndTrues($node) : bool
+    private function isTrueOrBooleanAndTrues(\PhpParser\Node $node) : bool
     {
         if ($this->valueResolver->isTrue($node)) {
             return \true;

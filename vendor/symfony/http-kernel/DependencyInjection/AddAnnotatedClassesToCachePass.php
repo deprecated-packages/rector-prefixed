@@ -30,9 +30,8 @@ class AddAnnotatedClassesToCachePass implements \RectorPrefix20210317\Symfony\Co
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $annotatedClasses = $this->kernel->getAnnotatedClassesToCompile();
         foreach ($container->getExtensions() as $extension) {
@@ -50,7 +49,7 @@ class AddAnnotatedClassesToCachePass implements \RectorPrefix20210317\Symfony\Co
      * @param array $patterns The class patterns to expand
      * @param array $classes  The existing classes to match against the patterns
      */
-    private function expandClasses($patterns, $classes) : array
+    private function expandClasses(array $patterns, array $classes) : array
     {
         $expanded = [];
         // Explicit classes declared in the patterns are returned directly
@@ -86,10 +85,7 @@ class AddAnnotatedClassesToCachePass implements \RectorPrefix20210317\Symfony\Co
         }
         return \array_keys($classes);
     }
-    /**
-     * @param mixed[] $patterns
-     */
-    private function patternsToRegexps($patterns) : array
+    private function patternsToRegexps(array $patterns) : array
     {
         $regexps = [];
         foreach ($patterns as $pattern) {
@@ -105,11 +101,7 @@ class AddAnnotatedClassesToCachePass implements \RectorPrefix20210317\Symfony\Co
         }
         return $regexps;
     }
-    /**
-     * @param string $class
-     * @param mixed[] $regexps
-     */
-    private function matchAnyRegexps($class, $regexps) : bool
+    private function matchAnyRegexps(string $class, array $regexps) : bool
     {
         $isTest = \false !== \strpos($class, 'Test');
         foreach ($regexps as $regex) {

@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -80,10 +80,7 @@ CODE_SAMPLE
         $onlyProperty->default = $this->nodeFactory->createNull();
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkipProperty($property) : bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if (\count($property->props) !== 1) {
             return \true;
@@ -93,10 +90,7 @@ CODE_SAMPLE
         }
         return $property->type instanceof \PhpParser\Node\NullableType;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty
-     */
-    private function isPropertyNullChecked($onlyPropertyProperty) : bool
+    private function isPropertyNullChecked(\PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $classLike = $onlyPropertyProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -107,11 +101,7 @@ CODE_SAMPLE
         }
         return $this->isBooleanNot($classLike, $onlyPropertyProperty);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty
-     */
-    private function isIdenticalOrNotIdenticalToNull($class, $onlyPropertyProperty) : bool
+    private function isIdenticalOrNotIdenticalToNull(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isIdenticalOrNotIdenticalToNull = \false;
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isIdenticalOrNotIdenticalToNull) {
@@ -126,11 +116,7 @@ CODE_SAMPLE
         });
         return $isIdenticalOrNotIdenticalToNull;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty
-     */
-    private function isBooleanNot($class, $onlyPropertyProperty) : bool
+    private function isBooleanNot(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isBooleanNot = \false;
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isBooleanNot) {
@@ -154,9 +140,8 @@ CODE_SAMPLE
      * Matches:
      * $this-><someProprety> === null
      * null === $this-><someProprety>
-     * @param \PhpParser\Node $node
      */
-    private function matchPropertyFetchNameComparedToNull($node) : ?string
+    private function matchPropertyFetchNameComparedToNull(\PhpParser\Node $node) : ?string
     {
         if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && !$node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return null;

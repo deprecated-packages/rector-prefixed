@@ -88,9 +88,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
@@ -105,10 +105,7 @@ CODE_SAMPLE
         $this->refactorOptionsArray($optionsArray);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $optionsArray
-     */
-    private function refactorOptionsArray($optionsArray) : void
+    private function refactorOptionsArray(\PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         foreach ($optionsArray->items as $arrayItem) {
             if ($arrayItem === null) {

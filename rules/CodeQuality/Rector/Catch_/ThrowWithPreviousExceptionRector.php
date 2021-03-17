@@ -78,9 +78,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Catch_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
         if (!$caughtThrowableVariable instanceof \PhpParser\Node\Expr\Variable) {
@@ -94,11 +94,7 @@ CODE_SAMPLE
         });
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Throw_ $throw
-     * @param \PhpParser\Node\Expr\Variable $catchedThrowableVariable
-     */
-    private function refactorThrow($throw, $catchedThrowableVariable) : ?int
+    private function refactorThrow(\PhpParser\Node\Stmt\Throw_ $throw, \PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
     {
         if (!$throw->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
@@ -135,10 +131,7 @@ CODE_SAMPLE
         // nothing more to add
         return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
     }
-    /**
-     * @param \PhpParser\Node\Name $exceptionName
-     */
-    private function resolveExceptionArgumentPosition($exceptionName) : ?int
+    private function resolveExceptionArgumentPosition(\PhpParser\Node\Name $exceptionName) : ?int
     {
         $className = $this->getName($exceptionName);
         // is native exception?

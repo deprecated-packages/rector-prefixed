@@ -36,12 +36,7 @@ final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\
         }
         $this->client = $client ?? \RectorPrefix20210317\Symfony\Component\HttpClient\HttpClient::create();
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
-     */
-    public function handle($request, $type = \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true) : \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response
+    public function handle(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true) : \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response
     {
         $headers = $this->getHeaders($request);
         $body = '';
@@ -64,10 +59,7 @@ final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\
         };
         return $response;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    private function getBody($request) : ?\RectorPrefix20210317\Symfony\Component\Mime\Part\AbstractPart
+    private function getBody(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : ?\RectorPrefix20210317\Symfony\Component\Mime\Part\AbstractPart
     {
         if (\in_array($request->getMethod(), ['GET', 'HEAD'])) {
             return null;
@@ -84,10 +76,7 @@ final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\
         }
         return new \RectorPrefix20210317\Symfony\Component\Mime\Part\Multipart\FormDataPart($fields);
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    private function getHeaders($request) : array
+    private function getHeaders(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : array
     {
         $headers = [];
         foreach ($request->headers as $key => $value) {

@@ -60,7 +60,7 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      *
      * @return CacheItemPoolInterface
      */
-    public static function create($file, $fallbackPool)
+    public static function create(string $file, \RectorPrefix20210317\Psr\Cache\CacheItemPoolInterface $fallbackPool)
     {
         if (!$fallbackPool instanceof \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface) {
             $fallbackPool = new \RectorPrefix20210317\Symfony\Component\Cache\Adapter\ProxyAdapter($fallbackPool);
@@ -69,12 +69,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param callable $callback
-     * @param float $beta
-     * @param mixed[] $metadata
      */
-    public function get($key, $callback, $beta = null, &$metadata = null)
+    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
     {
         if (null === $this->values) {
             $this->initialize();
@@ -131,9 +127,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $keys
      */
-    public function getItems($keys = [])
+    public function getItems(array $keys = [])
     {
         foreach ($keys as $key) {
             if (!\is_string($key)) {
@@ -179,9 +174,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param mixed[] $keys
      */
-    public function deleteItems($keys)
+    public function deleteItems(array $keys)
     {
         $deleted = \true;
         $fallbackKeys = [];
@@ -207,9 +201,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         if (null === $this->values) {
             $this->initialize();
@@ -220,9 +213,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         if (null === $this->values) {
             $this->initialize();
@@ -242,9 +234,8 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param string $prefix
      */
-    public function clear($prefix = '')
+    public function clear(string $prefix = '')
     {
         $this->keys = $this->values = [];
         $cleared = @\unlink($this->file) || !\file_exists($this->file);
@@ -261,7 +252,7 @@ class PhpArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      *
      * @return string[] A list of classes to preload on PHP 7.4+
      */
-    public function warmUp($values)
+    public function warmUp(array $values)
     {
         if (\file_exists($this->file)) {
             if (!\is_file($this->file)) {
@@ -353,10 +344,7 @@ EOF;
             [$this->keys, $this->values] = $values;
         }
     }
-    /**
-     * @param mixed[] $keys
-     */
-    private function generateItems($keys) : \Generator
+    private function generateItems(array $keys) : \Generator
     {
         $f = $this->createCacheItem;
         $fallbackKeys = [];

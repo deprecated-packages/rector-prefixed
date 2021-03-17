@@ -33,9 +33,8 @@ class DoctrineAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doFetch($ids)
+    protected function doFetch(array $ids)
     {
         $unserializeCallbackHandler = \ini_set('unserialize_callback_func', parent::class . '::handleUnserializeCallback');
         try {
@@ -57,26 +56,23 @@ class DoctrineAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    protected function doHave($id)
+    protected function doHave(string $id)
     {
         return $this->provider->contains($id);
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         $namespace = $this->provider->getNamespace();
         return isset($namespace[0]) ? $this->provider->deleteAll() : $this->provider->flushAll();
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDelete($ids)
+    protected function doDelete(array $ids)
     {
         $ok = \true;
         foreach ($ids as $id) {
@@ -86,10 +82,8 @@ class DoctrineAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
      */
-    protected function doSave($values, $lifetime)
+    protected function doSave(array $values, int $lifetime)
     {
         return $this->provider->saveMultiple($values, $lifetime);
     }

@@ -53,7 +53,7 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
      * @param int                 $status             The response status code
      * @param array               $headers            An array of response headers
      * @param bool                $public             Files are public by default
-     * @param string         $contentDisposition The type of Content-Disposition to set automatically with the filename
+     * @param string|null         $contentDisposition The type of Content-Disposition to set automatically with the filename
      * @param bool                $autoEtag           Whether the ETag header should be automatically set
      * @param bool                $autoLastModified   Whether the Last-Modified header should be automatically set
      *
@@ -61,7 +61,7 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
      *
      * @deprecated since Symfony 5.2, use __construct() instead.
      */
-    public static function create($file = null, int $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public static function create($file = null, int $status = 200, array $headers = [], bool $public = \true, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
     {
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
@@ -74,11 +74,8 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
      * @return $this
      *
      * @throws FileException
-     * @param string $contentDisposition
-     * @param bool $autoEtag
-     * @param bool $autoLastModified
      */
-    public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public function setFile($file, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
     {
         if (!$file instanceof \RectorPrefix20210317\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
@@ -136,7 +133,7 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
      *
      * @return $this
      */
-    public function setContentDisposition($disposition, $filename = '', $filenameFallback = '')
+    public function setContentDisposition(string $disposition, string $filename = '', string $filenameFallback = '')
     {
         if ('' === $filename) {
             $filename = $this->file->getFilename();
@@ -236,10 +233,7 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
         }
         return $this;
     }
-    /**
-     * @param string|null $header
-     */
-    private function hasValidIfRangeHeader($header) : bool
+    private function hasValidIfRangeHeader(?string $header) : bool
     {
         if ($this->getEtag() === $header) {
             return \true;
@@ -303,9 +297,8 @@ class BinaryFileResponse extends \RectorPrefix20210317\Symfony\Component\HttpFou
      * Note: If the X-Sendfile header is used, the deleteFileAfterSend setting will not be used.
      *
      * @return $this
-     * @param bool $shouldDelete
      */
-    public function deleteFileAfterSend($shouldDelete = \true)
+    public function deleteFileAfterSend(bool $shouldDelete = \true)
     {
         $this->deleteFileAfterSend = $shouldDelete;
         return $this;

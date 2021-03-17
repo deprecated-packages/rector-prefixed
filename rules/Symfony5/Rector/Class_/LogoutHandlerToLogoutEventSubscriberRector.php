@@ -88,9 +88,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, $this->logoutHandlerObjectType)) {
             return null;
@@ -110,10 +110,7 @@ CODE_SAMPLE
         $node->stmts[] = $getSubscribedEventsClassMethod;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function refactorImplements($class) : void
+    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {

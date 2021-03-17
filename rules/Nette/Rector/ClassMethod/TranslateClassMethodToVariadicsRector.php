@@ -65,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('Nette\\Localization\\ITranslator'))) {
             return null;
@@ -91,11 +91,7 @@ CODE_SAMPLE
         $secondParam->var->name = self::PARAMETERS;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PhpParser\Node\Param $param
-     */
-    private function replaceSecondParamInClassMethodBody($classMethod, $param) : void
+    private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
     {
         $paramName = $this->getName($param->var);
         if ($paramName === null) {
@@ -116,10 +112,7 @@ CODE_SAMPLE
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function createCoalesceAssign($variable) : \PhpParser\Node\Expr\Assign
+    private function createCoalesceAssign(\PhpParser\Node\Expr\Variable $variable) : \PhpParser\Node\Expr\Assign
     {
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch(new \PhpParser\Node\Expr\Variable(self::PARAMETERS), new \PhpParser\Node\Scalar\LNumber(0));
         $coalesce = new \PhpParser\Node\Expr\BinaryOp\Coalesce($arrayDimFetch, $this->nodeFactory->createNull());

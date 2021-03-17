@@ -38,9 +38,8 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         $ok = $this->doClearCache($namespace);
         if ('' !== $namespace) {
@@ -83,12 +82,8 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
-     * @param mixed[] $addTagData
-     * @param mixed[] $removeTagData
      */
-    protected function doSave($values, $lifetime, $addTagData = [], $removeTagData = []) : array
+    protected function doSave(array $values, int $lifetime, array $addTagData = [], array $removeTagData = []) : array
     {
         $failed = $this->doSaveCache($values, $lifetime);
         // Add Tags as symlinks
@@ -119,9 +114,8 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDeleteYieldTags($ids) : iterable
+    protected function doDeleteYieldTags(array $ids) : iterable
     {
         foreach ($ids as $id) {
             $file = $this->getFile($id);
@@ -155,9 +149,8 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tagData
      */
-    protected function doDeleteTagRelations($tagData) : bool
+    protected function doDeleteTagRelations(array $tagData) : bool
     {
         foreach ($tagData as $tagId => $idList) {
             $tagFolder = $this->getTagFolder($tagId);
@@ -169,9 +162,8 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tagIds
      */
-    protected function doInvalidate($tagIds) : bool
+    protected function doInvalidate(array $tagIds) : bool
     {
         foreach ($tagIds as $tagId) {
             if (!\is_dir($tagFolder = $this->getTagFolder($tagId))) {
@@ -206,10 +198,7 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
         }
         return \true;
     }
-    /**
-     * @param string $tagId
-     */
-    private function getTagFolder($tagId) : string
+    private function getTagFolder(string $tagId) : string
     {
         return $this->getFile($tagId, \false, $this->directory . self::TAG_FOLDER . \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
     }

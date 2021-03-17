@@ -68,7 +68,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
     /**
      * @param FuncCall|MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $arguments = $this->getNonVariableArguments($node);
         if ($arguments === []) {
@@ -99,7 +99,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
      *
      * @return Expr[]
      */
-    private function getNonVariableArguments($node) : array
+    private function getNonVariableArguments(\PhpParser\Node $node) : array
     {
         $arguments = [];
         $parametersAcceptor = $this->callReflectionResolver->resolveParametersAcceptor($this->callReflectionResolver->resolveCall($node), $node);
@@ -123,12 +123,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
         }
         return $arguments;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     * @param \PHPStan\Analyser\MutatingScope $mutatingScope
-     * @param \PhpParser\Node $scopeNode
-     */
-    private function getReplacementsFor($expr, $mutatingScope, $scopeNode) : \Rector\Php70\ValueObject\VariableAssignPair
+    private function getReplacementsFor(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\MutatingScope $mutatingScope, \PhpParser\Node $scopeNode) : \Rector\Php70\ValueObject\VariableAssignPair
     {
         /** @var Assign|AssignOp|AssignRef $expr */
         if ($this->isAssign($expr) && $this->isVariableLikeNode($expr->var)) {
@@ -141,17 +136,11 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
         $scopeNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE, $newVariableAwareScope);
         return new \Rector\Php70\ValueObject\VariableAssignPair($variable, new \PhpParser\Node\Expr\Assign($variable, $expr));
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isVariableLikeNode($node) : bool
+    private function isVariableLikeNode(\PhpParser\Node $node) : bool
     {
         return $node instanceof \PhpParser\Node\Expr\Variable || $node instanceof \PhpParser\Node\Expr\ArrayDimFetch || $node instanceof \PhpParser\Node\Expr\PropertyFetch || $node instanceof \PhpParser\Node\Expr\StaticPropertyFetch;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isAssign($expr) : bool
+    private function isAssign(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\Assign) {
             return \true;

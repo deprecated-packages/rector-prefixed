@@ -97,7 +97,7 @@ class NodeTraverser implements \PhpParser\NodeTraverserInterface
      *
      * @return Node Result of traversal (may be original node or new one)
      */
-    protected function traverseNode($node) : \PhpParser\Node
+    protected function traverseNode(\PhpParser\Node $node) : \PhpParser\Node
     {
         foreach ($node->getSubNodeNames() as $name) {
             $subNode =& $node->{$name};
@@ -165,7 +165,7 @@ class NodeTraverser implements \PhpParser\NodeTraverserInterface
      *
      * @return array Result of traversal (may be original array or changed one)
      */
-    protected function traverseArray($nodes) : array
+    protected function traverseArray(array $nodes) : array
     {
         $doNodes = [];
         foreach ($nodes as $i => &$node) {

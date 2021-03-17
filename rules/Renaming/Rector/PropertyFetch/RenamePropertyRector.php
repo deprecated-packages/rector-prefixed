@@ -37,9 +37,9 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
         return [\PhpParser\Node\Expr\PropertyFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param PropertyFetch $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->renamedProperties as $renamedProperty) {
             if (!$this->isObjectType($node->var, $renamedProperty->getObjectType())) {
@@ -53,10 +53,7 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \Rector\Renaming\ValueObject\RenameProperty::class);

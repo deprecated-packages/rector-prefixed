@@ -34,9 +34,8 @@ final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostR
     }
     /**
      * @return array<int|string, Node>|Node
-     * @param \PhpParser\Node $node
      */
-    public function leaveNode($node)
+    public function leaveNode(\PhpParser\Node $node)
     {
         $newNodes = [$node];
         $nodesToAddAfter = $this->nodesToAddCollector->getNodesToAddAfterNode($node);

@@ -27,10 +27,7 @@ class ContextualizedDumper implements \RectorPrefix20210317\Symfony\Component\Va
         $this->wrappedDumper = $wrappedDumper;
         $this->contextProviders = $contextProviders;
     }
-    /**
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
-     */
-    public function dump($data)
+    public function dump(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         $context = [];
         foreach ($this->contextProviders as $contextProvider) {

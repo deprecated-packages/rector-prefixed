@@ -39,9 +39,9 @@ final class UnnecessaryTernaryExpressionRector extends \Rector\Core\Rector\Abstr
         return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Ternary $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Ternary $ternaryExpression */
         $ternaryExpression = $node;
@@ -77,12 +77,7 @@ final class UnnecessaryTernaryExpressionRector extends \Rector\Core\Rector\Abstr
         }
         return new $inversedBinaryClass($binaryOperation->left, $binaryOperation->right);
     }
-    /**
-     * @param \PhpParser\Node\Expr $ifExpression
-     * @param \PhpParser\Node\Expr $elseExpression
-     * @param \PhpParser\Node\Expr $condition
-     */
-    private function processNonBinaryCondition($ifExpression, $elseExpression, $condition) : ?\PhpParser\Node
+    private function processNonBinaryCondition(\PhpParser\Node\Expr $ifExpression, \PhpParser\Node\Expr $elseExpression, \PhpParser\Node\Expr $condition) : ?\PhpParser\Node
     {
         if ($this->valueResolver->isTrue($ifExpression) && $this->valueResolver->isFalse($elseExpression)) {
             if ($this->nodeTypeResolver->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {

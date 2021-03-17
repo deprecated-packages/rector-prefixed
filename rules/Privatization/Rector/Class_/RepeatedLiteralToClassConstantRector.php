@@ -98,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip tests, where string values are often used as fixtures
         if ($this->isName($node, '*Test')) {
@@ -120,7 +120,7 @@ CODE_SAMPLE
      * @param String_[] $strings
      * @return string[]
      */
-    private function resolveStringsToReplace($strings) : array
+    private function resolveStringsToReplace(array $strings) : array
     {
         $stringsByValue = [];
         foreach ($strings as $string) {
@@ -140,9 +140,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function replaceStringsWithClassConstReferences($class, $stringsToReplace) : void
+    private function replaceStringsWithClassConstReferences(\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
@@ -157,9 +156,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addClassConsts($stringsToReplace, $class) : void
+    private function addClassConsts(array $stringsToReplace, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($stringsToReplace as $stringToReplace) {
             $constantName = $this->createConstName($stringToReplace);
@@ -167,10 +165,7 @@ CODE_SAMPLE
             $this->classInsertManipulator->addConstantToClass($class, $stringToReplace, $classConst);
         }
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function shouldSkipString($string) : bool
+    private function shouldSkipString(\PhpParser\Node\Scalar\String_ $string) : bool
     {
         $value = $string->value;
         // value is too short
@@ -195,10 +190,7 @@ CODE_SAMPLE
         }
         return $matches[self::VALUE] !== $string->value;
     }
-    /**
-     * @param string $value
-     */
-    private function createConstName($value) : string
+    private function createConstName(string $value) : string
     {
         // replace slashes and dashes
         $value = \RectorPrefix20210317\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
@@ -223,10 +215,7 @@ CODE_SAMPLE
         $value = \implode(self::UNDERSCORE, $parts);
         return \strtoupper(\RectorPrefix20210317\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
     }
-    /**
-     * @param string $value
-     */
-    private function isNativeConstantResemblingValue($value) : bool
+    private function isNativeConstantResemblingValue(string $value) : bool
     {
         $loweredValue = \strtolower($value);
         return \in_array($loweredValue, ['true', 'false', 'bool', 'null'], \true);

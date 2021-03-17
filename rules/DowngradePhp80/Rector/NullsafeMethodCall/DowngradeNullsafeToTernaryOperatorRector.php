@@ -39,7 +39,7 @@ CODE_SAMPLE
     /**
      * @param NullsafeMethodCall|NullsafePropertyFetch $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $called = $node instanceof \PhpParser\Node\Expr\NullsafeMethodCall ? new \PhpParser\Node\Expr\MethodCall($node->var, $node->name, $node->args) : new \PhpParser\Node\Expr\PropertyFetch($node->var, $node->name);
         return new \PhpParser\Node\Expr\Ternary($node->var, $called, $this->nodeFactory->createNull());

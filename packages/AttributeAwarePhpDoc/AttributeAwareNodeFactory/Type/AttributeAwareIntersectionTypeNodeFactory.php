@@ -20,28 +20,21 @@ final class AttributeAwareIntersectionTypeNodeFactory implements \Rector\Attribu
     {
         return \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param IntersectionTypeNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         foreach ($node->types as $key => $intersectionedType) {
             $node->types[$key] = $this->attributeAwareNodeFactory->createFromNode($intersectionedType, $docContent);
         }
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIntersectionTypeNode($node->types);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
-     */
-    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

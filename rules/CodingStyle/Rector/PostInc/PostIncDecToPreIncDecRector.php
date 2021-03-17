@@ -55,7 +55,7 @@ CODE_SAMPLE
     /**
      * @param PostInc|PostDec $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($this->isAnExpression($parentNode)) {
@@ -75,10 +75,7 @@ CODE_SAMPLE
         }
         return $this->processPreFor($node, $parentNode);
     }
-    /**
-     * @param \PhpParser\Node|null $node
-     */
-    private function isAnExpression($node = null) : bool
+    private function isAnExpression(?\PhpParser\Node $node = null) : bool
     {
         if (!$node instanceof \PhpParser\Node) {
             return \false;
@@ -88,7 +85,7 @@ CODE_SAMPLE
     /**
      * @param PostInc|PostDec $node
      */
-    private function processPrePost($node) : \PhpParser\Node\Expr
+    private function processPrePost(\PhpParser\Node $node) : \PhpParser\Node\Expr
     {
         if ($node instanceof \PhpParser\Node\Expr\PostInc) {
             return new \PhpParser\Node\Expr\PreInc($node->var);
@@ -97,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * @param PostInc|PostDec $node
-     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
      */
-    private function processPreArray($node, $arrayDimFetch) : ?\PhpParser\Node\Expr
+    private function processPreArray(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : ?\PhpParser\Node\Expr
     {
         $parentOfArrayDimFetch = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$this->isAnExpression($parentOfArrayDimFetch)) {
@@ -111,9 +107,8 @@ CODE_SAMPLE
     }
     /**
      * @param PostInc|PostDec $node
-     * @param \PhpParser\Node\Stmt\For_ $for
      */
-    private function processPreFor($node, $for) : \PhpParser\Node\Expr
+    private function processPreFor(\PhpParser\Node $node, \PhpParser\Node\Stmt\For_ $for) : \PhpParser\Node\Expr
     {
         $for->loop = [$this->processPrePost($node)];
         return $for->loop[0];

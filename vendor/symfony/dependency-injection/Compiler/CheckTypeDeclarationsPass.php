@@ -89,11 +89,8 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210317\Symfony\Comp
     }
     /**
      * @throws InvalidArgumentException When not enough parameters are defined for the method
-     * @param \Symfony\Component\DependencyInjection\Definition $checkedDefinition
-     * @param \ReflectionFunctionAbstract $reflectionFunction
-     * @param mixed[] $values
      */
-    private function checkTypeDeclarations($checkedDefinition, $reflectionFunction, $values) : void
+    private function checkTypeDeclarations(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values) : void
     {
         $numberOfRequiredParameters = $reflectionFunction->getNumberOfRequiredParameters();
         if (\count($values) < $numberOfRequiredParameters) {
@@ -117,12 +114,8 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210317\Symfony\Comp
     }
     /**
      * @throws InvalidParameterTypeException When a parameter is not compatible with the declared type
-     * @param \Symfony\Component\DependencyInjection\Definition $checkedDefinition
-     * @param \ReflectionParameter $parameter
-     * @param string|null $envPlaceholderUniquePrefix
-     * @param \ReflectionType $reflectionType
      */
-    private function checkType($checkedDefinition, $value, $parameter, $envPlaceholderUniquePrefix, $reflectionType = null) : void
+    private function checkType(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, ?string $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null) : void
     {
         $reflectionType = $reflectionType ?? $parameter->getType();
         if ($reflectionType instanceof \ReflectionUnionType) {

@@ -82,9 +82,8 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doFetch($ids)
+    protected function doFetch(array $ids)
     {
         if ($this->appendOnly) {
             $now = 0;
@@ -149,9 +148,8 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    protected function doHave($id)
+    protected function doHave(string $id)
     {
         if ($this->appendOnly && isset($this->values[$id])) {
             return \true;
@@ -185,10 +183,8 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
      */
-    protected function doSave($values, $lifetime)
+    protected function doSave(array $values, int $lifetime)
     {
         $ok = \true;
         $expiry = $lifetime ? \time() + $lifetime : 'PHP_INT_MAX';
@@ -241,18 +237,16 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         $this->values = [];
         return $this->doCommonClear($namespace);
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDelete($ids)
+    protected function doDelete(array $ids)
     {
         foreach ($ids as $id) {
             unset($this->values[$id]);
@@ -267,10 +261,7 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
         }
         return @\unlink($file);
     }
-    /**
-     * @param string $file
-     */
-    private function getFileKey($file) : string
+    private function getFileKey(string $file) : string
     {
         if (!($h = @\fopen($file, 'r'))) {
             return '';

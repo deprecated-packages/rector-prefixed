@@ -47,10 +47,8 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
     }
     /**
      * Get the extra path that is not included in root PSR-4 namespace
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     * @param string $path
      */
-    private function resolveExtraNamespace($smartFileInfo, $path) : string
+    private function resolveExtraNamespace(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
     {
         $extraNamespace = \RectorPrefix20210317\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \RectorPrefix20210317\Nette\Utils\Strings::length($path) + 1);
         $extraNamespace = \RectorPrefix20210317\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');

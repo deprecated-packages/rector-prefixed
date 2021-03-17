@@ -8,17 +8,11 @@ namespace PhpParser;
  */
 class NodeVisitorAbstract implements \PhpParser\NodeVisitor
 {
-    /**
-     * @param mixed[] $nodes
-     */
-    public function beforeTraverse($nodes)
+    public function beforeTraverse(array $nodes)
     {
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node)
+    public function enterNode(\PhpParser\Node $node)
     {
         return null;
     }

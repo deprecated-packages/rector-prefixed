@@ -37,10 +37,7 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     {
         return 800;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node) : ?\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodesToRemoveCollector->isActive()) {
             return null;
@@ -71,9 +68,8 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     }
     /**
      * @return int|Node
-     * @param \PhpParser\Node $node
      */
-    public function leaveNode($node)
+    public function leaveNode(\PhpParser\Node $node)
     {
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {
             $nodeToRemoveParent = $nodeToRemove->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -111,11 +107,7 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $mainMethodCall
-     * @param \PhpParser\Node\Expr\MethodCall $toBeRemovedMethodCall
-     */
-    private function isChainMethodCallNodeToBeRemoved($mainMethodCall, $toBeRemovedMethodCall) : bool
+    private function isChainMethodCallNodeToBeRemoved(\PhpParser\Node\Expr\MethodCall $mainMethodCall, \PhpParser\Node\Expr\MethodCall $toBeRemovedMethodCall) : bool
     {
         if (!$mainMethodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
@@ -126,10 +118,7 @@ CODE_SAMPLE
         $methodName = $this->nodeNameResolver->getName($mainMethodCall->name);
         return $methodName !== null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
-     */
-    private function removePartOfBinaryOp($binaryOp) : ?\PhpParser\Node
+    private function removePartOfBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
     {
         // handle left/right binary remove, e.g. "true && false" → remove false → "true"
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {

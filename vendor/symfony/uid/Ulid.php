@@ -34,10 +34,7 @@ class Ulid extends \RectorPrefix20210317\Symfony\Component\Uid\AbstractUid
         }
         $this->uid = \strtr($ulid, 'abcdefghjkmnpqrstvwxyz', 'ABCDEFGHJKMNPQRSTVWXYZ');
     }
-    /**
-     * @param string $ulid
-     */
-    public static function isValid($ulid) : bool
+    public static function isValid(string $ulid) : bool
     {
         if (26 !== \strlen($ulid)) {
             return \false;
@@ -49,9 +46,8 @@ class Ulid extends \RectorPrefix20210317\Symfony\Component\Uid\AbstractUid
     }
     /**
      * {@inheritdoc}
-     * @param string $ulid
      */
-    public static function fromString($ulid)
+    public static function fromString(string $ulid) : \RectorPrefix20210317\parent
     {
         if (36 === \strlen($ulid) && \RectorPrefix20210317\Symfony\Component\Uid\Uuid::isValid($ulid)) {
             $ulid = (new \RectorPrefix20210317\Symfony\Component\Uid\Uuid($ulid))->toBinary();

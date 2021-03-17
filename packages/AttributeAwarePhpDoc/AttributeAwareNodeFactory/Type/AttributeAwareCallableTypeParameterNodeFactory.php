@@ -14,18 +14,14 @@ final class AttributeAwareCallableTypeParameterNodeFactory implements \Rector\At
     {
         return \PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param CallableTypeParameterNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeParameterNode($node->type, $node->isReference, $node->isVariadic, $node->parameterName, $node->isOptional);
     }

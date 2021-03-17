@@ -56,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -100,10 +100,7 @@ CODE_SAMPLE
         $funcCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_merge'), $args);
         return new \PhpParser\Node\Expr\Assign($valueNode, $funcCall);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function shouldSkip($if) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else === null) {
             return \true;
@@ -142,7 +139,7 @@ CODE_SAMPLE
     /**
      * @param If_|Else_ $node
      */
-    private function hasOnlyStatementAssign($node) : bool
+    private function hasOnlyStatementAssign(\PhpParser\Node $node) : bool
     {
         if (\count($node->stmts) !== 1) {
             return \false;

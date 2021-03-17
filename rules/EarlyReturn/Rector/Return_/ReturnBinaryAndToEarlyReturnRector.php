@@ -70,9 +70,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;
@@ -94,10 +94,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifNegations
      * @return If_[]
-     * @param \PhpParser\Node\Expr $expr
-     * @param \PhpParser\Node\Stmt\Return_ $return
      */
-    private function createMultipleIfsNegation($expr, $return, $ifNegations) : array
+    private function createMultipleIfsNegation(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
     {
         while ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             $ifNegations = \array_merge($ifNegations, $this->collectLeftBooleanAndToIfs($expr, $return, $ifNegations));
@@ -109,10 +107,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifNegations
      * @return If_[]
-     * @param \PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd
-     * @param \PhpParser\Node\Stmt\Return_ $return
      */
-    private function collectLeftBooleanAndToIfs($booleanAnd, $return, $ifNegations) : array
+    private function collectLeftBooleanAndToIfs(\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd, \PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
     {
         $left = $booleanAnd->left;
         if (!$left instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {

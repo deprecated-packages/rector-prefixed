@@ -56,9 +56,8 @@ class MemcachedSessionHandler extends \RectorPrefix20210317\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId)
+    protected function doRead(string $sessionId)
     {
         return $this->memcached->get($this->prefix . $sessionId) ?: '';
     }
@@ -72,18 +71,15 @@ class MemcachedSessionHandler extends \RectorPrefix20210317\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite(string $sessionId, string $data)
     {
         return $this->memcached->set($this->prefix . $sessionId, $data, \time() + $this->ttl);
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy(string $sessionId)
     {
         $result = $this->memcached->delete($this->prefix . $sessionId);
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();

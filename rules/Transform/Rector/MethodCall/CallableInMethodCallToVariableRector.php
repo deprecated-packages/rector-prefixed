@@ -72,9 +72,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->callableInMethodCallToVariable as $singleCallableInMethodCallToVariable) {
             if (!$this->isObjectType($node->var, $singleCallableInMethodCallToVariable->getObjectType())) {
@@ -99,7 +99,7 @@ CODE_SAMPLE
     /**
      * @param mixed[] $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $callableInMethodCallToVariable = $configuration[self::CALLABLE_IN_METHOD_CALL_TO_VARIABLE] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($callableInMethodCallToVariable, \Rector\Transform\ValueObject\CallableInMethodCallToVariable::class);

@@ -55,9 +55,8 @@ class MockFileSessionStorage extends \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
      */
-    public function regenerate(bool $destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
         if (!$this->started) {
             $this->start();

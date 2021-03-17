@@ -56,10 +56,7 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         }
         return $this->createScalarType($name);
     }
-    /**
-     * @param string $name
-     */
-    private function isExistingClass($name) : bool
+    private function isExistingClass(string $name) : bool
     {
         if ($this->reflectionProvider->hasClass($name)) {
             return \true;
@@ -68,11 +65,7 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         $oldToNewClasses = $this->renamedClassesCollector->getOldToNewClasses();
         return \in_array($name, $oldToNewClasses, \true);
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     * @param string $reference
-     */
-    private function createClassReferenceType($name, $reference) : \PHPStan\Type\Type
+    private function createClassReferenceType(\PhpParser\Node\Name $name, string $reference) : \PHPStan\Type\Type
     {
         $className = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
@@ -87,10 +80,7 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         }
         return new \PHPStan\Type\ThisType($className);
     }
-    /**
-     * @param string $name
-     */
-    private function createScalarType($name) : \PHPStan\Type\Type
+    private function createScalarType(string $name) : \PHPStan\Type\Type
     {
         if ($name === 'array') {
             return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());

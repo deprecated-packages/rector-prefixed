@@ -44,9 +44,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Function_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Function_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var string $functionName */
         $functionName = $this->getName($node);

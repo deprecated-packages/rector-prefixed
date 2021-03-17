@@ -26,7 +26,7 @@ final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
-    public function getTargetEntity() : ?string
+    public function getTargetEntity() : string
     {
         return $this->items[self::TARGET_ENTITY];
     }
@@ -50,10 +50,7 @@ final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         $this->items['inversedBy'] = null;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items[self::TARGET_ENTITY] = $targetEntity;
     }

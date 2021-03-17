@@ -85,9 +85,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipAssign($node)) {
             return null;
@@ -102,10 +102,7 @@ CODE_SAMPLE
         }
         return $node->expr;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function shouldSkipAssign($assign) : bool
+    private function shouldSkipAssign(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
             return \true;
@@ -121,10 +118,7 @@ CODE_SAMPLE
         $nextUsedVariable = $this->nextVariableUsageNodeFinder->find($assign);
         return $nextUsedVariable !== null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function isVariableTypeInScope($assign) : bool
+    private function isVariableTypeInScope(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         $scope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -134,10 +128,7 @@ CODE_SAMPLE
         $variableName = $this->getName($assign->var);
         return !$scope->hasVariableType($variableName)->no();
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function isPreviousVariablePartOfOverridingAssign($assign) : bool
+    private function isPreviousVariablePartOfOverridingAssign(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         // is previous variable node as part of assign?
         $previousVariableAssign = $this->previousVariableAssignNodeFinder->find($assign);
@@ -148,9 +139,8 @@ CODE_SAMPLE
     }
     /**
      * Nested assign, e.g "$oldValues = <$values> = 5;"
-     * @param \PhpParser\Node\Expr\Assign $assign
      */
-    private function isNestedAssign($assign) : bool
+    private function isNestedAssign(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         $parent = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         return $parent instanceof \PhpParser\Node\Expr\Assign;

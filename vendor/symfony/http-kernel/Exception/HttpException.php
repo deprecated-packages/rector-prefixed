@@ -38,7 +38,7 @@ class HttpException extends \RuntimeException implements \RectorPrefix20210317\S
      *
      * @param array $headers Response headers
      */
-    public function setHeaders($headers)
+    public function setHeaders(array $headers)
     {
         $this->headers = $headers;
     }

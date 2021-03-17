@@ -93,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // must be exactly 1 param
         if (\count($node->params) !== 1) {
@@ -125,17 +125,13 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn
-     */
-    private function matchReturnClassMethod($classMethod, $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->nodeNameResolver->isInClassNamed($classMethod, $inferParamFromClassMethodReturn->getObjectType())) {
             return null;
@@ -149,11 +145,7 @@ CODE_SAMPLE
         }
         return $classLike->getMethod($inferParamFromClassMethodReturn->getReturnMethod());
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PHPStan\Type\Type $paramType
-     */
-    private function isParamDocTypeEqualToPhpType($param, $paramType) : bool
+    private function isParamDocTypeEqualToPhpType(\PhpParser\Node\Param $param, \PHPStan\Type\Type $paramType) : bool
     {
         $currentParamType = $this->getObjectType($param);
         if ($currentParamType instanceof \PHPStan\Type\UnionType) {

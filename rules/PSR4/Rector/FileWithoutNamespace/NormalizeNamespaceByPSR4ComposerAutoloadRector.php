@@ -69,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $expectedNamespace = $this->psr4AutoloadNamespaceMatcher->getExpectedNamespace($node);
         if ($expectedNamespace === null) {
@@ -89,11 +89,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
-     * @param string $expectedNamespace
-     */
-    private function refactorFileWithoutNamespace($fileWithoutNamespace, $expectedNamespace) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, string $expectedNamespace) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         $nodes = $fileWithoutNamespace->stmts;
         $nodesWithStrictTypesThenNamespace = [];
@@ -112,7 +108,7 @@ CODE_SAMPLE
     /**
      * @param Stmt[] $nodes
      */
-    private function makeNamesFullyQualified($nodes) : void
+    private function makeNamesFullyQualified(array $nodes) : void
     {
         // no need to
         if ($this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES)) {

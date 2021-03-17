@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -66,10 +66,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function shouldSkip($assign) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         if (!$assign->var instanceof \PhpParser\Node\Expr\Array_ && !$assign->var instanceof \PhpParser\Node\Expr\List_) {
             return \true;
@@ -87,9 +84,8 @@ CODE_SAMPLE
     /**
      * @param Array_|List_ $expr
      * @return Assign[]
-     * @param \PhpParser\Node\Expr\Array_ $rightArray
      */
-    private function createStandaloneAssigns($expr, $rightArray) : array
+    private function createStandaloneAssigns(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $rightArray) : array
     {
         $standaloneAssigns = [];
         foreach ($expr->items as $key => $leftArrayItem) {
@@ -106,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @param Array_|List_ $expr
-     * @param \PhpParser\Node\Expr\Array_ $secondArray
      */
-    private function isValueSwap($expr, $secondArray) : bool
+    private function isValueSwap(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $secondArray) : bool
     {
         $firstArrayItemsHash = $this->getArrayItemsHash($expr);
         $secondArrayItemsHash = $this->getArrayItemsHash($secondArray);
@@ -117,7 +112,7 @@ CODE_SAMPLE
     /**
      * @param Array_|List_ $node
      */
-    private function getArrayItemsHash($node) : string
+    private function getArrayItemsHash(\PhpParser\Node $node) : string
     {
         $arrayItemsHashes = [];
         foreach ($node->items as $arrayItem) {

@@ -73,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -99,16 +99,13 @@ CODE_SAMPLE
     /**
      * @param array<string, SingleToManyMethod[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $singleToManyMethods = $configuration[self::SINGLES_TO_MANY_METHODS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($singleToManyMethods, \Rector\Transform\ValueObject\SingleToManyMethod::class);
         $this->singleToManyMethods = $singleToManyMethods;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function keepOldReturnTypeInDocBlock($classMethod) : void
+    private function keepOldReturnTypeInDocBlock(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // keep old return type in the docblock
         $oldReturnType = $classMethod->returnType;
@@ -120,10 +117,7 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $arrayType);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function wrapReturnValueToArray($classMethod) : void
+    private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {

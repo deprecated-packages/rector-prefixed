@@ -22,9 +22,8 @@ class TraceableTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\C
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tags
      */
-    public function invalidateTags($tags)
+    public function invalidateTags(array $tags)
     {
         $event = $this->start(__FUNCTION__);
         try {

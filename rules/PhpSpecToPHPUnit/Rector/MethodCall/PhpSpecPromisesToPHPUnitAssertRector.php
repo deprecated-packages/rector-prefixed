@@ -125,9 +125,9 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->isPrepared = \false;
         $this->matchersKeys = [];
@@ -177,20 +177,14 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $node->var = $this->testedObjectPropertyFetch;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function processDuringInstantiation($methodCall) : \PhpParser\Node\Expr\MethodCall
+    private function processDuringInstantiation(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
         /** @var MethodCall $parentMethodCall */
         $parentMethodCall = $methodCall->var;
         $parentMethodCall->name = new \PhpParser\Node\Identifier('expectException');
         return $parentMethodCall;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function prepareMethodCall($methodCall) : void
+    private function prepareMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if ($this->isPrepared) {
             return;
@@ -204,9 +198,8 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     }
     /**
      * @see https://johannespichler.com/writing-custom-phpspec-matchers/
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function processMatchersKeys($methodCall) : void
+    private function processMatchersKeys(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         foreach ($this->matchersKeys as $matcherKey) {
             if (!$this->isName($methodCall->name, 'should' . \ucfirst($matcherKey))) {
@@ -232,10 +225,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
             return;
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function shouldSkip($methodCall) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->nodeNameResolver->isVariableName($methodCall->var, self::THIS)) {
             return \true;
@@ -243,10 +233,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         // skip "createMock" method
         return $this->isName($methodCall->name, 'createMock');
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function createTestedObjectPropertyFetch($class) : \PhpParser\Node\Expr\PropertyFetch
+    private function createTestedObjectPropertyFetch(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Expr\PropertyFetch
     {
         $propertyName = $this->phpSpecRenaming->resolveObjectPropertyName($class);
         return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
