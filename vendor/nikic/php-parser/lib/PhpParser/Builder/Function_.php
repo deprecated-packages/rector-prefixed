@@ -16,7 +16,7 @@ class Function_ extends \PhpParser\Builder\FunctionLike
      *
      * @param string $name Name of the function
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }

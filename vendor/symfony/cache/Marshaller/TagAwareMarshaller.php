@@ -18,10 +18,7 @@ namespace RectorPrefix20210317\Symfony\Component\Cache\Marshaller;
 class TagAwareMarshaller implements \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     private $marshaller;
-    /**
-     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
-     */
-    public function __construct($marshaller = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         $this->marshaller = $marshaller ?? new \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
     }

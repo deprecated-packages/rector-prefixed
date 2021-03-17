@@ -16,34 +16,22 @@ namespace RectorPrefix20210317\Symfony\Component\HttpKernel\CacheClearer;
 class Psr6CacheClearer implements \RectorPrefix20210317\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
 {
     private $pools = [];
-    /**
-     * @param mixed[] $pools
-     */
-    public function __construct($pools = [])
+    public function __construct(array $pools = [])
     {
         $this->pools = $pools;
     }
-    /**
-     * @param string $name
-     */
-    public function hasPool($name)
+    public function hasPool(string $name)
     {
         return isset($this->pools[$name]);
     }
-    /**
-     * @param string $name
-     */
-    public function getPool($name)
+    public function getPool(string $name)
     {
         if (!$this->hasPool($name)) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));
         }
         return $this->pools[$name];
     }
-    /**
-     * @param string $name
-     */
-    public function clearPool($name)
+    public function clearPool(string $name)
     {
         if (!isset($this->pools[$name])) {
             throw new \InvalidArgumentException(\sprintf('Cache pool not found: "%s".', $name));

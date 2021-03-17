@@ -30,10 +30,8 @@ abstract class AbstractSurrogateFragmentRenderer extends \RectorPrefix20210317\S
      * instance of InlineFragmentRenderer.
      *
      * @param FragmentRendererInterface $inlineStrategy The inline strategy to use when the surrogate is not supported
-     * @param \Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
-     * @param \Symfony\Component\HttpKernel\UriSigner $signer
      */
-    public function __construct($surrogate = null, $inlineStrategy, $signer = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null, \RectorPrefix20210317\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $inlineStrategy, \RectorPrefix20210317\Symfony\Component\HttpKernel\UriSigner $signer = null)
     {
         $this->surrogate = $surrogate;
         $this->inlineStrategy = $inlineStrategy;
@@ -73,11 +71,7 @@ abstract class AbstractSurrogateFragmentRenderer extends \RectorPrefix20210317\S
         $tag = $this->surrogate->renderIncludeTag($uri, $alt, $options['ignore_errors'] ?? \false, $options['comment'] ?? '');
         return new \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response($tag);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Controller\ControllerReference $uri
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    private function generateSignedFragmentUri($uri, $request) : string
+    private function generateSignedFragmentUri(\RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : string
     {
         if (null === $this->signer) {
             throw new \LogicException('You must use a URI when using the ESI rendering strategy or set a URL signer.');
@@ -86,10 +80,7 @@ abstract class AbstractSurrogateFragmentRenderer extends \RectorPrefix20210317\S
         $fragmentUri = $this->signer->sign($this->generateFragmentUri($uri, $request, \true));
         return \substr($fragmentUri, \strlen($request->getSchemeAndHttpHost()));
     }
-    /**
-     * @param mixed[] $values
-     */
-    private function containsNonScalars($values) : bool
+    private function containsNonScalars(array $values) : bool
     {
         foreach ($values as $value) {
             if (\is_array($value)) {

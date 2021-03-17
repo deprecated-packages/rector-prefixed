@@ -18,7 +18,7 @@ class New_ extends \PhpParser\Node\Expr
      * @param Node\Arg[]                      $args       Arguments
      * @param array                           $attributes Additional attributes
      */
-    public function __construct($class, $args = [], $attributes = [])
+    public function __construct($class, array $args = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->class = $class;

@@ -28,10 +28,7 @@ final class FormerNullableArgumentToScalarTypedRector extends \Rector\Core\Recto
      * @var CallTypeAnalyzer
      */
     private $callTypeAnalyzer;
-    /**
-     * @param \Rector\TypeDeclaration\NodeTypeAnalyzer\CallTypeAnalyzer $callTypeAnalyzer
-     */
-    public function __construct($callTypeAnalyzer)
+    public function __construct(\Rector\TypeDeclaration\NodeTypeAnalyzer\CallTypeAnalyzer $callTypeAnalyzer)
     {
         $this->callTypeAnalyzer = $callTypeAnalyzer;
     }
@@ -75,7 +72,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
@@ -95,10 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $methodParameterTypes
-     * @param \PhpParser\Node\Arg $arg
-     * @param int $key
      */
-    private function refactorArg($arg, $methodParameterTypes, $key) : void
+    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key) : void
     {
         if (!isset($methodParameterTypes[$key])) {
             return;

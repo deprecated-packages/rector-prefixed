@@ -24,11 +24,7 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
-     * @param \Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector
-     */
-    public function __construct($classInsertManipulator, $phpSpecMockCollector)
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -41,9 +37,9 @@ final class AddMockPropertiesRector extends \Rector\PhpSpecToPHPUnit\Rector\Abst
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;

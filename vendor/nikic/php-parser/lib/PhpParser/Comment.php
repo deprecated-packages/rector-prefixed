@@ -19,11 +19,8 @@ class Comment implements \JsonSerializable
      * @param int    $startLine     Line number the comment started on
      * @param int    $startFilePos  File offset the comment started on
      * @param int    $startTokenPos Token offset the comment started on
-     * @param int $endLine
-     * @param int $endFilePos
-     * @param int $endTokenPos
      */
-    public function __construct($text, $startLine = -1, $startFilePos = -1, $startTokenPos = -1, $endLine = -1, $endFilePos = -1, $endTokenPos = -1)
+    public function __construct(string $text, int $startLine = -1, int $startFilePos = -1, int $startTokenPos = -1, int $endLine = -1, int $endFilePos = -1, int $endTokenPos = -1)
     {
         $this->text = $text;
         $this->startLine = $startLine;
@@ -202,7 +199,7 @@ class Comment implements \JsonSerializable
      * @param string $str String to check
      * @return int Length in characters. Tabs count as single characters.
      */
-    private function getShortestWhitespacePrefixLen($str) : int
+    private function getShortestWhitespacePrefixLen(string $str) : int
     {
         $lines = \explode("\n", $str);
         $shortestPrefixLen = \INF;

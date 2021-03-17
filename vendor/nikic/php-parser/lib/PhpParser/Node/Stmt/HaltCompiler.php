@@ -14,7 +14,7 @@ class HaltCompiler extends \PhpParser\Node\Stmt
      * @param string $remaining  Remaining text after halt compiler statement.
      * @param array  $attributes Additional attributes
      */
-    public function __construct($remaining, $attributes = [])
+    public function __construct(string $remaining, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->remaining = $remaining;

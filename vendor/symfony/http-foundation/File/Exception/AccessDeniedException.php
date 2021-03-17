@@ -17,10 +17,7 @@ namespace RectorPrefix20210317\Symfony\Component\HttpFoundation\File\Exception;
  */
 class AccessDeniedException extends \RectorPrefix20210317\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
-    /**
-     * @param string $path
-     */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         parent::__construct(\sprintf('The file %s could not be accessed', $path));
     }

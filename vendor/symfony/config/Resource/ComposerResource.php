@@ -39,9 +39,8 @@ class ComposerResource implements \RectorPrefix20210317\Symfony\Component\Config
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         self::refresh();
         return \array_values(self::$runtimeVendors) === \array_values($this->vendors);

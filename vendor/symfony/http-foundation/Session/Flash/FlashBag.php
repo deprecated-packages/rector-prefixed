@@ -23,7 +23,7 @@ class FlashBag implements \RectorPrefix20210317\Symfony\Component\HttpFoundation
     /**
      * @param string $storageKey The key used to store flashes in the session
      */
-    public function __construct($storageKey = '_symfony_flashes')
+    public function __construct(string $storageKey = '_symfony_flashes')
     {
         $this->storageKey = $storageKey;
     }
@@ -34,35 +34,28 @@ class FlashBag implements \RectorPrefix20210317\Symfony\Component\HttpFoundation
     {
         return $this->name;
     }
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $flashes
      */
-    public function initialize(&$flashes)
+    public function initialize(array &$flashes)
     {
         $this->flashes =& $flashes;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function add($type, $message)
+    public function add(string $type, $message)
     {
         $this->flashes[$type][] = $message;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
-     * @param mixed[] $default
      */
-    public function peek($type, $default = [])
+    public function peek(string $type, array $default = [])
     {
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
@@ -75,10 +68,8 @@ class FlashBag implements \RectorPrefix20210317\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
-     * @param string $type
-     * @param mixed[] $default
      */
-    public function get($type, $default = [])
+    public function get(string $type, array $default = [])
     {
         if (!$this->has($type)) {
             return $default;
@@ -98,25 +89,22 @@ class FlashBag implements \RectorPrefix20210317\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function set($type, $messages)
+    public function set(string $type, $messages)
     {
         $this->flashes[$type] = (array) $messages;
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $messages
      */
-    public function setAll($messages)
+    public function setAll(array $messages)
     {
         $this->flashes = $messages;
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function has($type)
+    public function has(string $type)
     {
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
     }

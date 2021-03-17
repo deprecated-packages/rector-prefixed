@@ -48,15 +48,12 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
     private $debug;
     /**
      * @param UrlMatcherInterface|RequestMatcherInterface $matcher    The Url or Request matcher
-     * @param \Symfony\Component\Routing\RequestContext                         $context    The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
+     * @param RequestContext|null                         $context    The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
      * @param string                                      $projectDir
      *
      * @throws \InvalidArgumentException
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param bool $debug
      */
-    public function __construct($matcher, $requestStack, $context = null, $logger = null, $projectDir = null, $debug = \true)
+    public function __construct($matcher, \RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack, \RectorPrefix20210317\Symfony\Component\Routing\RequestContext $context = null, \RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null, string $projectDir = null, bool $debug = \true)
     {
         if (!$matcher instanceof \RectorPrefix20210317\Symfony\Component\Routing\Matcher\UrlMatcherInterface && !$matcher instanceof \RectorPrefix20210317\Symfony\Component\Routing\Matcher\RequestMatcherInterface) {
             throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
@@ -71,10 +68,7 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
         $this->projectDir = $projectDir;
         $this->debug = $debug;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    private function setCurrentRequest($request = null)
+    private function setCurrentRequest(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (null !== $request) {
             try {
@@ -87,16 +81,12 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
     /**
      * After a sub-request is done, we need to reset the routing context to the parent request so that the URL generator
      * operates on the correct context again.
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
-    public function onKernelFinishRequest($event)
+    public function onKernelFinishRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         $this->setCurrentRequest($this->requestStack->getParentRequest());
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         $this->setCurrentRequest($request);
@@ -129,10 +119,7 @@ class RouterListener implements \RectorPrefix20210317\Symfony\Component\EventDis
             throw new \RectorPrefix20210317\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException($e->getAllowedMethods(), $message, $e);
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    public function onKernelException($event)
+    public function onKernelException(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ExceptionEvent $event)
     {
         if (!$this->debug || !($e = $event->getThrowable()) instanceof \RectorPrefix20210317\Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             return;

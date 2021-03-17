@@ -57,10 +57,7 @@ final class ImportRoutingCaseConverter implements \RectorPrefix20210317\Symplify
      * @var StringFormatConverter
      */
     private $stringFormatConverter;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     */
-    public function __construct($argsNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->stringFormatConverter = new \RectorPrefix20210317\Symplify\PackageBuilder\Strings\StringFormatConverter();
@@ -99,7 +96,7 @@ final class ImportRoutingCaseConverter implements \RectorPrefix20210317\Symplify
      * @param mixed $values
      * @return Arg[]
      */
-    private function createAddArgs($argsNames, $values) : array
+    private function createAddArgs(array $argsNames, $values) : array
     {
         $argumentValues = [];
         foreach ($argsNames as $arg) {

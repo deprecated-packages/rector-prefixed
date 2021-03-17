@@ -20,10 +20,7 @@ final class SingularSwitchToIfRector extends \Rector\Core\Rector\AbstractRector
      * @var SwitchManipulator
      */
     private $switchManipulator;
-    /**
-     * @param \Rector\Renaming\NodeManipulator\SwitchManipulator $switchManipulator
-     */
-    public function __construct($switchManipulator)
+    public function __construct(\Rector\Renaming\NodeManipulator\SwitchManipulator $switchManipulator)
     {
         $this->switchManipulator = $switchManipulator;
     }
@@ -68,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Switch_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->cases) !== 1) {
             return null;

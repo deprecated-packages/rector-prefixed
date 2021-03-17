@@ -14,7 +14,7 @@ class Else_ extends \PhpParser\Node\Stmt
      * @param Node\Stmt[] $stmts      Statements
      * @param array       $attributes Additional attributes
      */
-    public function __construct($stmts = [], $attributes = [])
+    public function __construct(array $stmts = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->stmts = $stmts;

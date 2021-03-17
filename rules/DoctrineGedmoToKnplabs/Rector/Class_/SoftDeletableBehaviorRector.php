@@ -23,10 +23,7 @@ final class SoftDeletableBehaviorRector extends \Rector\Core\Rector\AbstractRect
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
-     */
-    public function __construct($classInsertManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
@@ -75,9 +72,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $hasTypeSoftDeleteableTagValueNode = $classPhpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
@@ -93,11 +90,7 @@ CODE_SAMPLE
         $classPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param string $fieldName
-     */
-    private function removePropertyAndClassMethods($class, $fieldName) : void
+    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void
     {
         // remove property
         foreach ($class->getProperties() as $property) {

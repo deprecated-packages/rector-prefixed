@@ -35,12 +35,7 @@ class LintCommand extends \RectorPrefix20210317\Symfony\Component\Console\Comman
     private $displayCorrectFiles;
     private $directoryIteratorProvider;
     private $isReadableProvider;
-    /**
-     * @param string $name
-     * @param callable $directoryIteratorProvider
-     * @param callable $isReadableProvider
-     */
-    public function __construct($name = null, $directoryIteratorProvider = null, $isReadableProvider = null)
+    public function __construct(string $name = null, callable $directoryIteratorProvider = null, callable $isReadableProvider = null)
     {
         parent::__construct($name);
         $this->directoryIteratorProvider = $directoryIteratorProvider;
@@ -95,12 +90,7 @@ EOF
         }
         return $this->display($io, $filesInfo);
     }
-    /**
-     * @param string $content
-     * @param int $flags
-     * @param string $file
-     */
-    private function validate($content, $flags, $file = null)
+    private function validate(string $content, int $flags, string $file = null)
     {
         $prevErrorHandler = \set_error_handler(function ($level, $message, $file, $line) use(&$prevErrorHandler) {
             if (\E_USER_DEPRECATED === $level) {
@@ -117,11 +107,7 @@ EOF
         }
         return ['file' => $file, 'valid' => \true];
     }
-    /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
-     * @param mixed[] $files
-     */
-    private function display($io, $files) : int
+    private function display(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $files) : int
     {
         switch ($this->format) {
             case 'txt':
@@ -132,11 +118,7 @@ EOF
                 throw new \RectorPrefix20210317\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The format "%s" is not supported.', $this->format));
         }
     }
-    /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
-     * @param mixed[] $filesInfo
-     */
-    private function displayTxt($io, $filesInfo) : int
+    private function displayTxt(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $filesInfo) : int
     {
         $countFiles = \count($filesInfo);
         $erroredFiles = 0;
@@ -160,11 +142,7 @@ EOF
         }
         return \min($erroredFiles, 1);
     }
-    /**
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
-     * @param mixed[] $filesInfo
-     */
-    private function displayJson($io, $filesInfo) : int
+    private function displayJson(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $filesInfo) : int
     {
         $errors = 0;
         \array_walk($filesInfo, function (&$v) use(&$errors) {
@@ -179,10 +157,7 @@ EOF
         $io->writeln(\json_encode($filesInfo, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
         return \min($errors, 1);
     }
-    /**
-     * @param string $fileOrDirectory
-     */
-    private function getFiles($fileOrDirectory) : iterable
+    private function getFiles(string $fileOrDirectory) : iterable
     {
         if (\is_file($fileOrDirectory)) {
             (yield new \SplFileInfo($fileOrDirectory));
@@ -202,10 +177,7 @@ EOF
         }
         return $this->parser;
     }
-    /**
-     * @param string $directory
-     */
-    private function getDirectoryIterator($directory) : iterable
+    private function getDirectoryIterator(string $directory) : iterable
     {
         $default = function ($directory) {
             return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS), \RecursiveIteratorIterator::LEAVES_ONLY);
@@ -215,10 +187,7 @@ EOF
         }
         return $default($directory);
     }
-    /**
-     * @param string $fileOrDirectory
-     */
-    private function isReadable($fileOrDirectory) : bool
+    private function isReadable(string $fileOrDirectory) : bool
     {
         $default = function ($fileOrDirectory) {
             return \is_readable($fileOrDirectory);

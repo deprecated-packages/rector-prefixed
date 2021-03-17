@@ -26,10 +26,7 @@ final class ChangeBigIntEntityPropertyToIntTypeRector extends \Rector\Core\Recto
      * @var DocBlockClassRenamer
      */
     private $docBlockClassRenamer;
-    /**
-     * @param \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer
-     */
-    public function __construct($docBlockClassRenamer)
+    public function __construct(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer)
     {
         $this->docBlockClassRenamer = $docBlockClassRenamer;
     }
@@ -75,9 +72,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);

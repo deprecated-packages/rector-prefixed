@@ -14,7 +14,7 @@ class ShellExec extends \PhpParser\Node\Expr
      * @param array $parts      Encapsed string array
      * @param array $attributes Additional attributes
      */
-    public function __construct($parts, $attributes = [])
+    public function __construct(array $parts, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->parts = $parts;

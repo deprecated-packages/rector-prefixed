@@ -33,10 +33,7 @@ final class DowngradeArraySpreadRector extends \Rector\Core\Rector\AbstractRecto
      * @var VariableNaming
      */
     private $variableNaming;
-    /**
-     * @param \Rector\NetteKdyby\Naming\VariableNaming $variableNaming
-     */
-    public function __construct($variableNaming)
+    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
@@ -83,19 +80,16 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Array_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
         }
         return $this->refactorNode($node);
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     */
-    private function shouldRefactor($array) : bool
+    private function shouldRefactor(\PhpParser\Node\Expr\Array_ $array) : bool
     {
         // Check that any item in the array is the spread
         foreach ($array->items as $item) {
@@ -108,10 +102,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     */
-    private function refactorNode($array) : \PhpParser\Node
+    private function refactorNode(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node
     {
         $newItems = $this->createArrayItems($array);
         // Replace this array node with an `array_merge`
@@ -123,9 +114,8 @@ CODE_SAMPLE
      * 2. If not, make the item part of an accumulating array,
      *    to be added once the next spread is found, or at the end
      * @return ArrayItem[]
-     * @param \PhpParser\Node\Expr\Array_ $array
      */
-    private function createArrayItems($array) : array
+    private function createArrayItems(\PhpParser\Node\Expr\Array_ $array) : array
     {
         $newItems = [];
         $accumulatedItems = [];
@@ -160,9 +150,8 @@ CODE_SAMPLE
     /**
      * @see https://wiki.php.net/rfc/spread_operator_for_array
      * @param (ArrayItem|null)[] $items
-     * @param \PhpParser\Node\Expr\Array_ $array
      */
-    private function createArrayMerge($array, $items) : \PhpParser\Node\Expr\FuncCall
+    private function createArrayMerge(\PhpParser\Node\Expr\Array_ $array, array $items) : \PhpParser\Node\Expr\FuncCall
     {
         /** @var Scope $nodeScope */
         $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -182,10 +171,8 @@ CODE_SAMPLE
      * as to invoke it only once and avoid potential bugs,
      * such as a method executing some side-effect
      * @param int|string $position
-     * @param \PhpParser\Node\Expr\Array_ $array
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
      */
-    private function createVariableFromNonVariable($array, $arrayItem, $position) : \PhpParser\Node\Expr\Variable
+    private function createVariableFromNonVariable(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $arrayItem, $position) : \PhpParser\Node\Expr\Variable
     {
         /** @var Scope $nodeScope */
         $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -202,15 +189,11 @@ CODE_SAMPLE
     /**
      * @param array<ArrayItem|null> $items
      */
-    private function createArrayItem($items) : \PhpParser\Node\Expr\ArrayItem
+    private function createArrayItem(array $items) : \PhpParser\Node\Expr\ArrayItem
     {
         return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Array_($items));
     }
-    /**
-     * @param \PHPStan\Analyser\Scope $nodeScope
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     */
-    private function createArgFromSpreadArrayItem($nodeScope, $arrayItem) : \PhpParser\Node\Arg
+    private function createArgFromSpreadArrayItem(\PHPStan\Analyser\Scope $nodeScope, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Arg
     {
         // By now every item is a variable
         /** @var Variable $variable */
@@ -248,9 +231,8 @@ CODE_SAMPLE
     /**
      * Iterables: either objects declaring the interface Traversable,
      * or the pseudo-type iterable
-     * @param \PHPStan\Type\Type $type
      */
-    private function isIterableType($type) : bool
+    private function isIterableType(\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof \PHPStan\Type\IterableType || $type instanceof \PHPStan\Type\ObjectType && \is_a($type->getClassName(), \Traversable::class, \true);
     }

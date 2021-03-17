@@ -19,10 +19,7 @@ use RectorPrefix20210317\Symfony\Component\Process\Process;
 final class ProcessSignaledException extends \RectorPrefix20210317\Symfony\Component\Process\Exception\RuntimeException
 {
     private $process;
-    /**
-     * @param \Symfony\Component\Process\Process $process
-     */
-    public function __construct($process)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Process\Process $process)
     {
         $this->process = $process;
         parent::__construct(\sprintf('The process has been signaled with signal "%s".', $process->getTermSignal()));

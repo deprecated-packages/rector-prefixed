@@ -17,7 +17,7 @@ class TraitUse extends \PhpParser\Node\Stmt
      * @param TraitUseAdaptation[] $adaptations Adaptations
      * @param array                $attributes  Additional attributes
      */
-    public function __construct($traits, $adaptations = [], $attributes = [])
+    public function __construct(array $traits, array $adaptations = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->traits = $traits;

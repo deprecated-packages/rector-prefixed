@@ -147,7 +147,7 @@ abstract class PrettyPrinterAbstract
      *
      * @param array $options Dictionary of formatting options
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         $this->docStringEndToken = '_DOC_STRING_END_' . \mt_rand();
         $defaultOptions = ['shortArraySyntax' => \false];

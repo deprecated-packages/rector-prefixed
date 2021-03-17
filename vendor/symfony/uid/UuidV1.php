@@ -20,10 +20,7 @@ namespace RectorPrefix20210317\Symfony\Component\Uid;
 class UuidV1 extends \RectorPrefix20210317\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 1;
-    /**
-     * @param string $uuid
-     */
-    public function __construct($uuid = null)
+    public function __construct(string $uuid = null)
     {
         if (null === $uuid) {
             $this->uid = \uuid_create(static::TYPE);

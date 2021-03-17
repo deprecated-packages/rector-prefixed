@@ -30,7 +30,7 @@ class FileResource implements \RectorPrefix20210317\Symfony\Component\Config\Res
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($resource)
+    public function __construct(string $resource)
     {
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         if (\false === $this->resource) {
@@ -53,9 +53,8 @@ class FileResource implements \RectorPrefix20210317\Symfony\Component\Config\Res
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         return \false !== ($filemtime = @\filemtime($this->resource)) && $filemtime <= $timestamp;
     }

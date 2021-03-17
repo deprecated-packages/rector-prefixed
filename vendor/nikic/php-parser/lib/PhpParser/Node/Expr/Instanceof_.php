@@ -18,7 +18,7 @@ class Instanceof_ extends \PhpParser\Node\Expr
      * @param Name|Expr $class      Class name
      * @param array     $attributes Additional attributes
      */
-    public function __construct($expr, $class, $attributes = [])
+    public function __construct(\PhpParser\Node\Expr $expr, $class, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->expr = $expr;

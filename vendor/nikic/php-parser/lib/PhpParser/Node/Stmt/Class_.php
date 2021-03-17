@@ -33,7 +33,7 @@ class Class_ extends \PhpParser\Node\Stmt\ClassLike
      *                                '$attrGroups' => array(): PHP attribute groups
      * @param array       $attributes Additional attributes
      */
-    public function __construct($name, $subNodes = [], $attributes = [])
+    public function __construct($name, array $subNodes = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->flags = $subNodes['flags'] ?? $subNodes['type'] ?? 0;

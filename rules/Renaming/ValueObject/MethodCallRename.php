@@ -19,12 +19,7 @@ final class MethodCallRename implements \Rector\Renaming\Contract\MethodCallRena
      * @var string
      */
     private $newMethod;
-    /**
-     * @param string $oldClass
-     * @param string $oldMethod
-     * @param string $newMethod
-     */
-    public function __construct($oldClass, $oldMethod, $newMethod)
+    public function __construct(string $oldClass, string $oldMethod, string $newMethod)
     {
         $this->oldClass = $oldClass;
         $this->oldMethod = $oldMethod;

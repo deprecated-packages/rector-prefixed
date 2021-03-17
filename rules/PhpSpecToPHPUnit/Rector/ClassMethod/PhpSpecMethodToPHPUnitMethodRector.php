@@ -24,11 +24,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
      * @var PHPUnitTypeDeclarationDecorator
      */
     private $phpUnitTypeDeclarationDecorator;
-    /**
-     * @param \Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator
-     * @param \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming
-     */
-    public function __construct($phpUnitTypeDeclarationDecorator, $phpSpecRenaming)
+    public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
@@ -41,9 +37,9 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -61,10 +57,7 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function processTestMethod($classMethod) : void
+    private function processTestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // special case, @see https://johannespichler.com/writing-custom-phpspec-matchers/
         if ($this->isName($classMethod, 'getMatchers')) {

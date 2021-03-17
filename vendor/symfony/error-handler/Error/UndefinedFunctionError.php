@@ -14,10 +14,8 @@ class UndefinedFunctionError extends \Error
 {
     /**
      * {@inheritdoc}
-     * @param string $message
-     * @param \Throwable $previous
      */
-    public function __construct($message, $previous)
+    public function __construct(string $message, \Throwable $previous)
     {
         parent::__construct($message, $previous->getCode(), $previous->getPrevious());
         foreach (['file' => $previous->getFile(), 'line' => $previous->getLine(), 'trace' => $previous->getTrace()] as $property => $value) {

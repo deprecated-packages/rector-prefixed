@@ -16,7 +16,7 @@ class Precedence extends \PhpParser\Node\Stmt\TraitUseAdaptation
      * @param Node\Name[]            $insteadof   Overwritten traits
      * @param array                  $attributes  Additional attributes
      */
-    public function __construct($trait, $method, $insteadof, $attributes = [])
+    public function __construct(\PhpParser\Node\Name $trait, $method, array $insteadof, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->trait = $trait;

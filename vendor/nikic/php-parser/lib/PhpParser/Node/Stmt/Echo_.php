@@ -14,7 +14,7 @@ class Echo_ extends \PhpParser\Node\Stmt
      * @param Node\Expr[] $exprs      Expressions
      * @param array       $attributes Additional attributes
      */
-    public function __construct($exprs, $attributes = [])
+    public function __construct(array $exprs, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->exprs = $exprs;

@@ -23,7 +23,7 @@ class DateRangeFilterIterator extends \FilterIterator
      * @param \Iterator        $iterator    The Iterator to filter
      * @param DateComparator[] $comparators An array of DateComparator instances
      */
-    public function __construct($iterator, $comparators)
+    public function __construct(\Iterator $iterator, array $comparators)
     {
         $this->comparators = $comparators;
         parent::__construct($iterator);

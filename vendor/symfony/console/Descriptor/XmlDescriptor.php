@@ -24,10 +24,7 @@ use RectorPrefix20210317\Symfony\Component\Console\Input\InputOption;
  */
 class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Descriptor\Descriptor
 {
-    /**
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     */
-    public function getInputDefinitionDocument($definition) : \DOMDocument
+    public function getInputDefinitionDocument(\RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -41,10 +38,7 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
         }
         return $dom;
     }
-    /**
-     * @param \Symfony\Component\Console\Command\Command $command
-     */
-    public function getCommandDocument($command) : \DOMDocument
+    public function getCommandDocument(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
@@ -64,11 +58,7 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
         $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
         return $dom;
     }
-    /**
-     * @param \Symfony\Component\Console\Application $application
-     * @param string $namespace
-     */
-    public function getApplicationDocument($application, $namespace = null) : \DOMDocument
+    public function getApplicationDocument(\RectorPrefix20210317\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -101,55 +91,43 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
-     * @param mixed[] $options
      */
-    protected function describeInputArgument($argument, $options = [])
+    protected function describeInputArgument(\RectorPrefix20210317\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputOption $option
-     * @param mixed[] $options
      */
-    protected function describeInputOption($option, $options = [])
+    protected function describeInputOption(\RectorPrefix20210317\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     * @param mixed[] $options
      */
-    protected function describeInputDefinition($definition, $options = [])
+    protected function describeInputDefinition(\RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param mixed[] $options
      */
-    protected function describeCommand($command, $options = [])
+    protected function describeCommand(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeDocument($this->getCommandDocument($command));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Application $application
-     * @param mixed[] $options
      */
-    protected function describeApplication($application, $options = [])
+    protected function describeApplication(\RectorPrefix20210317\Symfony\Component\Console\Application $application, array $options = [])
     {
         $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null));
     }
     /**
      * Appends document children to parent node.
-     * @param \DOMNode $parentNode
-     * @param \DOMNode $importedParent
      */
-    private function appendDocument($parentNode, $importedParent)
+    private function appendDocument(\DOMNode $parentNode, \DOMNode $importedParent)
     {
         foreach ($importedParent->childNodes as $childNode) {
             $parentNode->appendChild($parentNode->ownerDocument->importNode($childNode, \true));
@@ -157,17 +135,13 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
     }
     /**
      * Writes DOM document.
-     * @param \DOMDocument $dom
      */
-    private function writeDocument($dom)
+    private function writeDocument(\DOMDocument $dom)
     {
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
-     */
-    private function getInputArgumentDocument($argument) : \DOMDocument
+    private function getInputArgumentDocument(\RectorPrefix20210317\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -184,10 +158,7 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
         }
         return $dom;
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputOption $option
-     */
-    private function getInputOptionDocument($option) : \DOMDocument
+    private function getInputOptionDocument(\RectorPrefix20210317\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));

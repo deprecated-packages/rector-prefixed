@@ -21,7 +21,7 @@ class GroupUse extends \PhpParser\Node\Stmt
      * @param int      $type       Type of group use
      * @param array    $attributes Additional attributes
      */
-    public function __construct($prefix, $uses, $type = \PhpParser\Node\Stmt\Use_::TYPE_NORMAL, $attributes = [])
+    public function __construct(\PhpParser\Node\Name $prefix, array $uses, int $type = \PhpParser\Node\Stmt\Use_::TYPE_NORMAL, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->type = $type;

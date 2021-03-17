@@ -17,18 +17,14 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210317\Symf
 {
     private $tagName;
     private $aliases = [];
-    /**
-     * @param string $tagName
-     */
-    public function __construct($tagName = 'container.private')
+    public function __construct(string $tagName = 'container.private')
     {
         $this->tagName = $tagName;
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
@@ -37,9 +33,8 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210317\Symf
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
             if (null === ($package = $tags[0]['package'] ?? null)) {

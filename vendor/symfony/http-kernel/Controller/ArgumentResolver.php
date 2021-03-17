@@ -30,11 +30,7 @@ final class ArgumentResolver implements \RectorPrefix20210317\Symfony\Component\
      * @var iterable|ArgumentValueResolverInterface[]
      */
     private $argumentValueResolvers;
-    /**
-     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory
-     * @param mixed[] $argumentValueResolvers
-     */
-    public function __construct($argumentMetadataFactory = null, $argumentValueResolvers = [])
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
     {
         $this->argumentMetadataFactory = $argumentMetadataFactory ?: new \RectorPrefix20210317\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();

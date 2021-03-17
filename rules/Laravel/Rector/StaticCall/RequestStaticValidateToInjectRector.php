@@ -30,10 +30,7 @@ final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\Abst
      * @var ObjectType[]
      */
     private $requestObjectTypes = [];
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator
-     */
-    public function __construct($classMethodManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->requestObjectTypes = [new \PHPStan\Type\ObjectType('Illuminate\\Http\\Request'), new \PHPStan\Type\ObjectType('Request')];
@@ -74,7 +71,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -96,7 +93,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|FuncCall $node
      */
-    private function shouldSkip($node) : bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return !$this->nodeTypeResolver->isObjectTypes($node->class, $this->requestObjectTypes);

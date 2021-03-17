@@ -25,11 +25,7 @@ final class CompleteVarDocTypePropertyRector extends \Rector\Core\Rector\Abstrac
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    /**
-     * @param \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     */
-    public function __construct($propertyTypeInferer, $phpDocTypeChanger)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->propertyTypeInferer = $propertyTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -71,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $propertyType = $this->propertyTypeInferer->inferProperty($node);
         if ($propertyType instanceof \PHPStan\Type\MixedType) {

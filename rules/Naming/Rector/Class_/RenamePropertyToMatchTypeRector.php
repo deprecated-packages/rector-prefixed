@@ -49,14 +49,7 @@ final class RenamePropertyToMatchTypeRector extends \Rector\Core\Rector\Abstract
      * @var PropertyFetchRenamer
      */
     private $propertyFetchRenamer;
-    /**
-     * @param \Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer
-     * @param \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory
-     * @param \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver
-     * @param \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver
-     * @param \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer
-     */
-    public function __construct($matchTypePropertyRenamer, $propertyRenameFactory, $matchPropertyTypeExpectedNameResolver, $matchParamTypeExpectedNameResolver, $propertyFetchRenamer)
+    public function __construct(\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer)
     {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
@@ -106,7 +99,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Interface_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->refactorClassProperties($node);
         $this->renamePropertyPromotion($node);
@@ -115,10 +108,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     */
-    private function refactorClassProperties($classLike) : void
+    private function refactorClassProperties(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         foreach ($classLike->getProperties() as $property) {
             $expectedPropertyName = $this->matchPropertyTypeExpectedNameResolver->resolve($property);
@@ -136,10 +126,7 @@ CODE_SAMPLE
             $this->hasChanged = \true;
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     */
-    private function renamePropertyPromotion($classLike) : void
+    private function renamePropertyPromotion(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
             return;

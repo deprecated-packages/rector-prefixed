@@ -18,10 +18,7 @@ final class RemoveUselessVarTagRector extends \Rector\Core\Rector\AbstractRector
      * @var VarTagRemover
      */
     private $varTagRemover;
-    /**
-     * @param \Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover
-     */
-    public function __construct($varTagRemover)
+    public function __construct(\Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->varTagRemover = $varTagRemover;
     }
@@ -52,9 +49,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->varTagRemover->removeVarTagIfUseless($phpDocInfo, $node);

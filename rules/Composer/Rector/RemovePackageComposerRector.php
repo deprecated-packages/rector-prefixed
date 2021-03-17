@@ -20,10 +20,7 @@ final class RemovePackageComposerRector implements \Rector\Composer\Contract\Rec
      * @var string[]
      */
     private $packageNames = [];
-    /**
-     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
-     */
-    public function refactor($composerJson) : void
+    public function refactor(\RectorPrefix20210317\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->packageNames as $packageName) {
             $composerJson->removePackage($packageName);
@@ -47,7 +44,7 @@ CODE_SAMPLE
     /**
      * @param array<string, string[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->packageNames = $configuration[self::PACKAGE_NAMES] ?? [];
     }

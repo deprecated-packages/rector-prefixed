@@ -28,7 +28,7 @@ class File extends \SplFileInfo
      *
      * @throws FileNotFoundException If the given path is not a file
      */
-    public function __construct($path, $checkPath = \true)
+    public function __construct(string $path, bool $checkPath = \true)
     {
         if ($checkPath && !\is_file($path)) {
             throw new \RectorPrefix20210317\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
@@ -79,10 +79,8 @@ class File extends \SplFileInfo
      * @return self A File object representing the new file
      *
      * @throws FileException if the target file could not be created
-     * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move(string $directory, string $name = null)
     {
         $target = $this->getTargetFile($directory, $name);
         \set_error_handler(function ($type, $msg) use(&$error) {
@@ -106,10 +104,8 @@ class File extends \SplFileInfo
     }
     /**
      * @return self
-     * @param string $directory
-     * @param string $name
      */
-    protected function getTargetFile($directory, $name = null)
+    protected function getTargetFile(string $directory, string $name = null)
     {
         if (!\is_dir($directory)) {
             if (\false === @\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
@@ -125,9 +121,8 @@ class File extends \SplFileInfo
      * Returns locale independent base name of the given path.
      *
      * @return string
-     * @param string $name
      */
-    protected function getName($name)
+    protected function getName(string $name)
     {
         $originalName = \str_replace('\\', '/', $name);
         $pos = \strrpos($originalName, '/');

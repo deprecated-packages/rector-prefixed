@@ -23,10 +23,7 @@ final class AliasClassNameImportSkipVoter implements \Rector\CodingStyle\Contrac
      * @var AliasUsesResolver
      */
     private $aliasUsesResolver;
-    /**
-     * @param \Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver
-     */
-    public function __construct($aliasUsesResolver)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver)
     {
         $this->aliasUsesResolver = $aliasUsesResolver;
     }

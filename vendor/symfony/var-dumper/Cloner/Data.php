@@ -27,7 +27,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     /**
      * @param array $data An array as returned by ClonerInterface::cloneVar()
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
@@ -112,10 +112,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
         }
         yield from $value;
     }
-    /**
-     * @param string $key
-     */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (null !== ($data = $this->seek($key))) {
             $item = $this->getStub($data->data[$data->position][$data->key]);
@@ -125,9 +122,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
     /**
      * @return bool
-     * @param string $key
      */
-    public function __isset($key)
+    public function __isset(string $key)
     {
         return null !== $this->seek($key);
     }
@@ -165,9 +161,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Returns a depth limited clone of $this.
      *
      * @return static
-     * @param int $maxDepth
      */
-    public function withMaxDepth($maxDepth)
+    public function withMaxDepth(int $maxDepth)
     {
         $data = clone $this;
         $data->maxDepth = (int) $maxDepth;
@@ -177,9 +172,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Limits the number of elements per depth level.
      *
      * @return static
-     * @param int $maxItemsPerDepth
      */
-    public function withMaxItemsPerDepth($maxItemsPerDepth)
+    public function withMaxItemsPerDepth(int $maxItemsPerDepth)
     {
         $data = clone $this;
         $data->maxItemsPerDepth = (int) $maxItemsPerDepth;
@@ -192,7 +186,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return static
      */
-    public function withRefHandles($useRefHandles)
+    public function withRefHandles(bool $useRefHandles)
     {
         $data = clone $this;
         $data->useRefHandles = $useRefHandles ? -1 : 0;
@@ -200,9 +194,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
     /**
      * @return static
-     * @param mixed[] $context
      */
-    public function withContext($context)
+    public function withContext(array $context)
     {
         $data = clone $this;
         $data->context = $context;
@@ -252,9 +245,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
     /**
      * Dumps data with a DumperInterface dumper.
-     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
      */
-    public function dump($dumper)
+    public function dump(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper)
     {
         $refs = [0];
         $cursor = new \RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Cursor();
@@ -272,11 +264,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Depth-first dumping of items.
      *
      * @param mixed $item A Stub object or the original value being dumped
-     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param mixed[] $refs
      */
-    private function dumpItem($dumper, $cursor, &$refs, $item)
+    private function dumpItem(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper, \RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Cursor $cursor, array &$refs, $item)
     {
         $cursor->refIndex = 0;
         $cursor->softRefTo = $cursor->softRefHandle = $cursor->softRefCount = 0;
@@ -369,15 +358,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Dumps children of hash structures.
      *
      * @return int The final number of removed items
-     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $parentCursor
-     * @param mixed[] $refs
-     * @param mixed[] $children
-     * @param int $hashCut
-     * @param int $hashType
-     * @param bool $dumpKeys
      */
-    private function dumpChildren($dumper, $parentCursor, &$refs, $children, $hashCut, $hashType, $dumpKeys) : int
+    private function dumpChildren(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper, \RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Cursor $parentCursor, array &$refs, array $children, int $hashCut, int $hashType, bool $dumpKeys) : int
     {
         $cursor = clone $parentCursor;
         ++$cursor->depth;

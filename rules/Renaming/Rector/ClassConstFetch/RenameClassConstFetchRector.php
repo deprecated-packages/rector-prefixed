@@ -49,9 +49,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConstFetch $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->renameClassConstFetches as $renameClassConstFetch) {
             if (!$this->isObjectType($node->class, $renameClassConstFetch->getOldObjectType())) {
@@ -71,16 +71,13 @@ CODE_SAMPLE
     /**
      * @param array<string, RenameClassConstFetchInterface[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $renameClassConstFetches = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($renameClassConstFetches, \Rector\Renaming\Contract\RenameClassConstFetchInterface::class);
         $this->renameClassConstFetches = $renameClassConstFetches;
     }
-    /**
-     * @param \Rector\Renaming\ValueObject\RenameClassAndConstFetch $renameClassAndConstFetch
-     */
-    private function createClassAndConstFetch($renameClassAndConstFetch) : \PhpParser\Node\Expr\ClassConstFetch
+    private function createClassAndConstFetch(\Rector\Renaming\ValueObject\RenameClassAndConstFetch $renameClassAndConstFetch) : \PhpParser\Node\Expr\ClassConstFetch
     {
         return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified($renameClassAndConstFetch->getNewClass()), new \PhpParser\Node\Identifier($renameClassAndConstFetch->getNewConstant()));
     }

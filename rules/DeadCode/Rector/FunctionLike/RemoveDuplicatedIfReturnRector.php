@@ -31,12 +31,7 @@ final class RemoveDuplicatedIfReturnRector extends \Rector\Core\Rector\AbstractR
      * @var ModifiedVariableNamesCollector
      */
     private $modifiedVariableNamesCollector;
-    /**
-     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
-     * @param \Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector
-     * @param \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator
-     */
-    public function __construct($ifManipulator, $modifiedVariableNamesCollector, $nodeComparator)
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->modifiedVariableNamesCollector = $modifiedVariableNamesCollector;
@@ -84,9 +79,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\FunctionLike::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FunctionLike $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $ifWithOnlyReturnsByHash = $this->collectDuplicatedIfWithOnlyReturnByHash($node);
         if ($ifWithOnlyReturnsByHash === []) {
@@ -103,9 +98,8 @@ CODE_SAMPLE
     }
     /**
      * @return If_[][]
-     * @param \PhpParser\Node\FunctionLike $functionLike
      */
-    private function collectDuplicatedIfWithOnlyReturnByHash($functionLike) : array
+    private function collectDuplicatedIfWithOnlyReturnByHash(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $ifWithOnlyReturnsByHash = [];
         $modifiedVariableNames = [];
@@ -126,9 +120,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $modifiedVariableNames
-     * @param \PhpParser\Node\Stmt $stmt
      */
-    private function containsVariableNames($stmt, $modifiedVariableNames) : bool
+    private function containsVariableNames(\PhpParser\Node\Stmt $stmt, array $modifiedVariableNames) : bool
     {
         if ($modifiedVariableNames === []) {
             return \false;
@@ -150,7 +143,7 @@ CODE_SAMPLE
      * @param array<string, If_[]> $ifWithOnlyReturnsByHash
      * @return array<string, If_[]>
      */
-    private function filterOutSingleItemStmts($ifWithOnlyReturnsByHash) : array
+    private function filterOutSingleItemStmts(array $ifWithOnlyReturnsByHash) : array
     {
         return \array_filter($ifWithOnlyReturnsByHash, function (array $stmts) : bool {
             return \count($stmts) >= 2;

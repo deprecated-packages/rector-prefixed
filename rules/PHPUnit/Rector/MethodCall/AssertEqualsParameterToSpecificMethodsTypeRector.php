@@ -27,11 +27,7 @@ final class AssertEqualsParameterToSpecificMethodsTypeRector extends \Rector\Cor
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    /**
-     * @param \Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory
-     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
-     */
-    public function __construct($assertCallFactory, $testsNodeAnalyzer)
+    public function __construct(\Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->assertCallFactory = $assertCallFactory;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -82,7 +78,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertEquals', 'assertNotEquals'])) {
             return null;
@@ -103,7 +99,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsIgnoringCase($node) : void
+    private function processAssertEqualsIgnoringCase(\PhpParser\Node $node) : void
     {
         if (isset($node->args[6])) {
             if ($this->valueResolver->isTrue($node->args[6]->value)) {
@@ -119,7 +115,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsCanonicalizing($node) : void
+    private function processAssertEqualsCanonicalizing(\PhpParser\Node $node) : void
     {
         if (isset($node->args[5])) {
             // add new node only in case of non-default value
@@ -136,7 +132,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsWithDelta($node) : void
+    private function processAssertEqualsWithDelta(\PhpParser\Node $node) : void
     {
         if (isset($node->args[3])) {
             // add new node only in case of non-default value

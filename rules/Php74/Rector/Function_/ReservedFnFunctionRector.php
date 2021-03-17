@@ -69,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param Function_|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->reservedNamesToNewOnes as $reservedName => $newName) {
             if (!$this->isName($node->name, $reservedName)) {
@@ -84,10 +84,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->reservedNamesToNewOnes = $configuration[self::RESERVED_NAMES_TO_NEW_ONES] ?? [];
     }

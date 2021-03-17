@@ -17,10 +17,7 @@ final class DataProviderTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc
      * @var string
      */
     private $method;
-    /**
-     * @param string $method
-     */
-    public function __construct($method)
+    public function __construct(string $method)
     {
         $this->method = $method;
     }
@@ -36,10 +33,7 @@ final class DataProviderTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc
     {
         return \trim($this->method, '()');
     }
-    /**
-     * @param string $method
-     */
-    public function changeMethod($method) : void
+    public function changeMethod(string $method) : void
     {
         $this->method = $method;
     }

@@ -18,9 +18,8 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     private $phpStanStaticTypeMapper;
     /**
      * @required
-     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      */
-    public function autowireIntersectionTypeMapper($phpStanStaticTypeMapper) : void
+    public function autowireIntersectionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -32,9 +31,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
         return \PHPStan\Type\IntersectionType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param IntersectionType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $intersectionTypesNodes = [];
         foreach ($type->getTypes() as $intersectionedType) {
@@ -44,19 +43,17 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIntersectionTypeNode($intersectionTypesNodes);
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param string|null $kind
+     * @param IntersectionType $type
      */
-    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         // intersection types in PHP are not yet supported
         return null;
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param \PHPStan\Type\Type|null $parentType
+     * @param IntersectionType $type
      */
-    public function mapToDocString($type, $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         $stringTypes = [];
         foreach ($type->getTypes() as $unionedType) {

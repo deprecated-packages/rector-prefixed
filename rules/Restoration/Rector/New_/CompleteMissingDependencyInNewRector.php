@@ -33,10 +33,7 @@ final class CompleteMissingDependencyInNewRector extends \Rector\Core\Rector\Abs
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -84,9 +81,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param New_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipNew($node)) {
             return null;
@@ -107,17 +104,11 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function shouldSkipNew($new) : bool
+    private function shouldSkipNew(\PhpParser\Node\Expr\New_ $new) : bool
     {
         $constructorMethodReflection = $this->getNewNodeClassConstructorMethodReflection($new);
         if (!$constructorMethodReflection instanceof \ReflectionMethod) {
@@ -125,10 +116,7 @@ CODE_SAMPLE
         }
         return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function getNewNodeClassConstructorMethodReflection($new) : ?\ReflectionMethod
+    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
     {
         $className = $this->getName($new->class);
         if ($className === null) {
@@ -141,10 +129,7 @@ CODE_SAMPLE
         $reflectionClass = $classReflection->getNativeReflection();
         return $reflectionClass->getConstructor();
     }
-    /**
-     * @param \ReflectionParameter $reflectionParameter
-     */
-    private function resolveClassToInstantiateByParameterReflection($reflectionParameter) : ?string
+    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter) : ?string
     {
         $reflectionType = $reflectionParameter->getType();
         if (!$reflectionType instanceof \ReflectionType) {

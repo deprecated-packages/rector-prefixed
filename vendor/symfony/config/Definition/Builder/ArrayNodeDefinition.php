@@ -35,10 +35,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
     protected $normalizeKeys = \true;
     /**
      * {@inheritdoc}
-     * @param string|null $name
-     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
-    public function __construct($name, $parent = null)
+    public function __construct(?string $name, \RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
         $this->nullEquivalent = [];
@@ -46,9 +44,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
      */
-    public function setBuilder($builder)
+    public function setBuilder(\RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder)
     {
         $this->nodeBuilder = $builder;
     }
@@ -63,9 +60,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Sets a prototype for child nodes.
      *
      * @return NodeDefinition
-     * @param string $type
      */
-    public function prototype($type)
+    public function prototype(string $type)
     {
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
@@ -174,11 +170,11 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Sets a normalization rule for XML configurations.
      *
      * @param string      $singular The key to remap
-     * @param string $plural   The plural of the key for irregular plurals
+     * @param string|null $plural   The plural of the key for irregular plurals
      *
      * @return $this
      */
-    public function fixXmlConfig($singular, $plural = null)
+    public function fixXmlConfig(string $singular, string $plural = null)
     {
         $this->normalization()->remap($singular, $plural);
         return $this;
@@ -211,7 +207,7 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      *
      * @return $this
      */
-    public function useAttributeAsKey($name, $removeKeyItem = \true)
+    public function useAttributeAsKey(string $name, bool $removeKeyItem = \true)
     {
         $this->key = $name;
         $this->removeKeyItem = $removeKeyItem;
@@ -221,9 +217,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Sets whether the node can be unset.
      *
      * @return $this
-     * @param bool $allow
      */
-    public function canBeUnset($allow = \true)
+    public function canBeUnset(bool $allow = \true)
     {
         $this->merge()->allowUnset($allow);
         return $this;
@@ -286,7 +281,7 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      *
      * @return $this
      */
-    public function ignoreExtraKeys($remove = \true)
+    public function ignoreExtraKeys(bool $remove = \true)
     {
         $this->ignoreExtraKeys = \true;
         $this->removeExtraKeys = $remove;
@@ -296,18 +291,16 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Sets whether to enable key normalization.
      *
      * @return $this
-     * @param bool $bool
      */
-    public function normalizeKeys($bool)
+    public function normalizeKeys(bool $bool)
     {
         $this->normalizeKeys = $bool;
         return $this;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
-    public function append($node)
+    public function append(\RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->children[$node->name] = $node->setParent($this);
         return $this;
@@ -389,9 +382,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Validate the configuration of a concrete node.
      *
      * @throws InvalidDefinitionException
-     * @param \Symfony\Component\Config\Definition\ArrayNode $node
      */
-    protected function validateConcreteNode($node)
+    protected function validateConcreteNode(\RectorPrefix20210317\Symfony\Component\Config\Definition\ArrayNode $node)
     {
         $path = $node->getPath();
         if (null !== $this->key) {
@@ -414,9 +406,8 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      * Validate the configuration of a prototype node.
      *
      * @throws InvalidDefinitionException
-     * @param \Symfony\Component\Config\Definition\PrototypedArrayNode $node
      */
-    protected function validatePrototypeNode($node)
+    protected function validatePrototypeNode(\RectorPrefix20210317\Symfony\Component\Config\Definition\PrototypedArrayNode $node)
     {
         $path = $node->getPath();
         if ($this->addDefaults) {
@@ -446,7 +437,7 @@ class ArrayNodeDefinition extends \RectorPrefix20210317\Symfony\Component\Config
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
      */
-    public function find($nodePath) : \RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function find(string $nodePath) : \RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
         $firstPathSegment = \false === ($pathSeparatorPos = \strpos($nodePath, $this->pathSeparator)) ? $nodePath : \substr($nodePath, 0, $pathSeparatorPos);
         if (null === ($node = $this->children[$firstPathSegment] ?? null)) {

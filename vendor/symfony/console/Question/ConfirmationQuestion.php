@@ -23,7 +23,7 @@ class ConfirmationQuestion extends \RectorPrefix20210317\Symfony\Component\Conso
      * @param bool   $default         The default answer to return, true or false
      * @param string $trueAnswerRegex A regex to match the "yes" answer
      */
-    public function __construct(string $question, $default = \true, $trueAnswerRegex = '/^y/i')
+    public function __construct(string $question, bool $default = \true, string $trueAnswerRegex = '/^y/i')
     {
         parent::__construct($question, $default);
         $this->trueAnswerRegex = $trueAnswerRegex;

@@ -19,7 +19,7 @@ class Multiple implements \PhpParser\Parser
      *
      * @param Parser[] $parsers
      */
-    public function __construct($parsers)
+    public function __construct(array $parsers)
     {
         $this->parsers = $parsers;
     }
@@ -40,11 +40,7 @@ class Multiple implements \PhpParser\Parser
         }
         throw $firstError;
     }
-    /**
-     * @param \PhpParser\Parser $parser
-     * @param \PhpParser\ErrorHandler $errorHandler
-     */
-    private function tryParse($parser, $errorHandler, $code)
+    private function tryParse(\PhpParser\Parser $parser, \PhpParser\ErrorHandler $errorHandler, $code)
     {
         $stmts = null;
         $error = null;

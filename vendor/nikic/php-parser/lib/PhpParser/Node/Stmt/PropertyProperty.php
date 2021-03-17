@@ -14,10 +14,10 @@ class PropertyProperty extends \PhpParser\Node\Stmt
      * Constructs a class property node.
      *
      * @param string|Node\VarLikeIdentifier $name       Name
-     * @param \PhpParser\Node\Expr                $default    Default value
+     * @param null|Node\Expr                $default    Default value
      * @param array                         $attributes Additional attributes
      */
-    public function __construct($name, $default = null, $attributes = [])
+    public function __construct($name, \PhpParser\Node\Expr $default = null, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new \PhpParser\Node\VarLikeIdentifier($name) : $name;

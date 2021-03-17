@@ -32,11 +32,7 @@ final class ChangeNestedForeachIfsToEarlyContinueRector extends \Rector\Core\Rec
      * @var ConditionInverter
      */
     private $conditionInverter;
-    /**
-     * @param \Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter
-     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
-     */
-    public function __construct($conditionInverter, $ifManipulator)
+    public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->conditionInverter = $conditionInverter;
@@ -90,9 +86,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $nestedIfsWithOnlyNonReturn = $this->ifManipulator->collectNestedIfsWithNonBreaking($node);
         if (\count($nestedIfsWithOnlyNonReturn) < 2) {
@@ -102,9 +98,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_[] $nestedIfsWithOnlyReturn
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
      */
-    private function processNestedIfsWithNonBreaking($foreach, $nestedIfsWithOnlyReturn) : \PhpParser\Node\Stmt\Foreach_
+    private function processNestedIfsWithNonBreaking(\PhpParser\Node\Stmt\Foreach_ $foreach, array $nestedIfsWithOnlyReturn) : \PhpParser\Node\Stmt\Foreach_
     {
         // add nested if openly after this
         $nestedIfsWithOnlyReturnCount = \count($nestedIfsWithOnlyReturn);
@@ -126,11 +121,7 @@ CODE_SAMPLE
         }
         return $foreach;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function addInvertedIfStmtWithContinue($nestedIfWithOnlyReturn, $foreach) : void
+    private function addInvertedIfStmtWithContinue(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);
         // special case
@@ -161,9 +152,8 @@ CODE_SAMPLE
      *
      * Skips:
      * $a === 1 || $b === 2
-     * @param \PhpParser\Node\Expr $expr
      */
-    private function isBooleanOrWithWeakComparison($expr) : bool
+    private function isBooleanOrWithWeakComparison(\PhpParser\Node\Expr $expr) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return \false;
@@ -179,10 +169,7 @@ CODE_SAMPLE
         }
         return $expr->right instanceof \PhpParser\Node\Expr\BinaryOp\NotEqual;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function negateOrDeNegate($expr) : \PhpParser\Node\Expr
+    private function negateOrDeNegate(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {
         if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
             return $expr->expr;

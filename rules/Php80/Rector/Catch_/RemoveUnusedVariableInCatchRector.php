@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Catch_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtVar = $node->var;
         if (!$caughtVar instanceof \PhpParser\Node\Expr\Variable) {
@@ -66,9 +66,8 @@ CODE_SAMPLE
     }
     /**
      * @param Node[] $nodes
-     * @param \PhpParser\Node\Expr\Variable $variable
      */
-    private function isVariableUsed($nodes, $variable) : bool
+    private function isVariableUsed(array $nodes, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($nodes, function (\PhpParser\Node $node) use($variable) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

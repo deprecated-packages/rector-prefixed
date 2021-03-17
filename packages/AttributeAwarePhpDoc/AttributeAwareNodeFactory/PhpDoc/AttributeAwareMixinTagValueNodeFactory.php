@@ -14,18 +14,14 @@ final class AttributeAwareMixinTagValueNodeFactory implements \Rector\AttributeA
     {
         return \PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\MixinTagValueNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param MixinTagValueNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareMixinTagValueNode($node->type, $node->description);
     }

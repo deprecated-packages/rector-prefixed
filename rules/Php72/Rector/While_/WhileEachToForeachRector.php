@@ -25,10 +25,7 @@ final class WhileEachToForeachRector extends \Rector\Core\Rector\AbstractRector
      * @var AssignManipulator
      */
     private $assignManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator
-     */
-    public function __construct($assignManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator)
     {
         $this->assignManipulator = $assignManipulator;
     }
@@ -64,9 +61,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\While_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param While_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\Assign) {
             return null;

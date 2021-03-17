@@ -32,12 +32,7 @@ final class ReturnBinaryOrToEarlyReturnRector extends \Rector\Core\Rector\Abstra
      * @var CallAnalyzer
      */
     private $callAnalyzer;
-    /**
-     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
-     * @param \Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap
-     * @param \Rector\Core\NodeAnalyzer\CallAnalyzer $callAnalyzer
-     */
-    public function __construct($ifManipulator, $assignAndBinaryMap, $callAnalyzer)
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap, \Rector\Core\NodeAnalyzer\CallAnalyzer $callAnalyzer)
     {
         $this->ifManipulator = $ifManipulator;
         $this->assignAndBinaryMap = $assignAndBinaryMap;
@@ -76,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
@@ -103,10 +98,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
-     * @param \PhpParser\Node\Expr $expr
-     * @param \PhpParser\Node\Stmt\Return_ $return
      */
-    private function createMultipleIfs($expr, $return, $ifs) : array
+    private function createMultipleIfs(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt\Return_ $return, array $ifs) : array
     {
         while ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             $ifs = \array_merge($ifs, $this->collectLeftBooleanOrToIfs($expr, $return, $ifs));
@@ -125,10 +118,8 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
-     * @param \PhpParser\Node\Expr\BinaryOp\BooleanOr $BooleanOr
-     * @param \PhpParser\Node\Stmt\Return_ $return
      */
-    private function collectLeftBooleanOrToIfs($BooleanOr, $return, $ifs) : array
+    private function collectLeftBooleanOrToIfs(\PhpParser\Node\Expr\BinaryOp\BooleanOr $BooleanOr, \PhpParser\Node\Stmt\Return_ $return, array $ifs) : array
     {
         $left = $BooleanOr->left;
         if (!$left instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {

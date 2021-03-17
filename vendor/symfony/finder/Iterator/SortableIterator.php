@@ -31,9 +31,8 @@ class SortableIterator implements \IteratorAggregate
      * @param int|callable $sort     The sort type (SORT_BY_NAME, SORT_BY_TYPE, or a PHP callback)
      *
      * @throws \InvalidArgumentException
-     * @param bool $reverseOrder
      */
-    public function __construct($iterator, $sort, $reverseOrder = \false)
+    public function __construct(\Traversable $iterator, $sort, bool $reverseOrder = \false)
     {
         $this->iterator = $iterator;
         $order = $reverseOrder ? -1 : 1;

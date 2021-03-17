@@ -9,17 +9,11 @@ use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterfa
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteCrossOriginTagNode;
 final class NetteCrossOriginPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface
 {
-    /**
-     * @param string $tag
-     */
-    public function match($tag) : bool
+    public function match(string $tag) : bool
     {
         return $tag === \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteCrossOriginTagNode::NAME;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
-     */
-    public function createFromTokens($tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
+    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteCrossOriginTagNode();
     }

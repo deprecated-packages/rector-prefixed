@@ -13,10 +13,7 @@ final class PropertiesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2
      * @var SingleServicePhpNodeFactory
      */
     private $singleServicePhpNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory $singleServicePhpNodeFactory
-     */
-    public function __construct($singleServicePhpNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory $singleServicePhpNodeFactory)
     {
         $this->singleServicePhpNodeFactory = $singleServicePhpNodeFactory;
     }

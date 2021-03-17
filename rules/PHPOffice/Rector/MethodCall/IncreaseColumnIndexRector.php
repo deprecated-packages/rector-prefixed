@@ -62,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->worksheetObjectTypes)) {
             return null;
@@ -91,10 +91,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
-     */
-    private function refactorBinaryOp($binaryOp) : void
+    private function refactorBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Scalar\LNumber) {
             ++$binaryOp->left->value;
@@ -105,10 +102,7 @@ CODE_SAMPLE
             return;
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function findPreviousForWithVariable($variable) : ?\PhpParser\Node\Scalar\LNumber
+    private function findPreviousForWithVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Scalar\LNumber
     {
         $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\For_::class]);
         if (!$for instanceof \PhpParser\Node\Stmt\For_) {
@@ -130,9 +124,8 @@ CODE_SAMPLE
     }
     /**
      * @param Node[] $node
-     * @param string $variableName
      */
-    private function findVariableAssignName($node, $variableName) : ?\PhpParser\Node
+    private function findVariableAssignName(array $node, string $variableName) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {

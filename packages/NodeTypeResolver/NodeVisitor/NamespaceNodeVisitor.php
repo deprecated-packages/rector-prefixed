@@ -19,18 +19,7 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    /**
-     * @var string|null
-     */
-    private $namespaceName;
-    /**
-     * @var Namespace_|null
-     */
-    private $namespace;
-    /**
-     * @param \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder
-     */
-    public function __construct($betterNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
     }
@@ -40,8 +29,6 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
      */
     public function beforeTraverse(array $nodes) : ?array
     {
-        $this->namespaceName = null;
-        $this->namespace = null;
         // init basic use nodes for non-namespaced code
         /** @var Use_[] $uses */
         $uses = $this->betterNodeFinder->findInstanceOf($nodes, \PhpParser\Node\Stmt\Use_::class);
@@ -51,14 +38,10 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
     public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-            $this->namespaceName = $node->name !== null ? $node->name->toString() : null;
-            $this->namespace = $node;
             /** @var Use_[] $uses */
             $uses = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Use_::class);
             $this->useNodes = $uses;
         }
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME, $this->namespaceName);
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE, $this->namespace);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, $this->useNodes);
         return $node;
     }

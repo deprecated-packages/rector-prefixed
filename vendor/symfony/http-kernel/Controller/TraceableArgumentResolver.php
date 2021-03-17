@@ -19,11 +19,7 @@ class TraceableArgumentResolver implements \RectorPrefix20210317\Symfony\Compone
 {
     private $resolver;
     private $stopwatch;
-    /**
-     * @param \Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $resolver
-     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
-     */
-    public function __construct($resolver, $stopwatch)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $resolver, \RectorPrefix20210317\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
     {
         $this->resolver = $resolver;
         $this->stopwatch = $stopwatch;

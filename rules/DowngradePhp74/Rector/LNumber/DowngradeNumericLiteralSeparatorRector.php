@@ -51,7 +51,7 @@ CODE_SAMPLE
     /**
      * @param LNumber|DNumber $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
@@ -77,7 +77,7 @@ CODE_SAMPLE
     /**
      * @param LNumber|DNumber $node
      */
-    public function shouldRefactor($node) : bool
+    public function shouldRefactor(\PhpParser\Node $node) : bool
     {
         // "_" notation can be applied to decimal numbers only
         if ($node instanceof \PhpParser\Node\Scalar\LNumber) {

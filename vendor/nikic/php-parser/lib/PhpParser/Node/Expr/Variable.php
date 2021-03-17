@@ -14,7 +14,7 @@ class Variable extends \PhpParser\Node\Expr
      * @param string|Expr $name       Name
      * @param array                      $attributes Additional attributes
      */
-    public function __construct($name, $attributes = [])
+    public function __construct($name, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = $name;

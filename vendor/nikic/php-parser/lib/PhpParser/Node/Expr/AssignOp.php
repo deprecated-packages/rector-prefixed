@@ -17,7 +17,7 @@ abstract class AssignOp extends \PhpParser\Node\Expr
      * @param Expr  $expr       Expression
      * @param array $attributes Additional attributes
      */
-    public function __construct($var, $expr, $attributes = [])
+    public function __construct(\PhpParser\Node\Expr $var, \PhpParser\Node\Expr $expr, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

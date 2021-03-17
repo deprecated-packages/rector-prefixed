@@ -14,10 +14,10 @@ class ArrayDimFetch extends \PhpParser\Node\Expr
      * Constructs an array index fetch node.
      *
      * @param Expr      $var        Variable
-     * @param \PhpParser\Node\Expr $dim        Array index / dim
+     * @param null|Expr $dim        Array index / dim
      * @param array     $attributes Additional attributes
      */
-    public function __construct($var, $dim = null, $attributes = [])
+    public function __construct(\PhpParser\Node\Expr $var, \PhpParser\Node\Expr $dim = null, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

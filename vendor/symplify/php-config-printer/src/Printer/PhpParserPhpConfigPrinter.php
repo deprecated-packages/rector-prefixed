@@ -48,11 +48,7 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      * @var EmptyLineNodeDecorator
      */
     private $emptyLineNodeDecorator;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser $importFullyQualifiedNamesNodeTraverser
-     * @param \Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator $emptyLineNodeDecorator
-     */
-    public function __construct($importFullyQualifiedNamesNodeTraverser, $emptyLineNodeDecorator)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeTraverser\ImportFullyQualifiedNamesNodeTraverser $importFullyQualifiedNamesNodeTraverser, \RectorPrefix20210317\Symplify\PhpConfigPrinter\Printer\NodeDecorator\EmptyLineNodeDecorator $emptyLineNodeDecorator)
     {
         $this->importFullyQualifiedNamesNodeTraverser = $importFullyQualifiedNamesNodeTraverser;
         $this->emptyLineNodeDecorator = $emptyLineNodeDecorator;
@@ -79,32 +75,22 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      * - by "'" - or the end of the string
      *
      * Prevents `Vendor\Class` => `Vendor\\Class`.
-     * @param string $string
      */
-    protected function pSingleQuotedString($string) : string
+    protected function pSingleQuotedString(string $string) : string
     {
         return "'" . \RectorPrefix20210317\Nette\Utils\Strings::replace($string, self::QUOTE_SLASH_REGEX, '\\\\$0') . "'";
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     */
-    protected function pExpr_Array($array) : string
+    protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $array) : string
     {
         $array->setAttribute(self::KIND, \PhpParser\Node\Expr\Array_::KIND_SHORT);
         return parent::pExpr_Array($array);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    protected function pExpr_MethodCall($methodCall) : string
+    protected function pExpr_MethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $printedMethodCall = parent::pExpr_MethodCall($methodCall);
         return $this->indentFluentCallToNewline($printedMethodCall);
     }
-    /**
-     * @param string $content
-     */
-    private function indentFluentCallToNewline($content) : string
+    private function indentFluentCallToNewline(string $content) : string
     {
         $nextCallIndentReplacement = ')' . \PHP_EOL . \RectorPrefix20210317\Nette\Utils\Strings::indent('->', 8, ' ');
         return \RectorPrefix20210317\Nette\Utils\Strings::replace($content, '#\\)->#', $nextCallIndentReplacement);
@@ -113,7 +99,7 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param Node[] $stmts
      * @return Node[]
      */
-    private function prependStrictTypesDeclare($stmts) : array
+    private function prependStrictTypesDeclare(array $stmts) : array
     {
         $strictTypesDeclare = $this->createStrictTypesDeclare();
         return \array_merge([$strictTypesDeclare, new \PhpParser\Node\Stmt\Nop()], $stmts);

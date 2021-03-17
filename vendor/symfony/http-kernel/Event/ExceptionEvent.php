@@ -32,13 +32,7 @@ final class ExceptionEvent extends \RectorPrefix20210317\Symfony\Component\HttpK
      * @var bool
      */
     private $allowCustomResponseCode = \false;
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $requestType
-     * @param \Throwable $e
-     */
-    public function __construct($kernel, $request, $requestType, $e)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, int $requestType, \Throwable $e)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setThrowable($e);
@@ -51,9 +45,8 @@ final class ExceptionEvent extends \RectorPrefix20210317\Symfony\Component\HttpK
      * Replaces the thrown exception.
      *
      * This exception will be thrown if no response is set in the event.
-     * @param \Throwable $exception
      */
-    public function setThrowable($exception) : void
+    public function setThrowable(\Throwable $exception) : void
     {
         $this->throwable = $exception;
     }

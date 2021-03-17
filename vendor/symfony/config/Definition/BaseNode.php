@@ -38,11 +38,8 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
     private $handlingPlaceholder;
     /**
      * @throws \InvalidArgumentException if the name contains a period
-     * @param string|null $name
-     * @param \Symfony\Component\Config\Definition\NodeInterface $parent
-     * @param string $pathSeparator
      */
-    public function __construct($name, $parent = null, $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct(?string $name, \RectorPrefix20210317\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -58,10 +55,8 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      * successfully processed the configuration value is returned as is, thus preserving the placeholder.
      *
      * @internal
-     * @param string $placeholder
-     * @param mixed[] $values
      */
-    public static function setPlaceholder($placeholder, $values) : void
+    public static function setPlaceholder(string $placeholder, array $values) : void
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -75,9 +70,8 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      * placeholder. An exact match provided by {@see setPlaceholder()} might take precedence.
      *
      * @internal
-     * @param string $prefix
      */
-    public static function setPlaceholderUniquePrefix($prefix) : void
+    public static function setPlaceholderUniquePrefix(string $prefix) : void
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -91,26 +85,21 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
         self::$placeholderUniquePrefixes = [];
         self::$placeholders = [];
     }
-    /**
-     * @param string $key
-     */
-    public function setAttribute($key, $value)
+    public function setAttribute(string $key, $value)
     {
         $this->attributes[$key] = $value;
     }
     /**
      * @return mixed
-     * @param string $key
      */
-    public function getAttribute($key, $default = null)
+    public function getAttribute(string $key, $default = null)
     {
         return $this->attributes[$key] ?? $default;
     }
     /**
      * @return bool
-     * @param string $key
      */
-    public function hasAttribute($key)
+    public function hasAttribute(string $key)
     {
         return isset($this->attributes[$key]);
     }
@@ -121,25 +110,18 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
     {
         return $this->attributes;
     }
-    /**
-     * @param mixed[] $attributes
-     */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
     }
-    /**
-     * @param string $key
-     */
-    public function removeAttribute($key)
+    public function removeAttribute(string $key)
     {
         unset($this->attributes[$key]);
     }
     /**
      * Sets an info message.
-     * @param string $info
      */
-    public function setInfo($info)
+    public function setInfo(string $info)
     {
         $this->setAttribute('info', $info);
     }
@@ -185,7 +167,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      *
      * @param bool $boolean Required node
      */
-    public function setRequired($boolean)
+    public function setRequired(bool $boolean)
     {
         $this->required = $boolean;
     }
@@ -199,7 +181,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path
      */
-    public function setDeprecated($package)
+    public function setDeprecated(?string $package)
     {
         $args = \func_get_args();
         if (\func_num_args() < 2) {
@@ -220,9 +202,8 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
     }
     /**
      * Sets if this node can be overridden.
-     * @param bool $allow
      */
-    public function setAllowOverwrite($allow)
+    public function setAllowOverwrite(bool $allow)
     {
         $this->allowOverwrite = $allow;
     }
@@ -231,7 +212,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      *
      * @param \Closure[] $closures An array of Closures used for normalization
      */
-    public function setNormalizationClosures($closures)
+    public function setNormalizationClosures(array $closures)
     {
         $this->normalizationClosures = $closures;
     }
@@ -240,7 +221,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      *
      * @param \Closure[] $closures An array of Closures used for final validation
      */
-    public function setFinalValidationClosures($closures)
+    public function setFinalValidationClosures(array $closures)
     {
         $this->finalValidationClosures = $closures;
     }
@@ -270,7 +251,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      *
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      */
-    public function getDeprecationMessage($node, $path)
+    public function getDeprecationMessage(string $node, string $path)
     {
         trigger_deprecation('symfony/config', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($node, $path)['message'];
@@ -279,7 +260,7 @@ abstract class BaseNode implements \RectorPrefix20210317\Symfony\Component\Confi
      * @param string $node The configuration node name
      * @param string $path The path of the node
      */
-    public function getDeprecation($node, $path) : array
+    public function getDeprecation(string $node, string $path) : array
     {
         return ['package' => $this->deprecation['package'] ?? '', 'version' => $this->deprecation['version'] ?? '', 'message' => \strtr($this->deprecation['message'] ?? '', ['%node%' => $node, '%path%' => $path])];
     }

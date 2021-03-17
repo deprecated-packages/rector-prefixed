@@ -19,7 +19,7 @@ class Alias extends \PhpParser\Node\Stmt\TraitUseAdaptation
      * @param null|string|Node\Identifier $newName     New name
      * @param array                       $attributes  Additional attributes
      */
-    public function __construct($trait, $method, $newModifier, $newName, $attributes = [])
+    public function __construct($trait, $method, $newModifier, $newName, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->trait = $trait;

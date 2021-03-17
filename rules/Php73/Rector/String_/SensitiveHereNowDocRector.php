@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param String_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if (!\in_array($kind, [\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \PhpParser\Node\Scalar\String_::KIND_NOWDOC], \true)) {
@@ -65,11 +65,7 @@ CODE_SAMPLE
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         return $node;
     }
-    /**
-     * @param string $value
-     * @param string $docLabel
-     */
-    private function uniquateDocLabel($value, $docLabel) : string
+    private function uniquateDocLabel(string $value, string $docLabel) : string
     {
         $docLabel .= self::WRAP_SUFFIX;
         $docLabelCounterTemplate = $docLabel . '_%d';

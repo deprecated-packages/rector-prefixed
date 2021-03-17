@@ -11,7 +11,7 @@ abstract class MagicConst extends \PhpParser\Node\Scalar
      *
      * @param array $attributes Additional attributes
      */
-    public function __construct($attributes = [])
+    public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
     }

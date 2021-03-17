@@ -19,11 +19,7 @@ class AliasConfigurator extends \RectorPrefix20210317\Symfony\Component\Dependen
     public const FACTORY = 'alias';
     use Traits\DeprecateTrait;
     use Traits\PublicTrait;
-    /**
-     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \Symfony\Component\DependencyInjection\Alias $alias
-     */
-    public function __construct($parent, $alias)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Alias $alias)
     {
         $this->parent = $parent;
         $this->definition = $alias;

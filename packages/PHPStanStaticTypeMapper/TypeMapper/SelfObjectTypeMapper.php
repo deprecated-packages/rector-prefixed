@@ -21,25 +21,23 @@ final class SelfObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Cont
         return \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param SelfObjectType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('self');
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param string|null $kind
+     * @param SelfObjectType $type
      */
-    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('self');
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param \PHPStan\Type\Type|null $parentType
+     * @param SelfObjectType $type
      */
-    public function mapToDocString($type, $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }

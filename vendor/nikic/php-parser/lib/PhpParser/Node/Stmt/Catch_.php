@@ -17,11 +17,11 @@ class Catch_ extends \PhpParser\Node\Stmt
      * Constructs a catch node.
      *
      * @param Node\Name[]           $types      Types of exceptions to catch
-     * @param \PhpParser\Node\Expr\Variable    $var        Variable for exception
+     * @param Expr\Variable|null    $var        Variable for exception
      * @param Node\Stmt[]           $stmts      Statements
      * @param array                 $attributes Additional attributes
      */
-    public function __construct($types, $var = null, $stmts = [], $attributes = [])
+    public function __construct(array $types, \PhpParser\Node\Expr\Variable $var = null, array $stmts = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->types = $types;

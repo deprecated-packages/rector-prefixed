@@ -29,7 +29,7 @@ class Use_ extends \PhpParser\Node\Stmt
      * @param int      $type       Type of alias
      * @param array    $attributes Additional attributes
      */
-    public function __construct($uses, $type = self::TYPE_NORMAL, $attributes = [])
+    public function __construct(array $uses, int $type = self::TYPE_NORMAL, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->type = $type;

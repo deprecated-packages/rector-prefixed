@@ -31,10 +31,10 @@ class ConsoleOutput extends \RectorPrefix20210317\Symfony\Component\Console\Outp
     private $consoleSectionOutputs = [];
     /**
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool                     $decorated Whether to decorate messages (null for auto-guessing)
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
+     * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
+     * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = null, $formatter = null)
+    public function __construct(int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         parent::__construct($this->openOutputStream(), $verbosity, $decorated, $formatter);
         if (null === $formatter) {
@@ -57,27 +57,24 @@ class ConsoleOutput extends \RectorPrefix20210317\Symfony\Component\Console\Outp
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
         parent::setDecorated($decorated);
         $this->stderr->setDecorated($decorated);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
-    public function setFormatter($formatter)
+    public function setFormatter(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         parent::setFormatter($formatter);
         $this->stderr->setFormatter($formatter);
     }
     /**
      * {@inheritdoc}
-     * @param int $level
      */
-    public function setVerbosity($level)
+    public function setVerbosity(int $level)
     {
         parent::setVerbosity($level);
         $this->stderr->setVerbosity($level);
@@ -91,9 +88,8 @@ class ConsoleOutput extends \RectorPrefix20210317\Symfony\Component\Console\Outp
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Output\OutputInterface $error
      */
-    public function setErrorOutput($error)
+    public function setErrorOutput(\RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $error)
     {
         $this->stderr = $error;
     }

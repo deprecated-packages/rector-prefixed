@@ -16,18 +16,14 @@ use RectorPrefix20210317\Symfony\Contracts\Cache\TagAwareCacheInterface;
  */
 class TraceableTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \RectorPrefix20210317\Symfony\Contracts\Cache\TagAwareCacheInterface
 {
-    /**
-     * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $pool
-     */
-    public function __construct($pool)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $pool)
     {
         parent::__construct($pool);
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tags
      */
-    public function invalidateTags($tags)
+    public function invalidateTags(array $tags)
     {
         $event = $this->start(__FUNCTION__);
         try {

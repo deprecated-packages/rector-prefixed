@@ -39,11 +39,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
      * @var TypeAnalyzer
      */
     private $typeAnalyzer;
-    /**
-     * @param \Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector
-     * @param \Rector\Core\Php\TypeAnalyzer $typeAnalyzer
-     */
-    public function __construct($phpSpecMockCollector, $typeAnalyzer)
+    public function __construct(\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector, \Rector\Core\Php\TypeAnalyzer $typeAnalyzer)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
         $this->typeAnalyzer = $typeAnalyzer;
@@ -58,7 +54,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     /**
      * @param ClassMethod|MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -73,10 +69,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         return $this->processMethodCall($node);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function processMethodParamsToMocks($classMethod) : void
+    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // remove params and turn them to instances
         $assigns = [];
@@ -93,10 +86,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $classMethod->params = [];
         $classMethod->stmts = \array_merge($assigns, (array) $classMethod->stmts);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function processMethodCall($methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($this->isName($methodCall->name, 'shouldBeCalled')) {
             if (!$methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -121,10 +111,8 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * Variable or property fetch, based on number of present params in whole class
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\Name $name
      */
-    private function createCreateMockCall($param, $name) : ?\PhpParser\Node\Stmt\Expression
+    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : ?\PhpParser\Node\Stmt\Expression
     {
         /** @var Class_ $classLike */
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
@@ -146,11 +134,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function appendWithMethodCall($methodCall, $expr) : \PhpParser\Node\Expr\MethodCall
+    private function appendWithMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\MethodCall
     {
         $withMethodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, 'with');
         if ($expr instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -171,11 +155,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $withMethodCall->args = [new \PhpParser\Node\Arg($expr)];
         return $withMethodCall;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\Name $name
-     */
-    private function createNewMockVariableAssign($param, $name) : \PhpParser\Node\Stmt\Expression
+    private function createNewMockVariableAssign(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : \PhpParser\Node\Stmt\Expression
     {
         $methodCall = $this->nodeFactory->createLocalMethodCall('createMock');
         $methodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($name, 'class'));
@@ -186,11 +166,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $assignExpression->setDocComment(new \PhpParser\Comment\Doc($varDoc));
         return $assignExpression;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\Name $name
-     */
-    private function createPropertyFetchMockVariableAssign($param, $name) : \PhpParser\Node\Stmt\Expression
+    private function createPropertyFetchMockVariableAssign(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : \PhpParser\Node\Stmt\Expression
     {
         $variable = $this->getName($param->var);
         if ($variable === null) {
@@ -202,20 +178,13 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $methodCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function createIsTypeOrIsInstanceOf($staticCall) : \PhpParser\Node\Expr\MethodCall
+    private function createIsTypeOrIsInstanceOf(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr\MethodCall
     {
         $type = $this->valueResolver->getValue($staticCall->args[0]->value);
         $name = $this->typeAnalyzer->isPhpReservedType($type) ? 'isType' : 'isInstanceOf';
         return $this->nodeFactory->createLocalMethodCall($name, $staticCall->args);
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\Name $name
-     */
-    private function createMockVarDoc($param, $name) : string
+    private function createMockVarDoc(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : string
     {
         $paramType = (string) ($name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $name);
         $variableName = $this->getName($param->var);

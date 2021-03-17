@@ -13,10 +13,7 @@ final class FileInfoNodeVisitor extends \PhpParser\NodeVisitorAbstract
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    /**
-     * @param \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider
-     */
-    public function __construct($currentFileInfoProvider)
+    public function __construct(\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }

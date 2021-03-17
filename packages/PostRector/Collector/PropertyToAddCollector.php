@@ -32,11 +32,7 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
-    /**
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     * @param \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector
-     */
-    public function __construct($nodeNameResolver, $rectorChangeCollector)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->rectorChangeCollector = $rectorChangeCollector;
@@ -51,60 +47,42 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         }
         return $this->constantsByClass !== [];
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param string $propertyName
-     * @param \PHPStan\Type\Type|null $propertyType
-     * @param int $propertyFlags
-     */
-    public function addPropertyToClass($class, $propertyName, $propertyType, $propertyFlags) : void
+    public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $propertyName, ?\PHPStan\Type\Type $propertyType, int $propertyFlags) : void
     {
         $uniqueHash = \spl_object_hash($class);
         $this->propertiesByClass[$uniqueHash][] = new \Rector\PostRector\ValueObject\PropertyMetadata($propertyName, $propertyType, $propertyFlags);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\ClassConst $classConst
-     */
-    public function addConstantToClass($class, $classConst) : void
+    public function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $constantName = $this->nodeNameResolver->getName($classConst);
         $this->constantsByClass[\spl_object_hash($class)][$constantName] = $classConst;
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
-    /**
-     * @param string $propertyName
-     * @param \PHPStan\Type\Type|null $propertyType
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    public function addPropertyWithoutConstructorToClass($propertyName, $propertyType, $class) : void
+    public function addPropertyWithoutConstructorToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->propertiesWithoutConstructorByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
     /**
      * @return ClassConst[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    public function getConstantsByClass($class) : array
+    public function getConstantsByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->constantsByClass[$classHash] ?? [];
     }
     /**
      * @return PropertyMetadata[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    public function getPropertiesByClass($class) : array
+    public function getPropertiesByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->propertiesByClass[$classHash] ?? [];
     }
     /**
      * @return array<string, Type>
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    public function getPropertiesWithoutConstructorByClass($class) : array
+    public function getPropertiesWithoutConstructorByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->propertiesWithoutConstructorByClass[$classHash] ?? [];

@@ -20,11 +20,7 @@ final class ClassAndCodeSkipVoter implements \RectorPrefix20210317\Symplify\Skip
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($skippedClassAndCodesResolver, $fileInfoMatcher)
+    public function __construct(\RectorPrefix20210317\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \RectorPrefix20210317\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;

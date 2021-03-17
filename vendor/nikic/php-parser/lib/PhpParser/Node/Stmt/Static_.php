@@ -14,7 +14,7 @@ class Static_ extends \PhpParser\Node\Stmt
      * @param StaticVar[] $vars       Variable definitions
      * @param array       $attributes Additional attributes
      */
-    public function __construct($vars, $attributes = [])
+    public function __construct(array $vars, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->vars = $vars;

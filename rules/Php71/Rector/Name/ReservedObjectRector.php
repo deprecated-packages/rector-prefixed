@@ -51,24 +51,18 @@ CODE_SAMPLE
     /**
      * @param Identifier|Name $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Identifier) {
             return $this->processIdentifier($node);
         }
         return $this->processName($node);
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->reservedKeywordsToReplacements = $configuration[self::RESERVED_KEYWORDS_TO_REPLACEMENTS] ?? [];
     }
-    /**
-     * @param \PhpParser\Node\Identifier $identifier
-     */
-    private function processIdentifier($identifier) : \PhpParser\Node\Identifier
+    private function processIdentifier(\PhpParser\Node\Identifier $identifier) : \PhpParser\Node\Identifier
     {
         foreach ($this->reservedKeywordsToReplacements as $reservedKeyword => $replacement) {
             if (!$this->isName($identifier, $reservedKeyword)) {
@@ -79,10 +73,7 @@ CODE_SAMPLE
         }
         return $identifier;
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     */
-    private function processName($name) : \PhpParser\Node\Name
+    private function processName(\PhpParser\Node\Name $name) : \PhpParser\Node\Name
     {
         // we look for "extends <Name>"
         $parentNode = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

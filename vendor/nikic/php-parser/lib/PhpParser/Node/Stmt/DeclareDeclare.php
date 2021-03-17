@@ -17,7 +17,7 @@ class DeclareDeclare extends \PhpParser\Node\Stmt
      * @param Node\Expr              $value      Value
      * @param array                  $attributes Additional attributes
      */
-    public function __construct($key, $value, $attributes = [])
+    public function __construct($key, \PhpParser\Node\Expr $value, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->key = \is_string($key) ? new \PhpParser\Node\Identifier($key) : $key;

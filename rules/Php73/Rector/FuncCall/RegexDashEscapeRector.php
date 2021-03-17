@@ -33,10 +33,7 @@ final class RegexDashEscapeRector extends \Rector\Core\Rector\AbstractRector
      * @var RegexPatternArgumentManipulator
      */
     private $regexPatternArgumentManipulator;
-    /**
-     * @param \Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator
-     */
-    public function __construct($regexPatternArgumentManipulator)
+    public function __construct(\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
     {
         $this->regexPatternArgumentManipulator = $regexPatternArgumentManipulator;
     }
@@ -60,7 +57,7 @@ CODE_SAMPLE
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $regexArguments = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($regexArguments === []) {
@@ -71,10 +68,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function escapeStringNode($string) : void
+    private function escapeStringNode(\PhpParser\Node\Scalar\String_ $string) : void
     {
         $stringValue = $string->value;
         if (\RectorPrefix20210317\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {

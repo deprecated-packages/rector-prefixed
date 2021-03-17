@@ -25,11 +25,7 @@ final class IsIterableRector extends \Rector\Core\Rector\AbstractRector
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($isArrayAndDualCheckToAble, $reflectionProvider)
+    public function __construct(\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->isArrayAndDualCheckToAble = $isArrayAndDualCheckToAble;
         $this->reflectionProvider = $reflectionProvider;
@@ -46,9 +42,9 @@ final class IsIterableRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\BinaryOp\BooleanOr::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param BooleanOr $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip()) {
             return null;

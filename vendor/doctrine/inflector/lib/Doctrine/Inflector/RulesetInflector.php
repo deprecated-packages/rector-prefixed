@@ -18,11 +18,7 @@ class RulesetInflector implements \RectorPrefix20210317\Doctrine\Inflector\WordI
 {
     /** @var Ruleset[] */
     private $rulesets;
-    /**
-     * @param \Doctrine\Inflector\Rules\Ruleset $ruleset
-     * @param \Doctrine\Inflector\Rules\Ruleset ...$rulesets
-     */
-    public function __construct($ruleset, ...$rulesets)
+    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\Rules\Ruleset $ruleset, \RectorPrefix20210317\Doctrine\Inflector\Rules\Ruleset ...$rulesets)
     {
         $this->rulesets = \array_merge([$ruleset], $rulesets);
     }

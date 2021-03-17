@@ -17,11 +17,7 @@ final class MessageSkipVoter implements \RectorPrefix20210317\Symplify\Skipper\C
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($skippedMessagesResolver, $fileInfoMatcher)
+    public function __construct(\RectorPrefix20210317\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \RectorPrefix20210317\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;

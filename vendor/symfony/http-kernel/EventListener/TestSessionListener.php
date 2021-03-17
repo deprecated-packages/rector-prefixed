@@ -22,11 +22,7 @@ use RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\SessionInterfa
 class TestSessionListener extends \RectorPrefix20210317\Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener
 {
     private $container;
-    /**
-     * @param \Psr\Container\ContainerInterface $container
-     * @param mixed[] $sessionOptions
-     */
-    public function __construct($container, $sessionOptions = [])
+    public function __construct(\RectorPrefix20210317\Psr\Container\ContainerInterface $container, array $sessionOptions = [])
     {
         $this->container = $container;
         parent::__construct($sessionOptions);

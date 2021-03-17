@@ -27,10 +27,7 @@ final class InlineIfToExplicitIfRector extends \Rector\Core\Rector\AbstractRecto
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator
-     */
-    public function __construct($binaryOpManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
@@ -70,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Expression::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Expression $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return $this->processExplicitIf($node);
@@ -82,10 +79,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     */
-    private function processExplicitIf($expression) : ?\PhpParser\Node
+    private function processExplicitIf(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {
         /** @var BooleanAnd|BooleanOr $booleanExpr */
         $booleanExpr = $expression->expr;

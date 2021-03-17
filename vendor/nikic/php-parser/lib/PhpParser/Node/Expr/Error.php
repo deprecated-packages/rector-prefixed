@@ -17,7 +17,7 @@ class Error extends \PhpParser\Node\Expr
      *
      * @param array $attributes Additional attributes
      */
-    public function __construct($attributes = [])
+    public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
     }

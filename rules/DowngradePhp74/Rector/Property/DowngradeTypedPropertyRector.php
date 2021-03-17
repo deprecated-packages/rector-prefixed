@@ -18,10 +18,7 @@ final class DowngradeTypedPropertyRector extends \Rector\Core\Rector\AbstractRec
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     */
-    public function __construct($phpDocTypeChanger)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
@@ -52,9 +49,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->type === null) {
             return null;
@@ -63,11 +60,7 @@ CODE_SAMPLE
         $node->type = null;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param \PhpParser\Node $typeNode
-     */
-    private function decoratePropertyWithDocBlock($property, $typeNode) : void
+    private function decoratePropertyWithDocBlock(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node $typeNode) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if ($phpDocInfo->getVarTagValueNode() !== null) {

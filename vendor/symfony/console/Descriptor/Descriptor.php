@@ -56,10 +56,8 @@ abstract class Descriptor implements \RectorPrefix20210317\Symfony\Component\Con
     }
     /**
      * Writes content to output.
-     * @param string $content
-     * @param bool $decorated
      */
-    protected function write($content, $decorated = \false)
+    protected function write(string $content, bool $decorated = \false)
     {
         $this->output->write($content, \false, $decorated ? \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL : \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
@@ -67,40 +65,30 @@ abstract class Descriptor implements \RectorPrefix20210317\Symfony\Component\Con
      * Describes an InputArgument instance.
      *
      * @return string|mixed
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
-     * @param mixed[] $options
      */
-    protected abstract function describeInputArgument($argument, $options = []);
+    protected abstract function describeInputArgument(\RectorPrefix20210317\Symfony\Component\Console\Input\InputArgument $argument, array $options = []);
     /**
      * Describes an InputOption instance.
      *
      * @return string|mixed
-     * @param \Symfony\Component\Console\Input\InputOption $option
-     * @param mixed[] $options
      */
-    protected abstract function describeInputOption($option, $options = []);
+    protected abstract function describeInputOption(\RectorPrefix20210317\Symfony\Component\Console\Input\InputOption $option, array $options = []);
     /**
      * Describes an InputDefinition instance.
      *
      * @return string|mixed
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     * @param mixed[] $options
      */
-    protected abstract function describeInputDefinition($definition, $options = []);
+    protected abstract function describeInputDefinition(\RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition $definition, array $options = []);
     /**
      * Describes a Command instance.
      *
      * @return string|mixed
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param mixed[] $options
      */
-    protected abstract function describeCommand($command, $options = []);
+    protected abstract function describeCommand(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command, array $options = []);
     /**
      * Describes an Application instance.
      *
      * @return string|mixed
-     * @param \Symfony\Component\Console\Application $application
-     * @param mixed[] $options
      */
-    protected abstract function describeApplication($application, $options = []);
+    protected abstract function describeApplication(\RectorPrefix20210317\Symfony\Component\Console\Application $application, array $options = []);
 }

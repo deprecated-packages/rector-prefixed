@@ -11,10 +11,8 @@ final class AutowiredConsoleApplication extends \RectorPrefix20210317\Symplify\S
 {
     /**
      * @param Command[] $commands
-     * @param string $name
-     * @param string $version
      */
-    public function __construct($commands, $name = 'UNKNOWN', $version = 'UNKNOWN')
+    public function __construct(array $commands, string $name = 'UNKNOWN', string $version = 'UNKNOWN')
     {
         parent::__construct($commands, $name, $version);
     }

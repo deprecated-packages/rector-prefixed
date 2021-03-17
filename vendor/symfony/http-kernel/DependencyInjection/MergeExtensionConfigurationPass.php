@@ -20,17 +20,11 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
 class MergeExtensionConfigurationPass extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass
 {
     private $extensions;
-    /**
-     * @param mixed[] $extensions
-     */
-    public function __construct($extensions)
+    public function __construct(array $extensions)
     {
         $this->extensions = $extensions;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($this->extensions as $extension) {
             if (!\count($container->getExtensionConfig($extension))) {

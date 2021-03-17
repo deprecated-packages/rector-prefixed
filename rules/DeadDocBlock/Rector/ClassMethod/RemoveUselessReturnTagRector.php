@@ -18,10 +18,7 @@ final class RemoveUselessReturnTagRector extends \Rector\Core\Rector\AbstractRec
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
-    /**
-     * @param \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover
-     */
-    public function __construct($returnTagRemover)
+    public function __construct(\Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
     {
         $this->returnTagRemover = $returnTagRemover;
     }
@@ -60,9 +57,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);

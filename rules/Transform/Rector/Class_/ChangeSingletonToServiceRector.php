@@ -24,10 +24,7 @@ final class ChangeSingletonToServiceRector extends \Rector\Core\Rector\AbstractR
      * @var SingletonClassMethodAnalyzer
      */
     private $singletonClassMethodAnalyzer;
-    /**
-     * @param \Rector\Transform\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer
-     */
-    public function __construct($singletonClassMethodAnalyzer)
+    public function __construct(\Rector\Transform\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer)
     {
         $this->singletonClassMethodAnalyzer = $singletonClassMethodAnalyzer;
     }
@@ -70,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->isAnonymous()) {
             return null;
@@ -83,10 +80,7 @@ CODE_SAMPLE
         }
         return $this->refactorClassStmts($node, $propertyAndClassMethodName);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function matchStaticPropertyFetchAndGetSingletonMethodName($class) : ?\Rector\Transform\ValueObject\PropertyAndClassMethodName
+    private function matchStaticPropertyFetchAndGetSingletonMethodName(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Transform\ValueObject\PropertyAndClassMethodName
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$classMethod->isStatic()) {
@@ -104,11 +98,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \Rector\Transform\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName
-     */
-    private function refactorClassStmts($class, $propertyAndClassMethodName) : \PhpParser\Node\Stmt\Class_
+    private function refactorClassStmts(\PhpParser\Node\Stmt\Class_ $class, \Rector\Transform\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             if ($this->isName($classMethod, $propertyAndClassMethodName->getClassMethodName())) {
@@ -131,11 +121,7 @@ CODE_SAMPLE
         $this->removePropertyByName($class, $propertyAndClassMethodName->getPropertyName());
         return $class;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param string $propertyName
-     */
-    private function removePropertyByName($class, $propertyName) : void
+    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $propertyName)) {

@@ -14,7 +14,7 @@ class UnionType extends \PhpParser\NodeAbstract
      * @param (Identifier|Name)[] $types      Types
      * @param array               $attributes Additional attributes
      */
-    public function __construct($types, $attributes = [])
+    public function __construct(array $types, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->types = $types;

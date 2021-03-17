@@ -20,18 +20,14 @@ final class AttributeAwareCallableTypeNodeFactory implements \Rector\AttributeAw
     {
         return \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param CallableTypeNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $identifier = $this->attributeAwareNodeFactory->createFromNode($node->identifier, $docContent);
         foreach ($node->parameters as $key => $parameter) {
@@ -40,10 +36,7 @@ final class AttributeAwareCallableTypeNodeFactory implements \Rector\AttributeAw
         $returnType = $this->attributeAwareNodeFactory->createFromNode($node->returnType, $docContent);
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode($identifier, $node->parameters, $returnType);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
-     */
-    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

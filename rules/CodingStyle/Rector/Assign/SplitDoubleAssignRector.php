@@ -51,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\Stmt\Expression) {
@@ -71,10 +71,7 @@ CODE_SAMPLE
         $this->addNodeBeforeNode(new \PhpParser\Node\Stmt\Expression($newAssign), $node);
         return $varAssign;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isExprCallOrNew($expr) : bool
+    private function isExprCallOrNew(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \true;

@@ -22,11 +22,7 @@ class ProcessTimedOutException extends \RectorPrefix20210317\Symfony\Component\P
     public const TYPE_IDLE = 2;
     private $process;
     private $timeoutType;
-    /**
-     * @param \Symfony\Component\Process\Process $process
-     * @param int $timeoutType
-     */
-    public function __construct($process, $timeoutType)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Process\Process $process, int $timeoutType)
     {
         $this->process = $process;
         $this->timeoutType = $timeoutType;

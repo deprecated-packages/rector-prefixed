@@ -16,7 +16,7 @@ interface NodeVisitor
      *
      * @return null|Node[] Array of nodes
      */
-    public function beforeTraverse($nodes);
+    public function beforeTraverse(array $nodes);
     /**
      * Called when entering a node.
      *
@@ -34,7 +34,7 @@ interface NodeVisitor
      *
      * @return null|int|Node Replacement node (or special return value)
      */
-    public function enterNode($node);
+    public function enterNode(\PhpParser\Node $node);
     /**
      * Called when leaving a node.
      *

@@ -27,11 +27,7 @@ final class MoveInterfacesToContractNamespaceDirectoryRector extends \Rector\Cor
      * @var MovedFileWithNodesFactory
      */
     private $movedFileWithNodesFactory;
-    /**
-     * @param \Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer
-     * @param \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory
-     */
-    public function __construct($netteControlFactoryInterfaceAnalyzer, $movedFileWithNodesFactory)
+    public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory)
     {
         $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
@@ -66,9 +62,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FileNode $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $interface = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Interface_::class);
         if (!$interface instanceof \PhpParser\Node\Stmt\Interface_) {

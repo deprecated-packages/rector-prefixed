@@ -20,7 +20,7 @@ class Const_ extends \PhpParser\NodeAbstract
      * @param Expr              $value      Value
      * @param array             $attributes Additional attributes
      */
-    public function __construct($name, $value, $attributes = [])
+    public function __construct($name, \PhpParser\Node\Expr $value, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new \PhpParser\Node\Identifier($name) : $name;

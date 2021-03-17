@@ -19,7 +19,7 @@ class StaticPropertyFetch extends \PhpParser\Node\Expr
      * @param string|VarLikeIdentifier|Expr $name       Property name
      * @param array                         $attributes Additional attributes
      */
-    public function __construct($class, $name, $attributes = [])
+    public function __construct($class, $name, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->class = $class;

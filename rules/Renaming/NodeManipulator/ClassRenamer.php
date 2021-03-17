@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
@@ -287,6 +288,8 @@ final class ClassRenamer
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return;
         }
+        /** @var Scope|null $scope */
+        $scope = $classLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         $classLike->implements = \array_unique($classLike->implements);
         foreach ($classLike->implements as $key => $implementName) {
             if (!$implementName instanceof \PhpParser\Node\Name) {
@@ -296,7 +299,7 @@ final class ClassRenamer
             if (!$virtualNode) {
                 continue;
             }
-            $namespaceName = $classLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+            $namespaceName = $scope instanceof \PHPStan\Analyser\Scope ? $scope->getNamespace() : null;
             $fullyQualifiedName = $namespaceName . '\\' . $implementName->toString();
             $newName = $oldToNewClasses[$fullyQualifiedName] ?? null;
             if ($newName === null) {

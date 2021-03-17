@@ -39,11 +39,7 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      * @var TagValueNodePrinter
      */
     private $tagValueNodePrinter;
-    /**
-     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
-     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
-     */
-    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter)
     {
         $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
         $this->tagValueNodePrinter = $tagValueNodePrinter;
@@ -57,11 +53,8 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
     }
     /**
      * @return JoinTableTagValueNode|null
-     * @param \PhpParser\Node $node
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
-     * @param string $annotationClass
      */
-    public function createFromNodeAndTokens($node, $tokenIterator, $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Property) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
@@ -82,11 +75,8 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
     }
     /**
      * @return JoinColumnTagValueNode[]
-     * @param string $annotationContent
-     * @param \Doctrine\ORM\Mapping\JoinTable $joinTable
-     * @param string $type
      */
-    private function createJoinColumnTagValues($annotationContent, $joinTable, $type) : array
+    private function createJoinColumnTagValues(string $annotationContent, \Doctrine\ORM\Mapping\JoinTable $joinTable, string $type) : array
     {
         $joinColumnContents = $this->matchJoinColumnContents($annotationContent);
         $joinColumnValuesTags = [];
@@ -103,9 +93,8 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
     }
     /**
      * @return string[][]
-     * @param string $annotationContent
      */
-    private function matchJoinColumnContents($annotationContent) : array
+    private function matchJoinColumnContents(string $annotationContent) : array
     {
         return \RectorPrefix20210317\Nette\Utils\Strings::matchAll($annotationContent, self::JOIN_COLUMN_REGEX);
     }

@@ -6,12 +6,6 @@ namespace Rector\BetterPhpDocParser\Contract\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\Node;
 interface AttributeAwareNodeInterface extends \PHPStan\PhpDocParser\Ast\Node
 {
-    /**
-     * @param string $name
-     */
-    public function setAttribute($name, $value) : void;
-    /**
-     * @param string $name
-     */
-    public function getAttribute($name);
+    public function setAttribute(string $name, $value) : void;
+    public function getAttribute(string $name);
 }

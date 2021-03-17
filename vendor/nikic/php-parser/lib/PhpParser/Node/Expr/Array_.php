@@ -19,7 +19,7 @@ class Array_ extends \PhpParser\Node\Expr
      * @param (ArrayItem|null)[] $items      Items of the array
      * @param array       $attributes Additional attributes
      */
-    public function __construct($items = [], $attributes = [])
+    public function __construct(array $items = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->items = $items;

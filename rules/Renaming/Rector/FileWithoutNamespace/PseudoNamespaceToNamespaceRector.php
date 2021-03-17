@@ -49,10 +49,7 @@ final class PseudoNamespaceToNamespaceRector extends \Rector\Core\Rector\Abstrac
      * @var string|null
      */
     private $newNamespace;
-    /**
-     * @param \Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer $phpDocTypeRenamer
-     */
-    public function __construct($phpDocTypeRenamer)
+    public function __construct(\Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer $phpDocTypeRenamer)
     {
         $this->phpDocTypeRenamer = $phpDocTypeRenamer;
     }
@@ -81,7 +78,7 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->newNamespace = null;
         if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
@@ -100,10 +97,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $namespacePrefixesWithExcludedClasses = $configuration[self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace::class);
@@ -113,7 +107,7 @@ CODE_SAMPLE
      * @param Stmt[] $stmts
      * @return Stmt[]
      */
-    private function refactorStmts($stmts) : array
+    private function refactorStmts(array $stmts) : array
     {
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) : ?Node {
             if (!\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
@@ -138,7 +132,7 @@ CODE_SAMPLE
      * @param Name|Identifier $node
      * @return Name|Identifier
      */
-    private function processNameOrIdentifier($node) : ?\PhpParser\Node
+    private function processNameOrIdentifier(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // no name → skip
         if ($node->toString() === '') {
@@ -159,10 +153,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     */
-    private function processName($name) : \PhpParser\Node\Name
+    private function processName(\PhpParser\Node\Name $name) : \PhpParser\Node\Name
     {
         $nodeName = $this->getName($name);
         if ($nodeName !== null) {
@@ -170,10 +161,7 @@ CODE_SAMPLE
         }
         return $name;
     }
-    /**
-     * @param \PhpParser\Node\Identifier $identifier
-     */
-    private function processIdentifier($identifier) : ?\PhpParser\Node\Identifier
+    private function processIdentifier(\PhpParser\Node\Identifier $identifier) : ?\PhpParser\Node\Identifier
     {
         $parentNode = $identifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Stmt\Class_) {

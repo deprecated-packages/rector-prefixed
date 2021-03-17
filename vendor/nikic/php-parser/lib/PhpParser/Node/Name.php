@@ -15,7 +15,7 @@ class Name extends \PhpParser\NodeAbstract
      * @param string|string[]|self $name       Name as string, part array or Name instance (copy ctor)
      * @param array                $attributes Additional attributes
      */
-    public function __construct($name, $attributes = [])
+    public function __construct($name, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->parts = self::prepareName($name);
@@ -139,11 +139,11 @@ class Name extends \PhpParser\NodeAbstract
      * Offset and length have the same meaning as in array_slice().
      *
      * @param int      $offset Offset to start the slice at (may be negative)
-     * @param int $length Length of the slice (may be negative)
+     * @param int|null $length Length of the slice (may be negative)
      *
      * @return static|null Sliced name
      */
-    public function slice($offset, $length = null)
+    public function slice(int $offset, int $length = null)
     {
         $numParts = \count($this->parts);
         $realOffset = $offset < 0 ? $offset + $numParts : $offset;
@@ -181,7 +181,7 @@ class Name extends \PhpParser\NodeAbstract
      *
      * @return static|null Concatenated name
      */
-    public static function concat($name1, $name2, $attributes = [])
+    public static function concat($name1, $name2, array $attributes = [])
     {
         if (null === $name1 && null === $name2) {
             return null;

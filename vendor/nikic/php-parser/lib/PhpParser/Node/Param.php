@@ -24,7 +24,7 @@ class Param extends \PhpParser\NodeAbstract
      * Constructs a parameter node.
      *
      * @param Expr\Variable|Expr\Error                           $var        Parameter variable
-     * @param \PhpParser\Node\Expr                                          $default    Default value
+     * @param null|Expr                                          $default    Default value
      * @param null|string|Identifier|Name|NullableType|UnionType $type       Type declaration
      * @param bool                                               $byRef      Whether is passed by reference
      * @param bool                                               $variadic   Whether this is a variadic argument
@@ -32,7 +32,7 @@ class Param extends \PhpParser\NodeAbstract
      * @param int                                                $flags      Optional visibility flags
      * @param AttributeGroup[]                                   $attrGroups PHP attribute groups
      */
-    public function __construct($var, $default = null, $type = null, $byRef = \false, $variadic = \false, $attributes = [], $flags = 0, $attrGroups = [])
+    public function __construct($var, \PhpParser\Node\Expr $default = null, $type = null, bool $byRef = \false, bool $variadic = \false, array $attributes = [], int $flags = 0, array $attrGroups = [])
     {
         $this->attributes = $attributes;
         $this->type = \is_string($type) ? new \PhpParser\Node\Identifier($type) : $type;

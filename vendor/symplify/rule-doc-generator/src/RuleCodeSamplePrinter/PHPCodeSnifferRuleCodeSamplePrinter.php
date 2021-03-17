@@ -13,10 +13,7 @@ final class PHPCodeSnifferRuleCodeSamplePrinter implements \Symplify\RuleDocGene
      * @var BadGoodCodeSamplePrinter
      */
     private $badGoodCodeSamplePrinter;
-    /**
-     * @param \Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter
-     */
-    public function __construct($badGoodCodeSamplePrinter)
+    public function __construct(\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
     {
         $this->badGoodCodeSamplePrinter = $badGoodCodeSamplePrinter;
     }

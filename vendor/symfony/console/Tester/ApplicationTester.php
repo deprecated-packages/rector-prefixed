@@ -28,10 +28,7 @@ class ApplicationTester
     private $application;
     private $input;
     private $statusCode;
-    /**
-     * @param \Symfony\Component\Console\Application $application
-     */
-    public function __construct($application)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Application $application)
     {
         $this->application = $application;
     }
@@ -46,10 +43,8 @@ class ApplicationTester
      *  * capture_stderr_separately: Make output of stdOut and stdErr separately available
      *
      * @return int The command exit code
-     * @param mixed[] $input
-     * @param mixed[] $options
      */
-    public function run($input, $options = [])
+    public function run(array $input, array $options = [])
     {
         $this->input = new \RectorPrefix20210317\Symfony\Component\Console\Input\ArrayInput($input);
         if (isset($options['interactive'])) {

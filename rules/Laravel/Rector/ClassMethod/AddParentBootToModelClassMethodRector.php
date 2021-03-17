@@ -28,10 +28,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
      * @var StaticCallAnalyzer
      */
     private $staticCallAnalyzer;
-    /**
-     * @param \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer
-     */
-    public function __construct($staticCallAnalyzer)
+    public function __construct(\Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer)
     {
         $this->staticCallAnalyzer = $staticCallAnalyzer;
     }
@@ -68,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

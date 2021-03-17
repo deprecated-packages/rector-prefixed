@@ -22,7 +22,7 @@ class Class_ extends \PhpParser\Builder\Declaration
      *
      * @param string $name Name of the class
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }

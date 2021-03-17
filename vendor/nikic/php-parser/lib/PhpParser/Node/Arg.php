@@ -21,9 +21,9 @@ class Arg extends \PhpParser\NodeAbstract
      * @param bool  $byRef      Whether to pass by ref
      * @param bool  $unpack     Whether to unpack the argument
      * @param array $attributes Additional attributes
-     * @param \PhpParser\Node\Identifier $name Parameter name (for named parameters)
+     * @param Identifier|null $name Parameter name (for named parameters)
      */
-    public function __construct($value, $byRef = \false, $unpack = \false, $attributes = [], $name = null)
+    public function __construct(\PhpParser\Node\Expr $value, bool $byRef = \false, bool $unpack = \false, array $attributes = [], \PhpParser\Node\Identifier $name = null)
     {
         $this->attributes = $attributes;
         $this->name = $name;

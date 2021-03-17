@@ -16,13 +16,7 @@ final class AssignAndRootExpr extends \Rector\Defluent\ValueObject\AbstractRootE
      * @var Variable|null
      */
     private $silentVariable;
-    /**
-     * @param \PhpParser\Node\Expr $assignExpr
-     * @param \PhpParser\Node\Expr $rootExpr
-     * @param \PhpParser\Node\Expr\Variable|null $silentVariable
-     * @param bool $isFirstCallFactory
-     */
-    public function __construct($assignExpr, $rootExpr, $silentVariable = null, $isFirstCallFactory = \false)
+    public function __construct(\PhpParser\Node\Expr $assignExpr, \PhpParser\Node\Expr $rootExpr, ?\PhpParser\Node\Expr\Variable $silentVariable = null, bool $isFirstCallFactory = \false)
     {
         $this->assignExpr = $assignExpr;
         $this->rootExpr = $rootExpr;

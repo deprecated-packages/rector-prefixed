@@ -10,10 +10,7 @@ use PhpParser\Node\Stmt\Use_ as UseStmt;
  */
 final class UseBuilder extends \PhpParser\Builder\Use_
 {
-    /**
-     * @param int $type
-     */
-    public function __construct($name, $type = \PhpParser\Node\Stmt\Use_::TYPE_NORMAL)
+    public function __construct($name, int $type = \PhpParser\Node\Stmt\Use_::TYPE_NORMAL)
     {
         parent::__construct($name, $type);
     }

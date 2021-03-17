@@ -42,9 +42,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\PropertyProperty::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param PropertyProperty $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $defaultValueNode = $node->default;
         if (!$defaultValueNode instanceof \PhpParser\Node\Expr) {

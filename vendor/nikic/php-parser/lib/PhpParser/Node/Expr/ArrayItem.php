@@ -18,12 +18,11 @@ class ArrayItem extends \PhpParser\Node\Expr
      * Constructs an array item node.
      *
      * @param Expr      $value      Value
-     * @param \PhpParser\Node\Expr $key        Key
+     * @param null|Expr $key        Key
      * @param bool      $byRef      Whether to assign by reference
      * @param array     $attributes Additional attributes
-     * @param bool $unpack
      */
-    public function __construct($value, $key = null, $byRef = \false, $attributes = [], $unpack = \false)
+    public function __construct(\PhpParser\Node\Expr $value, \PhpParser\Node\Expr $key = null, bool $byRef = \false, array $attributes = [], bool $unpack = \false)
     {
         $this->attributes = $attributes;
         $this->key = $key;

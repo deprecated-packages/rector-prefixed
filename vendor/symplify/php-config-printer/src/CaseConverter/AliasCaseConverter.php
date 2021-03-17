@@ -47,13 +47,7 @@ final class AliasCaseConverter implements \RectorPrefix20210317\Symplify\PhpConf
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory
-     * @param \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker
-     */
-    public function __construct($commonNodeFactory, $argsNodeFactory, $serviceOptionNodeFactory, $classLikeExistenceChecker)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->commonNodeFactory = $commonNodeFactory;
         $this->argsNodeFactory = $argsNodeFactory;
@@ -101,11 +95,7 @@ final class AliasCaseConverter implements \RectorPrefix20210317\Symplify\PhpConf
         }
         return $values[0] === '@';
     }
-    /**
-     * @param string $key
-     * @param string $fullClassName
-     */
-    private function createAliasNode($key, $fullClassName, $serviceValues) : \PhpParser\Node\Expr\MethodCall
+    private function createAliasNode(string $key, string $fullClassName, $serviceValues) : \PhpParser\Node\Expr\MethodCall
     {
         $args = [];
         $classConstFetch = $this->commonNodeFactory->createClassReference($fullClassName);
@@ -119,10 +109,8 @@ final class AliasCaseConverter implements \RectorPrefix20210317\Symplify\PhpConf
     }
     /**
      * @param mixed $values
-     * @param string $key
-     * @param \PhpParser\Node\Expr\Variable $servicesVariable
      */
-    private function createFromClassLike($key, $values, $servicesVariable) : \PhpParser\Node\Stmt\Expression
+    private function createFromClassLike(string $key, $values, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Stmt\Expression
     {
         $classReference = $this->commonNodeFactory->createClassReference($key);
         $argValues = [];
@@ -132,12 +120,7 @@ final class AliasCaseConverter implements \RectorPrefix20210317\Symplify\PhpConf
         $methodCall = new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
         return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
-    /**
-     * @param string $className
-     * @param string $key
-     * @param \PhpParser\Node\Expr\Variable $servicesVariable
-     */
-    private function createFromAlias($className, $key, $servicesVariable) : \PhpParser\Node\Expr\MethodCall
+    private function createFromAlias(string $className, string $key, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Expr\MethodCall
     {
         $classReference = $this->commonNodeFactory->createClassReference($className);
         $args = $this->argsNodeFactory->createFromValues([$key, $classReference]);
@@ -145,10 +128,8 @@ final class AliasCaseConverter implements \RectorPrefix20210317\Symplify\PhpConf
     }
     /**
      * @param mixed[] $values
-     * @param string $key
-     * @param \PhpParser\Node\Expr\Variable $servicesVariable
      */
-    private function createFromArrayValues($values, $key, $servicesVariable) : \PhpParser\Node\Stmt\Expression
+    private function createFromArrayValues(array $values, string $key, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Stmt\Expression
     {
         if (isset($values[\RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS])) {
             $methodCall = $this->createFromAlias($values[\RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS], $key, $servicesVariable);

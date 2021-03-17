@@ -5,10 +5,7 @@ namespace Rector\BetterPhpDocParser\Annotation;
 
 final class AnnotationVisibilityDetector
 {
-    /**
-     * @param object $annotation
-     */
-    public function isPrivate($annotation) : bool
+    public function isPrivate(object $annotation) : bool
     {
         $publicProperties = \get_object_vars($annotation);
         $publicPropertiesCount = \count($publicProperties);
