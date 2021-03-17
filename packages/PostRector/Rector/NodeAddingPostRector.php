@@ -24,7 +24,10 @@ final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostR
      * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector)
+    /**
+     * @param \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector
+     */
+    public function __construct($nodesToAddCollector)
     {
         $this->nodesToAddCollector = $nodesToAddCollector;
     }
@@ -34,8 +37,9 @@ final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostR
     }
     /**
      * @return array<int|string, Node>|Node
+     * @param \PhpParser\Node $node
      */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode($node)
     {
         $newNodes = [$node];
         $nodesToAddAfter = $this->nodesToAddCollector->getNodesToAddAfterNode($node);

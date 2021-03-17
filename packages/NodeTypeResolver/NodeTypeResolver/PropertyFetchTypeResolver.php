@@ -38,7 +38,12 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($nodeNameResolver, $traitNodeScopeCollector, $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
@@ -46,8 +51,9 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
     }
     /**
      * @required
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
      */
-    public function autowirePropertyFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePropertyFetchTypeResolver($nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -90,7 +96,10 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
         }
         return $scope->getType($node);
     }
-    private function getVendorPropertyFetchType(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     */
+    private function getVendorPropertyFetchType($propertyFetch) : \PHPStan\Type\Type
     {
         // 3rd party code
         $propertyName = $this->nodeNameResolver->getName($propertyFetch->name);

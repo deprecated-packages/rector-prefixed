@@ -80,8 +80,9 @@ class TableStyle
      * ║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
      * ╚═══════════════╧══════════════════════════╧══════════════════╝
      * </code>
+     * @return $this
      */
-    public function setHorizontalBorderChars(string $outside, string $inside = null) : self
+    public function setHorizontalBorderChars(string $outside, string $inside = null)
     {
         $this->horizontalOutsideBorderChar = $outside;
         $this->horizontalInsideBorderChar = $inside ?? $outside;
@@ -101,8 +102,9 @@ class TableStyle
      * ║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
      * ╚═══════════════╧══════════════════════════╧══════════════════╝
      * </code>
+     * @return $this
      */
-    public function setVerticalBorderChars(string $outside, string $inside = null) : self
+    public function setVerticalBorderChars(string $outside, string $inside = null)
     {
         $this->verticalOutsideBorderChar = $outside;
         $this->verticalInsideBorderChar = $inside ?? $outside;
@@ -145,8 +147,9 @@ class TableStyle
      * @param string|null $topLeftBottom  Top left bottom char (see #8' of example), equals to $midLeft if null
      * @param string|null $topMidBottom   Top mid bottom char (see #0' of example), equals to $cross if null
      * @param string|null $topRightBottom Top right bottom char (see #4' of example), equals to $midRight if null
+     * @return $this
      */
-    public function setCrossingChars(string $cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, string $topLeftBottom = null, string $topMidBottom = null, string $topRightBottom = null) : self
+    public function setCrossingChars(string $cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, string $topLeftBottom = null, string $topMidBottom = null, string $topRightBottom = null)
     {
         $this->crossingChar = $cross;
         $this->crossingTopLeftChar = $topLeft;
@@ -166,8 +169,9 @@ class TableStyle
      * Sets default crossing character used for each cross.
      *
      * @see {@link setCrossingChars()} for setting each crossing individually.
+     * @return $this
      */
-    public function setDefaultCrossingChar(string $char) : self
+    public function setDefaultCrossingChar(string $char)
     {
         return $this->setCrossingChars($char, $char, $char, $char, $char, $char, $char, $char, $char);
     }
@@ -291,7 +295,10 @@ class TableStyle
     {
         return $this->headerTitleFormat;
     }
-    public function setHeaderTitleFormat(string $format) : self
+    /**
+     * @return $this
+     */
+    public function setHeaderTitleFormat(string $format)
     {
         $this->headerTitleFormat = $format;
         return $this;
@@ -300,7 +307,10 @@ class TableStyle
     {
         return $this->footerTitleFormat;
     }
-    public function setFooterTitleFormat(string $format) : self
+    /**
+     * @return $this
+     */
+    public function setFooterTitleFormat(string $format)
     {
         $this->footerTitleFormat = $format;
         return $this;

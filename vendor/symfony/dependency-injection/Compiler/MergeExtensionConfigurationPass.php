@@ -96,12 +96,19 @@ class MergeExtensionConfigurationPass implements \RectorPrefix20210317\Symfony\C
 class MergeExtensionConfigurationParameterBag extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag
 {
     private $processedEnvPlaceholders;
-    public function __construct(parent $parameterBag)
+    /**
+     * @param mixed $parameterBag
+     */
+    public function __construct($parameterBag)
     {
         parent::__construct($parameterBag->all());
         $this->mergeEnvPlaceholders($parameterBag);
     }
-    public function freezeAfterProcessing(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Extension\Extension $extension, \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Extension\Extension $extension
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function freezeAfterProcessing($extension, $container)
     {
         if (!($config = $extension->getProcessedConfigs())) {
             // Extension::processConfiguration() wasn't called, we cannot know how configs were merged
@@ -139,36 +146,47 @@ class MergeExtensionConfigurationParameterBag extends \RectorPrefix20210317\Symf
 class MergeExtensionConfigurationContainerBuilder extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder
 {
     private $extensionClass;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension, \RectorPrefix20210317\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
+     * @param \Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
+     */
+    public function __construct($extension, $parameterBag = null)
     {
         parent::__construct($parameterBag);
         $this->extensionClass = \get_class($extension);
     }
     /**
      * {@inheritdoc}
+     * @return $this
+     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
+     * @param string $type
+     * @param int $priority
      */
-    public function addCompilerPass(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0) : self
+    public function addCompilerPass($pass, $type = \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
      */
-    public function registerExtension(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension)
+    public function registerExtension($extension)
     {
         throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot register extension "%s" from "%s". Extensions must be registered before the container is compiled.', \get_debug_type($extension), $this->extensionClass));
     }
     /**
      * {@inheritdoc}
+     * @param bool $resolveEnvPlaceholders
      */
-    public function compile(bool $resolveEnvPlaceholders = \false)
+    public function compile($resolveEnvPlaceholders = \false)
     {
         throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $usedEnvs
      */
-    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
     {
         if (\true !== $format || !\is_string($value)) {
             return parent::resolveEnvPlaceholders($value, $format, $usedEnvs);

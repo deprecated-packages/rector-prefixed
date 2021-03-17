@@ -67,7 +67,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->reset();
         $hasChanged = \false;
@@ -90,7 +90,10 @@ CODE_SAMPLE
         $this->previousStmtVariableName = null;
         $this->previousPreviousStmtVariableName = null;
     }
-    private function resolveCurrentStmtVariableName(\PhpParser\Node\Stmt $stmt) : ?string
+    /**
+     * @param \PhpParser\Node\Stmt $stmt
+     */
+    private function resolveCurrentStmtVariableName($stmt) : ?string
     {
         $stmt = $this->unwrapExpression($stmt);
         if ($stmt instanceof \PhpParser\Node\Expr\Assign || $stmt instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -105,8 +108,10 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @param string|null $currentStmtVariableName
+     * @param int $key
      */
-    private function shouldAddEmptyLine(?string $currentStmtVariableName, \PhpParser\Node $node, int $key) : bool
+    private function shouldAddEmptyLine($currentStmtVariableName, $node, $key) : bool
     {
         if (!$this->isNewVariableThanBefore($currentStmtVariableName)) {
             return \false;
@@ -117,12 +122,15 @@ CODE_SAMPLE
     /**
      * @param Assign|MethodCall $node
      */
-    private function shouldSkipLeftVariable(\PhpParser\Node $node) : bool
+    private function shouldSkipLeftVariable($node) : bool
     {
         // local method call
         return $this->nodeNameResolver->isVariableName($node->var, 'this');
     }
-    private function isNewVariableThanBefore(?string $currentStmtVariableName) : bool
+    /**
+     * @param string|null $currentStmtVariableName
+     */
+    private function isNewVariableThanBefore($currentStmtVariableName) : bool
     {
         if ($this->previousPreviousStmtVariableName === null) {
             return \false;
@@ -140,8 +148,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @param int $key
      */
-    private function isPreceededByEmptyLine(\PhpParser\Node $node, int $key) : bool
+    private function isPreceededByEmptyLine($node, $key) : bool
     {
         if ($node->stmts === null) {
             return \false;

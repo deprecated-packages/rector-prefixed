@@ -19,8 +19,9 @@ class RedisAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient     The redis client
      * @param string                                                   $namespace       The default namespace
      * @param int                                                      $defaultLifetime The default lifetime
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
-    public function __construct($redisClient, string $namespace = '', int $defaultLifetime = 0, \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, $marshaller = null)
     {
         $this->init($redisClient, $namespace, $defaultLifetime, $marshaller);
     }

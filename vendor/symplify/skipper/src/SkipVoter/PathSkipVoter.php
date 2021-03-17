@@ -17,7 +17,11 @@ final class PathSkipVoter implements \RectorPrefix20210317\Symplify\Skipper\Cont
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\RectorPrefix20210317\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \RectorPrefix20210317\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    /**
+     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
+     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver
+     */
+    public function __construct($fileInfoMatcher, $skippedPathsResolver)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
         $this->skippedPathsResolver = $skippedPathsResolver;

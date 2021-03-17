@@ -30,7 +30,13 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
      * Folder used for tag symlinks.
      */
     private const TAG_FOLDER = 'tags';
-    public function __construct(string $namespace = '', int $defaultLifetime = 0, string $directory = null, \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    /**
+     * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $directory
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     */
+    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $marshaller = null)
     {
         $this->marshaller = new \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller);
         parent::__construct('', $defaultLifetime);
@@ -38,8 +44,9 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param string $namespace
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         $ok = $this->doClearCache($namespace);
         if ('' !== $namespace) {
@@ -82,8 +89,12 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
+     * @param mixed[] $addTagData
+     * @param mixed[] $removeTagData
      */
-    protected function doSave(array $values, int $lifetime, array $addTagData = [], array $removeTagData = []) : array
+    protected function doSave($values, $lifetime, $addTagData = [], $removeTagData = []) : array
     {
         $failed = $this->doSaveCache($values, $lifetime);
         // Add Tags as symlinks
@@ -114,8 +125,9 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDeleteYieldTags(array $ids) : iterable
+    protected function doDeleteYieldTags($ids) : iterable
     {
         foreach ($ids as $id) {
             $file = $this->getFile($id);
@@ -149,8 +161,9 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $tagData
      */
-    protected function doDeleteTagRelations(array $tagData) : bool
+    protected function doDeleteTagRelations($tagData) : bool
     {
         foreach ($tagData as $tagId => $idList) {
             $tagFolder = $this->getTagFolder($tagId);
@@ -162,8 +175,9 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $tagIds
      */
-    protected function doInvalidate(array $tagIds) : bool
+    protected function doInvalidate($tagIds) : bool
     {
         foreach ($tagIds as $tagId) {
             if (!\is_dir($tagFolder = $this->getTagFolder($tagId))) {
@@ -198,7 +212,10 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\
         }
         return \true;
     }
-    private function getTagFolder(string $tagId) : string
+    /**
+     * @param string $tagId
+     */
+    private function getTagFolder($tagId) : string
     {
         return $this->getFile($tagId, \false, $this->directory . self::TAG_FOLDER . \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
     }

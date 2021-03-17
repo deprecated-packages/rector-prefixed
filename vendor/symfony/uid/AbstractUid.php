@@ -23,16 +23,18 @@ abstract class AbstractUid implements \JsonSerializable
     protected $uid;
     /**
      * Whether the passed value is valid for the constructor of the current class.
+     * @param string $uid
      */
-    public static abstract function isValid(string $uid) : bool;
+    public static abstract function isValid($uid) : bool;
     /**
      * Creates an AbstractUid from an identifier represented in any of the supported formats.
      *
      * @return static
      *
      * @throws \InvalidArgumentException When the passed value is not valid
+     * @param string $uid
      */
-    public static abstract function fromString(string $uid) : self;
+    public static abstract function fromString($uid);
     /**
      * Returns the identifier as a raw binary string.
      */
@@ -75,7 +77,10 @@ abstract class AbstractUid implements \JsonSerializable
         }
         return $this->uid === $other->uid;
     }
-    public function compare(self $other) : int
+    /**
+     * @param $this $other
+     */
+    public function compare($other) : int
     {
         return \strlen($this->uid) - \strlen($other->uid) ?: $this->uid <=> $other->uid;
     }

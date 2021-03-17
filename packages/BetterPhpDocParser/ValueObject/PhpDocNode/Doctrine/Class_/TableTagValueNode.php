@@ -39,8 +39,17 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
      * @param mixed[] $options
      * @param IndexTagValueNode[] $indexes
      * @param UniqueConstraintTagValueNode[] $uniqueConstraints
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param string|null $name
+     * @param string|null $schema
+     * @param string|null $originalContent
+     * @param bool $haveIndexesFinalComma
+     * @param bool $haveUniqueConstraintsFinalComma
+     * @param \Rector\BetterPhpDocParser\ValueObject\AroundSpaces|null $indexesAroundSpaces
+     * @param \Rector\BetterPhpDocParser\ValueObject\AroundSpaces|null $uniqueConstraintsAroundSpaces
      */
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, ?string $name, ?string $schema, array $indexes, array $uniqueConstraints, array $options, ?string $originalContent = null, bool $haveIndexesFinalComma = \false, bool $haveUniqueConstraintsFinalComma = \false, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $indexesAroundSpaces = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $uniqueConstraintsAroundSpaces = null)
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $name, $schema, $indexes, $uniqueConstraints, $options, $originalContent = null, $haveIndexesFinalComma = \false, $haveUniqueConstraintsFinalComma = \false, $indexesAroundSpaces = null, $uniqueConstraintsAroundSpaces = null)
     {
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, [], $originalContent);
         $this->items['name'] = $name;
@@ -74,7 +83,7 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
      * @param mixed[] $items
      * @return mixed[]
      */
-    private function addCustomItems(array $items) : array
+    private function addCustomItems($items) : array
     {
         if ($this->indexes !== []) {
             if (!$this->indexesAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {

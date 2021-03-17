@@ -27,7 +27,10 @@ final class DiffOnlyOutputBuilder implements \RectorPrefix20210317\SebastianBerg
      * @var string
      */
     private $header;
-    public function __construct(string $header = "--- Original\n+++ New\n")
+    /**
+     * @param string $header
+     */
+    public function __construct($header = "--- Original\n+++ New\n")
     {
         $this->header = $header;
     }

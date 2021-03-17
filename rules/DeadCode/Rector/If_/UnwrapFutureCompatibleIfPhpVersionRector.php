@@ -26,7 +26,11 @@ final class UnwrapFutureCompatibleIfPhpVersionRector extends \Rector\Core\Rector
      * @var ConditionResolver
      */
     private $conditionResolver;
-    public function __construct(\Rector\DeadCode\ConditionEvaluator $conditionEvaluator, \Rector\DeadCode\ConditionResolver $conditionResolver)
+    /**
+     * @param \Rector\DeadCode\ConditionEvaluator $conditionEvaluator
+     * @param \Rector\DeadCode\ConditionResolver $conditionResolver
+     */
+    public function __construct($conditionEvaluator, $conditionResolver)
     {
         $this->conditionEvaluator = $conditionEvaluator;
         $this->conditionResolver = $conditionResolver;
@@ -55,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ((bool) $node->elseifs) {
             return null;
@@ -78,7 +82,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorIsMatch(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function refactorIsMatch($if) : void
     {
         if ((bool) $if->elseifs) {
             return;
@@ -86,7 +93,10 @@ CODE_SAMPLE
         $this->unwrapStmts($if->stmts, $if);
         $this->removeNode($if);
     }
-    private function refactorIsNotMatch(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function refactorIsNotMatch($if) : void
     {
         // no else → just remove the node
         if ($if->else === null) {

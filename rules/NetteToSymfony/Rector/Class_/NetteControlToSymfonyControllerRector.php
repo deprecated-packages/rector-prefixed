@@ -47,7 +47,13 @@ final class NetteControlToSymfonyControllerRector extends \Rector\Core\Rector\Ab
      * @var ClassMethodRenderAnalyzer
      */
     private $classMethodRenderAnalyzer;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NetteToSymfony\NodeAnalyzer\ClassMethodRenderAnalyzer $classMethodRenderAnalyzer)
+    /**
+     * @param \Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory
+     * @param \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer
+     * @param \Rector\CodingStyle\Naming\ClassNaming $classNaming
+     * @param \Rector\NetteToSymfony\NodeAnalyzer\ClassMethodRenderAnalyzer $classMethodRenderAnalyzer
+     */
+    public function __construct($actionRenderFactory, $netteClassAnalyzer, $classNaming, $classMethodRenderAnalyzer)
     {
         $this->actionRenderFactory = $actionRenderFactory;
         $this->netteClassAnalyzer = $netteClassAnalyzer;
@@ -90,9 +96,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
@@ -107,7 +113,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function processRenderMethod($classMethod) : void
     {
         $this->processGetPresenterGetSessionMethodCall($classMethod);
         $classMethod->name = new \PhpParser\Node\Identifier('action');
@@ -121,7 +130,10 @@ CODE_SAMPLE
         }
         $this->removeNodes($classMethodRender->getNodesToRemove());
     }
-    private function processGetPresenterGetSessionMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function processGetPresenterGetSessionMethodCall($classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) : ?MethodCall {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {

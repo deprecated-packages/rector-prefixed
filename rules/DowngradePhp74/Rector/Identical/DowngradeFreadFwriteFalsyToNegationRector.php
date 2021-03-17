@@ -40,9 +40,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
-     * @param Identical $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $compareValue = $this->getCompareValue($node);
         if (!$compareValue instanceof \PhpParser\Node\Expr) {
@@ -53,7 +53,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\BooleanNot($this->getFunction($node));
     }
-    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp\Identical $identical
+     */
+    private function getCompareValue($identical) : ?\PhpParser\Node\Expr
     {
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isNames($identical->left, self::FUNC_FREAD_FWRITE)) {
             return $identical->right;
@@ -66,7 +69,10 @@ CODE_SAMPLE
         }
         return $identical->left;
     }
-    private function getFunction(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp\Identical $identical
+     */
+    private function getFunction($identical) : \PhpParser\Node\Expr\FuncCall
     {
         /** @var FuncCall $funcCall */
         $funcCall = $identical->left instanceof \PhpParser\Node\Expr\FuncCall ? $identical->left : $identical->right;

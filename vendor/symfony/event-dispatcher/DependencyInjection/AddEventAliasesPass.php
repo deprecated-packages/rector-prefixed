@@ -21,7 +21,11 @@ class AddEventAliasesPass implements \RectorPrefix20210317\Symfony\Component\Dep
 {
     private $eventAliases;
     private $eventAliasesParameter;
-    public function __construct(array $eventAliases, string $eventAliasesParameter = 'event_dispatcher.event_aliases')
+    /**
+     * @param mixed[] $eventAliases
+     * @param string $eventAliasesParameter
+     */
+    public function __construct($eventAliases, $eventAliasesParameter = 'event_dispatcher.event_aliases')
     {
         $this->eventAliases = $eventAliases;
         $this->eventAliasesParameter = $eventAliasesParameter;

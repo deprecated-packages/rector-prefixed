@@ -28,7 +28,10 @@ class Psr16Cache implements \RectorPrefix20210317\Psr\SimpleCache\CacheInterface
     private const METADATA_EXPIRY_OFFSET = 1527506807;
     private $createCacheItem;
     private $cacheItemPrototype;
-    public function __construct(\RectorPrefix20210317\Psr\Cache\CacheItemPoolInterface $pool)
+    /**
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
+     */
+    public function __construct($pool)
     {
         $this->pool = $pool;
         if (!$pool instanceof \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface) {

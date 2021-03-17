@@ -34,7 +34,12 @@ final class ConstructClassMethodToSetUpTestCaseRector extends \Rector\Core\Recto
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator, \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator
+     * @param \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($setUpClassMethodNodeManipulator, $staticCallAnalyzer, $testsNodeAnalyzer)
     {
         $this->setUpClassMethodNodeManipulator = $setUpClassMethodNodeManipulator;
         $this->staticCallAnalyzer = $staticCallAnalyzer;
@@ -81,9 +86,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -99,8 +104,9 @@ CODE_SAMPLE
     }
     /**
      * @return Stmt[]
+     * @param \PhpParser\Node\Stmt\ClassMethod $constructClassMethod
      */
-    private function resolveStmtsToAddToSetUp(\PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : array
+    private function resolveStmtsToAddToSetUp($constructClassMethod) : array
     {
         $constructorStmts = (array) $constructClassMethod->stmts;
         // remove parent call

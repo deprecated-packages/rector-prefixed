@@ -13,12 +13,19 @@ final class UniqueConstraintTagValueNode extends \Rector\BetterPhpDocParser\Valu
      * @var string|null
      */
     private $tag;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content = null, ?string $originalTag = null)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param mixed[] $items
+     * @param string|null $content
+     * @param string|null $originalTag
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content = null, $originalTag = null)
     {
         $this->tag = $originalTag;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
-    public function getTag() : string
+    public function getTag() : ?string
     {
         return $this->tag ?: $this->getShortName();
     }

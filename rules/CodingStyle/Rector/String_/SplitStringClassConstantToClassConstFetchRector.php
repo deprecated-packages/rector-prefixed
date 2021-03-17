@@ -21,7 +21,10 @@ final class SplitStringClassConstantToClassConstFetchRector extends \Rector\Core
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -65,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param String_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\substr_count($node->value, '::') !== 1) {
             return null;

@@ -24,7 +24,10 @@ final class ReturnThisRemoveRector extends \Rector\Core\Rector\AbstractRector
      * @var ParentClassMethodTypeOverrideGuard
      */
     private $parentClassMethodTypeOverrideGuard;
-    public function __construct(\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)
+    /**
+     * @param \Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard
+     */
+    public function __construct($parentClassMethodTypeOverrideGuard)
     {
         $this->parentClassMethodTypeOverrideGuard = $parentClassMethodTypeOverrideGuard;
     }
@@ -66,9 +69,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $returnThis = $this->matchSingleReturnThis($node);
         if (!$returnThis instanceof \PhpParser\Node\Stmt\Return_) {
@@ -91,8 +94,9 @@ CODE_SAMPLE
     }
     /**
      * Matches only 1st level "return $this;"
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function matchSingleReturnThis(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Return_
+    private function matchSingleReturnThis($classMethod) : ?\PhpParser\Node\Stmt\Return_
     {
         /** @var Return_[] $returns */
         $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);
@@ -113,7 +117,11 @@ CODE_SAMPLE
         }
         return $return;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($return, $classMethod) : bool
     {
         if (!$this->parentClassMethodTypeOverrideGuard->isReturnTypeChangeAllowed($classMethod)) {
             return \true;

@@ -19,7 +19,10 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
 abstract class Dumper implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Dumper\DumperInterface
 {
     protected $container;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function __construct($container)
     {
         $this->container = $container;
     }

@@ -47,7 +47,14 @@ final class RemoveUnusedParameterRector extends \Rector\Core\Rector\AbstractRect
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\DeadCode\NodeManipulator\MagicMethodDetector $magicMethodDetector, \Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector $variadicFunctionLikeDetector, \Rector\DeadCode\NodeCollector\UnusedParameterResolver $unusedParameterResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
+     * @param \Rector\DeadCode\NodeManipulator\MagicMethodDetector $magicMethodDetector
+     * @param \Rector\DeadCode\NodeManipulator\VariadicFunctionLikeDetector $variadicFunctionLikeDetector
+     * @param \Rector\DeadCode\NodeCollector\UnusedParameterResolver $unusedParameterResolver
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover
+     */
+    public function __construct($classManipulator, $magicMethodDetector, $variadicFunctionLikeDetector, $unusedParameterResolver, $phpDocTagRemover)
     {
         $this->classManipulator = $classManipulator;
         $this->magicMethodDetector = $magicMethodDetector;
@@ -85,9 +92,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -118,7 +125,10 @@ CODE_SAMPLE
         $this->clearPhpDocInfo($node, $unusedParameters);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($classMethod) : bool
     {
         if ($classMethod->params === []) {
             return \true;
@@ -150,7 +160,7 @@ CODE_SAMPLE
      * @param Param[] $parameters2
      * @return Param[]
      */
-    private function getParameterOverlap(array $parameters1, array $parameters2) : array
+    private function getParameterOverlap($parameters1, $parameters2) : array
     {
         return \array_uintersect($parameters1, $parameters2, function (\PhpParser\Node\Param $firstParam, \PhpParser\Node\Param $secondParam) : int {
             return $this->nodeComparator->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
@@ -158,8 +168,9 @@ CODE_SAMPLE
     }
     /**
      * @param Param[] $unusedParameters
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function clearPhpDocInfo(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $unusedParameters) : void
+    private function clearPhpDocInfo($classMethod, $unusedParameters) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         foreach ($unusedParameters as $unusedParameter) {
@@ -177,7 +188,11 @@ CODE_SAMPLE
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $paramTagValueNode);
         }
     }
-    private function shouldSkipOpenSourceAbstract(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function shouldSkipOpenSourceAbstract($classMethod, $class) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {
@@ -191,7 +206,10 @@ CODE_SAMPLE
         }
         return $classMethod->isPublic();
     }
-    private function shouldSkipOpenSourceEmpty(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipOpenSourceEmpty($classMethod) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {
@@ -199,7 +217,10 @@ CODE_SAMPLE
         }
         return $classMethod->stmts === [] || $classMethod->stmts === null;
     }
-    private function shouldSkipOpenSourceProtectedMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipOpenSourceProtectedMethod($classMethod) : bool
     {
         // skip as possible contract for 3rd party
         if (!$this->isOpenSourceProjectType()) {

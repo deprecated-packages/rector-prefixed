@@ -21,7 +21,14 @@ class ServiceNotFoundException extends \RectorPrefix20210317\Symfony\Component\D
     private $id;
     private $sourceId;
     private $alternatives;
-    public function __construct(string $id, string $sourceId = null, \Throwable $previous = null, array $alternatives = [], string $msg = null)
+    /**
+     * @param string $id
+     * @param string $sourceId
+     * @param \Throwable $previous
+     * @param mixed[] $alternatives
+     * @param string $msg
+     */
+    public function __construct($id, $sourceId = null, $previous = null, $alternatives = [], $msg = null)
     {
         if (null !== $msg) {
             // no-op

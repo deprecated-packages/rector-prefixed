@@ -22,7 +22,10 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    /**
+     * @param \Rector\Core\Php\PhpVersionProvider $phpVersionProvider
+     */
+    public function __construct($phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
@@ -34,16 +37,17 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
         return \PHPStan\Type\VoidType::class;
     }
     /**
-     * @param VoidType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode(self::VOID);
     }
     /**
-     * @param VoidType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
             return null;
@@ -53,7 +57,11 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
         }
         return new \PhpParser\Node\Name(self::VOID);
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    /**
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
+     */
+    public function mapToDocString($type, $parentType = null) : string
     {
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             // the void type is better done in PHP code

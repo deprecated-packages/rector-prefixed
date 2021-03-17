@@ -39,7 +39,13 @@ final class CompleteDynamicPropertiesRector extends \Rector\Core\Rector\Abstract
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory
+     * @param \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer
+     * @param \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($missingPropertiesFactory, $localPropertyAnalyzer, $classLikeAnalyzer, $reflectionProvider)
     {
         $this->missingPropertiesFactory = $missingPropertiesFactory;
         $this->localPropertyAnalyzer = $localPropertyAnalyzer;
@@ -80,9 +86,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -106,7 +112,10 @@ CODE_SAMPLE
         $node->stmts = \array_merge($newProperties, $node->stmts);
         return $node;
     }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function shouldSkipClass($class) : bool
     {
         if ($this->classAnalyzer->isAnonymousClass($class)) {
             return \true;
@@ -128,8 +137,9 @@ CODE_SAMPLE
     /**
      * @param array<string, Type> $fetchedLocalPropertyNameToTypes
      * @return string[]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolvePropertiesToComplete(\PhpParser\Node\Stmt\Class_ $class, array $fetchedLocalPropertyNameToTypes) : array
+    private function resolvePropertiesToComplete($class, $fetchedLocalPropertyNameToTypes) : array
     {
         $propertyNames = $this->classLikeAnalyzer->resolvePropertyNames($class);
         /** @var string[] $fetchedLocalPropertyNames */
@@ -139,8 +149,9 @@ CODE_SAMPLE
     /**
      * @param string[] $propertiesToComplete
      * @return string[]
+     * @param \PHPStan\Reflection\ClassReflection $classReflection
      */
-    private function filterOutExistingProperties(\PHPStan\Reflection\ClassReflection $classReflection, array $propertiesToComplete) : array
+    private function filterOutExistingProperties($classReflection, $propertiesToComplete) : array
     {
         $missingPropertyNames = [];
         // remove other properties that are accessible from this scope

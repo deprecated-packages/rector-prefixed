@@ -51,7 +51,7 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->nodeTypeResolver->isStaticType($node->left, \PHPStan\Type\BooleanType::class) && !$this->valueResolver->isTrueOrFalse($node->left)) {
             return $this->processBoolTypeToNotBool($node, $node->left, $node->right);
@@ -64,7 +64,12 @@ CODE_SAMPLE
         }
         return $this->processBoolTypeToNotBool($node, $node->right, $node->left);
     }
-    private function processBoolTypeToNotBool(\PhpParser\Node $node, \PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node\Expr $leftExpr
+     * @param \PhpParser\Node\Expr $rightExpr
+     */
+    private function processBoolTypeToNotBool($node, $leftExpr, $rightExpr) : ?\PhpParser\Node\Expr
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($leftExpr, $rightExpr);
@@ -74,7 +79,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr $leftExpr
+     * @param \PhpParser\Node\Expr $rightExpr
+     */
+    private function refactorIdentical($leftExpr, $rightExpr) : ?\PhpParser\Node\Expr
     {
         if ($this->valueResolver->isTrue($rightExpr)) {
             return $leftExpr;
@@ -88,7 +97,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorNotIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr $leftExpr
+     * @param \PhpParser\Node\Expr $rightExpr
+     */
+    private function refactorNotIdentical($leftExpr, $rightExpr) : ?\PhpParser\Node\Expr
     {
         if ($this->valueResolver->isFalse($rightExpr)) {
             return $leftExpr;

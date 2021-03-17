@@ -30,7 +30,10 @@ abstract class Input implements \RectorPrefix20210317\Symfony\Component\Console\
     protected $options = [];
     protected $arguments = [];
     protected $interactive = \true;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition $definition = null)
+    /**
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     */
+    public function __construct($definition = null)
     {
         if (null === $definition) {
             $this->definition = new \RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition();
@@ -153,8 +156,9 @@ abstract class Input implements \RectorPrefix20210317\Symfony\Component\Console\
      * Escapes a token through escapeshellarg if it contains unsafe chars.
      *
      * @return string
+     * @param string $token
      */
-    public function escapeToken(string $token)
+    public function escapeToken($token)
     {
         return \preg_match('{^[\\w-]+$}', $token) ? $token : \escapeshellarg($token);
     }

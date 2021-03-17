@@ -23,7 +23,10 @@ final class MoveInjectToExistingConstructorRector extends \Rector\Core\Rector\Ab
      * @var PropertyUsageAnalyzer
      */
     private $propertyUsageAnalyzer;
-    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
+    /**
+     * @param \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer
+     */
+    public function __construct($propertyUsageAnalyzer)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
     }
@@ -79,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $injectProperties = $this->getInjectProperties($node);
         if ($injectProperties === []) {
@@ -103,19 +106,26 @@ CODE_SAMPLE
     }
     /**
      * @return Property[]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function getInjectProperties(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function getInjectProperties($class) : array
     {
         return \array_filter($class->getProperties(), function (\PhpParser\Node\Stmt\Property $property) : bool {
             return $this->isInjectProperty($property);
         });
     }
-    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function removeInjectAnnotation($property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
     }
-    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $injectProperty
+     */
+    private function changePropertyVisibility($injectProperty) : void
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
             $this->visibilityManipulator->makeProtected($injectProperty);
@@ -123,7 +133,10 @@ CODE_SAMPLE
             $this->visibilityManipulator->makePrivate($injectProperty);
         }
     }
-    private function isInjectProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function isInjectProperty($property) : bool
     {
         if (!$property->isPublic()) {
             return \false;

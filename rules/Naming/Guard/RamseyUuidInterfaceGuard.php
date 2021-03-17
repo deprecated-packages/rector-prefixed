@@ -14,7 +14,10 @@ final class RamseyUuidInterfaceGuard implements \Rector\Naming\Contract\Guard\Co
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
+     */
+    public function __construct($nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }

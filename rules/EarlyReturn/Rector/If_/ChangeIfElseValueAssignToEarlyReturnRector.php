@@ -30,7 +30,11 @@ final class ChangeIfElseValueAssignToEarlyReturnRector extends \Rector\Core\Rect
      * @var StmtsManipulator
      */
     private $stmtsManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
+     * @param \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator
+     */
+    public function __construct($ifManipulator, $stmtsManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
@@ -74,9 +78,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {

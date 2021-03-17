@@ -29,7 +29,10 @@ final class DowngradeTrailingCommasInParamUseRector extends \Rector\Core\Rector\
      * @var FollowedByCommaAnalyzer
      */
     private $followedByCommaAnalyzer;
-    public function __construct(\Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer $followedByCommaAnalyzer)
+    /**
+     * @param \Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer $followedByCommaAnalyzer
+     */
+    public function __construct($followedByCommaAnalyzer)
     {
         $this->followedByCommaAnalyzer = $followedByCommaAnalyzer;
     }
@@ -81,7 +84,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure|FuncCall|MethodCall|StaticCall|New_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\New_::class])) {
             /** @var MethodCall|FuncCall|StaticCall|New_ $node */
@@ -96,14 +99,17 @@ CODE_SAMPLE
     /**
      * @param FuncCall|MethodCall|StaticCall|New_ $node
      */
-    private function processArgs(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function processArgs($node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
         }
         return $this->cleanTrailingComma($node, $node->args);
     }
-    private function processUses(\PhpParser\Node\Expr\Closure $node) : \PhpParser\Node\Expr\Closure
+    /**
+     * @param \PhpParser\Node\Expr\Closure $node
+     */
+    private function processUses($node) : \PhpParser\Node\Expr\Closure
     {
         if ($node->uses === []) {
             return $node;
@@ -113,7 +119,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function processParams(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function processParams($node) : ?\PhpParser\Node
     {
         if ($node->params === []) {
             return null;
@@ -122,8 +128,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClosureUse[]|Param[]|Arg[] $array
+     * @param \PhpParser\Node $node
      */
-    private function cleanTrailingComma(\PhpParser\Node $node, array $array) : \PhpParser\Node
+    private function cleanTrailingComma($node, $array) : \PhpParser\Node
     {
         $lastPosition = \array_key_last($array);
         $last = $array[$lastPosition];

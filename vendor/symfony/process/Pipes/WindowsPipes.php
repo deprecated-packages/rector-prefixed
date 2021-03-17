@@ -29,7 +29,10 @@ class WindowsPipes extends \RectorPrefix20210317\Symfony\Component\Process\Pipes
     private $lockHandles = [];
     private $readBytes = [\RectorPrefix20210317\Symfony\Component\Process\Process::STDOUT => 0, \RectorPrefix20210317\Symfony\Component\Process\Process::STDERR => 0];
     private $haveReadSupport;
-    public function __construct($input, bool $haveReadSupport)
+    /**
+     * @param bool $haveReadSupport
+     */
+    public function __construct($input, $haveReadSupport)
     {
         $this->haveReadSupport = $haveReadSupport;
         if ($this->haveReadSupport) {

@@ -17,14 +17,18 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210317\Symf
 {
     private $tagName;
     private $aliases = [];
-    public function __construct(string $tagName = 'container.private')
+    /**
+     * @param string $tagName
+     */
+    public function __construct($tagName = 'container.private')
     {
         $this->tagName = $tagName;
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());

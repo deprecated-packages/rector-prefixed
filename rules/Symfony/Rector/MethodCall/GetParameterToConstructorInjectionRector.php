@@ -29,7 +29,11 @@ final class GetParameterToConstructorInjectionRector extends \Rector\Core\Rector
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($propertyNaming, $reflectionProvider)
     {
         $this->propertyNaming = $propertyNaming;
         $this->reflectionProvider = $reflectionProvider;
@@ -71,9 +75,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $varType = $this->nodeTypeResolver->resolve($node->var);
         if (!$varType instanceof \PHPStan\Type\TypeWithClassName) {

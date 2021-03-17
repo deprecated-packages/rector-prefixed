@@ -30,7 +30,11 @@ final class AddMockConsoleOutputFalseToConsoleTestsRector extends \Rector\Core\R
      * @var SetUpClassMethodNodeManipulator
      */
     private $setUpClassMethodNodeManipulator;
-    public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator)
+    /**
+     * @param \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer
+     * @param \Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator $setUpClassMethodNodeManipulator
+     */
+    public function __construct($propertyFetchAnalyzer, $setUpClassMethodNodeManipulator)
     {
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->setUpClassMethodNodeManipulator = $setUpClassMethodNodeManipulator;
@@ -78,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Illuminate\\Foundation\\Testing\\TestCase'))) {
             return null;
@@ -96,13 +100,19 @@ CODE_SAMPLE
         $this->setUpClassMethodNodeManipulator->decorateOrCreate($node, [$assign]);
         return $node;
     }
-    private function isTestingConsoleOutput(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function isTestingConsoleOutput($class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) : bool {
             return $this->nodeNameResolver->isStaticCallNamed($node, 'Illuminate\\Support\\Facades\\Artisan', 'output');
         });
     }
-    private function hasMockConsoleOutputFalse(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function hasMockConsoleOutputFalse($class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
             if ($node instanceof \PhpParser\Node\Expr\Assign) {

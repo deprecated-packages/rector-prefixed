@@ -23,7 +23,11 @@ final class AddMethodCallBasedStrictParamTypeRector extends \Rector\Core\Rector\
      * @var ClassMethodParamTypeCompleter
      */
     private $classMethodParamTypeCompleter;
-    public function __construct(\Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver $callTypesResolver, \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter $classMethodParamTypeCompleter)
+    /**
+     * @param \Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver $callTypesResolver
+     * @param \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter $classMethodParamTypeCompleter
+     */
+    public function __construct($callTypesResolver, $classMethodParamTypeCompleter)
     {
         $this->callTypesResolver = $callTypesResolver;
         $this->classMethodParamTypeCompleter = $classMethodParamTypeCompleter;
@@ -82,9 +86,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->params === []) {
             return null;

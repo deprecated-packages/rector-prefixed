@@ -36,7 +36,12 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
+     */
+    public function __construct($nodeNameResolver, $traitNodeScopeCollector, $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
@@ -66,7 +71,11 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         return $phpDocInfo->getVarType();
     }
-    private function resolveTypesFromScope(\PhpParser\Node\Expr\Variable $variable, string $variableName) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     * @param string $variableName
+     */
+    private function resolveTypesFromScope($variable, $variableName) : \PHPStan\Type\Type
     {
         $scope = $this->resolveNodeScope($variable);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -78,7 +87,10 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         // this → object type is easier to work with and consistent with the rest of the code
         return $scope->getVariableType($variableName);
     }
-    private function resolveNodeScope(\PhpParser\Node\Expr\Variable $variable) : ?\PHPStan\Analyser\Scope
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     */
+    private function resolveNodeScope($variable) : ?\PHPStan\Analyser\Scope
     {
         /** @var Scope|null $nodeScope */
         $nodeScope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -97,7 +109,10 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         }
         return $this->resolveFromParentNodes($variable);
     }
-    private function resolveFromParentNodes(\PhpParser\Node\Expr\Variable $variable) : ?\PHPStan\Analyser\Scope
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     */
+    private function resolveFromParentNodes($variable) : ?\PHPStan\Analyser\Scope
     {
         foreach (self::PARENT_NODE_ATTRIBUTES as $parentNodeAttribute) {
             $parentNode = $variable->getAttribute($parentNodeAttribute);

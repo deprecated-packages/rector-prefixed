@@ -42,14 +42,23 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
      * @var NodeComparator
      */
     private $nodeComparator;
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
+    /**
+     * @param \Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector
+     * @param \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard
+     * @param \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder
+     * @param \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator
+     */
+    public function __construct($affectedFilesCollector, $breakingRemovalGuard, $betterNodeFinder, $nodeComparator)
     {
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->breakingRemovalGuard = $breakingRemovalGuard;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeComparator = $nodeComparator;
     }
-    public function addNodeToRemove(\PhpParser\Node $node) : void
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function addNodeToRemove($node) : void
     {
         /** Node|null $parentNode */
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -72,7 +81,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
         /** @var Stmt $node */
         $this->nodesToRemove[] = $node;
     }
-    public function isNodeRemoved(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function isNodeRemoved($node) : bool
     {
         return \in_array($node, $this->nodesToRemove, \true);
     }
@@ -91,11 +103,18 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
     {
         return $this->nodesToRemove;
     }
-    public function unset(int $key) : void
+    /**
+     * @param int $key
+     */
+    public function unset($key) : void
     {
         unset($this->nodesToRemove[$key]);
     }
-    private function isUsedInArg(\PhpParser\Node $node, \PhpParser\Node $parentNode) : bool
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node $parentNode
+     */
+    private function isUsedInArg($node, $parentNode) : bool
     {
         if (!$node instanceof \PhpParser\Node\Param) {
             return \false;
@@ -118,7 +137,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
         }
         return \false;
     }
-    private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node) : void
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function ensureIsNotPartOfChainMethodCall($node) : void
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return;

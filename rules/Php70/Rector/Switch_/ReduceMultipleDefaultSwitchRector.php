@@ -48,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param Switch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $defaultCases = [];
         foreach ($node->cases as $case) {
@@ -68,7 +68,7 @@ CODE_SAMPLE
     /**
      * @param Case_[] $defaultCases
      */
-    private function removeExtraDefaultCases(array $defaultCases) : void
+    private function removeExtraDefaultCases($defaultCases) : void
     {
         // keep only last
         \array_pop($defaultCases);
@@ -77,7 +77,10 @@ CODE_SAMPLE
             $this->removeNode($defaultCase);
         }
     }
-    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Case_ $case
+     */
+    private function keepStatementsToParentCase($case) : void
     {
         $previousNode = $case->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$previousNode instanceof \PhpParser\Node\Stmt\Case_) {

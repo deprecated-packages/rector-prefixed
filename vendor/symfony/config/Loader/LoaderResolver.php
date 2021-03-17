@@ -27,7 +27,7 @@ class LoaderResolver implements \RectorPrefix20210317\Symfony\Component\Config\L
     /**
      * @param LoaderInterface[] $loaders An array of loaders
      */
-    public function __construct(array $loaders = [])
+    public function __construct($loaders = [])
     {
         foreach ($loaders as $loader) {
             $this->addLoader($loader);
@@ -35,8 +35,9 @@ class LoaderResolver implements \RectorPrefix20210317\Symfony\Component\Config\L
     }
     /**
      * {@inheritdoc}
+     * @param string $type
      */
-    public function resolve($resource, string $type = null)
+    public function resolve($resource, $type = null)
     {
         foreach ($this->loaders as $loader) {
             if ($loader->supports($resource, $type)) {
@@ -45,7 +46,10 @@ class LoaderResolver implements \RectorPrefix20210317\Symfony\Component\Config\L
         }
         return \false;
     }
-    public function addLoader(\RectorPrefix20210317\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    /**
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
+     */
+    public function addLoader($loader)
     {
         $this->loaders[] = $loader;
         $loader->setResolver($this);

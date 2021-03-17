@@ -23,7 +23,13 @@ final class RenameClassAndConstFetch implements \Rector\Renaming\Contract\Rename
      * @var string
      */
     private $newClass;
-    public function __construct(string $oldClass, string $oldConstant, string $newClass, string $newConstant)
+    /**
+     * @param string $oldClass
+     * @param string $oldConstant
+     * @param string $newClass
+     * @param string $newConstant
+     */
+    public function __construct($oldClass, $oldConstant, $newClass, $newConstant)
     {
         $this->oldClass = $oldClass;
         $this->oldConstant = $oldConstant;

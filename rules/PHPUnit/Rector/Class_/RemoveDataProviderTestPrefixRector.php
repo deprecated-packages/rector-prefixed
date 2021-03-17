@@ -27,7 +27,10 @@ final class RemoveDataProviderTestPrefixRector extends \Rector\Core\Rector\Abstr
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
@@ -77,9 +80,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -89,7 +92,10 @@ CODE_SAMPLE
         $this->renameProviderMethods($node);
         return $node;
     }
-    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function renameDataProviderAnnotationsAndCollectRenamedMethods($class) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -110,7 +116,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function renameProviderMethods($class) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($this->providerMethodNamesToNewNames as $oldName => $newName) {
@@ -121,7 +130,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function createNewMethodName(string $oldMethodName) : string
+    /**
+     * @param string $oldMethodName
+     */
+    private function createNewMethodName($oldMethodName) : string
     {
         $newMethodName = \RectorPrefix20210317\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
         return \lcfirst($newMethodName);

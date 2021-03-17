@@ -26,7 +26,10 @@ final class ListEachRector extends \Rector\Core\Rector\AbstractRector
      * @var AssignManipulator
      */
     private $assignManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator
+     */
+    public function __construct($assignManipulator)
     {
         $this->assignManipulator = $assignManipulator;
     }
@@ -50,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -98,7 +101,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\Assign($firstArrayItem->value, $keyFuncCall);
     }
-    private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function shouldSkip($assign) : bool
     {
         if (!$this->assignManipulator->isListToEachAssign($assign)) {
             return \true;

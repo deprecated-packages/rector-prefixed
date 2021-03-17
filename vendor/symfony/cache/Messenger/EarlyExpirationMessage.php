@@ -21,7 +21,10 @@ final class EarlyExpirationMessage
     private $item;
     private $pool;
     private $callback;
-    public static function create(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer, callable $callback, \RectorPrefix20210317\Symfony\Component\Cache\CacheItem $item, \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface $pool) : ?self
+    /**
+     * @return $this|null
+     */
+    public static function create(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer, callable $callback, \RectorPrefix20210317\Symfony\Component\Cache\CacheItem $item, \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
     {
         try {
             $item = clone $item;

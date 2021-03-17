@@ -40,7 +40,10 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
      * @var ObjectType[]
      */
     private $excludedObjectTypes = [];
-    public function __construct(\Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver $propertyVisibilityVendorLockResolver)
+    /**
+     * @param \Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver $propertyVisibilityVendorLockResolver
+     */
+    public function __construct($propertyVisibilityVendorLockResolver)
     {
         $this->propertyVisibilityVendorLockResolver = $propertyVisibilityVendorLockResolver;
         $this->excludedObjectTypes = [new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestCase'), new \PHPStan\Type\ObjectType('PHP_CodeSniffer\\Sniffs\\Sniff')];
@@ -79,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -100,7 +103,10 @@ CODE_SAMPLE
         $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function shouldSkip($property) : bool
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -122,7 +128,10 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         return $phpDocInfo->hasByTypes(self::TAG_NODES_REQUIRING_PUBLIC);
     }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassLike $classLike
+     */
+    private function shouldSkipClass($classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
@@ -138,7 +147,10 @@ CODE_SAMPLE
         }
         return $this->isOpenSourceProjectType();
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function shouldSkipProperty($property) : bool
     {
         // already private
         if ($property->isPrivate()) {

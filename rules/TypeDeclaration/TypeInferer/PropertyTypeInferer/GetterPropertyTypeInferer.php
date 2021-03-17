@@ -37,7 +37,14 @@ final class GetterPropertyTypeInferer implements \Rector\TypeDeclaration\Contrac
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTagReturnTypeInferer $returnTagReturnTypeInferer, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnedNodesReturnTypeInferer $returnedNodesReturnTypeInferer, \Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver, \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer $classMethodAndPropertyAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTagReturnTypeInferer $returnTagReturnTypeInferer
+     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnedNodesReturnTypeInferer $returnedNodesReturnTypeInferer
+     * @param \Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver
+     * @param \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodAndPropertyAnalyzer $classMethodAndPropertyAnalyzer
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     */
+    public function __construct($returnTagReturnTypeInferer, $returnedNodesReturnTypeInferer, $functionLikeReturnTypeResolver, $classMethodAndPropertyAnalyzer, $nodeNameResolver)
     {
         $this->returnedNodesReturnTypeInferer = $returnedNodesReturnTypeInferer;
         $this->returnTagReturnTypeInferer = $returnTagReturnTypeInferer;
@@ -45,7 +52,10 @@ final class GetterPropertyTypeInferer implements \Rector\TypeDeclaration\Contrac
         $this->classMethodAndPropertyAnalyzer = $classMethodAndPropertyAnalyzer;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    public function inferProperty($property) : \PHPStan\Type\Type
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -69,7 +79,10 @@ final class GetterPropertyTypeInferer implements \Rector\TypeDeclaration\Contrac
     {
         return 1700;
     }
-    private function inferClassMethodReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function inferClassMethodReturnType($classMethod) : \PHPStan\Type\Type
     {
         $returnTypeDeclarationType = $this->functionLikeReturnTypeResolver->resolveFunctionLikeReturnTypeToPHPStanType($classMethod);
         if (!$returnTypeDeclarationType instanceof \PHPStan\Type\MixedType) {

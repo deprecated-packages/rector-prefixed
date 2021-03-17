@@ -31,7 +31,10 @@ class InlineServiceConfigurator extends \RectorPrefix20210317\Symfony\Component\
     private $id = '[inline]';
     private $allowParent = \true;
     private $path = null;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     */
+    public function __construct($definition)
     {
         $this->definition = $definition;
     }

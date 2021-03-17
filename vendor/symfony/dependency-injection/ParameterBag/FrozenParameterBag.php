@@ -26,7 +26,7 @@ class FrozenParameterBag extends \RectorPrefix20210317\Symfony\Component\Depende
      *
      * @param array $parameters An array of parameters
      */
-    public function __construct(array $parameters = [])
+    public function __construct($parameters = [])
     {
         $this->parameters = $parameters;
         $this->resolved = \true;

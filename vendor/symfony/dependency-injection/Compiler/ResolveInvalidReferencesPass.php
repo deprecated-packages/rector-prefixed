@@ -51,8 +51,10 @@ class ResolveInvalidReferencesPass implements \RectorPrefix20210317\Symfony\Comp
      * @return mixed
      *
      * @throws RuntimeException When an invalid reference is found
+     * @param int $rootLevel
+     * @param int $level
      */
-    private function processValue($value, int $rootLevel = 0, int $level = 0)
+    private function processValue($value, $rootLevel = 0, $level = 0)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value->setValues($this->processValue($value->getValues(), 1, 1));

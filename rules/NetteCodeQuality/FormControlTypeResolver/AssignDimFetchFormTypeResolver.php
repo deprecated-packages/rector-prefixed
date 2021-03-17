@@ -21,15 +21,20 @@ final class AssignDimFetchFormTypeResolver implements \Rector\NetteCodeQuality\C
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @param \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
+     */
+    public function __construct($betterNodeFinder, $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
      * @return array<string, string>
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve($node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];

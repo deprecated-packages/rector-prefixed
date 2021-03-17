@@ -20,7 +20,13 @@ final class AttributeAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast
      * @var string
      */
     private $preposition;
-    public function __construct(string $name, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $originalContent)
+    /**
+     * @param string $name
+     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode|null $typeNode
+     * @param string $description
+     * @param string $originalContent
+     */
+    public function __construct($name, $typeNode, $description, $originalContent)
     {
         parent::__construct($name, $typeNode, $description);
         $matches = \RectorPrefix20210317\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);

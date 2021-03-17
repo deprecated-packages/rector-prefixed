@@ -14,8 +14,10 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210317\
     private $commandNaming;
     /**
      * @param Command[] $commands
+     * @param string $name
+     * @param string $version
      */
-    public function __construct(array $commands, string $name = 'UNKNOWN', string $version = 'UNKNOWN')
+    public function __construct($commands, $name = 'UNKNOWN', $version = 'UNKNOWN')
     {
         $this->commandNaming = new \RectorPrefix20210317\Symplify\PackageBuilder\Console\Command\CommandNaming();
         $this->addCommands($commands);
@@ -26,7 +28,7 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210317\
      *
      * @param Command[] $commands
      */
-    public function addCommands(array $commands) : void
+    public function addCommands($commands) : void
     {
         foreach ($commands as $command) {
             $commandName = $this->commandNaming->resolveFromCommand($command);

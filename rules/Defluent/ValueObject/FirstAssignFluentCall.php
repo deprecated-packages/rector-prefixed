@@ -14,7 +14,13 @@ final class FirstAssignFluentCall extends \Rector\Defluent\ValueObject\AbstractR
      * @var FluentMethodCalls
      */
     private $fluentMethodCalls;
-    public function __construct(\PhpParser\Node\Expr $assignExpr, \PhpParser\Node\Expr $rootExpr, bool $isFirstCallFactory, \Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls)
+    /**
+     * @param \PhpParser\Node\Expr $assignExpr
+     * @param \PhpParser\Node\Expr $rootExpr
+     * @param bool $isFirstCallFactory
+     * @param \Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls
+     */
+    public function __construct($assignExpr, $rootExpr, $isFirstCallFactory, $fluentMethodCalls)
     {
         $this->assignExpr = $assignExpr;
         $this->rootExpr = $rootExpr;

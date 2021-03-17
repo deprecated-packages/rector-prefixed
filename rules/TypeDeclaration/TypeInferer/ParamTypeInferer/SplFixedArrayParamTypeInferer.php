@@ -19,7 +19,11 @@ final class SplFixedArrayParamTypeInferer implements \Rector\TypeDeclaration\Con
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
+     */
+    public function __construct($splArrayFixedTypeNarrower, $nodeTypeResolver)
     {
         $this->splArrayFixedTypeNarrower = $splArrayFixedTypeNarrower;
         $this->nodeTypeResolver = $nodeTypeResolver;

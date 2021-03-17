@@ -13,7 +13,10 @@ final class HasMagicGetSetGuard implements \Rector\Naming\Contract\Guard\Conflic
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }

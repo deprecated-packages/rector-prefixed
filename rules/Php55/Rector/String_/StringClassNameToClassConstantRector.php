@@ -42,7 +42,10 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    /**
+     * @param \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker
+     */
+    public function __construct($classLikeExistenceChecker)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
@@ -84,9 +87,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param String_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CLASSNAME_CONSTANT)) {
             return null;
@@ -108,14 +111,17 @@ CODE_SAMPLE
     /**
      * @param array<string, string[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         if (!isset($configuration[self::CLASSES_TO_SKIP])) {
             return;
         }
         $this->classesToSkip = $configuration[self::CLASSES_TO_SKIP];
     }
-    private function isPartOfIsAFuncCall(\PhpParser\Node\Scalar\String_ $string) : bool
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     */
+    private function isPartOfIsAFuncCall($string) : bool
     {
         $parent = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\Arg) {
@@ -127,7 +133,11 @@ CODE_SAMPLE
         }
         return $this->nodeNameResolver->isFuncCallName($parentParent, 'is_a');
     }
-    private function shouldSkip(string $classLikeName, \PhpParser\Node\Scalar\String_ $string) : bool
+    /**
+     * @param string $classLikeName
+     * @param \PhpParser\Node\Scalar\String_ $string
+     */
+    private function shouldSkip($classLikeName, $string) : bool
     {
         if (!$this->classLikeExistenceChecker->doesClassLikeInsensitiveExists($classLikeName)) {
             return \true;

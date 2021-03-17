@@ -52,7 +52,11 @@ class RegisterEnvVarProcessorsPass implements \RectorPrefix20210317\Symfony\Comp
             $container->setAlias('container.env_var_processors_locator', (string) \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass::register($container, $processors))->setPublic(\true);
         }
     }
-    private static function validateProvidedTypes(string $types, string $class) : array
+    /**
+     * @param string $types
+     * @param string $class
+     */
+    private static function validateProvidedTypes($types, $class) : array
     {
         $types = \explode('|', $types);
         foreach ($types as $type) {

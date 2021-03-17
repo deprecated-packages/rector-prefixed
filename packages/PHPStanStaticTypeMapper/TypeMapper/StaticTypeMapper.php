@@ -23,7 +23,10 @@ final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    /**
+     * @param \Rector\Core\Php\PhpVersionProvider $phpVersionProvider
+     */
+    public function __construct($phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
@@ -35,16 +38,17 @@ final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return \PHPStan\Type\StaticType::class;
     }
     /**
-     * @param StaticType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareThisTypeNode();
     }
     /**
-     * @param StaticType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         if ($type instanceof \PHPStan\Type\ThisType) {
             // @todo wait for PHPStan to differentiate between self/static
@@ -56,9 +60,10 @@ final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return null;
     }
     /**
-     * @param StaticType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString($type, $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }

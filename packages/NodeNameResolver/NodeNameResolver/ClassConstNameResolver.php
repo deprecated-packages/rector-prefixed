@@ -15,8 +15,9 @@ final class ClassConstNameResolver implements \Rector\NodeNameResolver\Contract\
     private $nodeNameResolver;
     /**
      * @required
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
      */
-    public function autowireClassConstNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireClassConstNameResolver($nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }

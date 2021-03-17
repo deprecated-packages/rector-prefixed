@@ -17,7 +17,10 @@ final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\No
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }

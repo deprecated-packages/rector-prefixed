@@ -22,7 +22,11 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    /**
+     * @param \Rector\Core\Configuration\Configuration $configuration
+     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
+     */
+    public function __construct($configuration, $smartFileSystem)
     {
         $this->configuration = $configuration;
         $this->smartFileSystem = $smartFileSystem;
@@ -60,7 +64,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
      * @param mixed[] $errors
      * @return mixed[]
      */
-    private function createErrorsData(array $errors) : array
+    private function createErrorsData($errors) : array
     {
         $errorsData = [];
         foreach ($errors as $error) {

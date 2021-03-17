@@ -30,9 +30,9 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
         return \PHPStan\Type\ClassStringType::class;
     }
     /**
-     * @param ClassStringType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $attributeAwareIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('class-string');
         if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType) {
@@ -48,24 +48,32 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
         return $attributeAwareIdentifierTypeNode;
     }
     /**
-     * @param ClassStringType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         return null;
     }
     /**
-     * @param ClassStringType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString($type, $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    /**
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
+     */
+    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
-    private function normalizeType(string $classType) : string
+    /**
+     * @param string $classType
+     */
+    private function normalizeType($classType) : string
     {
         if (\is_a($classType, \PhpParser\Node\Expr::class, \true)) {
             return \PhpParser\Node\Expr::class;

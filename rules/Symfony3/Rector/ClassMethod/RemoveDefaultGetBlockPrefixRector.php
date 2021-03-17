@@ -53,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectMethodNameMatch($node)) {
             return null;
@@ -80,7 +80,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function isObjectMethodNameMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function isObjectMethodNameMatch($classMethod) : bool
     {
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -93,8 +96,9 @@ CODE_SAMPLE
     }
     /**
      * return <$thisValue>;
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function resolveOnlyStmtReturnExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
+    private function resolveOnlyStmtReturnExpr($classMethod) : ?\PhpParser\Node\Expr
     {
         if (\count((array) $classMethod->stmts) !== 1) {
             return null;

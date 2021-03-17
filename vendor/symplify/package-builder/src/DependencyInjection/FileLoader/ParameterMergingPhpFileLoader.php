@@ -18,7 +18,11 @@ final class ParameterMergingPhpFileLoader extends \RectorPrefix20210317\Symfony\
      * @var ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210317\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\Config\FileLocatorInterface $fileLocator
+     */
+    public function __construct($containerBuilder, $fileLocator)
     {
         $this->parametersMerger = new \RectorPrefix20210317\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);

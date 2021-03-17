@@ -7,15 +7,23 @@ use PhpParser\Node;
 use PhpParser\Node\Param;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionParameter;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\CallableType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
+use Rector\Tests\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector\Fixture\ParentType;
 use ReflectionNamedType;
 use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class NativeTypeClassTreeResolver
@@ -28,10 +36,15 @@ final class NativeTypeClassTreeResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->privatesAccessor = $privatesAccessor;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function resolveParameterReflectionType(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : \PHPStan\Type\Type
     {
@@ -53,22 +66,49 @@ final class NativeTypeClassTreeResolver
             return new \PHPStan\Type\MixedType();
         }
         $typeName = (string) $parameterReflection->getType();
+        $allowsNull = \false;
+        if ($parameterReflection->allowsNull()) {
+            $allowsNull = \true;
+            $typeName = \ltrim($typeName, '?');
+        }
+        $type = null;
         if ($typeName === 'array') {
-            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+            $type = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
         if ($typeName === 'string') {
-            return new \PHPStan\Type\StringType();
+            $type = new \PHPStan\Type\StringType();
         }
         if ($typeName === 'bool') {
-            return new \PHPStan\Type\BooleanType();
+            $type = new \PHPStan\Type\BooleanType();
         }
         if ($typeName === 'int') {
-            return new \PHPStan\Type\IntegerType();
+            $type = new \PHPStan\Type\IntegerType();
         }
         if ($typeName === 'float') {
-            return new \PHPStan\Type\FloatType();
+            $type = new \PHPStan\Type\FloatType();
         }
-        throw new \Rector\Core\Exception\NotImplementedYetException();
+        if ($this->reflectionProvider->hasClass($typeName)) {
+            $type = new \PHPStan\Type\ObjectType($typeName);
+        }
+        if ($type !== null) {
+            if ($allowsNull) {
+                return new \PHPStan\Type\UnionType([$type, new \PHPStan\Type\NullType()]);
+            }
+            return $type;
+        }
+        if ($typeName === 'self') {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($classReflection->getName(), null, $classReflection);
+        }
+        if ($typeName === 'object') {
+            return new \PHPStan\Type\ObjectWithoutClassType();
+        }
+        if ($typeName === 'callable') {
+            return new \PHPStan\Type\CallableType();
+        }
+        if ($typeName === 'parent') {
+            return new \PHPStan\Type\ObjectType($classReflection->getParentClass()->getName(), null, $classReflection->getParentClass());
+        }
+        throw new \Rector\Core\Exception\NotImplementedYetException($typeName);
     }
     private function resolveNativeType(\ReflectionParameter $reflectionParameter) : \PHPStan\Type\Type
     {

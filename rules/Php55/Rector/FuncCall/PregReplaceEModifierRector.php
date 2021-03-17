@@ -29,7 +29,11 @@ final class PregReplaceEModifierRector extends \Rector\Core\Rector\AbstractRecto
      * @var AnonymousFunctionNodeFactory
      */
     private $anonymousFunctionNodeFactory;
-    public function __construct(\Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory $anonymousFunctionNodeFactory, \Rector\Php55\RegexMatcher $regexMatcher)
+    /**
+     * @param \Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory $anonymousFunctionNodeFactory
+     * @param \Rector\Php55\RegexMatcher $regexMatcher
+     */
+    public function __construct($anonymousFunctionNodeFactory, $regexMatcher)
     {
         $this->regexMatcher = $regexMatcher;
         $this->anonymousFunctionNodeFactory = $anonymousFunctionNodeFactory;
@@ -66,9 +70,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'preg_replace')) {
             return null;

@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -85,26 +85,38 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->methodsByParentTypes = $configuration[self::METHODS_BY_PARENT_TYPES] ?? [];
     }
-    private function shouldSkipMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $method) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $method
+     */
+    private function shouldSkipMethod($classMethod, $method) : bool
     {
         if (!$this->isName($classMethod, $method)) {
             return \true;
         }
         return $this->hasParentCallOfMethod($classMethod, $method);
     }
-    private function createParentStaticCall(string $method) : \PhpParser\Node\Stmt\Expression
+    /**
+     * @param string $method
+     */
+    private function createParentStaticCall($method) : \PhpParser\Node\Stmt\Expression
     {
         $staticCall = $this->nodeFactory->createStaticCall('parent', $method);
         return new \PhpParser\Node\Stmt\Expression($staticCall);
     }
     /**
      * Looks for "parent::<methodName>
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $method
      */
-    private function hasParentCallOfMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $method) : bool
+    private function hasParentCallOfMethod($classMethod, $method) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($method) : bool {
             return $this->nodeNameResolver->isStaticCallNamed($node, 'parent', $method);

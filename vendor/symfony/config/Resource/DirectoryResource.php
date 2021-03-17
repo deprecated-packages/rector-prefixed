@@ -23,11 +23,11 @@ class DirectoryResource implements \RectorPrefix20210317\Symfony\Component\Confi
     private $pattern;
     /**
      * @param string      $resource The file path to the resource
-     * @param string|null $pattern  A pattern to restrict monitored files
+     * @param string $pattern  A pattern to restrict monitored files
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $resource, string $pattern = null)
+    public function __construct($resource, $pattern = null)
     {
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         $this->pattern = $pattern;
@@ -58,8 +58,9 @@ class DirectoryResource implements \RectorPrefix20210317\Symfony\Component\Confi
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         if (!\is_dir($this->resource)) {
             return \false;

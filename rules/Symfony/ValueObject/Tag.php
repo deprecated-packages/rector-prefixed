@@ -16,8 +16,9 @@ final class Tag implements \Rector\Symfony\Contract\Tag\TagInterface
     private $data = [];
     /**
      * @param array<string, mixed> $data
+     * @param string $name
      */
-    public function __construct(string $name, array $data = [])
+    public function __construct($name, $data = [])
     {
         $this->name = $name;
         $this->data = $data;

@@ -22,7 +22,10 @@ final class EndsWithFunctionToNetteUtilsStringsRector extends \Rector\Core\Recto
      * @var StrlenEndsWithResolver
      */
     private $strlenEndsWithResolver;
-    public function __construct(\Rector\Nette\NodeAnalyzer\StrlenEndsWithResolver $strlenEndsWithResolver)
+    /**
+     * @param \Rector\Nette\NodeAnalyzer\StrlenEndsWithResolver $strlenEndsWithResolver
+     */
+    public function __construct($strlenEndsWithResolver)
     {
         $this->strlenEndsWithResolver = $strlenEndsWithResolver;
     }
@@ -63,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $contentExprAndNeedleExpr = $this->strlenEndsWithResolver->resolveBinaryOpForFunction($node);
         if (!$contentExprAndNeedleExpr instanceof \Rector\Nette\ValueObject\ContentExprAndNeedleExpr) {

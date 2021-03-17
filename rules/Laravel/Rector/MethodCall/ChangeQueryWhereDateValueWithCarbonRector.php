@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $argValue = $this->matchWhereDateThirdArgValue($node);
         if (!$argValue instanceof \PhpParser\Node\Expr) {
@@ -91,7 +91,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function matchWhereDateThirdArgValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function matchWhereDateThirdArgValue($methodCall) : ?\PhpParser\Node\Expr
     {
         if (!$this->isOnClassMethodCall($methodCall, new \PHPStan\Type\ObjectType('Illuminate\\Database\\Query\\Builder'), 'whereDate')) {
             return null;
@@ -112,7 +115,10 @@ CODE_SAMPLE
         }
         return $argValue;
     }
-    private function changeCompareSignExpr(\PhpParser\Node\Arg $arg) : void
+    /**
+     * @param \PhpParser\Node\Arg $arg
+     */
+    private function changeCompareSignExpr($arg) : void
     {
         if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;
@@ -125,7 +131,11 @@ CODE_SAMPLE
             $string->value = '>=';
         }
     }
-    private function createWhereTimeMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $dateTimeVariable) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \PhpParser\Node\Expr\Variable $dateTimeVariable
+     */
+    private function createWhereTimeMethodCall($methodCall, $dateTimeVariable) : \PhpParser\Node\Expr\MethodCall
     {
         $whereTimeArgs = [$methodCall->args[0], $methodCall->args[1], new \PhpParser\Node\Arg($dateTimeVariable)];
         return new \PhpParser\Node\Expr\MethodCall($methodCall->var, 'whereTime', $whereTimeArgs);

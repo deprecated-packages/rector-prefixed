@@ -37,8 +37,9 @@ final class YieldClassMethodToArrayClassMethodRector extends \Rector\Core\Rector
     private $nodeTransformer;
     /**
      * @param array<class-string, string[]> $methodsByType
+     * @param \Rector\Core\PhpParser\NodeTransformer $nodeTransformer
      */
-    public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer, array $methodsByType = [])
+    public function __construct($nodeTransformer, $methodsByType = [])
     {
         $this->methodsByType = $methodsByType;
         $this->nodeTransformer = $nodeTransformer;
@@ -73,9 +74,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->methodsByType as $type => $methods) {
             if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -98,14 +99,18 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->methodsByType = $configuration[self::METHODS_BY_TYPE] ?? [];
     }
     /**
      * @return Yield_[]
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function collectYieldNodesFromClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function collectYieldNodesFromClassMethod($classMethod) : array
     {
         $yieldNodes = [];
         if ($classMethod->stmts === null) {

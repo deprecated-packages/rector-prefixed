@@ -19,7 +19,10 @@ final class MissingClassConstantReferenceToStringRector extends \Rector\Core\Rec
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -53,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
-     * @param ClassConstFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'class')) {
             return null;

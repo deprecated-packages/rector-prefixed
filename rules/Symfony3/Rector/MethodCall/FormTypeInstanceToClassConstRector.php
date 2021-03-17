@@ -66,7 +66,15 @@ final class FormTypeInstanceToClassConstRector extends \Rector\Core\Rector\Abstr
      * @var FormCollectionAnalyzer
      */
     private $formCollectionAnalyzer;
-    public function __construct(\Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory, \Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher, \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer)
+    /**
+     * @param \Rector\Symfony3\NodeFactory\BuilderFormNodeFactory $builderFormNodeFactory
+     * @param \Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory $configureOptionsNodeFactory
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
+     * @param \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher
+     * @param \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer
+     */
+    public function __construct($builderFormNodeFactory, $configureOptionsNodeFactory, $reflectionProvider, $formAddMethodCallAnalyzer, $formOptionsArrayMatcher, $formCollectionAnalyzer)
     {
         $this->builderFormNodeFactory = $builderFormNodeFactory;
         $this->configureOptionsNodeFactory = $configureOptionsNodeFactory;
@@ -106,9 +114,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->nodeTypeResolver->isObjectTypes($node->var, $this->controllerObjectTypes) && $this->isName($node->name, 'createForm')) {
             return $this->processNewInstance($node, 0, 2);
@@ -122,7 +130,12 @@ CODE_SAMPLE
         }
         return $this->processNewInstance($node, 1, 2);
     }
-    private function processNewInstance(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param int $position
+     * @param int $optionsPosition
+     */
+    private function processNewInstance($methodCall, $position, $optionsPosition) : ?\PhpParser\Node
     {
         if (!isset($methodCall->args[$position])) {
             return null;
@@ -144,7 +157,10 @@ CODE_SAMPLE
         $methodCall->args[$position]->value = $this->nodeFactory->createClassConstReference($argValue->class->toString());
         return $methodCall;
     }
-    private function refactorCollectionOptions(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorCollectionOptions($methodCall) : void
     {
         $optionsArray = $this->formOptionsArrayMatcher->match($methodCall);
         if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
@@ -172,8 +188,12 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $argNodes
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param int $position
+     * @param int $optionsPosition
+     * @param string $className
      */
-    private function moveArgumentsToOptions(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition, string $className, array $argNodes) : ?\PhpParser\Node\Expr\MethodCall
+    private function moveArgumentsToOptions($methodCall, $position, $optionsPosition, $className, $argNodes) : ?\PhpParser\Node\Expr\MethodCall
     {
         $namesToArgs = $this->resolveNamesToArgs($className, $argNodes);
         // set default data in between
@@ -206,8 +226,9 @@ CODE_SAMPLE
     /**
      * @param Arg[] $argNodes
      * @return Arg[]
+     * @param string $className
      */
-    private function resolveNamesToArgs(string $className, array $argNodes) : array
+    private function resolveNamesToArgs($className, $argNodes) : array
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return [];
@@ -224,7 +245,11 @@ CODE_SAMPLE
         }
         return $namesToArgs;
     }
-    private function addBuildFormMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function addBuildFormMethod($class, $classMethod) : void
     {
         $buildFormClassMethod = $class->getMethod('buildForm');
         if ($buildFormClassMethod !== null) {
@@ -234,8 +259,9 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $namesToArgs
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addConfigureOptionsMethod(\PhpParser\Node\Stmt\Class_ $class, array $namesToArgs) : void
+    private function addConfigureOptionsMethod($class, $namesToArgs) : void
     {
         $configureOptionsClassMethod = $class->getMethod('configureOptions');
         if ($configureOptionsClassMethod !== null) {

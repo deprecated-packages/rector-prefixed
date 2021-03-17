@@ -31,7 +31,12 @@ final class RenameVariableToMatchNewTypeRector extends \Rector\Core\Rector\Abstr
      * @var VariableRenamer
      */
     private $variableRenamer;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\VariableRenamer $variableRenamer)
+    /**
+     * @param \Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard
+     * @param \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver
+     * @param \Rector\Naming\VariableRenamer $variableRenamer
+     */
+    public function __construct($breakingVariableRenameGuard, $expectedNameResolver, $variableRenamer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
@@ -69,9 +74,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $hasChanged = \false;
         $assignsOfNew = $this->getAssignsOfNew($node);
@@ -105,8 +110,9 @@ CODE_SAMPLE
     }
     /**
      * @return Assign[]
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function getAssignsOfNew(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function getAssignsOfNew($classMethod) : array
     {
         /** @var Assign[] $assigns */
         $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\Assign::class);

@@ -26,7 +26,10 @@ final class FixClassCaseSensitivityNameRector extends \Rector\Core\Rector\Abstra
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -68,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Name::class];
     }
     /**
-     * @param Name $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $fullyQualifiedName = $this->resolveFullyQualifiedName($node);
         if (!$this->reflectionProvider->hasClass($fullyQualifiedName)) {
@@ -96,7 +99,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Name\FullyQualified($realClassName);
     }
-    private function resolveFullyQualifiedName(\PhpParser\Node\Name $name) : string
+    /**
+     * @param \PhpParser\Node\Name $name
+     */
+    private function resolveFullyQualifiedName($name) : string
     {
         $parent = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // for some reason, Param gets already corrected name

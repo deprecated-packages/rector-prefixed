@@ -38,9 +38,9 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->oldFunctionToNewFunction as $oldFunction => $newFunction) {
             if (!$this->isName($node, $oldFunction)) {
@@ -57,11 +57,14 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @param mixed[] $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $this->oldFunctionToNewFunction = $configuration[self::OLD_FUNCTION_TO_NEW_FUNCTION] ?? [];
     }
-    private function createName(string $newFunction) : \PhpParser\Node\Name
+    /**
+     * @param string $newFunction
+     */
+    private function createName($newFunction) : \PhpParser\Node\Name
     {
         if (\RectorPrefix20210317\Nette\Utils\Strings::contains($newFunction, '\\')) {
             return new \PhpParser\Node\Name\FullyQualified($newFunction);

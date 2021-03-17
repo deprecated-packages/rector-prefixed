@@ -53,7 +53,12 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
      * @var ObjectType
      */
     private $controlObjectType;
-    public function __construct(\Rector\Nette\NodeFinder\ParamFinder $paramFinder, \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
+    /**
+     * @param \Rector\Nette\NodeFinder\ParamFinder $paramFinder
+     * @param \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer
+     * @param \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider
+     */
+    public function __construct($paramFinder, $staticCallAnalyzer, $methodReflectionProvider)
     {
         $this->staticCallAnalyzer = $staticCallAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
@@ -97,7 +102,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|StaticCall|New_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
@@ -110,7 +115,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->isInsideNetteComponentClass($classMethod)) {
             return null;
@@ -120,7 +128,10 @@ CODE_SAMPLE
         }
         return $this->removeClassMethodParams($classMethod);
     }
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\StaticCall
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function refactorStaticCall($staticCall) : ?\PhpParser\Node\Expr\StaticCall
     {
         if (!$this->isInsideNetteComponentClass($staticCall)) {
             return null;
@@ -145,7 +156,10 @@ CODE_SAMPLE
         }
         return $staticCall;
     }
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : \PhpParser\Node\Expr\New_
+    /**
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function refactorNew($new) : \PhpParser\Node\Expr\New_
     {
         $parameterNames = $this->methodReflectionProvider->provideParameterNamesByNew($new);
         foreach ($new->args as $position => $arg) {
@@ -161,7 +175,10 @@ CODE_SAMPLE
         }
         return $new;
     }
-    private function isInsideNetteComponentClass(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function isInsideNetteComponentClass($node) : bool
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -177,7 +194,10 @@ CODE_SAMPLE
         }
         return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
     }
-    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function removeClassMethodParams($classMethod) : \PhpParser\Node\Stmt\ClassMethod
     {
         foreach ($classMethod->params as $param) {
             if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {
@@ -193,7 +213,10 @@ CODE_SAMPLE
         }
         return $classMethod;
     }
-    private function shouldRemoveEmptyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function shouldRemoveEmptyCall($staticCall) : bool
     {
         foreach ($staticCall->args as $arg) {
             if ($this->nodesToRemoveCollector->isNodeRemoved($arg)) {

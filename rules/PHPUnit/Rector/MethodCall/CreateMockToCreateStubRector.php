@@ -30,7 +30,11 @@ final class CreateMockToCreateStubRector extends \Rector\Core\Rector\AbstractRec
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($methodCallManipulator, $testsNodeAnalyzer)
     {
         $this->methodCallManipulator = $methodCallManipulator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -89,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;

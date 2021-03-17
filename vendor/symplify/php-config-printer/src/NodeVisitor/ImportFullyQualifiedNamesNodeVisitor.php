@@ -19,7 +19,10 @@ final class ImportFullyQualifiedNamesNodeVisitor extends \PhpParser\NodeVisitorA
      * @var string[]
      */
     private $nameImports = [];
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\Naming\ClassNaming $classNaming)
+    /**
+     * @param \Symplify\PhpConfigPrinter\Naming\ClassNaming $classNaming
+     */
+    public function __construct($classNaming)
     {
         $this->classNaming = $classNaming;
     }

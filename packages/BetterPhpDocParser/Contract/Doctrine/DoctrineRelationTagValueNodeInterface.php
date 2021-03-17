@@ -8,5 +8,8 @@ interface DoctrineRelationTagValueNodeInterface extends \PHPStan\PhpDocParser\As
 {
     public function getTargetEntity() : ?string;
     public function getFullyQualifiedTargetEntity() : ?string;
-    public function changeTargetEntity(string $targetEntity) : void;
+    /**
+     * @param string $targetEntity
+     */
+    public function changeTargetEntity($targetEntity) : void;
 }

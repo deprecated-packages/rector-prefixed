@@ -58,9 +58,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
-     * @param Catch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\count($node->types) !== 1) {
             return null;
@@ -95,7 +95,12 @@ CODE_SAMPLE
         $this->renameVariableInStmts($node, $oldVariableName, $newVariableName);
         return $node;
     }
-    private function renameVariableInStmts(\PhpParser\Node\Stmt\Catch_ $catch, string $oldVariableName, string $newVariableName) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Catch_ $catch
+     * @param string $oldVariableName
+     * @param string $newVariableName
+     */
+    private function renameVariableInStmts($catch, $oldVariableName, $newVariableName) : void
     {
         $this->traverseNodesWithCallable($catch->stmts, function (\PhpParser\Node $node) use($oldVariableName, $newVariableName) : void {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

@@ -58,7 +58,13 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
      * @var ObjectType
      */
     private $routeListObjectType;
-    public function __construct(\Rector\NetteToSymfony\Routing\ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NetteToSymfony\Route\RouteInfoFactory $routeInfoFactory, \Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory)
+    /**
+     * @param \Rector\NetteToSymfony\Routing\ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator
+     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer
+     * @param \Rector\NetteToSymfony\Route\RouteInfoFactory $routeInfoFactory
+     * @param \Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory
+     */
+    public function __construct($explicitRouteAnnotationDecorator, $returnTypeInferer, $routeInfoFactory, $symfonyRouteTagValueNodeFactory)
     {
         $this->routeInfoFactory = $routeInfoFactory;
         $this->returnTypeInferer = $returnTypeInferer;
@@ -125,9 +131,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->stmts === []) {
             return null;
@@ -158,8 +164,9 @@ CODE_SAMPLE
     }
     /**
      * @return Assign[]
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function resolveAssignRouteNodes(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function resolveAssignRouteNodes($classMethod) : array
     {
         // look for <...>[] = IRoute<Type>
         return $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
@@ -184,7 +191,7 @@ CODE_SAMPLE
      * @param Assign[] $assignNodes
      * @return RouteInfo[]
      */
-    private function createRouteInfosFromAssignNodes(array $assignNodes) : array
+    private function createRouteInfosFromAssignNodes($assignNodes) : array
     {
         $routeInfos = [];
         // collect annotations and target controllers
@@ -197,7 +204,10 @@ CODE_SAMPLE
         }
         return $routeInfos;
     }
-    private function resolveControllerClassMethod(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo
+     */
+    private function resolveControllerClassMethod($routeInfo) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classNode = $this->nodeRepository->findClass($routeInfo->getClass());
         if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
@@ -205,7 +215,10 @@ CODE_SAMPLE
         }
         return $classNode->getMethod($routeInfo->getMethod());
     }
-    private function createSymfonyRoutePhpDocTagValueNode(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode
+    /**
+     * @param \Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo
+     */
+    private function createSymfonyRoutePhpDocTagValueNode($routeInfo) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode
     {
         return $this->symfonyRouteTagValueNodeFactory->createFromItems(['path' => $routeInfo->getPath(), 'methods' => $routeInfo->getHttpMethods()]);
     }
@@ -223,7 +236,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         // not an action method
         if (!$classMethod->isPublic()) {
@@ -240,7 +256,11 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
     }
-    private function resolvePathFromClassAndMethodNodes(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : string
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function resolvePathFromClassAndMethodNodes($class, $classMethod) : string
     {
         /** @var string $presenterName */
         $presenterName = $this->getName($class);

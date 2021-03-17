@@ -24,7 +24,10 @@ final class BinarySwitchToIfElseRector extends \Rector\Core\Rector\AbstractRecto
      * @var SwitchManipulator
      */
     private $switchManipulator;
-    public function __construct(\Rector\Renaming\NodeManipulator\SwitchManipulator $switchManipulator)
+    /**
+     * @param \Rector\Renaming\NodeManipulator\SwitchManipulator $switchManipulator
+     */
+    public function __construct($switchManipulator)
     {
         $this->switchManipulator = $switchManipulator;
     }
@@ -57,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param Switch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\count($node->cases) > 2) {
             return null;

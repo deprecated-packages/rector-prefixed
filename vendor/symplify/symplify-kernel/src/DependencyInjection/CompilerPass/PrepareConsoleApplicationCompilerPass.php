@@ -27,7 +27,10 @@ final class PrepareConsoleApplicationCompilerPass implements \RectorPrefix202103
         // resolve name
         // resolve version
     }
-    private function resolveConsoleApplicationClass(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : ?string
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     */
+    private function resolveConsoleApplicationClass($containerBuilder) : ?string
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             if (!\is_a((string) $definition->getClass(), \RectorPrefix20210317\Symfony\Component\Console\Application::class, \true)) {
@@ -39,8 +42,9 @@ final class PrepareConsoleApplicationCompilerPass implements \RectorPrefix202103
     }
     /**
      * Missing console application? add basic one
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
-    private function registerAutowiredSymfonyConsole(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    private function registerAutowiredSymfonyConsole($containerBuilder) : void
     {
         $containerBuilder->autowire(\RectorPrefix20210317\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class, \RectorPrefix20210317\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class)->setFactory([new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference(\RectorPrefix20210317\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory::class), 'create']);
         $containerBuilder->setAlias(\RectorPrefix20210317\Symfony\Component\Console\Application::class, \RectorPrefix20210317\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class)->setPublic(\true);

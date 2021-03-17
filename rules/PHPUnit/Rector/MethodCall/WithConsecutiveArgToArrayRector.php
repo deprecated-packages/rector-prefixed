@@ -33,7 +33,11 @@ final class WithConsecutiveArgToArrayRector extends \Rector\Core\Rector\Abstract
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($methodCallManipulator, $reflectionProvider)
     {
         $this->methodCallManipulator = $methodCallManipulator;
         $this->reflectionProvider = $reflectionProvider;
@@ -90,9 +94,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'withConsecutive')) {
             return null;
@@ -132,7 +136,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function areAllArgArrayTypes(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function areAllArgArrayTypes($methodCall) : bool
     {
         foreach ($methodCall->args as $arg) {
             $argumentStaticType = $this->getStaticType($arg->value);
@@ -143,7 +150,10 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function inferMockedClassName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function inferMockedClassName($methodCall) : ?string
     {
         $variable = $this->findRootVariableOfChainCall($methodCall);
         if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
@@ -164,7 +174,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function inferMockedMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function inferMockedMethodName($methodCall) : string
     {
         $previousMethodCalls = $this->methodCallManipulator->findMethodCallsIncludingChain($methodCall);
         foreach ($previousMethodCalls as $previouMethodCall) {
@@ -179,7 +192,10 @@ CODE_SAMPLE
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    private function findRootVariableOfChainCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function findRootVariableOfChainCall($methodCall) : ?\PhpParser\Node\Expr\Variable
     {
         $currentMethodCallee = $methodCall->var;
         while (!$currentMethodCallee instanceof \PhpParser\Node\Expr\Variable) {

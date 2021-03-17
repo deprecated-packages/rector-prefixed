@@ -22,7 +22,13 @@ final class ConsoleErrorEvent extends \RectorPrefix20210317\Symfony\Component\Co
 {
     private $error;
     private $exitCode;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output, \Throwable $error, \RectorPrefix20210317\Symfony\Component\Console\Command\Command $command = null)
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Throwable $error
+     * @param \Symfony\Component\Console\Command\Command $command
+     */
+    public function __construct($input, $output, $error, $command = null)
     {
         parent::__construct($command, $input, $output);
         $this->error = $error;
@@ -31,11 +37,17 @@ final class ConsoleErrorEvent extends \RectorPrefix20210317\Symfony\Component\Co
     {
         return $this->error;
     }
-    public function setError(\Throwable $error) : void
+    /**
+     * @param \Throwable $error
+     */
+    public function setError($error) : void
     {
         $this->error = $error;
     }
-    public function setExitCode(int $exitCode) : void
+    /**
+     * @param int $exitCode
+     */
+    public function setExitCode($exitCode) : void
     {
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');

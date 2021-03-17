@@ -14,7 +14,7 @@ final class AutowireInterfacesCompilerPass implements \RectorPrefix20210317\Symf
     /**
      * @param string[] $typesToAutowire
      */
-    public function __construct(array $typesToAutowire)
+    public function __construct($typesToAutowire)
     {
         $this->typesToAutowire = $typesToAutowire;
     }

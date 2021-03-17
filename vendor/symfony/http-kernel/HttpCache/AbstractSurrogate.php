@@ -27,7 +27,7 @@ abstract class AbstractSurrogate implements \RectorPrefix20210317\Symfony\Compon
      * @param array $contentTypes An array of content-type that should be parsed for Surrogate information
      *                            (default: text/html, text/xml, application/xhtml+xml, and application/xml)
      */
-    public function __construct(array $contentTypes = ['text/html', 'text/xml', 'application/xhtml+xml', 'application/xml'])
+    public function __construct($contentTypes = ['text/html', 'text/xml', 'application/xhtml+xml', 'application/xml'])
     {
         $this->contentTypes = $contentTypes;
     }
@@ -94,8 +94,9 @@ abstract class AbstractSurrogate implements \RectorPrefix20210317\Symfony\Compon
     }
     /**
      * Remove the Surrogate from the Surrogate-Control header.
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function removeFromControl(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response)
+    protected function removeFromControl($response)
     {
         if (!$response->headers->has('Surrogate-Control')) {
             return;

@@ -27,7 +27,7 @@ class ChoiceQuestion extends \RectorPrefix20210317\Symfony\Component\Console\Que
      * @param array  $choices  The list of available choices
      * @param mixed  $default  The default answer to return
      */
-    public function __construct(string $question, array $choices, $default = null)
+    public function __construct(string $question, $choices, $default = null)
     {
         if (!$choices) {
             throw new \LogicException('Choice question must have at least 1 choice available.');
@@ -52,8 +52,9 @@ class ChoiceQuestion extends \RectorPrefix20210317\Symfony\Component\Console\Que
      * When multiselect is set to true, multiple choices can be answered.
      *
      * @return $this
+     * @param bool $multiselect
      */
-    public function setMultiselect(bool $multiselect)
+    public function setMultiselect($multiselect)
     {
         $this->multiselect = $multiselect;
         $this->setValidator($this->getDefaultValidator());
@@ -81,8 +82,9 @@ class ChoiceQuestion extends \RectorPrefix20210317\Symfony\Component\Console\Que
      * Sets the prompt for choices.
      *
      * @return $this
+     * @param string $prompt
      */
-    public function setPrompt(string $prompt)
+    public function setPrompt($prompt)
     {
         $this->prompt = $prompt;
         return $this;
@@ -93,8 +95,9 @@ class ChoiceQuestion extends \RectorPrefix20210317\Symfony\Component\Console\Que
      * The error message has a string placeholder (%s) for the invalid value.
      *
      * @return $this
+     * @param string $errorMessage
      */
-    public function setErrorMessage(string $errorMessage)
+    public function setErrorMessage($errorMessage)
     {
         $this->errorMessage = $errorMessage;
         $this->setValidator($this->getDefaultValidator());

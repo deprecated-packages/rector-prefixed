@@ -18,7 +18,10 @@ final class GenerateCommand extends \RectorPrefix20210317\Symplify\PackageBuilde
      * @var DirectoryToMarkdownPrinter
      */
     private $directoryToMarkdownPrinter;
-    public function __construct(\Symplify\RuleDocGenerator\DirectoryToMarkdownPrinter $directoryToMarkdownPrinter)
+    /**
+     * @param \Symplify\RuleDocGenerator\DirectoryToMarkdownPrinter $directoryToMarkdownPrinter
+     */
+    public function __construct($directoryToMarkdownPrinter)
     {
         parent::__construct();
         $this->directoryToMarkdownPrinter = $directoryToMarkdownPrinter;

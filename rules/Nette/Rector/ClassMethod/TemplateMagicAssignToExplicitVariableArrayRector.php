@@ -54,7 +54,16 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
      * @var TemplatePropertyParametersReplacer
      */
     private $templatePropertyParametersReplacer;
-    public function __construct(\Rector\Nette\NodeAnalyzer\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\Nette\NodeFactory\RenderParameterArrayFactory $renderParameterArrayFactory, \Rector\Nette\NodeAnalyzer\ConditionalTemplateAssignReplacer $conditionalTemplateAssignReplacer, \Rector\Nette\NodeAnalyzer\RightAssignTemplateRemover $rightAssignTemplateRemover, \Rector\Nette\NodeAnalyzer\TemplatePropertyParametersReplacer $templatePropertyParametersReplacer)
+    /**
+     * @param \Rector\Nette\NodeAnalyzer\TemplatePropertyAssignCollector $templatePropertyAssignCollector
+     * @param \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer
+     * @param \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer
+     * @param \Rector\Nette\NodeFactory\RenderParameterArrayFactory $renderParameterArrayFactory
+     * @param \Rector\Nette\NodeAnalyzer\ConditionalTemplateAssignReplacer $conditionalTemplateAssignReplacer
+     * @param \Rector\Nette\NodeAnalyzer\RightAssignTemplateRemover $rightAssignTemplateRemover
+     * @param \Rector\Nette\NodeAnalyzer\TemplatePropertyParametersReplacer $templatePropertyParametersReplacer
+     */
+    public function __construct($templatePropertyAssignCollector, $renderMethodAnalyzer, $netteClassAnalyzer, $renderParameterArrayFactory, $conditionalTemplateAssignReplacer, $rightAssignTemplateRemover, $templatePropertyParametersReplacer)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->renderMethodAnalyzer = $renderMethodAnalyzer;
@@ -99,9 +108,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -119,7 +128,10 @@ CODE_SAMPLE
         }
         return $this->refactorForSingleRenderMethodCall($node, $renderMethodCalls[0]);
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($classMethod) : bool
     {
         if (!$this->isNames($classMethod, ['render', 'render*'])) {
             return \true;
@@ -129,7 +141,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall[] $methodCalls
      */
-    private function haveMethodCallsFirstArgument(array $methodCalls) : bool
+    private function haveMethodCallsFirstArgument($methodCalls) : bool
     {
         foreach ($methodCalls as $methodCall) {
             if (!isset($methodCall->args[0])) {
@@ -138,7 +150,11 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function refactorForSingleRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $renderMethodCall) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PhpParser\Node\Expr\MethodCall $renderMethodCall
+     */
+    private function refactorForSingleRenderMethodCall($classMethod, $renderMethodCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $templateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
         $array = $this->renderParameterArrayFactory->createArray($templateParametersAssigns);
@@ -155,8 +171,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall[] $renderMethodCalls
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function refactorForMultipleRenderMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $renderMethodCalls) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function refactorForMultipleRenderMethodCalls($classMethod, $renderMethodCalls) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $magicTemplateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
         if ($magicTemplateParametersAssigns->getTemplateParameterAssigns() === []) {

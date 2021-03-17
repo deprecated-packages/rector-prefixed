@@ -38,7 +38,11 @@ final class RenameClassRector extends \Rector\Core\Rector\AbstractRector impleme
      * @var RenamedClassesDataCollector
      */
     private $renamedClassesDataCollector;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer)
+    /**
+     * @param \Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector
+     * @param \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer
+     */
+    public function __construct($renamedClassesDataCollector, $classRenamer)
     {
         $this->classRenamer = $classRenamer;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
@@ -81,11 +85,14 @@ CODE_SAMPLE
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
         if ($this->oldToNewClasses !== []) {

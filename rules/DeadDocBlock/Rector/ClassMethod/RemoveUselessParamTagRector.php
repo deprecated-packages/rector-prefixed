@@ -23,7 +23,11 @@ final class RemoveUselessParamTagRector extends \Rector\Core\Rector\AbstractRect
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\DeadDocBlock\DeadParamTagValueNodeAnalyzer $deadParamTagValueNodeAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    /**
+     * @param \Rector\DeadDocBlock\DeadParamTagValueNodeAnalyzer $deadParamTagValueNodeAnalyzer
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover
+     */
+    public function __construct($deadParamTagValueNodeAnalyzer, $phpDocTagRemover)
     {
         $this->deadParamTagValueNodeAnalyzer = $deadParamTagValueNodeAnalyzer;
         $this->phpDocTagRemover = $phpDocTagRemover;
@@ -63,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         foreach ($phpDocInfo->getParamTagValueNodes() as $paramTagValueNode) {

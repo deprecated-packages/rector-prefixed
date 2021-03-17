@@ -21,8 +21,9 @@ final class FileNode extends \PhpParser\NodeAbstract
     private $fileInfo;
     /**
      * @param Node[] $stmts
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function __construct(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, array $stmts)
+    public function __construct($fileInfo, $stmts)
     {
         parent::__construct();
         $this->fileInfo = $fileInfo;

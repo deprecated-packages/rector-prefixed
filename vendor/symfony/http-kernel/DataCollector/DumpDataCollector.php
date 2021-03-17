@@ -43,8 +43,11 @@ class DumpDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
     /**
      * @param string|FileLinkFormatter|null       $fileLinkFormat
      * @param DataDumperInterface|Connection|null $dumper
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param string $charset
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, string $charset = null, \RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
+    public function __construct($stopwatch = null, $fileLinkFormat = null, $charset = null, $requestStack = null, $dumper = null)
     {
         $this->stopwatch = $stopwatch;
         $this->fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
@@ -59,7 +62,10 @@ class DumpDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
     {
         $this->clonesIndex = ++$this->clonesCount;
     }
-    public function dump(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Data $data)
+    /**
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
+     */
+    public function dump($data)
     {
         if ($this->stopwatch) {
             $this->stopwatch->start('dump');
@@ -83,7 +89,12 @@ class DumpDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
             $this->stopwatch->stop('dump');
         }
     }
-    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable $exception
+     */
+    public function collect($request, $response, $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];
@@ -205,7 +216,13 @@ class DumpDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKern
             $this->dataCount = 0;
         }
     }
-    private function doDump(\RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, $data, string $name, string $file, int $line)
+    /**
+     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
+     * @param string $name
+     * @param string $file
+     * @param int $line
+     */
+    private function doDump($dumper, $data, $name, $file, $line)
     {
         if ($dumper instanceof \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {

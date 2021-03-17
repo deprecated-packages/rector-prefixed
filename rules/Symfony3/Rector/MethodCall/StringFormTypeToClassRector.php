@@ -30,7 +30,11 @@ final class StringFormTypeToClassRector extends \Rector\Core\Rector\AbstractRect
      * @var FormTypeStringToTypeProvider
      */
     private $formTypeStringToTypeProvider;
-    public function __construct(\Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\FormHelper\FormTypeStringToTypeProvider $formTypeStringToTypeProvider)
+    /**
+     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
+     * @param \Rector\Symfony3\FormHelper\FormTypeStringToTypeProvider $formTypeStringToTypeProvider
+     */
+    public function __construct($formAddMethodCallAnalyzer, $formTypeStringToTypeProvider)
     {
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formTypeStringToTypeProvider = $formTypeStringToTypeProvider;
@@ -55,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;

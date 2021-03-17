@@ -30,7 +30,11 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    /**
+     * @param \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier
+     * @param \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper
+     */
+    public function __construct($objectTypeSpecifier, $scalarStringToTypeMapper)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
@@ -70,7 +74,10 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         $objectType = new \PHPStan\Type\ObjectType($typeNode->name);
         return $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, $objectType);
     }
-    private function mapSelf(\PhpParser\Node $node) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function mapSelf($node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -80,7 +87,10 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         }
         return new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($className);
     }
-    private function mapParent(\PhpParser\Node $node) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function mapParent($node) : \PHPStan\Type\Type
     {
         /** @var string|null $parentClassName */
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
@@ -89,7 +99,10 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         }
         return new \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType($parentClassName);
     }
-    private function mapStatic(\PhpParser\Node $node) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function mapStatic($node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

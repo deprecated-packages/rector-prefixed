@@ -8,7 +8,10 @@ class Transformations implements \RectorPrefix20210317\Doctrine\Inflector\WordIn
 {
     /** @var Transformation[] */
     private $transformations;
-    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\Rules\Transformation ...$transformations)
+    /**
+     * @param \Doctrine\Inflector\Rules\Transformation ...$transformations
+     */
+    public function __construct(...$transformations)
     {
         $this->transformations = $transformations;
     }

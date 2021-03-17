@@ -39,7 +39,10 @@ final class AssignArrayToStringRector extends \Rector\Core\Rector\AbstractRector
      * @var EmptyStringDefaultPropertyFinder
      */
     private $emptyStringDefaultPropertyFinder;
-    public function __construct(\Rector\Php71\NodeFinder\EmptyStringDefaultPropertyFinder $emptyStringDefaultPropertyFinder)
+    /**
+     * @param \Rector\Php71\NodeFinder\EmptyStringDefaultPropertyFinder $emptyStringDefaultPropertyFinder
+     */
+    public function __construct($emptyStringDefaultPropertyFinder)
     {
         $this->emptyStringDefaultPropertyFinder = $emptyStringDefaultPropertyFinder;
     }
@@ -63,9 +66,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->emptyStringProperties = $this->emptyStringDefaultPropertyFinder->find($node);
         // only array with no explicit key assign, e.g. "$value[] = 5";
@@ -95,7 +98,7 @@ CODE_SAMPLE
     /**
      * @param PropertyFetch|StaticPropertyFetch $propertyFetchExpr
      */
-    private function refactorPropertyFetch(\PhpParser\Node\Expr $propertyFetchExpr) : bool
+    private function refactorPropertyFetch($propertyFetchExpr) : bool
     {
         foreach ($this->emptyStringProperties as $emptyStringProperty) {
             if (!$this->nodeNameResolver->areNamesEqual($emptyStringProperty, $propertyFetchExpr)) {
@@ -108,8 +111,9 @@ CODE_SAMPLE
     }
     /**
      * @param Variable|PropertyFetch|StaticPropertyFetch|Expr $expr
+     * @param \PhpParser\Node\Expr\Assign $assign
      */
-    private function processVariable(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr $expr) : bool
+    private function processVariable($assign, $expr) : bool
     {
         if ($this->shouldSkipVariable($expr)) {
             return \true;
@@ -133,7 +137,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function shouldSkipVariable(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function shouldSkipVariable($expr) : bool
     {
         $staticType = $this->getStaticType($expr);
         if ($staticType instanceof \PHPStan\Type\ErrorType) {

@@ -37,7 +37,12 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($entityIdNodeFactory, $classInsertManipulator, $reflectionProvider)
     {
         $this->entityIdNodeFactory = $entityIdNodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -79,9 +84,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -90,11 +95,17 @@ CODE_SAMPLE
         $this->classInsertManipulator->addAsFirstMethod($node, $idProperty);
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->detectedTraits = $configuration[self::DETECTED_TRAITS] ?? [];
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function shouldSkip($class) : bool
     {
         if ($this->classAnalyzer->isAnonymousClass($class)) {
             return \true;
@@ -104,7 +115,10 @@ CODE_SAMPLE
         }
         return (bool) $class->getProperty('id');
     }
-    private function isTraitMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function isTraitMatch($class) : bool
     {
         $className = $this->getName($class);
         if ($className === null) {

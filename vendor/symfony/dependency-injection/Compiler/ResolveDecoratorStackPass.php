@@ -23,7 +23,10 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
 class ResolveDecoratorStackPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $tag;
-    public function __construct(string $tag = 'container.stack')
+    /**
+     * @param string $tag
+     */
+    public function __construct($tag = 'container.stack')
     {
         $this->tag = $tag;
     }
@@ -62,7 +65,11 @@ class ResolveDecoratorStackPass implements \RectorPrefix20210317\Symfony\Compone
         }
         $container->setDefinitions($resolvedDefinitions);
     }
-    private function resolveStack(array $stacks, array $path) : array
+    /**
+     * @param mixed[] $stacks
+     * @param mixed[] $path
+     */
+    private function resolveStack($stacks, $path) : array
     {
         $definitions = [];
         $id = \end($path);

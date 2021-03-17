@@ -17,7 +17,11 @@ final class PropertyFetchReadNodeAnalyzer implements \Rector\ReadWrite\Contract\
      * @var NodeUsageFinder
      */
     private $nodeUsageFinder;
-    public function __construct(\Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer, \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder)
+    /**
+     * @param \Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer
+     * @param \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder
+     */
+    public function __construct($readExprAnalyzer, $nodeUsageFinder)
     {
         $this->readExprAnalyzer = $readExprAnalyzer;
         $this->nodeUsageFinder = $nodeUsageFinder;

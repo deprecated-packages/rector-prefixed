@@ -23,11 +23,17 @@ use RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterf
 class ErrorListener implements \RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $logger;
-    public function __construct(\RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null)
+    /**
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct($logger = null)
     {
         $this->logger = $logger;
     }
-    public function onConsoleError(\RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleErrorEvent $event)
+    /**
+     * @param \Symfony\Component\Console\Event\ConsoleErrorEvent $event
+     */
+    public function onConsoleError($event)
     {
         if (null === $this->logger) {
             return;
@@ -39,7 +45,10 @@ class ErrorListener implements \RectorPrefix20210317\Symfony\Component\EventDisp
         }
         $this->logger->critical('Error thrown while running command "{command}". Message: "{message}"', ['exception' => $error, 'command' => $inputString, 'message' => $error->getMessage()]);
     }
-    public function onConsoleTerminate(\RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleTerminateEvent $event)
+    /**
+     * @param \Symfony\Component\Console\Event\ConsoleTerminateEvent $event
+     */
+    public function onConsoleTerminate($event)
     {
         if (null === $this->logger) {
             return;
@@ -58,7 +67,10 @@ class ErrorListener implements \RectorPrefix20210317\Symfony\Component\EventDisp
     {
         return [\RectorPrefix20210317\Symfony\Component\Console\ConsoleEvents::ERROR => ['onConsoleError', -128], \RectorPrefix20210317\Symfony\Component\Console\ConsoleEvents::TERMINATE => ['onConsoleTerminate', -128]];
     }
-    private static function getInputString(\RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleEvent $event) : ?string
+    /**
+     * @param \Symfony\Component\Console\Event\ConsoleEvent $event
+     */
+    private static function getInputString($event) : ?string
     {
         $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
         $input = $event->getInput();

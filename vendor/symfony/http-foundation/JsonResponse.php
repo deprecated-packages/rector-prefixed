@@ -35,7 +35,7 @@ class JsonResponse extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      * @param array $headers An array of response headers
      * @param bool  $json    If the data is already a JSON string
      */
-    public function __construct($data = null, int $status = 200, array $headers = [], bool $json = \false)
+    public function __construct($data = null, int $status = 200, array $headers = [], $json = \false)
     {
         parent::__construct('', $status, $headers);
         if ($json && !\is_string($data) && !\is_numeric($data) && !\is_callable([$data, '__toString'])) {
@@ -81,20 +81,20 @@ class JsonResponse extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      *
      * @return static
      */
-    public static function fromJsonString(string $data, int $status = 200, array $headers = [])
+    public static function fromJsonString($data, $status = 200, $headers = [])
     {
         return new static($data, $status, $headers, \true);
     }
     /**
      * Sets the JSONP callback.
      *
-     * @param string|null $callback The JSONP callback or null to use none
+     * @param string $callback The JSONP callback or null to use none
      *
      * @return $this
      *
      * @throws \InvalidArgumentException When the callback name is not valid
      */
-    public function setCallback(string $callback = null)
+    public function setCallback($callback = null)
     {
         if (null !== $callback) {
             // partially taken from https://geekality.net/2011/08/03/valid-javascript-identifier/
@@ -117,8 +117,9 @@ class JsonResponse extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      * Sets a raw string containing a JSON document to be sent.
      *
      * @return $this
+     * @param string $json
      */
-    public function setJson(string $json)
+    public function setJson($json)
     {
         $this->data = $json;
         return $this->update();
@@ -163,8 +164,9 @@ class JsonResponse extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      * Sets options used while encoding data to JSON.
      *
      * @return $this
+     * @param int $encodingOptions
      */
-    public function setEncodingOptions(int $encodingOptions)
+    public function setEncodingOptions($encodingOptions)
     {
         $this->encodingOptions = $encodingOptions;
         return $this->setData(\json_decode($this->data));

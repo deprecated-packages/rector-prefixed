@@ -31,7 +31,11 @@ final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @param \Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     */
+    public function __construct($typeComparator, $phpDocTypeChanger)
     {
         $this->typeComparator = $typeComparator;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -63,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param ClassConst $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\count($node->consts) > 1) {
             return null;
@@ -84,7 +88,10 @@ CODE_SAMPLE
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $constType);
         return $node;
     }
-    private function hasTwoAndMoreGenericClassStringTypes(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
+    /**
+     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
+     */
+    private function hasTwoAndMoreGenericClassStringTypes($constantArrayType) : bool
     {
         $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($constantArrayType);
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
@@ -103,8 +110,10 @@ CODE_SAMPLE
     }
     /**
      * Skip big arrays and mixed[] constants
+     * @param \PHPStan\Type\Type $constType
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function shouldSkipConstantArrayType(\PHPStan\Type\Type $constType, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    private function shouldSkipConstantArrayType($constType, $phpDocInfo) : bool
     {
         if (!$constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
@@ -118,7 +127,10 @@ CODE_SAMPLE
         }
         return $this->isHugeNestedConstantArrayTyp($constType);
     }
-    private function isHugeNestedConstantArrayTyp(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
+    /**
+     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
+     */
+    private function isHugeNestedConstantArrayTyp($constantArrayType) : bool
     {
         if (\count($constantArrayType->getValueTypes()) <= 3) {
             return \false;

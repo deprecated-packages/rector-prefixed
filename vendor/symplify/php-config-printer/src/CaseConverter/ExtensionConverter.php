@@ -25,7 +25,11 @@ final class ExtensionConverter implements \RectorPrefix20210317\Symplify\PhpConf
      * @var YamlKey
      */
     private $yamlKey;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
+     * @param \Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey
+     */
+    public function __construct($argsNodeFactory, $yamlKey)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlKey = $yamlKey;

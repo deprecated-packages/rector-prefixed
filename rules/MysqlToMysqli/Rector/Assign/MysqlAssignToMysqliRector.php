@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
@@ -76,7 +76,11 @@ CODE_SAMPLE
         }
         return $this->processFieldToFieldDirect($node, $funcCallNode);
     }
-    private function processMysqlTableName(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlTableName($assign, $funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall->name = new \PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
         $newFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('mysql_fetch_array'), [$funcCall->args[0]]);
@@ -84,7 +88,11 @@ CODE_SAMPLE
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processMysqlDbName(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlDbName($assign, $funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall->name = new \PhpParser\Node\Name(self::MYSQLI_DATA_SEEK);
         $mysqlFetchRowFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('mysqli_fetch_row'), [$funcCall->args[0]]);
@@ -95,7 +103,11 @@ CODE_SAMPLE
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processMysqliSelectDb(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqliSelectDb($assign, $funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall->name = new \PhpParser\Node\Name('mysqli_select_db');
         $newAssignNode = new \PhpParser\Node\Expr\Assign($assign->var, new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('mysqli_query'), [$funcCall->args[1]]));
@@ -103,7 +115,11 @@ CODE_SAMPLE
         unset($funcCall->args[1]);
         return $funcCall;
     }
-    private function processMysqlFetchField(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\Assign
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlFetchField($assign, $funcCall) : \PhpParser\Node\Expr\Assign
     {
         if (isset($funcCall->args[1])) {
             $funcCall->name = new \PhpParser\Node\Name('mysqli_fetch_field_direct');
@@ -112,7 +128,11 @@ CODE_SAMPLE
         }
         return $assign;
     }
-    private function processMysqlResult(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlResult($assign, $funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $fetchField = null;
         if (isset($funcCall->args[2])) {
@@ -128,7 +148,11 @@ CODE_SAMPLE
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    private function processFieldToFieldDirect(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\Assign
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processFieldToFieldDirect($assign, $funcCall) : ?\PhpParser\Node\Expr\Assign
     {
         foreach (self::FIELD_TO_FIELD_DIRECT as $funcName => $property) {
             if ($this->isName($funcCall, $funcName)) {

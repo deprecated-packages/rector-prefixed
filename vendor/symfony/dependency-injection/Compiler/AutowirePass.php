@@ -36,7 +36,10 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     private $decoratedMethodIndex;
     private $decoratedMethodArgumentIndex;
     private $typesClone;
-    public function __construct(bool $throwOnAutowireException = \true)
+    /**
+     * @param bool $throwOnAutowireException
+     */
+    public function __construct($throwOnAutowireException = \true)
     {
         $this->throwOnAutowiringException = $throwOnAutowireException;
     }
@@ -60,8 +63,9 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         try {
             return $this->doProcessValue($value, $isRoot);
@@ -75,8 +79,9 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * @return mixed
+     * @param bool $isRoot
      */
-    private function doProcessValue($value, bool $isRoot = \false)
+    private function doProcessValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference) {
             if ($ref = $this->getAutowiredReference($value)) {
@@ -118,7 +123,11 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
         }
         return $value;
     }
-    private function autowireCalls(\ReflectionClass $reflectionClass, bool $isRoot) : array
+    /**
+     * @param \ReflectionClass $reflectionClass
+     * @param bool $isRoot
+     */
+    private function autowireCalls($reflectionClass, $isRoot) : array
     {
         $this->decoratedId = null;
         $this->decoratedClass = null;
@@ -155,8 +164,10 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
      * @return array The autowired arguments
      *
      * @throws AutowiringFailedException
+     * @param \ReflectionFunctionAbstract $reflectionMethod
+     * @param mixed[] $arguments
      */
-    private function autowireMethod(\ReflectionFunctionAbstract $reflectionMethod, array $arguments) : array
+    private function autowireMethod($reflectionMethod, $arguments) : array
     {
         $class = $reflectionMethod instanceof \ReflectionMethod ? $reflectionMethod->class : $this->currentId;
         $method = $reflectionMethod->name;
@@ -234,8 +245,9 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * Returns a reference to the service matching the given type, if any.
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
      */
-    private function getAutowiredReference(\RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference $reference) : ?\RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference
+    private function getAutowiredReference($reference) : ?\RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference
     {
         $this->lastFailure = null;
         $type = $reference->getType();
@@ -261,8 +273,9 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * Populates the list of available types.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    private function populateAvailableTypes(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    private function populateAvailableTypes($container)
     {
         $this->types = [];
         $this->ambiguousServiceTypes = [];
@@ -272,8 +285,11 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * Populates the list of available types for a given definition.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    private function populateAvailableType(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition)
+    private function populateAvailableType($container, $id, $definition)
     {
         // Never use abstract services
         if ($definition->isAbstract()) {
@@ -291,8 +307,10 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * Associates a type and a service id if applicable.
+     * @param string $type
+     * @param string $id
      */
-    private function set(string $type, string $id)
+    private function set($type, $id)
     {
         // is this already a type/class that is known to match multiple services?
         if (isset($this->ambiguousServiceTypes[$type])) {
@@ -311,7 +329,11 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
         }
         $this->ambiguousServiceTypes[$type][] = $id;
     }
-    private function createTypeNotFoundMessageCallback(\RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference $reference, string $label) : callable
+    /**
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
+     * @param string $label
+     */
+    private function createTypeNotFoundMessageCallback($reference, $label) : callable
     {
         if (null === $this->typesClone->container) {
             $this->typesClone->container = new \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder($this->container->getParameterBag());
@@ -324,7 +346,12 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
             return $this->createTypeNotFoundMessage($reference, $label, $currentId);
         })->bindTo($this->typesClone);
     }
-    private function createTypeNotFoundMessage(\RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference $reference, string $label, string $currentId) : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
+     * @param string $label
+     * @param string $currentId
+     */
+    private function createTypeNotFoundMessage($reference, $label, $currentId) : string
     {
         if (!($r = $this->container->getReflectionClass($type = $reference->getType(), \false))) {
             // either $type does not exist or a parent class does not exist
@@ -352,7 +379,11 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
         }
         return $message;
     }
-    private function createTypeAlternatives(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, \RectorPrefix20210317\Symfony\Component\DependencyInjection\TypedReference $reference) : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
+     */
+    private function createTypeAlternatives($container, $reference) : string
     {
         // try suggesting available aliases first
         if ($message = $this->getAliasesSuggestionForType($container, $type = $reference->getType())) {
@@ -373,7 +404,11 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
         }
         return \sprintf(' You should maybe alias this %s to %s.', \class_exists($type, \false) ? 'class' : 'interface', $message);
     }
-    private function getAliasesSuggestionForType(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type) : ?string
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param string $type
+     */
+    private function getAliasesSuggestionForType($container, $type) : ?string
     {
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {

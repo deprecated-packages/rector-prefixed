@@ -66,9 +66,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'version_compare')) {
             return null;
@@ -86,21 +86,30 @@ CODE_SAMPLE
         $comparisonClass = self::OPERATOR_TO_COMPARISON[$operator->value];
         return new $comparisonClass($left, $right);
     }
-    private function isPhpVersionConstant(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function isPhpVersionConstant($expr) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\ConstFetch) {
             return \false;
         }
         return $expr->name->toString() === 'PHP_VERSION';
     }
-    private function getNewNodeForArg(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function getNewNodeForArg($expr) : \PhpParser\Node\Expr
     {
         if ($this->isPhpVersionConstant($expr)) {
             return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PHP_VERSION_ID'));
         }
         return $this->getVersionNumberFormVersionString($expr);
     }
-    private function getVersionNumberFormVersionString(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Scalar\LNumber
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function getVersionNumberFormVersionString($expr) : \PhpParser\Node\Scalar\LNumber
     {
         if (!$expr instanceof \PhpParser\Node\Scalar\String_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

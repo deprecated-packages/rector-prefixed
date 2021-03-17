@@ -21,7 +21,12 @@ class ServiceLocator extends \RectorPrefix20210317\Symfony\Component\DependencyI
     private $factory;
     private $serviceMap;
     private $serviceTypes;
-    public function __construct(\Closure $factory, array $serviceMap, array $serviceTypes = null)
+    /**
+     * @param \Closure $factory
+     * @param mixed[] $serviceMap
+     * @param mixed[] $serviceTypes
+     */
+    public function __construct($factory, $serviceMap, $serviceTypes = null)
     {
         $this->factory = $factory;
         $this->serviceMap = $serviceMap;

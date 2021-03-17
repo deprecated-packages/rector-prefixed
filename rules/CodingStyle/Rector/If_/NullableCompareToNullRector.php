@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->cond instanceof \PhpParser\Node\Expr\BooleanNot && $this->isNullableNonScalarType($node->cond->expr)) {
             $node->cond = new \PhpParser\Node\Expr\BinaryOp\Identical($node->cond->expr, $this->nodeFactory->createNull());
@@ -66,7 +66,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function isNullableNonScalarType(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function isNullableNonScalarType($node) : bool
     {
         $staticType = $this->getStaticType($node);
         if ($staticType instanceof \PHPStan\Type\MixedType) {

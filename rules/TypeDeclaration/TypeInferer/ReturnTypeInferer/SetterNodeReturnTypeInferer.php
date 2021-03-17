@@ -26,13 +26,21 @@ final class SetterNodeReturnTypeInferer implements \Rector\TypeDeclaration\Contr
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \Rector\Core\NodeManipulator\FunctionLikeManipulator $functionLikeManipulator, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer
+     * @param \Rector\Core\NodeManipulator\FunctionLikeManipulator $functionLikeManipulator
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     */
+    public function __construct($assignToPropertyTypeInferer, $functionLikeManipulator, $typeFactory)
     {
         $this->functionLikeManipulator = $functionLikeManipulator;
         $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
         $this->typeFactory = $typeFactory;
     }
-    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\FunctionLike $functionLike
+     */
+    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
     {
         $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

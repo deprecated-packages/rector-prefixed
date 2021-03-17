@@ -31,7 +31,11 @@ final class RestoreFullyQualifiedNameRector extends \Rector\Core\Rector\Abstract
      * @var PhpDocTypeNodeNameMatcher
      */
     private $phpDocTypeNodeNameMatcher;
-    public function __construct(\Rector\Restoration\NameMatcher\FullyQualifiedNameMatcher $fullyQualifiedNameMatcher, \Rector\Restoration\NameMatcher\PhpDocTypeNodeNameMatcher $phpDocTypeNodeNameMatcher)
+    /**
+     * @param \Rector\Restoration\NameMatcher\FullyQualifiedNameMatcher $fullyQualifiedNameMatcher
+     * @param \Rector\Restoration\NameMatcher\PhpDocTypeNodeNameMatcher $phpDocTypeNodeNameMatcher
+     */
+    public function __construct($fullyQualifiedNameMatcher, $phpDocTypeNodeNameMatcher)
     {
         $this->fullyQualifiedNameMatcher = $fullyQualifiedNameMatcher;
         $this->phpDocTypeNodeNameMatcher = $phpDocTypeNodeNameMatcher;
@@ -64,7 +68,7 @@ CODE_SAMPLE
     /**
      * @param Use_|Param|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             return $this->refactoryUse($node);
@@ -74,7 +78,10 @@ CODE_SAMPLE
         }
         return $this->refactorClassMethod($node);
     }
-    private function refactoryUse(\PhpParser\Node\Stmt\Use_ $use) : \PhpParser\Node\Stmt\Use_
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     */
+    private function refactoryUse($use) : \PhpParser\Node\Stmt\Use_
     {
         foreach ($use->uses as $useUse) {
             $name = $useUse->name;
@@ -86,7 +93,10 @@ CODE_SAMPLE
         }
         return $use;
     }
-    private function refactorParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Param
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    private function refactorParam($param) : ?\PhpParser\Node\Param
     {
         $name = $param->type;
         if (!$name instanceof \PhpParser\Node\Name) {
@@ -99,7 +109,10 @@ CODE_SAMPLE
         $param->type = $fullyQualified;
         return $param;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $this->refactorReturnTagValueNode($classMethod);
         $returnType = $classMethod->returnType;
@@ -113,7 +126,10 @@ CODE_SAMPLE
         $classMethod->returnType = $fullyQualified;
         return $classMethod;
     }
-    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorReturnTagValueNode($classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();

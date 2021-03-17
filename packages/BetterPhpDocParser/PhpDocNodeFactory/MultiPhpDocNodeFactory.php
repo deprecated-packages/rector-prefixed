@@ -65,7 +65,11 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
      * @var TagValueNodePrinter
      */
     private $tagValueNodePrinter;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter)
     {
         $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
         $this->tagValueNodePrinter = $tagValueNodePrinter;
@@ -125,7 +129,12 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
             \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddedTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Embedded',
         ];
     }
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
+     * @param string $annotationClass
+     */
+    public function createFromNodeAndTokens($node, $tokenIterator, $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         $annotation = $this->nodeAnnotationReader->readAnnotation($node, $annotationClass);
         if ($annotation === null) {
@@ -147,8 +156,9 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
     }
     /**
      * @param ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation
+     * @param \PhpParser\Node $node
      */
-    private function resolveEntityClass(object $annotation, \PhpParser\Node $node) : string
+    private function resolveEntityClass($annotation, $node) : string
     {
         if ($annotation instanceof \Doctrine\ORM\Mapping\Embedded) {
             return $this->resolveFqnTargetEntity($annotation->class, $node);

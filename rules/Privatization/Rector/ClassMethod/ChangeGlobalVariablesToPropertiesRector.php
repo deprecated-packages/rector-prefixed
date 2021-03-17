@@ -30,7 +30,10 @@ final class ChangeGlobalVariablesToPropertiesRector extends \Rector\Core\Rector\
      * @var PropertyToAddCollector
      */
     private $propertyToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+    /**
+     * @param \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector
+     */
+    public function __construct($propertyToAddCollector)
     {
         $this->propertyToAddCollector = $propertyToAddCollector;
     }
@@ -77,9 +80,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -94,7 +97,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function collectGlobalVariableNamesAndRefactorToPropertyFetch($classMethod) : void
     {
         $this->globalVariableNames = [];
         $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?PropertyFetch {
@@ -108,7 +114,10 @@ CODE_SAMPLE
             return null;
         });
     }
-    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Global_ $global
+     */
+    private function refactorGlobal($global) : void
     {
         foreach ($global->vars as $var) {
             $varName = $this->getName($var);
@@ -119,7 +128,10 @@ CODE_SAMPLE
         }
         $this->removeNode($global);
     }
-    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     */
+    private function refactorGlobalVariable($variable) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         if (!$this->isNames($variable, $this->globalVariableNames)) {
             return null;

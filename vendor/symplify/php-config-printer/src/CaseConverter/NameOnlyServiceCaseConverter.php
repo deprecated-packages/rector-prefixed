@@ -17,7 +17,10 @@ final class NameOnlyServiceCaseConverter implements \RectorPrefix20210317\Sympli
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory
+     */
+    public function __construct($commonNodeFactory)
     {
         $this->commonNodeFactory = $commonNodeFactory;
     }

@@ -42,7 +42,13 @@ final class NewFluentChainMethodCallToNonFluentRector extends \Rector\Core\Recto
      * @var FluentMethodCallSkipper
      */
     private $fluentMethodCallSkipper;
-    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover, \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper)
+    /**
+     * @param \Symplify\PackageBuilder\Php\TypeChecker $typeChecker
+     * @param \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover
+     * @param \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher
+     * @param \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper
+     */
+    public function __construct($typeChecker, $fluentNodeRemover, $assignAndRootExprAndNodesToAddMatcher, $fluentMethodCallSkipper)
     {
         $this->typeChecker = $typeChecker;
         $this->fluentNodeRemover = $fluentNodeRemover;
@@ -70,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // handled by another rule
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

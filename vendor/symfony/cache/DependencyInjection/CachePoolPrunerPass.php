@@ -23,7 +23,11 @@ class CachePoolPrunerPass implements \RectorPrefix20210317\Symfony\Component\Dep
 {
     private $cacheCommandServiceId;
     private $cachePoolTag;
-    public function __construct(string $cacheCommandServiceId = 'console.command.cache_pool_prune', string $cachePoolTag = 'cache.pool')
+    /**
+     * @param string $cacheCommandServiceId
+     * @param string $cachePoolTag
+     */
+    public function __construct($cacheCommandServiceId = 'console.command.cache_pool_prune', $cachePoolTag = 'cache.pool')
     {
         $this->cacheCommandServiceId = $cacheCommandServiceId;
         $this->cachePoolTag = $cachePoolTag;

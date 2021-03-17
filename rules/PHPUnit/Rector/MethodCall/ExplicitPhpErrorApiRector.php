@@ -33,7 +33,11 @@ final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractRector
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($assertCallFactory, $testsNodeAnalyzer)
     {
         $this->assertCallFactory = $assertCallFactory;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -76,7 +80,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['expectException'])) {
             return null;
@@ -91,8 +95,10 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @param string $exceptionClass
+     * @param string $explicitMethod
      */
-    private function replaceExceptionWith(\PhpParser\Node $node, string $exceptionClass, string $explicitMethod) : ?\PhpParser\Node
+    private function replaceExceptionWith($node, $exceptionClass, $explicitMethod) : ?\PhpParser\Node
     {
         if (!isset($node->args[0])) {
             return null;
@@ -104,8 +110,10 @@ CODE_SAMPLE
     }
     /**
      * Detects "SomeClass::class"
+     * @param \PhpParser\Node\Expr $expr
+     * @param string $className
      */
-    private function isClassConstReference(\PhpParser\Node\Expr $expr, string $className) : bool
+    private function isClassConstReference($expr, $className) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return \false;

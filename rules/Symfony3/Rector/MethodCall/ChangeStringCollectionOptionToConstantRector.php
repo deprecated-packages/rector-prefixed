@@ -39,7 +39,13 @@ final class ChangeStringCollectionOptionToConstantRector extends \Rector\Core\Re
      * @var FormCollectionAnalyzer
      */
     private $formCollectionAnalyzer;
-    public function __construct(\Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher, \Rector\Symfony3\FormHelper\FormTypeStringToTypeProvider $formTypeStringToTypeProvider, \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer)
+    /**
+     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
+     * @param \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher
+     * @param \Rector\Symfony3\FormHelper\FormTypeStringToTypeProvider $formTypeStringToTypeProvider
+     * @param \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer
+     */
+    public function __construct($formAddMethodCallAnalyzer, $formOptionsArrayMatcher, $formTypeStringToTypeProvider, $formCollectionAnalyzer)
     {
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
@@ -96,9 +102,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
@@ -112,7 +118,11 @@ CODE_SAMPLE
         }
         return $this->processChangeToConstant($optionsArray, $node);
     }
-    private function processChangeToConstant(\PhpParser\Node\Expr\Array_ $optionsArray, \PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $optionsArray
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processChangeToConstant($optionsArray, $methodCall) : ?\PhpParser\Node
     {
         foreach ($optionsArray->items as $optionsArrayItem) {
             if ($optionsArrayItem === null) {

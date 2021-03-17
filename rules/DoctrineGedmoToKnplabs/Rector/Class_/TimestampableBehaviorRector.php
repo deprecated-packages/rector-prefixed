@@ -22,7 +22,10 @@ final class TimestampableBehaviorRector extends \Rector\Core\Rector\AbstractRect
      * @var ClassManipulator
      */
     private $classManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
+     */
+    public function __construct($classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
@@ -55,9 +58,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->classManipulator->hasTrait($node, 'Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
             return null;

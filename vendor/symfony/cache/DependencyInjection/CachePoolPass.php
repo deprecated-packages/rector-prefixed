@@ -35,7 +35,18 @@ class CachePoolPass implements \RectorPrefix20210317\Symfony\Component\Dependenc
     private $reverseContainerId;
     private $reversibleTag;
     private $messageHandlerId;
-    public function __construct(string $cachePoolTag = 'cache.pool', string $kernelResetTag = 'kernel.reset', string $cacheClearerId = 'cache.global_clearer', string $cachePoolClearerTag = 'cache.pool.clearer', string $cacheSystemClearerId = 'cache.system_clearer', string $cacheSystemClearerTag = 'kernel.cache_clearer', string $reverseContainerId = 'reverse_container', string $reversibleTag = 'container.reversible', string $messageHandlerId = 'cache.early_expiration_handler')
+    /**
+     * @param string $cachePoolTag
+     * @param string $kernelResetTag
+     * @param string $cacheClearerId
+     * @param string $cachePoolClearerTag
+     * @param string $cacheSystemClearerId
+     * @param string $cacheSystemClearerTag
+     * @param string $reverseContainerId
+     * @param string $reversibleTag
+     * @param string $messageHandlerId
+     */
+    public function __construct($cachePoolTag = 'cache.pool', $kernelResetTag = 'kernel.reset', $cacheClearerId = 'cache.global_clearer', $cachePoolClearerTag = 'cache.pool.clearer', $cacheSystemClearerId = 'cache.system_clearer', $cacheSystemClearerTag = 'kernel.cache_clearer', $reverseContainerId = 'reverse_container', $reversibleTag = 'container.reversible', $messageHandlerId = 'cache.early_expiration_handler')
     {
         $this->cachePoolTag = $cachePoolTag;
         $this->kernelResetTag = $kernelResetTag;
@@ -187,14 +198,19 @@ class CachePoolPass implements \RectorPrefix20210317\Symfony\Component\Dependenc
             $container->getDefinition('console.command.cache_pool_list')->replaceArgument(0, \array_keys($allPools));
         }
     }
-    private function getNamespace(string $seed, string $id)
+    /**
+     * @param string $seed
+     * @param string $id
+     */
+    private function getNamespace($seed, $id)
     {
         return \substr(\str_replace('/', '-', \base64_encode(\hash('sha256', $id . $seed, \true))), 0, 10);
     }
     /**
      * @internal
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public static function getServiceProvider(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, $name)
+    public static function getServiceProvider($container, $name)
     {
         $container->resolveEnvPlaceholders($name, null, $usedEnvs);
         if ($usedEnvs || \preg_match('#^[a-z]++:#', $name)) {
