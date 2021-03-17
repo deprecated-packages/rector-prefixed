@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
+class ComposerStaticInit3ad0ba3da9b16a81d053b6a587d8989d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -18,6 +18,7 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -73,6 +74,7 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
             'RectorPrefix20210317\\Symfony\\Component\\Console\\' => 47,
             'RectorPrefix20210317\\Symfony\\Component\\Config\\' => 46,
             'RectorPrefix20210317\\Symfony\\Component\\Cache\\' => 45,
+            'RectorPrefix20210317\\Stringy\\' => 29,
             'RectorPrefix20210317\\Psr\\SimpleCache\\' => 37,
             'RectorPrefix20210317\\Psr\\Log\\' => 29,
             'RectorPrefix20210317\\Psr\\EventDispatcher\\' => 41,
@@ -282,6 +284,10 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
         'RectorPrefix20210317\\Symfony\\Component\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'RectorPrefix20210317\\Stringy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
         ),
         'RectorPrefix20210317\\Psr\\SimpleCache\\' => 
         array (
@@ -825,6 +831,8 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
         'RectorPrefix20210317\\SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
         'RectorPrefix20210317\\SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
         'RectorPrefix20210317\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'RectorPrefix20210317\\Stringy\\StaticStringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/StaticStringy.php',
+        'RectorPrefix20210317\\Stringy\\Stringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/Stringy.php',
         'RectorPrefix20210317\\Symfony\\Component\\Cache\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractAdapter.php',
         'RectorPrefix20210317\\Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractTagAwareAdapter.php',
         'RectorPrefix20210317\\Symfony\\Component\\Cache\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/symfony/cache/Adapter/AdapterInterface.php',
@@ -2245,7 +2253,6 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
         'Rector\\CodingStyle\\Rector\\FuncCall\\PreslashSimpleFunctionRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/PreslashSimpleFunctionRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\StrictArraySearchRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/StrictArraySearchRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\VersionCompareFuncCallToConstantRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/VersionCompareFuncCallToConstantRector.php',
-        'Rector\\CodingStyle\\Rector\\Function_\\CamelCaseFunctionNamingToUnderscoreRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Function_/CamelCaseFunctionNamingToUnderscoreRector.php',
         'Rector\\CodingStyle\\Rector\\If_\\NullableCompareToNullRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/If_/NullableCompareToNullRector.php',
         'Rector\\CodingStyle\\Rector\\Include_\\FollowRequireByDirRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Include_/FollowRequireByDirRector.php',
         'Rector\\CodingStyle\\Rector\\MethodCall\\PreferThisOrSelfMethodCallRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/MethodCall/PreferThisOrSelfMethodCallRector.php',
@@ -3701,9 +3708,9 @@ class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3ad0ba3da9b16a81d053b6a587d8989d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3ad0ba3da9b16a81d053b6a587d8989d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3ad0ba3da9b16a81d053b6a587d8989d::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -53,6 +53,7 @@ return array(
     'RectorPrefix20210317\\Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'RectorPrefix20210317\\Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
     'RectorPrefix20210317\\Symfony\\Component\\Cache\\' => array($vendorDir . '/symfony/cache'),
+    'RectorPrefix20210317\\Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
     'RectorPrefix20210317\\Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'RectorPrefix20210317\\Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'RectorPrefix20210317\\Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),

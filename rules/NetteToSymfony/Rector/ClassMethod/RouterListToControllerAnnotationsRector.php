@@ -14,11 +14,11 @@ use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\NetteToSymfony\Route\RouteInfoFactory;
 use Rector\NetteToSymfony\Routing\ExplicitRouteAnnotationDecorator;
 use Rector\NetteToSymfony\ValueObject\RouteInfo;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+use RectorPrefix20210317\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -247,7 +247,8 @@ CODE_SAMPLE
         /** @var string $presenterPart */
         $presenterPart = \RectorPrefix20210317\Nette\Utils\Strings::after($presenterName, '\\', -1);
         $presenterPart = \RectorPrefix20210317\Nette\Utils\Strings::substring($presenterPart, 0, -\RectorPrefix20210317\Nette\Utils\Strings::length('Presenter'));
-        $presenterPart = \Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($presenterPart);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($presenterPart);
+        $presenterPart = (string) $stringy->dasherize();
         $match = (array) \RectorPrefix20210317\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
         $actionPart = \lcfirst($match['short_action_name']);
         return $presenterPart . '/' . $actionPart;
