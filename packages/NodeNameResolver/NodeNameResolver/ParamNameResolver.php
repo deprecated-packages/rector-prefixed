@@ -15,8 +15,9 @@ final class ParamNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
     private $nodeNameResolver;
     /**
      * @required
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
      */
-    public function autowireParamNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireParamNameResolver($nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }

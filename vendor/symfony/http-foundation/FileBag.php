@@ -23,22 +23,24 @@ class FileBag extends \RectorPrefix20210317\Symfony\Component\HttpFoundation\Par
     /**
      * @param array|UploadedFile[] $parameters An array of HTTP files
      */
-    public function __construct(array $parameters = [])
+    public function __construct($parameters = [])
     {
         $this->replace($parameters);
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $files
      */
-    public function replace(array $files = [])
+    public function replace($files = [])
     {
         $this->parameters = [];
         $this->add($files);
     }
     /**
      * {@inheritdoc}
+     * @param string $key
      */
-    public function set(string $key, $value)
+    public function set($key, $value)
     {
         if (!\is_array($value) && !$value instanceof \RectorPrefix20210317\Symfony\Component\HttpFoundation\File\UploadedFile) {
             throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
@@ -47,8 +49,9 @@ class FileBag extends \RectorPrefix20210317\Symfony\Component\HttpFoundation\Par
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $files
      */
-    public function add(array $files = [])
+    public function add($files = [])
     {
         foreach ($files as $key => $file) {
             $this->set($key, $file);

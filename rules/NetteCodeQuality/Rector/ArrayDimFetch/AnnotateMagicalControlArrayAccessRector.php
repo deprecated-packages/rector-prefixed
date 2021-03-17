@@ -53,7 +53,15 @@ final class AnnotateMagicalControlArrayAccessRector extends \Rector\Core\Rector\
      * @var AssignAnalyzer
      */
     private $assignAnalyzer;
-    public function __construct(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver, \Rector\Naming\ArrayDimFetchRenamer $arrayDimFetchRenamer, \Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer, \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer $assignAnalyzer)
+    /**
+     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
+     * @param \Rector\Naming\ArrayDimFetchRenamer $arrayDimFetchRenamer
+     * @param \Rector\NetteCodeQuality\NodeAnalyzer\ArrayDimFetchAnalyzer $arrayDimFetchAnalyzer
+     * @param \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer
+     * @param \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming
+     * @param \Rector\NetteCodeQuality\NodeAnalyzer\AssignAnalyzer $assignAnalyzer
+     */
+    public function __construct($methodNamesByInputNamesResolver, $arrayDimFetchRenamer, $arrayDimFetchAnalyzer, $controlDimFetchAnalyzer, $netteControlNaming, $assignAnalyzer)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
         $this->arrayDimFetchRenamer = $arrayDimFetchRenamer;
@@ -112,9 +120,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ArrayDimFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -136,7 +144,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\Variable($variableName);
     }
-    private function shouldSkip(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    /**
+     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
+     */
+    private function shouldSkip($arrayDimFetch) : bool
     {
         if ($this->arrayDimFetchAnalyzer->isBeingAssignedOrInitialized($arrayDimFetch)) {
             return \true;
@@ -147,7 +158,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function resolveControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlName) : \PHPStan\Type\ObjectType
+    /**
+     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
+     * @param string $controlName
+     */
+    private function resolveControlType($arrayDimFetch, $controlName) : \PHPStan\Type\ObjectType
     {
         $controlTypes = $this->methodNamesByInputNamesResolver->resolveExpr($arrayDimFetch);
         if ($controlTypes === []) {

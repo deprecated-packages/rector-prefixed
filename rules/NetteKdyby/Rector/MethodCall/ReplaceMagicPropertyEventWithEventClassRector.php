@@ -32,7 +32,11 @@ final class ReplaceMagicPropertyEventWithEventClassRector extends \Rector\Core\R
      * @var EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider)
+    /**
+     * @param \Rector\CodingStyle\Naming\ClassNaming $classNaming
+     * @param \Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider
+     */
+    public function __construct($classNaming, $eventAndListenerTreeProvider)
     {
         $this->classNaming = $classNaming;
         $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
@@ -77,9 +81,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // 1. is onProperty? call
         $eventAndListenerTree = $this->eventAndListenerTreeProvider->matchMethodCall($node);
@@ -107,7 +111,11 @@ CODE_SAMPLE
         }
         return $assign;
     }
-    private function createEventInstanceAssign(string $eventClassName, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Assign
+    /**
+     * @param string $eventClassName
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function createEventInstanceAssign($eventClassName, $methodCall) : \PhpParser\Node\Expr\Assign
     {
         $shortEventClassName = $this->classNaming->getVariableName($eventClassName);
         $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName));

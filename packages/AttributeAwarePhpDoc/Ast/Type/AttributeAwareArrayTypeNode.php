@@ -30,14 +30,20 @@ final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\A
         }
         return $typeAsString . '[]';
     }
-    private function isGenericArrayCandidate(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode
+     */
+    private function isGenericArrayCandidate($typeNode) : bool
     {
         if (!$this->getAttribute(\Rector\PHPStanStaticTypeMapper\TypeMapper\ArrayTypeMapper::HAS_GENERIC_TYPE_PARENT)) {
             return \false;
         }
         return $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
     }
-    private function printArrayType(\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode $arrayTypeNode) : string
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode $arrayTypeNode
+     */
+    private function printArrayType($arrayTypeNode) : string
     {
         $typeAsString = (string) $arrayTypeNode;
         $singleTypesAsString = \explode('|', $typeAsString);
@@ -46,7 +52,10 @@ final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\A
         }
         return \implode('|', $singleTypesAsString);
     }
-    private function printUnionType(\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode $attributeAwareUnionTypeNode) : string
+    /**
+     * @param \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode $attributeAwareUnionTypeNode
+     */
+    private function printUnionType($attributeAwareUnionTypeNode) : string
     {
         $unionedTypes = [];
         if ($attributeAwareUnionTypeNode->isWrappedWithBrackets()) {

@@ -25,7 +25,7 @@ class ConfigCacheFactory implements \RectorPrefix20210317\Symfony\Component\Conf
     /**
      * @param bool $debug The debug flag to pass to ConfigCache
      */
-    public function __construct(bool $debug)
+    public function __construct($debug)
     {
         $this->debug = $debug;
     }

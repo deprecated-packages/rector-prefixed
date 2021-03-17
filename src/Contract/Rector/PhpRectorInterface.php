@@ -16,6 +16,7 @@ interface PhpRectorInterface extends \PhpParser\NodeVisitor, \Rector\Core\Contra
     public function getNodeTypes() : array;
     /**
      * Process Node of matched type
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node;
+    public function refactor($node) : ?\PhpParser\Node;
 }

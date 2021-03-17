@@ -21,14 +21,18 @@ final class AttributeAwareMethodTagValueNodeFactory implements \Rector\Attribute
     {
         return \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode::class;
     }
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     */
+    public function isMatch($node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode::class, \true);
     }
     /**
-     * @param MethodTagValueNode $node
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     * @param string $docContent
      */
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $returnType = $this->attributizeReturnType($node, $docContent);
         foreach ($node->parameters as $key => $parameter) {
@@ -36,18 +40,29 @@ final class AttributeAwareMethodTagValueNodeFactory implements \Rector\Attribute
         }
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareMethodTagValueNode($node->isStatic, $returnType, $node->methodName, $node->parameters, $node->description);
     }
-    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
+     */
+    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }
-    private function attributizeReturnType(\PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode $methodTagValueNode, string $docContent) : ?\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode $methodTagValueNode
+     * @param string $docContent
+     */
+    private function attributizeReturnType($methodTagValueNode, $docContent) : ?\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         if ($methodTagValueNode->returnType !== null) {
             return $this->createAttributeAwareReturnType($methodTagValueNode->returnType, $docContent);
         }
         return null;
     }
-    private function createAttributeAwareReturnType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode
+     * @param string $docContent
+     */
+    private function createAttributeAwareReturnType($typeNode, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         return $this->attributeAwareNodeFactory->createFromNode($typeNode, $docContent);
     }

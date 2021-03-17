@@ -27,7 +27,12 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    /**
+     * @param \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector
+     */
+    public function __construct($nodeFactory, $nodeNameResolver, $nodesToRemoveCollector)
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->nodeFactory = $nodeFactory;
@@ -37,7 +42,10 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     {
         return 800;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node) : ?\PhpParser\Node
     {
         if (!$this->nodesToRemoveCollector->isActive()) {
             return null;
@@ -68,8 +76,9 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     }
     /**
      * @return int|Node
+     * @param \PhpParser\Node $node
      */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode($node)
     {
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {
             $nodeToRemoveParent = $nodeToRemove->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -107,7 +116,11 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    private function isChainMethodCallNodeToBeRemoved(\PhpParser\Node\Expr\MethodCall $mainMethodCall, \PhpParser\Node\Expr\MethodCall $toBeRemovedMethodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $mainMethodCall
+     * @param \PhpParser\Node\Expr\MethodCall $toBeRemovedMethodCall
+     */
+    private function isChainMethodCallNodeToBeRemoved($mainMethodCall, $toBeRemovedMethodCall) : bool
     {
         if (!$mainMethodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
@@ -118,7 +131,10 @@ CODE_SAMPLE
         $methodName = $this->nodeNameResolver->getName($mainMethodCall->name);
         return $methodName !== null;
     }
-    private function removePartOfBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function removePartOfBinaryOp($binaryOp) : ?\PhpParser\Node
     {
         // handle left/right binary remove, e.g. "true && false" → remove false → "true"
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {

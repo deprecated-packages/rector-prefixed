@@ -23,7 +23,11 @@ final class ActionSuffixRemoverRector extends \Rector\Core\Rector\AbstractRector
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer, \Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator)
+    /**
+     * @param \Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer
+     * @param \Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator
+     */
+    public function __construct($controllerMethodAnalyzer, $identifierManipulator)
     {
         $this->controllerMethodAnalyzer = $controllerMethodAnalyzer;
         $this->identifierManipulator = $identifierManipulator;
@@ -56,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->controllerMethodAnalyzer->isAction($node)) {
             return null;

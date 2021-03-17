@@ -14,11 +14,14 @@ final class AutowireInterfacesCompilerPass implements \RectorPrefix20210317\Symf
     /**
      * @param string[] $typesToAutowire
      */
-    public function __construct(array $typesToAutowire)
+    public function __construct($typesToAutowire)
     {
         $this->typesToAutowire = $typesToAutowire;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     */
+    public function process($containerBuilder) : void
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

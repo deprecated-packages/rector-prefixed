@@ -24,7 +24,11 @@ final class PropertyTypeDeclarationRector extends \Rector\Core\Rector\AbstractRe
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     */
+    public function __construct($propertyTypeInferer, $phpDocTypeChanger)
     {
         $this->propertyTypeInferer = $propertyTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -66,9 +70,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\count($node->props) !== 1) {
             return null;

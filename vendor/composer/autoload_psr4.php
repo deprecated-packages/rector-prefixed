@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symplify\\SymfonyPhpConfig\\' => array($vendorDir . '/symplify/symfony-php-config/src'),
     'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
+    'Symfony\\Polyfill\\Php74\\' => array($vendorDir . '/symfony/polyfill-php74'),
+    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
     'Rector\\' => array($baseDir . '/packages', $baseDir . '/rules'),
@@ -53,7 +55,6 @@ return array(
     'RectorPrefix20210317\\Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'RectorPrefix20210317\\Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
     'RectorPrefix20210317\\Symfony\\Component\\Cache\\' => array($vendorDir . '/symfony/cache'),
-    'RectorPrefix20210317\\Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
     'RectorPrefix20210317\\Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'RectorPrefix20210317\\Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'RectorPrefix20210317\\Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),

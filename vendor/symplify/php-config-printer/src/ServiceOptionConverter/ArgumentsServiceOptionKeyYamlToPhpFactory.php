@@ -18,7 +18,11 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
      * @var ServiceOptionAnalyzer
      */
     private $serviceOptionAnalyzer;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
+     * @param \Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer
+     */
+    public function __construct($argsNodeFactory, $serviceOptionAnalyzer)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;

@@ -59,7 +59,7 @@ CODE_SAMPLE
     /**
      * @param Identical|BooleanNot $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->processIdentical($node);
@@ -76,7 +76,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\BinaryOp\NotIdentical
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp\Identical $identical
+     */
+    private function processIdentical($identical) : ?\PhpParser\Node\Expr\BinaryOp\NotIdentical
     {
         if (!$this->nodeTypeResolver->isStaticType($identical->left, \PHPStan\Type\BooleanType::class)) {
             return null;

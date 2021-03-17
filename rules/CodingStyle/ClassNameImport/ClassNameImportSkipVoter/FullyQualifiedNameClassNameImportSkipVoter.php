@@ -22,7 +22,10 @@ final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\Coding
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    /**
+     * @param \Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver
+     */
+    public function __construct($shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
     }

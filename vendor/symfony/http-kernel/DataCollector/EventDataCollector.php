@@ -28,15 +28,22 @@ class EventDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKer
     protected $dispatcher;
     private $requestStack;
     private $currentRequest;
-    public function __construct(\RectorPrefix20210317\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher = null, \RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    /**
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     */
+    public function __construct($dispatcher = null, $requestStack = null)
     {
         $this->dispatcher = $dispatcher;
         $this->requestStack = $requestStack;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect($request, $response, $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
         $this->data = ['called_listeners' => [], 'not_called_listeners' => [], 'orphaned_events' => []];
@@ -64,7 +71,7 @@ class EventDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKer
      *
      * @see TraceableEventDispatcher
      */
-    public function setCalledListeners(array $listeners)
+    public function setCalledListeners($listeners)
     {
         $this->data['called_listeners'] = $listeners;
     }
@@ -83,8 +90,9 @@ class EventDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKer
      * Sets the not called listeners.
      *
      * @see TraceableEventDispatcher
+     * @param mixed[] $listeners
      */
-    public function setNotCalledListeners(array $listeners)
+    public function setNotCalledListeners($listeners)
     {
         $this->data['not_called_listeners'] = $listeners;
     }
@@ -106,7 +114,7 @@ class EventDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKer
      *
      * @see TraceableEventDispatcher
      */
-    public function setOrphanedEvents(array $events)
+    public function setOrphanedEvents($events)
     {
         $this->data['orphaned_events'] = $events;
     }

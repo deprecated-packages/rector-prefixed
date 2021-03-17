@@ -19,7 +19,10 @@ final class CombinedAssignRector extends \Rector\Core\Rector\AbstractRector
      * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
-    public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
+    /**
+     * @param \Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap
+     */
+    public function __construct($assignAndBinaryMap)
     {
         $this->assignAndBinaryMap = $assignAndBinaryMap;
     }
@@ -35,9 +38,9 @@ final class CombinedAssignRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp) {
             return null;

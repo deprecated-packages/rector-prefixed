@@ -38,7 +38,13 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
      * @var TagValueNodePrinter
      */
     private $tagValueNodePrinter;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, \Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\IndexPhpDocNodeFactory $indexPhpDocNodeFactory, \Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\UniqueConstraintPhpDocNodeFactory $uniqueConstraintPhpDocNodeFactory)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param \Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\IndexPhpDocNodeFactory $indexPhpDocNodeFactory
+     * @param \Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_\UniqueConstraintPhpDocNodeFactory $uniqueConstraintPhpDocNodeFactory
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $indexPhpDocNodeFactory, $uniqueConstraintPhpDocNodeFactory)
     {
         $this->indexPhpDocNodeFactory = $indexPhpDocNodeFactory;
         $this->uniqueConstraintPhpDocNodeFactory = $uniqueConstraintPhpDocNodeFactory;
@@ -52,7 +58,12 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
     {
         return ['Doctrine\\ORM\\Mapping\\Table'];
     }
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
+     * @param string $annotationClass
+     */
+    public function createFromNodeAndTokens($node, $tokenIterator, $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

@@ -40,12 +40,19 @@ abstract class AbstractSessionListener implements \RectorPrefix20210317\Symfony\
     protected $container;
     private $sessionUsageStack = [];
     private $debug;
-    public function __construct(\RectorPrefix20210317\Psr\Container\ContainerInterface $container = null, bool $debug = \false)
+    /**
+     * @param \Psr\Container\ContainerInterface $container
+     * @param bool $debug
+     */
+    public function __construct($container = null, $debug = \false)
     {
         $this->container = $container;
         $this->debug = $debug;
     }
-    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onKernelRequest($event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -61,7 +68,10 @@ abstract class AbstractSessionListener implements \RectorPrefix20210317\Symfony\
         $session = $session ?? ($this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null);
         $this->sessionUsageStack[] = $session instanceof \RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
     }
-    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     */
+    public function onKernelResponse($event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -117,7 +127,10 @@ abstract class AbstractSessionListener implements \RectorPrefix20210317\Symfony\
             $this->container->get('logger')->warning('Session was used while the request was declared stateless.');
         }
     }
-    public function onFinishRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     */
+    public function onFinishRequest($event)
     {
         if ($event->isMasterRequest()) {
             \array_pop($this->sessionUsageStack);

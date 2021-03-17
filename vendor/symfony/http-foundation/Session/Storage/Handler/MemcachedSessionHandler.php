@@ -37,8 +37,10 @@ class MemcachedSessionHandler extends \RectorPrefix20210317\Symfony\Component\Ht
      *  * expiretime: The time to live in seconds.
      *
      * @throws \InvalidArgumentException When unsupported options are passed
+     * @param \Memcached $memcached
+     * @param mixed[] $options
      */
-    public function __construct(\Memcached $memcached, array $options = [])
+    public function __construct($memcached, $options = [])
     {
         $this->memcached = $memcached;
         if ($diff = \array_diff(\array_keys($options), ['prefix', 'expiretime'])) {
@@ -56,8 +58,9 @@ class MemcachedSessionHandler extends \RectorPrefix20210317\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
      */
-    protected function doRead(string $sessionId)
+    protected function doRead($sessionId)
     {
         return $this->memcached->get($this->prefix . $sessionId) ?: '';
     }
@@ -71,15 +74,18 @@ class MemcachedSessionHandler extends \RectorPrefix20210317\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite(string $sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
         return $this->memcached->set($this->prefix . $sessionId, $data, \time() + $this->ttl);
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
      */
-    protected function doDestroy(string $sessionId)
+    protected function doDestroy($sessionId)
     {
         $result = $this->memcached->delete($this->prefix . $sessionId);
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();

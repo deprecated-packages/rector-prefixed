@@ -27,7 +27,10 @@ final class ReturnTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     */
+    public function __construct($typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
@@ -65,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
@@ -97,8 +100,9 @@ CODE_SAMPLE
     }
     /**
      * @return array<Identifier|Name|NullableType|UnionType>
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function resolveReturnPropertyTypeNodes(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function resolveReturnPropertyTypeNodes($classMethod) : array
     {
         /** @var Return_[] $returns */
         $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);

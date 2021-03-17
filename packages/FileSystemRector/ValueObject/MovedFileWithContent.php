@@ -19,7 +19,11 @@ final class MovedFileWithContent implements \Rector\FileSystemRector\Contract\Mo
      * @var SmartFileInfo
      */
     private $oldFileInfo;
-    public function __construct(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, string $newPathname)
+    /**
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo
+     * @param string $newPathname
+     */
+    public function __construct($oldFileInfo, $newPathname)
     {
         $this->oldFileInfo = $oldFileInfo;
         $this->newPathname = $newPathname;

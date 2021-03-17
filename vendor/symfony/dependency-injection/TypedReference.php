@@ -25,7 +25,7 @@ class TypedReference extends \RectorPrefix20210317\Symfony\Component\DependencyI
      * @param int    $invalidBehavior The behavior when the service does not exist
      * @param string $name            The name of the argument targeting the service
      */
-    public function __construct(string $id, string $type, int $invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, string $name = null)
+    public function __construct(string $id, $type, $invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name = null)
     {
         $this->name = $type === $id ? $name : null;
         parent::__construct($id, $invalidBehavior);

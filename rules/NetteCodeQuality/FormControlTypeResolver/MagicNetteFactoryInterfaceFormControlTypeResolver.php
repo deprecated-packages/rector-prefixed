@@ -43,7 +43,14 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
+     * @param \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($nodeRepository, $nodeNameResolver, $nodeTypeResolver, $functionLikeParser, $reflectionProvider)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -53,8 +60,9 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
     }
     /**
      * @return array<string, string>
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve($node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
@@ -94,11 +102,18 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    /**
+     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
+     */
+    public function setResolver($methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param string $methodName
+     */
+    private function resolveReflectionClassMethod($methodCall, $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classReflection = $this->resolveClassReflectionByMethodCall($methodCall);
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
@@ -107,7 +122,11 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param string $className
+     * @param string $methodName
+     */
+    private function resolveReflectionClassMethodFromClassNameAndMethod($className, $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
@@ -116,7 +135,10 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\ClassReflection
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function resolveClassReflectionByMethodCall($methodCall) : ?\PHPStan\Reflection\ClassReflection
     {
         $callerClassName = $this->nodeRepository->resolveCallerClassName($methodCall);
         if ($callerClassName === null) {

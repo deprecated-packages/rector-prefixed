@@ -48,7 +48,10 @@ final class NodeAnnotationReader
         $this->constantReferenceIdentifierRestorer = $constantReferenceIdentifierRestorer;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function readAnnotation(\PhpParser\Node $node, string $annotationClass) : ?object
+    /**
+     * @return object|null
+     */
+    public function readAnnotation(\PhpParser\Node $node, string $annotationClass)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return $this->readPropertyAnnotation($node, $annotationClass);
@@ -61,7 +64,10 @@ final class NodeAnnotationReader
         }
         return null;
     }
-    public function readClassAnnotation(\PhpParser\Node\Stmt\Class_ $class, string $annotationClassName) : ?object
+    /**
+     * @return object|null
+     */
+    public function readClassAnnotation(\PhpParser\Node\Stmt\Class_ $class, string $annotationClassName)
     {
         $classReflection = $this->createClassReflectionFromNode($class);
         $nativeClassReflection = $classReflection->getNativeReflection();
@@ -75,7 +81,10 @@ final class NodeAnnotationReader
             return null;
         }
     }
-    public function readPropertyAnnotation(\PhpParser\Node\Stmt\Property $property, string $annotationClassName) : ?object
+    /**
+     * @return object|null
+     */
+    public function readPropertyAnnotation(\PhpParser\Node\Stmt\Property $property, string $annotationClassName)
     {
         $reflectionProperty = $this->getNativePropertyReflection($property);
         if (!$reflectionProperty instanceof \ReflectionProperty) {
@@ -91,7 +100,10 @@ final class NodeAnnotationReader
             return null;
         }
     }
-    private function readMethodAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $annotationClassName) : ?object
+    /**
+     * @return object|null
+     */
+    private function readMethodAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $annotationClassName)
     {
         /** @var string $className */
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -129,8 +141,9 @@ final class NodeAnnotationReader
     }
     /**
      * @param object[] $annotations
+     * @return object|null
      */
-    private function matchNextAnnotation(array $annotations, string $annotationClassName, \PhpParser\Node $node) : ?object
+    private function matchNextAnnotation(array $annotations, string $annotationClassName, \PhpParser\Node $node)
     {
         foreach ($annotations as $annotation) {
             if (!\is_a($annotation, $annotationClassName, \true)) {

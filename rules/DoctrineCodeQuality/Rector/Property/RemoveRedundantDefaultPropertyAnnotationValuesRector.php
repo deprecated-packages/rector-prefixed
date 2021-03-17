@@ -38,7 +38,10 @@ final class RemoveRedundantDefaultPropertyAnnotationValuesRector extends \Rector
      * @var DoctrineItemDefaultValueManipulator
      */
     private $doctrineItemDefaultValueManipulator;
-    public function __construct(\Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator)
+    /**
+     * @param \Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator
+     */
+    public function __construct($doctrineItemDefaultValueManipulator)
     {
         $this->doctrineItemDefaultValueManipulator = $doctrineItemDefaultValueManipulator;
     }
@@ -84,16 +87,19 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             $this->refactorPropertyAnnotations($node);
         }
         return $node;
     }
-    private function refactorPropertyAnnotations(\PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function refactorPropertyAnnotations($property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $this->refactorColumnAnnotation($phpDocInfo);
@@ -104,7 +110,10 @@ CODE_SAMPLE
         $this->refactorOneToManyAnnotation($phpDocInfo);
         $this->refactorOneToOneAnnotation($phpDocInfo);
     }
-    private function refactorColumnAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorColumnAnnotation($phpDocInfo) : void
     {
         $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
         if (!$columnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode) {
@@ -115,7 +124,10 @@ CODE_SAMPLE
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $columnTagValueNode, 'precision', 0);
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $columnTagValueNode, 'scale', 0);
     }
-    private function refactorGeneratedValueAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorGeneratedValueAnnotation($phpDocInfo) : void
     {
         $generatedValueTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class);
         if (!$generatedValueTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode) {
@@ -123,7 +135,10 @@ CODE_SAMPLE
         }
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $generatedValueTagValueNode, 'strategy', 'AUTO');
     }
-    private function refactorJoinColumnAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorJoinColumnAnnotation($phpDocInfo) : void
     {
         $joinColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
         if (!$joinColumnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode) {
@@ -133,7 +148,10 @@ CODE_SAMPLE
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $joinColumnTagValueNode, 'referencedColumnName', 'id');
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $joinColumnTagValueNode, 'unique', \false);
     }
-    private function refactorManyToManyAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorManyToManyAnnotation($phpDocInfo) : void
     {
         $manyToManyTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode::class);
         if (!$manyToManyTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode) {
@@ -142,7 +160,10 @@ CODE_SAMPLE
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $manyToManyTagValueNode, self::ORPHAN_REMOVAL, \false);
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $manyToManyTagValueNode, self::FETCH, self::LAZY);
     }
-    private function refactorManyToOneAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorManyToOneAnnotation($phpDocInfo) : void
     {
         $manyToOneTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode::class);
         if (!$manyToOneTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode) {
@@ -150,7 +171,10 @@ CODE_SAMPLE
         }
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $manyToOneTagValueNode, self::FETCH, self::LAZY);
     }
-    private function refactorOneToManyAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorOneToManyAnnotation($phpDocInfo) : void
     {
         $oneToManyTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class);
         if (!$oneToManyTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode) {
@@ -159,7 +183,10 @@ CODE_SAMPLE
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $oneToManyTagValueNode, self::ORPHAN_REMOVAL, \false);
         $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $oneToManyTagValueNode, self::FETCH, self::LAZY);
     }
-    private function refactorOneToOneAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function refactorOneToOneAnnotation($phpDocInfo) : void
     {
         $oneToOneTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
         if (!$oneToOneTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode) {

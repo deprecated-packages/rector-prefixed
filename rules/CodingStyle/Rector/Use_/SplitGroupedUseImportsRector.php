@@ -46,7 +46,7 @@ CODE_SAMPLE
     /**
      * @param Use_|TraitUse $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             $this->refactorUseImport($node);
@@ -56,7 +56,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     */
+    private function refactorUseImport($use) : void
     {
         if (\count($use->uses) < 2) {
             return;
@@ -67,7 +70,10 @@ CODE_SAMPLE
         }
         $this->removeNode($use);
     }
-    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse) : void
+    /**
+     * @param \PhpParser\Node\Stmt\TraitUse $traitUse
+     */
+    private function refactorTraitUse($traitUse) : void
     {
         if (\count($traitUse->traits) < 2) {
             return;

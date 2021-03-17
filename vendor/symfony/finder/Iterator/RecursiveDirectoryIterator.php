@@ -33,8 +33,11 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
     private $directorySeparator = '/';
     /**
      * @throws \RuntimeException
+     * @param string $path
+     * @param int $flags
+     * @param bool $ignoreUnreadableDirs
      */
-    public function __construct(string $path, int $flags, bool $ignoreUnreadableDirs = \false)
+    public function __construct($path, $flags, $ignoreUnreadableDirs = \false)
     {
         if ($flags & (self::CURRENT_AS_PATHNAME | self::CURRENT_AS_SELF)) {
             throw new \RuntimeException('This iterator only support returning current as fileinfo.');

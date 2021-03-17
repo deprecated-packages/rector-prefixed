@@ -28,7 +28,14 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210317\Symfony\Compo
 {
     private $controller;
     private $arguments;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
+    /**
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param callable $controller
+     * @param mixed[] $arguments
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int|null $requestType
+     */
+    public function __construct($kernel, $controller, $arguments, $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->controller = $controller;
@@ -38,7 +45,10 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210317\Symfony\Compo
     {
         return $this->controller;
     }
-    public function setController(callable $controller)
+    /**
+     * @param callable $controller
+     */
+    public function setController($controller)
     {
         $this->controller = $controller;
     }
@@ -46,7 +56,10 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210317\Symfony\Compo
     {
         return $this->arguments;
     }
-    public function setArguments(array $arguments)
+    /**
+     * @param mixed[] $arguments
+     */
+    public function setArguments($arguments)
     {
         $this->arguments = $arguments;
     }

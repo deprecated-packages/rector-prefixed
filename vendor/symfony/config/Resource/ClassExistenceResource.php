@@ -29,9 +29,9 @@ class ClassExistenceResource implements \RectorPrefix20210317\Symfony\Component\
     private static $existsCache = [];
     /**
      * @param string    $resource The fully-qualified class name
-     * @param bool|null $exists   Boolean when the existency check has already been done
+     * @param bool $exists   Boolean when the existency check has already been done
      */
-    public function __construct(string $resource, bool $exists = null)
+    public function __construct($resource, $exists = null)
     {
         $this->resource = $resource;
         if (null !== $exists) {
@@ -56,8 +56,9 @@ class ClassExistenceResource implements \RectorPrefix20210317\Symfony\Component\
      * {@inheritdoc}
      *
      * @throws \ReflectionException when a parent class/interface/trait is not found
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         $loaded = \class_exists($this->resource, \false) || \interface_exists($this->resource, \false) || \trait_exists($this->resource, \false);
         if (null !== ($exists =& self::$existsCache[$this->resource])) {
@@ -132,8 +133,10 @@ class ClassExistenceResource implements \RectorPrefix20210317\Symfony\Component\
      * @throws \ReflectionException
      *
      * @internal
+     * @param string $class
+     * @param \Exception $previous
      */
-    public static function throwOnRequiredClass(string $class, \Exception $previous = null)
+    public static function throwOnRequiredClass($class, $previous = null)
     {
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {

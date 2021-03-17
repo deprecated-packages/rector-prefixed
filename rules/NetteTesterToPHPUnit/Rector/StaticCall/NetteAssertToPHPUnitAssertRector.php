@@ -19,7 +19,10 @@ final class NetteAssertToPHPUnitAssertRector extends \Rector\Core\Rector\Abstrac
      * @var AssertManipulator
      */
     private $assertManipulator;
-    public function __construct(\Rector\NetteTesterToPHPUnit\AssertManipulator $assertManipulator)
+    /**
+     * @param \Rector\NetteTesterToPHPUnit\AssertManipulator $assertManipulator
+     */
+    public function __construct($assertManipulator)
     {
         $this->assertManipulator = $assertManipulator;
     }
@@ -51,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param StaticCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('Tester\\Assert'))) {
             return null;

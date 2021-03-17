@@ -28,7 +28,11 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
     private $containerPathPrefix;
     private $currentRequest;
     private $requestStack;
-    public function __construct($logger = null, string $containerPathPrefix = null, \RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    /**
+     * @param string $containerPathPrefix
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     */
+    public function __construct($logger = null, $containerPathPrefix = null, $requestStack = null)
     {
         if (null !== $logger && $logger instanceof \RectorPrefix20210317\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
             $this->logger = $logger;
@@ -38,8 +42,11 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect($request, $response, $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
     }
@@ -126,7 +133,10 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
         }
         return $logs;
     }
-    private function getContainerCompilerLogs(string $compilerLogsFilepath = null) : array
+    /**
+     * @param string $compilerLogsFilepath
+     */
+    private function getContainerCompilerLogs($compilerLogsFilepath = null) : array
     {
         if (!\is_file($compilerLogsFilepath)) {
             return [];
@@ -141,7 +151,10 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
         }
         return $logs;
     }
-    private function sanitizeLogs(array $logs)
+    /**
+     * @param mixed[] $logs
+     */
+    private function sanitizeLogs($logs)
     {
         $sanitizedLogs = [];
         $silencedLogs = [];
@@ -173,7 +186,10 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
         }
         return \array_values($sanitizedLogs);
     }
-    private function isSilencedOrDeprecationErrorLog(array $log) : bool
+    /**
+     * @param mixed[] $log
+     */
+    private function isSilencedOrDeprecationErrorLog($log) : bool
     {
         if (!isset($log['context']['exception'])) {
             return \false;
@@ -187,7 +203,10 @@ class LoggerDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKe
         }
         return \false;
     }
-    private function computeErrorsCount(array $containerDeprecationLogs) : array
+    /**
+     * @param mixed[] $containerDeprecationLogs
+     */
+    private function computeErrorsCount($containerDeprecationLogs) : array
     {
         $silencedLogs = [];
         $count = ['error_count' => $this->logger->countErrors($this->currentRequest), 'deprecation_count' => 0, 'warning_count' => 0, 'scream_count' => 0, 'priorities' => []];

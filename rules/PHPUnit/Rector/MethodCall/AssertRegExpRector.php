@@ -41,7 +41,10 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
@@ -59,7 +62,7 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, [self::ASSERT_SAME, self::ASSERT_EQUALS, self::ASSERT_NOT_SAME, self::ASSERT_NOT_EQUALS])) {
             return null;
@@ -82,7 +85,10 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
         $this->moveFunctionArgumentsUp($node);
         return $node;
     }
-    private function resolveOldCondition(\PhpParser\Node\Expr $expr) : int
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function resolveOldCondition($expr) : int
     {
         if ($expr instanceof \PhpParser\Node\Scalar\LNumber) {
             return $expr->value;
@@ -94,8 +100,10 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @param string $oldMethodName
+     * @param int $oldCondition
      */
-    private function renameMethod(\PhpParser\Node $node, string $oldMethodName, int $oldCondition) : void
+    private function renameMethod($node, $oldMethodName, $oldCondition) : void
     {
         if (\in_array($oldMethodName, [self::ASSERT_SAME, self::ASSERT_EQUALS], \true) && $oldCondition === 1 || \in_array($oldMethodName, [self::ASSERT_NOT_SAME, self::ASSERT_NOT_EQUALS], \true) && $oldCondition === 0) {
             $node->name = new \PhpParser\Node\Identifier('assertRegExp');
@@ -107,7 +115,7 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node) : void
+    private function moveFunctionArgumentsUp($node) : void
     {
         $oldArguments = $node->args;
         /** @var FuncCall $pregMatchFunction */

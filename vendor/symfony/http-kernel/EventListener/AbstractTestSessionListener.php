@@ -31,11 +31,17 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20210317\Symf
 {
     private $sessionId;
     private $sessionOptions;
-    public function __construct(array $sessionOptions = [])
+    /**
+     * @param mixed[] $sessionOptions
+     */
+    public function __construct($sessionOptions = [])
     {
         $this->sessionOptions = $sessionOptions;
     }
-    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onKernelRequest($event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -53,8 +59,9 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20210317\Symf
     /**
      * Checks if session was initialized and saves if current request is master
      * Runs on 'kernel.response' in test environment.
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse($event)
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -21,7 +21,10 @@ final class StringifyDefineRector extends \Rector\Core\Rector\AbstractRector
      * @var StringTypeAnalyzer
      */
     private $stringTypeAnalyzer;
-    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer)
+    /**
+     * @param \Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer
+     */
+    public function __construct($stringTypeAnalyzer)
     {
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
     }
@@ -57,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'define')) {
             return null;

@@ -26,7 +26,12 @@ final class ShowCommand extends \RectorPrefix20210317\Symfony\Component\Console\
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    /**
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     * @param \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider
+     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
+     */
+    public function __construct($symfonyStyle, $activeRectorsProvider, $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;

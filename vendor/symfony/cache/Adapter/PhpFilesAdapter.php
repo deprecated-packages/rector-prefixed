@@ -33,12 +33,15 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     private static $startTime;
     private static $valuesCache = [];
     /**
-     * @param $appendOnly Set to `true` to gain extra performance when the items stored in this pool never expire.
-     *                    Doing so is encouraged because it fits perfectly OPcache's memory model.
+     * @param $appendOnly Set to `true` to gain extra performance when the items stored in this pool never expire.                    Doing so is encouraged because it fits perfectly OPcache's memory model.
      *
      * @throws CacheException if OPcache is not enabled
+     * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $directory
+     * @param bool $appendOnly
      */
-    public function __construct(string $namespace = '', int $defaultLifetime = 0, string $directory = null, bool $appendOnly = \false)
+    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $appendOnly = \false)
     {
         $this->appendOnly = $appendOnly;
         self::$startTime = self::$startTime ?? $_SERVER['REQUEST_TIME'] ?? \time();
@@ -82,8 +85,9 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doFetch(array $ids)
+    protected function doFetch($ids)
     {
         if ($this->appendOnly) {
             $now = 0;
@@ -148,8 +152,9 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param string $id
      */
-    protected function doHave(string $id)
+    protected function doHave($id)
     {
         if ($this->appendOnly && isset($this->values[$id])) {
             return \true;
@@ -183,8 +188,10 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave($values, $lifetime)
     {
         $ok = \true;
         $expiry = $lifetime ? \time() + $lifetime : 'PHP_INT_MAX';
@@ -237,16 +244,18 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param string $namespace
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         $this->values = [];
         return $this->doCommonClear($namespace);
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDelete(array $ids)
+    protected function doDelete($ids)
     {
         foreach ($ids as $id) {
             unset($this->values[$id]);
@@ -261,7 +270,10 @@ class PhpFilesAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adap
         }
         return @\unlink($file);
     }
-    private function getFileKey(string $file) : string
+    /**
+     * @param string $file
+     */
+    private function getFileKey($file) : string
     {
         if (!($h = @\fopen($file, 'r'))) {
             return '';

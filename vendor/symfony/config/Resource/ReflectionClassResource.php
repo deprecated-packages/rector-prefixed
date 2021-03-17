@@ -25,7 +25,11 @@ class ReflectionClassResource implements \RectorPrefix20210317\Symfony\Component
     private $classReflector;
     private $excludedVendors = [];
     private $hash;
-    public function __construct(\ReflectionClass $classReflector, array $excludedVendors = [])
+    /**
+     * @param \ReflectionClass $classReflector
+     * @param mixed[] $excludedVendors
+     */
+    public function __construct($classReflector, $excludedVendors = [])
     {
         $this->className = $classReflector->name;
         $this->classReflector = $classReflector;
@@ -33,8 +37,9 @@ class ReflectionClassResource implements \RectorPrefix20210317\Symfony\Component
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         if (null === $this->hash) {
             $this->hash = $this->computeHash();
@@ -65,7 +70,10 @@ class ReflectionClassResource implements \RectorPrefix20210317\Symfony\Component
         }
         return ['files', 'className', 'hash'];
     }
-    private function loadFiles(\ReflectionClass $class)
+    /**
+     * @param \ReflectionClass $class
+     */
+    private function loadFiles($class)
     {
         foreach ($class->getInterfaces() as $v) {
             $this->loadFiles($v);
@@ -104,7 +112,10 @@ class ReflectionClassResource implements \RectorPrefix20210317\Symfony\Component
         }
         return \hash_final($hash);
     }
-    private function generateSignature(\ReflectionClass $class) : iterable
+    /**
+     * @param \ReflectionClass $class
+     */
+    private function generateSignature($class) : iterable
     {
         (yield $class->getDocComment());
         (yield (int) $class->isFinal());

@@ -23,7 +23,10 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -55,8 +58,9 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     }
     /**
      * @see https://github.com/phpstan/phpstan-src/blob/b1fd47bda2a7a7d25091197b125c0adf82af6757/src/Type/Constant/ConstantArrayType.php#L209
+     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
      */
-    private function findTypeAndMethodName(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\PHPStan\Type\Constant\ConstantArrayTypeAndMethod
+    private function findTypeAndMethodName($constantArrayType) : ?\PHPStan\Type\Constant\ConstantArrayTypeAndMethod
     {
         if (!$this->areKeyTypesValid($constantArrayType)) {
             return null;
@@ -88,7 +92,10 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
         }
         return null;
     }
-    private function areKeyTypesValid(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
+    /**
+     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
+     */
+    private function areKeyTypesValid($constantArrayType) : bool
     {
         $keyTypes = $constantArrayType->getKeyTypes();
         if (\count($keyTypes) !== 2) {

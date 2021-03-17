@@ -21,7 +21,10 @@ final class PrivatizeFinalClassMethodRector extends \Rector\Core\Rector\Abstract
      * @var ClassMethodVisibilityGuard
      */
     private $classMethodVisibilityGuard;
-    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+    /**
+     * @param \Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard
+     */
+    public function __construct($classMethodVisibilityGuard)
     {
         $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
     }
@@ -53,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -80,7 +83,10 @@ CODE_SAMPLE
         $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         if ($this->isName($classMethod, 'createComponent*')) {
             return \true;

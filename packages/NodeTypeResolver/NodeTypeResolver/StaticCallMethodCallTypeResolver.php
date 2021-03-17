@@ -29,15 +29,20 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($nodeNameResolver, $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @required
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
      */
-    public function autowireStaticCallMethodCallTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireStaticCallMethodCallTypeResolver($nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -79,7 +84,12 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
         }
         return new \PHPStan\Type\MixedType();
     }
-    private function resolveClassMethodReturnType(string $referencedClass, string $methodName, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    /**
+     * @param string $referencedClass
+     * @param string $methodName
+     * @param \PHPStan\Analyser\Scope $scope
+     */
+    private function resolveClassMethodReturnType($referencedClass, $methodName, $scope) : \PHPStan\Type\Type
     {
         if (!$this->reflectionProvider->hasClass($referencedClass)) {
             return new \PHPStan\Type\MixedType();

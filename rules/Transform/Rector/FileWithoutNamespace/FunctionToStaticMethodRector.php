@@ -36,7 +36,12 @@ final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRec
      * @var FullyQualifiedNameResolver
      */
     private $fullyQualifiedNameResolver;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Transform\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory, \Rector\Transform\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver)
+    /**
+     * @param \Rector\CodingStyle\Naming\ClassNaming $classNaming
+     * @param \Rector\Transform\NodeFactory\StaticMethodClassFactory $staticMethodClassFactory
+     * @param \Rector\Transform\Naming\FullyQualifiedNameResolver $fullyQualifiedNameResolver
+     */
+    public function __construct($classNaming, $staticMethodClassFactory, $fullyQualifiedNameResolver)
     {
         $this->classNaming = $classNaming;
         $this->staticMethodClassFactory = $staticMethodClassFactory;
@@ -73,7 +78,7 @@ CODE_SAMPLE
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         /** @var Function_[] $functions */
         $functions = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Function_::class);
@@ -98,8 +103,9 @@ CODE_SAMPLE
      * @param Node[] $stmts
      * @param Function_[] $functions
      * @return FunctionToStaticCall[]
+     * @param string $shortClassName
      */
-    private function resolveFunctionsToStaticCalls(array $stmts, string $shortClassName, array $functions) : array
+    private function resolveFunctionsToStaticCalls($stmts, $shortClassName, $functions) : array
     {
         $functionsToStaticCalls = [];
         $className = $this->fullyQualifiedNameResolver->resolveFullyQualifiedName($stmts, $shortClassName);
@@ -118,7 +124,7 @@ CODE_SAMPLE
      * @param FunctionToStaticCall[] $functionsToStaticCalls
      * @return Node[]
      */
-    private function replaceFuncCallsWithStaticCalls(array $stmts, array $functionsToStaticCalls) : array
+    private function replaceFuncCallsWithStaticCalls($stmts, $functionsToStaticCalls) : array
     {
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($functionsToStaticCalls) : ?StaticCall {
             if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -138,8 +144,11 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
+     * @param string $shortClassName
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function printStaticMethodClass(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
+    private function printStaticMethodClass($smartFileInfo, $shortClassName, $node, $class) : void
     {
         $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];
@@ -149,8 +158,9 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      * @return Namespace_|Class_
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveNodeToPrint(\PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node
+    private function resolveNodeToPrint($node, $class) : \PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             return new \PhpParser\Node\Stmt\Namespace_($node->name, [$class]);

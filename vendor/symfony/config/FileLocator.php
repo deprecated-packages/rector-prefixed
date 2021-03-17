@@ -28,8 +28,9 @@ class FileLocator implements \RectorPrefix20210317\Symfony\Component\Config\File
     }
     /**
      * {@inheritdoc}
+     * @param string $currentPath
      */
-    public function locate(string $name, string $currentPath = null, bool $first = \true)
+    public function locate(string $name, $currentPath = null, bool $first = \true)
     {
         if ('' === $name) {
             throw new \InvalidArgumentException('An empty file name is not valid to be located.');
@@ -63,8 +64,9 @@ class FileLocator implements \RectorPrefix20210317\Symfony\Component\Config\File
     }
     /**
      * Returns whether the file path is an absolute path.
+     * @param string $file
      */
-    private function isAbsolutePath(string $file) : bool
+    private function isAbsolutePath($file) : bool
     {
         if ('/' === $file[0] || '\\' === $file[0] || \strlen($file) > 3 && \ctype_alpha($file[0]) && ':' === $file[1] && ('\\' === $file[2] || '/' === $file[2]) || null !== \parse_url($file, \PHP_URL_SCHEME)) {
             return \true;

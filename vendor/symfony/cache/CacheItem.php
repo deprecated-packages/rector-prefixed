@@ -57,7 +57,7 @@ final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function set($value) : self
+    public function set($value)
     {
         $this->value = $value;
         return $this;
@@ -67,7 +67,7 @@ final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAt($expiration) : self
+    public function expiresAt($expiration)
     {
         if (null === $expiration) {
             $this->expiry = null;
@@ -83,7 +83,7 @@ final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\I
      *
      * @return $this
      */
-    public function expiresAfter($time) : self
+    public function expiresAfter($time)
     {
         if (null === $time) {
             $this->expiry = null;
@@ -99,7 +99,7 @@ final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\I
     /**
      * {@inheritdoc}
      */
-    public function tag($tags) : \RectorPrefix20210317\Symfony\Contracts\Cache\ItemInterface
+    public function tag($tags) : self
     {
         if (!$this->isTaggable) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
@@ -156,8 +156,11 @@ final class CacheItem implements \RectorPrefix20210317\Symfony\Contracts\Cache\I
      * Internal logging helper.
      *
      * @internal
+     * @param \Psr\Log\LoggerInterface|null $logger
+     * @param string $message
+     * @param mixed[] $context
      */
-    public static function log(?\RectorPrefix20210317\Psr\Log\LoggerInterface $logger, string $message, array $context = [])
+    public static function log($logger, $message, $context = [])
     {
         if ($logger) {
             $logger->warning($message, $context);

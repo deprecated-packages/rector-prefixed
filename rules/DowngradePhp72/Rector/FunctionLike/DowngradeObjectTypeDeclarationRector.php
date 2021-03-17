@@ -20,7 +20,10 @@ final class DowngradeObjectTypeDeclarationRector extends \Rector\Core\Rector\Abs
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
+    /**
+     * @param \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator
+     */
+    public function __construct($phpDocFromTypeDeclarationDecorator)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
     }
@@ -34,7 +37,7 @@ final class DowngradeObjectTypeDeclarationRector extends \Rector\Core\Rector\Abs
     /**
      * @param Function_|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($node->params as $param) {
             $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, new \PHPStan\Type\ObjectWithoutClassType());

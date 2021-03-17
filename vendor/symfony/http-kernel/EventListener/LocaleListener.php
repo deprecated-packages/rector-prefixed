@@ -30,35 +30,55 @@ class LocaleListener implements \RectorPrefix20210317\Symfony\Component\EventDis
     private $router;
     private $defaultLocale;
     private $requestStack;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack, string $defaultLocale = 'en', \RectorPrefix20210317\Symfony\Component\Routing\RequestContextAwareInterface $router = null)
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param string $defaultLocale
+     * @param \Symfony\Component\Routing\RequestContextAwareInterface $router
+     */
+    public function __construct($requestStack, $defaultLocale = 'en', $router = null)
     {
         $this->defaultLocale = $defaultLocale;
         $this->requestStack = $requestStack;
         $this->router = $router;
     }
-    public function setDefaultLocale(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\KernelEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\KernelEvent $event
+     */
+    public function setDefaultLocale($event)
     {
         $event->getRequest()->setDefaultLocale($this->defaultLocale);
     }
-    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onKernelRequest($event)
     {
         $request = $event->getRequest();
         $this->setLocale($request);
         $this->setRouterContext($request);
     }
-    public function onKernelFinishRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     */
+    public function onKernelFinishRequest($event)
     {
         if (null !== ($parentRequest = $this->requestStack->getParentRequest())) {
             $this->setRouterContext($parentRequest);
         }
     }
-    private function setLocale(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    private function setLocale($request)
     {
         if ($locale = $request->attributes->get('_locale')) {
             $request->setLocale($locale);
         }
     }
-    private function setRouterContext(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    private function setRouterContext($request)
     {
         if (null !== $this->router) {
             $this->router->getContext()->setParameter('_locale', $request->getLocale());

@@ -20,7 +20,10 @@ final class MergeTemplateSetFileToTemplateRenderRector extends \Rector\Core\Rect
      * @var NetteClassAnalyzer
      */
     private $netteClassAnalyzer;
-    public function __construct(\Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer)
+    /**
+     * @param \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer
+     */
+    public function __construct($netteClassAnalyzer)
     {
         $this->netteClassAnalyzer = $netteClassAnalyzer;
     }
@@ -59,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
@@ -88,7 +91,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall[] $methodCalls
      */
-    private function resolveSingleSetFileMethodCall(array $methodCalls) : ?\PhpParser\Node\Expr\MethodCall
+    private function resolveSingleSetFileMethodCall($methodCalls) : ?\PhpParser\Node\Expr\MethodCall
     {
         $singleSetFileMethodCall = null;
         foreach ($methodCalls as $methodCall) {

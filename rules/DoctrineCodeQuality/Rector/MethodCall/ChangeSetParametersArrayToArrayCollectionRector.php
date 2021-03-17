@@ -34,7 +34,11 @@ final class ChangeSetParametersArrayToArrayCollectionRector extends \Rector\Core
      * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
-    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer)
+    /**
+     * @param \Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer
+     * @param \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer
+     */
+    public function __construct($arrayTypeAnalyzer, $fluentChainMethodCallNodeAnalyzer)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
@@ -47,9 +51,9 @@ final class ChangeSetParametersArrayToArrayCollectionRector extends \Rector\Core
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
@@ -113,7 +117,10 @@ class SomeRepository extends EntityRepository
 CODE_SAMPLE
 )]);
     }
-    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkipMethodCall($methodCall) : bool
     {
         $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -133,7 +140,10 @@ CODE_SAMPLE
         }
         return !$this->isObjectType($rootExpr, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\QueryBuilder'));
     }
-    private function getNewArrayCollectionFromSetParametersArgument(\PhpParser\Node\Arg $arg) : \PhpParser\Node\Expr\New_
+    /**
+     * @param \PhpParser\Node\Arg $arg
+     */
+    private function getNewArrayCollectionFromSetParametersArgument($arg) : \PhpParser\Node\Expr\New_
     {
         /** @var Array_ $arrayExpression */
         $arrayExpression = $arg->value;

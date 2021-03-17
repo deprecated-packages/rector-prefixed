@@ -24,7 +24,10 @@ class CommandTester
     private $command;
     private $input;
     private $statusCode;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command)
+    /**
+     * @param \Symfony\Component\Console\Command\Command $command
+     */
+    public function __construct($command)
     {
         $this->command = $command;
     }
@@ -43,7 +46,7 @@ class CommandTester
      *
      * @return int The command exit code
      */
-    public function execute(array $input, array $options = [])
+    public function execute($input, $options = [])
     {
         // set the command name automatically if the application requires
         // this argument and no command name was passed

@@ -19,14 +19,18 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
 class CachePoolClearerPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cachePoolClearerTag;
-    public function __construct(string $cachePoolClearerTag = 'cache.pool.clearer')
+    /**
+     * @param string $cachePoolClearerTag
+     */
+    public function __construct($cachePoolClearerTag = 'cache.pool.clearer')
     {
         $this->cachePoolClearerTag = $cachePoolClearerTag;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $container->getParameterBag()->remove('cache.prefix.seed');
         foreach ($container->findTaggedServiceIds($this->cachePoolClearerTag) as $id => $attr) {

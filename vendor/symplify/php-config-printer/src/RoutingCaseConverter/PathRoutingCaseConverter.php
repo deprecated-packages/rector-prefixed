@@ -28,7 +28,10 @@ final class PathRoutingCaseConverter implements \RectorPrefix20210317\Symplify\P
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
+     */
+    public function __construct($argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -59,8 +62,9 @@ final class PathRoutingCaseConverter implements \RectorPrefix20210317\Symplify\P
     /**
      * @param mixed $values
      * @return Arg[]
+     * @param string $key
      */
-    private function createAddArgs(string $key, $values) : array
+    private function createAddArgs($key, $values) : array
     {
         $argumentValues = [];
         $argumentValues[] = $key;

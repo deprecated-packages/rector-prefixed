@@ -22,8 +22,9 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     private $phpStanStaticTypeMapper;
     /**
      * @required
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      */
-    public function autowireCallableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireCallableTypeMapper($phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -35,24 +36,29 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return \PHPStan\Type\CallableType::class;
     }
     /**
-     * @param CallableType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $returnTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType());
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('callable'), [], $returnTypeNode);
     }
     /**
      * @param CallableType|ClosureType $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         if ($kind === 'property') {
             return null;
         }
         return new \PhpParser\Node\Name('callable');
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    /**
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
+     */
+    public function mapToDocString($type, $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }

@@ -19,7 +19,12 @@ class ServiceCircularReferenceException extends \RectorPrefix20210317\Symfony\Co
 {
     private $serviceId;
     private $path;
-    public function __construct(string $serviceId, array $path, \Throwable $previous = null)
+    /**
+     * @param string $serviceId
+     * @param mixed[] $path
+     * @param \Throwable $previous
+     */
+    public function __construct($serviceId, $path, $previous = null)
     {
         parent::__construct(\sprintf('Circular reference detected for service "%s", path: "%s".', $serviceId, \implode(' -> ', $path)), 0, $previous);
         $this->serviceId = $serviceId;

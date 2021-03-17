@@ -24,7 +24,12 @@ final class BoundArgument implements \RectorPrefix20210317\Symfony\Component\Dep
     private $used;
     private $type;
     private $file;
-    public function __construct($value, bool $trackUsage = \true, int $type = 0, string $file = null)
+    /**
+     * @param bool $trackUsage
+     * @param int $type
+     * @param string $file
+     */
+    public function __construct($value, $trackUsage = \true, $type = 0, $file = null)
     {
         $this->value = $value;
         if ($trackUsage) {

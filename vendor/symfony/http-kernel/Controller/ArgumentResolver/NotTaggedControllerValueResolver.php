@@ -23,7 +23,10 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\ControllerMetadata\Argumen
 final class NotTaggedControllerValueResolver implements \RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-    public function __construct(\RectorPrefix20210317\Psr\Container\ContainerInterface $container)
+    /**
+     * @param \Psr\Container\ContainerInterface $container
+     */
+    public function __construct($container)
     {
         $this->container = $container;
     }

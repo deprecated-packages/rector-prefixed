@@ -29,7 +29,12 @@ final class RemoveUnusedNonEmptyArrayBeforeForeachRector extends \Rector\Core\Re
      * @var CountManipulator
      */
     private $countManipulator;
-    public function __construct(\Rector\DeadCode\NodeManipulator\CountManipulator $countManipulator, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\DeadCode\UselessIfCondBeforeForeachDetector $uselessIfCondBeforeForeachDetector)
+    /**
+     * @param \Rector\DeadCode\NodeManipulator\CountManipulator $countManipulator
+     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
+     * @param \Rector\DeadCode\UselessIfCondBeforeForeachDetector $uselessIfCondBeforeForeachDetector
+     */
+    public function __construct($countManipulator, $ifManipulator, $uselessIfCondBeforeForeachDetector)
     {
         $this->ifManipulator = $ifManipulator;
         $this->uselessIfCondBeforeForeachDetector = $uselessIfCondBeforeForeachDetector;
@@ -73,16 +78,19 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isUselessBeforeForeachCheck($node)) {
             return null;
         }
         return $node->stmts[0];
     }
-    private function isUselessBeforeForeachCheck(\PhpParser\Node\Stmt\If_ $if) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function isUselessBeforeForeachCheck($if) : bool
     {
         if (!$this->ifManipulator->isIfWithOnly($if, \PhpParser\Node\Stmt\Foreach_::class)) {
             return \false;

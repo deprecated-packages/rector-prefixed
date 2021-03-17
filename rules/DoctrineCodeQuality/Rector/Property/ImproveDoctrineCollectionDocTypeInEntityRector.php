@@ -49,7 +49,15 @@ final class ImproveDoctrineCollectionDocTypeInEntityRector extends \Rector\Core\
      * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
-    public function __construct(\Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver, \Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
+    /**
+     * @param \Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory $collectionTypeFactory
+     * @param \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator
+     * @param \Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver $collectionTypeResolver
+     * @param \Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver $collectionVarTagValueNodeResolver
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     * @param \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver
+     */
+    public function __construct($collectionTypeFactory, $assignManipulator, $collectionTypeResolver, $collectionVarTagValueNodeResolver, $phpDocTypeChanger, $doctrineDocBlockResolver)
     {
         $this->collectionTypeFactory = $collectionTypeFactory;
         $this->assignManipulator = $assignManipulator;
@@ -104,14 +112,17 @@ CODE_SAMPLE
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
         return $this->refactorClassMethod($node);
     }
-    private function refactorProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function refactorProperty($property) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
@@ -135,7 +146,10 @@ CODE_SAMPLE
         }
         return $property;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->doctrineDocBlockResolver->isInDoctrineEntityClass($classMethod)) {
             return null;
@@ -156,7 +170,10 @@ CODE_SAMPLE
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $collectionObjectType, $param, $parameterName);
         return $classMethod;
     }
-    private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function resolveCollectionSetterAssignType($classMethod) : ?\PHPStan\Type\Type
     {
         $propertyFetches = $this->assignManipulator->resolveAssignsToLocalPropertyFetches($classMethod);
         if (\count($propertyFetches) !== 1) {

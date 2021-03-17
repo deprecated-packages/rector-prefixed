@@ -21,7 +21,10 @@ final class ChangeOrIfContinueToMultiContinueRector extends \Rector\Core\Rector\
      * @var IfManipulator
      */
     private $ifManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
+     */
+    public function __construct($ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
     }
@@ -72,9 +75,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->ifManipulator->isIfWithOnly($node, \PhpParser\Node\Stmt\Continue_::class)) {
             return null;
@@ -84,7 +87,10 @@ CODE_SAMPLE
         }
         return $this->processMultiIfContinue($node);
     }
-    private function processMultiIfContinue(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node\Stmt\If_
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function processMultiIfContinue($if) : \PhpParser\Node\Stmt\If_
     {
         $node = clone $if;
         /** @var Continue_ $continue */
@@ -102,8 +108,10 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
+     * @param \PhpParser\Node\Expr $expr
+     * @param \PhpParser\Node\Stmt\Continue_ $continue
      */
-    private function createMultipleIfs(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt\Continue_ $continue, array $ifs) : array
+    private function createMultipleIfs($expr, $continue, $ifs) : array
     {
         while ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             $ifs = \array_merge($ifs, $this->collectLeftbooleanOrToIfs($expr, $continue, $ifs));
@@ -115,8 +123,10 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifs
      * @return If_[]
+     * @param \PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr
+     * @param \PhpParser\Node\Stmt\Continue_ $continue
      */
-    private function collectLeftbooleanOrToIfs(\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, \PhpParser\Node\Stmt\Continue_ $continue, array $ifs) : array
+    private function collectLeftbooleanOrToIfs($booleanOr, $continue, $ifs) : array
     {
         $left = $booleanOr->left;
         if (!$left instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {

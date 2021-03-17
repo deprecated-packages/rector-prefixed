@@ -23,7 +23,10 @@ final class LocallyCalledStaticMethodToNonStaticRector extends \Rector\Core\Rect
      * @var ClassMethodVisibilityGuard
      */
     private $classMethodVisibilityGuard;
-    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+    /**
+     * @param \Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard
+     */
+    public function __construct($classMethodVisibilityGuard)
     {
         $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
     }
@@ -67,14 +70,17 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
         }
         return $this->refactorStaticCall($node);
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$classMethod->isStatic()) {
             return null;
@@ -94,7 +100,10 @@ CODE_SAMPLE
         $this->visibilityManipulator->makeNonStatic($classMethod);
         return $classMethod;
     }
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function refactorStaticCall($staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -110,7 +119,10 @@ CODE_SAMPLE
         $thisVariable = new \PhpParser\Node\Expr\Variable('this');
         return new \PhpParser\Node\Expr\MethodCall($thisVariable, $staticCall->name, $staticCall->args);
     }
-    private function isClassMethodWithOnlyLocalStaticCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function isClassMethodWithOnlyLocalStaticCalls($classMethod) : bool
     {
         $staticCalls = $this->nodeRepository->findStaticCallsByClassMethod($classMethod);
         // get static staticCalls
@@ -118,8 +130,9 @@ CODE_SAMPLE
     }
     /**
      * @param Node[] $nodes
+     * @param \PhpParser\Node $mainNode
      */
-    private function haveSharedClass(\PhpParser\Node $mainNode, array $nodes) : bool
+    private function haveSharedClass($mainNode, $nodes) : bool
     {
         $mainNodeClass = $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         foreach ($nodes as $node) {
@@ -130,7 +143,10 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function isInStaticClassMethod(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function isInStaticClassMethod($staticCall) : bool
     {
         $locationClassMethod = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if (!$locationClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

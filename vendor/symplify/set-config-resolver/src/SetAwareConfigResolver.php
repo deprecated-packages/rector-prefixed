@@ -19,7 +19,10 @@ final class SetAwareConfigResolver extends \RectorPrefix20210317\Symplify\SetCon
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20210317\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    /**
+     * @param \Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider
+     */
+    public function __construct($setProvider)
     {
         $this->setResolver = new \RectorPrefix20210317\Symplify\SetConfigResolver\SetResolver($setProvider);
         $this->setsParameterResolver = new \RectorPrefix20210317\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
@@ -29,7 +32,7 @@ final class SetAwareConfigResolver extends \RectorPrefix20210317\Symplify\SetCon
      * @param SmartFileInfo[] $fileInfos
      * @return SmartFileInfo[]
      */
-    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos) : array
+    public function resolveFromParameterSetsFromConfigFiles($fileInfos) : array
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }

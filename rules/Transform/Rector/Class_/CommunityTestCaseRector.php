@@ -29,7 +29,11 @@ final class CommunityTestCaseRector extends \Rector\Core\Rector\AbstractRector
      * @var ConfigFileFactory
      */
     private $configFileFactory;
-    public function __construct(\Rector\Transform\NodeFactory\ProvideConfigFilePathClassMethodFactory $provideConfigFilePathClassMethodFactory, \Rector\Transform\NodeFactory\ConfigFileFactory $configFileFactory)
+    /**
+     * @param \Rector\Transform\NodeFactory\ProvideConfigFilePathClassMethodFactory $provideConfigFilePathClassMethodFactory
+     * @param \Rector\Transform\NodeFactory\ConfigFileFactory $configFileFactory
+     */
+    public function __construct($provideConfigFilePathClassMethodFactory, $configFileFactory)
     {
         $this->provideConfigFilePathClassMethodFactory = $provideConfigFilePathClassMethodFactory;
         $this->configFileFactory = $configFileFactory;
@@ -68,9 +72,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->extends === null) {
             return null;

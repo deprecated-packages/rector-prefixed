@@ -31,7 +31,10 @@ final class StringToArrayArgumentProcessRector extends \Rector\Core\Rector\Abstr
      * @var NodeTransformer
      */
     private $nodeTransformer;
-    public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer)
+    /**
+     * @param \Rector\Core\PhpParser\NodeTransformer $nodeTransformer
+     */
+    public function __construct($nodeTransformer)
     {
         $this->nodeTransformer = $nodeTransformer;
     }
@@ -57,7 +60,7 @@ CODE_SAMPLE
     /**
      * @param New_|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
         if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('Symfony\\Component\\Process\\Process'))) {
@@ -70,8 +73,9 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
+     * @param int $argumentPosition
      */
-    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition) : ?\PhpParser\Node
+    private function processArgumentPosition($node, $argumentPosition) : ?\PhpParser\Node
     {
         if (!isset($node->args[$argumentPosition])) {
             return null;
@@ -88,8 +92,10 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $expr
+     * @param int $argumentPosition
+     * @param \PhpParser\Node\Expr $firstArgumentExpr
      */
-    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr) : void
+    private function processStringType($expr, $argumentPosition, $firstArgumentExpr) : void
     {
         if ($firstArgumentExpr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             $arrayNode = $this->nodeTransformer->transformConcatToStringArray($firstArgumentExpr);
@@ -111,13 +117,18 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
+     * @param string $process
      */
-    private function splitProcessCommandToItems(string $process) : array
+    private function splitProcessCommandToItems($process) : array
     {
         $privatesCaller = new \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         return $privatesCaller->callPrivateMethod(new \RectorPrefix20210317\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
-    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node\Expr $firstArgumentExpr
+     */
+    private function processPreviousAssign($node, $firstArgumentExpr) : void
     {
         $previousNodeAssign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
         if (!$previousNodeAssign instanceof \PhpParser\Node\Expr\Assign) {
@@ -133,7 +144,11 @@ CODE_SAMPLE
             $previousNodeAssign->expr = $arrayNode;
         }
     }
-    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : ?\PhpParser\Node\Expr\Assign
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node\Expr $firstArgumentExpr
+     */
+    private function findPreviousNodeAssign($node, $firstArgumentExpr) : ?\PhpParser\Node\Expr\Assign
     {
         /** @var Assign|null $assign */
         $assign = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $checkedNode) use($firstArgumentExpr) : ?Assign {

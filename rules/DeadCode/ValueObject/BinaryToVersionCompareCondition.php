@@ -20,8 +20,10 @@ final class BinaryToVersionCompareCondition implements \Rector\DeadCode\Contract
     private $expectedValue;
     /**
      * @param mixed $expectedValue
+     * @param \Rector\DeadCode\ValueObject\VersionCompareCondition $versionCompareCondition
+     * @param string $binaryClass
      */
-    public function __construct(\Rector\DeadCode\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
+    public function __construct($versionCompareCondition, $binaryClass, $expectedValue)
     {
         $this->versionCompareCondition = $versionCompareCondition;
         $this->binaryClass = $binaryClass;

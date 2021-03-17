@@ -37,7 +37,11 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
+     */
+    public function __construct($typeFactory, $phpDocInfoFactory)
     {
         $this->typeFactory = $typeFactory;
         $this->doctrineTypeToScalarType = [
@@ -78,7 +82,10 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
         ];
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    public function inferProperty($property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);

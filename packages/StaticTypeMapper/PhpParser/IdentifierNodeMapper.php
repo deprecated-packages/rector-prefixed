@@ -14,7 +14,10 @@ final class IdentifierNodeMapper implements \Rector\StaticTypeMapper\Contract\Ph
      * @var ScalarStringToTypeMapper
      */
     private $scalarStringToTypeMapper;
-    public function __construct(\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    /**
+     * @param \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper
+     */
+    public function __construct($scalarStringToTypeMapper)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
     }

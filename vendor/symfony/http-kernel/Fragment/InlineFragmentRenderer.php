@@ -27,7 +27,11 @@ class InlineFragmentRenderer extends \RectorPrefix20210317\Symfony\Component\Htt
 {
     private $kernel;
     private $dispatcher;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210317\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher = null)
+    /**
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     */
+    public function __construct($kernel, $dispatcher = null)
     {
         $this->kernel = $kernel;
         $this->dispatcher = $dispatcher;
@@ -87,7 +91,10 @@ class InlineFragmentRenderer extends \RectorPrefix20210317\Symfony\Component\Htt
             return new \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response();
         }
     }
-    protected function createSubRequest($uri, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    protected function createSubRequest($uri, $request)
     {
         $cookies = $request->cookies->all();
         $server = $request->server->all();

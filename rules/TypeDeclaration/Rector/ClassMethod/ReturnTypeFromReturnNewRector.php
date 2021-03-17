@@ -23,7 +23,10 @@ final class ReturnTypeFromReturnNewRector extends \Rector\Core\Rector\AbstractRe
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     */
+    public function __construct($typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
@@ -57,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;

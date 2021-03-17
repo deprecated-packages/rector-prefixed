@@ -7,16 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Param;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionParameter;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedYetException;
+use PHPStan\Type\TypehintHelper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use ReflectionNamedType;
 use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class NativeTypeClassTreeResolver
 {
@@ -49,26 +43,7 @@ final class NativeTypeClassTreeResolver
         if (!$nativeType instanceof \PHPStan\Type\MixedType) {
             return $nativeType;
         }
-        if (!$parameterReflection->getType() instanceof \ReflectionNamedType) {
-            return new \PHPStan\Type\MixedType();
-        }
-        $typeName = (string) $parameterReflection->getType();
-        if ($typeName === 'array') {
-            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
-        }
-        if ($typeName === 'string') {
-            return new \PHPStan\Type\StringType();
-        }
-        if ($typeName === 'bool') {
-            return new \PHPStan\Type\BooleanType();
-        }
-        if ($typeName === 'int') {
-            return new \PHPStan\Type\IntegerType();
-        }
-        if ($typeName === 'float') {
-            return new \PHPStan\Type\FloatType();
-        }
-        throw new \Rector\Core\Exception\NotImplementedYetException();
+        return \PHPStan\Type\TypehintHelper::decideTypeFromReflection($parameterReflection->getType(), null, $classReflection->getName(), $parameterReflection->isVariadic());
     }
     private function resolveNativeType(\ReflectionParameter $reflectionParameter) : \PHPStan\Type\Type
     {

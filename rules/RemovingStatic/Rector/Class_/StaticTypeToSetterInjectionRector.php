@@ -44,7 +44,11 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     */
+    public function __construct($propertyNaming, $phpDocTypeChanger)
     {
         $this->propertyNaming = $propertyNaming;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -100,7 +104,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->processClass($node);
@@ -116,11 +120,17 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->staticTypes = $configuration[self::STATIC_TYPES] ?? [];
     }
-    private function processClass(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function processClass($class) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($this->staticTypes as $implements => $staticType) {
             $objectType = new \PHPStan\Type\ObjectType($staticType);
@@ -147,14 +157,23 @@ CODE_SAMPLE
         }
         return $class;
     }
-    private function isEntityFactoryStaticCall(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\Type\ObjectType $objectType
+     */
+    private function isEntityFactoryStaticCall($node, $objectType) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         return $this->isObjectType($node->class, $objectType);
     }
-    private function createSetEntityFactoryClassMethod(string $variableName, \PhpParser\Node\Param $param, \PhpParser\Node\Expr\Assign $assign) : \PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param string $variableName
+     * @param \PhpParser\Node\Param $param
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function createSetEntityFactoryClassMethod($variableName, $param, $assign) : \PhpParser\Node\Stmt\ClassMethod
     {
         $setMethodName = 'set' . \ucfirst($variableName);
         $setEntityFactoryMethodBuilder = new \RectorPrefix20210317\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($setMethodName);

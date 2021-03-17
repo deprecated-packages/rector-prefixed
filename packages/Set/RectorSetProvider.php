@@ -5,11 +5,11 @@ namespace Rector\Set;
 
 use RectorPrefix20210317\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Util\StaticRectorStrings;
 use Rector\Set\Contract\SetListInterface;
 use Rector\Set\ValueObject\DowngradeSetList;
 use Rector\Set\ValueObject\SetList;
 use ReflectionClass;
-use RectorPrefix20210317\Stringy\Stringy;
 use RectorPrefix20210317\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use RectorPrefix20210317\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
 use RectorPrefix20210317\Symplify\SetConfigResolver\ValueObject\Set;
@@ -64,15 +64,17 @@ final class RectorSetProvider extends \RectorPrefix20210317\Symplify\SetConfigRe
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
         throw new \RectorPrefix20210317\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
-    private function hydrateSetsFromConstants(\ReflectionClass $setListReflectionClass) : void
+    /**
+     * @param \ReflectionClass $setListReflectionClass
+     */
+    private function hydrateSetsFromConstants($setListReflectionClass) : void
     {
         foreach ($setListReflectionClass->getConstants() as $name => $setPath) {
             if (!\file_exists($setPath)) {
                 $message = \sprintf('Set path "%s" was not found', $name);
                 throw new \Rector\Core\Exception\ShouldNotHappenException($message);
             }
-            $stringy = new \RectorPrefix20210317\Stringy\Stringy($name);
-            $setName = (string) $stringy->dasherize();
+            $setName = \Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
             // remove `-` before numbers
             $setName = \RectorPrefix20210317\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
             $this->sets[] = new \RectorPrefix20210317\Symplify\SetConfigResolver\ValueObject\Set($setName, new \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo($setPath));

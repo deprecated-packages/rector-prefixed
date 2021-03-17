@@ -35,7 +35,12 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeManipulator\ArgumentMover $argumentMover, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator
+     * @param \Rector\PHPUnit\NodeManipulator\ArgumentMover $argumentMover
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($identifierManipulator, $argumentMover, $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->constantWithAssertMethods = [new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
@@ -56,7 +61,7 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
             return null;
@@ -77,8 +82,9 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @param \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods
      */
-    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods) : void
+    private function renameMethod($node, $constantWithAssertMethods) : void
     {
         $this->identifierManipulator->renameNodeWithMap($node, ['assertSame' => $constantWithAssertMethods->getAssetMethodName(), 'assertNotSame' => $constantWithAssertMethods->getNotAssertMethodName()]);
     }

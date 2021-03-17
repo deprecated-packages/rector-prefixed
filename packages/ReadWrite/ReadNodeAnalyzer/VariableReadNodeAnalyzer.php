@@ -22,7 +22,12 @@ final class VariableReadNodeAnalyzer implements \Rector\ReadWrite\Contract\ReadN
      * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
-    public function __construct(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
+    /**
+     * @param \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder
+     * @param \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder
+     * @param \Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer
+     */
+    public function __construct($parentScopeFinder, $nodeUsageFinder, $readExprAnalyzer)
     {
         $this->parentScopeFinder = $parentScopeFinder;
         $this->nodeUsageFinder = $nodeUsageFinder;

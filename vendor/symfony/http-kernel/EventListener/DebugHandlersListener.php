@@ -40,14 +40,16 @@ class DebugHandlersListener implements \RectorPrefix20210317\Symfony\Component\E
     private $firstCall = \true;
     private $hasTerminatedWithException;
     /**
-     * @param callable|null                 $exceptionHandler A handler that must support \Throwable instances that will be called on Exception
+     * @param callable                 $exceptionHandler A handler that must support \Throwable instances that will be called on Exception
      * @param array|int                     $levels           An array map of E_* to LogLevel::* or an integer bit field of E_* constants
      * @param int|null                      $throwAt          Thrown errors in a bit field of E_* constants, or null to keep the current value
      * @param bool                          $scream           Enables/disables screaming mode, where even silenced errors are logged
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $deprecationLogger
      */
-    public function __construct(callable $exceptionHandler = null, \RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, ?int $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \RectorPrefix20210317\Psr\Log\LoggerInterface $deprecationLogger = null)
+    public function __construct($exceptionHandler = null, $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = \true, $fileLinkFormat = null, $scope = \true, $deprecationLogger = null)
     {
         $handler = \set_exception_handler('var_dump');
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
@@ -63,8 +65,9 @@ class DebugHandlersListener implements \RectorPrefix20210317\Symfony\Component\E
     }
     /**
      * Configures the error handler.
+     * @param object $event
      */
-    public function configure(object $event = null)
+    public function configure($event = null)
     {
         if ($event instanceof \RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
             return;
@@ -134,7 +137,10 @@ class DebugHandlersListener implements \RectorPrefix20210317\Symfony\Component\E
             $this->exceptionHandler = null;
         }
     }
-    private function setDefaultLoggers(\RectorPrefix20210317\Symfony\Component\ErrorHandler\ErrorHandler $handler) : void
+    /**
+     * @param \Symfony\Component\ErrorHandler\ErrorHandler $handler
+     */
+    private function setDefaultLoggers($handler) : void
     {
         if (\is_array($this->levels)) {
             $levelsDeprecatedOnly = [];

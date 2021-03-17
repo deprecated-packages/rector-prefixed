@@ -18,7 +18,12 @@ final class ClassConstRankeable implements \Rector\Order\Contract\RankeableInter
      * @var int
      */
     private $position;
-    public function __construct(string $name, int $visibility, int $position)
+    /**
+     * @param string $name
+     * @param int $visibility
+     * @param int $position
+     */
+    public function __construct($name, $visibility, $position)
     {
         $this->name = $name;
         $this->visibility = $visibility;

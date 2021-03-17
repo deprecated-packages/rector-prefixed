@@ -54,7 +54,11 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)
+    /**
+     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
+     * @param \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver
+     */
+    public function __construct($propertyNaming, $staticTypesInClassResolver)
     {
         $this->propertyNaming = $propertyNaming;
         $this->staticTypesInClassResolver = $staticTypesInClassResolver;
@@ -115,9 +119,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->matchedObjectTypes = [];
         // collect classes with new to factory in all classes
@@ -149,7 +153,7 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
         foreach ($typesToServices as $typeToService) {

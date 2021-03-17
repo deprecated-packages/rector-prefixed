@@ -27,14 +27,21 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
 {
     protected $pool;
     private $calls = [];
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
+    /**
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
+     */
+    public function __construct($pool)
     {
         $this->pool = $pool;
     }
     /**
      * {@inheritdoc}
+     * @param string $key
+     * @param callable $callback
+     * @param float $beta
+     * @param mixed[] $metadata
      */
-    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, $callback, $beta = null, &$metadata = null)
     {
         if (!$this->pool instanceof \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface) {
             throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface::class));
@@ -108,8 +115,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function save($item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -122,8 +130,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred($item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -134,8 +143,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $keys
      */
-    public function getItems(array $keys = [])
+    public function getItems($keys = [])
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -160,8 +170,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
      * {@inheritdoc}
      *
      * @return bool
+     * @param string $prefix
      */
-    public function clear(string $prefix = '')
+    public function clear($prefix = '')
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -177,8 +188,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
      * {@inheritdoc}
      *
      * @return bool
+     * @param mixed[] $keys
      */
-    public function deleteItems(array $keys)
+    public function deleteItems($keys)
     {
         $event = $this->start(__FUNCTION__);
         $event->result['keys'] = $keys;
@@ -229,8 +241,9 @@ class TraceableAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\
     }
     /**
      * {@inheritdoc}
+     * @param string $key
      */
-    public function delete(string $key) : bool
+    public function delete($key) : bool
     {
         $event = $this->start(__FUNCTION__);
         try {

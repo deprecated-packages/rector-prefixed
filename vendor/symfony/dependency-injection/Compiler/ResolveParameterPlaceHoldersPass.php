@@ -32,8 +32,9 @@ class ResolveParameterPlaceHoldersPass extends \RectorPrefix20210317\Symfony\Com
      * {@inheritdoc}
      *
      * @throws ParameterNotFoundException
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->bag = $container->getParameterBag();
         try {
@@ -51,7 +52,10 @@ class ResolveParameterPlaceHoldersPass extends \RectorPrefix20210317\Symfony\Com
         $this->bag->resolve();
         $this->bag = null;
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if (\is_string($value)) {
             try {

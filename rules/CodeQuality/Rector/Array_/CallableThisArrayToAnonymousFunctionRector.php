@@ -35,7 +35,11 @@ final class CallableThisArrayToAnonymousFunctionRector extends \Rector\Core\Rect
      * @var AnonymousFunctionFactory
      */
     private $anonymousFunctionFactory;
-    public function __construct(\Rector\CodeQuality\NodeAnalyzer\CallableClassMethodMatcher $callableClassMethodMatcher, \Rector\CodeQuality\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory)
+    /**
+     * @param \Rector\CodeQuality\NodeAnalyzer\CallableClassMethodMatcher $callableClassMethodMatcher
+     * @param \Rector\CodeQuality\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory
+     */
+    public function __construct($callableClassMethodMatcher, $anonymousFunctionFactory)
     {
         $this->callableClassMethodMatcher = $callableClassMethodMatcher;
         $this->anonymousFunctionFactory = $anonymousFunctionFactory;
@@ -88,9 +92,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param Array_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipArray($node)) {
             return null;
@@ -117,7 +121,10 @@ CODE_SAMPLE
         }
         return $this->anonymousFunctionFactory->create($phpMethodReflection, $objectVariable);
     }
-    private function shouldSkipArray(\PhpParser\Node\Expr\Array_ $array) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $array
+     */
+    private function shouldSkipArray($array) : bool
     {
         // callback is exactly "[$two, 'items']"
         if (\count($array->items) !== 2) {
@@ -132,7 +139,11 @@ CODE_SAMPLE
         }
         return $this->isCallbackAtFunctionName($array, 'register_shutdown_function');
     }
-    private function isCallbackAtFunctionName(\PhpParser\Node\Expr\Array_ $array, string $functionName) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $array
+     * @param string $functionName
+     */
+    private function isCallbackAtFunctionName($array, $functionName) : bool
     {
         $parentNode = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Arg) {

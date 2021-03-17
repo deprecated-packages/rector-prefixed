@@ -29,14 +29,22 @@ use RectorPrefix20210317\Symfony\Contracts\HttpClient\HttpClientInterface;
 final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface
 {
     private $client;
-    public function __construct(\RectorPrefix20210317\Symfony\Contracts\HttpClient\HttpClientInterface $client = null)
+    /**
+     * @param \Symfony\Contracts\HttpClient\HttpClientInterface $client
+     */
+    public function __construct($client = null)
     {
         if (null === $client && !\class_exists(\RectorPrefix20210317\Symfony\Component\HttpClient\HttpClient::class)) {
             throw new \LogicException(\sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));
         }
         $this->client = $client ?? \RectorPrefix20210317\Symfony\Component\HttpClient\HttpClient::create();
     }
-    public function handle(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true) : \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int $type
+     * @param bool $catch
+     */
+    public function handle($request, $type = \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true) : \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response
     {
         $headers = $this->getHeaders($request);
         $body = '';
@@ -59,7 +67,10 @@ final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\
         };
         return $response;
     }
-    private function getBody(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : ?\RectorPrefix20210317\Symfony\Component\Mime\Part\AbstractPart
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    private function getBody($request) : ?\RectorPrefix20210317\Symfony\Component\Mime\Part\AbstractPart
     {
         if (\in_array($request->getMethod(), ['GET', 'HEAD'])) {
             return null;
@@ -76,7 +87,10 @@ final class HttpClientKernel implements \RectorPrefix20210317\Symfony\Component\
         }
         return new \RectorPrefix20210317\Symfony\Component\Mime\Part\Multipart\FormDataPart($fields);
     }
-    private function getHeaders(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : array
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    private function getHeaders($request) : array
     {
         $headers = [];
         foreach ($request->headers as $key => $value) {

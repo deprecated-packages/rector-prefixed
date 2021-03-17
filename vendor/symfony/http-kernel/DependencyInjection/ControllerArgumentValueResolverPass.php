@@ -28,13 +28,21 @@ class ControllerArgumentValueResolverPass implements \RectorPrefix20210317\Symfo
     private $argumentResolverService;
     private $argumentValueResolverTag;
     private $traceableResolverStopwatch;
-    public function __construct(string $argumentResolverService = 'argument_resolver', string $argumentValueResolverTag = 'controller.argument_value_resolver', string $traceableResolverStopwatch = 'debug.stopwatch')
+    /**
+     * @param string $argumentResolverService
+     * @param string $argumentValueResolverTag
+     * @param string $traceableResolverStopwatch
+     */
+    public function __construct($argumentResolverService = 'argument_resolver', $argumentValueResolverTag = 'controller.argument_value_resolver', $traceableResolverStopwatch = 'debug.stopwatch')
     {
         $this->argumentResolverService = $argumentResolverService;
         $this->argumentValueResolverTag = $argumentValueResolverTag;
         $this->traceableResolverStopwatch = $traceableResolverStopwatch;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         if (!$container->hasDefinition($this->argumentResolverService)) {
             return;

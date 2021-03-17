@@ -28,7 +28,12 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      * @var TagValueNodePrinter
      */
     private $tagValueNodePrinter;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter)
+    /**
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     */
+    public function __construct($nodeNameResolver, $arrayPartPhpDocTagPrinter, $tagValueNodePrinter)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
@@ -43,8 +48,11 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
     }
     /**
      * @return JMSInjectTagValueNode|null
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
+     * @param string $annotationClass
      */
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens($node, $tokenIterator, $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Property) {
             return null;

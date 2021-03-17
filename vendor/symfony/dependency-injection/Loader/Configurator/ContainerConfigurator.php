@@ -32,7 +32,14 @@ class ContainerConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
     private $path;
     private $file;
     private $anonymousCount = 0;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, string $path, string $file)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader
+     * @param mixed[] $instanceof
+     * @param string $path
+     * @param string $file
+     */
+    public function __construct($container, $loader, &$instanceof, $path, $file)
     {
         $this->container = $container;
         $this->loader = $loader;
@@ -40,7 +47,11 @@ class ContainerConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
         $this->path = $path;
         $this->file = $file;
     }
-    public final function extension(string $namespace, array $config)
+    /**
+     * @param string $namespace
+     * @param mixed[] $config
+     */
+    public final function extension($namespace, $config)
     {
         if (!$this->container->hasExtension($namespace)) {
             $extensions = \array_filter(\array_map(function (\RectorPrefix20210317\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
@@ -50,7 +61,11 @@ class ContainerConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
         }
         $this->container->loadFromExtension($namespace, static::processValue($config));
     }
-    public final function import(string $resource, string $type = null, $ignoreErrors = \false)
+    /**
+     * @param string $resource
+     * @param string $type
+     */
+    public final function import($resource, $type = null, $ignoreErrors = \false)
     {
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
@@ -65,8 +80,9 @@ class ContainerConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
     }
     /**
      * @return static
+     * @param string $path
      */
-    public final function withPath(string $path) : self
+    public final function withPath($path)
     {
         $clone = clone $this;
         $clone->path = $clone->file = $path;

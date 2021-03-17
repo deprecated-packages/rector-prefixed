@@ -26,7 +26,11 @@ final class MoveFinalGetUserToCheckRequirementsClassMethodRector extends \Rector
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Nette\NodeFactory\CheckRequirementsClassMethodFactory $checkRequirementsClassMethodFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+    /**
+     * @param \Rector\Nette\NodeFactory\CheckRequirementsClassMethodFactory $checkRequirementsClassMethodFactory
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     */
+    public function __construct($checkRequirementsClassMethodFactory, $classInsertManipulator)
     {
         $this->checkRequirementsClassMethodFactory = $checkRequirementsClassMethodFactory;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -70,9 +74,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Presenter'))) {
             return null;

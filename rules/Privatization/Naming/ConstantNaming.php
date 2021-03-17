@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Privatization\Naming;
 
 use PhpParser\Node\Stmt\PropertyProperty;
+use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210317\Stringy\Stringy;
 final class ConstantNaming
 {
     /**
@@ -19,7 +19,7 @@ final class ConstantNaming
     public function createFromProperty(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : string
     {
         $propertyName = $this->nodeNameResolver->getName($propertyProperty);
-        $stringy = new \RectorPrefix20210317\Stringy\Stringy($propertyName);
-        return (string) $stringy->underscored()->toUpperCase();
+        $constantName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($propertyName);
+        return \strtoupper($constantName);
     }
 }

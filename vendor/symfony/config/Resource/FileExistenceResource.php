@@ -27,7 +27,7 @@ class FileExistenceResource implements \RectorPrefix20210317\Symfony\Component\C
     /**
      * @param string $resource The file path to the resource
      */
-    public function __construct(string $resource)
+    public function __construct($resource)
     {
         $this->resource = $resource;
         $this->exists = \file_exists($resource);
@@ -48,8 +48,9 @@ class FileExistenceResource implements \RectorPrefix20210317\Symfony\Component\C
     }
     /**
      * {@inheritdoc}
+     * @param int $timestamp
      */
-    public function isFresh(int $timestamp) : bool
+    public function isFresh($timestamp) : bool
     {
         return \file_exists($this->resource) === $this->exists;
     }

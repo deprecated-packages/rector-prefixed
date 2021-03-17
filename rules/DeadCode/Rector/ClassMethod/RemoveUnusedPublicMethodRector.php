@@ -33,7 +33,11 @@ final class RemoveUnusedPublicMethodRector extends \Rector\Core\Rector\AbstractR
      * @var ClassMethodReturnVendorLockResolver
      */
     private $classMethodReturnVendorLockResolver;
-    public function __construct(\Rector\DeadCode\NodeAnalyzer\DataProviderMethodNamesResolver $dataProviderMethodNamesResolver, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver $classMethodReturnVendorLockResolver)
+    /**
+     * @param \Rector\DeadCode\NodeAnalyzer\DataProviderMethodNamesResolver $dataProviderMethodNamesResolver
+     * @param \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver $classMethodReturnVendorLockResolver
+     */
+    public function __construct($dataProviderMethodNamesResolver, $classMethodReturnVendorLockResolver)
     {
         $this->dataProviderMethodNamesResolver = $dataProviderMethodNamesResolver;
         $this->classMethodReturnVendorLockResolver = $classMethodReturnVendorLockResolver;
@@ -85,9 +89,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -103,7 +107,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($classMethod) : bool
     {
         $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
@@ -128,7 +135,10 @@ CODE_SAMPLE
         $phpunitDataProviderMethodNames = $this->dataProviderMethodNamesResolver->resolveFromClass($class);
         return $this->isNames($classMethod, $phpunitDataProviderMethodNames);
     }
-    private function isRecursionCallClassMethod(\PhpParser\Node\Stmt\ClassMethod $currentClassMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $currentClassMethod
+     */
+    private function isRecursionCallClassMethod($currentClassMethod) : bool
     {
         /** @var MethodCall[] $calls */
         $calls = $this->calls;

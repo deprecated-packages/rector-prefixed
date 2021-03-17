@@ -36,9 +36,9 @@ final class MultiDirnameRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::DIRNAME_LEVELS)) {
             return null;
@@ -60,7 +60,10 @@ final class MultiDirnameRector extends \Rector\Core\Rector\AbstractRector
         $node->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber($this->nestingLevel));
         return $node;
     }
-    private function matchNestedDirnameFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function matchNestedDirnameFuncCall($funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         if (!$this->isName($funcCall, self::DIRNAME)) {
             return null;

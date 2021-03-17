@@ -37,7 +37,12 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    /**
+     * @param \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter
+     * @param \Rector\Core\Configuration\Configuration $configuration
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     */
+    public function __construct($betterStandardPrinter, $configuration, $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -67,7 +72,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     /**
      * @param FileDiff[] $fileDiffs
      */
-    private function reportFileDiffs(array $fileDiffs) : void
+    private function reportFileDiffs($fileDiffs) : void
     {
         if (\count($fileDiffs) <= 0) {
             return;
@@ -95,7 +100,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     /**
      * @param RectorError[] $errors
      */
-    private function reportErrors(array $errors) : void
+    private function reportErrors($errors) : void
     {
         foreach ($errors as $error) {
             $errorMessage = $error->getMessage();
@@ -107,7 +112,10 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $this->symfonyStyle->error($message);
         }
     }
-    private function reportRemovedFilesAndNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    /**
+     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
+     */
+    private function reportRemovedFilesAndNodes($errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getAddFilesCount() !== 0) {
             $message = \sprintf('%d files were added', $errorAndDiffCollector->getAddFilesCount());
@@ -119,13 +127,19 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         }
         $this->reportRemovedNodes($errorAndDiffCollector);
     }
-    private function normalizePathsToRelativeWithLine(string $errorMessage) : string
+    /**
+     * @param string $errorMessage
+     */
+    private function normalizePathsToRelativeWithLine($errorMessage) : string
     {
         $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
         $errorMessage = \RectorPrefix20210317\Nette\Utils\Strings::replace($errorMessage, $regex, '');
         return $errorMessage = \RectorPrefix20210317\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
-    private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    /**
+     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
+     */
+    private function reportRemovedNodes($errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getRemovedNodeCount() === 0) {
             return;
@@ -148,11 +162,17 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             }
         }
     }
-    private function colorTextToRed(string $text) : string
+    /**
+     * @param string $text
+     */
+    private function colorTextToRed($text) : string
     {
         return '<fg=red>' . $text . '</fg=red>';
     }
-    private function createSuccessMessage(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : string
+    /**
+     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
+     */
+    private function createSuccessMessage($errorAndDiffCollector) : string
     {
         $changeCount = $errorAndDiffCollector->getFileDiffsCount() + $errorAndDiffCollector->getRemovedAndAddedFilesCount();
         if ($changeCount === 0) {

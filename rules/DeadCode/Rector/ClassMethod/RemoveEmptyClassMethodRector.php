@@ -25,7 +25,11 @@ final class RemoveEmptyClassMethodRector extends \Rector\Core\Rector\AbstractRec
      * @var ControllerClassMethodManipulator
      */
     private $controllerClassMethodManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator $controllerClassMethodManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator
+     * @param \Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator $controllerClassMethodManipulator
+     */
+    public function __construct($classMethodManipulator, $controllerClassMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->controllerClassMethodManipulator = $controllerClassMethodManipulator;
@@ -55,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -81,7 +85,11 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkipNonFinalNonPrivateClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipNonFinalNonPrivateClassMethod($class, $classMethod) : bool
     {
         if ($class->isFinal()) {
             return \false;
@@ -94,7 +102,10 @@ CODE_SAMPLE
         }
         return $classMethod->isPublic();
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         if ($this->classMethodManipulator->isNamedConstructor($classMethod)) {
             return \true;

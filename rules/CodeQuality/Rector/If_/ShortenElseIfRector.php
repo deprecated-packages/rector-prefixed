@@ -55,13 +55,16 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         return $this->shortenElseIf($node);
     }
-    private function shortenElseIf(\PhpParser\Node\Stmt\If_ $node) : ?\PhpParser\Node\Stmt\If_
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $node
+     */
+    private function shortenElseIf($node) : ?\PhpParser\Node\Stmt\If_
     {
         if (!$node->else instanceof \PhpParser\Node\Stmt\Else_) {
             return null;

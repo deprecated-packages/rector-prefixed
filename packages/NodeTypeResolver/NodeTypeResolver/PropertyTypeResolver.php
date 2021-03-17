@@ -22,8 +22,9 @@ final class PropertyTypeResolver implements \Rector\NodeTypeResolver\Contract\No
     private $nodeTypeResolver;
     /**
      * @required
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
      */
-    public function autowirePropertyTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePropertyTypeResolver($nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }

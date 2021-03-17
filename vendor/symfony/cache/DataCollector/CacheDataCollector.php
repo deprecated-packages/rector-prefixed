@@ -28,14 +28,21 @@ class CacheDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKer
      * @var TraceableAdapter[]
      */
     private $instances = [];
-    public function addInstance(string $name, \RectorPrefix20210317\Symfony\Component\Cache\Adapter\TraceableAdapter $instance)
+    /**
+     * @param string $name
+     * @param \Symfony\Component\Cache\Adapter\TraceableAdapter $instance
+     */
+    public function addInstance($name, $instance)
     {
         $this->instances[$name] = $instance;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect($request, $response, $exception = null)
     {
         $empty = ['calls' => [], 'config' => [], 'options' => [], 'statistics' => []];
         $this->data = ['instances' => $empty, 'total' => $empty];

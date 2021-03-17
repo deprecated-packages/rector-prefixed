@@ -9,7 +9,10 @@ class CachedWordInflector implements \RectorPrefix20210317\Doctrine\Inflector\Wo
     private $wordInflector;
     /** @var string[] */
     private $cache = [];
-    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\WordInflector $wordInflector)
+    /**
+     * @param \Doctrine\Inflector\WordInflector $wordInflector
+     */
+    public function __construct($wordInflector)
     {
         $this->wordInflector = $wordInflector;
     }

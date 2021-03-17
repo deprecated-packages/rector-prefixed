@@ -33,8 +33,9 @@ class FragmentHandler
     /**
      * @param FragmentRendererInterface[] $renderers An array of FragmentRendererInterface instances
      * @param bool                        $debug     Whether the debug mode is enabled or not
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack, array $renderers = [], bool $debug = \false)
+    public function __construct($requestStack, $renderers = [], bool $debug = \false)
     {
         $this->requestStack = $requestStack;
         foreach ($renderers as $renderer) {

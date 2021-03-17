@@ -26,7 +26,11 @@ final class ForeachItemsAssignToEmptyArrayToAssignRector extends \Rector\Core\Re
      * @var ForeachAnalyzer
      */
     private $foreachAnalyzer;
-    public function __construct(\Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
+    /**
+     * @param \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder
+     * @param \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer
+     */
+    public function __construct($nodeUsageFinder, $foreachAnalyzer)
     {
         $this->nodeUsageFinder = $nodeUsageFinder;
         $this->foreachAnalyzer = $foreachAnalyzer;
@@ -67,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param Foreach_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $assignVariable = $this->foreachAnalyzer->matchAssignItemsOnlyForeachArrayVariable($node);
         if (!$assignVariable instanceof \PhpParser\Node\Expr) {
@@ -93,7 +97,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\Assign($assignVariable, $node->expr);
     }
-    private function shouldSkipAsPartOfNestedForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     */
+    private function shouldSkipAsPartOfNestedForeach($foreach) : bool
     {
         $foreachParent = $this->betterNodeFinder->findParentType($foreach, \PhpParser\Node\Stmt\Foreach_::class);
         return $foreachParent !== null;

@@ -49,7 +49,15 @@ final class ReturnFluentChainMethodCallToNormalMethodCallRector extends \Rector\
      * @var FluentMethodCallSkipper
      */
     private $fluentMethodCallSkipper;
-    public function __construct(\Rector\Defluent\NodeFactory\ReturnFluentMethodCallFactory $returnFluentMethodCallFactory, \Rector\Defluent\ValueObjectFactory\FluentMethodCallsFactory $fluentMethodCallsFactory, \Rector\Defluent\NodeFactory\SeparateReturnMethodCallFactory $separateReturnMethodCallFactory, \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover, \Rector\Defluent\NodeAnalyzer\MethodCallSkipAnalyzer $methodCallSkipAnalyzer, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper)
+    /**
+     * @param \Rector\Defluent\NodeFactory\ReturnFluentMethodCallFactory $returnFluentMethodCallFactory
+     * @param \Rector\Defluent\ValueObjectFactory\FluentMethodCallsFactory $fluentMethodCallsFactory
+     * @param \Rector\Defluent\NodeFactory\SeparateReturnMethodCallFactory $separateReturnMethodCallFactory
+     * @param \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover
+     * @param \Rector\Defluent\NodeAnalyzer\MethodCallSkipAnalyzer $methodCallSkipAnalyzer
+     * @param \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper
+     */
+    public function __construct($returnFluentMethodCallFactory, $fluentMethodCallsFactory, $separateReturnMethodCallFactory, $fluentNodeRemover, $methodCallSkipAnalyzer, $fluentMethodCallSkipper)
     {
         $this->returnFluentMethodCallFactory = $returnFluentMethodCallFactory;
         $this->fluentMethodCallsFactory = $fluentMethodCallsFactory;
@@ -83,9 +91,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param Return_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $methodCall = $this->matchReturnMethodCall($node);
         if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -104,8 +112,9 @@ CODE_SAMPLE
     }
     /**
      * @return Node[]
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function createStandaloneNodesToAddFromReturnFluentMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    private function createStandaloneNodesToAddFromReturnFluentMethodCalls($methodCall) : array
     {
         $fluentMethodCalls = $this->fluentMethodCallsFactory->createFromLastMethodCall($methodCall);
         if (!$fluentMethodCalls instanceof \Rector\Defluent\ValueObject\FluentMethodCalls) {
@@ -121,7 +130,10 @@ CODE_SAMPLE
         }
         return $this->separateReturnMethodCallFactory->createReturnFromFirstAssignFluentCallAndFluentMethodCalls($firstAssignFluentCall, $fluentMethodCalls);
     }
-    private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     */
+    private function matchReturnMethodCall($return) : ?\PhpParser\Node\Expr\MethodCall
     {
         $returnExpr = $return->expr;
         if (!$returnExpr instanceof \PhpParser\Node\Expr\MethodCall) {

@@ -8,5 +8,10 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 interface PhpDocNodeFactoryInterface
 {
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+    /**
+     * @param \PhpParser\Node $node
+     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
+     * @param string $annotationClass
+     */
+    public function createFromNodeAndTokens($node, $tokenIterator, $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 }

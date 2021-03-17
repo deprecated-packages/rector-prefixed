@@ -20,8 +20,11 @@ final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\T
     private $hasSpaceAfterDoubleColon = \false;
     /**
      * @param ConstExprIntegerNode|ConstExprStringNode|IdentifierTypeNode|null $keyName
+     * @param bool $optional
+     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode
+     * @param string $docComment
      */
-    public function __construct($keyName, bool $optional, \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docComment = '')
+    public function __construct($keyName, $optional, $typeNode, $docComment = '')
     {
         parent::__construct($keyName, $optional, $typeNode);
         // spaces after double colon
@@ -37,8 +40,9 @@ final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\T
     }
     /**
      * @param ConstExprIntegerNode|IdentifierTypeNode|null $keyName
+     * @param bool $optional
      */
-    private function createKeyWithSpacePattern($keyName, bool $optional) : string
+    private function createKeyWithSpacePattern($keyName, $optional) : string
     {
         $keyNameString = (string) $keyName;
         if ($optional) {

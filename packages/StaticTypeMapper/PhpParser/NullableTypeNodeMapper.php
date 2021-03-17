@@ -20,14 +20,18 @@ final class NullableTypeNodeMapper implements \Rector\StaticTypeMapper\Contract\
      * @var PhpParserNodeMapper
      */
     private $phpParserNodeMapper;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     */
+    public function __construct($typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
     /**
      * @required
+     * @param \Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper
      */
-    public function autowireNullableTypeNodeMapper(\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper) : void
+    public function autowireNullableTypeNodeMapper($phpParserNodeMapper) : void
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;
     }

@@ -20,6 +20,7 @@ use Rector\CodingStyle\Rector\FuncCall\CallUserFuncCallToVariadicRector;
 use Rector\CodingStyle\Rector\FuncCall\ConsistentImplodeRector;
 use Rector\CodingStyle\Rector\FuncCall\ConsistentPregDelimiterRector;
 use Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector;
+use Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
 use Rector\CodingStyle\Rector\If_\NullableCompareToNullRector;
 use Rector\CodingStyle\Rector\Include_\FollowRequireByDirRector;
 use Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector;
@@ -64,6 +65,7 @@ return static function (\RectorPrefix20210317\Symfony\Component\DependencyInject
     $services->set(\Rector\CodingStyle\Rector\FuncCall\VersionCompareFuncCallToConstantRector::class);
     $services->set(\Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector::class);
     $services->set(\Rector\Transform\Rector\FuncCall\FuncCallToConstFetchRector::class)->call('configure', [[\Rector\Transform\Rector\FuncCall\FuncCallToConstFetchRector::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']]]);
+    $services->set(\Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector::class);
     $services->set(\Rector\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector::class);
     $services->set(\Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class);
     $services->set(\Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector::class);

@@ -28,7 +28,10 @@ final class OrderPrivateMethodsByUseRector extends \Rector\Core\Rector\AbstractR
      * @var StmtOrder
      */
     private $stmtOrder;
-    public function __construct(\Rector\Order\StmtOrder $stmtOrder)
+    /**
+     * @param \Rector\Order\StmtOrder $stmtOrder
+     */
+    public function __construct($stmtOrder)
     {
         $this->stmtOrder = $stmtOrder;
     }
@@ -82,7 +85,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
         // order is correct, nothing to change
@@ -108,14 +111,15 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $classLike
      */
-    private function getSortedAndOriginalClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods
+    private function getSortedAndOriginalClassMethods($classLike) : \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods
     {
         return new \Rector\Order\ValueObject\SortedClassMethodsAndOriginalClassMethods($this->getLocalPrivateMethodCallOrder($classLike), $this->resolvePrivateClassMethods($classLike));
     }
     /**
      * @return array<int, string>
+     * @param \PhpParser\Node\Stmt\ClassLike $classLike
      */
-    private function getLocalPrivateMethodCallOrder(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function getLocalPrivateMethodCallOrder($classLike) : array
     {
         $localPrivateMethodCallInOrder = [];
         $this->traverseNodesWithCallable($classLike->getMethods(), function (\PhpParser\Node $node) use(&$localPrivateMethodCallInOrder, $classLike) {
@@ -142,8 +146,9 @@ CODE_SAMPLE
     }
     /**
      * @return array<int, string>
+     * @param \PhpParser\Node\Stmt\ClassLike $classLike
      */
-    private function resolvePrivateClassMethods(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function resolvePrivateClassMethods($classLike) : array
     {
         $privateClassMethods = [];
         foreach ($classLike->stmts as $key => $classStmt) {

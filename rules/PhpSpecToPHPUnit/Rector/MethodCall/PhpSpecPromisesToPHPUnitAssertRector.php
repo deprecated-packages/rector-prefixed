@@ -109,7 +109,14 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      * @var DuringMethodCallFactory
      */
     private $duringMethodCallFactory;
-    public function __construct(\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory $assertMethodCallFactory, \Rector\PhpSpecToPHPUnit\NodeFactory\BeConstructedWithAssignFactory $beConstructedWithAssignFactory, \Rector\PhpSpecToPHPUnit\NodeFactory\DuringMethodCallFactory $duringMethodCallFactory)
+    /**
+     * @param \Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator
+     * @param \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming
+     * @param \Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory $assertMethodCallFactory
+     * @param \Rector\PhpSpecToPHPUnit\NodeFactory\BeConstructedWithAssignFactory $beConstructedWithAssignFactory
+     * @param \Rector\PhpSpecToPHPUnit\NodeFactory\DuringMethodCallFactory $duringMethodCallFactory
+     */
+    public function __construct($matchersManipulator, $phpSpecRenaming, $assertMethodCallFactory, $beConstructedWithAssignFactory, $duringMethodCallFactory)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->matchersManipulator = $matchersManipulator;
@@ -125,9 +132,9 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->isPrepared = \false;
         $this->matchersKeys = [];
@@ -177,14 +184,20 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $node->var = $this->testedObjectPropertyFetch;
         return $node;
     }
-    private function processDuringInstantiation(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processDuringInstantiation($methodCall) : \PhpParser\Node\Expr\MethodCall
     {
         /** @var MethodCall $parentMethodCall */
         $parentMethodCall = $methodCall->var;
         $parentMethodCall->name = new \PhpParser\Node\Identifier('expectException');
         return $parentMethodCall;
     }
-    private function prepareMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function prepareMethodCall($methodCall) : void
     {
         if ($this->isPrepared) {
             return;
@@ -198,8 +211,9 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     }
     /**
      * @see https://johannespichler.com/writing-custom-phpspec-matchers/
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function processMatchersKeys(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    private function processMatchersKeys($methodCall) : void
     {
         foreach ($this->matchersKeys as $matcherKey) {
             if (!$this->isName($methodCall->name, 'should' . \ucfirst($matcherKey))) {
@@ -225,7 +239,10 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
             return;
         }
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkip($methodCall) : bool
     {
         if (!$this->nodeNameResolver->isVariableName($methodCall->var, self::THIS)) {
             return \true;
@@ -233,7 +250,10 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         // skip "createMock" method
         return $this->isName($methodCall->name, 'createMock');
     }
-    private function createTestedObjectPropertyFetch(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function createTestedObjectPropertyFetch($class) : \PhpParser\Node\Expr\PropertyFetch
     {
         $propertyName = $this->phpSpecRenaming->resolveObjectPropertyName($class);
         return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);

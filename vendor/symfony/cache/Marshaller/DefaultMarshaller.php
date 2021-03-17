@@ -19,7 +19,10 @@ use RectorPrefix20210317\Symfony\Component\Cache\Exception\CacheException;
 class DefaultMarshaller implements \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     private $useIgbinarySerialize = \true;
-    public function __construct(bool $useIgbinarySerialize = null)
+    /**
+     * @param bool $useIgbinarySerialize
+     */
+    public function __construct($useIgbinarySerialize = null)
     {
         if (null === $useIgbinarySerialize) {
             $useIgbinarySerialize = \extension_loaded('igbinary') && (\PHP_VERSION_ID < 70400 || \version_compare('3.1.6', \phpversion('igbinary'), '<='));
@@ -82,8 +85,9 @@ class DefaultMarshaller implements \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * @internal
+     * @param string $class
      */
-    public static function handleUnserializeCallback(string $class)
+    public static function handleUnserializeCallback($class)
     {
         throw new \DomainException('Class not found: ' . $class);
     }

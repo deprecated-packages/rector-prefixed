@@ -45,9 +45,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param FileNode $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $fileInfo = $node->getFileInfo();
         $oldPathname = $fileInfo->getPathname();
@@ -60,7 +60,10 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithContent);
         return null;
     }
-    private function createPathName(string $oldRealPath) : string
+    /**
+     * @param string $oldRealPath
+     */
+    private function createPathName($oldRealPath) : string
     {
         // suffix
         $newRealPath = \RectorPrefix20210317\Nette\Utils\Strings::replace($oldRealPath, self::SPEC_SUFFIX_REGEX, 'Test.php');

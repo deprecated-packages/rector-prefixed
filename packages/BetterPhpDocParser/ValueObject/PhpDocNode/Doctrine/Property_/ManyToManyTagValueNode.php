@@ -21,12 +21,19 @@ final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
      * @var string|null
      */
     private $fullyQualifiedTargetEntity;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content = null, ?string $fullyQualifiedTargetEntity = null)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param mixed[] $items
+     * @param string|null $content
+     * @param string|null $fullyQualifiedTargetEntity
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content = null, $fullyQualifiedTargetEntity = null)
     {
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
-    public function getTargetEntity() : string
+    public function getTargetEntity() : ?string
     {
         return $this->items[self::TARGET_ENTITY];
     }
@@ -50,7 +57,10 @@ final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         $this->items['inversedBy'] = null;
     }
-    public function changeTargetEntity(string $targetEntity) : void
+    /**
+     * @param string $targetEntity
+     */
+    public function changeTargetEntity($targetEntity) : void
     {
         $this->items[self::TARGET_ENTITY] = $targetEntity;
     }

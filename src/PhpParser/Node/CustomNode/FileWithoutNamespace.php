@@ -17,7 +17,7 @@ final class FileWithoutNamespace extends \PhpParser\NodeAbstract
     /**
      * @param Stmt[] $stmts
      */
-    public function __construct(array $stmts)
+    public function __construct($stmts)
     {
         $this->stmts = $stmts;
         parent::__construct();

@@ -56,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->else === null) {
             return null;
@@ -100,7 +100,7 @@ CODE_SAMPLE
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveOnlyStmtAssignVar(array $stmts) : ?\PhpParser\Node\Expr
+    private function resolveOnlyStmtAssignVar($stmts) : ?\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;
@@ -114,7 +114,7 @@ CODE_SAMPLE
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveOnlyStmtAssignExpr(array $stmts) : ?\PhpParser\Node\Expr
+    private function resolveOnlyStmtAssignExpr($stmts) : ?\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;
@@ -128,7 +128,7 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function haveNestedTernary(array $nodes) : bool
+    private function haveNestedTernary($nodes) : bool
     {
         foreach ($nodes as $node) {
             $betterNodeFinderFindInstanceOf = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Expr\Ternary::class);
@@ -138,7 +138,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isNodeTooLong(\PhpParser\Node\Expr\Assign $assign) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function isNodeTooLong($assign) : bool
     {
         return \RectorPrefix20210317\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGTH_LIMIT;
     }

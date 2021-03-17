@@ -68,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // doesn't have a parent class
         if (!$node->hasAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME)) {
@@ -89,7 +89,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $methodVisibilities = $configuration[self::METHOD_VISIBILITIES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($methodVisibilities, \Rector\Visibility\ValueObject\ChangeMethodVisibility::class);

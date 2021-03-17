@@ -22,7 +22,10 @@ final class ReplaceAssertArraySubsetWithDmsPolyfillRector extends \Rector\Core\R
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
@@ -66,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($node, 'assertArraySubset')) {
             return null;

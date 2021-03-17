@@ -53,7 +53,14 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
      * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
-    public function __construct(\Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\UniqueObjectOrServiceDetector $uniqueObjectOrServiceDetector, \Rector\RemovingStatic\UniqueObjectFactoryFactory $uniqueObjectFactoryFactory, \Rector\RemovingStatic\Printer\FactoryClassPrinter $factoryClassPrinter)
+    /**
+     * @param \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver
+     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
+     * @param \Rector\RemovingStatic\UniqueObjectOrServiceDetector $uniqueObjectOrServiceDetector
+     * @param \Rector\RemovingStatic\UniqueObjectFactoryFactory $uniqueObjectFactoryFactory
+     * @param \Rector\RemovingStatic\Printer\FactoryClassPrinter $factoryClassPrinter
+     */
+    public function __construct($staticTypesInClassResolver, $propertyNaming, $uniqueObjectOrServiceDetector, $uniqueObjectFactoryFactory, $factoryClassPrinter)
     {
         $this->propertyNaming = $propertyNaming;
         $this->uniqueObjectOrServiceDetector = $uniqueObjectOrServiceDetector;
@@ -142,7 +149,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->refactorClass($node);
@@ -161,14 +168,17 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
         foreach ($typesToServices as $typeToService) {
             $this->serviceObjectTypes[] = new \PHPStan\Type\ObjectType($typeToService);
         }
     }
-    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function refactorClass($class) : \PhpParser\Node\Stmt\Class_
     {
         $staticTypesInClass = $this->staticTypesInClassResolver->collectStaticCallTypeInClass($class, $this->serviceObjectTypes);
         foreach ($staticTypesInClass as $staticTypeInClass) {

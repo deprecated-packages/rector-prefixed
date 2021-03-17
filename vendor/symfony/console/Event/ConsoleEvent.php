@@ -24,7 +24,12 @@ class ConsoleEvent extends \RectorPrefix20210317\Symfony\Contracts\EventDispatch
     protected $command;
     private $input;
     private $output;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command = null, \RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output)
+    /**
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    public function __construct($command = null, $input, $output)
     {
         $this->command = $command;
         $this->input = $input;

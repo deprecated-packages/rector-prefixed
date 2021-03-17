@@ -23,7 +23,10 @@ final class StartsWithFunctionToNetteUtilsStringsRector extends \Rector\Core\Rec
      * @var StrlenStartsWithResolver
      */
     private $strlenStartsWithResolver;
-    public function __construct(\Rector\Nette\NodeAnalyzer\StrlenStartsWithResolver $strlenStartsWithResolver)
+    /**
+     * @param \Rector\Nette\NodeAnalyzer\StrlenStartsWithResolver $strlenStartsWithResolver
+     */
+    public function __construct($strlenStartsWithResolver)
     {
         $this->strlenStartsWithResolver = $strlenStartsWithResolver;
     }
@@ -63,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $contentExprAndNeedleExpr = $this->strlenStartsWithResolver->resolveBinaryOpForFunction($node, 'substr');
         if (!$contentExprAndNeedleExpr instanceof \Rector\Nette\ValueObject\ContentExprAndNeedleExpr) {

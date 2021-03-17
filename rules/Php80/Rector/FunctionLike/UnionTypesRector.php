@@ -30,7 +30,11 @@ final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    /**
+     * @param \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover
+     * @param \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover
+     */
+    public function __construct($returnTagRemover, $paramTagRemover)
     {
         $this->returnTagRemover = $returnTagRemover;
         $this->paramTagRemover = $paramTagRemover;
@@ -69,7 +73,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->refactorParamTypes($node, $phpDocInfo);
@@ -80,8 +84,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    private function refactorParamTypes($functionLike, $phpDocInfo) : void
     {
         foreach ($functionLike->getParams() as $param) {
             if ($param->type !== null) {
@@ -102,8 +107,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function refactorReturnType(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    private function refactorReturnType($functionLike, $phpDocInfo) : void
     {
         // do not override existing return type
         if ($functionLike->getReturnType() !== null) {

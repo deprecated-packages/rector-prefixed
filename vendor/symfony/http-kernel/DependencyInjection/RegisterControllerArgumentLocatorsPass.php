@@ -33,14 +33,23 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210317\Sy
     private $controllerTag;
     private $controllerLocator;
     private $notTaggedControllerResolverServiceId;
-    public function __construct(string $resolverServiceId = 'argument_resolver.service', string $controllerTag = 'controller.service_arguments', string $controllerLocator = 'argument_resolver.controller_locator', string $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
+    /**
+     * @param string $resolverServiceId
+     * @param string $controllerTag
+     * @param string $controllerLocator
+     * @param string $notTaggedControllerResolverServiceId
+     */
+    public function __construct($resolverServiceId = 'argument_resolver.service', $controllerTag = 'controller.service_arguments', $controllerLocator = 'argument_resolver.controller_locator', $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
     {
         $this->resolverServiceId = $resolverServiceId;
         $this->controllerTag = $controllerTag;
         $this->controllerLocator = $controllerLocator;
         $this->notTaggedControllerResolverServiceId = $notTaggedControllerResolverServiceId;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         if (\false === $container->hasDefinition($this->resolverServiceId) && \false === $container->hasDefinition($this->notTaggedControllerResolverServiceId)) {
             return;

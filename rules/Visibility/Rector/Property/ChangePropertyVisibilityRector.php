@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -82,7 +82,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->propertyToVisibilityByClass = $configuration[self::PROPERTY_TO_VISIBILITY_BY_CLASS] ?? [];
     }

@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->doctrineManagerRegistryObjectTypes)) {
             return null;
@@ -78,27 +78,42 @@ CODE_SAMPLE
         $node->args[0]->value = $this->nodeFactory->createClassConstReference($this->convertAliasToFqn($node->args[0]->value->value));
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->aliasesToNamespaces = $configuration[self::ALIASES_TO_NAMESPACES] ?? [];
     }
-    private function isAliasWithConfiguredEntity(string $name) : bool
+    /**
+     * @param string $name
+     */
+    private function isAliasWithConfiguredEntity($name) : bool
     {
         if (!$this->isAlias($name)) {
             return \false;
         }
         return $this->hasAlias($name);
     }
-    private function convertAliasToFqn(string $name) : string
+    /**
+     * @param string $name
+     */
+    private function convertAliasToFqn($name) : string
     {
         [$namespaceAlias, $simpleClassName] = \explode(':', $name, 2);
         return \sprintf('%s\\%s', $this->aliasesToNamespaces[$namespaceAlias], $simpleClassName);
     }
-    private function isAlias(string $name) : bool
+    /**
+     * @param string $name
+     */
+    private function isAlias($name) : bool
     {
         return \RectorPrefix20210317\Nette\Utils\Strings::contains($name, ':');
     }
-    private function hasAlias(string $name) : bool
+    /**
+     * @param string $name
+     */
+    private function hasAlias($name) : bool
     {
         return isset($this->aliasesToNamespaces[\strtok($name, ':')]);
     }

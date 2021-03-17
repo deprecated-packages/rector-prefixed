@@ -31,12 +31,14 @@ interface AdapterInterface extends \RectorPrefix20210317\Psr\Cache\CacheItemPool
      * {@inheritdoc}
      *
      * @return \Traversable|CacheItem[]
+     * @param mixed[] $keys
      */
-    public function getItems(array $keys = []);
+    public function getItems($keys = []);
     /**
      * {@inheritdoc}
      *
      * @return bool
+     * @param string $prefix
      */
-    public function clear(string $prefix = '');
+    public function clear($prefix = '');
 }
