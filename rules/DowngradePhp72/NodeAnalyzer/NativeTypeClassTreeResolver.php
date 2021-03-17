@@ -19,8 +19,10 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\NotImplementedYetException;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 use Rector\Tests\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector\Fixture\ParentType;
@@ -62,53 +64,7 @@ final class NativeTypeClassTreeResolver
         if (!$nativeType instanceof \PHPStan\Type\MixedType) {
             return $nativeType;
         }
-        if (!$parameterReflection->getType() instanceof \ReflectionNamedType) {
-            return new \PHPStan\Type\MixedType();
-        }
-        $typeName = (string) $parameterReflection->getType();
-        $allowsNull = \false;
-        if ($parameterReflection->allowsNull()) {
-            $allowsNull = \true;
-            $typeName = \ltrim($typeName, '?');
-        }
-        $type = null;
-        if ($typeName === 'array') {
-            $type = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
-        }
-        if ($typeName === 'string') {
-            $type = new \PHPStan\Type\StringType();
-        }
-        if ($typeName === 'bool') {
-            $type = new \PHPStan\Type\BooleanType();
-        }
-        if ($typeName === 'int') {
-            $type = new \PHPStan\Type\IntegerType();
-        }
-        if ($typeName === 'float') {
-            $type = new \PHPStan\Type\FloatType();
-        }
-        if ($this->reflectionProvider->hasClass($typeName)) {
-            $type = new \PHPStan\Type\ObjectType($typeName);
-        }
-        if ($type !== null) {
-            if ($allowsNull) {
-                return new \PHPStan\Type\UnionType([$type, new \PHPStan\Type\NullType()]);
-            }
-            return $type;
-        }
-        if ($typeName === 'self') {
-            return new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($classReflection->getName(), null, $classReflection);
-        }
-        if ($typeName === 'object') {
-            return new \PHPStan\Type\ObjectWithoutClassType();
-        }
-        if ($typeName === 'callable') {
-            return new \PHPStan\Type\CallableType();
-        }
-        if ($typeName === 'parent') {
-            return new \PHPStan\Type\ObjectType($classReflection->getParentClass()->getName(), null, $classReflection->getParentClass());
-        }
-        throw new \Rector\Core\Exception\NotImplementedYetException($typeName);
+        return \PHPStan\Type\TypehintHelper::decideTypeFromReflection($parameterReflection->getType(), null, $classReflection->getName(), $parameterReflection->isVariadic());
     }
     private function resolveNativeType(\ReflectionParameter $reflectionParameter) : \PHPStan\Type\Type
     {
