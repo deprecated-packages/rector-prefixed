@@ -81,6 +81,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        if ($node->isMagic()) {
+            return null;
+        }
         if ($node->params === []) {
             return null;
         }
