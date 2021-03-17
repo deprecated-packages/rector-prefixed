@@ -47,8 +47,10 @@ final class PHPStanRuleCodeSamplePrinter implements \Symplify\RuleDocGenerator\C
     }
     /**
      * @return string[]
+     * @param \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample
+     * @param \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition
      */
-    private function printConfigurableCodeSample(\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    private function printConfigurableCodeSample($configuredCodeSample, $ruleDefinition) : array
     {
         $lines = [];
         $phpstanNeon = ['services' => [['class' => $ruleDefinition->getRuleClass(), 'tags' => ['phpstan.rules.rule'], 'arguments' => $configuredCodeSample->getConfiguration()]]];

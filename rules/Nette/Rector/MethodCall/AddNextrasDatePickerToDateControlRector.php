@@ -58,9 +58,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // 1. chain call
         if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -84,7 +84,10 @@ CODE_SAMPLE
         }
         return $this->createAssign($node);
     }
-    private function createAssign(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function createAssign($methodCall) : ?\PhpParser\Node
     {
         $key = $methodCall->args[0]->value;
         if (!$key instanceof \PhpParser\Node\Scalar\String_) {
@@ -107,7 +110,10 @@ CODE_SAMPLE
         }
         return $formAssign;
     }
-    private function resolveControlName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function resolveControlName($methodCall) : string
     {
         $controlName = $methodCall->args[0]->value;
         if (!$controlName instanceof \PhpParser\Node\Scalar\String_) {
@@ -115,7 +121,10 @@ CODE_SAMPLE
         }
         return $controlName->value . 'DateControl';
     }
-    private function createDateTimeControlNew(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\New_
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function createDateTimeControlNew($methodCall) : \PhpParser\Node\Expr\New_
     {
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified('Nextras\\FormComponents\\Controls\\DateControl');
         $new = new \PhpParser\Node\Expr\New_($fullyQualified);

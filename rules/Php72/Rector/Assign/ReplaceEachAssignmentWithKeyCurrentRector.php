@@ -49,9 +49,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -65,7 +65,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function shouldSkip($assign) : bool
     {
         if (!$this->nodeNameResolver->isFuncCallName($assign->expr, 'each')) {
             return \true;
@@ -82,8 +85,10 @@ CODE_SAMPLE
     }
     /**
      * @return array<int, Assign|FuncCall>
+     * @param \PhpParser\Node\Expr $assignVariable
+     * @param \PhpParser\Node\Expr $eachedVariable
      */
-    private function createNewNodes(\PhpParser\Node\Expr $assignVariable, \PhpParser\Node\Expr $eachedVariable) : array
+    private function createNewNodes($assignVariable, $eachedVariable) : array
     {
         $newNodes = [];
         $newNodes[] = $this->createDimFetchAssignWithFuncCall($assignVariable, $eachedVariable, 1, 'current');
@@ -95,8 +100,11 @@ CODE_SAMPLE
     }
     /**
      * @param string|int $dimValue
+     * @param \PhpParser\Node\Expr $assignVariable
+     * @param \PhpParser\Node\Expr $eachedVariable
+     * @param string $functionName
      */
-    private function createDimFetchAssignWithFuncCall(\PhpParser\Node\Expr $assignVariable, \PhpParser\Node\Expr $eachedVariable, $dimValue, string $functionName) : \PhpParser\Node\Expr\Assign
+    private function createDimFetchAssignWithFuncCall($assignVariable, $eachedVariable, $dimValue, $functionName) : \PhpParser\Node\Expr\Assign
     {
         $dim = \PhpParser\BuilderHelpers::normalizeValue($dimValue);
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($assignVariable, $dim);

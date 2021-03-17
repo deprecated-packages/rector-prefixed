@@ -47,6 +47,7 @@ abstract class AbstractRequestRateLimiter implements \RectorPrefix20210317\Symfo
     }
     /**
      * @return LimiterInterface[] a set of limiters using keys extracted from the request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    protected abstract function getLimiters(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request) : array;
+    protected abstract function getLimiters($request) : array;
 }

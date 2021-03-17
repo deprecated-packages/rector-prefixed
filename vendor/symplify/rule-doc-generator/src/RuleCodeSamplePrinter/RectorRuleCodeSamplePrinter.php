@@ -54,8 +54,9 @@ final class RectorRuleCodeSamplePrinter implements \Symplify\RuleDocGenerator\Co
     }
     /**
      * @return string[]
+     * @param \Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample $composerJsonAwareCodeSample
      */
-    private function printComposerJsonAwareCodeSample(\Symplify\RuleDocGenerator\ValueObject\CodeSample\ComposerJsonAwareCodeSample $composerJsonAwareCodeSample) : array
+    private function printComposerJsonAwareCodeSample($composerJsonAwareCodeSample) : array
     {
         $lines = [];
         $lines[] = '- with `composer.json`:';
@@ -66,8 +67,9 @@ final class RectorRuleCodeSamplePrinter implements \Symplify\RuleDocGenerator\Co
     }
     /**
      * @return string[]
+     * @param \Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample $extraFileCodeSample
      */
-    private function printExtraFileCodeSample(\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample $extraFileCodeSample) : array
+    private function printExtraFileCodeSample($extraFileCodeSample) : array
     {
         $lines = $this->diffCodeSamplePrinter->print($extraFileCodeSample);
         $lines[] = 'Extra file:';

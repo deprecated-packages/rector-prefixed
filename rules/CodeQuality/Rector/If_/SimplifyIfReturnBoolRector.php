@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -81,7 +81,10 @@ CODE_SAMPLE
         $this->removeNode($nextNode);
         return $newReturnNode;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function shouldSkip($if) : bool
     {
         if ($if->elseifs !== []) {
             return \true;
@@ -115,14 +118,22 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function processReturnTrue(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : \PhpParser\Node\Stmt\Return_
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param \PhpParser\Node\Stmt\Return_ $nextReturnNode
+     */
+    private function processReturnTrue($if, $nextReturnNode) : \PhpParser\Node\Stmt\Return_
     {
         if ($if->cond instanceof \PhpParser\Node\Expr\BooleanNot && $nextReturnNode->expr !== null && $this->valueResolver->isTrue($nextReturnNode->expr)) {
             return new \PhpParser\Node\Stmt\Return_($this->exprBoolCaster->boolCastOrNullCompareIfNeeded($if->cond->expr));
         }
         return new \PhpParser\Node\Stmt\Return_($this->exprBoolCaster->boolCastOrNullCompareIfNeeded($if->cond));
     }
-    private function processReturnFalse(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param \PhpParser\Node\Stmt\Return_ $nextReturnNode
+     */
+    private function processReturnFalse($if, $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
     {
         if ($if->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($if->cond->left, $if->cond->right);
@@ -141,8 +152,9 @@ CODE_SAMPLE
     }
     /**
      * Matches: "else if"
+     * @param \PhpParser\Node\Stmt\If_ $if
      */
-    private function isElseSeparatedThenIf(\PhpParser\Node\Stmt\If_ $if) : bool
+    private function isElseSeparatedThenIf($if) : bool
     {
         if ($if->else === null) {
             return \false;
@@ -153,7 +165,10 @@ CODE_SAMPLE
         $onlyStmt = $if->else->stmts[0];
         return $onlyStmt instanceof \PhpParser\Node\Stmt\If_;
     }
-    private function isIfWithSingleReturnExpr(\PhpParser\Node\Stmt\If_ $if) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function isIfWithSingleReturnExpr($if) : bool
     {
         if (\count($if->stmts) !== 1) {
             return \false;

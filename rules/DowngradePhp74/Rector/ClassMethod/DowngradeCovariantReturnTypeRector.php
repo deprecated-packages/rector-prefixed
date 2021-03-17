@@ -96,9 +96,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->returnType === null) {
             return null;
@@ -129,8 +129,9 @@ CODE_SAMPLE
     }
     /**
      * @param UnionType|NullableType|Name|Node\Identifier $returnTypeNode
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function resolveDifferentAncestorReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node $returnTypeNode) : \PHPStan\Type\Type
+    private function resolveDifferentAncestorReturnType($classMethod, $returnTypeNode) : \PHPStan\Type\Type
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -169,7 +170,10 @@ CODE_SAMPLE
         }
         return new \PHPStan\Type\MixedType();
     }
-    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function addDocBlockReturn($classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         // keep return type if already set one

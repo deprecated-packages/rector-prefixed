@@ -53,7 +53,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $oldMethodNames = \array_keys(self::OLD_TO_NEW_METHOD);
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodNames)) {

@@ -111,7 +111,7 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
      *
      * @return array The identifiers that failed to be cached or a boolean stating if caching succeeded or not
      */
-    protected abstract function doSave(array $values, int $lifetime, array $addTagData = [], array $removeTagData = []) : array;
+    protected abstract function doSave($values, $lifetime, $addTagData = [], $removeTagData = []) : array;
     /**
      * Removes multiple items from the pool and their corresponding tags.
      *
@@ -119,13 +119,13 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
      *
      * @return bool True if the items were successfully removed, false otherwise
      */
-    protected abstract function doDelete(array $ids);
+    protected abstract function doDelete($ids);
     /**
      * Removes relations between tags and deleted items.
      *
      * @param array $tagData Array of tag => key identifiers that should be removed from the pool
      */
-    protected abstract function doDeleteTagRelations(array $tagData) : bool;
+    protected abstract function doDeleteTagRelations($tagData) : bool;
     /**
      * Invalidates cached items using tags.
      *
@@ -133,11 +133,12 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
      *
      * @return bool True on success
      */
-    protected abstract function doInvalidate(array $tagIds) : bool;
+    protected abstract function doInvalidate($tagIds) : bool;
     /**
      * Delete items and yields the tags they were bound to.
+     * @param mixed[] $ids
      */
-    protected function doDeleteYieldTags(array $ids) : iterable
+    protected function doDeleteYieldTags($ids) : iterable
     {
         foreach ($this->doFetch($ids) as $id => $value) {
             (yield $id => \is_array($value) && \is_array($value['tags'] ?? null) ? $value['tags'] : []);
@@ -202,8 +203,9 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $keys
      */
-    public function deleteItems(array $keys) : bool
+    public function deleteItems($keys) : bool
     {
         if (!$keys) {
             return \true;
@@ -247,8 +249,9 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $tags
      */
-    public function invalidateTags(array $tags)
+    public function invalidateTags($tags)
     {
         if (empty($tags)) {
             return \false;
@@ -264,8 +267,11 @@ abstract class AbstractTagAwareAdapter implements \RectorPrefix20210317\Symfony\
     }
     /**
      * Extracts tags operation data from $values set in mergeByLifetime, and returns values without it.
+     * @param mixed[] $values
+     * @param mixed[]|null $addTagData
+     * @param mixed[]|null $removeTagData
      */
-    private function extractTagData(array $values, ?array &$addTagData, ?array &$removeTagData) : array
+    private function extractTagData($values, &$addTagData, &$removeTagData) : array
     {
         $addTagData = $removeTagData = [];
         foreach ($values as $id => $value) {

@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
@@ -82,7 +82,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorToBoolType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @param \PhpParser\Node\Stmt\PropertyProperty $propertyProperty
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function refactorToBoolType($propertyProperty, $property) : ?\PhpParser\Node\Stmt\Property
     {
         if ($propertyProperty->default === null) {
             return null;
@@ -98,7 +102,11 @@ CODE_SAMPLE
         }
         throw new \Rector\Core\Exception\NotImplementedYetException();
     }
-    private function refactorToIntType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @param \PhpParser\Node\Stmt\PropertyProperty $propertyProperty
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function refactorToIntType($propertyProperty, $property) : ?\PhpParser\Node\Stmt\Property
     {
         if ($propertyProperty->default === null) {
             return null;

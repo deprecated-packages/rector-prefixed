@@ -265,8 +265,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
      */
-    protected function doDestroy(string $sessionId)
+    protected function doDestroy($sessionId)
     {
         // delete the record associated with this id
         $sql = "DELETE FROM {$this->table} WHERE {$this->idCol} = :id";
@@ -282,8 +283,10 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite(string $sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
         $maxlifetime = (int) \ini_get('session.gc_maxlifetime');
         try {
@@ -373,8 +376,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * Lazy-connects to the database.
+     * @param string $dsn
      */
-    private function connect(string $dsn) : void
+    private function connect($dsn) : void
     {
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -384,8 +388,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
      * Builds a PDO DSN from a URL-like connection string.
      *
      * @todo implement missing support for oci DSN (which look totally different from other PDO ones)
+     * @param string $dsnOrUrl
      */
-    private function buildDsnFromUrl(string $dsnOrUrl) : string
+    private function buildDsnFromUrl($dsnOrUrl) : string
     {
         // (pdo_)?sqlite3?:///... => (pdo_)?sqlite3?://localhost/... or else the URL will be invalid
         $url = \preg_replace('#^((?:pdo_)?sqlite3?):///#', '$1://localhost/', $dsnOrUrl);
@@ -525,8 +530,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
      * to the session.gc_maxlifetime setting because gc() is called after read() and only sometimes.
      *
      * @return string
+     * @param string $sessionId
      */
-    protected function doRead(string $sessionId)
+    protected function doRead($sessionId)
     {
         if (self::LOCK_ADVISORY === $this->lockMode) {
             $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
@@ -588,8 +594,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
      * @todo implement missing advisory locks
      *       - for oci using DBMS_LOCK.REQUEST
      *       - for sqlsrv using sp_getapplock with LockOwner = Session
+     * @param string $sessionId
      */
-    private function doAdvisoryLock(string $sessionId) : \PDOStatement
+    private function doAdvisoryLock($sessionId) : \PDOStatement
     {
         switch ($this->driver) {
             case 'mysql':
@@ -636,8 +643,9 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
      * Encodes the first 4 (when PHP_INT_SIZE == 4) or 8 characters of the string as an integer.
      *
      * Keep in mind, PHP integers are signed.
+     * @param string $string
      */
-    private function convertStringToInt(string $string) : int
+    private function convertStringToInt($string) : int
     {
         if (4 === \PHP_INT_SIZE) {
             return (\ord($string[3]) << 24) + (\ord($string[2]) << 16) + (\ord($string[1]) << 8) + \ord($string[0]);
@@ -674,8 +682,11 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * Returns an insert statement supported by the database for writing session data.
+     * @param string $sessionId
+     * @param string $sessionData
+     * @param int $maxlifetime
      */
-    private function getInsertStatement(string $sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
+    private function getInsertStatement($sessionId, $sessionData, $maxlifetime) : \PDOStatement
     {
         switch ($this->driver) {
             case 'oci':
@@ -698,8 +709,11 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * Returns an update statement supported by the database for writing session data.
+     * @param string $sessionId
+     * @param string $sessionData
+     * @param int $maxlifetime
      */
-    private function getUpdateStatement(string $sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
+    private function getUpdateStatement($sessionId, $sessionData, $maxlifetime) : \PDOStatement
     {
         switch ($this->driver) {
             case 'oci':
@@ -722,8 +736,11 @@ class PdoSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFoun
     }
     /**
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
+     * @param string $sessionId
+     * @param string $data
+     * @param int $maxlifetime
      */
-    private function getMergeStatement(string $sessionId, string $data, int $maxlifetime) : ?\PDOStatement
+    private function getMergeStatement($sessionId, $data, $maxlifetime) : ?\PDOStatement
     {
         switch (\true) {
             case 'mysql' === $this->driver:

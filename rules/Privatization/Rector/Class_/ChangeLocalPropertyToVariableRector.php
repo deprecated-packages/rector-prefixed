@@ -82,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
@@ -111,8 +111,9 @@ CODE_SAMPLE
     /**
      * @param string[] $privatePropertyNames
      * @return string[][]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectPropertyFetchByMethods(\PhpParser\Node\Stmt\Class_ $class, array $privatePropertyNames) : array
+    private function collectPropertyFetchByMethods($class, $privatePropertyNames) : array
     {
         $propertyUsageByMethods = [];
         foreach ($privatePropertyNames as $privatePropertyName) {
@@ -139,8 +140,10 @@ CODE_SAMPLE
     }
     /**
      * Covers https://github.com/rectorphp/rector/pull/2558#discussion_r363036110
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $privatePropertyName
      */
-    private function isPropertyChangingInMultipleMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $privatePropertyName) : bool
+    private function isPropertyChangingInMultipleMethodCalls($classMethod, $privatePropertyName) : bool
     {
         $isPropertyChanging = \false;
         $isPropertyReadInIf = \false;
@@ -169,11 +172,18 @@ CODE_SAMPLE
         });
         return $isPropertyChanging || $isIfFollowedByAssign;
     }
-    private function isScopeChangingNode(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function isScopeChangingNode($node) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, self::SCOPE_CHANGING_NODE_TYPES);
     }
-    private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName) : ?bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param string $privatePropertyName
+     */
+    private function refactorIf($if, $privatePropertyName) : ?bool
     {
         $this->traverseNodesWithCallable($if->cond, function (\PhpParser\Node $node) use($privatePropertyName, &$isPropertyReadInIf) : ?int {
             if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$privatePropertyName])) {
@@ -184,7 +194,11 @@ CODE_SAMPLE
         });
         return $isPropertyReadInIf;
     }
-    private function isPropertyChanging(\PhpParser\Node $node, string $privatePropertyName) : bool
+    /**
+     * @param \PhpParser\Node $node
+     * @param string $privatePropertyName
+     */
+    private function isPropertyChanging($node, $privatePropertyName) : bool
     {
         $isPropertyChanging = \false;
         // here cannot be any property assign

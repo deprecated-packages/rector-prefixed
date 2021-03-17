@@ -66,7 +66,10 @@ final class NumericLiteralSeparatorEmulator extends \PhpParser\Lexer\TokenEmulat
         }
         return $tokens;
     }
-    private function resolveIntegerOrFloatToken(string $str) : int
+    /**
+     * @param string $str
+     */
+    private function resolveIntegerOrFloatToken($str) : int
     {
         $str = \str_replace('_', '', $str);
         if (\stripos($str, '0b') === 0) {

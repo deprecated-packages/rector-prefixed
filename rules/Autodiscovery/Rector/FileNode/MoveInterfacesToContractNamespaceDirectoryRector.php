@@ -62,9 +62,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param FileNode $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $interface = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Interface_::class);
         if (!$interface instanceof \PhpParser\Node\Stmt\Interface_) {

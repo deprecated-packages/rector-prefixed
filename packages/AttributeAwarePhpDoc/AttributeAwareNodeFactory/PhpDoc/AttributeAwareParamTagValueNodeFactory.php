@@ -20,19 +20,26 @@ final class AttributeAwareParamTagValueNodeFactory implements \Rector\AttributeA
     {
         return \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class;
     }
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     */
+    public function isMatch($node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class, \true);
     }
     /**
-     * @param ParamTagValueNode $node
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     * @param string $docContent
      */
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->type = $this->attributeAwareNodeFactory->createFromNode($node->type, $docContent);
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($node->type, $node->isVariadic, $node->parameterName, $node->description);
     }
-    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
+     */
+    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

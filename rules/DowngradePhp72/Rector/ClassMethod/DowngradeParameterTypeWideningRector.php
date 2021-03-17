@@ -77,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->isMagic()) {
             return null;
@@ -94,8 +94,10 @@ CODE_SAMPLE
     }
     /**
      * The topmost class is the source of truth, so we go only down to avoid up/down collission
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param int $position
      */
-    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position) : void
+    private function refactorParamForSelfAndSiblings($classMethod, $position) : void
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -126,7 +128,12 @@ CODE_SAMPLE
         }
         $this->refactorClassWithAncestorsAndChildren($classReflection, $methodName, $position);
     }
-    private function removeParamTypeFromMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassLike $classLike
+     * @param int $position
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function removeParamTypeFromMethod($classLike, $position, $classMethod) : void
     {
         $classMethodName = $this->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($classMethodName);
@@ -146,7 +153,12 @@ CODE_SAMPLE
         // Remove the type
         $param->type = null;
     }
-    private function removeParamTypeFromMethodForChildren(string $parentClassName, string $methodName, int $position) : void
+    /**
+     * @param string $parentClassName
+     * @param string $methodName
+     * @param int $position
+     */
+    private function removeParamTypeFromMethodForChildren($parentClassName, $methodName, $position) : void
     {
         $childrenClassLikes = $this->nodeRepository->findClassesAndInterfacesByType($parentClassName);
         foreach ($childrenClassLikes as $childClassLike) {
@@ -163,8 +175,10 @@ CODE_SAMPLE
     }
     /**
      * Add the current param type in the PHPDoc
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PhpParser\Node\Param $param
      */
-    private function addPHPDocParamTypeToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
+    private function addPHPDocParamTypeToMethod($classMethod, $param) : void
     {
         if ($param->type === null) {
             return;
@@ -176,8 +190,11 @@ CODE_SAMPLE
     }
     /**
      * @return array<class-string, Type>
+     * @param \PHPStan\Reflection\ClassReflection $classReflection
+     * @param string $methodName
+     * @param int $position
      */
-    private function resolveParameterTypesByClassLike(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : array
+    private function resolveParameterTypesByClassLike($classReflection, $methodName, $position) : array
     {
         $parameterTypesByParentClassLikes = [];
         foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
@@ -186,7 +203,12 @@ CODE_SAMPLE
         }
         return $parameterTypesByParentClassLikes;
     }
-    private function refactorClassWithAncestorsAndChildren(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : void
+    /**
+     * @param \PHPStan\Reflection\ClassReflection $classReflection
+     * @param string $methodName
+     * @param int $position
+     */
+    private function refactorClassWithAncestorsAndChildren($classReflection, $methodName, $position) : void
     {
         foreach ($classReflection->getAncestors() as $ancestorClassRelection) {
             $classLike = $this->nodeRepository->findClassLike($ancestorClassRelection->getName());

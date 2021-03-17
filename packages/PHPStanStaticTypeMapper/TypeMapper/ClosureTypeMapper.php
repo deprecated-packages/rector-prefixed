@@ -35,26 +35,34 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
         return \PHPStan\Type\ClosureType::class;
     }
     /**
-     * @param ClosureType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getClassName());
         $returnDocTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType());
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode($identifierTypeNode, [], $returnDocTypeNode);
     }
     /**
-     * @param ClosureType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         return $this->callableTypeMapper->mapToPhpParserNode($type, $kind);
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    /**
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
+     */
+    public function mapToDocString($type, $parentType = null) : string
     {
         return '\\' . \Closure::class;
     }
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    /**
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
+     */
+    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

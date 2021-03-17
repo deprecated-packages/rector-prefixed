@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // process only existing statements
         if ($node->stmts === null) {
@@ -91,13 +91,21 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
         $this->callsToFluent = $callsToFluent;
     }
-    private function shouldSkipPreviousStmt(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \PhpParser\Node\Stmt\Expression $expression) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param int $i
+     * @param \PhpParser\Node\Stmt\Expression $expression
+     */
+    private function shouldSkipPreviousStmt($classMethod, $i, $expression) : bool
     {
         // we look only for 2+ stmts
         if (!isset($classMethod->stmts[$i - 1])) {
@@ -106,7 +114,11 @@ CODE_SAMPLE
         $prevStmt = $classMethod->stmts[$i - 1];
         return !$prevStmt instanceof \PhpParser\Node\Stmt\Expression;
     }
-    private function isBothMethodCallMatch(\PhpParser\Node\Stmt\Expression $firstExpression, \PhpParser\Node\Stmt\Expression $secondExpression) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Expression $firstExpression
+     * @param \PhpParser\Node\Stmt\Expression $secondExpression
+     */
+    private function isBothMethodCallMatch($firstExpression, $secondExpression) : bool
     {
         if (!$firstExpression->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
@@ -125,7 +137,10 @@ CODE_SAMPLE
         // is the same type
         return $firstMethodCallMatchObjectType->equals($secondMethodCallMatchObjectType);
     }
-    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function fluentizeCollectedMethodCalls($classMethod) : void
     {
         $i = 0;
         $fluentMethodCallIndex = null;
@@ -154,7 +169,10 @@ CODE_SAMPLE
             $fluentMethodCall->var = new \PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\ObjectType
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function matchMethodCall($methodCall) : ?\PHPStan\Type\ObjectType
     {
         foreach ($this->callsToFluent as $callToFluent) {
             if (!$this->isObjectType($methodCall->var, $callToFluent->getObjectType())) {

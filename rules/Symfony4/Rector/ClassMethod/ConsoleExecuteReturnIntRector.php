@@ -57,9 +57,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'execute')) {
             return null;
@@ -75,7 +75,10 @@ CODE_SAMPLE
         $this->addReturn0ToMethod($node);
         return $node;
     }
-    private function refactorReturnTypeDeclaration(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorReturnTypeDeclaration($classMethod) : void
     {
         // already set
         if ($classMethod->returnType !== null && $this->isName($classMethod->returnType, 'int')) {
@@ -83,7 +86,10 @@ CODE_SAMPLE
         }
         $classMethod->returnType = new \PhpParser\Node\Identifier('int');
     }
-    private function addReturn0ToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function addReturn0ToMethod($classMethod) : void
     {
         $hasReturn = \false;
         $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($classMethod, &$hasReturn) : ?int {
@@ -114,7 +120,10 @@ CODE_SAMPLE
         });
         $this->processReturn0ToMethod($hasReturn, $classMethod);
     }
-    private function isIntegerTernaryIfElse(\PhpParser\Node\Expr\Ternary $ternary) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Ternary $ternary
+     */
+    private function isIntegerTernaryIfElse($ternary) : bool
     {
         /** @var Expr|null $if */
         $if = $ternary->if;
@@ -127,14 +136,22 @@ CODE_SAMPLE
         $elseType = $this->getStaticType($else);
         return $ifType instanceof \PHPStan\Type\IntegerType && $elseType instanceof \PHPStan\Type\IntegerType;
     }
-    private function processReturn0ToMethod(bool $hasReturn, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param bool $hasReturn
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function processReturn0ToMethod($hasReturn, $classMethod) : void
     {
         if ($hasReturn) {
             return;
         }
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Scalar\LNumber(0));
     }
-    private function isAReturnWithExprIntEquals(?\PhpParser\Node $parentNode, \PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node|null $parentNode
+     * @param \PhpParser\Node $node
+     */
+    private function isAReturnWithExprIntEquals($parentNode, $node) : bool
     {
         if (!$parentNode instanceof \PhpParser\Node\Stmt\Return_) {
             return \false;
@@ -144,7 +161,10 @@ CODE_SAMPLE
         }
         return $node instanceof \PhpParser\Node\Expr\Cast\Int_;
     }
-    private function setReturnTo0InsteadOfNull(\PhpParser\Node\Stmt\Return_ $return) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     */
+    private function setReturnTo0InsteadOfNull($return) : void
     {
         if ($return->expr === null) {
             $return->expr = new \PhpParser\Node\Scalar\LNumber(0);
@@ -170,7 +190,10 @@ CODE_SAMPLE
             return;
         }
     }
-    private function isSuccessfulRefactorTernaryReturn(\PhpParser\Node\Expr\Ternary $ternary) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Ternary $ternary
+     */
+    private function isSuccessfulRefactorTernaryReturn($ternary) : bool
     {
         $hasChanged = \false;
         if ($ternary->if && $this->valueResolver->isNull($ternary->if)) {

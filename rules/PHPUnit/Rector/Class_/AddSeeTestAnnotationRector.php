@@ -81,9 +81,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $testCaseClassName = $this->testClassResolver->resolveFromClass($node);
         if ($testCaseClassName === null) {
@@ -101,7 +101,11 @@ CODE_SAMPLE
         $phpDocInfo->addPhpDocTagNode($newSeeTagNode);
         return $node;
     }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class, string $testCaseClassName) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param string $testCaseClassName
+     */
+    private function shouldSkipClass($class, $testCaseClassName) : bool
     {
         // we are in the test case
         if ($this->isName($class, '*Test')) {
@@ -123,11 +127,18 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function createSeePhpDocTagNode(string $className) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
+    /**
+     * @param string $className
+     */
+    private function createSeePhpDocTagNode($className) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode('@see', new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode('\\' . $className));
     }
-    private function hasAlreadySeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $testCaseClassName) : bool
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     * @param string $testCaseClassName
+     */
+    private function hasAlreadySeeAnnotation($phpDocInfo, $testCaseClassName) : bool
     {
         $seePhpDocTagNodes = $phpDocInfo->getTagsByName(self::SEE);
         foreach ($seePhpDocTagNodes as $seePhpDocTagNode) {
@@ -142,7 +153,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function removeNonExistingClassSeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function removeNonExistingClassSeeAnnotation($phpDocInfo) : void
     {
         $seePhpDocTagNodes = $phpDocInfo->getTagsByName(self::SEE);
         foreach ($seePhpDocTagNodes as $seePhpDocTagNode) {
@@ -160,7 +174,10 @@ CODE_SAMPLE
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $seePhpDocTagNode);
         }
     }
-    private function isSeeTestCaseClass(string $possibleClassName) : bool
+    /**
+     * @param string $possibleClassName
+     */
+    private function isSeeTestCaseClass($possibleClassName) : bool
     {
         if (!\RectorPrefix20210317\Nette\Utils\Strings::startsWith($possibleClassName, '\\')) {
             return \false;

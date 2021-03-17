@@ -45,9 +45,9 @@ final class MockeryCreateMockToProphizeRector extends \Rector\Core\Rector\Abstra
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -71,7 +71,10 @@ $service->injectDependency($mock->reveal());
 CODE_SAMPLE
 )]);
     }
-    private function replaceMockCreationsAndCollectVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function replaceMockCreationsAndCollectVariableNames($classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;
@@ -91,7 +94,10 @@ CODE_SAMPLE
             return $this->createProphesizeMethodCall($node);
         });
     }
-    private function revealMockArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function revealMockArguments($classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;
@@ -111,7 +117,10 @@ CODE_SAMPLE
             return $this->nodeFactory->createMethodCall($node->value, 'reveal');
         });
     }
-    private function createProphesizeMethodCall(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function createProphesizeMethodCall($staticCall) : \PhpParser\Node\Expr\MethodCall
     {
         return $this->nodeFactory->createLocalMethodCall('prophesize', [$staticCall->args[0]]);
     }

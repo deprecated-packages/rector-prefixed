@@ -61,9 +61,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -78,7 +78,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkip($methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface'))) {
             return \true;
@@ -88,7 +91,10 @@ CODE_SAMPLE
         }
         return !isset($methodCall->args[1]);
     }
-    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorStringArgument($methodCall) : \PhpParser\Node\Expr\MethodCall
     {
         // swap arguments
         [$methodCall->args[0], $methodCall->args[1]] = [$methodCall->args[1], $methodCall->args[0]];
@@ -97,7 +103,12 @@ CODE_SAMPLE
         }
         return $methodCall;
     }
-    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function refactorGetCallFuncCall($methodCall, $funcCall, $expr) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($this->isName($funcCall, 'get_class')) {
             $getClassArgumentValue = $funcCall->args[0]->value;
@@ -111,8 +122,9 @@ CODE_SAMPLE
     /**
      * Is the event name just `::class`?
      * We can remove it
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function isEventNameSameAsEventObjectClass(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function isEventNameSameAsEventObjectClass($methodCall) : bool
     {
         if (!$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return \false;

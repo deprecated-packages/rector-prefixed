@@ -33,7 +33,10 @@ final class DataProviderTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc
     {
         return \trim($this->method, '()');
     }
-    public function changeMethod(string $method) : void
+    /**
+     * @param string $method
+     */
+    public function changeMethod($method) : void
     {
         $this->method = $method;
     }

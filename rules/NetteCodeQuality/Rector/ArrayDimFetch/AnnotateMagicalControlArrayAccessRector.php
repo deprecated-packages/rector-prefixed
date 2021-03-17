@@ -112,9 +112,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ArrayDimFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -136,7 +136,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\Variable($variableName);
     }
-    private function shouldSkip(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    /**
+     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
+     */
+    private function shouldSkip($arrayDimFetch) : bool
     {
         if ($this->arrayDimFetchAnalyzer->isBeingAssignedOrInitialized($arrayDimFetch)) {
             return \true;
@@ -147,7 +150,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function resolveControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlName) : \PHPStan\Type\ObjectType
+    /**
+     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
+     * @param string $controlName
+     */
+    private function resolveControlType($arrayDimFetch, $controlName) : \PHPStan\Type\ObjectType
     {
         $controlTypes = $this->methodNamesByInputNamesResolver->resolveExpr($arrayDimFetch);
         if ($controlTypes === []) {

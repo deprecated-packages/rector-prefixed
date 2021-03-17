@@ -63,7 +63,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $usedTraits = $this->classManipulator->getUsedTraits($node);
         if ($usedTraits === []) {
@@ -78,14 +78,17 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->traitsToRemove = $configuration[self::TRAITS_TO_REMOVE] ?? [];
     }
     /**
      * @param Name[] $usedTraits
      */
-    private function removeTraits(array $usedTraits) : void
+    private function removeTraits($usedTraits) : void
     {
         foreach ($usedTraits as $usedTrait) {
             foreach ($this->traitsToRemove as $traitToRemove) {

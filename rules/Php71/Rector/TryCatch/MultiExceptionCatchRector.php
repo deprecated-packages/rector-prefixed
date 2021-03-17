@@ -45,9 +45,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\TryCatch::class];
     }
     /**
-     * @param TryCatch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::MULTI_EXCEPTION_CATCH)) {
             return null;
@@ -75,8 +75,9 @@ CODE_SAMPLE
     }
     /**
      * @return array<string, Catch_[]>
+     * @param \PhpParser\Node\Stmt\TryCatch $tryCatch
      */
-    private function collectCatchKeysByContent(\PhpParser\Node\Stmt\TryCatch $tryCatch) : array
+    private function collectCatchKeysByContent($tryCatch) : array
     {
         $catchKeysByContent = [];
         foreach ($tryCatch->catches as $catch) {
@@ -88,8 +89,9 @@ CODE_SAMPLE
     /**
      * @param Catch_[] $catches
      * @return Name[]
+     * @param \PhpParser\Node\Stmt\TryCatch $tryCatch
      */
-    private function collectTypesFromCatchedByIds(\PhpParser\Node\Stmt\TryCatch $tryCatch, array $catches) : array
+    private function collectTypesFromCatchedByIds($tryCatch, $catches) : array
     {
         $collectedTypes = [];
         foreach ($catches as $catch) {

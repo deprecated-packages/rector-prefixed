@@ -71,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -87,7 +87,10 @@ CODE_SAMPLE
         $contextOptions->items[] = new \PhpParser\Node\Expr\ArrayItem($this->prepareEnableMagicMethodsExtractionFlags($contextOptionValue), new \PhpParser\Node\Scalar\String_(self::NEW_OPTION_NAME));
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkip($methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor'))) {
             return \true;
@@ -102,7 +105,10 @@ CODE_SAMPLE
         $contextOptions = $methodCall->args[2]->value;
         return $contextOptions->items === [];
     }
-    private function getContextOptionValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function getContextOptionValue($methodCall) : ?bool
     {
         /** @var Array_ $contextOptions */
         $contextOptions = $methodCall->args[2]->value;
@@ -122,7 +128,10 @@ CODE_SAMPLE
         }
         return $contextOptionValue;
     }
-    private function prepareEnableMagicMethodsExtractionFlags(bool $enableMagicCallExtractionValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
+    /**
+     * @param bool $enableMagicCallExtractionValue
+     */
+    private function prepareEnableMagicMethodsExtractionFlags($enableMagicCallExtractionValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
         $magicGetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
         $magicSetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');

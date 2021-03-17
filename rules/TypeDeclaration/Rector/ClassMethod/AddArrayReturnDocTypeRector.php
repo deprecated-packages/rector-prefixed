@@ -114,9 +114,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if ($this->shouldSkip($node, $phpDocInfo)) {
@@ -144,7 +144,11 @@ CODE_SAMPLE
         $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function shouldSkip($classMethod, $phpDocInfo) : bool
     {
         if ($this->shouldSkipClassMethod($classMethod)) {
             return \true;
@@ -165,8 +169,11 @@ CODE_SAMPLE
      * @deprecated
      * @todo merge to
      * @see \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker
+     * @param \PHPStan\Type\Type $newType
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function shouldSkipType(\PHPStan\Type\Type $newType, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    private function shouldSkipType($newType, $classMethod, $phpDocInfo) : bool
     {
         if ($newType instanceof \PHPStan\Type\ArrayType && $this->shouldSkipArrayType($newType, $classMethod, $phpDocInfo)) {
             return \true;
@@ -183,7 +190,10 @@ CODE_SAMPLE
         }
         return $this->detailedTypeAnalyzer->isTooDetailed($newType);
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($classMethod)) {
             return \true;
@@ -193,7 +203,10 @@ CODE_SAMPLE
         }
         return !$this->isNames($classMethod->returnType, ['array', 'iterable', 'Iterator']);
     }
-    private function hasArrayShapeNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function hasArrayShapeNode($classMethod) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();
@@ -211,12 +224,20 @@ CODE_SAMPLE
         }
         return $attributeAwareReturnTagValueNode->type->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
     }
-    private function hasInheritDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function hasInheritDoc($classMethod) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasInheritDoc();
     }
-    private function shouldSkipArrayType(\PHPStan\Type\ArrayType $arrayType, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    /**
+     * @param \PHPStan\Type\ArrayType $arrayType
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     */
+    private function shouldSkipArrayType($arrayType, $classMethod, $phpDocInfo) : bool
     {
         if ($this->advancedArrayAnalyzer->isNewAndCurrentTypeBothCallable($arrayType, $phpDocInfo)) {
             return \true;

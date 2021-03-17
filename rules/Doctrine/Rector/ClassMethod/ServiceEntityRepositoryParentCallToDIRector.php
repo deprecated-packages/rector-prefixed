@@ -98,13 +98,13 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      *
      * For reference, possible manager registry param types:
      * - Doctrine\Common\Persistence\ManagerRegistry
      * - Doctrine\Persistence\ManagerRegistry
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClassMethod($node)) {
             return null;
@@ -127,7 +127,10 @@ CODE_SAMPLE
         $this->propertyAdder->addServiceConstructorDependencyToClass($classLike, $entityManagerObjectType);
         return $node;
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return \true;
@@ -144,7 +147,10 @@ CODE_SAMPLE
         }
         return !$classReflection->isSubclassOf('Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository');
     }
-    private function removeParentConstructAndCollectEntityReference(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function removeParentConstructAndCollectEntityReference($classMethod) : \PhpParser\Node\Expr
     {
         $entityReferenceExpr = null;
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use(&$entityReferenceExpr) {
@@ -162,7 +168,11 @@ CODE_SAMPLE
         }
         return $entityReferenceExpr;
     }
-    private function addRepositoryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $entityReferenceExpr) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Expr $entityReferenceExpr
+     */
+    private function addRepositoryProperty($class, $entityReferenceExpr) : void
     {
         $genericObjectType = $this->repositoryTypeFactory->createRepositoryPropertyType($entityReferenceExpr);
         $this->propertyToAddCollector->addPropertyWithoutConstructorToClass('repository', $genericObjectType, $class);

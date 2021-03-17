@@ -98,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\Arg) {
@@ -125,7 +125,11 @@ CODE_SAMPLE
         $this->addNodesBeforeNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);
         return $assignAndRootExprAndNodesToAdd->getRootCallerExpr();
     }
-    private function refactorNew(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\New_ $new) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function refactorNew($methodCall, $new) : void
     {
         if (!$this->newFluentChainMethodCallNodeAnalyzer->isNewMethodCallReturningSelf($methodCall)) {
             return;
@@ -136,7 +140,10 @@ CODE_SAMPLE
         $this->addNodesBeforeNode($nodesToAdd, $methodCall);
         $this->removeParentParent($methodCall);
     }
-    private function removeParentParent(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function removeParentParent($methodCall) : void
     {
         /** @var Arg $parent */
         $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

@@ -18,8 +18,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     private $phpStanStaticTypeMapper;
     /**
      * @required
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      */
-    public function autowireIntersectionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireIntersectionTypeMapper($phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -31,9 +32,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
         return \PHPStan\Type\IntersectionType::class;
     }
     /**
-     * @param IntersectionType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $intersectionTypesNodes = [];
         foreach ($type->getTypes() as $intersectionedType) {
@@ -43,17 +44,19 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIntersectionTypeNode($intersectionTypesNodes);
     }
     /**
-     * @param IntersectionType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         // intersection types in PHP are not yet supported
         return null;
     }
     /**
-     * @param IntersectionType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString($type, $parentType = null) : string
     {
         $stringTypes = [];
         foreach ($type->getTypes() as $unionedType) {

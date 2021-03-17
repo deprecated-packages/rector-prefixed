@@ -3332,6 +3332,8 @@ return array(
     'Rector\\Visibility\\Rector\\Property\\ChangePropertyVisibilityRector' => $baseDir . '/rules/Visibility/Rector/Property/ChangePropertyVisibilityRector.php',
     'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => $baseDir . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
     'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => $baseDir . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
+    'Symfony\\Polyfill\\Php72\\Php72' => $vendorDir . '/symfony/polyfill-php72/Php72.php',
+    'Symfony\\Polyfill\\Php74\\Php74' => $vendorDir . '/symfony/polyfill-php74/Php74.php',
     'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => $vendorDir . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
     'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => $vendorDir . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
     'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => $vendorDir . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',

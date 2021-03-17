@@ -6,5 +6,8 @@ namespace Rector\NetteCodeQuality\Contract;
 use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
 interface MethodNamesByInputNamesResolverAwareInterface
 {
-    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void;
+    /**
+     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
+     */
+    public function setResolver($methodNamesByInputNamesResolver) : void;
 }

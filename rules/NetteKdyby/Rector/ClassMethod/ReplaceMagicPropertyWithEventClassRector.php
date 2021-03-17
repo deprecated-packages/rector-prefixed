@@ -93,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
@@ -112,7 +112,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function replaceEventPropertyReferenceWithEventClassReference(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function replaceEventPropertyReferenceWithEventClassReference($classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {

@@ -78,7 +78,10 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
         ];
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    public function inferProperty($property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);

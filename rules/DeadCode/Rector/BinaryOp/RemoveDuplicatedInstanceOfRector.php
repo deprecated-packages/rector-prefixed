@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp::class];
     }
     /**
-     * @param BinaryOp $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->resolveDuplicatedInstancesOf($node);
         if ($this->duplicatedInstanceOfs === []) {
@@ -62,7 +62,10 @@ CODE_SAMPLE
         }
         return $this->traverseBinaryOpAndRemoveDuplicatedInstanceOfs($node);
     }
-    private function resolveDuplicatedInstancesOf(\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function resolveDuplicatedInstancesOf($binaryOp) : void
     {
         $this->duplicatedInstanceOfs = [];
         /** @var Instanceof_[] $instanceOfs */
@@ -82,7 +85,10 @@ CODE_SAMPLE
         }
         $this->duplicatedInstanceOfs = \array_keys($instanceOfsByClass);
     }
-    private function traverseBinaryOpAndRemoveDuplicatedInstanceOfs(\PhpParser\Node\Expr\BinaryOp $binaryOp) : \PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function traverseBinaryOpAndRemoveDuplicatedInstanceOfs($binaryOp) : \PhpParser\Node
     {
         $this->traverseNodesWithCallable([&$binaryOp], function (\PhpParser\Node $node) : ?Node {
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp) {
@@ -98,7 +104,10 @@ CODE_SAMPLE
         });
         return $binaryOp;
     }
-    private function createUniqueKeyForInstanceOf(\PhpParser\Node\Expr\Instanceof_ $instanceof) : ?string
+    /**
+     * @param \PhpParser\Node\Expr\Instanceof_ $instanceof
+     */
+    private function createUniqueKeyForInstanceOf($instanceof) : ?string
     {
         if (!$instanceof->expr instanceof \PhpParser\Node\Expr\Variable) {
             return null;
@@ -113,7 +122,11 @@ CODE_SAMPLE
         }
         return $variableName . '_' . $className;
     }
-    private function processBinaryWithFirstInstaneOf(\PhpParser\Node\Expr\Instanceof_ $instanceof, \PhpParser\Node\Expr $otherExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr\Instanceof_ $instanceof
+     * @param \PhpParser\Node\Expr $otherExpr
+     */
+    private function processBinaryWithFirstInstaneOf($instanceof, $otherExpr) : ?\PhpParser\Node\Expr
     {
         $variableClassKey = $this->createUniqueKeyForInstanceOf($instanceof);
         if (!\in_array($variableClassKey, $this->duplicatedInstanceOfs, \true)) {
@@ -124,7 +137,10 @@ CODE_SAMPLE
         // remove left instanceof
         return $otherExpr;
     }
-    private function removeClassFromDuplicatedInstanceOfs(string $variableClassKey) : void
+    /**
+     * @param string $variableClassKey
+     */
+    private function removeClassFromDuplicatedInstanceOfs($variableClassKey) : void
     {
         // remove just once
         unset($this->duplicatedInstanceOfs[\array_search($variableClassKey, $this->duplicatedInstanceOfs, \true)]);

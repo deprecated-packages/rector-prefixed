@@ -38,7 +38,10 @@ final class DateTimeAtNamingConventionGuard implements \Rector\Naming\Contract\G
     {
         return $this->isDateTimeAtNamingConvention($renameValueObject);
     }
-    private function isDateTimeAtNamingConvention(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
+    /**
+     * @param \Rector\Naming\ValueObject\PropertyRename $propertyRename
+     */
+    private function isDateTimeAtNamingConvention($propertyRename) : bool
     {
         $type = $this->nodeTypeResolver->resolve($propertyRename->getProperty());
         $type = $this->typeUnwrapper->unwrapFirstObjectTypeFromUnionType($type);

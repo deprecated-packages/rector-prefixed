@@ -22,33 +22,40 @@ interface AttributeBagInterface extends \RectorPrefix20210317\Symfony\Component\
      * Checks if an attribute is defined.
      *
      * @return bool true if the attribute is defined, false otherwise
+     * @param string $name
      */
-    public function has(string $name);
+    public function has($name);
     /**
      * Returns an attribute.
      *
      * @param mixed $default The default value if not found
      *
      * @return mixed
+     * @param string $name
      */
-    public function get(string $name, $default = null);
+    public function get($name, $default = null);
     /**
      * Sets an attribute.
      *
      * @param mixed $value
+     * @param string $name
      */
-    public function set(string $name, $value);
+    public function set($name, $value);
     /**
      * Returns attributes.
      *
      * @return array
      */
     public function all();
-    public function replace(array $attributes);
+    /**
+     * @param mixed[] $attributes
+     */
+    public function replace($attributes);
     /**
      * Removes an attribute.
      *
      * @return mixed The removed value or null when it does not exist
+     * @param string $name
      */
-    public function remove(string $name);
+    public function remove($name);
 }

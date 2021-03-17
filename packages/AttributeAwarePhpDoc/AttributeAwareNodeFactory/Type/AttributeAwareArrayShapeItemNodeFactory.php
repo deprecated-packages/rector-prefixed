@@ -20,19 +20,26 @@ final class AttributeAwareArrayShapeItemNodeFactory implements \Rector\Attribute
     {
         return \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode::class;
     }
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     */
+    public function isMatch($node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode::class, \true);
     }
     /**
-     * @param ArrayShapeItemNode $node
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     * @param string $docContent
      */
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->valueType = $this->attributeAwareNodeFactory->createFromNode($node->valueType, $docContent);
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayShapeItemNode($node->keyName, $node->optional, $node->valueType, $docContent);
     }
-    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
+     */
+    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

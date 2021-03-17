@@ -90,7 +90,12 @@ EOF
         }
         return $this->display($io, $filesInfo);
     }
-    private function validate(string $content, int $flags, string $file = null)
+    /**
+     * @param string $content
+     * @param int $flags
+     * @param string $file
+     */
+    private function validate($content, $flags, $file = null)
     {
         $prevErrorHandler = \set_error_handler(function ($level, $message, $file, $line) use(&$prevErrorHandler) {
             if (\E_USER_DEPRECATED === $level) {
@@ -107,7 +112,11 @@ EOF
         }
         return ['file' => $file, 'valid' => \true];
     }
-    private function display(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $files) : int
+    /**
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
+     * @param mixed[] $files
+     */
+    private function display($io, $files) : int
     {
         switch ($this->format) {
             case 'txt':
@@ -118,7 +127,11 @@ EOF
                 throw new \RectorPrefix20210317\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The format "%s" is not supported.', $this->format));
         }
     }
-    private function displayTxt(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $filesInfo) : int
+    /**
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
+     * @param mixed[] $filesInfo
+     */
+    private function displayTxt($io, $filesInfo) : int
     {
         $countFiles = \count($filesInfo);
         $erroredFiles = 0;
@@ -142,7 +155,11 @@ EOF
         }
         return \min($erroredFiles, 1);
     }
-    private function displayJson(\RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $io, array $filesInfo) : int
+    /**
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $io
+     * @param mixed[] $filesInfo
+     */
+    private function displayJson($io, $filesInfo) : int
     {
         $errors = 0;
         \array_walk($filesInfo, function (&$v) use(&$errors) {
@@ -157,7 +174,10 @@ EOF
         $io->writeln(\json_encode($filesInfo, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
         return \min($errors, 1);
     }
-    private function getFiles(string $fileOrDirectory) : iterable
+    /**
+     * @param string $fileOrDirectory
+     */
+    private function getFiles($fileOrDirectory) : iterable
     {
         if (\is_file($fileOrDirectory)) {
             (yield new \SplFileInfo($fileOrDirectory));
@@ -177,7 +197,10 @@ EOF
         }
         return $this->parser;
     }
-    private function getDirectoryIterator(string $directory) : iterable
+    /**
+     * @param string $directory
+     */
+    private function getDirectoryIterator($directory) : iterable
     {
         $default = function ($directory) {
             return new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS), \RecursiveIteratorIterator::LEAVES_ONLY);
@@ -187,7 +210,10 @@ EOF
         }
         return $default($directory);
     }
-    private function isReadable(string $fileOrDirectory) : bool
+    /**
+     * @param string $fileOrDirectory
+     */
+    private function isReadable($fileOrDirectory) : bool
     {
         $default = function ($fileOrDirectory) {
             return \is_readable($fileOrDirectory);

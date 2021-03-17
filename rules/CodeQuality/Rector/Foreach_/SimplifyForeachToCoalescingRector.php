@@ -62,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param Foreach_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -90,8 +90,9 @@ CODE_SAMPLE
     }
     /**
      * @return Assign|Return_|null
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
      */
-    private function matchReturnOrAssignNode(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node
+    private function matchReturnOrAssignNode($foreach) : ?\PhpParser\Node
     {
         return $this->foreachManipulator->matchOnlyStmt($foreach, function (\PhpParser\Node $node) : ?Node {
             if (!$node instanceof \PhpParser\Node\Stmt\If_) {
@@ -110,7 +111,11 @@ CODE_SAMPLE
             return null;
         });
     }
-    private function processForeachNodeWithReturnInside(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     */
+    private function processForeachNodeWithReturnInside($foreach, $return) : ?\PhpParser\Node
     {
         if (!$this->nodeComparator->areNodesEqual($foreach->valueVar, $return->expr)) {
             return null;
@@ -138,7 +143,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processForeachNodeWithAssignInside(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function processForeachNodeWithAssignInside($foreach, $assign) : ?\PhpParser\Node
     {
         /** @var If_ $ifNode */
         $ifNode = $foreach->stmts[0];

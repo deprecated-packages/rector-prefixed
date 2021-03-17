@@ -55,7 +55,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach (\Rector\PHPOffice\ValueObject\PHPExcelMethodDefaultValues::METHOD_NAMES_BY_TYPE_WITH_VALUE as $type => $defaultValuesByMethodName) {
             if (!$this->isCallerObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -74,7 +74,7 @@ CODE_SAMPLE
      * @param StaticCall|MethodCall $node
      * @param array<int, mixed> $defaultValuesByPosition
      */
-    private function refactorArgs(\PhpParser\Node $node, array $defaultValuesByPosition) : void
+    private function refactorArgs($node, $defaultValuesByPosition) : void
     {
         foreach ($defaultValuesByPosition as $position => $defaultValue) {
             // value is already set
@@ -93,8 +93,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|MethodCall $node
+     * @param \PHPStan\Type\ObjectType $objectType
      */
-    private function isCallerObjectType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
+    private function isCallerObjectType($node, $objectType) : bool
     {
         return $this->isObjectType($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class, $objectType);
     }

@@ -71,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
             return null;
@@ -98,7 +98,10 @@ CODE_SAMPLE
         $classReference = $this->resolveClassSelf($node);
         return $this->nodeFactory->createStaticCall($classReference, $methodName, $node->args);
     }
-    private function resolveClassSelf(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function resolveClassSelf($methodCall) : string
     {
         $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

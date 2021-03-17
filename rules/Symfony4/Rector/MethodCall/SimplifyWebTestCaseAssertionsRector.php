@@ -86,9 +86,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $clientGetResponseMethodCall = $this->nodeFactory->createMethodCall('client', 'getResponse');
         $this->getStatusCodeMethodCall = $this->nodeFactory->createMethodCall($clientGetResponseMethodCall, 'getStatusCode');
@@ -115,7 +115,10 @@ CODE_SAMPLE
         }
         return $this->processAssertResponseRedirects($node);
     }
-    private function isInWebTestCase(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function isInWebTestCase($methodCall) : bool
     {
         $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -123,7 +126,10 @@ CODE_SAMPLE
         }
         return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase'));
     }
-    private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processAssertResponseStatusCodeSame($methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isName($methodCall->name, self::ASSERT_SAME)) {
             return null;
@@ -140,8 +146,9 @@ CODE_SAMPLE
     }
     /**
      * @return Arg[]|null
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function matchAssertContainsCrawlerArg(\PhpParser\Node\Expr\MethodCall $methodCall) : ?array
+    private function matchAssertContainsCrawlerArg($methodCall) : ?array
     {
         if (!$this->isName($methodCall->name, 'assertContains')) {
             return null;
@@ -164,7 +171,10 @@ CODE_SAMPLE
         $args[] = $methodCall->args[0];
         return $args;
     }
-    private function processAssertResponseRedirects(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processAssertResponseRedirects($methodCall) : ?\PhpParser\Node
     {
         /** @var Expression|null $previousStatement */
         $previousStatement = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);

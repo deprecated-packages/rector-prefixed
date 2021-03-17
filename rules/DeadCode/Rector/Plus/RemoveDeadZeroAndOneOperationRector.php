@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Plus::class, \PhpParser\Node\Expr\BinaryOp\Minus::class, \PhpParser\Node\Expr\BinaryOp\Mul::class, \PhpParser\Node\Expr\BinaryOp\Div::class, \PhpParser\Node\Expr\AssignOp\Plus::class, \PhpParser\Node\Expr\AssignOp\Minus::class, \PhpParser\Node\Expr\AssignOp\Mul::class, \PhpParser\Node\Expr\AssignOp\Div::class];
     }
     /**
-     * @param Plus|Minus|Mul|Div|AssignPlus|AssignMinus|AssignMul|AssignDiv $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $changedNode = null;
         $previousNode = $node;
@@ -85,7 +85,10 @@ CODE_SAMPLE
         }
         return $changedNode;
     }
-    private function processAssignOp(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function processAssignOp($node) : ?\PhpParser\Node\Expr
     {
         // +=, -=
         if ($node instanceof \PhpParser\Node\Expr\AssignOp\Plus || $node instanceof \PhpParser\Node\Expr\AssignOp\Minus) {
@@ -107,7 +110,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processBinaryOp(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function processBinaryOp($node) : ?\PhpParser\Node\Expr
     {
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\BinaryOp\Plus::class, \PhpParser\Node\Expr\BinaryOp\Minus::class])) {
             /** @var Plus|Minus $node */
@@ -125,7 +131,7 @@ CODE_SAMPLE
     /**
      * @param Plus|Minus $binaryOp
      */
-    private function processBinaryPlusAndMinus(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
+    private function processBinaryPlusAndMinus($binaryOp) : ?\PhpParser\Node\Expr
     {
         if ($this->valueResolver->isValue($binaryOp->left, 0) && $this->nodeTypeResolver->isNumberType($binaryOp->right)) {
             if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Minus) {
@@ -144,7 +150,7 @@ CODE_SAMPLE
     /**
      * @param Mul|Div $binaryOp
      */
-    private function processBinaryMulAndDiv(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
+    private function processBinaryMulAndDiv($binaryOp) : ?\PhpParser\Node\Expr
     {
         if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Mul && $this->valueResolver->isValue($binaryOp->left, 1) && $this->nodeTypeResolver->isNumberType($binaryOp->right)) {
             return $binaryOp->right;

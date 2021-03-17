@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->functionToNew as $function => $new) {
             if (!$this->isName($node, $function)) {
@@ -69,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $this->functionToNew = $configuration[self::FUNCTIONS_TO_NEWS] ?? [];
     }

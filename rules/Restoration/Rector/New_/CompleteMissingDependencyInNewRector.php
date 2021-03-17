@@ -81,9 +81,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param New_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipNew($node)) {
             return null;
@@ -104,11 +104,17 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }
-    private function shouldSkipNew(\PhpParser\Node\Expr\New_ $new) : bool
+    /**
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function shouldSkipNew($new) : bool
     {
         $constructorMethodReflection = $this->getNewNodeClassConstructorMethodReflection($new);
         if (!$constructorMethodReflection instanceof \ReflectionMethod) {
@@ -116,7 +122,10 @@ CODE_SAMPLE
         }
         return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
     }
-    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
+    /**
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function getNewNodeClassConstructorMethodReflection($new) : ?\ReflectionMethod
     {
         $className = $this->getName($new->class);
         if ($className === null) {
@@ -129,7 +138,10 @@ CODE_SAMPLE
         $reflectionClass = $classReflection->getNativeReflection();
         return $reflectionClass->getConstructor();
     }
-    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter) : ?string
+    /**
+     * @param \ReflectionParameter $reflectionParameter
+     */
+    private function resolveClassToInstantiateByParameterReflection($reflectionParameter) : ?string
     {
         $reflectionType = $reflectionParameter->getType();
         if (!$reflectionType instanceof \ReflectionType) {

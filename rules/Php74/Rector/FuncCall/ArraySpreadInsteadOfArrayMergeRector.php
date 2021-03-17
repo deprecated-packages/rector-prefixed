@@ -74,9 +74,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARRAY_SPREAD)) {
             return null;
@@ -86,7 +86,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorArray(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\Array_
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function refactorArray($funcCall) : ?\PhpParser\Node\Expr\Array_
     {
         $array = new \PhpParser\Node\Expr\Array_();
         foreach ($funcCall->args as $arg) {
@@ -103,7 +106,10 @@ CODE_SAMPLE
         }
         return $array;
     }
-    private function shouldSkipArrayForInvalidTypeOrKeys(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function shouldSkipArrayForInvalidTypeOrKeys($expr) : bool
     {
         // we have no idea what it is → cannot change it
         if (!$this->arrayTypeAnalyzer->isArrayType($expr)) {
@@ -119,7 +125,10 @@ CODE_SAMPLE
         // integer key type is required, @see https://twitter.com/nikita_ppv/status/1126470222838366209
         return !$arrayStaticType->getKeyType() instanceof \PHPStan\Type\IntegerType;
     }
-    private function resolveValue(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function resolveValue($expr) : \PhpParser\Node\Expr
     {
         if ($expr instanceof \PhpParser\Node\Expr\FuncCall && $this->isIteratorToArrayFuncCall($expr)) {
             /** @var FuncCall $expr */
@@ -139,11 +148,17 @@ CODE_SAMPLE
         }
         return $expr;
     }
-    private function createUnpackedArrayItem(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\ArrayItem
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function createUnpackedArrayItem($expr) : \PhpParser\Node\Expr\ArrayItem
     {
         return new \PhpParser\Node\Expr\ArrayItem($expr, null, \false, [], \true);
     }
-    private function isConstantArrayTypeWithStringKeyType(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    private function isConstantArrayTypeWithStringKeyType($type) : bool
     {
         if (!$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
@@ -156,7 +171,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isIteratorToArrayFuncCall(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function isIteratorToArrayFuncCall($expr) : bool
     {
         return $this->nodeNameResolver->isFuncCallName($expr, 'iterator_to_array');
     }

@@ -53,23 +53,27 @@ class RedisSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
      */
-    protected function doRead(string $sessionId) : string
+    protected function doRead($sessionId) : string
     {
         return $this->redis->get($this->prefix . $sessionId) ?: '';
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite(string $sessionId, string $data) : bool
+    protected function doWrite($sessionId, $data) : bool
     {
         $result = $this->redis->setEx($this->prefix . $sessionId, (int) ($this->ttl ?? \ini_get('session.gc_maxlifetime')), $data);
         return $result && !$result instanceof \RectorPrefix20210317\Predis\Response\ErrorInterface;
     }
     /**
      * {@inheritdoc}
+     * @param string $sessionId
      */
-    protected function doDestroy(string $sessionId) : bool
+    protected function doDestroy($sessionId) : bool
     {
         static $unlink = \true;
         if ($unlink) {

@@ -47,9 +47,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isFuncCallName($node, 'in_array')) {
             return null;
@@ -77,7 +77,11 @@ CODE_SAMPLE
         $this->removeNode($previousAssignArraysKeysFuncCall);
         return $this->createArrayKeyExists($node, $arrayKeysFuncCall);
     }
-    private function createArrayKeyExists(\PhpParser\Node\Expr\FuncCall $inArrayFuncCall, \PhpParser\Node\Expr\FuncCall $arrayKeysFuncCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $inArrayFuncCall
+     * @param \PhpParser\Node\Expr\FuncCall $arrayKeysFuncCall
+     */
+    private function createArrayKeyExists($inArrayFuncCall, $arrayKeysFuncCall) : \PhpParser\Node\Expr\FuncCall
     {
         $arguments = [$inArrayFuncCall->args[0], $arrayKeysFuncCall->args[0]];
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_key_exists'), $arguments);

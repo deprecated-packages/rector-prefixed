@@ -49,8 +49,9 @@ class CachePoolPass implements \RectorPrefix20210317\Symfony\Component\Dependenc
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         if ($container->hasParameter('cache.prefix.seed')) {
             $seed = $container->getParameterBag()->resolveValue($container->getParameter('cache.prefix.seed'));
@@ -187,14 +188,19 @@ class CachePoolPass implements \RectorPrefix20210317\Symfony\Component\Dependenc
             $container->getDefinition('console.command.cache_pool_list')->replaceArgument(0, \array_keys($allPools));
         }
     }
-    private function getNamespace(string $seed, string $id)
+    /**
+     * @param string $seed
+     * @param string $id
+     */
+    private function getNamespace($seed, $id)
     {
         return \substr(\str_replace('/', '-', \base64_encode(\hash('sha256', $id . $seed, \true))), 0, 10);
     }
     /**
      * @internal
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public static function getServiceProvider(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, $name)
+    public static function getServiceProvider($container, $name)
     {
         $container->resolveEnvPlaceholders($name, null, $usedEnvs);
         if ($usedEnvs || \preg_match('#^[a-z]++:#', $name)) {

@@ -59,8 +59,9 @@ final class PathRoutingCaseConverter implements \RectorPrefix20210317\Symplify\P
     /**
      * @param mixed $values
      * @return Arg[]
+     * @param string $key
      */
-    private function createAddArgs(string $key, $values) : array
+    private function createAddArgs($key, $values) : array
     {
         $argumentValues = [];
         $argumentValues[] = $key;

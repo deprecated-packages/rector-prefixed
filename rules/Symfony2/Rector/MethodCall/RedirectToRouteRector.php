@@ -28,9 +28,9 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -60,8 +60,9 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @return mixed[]
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function resolveArguments(\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    private function resolveArguments($methodCall) : array
     {
         /** @var MethodCall $generateUrlNode */
         $generateUrlNode = $methodCall->args[0]->value;

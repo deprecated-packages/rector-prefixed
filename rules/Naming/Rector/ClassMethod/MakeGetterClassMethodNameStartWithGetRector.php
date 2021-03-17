@@ -77,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->isAlreadyGetterNamedClassMethod($node)) {
             return null;
@@ -99,11 +99,17 @@ CODE_SAMPLE
         $this->methodCallRenamer->updateClassMethodCalls($node, $getterMethodName);
         return $node;
     }
-    private function isAlreadyGetterNamedClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function isAlreadyGetterNamedClassMethod($classMethod) : bool
     {
         return $this->isName($classMethod, self::GETTER_NAME_PATTERN);
     }
-    private function matchGetterClassMethodReturnedExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function matchGetterClassMethodReturnedExpr($classMethod) : ?\PhpParser\Node\Expr
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {

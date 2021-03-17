@@ -60,26 +60,6 @@ final class ExpectationAnalyzer
         }
         return $expectationMockCollection;
     }
-    public function isValidExpectsCall(\PhpParser\Node\Expr\MethodCall $expr) : bool
-    {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'expects')) {
-            return \false;
-        }
-        if (\count($expr->args) !== 1) {
-            return \false;
-        }
-        return \true;
-    }
-    public function isValidAtCall(\PhpParser\Node\Expr\MethodCall $expr) : bool
-    {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'at')) {
-            return \false;
-        }
-        if (\count($expr->args) !== 1) {
-            return \false;
-        }
-        return \true;
-    }
     private function getMethod(\PhpParser\Node\Expr\MethodCall $expr) : \PhpParser\Node\Expr\MethodCall
     {
         if ($this->testsNodeAnalyzer->isPHPUnitMethodNames($expr, self::PROCESSABLE_WILL_STATEMENTS) && $expr->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -112,5 +92,25 @@ final class ExpectationAnalyzer
             }, $maybeWith->args);
         }
         return [null];
+    }
+    public function isValidExpectsCall(\PhpParser\Node\Expr\MethodCall $expr) : bool
+    {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'expects')) {
+            return \false;
+        }
+        if (\count($expr->args) !== 1) {
+            return \false;
+        }
+        return \true;
+    }
+    public function isValidAtCall(\PhpParser\Node\Expr\MethodCall $expr) : bool
+    {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'at')) {
+            return \false;
+        }
+        if (\count($expr->args) !== 1) {
+            return \false;
+        }
+        return \true;
     }
 }

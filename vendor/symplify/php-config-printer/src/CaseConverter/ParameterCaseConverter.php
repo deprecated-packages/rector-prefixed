@@ -63,8 +63,9 @@ final class ParameterCaseConverter implements \RectorPrefix20210317\Symplify\Php
     }
     /**
      * @return Expr|string
+     * @param string $value
      */
-    private function prefixWithDirConstantIfExistingPath(string $value)
+    private function prefixWithDirConstantIfExistingPath($value)
     {
         $filePath = $this->currentFilePathProvider->getFilePath();
         if ($filePath === null) {

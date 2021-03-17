@@ -53,7 +53,7 @@ CODE_SAMPLE
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $appUsesStaticCalls = $this->collectAppUseStaticCalls($node);
         if ($appUsesStaticCalls === []) {
@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @return StaticCall[]
+     * @param \PhpParser\Node $node
      */
-    private function collectAppUseStaticCalls(\PhpParser\Node $node) : array
+    private function collectAppUseStaticCalls($node) : array
     {
         /** @var StaticCall[] $appUsesStaticCalls */
         $appUsesStaticCalls = $this->betterNodeFinder->find($node, function (\PhpParser\Node $node) : bool {
@@ -86,7 +87,7 @@ CODE_SAMPLE
      * @param StaticCall[] $staticCalls
      * @return string[]
      */
-    private function resolveNamesFromStaticCalls(array $staticCalls) : array
+    private function resolveNamesFromStaticCalls($staticCalls) : array
     {
         $names = [];
         foreach ($staticCalls as $staticCall) {
@@ -96,8 +97,9 @@ CODE_SAMPLE
     }
     /**
      * @param Use_[] $uses
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
      */
-    private function refactorFile(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFile($fileWithoutNamespace, $uses) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         $hasNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \PhpParser\Node\Stmt\Namespace_::class);
         // already handled above
@@ -111,7 +113,10 @@ CODE_SAMPLE
         $fileWithoutNamespace->stmts = \array_merge($uses, $fileWithoutNamespace->stmts);
         return $fileWithoutNamespace;
     }
-    private function createFullyQualifiedNameFromAppUsesStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : string
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function createFullyQualifiedNameFromAppUsesStaticCall($staticCall) : string
     {
         /** @var string $shortClassName */
         $shortClassName = $this->valueResolver->getValue($staticCall->args[0]->value);
@@ -121,8 +126,9 @@ CODE_SAMPLE
     }
     /**
      * @param Use_[] $uses
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
      */
-    private function refactorFileWithDeclare(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFileWithDeclare($fileWithoutNamespace, $uses) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         $newStmts = [];
         foreach ($fileWithoutNamespace->stmts as $stmt) {

@@ -37,8 +37,9 @@ final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\T
     }
     /**
      * @param ConstExprIntegerNode|IdentifierTypeNode|null $keyName
+     * @param bool $optional
      */
-    private function createKeyWithSpacePattern($keyName, bool $optional) : string
+    private function createKeyWithSpacePattern($keyName, $optional) : string
     {
         $keyNameString = (string) $keyName;
         if ($optional) {

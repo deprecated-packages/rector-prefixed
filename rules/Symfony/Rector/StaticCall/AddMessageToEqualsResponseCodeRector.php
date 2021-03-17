@@ -64,7 +64,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'assertEquals')) {
             return null;
@@ -86,8 +86,9 @@ CODE_SAMPLE
     }
     /**
      * $this->assertX(Response::SOME_STATUS)
+     * @param \PhpParser\Node\Expr $expr
      */
-    private function isHttpRequestArgument(\PhpParser\Node\Expr $expr) : bool
+    private function isHttpRequestArgument($expr) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return \false;
@@ -96,8 +97,9 @@ CODE_SAMPLE
     }
     /**
      * @return Variable|MethodCall|Expr|null
+     * @param \PhpParser\Node\Expr $expr
      */
-    private function getParentOfGetStatusCode(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node
+    private function getParentOfGetStatusCode($expr) : ?\PhpParser\Node
     {
         $currentNode = $expr;
         while ($currentNode instanceof \PhpParser\Node\Expr\MethodCall) {

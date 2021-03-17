@@ -102,9 +102,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $constructorClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -130,7 +130,10 @@ CODE_SAMPLE
         $this->addConstructorDependencyWithProperty($node, $constructorClassMethod, self::ENTITY_MANAGER, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('Doctrine\\ORM\\EntityManagerInterface'));
         return $node;
     }
-    private function resolveManagerRegistryParam(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Param
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function resolveManagerRegistryParam($classMethod) : ?\PhpParser\Node\Param
     {
         foreach ($classMethod->params as $param) {
             if ($param->type === null) {
@@ -143,7 +146,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function removeManagerRegistryDependency(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PhpParser\Node\Param $registryParam
+     */
+    private function removeManagerRegistryDependency($class, $classMethod, $registryParam) : void
     {
         // remove constructor param: $managerRegistry
         foreach ($classMethod->params as $key => $param) {
@@ -163,8 +171,9 @@ CODE_SAMPLE
      *
      * After:
      * $this->entityManager->
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function replaceEntityRegistryVariableWithEntityManagerProperty(\PhpParser\Node\Stmt\Class_ $class) : void
+    private function replaceEntityRegistryVariableWithEntityManagerProperty($class) : void
     {
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $class) : ?PropertyFetch {
             if (!$class instanceof \PhpParser\Node\Expr\Variable) {
@@ -176,7 +185,10 @@ CODE_SAMPLE
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), self::ENTITY_MANAGER);
         });
     }
-    private function removeAssignGetRepositoryCalls(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function removeAssignGetRepositoryCalls($class) : void
     {
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -188,7 +200,13 @@ CODE_SAMPLE
             $this->removeNode($node);
         });
     }
-    private function addConstructorDependencyWithProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $name
+     * @param \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType
+     */
+    private function addConstructorDependencyWithProperty($class, $classMethod, $name, $fullyQualifiedObjectType) : void
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
             $assign = $this->nodeFactory->createPropertyAssignment($name);
@@ -196,7 +214,10 @@ CODE_SAMPLE
         }
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $name);
     }
-    private function isRegistryGetManagerMethodCall(\PhpParser\Node\Expr\Assign $assign) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function isRegistryGetManagerMethodCall($assign) : bool
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;

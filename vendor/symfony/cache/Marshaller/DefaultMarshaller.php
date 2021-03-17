@@ -82,8 +82,9 @@ class DefaultMarshaller implements \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * @internal
+     * @param string $class
      */
-    public static function handleUnserializeCallback(string $class)
+    public static function handleUnserializeCallback($class)
     {
         throw new \DomainException('Class not found: ' . $class);
     }

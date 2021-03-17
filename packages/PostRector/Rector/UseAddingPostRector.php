@@ -52,7 +52,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
      * @param Stmt[] $nodes
      * @return Stmt[]
      */
-    public function beforeTraverse(array $nodes) : array
+    public function beforeTraverse($nodes) : ?array
     {
         // no nodes → just return
         if ($nodes === []) {
@@ -122,7 +122,7 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo($nodes) : ?\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
@@ -138,7 +138,7 @@ CODE_SAMPLE
      * @param FullyQualifiedObjectType[] $useImportTypes
      * @return FullyQualifiedObjectType[]
      */
-    private function filterOutNonNamespacedNames(array $useImportTypes) : array
+    private function filterOutNonNamespacedNames($useImportTypes) : array
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {

@@ -48,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param String_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classNames = $this->getExistingClasses($node);
         if ($classNames === []) {
@@ -65,8 +65,9 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
+     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    public function getExistingClasses(\PhpParser\Node\Scalar\String_ $string) : array
+    public function getExistingClasses($string) : array
     {
         /** @var mixed[] $matches */
         $matches = \RectorPrefix20210317\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
@@ -85,8 +86,9 @@ CODE_SAMPLE
     /**
      * @param string[] $classNames
      * @return mixed[]
+     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    public function getParts(\PhpParser\Node\Scalar\String_ $string, array $classNames) : array
+    public function getParts($string, $classNames) : array
     {
         $classNames = \array_map(function (string $className) : string {
             return \preg_quote($className);
@@ -101,7 +103,7 @@ CODE_SAMPLE
      * @param string[] $parts
      * @return ClassConstFetch[]|String_[]
      */
-    private function createExpressionsToConcat(array $parts) : array
+    private function createExpressionsToConcat($parts) : array
     {
         $exprsToConcat = [];
         foreach ($parts as $part) {

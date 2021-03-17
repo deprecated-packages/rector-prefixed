@@ -88,7 +88,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->isSkipped($node)) {
             return null;
@@ -113,8 +113,10 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @param \PHPStan\Type\UnionType $unionType
+     * @param \PhpParser\Node\NullableType $nullableType
      */
-    private function processSingleUnionType(\PhpParser\Node $node, \PHPStan\Type\UnionType $unionType, \PhpParser\Node\NullableType $nullableType) : \PhpParser\Node
+    private function processSingleUnionType($node, $unionType, $nullableType) : \PhpParser\Node
     {
         $types = $unionType->getTypes();
         $returnType = $types[0] instanceof \PHPStan\Type\ObjectType && $types[1] instanceof \PHPStan\Type\NullType ? new \PhpParser\Node\NullableType(new \PhpParser\Node\Name\FullyQualified($types[0]->getClassName())) : $nullableType;
@@ -124,7 +126,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function isSkipped(\PhpParser\Node $node) : bool
+    private function isSkipped($node) : bool
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return \true;
@@ -138,7 +140,7 @@ CODE_SAMPLE
      * @param Return_[] $returns
      * @return array<Name|NullableType|UnionType>
      */
-    private function collectStrictReturnTypes(array $returns) : array
+    private function collectStrictReturnTypes($returns) : array
     {
         $returnedStrictTypeNodes = [];
         foreach ($returns as $return) {
@@ -162,7 +164,10 @@ CODE_SAMPLE
         }
         return $this->typeNodeUnwrapper->uniquateNodes($returnedStrictTypeNodes);
     }
-    private function resolveMethodCallReturnNode(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function resolveMethodCallReturnNode($methodCall) : ?\PhpParser\Node
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
         if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -174,7 +179,10 @@ CODE_SAMPLE
         }
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
     }
-    private function resolveStaticCallReturnNode(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function resolveStaticCallReturnNode($staticCall) : ?\PhpParser\Node
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
         if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -188,8 +196,9 @@ CODE_SAMPLE
     }
     /**
      * @return Identifier|Name|NullableType|PhpParserUnionType|null
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
      */
-    private function resolveFuncCallReturnNode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
+    private function resolveFuncCallReturnNode($funcCall) : ?\PhpParser\Node
     {
         $function = $this->nodeRepository->findFunctionByFuncCall($funcCall);
         if ($function instanceof \PhpParser\Node\Stmt\Function_) {
@@ -203,9 +212,10 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike
-     * @param Name|NullableType|PhpParserUnionType $returnedStrictTypeNode
+     * @param \PhpParser\Node $returnedStrictTypeNode
+     * @param \PhpParser\Node\Stmt\Return_ $return
      */
-    private function refactorSingleReturnType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node $returnedStrictTypeNode, \PhpParser\Node\FunctionLike $functionLike) : \PhpParser\Node
+    private function refactorSingleReturnType($return, $returnedStrictTypeNode, $functionLike) : \PhpParser\Node
     {
         $resolvedType = $this->nodeTypeResolver->resolve($return);
         if ($resolvedType instanceof \PHPStan\Type\UnionType) {

@@ -20,7 +20,7 @@ final class OneToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
-    public function getTargetEntity() : string
+    public function getTargetEntity() : ?string
     {
         return $this->items['targetEntity'];
     }
@@ -32,7 +32,10 @@ final class OneToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         $this->items['mappedBy'] = null;
     }
-    public function changeTargetEntity(string $targetEntity) : void
+    /**
+     * @param string $targetEntity
+     */
+    public function changeTargetEntity($targetEntity) : void
     {
         $this->items['targetEntity'] = $targetEntity;
     }

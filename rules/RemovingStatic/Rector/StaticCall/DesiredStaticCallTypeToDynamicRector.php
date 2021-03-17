@@ -68,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param StaticCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             if (!$this->isObjectType($node->class, $staticObjectType)) {
@@ -92,7 +92,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function createFromSelf(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function createFromSelf($staticCall) : \PhpParser\Node\Expr\MethodCall
     {
         return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), $staticCall->name, $staticCall->args);
     }

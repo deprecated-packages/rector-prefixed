@@ -32,6 +32,29 @@ final class ConsecutiveAssertionFactory
         return $this->createWillReturnOnConsecutiveCalls($this->createMethod($var, $methodArguments), $this->createReturnArgs($expectationMocks));
     }
     /**
+     * @param ExpectationMock[] $expectationMocks
+     * @return Arg[]
+     */
+    private function createReturnArgs(array $expectationMocks) : array
+    {
+        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
+            return new \PhpParser\Node\Arg($expectationMock->getReturn() ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
+        }, $expectationMocks);
+    }
+    /**
+     * @param ExpectationMock[] $expectationMocks
+     * @return Arg[]
+     */
+    private function createWithArgs(array $expectationMocks) : array
+    {
+        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
+            $arrayItems = \array_map(static function (?\PhpParser\Node\Expr $expr) {
+                return new \PhpParser\Node\Expr\ArrayItem($expr ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
+            }, $expectationMock->getWithArguments());
+            return new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayItems));
+        }, $expectationMocks);
+    }
+    /**
      * @param Arg[] $args
      */
     public function createWillReturnOnConsecutiveCalls(\PhpParser\Node\Expr $expr, array $args) : \PhpParser\Node\Expr\MethodCall
@@ -71,29 +94,6 @@ final class ConsecutiveAssertionFactory
             return $this->createMappedWillReturn($methodCallName, $methodCall);
         }
         return $methodCall->args[0]->value;
-    }
-    /**
-     * @param ExpectationMock[] $expectationMocks
-     * @return Arg[]
-     */
-    private function createReturnArgs(array $expectationMocks) : array
-    {
-        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
-            return new \PhpParser\Node\Arg($expectationMock->getReturn() ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
-        }, $expectationMocks);
-    }
-    /**
-     * @param ExpectationMock[] $expectationMocks
-     * @return Arg[]
-     */
-    private function createWithArgs(array $expectationMocks) : array
-    {
-        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
-            $arrayItems = \array_map(static function (?\PhpParser\Node\Expr $expr) {
-                return new \PhpParser\Node\Expr\ArrayItem($expr ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
-            }, $expectationMock->getWithArguments());
-            return new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayItems));
-        }, $expectationMocks);
     }
     private function createWillReturnSelf() : \PhpParser\Node\Expr\MethodCall
     {

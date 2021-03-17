@@ -30,8 +30,9 @@ class CachePoolPrunerPass implements \RectorPrefix20210317\Symfony\Component\Dep
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         if (!$container->hasDefinition($this->cacheCommandServiceId)) {
             return;

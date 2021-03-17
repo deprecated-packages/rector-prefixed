@@ -80,9 +80,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $promotionCandidates = $this->promotedPropertyResolver->resolveFromClass($node);
         if ($promotionCandidates === []) {
@@ -115,14 +115,22 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processNullableType(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     * @param \PhpParser\Node\Param $param
+     */
+    private function processNullableType($property, $param) : void
     {
         if ($this->nodeTypeResolver->isNullableType($property)) {
             $objectType = $this->getObjectType($property);
             $param->type = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
         }
     }
-    private function decorateParamWithPropertyPhpDocInfo(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     * @param \PhpParser\Node\Param $param
+     */
+    private function decorateParamWithPropertyPhpDocInfo($property, $param) : void
     {
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $propertyPhpDocInfo->markAsChanged();
@@ -134,7 +142,11 @@ CODE_SAMPLE
         $paramType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
         $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($param, $paramType);
     }
-    private function removeClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $paramName
+     */
+    private function removeClassMethodParam($classMethod, $paramName) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $attributeAwareParamTagValueNode = $phpDocInfo->getParamTagValueByName($paramName);

@@ -63,9 +63,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param Switch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (\count($node->cases) < 2) {
             return null;
@@ -80,7 +80,11 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function areSwitchStmtsEqualsAndWithBreak(\PhpParser\Node\Stmt\Case_ $currentCase, \PhpParser\Node\Stmt\Case_ $previousCase) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Case_ $currentCase
+     * @param \PhpParser\Node\Stmt\Case_ $previousCase
+     */
+    private function areSwitchStmtsEqualsAndWithBreak($currentCase, $previousCase) : bool
     {
         if (!$this->nodeComparator->areNodesEqual($currentCase->stmts, $previousCase->stmts)) {
             return \false;
