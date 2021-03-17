@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -24,6 +24,14 @@ final class RemoveParentRector extends \Rector\Core\Rector\AbstractRector implem
      * @var string[]
      */
     private $parentClassesToRemove = [];
+    /**
+     * @var ParentClassScopeResolver
+     */
+    private $parentClassScopeResolver;
+    public function __construct(\Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
+    {
+        $this->parentClassScopeResolver = $parentClassScopeResolver;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes extends class by name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -50,11 +58,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->extends === null) {
+        $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
+        if ($parentClassName === null) {
             return null;
         }
         foreach ($this->parentClassesToRemove as $parentClassToRemove) {
-            $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
             if ($parentClassName !== $parentClassToRemove) {
                 continue;
             }
@@ -64,6 +72,9 @@ CODE_SAMPLE
         }
         return null;
     }
+    /**
+     * @param array<string, class-string[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->parentClassesToRemove = $configuration[self::PARENT_TYPES_TO_REMOVE] ?? [];

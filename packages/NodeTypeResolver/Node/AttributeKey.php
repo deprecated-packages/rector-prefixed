@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Node;
 
-use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -31,11 +30,6 @@ final class AttributeKey
      */
     public const CLASS_NODE = \PhpParser\Node\Stmt\ClassLike::class;
     /**
-     * @deprecated
-     * @var string
-     */
-    public const PARENT_CLASS_NAME = 'parentClassName';
-    /**
      * @var string
      */
     public const METHOD_NAME = 'methodName';
@@ -43,10 +37,6 @@ final class AttributeKey
      * @var string
      */
     public const METHOD_NODE = 'methodNode';
-    /**
-     * @var string
-     */
-    public const FUNCTION_NODE = 'functionNode';
     /**
      * Internal php-parser name.
      * Do not change this even if you want!
@@ -147,10 +137,6 @@ final class AttributeKey
      * @var string
      */
     public const DO_NOT_CHANGE = 'do_not_change';
-    /**
-     * @var string
-     */
-    public const CLOSURE_NODE = \PhpParser\Node\Expr\Closure::class;
     /**
      * @var string
      */

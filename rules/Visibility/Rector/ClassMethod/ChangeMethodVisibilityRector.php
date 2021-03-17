@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\Visibility;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,6 +26,14 @@ final class ChangeMethodVisibilityRector extends \Rector\Core\Rector\AbstractRec
      * @var ChangeMethodVisibility[]
      */
     private $methodVisibilities = [];
+    /**
+     * @var ParentClassScopeResolver
+     */
+    private $parentClassScopeResolver;
+    public function __construct(\Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
+    {
+        $this->parentClassScopeResolver = $parentClassScopeResolver;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change visibility of method from parent class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -72,13 +80,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        // doesn't have a parent class
-        if (!$node->hasAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME)) {
+        $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
+        if ($parentClassName === null) {
             return null;
         }
-        $nodeParentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         foreach ($this->methodVisibilities as $methodVisibility) {
-            if ($methodVisibility->getClass() !== $nodeParentClassName) {
+            if ($methodVisibility->getClass() !== $parentClassName) {
                 continue;
             }
             if (!$this->isName($node, $methodVisibility->getMethod())) {
@@ -89,6 +96,9 @@ CODE_SAMPLE
         }
         return $node;
     }
+    /**
+     * @param array<string, ChangeMethodVisibility[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $methodVisibilities = $configuration[self::METHOD_VISIBILITIES] ?? [];

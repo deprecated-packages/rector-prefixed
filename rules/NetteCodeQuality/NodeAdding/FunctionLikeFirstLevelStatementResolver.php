@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class FunctionLikeFirstLevelStatementResolver
@@ -17,9 +18,14 @@ final class FunctionLikeFirstLevelStatementResolver
      * @var ParentScopeFinder
      */
     private $parentScopeFinder;
-    public function __construct(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parentScopeFinder = $parentScopeFinder;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
     public function resolveFirstLevelStatement(\PhpParser\Node $node) : \PhpParser\Node
     {
@@ -48,7 +54,7 @@ final class FunctionLikeFirstLevelStatementResolver
      */
     private function matchMultiplierClosure(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\Closure
     {
-        $closure = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
+        $closure = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Expr\Closure::class);
         if (!$closure instanceof \PhpParser\Node\Expr\Closure) {
             return null;
         }

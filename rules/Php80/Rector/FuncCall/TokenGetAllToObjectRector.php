@@ -92,12 +92,13 @@ CODE_SAMPLE
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
             return;
         }
-        $classMethodOrFunctionNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?: $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
-        if ($classMethodOrFunctionNode === null) {
+        /** @var ClassMethod|Function_|null $classMethodOrFunction */
+        $classMethodOrFunction = $this->betterNodeFinder->findParentTypes($funcCall, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
+        if ($classMethodOrFunction === null) {
             return;
         }
         // dummy approach, improve when needed
-        $this->replaceGetNameOrGetValue($classMethodOrFunctionNode, $assign->var);
+        $this->replaceGetNameOrGetValue($classMethodOrFunction, $assign->var);
     }
     /**
      * @param ClassMethod|Function_ $functionLike

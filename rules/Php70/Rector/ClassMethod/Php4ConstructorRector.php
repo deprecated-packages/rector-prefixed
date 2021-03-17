@@ -124,9 +124,9 @@ CODE_SAMPLE
     }
     private function processParentPhp4ConstructCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
-        $parentClassName = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $this->resolveParentClassName($staticCall);
         // no parent class
-        if (!\is_string($parentClassName)) {
+        if ($parentClassName === null) {
             return;
         }
         if (!$staticCall->class instanceof \PhpParser\Node\Name) {
@@ -144,5 +144,21 @@ CODE_SAMPLE
             return;
         }
         $staticCall->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+    }
+    private function resolveParentClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
+    {
+        $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return null;
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        $parentClassReflection = $classReflection->getParentClass();
+        if (!$parentClassReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        return $parentClassReflection->getName();
     }
 }

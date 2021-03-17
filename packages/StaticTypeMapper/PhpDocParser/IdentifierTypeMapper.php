@@ -14,6 +14,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
+use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
 use Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
@@ -30,10 +31,15 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    /**
+     * @var ParentClassScopeResolver
+     */
+    private $parentClassScopeResolver;
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper, \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
+        $this->parentClassScopeResolver = $parentClassScopeResolver;
     }
     public function getNodeType() : string
     {
@@ -82,12 +88,11 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
     }
     private function mapParent(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        /** @var string|null $parentClassName */
-        $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName === null) {
-            return new \PHPStan\Type\MixedType();
+        $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
+        if ($parentClassName !== null) {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType($parentClassName);
         }
-        return new \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType($parentClassName);
+        return new \PHPStan\Type\MixedType();
     }
     private function mapStatic(\PhpParser\Node $node) : \PHPStan\Type\Type
     {

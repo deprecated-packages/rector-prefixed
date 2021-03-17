@@ -7,7 +7,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
@@ -70,7 +69,8 @@ final class BetterNodeFinder
         return null;
     }
     /**
-     * @param class-string<T>[] $types
+     * @template T of \PhpParser\Node
+     * @param array<class-string<T>> $types
      * @return T|null
      */
     public function findParentTypes(\PhpParser\Node $node, array $types) : ?\PhpParser\Node
