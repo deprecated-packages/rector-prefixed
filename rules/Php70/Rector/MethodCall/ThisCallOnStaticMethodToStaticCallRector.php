@@ -28,11 +28,7 @@ final class ThisCallOnStaticMethodToStaticCallRector extends \Rector\Core\Rector
      * @var MethodReflectionProvider
      */
     private $methodReflectionProvider;
-    /**
-     * @param \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer
-     * @param \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider
-     */
-    public function __construct($staticAnalyzer, $methodReflectionProvider)
+    public function __construct(\Rector\NodeCollector\StaticAnalyzer $staticAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
     {
         $this->staticAnalyzer = $staticAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
@@ -75,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
             return null;
@@ -102,10 +98,7 @@ CODE_SAMPLE
         $classReference = $this->resolveClassSelf($node);
         return $this->nodeFactory->createStaticCall($classReference, $methodName, $node->args);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function resolveClassSelf($methodCall) : string
+    private function resolveClassSelf(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

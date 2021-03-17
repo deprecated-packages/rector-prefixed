@@ -27,23 +27,15 @@ class InstanceofConfigurator extends \RectorPrefix20210317\Symfony\Component\Dep
     use Traits\ShareTrait;
     use Traits\TagTrait;
     private $path;
-    /**
-     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     * @param string $id
-     * @param string $path
-     */
-    public function __construct($parent, $definition, $id, $path = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $id, string $path = null)
     {
         parent::__construct($parent, $definition, $id, []);
         $this->path = $path;
     }
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
-     * @return $this
-     * @param string $fqcn
      */
-    public final function instanceof($fqcn)
+    public final function instanceof(string $fqcn) : self
     {
         return $this->parent->instanceof($fqcn);
     }

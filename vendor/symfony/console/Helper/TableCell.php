@@ -18,10 +18,7 @@ class TableCell
 {
     private $value;
     private $options = ['rowspan' => 1, 'colspan' => 1, 'style' => null];
-    /**
-     * @param string $value
-     */
-    public function __construct($value = '', array $options = [])
+    public function __construct(string $value = '', array $options = [])
     {
         $this->value = $value;
         // check option names

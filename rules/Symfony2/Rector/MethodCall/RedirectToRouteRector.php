@@ -26,9 +26,9 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName !== 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller') {
@@ -51,9 +51,8 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @return mixed[]
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function resolveArguments($methodCall) : array
+    private function resolveArguments(\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         /** @var MethodCall $generateUrlNode */
         $generateUrlNode = $methodCall->args[0]->value;

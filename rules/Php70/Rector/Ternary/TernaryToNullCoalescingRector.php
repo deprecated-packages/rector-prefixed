@@ -31,9 +31,9 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Ternary $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -67,10 +67,7 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Ternary $ternary
-     */
-    private function processTernaryWithIsset($ternary) : ?\PhpParser\Node\Expr\BinaryOp\Coalesce
+    private function processTernaryWithIsset(\PhpParser\Node\Expr\Ternary $ternary) : ?\PhpParser\Node\Expr\BinaryOp\Coalesce
     {
         if ($ternary->if === null) {
             return null;
@@ -89,12 +86,7 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr $possibleNullExpr
-     * @param \PhpParser\Node $firstNode
-     * @param \PhpParser\Node $secondNode
-     */
-    private function isNullMatch($possibleNullExpr, $firstNode, $secondNode) : bool
+    private function isNullMatch(\PhpParser\Node\Expr $possibleNullExpr, \PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
     {
         if (!$this->valueResolver->isNull($possibleNullExpr)) {
             return \false;

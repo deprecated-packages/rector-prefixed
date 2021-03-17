@@ -15,9 +15,8 @@ final class UseNameResolver implements \Rector\NodeNameResolver\Contract\NodeNam
     private $nodeNameResolver;
     /**
      * @required
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
      */
-    public function autowireUseNameResolver($nodeNameResolver) : void
+    public function autowireUseNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }

@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $unprefixedMethodToGetSet = $this->matchTypeAndMethodName($node);
         if (!$unprefixedMethodToGetSet instanceof \Rector\CakePHP\ValueObject\ModalToGetSet) {
@@ -71,19 +71,13 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($newName);
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $unprefixedMethodsToGetSet = $configuration[self::UNPREFIXED_METHODS_TO_GET_SET] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($unprefixedMethodsToGetSet, \Rector\CakePHP\ValueObject\ModalToGetSet::class);
         $this->unprefixedMethodsToGetSet = $unprefixedMethodsToGetSet;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function matchTypeAndMethodName($methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
+    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
     {
         foreach ($this->unprefixedMethodsToGetSet as $unprefixedMethodToGetSet) {
             if (!$this->isObjectType($methodCall->var, $unprefixedMethodToGetSet->getObjectType())) {
@@ -96,11 +90,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \Rector\CakePHP\ValueObject\ModalToGetSet $modalToGetSet
-     */
-    private function resolveNewMethodNameByCondition($methodCall, $modalToGetSet) : string
+    private function resolveNewMethodNameByCondition(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\CakePHP\ValueObject\ModalToGetSet $modalToGetSet) : string
     {
         if (\count($methodCall->args) >= $modalToGetSet->getMinimalSetterArgumentCount()) {
             return $modalToGetSet->getSetMethod();

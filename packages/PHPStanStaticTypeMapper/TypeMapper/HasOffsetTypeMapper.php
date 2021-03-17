@@ -21,25 +21,23 @@ final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contr
         return \PHPStan\Type\Accessory\HasOffsetType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param HasOffsetType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('mixed'));
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param string|null $kind
+     * @param HasOffsetType $type
      */
-    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param \PHPStan\Type\Type|null $parentType
+     * @param HasOffsetType $type
      */
-    public function mapToDocString($type, $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         return 'mixed[]';
     }

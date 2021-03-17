@@ -20,18 +20,14 @@ final class AttributeAwareGenericTypeNodeFactory implements \Rector\AttributeAwa
     {
         return \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode::class;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode::class, \true);
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
+     * @param GenericTypeNode $node
      */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->type = $this->attributeAwareNodeFactory->createFromNode($node->type, $docContent);
         $genericTypes = [];
@@ -40,10 +36,7 @@ final class AttributeAwareGenericTypeNodeFactory implements \Rector\AttributeAwa
         }
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($node->type, $genericTypes);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
-     */
-    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
+    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

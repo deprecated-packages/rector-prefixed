@@ -36,9 +36,8 @@ final class ReverseContainer
      * Returns the id of the passed object when it exists as a service.
      *
      * To be reversible, services need to be either public or be tagged with "container.reversible".
-     * @param object $service
      */
-    public function getId($service) : ?string
+    public function getId(object $service) : ?string
     {
         if ($this->serviceContainer === $service) {
             return 'service_container';
@@ -53,9 +52,8 @@ final class ReverseContainer
     }
     /**
      * @throws ServiceNotFoundException When the service is not reversible
-     * @return object
      */
-    public function getService(string $id)
+    public function getService(string $id) : object
     {
         if ($this->serviceContainer->has($id)) {
             return $this->serviceContainer->get($id);

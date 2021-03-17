@@ -31,13 +31,7 @@ class RegisterListenersPass implements \RectorPrefix20210317\Symfony\Component\D
     private $hotPathTagName;
     private $noPreloadEvents = [];
     private $noPreloadTagName;
-    /**
-     * @param string $dispatcherService
-     * @param string $listenerTag
-     * @param string $subscriberTag
-     * @param string $eventAliasesParameter
-     */
-    public function __construct($dispatcherService = 'event_dispatcher', $listenerTag = 'kernel.event_listener', $subscriberTag = 'kernel.event_subscriber', $eventAliasesParameter = 'event_dispatcher.event_aliases')
+    public function __construct(string $dispatcherService = 'event_dispatcher', string $listenerTag = 'kernel.event_listener', string $subscriberTag = 'kernel.event_subscriber', string $eventAliasesParameter = 'event_dispatcher.event_aliases')
     {
         $this->dispatcherService = $dispatcherService;
         $this->listenerTag = $listenerTag;
@@ -46,10 +40,8 @@ class RegisterListenersPass implements \RectorPrefix20210317\Symfony\Component\D
     }
     /**
      * @return $this
-     * @param mixed[] $hotPathEvents
-     * @param string $tagName
      */
-    public function setHotPathEvents($hotPathEvents, $tagName = 'container.hot_path')
+    public function setHotPathEvents(array $hotPathEvents, string $tagName = 'container.hot_path')
     {
         $this->hotPathEvents = \array_flip($hotPathEvents);
         $this->hotPathTagName = $tagName;
@@ -57,19 +49,14 @@ class RegisterListenersPass implements \RectorPrefix20210317\Symfony\Component\D
     }
     /**
      * @return $this
-     * @param mixed[] $noPreloadEvents
-     * @param string $tagName
      */
-    public function setNoPreloadEvents($noPreloadEvents, $tagName = 'container.no_preload')
+    public function setNoPreloadEvents(array $noPreloadEvents, string $tagName = 'container.no_preload') : self
     {
         $this->noPreloadEvents = \array_flip($noPreloadEvents);
         $this->noPreloadTagName = $tagName;
         return $this;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;
@@ -159,12 +146,7 @@ class RegisterListenersPass implements \RectorPrefix20210317\Symfony\Component\D
             \RectorPrefix20210317\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
         }
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param string $id
-     * @param string $method
-     */
-    private function getEventFromTypeDeclaration($container, $id, $method) : string
+    private function getEventFromTypeDeclaration(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
     {
         if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \RectorPrefix20210317\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
             throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
@@ -180,11 +162,7 @@ class ExtractingEventDispatcher extends \RectorPrefix20210317\Symfony\Component\
     public $listeners = [];
     public static $aliases = [];
     public static $subscriber;
-    /**
-     * @param string $eventName
-     * @param int $priority
-     */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->listeners[] = [$eventName, $listener[1], $priority];
     }

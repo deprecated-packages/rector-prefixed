@@ -66,15 +66,7 @@ final class AnnotatedPropertyInjectToConstructorInjectionRector extends \Rector\
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     * @param \Rector\DependencyInjection\TypeAnalyzer\InjectParameterAnalyzer $injectParameterAnalyzer
-     * @param \Rector\DependencyInjection\TypeAnalyzer\InjectTagValueNodeToServiceTypeResolver $injectTagValueNodeToServiceTypeResolver
-     * @param \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer
-     * @param \Rector\DependencyInjection\NodeAnalyzer\NetteInjectPropertyAnalyzer $netteInjectPropertyAnalyzer
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover
-     */
-    public function __construct($phpDocTypeChanger, $injectParameterAnalyzer, $injectTagValueNodeToServiceTypeResolver, $propertyUsageAnalyzer, $netteInjectPropertyAnalyzer, $phpDocTagRemover)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DependencyInjection\TypeAnalyzer\InjectParameterAnalyzer $injectParameterAnalyzer, \Rector\DependencyInjection\TypeAnalyzer\InjectTagValueNodeToServiceTypeResolver $injectTagValueNodeToServiceTypeResolver, \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer, \Rector\DependencyInjection\NodeAnalyzer\NetteInjectPropertyAnalyzer $netteInjectPropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -113,9 +105,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
@@ -145,12 +137,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param \PHPStan\Type\Type $type
-     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $tagValueNode
-     */
-    private function refactorPropertyWithAnnotation($property, $type, $tagValueNode) : void
+    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $tagValueNode) : void
     {
         $propertyName = $this->getName($property);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
@@ -162,11 +149,7 @@ CODE_SAMPLE
         }
         $this->addConstructorDependencyToClass($classLike, $type, $propertyName, $property->flags);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function refactorNetteInjectProperty($phpDocInfo, $property) : ?\PhpParser\Node\Stmt\Property
+    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($property)) {

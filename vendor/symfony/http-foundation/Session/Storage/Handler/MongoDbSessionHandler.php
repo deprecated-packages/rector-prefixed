@@ -58,10 +58,8 @@ class MongoDbSessionHandler extends \RectorPrefix20210317\Symfony\Component\Http
      * no garbage-collection is required.
      *
      * @throws \InvalidArgumentException When "database" or "collection" not provided
-     * @param \MongoDB\Client $mongo
-     * @param mixed[] $options
      */
-    public function __construct($mongo, $options)
+    public function __construct(\RectorPrefix20210317\MongoDB\Client $mongo, array $options)
     {
         if (!isset($options['database']) || !isset($options['collection'])) {
             throw new \InvalidArgumentException('You must provide the "database" and "collection" option for MongoDBSessionHandler.');
@@ -78,9 +76,8 @@ class MongoDbSessionHandler extends \RectorPrefix20210317\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy(string $sessionId)
     {
         $this->getCollection()->deleteOne([$this->options['id_field'] => $sessionId]);
         return \true;
@@ -95,10 +92,8 @@ class MongoDbSessionHandler extends \RectorPrefix20210317\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite(string $sessionId, string $data)
     {
         $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
         $fields = [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry, $this->options['data_field'] => new \MongoDB\BSON\Binary($data, \MongoDB\BSON\Binary::TYPE_OLD_BINARY)];
@@ -116,9 +111,8 @@ class MongoDbSessionHandler extends \RectorPrefix20210317\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId)
+    protected function doRead(string $sessionId)
     {
         $dbData = $this->getCollection()->findOne([$this->options['id_field'] => $sessionId, $this->options['expiry_field'] => ['$gte' => new \MongoDB\BSON\UTCDateTime()]]);
         if (null === $dbData) {

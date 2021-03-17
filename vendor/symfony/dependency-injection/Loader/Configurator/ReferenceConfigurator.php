@@ -20,17 +20,14 @@ class ReferenceConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
     protected $id;
     /** @internal */
     protected $invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
-    /**
-     * @param string $id
-     */
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->id = $id;
     }
     /**
      * @return $this
      */
-    public final function ignoreOnInvalid()
+    public final function ignoreOnInvalid() : self
     {
         $this->invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
         return $this;
@@ -38,7 +35,7 @@ class ReferenceConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
     /**
      * @return $this
      */
-    public final function nullOnInvalid()
+    public final function nullOnInvalid() : self
     {
         $this->invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE;
         return $this;
@@ -46,7 +43,7 @@ class ReferenceConfigurator extends \RectorPrefix20210317\Symfony\Component\Depe
     /**
      * @return $this
      */
-    public final function ignoreOnUninitialized()
+    public final function ignoreOnUninitialized() : self
     {
         $this->invalidBehavior = \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
         return $this;

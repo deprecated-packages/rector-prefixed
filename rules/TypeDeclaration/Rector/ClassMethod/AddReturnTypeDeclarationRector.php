@@ -32,10 +32,7 @@ final class AddReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractR
      * @var TypeComparator
      */
     private $typeComparator;
-    /**
-     * @param \Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator
-     */
-    public function __construct($typeComparator)
+    public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)
     {
         $this->typeComparator = $typeComparator;
     }
@@ -69,9 +66,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodReturnTypes as $methodReturnType) {
             if (!$this->isObjectType($node, $methodReturnType->getObjectType())) {
@@ -85,20 +82,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $methodReturnTypes = $configuration[self::METHOD_RETURN_TYPES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($methodReturnTypes, \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration::class);
         $this->methodReturnTypes = $methodReturnTypes;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PHPStan\Type\Type $newType
-     */
-    private function processClassMethodNodeWithTypehints($classMethod, $newType) : void
+    private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType) : void
     {
         // remove it
         if ($newType instanceof \PHPStan\Type\MixedType) {

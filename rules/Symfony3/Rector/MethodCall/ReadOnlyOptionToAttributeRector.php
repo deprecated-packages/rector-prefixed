@@ -31,12 +31,7 @@ final class ReadOnlyOptionToAttributeRector extends \Rector\Core\Rector\Abstract
      * @var FormOptionsArrayMatcher
      */
     private $formOptionsArrayMatcher;
-    /**
-     * @param \Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator
-     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
-     * @param \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher
-     */
-    public function __construct($arrayManipulator, $formAddMethodCallAnalyzer, $formOptionsArrayMatcher)
+    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator, \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher)
     {
         $this->arrayManipulator = $arrayManipulator;
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
@@ -70,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;

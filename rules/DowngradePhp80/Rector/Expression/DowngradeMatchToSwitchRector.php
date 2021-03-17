@@ -69,9 +69,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Expression::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Expression $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
@@ -88,9 +88,8 @@ CODE_SAMPLE
     /**
      * @param MatchArm[] $matchArms
      * @return Case_[]
-     * @param \PhpParser\Node\Expr $assignVarExpr
      */
-    private function createSwitchCasesFromMatchArms($matchArms, $assignVarExpr) : array
+    private function createSwitchCasesFromMatchArms(array $matchArms, \PhpParser\Node\Expr $assignVarExpr) : array
     {
         $switchCases = [];
         foreach ($matchArms as $matchArm) {
@@ -113,10 +112,8 @@ CODE_SAMPLE
     }
     /**
      * @return Stmt[]
-     * @param \PhpParser\Node\MatchArm $matchArm
-     * @param \PhpParser\Node\Expr $assignVarExpr
      */
-    private function createSwitchStmts($matchArm, $assignVarExpr) : array
+    private function createSwitchStmts(\PhpParser\Node\MatchArm $matchArm, \PhpParser\Node\Expr $assignVarExpr) : array
     {
         $stmts = [];
         $stmts[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign($assignVarExpr, $matchArm->body));

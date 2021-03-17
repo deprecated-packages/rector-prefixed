@@ -11,7 +11,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector\DowngradeFlexibleHeredocSyntaxRectorTest
+ * @see \Rector\Tests\DowngradePhp73\Rector\String_\DowngradeFlexibleHeredocSyntaxRector\DowngradeFlexibleHeredocSyntaxTest
  */
 final class DowngradeFlexibleHeredocSyntaxRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -47,15 +47,10 @@ CODE_SAMPLE
     /**
      * @param Encapsed|String_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $stringKind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if (!\in_array($stringKind, self::HERENOW_DOC_KINDS, \true)) {
-            return null;
-        }
-        // skip correctly indented
-        $docIndentation = (string) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DOC_INDENTATION);
-        if ($docIndentation === '') {
             return null;
         }
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DOC_INDENTATION, '');

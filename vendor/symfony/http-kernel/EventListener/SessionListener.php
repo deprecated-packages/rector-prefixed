@@ -27,18 +27,11 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent;
  */
 class SessionListener extends \RectorPrefix20210317\Symfony\Component\HttpKernel\EventListener\AbstractSessionListener
 {
-    /**
-     * @param \Psr\Container\ContainerInterface $container
-     * @param bool $debug
-     */
-    public function __construct($container, $debug = \false)
+    public function __construct(\RectorPrefix20210317\Psr\Container\ContainerInterface $container, bool $debug = \false)
     {
         parent::__construct($container, $debug);
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         parent::onKernelRequest($event);
         if (!$event->isMasterRequest() || !$this->container->has('session')) {

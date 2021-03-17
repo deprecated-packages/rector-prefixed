@@ -11,9 +11,8 @@ final class SkipperExtension extends \RectorPrefix20210317\Symfony\Component\Dep
 {
     /**
      * @param string[] $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
-    public function load($configs, $containerBuilder) : void
+    public function load(array $configs, \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         // needed for parameter shifting of sniff/fixer params
         $phpFileLoader = new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210317\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));

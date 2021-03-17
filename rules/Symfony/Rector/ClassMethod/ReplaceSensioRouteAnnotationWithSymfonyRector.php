@@ -24,10 +24,7 @@ final class ReplaceSensioRouteAnnotationWithSymfonyRector extends \Rector\Core\R
      * @var SymfonyRouteTagValueNodeFactory
      */
     private $symfonyRouteTagValueNodeFactory;
-    /**
-     * @param \Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory
-     */
-    public function __construct($symfonyRouteTagValueNodeFactory)
+    public function __construct(\Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory)
     {
         $this->symfonyRouteTagValueNodeFactory = $symfonyRouteTagValueNodeFactory;
     }
@@ -71,7 +68,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class)) {

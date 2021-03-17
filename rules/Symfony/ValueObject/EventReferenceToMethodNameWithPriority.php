@@ -19,12 +19,7 @@ final class EventReferenceToMethodNameWithPriority implements \Rector\Symfony\Co
      * @var int
      */
     private $priority;
-    /**
-     * @param \PhpParser\Node\Expr\ClassConstFetch $classConstFetch
-     * @param string $methodName
-     * @param int $priority
-     */
-    public function __construct($classConstFetch, $methodName, $priority)
+    public function __construct(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $methodName, int $priority)
     {
         $this->classConstFetch = $classConstFetch;
         $this->methodName = $methodName;

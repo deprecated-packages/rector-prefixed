@@ -30,12 +30,7 @@ final class OrderPropertiesByVisibilityRector extends \Rector\Core\Rector\Abstra
      * @var StmtVisibilitySorter
      */
     private $stmtVisibilitySorter;
-    /**
-     * @param \Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer
-     * @param \Rector\Order\StmtOrder $stmtOrder
-     * @param \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter
-     */
-    public function __construct($orderChangeAnalyzer, $stmtOrder, $stmtVisibilitySorter)
+    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
     {
         $this->orderChangeAnalyzer = $orderChangeAnalyzer;
         $this->stmtOrder = $stmtOrder;
@@ -71,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentPropertiesOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\Property::class);
         $propertiesInDesiredOrder = $this->stmtVisibilitySorter->sortProperties($node);

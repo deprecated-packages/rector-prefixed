@@ -19,11 +19,7 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    /**
-     * @param \Rector\PSR4\Composer\PSR4AutoloadPathsProvider $psr4AutoloadPathsProvider
-     * @param \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider
-     */
-    public function __construct($psr4AutoloadPathsProvider, $currentFileInfoProvider)
+    public function __construct(\Rector\PSR4\Composer\PSR4AutoloadPathsProvider $psr4AutoloadPathsProvider, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         $this->psr4AutoloadPathsProvider = $psr4AutoloadPathsProvider;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
@@ -51,10 +47,8 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
     }
     /**
      * Get the extra path that is not included in root PSR-4 namespace
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     * @param string $path
      */
-    private function resolveExtraNamespace($smartFileInfo, $path) : string
+    private function resolveExtraNamespace(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
     {
         $extraNamespace = \RectorPrefix20210317\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \RectorPrefix20210317\Nette\Utils\Strings::length($path) + 1);
         $extraNamespace = \RectorPrefix20210317\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');

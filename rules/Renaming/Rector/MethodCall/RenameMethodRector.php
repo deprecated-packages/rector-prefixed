@@ -39,10 +39,7 @@ final class RenameMethodRector extends \Rector\Core\Rector\AbstractRector implem
      * @var ClassManipulator
      */
     private $classManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
-     */
-    public function __construct($classManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
@@ -68,7 +65,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodCallRenames as $methodCallRename) {
             $implementsInterface = $this->classManipulator->hasParentMethodOrInterface($methodCallRename->getOldObjectType(), $methodCallRename->getOldMethod());
@@ -95,7 +92,7 @@ CODE_SAMPLE
     /**
      * @param array<string, MethodCallRenameInterface[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $methodCallRenames = $configuration[self::METHOD_CALL_RENAMES] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenames, \Rector\Renaming\Contract\MethodCallRenameInterface::class);
@@ -103,9 +100,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @param \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename
      */
-    private function skipClassMethod($node, $methodCallRename) : bool
+    private function skipClassMethod(\PhpParser\Node $node, \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
@@ -115,11 +111,7 @@ CODE_SAMPLE
         }
         return $this->shouldSkipForExactClassMethodForClassMethodOrTargetInvokePrivate($node, $methodCallRename->getOldObjectType(), $methodCallRename->getNewMethod());
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename
-     */
-    private function shouldSkipForAlreadyExistingClassMethod($classMethod, $methodCallRename) : bool
+    private function shouldSkipForAlreadyExistingClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename) : bool
     {
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -127,12 +119,7 @@ CODE_SAMPLE
         }
         return (bool) $classLike->getMethod($methodCallRename->getNewMethod());
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PHPStan\Type\ObjectType $objectType
-     * @param string $newMethodName
-     */
-    private function shouldSkipForExactClassMethodForClassMethodOrTargetInvokePrivate($classMethod, $objectType, $newMethodName) : bool
+    private function shouldSkipForExactClassMethodForClassMethodOrTargetInvokePrivate(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\ObjectType $objectType, string $newMethodName) : bool
     {
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $methodCalls = $this->nodeRepository->findMethodCallsOnClass($className);

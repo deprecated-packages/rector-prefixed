@@ -37,11 +37,7 @@ final class ChangeSwitchToMatchRector extends \Rector\Core\Rector\AbstractRector
      * @var Expr|null
      */
     private $assignExpr;
-    /**
-     * @param \Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver
-     * @param \Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer
-     */
-    public function __construct($switchExprsResolver, $switchAnalyzer)
+    public function __construct(\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
     {
         $this->switchExprsResolver = $switchExprsResolver;
         $this->switchAnalyzer = $switchAnalyzer;
@@ -92,9 +88,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Switch_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipSwitch($node)) {
             return null;
@@ -124,10 +120,7 @@ CODE_SAMPLE
         }
         return $match;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Switch_ $switch
-     */
-    private function shouldSkipSwitch($switch) : bool
+    private function shouldSkipSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         if (!$this->switchAnalyzer->hasEachCaseBreak($switch)) {
             return \true;
@@ -137,7 +130,7 @@ CODE_SAMPLE
     /**
      * @param CondAndExpr[] $condAndExprs
      */
-    private function haveCondAndExprsMatchPotential($condAndExprs) : bool
+    private function haveCondAndExprsMatchPotential(array $condAndExprs) : bool
     {
         $uniqueCondAndExprKinds = $this->resolveUniqueKinds($condAndExprs);
         if (\count($uniqueCondAndExprKinds) > 1) {
@@ -158,7 +151,7 @@ CODE_SAMPLE
      * @param CondAndExpr[] $condAndExprs
      * @return MatchArm[]
      */
-    private function createMatchArmsFromCases($condAndExprs) : array
+    private function createMatchArmsFromCases(array $condAndExprs) : array
     {
         $matchArms = [];
         foreach ($condAndExprs as $condAndExpr) {
@@ -177,7 +170,7 @@ CODE_SAMPLE
      * @param CondAndExpr[] $condAndExprs
      * @return string[]
      */
-    private function resolveUniqueKinds($condAndExprs) : array
+    private function resolveUniqueKinds(array $condAndExprs) : array
     {
         $condAndExprKinds = [];
         foreach ($condAndExprs as $condAndExpr) {

@@ -27,7 +27,7 @@ class StringInput extends \RectorPrefix20210317\Symfony\Component\Console\Input\
     /**
      * @param string $input A string representing the parameters from the CLI
      */
-    public function __construct($input)
+    public function __construct(string $input)
     {
         parent::__construct([]);
         $this->setTokens($this->tokenize($input));
@@ -36,9 +36,8 @@ class StringInput extends \RectorPrefix20210317\Symfony\Component\Console\Input\
      * Tokenizes a string.
      *
      * @throws InvalidArgumentException When unable to parse input (should never happen)
-     * @param string $input
      */
-    private function tokenize($input) : array
+    private function tokenize(string $input) : array
     {
         $tokens = [];
         $length = \strlen($input);

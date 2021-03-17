@@ -19,12 +19,7 @@ final class RenameClassConstFetch implements \Rector\Renaming\Contract\RenameCla
      * @var string
      */
     private $newConstant;
-    /**
-     * @param string $oldClass
-     * @param string $oldConstant
-     * @param string $newConstant
-     */
-    public function __construct($oldClass, $oldConstant, $newConstant)
+    public function __construct(string $oldClass, string $oldConstant, string $newConstant)
     {
         $this->oldClass = $oldClass;
         $this->oldConstant = $oldConstant;

@@ -27,11 +27,7 @@ final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \Rector\Co
      * @var PropertyTypeManipulator
      */
     private $propertyTypeManipulator;
-    /**
-     * @param \Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer
-     * @param \Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator
-     */
-    public function __construct($setterClassMethodAnalyzer, $propertyTypeManipulator)
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
         $this->propertyTypeManipulator = $propertyTypeManipulator;
@@ -86,9 +82,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $property = $this->setterClassMethodAnalyzer->matchDateTimeSetterProperty($node);
         if (!$property instanceof \PhpParser\Node\Stmt\Property) {

@@ -34,10 +34,7 @@ final class VariableMethodCallToServiceCallRector extends \Rector\Core\Rector\Ab
      * @var PropertyNaming
      */
     private $propertyNaming;
-    /**
-     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
-     */
-    public function __construct($propertyNaming)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
@@ -80,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->variableMethodCallsToServiceCalls as $variableMethodCallToServiceCall) {
             if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
@@ -111,25 +108,16 @@ CODE_SAMPLE
     /**
      * @param mixed[] $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->variableMethodCallsToServiceCalls = $configuration[self::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS] ?? [];
     }
-    /**
-     * @param \PHPStan\Type\ObjectType $objectType
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function addConstructorDependency($objectType, $class) : void
+    private function addConstructorDependency(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $this->addConstructorDependencyToClass($class, $objectType, $propertyName);
     }
-    /**
-     * @param \PHPStan\Type\ObjectType $objectType
-     * @param string $methodName
-     * @param \PhpParser\Node\Expr\MethodCall $node
-     */
-    private function createServiceMethodCall($objectType, $methodName, $node) : \PhpParser\Node\Expr\MethodCall
+    private function createServiceMethodCall(\PHPStan\Type\ObjectType $objectType, string $methodName, \PhpParser\Node\Expr\MethodCall $node) : \PhpParser\Node\Expr\MethodCall
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);

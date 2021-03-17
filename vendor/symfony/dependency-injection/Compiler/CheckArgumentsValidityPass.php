@@ -21,18 +21,14 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\Runtime
 class CheckArgumentsValidityPass extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $throwExceptions;
-    /**
-     * @param bool $throwExceptions
-     */
-    public function __construct($throwExceptions = \true)
+    public function __construct(bool $throwExceptions = \true)
     {
         $this->throwExceptions = $throwExceptions;
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);

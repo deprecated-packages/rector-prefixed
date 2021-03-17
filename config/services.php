@@ -25,7 +25,6 @@ use RectorPrefix20210317\Psr\Cache\CacheItemPoolInterface;
 use RectorPrefix20210317\Psr\SimpleCache\CacheInterface;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
 use Rector\Caching\Cache\Adapter\FilesystemAdapterFactory;
-use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\PhpParser\Parser\NikicPhpParserFactory;
 use Rector\Core\PhpParser\Parser\PhpParserLexerFactory;
@@ -60,7 +59,6 @@ return static function (\RectorPrefix20210317\Symfony\Component\DependencyInject
     $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode']);
     $services->alias(\RectorPrefix20210317\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
     $services->set(\RectorPrefix20210317\Symplify\SmartFileSystem\FileSystemGuard::class);
-    $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
     $services->set(\RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser::class);
     $services->set(\PhpParser\ParserFactory::class);
     $services->set(\PhpParser\BuilderFactory::class);

@@ -32,10 +32,7 @@ final class GetRequestRector extends \Rector\Core\Rector\AbstractRector
      * @var ControllerMethodAnalyzer
      */
     private $controllerMethodAnalyzer;
-    /**
-     * @param \Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer
-     */
-    public function __construct($controllerMethodAnalyzer)
+    public function __construct(\Rector\Symfony\Bridge\NodeAnalyzer\ControllerMethodAnalyzer $controllerMethodAnalyzer)
     {
         $this->controllerMethodAnalyzer = $controllerMethodAnalyzer;
     }
@@ -73,7 +70,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->requestVariableAndParamName = $this->resolveUniqueName($node, 'request');
@@ -88,11 +85,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param string $name
-     */
-    private function resolveUniqueName($classMethod, $name) : string
+    private function resolveUniqueName(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name) : string
     {
         $candidateNames = [];
         foreach ($classMethod->params as $param) {
@@ -105,10 +98,7 @@ CODE_SAMPLE
         }
         return $name;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function isActionWithGetRequestInBody($classMethod) : bool
+    private function isActionWithGetRequestInBody(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->controllerMethodAnalyzer->isAction($classMethod)) {
             return \false;
@@ -128,10 +118,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isGetRequestInAction($node) : bool
+    private function isGetRequestInAction(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
@@ -152,19 +139,13 @@ CODE_SAMPLE
         }
         return $this->controllerMethodAnalyzer->isAction($classMethod);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function containsGetRequestMethod($classMethod) : bool
+    private function containsGetRequestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
             return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'getRequest');
         });
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function isGetMethodCallWithRequestParameters($methodCall) : bool
+    private function isGetMethodCallWithRequestParameters(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isName($methodCall->name, 'get')) {
             return \false;

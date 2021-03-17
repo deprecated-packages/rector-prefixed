@@ -45,9 +45,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param New_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder'))) {
             return null;
@@ -67,10 +67,7 @@ CODE_SAMPLE
         $rootMethodCallNode->name = new \PhpParser\Node\Identifier('getRootNode');
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function getRootMethodCallNode($new) : ?\PhpParser\Node
+    private function getRootMethodCallNode(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node
     {
         $expression = $new->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if ($expression === null) {

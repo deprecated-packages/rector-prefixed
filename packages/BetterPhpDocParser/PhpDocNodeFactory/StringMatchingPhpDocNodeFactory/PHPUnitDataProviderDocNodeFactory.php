@@ -23,17 +23,11 @@ final class PHPUnitDataProviderDocNodeFactory implements \Rector\BetterPhpDocPar
      * @var PhpDocParser
      */
     private $phpDocParser;
-    /**
-     * @param \Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller
-     */
-    public function __construct($privatesCaller)
+    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
     {
         $this->privatesCaller = $privatesCaller;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
-     */
-    public function createFromTokens($tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
+    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         try {
             $tokenIterator->pushSavePoint();
@@ -49,24 +43,19 @@ final class PHPUnitDataProviderDocNodeFactory implements \Rector\BetterPhpDocPar
     }
     /**
      * @deprecated Refactor to remove dependency on phpdoc parser
-     * @param \PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser
      */
-    public function setPhpDocParser($phpDocParser) : void
+    public function setPhpDocParser(\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser) : void
     {
         $this->phpDocParser = $phpDocParser;
     }
-    /**
-     * @param string $tag
-     */
-    public function match($tag) : bool
+    public function match(string $tag) : bool
     {
         return \strtolower($tag) === \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode::NAME;
     }
     /**
      * Override of parent private method to allow reference: https://github.com/rectorphp/rector/pull/1735
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
      */
-    private function parseDataProviderTagValue($tokenIterator) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode
+    private function parseDataProviderTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode
     {
         $method = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', [$tokenIterator]);
         return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode($method);

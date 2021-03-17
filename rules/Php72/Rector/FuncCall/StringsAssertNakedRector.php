@@ -23,10 +23,7 @@ final class StringsAssertNakedRector extends \Rector\Core\Rector\AbstractRector
      * @var Parser
      */
     private $parser;
-    /**
-     * @param \PhpParser\Parser $parser
-     */
-    public function __construct($parser)
+    public function __construct(\PhpParser\Parser $parser)
     {
         $this->parser = $parser;
     }
@@ -56,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'assert')) {
             return null;

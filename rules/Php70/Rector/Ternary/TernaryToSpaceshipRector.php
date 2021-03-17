@@ -41,9 +41,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Ternary $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
             return null;
@@ -59,10 +59,7 @@ CODE_SAMPLE
         }
         return $this->processGreaterThanTernary($node, $nestedTernary);
     }
-    /**
-     * @param \PhpParser\Node\Expr\Ternary $ternary
-     */
-    private function shouldSkip($ternary) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         if (!$ternary->cond instanceof \PhpParser\Node\Expr\BinaryOp) {
             return \true;
@@ -83,10 +80,8 @@ CODE_SAMPLE
     }
     /**
      * Matches "$a < $b ? -1 : ($a > $b ? 1 : 0)"
-     * @param \PhpParser\Node\Expr\Ternary $node
-     * @param \PhpParser\Node\Expr\Ternary $nestedTernary
      */
-    private function processSmallerThanTernary($node, $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
+    private function processSmallerThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
             return null;
@@ -101,10 +96,8 @@ CODE_SAMPLE
     }
     /**
      * Matches "$a > $b ? -1 : ($a < $b ? 1 : 0)"
-     * @param \PhpParser\Node\Expr\Ternary $node
-     * @param \PhpParser\Node\Expr\Ternary $nestedTernary
      */
-    private function processGreaterThanTernary($node, $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
+    private function processGreaterThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
             return null;

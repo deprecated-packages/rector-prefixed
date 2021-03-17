@@ -20,9 +20,8 @@ class PhpBridgeSessionStorage extends \RectorPrefix20210317\Symfony\Component\Ht
 {
     /**
      * @param AbstractProxy|\SessionHandlerInterface|null $handler
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
-    public function __construct($handler = null, $metaBag = null)
+    public function __construct($handler = null, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
         if (!\extension_loaded('session')) {
             throw new \LogicException('PHP extension "session" is required.');

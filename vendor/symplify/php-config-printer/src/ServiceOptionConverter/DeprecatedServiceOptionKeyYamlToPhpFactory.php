@@ -13,10 +13,7 @@ final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     */
-    public function __construct($argsNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }

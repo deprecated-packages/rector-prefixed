@@ -24,12 +24,7 @@ final class InitCommand extends \RectorPrefix20210317\Symfony\Component\Console\
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    /**
-     * @param \Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard
-     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     */
-    public function __construct($fileSystemGuard, $smartFileSystem, $symfonyStyle)
+    public function __construct(\RectorPrefix20210317\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->fileSystemGuard = $fileSystemGuard;
         $this->smartFileSystem = $smartFileSystem;

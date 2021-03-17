@@ -50,29 +50,23 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param New_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
         return $this->generateNewInstances($node);
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function shouldSkip($new) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\New_ $new) : bool
     {
         if (!$new->class instanceof \PhpParser\Node\Name) {
             return \true;
         }
         return !$this->isName($new->class, 'Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\PropertyPathMapper');
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function generateNewInstances($new) : \PhpParser\Node\Expr\New_
+    private function generateNewInstances(\PhpParser\Node\Expr\New_ $new) : \PhpParser\Node\Expr\New_
     {
         $arguments = [];
         if (isset($new->args[0])) {

@@ -22,10 +22,7 @@ final class ConsistentImplodeRector extends \Rector\Core\Rector\AbstractRector
      * @var StringTypeAnalyzer
      */
     private $stringTypeAnalyzer;
-    /**
-     * @param \Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer
-     */
-    public function __construct($stringTypeAnalyzer)
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer)
     {
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
     }
@@ -65,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'implode')) {
             return null;

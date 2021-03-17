@@ -28,7 +28,7 @@ final class StrStartsWithRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @param StrStartWithMatchAndRefactorInterface[] $strStartWithMatchAndRefactors
      */
-    public function __construct($strStartWithMatchAndRefactors)
+    public function __construct(array $strStartWithMatchAndRefactors)
     {
         $this->strStartWithMatchAndRefactors = $strStartWithMatchAndRefactors;
     }
@@ -68,7 +68,7 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->strStartWithMatchAndRefactors as $strStartWithMatchAndRefactor) {
             $strStartsWithValueObject = $strStartWithMatchAndRefactor->match($node);

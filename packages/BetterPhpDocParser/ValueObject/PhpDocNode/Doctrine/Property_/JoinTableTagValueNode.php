@@ -48,15 +48,8 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     /**
      * @param JoinColumnTagValueNode[] $joinColumns
      * @param JoinColumnTagValueNode[] $inverseJoinColumns
-     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
-     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
-     * @param string|null $name
-     * @param string|null $schema
-     * @param string|null $originalContent
-     * @param \Rector\BetterPhpDocParser\ValueObject\AroundSpaces|null $joinColumnsAroundSpaces
-     * @param \Rector\BetterPhpDocParser\ValueObject\AroundSpaces|null $inverseJoinColumnsAroundSpaces
      */
-    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $name, $schema = null, $joinColumns = [], $inverseJoinColumns = [], $originalContent = null, $joinColumnsAroundSpaces = null, $inverseJoinColumnsAroundSpaces = null)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, ?string $name, ?string $schema = null, array $joinColumns = [], array $inverseJoinColumns = [], ?string $originalContent = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $joinColumnsAroundSpaces = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $inverseJoinColumnsAroundSpaces = null)
     {
         $this->name = $name;
         $this->schema = $schema;
@@ -126,10 +119,8 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     /**
      * @return array<string, mixed>
-     * @param string $joinColumnsKey
-     * @param string $inverseJoinColumnsKey
      */
-    private function createJoinColumnItems($joinColumnsKey, $inverseJoinColumnsKey) : array
+    private function createJoinColumnItems(string $joinColumnsKey, string $inverseJoinColumnsKey) : array
     {
         $items = [];
         if ($this->joinColumns !== []) {

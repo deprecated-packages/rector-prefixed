@@ -30,12 +30,7 @@ final class MakeBoolPropertyRespectIsHasWasMethodNamingRector extends \Rector\Co
      * @var BoolPropertyExpectedNameResolver
      */
     private $boolPropertyExpectedNameResolver;
-    /**
-     * @param \Rector\Naming\PropertyRenamer\BoolPropertyRenamer $boolPropertyRenamer
-     * @param \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory
-     * @param \Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver
-     */
-    public function __construct($boolPropertyRenamer, $propertyRenameFactory, $boolPropertyExpectedNameResolver)
+    public function __construct(\Rector\Naming\PropertyRenamer\BoolPropertyRenamer $boolPropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver)
     {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->boolPropertyRenamer = $boolPropertyRenamer;
@@ -76,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isPropertyBoolean($node)) {
             return null;

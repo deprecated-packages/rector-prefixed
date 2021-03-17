@@ -60,6 +60,10 @@ final class RectorConfigsResolver
                 $configFileInfos[] = new \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
             }
         }
+        // load config only if "sync" command is used to avoid useless rules traversing
+        if ($argvInput->getFirstArgument() === 'sync-annotation-parser') {
+            $configFileInfos[] = new \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../utils/doctrine-annotation-parser-syncer/config/config.php');
+        }
         return new \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
 }

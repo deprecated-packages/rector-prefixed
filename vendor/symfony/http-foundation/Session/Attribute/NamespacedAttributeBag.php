@@ -23,16 +23,15 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
      * @param string $storageKey         Session storage key
      * @param string $namespaceCharacter Namespace character to use in keys
      */
-    public function __construct($storageKey = '_sf2_attributes', $namespaceCharacter = '/')
+    public function __construct(string $storageKey = '_sf2_attributes', string $namespaceCharacter = '/')
     {
         $this->namespaceCharacter = $namespaceCharacter;
         parent::__construct($storageKey);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
@@ -44,9 +43,8 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function get($name, $default = null)
+    public function get(string $name, $default = null)
     {
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
@@ -58,9 +56,8 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function set($name, $value)
+    public function set(string $name, $value)
     {
         $attributes =& $this->resolveAttributePath($name, \true);
         $name = $this->resolveKey($name);
@@ -68,9 +65,8 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
         $retval = null;
         $attributes =& $this->resolveAttributePath($name);
@@ -91,7 +87,7 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
      *
      * @return array|null
      */
-    protected function &resolveAttributePath($name, $writeContext = \false)
+    protected function &resolveAttributePath(string $name, bool $writeContext = \false)
     {
         $array =& $this->attributes;
         $name = 0 === \strpos($name, $this->namespaceCharacter) ? \substr($name, 1) : $name;
@@ -126,9 +122,8 @@ class NamespacedAttributeBag extends \RectorPrefix20210317\Symfony\Component\Htt
      * This is the last part in a dot separated string.
      *
      * @return string
-     * @param string $name
      */
-    protected function resolveKey($name)
+    protected function resolveKey(string $name)
     {
         if (\false !== ($pos = \strrpos($name, $this->namespaceCharacter))) {
             $name = \substr($name, $pos + 1);

@@ -25,11 +25,7 @@ final class DowngradeSelfTypeDeclarationRector extends \Rector\Core\Rector\Abstr
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($phpDocFromTypeDeclarationDecorator, $reflectionProvider)
+    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
         $this->reflectionProvider = $reflectionProvider;
@@ -64,9 +60,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {

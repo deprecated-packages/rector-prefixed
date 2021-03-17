@@ -25,12 +25,12 @@ class PhpProcess extends \RectorPrefix20210317\Symfony\Component\Process\Process
 {
     /**
      * @param string      $script  The PHP script to run (as a string)
-     * @param string $cwd     The working directory or null to use the working dir of the current PHP process
-     * @param mixed[]  $env     The environment variables or null to use the same environment as the current PHP process
+     * @param string|null $cwd     The working directory or null to use the working dir of the current PHP process
+     * @param array|null  $env     The environment variables or null to use the same environment as the current PHP process
      * @param int         $timeout The timeout in seconds
-     * @param mixed[]  $php     Path to the PHP binary to use with any additional arguments
+     * @param array|null  $php     Path to the PHP binary to use with any additional arguments
      */
-    public function __construct($script, $cwd = null, $env = null, $timeout = 60, $php = null)
+    public function __construct(string $script, string $cwd = null, array $env = null, int $timeout = 60, array $php = null)
     {
         if (null === $php) {
             $executableFinder = new \RectorPrefix20210317\Symfony\Component\Process\PhpExecutableFinder();
@@ -48,21 +48,15 @@ class PhpProcess extends \RectorPrefix20210317\Symfony\Component\Process\Process
     }
     /**
      * {@inheritdoc}
-     * @param string $command
-     * @param string $cwd
-     * @param mixed[] $env
-     * @param float|null $timeout
      */
-    public static function fromShellCommandline($command, $cwd = null, $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
     {
         throw new \RectorPrefix20210317\Symfony\Component\Process\Exception\LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
     }
     /**
      * {@inheritdoc}
-     * @param callable $callback
-     * @param mixed[] $env
      */
-    public function start($callback = null, $env = [])
+    public function start(callable $callback = null, array $env = [])
     {
         if (null === $this->getCommandLine()) {
             throw new \RectorPrefix20210317\Symfony\Component\Process\Exception\RuntimeException('Unable to find the PHP executable.');

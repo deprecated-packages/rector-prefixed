@@ -35,10 +35,7 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    /**
-     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
-     */
-    public function __construct($testsNodeAnalyzer)
+    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->functionNamesWithAssertMethods = [new \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('count', self::ASSERT_COUNT, self::ASSERT_NOT_COUNT), new \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('sizeof', self::ASSERT_COUNT, self::ASSERT_NOT_COUNT), new \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('iterator_count', self::ASSERT_COUNT, self::ASSERT_NOT_COUNT), new \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('gettype', 'assertInternalType', 'assertNotInternalType'), new \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods('get_class', 'assertInstanceOf', 'assertNotInstanceOf')];
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -57,7 +54,7 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame', 'assertEquals', 'assertNotEquals'])) {
             return null;
@@ -81,10 +78,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     /**
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall|null
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     * @param \PhpParser\Node\Arg $requiredArg
      */
-    private function processFuncCallArgumentValue($node, $funcCall, $requiredArg) : ?\PhpParser\Node
+    private function processFuncCallArgumentValue(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg) : ?\PhpParser\Node
     {
         foreach ($this->functionNamesWithAssertMethods as $functionNameWithAssertMethod) {
             if (!$this->isName($funcCall, $functionNameWithAssertMethod->getFunctionName())) {
@@ -98,9 +93,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @param \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods
      */
-    private function renameMethod($node, $functionNameWithAssertMethods) : void
+    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
     {
         if ($this->isNames($node->name, ['assertSame', 'assertEquals'])) {
             $node->name = new \PhpParser\Node\Identifier($functionNameWithAssertMethods->getAssetMethodName());
@@ -111,10 +105,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     /**
      * Handles custom error messages to not be overwrite by function with multiple args.
      * @param StaticCall|MethodCall $node
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     * @param \PhpParser\Node\Arg $requiredArg
      */
-    private function moveFunctionArgumentsUp($node, $funcCall, $requiredArg) : void
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg) : void
     {
         $node->args[1] = $funcCall->args[0];
         $node->args[0] = $requiredArg;

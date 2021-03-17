@@ -22,10 +22,7 @@ final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\
      * @var InflectorSingularResolver
      */
     private $inflectorSingularResolver;
-    /**
-     * @param \Rector\Naming\ExpectedNameResolver\InflectorSingularResolver $inflectorSingularResolver
-     */
-    public function __construct($inflectorSingularResolver)
+    public function __construct(\Rector\Naming\ExpectedNameResolver\InflectorSingularResolver $inflectorSingularResolver)
     {
         $this->inflectorSingularResolver = $inflectorSingularResolver;
     }
@@ -65,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\Variable && !$node->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
@@ -92,10 +89,7 @@ CODE_SAMPLE
         }
         return $this->processRename($node, $valueVarName, $singularValueVarName);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isNotThisTypePropertyFetch($expr) : bool
+    private function isNotThisTypePropertyFetch(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $variableType = $this->getStaticType($expr->var);
@@ -103,12 +97,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     * @param string $valueVarName
-     * @param string $singularValueVarName
-     */
-    private function processRename($foreach, $valueVarName, $singularValueVarName) : \PhpParser\Node\Stmt\Foreach_
+    private function processRename(\PhpParser\Node\Stmt\Foreach_ $foreach, string $valueVarName, string $singularValueVarName) : \PhpParser\Node\Stmt\Foreach_
     {
         $foreach->valueVar = new \PhpParser\Node\Expr\Variable($singularValueVarName);
         $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) use($singularValueVarName, $valueVarName) : ?Variable {
@@ -122,12 +111,7 @@ CODE_SAMPLE
         });
         return $foreach;
     }
-    /**
-     * @param string $valueVarName
-     * @param string $singularValueVarName
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function shouldSkip($valueVarName, $singularValueVarName, $foreach) : bool
+    private function shouldSkip(string $valueVarName, string $singularValueVarName, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
         if ($singularValueVarName === $valueVarName) {
             return \true;

@@ -23,10 +23,7 @@ class UuidV6 extends \RectorPrefix20210317\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 6;
     private static $seed;
-    /**
-     * @param string $uuid
-     */
-    public function __construct($uuid = null)
+    public function __construct(string $uuid = null)
     {
         if (null === $uuid) {
             $uuid = \uuid_create(\UUID_TYPE_TIME);

@@ -21,11 +21,7 @@ final class ValidateFixtureSkipNamingCommand extends \RectorPrefix20210317\Sympl
      * @var FixtureFinder
      */
     private $fixtureFinder;
-    /**
-     * @param \Symplify\EasyTesting\MissplacedSkipPrefixResolver $missplacedSkipPrefixResolver
-     * @param \Symplify\EasyTesting\Finder\FixtureFinder $fixtureFinder
-     */
-    public function __construct($missplacedSkipPrefixResolver, $fixtureFinder)
+    public function __construct(\RectorPrefix20210317\Symplify\EasyTesting\MissplacedSkipPrefixResolver $missplacedSkipPrefixResolver, \RectorPrefix20210317\Symplify\EasyTesting\Finder\FixtureFinder $fixtureFinder)
     {
         $this->missplacedSkipPrefixResolver = $missplacedSkipPrefixResolver;
         $this->fixtureFinder = $fixtureFinder;

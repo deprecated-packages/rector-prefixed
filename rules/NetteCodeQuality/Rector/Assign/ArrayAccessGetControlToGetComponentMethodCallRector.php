@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isFetchOfControlFromPresenterDimFetch($node)) {
             return null;
@@ -65,10 +65,7 @@ CODE_SAMPLE
         $node->expr = new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function isFetchOfControlFromPresenterDimFetch($assign) : bool
+    private function isFetchOfControlFromPresenterDimFetch(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;

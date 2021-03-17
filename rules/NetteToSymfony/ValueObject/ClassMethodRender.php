@@ -31,7 +31,7 @@ final class ClassMethodRender implements \Rector\Nette\Contract\ValueObject\Para
      * @param Node[] $nodesToRemove
      * @param array<string, Assign[]> $conditionalAssigns
      */
-    public function __construct($templateFileExprs, $templateVariables, $nodesToRemove, $conditionalAssigns)
+    public function __construct(array $templateFileExprs, array $templateVariables, array $nodesToRemove, array $conditionalAssigns)
     {
         $this->templateVariables = $templateVariables;
         $this->nodesToRemove = $nodesToRemove;

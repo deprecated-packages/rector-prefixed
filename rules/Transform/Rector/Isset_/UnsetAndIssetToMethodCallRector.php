@@ -51,7 +51,7 @@ CODE_SAMPLE
     /**
      * @param Isset_|Unset_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->vars as $arrayDimFetch) {
             if (!$arrayDimFetch instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -69,21 +69,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $issetUnsetToMethodCalls = $configuration[self::ISSET_UNSET_TO_METHOD_CALL] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall::class);
         $this->issetUnsetToMethodCalls = $issetUnsetToMethodCalls;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
-     * @param \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall $unsetAndIssetToMethodCall
-     */
-    private function processArrayDimFetchNode($node, $arrayDimFetch, $unsetAndIssetToMethodCall) : ?\PhpParser\Node
+    private function processArrayDimFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall $unsetAndIssetToMethodCall) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\Isset_) {
             if ($unsetAndIssetToMethodCall->getIssetMethodCall() === '') {

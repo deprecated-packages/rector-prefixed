@@ -41,16 +41,7 @@ class ServiceConfigurator extends \RectorPrefix20210317\Symfony\Component\Depend
     private $instanceof;
     private $allowParent;
     private $path;
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param mixed[] $instanceof
-     * @param bool $allowParent
-     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     * @param mixed[] $defaultTags
-     * @param string $path
-     */
-    public function __construct($container, $instanceof, $allowParent, $parent, $definition, $id, $defaultTags, $path = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;
         $this->instanceof = $instanceof;

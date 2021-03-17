@@ -17,10 +17,7 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \Recto
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    /**
-     * @param \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector
-     */
-    public function __construct($configureCallValuesCollector)
+    public function __construct(\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
     }
@@ -30,11 +27,7 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \Recto
             $this->completeCollectedArguments($id, $definition);
         }
     }
-    /**
-     * @param string $serviceClass
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     */
-    private function completeCollectedArguments($serviceClass, $definition) : void
+    private function completeCollectedArguments(string $serviceClass, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $configureCallValues = $this->configureCallValuesCollector->getConfigureCallValues($serviceClass);
         if ($configureCallValues === []) {

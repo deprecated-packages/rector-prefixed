@@ -11,10 +11,7 @@ use RectorPrefix20210317\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use RectorPrefix20210317\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class RuleDocGeneratorKernel extends \RectorPrefix20210317\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function registerContainerConfiguration($loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210317\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);

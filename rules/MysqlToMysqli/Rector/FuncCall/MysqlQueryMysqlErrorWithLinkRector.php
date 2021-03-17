@@ -73,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach (self::FUNCTION_RENAME_MAP as $oldFunction => $newFunction) {
             if (!$this->isName($node, $oldFunction)) {
@@ -94,10 +94,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isProbablyMysql($expr) : bool
+    private function isProbablyMysql(\PhpParser\Node\Expr $expr) : bool
     {
         if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('mysqli'))) {
             return \true;
@@ -115,10 +112,7 @@ CODE_SAMPLE
         }
         return $this->isMysqliConnect($expr);
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function findConnectionVariable($funcCall) : ?\PhpParser\Node\Expr
+    private function findConnectionVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $connectionAssign = $this->betterNodeFinder->findFirstPrevious($funcCall, function (\PhpParser\Node $node) : ?bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -131,10 +125,7 @@ CODE_SAMPLE
         }
         return $connectionAssign->var;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function removeExistingConnectionParameter($funcCall) : void
+    private function removeExistingConnectionParameter(\PhpParser\Node\Expr\FuncCall $funcCall) : void
     {
         /** @var string $functionName */
         $functionName = $this->getName($funcCall);
@@ -144,11 +135,7 @@ CODE_SAMPLE
         $connectionPosition = self::FUNCTION_CONNECTION_PARAMETER_POSITION_MAP[$functionName];
         unset($funcCall->args[$connectionPosition]);
     }
-    /**
-     * @param \PHPStan\Type\Type $staticType
-     * @param \PHPStan\Type\ResourceType $resourceType
-     */
-    private function isUnionTypeWithResourceSubType($staticType, $resourceType) : bool
+    private function isUnionTypeWithResourceSubType(\PHPStan\Type\Type $staticType, \PHPStan\Type\ResourceType $resourceType) : bool
     {
         if ($staticType instanceof \PHPStan\Type\UnionType) {
             foreach ($staticType->getTypes() as $type) {
@@ -159,10 +146,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function isMysqliConnect($variable) : bool
+    private function isMysqliConnect(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         return (bool) $this->betterNodeFinder->findFirstPrevious($variable, function (\PhpParser\Node $node) use($variable) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {

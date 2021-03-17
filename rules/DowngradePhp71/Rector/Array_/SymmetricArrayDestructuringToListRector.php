@@ -32,9 +32,9 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Array_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $this->nodeComparator->areNodesEqual($node, $parentNode->var)) {
@@ -48,10 +48,7 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
         }
         return $this->processToList($node);
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     */
-    private function processToList($array) : \PhpParser\Node\Expr\FuncCall
+    private function processToList(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node\Expr\FuncCall
     {
         $args = [];
         foreach ($array->items as $arrayItem) {

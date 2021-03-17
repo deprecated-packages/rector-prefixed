@@ -39,12 +39,7 @@ final class DowngradeCovariantReturnTypeRector extends \Rector\Core\Rector\Abstr
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     * @param \Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller
-     * @param \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover
-     */
-    public function __construct($phpDocTypeChanger, $privatesCaller, $returnTagRemover)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->privatesCaller = $privatesCaller;
@@ -101,9 +96,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->returnType === null) {
             return null;
@@ -134,9 +129,8 @@ CODE_SAMPLE
     }
     /**
      * @param UnionType|NullableType|Name|Node\Identifier $returnTypeNode
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function resolveDifferentAncestorReturnType($classMethod, $returnTypeNode) : \PHPStan\Type\Type
+    private function resolveDifferentAncestorReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node $returnTypeNode) : \PHPStan\Type\Type
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -175,10 +169,7 @@ CODE_SAMPLE
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function addDocBlockReturn($classMethod) : void
+    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         // keep return type if already set one

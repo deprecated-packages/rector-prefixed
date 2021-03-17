@@ -19,7 +19,7 @@ final class TemplateParametersAssigns implements \Rector\Nette\Contract\ValueObj
      * @param AlwaysTemplateParameterAssign[] $alwaysTemplateParameterAssigns
      * @param ConditionalTemplateParameterAssign[] $conditionalTemplateParameterAssigns
      */
-    public function __construct($alwaysTemplateParameterAssigns, $conditionalTemplateParameterAssigns)
+    public function __construct(array $alwaysTemplateParameterAssigns, array $conditionalTemplateParameterAssigns)
     {
         $this->templateParameterAssigns = $alwaysTemplateParameterAssigns;
         $this->conditionalTemplateParameterAssign = $conditionalTemplateParameterAssigns;

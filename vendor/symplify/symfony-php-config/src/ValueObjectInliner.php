@@ -13,10 +13,7 @@ use function RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\C
 use function RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 final class ValueObjectInliner
 {
-    /**
-     * @param object $object
-     */
-    public static function inlineArgumentObject($object, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $servicesConfigurator) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
+    public static function inlineArgumentObject(object $object, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $servicesConfigurator) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
     {
         $reflectionClass = new \ReflectionClass($object);
         $className = $reflectionClass->getName();
@@ -41,9 +38,8 @@ final class ValueObjectInliner
     }
     /**
      * @return mixed[]
-     * @param object $object
      */
-    public static function resolveArgumentValues(\ReflectionClass $reflectionClass, $object) : array
+    public static function resolveArgumentValues(\ReflectionClass $reflectionClass, object $object) : array
     {
         $argumentValues = [];
         $constructorReflectionMethod = $reflectionClass->getConstructor();
@@ -75,9 +71,8 @@ final class ValueObjectInliner
     }
     /**
      * @return array<string, mixed>
-     * @param object $object
      */
-    private static function resolvePropertyValues(\ReflectionClass $reflectionClass, $object) : array
+    private static function resolvePropertyValues(\ReflectionClass $reflectionClass, object $object) : array
     {
         $propertyValues = [];
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
@@ -87,10 +82,7 @@ final class ValueObjectInliner
         }
         return $propertyValues;
     }
-    /**
-     * @param object $object
-     */
-    private static function inlineSingle($object) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
+    private static function inlineSingle(object $object) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
     {
         $reflectionClass = new \ReflectionClass($object);
         $className = $reflectionClass->getName();

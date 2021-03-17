@@ -27,11 +27,7 @@ final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Re
      * @var FunctionSupportResolver
      */
     private $functionSupportResolver;
-    /**
-     * @param \Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver
-     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
-     */
-    public function __construct($functionSupportResolver, $ifManipulator)
+    public function __construct(\Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->functionSupportResolver = $functionSupportResolver;
@@ -72,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -96,10 +92,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function shouldSkip($if) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $classLike = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

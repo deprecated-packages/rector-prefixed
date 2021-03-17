@@ -14,12 +14,7 @@ final class ConfigurableCallValuesCollectingPhpFileLoader extends \RectorPrefix2
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \Symfony\Component\Config\FileLocatorInterface $fileLocator
-     * @param \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector
-     */
-    public function __construct($containerBuilder, $fileLocator, $configureCallValuesCollector)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210317\Symfony\Component\Config\FileLocatorInterface $fileLocator, \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
         parent::__construct($containerBuilder, $fileLocator);

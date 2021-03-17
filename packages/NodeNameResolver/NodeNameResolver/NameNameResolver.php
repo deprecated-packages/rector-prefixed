@@ -15,10 +15,7 @@ final class NameNameResolver implements \Rector\NodeNameResolver\Contract\NodeNa
      * @var FuncCallNameResolver
      */
     private $funcCallNameResolver;
-    /**
-     * @param \Rector\NodeNameResolver\NodeNameResolver\FuncCallNameResolver $funcCallNameResolver
-     */
-    public function __construct($funcCallNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver\FuncCallNameResolver $funcCallNameResolver)
     {
         $this->funcCallNameResolver = $funcCallNameResolver;
     }

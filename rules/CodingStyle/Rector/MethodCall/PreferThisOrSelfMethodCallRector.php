@@ -64,7 +64,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToPreference as $type => $preference) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -80,7 +80,7 @@ CODE_SAMPLE
     /**
      * @param array<string, array<class-string, string>> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allString($typeToPreference);
@@ -92,7 +92,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processToSelf($node) : ?\PhpParser\Node\Expr\StaticCall
+    private function processToSelf(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall && !$this->isNames($node->class, [self::SELF, 'static'])) {
             return null;
@@ -109,7 +109,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processToThis($node) : ?\PhpParser\Node\Expr\MethodCall
+    private function processToThis(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
@@ -123,10 +123,7 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall('this', $name, $node->args);
     }
-    /**
-     * @param string $preference
-     */
-    private function ensurePreferenceIsValid($preference) : void
+    private function ensurePreferenceIsValid(string $preference) : void
     {
         if (\in_array($preference, \Rector\CodingStyle\ValueObject\PreferenceSelfThis::ALLOWED_VALUES, \true)) {
             return;

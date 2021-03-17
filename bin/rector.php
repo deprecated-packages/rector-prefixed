@@ -12,6 +12,7 @@ use RectorPrefix20210317\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210317\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
 use RectorPrefix20210317\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210317\Tracy\Debugger;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
 // Performance boost
@@ -28,6 +29,10 @@ $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
+// for simpler debugging output
+if (\class_exists(\RectorPrefix20210317\Tracy\Debugger::class)) {
+    \RectorPrefix20210317\Tracy\Debugger::$maxDepth = 2;
+}
 try {
     $bootstrapConfigs = $rectorConfigsResolver->provide();
     $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();

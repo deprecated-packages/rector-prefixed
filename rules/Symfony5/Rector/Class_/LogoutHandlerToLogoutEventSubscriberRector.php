@@ -33,11 +33,7 @@ final class LogoutHandlerToLogoutEventSubscriberRector extends \Rector\Core\Rect
      * @var ObjectType
      */
     private $logoutHandlerObjectType;
-    /**
-     * @param \Rector\Symfony5\NodeFactory\OnLogoutClassMethodFactory $onLogoutClassMethodFactory
-     * @param \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory
-     */
-    public function __construct($onLogoutClassMethodFactory, $getSubscribedEventsClassMethodFactory)
+    public function __construct(\Rector\Symfony5\NodeFactory\OnLogoutClassMethodFactory $onLogoutClassMethodFactory, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->onLogoutClassMethodFactory = $onLogoutClassMethodFactory;
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
@@ -92,9 +88,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, $this->logoutHandlerObjectType)) {
             return null;
@@ -114,10 +110,7 @@ CODE_SAMPLE
         $node->stmts[] = $getSubscribedEventsClassMethod;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function refactorImplements($class) : void
+    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
+class ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -18,8 +18,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -27,8 +25,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         array (
             'Symplify\\SymfonyPhpConfig\\' => 26,
             'Symplify\\RuleDocGenerator\\' => 26,
-            'Symfony\\Polyfill\\Php74\\' => 23,
-            'Symfony\\Polyfill\\Php72\\' => 23,
         ),
         'R' => 
         array (
@@ -105,14 +101,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Symplify\\RuleDocGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
-        ),
-        'Symfony\\Polyfill\\Php74\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
-        ),
-        'Symfony\\Polyfill\\Php72\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Rector\\Core\\' => 
         array (
@@ -2303,7 +2291,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Rector\\Core\\Application\\RectorApplication' => __DIR__ . '/../..' . '/src/Application/RectorApplication.php',
         'Rector\\Core\\Application\\TokensByFilePathStorage' => __DIR__ . '/../..' . '/src/Application/TokensByFilePathStorage.php',
         'Rector\\Core\\Autoloading\\AdditionalAutoloader' => __DIR__ . '/../..' . '/src/Autoloading/AdditionalAutoloader.php',
-        'Rector\\Core\\Bootstrap\\NoRectorsLoadedReporter' => __DIR__ . '/../..' . '/src/Bootstrap/NoRectorsLoadedReporter.php',
         'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/RectorConfigsResolver.php',
         'Rector\\Core\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
         'Rector\\Core\\Configuration\\CurrentNodeProvider' => __DIR__ . '/../..' . '/src/Configuration/CurrentNodeProvider.php',
@@ -2330,7 +2317,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Rector\\Core\\Exception\\Application\\FileProcessingException' => __DIR__ . '/../..' . '/src/Exception/Application/FileProcessingException.php',
         'Rector\\Core\\Exception\\Configuration\\InvalidConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/InvalidConfigurationException.php',
         'Rector\\Core\\Exception\\InvalidNodeTypeException' => __DIR__ . '/../..' . '/src/Exception/InvalidNodeTypeException.php',
-        'Rector\\Core\\Exception\\NoRectorsLoadedException' => __DIR__ . '/../..' . '/src/Exception/NoRectorsLoadedException.php',
         'Rector\\Core\\Exception\\Node\\MissingParentNodeException' => __DIR__ . '/../..' . '/src/Exception/Node/MissingParentNodeException.php',
         'Rector\\Core\\Exception\\NotImplementedYetException' => __DIR__ . '/../..' . '/src/Exception/NotImplementedYetException.php',
         'Rector\\Core\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Exception/ShouldNotHappenException.php',
@@ -2339,7 +2325,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Rector\\Core\\FileSystem\\FilesFinder' => __DIR__ . '/../..' . '/src/FileSystem/FilesFinder.php',
         'Rector\\Core\\FileSystem\\FilesystemTweaker' => __DIR__ . '/../..' . '/src/FileSystem/FilesystemTweaker.php',
         'Rector\\Core\\FileSystem\\PhpFilesFinder' => __DIR__ . '/../..' . '/src/FileSystem/PhpFilesFinder.php',
-        'Rector\\Core\\Guard\\RectorGuard' => __DIR__ . '/../..' . '/src/Guard/RectorGuard.php',
         'Rector\\Core\\HttpKernel\\RectorKernel' => __DIR__ . '/../..' . '/src/HttpKernel/RectorKernel.php',
         'Rector\\Core\\Logging\\CurrentRectorProvider' => __DIR__ . '/../..' . '/src/Logging/CurrentRectorProvider.php',
         'Rector\\Core\\NodeAnalyzer\\CallAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/CallAnalyzer.php',
@@ -2406,6 +2391,7 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Rector\\Core\\Rector\\AbstractRector' => __DIR__ . '/../..' . '/src/Rector/AbstractRector.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionFactory.php',
         'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => __DIR__ . '/../..' . '/src/Reflection/ClassReflectionToAstResolver.php',
+        'Rector\\Core\\Reporting\\MissingRectorRulesReporter' => __DIR__ . '/../..' . '/src/Reporting/MissingRectorRulesReporter.php',
         'Rector\\Core\\StaticReflection\\DynamicSourceLocatorDecorator' => __DIR__ . '/../..' . '/src/StaticReflection/DynamicSourceLocatorDecorator.php',
         'Rector\\Core\\Stubs\\PHPStanStubLoader' => __DIR__ . '/../..' . '/src/Stubs/PHPStanStubLoader.php',
         'Rector\\Core\\Stubs\\StubLoader' => __DIR__ . '/../..' . '/src/Stubs/StubLoader.php',
@@ -3675,8 +3661,6 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
         'Rector\\Visibility\\Rector\\Property\\ChangePropertyVisibilityRector' => __DIR__ . '/../..' . '/rules/Visibility/Rector/Property/ChangePropertyVisibilityRector.php',
         'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
         'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
-        'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
-        'Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill-php74/Php74.php',
         'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
         'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
         'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
@@ -3717,9 +3701,9 @@ class ComposerStaticInite6e537e9334d642ac617b51f1cffc925
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite6e537e9334d642ac617b51f1cffc925::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite6e537e9334d642ac617b51f1cffc925::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite6e537e9334d642ac617b51f1cffc925::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit40b5bd81331ba4b877a284b6409a94ff::$classMap;
 
         }, null, ClassLoader::class);
     }

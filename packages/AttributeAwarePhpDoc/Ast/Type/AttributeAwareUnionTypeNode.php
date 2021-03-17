@@ -22,9 +22,8 @@ final class AttributeAwareUnionTypeNode extends \PHPStan\PhpDocParser\Ast\Type\U
     private $isWrappedWithBrackets = \false;
     /**
      * @param TypeNode[] $types
-     * @param string $originalContent
      */
-    public function __construct($types, $originalContent = '')
+    public function __construct(array $types, string $originalContent = '')
     {
         parent::__construct($types);
         $this->isWrappedWithBrackets = (bool) \RectorPrefix20210317\Nette\Utils\Strings::match($originalContent, self::BRACKET_WRAPPING_REGEX);

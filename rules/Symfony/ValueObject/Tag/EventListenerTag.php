@@ -18,12 +18,7 @@ final class EventListenerTag implements \Rector\Symfony\Contract\Tag\TagInterfac
      * @var int
      */
     private $priority;
-    /**
-     * @param string $event
-     * @param string $method
-     * @param int $priority
-     */
-    public function __construct($event, $method, $priority)
+    public function __construct(string $event, string $method, int $priority)
     {
         $this->event = $event;
         $this->method = $method;

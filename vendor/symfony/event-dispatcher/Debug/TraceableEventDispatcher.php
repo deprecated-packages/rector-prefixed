@@ -35,13 +35,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     private $orphanedEvents;
     private $requestStack;
     private $currentRequestHash = '';
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     */
-    public function __construct($dispatcher, $stopwatch, $logger = null, $requestStack = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, \RectorPrefix20210317\Symfony\Component\Stopwatch\Stopwatch $stopwatch, \RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null, \RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         $this->dispatcher = $dispatcher;
         $this->stopwatch = $stopwatch;
@@ -52,26 +46,22 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->dispatcher->addListener($eventName, $listener, $priority);
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber)
+    public function addSubscriber(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         $this->dispatcher->addSubscriber($subscriber);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener)
+    public function removeListener(string $eventName, $listener)
     {
         if (isset($this->wrappedListeners[$eventName])) {
             foreach ($this->wrappedListeners[$eventName] as $index => $wrappedListener) {
@@ -86,25 +76,22 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber($subscriber)
+    public function removeSubscriber(\RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         return $this->dispatcher->removeSubscriber($subscriber);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         return $this->dispatcher->getListeners($eventName);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority(string $eventName, $listener)
     {
         // we might have wrapped listeners for the event (if called while dispatching)
         // in that case get the priority by wrapper
@@ -119,19 +106,15 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         return $this->dispatcher->hasListeners($eventName);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param object $event
-     * @return object
      */
-    public function dispatch($event, $eventName = null)
+    public function dispatch(object $event, string $eventName = null) : object
     {
         $eventName = $eventName ?? \get_class($event);
         if (null === $this->callStack) {
@@ -164,9 +147,8 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * @return array
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getCalledListeners($request = null)
+    public function getCalledListeners(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (null === $this->callStack) {
             return [];
@@ -183,9 +165,8 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * @return array
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getNotCalledListeners($request = null)
+    public function getNotCalledListeners(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request = null)
     {
         try {
             $allListeners = $this->getListeners();
@@ -220,10 +201,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
         \uasort($notCalled, [$this, 'sortNotCalledListeners']);
         return $notCalled;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function getOrphanedEvents($request = null) : array
+    public function getOrphanedEvents(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request = null) : array
     {
         if ($request) {
             return $this->orphanedEvents[\spl_object_hash($request)] ?? [];
@@ -247,30 +225,23 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
      *
      * @return mixed
      */
-    public function __call($method, $arguments)
+    public function __call(string $method, array $arguments)
     {
         return $this->dispatcher->{$method}(...$arguments);
     }
     /**
      * Called before dispatching the event.
-     * @param object $event
-     * @param string $eventName
      */
-    protected function beforeDispatch($eventName, $event)
+    protected function beforeDispatch(string $eventName, object $event)
     {
     }
     /**
      * Called after dispatching the event.
-     * @param object $event
-     * @param string $eventName
      */
-    protected function afterDispatch($eventName, $event)
+    protected function afterDispatch(string $eventName, object $event)
     {
     }
-    /**
-     * @param string $eventName
-     */
-    private function preProcess($eventName) : void
+    private function preProcess(string $eventName) : void
     {
         if (!$this->dispatcher->hasListeners($eventName)) {
             $this->orphanedEvents[$this->currentRequestHash][] = $eventName;
@@ -285,10 +256,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
             $this->callStack->attach($wrappedListener, [$eventName, $this->currentRequestHash]);
         }
     }
-    /**
-     * @param string $eventName
-     */
-    private function postProcess($eventName) : void
+    private function postProcess(string $eventName) : void
     {
         unset($this->wrappedListeners[$eventName]);
         $skipped = \false;
@@ -322,11 +290,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
             }
         }
     }
-    /**
-     * @param mixed[] $a
-     * @param mixed[] $b
-     */
-    private function sortNotCalledListeners($a, $b)
+    private function sortNotCalledListeners(array $a, array $b)
     {
         if (0 !== ($cmp = \strcmp($a['event'], $b['event']))) {
             return $cmp;

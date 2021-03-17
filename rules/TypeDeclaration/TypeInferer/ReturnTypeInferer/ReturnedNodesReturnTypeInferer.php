@@ -51,14 +51,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
      * @var SplArrayFixedTypeNarrower
      */
     private $splArrayFixedTypeNarrower;
-    /**
-     * @param \Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver
-     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
-     * @param \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser
-     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
-     * @param \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower
-     */
-    public function __construct($silentVoidResolver, $nodeTypeResolver, $simpleCallableNodeTraverser, $typeFactory, $splArrayFixedTypeNarrower)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower)
     {
         $this->silentVoidResolver = $silentVoidResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -69,7 +62,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
     /**
      * @param ClassMethod|Closure|Function_ $functionLike
      */
-    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         /** @var Class_|Trait_|Interface_|null $classLike */
         $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
@@ -101,9 +94,8 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
     }
     /**
      * @return Return_[]
-     * @param \PhpParser\Node\FunctionLike $functionLike
      */
-    private function collectReturns($functionLike) : array
+    private function collectReturns(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $returns = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$returns) : ?int {
@@ -122,11 +114,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         });
         return $returns;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    private function resolveNoLocalReturnNodes($classLike, $functionLike) : \PHPStan\Type\Type
+    private function resolveNoLocalReturnNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         // void type
         if (!$this->isAbstractMethod($classLike, $functionLike)) {
@@ -134,10 +122,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Switch_ $switch
-     */
-    private function processSwitch($switch) : void
+    private function processSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : void
     {
         foreach ($switch->cases as $case) {
             if ($case->cond === null) {
@@ -146,11 +131,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         $this->types[] = new \PHPStan\Type\VoidType();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    private function isAbstractMethod($classLike, $functionLike) : bool
+    private function isAbstractMethod(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod && $functionLike->isAbstract()) {
             return \true;

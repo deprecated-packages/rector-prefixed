@@ -51,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -61,10 +61,7 @@ CODE_SAMPLE
         $node->args = $this->composeNewArgs($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function shouldSkip($funcCall) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isNames($funcCall, ['setcookie', 'setrawcookie'])) {
             return \true;
@@ -77,9 +74,8 @@ CODE_SAMPLE
     }
     /**
      * @return Arg[]
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
      */
-    private function composeNewArgs($funcCall) : array
+    private function composeNewArgs(\PhpParser\Node\Expr\FuncCall $funcCall) : array
     {
         $this->highestIndex = 1;
         $newArgs = [$funcCall->args[0], $funcCall->args[1]];
@@ -108,10 +104,7 @@ CODE_SAMPLE
         \ksort($newArgs);
         return $newArgs;
     }
-    /**
-     * @param string $key
-     */
-    private function isMappableArrayKey($key) : bool
+    private function isMappableArrayKey(string $key) : bool
     {
         return isset(self::ARGUMENT_ORDER[$key]);
     }
@@ -119,7 +112,7 @@ CODE_SAMPLE
      * @param Arg[] $args
      * @return Arg[]
      */
-    private function fillMissingArgumentsWithDefaultValues($args) : array
+    private function fillMissingArgumentsWithDefaultValues(array $args) : array
     {
         for ($i = 1; $i < $this->highestIndex; ++$i) {
             if (isset($args[$i])) {
@@ -129,10 +122,7 @@ CODE_SAMPLE
         }
         return $args;
     }
-    /**
-     * @param int $argumentIndex
-     */
-    private function createDefaultValueArg($argumentIndex) : \PhpParser\Node\Arg
+    private function createDefaultValueArg(int $argumentIndex) : \PhpParser\Node\Arg
     {
         if (!\array_key_exists($argumentIndex, self::ARGUMENT_DEFAULT_VALUES)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

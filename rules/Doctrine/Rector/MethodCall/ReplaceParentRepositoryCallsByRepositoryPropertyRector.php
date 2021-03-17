@@ -56,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return null;
@@ -73,19 +73,13 @@ CODE_SAMPLE
         $node->var = $this->nodeFactory->createPropertyFetch('this', 'repository');
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function resolveRepositoryName($expr) : string
+    private function resolveRepositoryName(\PhpParser\Node\Expr $expr) : string
     {
         $entityReferenceName = $this->valueResolver->getValue($expr);
         $lastNamePart = (string) \RectorPrefix20210317\Nette\Utils\Strings::after($entityReferenceName, '\\', -1);
         return \lcfirst($lastNamePart) . 'Repository';
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function guessRepositoryType($expr) : string
+    private function guessRepositoryType(\PhpParser\Node\Expr $expr) : string
     {
         if ($expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $entityClass = $this->getName($expr->class);
@@ -98,10 +92,7 @@ CODE_SAMPLE
         }
         return 'Unknown_Repository_Class';
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function refactorGetRepositoryMethodCall($methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    private function refactorGetRepositoryMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         /** @var MethodCall $parentMethodCall */
         $parentMethodCall = $methodCall->var;

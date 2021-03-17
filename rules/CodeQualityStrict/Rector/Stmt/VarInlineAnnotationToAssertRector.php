@@ -67,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Stmt $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip properties
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
@@ -90,10 +90,7 @@ CODE_SAMPLE
         }
         return $this->refactorAlreadyCreatedNode($node, $phpDocInfo, $variable);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     */
-    private function getVarDocVariableName($phpDocInfo) : ?string
+    private function getVarDocVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
     {
         $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
         if (!$attributeAwareVarTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
@@ -106,21 +103,13 @@ CODE_SAMPLE
         }
         return \ltrim($variableName, '$');
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     * @param string $docVariableName
-     */
-    private function findVariableByName($stmt, $docVariableName) : ?\PhpParser\Node
+    private function findVariableByName(\PhpParser\Node\Stmt $stmt, string $docVariableName) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findFirst($stmt, function (\PhpParser\Node $stmt) use($docVariableName) : bool {
             return $this->nodeNameResolver->isVariableName($stmt, $docVariableName);
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     * @param string $docVariableName
-     */
-    private function isVariableJustCreated($stmt, $docVariableName) : bool
+    private function isVariableJustCreated(\PhpParser\Node\Stmt $stmt, string $docVariableName) : bool
     {
         if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
             return \false;
@@ -132,12 +121,7 @@ CODE_SAMPLE
         // the variable is on the left side = just created
         return $this->nodeNameResolver->isVariableName($assign->var, $docVariableName);
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function refactorFreshlyCreatedNode($stmt, $phpDocInfo, $variable) : ?\PhpParser\Node
+    private function refactorFreshlyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
         $stmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         $type = $phpDocInfo->getVarType();
@@ -149,12 +133,7 @@ CODE_SAMPLE
         $this->addNodeBeforeNode($assertFuncCall, $stmt);
         return $stmt;
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function refactorAlreadyCreatedNode($stmt, $phpDocInfo, $variable) : ?\PhpParser\Node
+    private function refactorAlreadyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
         $varTagValue = $phpDocInfo->getVarTagValueNode();
         if (!$varTagValue instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
@@ -168,11 +147,7 @@ CODE_SAMPLE
         $this->addNodeAfterNode($assertFuncCall, $stmt);
         return $stmt;
     }
-    /**
-     * @param \PHPStan\Type\Type $type
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function createFuncCallBasedOnType($type, $variable) : ?\PhpParser\Node\Expr\FuncCall
+    private function createFuncCallBasedOnType(\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\FuncCall
     {
         if ($type instanceof \PHPStan\Type\ObjectType) {
             $instanceOf = new \PhpParser\Node\Expr\Instanceof_($variable, new \PhpParser\Node\Name\FullyQualified($type->getClassName()));

@@ -24,10 +24,7 @@ final class SimplifyEmptyArrayCheckRector extends \Rector\Core\Rector\AbstractRe
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator
-     */
-    public function __construct($binaryOpManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
@@ -43,9 +40,9 @@ final class SimplifyEmptyArrayCheckRector extends \Rector\Core\Rector\AbstractRe
         return [\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param BooleanAnd $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode(
             $node,

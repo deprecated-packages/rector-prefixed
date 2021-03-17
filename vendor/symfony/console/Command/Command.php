@@ -58,11 +58,11 @@ class Command
         return $class === $r->class ? static::$defaultName : null;
     }
     /**
-     * @param string $name The name of the command; passing null means it must be set in configure()
+     * @param string|null $name The name of the command; passing null means it must be set in configure()
      *
      * @throws LogicException When the command name is empty
      */
-    public function __construct($name = null)
+    public function __construct(string $name = null)
     {
         $this->definition = new \RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition();
         if (null !== $name || null !== ($name = static::getDefaultName())) {

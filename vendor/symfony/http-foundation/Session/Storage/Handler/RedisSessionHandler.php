@@ -38,9 +38,8 @@ class RedisSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFo
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface|RedisProxy|RedisClusterProxy $redis
      *
      * @throws \InvalidArgumentException When unsupported client or options are passed
-     * @param mixed[] $options
      */
-    public function __construct($redis, $options = [])
+    public function __construct($redis, array $options = [])
     {
         if (!$redis instanceof \Redis && !$redis instanceof \RedisArray && !$redis instanceof \RedisCluster && !$redis instanceof \RectorPrefix20210317\Predis\ClientInterface && !$redis instanceof \RectorPrefix20210317\Symfony\Component\Cache\Traits\RedisProxy && !$redis instanceof \RectorPrefix20210317\Symfony\Component\Cache\Traits\RedisClusterProxy) {
             throw new \InvalidArgumentException(\sprintf('"%s()" expects parameter 1 to be Redis, RedisArray, RedisCluster or Predis\\ClientInterface, "%s" given.', __METHOD__, \get_debug_type($redis)));
@@ -54,27 +53,23 @@ class RedisSessionHandler extends \RectorPrefix20210317\Symfony\Component\HttpFo
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doRead($sessionId) : string
+    protected function doRead(string $sessionId) : string
     {
         return $this->redis->get($this->prefix . $sessionId) ?: '';
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data) : bool
+    protected function doWrite(string $sessionId, string $data) : bool
     {
         $result = $this->redis->setEx($this->prefix . $sessionId, (int) ($this->ttl ?? \ini_get('session.gc_maxlifetime')), $data);
         return $result && !$result instanceof \RectorPrefix20210317\Predis\Response\ErrorInterface;
     }
     /**
      * {@inheritdoc}
-     * @param string $sessionId
      */
-    protected function doDestroy($sessionId) : bool
+    protected function doDestroy(string $sessionId) : bool
     {
         static $unlink = \true;
         if ($unlink) {

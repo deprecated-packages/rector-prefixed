@@ -25,12 +25,7 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \Rector\Nett
      * @var ValueResolver
      */
     private $valueResolver;
-    /**
-     * @param \Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     * @param \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver
-     */
-    public function __construct($methodCallManipulator, $nodeNameResolver, $valueResolver)
+    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->methodCallManipulator = $methodCallManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -38,9 +33,8 @@ final class OnVariableMethodCallsFormControlTypeResolver implements \Rector\Nett
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];

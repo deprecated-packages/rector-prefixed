@@ -33,15 +33,7 @@ final class PropertyRename implements \Rector\Naming\Contract\RenamePropertyValu
      * @var PropertyProperty
      */
     private $propertyProperty;
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param string $expectedName
-     * @param string $currentName
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     * @param string $classLikeName
-     * @param \PhpParser\Node\Stmt\PropertyProperty $propertyProperty
-     */
-    public function __construct($property, $expectedName, $currentName, $classLike, $classLikeName, $propertyProperty)
+    public function __construct(\PhpParser\Node\Stmt\Property $property, string $expectedName, string $currentName, \PhpParser\Node\Stmt\ClassLike $classLike, string $classLikeName, \PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
     {
         $this->property = $property;
         $this->expectedName = $expectedName;

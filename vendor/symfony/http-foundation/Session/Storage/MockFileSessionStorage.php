@@ -26,10 +26,8 @@ class MockFileSessionStorage extends \RectorPrefix20210317\Symfony\Component\Htt
     private $savePath;
     /**
      * @param string $savePath Path of directory to save session files
-     * @param string $name
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
-    public function __construct($savePath = null, $name = 'MOCKSESSID', $metaBag = null)
+    public function __construct(string $savePath = null, string $name = 'MOCKSESSID', \RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
         if (null === $savePath) {
             $savePath = \sys_get_temp_dir();
@@ -57,9 +55,8 @@ class MockFileSessionStorage extends \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
      */
-    public function regenerate(bool $destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
         if (!$this->started) {
             $this->start();

@@ -55,13 +55,7 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      * @var JsonArrayFactory
      */
     private $jsonArrayFactory;
-    /**
-     * @param \Rector\CodingStyle\Node\ConcatJoiner $concatJoiner
-     * @param \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator
-     * @param \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory $jsonEncodeStaticCallFactory
-     * @param \Rector\CodingStyle\NodeFactory\JsonArrayFactory $jsonArrayFactory
-     */
-    public function __construct($concatJoiner, $concatManipulator, $jsonEncodeStaticCallFactory, $jsonArrayFactory)
+    public function __construct(\Rector\CodingStyle\Node\ConcatJoiner $concatJoiner, \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator, \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory $jsonEncodeStaticCallFactory, \Rector\CodingStyle\NodeFactory\JsonArrayFactory $jsonArrayFactory)
     {
         $this->concatJoiner = $concatJoiner;
         $this->concatManipulator = $concatManipulator;
@@ -104,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr instanceof \PhpParser\Node\Scalar\String_) {
             $stringValue = $node->expr->value;
@@ -141,10 +135,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param string $stringValue
-     */
-    private function isJsonString($stringValue) : bool
+    private function isJsonString(string $stringValue) : bool
     {
         if (!(bool) \RectorPrefix20210317\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
             return \false;
@@ -155,10 +146,7 @@ CODE_SAMPLE
             return \false;
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function collectContentAndPlaceholderNodesFromNextExpressions($assign) : \Rector\CodingStyle\ValueObject\ConcatExpressionJoinData
+    private function collectContentAndPlaceholderNodesFromNextExpressions(\PhpParser\Node\Expr\Assign $assign) : \Rector\CodingStyle\ValueObject\ConcatExpressionJoinData
     {
         $concatExpressionJoinData = new \Rector\CodingStyle\ValueObject\ConcatExpressionJoinData();
         $currentNode = $assign;
@@ -191,10 +179,8 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodesToRemove
      * @param Expr[] $placeholderNodes
-     * @param string $stringValue
-     * @param \PhpParser\Node\Expr\Assign $assign
      */
-    private function removeNodesAndCreateJsonEncodeFromStringValue($nodesToRemove, $stringValue, $placeholderNodes, $assign) : ?\PhpParser\Node\Expr\Assign
+    private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
     {
         $stringValue = \RectorPrefix20210317\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
@@ -208,10 +194,9 @@ CODE_SAMPLE
         return $this->jsonEncodeStaticCallFactory->createFromArray($assign->var, $jsonArray);
     }
     /**
-     * @param \PhpParser\Node $currentNode
-     * @param \PhpParser\Node\Expr $expr
+     * @param Assign|ConcatAssign $currentNode
      */
-    private function matchNextExprAssignConcatToSameVariable($expr, $currentNode) : ?\Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem
+    private function matchNextExprAssignConcatToSameVariable(\PhpParser\Node\Expr $expr, \PhpParser\Node $currentNode) : ?\Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem
     {
         $nextExpression = $this->getNextExpression($currentNode);
         if (!$nextExpression instanceof \PhpParser\Node\Stmt\Expression) {
@@ -245,10 +230,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function getNextExpression($node) : ?\PhpParser\Node
+    private function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentExpression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {

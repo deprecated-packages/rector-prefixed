@@ -14,14 +14,7 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
      * @var string
      */
     private $fullyQualifiedTargetEntity;
-    /**
-     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
-     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
-     * @param mixed[] $items
-     * @param string|null $content
-     * @param string $fullyQualifiedTargetEntity
-     */
-    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content, $fullyQualifiedTargetEntity)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content, string $fullyQualifiedTargetEntity)
     {
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
@@ -30,7 +23,7 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         return $this->items['targetEntity'];
     }
-    public function getFullyQualifiedTargetEntity() : ?string
+    public function getFullyQualifiedTargetEntity() : string
     {
         return $this->fullyQualifiedTargetEntity;
     }
@@ -42,10 +35,7 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         $this->items['inversedBy'] = null;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items['targetEntity'] = $targetEntity;
     }

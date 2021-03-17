@@ -22,10 +22,7 @@ final class SimplifyForeachInstanceOfRector extends \Rector\Core\Rector\Abstract
      * @var ForeachManipulator
      */
     private $foreachManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator
-     */
-    public function __construct($foreachManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }
@@ -46,9 +43,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var MethodCall|StaticCall|null $matchedNode */
         $matchedNode = $this->foreachManipulator->matchOnlyStmt($node, function (\PhpParser\Node $node, \PhpParser\Node\Stmt\Foreach_ $foreachNode) : ?Node {
@@ -73,7 +70,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function resolveVar($node) : \PhpParser\Node
+    private function resolveVar(\PhpParser\Node $node) : \PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $node->var;

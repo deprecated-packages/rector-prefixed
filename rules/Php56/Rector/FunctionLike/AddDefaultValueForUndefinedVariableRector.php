@@ -81,7 +81,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->definedVariables = [];
         $undefinedVariables = $this->collectUndefinedVariableScope($node);
@@ -103,7 +103,7 @@ CODE_SAMPLE
      * @param ClassMethod|Function_|Closure $node
      * @return string[]
      */
-    private function collectUndefinedVariableScope($node) : array
+    private function collectUndefinedVariableScope(\PhpParser\Node $node) : array
     {
         $undefinedVariables = [];
         $this->traverseNodesWithCallable((array) $node->stmts, function (\PhpParser\Node $node) use(&$undefinedVariables) : ?int {
@@ -137,9 +137,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt[] $stmts
-     * @param string $undefinedVariable
      */
-    private function isArray($undefinedVariable, $stmts) : bool
+    private function isArray(string $undefinedVariable, array $stmts) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($stmts, function (\PhpParser\Node $node) use($undefinedVariable) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -148,10 +147,7 @@ CODE_SAMPLE
             return $this->isName($node->var, $undefinedVariable);
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function collectDefinedVariablesFromForeach($foreach) : void
+    private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) : void {
             if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\AssignRef) {
@@ -166,10 +162,7 @@ CODE_SAMPLE
             }
         });
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function shouldSkipVariable($variable) : bool
+    private function shouldSkipVariable(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node) {
@@ -199,10 +192,7 @@ CODE_SAMPLE
         }
         return $variableName === null;
     }
-    /**
-     * @param \PhpParser\Node $parentNode
-     */
-    private function isStaticVariable($parentNode) : bool
+    private function isStaticVariable(\PhpParser\Node $parentNode) : bool
     {
         // definition of static variable
         if ($parentNode instanceof \PhpParser\Node\Stmt\StaticVar) {
@@ -213,10 +203,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isListAssign($node) : bool
+    private function isListAssign(\PhpParser\Node $node) : bool
     {
         $parentParentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($parentParentNode, [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class]);

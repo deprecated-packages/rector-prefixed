@@ -63,9 +63,8 @@ class RedisTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient     The redis client
      * @param string                                                   $namespace       The default namespace
      * @param int                                                      $defaultLifetime The default lifetime
-     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
-    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, $marshaller = null)
+    public function __construct($redisClient, string $namespace = '', int $defaultLifetime = 0, \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if ($redisClient instanceof \RectorPrefix20210317\Predis\ClientInterface && $redisClient->getConnection() instanceof \RectorPrefix20210317\Predis\Connection\Aggregate\ClusterInterface && !$redisClient->getConnection() instanceof \RectorPrefix20210317\Predis\Connection\Aggregate\PredisCluster) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', \RectorPrefix20210317\Predis\Connection\Aggregate\PredisCluster::class, \get_debug_type($redisClient->getConnection())));
@@ -82,12 +81,8 @@ class RedisTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
-     * @param mixed[] $addTagData
-     * @param mixed[] $delTagData
      */
-    protected function doSave($values, $lifetime, $addTagData = [], $delTagData = []) : array
+    protected function doSave(array $values, int $lifetime, array $addTagData = [], array $delTagData = []) : array
     {
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && 0 !== \strpos($eviction, 'volatile-')) {
@@ -129,9 +124,8 @@ class RedisTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDeleteYieldTags($ids) : iterable
+    protected function doDeleteYieldTags(array $ids) : iterable
     {
         $lua = <<<'EOLUA'
             local v = redis.call('GET', KEYS[1])
@@ -167,9 +161,8 @@ EOLUA;
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tagData
      */
-    protected function doDeleteTagRelations($tagData) : bool
+    protected function doDeleteTagRelations(array $tagData) : bool
     {
         $this->pipeline(static function () use($tagData) {
             foreach ($tagData as $tagId => $idList) {
@@ -181,9 +174,8 @@ EOLUA;
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tagIds
      */
-    protected function doInvalidate($tagIds) : bool
+    protected function doInvalidate(array $tagIds) : bool
     {
         if (!$this->redis instanceof \RectorPrefix20210317\Predis\ClientInterface || !$this->redis->getConnection() instanceof \RectorPrefix20210317\Predis\Connection\Aggregate\PredisCluster) {
             $movedTagSetIds = $this->renameKeys($this->redis, $tagIds);
@@ -228,9 +220,8 @@ EOLUA;
      * @see https://redis.io/topics/cluster-spec#keys-hash-tags
      *
      * @return array Filtered list of the valid moved keys (only those that existed)
-     * @param mixed[] $ids
      */
-    private function renameKeys($redis, $ids) : array
+    private function renameKeys($redis, array $ids) : array
     {
         $newIds = [];
         $uniqueToken = \bin2hex(\random_bytes(10));

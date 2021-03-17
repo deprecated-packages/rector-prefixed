@@ -27,13 +27,7 @@ final class NodeCollectorNodeVisitor extends \PhpParser\NodeVisitorAbstract
      * @var ParsedClassConstFetchNodeCollector
      */
     private $parsedClassConstFetchNodeCollector;
-    /**
-     * @param \Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector $parsedClassConstFetchNodeCollector
-     * @param \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository
-     * @param \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector
-     * @param \Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector
-     */
-    public function __construct($parsedClassConstFetchNodeCollector, $nodeRepository, $parsedNodeCollector, $parsedPropertyFetchNodeCollector)
+    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector $parsedClassConstFetchNodeCollector, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector)
     {
         $this->nodeRepository = $nodeRepository;
         $this->parsedNodeCollector = $parsedNodeCollector;

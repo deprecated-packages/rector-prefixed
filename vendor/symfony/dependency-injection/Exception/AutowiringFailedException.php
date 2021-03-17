@@ -17,12 +17,7 @@ class AutowiringFailedException extends \RectorPrefix20210317\Symfony\Component\
 {
     private $serviceId;
     private $messageCallback;
-    /**
-     * @param string $serviceId
-     * @param int $code
-     * @param \Throwable $previous
-     */
-    public function __construct($serviceId, $message = '', $code = 0, $previous = null)
+    public function __construct(string $serviceId, $message = '', int $code = 0, \Throwable $previous = null)
     {
         $this->serviceId = $serviceId;
         if ($message instanceof \Closure && (\function_exists('xdebug_is_enabled') ? \xdebug_is_enabled() : \function_exists('xdebug_info'))) {

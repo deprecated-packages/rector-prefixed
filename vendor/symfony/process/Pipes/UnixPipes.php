@@ -23,12 +23,7 @@ class UnixPipes extends \RectorPrefix20210317\Symfony\Component\Process\Pipes\Ab
     private $ttyMode;
     private $ptyMode;
     private $haveReadSupport;
-    /**
-     * @param bool|null $ttyMode
-     * @param bool $ptyMode
-     * @param bool $haveReadSupport
-     */
-    public function __construct($ttyMode, $ptyMode, $input, $haveReadSupport)
+    public function __construct(?bool $ttyMode, bool $ptyMode, $input, bool $haveReadSupport)
     {
         $this->ttyMode = $ttyMode;
         $this->ptyMode = $ptyMode;

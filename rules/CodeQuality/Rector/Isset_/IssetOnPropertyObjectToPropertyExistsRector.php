@@ -27,10 +27,7 @@ final class IssetOnPropertyObjectToPropertyExistsRector extends \Rector\Core\Rec
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -68,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Isset_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Isset_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $newNodes = [];
         foreach ($node->vars as $issetVar) {
@@ -102,21 +99,13 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createReturnBooleanAnd($newNodes);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     * @param string $property
-     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
-     */
-    private function replaceToPropertyExistsWithNullCheck($expr, $property, $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
+    private function replaceToPropertyExistsWithNullCheck(\PhpParser\Node\Expr $expr, string $property, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
     {
         $args = [new \PhpParser\Node\Arg($expr), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($property))];
         $propertyExistsFuncCall = $this->nodeFactory->createFuncCall('property_exists', $args);
         return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, $this->createNotIdenticalToNull($propertyFetch));
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function createNotIdenticalToNull($expr) : \PhpParser\Node\Expr\BinaryOp\NotIdentical
+    private function createNotIdenticalToNull(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp\NotIdentical
     {
         return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());
     }

@@ -24,7 +24,7 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * @param string[]  $matchPatterns   An array of patterns that need to match
      * @param string[]  $noMatchPatterns An array of patterns that need to not match
      */
-    public function __construct($iterator, $matchPatterns, $noMatchPatterns)
+    public function __construct(\Iterator $iterator, array $matchPatterns, array $noMatchPatterns)
     {
         foreach ($matchPatterns as $pattern) {
             $this->matchRegexps[] = $this->toRegex($pattern);
@@ -42,9 +42,8 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * apply a different behavior.
      *
      * @return bool
-     * @param string $string
      */
-    protected function isAccepted($string)
+    protected function isAccepted(string $string)
     {
         // should at least not match one rule to exclude
         foreach ($this->noMatchRegexps as $regex) {
@@ -68,9 +67,8 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * Checks whether the string is a regex.
      *
      * @return bool
-     * @param string $str
      */
-    protected function isRegex($str)
+    protected function isRegex(string $str)
     {
         if (\preg_match('/^(.{3,}?)[imsxuADU]*$/', $str, $m)) {
             $start = \substr($m[1], 0, 1);
@@ -90,7 +88,6 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      * Converts string into regexp.
      *
      * @return string
-     * @param string $str
      */
-    protected abstract function toRegex($str);
+    protected abstract function toRegex(string $str);
 }

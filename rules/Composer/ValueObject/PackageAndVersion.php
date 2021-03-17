@@ -14,11 +14,7 @@ final class PackageAndVersion implements \Rector\Composer\Contract\VersionAwareI
      * @var string
      */
     private $version;
-    /**
-     * @param string $packageName
-     * @param string $version
-     */
-    public function __construct($packageName, $version)
+    public function __construct(string $packageName, string $version)
     {
         $this->packageName = $packageName;
         $this->version = $version;

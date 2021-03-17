@@ -45,9 +45,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Concat::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Concat $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->left instanceof \PhpParser\Node\Expr\Cast\String_ && !$node->right instanceof \PhpParser\Node\Expr\Cast\String_) {
             return null;
@@ -56,10 +56,7 @@ CODE_SAMPLE
         $node->right = $this->removeStringCast($node->right);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function removeStringCast($expr) : \PhpParser\Node\Expr
+    private function removeStringCast(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {
         return $expr instanceof \PhpParser\Node\Expr\Cast\String_ ? $expr->expr : $expr;
     }

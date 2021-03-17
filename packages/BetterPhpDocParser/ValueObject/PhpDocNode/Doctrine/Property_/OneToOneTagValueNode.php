@@ -15,14 +15,7 @@ final class OneToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
      * @var string|null
      */
     private $fullyQualifiedTargetEntity;
-    /**
-     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
-     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
-     * @param mixed[] $items
-     * @param string|null $content
-     * @param string|null $fullyQualifiedTargetEntity
-     */
-    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content = null, $fullyQualifiedTargetEntity = null)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content = null, ?string $fullyQualifiedTargetEntity = null)
     {
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
@@ -51,10 +44,7 @@ final class OneToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     {
         $this->items['mappedBy'] = null;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items['targetEntity'] = $targetEntity;
     }

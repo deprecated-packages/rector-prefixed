@@ -25,10 +25,7 @@ final class RemoveDelegatingParentCallRector extends \Rector\Core\Rector\Abstrac
      * @var CurrentAndParentClassMethodComparator
      */
     private $currentAndParentClassMethodComparator;
-    /**
-     * @param \Rector\DeadCode\Comparator\CurrentAndParentClassMethodComparator $currentAndParentClassMethodComparator
-     */
-    public function __construct($currentAndParentClassMethodComparator)
+    public function __construct(\Rector\DeadCode\Comparator\CurrentAndParentClassMethodComparator $currentAndParentClassMethodComparator)
     {
         $this->currentAndParentClassMethodComparator = $currentAndParentClassMethodComparator;
     }
@@ -58,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($this->shouldSkipClass($classLike)) {
@@ -92,31 +89,21 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike|null $classLike
-     */
-    private function shouldSkipClass($classLike) : bool
+    private function shouldSkipClass(?\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
         return $classLike->extends === null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param string $type
-     */
-    private function isMethodReturnType($classMethod, $type) : bool
+    private function isMethodReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
     {
         if ($classMethod->returnType === null) {
             return \false;
         }
         return $this->isName($classMethod->returnType, $type);
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function matchStaticCall($node) : ?\PhpParser\Node\Expr\StaticCall
+    private function matchStaticCall(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
     {
         // must be static call
         if ($node instanceof \PhpParser\Node\Stmt\Return_) {
@@ -130,10 +117,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function hasRequiredAnnotation($classMethod) : bool
+    private function hasRequiredAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::class);

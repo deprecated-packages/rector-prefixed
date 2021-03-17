@@ -18,10 +18,7 @@ final class RemoveFinalFromEntityRector extends \Rector\Core\Rector\AbstractRect
      * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
-    /**
-     * @param \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver
-     */
-    public function __construct($doctrineDocBlockResolver)
+    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
@@ -57,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
             return null;

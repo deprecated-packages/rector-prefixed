@@ -21,10 +21,7 @@ final class RemoveUnusedConstructorParamRector extends \Rector\Core\Rector\Abstr
      * @var ParamAnalyzer
      */
     private $paramAnalyzer;
-    /**
-     * @param \Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer
-     */
-    public function __construct($paramAnalyzer)
+    public function __construct(\Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer)
     {
         $this->paramAnalyzer = $paramAnalyzer;
     }
@@ -62,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;

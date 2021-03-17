@@ -20,10 +20,7 @@ final class RemoveDeadStmtRector extends \Rector\Core\Rector\AbstractRector
      * @var LivingCodeManipulator
      */
     private $livingCodeManipulator;
-    /**
-     * @param \Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator
-     */
-    public function __construct($livingCodeManipulator)
+    public function __construct(\Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator)
     {
         $this->livingCodeManipulator = $livingCodeManipulator;
     }
@@ -46,9 +43,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Expression::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Expression $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -62,10 +59,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     */
-    private function removeNodeAndKeepComments($expression) : ?\PhpParser\Node
+    private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($expression);
         if ($expression->getComments() !== []) {

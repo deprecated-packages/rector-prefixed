@@ -25,13 +25,7 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface;
 final class ResponseEvent extends \RectorPrefix20210317\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $requestType
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
-    public function __construct($kernel, $request, $requestType, $response)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, int $requestType, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setResponse($response);
@@ -40,10 +34,7 @@ final class ResponseEvent extends \RectorPrefix20210317\Symfony\Component\HttpKe
     {
         return $this->response;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
-    public function setResponse($response) : void
+    public function setResponse(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response) : void
     {
         $this->response = $response;
     }

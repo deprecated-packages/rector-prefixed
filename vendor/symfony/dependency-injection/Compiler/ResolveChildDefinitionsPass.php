@@ -26,10 +26,7 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\Service
 class ResolveChildDefinitionsPass extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $currentPath;
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
@@ -52,9 +49,8 @@ class ResolveChildDefinitionsPass extends \RectorPrefix20210317\Symfony\Componen
      * Resolves the definition.
      *
      * @throws RuntimeException When the definition is invalid
-     * @param \Symfony\Component\DependencyInjection\ChildDefinition $definition
      */
-    private function resolveDefinition($definition) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition
+    private function resolveDefinition(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition
     {
         try {
             return $this->doResolveDefinition($definition);
@@ -67,10 +63,7 @@ class ResolveChildDefinitionsPass extends \RectorPrefix20210317\Symfony\Componen
             throw $e;
         }
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ChildDefinition $definition
-     */
-    private function doResolveDefinition($definition) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition
+    private function doResolveDefinition(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition
     {
         if (!$this->container->has($parent = $definition->getParent())) {
             throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Parent definition "%s" does not exist.', $parent));

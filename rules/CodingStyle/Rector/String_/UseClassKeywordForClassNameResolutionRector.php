@@ -26,10 +26,7 @@ final class UseClassKeywordForClassNameResolutionRector extends \Rector\Core\Rec
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -51,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param String_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classNames = $this->getExistingClasses($node);
         if ($classNames === []) {
@@ -68,9 +65,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    public function getExistingClasses($string) : array
+    public function getExistingClasses(\PhpParser\Node\Scalar\String_ $string) : array
     {
         /** @var mixed[] $matches */
         $matches = \RectorPrefix20210317\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
@@ -89,9 +85,8 @@ CODE_SAMPLE
     /**
      * @param string[] $classNames
      * @return mixed[]
-     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    public function getParts($string, $classNames) : array
+    public function getParts(\PhpParser\Node\Scalar\String_ $string, array $classNames) : array
     {
         $classNames = \array_map(function (string $className) : string {
             return \preg_quote($className);
@@ -106,7 +101,7 @@ CODE_SAMPLE
      * @param string[] $parts
      * @return ClassConstFetch[]|String_[]
      */
-    private function createExpressionsToConcat($parts) : array
+    private function createExpressionsToConcat(array $parts) : array
     {
         $exprsToConcat = [];
         foreach ($parts as $part) {

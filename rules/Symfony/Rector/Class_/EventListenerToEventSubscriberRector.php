@@ -49,11 +49,7 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
      * @var GetSubscribedEventsClassMethodFactory
      */
     private $getSubscribedEventsClassMethodFactory;
-    /**
-     * @param \Rector\Symfony\ApplicationMetadata\ListenerServiceDefinitionProvider $listenerServiceDefinitionProvider
-     * @param \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory
-     */
-    public function __construct($listenerServiceDefinitionProvider, $getSubscribedEventsClassMethodFactory)
+    public function __construct(\Rector\Symfony\ApplicationMetadata\ListenerServiceDefinitionProvider $listenerServiceDefinitionProvider, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->eventNamesToClassConstants = [
             // kernel events
@@ -117,9 +113,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // anonymous class
         if ($node->name === null) {
@@ -140,10 +136,7 @@ CODE_SAMPLE
         }
         return $this->changeListenerToSubscriberWithMethods($node, $listenerClassesToEventsToMethods[$className]);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function isAlreadyEventSubscriber($class) : bool
+    private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->implements as $implement) {
             if ($this->isName($implement, 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
@@ -154,9 +147,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ServiceDefinition[]> $eventsToMethods
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function changeListenerToSubscriberWithMethods($class, $eventsToMethods) : \PhpParser\Node\Stmt\Class_
+    private function changeListenerToSubscriberWithMethods(\PhpParser\Node\Stmt\Class_ $class, array $eventsToMethods) : \PhpParser\Node\Stmt\Class_
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = $this->nodeNameResolver->getShortName($class);

@@ -19,13 +19,7 @@ use RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\InvalidCo
 class EnumNode extends \RectorPrefix20210317\Symfony\Component\Config\Definition\ScalarNode
 {
     private $values;
-    /**
-     * @param string|null $name
-     * @param \Symfony\Component\Config\Definition\NodeInterface $parent
-     * @param mixed[] $values
-     * @param string $pathSeparator
-     */
-    public function __construct($name, $parent = null, $values = [], $pathSeparator = \RectorPrefix20210317\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
+    public function __construct(?string $name, \RectorPrefix20210317\Symfony\Component\Config\Definition\NodeInterface $parent = null, array $values = [], string $pathSeparator = \RectorPrefix20210317\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
     {
         $values = \array_unique($values);
         if (empty($values)) {

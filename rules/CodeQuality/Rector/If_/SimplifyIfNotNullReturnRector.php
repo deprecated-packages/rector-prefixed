@@ -20,10 +20,7 @@ final class SimplifyIfNotNullReturnRector extends \Rector\Core\Rector\AbstractRe
      * @var IfManipulator
      */
     private $ifManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\IfManipulator $ifManipulator
-     */
-    public function __construct($ifManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
     }
@@ -51,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $comparedNode = $this->ifManipulator->matchIfNotNullReturnValue($node);
         if ($comparedNode !== null) {

@@ -28,11 +28,7 @@ final class DowngradeNullableTypeDeclarationRector extends \Rector\Core\Rector\A
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     * @param \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator
-     */
-    public function __construct($phpDocTypeChanger, $phpDocFromTypeDeclarationDecorator)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
@@ -71,7 +67,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->params as $param) {
             $this->refactorParamType($param, $node);
@@ -82,10 +78,7 @@ CODE_SAMPLE
         $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     */
-    private function isNullableParam($param) : bool
+    private function isNullableParam(\PhpParser\Node\Param $param) : bool
     {
         if ($param->variadic) {
             return \false;
@@ -98,9 +91,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Param $param
      */
-    private function refactorParamType($param, $functionLike) : void
+    private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : void
     {
         if (!$this->isNullableParam($param)) {
             return;
@@ -110,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Param $param
      */
-    private function decorateWithDocBlock($functionLike, $param) : void
+    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;

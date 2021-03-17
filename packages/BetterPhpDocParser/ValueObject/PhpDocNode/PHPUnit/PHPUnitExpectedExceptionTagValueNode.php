@@ -21,10 +21,7 @@ final class PHPUnitExpectedExceptionTagValueNode implements \PHPStan\PhpDocParse
      * @var TypeNode
      */
     private $typeNode;
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode
-     */
-    public function __construct($typeNode)
+    public function __construct(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode)
     {
         $this->typeNode = $typeNode;
     }

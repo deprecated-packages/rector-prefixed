@@ -18,11 +18,7 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var ClassRenamer
      */
     private $classRenamer;
-    /**
-     * @param \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer
-     * @param \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector
-     */
-    public function __construct($classRenamer, $renamedClassesCollector)
+    public function __construct(\Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector)
     {
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->classRenamer = $classRenamer;
@@ -32,10 +28,7 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
         // must be run before name importing, so new names are imported
         return 650;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node) : ?\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldToNewClasses = $this->renamedClassesCollector->getOldToNewClasses();
         if ($oldToNewClasses === []) {

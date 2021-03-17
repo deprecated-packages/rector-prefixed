@@ -37,12 +37,7 @@ final class FluentChainMethodCallToNormalMethodCallRector extends \Rector\Core\R
      * @var AssignAndRootExprAndNodesToAddMatcher
      */
     private $assignAndRootExprAndNodesToAddMatcher;
-    /**
-     * @param \Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover
-     * @param \Rector\Defluent\NodeAnalyzer\MethodCallSkipAnalyzer $methodCallSkipAnalyzer
-     * @param \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher
-     */
-    public function __construct($fluentNodeRemover, $methodCallSkipAnalyzer, $assignAndRootExprAndNodesToAddMatcher)
+    public function __construct(\Rector\Symfony\NodeAnalyzer\FluentNodeRemover $fluentNodeRemover, \Rector\Defluent\NodeAnalyzer\MethodCallSkipAnalyzer $methodCallSkipAnalyzer, \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher)
     {
         $this->fluentNodeRemover = $fluentNodeRemover;
         $this->methodCallSkipAnalyzer = $methodCallSkipAnalyzer;
@@ -70,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isHandledByAnotherRule($node)) {
             return null;
@@ -92,9 +87,8 @@ CODE_SAMPLE
      * Is handled by:
      * @see DefluentReturnMethodCallRector
      * @see InArgFluentChainMethodCallToStandaloneMethodCallRector
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function isHandledByAnotherRule($methodCall) : bool
+    private function isHandledByAnotherRule(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Stmt\Return_) {

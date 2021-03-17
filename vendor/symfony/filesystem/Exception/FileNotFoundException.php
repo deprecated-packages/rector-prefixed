@@ -18,13 +18,7 @@ namespace RectorPrefix20210317\Symfony\Component\Filesystem\Exception;
  */
 class FileNotFoundException extends \RectorPrefix20210317\Symfony\Component\Filesystem\Exception\IOException
 {
-    /**
-     * @param string $message
-     * @param int $code
-     * @param \Throwable $previous
-     * @param string $path
-     */
-    public function __construct($message = null, $code = 0, $previous = null, $path = null)
+    public function __construct(string $message = null, int $code = 0, \Throwable $previous = null, string $path = null)
     {
         if (null === $message) {
             if (null === $path) {

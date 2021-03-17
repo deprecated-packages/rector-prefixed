@@ -24,10 +24,7 @@ final class LoggableBehaviorRector extends \Rector\Core\Rector\AbstractRector
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
-     */
-    public function __construct($classInsertManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
@@ -78,9 +75,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // change the node
         $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
@@ -95,10 +92,7 @@ CODE_SAMPLE
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\LoggableInterface');
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function removeVersionedTagFromProperties($class) : void
+    private function removeVersionedTagFromProperties(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($class->getProperties() as $property) {
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);

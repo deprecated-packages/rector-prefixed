@@ -46,7 +46,7 @@ CODE_SAMPLE
     /**
      * @param Function_|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $shortName = $this->resolveShortName($node);
         if ($shortName === null) {
@@ -66,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param Function_|FuncCall $node
      */
-    private function resolveShortName($node) : ?string
+    private function resolveShortName(\PhpParser\Node $node) : ?string
     {
         $functionOrFuncCallName = $this->getName($node);
         if ($functionOrFuncCallName === null) {

@@ -19,12 +19,12 @@ class LoaderLoadException extends \Exception
 {
     /**
      * @param string          $resource       The resource that could not be imported
-     * @param string     $sourceResource The original resource importing the new resource
+     * @param string|null     $sourceResource The original resource importing the new resource
      * @param int|null        $code           The error code
-     * @param \Throwable $previous       A previous exception
-     * @param string     $type           The type of resource
+     * @param \Throwable|null $previous       A previous exception
+     * @param string|null     $type           The type of resource
      */
-    public function __construct($resource, $sourceResource = null, $code = 0, $previous = null, $type = null)
+    public function __construct(string $resource, string $sourceResource = null, ?int $code = 0, \Throwable $previous = null, string $type = null)
     {
         $message = '';
         if ($previous) {

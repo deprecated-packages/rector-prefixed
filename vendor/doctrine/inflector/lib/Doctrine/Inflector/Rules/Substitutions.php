@@ -11,10 +11,7 @@ class Substitutions implements \RectorPrefix20210317\Doctrine\Inflector\WordInfl
 {
     /** @var Substitution[] */
     private $substitutions;
-    /**
-     * @param \Doctrine\Inflector\Rules\Substitution ...$substitutions
-     */
-    public function __construct(...$substitutions)
+    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\Rules\Substitution ...$substitutions)
     {
         foreach ($substitutions as $substitution) {
             $this->substitutions[$substitution->getFrom()->getWord()] = $substitution;

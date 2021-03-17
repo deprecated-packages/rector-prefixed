@@ -30,7 +30,7 @@ class RedirectResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
      *
      * @see https://tools.ietf.org/html/rfc2616#section-10.3
      */
-    public function __construct($url, int $status = 302, array $headers = [])
+    public function __construct(string $url, int $status = 302, array $headers = [])
     {
         parent::__construct('', $status, $headers);
         $this->setTargetUrl($url);
@@ -70,9 +70,8 @@ class RedirectResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
      * @return $this
      *
      * @throws \InvalidArgumentException
-     * @param string $url
      */
-    public function setTargetUrl($url)
+    public function setTargetUrl(string $url)
     {
         if ('' === $url) {
             throw new \InvalidArgumentException('Cannot redirect to an empty URL.');

@@ -22,10 +22,7 @@ final class ReplaceVariableByPropertyFetchRector extends \Rector\Core\Rector\Abs
      * @var VariablesToPropertyFetchCollection
      */
     private $variablesToPropertyFetchCollection;
-    /**
-     * @param \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection
-     */
-    public function __construct($variablesToPropertyFetchCollection)
+    public function __construct(\Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
     {
         $this->variablesToPropertyFetchCollection = $variablesToPropertyFetchCollection;
     }
@@ -79,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Variable::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Variable $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInControllerActionMethod($node)) {
             return null;
@@ -98,10 +95,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function isInControllerActionMethod($variable) : bool
+    private function isInControllerActionMethod(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         /** @var string|null $className */
         $className = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

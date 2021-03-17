@@ -8,13 +8,6 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 interface AttributeNodeAwareFactoryInterface
 {
     public function getOriginalNodeClass() : string;
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     */
-    public function isMatch($node) : bool;
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
-     * @param string $docContent
-     */
-    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool;
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 }

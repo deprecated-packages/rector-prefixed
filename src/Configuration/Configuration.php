@@ -4,11 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
 use RectorPrefix20210317\Jean85\PrettyVersions;
-use RectorPrefix20210317\Nette\Utils\Strings;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
@@ -22,10 +20,6 @@ final class Configuration
      * @var bool
      */
     private $showProgressBar = \true;
-    /**
-     * @var bool
-     */
-    private $areAnyPhpRectorsLoaded = \false;
     /**
      * @var bool
      */
@@ -94,7 +88,6 @@ final class Configuration
         $commandLinePaths = (array) $input->getArgument(\Rector\Core\Configuration\Option::SOURCE);
         // manual command line value has priority
         if ($commandLinePaths !== []) {
-            $commandLinePaths = $this->correctBashSpacePaths($commandLinePaths);
             $this->paths = $commandLinePaths;
         }
     }
@@ -120,17 +113,6 @@ final class Configuration
             return \false;
         }
         return $this->showProgressBar;
-    }
-    public function areAnyPhpRectorsLoaded() : bool
-    {
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return \true;
-        }
-        return $this->areAnyPhpRectorsLoaded;
-    }
-    public function setAreAnyPhpRectorsLoaded(bool $areAnyPhpRectorsLoaded) : void
-    {
-        $this->areAnyPhpRectorsLoaded = $areAnyPhpRectorsLoaded;
     }
     public function getOutputFile() : ?string
     {
@@ -230,19 +212,5 @@ final class Configuration
             return null;
         }
         return $outputFileOption;
-    }
-    /**
-     * @param string[] $commandLinePaths
-     * @return string[]
-     */
-    private function correctBashSpacePaths(array $commandLinePaths) : array
-    {
-        // fixes bash edge-case that to merges string with space to one
-        foreach ($commandLinePaths as $commandLinePath) {
-            if (\RectorPrefix20210317\Nette\Utils\Strings::contains($commandLinePath, ' ')) {
-                $commandLinePaths = \explode(' ', $commandLinePath);
-            }
-        }
-        return $commandLinePaths;
     }
 }

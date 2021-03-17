@@ -15,11 +15,7 @@ final class EventReferenceToMethodName implements \Rector\Symfony\Contract\Event
      * @var string
      */
     private $methodName;
-    /**
-     * @param \PhpParser\Node\Expr\ClassConstFetch $classConstFetch
-     * @param string $methodName
-     */
-    public function __construct($classConstFetch, $methodName)
+    public function __construct(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $methodName)
     {
         $this->classConstFetch = $classConstFetch;
         $this->methodName = $methodName;

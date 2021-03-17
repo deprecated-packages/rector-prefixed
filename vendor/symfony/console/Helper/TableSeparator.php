@@ -17,10 +17,7 @@ namespace RectorPrefix20210317\Symfony\Component\Console\Helper;
  */
 class TableSeparator extends \RectorPrefix20210317\Symfony\Component\Console\Helper\TableCell
 {
-    /**
-     * @param mixed[] $options
-     */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         parent::__construct('', $options);
     }

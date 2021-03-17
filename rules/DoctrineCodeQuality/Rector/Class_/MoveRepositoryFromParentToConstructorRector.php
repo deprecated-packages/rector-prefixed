@@ -35,13 +35,7 @@ final class MoveRepositoryFromParentToConstructorRector extends \Rector\Core\Rec
      * @var EntityObjectTypeResolver
      */
     private $entityObjectTypeResolver;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator
-     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
-     * @param \Rector\DoctrineCodeQuality\NodeFactory\RepositoryAssignFactory $repositoryAssignFactory
-     * @param \Rector\DoctrineCodeQuality\NodeAnalyzer\EntityObjectTypeResolver $entityObjectTypeResolver
-     */
-    public function __construct($classDependencyManipulator, $classInsertManipulator, $repositoryAssignFactory, $entityObjectTypeResolver)
+    public function __construct(\Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\DoctrineCodeQuality\NodeFactory\RepositoryAssignFactory $repositoryAssignFactory, \Rector\DoctrineCodeQuality\NodeAnalyzer\EntityObjectTypeResolver $entityObjectTypeResolver)
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -89,9 +83,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Doctrine\\ORM\\EntityRepository'))) {
             return null;

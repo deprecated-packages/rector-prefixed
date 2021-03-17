@@ -20,12 +20,7 @@ class TreeBuilder implements \RectorPrefix20210317\Symfony\Component\Config\Defi
 {
     protected $tree;
     protected $root;
-    /**
-     * @param string $name
-     * @param string $type
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
-     */
-    public function __construct($name, $type = 'array', $builder = null)
+    public function __construct(string $name, string $type = 'array', \RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
         $builder = $builder ?: new \RectorPrefix20210317\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
@@ -51,10 +46,7 @@ class TreeBuilder implements \RectorPrefix20210317\Symfony\Component\Config\Defi
         }
         return $this->tree = $this->root->getNode(\true);
     }
-    /**
-     * @param string $separator
-     */
-    public function setPathSeparator($separator)
+    public function setPathSeparator(string $separator)
     {
         // unset last built as changing path separator changes all nodes
         $this->tree = null;

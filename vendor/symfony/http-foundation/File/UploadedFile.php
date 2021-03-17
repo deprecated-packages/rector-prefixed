@@ -49,15 +49,15 @@ class UploadedFile extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      *
      * @param string      $path         The full temporary path to the file
      * @param string      $originalName The original file name of the uploaded file
-     * @param string $mimeType     The type of the file as provided by PHP; null defaults to application/octet-stream
-     * @param int    $error        The error constant of the upload (one of PHP's UPLOAD_ERR_XXX constants); null defaults to UPLOAD_ERR_OK
+     * @param string|null $mimeType     The type of the file as provided by PHP; null defaults to application/octet-stream
+     * @param int|null    $error        The error constant of the upload (one of PHP's UPLOAD_ERR_XXX constants); null defaults to UPLOAD_ERR_OK
      * @param bool        $test         Whether the test mode is active
      *                                  Local files are used in test mode hence the code should not enforce HTTP uploads
      *
      * @throws FileException         If file_uploads is disabled
      * @throws FileNotFoundException If the file does not exist
      */
-    public function __construct($path, $originalName, $mimeType = null, $error = null, $test = \false)
+    public function __construct(string $path, string $originalName, string $mimeType = null, int $error = null, bool $test = \false)
     {
         $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
@@ -158,10 +158,8 @@ class UploadedFile extends \RectorPrefix20210317\Symfony\Component\HttpFoundatio
      * @return File A File object representing the new file
      *
      * @throws FileException if, for any reason, the file could not have been moved
-     * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move(string $directory, string $name = null)
     {
         if ($this->isValid()) {
             if ($this->test) {

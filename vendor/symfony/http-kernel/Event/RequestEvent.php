@@ -34,9 +34,8 @@ class RequestEvent extends \RectorPrefix20210317\Symfony\Component\HttpKernel\Ev
     }
     /**
      * Sets a response and stops event propagation.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function setResponse($response)
+    public function setResponse(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
         $this->stopPropagation();

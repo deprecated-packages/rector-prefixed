@@ -25,20 +25,15 @@ final class MethodCallFormControlTypeResolver implements \Rector\NetteCodeQualit
      * @var NodeRepository
      */
     private $nodeRepository;
-    /**
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     * @param \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository
-     */
-    public function __construct($nodeNameResolver, $nodeRepository)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
@@ -52,10 +47,7 @@ final class MethodCallFormControlTypeResolver implements \Rector\NetteCodeQualit
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($classMethod);
     }
-    /**
-     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
-     */
-    public function setResolver($methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
