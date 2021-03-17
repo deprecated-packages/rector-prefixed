@@ -32,8 +32,9 @@ class ResolveHotPathPass extends \RectorPrefix20210317\Symfony\Component\Depende
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         try {
             parent::process($container);

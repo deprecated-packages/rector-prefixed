@@ -33,8 +33,9 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210317\Symfony\Co
     private $inExpression = \false;
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->container = $container;
         try {

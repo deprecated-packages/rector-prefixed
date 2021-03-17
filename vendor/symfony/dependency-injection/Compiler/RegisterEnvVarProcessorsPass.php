@@ -24,7 +24,10 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
 class RegisterEnvVarProcessorsPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private const ALLOWED_TYPES = ['array', 'bool', 'float', 'int', 'string'];
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         $bag = $container->getParameterBag();
         $types = [];

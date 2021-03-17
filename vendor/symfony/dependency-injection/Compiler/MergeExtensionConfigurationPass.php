@@ -29,8 +29,9 @@ class MergeExtensionConfigurationPass implements \RectorPrefix20210317\Symfony\C
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $parameters = $container->getParameterBag()->all();
         $definitions = $container->getDefinitions();

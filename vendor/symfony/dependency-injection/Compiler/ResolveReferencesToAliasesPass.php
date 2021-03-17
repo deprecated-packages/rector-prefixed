@@ -22,8 +22,9 @@ class ResolveReferencesToAliasesPass extends \RectorPrefix20210317\Symfony\Compo
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         parent::process($container);
         foreach ($container->getAliases() as $id => $alias) {

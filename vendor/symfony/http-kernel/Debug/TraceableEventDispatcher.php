@@ -23,8 +23,8 @@ class TraceableEventDispatcher extends \RectorPrefix20210317\Symfony\Component\E
 {
     /**
      * {@inheritdoc}
-     * @param object $event
      * @param string $eventName
+     * @param object $event
      */
     protected function beforeDispatch($eventName, $event)
     {
@@ -58,8 +58,8 @@ class TraceableEventDispatcher extends \RectorPrefix20210317\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param object $event
      * @param string $eventName
+     * @param object $event
      */
     protected function afterDispatch($eventName, $event)
     {

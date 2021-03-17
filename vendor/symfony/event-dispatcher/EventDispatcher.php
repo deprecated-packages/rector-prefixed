@@ -40,9 +40,9 @@ class EventDispatcher implements \RectorPrefix20210317\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      * @param object $event
      * @return object
-     * @param string $eventName
      */
     public function dispatch($event, $eventName = null)
     {

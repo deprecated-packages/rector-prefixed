@@ -40,8 +40,9 @@ class CacheCollectorPass implements \RectorPrefix20210317\Symfony\Component\Depe
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         if (!$container->hasDefinition($this->dataCollectorCacheId)) {
             return;

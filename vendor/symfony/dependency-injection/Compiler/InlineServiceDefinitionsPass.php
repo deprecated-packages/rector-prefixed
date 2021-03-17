@@ -36,7 +36,10 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210317\Symfony\Compone
     {
         $this->analyzingPass = $analyzingPass;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         $this->container = $container;
         if ($this->analyzingPass) {

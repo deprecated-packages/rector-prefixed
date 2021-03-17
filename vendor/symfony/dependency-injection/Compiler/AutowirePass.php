@@ -45,8 +45,9 @@ class AutowirePass extends \RectorPrefix20210317\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         try {
             $this->typesClone = clone $this;

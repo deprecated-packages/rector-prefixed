@@ -66,7 +66,10 @@ class RegisterListenersPass implements \RectorPrefix20210317\Symfony\Component\D
         $this->noPreloadTagName = $tagName;
         return $this;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;

@@ -127,9 +127,9 @@ class TraceableEventDispatcher implements \RectorPrefix20210317\Symfony\Componen
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      * @param object $event
      * @return object
-     * @param string $eventName
      */
     public function dispatch($event, $eventName = null)
     {
