@@ -36,19 +36,24 @@ class OutputFormatterStyle implements \RectorPrefix20210317\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
+     * @param string $color
      */
-    public function setForeground(string $color = null)
+    public function setForeground($color = null)
     {
         $this->color = new \RectorPrefix20210317\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
+     * @param string $color
      */
-    public function setBackground(string $color = null)
+    public function setBackground($color = null)
     {
         $this->color = new \RectorPrefix20210317\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
-    public function setHref(string $url) : void
+    /**
+     * @param string $url
+     */
+    public function setHref($url) : void
     {
         $this->href = $url;
     }

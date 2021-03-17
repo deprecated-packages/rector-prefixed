@@ -84,8 +84,12 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param string $key
+     * @param callable $callback
+     * @param float $beta
+     * @param mixed[] $metadata
      */
-    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, $callback, $beta = null, &$metadata = null)
     {
         if (!$this->pool instanceof \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface) {
             return $this->doGet($this, $key, $callback, $beta, $metadata);
@@ -108,8 +112,9 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $keys
      */
-    public function getItems(array $keys = [])
+    public function getItems($keys = [])
     {
         if ($this->namespaceLen) {
             foreach ($keys as $i => $key) {
@@ -131,8 +136,9 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param string $prefix
      */
-    public function clear(string $prefix = '')
+    public function clear($prefix = '')
     {
         if ($this->pool instanceof \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($this->namespace . $prefix);
@@ -152,8 +158,9 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param mixed[] $keys
      */
-    public function deleteItems(array $keys)
+    public function deleteItems($keys)
     {
         if ($this->namespaceLen) {
             foreach ($keys as $i => $key) {
@@ -166,8 +173,9 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function save($item)
     {
         return $this->doSave($item, __FUNCTION__);
     }
@@ -175,8 +183,9 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred($item)
     {
         return $this->doSave($item, __FUNCTION__);
     }
@@ -189,7 +198,11 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     {
         return $this->pool->commit();
     }
-    private function doSave(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item, string $method)
+    /**
+     * @param \Psr\Cache\CacheItemInterface $item
+     * @param string $method
+     */
+    private function doSave($item, $method)
     {
         if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
             return \false;
@@ -211,7 +224,10 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
         ($this->setInnerItem)($innerItem, $item);
         return $this->pool->{$method}($innerItem);
     }
-    private function generateItems(iterable $items)
+    /**
+     * @param mixed[] $items
+     */
+    private function generateItems($items)
     {
         $f = $this->createCacheItem;
         foreach ($items as $key => $item) {

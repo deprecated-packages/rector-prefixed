@@ -27,5 +27,5 @@ interface TagAwareAdapterInterface extends \RectorPrefix20210317\Symfony\Compone
      *
      * @throws InvalidArgumentException When $tags is not valid
      */
-    public function invalidateTags(array $tags);
+    public function invalidateTags($tags);
 }

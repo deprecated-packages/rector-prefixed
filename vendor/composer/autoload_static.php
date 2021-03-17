@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
+class ComposerStaticInit7e357001512166d3fdd7f19e83f73fee
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -19,6 +19,8 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -26,6 +28,8 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         array (
             'Symplify\\SymfonyPhpConfig\\' => 26,
             'Symplify\\RuleDocGenerator\\' => 26,
+            'Symfony\\Polyfill\\Php74\\' => 23,
+            'Symfony\\Polyfill\\Php72\\' => 23,
         ),
         'R' => 
         array (
@@ -103,6 +107,14 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         'Symplify\\RuleDocGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
+        ),
+        'Symfony\\Polyfill\\Php74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
+        ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Rector\\Core\\' => 
         array (
@@ -3032,11 +3044,9 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         'Rector\\PHPStanStaticTypeMapper\\ValueObject\\TypeKind' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/ValueObject/TypeKind.php',
         'Rector\\PHPStanStaticTypeMapper\\ValueObject\\UnionTypeAnalysis' => __DIR__ . '/../..' . '/packages/PHPStanStaticTypeMapper/ValueObject/UnionTypeAnalysis.php',
         'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => __DIR__ . '/../..' . '/rules/PHPUnit/Composer/ComposerAutoloadedDirectoryProvider.php',
-        'Rector\\PHPUnit\\NodeAnalyzer\\ExpectationAnalyzer' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeAnalyzer/ExpectationAnalyzer.php',
         'Rector\\PHPUnit\\NodeAnalyzer\\TestsNodeAnalyzer' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeAnalyzer/TestsNodeAnalyzer.php',
         'Rector\\PHPUnit\\NodeFactory\\ArgumentShiftingFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/ArgumentShiftingFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\AssertCallFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/AssertCallFactory.php',
-        'Rector\\PHPUnit\\NodeFactory\\ConsecutiveAssertionFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/ConsecutiveAssertionFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/DataProviderClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionCodeFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/ExpectExceptionCodeFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionFactory' => __DIR__ . '/../..' . '/rules/PHPUnit/NodeFactory/ExpectExceptionFactory.php',
@@ -3051,7 +3061,6 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         'Rector\\PHPUnit\\PhpDoc\\PhpDocValueToNodeMapper' => __DIR__ . '/../..' . '/rules/PHPUnit/PhpDoc/PhpDocValueToNodeMapper.php',
         'Rector\\PHPUnit\\Rector\\ClassMethod\\AddDoesNotPerformAssertionToNonAssertingTestRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/ClassMethod/AddDoesNotPerformAssertionToNonAssertingTestRector.php',
         'Rector\\PHPUnit\\Rector\\ClassMethod\\ExceptionAnnotationRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/ClassMethod/ExceptionAnnotationRector.php',
-        'Rector\\PHPUnit\\Rector\\ClassMethod\\MigrateAtToConsecutiveExpectationsRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/ClassMethod/MigrateAtToConsecutiveExpectationsRector.php',
         'Rector\\PHPUnit\\Rector\\ClassMethod\\RemoveEmptyTestMethodRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/ClassMethod/RemoveEmptyTestMethodRector.php',
         'Rector\\PHPUnit\\Rector\\ClassMethod\\TryCatchToExpectExceptionRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/ClassMethod/TryCatchToExpectExceptionRector.php',
         'Rector\\PHPUnit\\Rector\\Class_\\AddProphecyTraitRector' => __DIR__ . '/../..' . '/rules/PHPUnit/Rector/Class_/AddProphecyTraitRector.php',
@@ -3094,8 +3103,6 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         'Rector\\PHPUnit\\ValueObject\\BinaryOpWithAssertMethod' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/BinaryOpWithAssertMethod.php',
         'Rector\\PHPUnit\\ValueObject\\ConstantWithAssertMethods' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/ConstantWithAssertMethods.php',
         'Rector\\PHPUnit\\ValueObject\\DataProviderClassMethodRecipe' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/DataProviderClassMethodRecipe.php',
-        'Rector\\PHPUnit\\ValueObject\\ExpectationMock' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/ExpectationMock.php',
-        'Rector\\PHPUnit\\ValueObject\\ExpectationMockCollection' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/ExpectationMockCollection.php',
         'Rector\\PHPUnit\\ValueObject\\FunctionNameWithAssertMethods' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/FunctionNameWithAssertMethods.php',
         'Rector\\PHPUnit\\ValueObject\\ParamAndArg' => __DIR__ . '/../..' . '/rules/PHPUnit/ValueObject/ParamAndArg.php',
         'Rector\\PSR4\\Collector\\RenamedClassesCollector' => __DIR__ . '/../..' . '/rules/PSR4/Collector/RenamedClassesCollector.php',
@@ -3674,6 +3681,8 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
         'Rector\\Visibility\\Rector\\Property\\ChangePropertyVisibilityRector' => __DIR__ . '/../..' . '/rules/Visibility/Rector/Property/ChangePropertyVisibilityRector.php',
         'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
         'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
+        'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
+        'Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill-php74/Php74.php',
         'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
         'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
         'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
@@ -3714,9 +3723,9 @@ class ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd5f12f91db3925a8829fd3a8fc0280b8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7e357001512166d3fdd7f19e83f73fee::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7e357001512166d3fdd7f19e83f73fee::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7e357001512166d3fdd7f19e83f73fee::$classMap;
 
         }, null, ClassLoader::class);
     }

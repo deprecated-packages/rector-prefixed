@@ -35,8 +35,9 @@ class Psr16Adapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doFetch(array $ids)
+    protected function doFetch($ids)
     {
         foreach ($this->pool->getMultiple($ids, $this->miss) as $key => $value) {
             if ($this->miss !== $value) {
@@ -46,29 +47,34 @@ class Psr16Adapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
     }
     /**
      * {@inheritdoc}
+     * @param string $id
      */
-    protected function doHave(string $id)
+    protected function doHave($id)
     {
         return $this->pool->has($id);
     }
     /**
      * {@inheritdoc}
+     * @param string $namespace
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         return $this->pool->clear();
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDelete(array $ids)
+    protected function doDelete($ids)
     {
         return $this->pool->deleteMultiple($ids);
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave($values, $lifetime)
     {
         return $this->pool->setMultiple($values, 0 === $lifetime ? null : $lifetime);
     }

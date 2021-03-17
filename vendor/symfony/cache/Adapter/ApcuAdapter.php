@@ -43,8 +43,9 @@ class ApcuAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doFetch(array $ids)
+    protected function doFetch($ids)
     {
         $unserializeCallbackHandler = \ini_set('unserialize_callback_func', __CLASS__ . '::handleUnserializeCallback');
         try {
@@ -63,22 +64,25 @@ class ApcuAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\
     }
     /**
      * {@inheritdoc}
+     * @param string $id
      */
-    protected function doHave(string $id)
+    protected function doHave($id)
     {
         return \apcu_exists($id);
     }
     /**
      * {@inheritdoc}
+     * @param string $namespace
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         return isset($namespace[0]) && \class_exists(\APCuIterator::class, \false) && ('cli' !== \PHP_SAPI || \filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) ? \apcu_delete(new \APCuIterator(\sprintf('/^%s/', \preg_quote($namespace, '/')), \APC_ITER_KEY)) : \apcu_clear_cache();
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDelete(array $ids)
+    protected function doDelete($ids)
     {
         foreach ($ids as $id) {
             \apcu_delete($id);
@@ -87,8 +91,10 @@ class ApcuAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave($values, $lifetime)
     {
         try {
             if (\false === ($failures = \apcu_store($values, null, $lifetime))) {

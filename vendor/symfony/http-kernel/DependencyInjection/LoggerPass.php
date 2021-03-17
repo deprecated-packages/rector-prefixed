@@ -23,8 +23,9 @@ class LoggerPass implements \RectorPrefix20210317\Symfony\Component\DependencyIn
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $container->setAlias(\RectorPrefix20210317\Psr\Log\LoggerInterface::class, 'logger')->setPublic(\false);
         if ($container->has('logger')) {

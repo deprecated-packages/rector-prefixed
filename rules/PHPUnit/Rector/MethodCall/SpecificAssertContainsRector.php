@@ -67,7 +67,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertContains', 'assertNotContains'])) {
             return null;
@@ -80,7 +80,10 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($newMethodName);
         return $node;
     }
-    private function isPossiblyStringType(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function isPossiblyStringType($expr) : bool
     {
         $exprType = $this->getStaticType($expr);
         if ($exprType instanceof \PHPStan\Type\UnionType) {

@@ -33,7 +33,10 @@ final class PHPUnitDataProviderTagValueNode implements \PHPStan\PhpDocParser\Ast
     {
         return \trim($this->method, '()');
     }
-    public function changeMethodName(string $method) : void
+    /**
+     * @param string $method
+     */
+    public function changeMethodName($method) : void
     {
         $this->method = $method . '()';
     }

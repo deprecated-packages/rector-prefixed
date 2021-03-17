@@ -67,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param Foreach_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $assignVariable = $this->foreachAnalyzer->matchAssignItemsOnlyForeachArrayVariable($node);
         if (!$assignVariable instanceof \PhpParser\Node\Expr) {
@@ -93,7 +93,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\Assign($assignVariable, $node->expr);
     }
-    private function shouldSkipAsPartOfNestedForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     */
+    private function shouldSkipAsPartOfNestedForeach($foreach) : bool
     {
         $foreachParent = $this->betterNodeFinder->findParentType($foreach, \PhpParser\Node\Stmt\Foreach_::class);
         return $foreachParent !== null;

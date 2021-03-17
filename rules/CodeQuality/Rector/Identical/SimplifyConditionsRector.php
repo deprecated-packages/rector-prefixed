@@ -47,14 +47,17 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @param BooleanNot|Identical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
             return $this->processBooleanNot($node);
         }
         return $this->processIdenticalAndNotIdentical($node);
     }
-    private function processBooleanNot(\PhpParser\Node\Expr\BooleanNot $booleanNot) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\BooleanNot $booleanNot
+     */
+    private function processBooleanNot($booleanNot) : ?\PhpParser\Node
     {
         if (!$booleanNot->expr instanceof \PhpParser\Node\Expr\BinaryOp) {
             return null;
@@ -64,7 +67,10 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
         }
         return $this->createInversedBooleanOp($booleanNot->expr);
     }
-    private function processIdenticalAndNotIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp\Identical $identical
+     */
+    private function processIdenticalAndNotIdentical($identical) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($identical, function (\PhpParser\Node $binaryOp) : bool {
             return $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical || $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -84,8 +90,9 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * Skip too nested binary || binary > binary combinations
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
      */
-    private function shouldSkip(\PhpParser\Node\Expr\BinaryOp $binaryOp) : bool
+    private function shouldSkip($binaryOp) : bool
     {
         if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return \true;
@@ -95,7 +102,10 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
         }
         return $binaryOp->right instanceof \PhpParser\Node\Expr\BinaryOp;
     }
-    private function createInversedBooleanOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\BinaryOp
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function createInversedBooleanOp($binaryOp) : ?\PhpParser\Node\Expr\BinaryOp
     {
         $inversedBinaryClass = $this->assignAndBinaryMap->getInversed($binaryOp);
         if ($inversedBinaryClass === null) {

@@ -65,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $scope = $node->var->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -98,7 +98,11 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkipClassMethod(?\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_|null $class
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkipClassMethod($class, $methodCall) : bool
     {
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
@@ -116,7 +120,11 @@ CODE_SAMPLE
         }
         return \count((array) $classMethod->stmts) !== 0;
     }
-    private function processArrowFunction(\PhpParser\Node\Expr\ArrowFunction $arrowFunction, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\ArrowFunction $arrowFunction
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processArrowFunction($arrowFunction, $methodCall) : \PhpParser\Node
     {
         $parentOfParent = $arrowFunction->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentOfParent instanceof \PhpParser\Node\Stmt\Expression) {

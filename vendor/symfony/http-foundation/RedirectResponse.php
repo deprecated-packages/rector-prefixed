@@ -70,8 +70,9 @@ class RedirectResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
      * @return $this
      *
      * @throws \InvalidArgumentException
+     * @param string $url
      */
-    public function setTargetUrl(string $url)
+    public function setTargetUrl($url)
     {
         if ('' === $url) {
             throw new \InvalidArgumentException('Cannot redirect to an empty URL.');

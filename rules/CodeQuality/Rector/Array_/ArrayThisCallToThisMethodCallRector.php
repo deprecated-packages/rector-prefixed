@@ -79,9 +79,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param Array_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
         if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
@@ -117,7 +117,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), $arrayCallable->getMethod());
     }
-    private function isAssignedToNetteMagicOnProperty(\PhpParser\Node\Expr\Array_ $array) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $array
+     */
+    private function isAssignedToNetteMagicOnProperty($array) : bool
     {
         $parent = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
@@ -133,12 +136,18 @@ CODE_SAMPLE
         $propertyFetch = $parent->var->var;
         return $this->isName($propertyFetch->name, 'on*');
     }
-    private function isInsideProperty(\PhpParser\Node\Expr\Array_ $array) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $array
+     */
+    private function isInsideProperty($array) : bool
     {
         $parentProperty = $this->betterNodeFinder->findParentType($array, \PhpParser\Node\Stmt\Property::class);
         return $parentProperty !== null;
     }
-    private function privatizeClassMethod(\ReflectionMethod $reflectionMethod) : void
+    /**
+     * @param \ReflectionMethod $reflectionMethod
+     */
+    private function privatizeClassMethod($reflectionMethod) : void
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodReflection($reflectionMethod);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

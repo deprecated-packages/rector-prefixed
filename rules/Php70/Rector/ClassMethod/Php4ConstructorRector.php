@@ -51,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -86,7 +86,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($classMethod) : bool
     {
         /** @var Scope $scope */
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -106,7 +109,10 @@ CODE_SAMPLE
         }
         return $classReflection->isAnonymous();
     }
-    private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function processClassMethodStatementsForParentConstructorCalls($classMethod) : void
     {
         if (!\is_iterable($classMethod->stmts)) {
             return;
@@ -122,7 +128,10 @@ CODE_SAMPLE
             $this->processParentPhp4ConstructCall($methodStmt);
         }
     }
-    private function processParentPhp4ConstructCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function processParentPhp4ConstructCall($staticCall) : void
     {
         $parentClassName = $this->resolveParentClassName($staticCall);
         // no parent class
@@ -145,7 +154,10 @@ CODE_SAMPLE
         }
         $staticCall->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
-    private function resolveParentClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     */
+    private function resolveParentClassName($staticCall) : ?string
     {
         $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

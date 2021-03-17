@@ -64,9 +64,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
@@ -92,11 +92,15 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $this->replaceStringWithClassConstants = $configuration[self::REPLACE_STRING_WITH_CLASS_CONSTANT] ?? [];
     }
-    private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant
+     */
+    private function matchArg($methodCall, $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
     {
         if (!$this->isObjectType($methodCall->var, $replaceStringWithClassConstant->getObjectType())) {
             return null;

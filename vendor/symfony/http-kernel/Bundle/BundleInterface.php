@@ -32,8 +32,9 @@ interface BundleInterface extends \RectorPrefix20210317\Symfony\Component\Depend
      * Builds the bundle.
      *
      * It is only ever called once when the cache is empty.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function build(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    public function build($container);
     /**
      * Returns the container extension that should be implicitly loaded.
      *

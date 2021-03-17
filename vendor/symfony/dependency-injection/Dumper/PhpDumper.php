@@ -102,8 +102,9 @@ class PhpDumper extends \RectorPrefix20210317\Symfony\Component\DependencyInject
     }
     /**
      * Sets the dumper to be used when dumping proxies in the generated container.
+     * @param ProxyDumper $proxyDumper
      */
-    public function setProxyDumper(\RectorPrefix20210317\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface $proxyDumper)
+    public function setProxyDumper($proxyDumper)
     {
         $this->proxyDumper = $proxyDumper;
     }
@@ -359,7 +360,15 @@ EOF;
         $this->container->getCompiler()->getServiceReferenceGraph()->clear();
         $this->singleUsePrivateIds = \array_diff_key($this->singleUsePrivateIds, $this->circularReferences);
     }
-    private function collectCircularReferences(string $sourceId, array $edges, array &$checkedNodes, array &$loops = [], array $path = [], bool $byConstructor = \true) : void
+    /**
+     * @param string $sourceId
+     * @param mixed[] $edges
+     * @param mixed[] $checkedNodes
+     * @param mixed[] $loops
+     * @param mixed[] $path
+     * @param bool $byConstructor
+     */
+    private function collectCircularReferences($sourceId, $edges, &$checkedNodes, &$loops = [], $path = [], $byConstructor = \true) : void
     {
         $path[$sourceId] = $byConstructor;
         $checkedNodes[$sourceId] = \true;
@@ -421,7 +430,12 @@ EOF;
         }
         unset($path[$sourceId]);
     }
-    private function addCircularReferences(string $sourceId, array $currentPath, bool $byConstructor)
+    /**
+     * @param string $sourceId
+     * @param mixed[] $currentPath
+     * @param bool $byConstructor
+     */
+    private function addCircularReferences($sourceId, $currentPath, $byConstructor)
     {
         $currentId = $sourceId;
         $currentPath = \array_reverse($currentPath);
@@ -433,7 +447,11 @@ EOF;
             $currentId = $parentId;
         }
     }
-    private function collectLineage(string $class, array &$lineage)
+    /**
+     * @param string $class
+     * @param mixed[] $lineage
+     */
+    private function collectLineage($class, &$lineage)
     {
         if (isset($lineage[$class])) {
             return;
@@ -509,7 +527,11 @@ EOF;
         }
         return $proxyClasses;
     }
-    private function addServiceInclude(string $cId, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : string
+    /**
+     * @param string $cId
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     */
+    private function addServiceInclude($cId, $definition) : string
     {
         $code = '';
         if ($this->inlineRequires && (!$this->isHotPath($definition) || $this->getProxyDumper()->isProxyCandidate($definition))) {
@@ -547,8 +569,11 @@ EOF;
     /**
      * @throws InvalidArgumentException
      * @throws RuntimeException
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param bool $isSimpleInstance
      */
-    private function addServiceInstance(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, bool $isSimpleInstance) : string
+    private function addServiceInstance($id, $definition, $isSimpleInstance) : string
     {
         $class = $this->dumpValue($definition->getClass());
         if (0 === \strpos($class, "'") && \false === \strpos($class, '$') && !\preg_match('/^\'(?:\\\\{2})?[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*(?:\\\\{2}[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)*\'$/', $class)) {
@@ -575,7 +600,10 @@ EOF;
         }
         return $this->addNewInstance($definition, '        ' . $return . $instantiation, $id);
     }
-    private function isTrivialInstance(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : bool
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     */
+    private function isTrivialInstance($definition) : bool
     {
         if ($definition->hasErrors()) {
             return \true;
@@ -613,7 +641,12 @@ EOF;
         }
         return \true;
     }
-    private function addServiceMethodCalls(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $variableName, ?string $sharedNonLazyId) : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $variableName
+     * @param string|null $sharedNonLazyId
+     */
+    private function addServiceMethodCalls($definition, $variableName, $sharedNonLazyId) : string
     {
         $lastWitherIndex = null;
         foreach ($definition->getMethodCalls() as $k => $call) {
@@ -638,7 +671,11 @@ EOF;
         }
         return $calls;
     }
-    private function addServiceProperties(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $variableName = 'instance') : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $variableName
+     */
+    private function addServiceProperties($definition, $variableName = 'instance') : string
     {
         $code = '';
         foreach ($definition->getProperties() as $name => $value) {
@@ -646,7 +683,11 @@ EOF;
         }
         return $code;
     }
-    private function addServiceConfigurator(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $variableName = 'instance') : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $variableName
+     */
+    private function addServiceConfigurator($definition, $variableName = 'instance') : string
     {
         if (!($callable = $definition->getConfigurator())) {
             return '';
@@ -667,7 +708,11 @@ EOF;
         }
         return \sprintf("        %s(\$%s);\n", $callable, $variableName);
     }
-    private function addService(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : array
+    /**
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     */
+    private function addService($id, $definition) : array
     {
         $this->definitionVariables = new \SplObjectStorage();
         $this->referenceVariables = [];
@@ -792,7 +837,13 @@ EOF;
         $this->referenceVariables = $this->serviceCalls = null;
         return [$file, $code];
     }
-    private function addInlineVariables(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, array $arguments, bool $forConstructor) : string
+    /**
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param mixed[] $arguments
+     * @param bool $forConstructor
+     */
+    private function addInlineVariables($id, $definition, $arguments, $forConstructor) : string
     {
         $code = '';
         foreach ($arguments as $argument) {
@@ -806,7 +857,13 @@ EOF;
         }
         return $code;
     }
-    private function addInlineReference(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $targetId, bool $forConstructor) : string
+    /**
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $targetId
+     * @param bool $forConstructor
+     */
+    private function addInlineReference($id, $definition, $targetId, $forConstructor) : string
     {
         while ($this->container->hasAlias($targetId)) {
             $targetId = (string) $this->container->getAlias($targetId);
@@ -847,7 +904,13 @@ EOTXT
 , $this->container->getDefinition($id)->isPublic() ? 'services' : 'privates', $this->doExport($id));
         return $code;
     }
-    private function addInlineService(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $inlineDef = null, bool $forConstructor = \true) : string
+    /**
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $inlineDef
+     * @param bool $forConstructor
+     */
+    private function addInlineService($id, $definition, $inlineDef = null, $forConstructor = \true) : string
     {
         $code = '';
         if ($isSimpleInstance = $isRootInstance = null === $inlineDef) {
@@ -892,7 +955,10 @@ EOTXT
         }
         return $code;
     }
-    private function addServices(array &$services = null) : string
+    /**
+     * @param mixed[] $services
+     */
+    private function addServices(&$services = null) : string
     {
         $publicServices = $privateServices = '';
         $definitions = $this->container->getDefinitions();
@@ -919,7 +985,10 @@ EOTXT
         }
         return $publicServices . $privateServices;
     }
-    private function generateServiceFiles(array $services) : iterable
+    /**
+     * @param mixed[] $services
+     */
+    private function generateServiceFiles($services) : iterable
     {
         $definitions = $this->container->getDefinitions();
         \ksort($definitions);
@@ -929,7 +998,12 @@ EOTXT
             }
         }
     }
-    private function addNewInstance(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $return = '', string $id = null) : string
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $return
+     * @param string $id
+     */
+    private function addNewInstance($definition, $return = '', $id = null) : string
     {
         $tail = $return ? ";\n" : '';
         if (\RectorPrefix20210317\Symfony\Component\DependencyInjection\ServiceLocator::class === $definition->getClass() && $definition->hasTag($this->serviceLocatorTag)) {
@@ -972,7 +1046,11 @@ EOTXT
         }
         return $return . \sprintf('new %s(%s)', $this->dumpLiteralClass($this->dumpValue($class)), \implode(', ', $arguments)) . $tail;
     }
-    private function startClass(string $class, string $baseClass) : string
+    /**
+     * @param string $class
+     * @param string $baseClass
+     */
+    private function startClass($class, $baseClass) : string
     {
         $namespaceLine = !$this->asFiles && $this->namespace ? "\nnamespace {$this->namespace};\n" : '';
         $code = <<<EOF
@@ -1351,8 +1429,11 @@ EOF;
     }
     /**
      * @throws InvalidArgumentException
+     * @param mixed[] $parameters
+     * @param string $path
+     * @param int $indent
      */
-    private function exportParameters(array $parameters, string $path = '', int $indent = 12) : string
+    private function exportParameters($parameters, $path = '', $indent = 12) : string
     {
         $php = [];
         foreach ($parameters as $key => $value) {
@@ -1393,7 +1474,10 @@ EOF;
 
 EOF;
     }
-    private function wrapServiceConditionals($value, string $code) : string
+    /**
+     * @param string $code
+     */
+    private function wrapServiceConditionals($value, $code) : string
     {
         if (!($condition = $this->getServiceConditionals($value))) {
             return $code;
@@ -1424,7 +1508,13 @@ EOF;
         }
         return \implode(' && ', $conditions);
     }
-    private function getDefinitionsFromArguments(array $arguments, \SplObjectStorage $definitions = null, array &$calls = [], bool $byConstructor = null) : \SplObjectStorage
+    /**
+     * @param mixed[] $arguments
+     * @param \SplObjectStorage $definitions
+     * @param mixed[] $calls
+     * @param bool $byConstructor
+     */
+    private function getDefinitionsFromArguments($arguments, $definitions = null, &$calls = [], $byConstructor = null) : \SplObjectStorage
     {
         if (null === $definitions) {
             $definitions = new \SplObjectStorage();
@@ -1459,8 +1549,9 @@ EOF;
     }
     /**
      * @throws RuntimeException
+     * @param bool $interpolate
      */
-    private function dumpValue($value, bool $interpolate = \true) : string
+    private function dumpValue($value, $interpolate = \true) : string
     {
         if (\is_array($value)) {
             if ($value && $interpolate && \false !== ($param = \array_search($value, $this->container->getParameterBag()->all(), \true))) {
@@ -1588,8 +1679,9 @@ EOF;
      * Dumps a string to a literal (aka PHP Code) class value.
      *
      * @throws RuntimeException
+     * @param string $class
      */
-    private function dumpLiteralClass(string $class) : string
+    private function dumpLiteralClass($class) : string
     {
         if (\false !== \strpos($class, '$')) {
             return \sprintf('${($_ = %s) && false ?: "_"}', $class);
@@ -1600,7 +1692,10 @@ EOF;
         $class = \substr(\str_replace('\\\\', '\\', $class), 1, -1);
         return 0 === \strpos($class, '\\') ? $class : '\\' . $class;
     }
-    private function dumpParameter(string $name) : string
+    /**
+     * @param string $name
+     */
+    private function dumpParameter($name) : string
     {
         if ($this->container->hasParameter($name)) {
             $value = $this->container->getParameter($name);
@@ -1614,7 +1709,11 @@ EOF;
         }
         return \sprintf('$this->getParameter(%s)', $this->doExport($name));
     }
-    private function getServiceCall(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference $reference = null) : string
+    /**
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Reference $reference
+     */
+    private function getServiceCall($id, $reference = null) : string
     {
         while ($this->container->hasAlias($id)) {
             $id = (string) $this->container->getAlias($id);
@@ -1665,8 +1764,9 @@ EOF;
     }
     /**
      * Initializes the method names map to avoid conflicts with the Container methods.
+     * @param string $class
      */
-    private function initializeMethodNamesMap(string $class)
+    private function initializeMethodNamesMap($class)
     {
         $this->serviceIdToMethodNameMap = [];
         $this->usedMethodNames = [];
@@ -1678,8 +1778,9 @@ EOF;
     }
     /**
      * @throws InvalidArgumentException
+     * @param string $id
      */
-    private function generateMethodName(string $id) : string
+    private function generateMethodName($id) : string
     {
         if (isset($this->serviceIdToMethodNameMap[$id])) {
             return $this->serviceIdToMethodNameMap[$id];
@@ -1745,11 +1846,17 @@ EOF;
         }
         return $this->expressionLanguage;
     }
-    private function isHotPath(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : bool
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     */
+    private function isHotPath($definition) : bool
     {
         return $this->hotPathTag && $definition->hasTag($this->hotPathTag) && !$definition->isDeprecated();
     }
-    private function isSingleUsePrivateNode(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $node) : bool
+    /**
+     * @param \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $node
+     */
+    private function isSingleUsePrivateNode($node) : bool
     {
         if ($node->getValue()->isPublic()) {
             return \false;
@@ -1799,8 +1906,9 @@ EOF;
     }
     /**
      * @return mixed
+     * @param bool $resolveEnv
      */
-    private function doExport($value, bool $resolveEnv = \false)
+    private function doExport($value, $resolveEnv = \false)
     {
         $shouldCacheValue = $resolveEnv && \is_string($value);
         if ($shouldCacheValue && isset($this->exportedVariables[$value])) {
@@ -1864,7 +1972,11 @@ EOF;
         }
         return $file;
     }
-    private function getClasses(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition, string $id) : array
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $id
+     */
+    private function getClasses($definition, $id) : array
     {
         $classes = [];
         while ($definition instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition) {

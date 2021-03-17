@@ -31,9 +31,9 @@ final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
         return \PHPStan\Type\BooleanType::class;
     }
     /**
-     * @param BooleanType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if ($this->isFalseBooleanTypeWithUnion($type)) {
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('false');
@@ -41,9 +41,10 @@ final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('bool');
     }
     /**
-     * @param BooleanType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -54,16 +55,20 @@ final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
         return new \PhpParser\Node\Name('bool');
     }
     /**
-     * @param BooleanType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString($type, $parentType = null) : string
     {
         if ($this->isFalseBooleanTypeWithUnion($type)) {
             return 'false';
         }
         return 'bool';
     }
-    private function isFalseBooleanTypeWithUnion(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    private function isFalseBooleanTypeWithUnion($type) : bool
     {
         if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FalseBooleanType) {
             return \false;

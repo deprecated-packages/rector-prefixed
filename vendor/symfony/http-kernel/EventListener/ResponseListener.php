@@ -29,8 +29,9 @@ class ResponseListener implements \RectorPrefix20210317\Symfony\Component\EventD
     }
     /**
      * Filters the Response.
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse($event)
     {
         if (!$event->isMasterRequest()) {
             return;

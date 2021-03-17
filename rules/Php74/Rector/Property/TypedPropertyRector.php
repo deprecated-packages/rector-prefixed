@@ -98,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
@@ -138,14 +138,17 @@ CODE_SAMPLE
         $node->type = $propertyTypeNode;
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->classLikeTypeOnly = $configuration[self::CLASS_LIKE_TYPE_ONLY] ?? \false;
     }
     /**
-     * @param Name|NullableType|PhpParserUnionType $node
+     * @param \PhpParser\Node $node
      */
-    private function shouldSkipNonClassLikeType(\PhpParser\Node $node) : bool
+    private function shouldSkipNonClassLikeType($node) : bool
     {
         // unwrap nullable type
         if ($node instanceof \PhpParser\Node\NullableType) {
@@ -166,7 +169,11 @@ CODE_SAMPLE
         }
         return !$this->reflectionProvider->hasClass($typeName);
     }
-    private function removeDefaultValueForDoctrineCollection(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     * @param \PHPStan\Type\Type $propertyType
+     */
+    private function removeDefaultValueForDoctrineCollection($property, $propertyType) : void
     {
         if (!$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($propertyType)) {
             return;
@@ -174,7 +181,11 @@ CODE_SAMPLE
         $onlyProperty = $property->props[0];
         $onlyProperty->default = null;
     }
-    private function addDefaultValueNullForNullableType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     * @param \PHPStan\Type\Type $propertyType
+     */
+    private function addDefaultValueNullForNullableType($property, $propertyType) : void
     {
         if (!$propertyType instanceof \PHPStan\Type\UnionType) {
             return;

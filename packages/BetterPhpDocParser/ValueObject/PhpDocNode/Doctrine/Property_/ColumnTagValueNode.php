@@ -8,7 +8,10 @@ use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
 final class ColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
-    public function changeType(string $type) : void
+    /**
+     * @param string $type
+     */
+    public function changeType($type) : void
     {
         $this->items['type'] = $type;
     }

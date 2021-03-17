@@ -61,9 +61,9 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -87,7 +87,10 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         return $this->removeSelfTypeMethod($node);
     }
-    private function createLetClassMethod(string $propertyName) : \PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param string $propertyName
+     */
+    private function createLetClassMethod($propertyName) : \PhpParser\Node\Stmt\ClassMethod
     {
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         $testedObjectType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($this->testedObjectType);
@@ -100,8 +103,9 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * This is already checked on construction of object
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeSelfTypeMethod(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
+    private function removeSelfTypeMethod($class) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             $classMethodStmts = (array) $classMethod->stmts;
@@ -127,7 +131,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveFirstNonExpressionStmt(array $stmts) : ?\PhpParser\Node
+    private function resolveFirstNonExpressionStmt($stmts) : ?\PhpParser\Node
     {
         if (!isset($stmts[0])) {
             return null;

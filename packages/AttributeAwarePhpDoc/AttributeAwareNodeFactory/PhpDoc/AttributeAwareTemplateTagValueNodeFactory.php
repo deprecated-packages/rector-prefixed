@@ -14,14 +14,18 @@ final class AttributeAwareTemplateTagValueNodeFactory implements \Rector\Attribu
     {
         return \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode::class;
     }
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     */
+    public function isMatch($node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode::class, \true);
     }
     /**
-     * @param TemplateTagValueNode $node
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     * @param string $docContent
      */
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareTemplateTagValueNode($node->name, $node->bound, $node->description, $docContent);
     }

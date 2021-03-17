@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param New_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -58,7 +58,10 @@ CODE_SAMPLE
         $node->args[0] = $this->nodeFactory->createArg($bitwiseOr);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\New_ $new) : bool
+    /**
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function shouldSkip($new) : bool
     {
         if (!$new->class instanceof \PhpParser\Node\Name) {
             return \true;
@@ -68,7 +71,10 @@ CODE_SAMPLE
         }
         return !$this->valueResolver->isTrueOrFalse($new->args[0]->value);
     }
-    private function prepareFlags(bool $currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
+    /**
+     * @param bool $currentValue
+     */
+    private function prepareFlags($currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
         $magicGetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
         $magicSetClassConstFetch = $this->nodeFactory->createClassConstFetch('Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');

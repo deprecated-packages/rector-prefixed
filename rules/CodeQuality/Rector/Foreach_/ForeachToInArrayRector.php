@@ -64,9 +64,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param Foreach_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipForeach($node)) {
             return null;
@@ -111,7 +111,10 @@ CODE_SAMPLE
         $this->commentsMerger->keepChildren($return, $node);
         return $return;
     }
-    private function shouldSkipForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     */
+    private function shouldSkipForeach($foreach) : bool
     {
         if ($foreach->keyVar !== null) {
             return \true;
@@ -139,7 +142,10 @@ CODE_SAMPLE
         }
         return !$foreach->stmts[0] instanceof \PhpParser\Node\Stmt\If_;
     }
-    private function shouldSkipIf(\PhpParser\Node\Stmt\If_ $if) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function shouldSkipIf($if) : bool
     {
         $ifCondition = $if->cond;
         if ($ifCondition instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
@@ -147,13 +153,20 @@ CODE_SAMPLE
         }
         return !$ifCondition instanceof \PhpParser\Node\Expr\BinaryOp\Equal;
     }
-    private function matchNodes(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $expr) : ?\Rector\Php71\ValueObject\TwoNodeMatch
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function matchNodes($binaryOp, $expr) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {
         return $this->binaryOpManipulator->matchFirstAndSecondConditionNode($binaryOp, \PhpParser\Node\Expr\Variable::class, function (\PhpParser\Node $node, \PhpParser\Node $otherNode) use($expr) : bool {
             return $this->nodeComparator->areNodesEqual($otherNode, $expr);
         });
     }
-    private function isIfBodyABoolReturnNode(\PhpParser\Node\Stmt\If_ $if) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     */
+    private function isIfBodyABoolReturnNode($if) : bool
     {
         $ifStatment = $if->stmts[0];
         if (!$ifStatment instanceof \PhpParser\Node\Stmt\Return_) {
@@ -166,8 +179,10 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|Equal $binaryOp
+     * @param \PhpParser\Node\Expr $expr
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
      */
-    private function createInArrayFunction(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Expr\FuncCall
+    private function createInArrayFunction($expr, $binaryOp, $foreach) : \PhpParser\Node\Expr\FuncCall
     {
         $arguments = $this->nodeFactory->createArgs([$expr, $foreach->expr]);
         if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
@@ -175,7 +190,11 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createFuncCall('in_array', $arguments);
     }
-    private function createReturn(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Stmt\Return_
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function createReturn($expr, $funcCall) : \PhpParser\Node\Stmt\Return_
     {
         $expr = $this->valueResolver->isFalse($expr) ? new \PhpParser\Node\Expr\BooleanNot($funcCall) : $funcCall;
         return new \PhpParser\Node\Stmt\Return_($expr);

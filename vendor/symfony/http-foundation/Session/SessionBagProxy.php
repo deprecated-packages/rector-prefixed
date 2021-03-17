@@ -56,8 +56,9 @@ final class SessionBagProxy implements \RectorPrefix20210317\Symfony\Component\H
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $array
      */
-    public function initialize(array &$array) : void
+    public function initialize(&$array) : void
     {
         ++$this->usageIndex;
         if ($this->usageReporter && 0 <= $this->usageIndex) {

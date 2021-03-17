@@ -21,7 +21,7 @@ trait ParentTrait
      *
      * @throws InvalidArgumentException when parent cannot be set
      */
-    public final function parent(string $parent) : self
+    public final function parent(string $parent)
     {
         if (!$this->allowParent) {
             throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A parent cannot be defined when either "_instanceof" or "_defaults" are also defined for service prototype "%s".', $this->id));

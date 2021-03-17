@@ -55,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($this->shouldSkipClass($classLike)) {
@@ -89,21 +89,31 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function shouldSkipClass(?\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassLike|null $classLike
+     */
+    private function shouldSkipClass($classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
         return $classLike->extends === null;
     }
-    private function isMethodReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $type
+     */
+    private function isMethodReturnType($classMethod, $type) : bool
     {
         if ($classMethod->returnType === null) {
             return \false;
         }
         return $this->isName($classMethod->returnType, $type);
     }
-    private function matchStaticCall(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function matchStaticCall($node) : ?\PhpParser\Node\Expr\StaticCall
     {
         // must be static call
         if ($node instanceof \PhpParser\Node\Stmt\Return_) {
@@ -117,7 +127,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function hasRequiredAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function hasRequiredAnnotation($classMethod) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::class);

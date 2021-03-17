@@ -75,9 +75,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class)) {
@@ -93,8 +93,9 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveToManyPropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveToManyPropertyNames($class) : array
     {
         $collectionPropertyNames = [];
         foreach ($class->getProperties() as $property) {
@@ -113,7 +114,7 @@ CODE_SAMPLE
      * @param string[] $propertyNames
      * @return Expression[]
      */
-    private function createAssignsOfArrayCollectionsForPropertyNames(array $propertyNames) : array
+    private function createAssignsOfArrayCollectionsForPropertyNames($propertyNames) : array
     {
         $assigns = [];
         foreach ($propertyNames as $propertyName) {
@@ -121,7 +122,10 @@ CODE_SAMPLE
         }
         return $assigns;
     }
-    private function createPropertyArrayCollectionAssign(string $toManyPropertyName) : \PhpParser\Node\Stmt\Expression
+    /**
+     * @param string $toManyPropertyName
+     */
+    private function createPropertyArrayCollectionAssign($toManyPropertyName) : \PhpParser\Node\Stmt\Expression
     {
         $propertyFetch = $this->nodeFactory->createPropertyFetch('this', $toManyPropertyName);
         $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('Doctrine\\Common\\Collections\\ArrayCollection'));

@@ -20,21 +20,28 @@ final class AttributeAwareUnionTypeNodeFactory implements \Rector\AttributeAware
     {
         return \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode::class;
     }
-    public function isMatch(\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     */
+    public function isMatch($node) : bool
     {
         return \is_a($node, \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode::class, \true);
     }
     /**
-     * @param UnionTypeNode $node
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
+     * @param string $docContent
      */
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create($node, $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         foreach ($node->types as $key => $unionedType) {
             $node->types[$key] = $this->attributeAwareNodeFactory->createFromNode($unionedType, $docContent);
         }
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode($node->types, $docContent);
     }
-    public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
+    /**
+     * @param \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory
+     */
+    public function setAttributeAwareNodeFactory($attributeAwareNodeFactory) : void
     {
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }

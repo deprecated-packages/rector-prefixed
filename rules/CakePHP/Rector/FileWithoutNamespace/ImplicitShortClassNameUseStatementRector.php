@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class];
     }
     /**
-     * @param FileWithoutNamespace $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $names = $this->findNames($node);
         if ($names === []) {
@@ -72,8 +72,9 @@ CODE_SAMPLE
     }
     /**
      * @return Name[]
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
      */
-    private function findNames(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : array
+    private function findNames($fileWithoutNamespace) : array
     {
         return $this->betterNodeFinder->find($fileWithoutNamespace->stmts, function (\PhpParser\Node $node) : bool {
             if (!$node instanceof \PhpParser\Node\Name) {
@@ -87,7 +88,7 @@ CODE_SAMPLE
      * @param Name[] $names
      * @return string[]
      */
-    private function resolveNames(array $names) : array
+    private function resolveNames($names) : array
     {
         $resolvedNames = [];
         foreach ($names as $name) {

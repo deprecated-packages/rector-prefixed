@@ -83,8 +83,13 @@ abstract class AbstractAdapter implements \RectorPrefix20210317\Symfony\Componen
      * Using ApcuAdapter makes system caches compatible with read-only filesystems.
      *
      * @return AdapterInterface
+     * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $version
+     * @param string $directory
+     * @param \Psr\Log\LoggerInterface $logger
      */
-    public static function createSystemCache(string $namespace, int $defaultLifetime, string $version, string $directory, \RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null)
+    public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, $logger = null)
     {
         $opcache = new \RectorPrefix20210317\Symfony\Component\Cache\Adapter\PhpFilesAdapter($namespace, $defaultLifetime, $directory, \true);
         if (null !== $logger) {
@@ -102,7 +107,11 @@ abstract class AbstractAdapter implements \RectorPrefix20210317\Symfony\Componen
         }
         return new \RectorPrefix20210317\Symfony\Component\Cache\Adapter\ChainAdapter([$apcu, $opcache]);
     }
-    public static function createConnection(string $dsn, array $options = [])
+    /**
+     * @param string $dsn
+     * @param mixed[] $options
+     */
+    public static function createConnection($dsn, $options = [])
     {
         if (0 === \strpos($dsn, 'redis:') || 0 === \strpos($dsn, 'rediss:')) {
             return \RectorPrefix20210317\Symfony\Component\Cache\Adapter\RedisAdapter::createConnection($dsn, $options);

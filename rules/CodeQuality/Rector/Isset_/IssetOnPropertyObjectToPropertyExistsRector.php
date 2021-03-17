@@ -65,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Isset_::class];
     }
     /**
-     * @param Isset_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $newNodes = [];
         foreach ($node->vars as $issetVar) {
@@ -99,13 +99,21 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createReturnBooleanAnd($newNodes);
     }
-    private function replaceToPropertyExistsWithNullCheck(\PhpParser\Node\Expr $expr, string $property, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     * @param string $property
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     */
+    private function replaceToPropertyExistsWithNullCheck($expr, $property, $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
     {
         $args = [new \PhpParser\Node\Arg($expr), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($property))];
         $propertyExistsFuncCall = $this->nodeFactory->createFuncCall('property_exists', $args);
         return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, $this->createNotIdenticalToNull($propertyFetch));
     }
-    private function createNotIdenticalToNull(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp\NotIdentical
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function createNotIdenticalToNull($expr) : \PhpParser\Node\Expr\BinaryOp\NotIdentical
     {
         return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());
     }

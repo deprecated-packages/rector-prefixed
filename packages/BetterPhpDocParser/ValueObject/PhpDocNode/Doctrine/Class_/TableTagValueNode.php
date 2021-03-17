@@ -74,7 +74,7 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
      * @param mixed[] $items
      * @return mixed[]
      */
-    private function addCustomItems(array $items) : array
+    private function addCustomItems($items) : array
     {
         if ($this->indexes !== []) {
             if (!$this->indexesAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {

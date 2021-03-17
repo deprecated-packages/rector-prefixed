@@ -79,7 +79,7 @@ CODE_SAMPLE
     /**
      * @param Assign|PropertyFetch $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\Assign) {
             if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node->var, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
@@ -89,11 +89,17 @@ CODE_SAMPLE
         }
         return $this->processPropertyFetch($node);
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->typeToMethodCalls = $configuration[self::TYPE_TO_METHOD_CALLS] ?? [];
     }
-    private function processMagicSet(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function processMagicSet($assign) : ?\PhpParser\Node
     {
         /** @var PropertyFetch $propertyFetchNode */
         $propertyFetchNode = $assign->var;
@@ -106,7 +112,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     */
+    private function processPropertyFetch($propertyFetch) : ?\PhpParser\Node\Expr\MethodCall
     {
         foreach ($this->typeToMethodCalls as $type => $transformation) {
             $objectType = new \PHPStan\Type\ObjectType($type);
@@ -125,7 +134,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function shouldSkipPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, \PHPStan\Type\ObjectType $objectType) : bool
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     * @param \PHPStan\Type\ObjectType $objectType
+     */
+    private function shouldSkipPropertyFetch($propertyFetch, $objectType) : bool
     {
         if (!$this->isObjectType($propertyFetch->var, $objectType)) {
             return \true;
@@ -135,13 +148,22 @@ CODE_SAMPLE
         }
         return $this->propertyFetchAnalyzer->isPropertyToSelf($propertyFetch);
     }
-    private function createMethodCallNodeFromAssignNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, \PhpParser\Node\Expr $expr, string $method) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     * @param \PhpParser\Node\Expr $expr
+     * @param string $method
+     */
+    private function createMethodCallNodeFromAssignNode($propertyFetch, $expr, $method) : \PhpParser\Node\Expr\MethodCall
     {
         /** @var Variable $variableNode */
         $variableNode = $propertyFetch->var;
         return $this->nodeFactory->createMethodCall($variableNode, $method, [$this->getName($propertyFetch), $expr]);
     }
-    private function createMethodCallNodeFromPropertyFetchNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $method) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     * @param string $method
+     */
+    private function createMethodCallNodeFromPropertyFetchNode($propertyFetch, $method) : \PhpParser\Node\Expr\MethodCall
     {
         /** @var Variable $variableNode */
         $variableNode = $propertyFetch->var;

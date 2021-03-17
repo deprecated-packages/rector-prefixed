@@ -67,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->isAnonymous()) {
             return null;
@@ -80,7 +80,10 @@ CODE_SAMPLE
         }
         return $this->refactorClassStmts($node, $propertyAndClassMethodName);
     }
-    private function matchStaticPropertyFetchAndGetSingletonMethodName(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Transform\ValueObject\PropertyAndClassMethodName
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function matchStaticPropertyFetchAndGetSingletonMethodName($class) : ?\Rector\Transform\ValueObject\PropertyAndClassMethodName
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$classMethod->isStatic()) {
@@ -98,7 +101,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorClassStmts(\PhpParser\Node\Stmt\Class_ $class, \Rector\Transform\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName) : \PhpParser\Node\Stmt\Class_
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \Rector\Transform\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName
+     */
+    private function refactorClassStmts($class, $propertyAndClassMethodName) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             if ($this->isName($classMethod, $propertyAndClassMethodName->getClassMethodName())) {
@@ -121,7 +128,11 @@ CODE_SAMPLE
         $this->removePropertyByName($class, $propertyAndClassMethodName->getPropertyName());
         return $class;
     }
-    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param string $propertyName
+     */
+    private function removePropertyByName($class, $propertyName) : void
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $propertyName)) {

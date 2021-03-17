@@ -60,7 +60,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
      * @param mixed[] $errors
      * @return mixed[]
      */
-    private function createErrorsData(array $errors) : array
+    private function createErrorsData($errors) : array
     {
         $errorsData = [];
         foreach ($errors as $error) {

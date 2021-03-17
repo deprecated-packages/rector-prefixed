@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param String_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $doubleQuoteCount = \substr_count($node->value, '"');
         $singleQuoteCount = \substr_count($node->value, "'");
@@ -68,7 +68,12 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processSingleQuoted(\PhpParser\Node\Scalar\String_ $string, int $doubleQuoteCount, int $singleQuoteCount) : void
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     * @param int $doubleQuoteCount
+     * @param int $singleQuoteCount
+     */
+    private function processSingleQuoted($string, $doubleQuoteCount, $singleQuoteCount) : void
     {
         if ($doubleQuoteCount === 0 && $singleQuoteCount > 0) {
             // contains chars that will be newly escaped
@@ -80,7 +85,12 @@ CODE_SAMPLE
             $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
-    private function processDoubleQuoted(\PhpParser\Node\Scalar\String_ $string, int $singleQuoteCount, int $doubleQuoteCount) : void
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     * @param int $singleQuoteCount
+     * @param int $doubleQuoteCount
+     */
+    private function processDoubleQuoted($string, $singleQuoteCount, $doubleQuoteCount) : void
     {
         if ($singleQuoteCount === 0 && $doubleQuoteCount > 0) {
             // contains chars that will be newly escaped
@@ -92,7 +102,10 @@ CODE_SAMPLE
             $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
-    private function isMatchEscapedChars(string $string) : bool
+    /**
+     * @param string $string
+     */
+    private function isMatchEscapedChars($string) : bool
     {
         return (bool) \RectorPrefix20210317\Nette\Utils\Strings::match($string, self::ESCAPED_CHAR_REGEX);
     }

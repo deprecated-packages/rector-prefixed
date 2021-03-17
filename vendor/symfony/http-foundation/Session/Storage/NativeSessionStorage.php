@@ -172,8 +172,9 @@ class NativeSessionStorage implements \RectorPrefix20210317\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
+     * @param int $lifetime
      */
-    public function regenerate(bool $destroy = \false, int $lifetime = null)
+    public function regenerate(bool $destroy = \false, $lifetime = null)
     {
         // Cannot regenerate the session ID for non-active sessions.
         if (\PHP_SESSION_ACTIVE !== \session_status()) {
@@ -273,7 +274,10 @@ class NativeSessionStorage implements \RectorPrefix20210317\Symfony\Component\Ht
         }
         return $this->bags[$name];
     }
-    public function setMetadataBag(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     */
+    public function setMetadataBag($metaBag = null)
     {
         if (null === $metaBag) {
             $metaBag = new \RectorPrefix20210317\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag();
@@ -306,7 +310,7 @@ class NativeSessionStorage implements \RectorPrefix20210317\Symfony\Component\Ht
      *
      * @see https://php.net/session.configuration
      */
-    public function setOptions(array $options)
+    public function setOptions($options)
     {
         if (\headers_sent() || \PHP_SESSION_ACTIVE === \session_status()) {
             return;
@@ -373,8 +377,9 @@ class NativeSessionStorage implements \RectorPrefix20210317\Symfony\Component\Ht
      * are set to (either PHP's internal, or a custom save handler set with session_set_save_handler()).
      * PHP takes the return value from the read() handler, unserializes it
      * and populates $_SESSION with the result automatically.
+     * @param mixed[] $session
      */
-    protected function loadSession(array &$session = null)
+    protected function loadSession(&$session = null)
     {
         if (null === $session) {
             $session =& $_SESSION;

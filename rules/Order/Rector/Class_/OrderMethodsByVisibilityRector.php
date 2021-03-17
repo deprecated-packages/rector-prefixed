@@ -72,7 +72,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $currentMethodsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\ClassMethod::class);
         $methodsInDesiredOrder = $this->getMethodsInDesiredOrder($node);
@@ -86,8 +86,9 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
+     * @param \PhpParser\Node\Stmt\ClassLike $classLike
      */
-    private function getMethodsInDesiredOrder(\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    private function getMethodsInDesiredOrder($classLike) : array
     {
         $classMethodNames = $this->stmtVisibilitySorter->sortMethods($classLike);
         return $this->applyPreferredPosition($classMethodNames);
@@ -96,7 +97,7 @@ CODE_SAMPLE
      * @param string[] $classMethods
      * @return string[]
      */
-    private function applyPreferredPosition(array $classMethods) : array
+    private function applyPreferredPosition($classMethods) : array
     {
         $mergedMethods = \array_merge(self::PREFERRED_ORDER, $classMethods);
         return \array_unique($mergedMethods);

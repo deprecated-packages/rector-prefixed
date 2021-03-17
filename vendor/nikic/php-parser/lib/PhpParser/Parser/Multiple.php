@@ -40,7 +40,11 @@ class Multiple implements \PhpParser\Parser
         }
         throw $firstError;
     }
-    private function tryParse(\PhpParser\Parser $parser, \PhpParser\ErrorHandler $errorHandler, $code)
+    /**
+     * @param \PhpParser\Parser $parser
+     * @param \PhpParser\ErrorHandler $errorHandler
+     */
+    private function tryParse($parser, $errorHandler, $code)
     {
         $stmts = null;
         $error = null;

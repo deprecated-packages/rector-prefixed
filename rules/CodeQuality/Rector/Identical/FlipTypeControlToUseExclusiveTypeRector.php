@@ -73,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
-     * @param Identical $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->valueResolver->isNull($node->left) && !$this->valueResolver->isNull($node->right)) {
             return null;
@@ -104,7 +104,11 @@ CODE_SAMPLE
         }
         return $this->processConvertToExclusiveType($types, $variable, $phpDocInfo);
     }
-    private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp\Identical $identical
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function getVariableAssign($identical, $expr) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findFirstPrevious($identical, function (\PhpParser\Node $node) use($expr) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -115,8 +119,9 @@ CODE_SAMPLE
     }
     /**
      * @return Type[]
+     * @param \PHPStan\Type\UnionType $unionType
      */
-    private function getTypes(\PHPStan\Type\UnionType $unionType) : array
+    private function getTypes($unionType) : array
     {
         $types = $unionType->getTypes();
         if (\count($types) > 2) {
@@ -127,7 +132,7 @@ CODE_SAMPLE
     /**
      * @param Type[] $types
      */
-    private function isNotNullOneOf(array $types) : bool
+    private function isNotNullOneOf($types) : bool
     {
         if ($types === []) {
             return \true;
@@ -142,8 +147,10 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $types
+     * @param \PhpParser\Node\Expr $expr
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
+    private function processConvertToExclusiveType($types, $expr, $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
     {
         $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
         if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {

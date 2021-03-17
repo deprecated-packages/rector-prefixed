@@ -33,7 +33,11 @@ final class FullyQualifiedNodeMapper implements \Rector\StaticTypeMapper\Contrac
         }
         return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($fullyQualifiedName);
     }
-    private function isAliasedName(string $originalName, string $fullyQualifiedName) : bool
+    /**
+     * @param string $originalName
+     * @param string $fullyQualifiedName
+     */
+    private function isAliasedName($originalName, $fullyQualifiedName) : bool
     {
         if ($originalName === '') {
             return \false;

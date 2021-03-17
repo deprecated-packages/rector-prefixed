@@ -80,7 +80,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->typeToTimeMethodsAndPositions as $typeToTimeMethodAndPosition) {
             if (!$this->isObjectType($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class, $typeToTimeMethodAndPosition->getObjectType())) {
@@ -100,8 +100,10 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      * @return StaticCall|MethodCall|null
+     * @param \PhpParser\Node\Expr $argExpr
+     * @param int $argumentPosition
      */
-    private function processArgumentOnPosition(\PhpParser\Node $node, \PhpParser\Node\Expr $argExpr, int $argumentPosition) : ?\PhpParser\Node\Expr
+    private function processArgumentOnPosition($node, $argExpr, $argumentPosition) : ?\PhpParser\Node\Expr
     {
         if ($argExpr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $this->refactorClassConstFetch($argExpr);
@@ -114,7 +116,10 @@ CODE_SAMPLE
         $node->args[$argumentPosition] = new \PhpParser\Node\Arg($mul);
         return $node;
     }
-    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : void
+    /**
+     * @param \PhpParser\Node\Expr\ClassConstFetch $classConstFetch
+     */
+    private function refactorClassConstFetch($classConstFetch) : void
     {
         $classConst = $this->nodeRepository->findClassConstByClassConstFetch($classConstFetch);
         if (!$classConst instanceof \PhpParser\Node\Stmt\ClassConst) {
@@ -128,7 +133,11 @@ CODE_SAMPLE
         $onlyConst->value = $this->mulByNumber($onlyConst->value, 60);
         $onlyConst->setAttribute(self::ATTRIBUTE_KEY_ALREADY_MULTIPLIED, \true);
     }
-    private function mulByNumber(\PhpParser\Node\Expr $argExpr, int $value) : \PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Expr $argExpr
+     * @param int $value
+     */
+    private function mulByNumber($argExpr, $value) : \PhpParser\Node\Expr
     {
         if ($this->valueResolver->isValue($argExpr, 1)) {
             return new \PhpParser\Node\Scalar\LNumber($value);

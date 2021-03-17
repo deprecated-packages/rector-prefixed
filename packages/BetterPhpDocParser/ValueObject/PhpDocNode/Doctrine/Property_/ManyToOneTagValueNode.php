@@ -23,7 +23,7 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         return $this->items['targetEntity'];
     }
-    public function getFullyQualifiedTargetEntity() : string
+    public function getFullyQualifiedTargetEntity() : ?string
     {
         return $this->fullyQualifiedTargetEntity;
     }
@@ -35,7 +35,10 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         $this->items['inversedBy'] = null;
     }
-    public function changeTargetEntity(string $targetEntity) : void
+    /**
+     * @param string $targetEntity
+     */
+    public function changeTargetEntity($targetEntity) : void
     {
         $this->items['targetEntity'] = $targetEntity;
     }

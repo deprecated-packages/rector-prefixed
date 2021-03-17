@@ -81,8 +81,12 @@ class RedisTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
+     * @param mixed[] $addTagData
+     * @param mixed[] $delTagData
      */
-    protected function doSave(array $values, int $lifetime, array $addTagData = [], array $delTagData = []) : array
+    protected function doSave($values, $lifetime, $addTagData = [], $delTagData = []) : array
     {
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && 0 !== \strpos($eviction, 'volatile-')) {
@@ -124,8 +128,9 @@ class RedisTagAwareAdapter extends \RectorPrefix20210317\Symfony\Component\Cache
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDeleteYieldTags(array $ids) : iterable
+    protected function doDeleteYieldTags($ids) : iterable
     {
         $lua = <<<'EOLUA'
             local v = redis.call('GET', KEYS[1])
@@ -161,8 +166,9 @@ EOLUA;
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $tagData
      */
-    protected function doDeleteTagRelations(array $tagData) : bool
+    protected function doDeleteTagRelations($tagData) : bool
     {
         $this->pipeline(static function () use($tagData) {
             foreach ($tagData as $tagId => $idList) {
@@ -174,8 +180,9 @@ EOLUA;
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $tagIds
      */
-    protected function doInvalidate(array $tagIds) : bool
+    protected function doInvalidate($tagIds) : bool
     {
         if (!$this->redis instanceof \RectorPrefix20210317\Predis\ClientInterface || !$this->redis->getConnection() instanceof \RectorPrefix20210317\Predis\Connection\Aggregate\PredisCluster) {
             $movedTagSetIds = $this->renameKeys($this->redis, $tagIds);
@@ -220,8 +227,9 @@ EOLUA;
      * @see https://redis.io/topics/cluster-spec#keys-hash-tags
      *
      * @return array Filtered list of the valid moved keys (only those that existed)
+     * @param mixed[] $ids
      */
-    private function renameKeys($redis, array $ids) : array
+    private function renameKeys($redis, $ids) : array
     {
         $newIds = [];
         $uniqueToken = \bin2hex(\random_bytes(10));

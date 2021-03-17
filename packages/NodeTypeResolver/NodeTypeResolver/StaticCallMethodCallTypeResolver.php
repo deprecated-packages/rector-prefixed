@@ -36,8 +36,9 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
     }
     /**
      * @required
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
      */
-    public function autowireStaticCallMethodCallTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireStaticCallMethodCallTypeResolver($nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -79,7 +80,12 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
         }
         return new \PHPStan\Type\MixedType();
     }
-    private function resolveClassMethodReturnType(string $referencedClass, string $methodName, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    /**
+     * @param string $referencedClass
+     * @param string $methodName
+     * @param \PHPStan\Analyser\Scope $scope
+     */
+    private function resolveClassMethodReturnType($referencedClass, $methodName, $scope) : \PHPStan\Type\Type
     {
         if (!$this->reflectionProvider->hasClass($referencedClass)) {
             return new \PHPStan\Type\MixedType();

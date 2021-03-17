@@ -29,8 +29,10 @@ interface ContainerInterface extends \RectorPrefix20210317\Psr\Container\Contain
     public const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * Sets a service.
+     * @param string $id
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service);
+    public function set($id, $service);
     /**
      * Gets a service.
      *
@@ -44,7 +46,7 @@ interface ContainerInterface extends \RectorPrefix20210317\Psr\Container\Contain
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE);
+    public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE);
     /**
      * Returns true if the given service is defined.
      *
@@ -57,8 +59,9 @@ interface ContainerInterface extends \RectorPrefix20210317\Psr\Container\Contain
      * Check for whether or not a service has been initialized.
      *
      * @return bool true if the service has been initialized, false otherwise
+     * @param string $id
      */
-    public function initialized(string $id);
+    public function initialized($id);
     /**
      * Gets a parameter.
      *
@@ -68,7 +71,7 @@ interface ContainerInterface extends \RectorPrefix20210317\Psr\Container\Contain
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter(string $name);
+    public function getParameter($name);
     /**
      * Checks if a parameter exists.
      *
@@ -76,12 +79,12 @@ interface ContainerInterface extends \RectorPrefix20210317\Psr\Container\Contain
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter(string $name);
+    public function hasParameter($name);
     /**
      * Sets a parameter.
      *
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter(string $name, $value);
+    public function setParameter($name, $value);
 }

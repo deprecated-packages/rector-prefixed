@@ -24,8 +24,9 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \RectorPrefix20210317
     private $serviceLocatorContextIds = [];
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->serviceLocatorContextIds = [];
         foreach ($container->findTaggedServiceIds('container.service_locator_context') as $id => $tags) {
@@ -38,7 +39,10 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \RectorPrefix20210317
             $this->serviceLocatorContextIds = [];
         }
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
@@ -74,7 +78,10 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \RectorPrefix20210317
         }
         throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
     }
-    private function getAlternatives(string $id) : array
+    /**
+     * @param string $id
+     */
+    private function getAlternatives($id) : array
     {
         $alternatives = [];
         foreach ($this->container->getServiceIds() as $knownId) {

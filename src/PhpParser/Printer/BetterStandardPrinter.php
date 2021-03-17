@@ -123,12 +123,18 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $stmts = \array_values($stmts);
         return parent::prettyPrintFile($stmts) . \PHP_EOL;
     }
-    public function pFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : string
+    /**
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
+     */
+    public function pFileWithoutNamespace($fileWithoutNamespace) : string
     {
         $content = $this->pStmts($fileWithoutNamespace->stmts, \false);
         return \ltrim($content);
     }
-    public function pFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : string
+    /**
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode
+     */
+    public function pFileNode($fileNode) : string
     {
         return $this->pStmts($fileNode->stmts);
     }
@@ -193,15 +199,17 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * - or the end of the string
      *
      * Prevents `Vendor\Class` => `Vendor\\Class`.
+     * @param string $string
      */
-    protected function pSingleQuotedString(string $string) : string
+    protected function pSingleQuotedString($string) : string
     {
         return "'" . \RectorPrefix20210317\Nette\Utils\Strings::replace($string, self::QUOTED_SLASH_REGEX, '\\\\$0') . "'";
     }
     /**
      * Emulates 1_000 in PHP 7.3- version
+     * @param \PhpParser\Node\Scalar\DNumber $dNumber
      */
-    protected function pScalar_DNumber(\PhpParser\Node\Scalar\DNumber $dNumber) : string
+    protected function pScalar_DNumber($dNumber) : string
     {
         if (\is_string($dNumber->value)) {
             return $dNumber->value;
@@ -213,8 +221,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * "use("
      * ↓
      * "use ("
+     * @param \PhpParser\Node\Expr\Closure $closure
      */
-    protected function pExpr_Closure(\PhpParser\Node\Expr\Closure $closure) : string
+    protected function pExpr_Closure($closure) : string
     {
         $closureContent = parent::pExpr_Closure($closure);
         return \RectorPrefix20210317\Nette\Utils\Strings::replace($closureContent, self::USE_REGEX, '$1 (');
@@ -222,8 +231,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * Do not add "()" on Expressions
      * @see https://github.com/rectorphp/rector/pull/401#discussion_r181487199
+     * @param \PhpParser\Node\Expr\Yield_ $yield
      */
-    protected function pExpr_Yield(\PhpParser\Node\Expr\Yield_ $yield) : string
+    protected function pExpr_Yield($yield) : string
     {
         if ($yield->value === null) {
             return 'yield';
@@ -235,8 +245,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * Print arrays in short [] by default,
      * to prevent manual explicit array shortening.
+     * @param \PhpParser\Node\Expr\Array_ $array
      */
-    protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $array) : string
+    protected function pExpr_Array($array) : string
     {
         if (!$array->hasAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND)) {
             $array->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \PhpParser\Node\Expr\Array_::KIND_SHORT);
@@ -245,8 +256,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * Fixes escaping of regular patterns
+     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    protected function pScalar_String(\PhpParser\Node\Scalar\String_ $string) : string
+    protected function pScalar_String($string) : string
     {
         $isRegularPattern = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN);
         if (!$isRegularPattern) {
@@ -273,8 +285,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * "...$params) : ReturnType"
      * ↓
      * "...$params): ReturnType"
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    protected function pStmt_ClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
+    protected function pStmt_ClassMethod($classMethod) : string
     {
         $content = parent::pStmt_ClassMethod($classMethod);
         // this approach is chosen, to keep changes in parent pStmt_ClassMethod() updated
@@ -282,8 +295,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * Clean class and trait from empty "use x;" for traits causing invalid code
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    protected function pStmt_Class(\PhpParser\Node\Stmt\Class_ $class) : string
+    protected function pStmt_Class($class) : string
     {
         $shouldReindex = \false;
         foreach ($class->stmts as $key => $stmt) {
@@ -300,16 +314,18 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * It remove all spaces extra to parent
+     * @param \PhpParser\Node\Stmt\Declare_ $declare
      */
-    protected function pStmt_Declare(\PhpParser\Node\Stmt\Declare_ $declare) : string
+    protected function pStmt_Declare($declare) : string
     {
         $declareString = parent::pStmt_Declare($declare);
         return \RectorPrefix20210317\Nette\Utils\Strings::replace($declareString, '#\\s+#', '');
     }
     /**
      * Remove extra \\ from FQN use imports, for easier use in the code
+     * @param \PhpParser\Node\Stmt\Use_ $use
      */
-    protected function pStmt_Use(\PhpParser\Node\Stmt\Use_ $use) : string
+    protected function pStmt_Use($use) : string
     {
         if ($use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
             return parent::pStmt_Use($use);
@@ -322,7 +338,10 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         }
         return parent::pStmt_Use($use);
     }
-    protected function pScalar_EncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : string
+    /**
+     * @param \PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart
+     */
+    protected function pScalar_EncapsedStringPart($encapsedStringPart) : string
     {
         // parent throws exception, but we need to compare string
         return '`' . $encapsedStringPart->value . '`';
@@ -343,7 +362,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param Node[] $stmts
      * @return Node[]|mixed[]
      */
-    private function resolveNewStmts(array $stmts) : array
+    private function resolveNewStmts($stmts) : array
     {
         if (\count($stmts) === 1 && $stmts[0] instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             return $stmts[0]->stmts;
@@ -353,7 +372,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * @param Node[] $nodes
      */
-    private function moveCommentsFromAttributeObjectToCommentsAttribute(array $nodes) : void
+    private function moveCommentsFromAttributeObjectToCommentsAttribute($nodes) : void
     {
         // move phpdoc from node to "comment" attribute
         foreach ($nodes as $node) {
@@ -366,7 +385,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * @param Node[] $nodes
      */
-    private function containsNop(array $nodes) : bool
+    private function containsNop($nodes) : bool
     {
         foreach ($nodes as $node) {
             if ($node instanceof \PhpParser\Node\Stmt\Nop) {
@@ -375,7 +394,11 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         }
         return \false;
     }
-    private function wrapValueWith(\PhpParser\Node\Scalar\String_ $string, string $wrap) : string
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     * @param string $wrap
+     */
+    private function wrapValueWith($string, $wrap) : string
     {
         return $wrap . $string->value . $wrap;
     }

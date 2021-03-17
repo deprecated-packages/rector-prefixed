@@ -38,9 +38,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
-     * @param Array_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $arrayItemsWithDuplicatedKey = $this->getArrayItemsWithDuplicatedKey($node);
         if ($arrayItemsWithDuplicatedKey === []) {
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @return ArrayItem[][]
+     * @param \PhpParser\Node\Expr\Array_ $array
      */
-    private function getArrayItemsWithDuplicatedKey(\PhpParser\Node\Expr\Array_ $array) : array
+    private function getArrayItemsWithDuplicatedKey($array) : array
     {
         $arrayItemsByKeys = [];
         foreach ($array->items as $arrayItem) {
@@ -75,7 +76,7 @@ CODE_SAMPLE
      * @param ArrayItem[][] $arrayItemsByKeys
      * @return ArrayItem[][]
      */
-    private function filterItemsWithSameKey(array $arrayItemsByKeys) : array
+    private function filterItemsWithSameKey($arrayItemsByKeys) : array
     {
         /** @var ArrayItem[][] $arrayItemsByKeys */
         $arrayItemsByKeys = \array_filter($arrayItemsByKeys, function (array $arrayItems) : bool {

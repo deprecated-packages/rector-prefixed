@@ -55,8 +55,9 @@ class StreamedResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
      * Sets the PHP callback associated with this Response.
      *
      * @return $this
+     * @param callable $callback
      */
-    public function setCallback(callable $callback)
+    public function setCallback($callback)
     {
         $this->callback = $callback;
         return $this;

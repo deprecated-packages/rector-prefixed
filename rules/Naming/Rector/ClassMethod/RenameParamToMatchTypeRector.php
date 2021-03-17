@@ -83,9 +83,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->hasChanged = \false;
         foreach ($node->params as $param) {
@@ -115,7 +115,12 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     * @param string $expectedName
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipParam($param, $expectedName, $classMethod) : bool
     {
         /** @var string $paramName */
         $paramName = $this->getName($param);
