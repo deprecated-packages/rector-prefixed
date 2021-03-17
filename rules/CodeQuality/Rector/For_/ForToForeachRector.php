@@ -59,13 +59,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      * @var ForeachAnalyzer
      */
     private $foreachAnalyzer;
-    /**
-     * @param \Doctrine\Inflector\Inflector $inflector
-     * @param \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer
-     * @param \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory
-     * @param \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer
-     */
-    public function __construct($inflector, $forAnalyzer, $foreachFactory, $foreachAnalyzer)
+    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\Inflector $inflector, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
     {
         $this->inflector = $inflector;
         $this->forAnalyzer = $forAnalyzer;
@@ -110,9 +104,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\For_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param For_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->reset();
         $this->matchInit($node->init);
@@ -147,11 +141,7 @@ CODE_SAMPLE
         }
         return $this->processForToForeach($node, $iteratedVariable);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\For_ $for
-     * @param string $iteratedVariable
-     */
-    private function processForToForeach($for, $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
+    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
     {
         $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
         $iteratedVariableSingle = $originalVariableSingle;
@@ -169,11 +159,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\For_ $for
-     * @param string $iteratedVariableSingle
-     */
-    private function createForeachFromForWithIteratedVariableSingle($for, $iteratedVariableSingle) : \PhpParser\Node\Stmt\Foreach_
+    private function createForeachFromForWithIteratedVariableSingle(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableSingle) : \PhpParser\Node\Stmt\Foreach_
     {
         $foreach = $this->foreachFactory->createFromFor($for, $iteratedVariableSingle, $this->iteratedExpr, $this->keyValueName);
         $this->mirrorComments($foreach, $for);
@@ -193,7 +179,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $initExprs
      */
-    private function matchInit($initExprs) : void
+    private function matchInit(array $initExprs) : void
     {
         foreach ($initExprs as $initExpr) {
             if (!$initExpr instanceof \PhpParser\Node\Expr\Assign) {
@@ -216,7 +202,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $condExprs
      */
-    private function isConditionMatch($condExprs) : bool
+    private function isConditionMatch(array $condExprs) : bool
     {
         if ($this->forAnalyzer->isCondExprOneOrKeyValueNameNotNull($condExprs, $this->keyValueName)) {
             return \false;

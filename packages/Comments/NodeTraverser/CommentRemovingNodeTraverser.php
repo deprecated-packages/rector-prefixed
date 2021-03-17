@@ -7,10 +7,7 @@ use PhpParser\NodeTraverser;
 use Rector\Comments\NodeVisitor\CommentRemovingNodeVisitor;
 final class CommentRemovingNodeTraverser extends \PhpParser\NodeTraverser
 {
-    /**
-     * @param \Rector\Comments\NodeVisitor\CommentRemovingNodeVisitor $commentRemovingNodeVisitor
-     */
-    public function __construct($commentRemovingNodeVisitor)
+    public function __construct(\Rector\Comments\NodeVisitor\CommentRemovingNodeVisitor $commentRemovingNodeVisitor)
     {
         $this->addVisitor($commentRemovingNodeVisitor);
     }

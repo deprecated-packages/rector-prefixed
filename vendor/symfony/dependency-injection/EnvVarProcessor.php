@@ -22,10 +22,9 @@ class EnvVarProcessor implements \RectorPrefix20210317\Symfony\Component\Depende
     private $loaders;
     private $loadedVars = [];
     /**
-     * @param \Traversable $loaders
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param EnvVarLoaderInterface[] $loaders
      */
-    public function __construct($container, $loaders = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface $container, \Traversable $loaders = null)
     {
         $this->container = $container;
         $this->loaders = $loaders ?? new \ArrayIterator();

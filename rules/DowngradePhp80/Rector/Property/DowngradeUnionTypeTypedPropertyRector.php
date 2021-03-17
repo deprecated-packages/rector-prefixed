@@ -19,10 +19,7 @@ final class DowngradeUnionTypeTypedPropertyRector extends \Rector\Core\Rector\Ab
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
-     */
-    public function __construct($phpDocTypeChanger)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
@@ -53,9 +50,9 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->type === null) {
             return null;
@@ -67,11 +64,7 @@ CODE_SAMPLE
         $node->type = null;
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param \PhpParser\Node $typeNode
-     */
-    private function decoratePropertyWithDocBlock($property, $typeNode) : void
+    private function decoratePropertyWithDocBlock(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node $typeNode) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if ($phpDocInfo->getVarTagValueNode() !== null) {
@@ -80,10 +73,7 @@ CODE_SAMPLE
         $newType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($typeNode);
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $newType);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldRemoveProperty($property) : bool
+    private function shouldRemoveProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if ($property->type === null) {
             return \false;

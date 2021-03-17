@@ -36,12 +36,7 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     * @param \Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory
-     */
-    public function __construct($argsNodeFactory, $yamlArgumentSorter, $commonNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlArgumentSorter = $yamlArgumentSorter;

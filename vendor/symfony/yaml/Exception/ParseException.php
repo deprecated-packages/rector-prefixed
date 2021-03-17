@@ -24,11 +24,10 @@ class ParseException extends \RectorPrefix20210317\Symfony\Component\Yaml\Except
     /**
      * @param string          $message    The error message
      * @param int             $parsedLine The line where the error occurred
-     * @param string     $snippet    The snippet of code near the problem
-     * @param string     $parsedFile The file name where the error occurred
-     * @param \Throwable $previous
+     * @param string|null     $snippet    The snippet of code near the problem
+     * @param string|null     $parsedFile The file name where the error occurred
      */
-    public function __construct($message, $parsedLine = -1, $snippet = null, $parsedFile = null, $previous = null)
+    public function __construct(string $message, int $parsedLine = -1, string $snippet = null, string $parsedFile = null, \Throwable $previous = null)
     {
         $this->parsedFile = $parsedFile;
         $this->parsedLine = $parsedLine;
@@ -48,9 +47,8 @@ class ParseException extends \RectorPrefix20210317\Symfony\Component\Yaml\Except
     }
     /**
      * Sets the snippet of code near the error.
-     * @param string $snippet
      */
-    public function setSnippet($snippet)
+    public function setSnippet(string $snippet)
     {
         $this->snippet = $snippet;
         $this->updateRepr();
@@ -68,9 +66,8 @@ class ParseException extends \RectorPrefix20210317\Symfony\Component\Yaml\Except
     }
     /**
      * Sets the filename where the error occurred.
-     * @param string $parsedFile
      */
-    public function setParsedFile($parsedFile)
+    public function setParsedFile(string $parsedFile)
     {
         $this->parsedFile = $parsedFile;
         $this->updateRepr();
@@ -86,9 +83,8 @@ class ParseException extends \RectorPrefix20210317\Symfony\Component\Yaml\Except
     }
     /**
      * Sets the line where the error occurred.
-     * @param int $parsedLine
      */
-    public function setParsedLine($parsedLine)
+    public function setParsedLine(int $parsedLine)
     {
         $this->parsedLine = $parsedLine;
         $this->updateRepr();

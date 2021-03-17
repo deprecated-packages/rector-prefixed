@@ -25,18 +25,14 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\KernelEvents;
 class SurrogateListener implements \RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $surrogate;
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
-     */
-    public function __construct($surrogate = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null)
     {
         $this->surrogate = $surrogate;
     }
     /**
      * Filters the Response.
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;

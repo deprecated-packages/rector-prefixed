@@ -15,13 +15,7 @@ namespace RectorPrefix20210317\Symfony\Component\HttpKernel\Exception;
  */
 class ControllerDoesNotReturnResponseException extends \LogicException
 {
-    /**
-     * @param string $message
-     * @param callable $controller
-     * @param string $file
-     * @param int $line
-     */
-    public function __construct($message, $controller, $file, $line)
+    public function __construct(string $message, callable $controller, string $file, int $line)
     {
         parent::__construct($message);
         if (!($controllerDefinition = $this->parseControllerDefinition($controller))) {
@@ -33,10 +27,7 @@ class ControllerDoesNotReturnResponseException extends \LogicException
         $r->setAccessible(\true);
         $r->setValue($this, \array_merge([['line' => $line, 'file' => $file]], $this->getTrace()));
     }
-    /**
-     * @param callable $controller
-     */
-    private function parseControllerDefinition($controller) : ?array
+    private function parseControllerDefinition(callable $controller) : ?array
     {
         if (\is_string($controller) && \false !== \strpos($controller, '::')) {
             $controller = \explode('::', $controller);

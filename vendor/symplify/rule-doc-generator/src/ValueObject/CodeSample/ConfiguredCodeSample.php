@@ -14,10 +14,8 @@ final class ConfiguredCodeSample extends \Symplify\RuleDocGenerator\ValueObject\
     private $configuration = [];
     /**
      * @param array<string, mixed> $configuration
-     * @param string $badCode
-     * @param string $goodCode
      */
-    public function __construct($badCode, $goodCode, $configuration)
+    public function __construct(string $badCode, string $goodCode, array $configuration)
     {
         if ($configuration === []) {
             $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);

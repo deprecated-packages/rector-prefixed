@@ -78,9 +78,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Return_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr === null) {
             return null;
@@ -109,11 +109,7 @@ CODE_SAMPLE
         });
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     * @param \PHPStan\Type\Type $newNodeType
-     */
-    private function processArrayItem($arrayItem, $newNodeType) : void
+    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType) : void
     {
         foreach (self::OLD_TO_NEW_CLASSES as $oldClass => $newClass) {
             $oldClassObjectType = new \PHPStan\Type\ObjectType($oldClass);
@@ -137,10 +133,8 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $oldArguments
-     * @param \PhpParser\Node\Expr\ArrayItem $arrayItem
-     * @param string $filterName
      */
-    private function createNewArrayItem($arrayItem, $oldArguments, $filterName) : \PhpParser\Node\Expr\ArrayItem
+    private function createNewArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, array $oldArguments, string $filterName) : \PhpParser\Node\Expr\ArrayItem
     {
         /** @var New_ $new */
         $new = $arrayItem->value;

@@ -45,9 +45,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -56,10 +56,7 @@ CODE_SAMPLE
         $onlyProperty->default = $this->nodeFactory->createNull();
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkip($property) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return \true;
@@ -78,11 +75,7 @@ CODE_SAMPLE
         $propertyName = $this->getName($property);
         return $this->isPropertyInitiatedInConstuctor($property, $propertyName);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param string $propertyName
-     */
-    private function isPropertyInitiatedInConstuctor($property, $propertyName) : bool
+    private function isPropertyInitiatedInConstuctor(\PhpParser\Node\Stmt\Property $property, string $propertyName) : bool
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

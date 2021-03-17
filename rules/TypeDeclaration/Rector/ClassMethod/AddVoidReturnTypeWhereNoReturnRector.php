@@ -22,10 +22,7 @@ final class AddVoidReturnTypeWhereNoReturnRector extends \Rector\Core\Rector\Abs
      * @var SilentVoidResolver
      */
     private $silentVoidResolver;
-    /**
-     * @param \Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver
-     */
-    public function __construct($silentVoidResolver)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver)
     {
         $this->silentVoidResolver = $silentVoidResolver;
     }
@@ -63,7 +60,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;

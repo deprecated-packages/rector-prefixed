@@ -33,9 +33,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
      * Escapes "<" special char in given text.
      *
      * @return string Escaped text
-     * @param string $text
      */
-    public static function escape($text)
+    public static function escape(string $text)
     {
         $text = \preg_replace('/([^\\\\]?)</', '$1\\<', $text);
         return self::escapeTrailingBackslash($text);
@@ -44,9 +43,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
      * Escapes trailing "\" in given text.
      *
      * @internal
-     * @param string $text
      */
-    public static function escapeTrailingBackslash($text) : string
+    public static function escapeTrailingBackslash(string $text) : string
     {
         if ('\\' === \substr($text, -1)) {
             $len = \strlen($text);
@@ -60,9 +58,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
      * Initializes console output formatter.
      *
      * @param OutputFormatterStyleInterface[] $styles Array of "name => FormatterStyle" instances
-     * @param bool $decorated
      */
-    public function __construct($decorated = \false, $styles = [])
+    public function __construct(bool $decorated = \false, array $styles = [])
     {
         $this->decorated = $decorated;
         $this->setStyle('error', new \RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyle('white', 'red'));
@@ -121,10 +118,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
-     * @param string|null $message
-     * @param int $width
      */
-    public function formatAndWrap($message, $width)
+    public function formatAndWrap(?string $message, int $width)
     {
         $offset = 0;
         $output = '';
@@ -172,9 +167,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
     }
     /**
      * Tries to create new style instance from string.
-     * @param string $string
      */
-    private function createStyleFromString($string) : ?\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    private function createStyleFromString(string $string) : ?\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
         if (isset($this->styles[$string])) {
             return $this->styles[$string];
@@ -206,12 +200,8 @@ class OutputFormatter implements \RectorPrefix20210317\Symfony\Component\Console
     }
     /**
      * Applies current style from stack to text, if must be applied.
-     * @param string $text
-     * @param string $current
-     * @param int $width
-     * @param int $currentLineLength
      */
-    private function applyCurrentStyle($text, $current, $width, &$currentLineLength) : string
+    private function applyCurrentStyle(string $text, string $current, int $width, int &$currentLineLength) : string
     {
         if ('' === $text) {
             return '';

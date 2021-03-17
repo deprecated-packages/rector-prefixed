@@ -26,17 +26,11 @@ final class ReplacePackageAndVersionComposerRector implements \Rector\Composer\C
      * @var VersionGuard
      */
     private $versionGuard;
-    /**
-     * @param \Rector\Composer\Guard\VersionGuard $versionGuard
-     */
-    public function __construct($versionGuard)
+    public function __construct(\Rector\Composer\Guard\VersionGuard $versionGuard)
     {
         $this->versionGuard = $versionGuard;
     }
-    /**
-     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
-     */
-    public function refactor($composerJson) : void
+    public function refactor(\RectorPrefix20210317\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->replacePackagesAndVersions as $replacePackageAndVersion) {
             $composerJson->replacePackage($replacePackageAndVersion->getOldPackageName(), $replacePackageAndVersion->getNewPackageName(), $replacePackageAndVersion->getVersion());
@@ -63,7 +57,7 @@ CODE_SAMPLE
     /**
      * @param array<string, ReplacePackageAndVersion[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $replacePackagesAndVersions = $configuration[self::REPLACE_PACKAGES_AND_VERSIONS] ?? [];
         $this->versionGuard->validate($replacePackagesAndVersions);

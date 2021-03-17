@@ -47,9 +47,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Include_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Include_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat && $node->expr->left instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr->left)) {
             $node->expr->left = $this->prefixWithDir($node->expr->left);
@@ -62,17 +62,11 @@ CODE_SAMPLE
         // nothing we can do
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function isRefactorableStringPath($string) : bool
+    private function isRefactorableStringPath(\PhpParser\Node\Scalar\String_ $string) : bool
     {
         return !\RectorPrefix20210317\Nette\Utils\Strings::startsWith($string->value, 'phar://');
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function prefixWithDir($string) : \PhpParser\Node\Expr\BinaryOp\Concat
+    private function prefixWithDir(\PhpParser\Node\Scalar\String_ $string) : \PhpParser\Node\Expr\BinaryOp\Concat
     {
         $this->removeExtraDotSlash($string);
         $this->prependSlashIfMissing($string);
@@ -80,19 +74,15 @@ CODE_SAMPLE
     }
     /**
      * Remove "./" which would break the path
-     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    private function removeExtraDotSlash($string) : void
+    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
     {
         if (!\RectorPrefix20210317\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
         $string->value = \RectorPrefix20210317\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function prependSlashIfMissing($string) : void
+    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
     {
         if (\RectorPrefix20210317\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;

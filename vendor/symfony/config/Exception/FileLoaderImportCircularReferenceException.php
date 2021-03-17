@@ -17,12 +17,7 @@ namespace RectorPrefix20210317\Symfony\Component\Config\Exception;
  */
 class FileLoaderImportCircularReferenceException extends \RectorPrefix20210317\Symfony\Component\Config\Exception\LoaderLoadException
 {
-    /**
-     * @param mixed[] $resources
-     * @param int|null $code
-     * @param \Throwable $previous
-     */
-    public function __construct($resources, $code = 0, $previous = null)
+    public function __construct(array $resources, ?int $code = 0, \Throwable $previous = null)
     {
         $message = \sprintf('Circular reference detected in "%s" ("%s" > "%s").', $this->varToString($resources[0]), \implode('" > "', $resources), $resources[0]);
         \Exception::__construct($message, $code, $previous);

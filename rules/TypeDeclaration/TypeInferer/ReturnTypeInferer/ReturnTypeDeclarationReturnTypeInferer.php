@@ -19,19 +19,12 @@ final class ReturnTypeDeclarationReturnTypeInferer implements \Rector\TypeDeclar
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @param \Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     */
-    public function __construct($functionLikeReturnTypeResolver, $nodeNameResolver)
+    public function __construct(\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->functionLikeReturnTypeResolver = $functionLikeReturnTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         if ($functionLike->getReturnType() === null) {
             return new \PHPStan\Type\MixedType();

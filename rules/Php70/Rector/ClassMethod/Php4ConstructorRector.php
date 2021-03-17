@@ -10,6 +10,8 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -49,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -84,14 +86,12 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function shouldSkip($classMethod) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $namespace = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+        /** @var Scope $scope */
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         // catch only classes without namespace
-        if ($namespace !== null) {
+        if ($scope->getNamespace() !== null) {
             return \true;
         }
         if ($classMethod->isAbstract()) {
@@ -100,16 +100,13 @@ CODE_SAMPLE
         if ($classMethod->isStatic()) {
             return \true;
         }
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
-            return \false;
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return \true;
         }
-        return $classLike->name === null;
+        return $classReflection->isAnonymous();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function processClassMethodStatementsForParentConstructorCalls($classMethod) : void
+    private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if (!\is_iterable($classMethod->stmts)) {
             return;
@@ -125,10 +122,7 @@ CODE_SAMPLE
             $this->processParentPhp4ConstructCall($methodStmt);
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function processParentPhp4ConstructCall($staticCall) : void
+    private function processParentPhp4ConstructCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $parentClassName = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         // no parent class

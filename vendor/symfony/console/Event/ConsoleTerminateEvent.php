@@ -21,21 +21,12 @@ use RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface;
 final class ConsoleTerminateEvent extends \RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $exitCode;
-    /**
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param int $exitCode
-     */
-    public function __construct($command, $input, $output, $exitCode)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
     {
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);
     }
-    /**
-     * @param int $exitCode
-     */
-    public function setExitCode($exitCode) : void
+    public function setExitCode(int $exitCode) : void
     {
         $this->exitCode = $exitCode;
     }

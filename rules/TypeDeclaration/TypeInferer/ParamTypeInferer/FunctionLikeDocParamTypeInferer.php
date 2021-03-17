@@ -21,11 +21,7 @@ final class FunctionLikeDocParamTypeInferer implements \Rector\TypeDeclaration\C
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
-     */
-    public function __construct($nodeNameResolver, $phpDocInfoFactory)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
@@ -43,18 +39,14 @@ final class FunctionLikeDocParamTypeInferer implements \Rector\TypeDeclaration\C
         }
         return $this->matchParamNodeFromDoc($paramTypesByName, $param);
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     */
-    private function resolveScopeNode($param) : ?\PhpParser\Node\FunctionLike
+    private function resolveScopeNode(\PhpParser\Node\Param $param) : ?\PhpParser\Node\FunctionLike
     {
         return $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?? $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
     }
     /**
      * @param Type[] $paramWithTypes
-     * @param \PhpParser\Node\Param $param
      */
-    private function matchParamNodeFromDoc($paramWithTypes, $param) : \PHPStan\Type\Type
+    private function matchParamNodeFromDoc(array $paramWithTypes, \PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         $paramNodeName = '$' . $this->nodeNameResolver->getName($param->var);
         return $paramWithTypes[$paramNodeName] ?? new \PHPStan\Type\MixedType();

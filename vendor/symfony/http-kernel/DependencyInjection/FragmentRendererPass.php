@@ -25,19 +25,12 @@ class FragmentRendererPass implements \RectorPrefix20210317\Symfony\Component\De
 {
     private $handlerService;
     private $rendererTag;
-    /**
-     * @param string $handlerService
-     * @param string $rendererTag
-     */
-    public function __construct($handlerService = 'fragment.handler', $rendererTag = 'kernel.fragment_renderer')
+    public function __construct(string $handlerService = 'fragment.handler', string $rendererTag = 'kernel.fragment_renderer')
     {
         $this->handlerService = $handlerService;
         $this->rendererTag = $rendererTag;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->handlerService)) {
             return;

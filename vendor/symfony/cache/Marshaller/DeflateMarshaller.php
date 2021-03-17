@@ -19,10 +19,7 @@ use RectorPrefix20210317\Symfony\Component\Cache\Exception\CacheException;
 class DeflateMarshaller implements \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     private $marshaller;
-    /**
-     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
-     */
-    public function __construct($marshaller)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller)
     {
         if (!\function_exists('gzdeflate')) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\CacheException('The "zlib" PHP extension is not loaded.');

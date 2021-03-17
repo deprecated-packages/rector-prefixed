@@ -25,9 +25,8 @@ abstract class RoutableFragmentRenderer implements \RectorPrefix20210317\Symfony
      * Sets the fragment path that triggers the fragment listener.
      *
      * @see FragmentListener
-     * @param string $path
      */
-    public function setFragmentPath($path)
+    public function setFragmentPath(string $path)
     {
         $this->fragmentPath = $path;
     }
@@ -38,10 +37,8 @@ abstract class RoutableFragmentRenderer implements \RectorPrefix20210317\Symfony
      * @param bool $strict   Whether to allow non-scalar attributes or not
      *
      * @return string A fragment URI
-     * @param \Symfony\Component\HttpKernel\Controller\ControllerReference $reference
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    protected function generateFragmentUri($reference, $request, $absolute = \false, $strict = \true)
+    protected function generateFragmentUri(\RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ControllerReference $reference, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, bool $absolute = \false, bool $strict = \true)
     {
         if ($strict) {
             $this->checkNonScalar($reference->attributes);
@@ -65,10 +62,7 @@ abstract class RoutableFragmentRenderer implements \RectorPrefix20210317\Symfony
         }
         return $request->getBaseUrl() . $path;
     }
-    /**
-     * @param mixed[] $values
-     */
-    private function checkNonScalar($values)
+    private function checkNonScalar(array $values)
     {
         foreach ($values as $key => $value) {
             if (\is_array($value)) {

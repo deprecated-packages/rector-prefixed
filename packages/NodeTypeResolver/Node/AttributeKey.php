@@ -5,7 +5,6 @@ namespace Rector\NodeTypeResolver\Node;
 
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
@@ -22,14 +21,6 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const NAMESPACE_NAME = 'namespace';
-    /**
-     * @var string
-     */
-    public const NAMESPACE_NODE = \PhpParser\Node\Stmt\Namespace_::class;
-    /**
-     * @var string
-     */
     public const USE_NODES = 'useNodes';
     /**
      * @var string
@@ -40,6 +31,7 @@ final class AttributeKey
      */
     public const CLASS_NODE = \PhpParser\Node\Stmt\ClassLike::class;
     /**
+     * @deprecated
      * @var string
      */
     public const PARENT_CLASS_NAME = 'parentClassName';

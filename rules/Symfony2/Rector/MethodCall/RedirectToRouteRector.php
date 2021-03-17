@@ -5,6 +5,8 @@ namespace Rector\Symfony2\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -26,12 +28,19 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller') {
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return null;
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        if (!$classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
             return null;
         }
         if (!$this->isName($node->name, 'redirect')) {
@@ -51,9 +60,8 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @return mixed[]
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
      */
-    private function resolveArguments($methodCall) : array
+    private function resolveArguments(\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         /** @var MethodCall $generateUrlNode */
         $generateUrlNode = $methodCall->args[0]->value;

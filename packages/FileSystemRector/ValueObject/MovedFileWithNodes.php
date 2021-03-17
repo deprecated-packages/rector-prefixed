@@ -32,12 +32,8 @@ final class MovedFileWithNodes implements \Rector\FileSystemRector\Contract\Move
     private $newClassName;
     /**
      * @param Node[] $nodes
-     * @param string $fileDestination
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $originalSmartFileInfo
-     * @param string|null $oldClassName
-     * @param string|null $newClassName
      */
-    public function __construct($nodes, $fileDestination, $originalSmartFileInfo, $oldClassName = null, $newClassName = null)
+    public function __construct(array $nodes, string $fileDestination, \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $originalSmartFileInfo, ?string $oldClassName = null, ?string $newClassName = null)
     {
         $this->nodes = $nodes;
         $this->filePath = $fileDestination;

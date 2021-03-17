@@ -24,10 +24,10 @@ class ServerDumper implements \RectorPrefix20210317\Symfony\Component\VarDumper\
     private $wrappedDumper;
     /**
      * @param string                     $host             The server host
-     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface   $wrappedDumper    A wrapped instance used whenever we failed contacting the server
+     * @param DataDumperInterface|null   $wrappedDumper    A wrapped instance used whenever we failed contacting the server
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
-    public function __construct($host, $wrappedDumper = null, $contextProviders = [])
+    public function __construct(string $host, \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
     {
         $this->connection = new \RectorPrefix20210317\Symfony\Component\VarDumper\Server\Connection($host, $contextProviders);
         $this->wrappedDumper = $wrappedDumper;
@@ -38,9 +38,8 @@ class ServerDumper implements \RectorPrefix20210317\Symfony\Component\VarDumper\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
-    public function dump($data)
+    public function dump(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         if (!$this->connection->write($data) && $this->wrappedDumper) {
             $this->wrappedDumper->dump($data);

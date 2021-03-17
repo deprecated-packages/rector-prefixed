@@ -37,7 +37,7 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * @param CacheItemPoolInterface[] $adapters        The ordered list of adapters used to fetch cached items
      * @param int                      $defaultLifetime The default lifetime of items propagated from lower adapters to upper ones
      */
-    public function __construct($adapters, $defaultLifetime = 0)
+    public function __construct(array $adapters, int $defaultLifetime = 0)
     {
         if (!$adapters) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException('At least one adapter must be specified.');
@@ -74,12 +74,8 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param callable $callback
-     * @param float $beta
-     * @param mixed[] $metadata
      */
-    public function get($key, $callback, $beta = null, &$metadata = null)
+    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
     {
         $lastItem = null;
         $i = 0;
@@ -122,17 +118,12 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $keys
      */
-    public function getItems($keys = [])
+    public function getItems(array $keys = [])
     {
         return $this->generateItems($this->adapters[0]->getItems($keys), 0);
     }
-    /**
-     * @param mixed[] $items
-     * @param int $adapterIndex
-     */
-    private function generateItems($items, $adapterIndex)
+    private function generateItems(iterable $items, int $adapterIndex)
     {
         $missing = [];
         $misses = [];
@@ -176,9 +167,8 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param string $prefix
      */
-    public function clear($prefix = '')
+    public function clear(string $prefix = '')
     {
         $cleared = \true;
         $i = $this->adapterCount;
@@ -209,9 +199,8 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param mixed[] $keys
      */
-    public function deleteItems($keys)
+    public function deleteItems(array $keys)
     {
         $deleted = \true;
         $i = $this->adapterCount;
@@ -224,9 +213,8 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         $saved = \true;
         $i = $this->adapterCount;
@@ -239,9 +227,8 @@ class ChainAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         $saved = \true;
         $i = $this->adapterCount;

@@ -34,10 +34,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
      * @var NamespaceMatcher
      */
     private $namespaceMatcher;
-    /**
-     * @param \Rector\Naming\NamespaceMatcher $namespaceMatcher
-     */
-    public function __construct($namespaceMatcher)
+    public function __construct(\Rector\Naming\NamespaceMatcher $namespaceMatcher)
     {
         $this->namespaceMatcher = $namespaceMatcher;
     }
@@ -55,7 +52,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @param Namespace_|Use_|Name $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $name = $this->getName($node);
         if ($name === null) {
@@ -84,16 +81,15 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @param mixed[] $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->oldToNewNamespaces = $configuration[self::OLD_TO_NEW_NAMESPACES] ?? [];
     }
     /**
      * Checks for "new \ClassNoNamespace;"
      * This should be skipped, not a namespace.
-     * @param \PhpParser\Node $node
      */
-    private function isClassFullyQualifiedName($node) : bool
+    private function isClassFullyQualifiedName(\PhpParser\Node $node) : bool
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node) {
@@ -107,10 +103,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
         $newClassName = $fullyQualifiedNode->toString();
         return \array_key_exists($newClassName, $this->oldToNewNamespaces);
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     */
-    private function isPartialNamespace($name) : bool
+    private function isPartialNamespace(\PhpParser\Node\Name $name) : bool
     {
         $resolvedName = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
         if (!$resolvedName instanceof \PhpParser\Node\Name) {
@@ -121,11 +114,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     * @param \Rector\Core\ValueObject\RenamedNamespace $renamedNamespace
-     */
-    private function resolvePartialNewName($name, $renamedNamespace) : string
+    private function resolvePartialNewName(\PhpParser\Node\Name $name, \Rector\Core\ValueObject\RenamedNamespace $renamedNamespace) : string
     {
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
         // first dummy implementation - improve

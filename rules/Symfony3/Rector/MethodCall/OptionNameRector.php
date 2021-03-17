@@ -29,11 +29,7 @@ final class OptionNameRector extends \Rector\Core\Rector\AbstractRector
      * @var FormOptionsArrayMatcher
      */
     private $formOptionsArrayMatcher;
-    /**
-     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
-     * @param \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher
-     */
-    public function __construct($formAddMethodCallAnalyzer, $formOptionsArrayMatcher)
+    public function __construct(\Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher)
     {
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
@@ -58,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
@@ -80,10 +76,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function processStringKey($string) : void
+    private function processStringKey(\PhpParser\Node\Scalar\String_ $string) : void
     {
         $currentOptionName = $string->value;
         $string->value = self::OLD_TO_NEW_OPTION[$currentOptionName] ?? $string->value;

@@ -29,9 +29,8 @@ class FileProfilerStorage implements \RectorPrefix20210317\Symfony\Component\Htt
      * Example : "file:/path/to/the/storage/folder"
      *
      * @throws \RuntimeException
-     * @param string $dsn
      */
-    public function __construct($dsn)
+    public function __construct(string $dsn)
     {
         if (0 !== \strpos($dsn, 'file:')) {
             throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
@@ -43,11 +42,8 @@ class FileProfilerStorage implements \RectorPrefix20210317\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param int $start
-     * @param int $end
-     * @param string $statusCode
      */
-    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, $start = null, $end = null, $statusCode = null) : array
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null, string $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -150,9 +146,8 @@ class FileProfilerStorage implements \RectorPrefix20210317\Symfony\Component\Htt
      * Gets filename to store data, associated to the token.
      *
      * @return string The profile filename
-     * @param string $token
      */
-    protected function getFilename($token)
+    protected function getFilename(string $token)
     {
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
@@ -206,12 +201,7 @@ class FileProfilerStorage implements \RectorPrefix20210317\Symfony\Component\Htt
         }
         return '' === $line ? null : $line;
     }
-    /**
-     * @param string $token
-     * @param mixed[] $data
-     * @param \Symfony\Component\HttpKernel\Profiler\Profile $parent
-     */
-    protected function createProfileFromData($token, $data, $parent = null)
+    protected function createProfileFromData(string $token, array $data, \RectorPrefix20210317\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
         $profile = new \RectorPrefix20210317\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);

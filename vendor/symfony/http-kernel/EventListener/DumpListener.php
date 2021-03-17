@@ -26,12 +26,7 @@ class DumpListener implements \RectorPrefix20210317\Symfony\Component\EventDispa
     private $cloner;
     private $dumper;
     private $connection;
-    /**
-     * @param \Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner
-     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
-     * @param \Symfony\Component\VarDumper\Server\Connection $connection
-     */
-    public function __construct($cloner, $dumper, $connection = null)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner, \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \RectorPrefix20210317\Symfony\Component\VarDumper\Server\Connection $connection = null)
     {
         $this->cloner = $cloner;
         $this->dumper = $dumper;

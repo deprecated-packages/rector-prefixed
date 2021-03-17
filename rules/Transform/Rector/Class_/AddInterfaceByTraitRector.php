@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Scope $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -76,7 +76,7 @@ CODE_SAMPLE
     /**
      * @param array<string, array<string, string>> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->interfaceByTrait = $configuration[self::INTERFACE_BY_TRAIT] ?? [];
     }

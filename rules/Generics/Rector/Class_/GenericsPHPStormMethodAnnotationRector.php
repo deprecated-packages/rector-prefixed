@@ -38,13 +38,7 @@ final class GenericsPHPStormMethodAnnotationRector extends \Rector\Core\Rector\A
      * @var UnnededMethodTagValueNodeFilter
      */
     private $unnededMethodTagValueNodeFilter;
-    /**
-     * @param \Rector\Generics\Reflection\ClassGenericMethodResolver $classGenericMethodResolver
-     * @param \Rector\Generics\NodeType\GenericTypeSpecifier $genericTypeSpecifier
-     * @param \Rector\Generics\Reflection\GenericClassReflectionAnalyzer $genericClassReflectionAnalyzer
-     * @param \Rector\Generics\Filter\UnnededMethodTagValueNodeFilter $unnededMethodTagValueNodeFilter
-     */
-    public function __construct($classGenericMethodResolver, $genericTypeSpecifier, $genericClassReflectionAnalyzer, $unnededMethodTagValueNodeFilter)
+    public function __construct(\Rector\Generics\Reflection\ClassGenericMethodResolver $classGenericMethodResolver, \Rector\Generics\NodeType\GenericTypeSpecifier $genericTypeSpecifier, \Rector\Generics\Reflection\GenericClassReflectionAnalyzer $genericClassReflectionAnalyzer, \Rector\Generics\Filter\UnnededMethodTagValueNodeFilter $unnededMethodTagValueNodeFilter)
     {
         $this->classGenericMethodResolver = $classGenericMethodResolver;
         $this->genericTypeSpecifier = $genericTypeSpecifier;
@@ -108,9 +102,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

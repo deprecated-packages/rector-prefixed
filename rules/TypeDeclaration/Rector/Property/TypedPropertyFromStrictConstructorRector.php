@@ -26,11 +26,7 @@ final class TypedPropertyFromStrictConstructorRector extends \Rector\Core\Rector
      * @var VarTagRemover
      */
     private $varTagRemover;
-    /**
-     * @param \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\ConstructorPropertyTypeInferer $constructorPropertyTypeInferer
-     * @param \Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover
-     */
-    public function __construct($constructorPropertyTypeInferer, $varTagRemover)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\ConstructorPropertyTypeInferer $constructorPropertyTypeInferer, \Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->constructorPropertyTypeInferer = $constructorPropertyTypeInferer;
         $this->varTagRemover = $varTagRemover;
@@ -69,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;

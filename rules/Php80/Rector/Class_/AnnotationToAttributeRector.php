@@ -27,10 +27,7 @@ final class AnnotationToAttributeRector extends \Rector\Core\Rector\AbstractRect
      * @var AnnotationToAttributeConverter
      */
     private $annotationToAttributeConverter;
-    /**
-     * @param \Rector\PhpAttribute\AnnotationToAttributeConverter $annotationToAttributeConverter
-     */
-    public function __construct($annotationToAttributeConverter)
+    public function __construct(\Rector\PhpAttribute\AnnotationToAttributeConverter $annotationToAttributeConverter)
     {
         $this->annotationToAttributeConverter = $annotationToAttributeConverter;
     }
@@ -72,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Property|ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->annotationToAttributeConverter->convertNode($node);
     }

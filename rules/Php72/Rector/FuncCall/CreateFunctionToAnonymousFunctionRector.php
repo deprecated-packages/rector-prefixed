@@ -44,12 +44,7 @@ final class CreateFunctionToAnonymousFunctionRector extends \Rector\Core\Rector\
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    /**
-     * @param \Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser
-     * @param \Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory
-     * @param \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer
-     */
-    public function __construct($inlineCodeParser, $anonymousFunctionFactory, $reservedKeywordAnalyzer)
+    public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser, \Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory, \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
     {
         $this->inlineCodeParser = $inlineCodeParser;
         $this->anonymousFunctionFactory = $anonymousFunctionFactory;
@@ -87,10 +82,10 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      * @return Closure|null
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'create_function')) {
             return null;
@@ -114,9 +109,8 @@ CODE_SAMPLE
     }
     /**
      * @return Param[]
-     * @param \PhpParser\Node\Expr $expr
      */
-    private function createParamsFromString($expr) : array
+    private function createParamsFromString(\PhpParser\Node\Expr $expr) : array
     {
         $content = $this->inlineCodeParser->stringify($expr);
         $content = '<?php $value = function(' . $content . ') {};';
@@ -134,9 +128,8 @@ CODE_SAMPLE
     }
     /**
      * @return Expression[]|Stmt[]
-     * @param \PhpParser\Node\Expr $expr
      */
-    private function parseStringToBody($expr) : array
+    private function parseStringToBody(\PhpParser\Node\Expr $expr) : array
     {
         if (!$expr instanceof \PhpParser\Node\Scalar\String_ && !$expr instanceof \PhpParser\Node\Scalar\Encapsed && !$expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             // special case of code elsewhere
@@ -145,10 +138,7 @@ CODE_SAMPLE
         $expr = $this->inlineCodeParser->stringify($expr);
         return $this->inlineCodeParser->parse($expr);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function createEval($expr) : \PhpParser\Node\Stmt\Expression
+    private function createEval(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\Expression
     {
         $evalFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('eval'), [new \PhpParser\Node\Arg($expr)]);
         return new \PhpParser\Node\Stmt\Expression($evalFuncCall);

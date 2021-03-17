@@ -36,10 +36,8 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210317\Symfony\
      * @param bool   $recursive Whether directories should be scanned recursively or not
      *
      * @throws \InvalidArgumentException
-     * @param bool $forExclusion
-     * @param mixed[] $excludedPrefixes
      */
-    public function __construct($prefix, $pattern, $recursive, $forExclusion = \false, $excludedPrefixes = [])
+    public function __construct(string $prefix, string $pattern, bool $recursive, bool $forExclusion = \false, array $excludedPrefixes = [])
     {
         \ksort($excludedPrefixes);
         $this->prefix = \realpath($prefix) ?: (\file_exists($prefix) ? $prefix : \false);
@@ -65,9 +63,8 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210317\Symfony\
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         $hash = $this->computeHash();
         if (null === $this->hash) {
@@ -177,10 +174,7 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210317\Symfony\
         }
         return \hash_final($hash);
     }
-    /**
-     * @param string $pattern
-     */
-    private function expandGlob($pattern) : array
+    private function expandGlob(string $pattern) : array
     {
         $segments = \preg_split('/\\{([^{}]*+)\\}/', $pattern, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $paths = [$segments[0]];

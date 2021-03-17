@@ -22,11 +22,7 @@ final class ClassServiceCaseConverter implements \RectorPrefix20210317\Symplify\
      * @var ServiceOptionNodeFactory
      */
     private $serviceOptionNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory
-     */
-    public function __construct($argsNodeFactory, $serviceOptionNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionNodeFactory = $serviceOptionNodeFactory;

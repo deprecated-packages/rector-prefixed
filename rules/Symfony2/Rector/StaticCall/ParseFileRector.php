@@ -49,9 +49,9 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
     /**
      * Process Node of matched type
      *
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'parse')) {
             return null;
@@ -66,10 +66,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         $node->args[0] = new \PhpParser\Node\Arg($funcCall);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function isArgumentYamlFile($staticCall) : bool
+    private function isArgumentYamlFile(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         $possibleFileNode = $staticCall->args[0]->value;
         $possibleFileNodeAsString = $this->print($possibleFileNode);

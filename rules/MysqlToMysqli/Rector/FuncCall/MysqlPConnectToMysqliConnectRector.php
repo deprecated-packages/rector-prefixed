@@ -48,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'mysql_pconnect')) {
             return null;
@@ -59,11 +59,7 @@ CODE_SAMPLE
         $node->args[0]->value = $this->joinStringWithNode('p:', $node->args[0]->value);
         return $node;
     }
-    /**
-     * @param string $string
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function joinStringWithNode($string, $expr) : \PhpParser\Node\Expr
+    private function joinStringWithNode(string $string, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {
         if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             return new \PhpParser\Node\Scalar\String_($string . $expr->value);

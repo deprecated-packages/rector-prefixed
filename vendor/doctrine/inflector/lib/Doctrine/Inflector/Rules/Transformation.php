@@ -11,11 +11,7 @@ final class Transformation implements \RectorPrefix20210317\Doctrine\Inflector\W
     private $pattern;
     /** @var string */
     private $replacement;
-    /**
-     * @param \Doctrine\Inflector\Rules\Pattern $pattern
-     * @param string $replacement
-     */
-    public function __construct($pattern, $replacement)
+    public function __construct(\RectorPrefix20210317\Doctrine\Inflector\Rules\Pattern $pattern, string $replacement)
     {
         $this->pattern = $pattern;
         $this->replacement = $replacement;

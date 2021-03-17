@@ -21,10 +21,7 @@ final class ArrowFunctionToAnonymousFunctionRector extends \Rector\Core\Rector\A
      * @var AnonymousFunctionFactory
      */
     private $anonymousFunctionFactory;
-    /**
-     * @param \Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory
-     */
-    public function __construct($anonymousFunctionFactory)
+    public function __construct(\Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory)
     {
         $this->anonymousFunctionFactory = $anonymousFunctionFactory;
     }
@@ -62,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\ArrowFunction::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ArrowFunction $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $stmts = [new \PhpParser\Node\Stmt\Return_($node->expr)];
         return $this->anonymousFunctionFactory->create($node->params, $stmts, $node->returnType);

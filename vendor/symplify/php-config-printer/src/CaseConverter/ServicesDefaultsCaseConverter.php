@@ -17,10 +17,7 @@ final class ServicesDefaultsCaseConverter implements \RectorPrefix20210317\Sympl
      * @var AutoBindNodeFactory
      */
     private $autoBindNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\Service\AutoBindNodeFactory $autoBindNodeFactory
-     */
-    public function __construct($autoBindNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\Service\AutoBindNodeFactory $autoBindNodeFactory)
     {
         $this->autoBindNodeFactory = $autoBindNodeFactory;
     }

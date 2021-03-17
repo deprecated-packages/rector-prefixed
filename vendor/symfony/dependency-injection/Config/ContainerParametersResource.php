@@ -24,7 +24,7 @@ class ContainerParametersResource implements \RectorPrefix20210317\Symfony\Compo
     /**
      * @param array $parameters The container parameters to track
      */
-    public function __construct($parameters)
+    public function __construct(array $parameters)
     {
         $this->parameters = $parameters;
     }

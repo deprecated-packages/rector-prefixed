@@ -8,11 +8,7 @@ use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class FileProcessingException extends \Exception
 {
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     * @param \Throwable $throwable
-     */
-    public function __construct($smartFileInfo, $throwable)
+    public function __construct(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Throwable $throwable)
     {
         $message = \sprintf('Processing file "%s" failed. %s%s', $smartFileInfo->getRealPath(), \PHP_EOL . \PHP_EOL, $throwable);
         parent::__construct($message);

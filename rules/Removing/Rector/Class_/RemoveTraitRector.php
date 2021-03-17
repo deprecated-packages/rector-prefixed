@@ -34,10 +34,7 @@ final class RemoveTraitRector extends \Rector\Core\Rector\AbstractRector impleme
      * @var ClassManipulator
      */
     private $classManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
-     */
-    public function __construct($classManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
@@ -66,7 +63,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $usedTraits = $this->classManipulator->getUsedTraits($node);
         if ($usedTraits === []) {
@@ -81,17 +78,14 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->traitsToRemove = $configuration[self::TRAITS_TO_REMOVE] ?? [];
     }
     /**
      * @param Name[] $usedTraits
      */
-    private function removeTraits($usedTraits) : void
+    private function removeTraits(array $usedTraits) : void
     {
         foreach ($usedTraits as $usedTrait) {
             foreach ($this->traitsToRemove as $traitToRemove) {

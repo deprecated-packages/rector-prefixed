@@ -22,7 +22,7 @@ class FactoryCommandLoader implements \RectorPrefix20210317\Symfony\Component\Co
     /**
      * @param callable[] $factories Indexed by command names
      */
-    public function __construct($factories)
+    public function __construct(array $factories)
     {
         $this->factories = $factories;
     }

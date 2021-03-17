@@ -42,17 +42,14 @@ CODE_SAMPLE
     /**
      * @param String_|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Scalar\String_) {
             return $this->processForString($node);
         }
         return $this->processForFuncCall($node);
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function processForString($string) : ?\PhpParser\Node\Scalar\String_
+    private function processForString(\PhpParser\Node\Scalar\String_ $string) : ?\PhpParser\Node\Scalar\String_
     {
         $nextNode = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Expr\UnaryMinus) {
@@ -71,10 +68,7 @@ CODE_SAMPLE
         $parentOfNextNode->dim = new \PhpParser\Node\Expr\BinaryOp\Minus($strlenFuncCall, $dim->expr);
         return $string;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function processForFuncCall($funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    private function processForFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         $name = $this->getName($funcCall);
         if ($name !== 'strpos') {

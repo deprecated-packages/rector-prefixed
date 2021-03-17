@@ -44,11 +44,7 @@ final class CountOnNullRector extends \Rector\Core\Rector\AbstractRector
      * @var CountableAnalyzer
      */
     private $countableAnalyzer;
-    /**
-     * @param \Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer $countableTypeAnalyzer
-     * @param \Rector\Php71\NodeAnalyzer\CountableAnalyzer $countableAnalyzer
-     */
-    public function __construct($countableTypeAnalyzer, $countableAnalyzer)
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\CountableTypeAnalyzer $countableTypeAnalyzer, \Rector\Php71\NodeAnalyzer\CountableAnalyzer $countableAnalyzer)
     {
         $this->countableTypeAnalyzer = $countableTypeAnalyzer;
         $this->countableAnalyzer = $countableAnalyzer;
@@ -73,9 +69,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -112,10 +108,7 @@ CODE_SAMPLE
         $node->setAttribute(self::ALREADY_CHANGED_ON_COUNT, \true);
         return new \PhpParser\Node\Expr\Ternary($conditionNode, $node, new \PhpParser\Node\Scalar\LNumber(0));
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function shouldSkip($funcCall) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isName($funcCall, 'count')) {
             return \true;
@@ -136,11 +129,7 @@ CODE_SAMPLE
         $classLike = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         return $classLike instanceof \PhpParser\Node\Stmt\Trait_;
     }
-    /**
-     * @param \PhpParser\Node\Expr $countedExpr
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function castToArray($countedExpr, $funcCall) : \PhpParser\Node\Expr\FuncCall
+    private function castToArray(\PhpParser\Node\Expr $countedExpr, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $castArray = new \PhpParser\Node\Expr\Cast\Array_($countedExpr);
         $funcCall->args = [new \PhpParser\Node\Arg($castArray)];

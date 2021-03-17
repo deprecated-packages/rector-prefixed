@@ -26,11 +26,7 @@ final class DateTimeAtNamingConventionGuard implements \Rector\Naming\Contract\G
      * @var TypeUnwrapper
      */
     private $typeUnwrapper;
-    /**
-     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
-     * @param \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper
-     */
-    public function __construct($nodeTypeResolver, $typeUnwrapper)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeUnwrapper = $typeUnwrapper;
@@ -42,10 +38,7 @@ final class DateTimeAtNamingConventionGuard implements \Rector\Naming\Contract\G
     {
         return $this->isDateTimeAtNamingConvention($renameValueObject);
     }
-    /**
-     * @param \Rector\Naming\ValueObject\PropertyRename $propertyRename
-     */
-    private function isDateTimeAtNamingConvention($propertyRename) : bool
+    private function isDateTimeAtNamingConvention(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
     {
         $type = $this->nodeTypeResolver->resolve($propertyRename->getProperty());
         $type = $this->typeUnwrapper->unwrapFirstObjectTypeFromUnionType($type);

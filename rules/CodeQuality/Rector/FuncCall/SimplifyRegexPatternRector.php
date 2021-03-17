@@ -26,10 +26,7 @@ final class SimplifyRegexPatternRector extends \Rector\Core\Rector\AbstractRecto
      * @var RegexPatternArgumentManipulator
      */
     private $regexPatternArgumentManipulator;
-    /**
-     * @param \Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator
-     */
-    public function __construct($regexPatternArgumentManipulator)
+    public function __construct(\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
     {
         $this->regexPatternArgumentManipulator = $regexPatternArgumentManipulator;
     }
@@ -65,7 +62,7 @@ CODE_SAMPLE
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $patterns = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($patterns === []) {

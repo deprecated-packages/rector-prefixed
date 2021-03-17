@@ -45,9 +45,8 @@ interface ParameterBagInterface
      * @return mixed The parameter value
      *
      * @throws ParameterNotFoundException if the parameter is not defined
-     * @param string $name
      */
-    public function get($name);
+    public function get(string $name);
     /**
      * Removes a parameter.
      */
@@ -64,9 +63,8 @@ interface ParameterBagInterface
      * Returns true if a parameter name is defined.
      *
      * @return bool true if the parameter name is defined, false otherwise
-     * @param string $name
      */
-    public function has($name);
+    public function has(string $name);
     /**
      * Replaces parameter placeholders (%name%) by their values for all parameters.
      */

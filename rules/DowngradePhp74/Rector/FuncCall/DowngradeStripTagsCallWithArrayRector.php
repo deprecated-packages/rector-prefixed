@@ -33,10 +33,7 @@ final class DowngradeStripTagsCallWithArrayRector extends \Rector\Core\Rector\Ab
      * @var VariableNaming
      */
     private $variableNaming;
-    /**
-     * @param \Rector\NetteKdyby\Naming\VariableNaming $variableNaming
-     */
-    public function __construct($variableNaming)
+    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
@@ -87,9 +84,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
@@ -116,10 +113,7 @@ CODE_SAMPLE
         \array_splice($node->args, 1, 1, [new \PhpParser\Node\Arg($newExpr)]);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function shouldRefactor($funcCall) : bool
+    private function shouldRefactor(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isName($funcCall, 'strip_tags')) {
             return \false;
@@ -141,7 +135,7 @@ CODE_SAMPLE
     /**
      * @param Array_|Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createArrayFromString($expr) : \PhpParser\Node\Expr\BinaryOp\Concat
+    private function createArrayFromString(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp\Concat
     {
         $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('><')), new \PhpParser\Node\Arg($expr)];
         $implodeFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('implode'), $args);
@@ -151,7 +145,7 @@ CODE_SAMPLE
     /**
      * @param Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createIsArrayTernaryFromExpression($expr) : \PhpParser\Node\Expr\Ternary
+    private function createIsArrayTernaryFromExpression(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Ternary
     {
         $isArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_array'), [new \PhpParser\Node\Arg($expr)]);
         $nullNotIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());

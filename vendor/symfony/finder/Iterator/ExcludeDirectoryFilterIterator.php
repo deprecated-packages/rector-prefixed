@@ -25,7 +25,7 @@ class ExcludeDirectoryFilterIterator extends \FilterIterator implements \Recursi
      * @param \Iterator $iterator    The Iterator to filter
      * @param string[]  $directories An array of directories to exclude
      */
-    public function __construct($iterator, $directories)
+    public function __construct(\Iterator $iterator, array $directories)
     {
         $this->iterator = $iterator;
         $this->isRecursive = $iterator instanceof \RecursiveIterator;

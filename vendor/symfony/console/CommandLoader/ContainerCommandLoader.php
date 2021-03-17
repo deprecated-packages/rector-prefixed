@@ -23,9 +23,8 @@ class ContainerCommandLoader implements \RectorPrefix20210317\Symfony\Component\
     private $commandMap;
     /**
      * @param array $commandMap An array with command names as keys and service ids as values
-     * @param \Psr\Container\ContainerInterface $container
      */
-    public function __construct($container, $commandMap)
+    public function __construct(\RectorPrefix20210317\Psr\Container\ContainerInterface $container, array $commandMap)
     {
         $this->container = $container;
         $this->commandMap = $commandMap;

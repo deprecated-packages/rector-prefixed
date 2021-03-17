@@ -19,9 +19,8 @@ class GlobFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
 {
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         foreach ($this->glob($resource, \false, $globResource) as $path => $info) {
             $this->import($path);
@@ -30,9 +29,8 @@ class GlobFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         return 'glob' === $type;
     }

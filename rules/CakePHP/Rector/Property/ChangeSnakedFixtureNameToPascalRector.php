@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -68,10 +68,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\PropertyProperty $propertyProperty
-     */
-    private function refactorPropertyWithArrayDefault($propertyProperty) : void
+    private function refactorPropertyWithArrayDefault(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : void
     {
         if (!$propertyProperty->default instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -88,10 +85,7 @@ CODE_SAMPLE
             $this->renameFixtureName($itemValue);
         }
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $string
-     */
-    private function renameFixtureName($string) : void
+    private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string) : void
     {
         [$prefix, $table] = \explode('.', $string->value);
         $tableParts = \explode('/', $table);

@@ -33,11 +33,7 @@ final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\Abst
      * @var MovedFileWithNodesFactory
      */
     private $movedFileWithNodesFactory;
-    /**
-     * @param \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver
-     * @param \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory
-     */
-    public function __construct($doctrineDocBlockResolver, $movedFileWithNodesFactory)
+    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory)
     {
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
@@ -82,9 +78,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FileNode $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isDoctrineEntityFileNode($node)) {
             return null;
@@ -101,10 +97,7 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
         return null;
     }
-    /**
-     * @param \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode
-     */
-    private function isDoctrineEntityFileNode($fileNode) : bool
+    private function isDoctrineEntityFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
     {
         $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {

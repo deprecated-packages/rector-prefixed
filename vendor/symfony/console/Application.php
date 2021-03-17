@@ -80,11 +80,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     private $initialized;
     private $signalRegistry;
     private $signalsToDispatchEvent = [];
-    /**
-     * @param string $name
-     * @param string $version
-     */
-    public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
+    public function __construct(string $name = 'UNKNOWN', string $version = 'UNKNOWN')
     {
         $this->name = $name;
         $this->version = $version;
@@ -97,16 +93,12 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * @final
-     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
      */
-    public function setDispatcher($dispatcher)
+    public function setDispatcher(\RectorPrefix20210317\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
-    /**
-     * @param \Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader
-     */
-    public function setCommandLoader($commandLoader)
+    public function setCommandLoader(\RectorPrefix20210317\Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader)
     {
         $this->commandLoader = $commandLoader;
     }
@@ -117,10 +109,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
         }
         return $this->signalRegistry;
     }
-    /**
-     * @param int ...$signalsToDispatchEvent
-     */
-    public function setSignalsToDispatchEvent(...$signalsToDispatchEvent)
+    public function setSignalsToDispatchEvent(int ...$signalsToDispatchEvent)
     {
         $this->signalsToDispatchEvent = $signalsToDispatchEvent;
     }
@@ -130,10 +119,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * @return int 0 if everything went fine, or an error code
      *
      * @throws \Exception When running fails. Bypass this when {@link setCatchExceptions()}.
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function run($input = null, $output = null)
+    public function run(\RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input = null, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output = null)
     {
         if (\function_exists('putenv')) {
             @\putenv('LINES=' . $this->terminal->getHeight());
@@ -204,10 +191,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Runs the current application.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function doRun($input, $output)
+    public function doRun(\RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (\true === $input->hasParameterOption(['--version', '-V'], \true)) {
             $output->writeln($this->getLongVersion());
@@ -273,10 +258,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     public function reset()
     {
     }
-    /**
-     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
-     */
-    public function setHelperSet($helperSet)
+    public function setHelperSet(\RectorPrefix20210317\Symfony\Component\Console\Helper\HelperSet $helperSet)
     {
         $this->helperSet = $helperSet;
     }
@@ -292,10 +274,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
         }
         return $this->helperSet;
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
-     */
-    public function setDefinition($definition)
+    public function setDefinition(\RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition $definition)
     {
         $this->definition = $definition;
     }
@@ -336,9 +315,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Sets whether to catch exceptions or not during commands execution.
-     * @param bool $boolean
      */
-    public function setCatchExceptions($boolean)
+    public function setCatchExceptions(bool $boolean)
     {
         $this->catchExceptions = $boolean;
     }
@@ -353,9 +331,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Sets whether to automatically exit after a command execution or not.
-     * @param bool $boolean
      */
-    public function setAutoExit($boolean)
+    public function setAutoExit(bool $boolean)
     {
         $this->autoExit = $boolean;
     }
@@ -370,9 +347,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Sets the application name.
-     * @param string $name
      **/
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -387,9 +363,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Sets the application version.
-     * @param string $version
      */
-    public function setVersion($version)
+    public function setVersion(string $version)
     {
         $this->version = $version;
     }
@@ -412,9 +387,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Registers a new command.
      *
      * @return Command The newly created command
-     * @param string $name
      */
-    public function register($name)
+    public function register(string $name)
     {
         return $this->add(new \RectorPrefix20210317\Symfony\Component\Console\Command\Command($name));
     }
@@ -425,7 +399,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      *
      * @param Command[] $commands An array of commands
      */
-    public function addCommands($commands)
+    public function addCommands(array $commands)
     {
         foreach ($commands as $command) {
             $this->add($command);
@@ -438,9 +412,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * If the command is not enabled it will not be added.
      *
      * @return Command|null The registered command if enabled or null
-     * @param \Symfony\Component\Console\Command\Command $command
      */
-    public function add($command)
+    public function add(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command)
     {
         $this->init();
         $command->setApplication($this);
@@ -465,9 +438,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * @return Command A Command object
      *
      * @throws CommandNotFoundException When given command name does not exist
-     * @param string $name
      */
-    public function get($name)
+    public function get(string $name)
     {
         $this->init();
         if (!$this->has($name)) {
@@ -490,9 +462,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Returns true if the command exists, false otherwise.
      *
      * @return bool true if the command exists, false otherwise
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         $this->init();
         return isset($this->commands[$name]) || $this->commandLoader && $this->commandLoader->has($name) && $this->add($this->commandLoader->get($name));
@@ -524,9 +495,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * @return string A registered namespace
      *
      * @throws NamespaceNotFoundException When namespace is incorrect or ambiguous
-     * @param string $namespace
      */
-    public function findNamespace($namespace)
+    public function findNamespace(string $namespace)
     {
         $allNamespaces = $this->getNamespaces();
         $expr = \preg_replace_callback('{([^:]+|)}', function ($matches) {
@@ -560,9 +530,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * @return Command A Command instance
      *
      * @throws CommandNotFoundException When command name is incorrect or ambiguous
-     * @param string $name
      */
-    public function find($name)
+    public function find(string $name)
     {
         $this->init();
         $aliases = [];
@@ -649,9 +618,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * The array keys are the full names and the values the command instances.
      *
      * @return Command[] An array of Command instances
-     * @param string $namespace
      */
-    public function all($namespace = null)
+    public function all(string $namespace = null)
     {
         $this->init();
         if (null === $namespace) {
@@ -685,9 +653,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Returns an array of possible abbreviations given a set of names.
      *
      * @return string[][] An array of abbreviations
-     * @param mixed[] $names
      */
-    public static function getAbbreviations($names)
+    public static function getAbbreviations(array $names)
     {
         $abbrevs = [];
         foreach ($names as $name) {
@@ -698,11 +665,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
         }
         return $abbrevs;
     }
-    /**
-     * @param \Throwable $e
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    public function renderThrowable($e, $output) : void
+    public function renderThrowable(\Throwable $e, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $output->writeln('', \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         $this->doRenderThrowable($e, $output);
@@ -711,11 +674,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
             $output->writeln('', \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
     }
-    /**
-     * @param \Throwable $e
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function doRenderThrowable($e, $output) : void
+    protected function doRenderThrowable(\Throwable $e, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         do {
             $message = \trim($e->getMessage());
@@ -774,10 +733,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Configures the input and output instances based on the user arguments and options.
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function configureIO($input, $output)
+    protected function configureIO(\RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (\true === $input->hasParameterOption(['--ansi'], \true)) {
             $output->setDecorated(\true);
@@ -835,11 +792,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * events are also dispatched during the life-cycle of the command.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \Symfony\Component\Console\Command\Command $command
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function doRunCommand($command, $input, $output)
+    protected function doRunCommand(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output)
     {
         foreach ($command->getHelperSet() as $helper) {
             if ($helper instanceof \RectorPrefix20210317\Symfony\Component\Console\Input\InputAwareInterface) {
@@ -906,9 +860,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Gets the name of the command based on input.
      *
      * @return string|null
-     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
-    protected function getCommandName($input)
+    protected function getCommandName(\RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input)
     {
         return $this->singleCommand ? $this->defaultCommand : $input->getFirstArgument();
     }
@@ -941,9 +894,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     }
     /**
      * Returns abbreviated suggestions in string format.
-     * @param mixed[] $abbrevs
      */
-    private function getAbbreviationSuggestions($abbrevs) : string
+    private function getAbbreviationSuggestions(array $abbrevs) : string
     {
         return '    ' . \implode("\n    ", $abbrevs);
     }
@@ -953,10 +905,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * This method is not part of public API and should not be used directly.
      *
      * @return string The namespace of the command
-     * @param string $name
-     * @param int $limit
      */
-    public function extractNamespace($name, $limit = null)
+    public function extractNamespace(string $name, int $limit = null)
     {
         $parts = \explode(':', $name, -1);
         return \implode(':', null === $limit ? $parts : \array_slice($parts, 0, $limit));
@@ -966,10 +916,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * if nothing is found in $collection, try in $abbrevs.
      *
      * @return string[] A sorted array of similar string
-     * @param string $name
-     * @param mixed[] $collection
      */
-    private function findAlternatives($name, $collection) : array
+    private function findAlternatives(string $name, iterable $collection) : array
     {
         $threshold = 1000.0;
         $alternatives = [];
@@ -1010,10 +958,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Sets the default Command name.
      *
      * @return self
-     * @param string $commandName
-     * @param bool $isSingleCommand
      */
-    public function setDefaultCommand($commandName, $isSingleCommand = \false)
+    public function setDefaultCommand(string $commandName, bool $isSingleCommand = \false)
     {
         $this->defaultCommand = $commandName;
         if ($isSingleCommand) {
@@ -1030,11 +976,7 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
     {
         return $this->singleCommand;
     }
-    /**
-     * @param string $string
-     * @param int $width
-     */
-    private function splitStringByWidth($string, $width) : array
+    private function splitStringByWidth(string $string, int $width) : array
     {
         // str_split is not suitable for multi-byte characters, we should use preg_split to get char array properly.
         // additionally, array_slice() is not enough as some character has doubled width.
@@ -1067,9 +1009,8 @@ class Application implements \RectorPrefix20210317\Symfony\Contracts\Service\Res
      * Returns all namespaces of the command name.
      *
      * @return string[] The namespaces of the command
-     * @param string $name
      */
-    private function extractAllNamespaces($name) : array
+    private function extractAllNamespaces(string $name) : array
     {
         // -1 as third argument is needed to skip the command short name when exploding
         $parts = \explode(':', $name, -1);

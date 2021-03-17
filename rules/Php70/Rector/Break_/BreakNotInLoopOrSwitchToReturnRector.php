@@ -23,10 +23,7 @@ final class BreakNotInLoopOrSwitchToReturnRector extends \Rector\Core\Rector\Abs
      * @var ContextAnalyzer
      */
     private $contextAnalyzer;
-    /**
-     * @param \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer
-     */
-    public function __construct($contextAnalyzer)
+    public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer)
     {
         $this->contextAnalyzer = $contextAnalyzer;
     }
@@ -68,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Break_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Break_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->contextAnalyzer->isInLoop($node)) {
             return null;

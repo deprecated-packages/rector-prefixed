@@ -30,11 +30,7 @@ final class SimplifyIfReturnBoolRector extends \Rector\Core\Rector\AbstractRecto
      * @var ExprBoolCaster
      */
     private $exprBoolCaster;
-    /**
-     * @param \Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger
-     * @param \Rector\CodeQuality\NodeManipulator\ExprBoolCaster $exprBoolCaster
-     */
-    public function __construct($commentsMerger, $exprBoolCaster)
+    public function __construct(\Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger, \Rector\CodeQuality\NodeManipulator\ExprBoolCaster $exprBoolCaster)
     {
         $this->commentsMerger = $commentsMerger;
         $this->exprBoolCaster = $exprBoolCaster;
@@ -58,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -85,10 +81,7 @@ CODE_SAMPLE
         $this->removeNode($nextNode);
         return $newReturnNode;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function shouldSkip($if) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->elseifs !== []) {
             return \true;
@@ -122,22 +115,14 @@ CODE_SAMPLE
         }
         return \true;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     * @param \PhpParser\Node\Stmt\Return_ $nextReturnNode
-     */
-    private function processReturnTrue($if, $nextReturnNode) : \PhpParser\Node\Stmt\Return_
+    private function processReturnTrue(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : \PhpParser\Node\Stmt\Return_
     {
         if ($if->cond instanceof \PhpParser\Node\Expr\BooleanNot && $nextReturnNode->expr !== null && $this->valueResolver->isTrue($nextReturnNode->expr)) {
             return new \PhpParser\Node\Stmt\Return_($this->exprBoolCaster->boolCastOrNullCompareIfNeeded($if->cond->expr));
         }
         return new \PhpParser\Node\Stmt\Return_($this->exprBoolCaster->boolCastOrNullCompareIfNeeded($if->cond));
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     * @param \PhpParser\Node\Stmt\Return_ $nextReturnNode
-     */
-    private function processReturnFalse($if, $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
+    private function processReturnFalse(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
     {
         if ($if->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($if->cond->left, $if->cond->right);
@@ -156,9 +141,8 @@ CODE_SAMPLE
     }
     /**
      * Matches: "else if"
-     * @param \PhpParser\Node\Stmt\If_ $if
      */
-    private function isElseSeparatedThenIf($if) : bool
+    private function isElseSeparatedThenIf(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else === null) {
             return \false;
@@ -169,10 +153,7 @@ CODE_SAMPLE
         $onlyStmt = $if->else->stmts[0];
         return $onlyStmt instanceof \PhpParser\Node\Stmt\If_;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isIfWithSingleReturnExpr($if) : bool
+    private function isIfWithSingleReturnExpr(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if (\count($if->stmts) !== 1) {
             return \false;

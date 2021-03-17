@@ -28,10 +28,7 @@ final class StringableForToStringRector extends \Rector\Core\Rector\AbstractRect
      * @var ClassManipulator
      */
     private $classManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
-     */
-    public function __construct($classManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
@@ -65,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $toStringClassMethod = $node->getMethod('__toString');
         if (!$toStringClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

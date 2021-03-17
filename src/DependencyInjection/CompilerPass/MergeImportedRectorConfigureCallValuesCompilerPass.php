@@ -17,27 +17,17 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \Recto
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    /**
-     * @param \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector
-     */
-    public function __construct($configureCallValuesCollector)
+    public function __construct(\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    public function process($containerBuilder) : void
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $id => $definition) {
             $this->completeCollectedArguments($id, $definition);
         }
     }
-    /**
-     * @param string $serviceClass
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     */
-    private function completeCollectedArguments($serviceClass, $definition) : void
+    private function completeCollectedArguments(string $serviceClass, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $configureCallValues = $this->configureCallValuesCollector->getConfigureCallValues($serviceClass);
         if ($configureCallValues === []) {

@@ -27,10 +27,7 @@ final class MoveOutMethodCallInsideIfConditionRector extends \Rector\Core\Rector
      * @var MethodCallToVariableNameResolver
      */
     private $methodCallToVariableNameResolver;
-    /**
-     * @param \Rector\CodeQuality\Naming\MethodCallToVariableNameResolver $methodCallToVariableNameResolver
-     */
-    public function __construct($methodCallToVariableNameResolver)
+    public function __construct(\Rector\CodeQuality\Naming\MethodCallToVariableNameResolver $methodCallToVariableNameResolver)
     {
         $this->methodCallToVariableNameResolver = $methodCallToVariableNameResolver;
     }
@@ -57,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var MethodCall[] $methodCalls */
         $methodCalls = $this->betterNodeFinder->findInstanceOf($node->cond, \PhpParser\Node\Expr\MethodCall::class);
@@ -74,10 +71,7 @@ CODE_SAMPLE
         }
         return $this->moveOutMethodCall($methodCall, $node);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function shouldSkipMethodCall($methodCall) : bool
+    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $variableType = $this->getStaticType($methodCall->var);
         // From PropertyFetch → skip
@@ -95,11 +89,7 @@ CODE_SAMPLE
         // Inside Method calls args has Method Call again → skip
         return $this->isInsideMethodCallHasMethodCall($methodCall);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function moveOutMethodCall($methodCall, $if) : ?\PhpParser\Node\Stmt\If_
+    private function moveOutMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\If_
     {
         $hasParentAssign = (bool) $this->betterNodeFinder->findParentType($methodCall, \PhpParser\Node\Expr\Assign::class);
         if ($hasParentAssign) {
@@ -129,10 +119,7 @@ CODE_SAMPLE
         });
         return $if;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function isInsideMethodCallHasMethodCall($methodCall) : bool
+    private function isInsideMethodCallHasMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         foreach ($methodCall->args as $arg) {
             if ($arg->value instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -141,11 +128,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     * @param string $variableName
-     */
-    private function isVariableNameAlreadyDefined($if, $variableName) : bool
+    private function isVariableNameAlreadyDefined(\PhpParser\Node\Stmt\If_ $if, string $variableName) : bool
     {
         /** @var Scope $scope */
         $scope = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);

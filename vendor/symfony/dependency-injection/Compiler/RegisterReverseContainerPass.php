@@ -23,21 +23,13 @@ class RegisterReverseContainerPass implements \RectorPrefix20210317\Symfony\Comp
     private $beforeRemoving;
     private $serviceId;
     private $tagName;
-    /**
-     * @param bool $beforeRemoving
-     * @param string $serviceId
-     * @param string $tagName
-     */
-    public function __construct($beforeRemoving, $serviceId = 'reverse_container', $tagName = 'container.reversible')
+    public function __construct(bool $beforeRemoving, string $serviceId = 'reverse_container', string $tagName = 'container.reversible')
     {
         $this->beforeRemoving = $beforeRemoving;
         $this->serviceId = $serviceId;
         $this->tagName = $tagName;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->serviceId)) {
             return;

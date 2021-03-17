@@ -22,10 +22,7 @@ final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -49,9 +46,8 @@ final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
     }
     /**
      * @return ObjectType|UnionType|MixedType
-     * @param \PhpParser\Node\Name $name
      */
-    private function resolveParent($name) : \PHPStan\Type\Type
+    private function resolveParent(\PhpParser\Node\Name $name) : \PHPStan\Type\Type
     {
         $className = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
@@ -73,10 +69,7 @@ final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
         }
         return new \PHPStan\Type\UnionType($parentClassObjectTypes);
     }
-    /**
-     * @param \PhpParser\Node\Name $name
-     */
-    private function resolveFullyQualifiedName($name) : string
+    private function resolveFullyQualifiedName(\PhpParser\Node\Name $name) : string
     {
         $nameValue = $name->toString();
         if (\in_array($nameValue, ['self', 'static', 'this'], \true)) {

@@ -33,12 +33,7 @@ final class ParameterCaseConverter implements \RectorPrefix20210317\Symplify\Php
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    /**
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
-     * @param \Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider
-     * @param \Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory
-     */
-    public function __construct($argsNodeFactory, $currentFilePathProvider, $commonNodeFactory)
+    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210317\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider, \RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->currentFilePathProvider = $currentFilePathProvider;
@@ -68,9 +63,8 @@ final class ParameterCaseConverter implements \RectorPrefix20210317\Symplify\Php
     }
     /**
      * @return Expr|string
-     * @param string $value
      */
-    private function prefixWithDirConstantIfExistingPath($value)
+    private function prefixWithDirConstantIfExistingPath(string $value)
     {
         $filePath = $this->currentFilePathProvider->getFilePath();
         if ($filePath === null) {

@@ -54,12 +54,7 @@ final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\Abs
      * @var ArrayUnionResponseTypeAnalyzer
      */
     private $arrayUnionResponseTypeAnalyzer;
-    /**
-     * @param \Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer
-     * @param \Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater
-     * @param \Rector\Symfony\NodeFactory\ThisRenderFactory $thisRenderFactory
-     */
-    public function __construct($arrayUnionResponseTypeAnalyzer, $returnTypeDeclarationUpdater, $thisRenderFactory)
+    public function __construct(\Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer, \Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater, \Rector\Symfony\NodeFactory\ThisRenderFactory $thisRenderFactory)
     {
         $this->returnTypeDeclarationUpdater = $returnTypeDeclarationUpdater;
         $this->thisRenderFactory = $thisRenderFactory;
@@ -93,17 +88,14 @@ CODE_SAMPLE
     /**
      * @param Class_|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->addAbstractControllerParentClassIfMissing($node);
         }
         return $this->replaceTemplateAnnotation($node);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function addAbstractControllerParentClassIfMissing($class) : ?\PhpParser\Node\Stmt\Class_
+    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($class->extends !== null) {
             return null;
@@ -114,10 +106,7 @@ CODE_SAMPLE
         $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         return $class;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function replaceTemplateAnnotation($classMethod) : ?\PhpParser\Node
+    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node
     {
         if (!$classMethod->isPublic()) {
             return null;
@@ -130,10 +119,7 @@ CODE_SAMPLE
         $this->refactorClassMethod($classMethod, $sensioTemplateTagValueNode);
         return $classMethod;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function classHasTemplateAnnotations($class) : bool
+    private function classHasTemplateAnnotations(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -143,11 +129,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode
-     */
-    private function refactorClassMethod($classMethod, $sensioTemplateTagValueNode) : void
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : void
     {
         /** @var Return_[] $returns */
         $returns = $this->findReturnsInCurrentScope((array) $classMethod->stmts);
@@ -166,7 +148,7 @@ CODE_SAMPLE
      * @param Node[] $stmts
      * @return Return_[]
      */
-    private function findReturnsInCurrentScope($stmts) : array
+    private function findReturnsInCurrentScope(array $stmts) : array
     {
         $returns = [];
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$returns) : ?int {
@@ -184,10 +166,7 @@ CODE_SAMPLE
         });
         return $returns;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function hasLastReturnResponse($classMethod) : bool
+    private function hasLastReturnResponse(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Stmt\Return_::class);
         if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
@@ -195,11 +174,7 @@ CODE_SAMPLE
         }
         return $this->isReturnOfObjectType($lastReturn, self::RESPONSE_CLASS);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     * @param string $objectType
-     */
-    private function isReturnOfObjectType($return, $objectType) : bool
+    private function isReturnOfObjectType(\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
     {
         if ($return->expr === null) {
             return \false;
@@ -210,13 +185,7 @@ CODE_SAMPLE
         }
         return \is_a($returnType->getClassName(), $objectType, \true);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode
-     * @param bool $hasThisRenderOrReturnsResponse
-     */
-    private function refactorReturn($return, $classMethod, $sensioTemplateTagValueNode, $hasThisRenderOrReturnsResponse) : void
+    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode, bool $hasThisRenderOrReturnsResponse) : void
     {
         // nothing we can do
         if ($return->expr === null) {
@@ -226,24 +195,14 @@ CODE_SAMPLE
         $thisRenderMethodCall = $this->thisRenderFactory->create($classMethod, $return, $sensioTemplateTagValueNode);
         $this->refactorReturnWithValue($return, $hasThisRenderOrReturnsResponse, $thisRenderMethodCall, $classMethod);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall
-     */
-    private function refactorNoReturn($classMethod, $thisRenderMethodCall) : void
+    private function refactorNoReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $this->processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     * @param bool $hasThisRenderOrReturnsResponse
-     * @param \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function refactorReturnWithValue($return, $hasThisRenderOrReturnsResponse, $thisRenderMethodCall, $classMethod) : void
+    private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         /** @var Expr $lastReturnExpr */
         $lastReturnExpr = $return->expr;
@@ -266,20 +225,11 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall
-     */
-    private function processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall) : void
+    private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($thisRenderMethodCall);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     * @param \PhpParser\Node\Expr $returnExpr
-     * @param \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall
-     */
-    private function processIsArrayOrResponseType($return, $returnExpr, $thisRenderMethodCall) : void
+    private function processIsArrayOrResponseType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Expr $returnExpr, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $this->removeNode($return);
         // create instance of Response → return response, or return $this->render

@@ -20,17 +20,11 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
 class RemoveEmptyControllerArgumentLocatorsPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $controllerLocator;
-    /**
-     * @param string $controllerLocator
-     */
-    public function __construct($controllerLocator = 'argument_resolver.controller_locator')
+    public function __construct(string $controllerLocator = 'argument_resolver.controller_locator')
     {
         $this->controllerLocator = $controllerLocator;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $controllerLocator = $container->findDefinition($this->controllerLocator);
         $controllers = $controllerLocator->getArgument(0);

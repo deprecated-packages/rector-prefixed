@@ -26,20 +26,15 @@ final class ConstructorFormControlTypeResolver implements \Rector\NetteCodeQuali
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
-    /**
-     * @param \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder
-     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
-     */
-    public function __construct($betterNodeFinder, $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
@@ -53,10 +48,7 @@ final class ConstructorFormControlTypeResolver implements \Rector\NetteCodeQuali
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($thisVariable);
     }
-    /**
-     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
-     */
-    public function setResolver($methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

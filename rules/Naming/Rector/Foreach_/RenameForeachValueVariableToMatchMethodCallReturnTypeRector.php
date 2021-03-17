@@ -39,14 +39,7 @@ final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends 
      * @var NamingConventionAnalyzer
      */
     private $namingConventionAnalyzer;
-    /**
-     * @param \Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard
-     * @param \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver
-     * @param \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer
-     * @param \Rector\Naming\VariableRenamer $variableRenamer
-     * @param \Rector\Naming\Matcher\ForeachMatcher $foreachMatcher
-     */
-    public function __construct($breakingVariableRenameGuard, $expectedNameResolver, $namingConventionAnalyzer, $variableRenamer, $foreachMatcher)
+    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\Naming\Matcher\ForeachMatcher $foreachMatcher)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->variableRenamer = $variableRenamer;
@@ -90,9 +83,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $variableAndCallForeach = $this->varValueAndCallForeachMatcher->match($node);
         if (!$variableAndCallForeach instanceof \Rector\Naming\ValueObject\VariableAndCallForeach) {
@@ -111,22 +104,14 @@ CODE_SAMPLE
         $this->renameVariable($variableAndCallForeach, $expectedName);
         return $node;
     }
-    /**
-     * @param \Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach
-     * @param string $expectedName
-     */
-    private function shouldSkip($variableAndCallForeach, $expectedName) : bool
+    private function shouldSkip(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : bool
     {
         if ($this->namingConventionAnalyzer->isCallMatchingVariableName($variableAndCallForeach->getCall(), $variableAndCallForeach->getVariableName(), $expectedName)) {
             return \true;
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallForeach->getVariableName(), $expectedName, $variableAndCallForeach->getFunctionLike(), $variableAndCallForeach->getVariable());
     }
-    /**
-     * @param \Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach
-     * @param string $expectedName
-     */
-    private function renameVariable($variableAndCallForeach, $expectedName) : void
+    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : void
     {
         $this->variableRenamer->renameVariableInFunctionLike($variableAndCallForeach->getFunctionLike(), null, $variableAndCallForeach->getVariableName(), $expectedName);
     }

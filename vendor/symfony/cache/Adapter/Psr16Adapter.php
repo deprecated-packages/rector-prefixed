@@ -27,12 +27,7 @@ class Psr16Adapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
     protected const NS_SEPARATOR = '_';
     use ProxyTrait;
     private $miss;
-    /**
-     * @param \Psr\SimpleCache\CacheInterface $pool
-     * @param string $namespace
-     * @param int $defaultLifetime
-     */
-    public function __construct($pool, $namespace = '', $defaultLifetime = 0)
+    public function __construct(\RectorPrefix20210317\Psr\SimpleCache\CacheInterface $pool, string $namespace = '', int $defaultLifetime = 0)
     {
         parent::__construct($namespace, $defaultLifetime);
         $this->pool = $pool;
@@ -40,9 +35,8 @@ class Psr16Adapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doFetch($ids)
+    protected function doFetch(array $ids)
     {
         foreach ($this->pool->getMultiple($ids, $this->miss) as $key => $value) {
             if ($this->miss !== $value) {
@@ -52,34 +46,29 @@ class Psr16Adapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    protected function doHave($id)
+    protected function doHave(string $id)
     {
         return $this->pool->has($id);
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         return $this->pool->clear();
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDelete($ids)
+    protected function doDelete(array $ids)
     {
         return $this->pool->deleteMultiple($ids);
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
      */
-    protected function doSave($values, $lifetime)
+    protected function doSave(array $values, int $lifetime)
     {
         return $this->pool->setMultiple($values, 0 === $lifetime ? null : $lifetime);
     }

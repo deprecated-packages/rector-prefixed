@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'array_push')) {
             return null;
@@ -81,10 +81,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function hasArraySpread($funcCall) : bool
+    private function hasArraySpread(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         foreach ($funcCall->args as $arg) {
             /** @var Arg $arg */

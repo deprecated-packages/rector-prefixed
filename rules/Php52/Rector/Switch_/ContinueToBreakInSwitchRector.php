@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Switch_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->cases as $case) {
             foreach ($case->stmts as $key => $caseStmt) {
@@ -73,10 +73,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Continue_ $continue
-     */
-    private function processContinueStatement($continue) : \PhpParser\Node\Stmt
+    private function processContinueStatement(\PhpParser\Node\Stmt\Continue_ $continue) : \PhpParser\Node\Stmt
     {
         if ($continue->num === null) {
             return new \PhpParser\Node\Stmt\Break_();
@@ -91,11 +88,7 @@ CODE_SAMPLE
         }
         return $continue;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Continue_ $continue
-     * @param \PhpParser\Node\Expr\Variable $numVariable
-     */
-    private function processVariableNum($continue, $numVariable) : \PhpParser\Node\Stmt
+    private function processVariableNum(\PhpParser\Node\Stmt\Continue_ $continue, \PhpParser\Node\Expr\Variable $numVariable) : \PhpParser\Node\Stmt
     {
         $staticType = $this->getStaticType($numVariable);
         if (!$staticType instanceof \PHPStan\Type\ConstantType) {

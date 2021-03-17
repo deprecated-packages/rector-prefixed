@@ -47,9 +47,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         $path = $this->locator->locate($resource);
         $content = $this->loadFile($path);
@@ -84,9 +83,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;
@@ -96,11 +94,7 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
         }
         return \in_array($type, ['yaml', 'yml'], \true);
     }
-    /**
-     * @param mixed[] $content
-     * @param string $file
-     */
-    private function parseImports($content, $file)
+    private function parseImports(array $content, string $file)
     {
         if (!isset($content['imports'])) {
             return;
@@ -120,11 +114,7 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
             $this->import($import['resource'], $import['type'] ?? null, $import['ignore_errors'] ?? \false, $file);
         }
     }
-    /**
-     * @param mixed[] $content
-     * @param string $file
-     */
-    private function parseDefinitions($content, $file)
+    private function parseDefinitions(array $content, string $file)
     {
         if (!isset($content['services'])) {
             return;
@@ -158,10 +148,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     }
     /**
      * @throws InvalidArgumentException
-     * @param mixed[] $content
-     * @param string $file
      */
-    private function parseDefaults(&$content, $file) : array
+    private function parseDefaults(array &$content, string $file) : array
     {
         if (!\array_key_exists('_defaults', $content['services'])) {
             return [];
@@ -214,10 +202,7 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
         }
         return $defaults;
     }
-    /**
-     * @param mixed[] $service
-     */
-    private function isUsingShortSyntax($service) : bool
+    private function isUsingShortSyntax(array $service) : bool
     {
         foreach ($service as $key => $value) {
             if (\is_string($key) && ('' === $key || '$' !== $key[0] && \false === \strpos($key, '\\'))) {
@@ -232,12 +217,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
      * @param array|string|null $service
      *
      * @throws InvalidArgumentException When tags are invalid
-     * @param string $id
-     * @param string $file
-     * @param mixed[] $defaults
-     * @param bool $return
      */
-    private function parseDefinition($id, $service, $file, $defaults, $return = \false)
+    private function parseDefinition(string $id, $service, string $file, array $defaults, bool $return = \false)
     {
         if (\preg_match('/^_[a-zA-Z0-9_]*$/', $id)) {
             throw new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service names that start with an underscore are reserved. Rename the "%s" service or define it in XML instead.', $id));
@@ -517,11 +498,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
      * @throws InvalidArgumentException When errors occur
      *
      * @return string|array|Reference A parsed callable
-     * @param string $parameter
-     * @param string $id
-     * @param string $file
      */
-    private function parseCallable($callable, $parameter, $id, $file)
+    private function parseCallable($callable, string $parameter, string $id, string $file)
     {
         if (\is_string($callable)) {
             if ('' !== $callable && '@' === $callable[0]) {
@@ -577,9 +555,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
      * Validates a YAML file.
      *
      * @throws InvalidArgumentException When service file is not valid
-     * @param string $file
      */
-    private function validate($content, $file) : ?array
+    private function validate($content, string $file) : ?array
     {
         if (null === $content) {
             return $content;
@@ -604,10 +581,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
      * Resolves services.
      *
      * @return array|string|Reference|ArgumentInterface
-     * @param string $file
-     * @param bool $isParameter
      */
-    private function resolveServices($value, $file, $isParameter = \false)
+    private function resolveServices($value, string $file, bool $isParameter = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\Yaml\Tag\TaggedValue) {
             $argument = $value->getValue();
@@ -704,9 +679,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     }
     /**
      * Loads from Extensions.
-     * @param mixed[] $content
      */
-    private function loadFromExtensions($content)
+    private function loadFromExtensions(array $content)
     {
         foreach ($content as $namespace => $values) {
             if (\in_array($namespace, ['imports', 'parameters', 'services'])) {
@@ -720,11 +694,8 @@ class YamlFileLoader extends \RectorPrefix20210317\Symfony\Component\DependencyI
     }
     /**
      * Checks the keywords used to define a service.
-     * @param string $id
-     * @param mixed[] $definition
-     * @param string $file
      */
-    private function checkDefinition($id, $definition, $file)
+    private function checkDefinition(string $id, array $definition, string $file)
     {
         if ($this->isLoadingInstanceof) {
             $keywords = self::INSTANCEOF_KEYWORDS;

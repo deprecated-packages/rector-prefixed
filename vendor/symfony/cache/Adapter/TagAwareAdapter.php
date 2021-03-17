@@ -34,12 +34,7 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     private $tags;
     private $knownTagVersions = [];
     private $knownTagVersionsTtl;
-    /**
-     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool
-     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool
-     * @param float $knownTagVersionsTtl
-     */
-    public function __construct($itemsPool, $tagsPool = null, $knownTagVersionsTtl = 0.15)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, float $knownTagVersionsTtl = 0.15)
     {
         $this->pool = $itemsPool;
         $this->tags = $tagsPool ?: $itemsPool;
@@ -86,9 +81,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $tags
      */
-    public function invalidateTags($tags)
+    public function invalidateTags(array $tags)
     {
         $ok = \true;
         $tagsByKey = [];
@@ -160,9 +154,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $keys
      */
-    public function getItems($keys = [])
+    public function getItems(array $keys = [])
     {
         if ($this->deferred) {
             $this->commit();
@@ -187,9 +180,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param string $prefix
      */
-    public function clear($prefix = '')
+    public function clear(string $prefix = '')
     {
         if ('' !== $prefix) {
             foreach ($this->deferred as $key => $item) {
@@ -218,9 +210,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param mixed[] $keys
      */
-    public function deleteItems($keys)
+    public function deleteItems(array $keys)
     {
         foreach ($keys as $key) {
             if ('' !== $key && \is_string($key)) {
@@ -233,9 +224,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
             return \false;
@@ -247,9 +237,8 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
     {
         if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
             return \false;
@@ -278,11 +267,7 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
     {
         $this->commit();
     }
-    /**
-     * @param mixed[] $items
-     * @param mixed[] $tagKeys
-     */
-    private function generateItems($items, $tagKeys)
+    private function generateItems(iterable $items, array $tagKeys)
     {
         $bufferedItems = $itemTags = [];
         $f = $this->setCacheItemTags;
@@ -317,11 +302,7 @@ class TagAwareAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\A
             }
         }
     }
-    /**
-     * @param mixed[] $tagsByKey
-     * @param mixed[] $invalidatedTags
-     */
-    private function getTagVersions($tagsByKey, &$invalidatedTags = [])
+    private function getTagVersions(array $tagsByKey, array &$invalidatedTags = [])
     {
         $tagVersions = $invalidatedTags;
         foreach ($tagsByKey as $tags) {

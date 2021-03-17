@@ -19,14 +19,7 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
      * @var string|null
      */
     private $tag;
-    /**
-     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
-     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
-     * @param mixed[] $items
-     * @param string|null $content
-     * @param string|null $originalTag
-     */
-    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content = null, $originalTag = null)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content = null, ?string $originalTag = null)
     {
         $this->tag = $originalTag;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
@@ -35,7 +28,7 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         return $this->items['nullable'];
     }
-    public function getTag() : ?string
+    public function getTag() : string
     {
         return $this->tag ?: $this->shortName;
     }
@@ -47,10 +40,7 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         return $this->shortName;
     }
-    /**
-     * @param string $shortName
-     */
-    public function changeShortName($shortName) : void
+    public function changeShortName(string $shortName) : void
     {
         $this->shortName = $shortName;
     }

@@ -65,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isName($node, 'json_encode')) {
             return $this->refactorJsonEncode($node);
@@ -77,10 +77,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function refactorJsonEncode($funcCall) : \PhpParser\Node\Expr\StaticCall
+    private function refactorJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {
@@ -92,10 +89,7 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createStaticCall('Nette\\Utils\\Json', 'encode', $args);
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function refactorJsonDecode($funcCall) : \PhpParser\Node\Expr\StaticCall
+    private function refactorJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {

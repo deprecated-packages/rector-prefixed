@@ -34,10 +34,7 @@ final class SimplifyForeachToCoalescingRector extends \Rector\Core\Rector\Abstra
      * @var Return_|null
      */
     private $return;
-    /**
-     * @param \Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator
-     */
-    public function __construct($foreachManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }
@@ -65,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -93,9 +90,8 @@ CODE_SAMPLE
     }
     /**
      * @return Assign|Return_|null
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
      */
-    private function matchReturnOrAssignNode($foreach) : ?\PhpParser\Node
+    private function matchReturnOrAssignNode(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node
     {
         return $this->foreachManipulator->matchOnlyStmt($foreach, function (\PhpParser\Node $node) : ?Node {
             if (!$node instanceof \PhpParser\Node\Stmt\If_) {
@@ -114,11 +110,7 @@ CODE_SAMPLE
             return null;
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function processForeachNodeWithReturnInside($foreach, $return) : ?\PhpParser\Node
+    private function processForeachNodeWithReturnInside(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node
     {
         if (!$this->nodeComparator->areNodesEqual($foreach->valueVar, $return->expr)) {
             return null;
@@ -146,11 +138,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function processForeachNodeWithAssignInside($foreach, $assign) : ?\PhpParser\Node
+    private function processForeachNodeWithAssignInside(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         /** @var If_ $ifNode */
         $ifNode = $foreach->stmts[0];

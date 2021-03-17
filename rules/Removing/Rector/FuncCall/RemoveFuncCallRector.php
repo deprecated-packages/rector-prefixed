@@ -30,10 +30,7 @@ final class RemoveFuncCallRector extends \Rector\Core\Rector\AbstractRector impl
      * @var BreakingRemovalGuard
      */
     private $breakingRemovalGuard;
-    /**
-     * @param \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard
-     */
-    public function __construct($breakingRemovalGuard)
+    public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
     {
         $this->breakingRemovalGuard = $breakingRemovalGuard;
     }
@@ -57,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->removeFuncCalls as $removeFuncCall) {
             if (!$this->isName($node, $removeFuncCall->getFuncCall())) {
@@ -76,17 +73,13 @@ CODE_SAMPLE
     /**
      * @param array<string, RemoveFuncCall[]> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $removeFuncCalls = $configuration[self::REMOVE_FUNC_CALLS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
         $this->removeFuncCalls = $removeFuncCalls;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     * @param \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall
-     */
-    private function refactorFuncCallsWithPositions($funcCall, $removeFuncCall) : void
+    private function refactorFuncCallsWithPositions(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall) : void
     {
         foreach ($removeFuncCall->getArgumentPositionAndValues() as $argumentPosition => $values) {
             if (!$this->isArgumentPositionValueMatch($funcCall, $argumentPosition, $values)) {
@@ -99,10 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $values
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     * @param int $argumentPosition
      */
-    private function isArgumentPositionValueMatch($funcCall, $argumentPosition, $values) : bool
+    private function isArgumentPositionValueMatch(\PhpParser\Node\Expr\FuncCall $funcCall, int $argumentPosition, array $values) : bool
     {
         if (!isset($funcCall->args[$argumentPosition])) {
             return \false;

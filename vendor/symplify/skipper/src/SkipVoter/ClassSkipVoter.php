@@ -33,14 +33,7 @@ final class ClassSkipVoter implements \RectorPrefix20210317\Symplify\Skipper\Con
      * @var SkippedClassResolver
      */
     private $skippedClassResolver;
-    /**
-     * @param \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     * @param \Symplify\Skipper\Skipper\SkipSkipper $skipSkipper
-     * @param \Symplify\Skipper\Skipper\OnlySkipper $onlySkipper
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver
-     */
-    public function __construct($classLikeExistenceChecker, $parameterProvider, $skipSkipper, $onlySkipper, $skippedClassResolver)
+    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210317\Symplify\Skipper\Skipper\SkipSkipper $skipSkipper, \RectorPrefix20210317\Symplify\Skipper\Skipper\OnlySkipper $onlySkipper, \RectorPrefix20210317\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
         $this->parameterProvider = $parameterProvider;

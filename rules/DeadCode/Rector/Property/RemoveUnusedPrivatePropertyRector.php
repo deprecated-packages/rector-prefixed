@@ -27,11 +27,7 @@ final class RemoveUnusedPrivatePropertyRector extends \Rector\Core\Rector\Abstra
      * @var ComplexNodeRemover
      */
     private $complexNodeRemover;
-    /**
-     * @param \Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator
-     * @param \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover
-     */
-    public function __construct($propertyManipulator, $complexNodeRemover)
+    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->complexNodeRemover = $complexNodeRemover;
@@ -59,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -72,10 +68,7 @@ CODE_SAMPLE
         $this->complexNodeRemover->removePropertyAndUsages($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkipProperty($property) : bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if (\count($property->props) !== 1) {
             return \true;

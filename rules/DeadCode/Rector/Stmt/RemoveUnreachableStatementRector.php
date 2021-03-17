@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Stmt $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipNode($node)) {
             return null;
@@ -84,10 +84,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     */
-    private function shouldSkipNode($stmt) : bool
+    private function shouldSkipNode(\PhpParser\Node\Stmt $stmt) : bool
     {
         if ($stmt instanceof \PhpParser\Node\Stmt\Nop) {
             return \true;
@@ -97,10 +94,7 @@ CODE_SAMPLE
         }
         return $stmt instanceof \PhpParser\Node\FunctionLike;
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     */
-    private function isUnreachable($stmt) : bool
+    private function isUnreachable(\PhpParser\Node\Stmt $stmt) : bool
     {
         $isUnreachable = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_UNREACHABLE);
         if ($isUnreachable === \true) {
@@ -119,9 +113,8 @@ CODE_SAMPLE
     }
     /**
      * Keep content after markTestSkipped(), intentional temporary
-     * @param \PhpParser\Node\Stmt $stmt
      */
-    private function isAfterMarkTestSkippedMethodCall($stmt) : bool
+    private function isAfterMarkTestSkippedMethodCall(\PhpParser\Node\Stmt $stmt) : bool
     {
         return (bool) $this->betterNodeFinder->findFirstPrevious($stmt, function (\PhpParser\Node $node) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -138,9 +131,8 @@ CODE_SAMPLE
     }
     /**
      * Check nodes that breaks scope while traversing up
-     * @param \PhpParser\Node\Stmt $stmt
      */
-    private function isBreakingScopeNode($stmt) : bool
+    private function isBreakingScopeNode(\PhpParser\Node\Stmt $stmt) : bool
     {
         if ($stmt instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \true;

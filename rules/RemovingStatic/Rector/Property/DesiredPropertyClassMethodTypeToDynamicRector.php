@@ -21,10 +21,7 @@ final class DesiredPropertyClassMethodTypeToDynamicRector extends \Rector\Core\R
      * @var ObjectType[]
      */
     private $staticObjectTypes = [];
-    /**
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     */
-    public function __construct($parameterProvider)
+    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
@@ -65,7 +62,7 @@ CODE_SAMPLE
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             if (!$this->nodeNameResolver->isInClassNamed($node, $staticObjectType)) {

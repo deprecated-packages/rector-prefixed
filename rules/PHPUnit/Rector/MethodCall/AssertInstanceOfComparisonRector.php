@@ -31,11 +31,7 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    /**
-     * @param \Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator
-     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
-     */
-    public function __construct($identifierManipulator, $testsNodeAnalyzer)
+    public function __construct(\Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -54,7 +50,7 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethodNames = \array_keys(self::RENAME_METHODS_MAP);
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodNames)) {
@@ -71,7 +67,7 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function changeArgumentsOrder($node) : void
+    private function changeArgumentsOrder(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
         /** @var Instanceof_ $comparison */

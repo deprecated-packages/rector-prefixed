@@ -54,10 +54,7 @@ class Definition
      * Used to store the behavior to follow when using service decoration and the decorated service is invalid
      */
     public $decorationOnInvalid;
-    /**
-     * @param string $class
-     */
-    public function __construct($class = null, array $arguments = [])
+    public function __construct(string $class = null, array $arguments = [])
     {
         if (null !== $class) {
             $this->setClass($class);

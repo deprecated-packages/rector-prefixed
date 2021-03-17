@@ -48,9 +48,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Ternary $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
@@ -75,10 +75,8 @@ CODE_SAMPLE
      * array_key_exists($key, $values);
      * =
      * $values[$key]
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
      */
-    private function areArrayKeysExistsArgsMatchingDimFetch($funcCall, $arrayDimFetch) : bool
+    private function areArrayKeysExistsArgsMatchingDimFetch(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
         $keyExpr = $funcCall->args[0]->value;
         $valuesExpr = $funcCall->args[1]->value;

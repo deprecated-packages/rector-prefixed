@@ -18,7 +18,7 @@ final class IntermediateSourceLocator implements \PHPStan\BetterReflection\Sourc
     /**
      * @param SourceLocatorProviderInterface[] $sourceLocatorProviders
      */
-    public function __construct($sourceLocatorProviders)
+    public function __construct(array $sourceLocatorProviders)
     {
         $this->sourceLocatorProviders = $sourceLocatorProviders;
     }

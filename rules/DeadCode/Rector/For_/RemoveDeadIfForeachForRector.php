@@ -64,7 +64,7 @@ CODE_SAMPLE
     /**
      * @param For_|If_|Foreach_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\If_) {
             $this->processIf($node);
@@ -81,10 +81,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function processIf($if) : void
+    private function processIf(\PhpParser\Node\Stmt\If_ $if) : void
     {
         if ($if->stmts !== []) {
             return;
@@ -100,10 +97,7 @@ CODE_SAMPLE
         }
         $this->removeNode($if);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
-     */
-    private function processForeach($foreach) : void
+    private function processForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         if ($foreach->stmts !== []) {
             return;
@@ -113,10 +107,7 @@ CODE_SAMPLE
         }
         $this->removeNode($foreach);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isNodeWithSideEffect($expr) : bool
+    private function isNodeWithSideEffect(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\Variable) {
             return \false;

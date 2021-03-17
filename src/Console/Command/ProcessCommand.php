@@ -81,22 +81,7 @@ final class ProcessCommand extends \RectorPrefix20210317\Symfony\Component\Conso
      * @var MissingRectorRulesReporter
      */
     private $missingRectorRulesReporter;
-    /**
-     * @param \Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader
-     * @param \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector
-     * @param \Rector\Core\Configuration\Configuration $configuration
-     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
-     * @param \Rector\Core\FileSystem\FilesFinder $filesFinder
-     * @param \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor
-     * @param \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector
-     * @param \Rector\Core\Application\RectorApplication $rectorApplication
-     * @param \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     * @param \Rector\Composer\Processor\ComposerProcessor $composerProcessor
-     * @param \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder
-     * @param \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter
-     */
-    public function __construct($additionalAutoloader, $changedFilesDetector, $configuration, $errorAndDiffCollector, $filesFinder, $nonPhpFileProcessor, $outputFormatterCollector, $rectorApplication, $rectorNodeTraverser, $symfonyStyle, $composerProcessor, $phpFilesFinder, $missingRectorRulesReporter)
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter)
     {
         $this->filesFinder = $filesFinder;
         $this->additionalAutoloader = $additionalAutoloader;

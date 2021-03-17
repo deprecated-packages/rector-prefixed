@@ -10,7 +10,6 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class UsedImportsResolver
 {
@@ -37,7 +36,11 @@ final class UsedImportsResolver
      */
     public function resolveForNode(\PhpParser\Node $node) : array
     {
-        $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
+            $namespace = $node;
+        } else {
+            $namespace = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Namespace_::class);
+        }
         if ($namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             return $this->resolveForNamespace($namespace);
         }

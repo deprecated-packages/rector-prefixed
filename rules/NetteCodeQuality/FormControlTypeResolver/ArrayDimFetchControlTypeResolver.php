@@ -35,14 +35,7 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\NetteCodeQuality
      * @var NodeRepository
      */
     private $nodeRepository;
-    /**
-     * @param \Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer
-     * @param \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming
-     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
-     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer
-     * @param \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository
-     */
-    public function __construct($controlDimFetchAnalyzer, $netteControlNaming, $nodeTypeResolver, $returnTypeInferer, $nodeRepository)
+    public function __construct(\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -52,9 +45,8 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\NetteCodeQuality
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];
@@ -73,11 +65,7 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\NetteCodeQuality
         }
         return [$controlShortName => $createComponentClassMethodReturnType->getClassName()];
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
-     * @param string $controlShortName
-     */
-    private function matchCreateComponentClassMethod($arrayDimFetch, $controlShortName) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function matchCreateComponentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $callerType = $this->nodeTypeResolver->getStaticType($arrayDimFetch->var);
         if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {

@@ -41,12 +41,7 @@ final class StaticCallOnNonStaticToInstanceCallRector extends \Rector\Core\Recto
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator
-     * @param \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer
-     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
-     */
-    public function __construct($classMethodManipulator, $staticAnalyzer, $reflectionProvider)
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->staticAnalyzer = $staticAnalyzer;
@@ -96,9 +91,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
@@ -129,10 +124,7 @@ CODE_SAMPLE
         $this->visibilityManipulator->makeStatic($classMethodNode);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function resolveStaticCallClassName($staticCall) : ?string
+    private function resolveStaticCallClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
     {
         if ($staticCall->class instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $objectType = $this->getObjectType($staticCall->class);
@@ -142,12 +134,7 @@ CODE_SAMPLE
         }
         return $this->getName($staticCall->class);
     }
-    /**
-     * @param string $methodName
-     * @param string $className
-     * @param \PhpParser\Node\Expr\StaticCall $staticCall
-     */
-    private function shouldSkip($methodName, $className, $staticCall) : bool
+    private function shouldSkip(string $methodName, string $className, \PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         $isStaticMethod = $this->staticAnalyzer->isStaticMethod($methodName, $className);
         if ($isStaticMethod) {
@@ -159,10 +146,7 @@ CODE_SAMPLE
         $parentClassName = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         return $className === $parentClassName;
     }
-    /**
-     * @param string $className
-     */
-    private function isInstantiable($className) : bool
+    private function isInstantiable(string $className) : bool
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return \false;

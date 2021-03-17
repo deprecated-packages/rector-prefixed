@@ -31,12 +31,12 @@ class StreamOutput extends \RectorPrefix20210317\Symfony\Component\Console\Outpu
     /**
      * @param resource                      $stream    A stream resource
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
-     * @param bool                     $decorated Whether to decorate messages (null for auto-guessing)
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
+     * @param bool|null                     $decorated Whether to decorate messages (null for auto-guessing)
+     * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, $verbosity = self::VERBOSITY_NORMAL, $decorated = null, $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
             throw new \RectorPrefix20210317\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
@@ -58,10 +58,8 @@ class StreamOutput extends \RectorPrefix20210317\Symfony\Component\Console\Outpu
     }
     /**
      * {@inheritdoc}
-     * @param string $message
-     * @param bool $newline
      */
-    protected function doWrite($message, $newline)
+    protected function doWrite(string $message, bool $newline)
     {
         if ($newline) {
             $message .= \PHP_EOL;

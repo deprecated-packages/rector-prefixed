@@ -23,18 +23,14 @@ class ResolveNoPreloadPass extends \RectorPrefix20210317\Symfony\Component\Depen
     private const DO_PRELOAD_TAG = '.container.do_preload';
     private $tagName;
     private $resolvedIds = [];
-    /**
-     * @param string $tagName
-     */
-    public function __construct($tagName = 'container.no_preload')
+    public function __construct(string $tagName = 'container.no_preload')
     {
         $this->tagName = $tagName;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         try {
@@ -64,9 +60,8 @@ class ResolveNoPreloadPass extends \RectorPrefix20210317\Symfony\Component\Depen
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference && \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);

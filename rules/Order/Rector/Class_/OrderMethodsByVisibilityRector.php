@@ -36,12 +36,7 @@ final class OrderMethodsByVisibilityRector extends \Rector\Core\Rector\AbstractR
      * @var StmtVisibilitySorter
      */
     private $stmtVisibilitySorter;
-    /**
-     * @param \Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer
-     * @param \Rector\Order\StmtOrder $stmtOrder
-     * @param \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter
-     */
-    public function __construct($orderChangeAnalyzer, $stmtOrder, $stmtVisibilitySorter)
+    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
     {
         $this->orderChangeAnalyzer = $orderChangeAnalyzer;
         $this->stmtOrder = $stmtOrder;
@@ -77,7 +72,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentMethodsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\ClassMethod::class);
         $methodsInDesiredOrder = $this->getMethodsInDesiredOrder($node);
@@ -91,9 +86,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
      */
-    private function getMethodsInDesiredOrder($classLike) : array
+    private function getMethodsInDesiredOrder(\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $classMethodNames = $this->stmtVisibilitySorter->sortMethods($classLike);
         return $this->applyPreferredPosition($classMethodNames);
@@ -102,7 +96,7 @@ CODE_SAMPLE
      * @param string[] $classMethods
      * @return string[]
      */
-    private function applyPreferredPosition($classMethods) : array
+    private function applyPreferredPosition(array $classMethods) : array
     {
         $mergedMethods = \array_merge(self::PREFERRED_ORDER, $classMethods);
         return \array_unique($mergedMethods);

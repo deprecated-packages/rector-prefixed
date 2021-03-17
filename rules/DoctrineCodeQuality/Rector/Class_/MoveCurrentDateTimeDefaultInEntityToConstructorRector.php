@@ -38,13 +38,7 @@ final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \Recto
      * @var ConstructorAssignPropertyAnalyzer
      */
     private $constructorAssignPropertyAnalyzer;
-    /**
-     * @param \Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator $constructorManipulator
-     * @param \Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory $valueAssignFactory
-     * @param \Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator $columnDatetimePropertyManipulator
-     * @param \Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer
-     */
-    public function __construct($constructorManipulator, $valueAssignFactory, $columnDatetimePropertyManipulator, $constructorAssignPropertyAnalyzer)
+    public function __construct(\Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator $constructorManipulator, \Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory $valueAssignFactory, \Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator $columnDatetimePropertyManipulator, \Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
     {
         $this->constructorManipulator = $constructorManipulator;
         $this->valueAssignFactory = $valueAssignFactory;
@@ -100,20 +94,16 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->getProperties() as $property) {
             $this->refactorProperty($property, $node);
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function refactorProperty($property, $class) : ?\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
@@ -139,11 +129,7 @@ CODE_SAMPLE
         $onlyProperty->default = null;
         return $property;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function refactorClass($class, $property) : void
+    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var string $propertyName */
         $propertyName = $this->getName($property);

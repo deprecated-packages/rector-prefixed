@@ -37,13 +37,7 @@ final class ReplaceMagicPropertyWithEventClassRector extends \Rector\Core\Rector
      * @var GetSubscribedEventsClassMethodAnalyzer
      */
     private $getSubscribedEventsClassMethodAnalyzer;
-    /**
-     * @param \Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider
-     * @param \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming
-     * @param \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator
-     * @param \Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer
-     */
-    public function __construct($eventAndListenerTreeProvider, $eventClassNaming, $listeningClassMethodArgumentManipulator, $getSubscribedEventsClassMethodAnalyzer)
+    public function __construct(\Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NetteKdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
     {
         $this->eventClassNaming = $eventClassNaming;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
@@ -99,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
@@ -118,10 +112,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function replaceEventPropertyReferenceWithEventClassReference($classMethod) : void
+    private function replaceEventPropertyReferenceWithEventClassReference(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {

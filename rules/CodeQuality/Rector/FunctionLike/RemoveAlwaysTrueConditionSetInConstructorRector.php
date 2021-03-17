@@ -39,11 +39,7 @@ final class RemoveAlwaysTrueConditionSetInConstructorRector extends \Rector\Core
      * @var TypeFactory
      */
     private $typeFactory;
-    /**
-     * @param \Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer
-     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
-     */
-    public function __construct($staticTypeAnalyzer, $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->staticTypeAnalyzer = $staticTypeAnalyzer;
         $this->typeFactory = $typeFactory;
@@ -96,7 +92,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Closure $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->stmts === null) {
             return null;
@@ -126,10 +122,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isAlwaysTruableNode($node) : bool
+    private function isAlwaysTruableNode(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\If_) {
             return \false;
@@ -149,10 +142,7 @@ CODE_SAMPLE
         $propertyFetchType = $this->resolvePropertyFetchType($node->cond);
         return $this->staticTypeAnalyzer->isAlwaysTruableType($propertyFetchType);
     }
-    /**
-     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
-     */
-    private function resolvePropertyFetchType($propertyFetch) : \PHPStan\Type\Type
+    private function resolvePropertyFetchType(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PHPStan\Type\Type
     {
         $classLike = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -184,11 +174,7 @@ CODE_SAMPLE
         }
         return $this->typeFactory->createMixedPassedOrUnionTypeAndKeepConstant($resolvedTypes);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param string $propertyName
-     */
-    private function resolvePropertyTypeAfterConstructor($class, $propertyName) : \PHPStan\Type\Type
+    private function resolvePropertyTypeAfterConstructor(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : \PHPStan\Type\Type
     {
         $propertyTypeFromConstructor = null;
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
@@ -203,9 +189,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt[] $stmts
-     * @param string $propertyName
      */
-    private function resolveAssignedTypeInStmtsByPropertyName($stmts, $propertyName) : ?\PHPStan\Type\Type
+    private function resolveAssignedTypeInStmtsByPropertyName(array $stmts, string $propertyName) : ?\PHPStan\Type\Type
     {
         $resolvedTypes = [];
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($propertyName, &$resolvedTypes) : ?int {
@@ -228,10 +213,8 @@ CODE_SAMPLE
     }
     /**
      * E.g. $this->{value} = x
-     * @param \PhpParser\Node $node
-     * @param string $propertyName
      */
-    private function isPropertyFetchAssignOfPropertyName($node, $propertyName) : bool
+    private function isPropertyFetchAssignOfPropertyName(\PhpParser\Node $node, string $propertyName) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\Assign) {
             return \false;

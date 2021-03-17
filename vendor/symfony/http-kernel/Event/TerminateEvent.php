@@ -24,12 +24,7 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface;
 final class TerminateEvent extends \RectorPrefix20210317\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     */
-    public function __construct($kernel, $request, $response)
+    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response)
     {
         parent::__construct($kernel, $request, \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST);
         $this->response = $response;

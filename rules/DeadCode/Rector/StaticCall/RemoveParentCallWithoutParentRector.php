@@ -22,10 +22,7 @@ final class RemoveParentCallWithoutParentRector extends \Rector\Core\Rector\Abst
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-    /**
-     * @param \Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator
-     */
-    public function __construct($classMethodManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
     }
@@ -58,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
