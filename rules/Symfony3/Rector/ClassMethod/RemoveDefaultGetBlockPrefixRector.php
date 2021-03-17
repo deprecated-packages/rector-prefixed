@@ -12,8 +12,8 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210317\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -73,7 +73,8 @@ CODE_SAMPLE
         if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
             $shortClassName = (string) \RectorPrefix20210317\Nette\Utils\Strings::before($shortClassName, 'Type');
         }
-        $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($shortClassName);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($shortClassName);
+        $underscoredClassShortName = (string) $stringy->underscored();
         if ($underscoredClassShortName !== $returnedValue) {
             return null;
         }

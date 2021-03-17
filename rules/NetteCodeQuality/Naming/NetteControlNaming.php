@@ -4,12 +4,13 @@ declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Naming;
 
 use RectorPrefix20210317\Nette\Utils\Strings;
-use Rector\Core\Util\StaticRectorStrings;
+use RectorPrefix20210317\Stringy\Stringy;
 final class NetteControlNaming
 {
     public function createVariableName(string $shortName) : string
     {
-        $variableName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($shortName);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($shortName);
+        $variableName = (string) $stringy->camelize();
         if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
             return $variableName;
         }
@@ -17,6 +18,8 @@ final class NetteControlNaming
     }
     public function createCreateComponentClassMethodName(string $shortName) : string
     {
-        return 'createComponent' . \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($shortName);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($shortName);
+        $componentName = (string) $stringy->upperCamelize();
+        return 'createComponent' . $componentName;
     }
 }

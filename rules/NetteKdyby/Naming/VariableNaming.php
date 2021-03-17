@@ -25,9 +25,9 @@ use PHPStan\Type\Type;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Util\StaticInstanceOf;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use RectorPrefix20210317\Stringy\Stringy;
 final class VariableNaming
 {
     /**
@@ -64,7 +64,8 @@ final class VariableNaming
             $shortClassName = $this->nodeNameResolver->getShortName($type->getClassName());
             $variableName = \lcfirst($shortClassName);
         }
-        return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($variableName);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($variableName);
+        return (string) $stringy->camelize();
     }
     public function resolveFromNodeWithScopeCountAndFallbackName(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\Scope $scope, string $fallbackName) : string
     {
@@ -163,7 +164,8 @@ final class VariableNaming
             if ($arrayDimFetch->dim instanceof \PhpParser\Node\Scalar) {
                 $valueName = $this->nodeNameResolver->getName($arrayDimFetch->var);
                 $dimName = $this->valueResolver->getValue($arrayDimFetch->dim);
-                $dimName = \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($dimName);
+                $stringy = new \RectorPrefix20210317\Stringy\Stringy($dimName);
+                $dimName = (string) $stringy->upperCamelize();
                 return $valueName . $dimName;
             }
             $arrayDimFetch = $arrayDimFetch->var;

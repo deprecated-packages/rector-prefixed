@@ -8,8 +8,8 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Function_;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use RectorPrefix20210317\Stringy\Stringy;
 use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassNaming
 {
@@ -55,7 +55,8 @@ final class ClassNaming
         if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $basenameWithoutSuffix = \RectorPrefix20210317\Nette\Utils\Strings::replace($basenameWithoutSuffix, self::INPUT_HASH_NAMING_REGEX, '');
         }
-        return \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($basenameWithoutSuffix);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($basenameWithoutSuffix);
+        return (string) $stringy->upperCamelize();
     }
     /**
      * "some_function" → "someFunction"
@@ -63,7 +64,8 @@ final class ClassNaming
     public function createMethodNameFromFunction(\PhpParser\Node\Stmt\Function_ $function) : string
     {
         $functionName = (string) $function->name;
-        return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($functionName);
+        $stringy = new \RectorPrefix20210317\Stringy\Stringy($functionName);
+        return (string) $stringy->camelize();
     }
     public function replaceSuffix(string $content, string $oldSuffix, string $newSuffix) : string
     {

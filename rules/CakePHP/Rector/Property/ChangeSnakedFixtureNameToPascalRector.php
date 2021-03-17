@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210317\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -24,7 +24,7 @@ final class ChangeSnakedFixtureNameToPascalRector extends \Rector\Core\Rector\Ab
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes $fixtues style from snake_case to PascalCase.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes $fixtures style from snake_case to PascalCase.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeTest
 {
     protected $fixtures = [
@@ -96,7 +96,8 @@ CODE_SAMPLE
         [$prefix, $table] = \explode('.', $string->value);
         $tableParts = \explode('/', $table);
         $pascalCaseTableParts = \array_map(function (string $token) : string {
-            return \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($token);
+            $stringy = new \RectorPrefix20210317\Stringy\Stringy($token);
+            return (string) $stringy->upperCamelize();
         }, $tableParts);
         $table = \implode('/', $pascalCaseTableParts);
         $string->value = \sprintf('%s.%s', $prefix, $table);

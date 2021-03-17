@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '675bd2cfb2c3442f9388d35c592ecbe63cc55736',
+    'reference' => 'b35d639f58fb6e666d5775447f5fdce0d41a3ae1',
     'name' => 'rector/rector',
   ),
   'versions' => 
@@ -52,6 +52,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'f28d44c286812c714741478d968104c5e604a1d4',
+    ),
+    'danielstjules/stringy' => 
+    array (
+      'pretty_version' => '3.1.0',
+      'version' => '3.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e',
     ),
     'doctrine/annotations' => 
     array (
@@ -248,7 +257,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '675bd2cfb2c3442f9388d35c592ecbe63cc55736',
+      'reference' => 'b35d639f58fb6e666d5775447f5fdce0d41a3ae1',
     ),
     'rector/rector-prefixed' => 
     array (
