@@ -9,7 +9,6 @@ use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeFinder;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
@@ -22,7 +21,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -53,6 +52,10 @@ final class ShortNameResolver
      */
     private $phpDocInfoFactory;
     /**
+     * @var ClassNaming
+     */
+    private $classNaming;
+    /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
@@ -64,19 +67,15 @@ final class ShortNameResolver
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    /**
-     * @var BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    public function __construct(\RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PhpParser\NodeFinder $nodeFinder, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PhpParser\NodeFinder $nodeFinder, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->classNaming = $classNaming;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeFinder = $nodeFinder;
         $this->reflectionProvider = $reflectionProvider;
-        $this->betterNodeFinder = $betterNodeFinder;
     }
     /**
      * @return array<string, string>
@@ -98,17 +97,25 @@ final class ShortNameResolver
      */
     public function resolveShortClassLikeNamesForNode(\PhpParser\Node $node) : array
     {
-        $namespace = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Namespace_::class);
-        if (!$namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        if ($namespace === null) {
             // only handle namespace nodes
             return [];
         }
-        /** @var ClassLike[] $classLikes */
-        $classLikes = $this->nodeFinder->findInstanceOf($namespace, \PhpParser\Node\Stmt\ClassLike::class);
         $shortClassLikeNames = [];
-        foreach ($classLikes as $classLike) {
-            $shortClassLikeNames[] = $this->nodeNameResolver->getShortName($classLike);
-        }
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($namespace, function (\PhpParser\Node $node) use(&$shortClassLikeNames) {
+            // ...
+            if (!$node instanceof \PhpParser\Node\Stmt\ClassLike) {
+                return null;
+            }
+            if ($node->name === null) {
+                return null;
+            }
+            $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            if (\is_string($className)) {
+                $shortClassLikeNames[] = $this->classNaming->getShortName($className);
+            }
+        });
         return \array_unique($shortClassLikeNames);
     }
     private function getNodeRealPath(\PhpParser\Node $node) : ?string

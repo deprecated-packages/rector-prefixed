@@ -23,7 +23,10 @@ final class BlameableBehaviorRector extends \Rector\Core\Rector\AbstractRector
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     */
+    public function __construct($classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
@@ -92,9 +95,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isGedmoBlameableClass($node)) {
             return null;
@@ -104,7 +107,10 @@ CODE_SAMPLE
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\BlameableInterface');
         return $node;
     }
-    private function isGedmoBlameableClass(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function isGedmoBlameableClass($class) : bool
     {
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
@@ -114,7 +120,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function removeBlameablePropertiesAndMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function removeBlameablePropertiesAndMethods($class) : void
     {
         $removedPropertyNames = [];
         foreach ($class->getProperties() as $property) {
@@ -131,8 +140,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeSetterAndGetterByPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
+    private function removeSetterAndGetterByPropertyNames($class, $removedPropertyNames) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($removedPropertyNames as $removedPropertyName) {

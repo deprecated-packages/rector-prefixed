@@ -91,8 +91,9 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210317\Doctri
      * Initializes a new AnnotationReader.
      *
      * @throws AnnotationException
+     * @param \Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser $parser
      */
-    public function __construct(\Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser $parser = null)
+    public function __construct($parser = null)
     {
         if (\extension_loaded('Zend Optimizer+') && (\ini_get('zend_optimizerplus.save_comments') === '0' || \ini_get('opcache.save_comments') === '0')) {
             throw \RectorPrefix20210317\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
@@ -189,8 +190,9 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210317\Doctri
      * Gets the annotations applied to a function.
      *
      * @phpstan-return list<object> An array of Annotations.
+     * @param \ReflectionFunction $function
      */
-    public function getFunctionAnnotations(\ReflectionFunction $function) : array
+    public function getFunctionAnnotations($function) : array
     {
         $context = 'function ' . $function->getName();
         $this->parser->setTarget(\RectorPrefix20210317\Doctrine\Common\Annotations\Annotation\Target::TARGET_FUNCTION);
@@ -203,8 +205,10 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210317\Doctri
      * Gets a function annotation.
      *
      * @return object|null The Annotation or NULL, if the requested annotation does not exist.
+     * @param \ReflectionFunction $function
+     * @param string $annotationName
      */
-    public function getFunctionAnnotation(\ReflectionFunction $function, string $annotationName)
+    public function getFunctionAnnotation($function, $annotationName)
     {
         $annotations = $this->getFunctionAnnotations($function);
         foreach ($annotations as $annotation) {
@@ -252,8 +256,9 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210317\Doctri
      * Retrieves imports for methods.
      *
      * @return array<string, class-string>
+     * @param \ReflectionMethod $method
      */
-    private function getMethodImports(\ReflectionMethod $method)
+    private function getMethodImports($method)
     {
         $class = $method->getDeclaringClass();
         $classImports = $this->getImports($class);
@@ -270,8 +275,9 @@ class ConstantPreservingAnnotationReader implements \RectorPrefix20210317\Doctri
      * Retrieves imports for properties.
      *
      * @return array<string, class-string>
+     * @param \ReflectionProperty $property
      */
-    private function getPropertyImports(\ReflectionProperty $property)
+    private function getPropertyImports($property)
     {
         $class = $property->getDeclaringClass();
         $classImports = $this->getImports($class);

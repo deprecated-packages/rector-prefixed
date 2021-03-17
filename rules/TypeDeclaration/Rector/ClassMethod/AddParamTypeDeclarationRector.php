@@ -37,7 +37,10 @@ final class AddParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRe
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)
+    /**
+     * @param \Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator
+     */
+    public function __construct($typeComparator)
     {
         $this->typeComparator = $typeComparator;
     }
@@ -70,9 +73,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -93,13 +96,16 @@ CODE_SAMPLE
     /**
      * @param mixed[] $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $parameterTypehints = $configuration[self::PARAMETER_TYPEHINTS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($parameterTypehints, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration::class);
         $this->parameterTypehints = $parameterTypehints;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkip($classMethod) : bool
     {
         // skip class methods without args
         if ($classMethod->params === []) {
@@ -127,7 +133,11 @@ CODE_SAMPLE
         /** @var Interface_ $classLike */
         return !(bool) $classLike->extends;
     }
-    private function refactorClassMethodWithTypehintByParameterPosition(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration
+     */
+    private function refactorClassMethodWithTypehintByParameterPosition($classMethod, $addParamTypeDeclaration) : void
     {
         $parameter = $classMethod->params[$addParamTypeDeclaration->getPosition()] ?? null;
         if (!$parameter instanceof \PhpParser\Node\Param) {
@@ -135,7 +145,11 @@ CODE_SAMPLE
         }
         $this->refactorParameter($parameter, $addParamTypeDeclaration);
     }
-    private function refactorParameter(\PhpParser\Node\Param $param, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
+    /**
+     * @param \PhpParser\Node\Param $param
+     * @param \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration
+     */
+    private function refactorParameter($param, $addParamTypeDeclaration) : void
     {
         // already set → no change
         if ($param->type !== null) {

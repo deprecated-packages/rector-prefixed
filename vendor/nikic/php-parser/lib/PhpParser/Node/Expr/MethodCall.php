@@ -22,7 +22,7 @@ class MethodCall extends \PhpParser\Node\Expr
      * @param Arg[]                  $args       Arguments
      * @param array                  $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $var, $name, array $args = [], array $attributes = [])
+    public function __construct($var, $name, $args = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

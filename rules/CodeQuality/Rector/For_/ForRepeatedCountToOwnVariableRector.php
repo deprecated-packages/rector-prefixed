@@ -22,7 +22,10 @@ final class ForRepeatedCountToOwnVariableRector extends \Rector\Core\Rector\Abst
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    /**
+     * @param \Rector\NetteKdyby\Naming\VariableNaming $variableNaming
+     */
+    public function __construct($variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
@@ -61,9 +64,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\For_::class];
     }
     /**
-     * @param For_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $countInCond = null;
         $variableName = null;

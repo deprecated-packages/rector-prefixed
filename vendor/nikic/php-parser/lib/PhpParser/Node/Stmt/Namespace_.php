@@ -16,11 +16,11 @@ class Namespace_ extends \PhpParser\Node\Stmt
     /**
      * Constructs a namespace node.
      *
-     * @param null|Node\Name   $name       Name
+     * @param \PhpParser\Node\Name   $name       Name
      * @param null|Node\Stmt[] $stmts      Statements
      * @param array            $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Name $name = null, $stmts = [], array $attributes = [])
+    public function __construct($name = null, $stmts = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = $name;

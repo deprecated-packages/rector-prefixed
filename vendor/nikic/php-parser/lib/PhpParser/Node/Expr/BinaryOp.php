@@ -17,7 +17,7 @@ abstract class BinaryOp extends \PhpParser\Node\Expr
      * @param Expr  $right      The right hand side expression
      * @param array $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $left, \PhpParser\Node\Expr $right, array $attributes = [])
+    public function __construct($left, $right, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->left = $left;

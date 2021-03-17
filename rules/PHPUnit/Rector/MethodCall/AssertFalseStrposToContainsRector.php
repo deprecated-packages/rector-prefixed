@@ -29,7 +29,11 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($identifierManipulator, $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -48,7 +52,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $oldMethodName = \array_keys(self::RENAME_METHODS_MAP);
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodName)) {
@@ -71,7 +75,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall|null
      */
-    private function changeArgumentsOrder(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function changeArgumentsOrder($node) : ?\PhpParser\Node
     {
         $oldArguments = $node->args;
         $strposFuncCallNode = $oldArguments[0]->value;

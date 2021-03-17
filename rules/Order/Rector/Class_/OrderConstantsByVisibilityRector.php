@@ -29,7 +29,12 @@ final class OrderConstantsByVisibilityRector extends \Rector\Core\Rector\Abstrac
      * @var StmtVisibilitySorter
      */
     private $stmtVisibilitySorter;
-    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
+    /**
+     * @param \Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer
+     * @param \Rector\Order\StmtOrder $stmtOrder
+     * @param \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter
+     */
+    public function __construct($orderChangeAnalyzer, $stmtOrder, $stmtVisibilitySorter)
     {
         $this->orderChangeAnalyzer = $orderChangeAnalyzer;
         $this->stmtOrder = $stmtOrder;
@@ -63,9 +68,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $currentClassConstsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\ClassConst::class);
         $classConstsInDesiredOrder = $this->stmtVisibilitySorter->sortConstants($node);

@@ -13,7 +13,14 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
      * @var string
      */
     private $fullyQualifiedClassName;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $originalContent, string $fullyQualifiedClassName)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param mixed[] $items
+     * @param string|null $originalContent
+     * @param string $fullyQualifiedClassName
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $originalContent, $fullyQualifiedClassName)
     {
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $originalContent);
         $this->fullyQualifiedClassName = $fullyQualifiedClassName;
@@ -30,11 +37,14 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     {
         return $this->items['class'];
     }
-    public function getFullyQualifiedTargetEntity() : string
+    public function getFullyQualifiedTargetEntity() : ?string
     {
         return $this->fullyQualifiedClassName;
     }
-    public function changeTargetEntity(string $targetEntity) : void
+    /**
+     * @param string $targetEntity
+     */
+    public function changeTargetEntity($targetEntity) : void
     {
         $this->items['class'] = $targetEntity;
     }

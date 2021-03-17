@@ -24,7 +24,7 @@ class If_ extends \PhpParser\Node\Stmt
      *                              'else'    => null   : Else clause
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, array $subNodes = [], array $attributes = [])
+    public function __construct($cond, $subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->cond = $cond;

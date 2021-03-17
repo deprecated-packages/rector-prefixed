@@ -40,7 +40,12 @@ final class ChangeReadOnlyVariableWithDefaultValueToConstantRector extends \Rect
      * @var PropertyToAddCollector
      */
     private $propertyToAddCollector;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator
+     * @param \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector
+     */
+    public function __construct($classMethodAssignManipulator, $varAnnotationManipulator, $propertyToAddCollector)
     {
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->varAnnotationManipulator = $varAnnotationManipulator;
@@ -91,9 +96,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $readOnlyVariableAssigns = $this->collectReadOnlyVariableAssigns($node);
         $readOnlyVariableAssigns = $this->filterOutUniqueNames($readOnlyVariableAssigns);
@@ -115,8 +120,9 @@ CODE_SAMPLE
     }
     /**
      * @return Assign[]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectReadOnlyVariableAssigns(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectReadOnlyVariableAssigns($class) : array
     {
         $readOnlyVariables = [];
         foreach ($class->getMethods() as $classMethod) {
@@ -132,7 +138,7 @@ CODE_SAMPLE
      * @param Assign[] $assigns
      * @return Assign[]
      */
-    private function filterOutUniqueNames(array $assigns) : array
+    private function filterOutUniqueNames($assigns) : array
     {
         $assignsByName = $this->collectAssignsByName($assigns);
         $assignsWithUniqueName = [];
@@ -150,7 +156,7 @@ CODE_SAMPLE
      * @param Assign[] $assigns
      * @return array<string, Assign[]>
      */
-    private function collectAssignsByName(array $assigns) : array
+    private function collectAssignsByName($assigns) : array
     {
         $assignsByName = [];
         foreach ($assigns as $assign) {
@@ -162,8 +168,10 @@ CODE_SAMPLE
     }
     /**
      * @param Assign[] $readOnlyVariableAssigns
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns) : void
+    private function refactorClassMethod($classMethod, $class, $readOnlyVariableAssigns) : void
     {
         foreach ($readOnlyVariableAssigns as $readOnlyVariableAssign) {
             $this->removeNode($readOnlyVariableAssign);
@@ -183,7 +191,10 @@ CODE_SAMPLE
             $this->replaceVariableWithClassConstFetch($classMethod, $variableName, $classConst);
         }
     }
-    private function isFoundByRefParam(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function isFoundByRefParam($classMethod) : bool
     {
         $params = $classMethod->getParams();
         foreach ($params as $param) {
@@ -193,7 +204,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function createPrivateClassConst(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\ClassConst
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function createPrivateClassConst($variable, $expr) : \PhpParser\Node\Stmt\ClassConst
     {
         $constantName = $this->createConstantNameFromVariable($variable);
         $const = new \PhpParser\Node\Const_($constantName, $expr);
@@ -204,7 +219,12 @@ CODE_SAMPLE
         $this->varAnnotationManipulator->decorateNodeWithType($classConst, $constantType);
         return $classConst;
     }
-    private function replaceVariableWithClassConstFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \PhpParser\Node\Stmt\ClassConst $classConst) : void
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param string $variableName
+     * @param \PhpParser\Node\Stmt\ClassConst $classConst
+     */
+    private function replaceVariableWithClassConstFetch($classMethod, $variableName, $classConst) : void
     {
         $constantName = $this->getName($classConst);
         if ($constantName === null) {
@@ -221,7 +241,10 @@ CODE_SAMPLE
             return $classConstFetch;
         });
     }
-    private function createConstantNameFromVariable(\PhpParser\Node\Expr\Variable $variable) : string
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     */
+    private function createConstantNameFromVariable($variable) : string
     {
         $variableName = $this->getName($variable);
         if ($variableName === null) {

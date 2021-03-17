@@ -36,7 +36,11 @@ final class ParamTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\A
      * @var ReflectionTypeResolver
      */
     private $reflectionTypeResolver;
-    public function __construct(\RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
+    /**
+     * @param \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser
+     * @param \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver
+     */
+    public function __construct($simpleCallableNodeTraverser, $reflectionTypeResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->reflectionTypeResolver = $reflectionTypeResolver;
@@ -77,7 +81,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
@@ -89,8 +93,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
+     * @param \PhpParser\Node\Param $param
      */
-    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
+    public function decorateParamWithType($functionLike, $param) : void
     {
         if ($param->type !== null) {
             return;
@@ -114,7 +119,10 @@ CODE_SAMPLE
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
     }
-    private function matchPropertySingleTypeNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
+     */
+    private function matchPropertySingleTypeNode($propertyFetch) : ?\PhpParser\Node
     {
         $property = $this->nodeRepository->findPropertyByPropertyFetch($propertyFetch);
         if (!$property instanceof \PhpParser\Node\Stmt\Property) {

@@ -33,7 +33,12 @@ final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRecto
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     * @param \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover
+     */
+    public function __construct($paramTypeInferer, $phpDocTypeChanger, $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -82,9 +87,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->getParams() === []) {
             return null;
@@ -107,7 +112,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    private function shouldSkipParam($param) : bool
     {
         // type missing at all
         if ($param->type === null) {
@@ -125,7 +133,10 @@ CODE_SAMPLE
         }
         return $this->isArrayExplicitMixed($paramType);
     }
-    private function isArrayExplicitMixed(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    private function isArrayExplicitMixed($type) : bool
     {
         if (!$type instanceof \PHPStan\Type\ArrayType) {
             return \false;

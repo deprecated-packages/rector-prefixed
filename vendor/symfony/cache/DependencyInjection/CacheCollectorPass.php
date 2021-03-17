@@ -27,7 +27,12 @@ class CacheCollectorPass implements \RectorPrefix20210317\Symfony\Component\Depe
     private $dataCollectorCacheId;
     private $cachePoolTag;
     private $cachePoolRecorderInnerSuffix;
-    public function __construct(string $dataCollectorCacheId = 'data_collector.cache', string $cachePoolTag = 'cache.pool', string $cachePoolRecorderInnerSuffix = '.recorder_inner')
+    /**
+     * @param string $dataCollectorCacheId
+     * @param string $cachePoolTag
+     * @param string $cachePoolRecorderInnerSuffix
+     */
+    public function __construct($dataCollectorCacheId = 'data_collector.cache', $cachePoolTag = 'cache.pool', $cachePoolRecorderInnerSuffix = '.recorder_inner')
     {
         $this->dataCollectorCacheId = $dataCollectorCacheId;
         $this->cachePoolTag = $cachePoolTag;
@@ -35,8 +40,9 @@ class CacheCollectorPass implements \RectorPrefix20210317\Symfony\Component\Depe
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         if (!$container->hasDefinition($this->dataCollectorCacheId)) {
             return;
@@ -46,7 +52,12 @@ class CacheCollectorPass implements \RectorPrefix20210317\Symfony\Component\Depe
             $this->addToCollector($id, $poolName, $container);
         }
     }
-    private function addToCollector(string $id, string $name, \RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param string $id
+     * @param string $name
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    private function addToCollector($id, $name, $container)
     {
         $definition = $container->getDefinition($id);
         if ($definition->isAbstract()) {

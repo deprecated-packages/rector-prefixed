@@ -23,14 +23,18 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\KernelEvents;
 class ResponseListener implements \RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
-    public function __construct(string $charset)
+    /**
+     * @param string $charset
+     */
+    public function __construct($charset)
     {
         $this->charset = $charset;
     }
     /**
      * Filters the Response.
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse($event)
     {
         if (!$event->isMasterRequest()) {
             return;

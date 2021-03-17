@@ -36,7 +36,10 @@ final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\Abstrac
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -78,9 +81,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Catch_::class];
     }
     /**
-     * @param Catch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
         if (!$caughtThrowableVariable instanceof \PhpParser\Node\Expr\Variable) {
@@ -94,7 +97,11 @@ CODE_SAMPLE
         });
         return $node;
     }
-    private function refactorThrow(\PhpParser\Node\Stmt\Throw_ $throw, \PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
+    /**
+     * @param \PhpParser\Node\Stmt\Throw_ $throw
+     * @param \PhpParser\Node\Expr\Variable $catchedThrowableVariable
+     */
+    private function refactorThrow($throw, $catchedThrowableVariable) : ?int
     {
         if (!$throw->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
@@ -131,7 +138,10 @@ CODE_SAMPLE
         // nothing more to add
         return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
     }
-    private function resolveExceptionArgumentPosition(\PhpParser\Node\Name $exceptionName) : ?int
+    /**
+     * @param \PhpParser\Node\Name $exceptionName
+     */
+    private function resolveExceptionArgumentPosition($exceptionName) : ?int
     {
         $className = $this->getName($exceptionName);
         // is native exception?

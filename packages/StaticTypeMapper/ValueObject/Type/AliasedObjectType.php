@@ -14,7 +14,11 @@ final class AliasedObjectType extends \PHPStan\Type\ObjectType
      * @var string
      */
     private $fullyQualifiedClass;
-    public function __construct(string $alias, string $fullyQualifiedClass)
+    /**
+     * @param string $alias
+     * @param string $fullyQualifiedClass
+     */
+    public function __construct($alias, $fullyQualifiedClass)
     {
         parent::__construct($alias);
         $this->fullyQualifiedClass = $fullyQualifiedClass;
@@ -37,7 +41,7 @@ final class AliasedObjectType extends \PHPStan\Type\ObjectType
     /**
      * @param AliasedObjectType|FullyQualifiedObjectType $comparedObjectType
      */
-    public function areShortNamesEqual(\PHPStan\Type\ObjectType $comparedObjectType) : bool
+    public function areShortNamesEqual($comparedObjectType) : bool
     {
         return $this->getShortName() === $comparedObjectType->getShortName();
     }

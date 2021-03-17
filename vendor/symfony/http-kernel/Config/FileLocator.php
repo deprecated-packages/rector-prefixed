@@ -20,15 +20,19 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\KernelInterface;
 class FileLocator extends \RectorPrefix20210317\Symfony\Component\Config\FileLocator
 {
     private $kernel;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    /**
+     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
+     */
+    public function __construct($kernel)
     {
         $this->kernel = $kernel;
         parent::__construct();
     }
     /**
      * {@inheritdoc}
+     * @param string $currentPath
      */
-    public function locate(string $file, string $currentPath = null, bool $first = \true)
+    public function locate(string $file, $currentPath = null, bool $first = \true)
     {
         if (isset($file[0]) && '@' === $file[0]) {
             $resource = $this->kernel->locateResource($file);

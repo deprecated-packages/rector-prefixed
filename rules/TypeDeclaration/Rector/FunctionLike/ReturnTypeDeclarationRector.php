@@ -71,7 +71,17 @@ final class ReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractRect
      * @var ObjectTypeComparator
      */
     private $objectTypeComparator;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator, \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker, \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \Rector\TypeDeclaration\TypeAnalyzer\ObjectTypeComparator $objectTypeComparator)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer
+     * @param \Rector\TypeDeclaration\ChildPopulator\ChildReturnPopulator $childReturnPopulator
+     * @param \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker $returnTypeAlreadyAddedChecker
+     * @param \Rector\TypeDeclaration\PhpDocParser\NonInformativeReturnTagRemover $nonInformativeReturnTagRemover
+     * @param \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard
+     * @param \Rector\VendorLocker\VendorLockResolver $vendorLockResolver
+     * @param \Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer
+     * @param \Rector\TypeDeclaration\TypeAnalyzer\ObjectTypeComparator $objectTypeComparator
+     */
+    public function __construct($returnTypeInferer, $childReturnPopulator, $returnTypeAlreadyAddedChecker, $nonInformativeReturnTagRemover, $classMethodReturnTypeOverrideGuard, $vendorLockResolver, $phpParserTypeAnalyzer, $objectTypeComparator)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->returnTypeAlreadyAddedChecker = $returnTypeAlreadyAddedChecker;
@@ -115,7 +125,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -137,8 +147,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
+     * @param \PHPStan\Type\Type $inferedType
      */
-    private function processType(\PhpParser\Node $node, \PHPStan\Type\Type $inferedType) : ?\PhpParser\Node
+    private function processType($node, $inferedType) : ?\PhpParser\Node
     {
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_RETURN);
         // nothing to change in PHP code
@@ -160,7 +171,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipClassMethod($classMethod) : bool
     {
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($classMethod)) {
             return \true;
@@ -170,7 +184,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkipInferredReturnNode(\PhpParser\Node\FunctionLike $functionLike) : bool
+    private function shouldSkipInferredReturnNode($functionLike) : bool
     {
         // already overridden by previous populateChild() method run
         if ($functionLike->returnType === null) {
@@ -180,8 +194,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
+     * @param \PHPStan\Type\Type $inferedType
      */
-    private function shouldSkipExistingReturnType(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\Type $inferedType) : bool
+    private function shouldSkipExistingReturnType($functionLike, $inferedType) : bool
     {
         if ($functionLike->returnType === null) {
             return \false;
@@ -197,9 +212,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param Name|NullableType|PhpParserUnionType $inferredReturnNode
+     * @param \PhpParser\Node $inferredReturnNode
      */
-    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
+    private function addReturnType($functionLike, $inferredReturnNode) : void
     {
         if ($functionLike->returnType === null) {
             $functionLike->returnType = $inferredReturnNode;
@@ -215,7 +230,11 @@ CODE_SAMPLE
             $functionLike->returnType = $inferredReturnNode;
         }
     }
-    private function isNullableTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
+    /**
+     * @param \PHPStan\Type\Type $currentType
+     * @param \PHPStan\Type\Type $inferedType
+     */
+    private function isNullableTypeSubType($currentType, $inferedType) : bool
     {
         if (!$currentType instanceof \PHPStan\Type\UnionType) {
             return \false;
@@ -225,7 +244,10 @@ CODE_SAMPLE
         }
         return $inferedType->isSubTypeOf($currentType)->yes();
     }
-    private function shouldSkipClassLike(\PhpParser\Node\FunctionLike $functionLike) : bool
+    /**
+     * @param \PhpParser\Node\FunctionLike $functionLike
+     */
+    private function shouldSkipClassLike($functionLike) : bool
     {
         if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;

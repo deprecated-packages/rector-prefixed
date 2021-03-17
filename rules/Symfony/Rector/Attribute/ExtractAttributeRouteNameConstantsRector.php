@@ -47,7 +47,13 @@ final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\Symfony\NodeFactory\RouteNameClassFactory $routeNameClassFactory, \Rector\Symfony\ConstantNameAndValueMatcher $constantNameAndValueMatcher, \Rector\Symfony\ConstantNameAndValueResolver $constantNameAndValueResolver, \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    /**
+     * @param \Rector\Symfony\NodeFactory\RouteNameClassFactory $routeNameClassFactory
+     * @param \Rector\Symfony\ConstantNameAndValueMatcher $constantNameAndValueMatcher
+     * @param \Rector\Symfony\ConstantNameAndValueResolver $constantNameAndValueResolver
+     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
+     */
+    public function __construct($routeNameClassFactory, $constantNameAndValueMatcher, $constantNameAndValueResolver, $smartFileSystem)
     {
         $this->routeNameClassFactory = $routeNameClassFactory;
         $this->constantNameAndValueMatcher = $constantNameAndValueMatcher;
@@ -97,9 +103,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Attribute::class];
     }
     /**
-     * @param Attribute $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::CLASS_NAME)) {
             return null;

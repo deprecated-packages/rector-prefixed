@@ -13,8 +13,10 @@ class Match_ extends \PhpParser\Node\Expr
     public $arms;
     /**
      * @param MatchArm[] $arms
+     * @param \PhpParser\Node\Expr $cond
+     * @param mixed[] $attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, array $arms = [], array $attributes = [])
+    public function __construct($cond, $arms = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->cond = $cond;

@@ -40,7 +40,14 @@ final class GetterNodeParamTypeInferer implements \Rector\TypeDeclaration\Contra
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\Core\NodeManipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    /**
+     * @param \Rector\Core\NodeManipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator
+     * @param \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser
+     */
+    public function __construct($propertyFetchAssignManipulator, $propertyFetchAnalyzer, $phpDocInfoFactory, $nodeNameResolver, $simpleCallableNodeTraverser)
     {
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->propertyFetchAssignManipulator = $propertyFetchAssignManipulator;

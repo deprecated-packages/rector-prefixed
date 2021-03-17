@@ -14,8 +14,10 @@ class ClassNotFoundError extends \Error
 {
     /**
      * {@inheritdoc}
+     * @param string $message
+     * @param \Throwable $previous
      */
-    public function __construct(string $message, \Throwable $previous)
+    public function __construct($message, $previous)
     {
         parent::__construct($message, $previous->getCode(), $previous->getPrevious());
         foreach (['file' => $previous->getFile(), 'line' => $previous->getLine(), 'trace' => $previous->getTrace()] as $property => $value) {

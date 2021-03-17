@@ -27,7 +27,7 @@ class Property extends \PhpParser\Node\Stmt
      * @param null|string|Identifier|Name|NullableType|UnionType $type       Type declaration
      * @param Node\AttributeGroup[]                              $attrGroups PHP attribute groups
      */
-    public function __construct(int $flags, array $props, array $attributes = [], $type = null, array $attrGroups = [])
+    public function __construct($flags, $props, $attributes = [], $type = null, $attrGroups = [])
     {
         $this->attributes = $attributes;
         $this->flags = $flags;

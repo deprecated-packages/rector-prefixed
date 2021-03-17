@@ -19,11 +19,17 @@ final class ParentConnectingVisitor extends \PhpParser\NodeVisitorAbstract
      * @var Node[]
      */
     private $stack = [];
-    public function beforeTraverse(array $nodes)
+    /**
+     * @param mixed[] $nodes
+     */
+    public function beforeTraverse($nodes)
     {
         $this->stack = [];
     }
-    public function enterNode(\PhpParser\Node $node)
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node)
     {
         if (!empty($this->stack)) {
             $node->setAttribute('parent', $this->stack[\count($this->stack) - 1]);

@@ -39,7 +39,11 @@ final class AttributeAwareCallableTypeNode extends \PHPStan\PhpDocParser\Ast\Typ
         $parameterTypeString = \implode(', ', $parameterTypeStrings);
         return \trim($parameterTypeString);
     }
-    private function normalizeParameterType(string $parameterTypeString, string $returnTypeAsString) : string
+    /**
+     * @param string $parameterTypeString
+     * @param string $returnTypeAsString
+     */
+    private function normalizeParameterType($parameterTypeString, $returnTypeAsString) : string
     {
         if ($parameterTypeString !== '') {
             return '(' . $parameterTypeString . ')';
@@ -52,7 +56,11 @@ final class AttributeAwareCallableTypeNode extends \PHPStan\PhpDocParser\Ast\Typ
         }
         return '()';
     }
-    private function normalizeReturnType(string $parameterTypeString, string $returnTypeAsString) : string
+    /**
+     * @param string $parameterTypeString
+     * @param string $returnTypeAsString
+     */
+    private function normalizeReturnType($parameterTypeString, $returnTypeAsString) : string
     {
         if ($returnTypeAsString !== 'mixed') {
             return ':' . $returnTypeAsString;

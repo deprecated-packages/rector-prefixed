@@ -64,9 +64,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
-     * @param Foreach_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         /** @var Break_[] $breaks */
         $breaks = $this->betterNodeFinder->findInstanceOf($node->stmts, \PhpParser\Node\Stmt\Break_::class);
@@ -111,8 +111,13 @@ CODE_SAMPLE
     }
     /**
      * @param Break_[] $breaks
+     * @param \PhpParser\Node\Stmt\Expression $expression
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     * @param \PhpParser\Node\Expr\Assign $assignPreviousVariable
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
      */
-    private function processEarlyReturn(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Assign $assign, array $breaks, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Expr\Assign $assignPreviousVariable, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Stmt\Foreach_
+    private function processEarlyReturn($expression, $assign, $breaks, $return, $assignPreviousVariable, $foreach) : \PhpParser\Node\Stmt\Foreach_
     {
         $this->removeNode($expression);
         $this->addNodeBeforeNode(new \PhpParser\Node\Stmt\Return_($assign->expr), $breaks[0]);
@@ -121,7 +126,13 @@ CODE_SAMPLE
         $this->removeNode($assignPreviousVariable);
         return $foreach;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\Return_ $return, ?\PhpParser\Node\Expr $expr = null, \PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr $assignVariable) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $return
+     * @param \PhpParser\Node\Expr|null $expr
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     * @param \PhpParser\Node\Expr $assignVariable
+     */
+    private function shouldSkip($return, $expr = null, $foreach, $assignVariable) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr) {
             return \true;

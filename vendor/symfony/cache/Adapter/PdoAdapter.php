@@ -61,8 +61,12 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
      * @throws InvalidArgumentException When first argument is not PDO nor Connection nor string
      * @throws InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      * @throws InvalidArgumentException When namespace contains invalid characters
+     * @param string $namespace
+     * @param int $defaultLifetime
+     * @param mixed[] $options
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
-    public function __construct($connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($connOrDsn, $namespace = '', $defaultLifetime = 0, $options = [], $marshaller = null)
     {
         if (isset($namespace[0]) && \preg_match('#[^-+.A-Za-z0-9]#', $namespace, $match)) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
@@ -150,8 +154,10 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * Adds the Table to the Schema if the adapter uses this Connection.
+     * @param \Doctrine\DBAL\Schema\Schema $schema
+     * @param \Doctrine\DBAL\Connection $forConnection
      */
-    public function configureSchema(\RectorPrefix20210317\Doctrine\DBAL\Schema\Schema $schema, \RectorPrefix20210317\Doctrine\DBAL\Connection $forConnection) : void
+    public function configureSchema($schema, $forConnection) : void
     {
         // only update the schema for this connection
         if ($forConnection !== $this->getConnection()) {
@@ -192,8 +198,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doFetch(array $ids)
+    protected function doFetch($ids)
     {
         $now = \time();
         $expired = [];
@@ -231,8 +238,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
+     * @param string $id
      */
-    protected function doHave(string $id)
+    protected function doHave($id)
     {
         $sql = "SELECT 1 FROM {$this->table} WHERE {$this->idCol} = :id AND ({$this->lifetimeCol} IS NULL OR {$this->lifetimeCol} + {$this->timeCol} > :time)";
         $stmt = $this->getConnection()->prepare($sql);
@@ -243,8 +251,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
+     * @param string $namespace
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         $conn = $this->getConnection();
         if ('' === $namespace) {
@@ -269,8 +278,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $ids
      */
-    protected function doDelete(array $ids)
+    protected function doDelete($ids)
     {
         $sql = \str_pad('', (\count($ids) << 1) - 1, '?,');
         $sql = "DELETE FROM {$this->table} WHERE {$this->idCol} IN ({$sql})";
@@ -284,8 +294,10 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $values
+     * @param int $lifetime
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave($values, $lifetime)
     {
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
@@ -380,9 +392,9 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         return $failed;
     }
     /**
-     * @return \PDO|Connection
+     * @return object
      */
-    private function getConnection() : object
+    private function getConnection()
     {
         if (null === $this->conn) {
             if (\strpos($this->dsn, '://')) {
@@ -446,7 +458,10 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         }
         return $this->serverVersion;
     }
-    private function addTableToSchema(\RectorPrefix20210317\Doctrine\DBAL\Schema\Schema $schema) : void
+    /**
+     * @param \Doctrine\DBAL\Schema\Schema $schema
+     */
+    private function addTableToSchema($schema) : void
     {
         $types = ['mysql' => 'binary', 'sqlite' => 'text', 'pgsql' => 'string', 'oci' => 'string', 'sqlsrv' => 'string'];
         if (!isset($types[$this->driver])) {

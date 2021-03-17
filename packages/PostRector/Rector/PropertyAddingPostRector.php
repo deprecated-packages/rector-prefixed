@@ -32,7 +32,13 @@ final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractP
      * @var NetteInjectDetector
      */
     private $netteInjectDetector;
-    public function __construct(\Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PostRector\NodeAnalyzer\NetteInjectDetector $netteInjectDetector, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     * @param \Rector\PostRector\NodeAnalyzer\NetteInjectDetector $netteInjectDetector
+     * @param \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector
+     */
+    public function __construct($classDependencyManipulator, $classInsertManipulator, $netteInjectDetector, $propertyToAddCollector)
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -43,7 +49,10 @@ final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractP
     {
         return 900;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node) : ?\PhpParser\Node
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
@@ -79,14 +88,20 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    private function addConstants(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function addConstants($class) : void
     {
         $constants = $this->propertyToAddCollector->getConstantsByClass($class);
         foreach ($constants as $constantName => $nodeConst) {
             $this->classInsertManipulator->addConstantToClass($class, $constantName, $nodeConst);
         }
     }
-    private function addProperties(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function addProperties($class) : void
     {
         $propertiesMetadatas = $this->propertyToAddCollector->getPropertiesByClass($class);
         $isNetteInjectPreferred = $this->netteInjectDetector->isNetteInjectPreferred($class);
@@ -98,7 +113,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function addPropertiesWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function addPropertiesWithoutConstructor($class) : void
     {
         $propertiesWithoutConstructor = $this->propertyToAddCollector->getPropertiesWithoutConstructorByClass($class);
         foreach ($propertiesWithoutConstructor as $propertyName => $propertyType) {

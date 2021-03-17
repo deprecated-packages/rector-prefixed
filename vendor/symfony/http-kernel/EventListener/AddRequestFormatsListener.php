@@ -23,14 +23,18 @@ use RectorPrefix20210317\Symfony\Component\HttpKernel\KernelEvents;
 class AddRequestFormatsListener implements \RectorPrefix20210317\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     protected $formats;
-    public function __construct(array $formats)
+    /**
+     * @param mixed[] $formats
+     */
+    public function __construct($formats)
     {
         $this->formats = $formats;
     }
     /**
      * Adds request formats.
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest($event)
     {
         $request = $event->getRequest();
         foreach ($this->formats as $format => $mimeTypes) {

@@ -20,7 +20,7 @@ class Ternary extends \PhpParser\Node\Expr
      * @param Expr      $else       Expression for false
      * @param array                    $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, $if, \PhpParser\Node\Expr $else, array $attributes = [])
+    public function __construct($cond, $if, $else, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->cond = $cond;

@@ -20,7 +20,10 @@ class ContainerParametersResourceChecker implements \RectorPrefix20210317\Symfon
 {
     /** @var ContainerInterface */
     private $container;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function __construct($container)
     {
         $this->container = $container;
     }

@@ -46,7 +46,12 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @param \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer
+     * @param \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     */
+    public function __construct($returnTypeInferer, $constantReturnToParamTypeConverter, $phpDocTypeChanger)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->constantReturnToParamTypeConverter = $constantReturnToParamTypeConverter;
@@ -93,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // must be exactly 1 param
         if (\count($node->params) !== 1) {
@@ -125,13 +130,17 @@ CODE_SAMPLE
     /**
      * @param array<string, mixed[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
-    private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn
+     */
+    private function matchReturnClassMethod($classMethod, $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->nodeNameResolver->isInClassNamed($classMethod, $inferParamFromClassMethodReturn->getObjectType())) {
             return null;
@@ -145,7 +154,11 @@ CODE_SAMPLE
         }
         return $classLike->getMethod($inferParamFromClassMethodReturn->getReturnMethod());
     }
-    private function isParamDocTypeEqualToPhpType(\PhpParser\Node\Param $param, \PHPStan\Type\Type $paramType) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     * @param \PHPStan\Type\Type $paramType
+     */
+    private function isParamDocTypeEqualToPhpType($param, $paramType) : bool
     {
         $currentParamType = $this->getObjectType($param);
         if ($currentParamType instanceof \PHPStan\Type\UnionType) {

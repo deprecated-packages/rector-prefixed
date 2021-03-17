@@ -45,7 +45,16 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
+     * @param \Rector\CodingStyle\Node\NameImporter $nameImporter
+     * @param \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter
+     * @param \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($parameterProvider, $nameImporter, $docBlockNameImporter, $classNameImportSkipper, $phpDocInfoFactory, $nodeNameResolver, $reflectionProvider)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
@@ -55,7 +64,10 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node) : ?\PhpParser\Node
     {
         $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
         if (!$autoImportNames) {
@@ -98,7 +110,10 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    private function processNodeName(\PhpParser\Node\Name $name) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Name $name
+     */
+    private function processNodeName($name) : ?\PhpParser\Node
     {
         if ($name->isSpecialClassName()) {
             return $name;

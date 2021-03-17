@@ -36,7 +36,12 @@ final class ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector extends \Rec
      * @var FormCollectionAnalyzer
      */
     private $formCollectionAnalyzer;
-    public function __construct(\Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher, \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer)
+    /**
+     * @param \Rector\Symfony3\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer
+     * @param \Rector\Symfony3\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher
+     * @param \Rector\Symfony3\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer
+     */
+    public function __construct($formAddMethodCallAnalyzer, $formOptionsArrayMatcher, $formCollectionAnalyzer)
     {
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
@@ -88,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
@@ -105,7 +110,10 @@ CODE_SAMPLE
         $this->refactorOptionsArray($optionsArray);
         return $node;
     }
-    private function refactorOptionsArray(\PhpParser\Node\Expr\Array_ $optionsArray) : void
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $optionsArray
+     */
+    private function refactorOptionsArray($optionsArray) : void
     {
         foreach ($optionsArray->items as $arrayItem) {
             if ($arrayItem === null) {

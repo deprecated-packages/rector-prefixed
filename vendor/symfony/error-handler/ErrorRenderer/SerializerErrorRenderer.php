@@ -27,11 +27,12 @@ class SerializerErrorRenderer implements \RectorPrefix20210317\Symfony\Component
     private $fallbackErrorRenderer;
     private $debug;
     /**
-     * @param string|callable(FlattenException) $format The format as a string or a callable that should return it
-     *                                                  formats not supported by Request::getMimeTypes() should be given as mime types
+     * @param string|callable(FlattenException) $format The format as a string or a callable that should return it                                                  formats not supported by Request::getMimeTypes() should be given as mime types
      * @param bool|callable                     $debug  The debugging mode as a boolean or a callable that should return it
+     * @param \Symfony\Component\Serializer\SerializerInterface $serializer
+     * @param \Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface $fallbackErrorRenderer
      */
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Serializer\SerializerInterface $serializer, $format, \RectorPrefix20210317\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface $fallbackErrorRenderer = null, $debug = \false)
+    public function __construct($serializer, $format, $fallbackErrorRenderer = null, $debug = \false)
     {
         if (!\is_string($format) && !\is_callable($format)) {
             throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be a string or a callable, "%s" given.', __METHOD__, \get_debug_type($format)));
@@ -64,7 +65,10 @@ class SerializerErrorRenderer implements \RectorPrefix20210317\Symfony\Component
             return $this->fallbackErrorRenderer->render($exception);
         }
     }
-    public static function getPreferredFormat(\RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack) : \Closure
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     */
+    public static function getPreferredFormat($requestStack) : \Closure
     {
         return static function () use($requestStack) {
             if (!($request = $requestStack->getCurrentRequest())) {

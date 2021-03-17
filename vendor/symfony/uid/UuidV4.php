@@ -20,7 +20,10 @@ namespace RectorPrefix20210317\Symfony\Component\Uid;
 class UuidV4 extends \RectorPrefix20210317\Symfony\Component\Uid\Uuid
 {
     protected const TYPE = 4;
-    public function __construct(string $uuid = null)
+    /**
+     * @param string $uuid
+     */
+    public function __construct($uuid = null)
     {
         if (null === $uuid) {
             $uuid = \random_bytes(16);

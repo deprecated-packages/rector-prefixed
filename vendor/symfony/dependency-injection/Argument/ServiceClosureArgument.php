@@ -20,7 +20,10 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
 class ServiceClosureArgument implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
 {
     private $values;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference $reference)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Reference $reference
+     */
+    public function __construct($reference)
     {
         $this->values = [$reference];
     }

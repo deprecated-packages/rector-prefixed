@@ -52,7 +52,14 @@ final class ParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRecto
      * @var VendorLockResolver
      */
     private $vendorLockResolver;
-    public function __construct(\Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer $traitTypeAnalyzer, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    /**
+     * @param \Rector\VendorLocker\VendorLockResolver $vendorLockResolver
+     * @param \Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator
+     * @param \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer
+     * @param \Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer $traitTypeAnalyzer
+     * @param \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover
+     */
+    public function __construct($vendorLockResolver, $childParamPopulator, $paramTypeInferer, $traitTypeAnalyzer, $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->childParamPopulator = $childParamPopulator;
@@ -127,7 +134,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -142,8 +149,10 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
+     * @param \PhpParser\Node\Param $param
+     * @param int $position
      */
-    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : void
+    private function refactorParam($param, $functionLike, $position) : void
     {
         if ($this->shouldSkipParam($param, $functionLike, $position)) {
             return;
@@ -168,7 +177,12 @@ CODE_SAMPLE
         $this->paramTagRemover->removeParamTagsIfUseless($functionLikePhpDocInfo, $functionLike);
         $this->childParamPopulator->populateChildClassMethod($functionLike, $position, $inferedType);
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     * @param \PhpParser\Node\FunctionLike $functionLike
+     * @param int $position
+     */
+    private function shouldSkipParam($param, $functionLike, $position) : bool
     {
         if ($this->vendorLockResolver->isClassMethodParamLockedIn($functionLike, $position)) {
             return \true;

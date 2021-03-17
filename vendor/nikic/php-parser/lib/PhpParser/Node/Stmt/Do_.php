@@ -17,7 +17,7 @@ class Do_ extends \PhpParser\Node\Stmt
      * @param Node\Stmt[] $stmts      Statements
      * @param array       $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, array $stmts = [], array $attributes = [])
+    public function __construct($cond, $stmts = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->cond = $cond;

@@ -17,7 +17,7 @@ class Trait_ extends \PhpParser\Builder\Declaration
      *
      * @param string $name Name of the interface
      */
-    public function __construct(string $name)
+    public function __construct($name)
     {
         $this->name = $name;
     }

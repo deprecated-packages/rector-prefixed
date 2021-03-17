@@ -23,7 +23,11 @@ class ServicesResetter implements \RectorPrefix20210317\Symfony\Contracts\Servic
 {
     private $resettableServices;
     private $resetMethods;
-    public function __construct(\Traversable $resettableServices, array $resetMethods)
+    /**
+     * @param \Traversable $resettableServices
+     * @param mixed[] $resetMethods
+     */
+    public function __construct($resettableServices, $resetMethods)
     {
         $this->resettableServices = $resettableServices;
         $this->resetMethods = $resetMethods;

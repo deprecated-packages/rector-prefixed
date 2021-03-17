@@ -22,7 +22,10 @@ use RectorPrefix20210317\Symfony\Component\HttpFoundation\Request;
 class ControllerResolver implements \RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
 {
     private $logger;
-    public function __construct(\RectorPrefix20210317\Psr\Log\LoggerInterface $logger = null)
+    /**
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct($logger = null)
     {
         $this->logger = $logger;
     }
@@ -85,8 +88,9 @@ class ControllerResolver implements \RectorPrefix20210317\Symfony\Component\Http
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
+     * @param string $controller
      */
-    protected function createController(string $controller)
+    protected function createController($controller)
     {
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
@@ -117,8 +121,9 @@ class ControllerResolver implements \RectorPrefix20210317\Symfony\Component\Http
      * Returns an instantiated controller.
      *
      * @return object
+     * @param string $class
      */
-    protected function instantiateController(string $class)
+    protected function instantiateController($class)
     {
         return new $class();
     }

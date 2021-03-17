@@ -18,7 +18,7 @@ class Identifier extends \PhpParser\NodeAbstract
      * @param string $name       Identifier as string
      * @param array  $attributes Additional attributes
      */
-    public function __construct(string $name, array $attributes = [])
+    public function __construct($name, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = $name;

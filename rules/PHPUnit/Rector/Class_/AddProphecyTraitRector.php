@@ -36,7 +36,12 @@ final class AddProphecyTraitRector extends \Rector\Core\Rector\AbstractRector
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     * @param \Rector\Core\NodeManipulator\ClassManipulator $classManipulator
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($classInsertManipulator, $classManipulator, $testsNodeAnalyzer)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->classManipulator = $classManipulator;
@@ -79,9 +84,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -89,7 +94,10 @@ CODE_SAMPLE
         $this->classInsertManipulator->addAsFirstTrait($node, self::PROPHECY_TRAIT);
         return $node;
     }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function shouldSkipClass($class) : bool
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($class)) {
             return \true;
@@ -100,7 +108,10 @@ CODE_SAMPLE
         }
         return $this->classManipulator->hasTrait($class, self::PROPHECY_TRAIT);
     }
-    private function hasProphesizeMethodCall(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function hasProphesizeMethodCall($class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
             return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'prophesize');

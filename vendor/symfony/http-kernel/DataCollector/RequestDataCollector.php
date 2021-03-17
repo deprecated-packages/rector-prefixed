@@ -31,15 +31,21 @@ class RequestDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpK
     protected $controllers;
     private $sessionUsages = [];
     private $requestStack;
-    public function __construct(?\RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack|null $requestStack
+     */
+    public function __construct($requestStack = null)
     {
         $this->controllers = new \SplObjectStorage();
         $this->requestStack = $requestStack;
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210317\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210317\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect($request, $response, $exception = null)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -277,11 +283,17 @@ class RequestDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpK
     {
         return $this->data['forward_token'] ?? null;
     }
-    public function onKernelController(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
+     */
+    public function onKernelController($event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
-    public function onKernelResponse(\RectorPrefix20210317\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     */
+    public function onKernelResponse($event)
     {
         if (!$event->isMasterRequest()) {
             return;

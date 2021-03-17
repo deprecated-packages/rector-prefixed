@@ -10,7 +10,10 @@ final class ReverseEmulator extends \PhpParser\Lexer\TokenEmulator\TokenEmulator
 {
     /** @var TokenEmulator Inner emulator */
     private $emulator;
-    public function __construct(\PhpParser\Lexer\TokenEmulator\TokenEmulator $emulator)
+    /**
+     * @param \PhpParser\Lexer\TokenEmulator\TokenEmulator $emulator
+     */
+    public function __construct($emulator)
     {
         $this->emulator = $emulator;
     }

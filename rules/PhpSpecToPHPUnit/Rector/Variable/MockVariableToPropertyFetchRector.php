@@ -21,7 +21,10 @@ final class MockVariableToPropertyFetchRector extends \Rector\PhpSpecToPHPUnit\R
      * @var PhpSpecMockCollector
      */
     private $phpSpecMockCollector;
-    public function __construct(\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector)
+    /**
+     * @param \Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector
+     */
+    public function __construct($phpSpecMockCollector)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
     }
@@ -33,9 +36,9 @@ final class MockVariableToPropertyFetchRector extends \Rector\PhpSpecToPHPUnit\R
         return [\PhpParser\Node\Expr\Variable::class];
     }
     /**
-     * @param Variable $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;

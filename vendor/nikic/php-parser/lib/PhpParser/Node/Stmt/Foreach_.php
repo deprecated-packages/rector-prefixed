@@ -27,7 +27,7 @@ class Foreach_ extends \PhpParser\Node\Stmt
      *                              'stmts'  => array(): Statements
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr $valueVar, array $subNodes = [], array $attributes = [])
+    public function __construct($expr, $valueVar, $subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->expr = $expr;

@@ -21,7 +21,7 @@ class Include_ extends \PhpParser\Node\Expr
      * @param int   $type       Type of include
      * @param array $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $expr, int $type, array $attributes = [])
+    public function __construct($expr, $type, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->expr = $expr;

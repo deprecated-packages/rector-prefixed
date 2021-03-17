@@ -26,7 +26,10 @@ final class StrEndsWithRector extends \Rector\Core\Rector\AbstractRector
      * @var BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
-    public function __construct(\Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
+    /**
+     * @param \Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer
+     */
+    public function __construct($binaryOpAnalyzer)
     {
         $this->binaryOpAnalyzer = $binaryOpAnalyzer;
     }
@@ -62,15 +65,16 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         return $this->refactorSubstr($node) ?? $this->refactorSubstrCompare($node);
     }
     /**
      * Covers:
      * $isMatch = substr($haystack, -strlen($needle)) === $needle;
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
      */
-    private function refactorSubstr(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
+    private function refactorSubstr($binaryOp) : ?\PhpParser\Node\Expr\FuncCall
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isName($binaryOp->left, 'substr')) {
             $substrFuncCall = $binaryOp->left;
@@ -88,7 +92,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function refactorSubstrCompare(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function refactorSubstrCompare($binaryOp) : ?\PhpParser\Node\Expr\FuncCall
     {
         $funcCallAndExpr = $this->binaryOpAnalyzer->matchFuncCallAndOtherExpr($binaryOp, 'substr_compare');
         if (!$funcCallAndExpr instanceof \Rector\NetteCodeQuality\ValueObject\FuncCallAndExpr) {
@@ -107,7 +114,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function matchUnaryMinusStrlenFuncCallArgValue(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function matchUnaryMinusStrlenFuncCallArgValue($node) : ?\PhpParser\Node\Expr
     {
         if (!$node instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;

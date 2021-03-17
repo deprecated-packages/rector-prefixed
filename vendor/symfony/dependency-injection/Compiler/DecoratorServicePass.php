@@ -25,11 +25,17 @@ use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
 class DecoratorServicePass extends \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
-    public function __construct(?string $innerId = '.inner')
+    /**
+     * @param string|null $innerId
+     */
+    public function __construct($innerId = '.inner')
     {
         $this->innerId = $innerId;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         $definitions = new \SplPriorityQueue();
         $order = \PHP_INT_MAX;
@@ -91,7 +97,10 @@ class DecoratorServicePass extends \RectorPrefix20210317\Symfony\Component\Depen
             $container->setAlias($inner, $id)->setPublic($public);
         }
     }
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
             return new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());

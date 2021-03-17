@@ -29,7 +29,11 @@ final class OptionalParametersAfterRequiredRector extends \Rector\Core\Rector\Ab
      * @var ArgumentSorter
      */
     private $argumentSorter;
-    public function __construct(\Rector\Php80\NodeResolver\RequireOptionalParamResolver $requireOptionalParamResolver, \Rector\Php80\NodeResolver\ArgumentSorter $argumentSorter)
+    /**
+     * @param \Rector\Php80\NodeResolver\RequireOptionalParamResolver $requireOptionalParamResolver
+     * @param \Rector\Php80\NodeResolver\ArgumentSorter $argumentSorter
+     */
+    public function __construct($requireOptionalParamResolver, $argumentSorter)
     {
         $this->requireOptionalParamResolver = $requireOptionalParamResolver;
         $this->argumentSorter = $argumentSorter;
@@ -64,7 +68,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|New_|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
@@ -74,7 +78,10 @@ CODE_SAMPLE
         }
         return $this->refactorMethodCall($node);
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if ($classMethod->params === []) {
             return null;
@@ -86,7 +93,10 @@ CODE_SAMPLE
         $classMethod->params = $expectedOrderParams;
         return $classMethod;
     }
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\New_
+    /**
+     * @param \PhpParser\Node\Expr\New_ $new
+     */
+    private function refactorNew($new) : ?\PhpParser\Node\Expr\New_
     {
         if ($new->args === []) {
             return null;
@@ -114,7 +124,10 @@ CODE_SAMPLE
         $new->args = $newArgs;
         return $new;
     }
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorMethodCall($methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

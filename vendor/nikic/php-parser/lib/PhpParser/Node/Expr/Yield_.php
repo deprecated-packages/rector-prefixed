@@ -13,11 +13,11 @@ class Yield_ extends \PhpParser\Node\Expr
     /**
      * Constructs a yield expression node.
      *
-     * @param null|Expr $value      Value expression
-     * @param null|Expr $key        Key expression
+     * @param \PhpParser\Node\Expr $value      Value expression
+     * @param \PhpParser\Node\Expr $key        Key expression
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $value = null, \PhpParser\Node\Expr $key = null, array $attributes = [])
+    public function __construct($value = null, $key = null, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->key = $key;

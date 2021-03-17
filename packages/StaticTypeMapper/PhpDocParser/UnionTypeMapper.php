@@ -21,7 +21,10 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     */
+    public function __construct($typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
@@ -31,8 +34,9 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
     }
     /**
      * @required
+     * @param \Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper
      */
-    public function autowireUnionTypeMapper(\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper) : void
+    public function autowireUnionTypeMapper($phpDocTypeMapper) : void
     {
         $this->phpDocTypeMapper = $phpDocTypeMapper;
     }

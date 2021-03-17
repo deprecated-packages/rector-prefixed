@@ -14,7 +14,14 @@ final class JMSInjectTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
      * @var string|null
      */
     private $serviceName;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $serviceName, ?string $annotationContent)
+    /**
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param mixed[] $items
+     * @param string|null $serviceName
+     * @param string|null $annotationContent
+     */
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $serviceName, $annotationContent)
     {
         $this->serviceName = $serviceName;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $annotationContent);

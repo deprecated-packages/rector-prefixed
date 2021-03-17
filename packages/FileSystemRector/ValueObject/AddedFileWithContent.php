@@ -14,7 +14,11 @@ final class AddedFileWithContent implements \Rector\FileSystemRector\Contract\Ad
      * @var string
      */
     private $fileContent;
-    public function __construct(string $filePath, string $fileContent)
+    /**
+     * @param string $filePath
+     * @param string $fileContent
+     */
+    public function __construct($filePath, $fileContent)
     {
         $this->filePath = $filePath;
         $this->fileContent = $fileContent;

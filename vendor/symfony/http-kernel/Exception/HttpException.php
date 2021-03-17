@@ -19,7 +19,14 @@ class HttpException extends \RuntimeException implements \RectorPrefix20210317\S
 {
     private $statusCode;
     private $headers;
-    public function __construct(int $statusCode, ?string $message = '', \Throwable $previous = null, array $headers = [], ?int $code = 0)
+    /**
+     * @param int $statusCode
+     * @param string|null $message
+     * @param \Throwable $previous
+     * @param mixed[] $headers
+     * @param int|null $code
+     */
+    public function __construct($statusCode, $message = '', $previous = null, $headers = [], $code = 0)
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;
@@ -38,7 +45,7 @@ class HttpException extends \RuntimeException implements \RectorPrefix20210317\S
      *
      * @param array $headers Response headers
      */
-    public function setHeaders(array $headers)
+    public function setHeaders($headers)
     {
         $this->headers = $headers;
     }

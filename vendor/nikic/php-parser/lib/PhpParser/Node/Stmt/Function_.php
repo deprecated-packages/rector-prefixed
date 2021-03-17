@@ -34,7 +34,7 @@ class Function_ extends \PhpParser\Node\Stmt implements \PhpParser\Node\Function
      *                           'attrGroups' => array(): PHP attribute groups
      * @param array  $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = [])
+    public function __construct($name, $subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->byRef = $subNodes['byRef'] ?? \false;
@@ -66,7 +66,7 @@ class Function_ extends \PhpParser\Node\Stmt implements \PhpParser\Node\Function
         return $this->attrGroups;
     }
     /** @return Node\Stmt[] */
-    public function getStmts() : array
+    public function getStmts() : ?array
     {
         return $this->stmts;
     }

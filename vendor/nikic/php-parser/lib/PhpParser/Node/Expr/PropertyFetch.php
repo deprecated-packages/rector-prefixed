@@ -18,7 +18,7 @@ class PropertyFetch extends \PhpParser\Node\Expr
      * @param string|Identifier|Expr $name       Property name
      * @param array                  $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $var, $name, array $attributes = [])
+    public function __construct($var, $name, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

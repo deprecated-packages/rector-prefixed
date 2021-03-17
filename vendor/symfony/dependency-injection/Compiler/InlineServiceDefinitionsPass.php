@@ -29,11 +29,17 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210317\Symfony\Compone
     private $inlinedIds = [];
     private $notInlinableIds = [];
     private $graph;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass = null)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass
+     */
+    public function __construct($analyzingPass = null)
     {
         $this->analyzingPass = $analyzingPass;
     }
-    public function process(\RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         $this->container = $container;
         if ($this->analyzingPass) {
@@ -96,8 +102,9 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210317\Symfony\Compone
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210317\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             // Reference found in ArgumentInterface::getValues() are not inlineable
@@ -139,8 +146,10 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210317\Symfony\Compone
     }
     /**
      * Checks if the definition is inlineable.
+     * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    private function isInlineableDefinition(string $id, \RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition $definition) : bool
+    private function isInlineableDefinition($id, $definition) : bool
     {
         if ($definition->hasErrors() || $definition->isDeprecated() || $definition->isLazy() || $definition->isSynthetic()) {
             return \false;

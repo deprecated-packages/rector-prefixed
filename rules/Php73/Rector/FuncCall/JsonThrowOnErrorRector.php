@@ -40,9 +40,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::JSON_EXCEPTION)) {
             return null;
@@ -55,7 +55,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processJsonEncode($funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         if (isset($funcCall->args[1])) {
             return null;
@@ -63,7 +66,10 @@ CODE_SAMPLE
         $funcCall->args[1] = new \PhpParser\Node\Arg($this->createConstFetch('JSON_THROW_ON_ERROR'));
         return $funcCall;
     }
-    private function processJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processJsonDecode($funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         if (isset($funcCall->args[3])) {
             return null;
@@ -78,7 +84,10 @@ CODE_SAMPLE
         $funcCall->args[3] = new \PhpParser\Node\Arg($this->createConstFetch('JSON_THROW_ON_ERROR'));
         return $funcCall;
     }
-    private function createConstFetch(string $name) : \PhpParser\Node\Expr\ConstFetch
+    /**
+     * @param string $name
+     */
+    private function createConstFetch($name) : \PhpParser\Node\Expr\ConstFetch
     {
         return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($name));
     }

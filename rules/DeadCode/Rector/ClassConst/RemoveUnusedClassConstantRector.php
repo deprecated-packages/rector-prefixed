@@ -25,7 +25,10 @@ final class RemoveUnusedClassConstantRector extends \Rector\Core\Rector\Abstract
      * @var ClassConstManipulator
      */
     private $classConstManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassConstManipulator $classConstManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassConstManipulator $classConstManipulator
+     */
+    public function __construct($classConstManipulator)
     {
         $this->classConstManipulator = $classConstManipulator;
     }
@@ -59,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param ClassConst $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -89,7 +92,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassConst $classConst) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassConst $classConst
+     */
+    private function shouldSkip($classConst) : bool
     {
         if ($this->isOpenSourceProjectType()) {
             return \true;

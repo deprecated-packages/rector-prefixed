@@ -17,7 +17,7 @@ class Switch_ extends \PhpParser\Node\Stmt
      * @param Case_[]   $cases      Case list
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, array $cases, array $attributes = [])
+    public function __construct($cond, $cases, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->cond = $cond;

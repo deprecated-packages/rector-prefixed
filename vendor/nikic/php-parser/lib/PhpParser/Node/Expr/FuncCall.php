@@ -18,7 +18,7 @@ class FuncCall extends \PhpParser\Node\Expr
      * @param Node\Arg[]     $args       Arguments
      * @param array          $attributes Additional attributes
      */
-    public function __construct($name, array $args = [], array $attributes = [])
+    public function __construct($name, $args = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = $name;

@@ -36,8 +36,11 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     private $maxItems;
     /**
      * @param bool $storeSerialized Disabling serialization can lead to cache corruptions when storing mutable values but increases performance otherwise
+     * @param int $defaultLifetime
+     * @param float $maxLifetime
+     * @param int $maxItems
      */
-    public function __construct(int $defaultLifetime = 0, bool $storeSerialized = \true, float $maxLifetime = 0, int $maxItems = 0)
+    public function __construct($defaultLifetime = 0, $storeSerialized = \true, $maxLifetime = 0, $maxItems = 0)
     {
         if (0 > $maxLifetime) {
             throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxLifetime must be positive, %F passed.', $maxLifetime));
@@ -59,8 +62,12 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param string $key
+     * @param callable $callback
+     * @param float $beta
+     * @param mixed[] $metadata
      */
-    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, $callback, $beta = null, &$metadata = null)
     {
         $item = $this->getItem($key);
         $metadata = $item->getMetadata();
@@ -73,8 +80,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param string $key
      */
-    public function delete(string $key) : bool
+    public function delete($key) : bool
     {
         return $this->deleteItem($key);
     }
@@ -116,8 +124,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $keys
      */
-    public function getItems(array $keys = [])
+    public function getItems($keys = [])
     {
         foreach ($keys as $key) {
             if (!\is_string($key) || !isset($this->expiries[$key])) {
@@ -143,8 +152,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param mixed[] $keys
      */
-    public function deleteItems(array $keys)
+    public function deleteItems($keys)
     {
         foreach ($keys as $key) {
             $this->deleteItem($key);
@@ -155,8 +165,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function save($item)
     {
         if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
             return \false;
@@ -200,8 +211,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred(\RectorPrefix20210317\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred($item)
     {
         return $this->save($item);
     }
@@ -218,8 +230,9 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
+     * @param string $prefix
      */
-    public function clear(string $prefix = '')
+    public function clear($prefix = '')
     {
         if ('' !== $prefix) {
             $now = \microtime(\true);
@@ -263,7 +276,10 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     {
         $this->clear();
     }
-    private function generateItems(array $keys, $now, $f)
+    /**
+     * @param mixed[] $keys
+     */
+    private function generateItems($keys, $now, $f)
     {
         foreach ($keys as $i => $key) {
             if (!($isHit = isset($this->expiries[$key]) && ($this->expiries[$key] > $now || !$this->deleteItem($key)))) {
@@ -314,7 +330,11 @@ class ArrayAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
         }
         return $value;
     }
-    private function unfreeze(string $key, bool &$isHit)
+    /**
+     * @param string $key
+     * @param bool $isHit
+     */
+    private function unfreeze($key, &$isHit)
     {
         if ('N;' === ($value = $this->values[$key])) {
             return null;

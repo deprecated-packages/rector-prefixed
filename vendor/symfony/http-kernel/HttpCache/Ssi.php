@@ -37,8 +37,9 @@ class Ssi extends \RectorPrefix20210317\Symfony\Component\HttpKernel\HttpCache\A
     }
     /**
      * {@inheritdoc}
+     * @param string $alt
      */
-    public function renderIncludeTag(string $uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '')
+    public function renderIncludeTag(string $uri, $alt = null, bool $ignoreErrors = \true, string $comment = '')
     {
         return \sprintf('<!--#include virtual="%s" -->', $uri);
     }

@@ -21,7 +21,10 @@ final class SimplifyDeMorganBinaryRector extends \Rector\Core\Rector\AbstractRec
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator
+     */
+    public function __construct($binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
@@ -47,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BooleanNot::class];
     }
     /**
-     * @param BooleanNot $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;

@@ -32,7 +32,11 @@ final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\Abstrac
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Core\Php\TypeAnalyzer $typeAnalyzer, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @param \Rector\Core\Php\TypeAnalyzer $typeAnalyzer
+     * @param \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+     */
+    public function __construct($typeAnalyzer, $testsNodeAnalyzer)
     {
         $this->typeAnalyzer = $typeAnalyzer;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
@@ -73,7 +77,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertInternalType', 'assertNotInternalType'])) {
             return null;

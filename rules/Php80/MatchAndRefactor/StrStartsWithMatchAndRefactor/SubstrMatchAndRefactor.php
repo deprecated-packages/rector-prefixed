@@ -32,7 +32,13 @@ final class SubstrMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
      * @var StrStartsWithFuncCallFactory
      */
     private $strStartsWithFuncCallFactory;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory)
+    /**
+     * @param \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver
+     * @param \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver
+     * @param \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator
+     * @param \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory
+     */
+    public function __construct($nodeNameResolver, $valueResolver, $nodeComparator, $strStartsWithFuncCallFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;

@@ -66,7 +66,18 @@ final class RenameVariableToMatchMethodCallReturnTypeRector extends \Rector\Core
      * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer, \Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)
+    /**
+     * @param \Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard
+     * @param \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver
+     * @param \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer
+     * @param \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer
+     * @param \Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher
+     * @param \Rector\Naming\VariableRenamer $variableRenamer
+     * @param \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     * @param \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer
+     */
+    public function __construct($breakingVariableRenameGuard, $expectedNameResolver, $namingConventionAnalyzer, $varTagValueNodeRenamer, $variableAndCallAssignMatcher, $variableRenamer, $typeUnwrapper, $reflectionProvider, $familyRelationsAnalyzer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->variableRenamer = $variableRenamer;
@@ -118,9 +129,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $variableAndCallAssign = $this->variableAndCallAssignMatcher->match($node);
         if (!$variableAndCallAssign instanceof \Rector\Naming\ValueObject\VariableAndCallAssign) {
@@ -146,7 +157,7 @@ CODE_SAMPLE
     /**
      * @param FuncCall|StaticCall|MethodCall $callNode
      */
-    private function isMultipleCall(\PhpParser\Node $callNode) : bool
+    private function isMultipleCall($callNode) : bool
     {
         $parentNode = $callNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $callNodeClass = \get_class($callNode);
@@ -173,7 +184,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function shouldSkip(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : bool
+    /**
+     * @param \Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign
+     * @param string $expectedName
+     */
+    private function shouldSkip($variableAndCallAssign, $expectedName) : bool
     {
         if ($this->namingConventionAnalyzer->isCallMatchingVariableName($variableAndCallAssign->getCall(), $variableAndCallAssign->getVariableName(), $expectedName)) {
             return \true;
@@ -183,7 +198,11 @@ CODE_SAMPLE
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallAssign->getVariableName(), $expectedName, $variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getVariable());
     }
-    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
+    /**
+     * @param \Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign
+     * @param string $expectedName
+     */
+    private function renameVariable($variableAndCallAssign, $expectedName) : void
     {
         $assign = $variableAndCallAssign->getAssign();
         $assignPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($assign);
@@ -193,7 +212,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall|FuncCall $expr
      */
-    private function isClassTypeWithChildren(\PhpParser\Node\Expr $expr) : bool
+    private function isClassTypeWithChildren($expr) : bool
     {
         $callStaticType = $this->getStaticType($expr);
         $callStaticType = $this->typeUnwrapper->unwrapNullableType($callStaticType);

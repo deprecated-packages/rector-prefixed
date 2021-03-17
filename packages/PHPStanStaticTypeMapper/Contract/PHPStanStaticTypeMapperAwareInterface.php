@@ -6,5 +6,8 @@ namespace Rector\PHPStanStaticTypeMapper\Contract;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 interface PHPStanStaticTypeMapperAwareInterface
 {
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void;
+    /**
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
+     */
+    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper) : void;
 }

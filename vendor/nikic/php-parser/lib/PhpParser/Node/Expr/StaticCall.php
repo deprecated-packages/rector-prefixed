@@ -22,7 +22,7 @@ class StaticCall extends \PhpParser\Node\Expr
      * @param Node\Arg[]             $args       Arguments
      * @param array                  $attributes Additional attributes
      */
-    public function __construct($class, $name, array $args = [], array $attributes = [])
+    public function __construct($class, $name, $args = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->class = $class;

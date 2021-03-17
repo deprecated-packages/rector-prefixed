@@ -14,7 +14,7 @@ class List_ extends \PhpParser\Node\Expr
      * @param (ArrayItem|null)[] $items      List of items to assign to
      * @param array              $attributes Additional attributes
      */
-    public function __construct(array $items, array $attributes = [])
+    public function __construct($items, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->items = $items;

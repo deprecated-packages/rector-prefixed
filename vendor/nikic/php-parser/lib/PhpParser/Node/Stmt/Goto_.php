@@ -15,7 +15,7 @@ class Goto_ extends \PhpParser\Node\Stmt
      * @param string|Identifier $name       Name of label to jump to
      * @param array             $attributes Additional attributes
      */
-    public function __construct($name, array $attributes = [])
+    public function __construct($name, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new \PhpParser\Node\Identifier($name) : $name;

@@ -15,10 +15,10 @@ class StaticVar extends \PhpParser\Node\Stmt
      * Constructs a static variable node.
      *
      * @param Expr\Variable  $var         Name
-     * @param null|Node\Expr $default    Default value
+     * @param \PhpParser\Node\Expr $default    Default value
      * @param array          $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr\Variable $var, \PhpParser\Node\Expr $default = null, array $attributes = [])
+    public function __construct($var, $default = null, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

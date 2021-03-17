@@ -14,7 +14,7 @@ class InlineHTML extends \PhpParser\Node\Stmt
      * @param string $value      String
      * @param array  $attributes Additional attributes
      */
-    public function __construct(string $value, array $attributes = [])
+    public function __construct($value, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->value = $value;

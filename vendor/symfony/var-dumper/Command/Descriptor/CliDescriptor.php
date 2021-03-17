@@ -28,7 +28,10 @@ class CliDescriptor implements \RectorPrefix20210317\Symfony\Component\VarDumper
     private $dumper;
     private $lastIdentifier;
     private $supportsHref;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\CliDumper $dumper)
+    /**
+     * @param \Symfony\Component\VarDumper\Dumper\CliDumper $dumper
+     */
+    public function __construct($dumper)
     {
         $this->dumper = $dumper;
         $this->supportsHref = \method_exists(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyle::class, 'setHref');

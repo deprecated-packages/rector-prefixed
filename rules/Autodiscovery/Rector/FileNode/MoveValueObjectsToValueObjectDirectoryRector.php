@@ -61,7 +61,11 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
      * @var ValueObjectClassAnalyzer
      */
     private $valueObjectClassAnalyzer;
-    public function __construct(\Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory, \Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer $valueObjectClassAnalyzer)
+    /**
+     * @param \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory
+     * @param \Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer $valueObjectClassAnalyzer
+     */
+    public function __construct($movedFileWithNodesFactory, $valueObjectClassAnalyzer)
     {
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
         $this->valueObjectClassAnalyzer = $valueObjectClassAnalyzer;
@@ -112,9 +116,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param FileNode $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
@@ -131,13 +135,19 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->types = $configuration[self::TYPES] ?? [];
         $this->suffixes = $configuration[self::SUFFIXES] ?? [];
         $this->enableValueObjectGuessing = $configuration[self::ENABLE_VALUE_OBJECT_GUESSING] ?? \false;
     }
-    private function isValueObjectMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function isValueObjectMatch($class) : bool
     {
         if ($this->isSuffixMatch($class)) {
             return \true;
@@ -159,7 +169,10 @@ CODE_SAMPLE
         }
         return $this->valueObjectClassAnalyzer->isValueObjectClass($class);
     }
-    private function isSuffixMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function isSuffixMatch($class) : bool
     {
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
@@ -172,7 +185,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isKnownServiceType(string $className) : bool
+    /**
+     * @param string $className
+     */
+    private function isKnownServiceType($className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
             if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {

@@ -22,7 +22,10 @@ final class RequestContextProvider implements \RectorPrefix20210317\Symfony\Comp
 {
     private $requestStack;
     private $cloner;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpFoundation\RequestStack $requestStack)
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     */
+    public function __construct($requestStack)
     {
         $this->requestStack = $requestStack;
         $this->cloner = new \RectorPrefix20210317\Symfony\Component\VarDumper\Cloner\VarCloner();

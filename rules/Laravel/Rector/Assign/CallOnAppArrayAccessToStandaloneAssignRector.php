@@ -28,7 +28,10 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
      * @var AppAssignFactory
      */
     private $appAssignFactory;
-    public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
+    /**
+     * @param \Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory
+     */
+    public function __construct($appAssignFactory)
     {
         $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
@@ -41,9 +44,9 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

@@ -19,7 +19,7 @@ class Param implements \PhpParser\Builder
      *
      * @param string $name Name of the parameter
      */
-    public function __construct(string $name)
+    public function __construct($name)
     {
         $this->name = $name;
     }

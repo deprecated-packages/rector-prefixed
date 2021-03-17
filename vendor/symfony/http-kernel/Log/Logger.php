@@ -24,7 +24,11 @@ class Logger extends \RectorPrefix20210317\Psr\Log\AbstractLogger
     private $minLevelIndex;
     private $formatter;
     private $handle;
-    public function __construct(string $minLevel = null, $output = null, callable $formatter = null)
+    /**
+     * @param string $minLevel
+     * @param callable $formatter
+     */
+    public function __construct($minLevel = null, $output = null, $formatter = null)
     {
         if (null === $minLevel) {
             $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \RectorPrefix20210317\Psr\Log\LogLevel::ERROR : \RectorPrefix20210317\Psr\Log\LogLevel::WARNING;
@@ -74,7 +78,13 @@ class Logger extends \RectorPrefix20210317\Psr\Log\AbstractLogger
             \error_log($formatter($level, $message, $context, \false));
         }
     }
-    private function format(string $level, string $message, array $context, bool $prefixDate = \true) : string
+    /**
+     * @param string $level
+     * @param string $message
+     * @param mixed[] $context
+     * @param bool $prefixDate
+     */
+    private function format($level, $message, $context, $prefixDate = \true) : string
     {
         if (\false !== \strpos($message, '{')) {
             $replacements = [];

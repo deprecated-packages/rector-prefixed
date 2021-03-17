@@ -5,7 +5,6 @@ namespace Rector\Symfony\Helper;
 
 use RectorPrefix20210317\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Analyser\Scope;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -55,11 +54,7 @@ final class TemplateGuesser
     }
     public function resolveFromClassMethodNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
     {
-        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $namespace = $scope->getNamespace();
+        $namespace = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         if (!\is_string($namespace)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }

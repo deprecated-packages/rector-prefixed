@@ -58,7 +58,7 @@ CODE_SAMPLE
     /**
      * @param ClassConst|Property $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             if (\count($node->consts) < 2) {
@@ -89,8 +89,9 @@ CODE_SAMPLE
     /**
      * @param Const_[] $consts
      * @return ClassConst[]
+     * @param \PhpParser\Node\Stmt\ClassConst $classConst
      */
-    private function createNextClassConsts(array $consts, \PhpParser\Node\Stmt\ClassConst $classConst) : array
+    private function createNextClassConsts($consts, $classConst) : array
     {
         $decoratedConsts = [];
         foreach ($consts as $const) {

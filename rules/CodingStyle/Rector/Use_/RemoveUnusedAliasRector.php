@@ -6,7 +6,6 @@ namespace Rector\CodingStyle\Rector\Use_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\CodingStyle\Naming\NameRenamer;
@@ -51,7 +50,13 @@ final class RemoveUnusedAliasRector extends \Rector\Core\Rector\AbstractRector
      * @var NameRenamer
      */
     private $nameRenamer;
-    public function __construct(\Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver, \Rector\CodingStyle\Node\UseManipulator $useManipulator, \Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver, \Rector\CodingStyle\Naming\NameRenamer $nameRenamer)
+    /**
+     * @param \Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver
+     * @param \Rector\CodingStyle\Node\UseManipulator $useManipulator
+     * @param \Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver
+     * @param \Rector\CodingStyle\Naming\NameRenamer $nameRenamer
+     */
+    public function __construct($docAliasResolver, $useManipulator, $useNameAliasToNameResolver, $nameRenamer)
     {
         $this->docAliasResolver = $docAliasResolver;
         $this->useNameAliasToNameResolver = $useNameAliasToNameResolver;
@@ -84,9 +89,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Use_::class];
     }
     /**
-     * @param Use_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipUse($node)) {
             return null;
@@ -122,16 +127,22 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipUse(\PhpParser\Node\Stmt\Use_ $use) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     */
+    private function shouldSkipUse($use) : bool
     {
         // skip cases without namespace, problematic to analyse
-        $namespace = $this->betterNodeFinder->findParentType($use, \PhpParser\Node\Stmt\Namespace_::class);
-        if (!$namespace instanceof \PhpParser\Node) {
+        $namespace = $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        if ($namespace === null) {
             return \true;
         }
         return !$this->hasUseAlias($use);
     }
-    private function resolveSearchNode(\PhpParser\Node\Stmt\Use_ $use) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     */
+    private function resolveSearchNode($use) : ?\PhpParser\Node
     {
         $searchNode = $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($searchNode !== null) {
@@ -143,13 +154,19 @@ CODE_SAMPLE
      * @param string[] $values
      * @return string[]
      */
-    private function lowercaseArray(array $values) : array
+    private function lowercaseArray($values) : array
     {
         return \array_map(function (string $value) : string {
             return \strtolower($value);
         }, $values);
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\Use_ $use, \PhpParser\Node\Name $name, string $lastName, string $aliasName) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     * @param \PhpParser\Node\Name $name
+     * @param string $lastName
+     * @param string $aliasName
+     */
+    private function shouldSkip($use, $name, $lastName, $aliasName) : bool
     {
         // PHP is case insensitive
         $loweredLastName = \strtolower($lastName);
@@ -172,7 +189,12 @@ CODE_SAMPLE
             return $node->class->toString() === $name->toString();
         });
     }
-    private function refactorAliasName(string $aliasName, string $lastName, \PhpParser\Node\Stmt\UseUse $useUse) : void
+    /**
+     * @param string $aliasName
+     * @param string $lastName
+     * @param \PhpParser\Node\Stmt\UseUse $useUse
+     */
+    private function refactorAliasName($aliasName, $lastName, $useUse) : void
     {
         // only alias name is used → use last name directly
         $lowerAliasName = \strtolower($aliasName);
@@ -187,7 +209,10 @@ CODE_SAMPLE
         $this->nameRenamer->renameNameNode($this->resolvedNodeNames[$lowerAliasName], $lastName);
         $useUse->alias = null;
     }
-    private function hasUseAlias(\PhpParser\Node\Stmt\Use_ $use) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Use_ $use
+     */
+    private function hasUseAlias($use) : bool
     {
         foreach ($use->uses as $useUse) {
             if ($useUse->alias !== null) {

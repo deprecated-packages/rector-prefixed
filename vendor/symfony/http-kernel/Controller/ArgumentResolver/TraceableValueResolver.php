@@ -23,7 +23,11 @@ final class TraceableValueResolver implements \RectorPrefix20210317\Symfony\Comp
 {
     private $inner;
     private $stopwatch;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner, \RectorPrefix20210317\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
+    /**
+     * @param \Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     */
+    public function __construct($inner, $stopwatch)
     {
         $this->inner = $inner;
         $this->stopwatch = $stopwatch;

@@ -28,7 +28,10 @@ class StreamedResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
     protected $callback;
     protected $streamed;
     private $headersSent;
-    public function __construct(callable $callback = null, int $status = 200, array $headers = [])
+    /**
+     * @param callable $callback
+     */
+    public function __construct($callback = null, int $status = 200, array $headers = [])
     {
         parent::__construct(null, $status, $headers);
         if (null !== $callback) {
@@ -55,8 +58,9 @@ class StreamedResponse extends \RectorPrefix20210317\Symfony\Component\HttpFound
      * Sets the PHP callback associated with this Response.
      *
      * @return $this
+     * @param callable $callback
      */
-    public function setCallback(callable $callback)
+    public function setCallback($callback)
     {
         $this->callback = $callback;
         return $this;

@@ -54,7 +54,12 @@ final class RepeatedLiteralToClassConstantRector extends \Rector\Core\Rector\Abs
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     * @param \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer
+     * @param \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder
+     */
+    public function __construct($classInsertManipulator, $reservedKeywordAnalyzer, $scopeAwareNodeFinder)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
@@ -98,9 +103,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // skip tests, where string values are often used as fixtures
         if ($this->isName($node, '*Test')) {
@@ -120,7 +125,7 @@ CODE_SAMPLE
      * @param String_[] $strings
      * @return string[]
      */
-    private function resolveStringsToReplace(array $strings) : array
+    private function resolveStringsToReplace($strings) : array
     {
         $stringsByValue = [];
         foreach ($strings as $string) {
@@ -140,8 +145,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function replaceStringsWithClassConstReferences(\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
+    private function replaceStringsWithClassConstReferences($class, $stringsToReplace) : void
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
@@ -156,8 +162,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addClassConsts(array $stringsToReplace, \PhpParser\Node\Stmt\Class_ $class) : void
+    private function addClassConsts($stringsToReplace, $class) : void
     {
         foreach ($stringsToReplace as $stringToReplace) {
             $constantName = $this->createConstName($stringToReplace);
@@ -165,7 +172,10 @@ CODE_SAMPLE
             $this->classInsertManipulator->addConstantToClass($class, $stringToReplace, $classConst);
         }
     }
-    private function shouldSkipString(\PhpParser\Node\Scalar\String_ $string) : bool
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     */
+    private function shouldSkipString($string) : bool
     {
         $value = $string->value;
         // value is too short
@@ -190,7 +200,10 @@ CODE_SAMPLE
         }
         return $matches[self::VALUE] !== $string->value;
     }
-    private function createConstName(string $value) : string
+    /**
+     * @param string $value
+     */
+    private function createConstName($value) : string
     {
         // replace slashes and dashes
         $value = \RectorPrefix20210317\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
@@ -215,7 +228,10 @@ CODE_SAMPLE
         $value = \implode(self::UNDERSCORE, $parts);
         return \strtoupper(\RectorPrefix20210317\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
     }
-    private function isNativeConstantResemblingValue(string $value) : bool
+    /**
+     * @param string $value
+     */
+    private function isNativeConstantResemblingValue($value) : bool
     {
         $loweredValue = \strtolower($value);
         return \in_array($loweredValue, ['true', 'false', 'bool', 'null'], \true);

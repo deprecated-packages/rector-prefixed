@@ -15,7 +15,7 @@ class Trait_ extends \PhpParser\Node\Stmt\ClassLike
      *                           'attrGroups' => array(): PHP attribute groups
      * @param array  $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = [])
+    public function __construct($name, $subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->name = \is_string($name) ? new \PhpParser\Node\Identifier($name) : $name;

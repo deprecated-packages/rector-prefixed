@@ -47,7 +47,11 @@ final class UnifiedDiffOutputBuilder extends \RectorPrefix20210317\SebastianBerg
      * @var bool
      */
     private $addLineNumbers;
-    public function __construct(string $header = "--- Original\n+++ New\n", bool $addLineNumbers = \false)
+    /**
+     * @param string $header
+     * @param bool $addLineNumbers
+     */
+    public function __construct($header = "--- Original\n+++ New\n", $addLineNumbers = \false)
     {
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
@@ -71,7 +75,10 @@ final class UnifiedDiffOutputBuilder extends \RectorPrefix20210317\SebastianBerg
         $last = \substr($diff, -1);
         return 0 !== \strlen($diff) && "\n" !== $last && "\r" !== $last ? $diff . "\n" : $diff;
     }
-    private function writeDiffHunks($output, array $diff) : void
+    /**
+     * @param mixed[] $diff
+     */
+    private function writeDiffHunks($output, $diff) : void
     {
         // detect "No newline at end of file" and insert into `$diff` if needed
         $upperLimit = \count($diff);
@@ -162,7 +169,16 @@ final class UnifiedDiffOutputBuilder extends \RectorPrefix20210317\SebastianBerg
         $toRange -= $sameCount;
         $this->writeHunk($diff, $hunkCapture - $contextStartOffset, $i - $sameCount + $contextEndOffset + 1, $fromStart - $contextStartOffset, $fromRange + $contextStartOffset + $contextEndOffset, $toStart - $contextStartOffset, $toRange + $contextStartOffset + $contextEndOffset, $output);
     }
-    private function writeHunk(array $diff, int $diffStartIndex, int $diffEndIndex, int $fromStart, int $fromRange, int $toStart, int $toRange, $output) : void
+    /**
+     * @param mixed[] $diff
+     * @param int $diffStartIndex
+     * @param int $diffEndIndex
+     * @param int $fromStart
+     * @param int $fromRange
+     * @param int $toStart
+     * @param int $toRange
+     */
+    private function writeHunk($diff, $diffStartIndex, $diffEndIndex, $fromStart, $fromRange, $toStart, $toRange, $output) : void
     {
         if ($this->addLineNumbers) {
             \fwrite($output, '@@ -' . $fromStart);

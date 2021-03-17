@@ -28,7 +28,11 @@ final class MakeEntitySetterNullabilityInSyncWithPropertyRector extends \Rector\
      * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
-    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
+    /**
+     * @param \Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer
+     * @param \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver
+     */
+    public function __construct($setterClassMethodAnalyzer, $doctrineDocBlockResolver)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
@@ -83,9 +87,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // is setter in doctrine?
         if (!$this->doctrineDocBlockResolver->isInDoctrineEntityClass($node)) {

@@ -28,8 +28,11 @@ class HIncludeFragmentRenderer extends \RectorPrefix20210317\Symfony\Component\H
     private $charset;
     /**
      * @param string $globalDefaultTemplate The global default content (it can be a template name or the content)
+     * @param \Twig\Environment $twig
+     * @param \Symfony\Component\HttpKernel\UriSigner $signer
+     * @param string $charset
      */
-    public function __construct(\RectorPrefix20210317\Twig\Environment $twig = null, \RectorPrefix20210317\Symfony\Component\HttpKernel\UriSigner $signer = null, string $globalDefaultTemplate = null, string $charset = 'utf-8')
+    public function __construct($twig = null, $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
     {
         $this->twig = $twig;
         $this->globalDefaultTemplate = $globalDefaultTemplate;

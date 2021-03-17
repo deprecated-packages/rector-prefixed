@@ -13,8 +13,10 @@ class MatchArm extends \PhpParser\NodeAbstract
     public $body;
     /**
      * @param null|Node\Expr[] $conds
+     * @param \PhpParser\Node\Expr $body
+     * @param mixed[] $attributes
      */
-    public function __construct($conds, \PhpParser\Node\Expr $body, array $attributes = [])
+    public function __construct($conds, $body, $attributes = [])
     {
         $this->conds = $conds;
         $this->body = $body;

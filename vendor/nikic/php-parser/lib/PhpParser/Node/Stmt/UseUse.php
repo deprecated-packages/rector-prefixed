@@ -21,7 +21,7 @@ class UseUse extends \PhpParser\Node\Stmt
      * @param int                    $type       Type of the use element (for mixed group use only)
      * @param array                  $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Name $name, $alias = null, int $type = \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN, array $attributes = [])
+    public function __construct($name, $alias = null, $type = \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->type = $type;

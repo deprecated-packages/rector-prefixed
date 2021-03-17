@@ -35,7 +35,7 @@ class Closure extends \PhpParser\Node\Expr implements \PhpParser\Node\FunctionLi
      *                          'attrGroups' => array(): PHP attributes groups
      * @param array $attributes Additional attributes
      */
-    public function __construct(array $subNodes = [], array $attributes = [])
+    public function __construct($subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->static = $subNodes['static'] ?? \false;
@@ -64,7 +64,7 @@ class Closure extends \PhpParser\Node\Expr implements \PhpParser\Node\FunctionLi
         return $this->returnType;
     }
     /** @return Node\Stmt[] */
-    public function getStmts() : array
+    public function getStmts() : ?array
     {
         return $this->stmts;
     }

@@ -5,7 +5,6 @@ namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
 use RectorPrefix20210317\Nette\Utils\Strings;
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
@@ -74,11 +73,7 @@ abstract class AbstractPhpDocNodeFactory
         if ($this->reflectionProvider->hasClass($targetEntity)) {
             return $targetEntity;
         }
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            return $targetEntity;
-        }
-        $namespacedTargetEntity = $scope->getNamespace() . '\\' . $targetEntity;
+        $namespacedTargetEntity = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME) . '\\' . $targetEntity;
         if ($this->reflectionProvider->hasClass($namespacedTargetEntity)) {
             return $namespacedTargetEntity;
         }

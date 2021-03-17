@@ -32,7 +32,12 @@ final class RemoveOverriddenValuesRector extends \Rector\Core\Rector\AbstractRec
      * @var VariableUseFinder
      */
     private $variableUseFinder;
-    public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer, \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector $nodeByTypeAndPositionCollector, \Rector\DeadCode\NodeFinder\VariableUseFinder $variableUseFinder)
+    /**
+     * @param \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer
+     * @param \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector $nodeByTypeAndPositionCollector
+     * @param \Rector\DeadCode\NodeFinder\VariableUseFinder $variableUseFinder
+     */
+    public function __construct($contextAnalyzer, $nodeByTypeAndPositionCollector, $variableUseFinder)
     {
         $this->contextAnalyzer = $contextAnalyzer;
         $this->nodeByTypeAndPositionCollector = $nodeByTypeAndPositionCollector;
@@ -71,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\FunctionLike::class];
     }
     /**
-     * @param FunctionLike $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // 1. collect assigns
         $assignedVariables = $this->resolveAssignedVariables($node);
@@ -90,8 +95,9 @@ CODE_SAMPLE
     }
     /**
      * @return Variable[]
+     * @param \PhpParser\Node\FunctionLike $functionLike
      */
-    private function resolveAssignedVariables(\PhpParser\Node\FunctionLike $functionLike) : array
+    private function resolveAssignedVariables($functionLike) : array
     {
         return $this->betterNodeFinder->find($functionLike, function (\PhpParser\Node $node) : bool {
             $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -119,7 +125,7 @@ CODE_SAMPLE
      * @param Node[] $nodes
      * @return string[]
      */
-    private function getNodeNames(array $nodes) : array
+    private function getNodeNames($nodes) : array
     {
         $nodeNames = [];
         foreach ($nodes as $node) {
@@ -135,7 +141,7 @@ CODE_SAMPLE
      * @param VariableNodeUse[] $nodesByTypeAndPosition
      * @return Node[]
      */
-    private function resolveNodesToRemove(array $assignedVariableNames, array $nodesByTypeAndPosition) : array
+    private function resolveNodesToRemove($assignedVariableNames, $nodesByTypeAndPosition) : array
     {
         $nodesToRemove = [];
         foreach ($assignedVariableNames as $assignedVariableName) {
@@ -162,7 +168,11 @@ CODE_SAMPLE
         }
         return $nodesToRemove;
     }
-    private function isAssignNodeUsed(?\Rector\DeadCode\ValueObject\VariableNodeUse $previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
+    /**
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse|null $previousNode
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition
+     */
+    private function isAssignNodeUsed($previousNode, $nodeByTypeAndPosition) : bool
     {
         // this node was just used, skip to next one
         if (!$previousNode instanceof \Rector\DeadCode\ValueObject\VariableNodeUse) {
@@ -173,7 +183,11 @@ CODE_SAMPLE
         }
         return $nodeByTypeAndPosition->isType(\Rector\DeadCode\ValueObject\VariableNodeUse::TYPE_USE);
     }
-    private function shouldRemoveAssignNode(?\Rector\DeadCode\ValueObject\VariableNodeUse $previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
+    /**
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse|null $previousNode
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition
+     */
+    private function shouldRemoveAssignNode($previousNode, $nodeByTypeAndPosition) : bool
     {
         if ($previousNode === null) {
             return \false;

@@ -29,7 +29,11 @@ final class DesiredStaticPropertyFetchTypeToDynamicRector extends \Rector\Core\R
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    /**
+     * @param \Rector\Naming\Naming\PropertyNaming $propertyNaming
+     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
+     */
+    public function __construct($propertyNaming, $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
@@ -67,9 +71,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticPropertyFetch::class];
     }
     /**
-     * @param StaticPropertyFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         // A. remove local fetch
         foreach ($this->staticObjectTypes as $staticObjectType) {

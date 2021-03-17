@@ -20,7 +20,7 @@ class ClassConst extends \PhpParser\Node\Stmt
      * @param array                 $attributes Additional attributes
      * @param Node\AttributeGroup[] $attrGroups PHP attribute groups
      */
-    public function __construct(array $consts, int $flags = 0, array $attributes = [], array $attrGroups = [])
+    public function __construct($consts, $flags = 0, $attributes = [], $attrGroups = [])
     {
         $this->attributes = $attributes;
         $this->flags = $flags;

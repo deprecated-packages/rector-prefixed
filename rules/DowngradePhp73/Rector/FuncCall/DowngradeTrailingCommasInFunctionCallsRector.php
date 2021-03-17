@@ -21,7 +21,10 @@ final class DowngradeTrailingCommasInFunctionCallsRector extends \Rector\Core\Re
      * @var FollowedByCommaAnalyzer
      */
     private $followedByCommaAnalyzer;
-    public function __construct(\Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer $followedByCommaAnalyzer)
+    /**
+     * @param \Rector\DowngradePhp73\Tokenizer\FollowedByCommaAnalyzer $followedByCommaAnalyzer
+     */
+    public function __construct($followedByCommaAnalyzer)
     {
         $this->followedByCommaAnalyzer = $followedByCommaAnalyzer;
     }
@@ -63,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param FuncCall|MethodCall|StaticCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->args) {
             $lastArgumentPosition = \array_key_last($node->args);

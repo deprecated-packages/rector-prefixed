@@ -20,7 +20,10 @@ final class TagsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2021031
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
+     */
+    public function __construct($argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }

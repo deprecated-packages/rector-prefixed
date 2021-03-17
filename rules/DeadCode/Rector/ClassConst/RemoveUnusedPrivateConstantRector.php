@@ -18,7 +18,10 @@ final class RemoveUnusedPrivateConstantRector extends \Rector\Core\Rector\Abstra
      * @var ClassConstManipulator
      */
     private $classConstManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassConstManipulator $classConstManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassConstManipulator $classConstManipulator
+     */
+    public function __construct($classConstManipulator)
     {
         $this->classConstManipulator = $classConstManipulator;
     }
@@ -53,9 +56,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param ClassConst $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->isPrivate()) {
             return null;

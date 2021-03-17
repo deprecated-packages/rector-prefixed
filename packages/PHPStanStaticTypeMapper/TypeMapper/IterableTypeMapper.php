@@ -27,14 +27,18 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    /**
+     * @param \Rector\Core\Php\PhpVersionProvider $phpVersionProvider
+     */
+    public function __construct($phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
     /**
      * @required
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      */
-    public function autowireIterableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireIterableTypeMapper($phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -46,9 +50,9 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return \PHPStan\Type\IterableType::class;
     }
     /**
-     * @param IterableType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getItemType());
         if ($itemTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
@@ -57,16 +61,18 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode($itemTypeNode);
     }
     /**
-     * @param IterableType $type
+     * @param \PHPStan\Type\Type $type
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('iterable');
     }
     /**
-     * @param IterableType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString($type, $parentType = null) : string
     {
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             // iterable type is better done in PHP code, than in doc
@@ -74,7 +80,10 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         }
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
-    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode) : \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode
+     */
+    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes($unionTypeNode) : \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode
     {
         $unionedArrayType = [];
         foreach ($unionTypeNode->types as $unionedType) {

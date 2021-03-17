@@ -36,8 +36,11 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     private $arrayPartPhpDocTagPrinter;
     /**
      * @param array<string, mixed> $items
+     * @param \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter
+     * @param \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter
+     * @param string|null $originalContent
      */
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items = [], ?string $originalContent = null)
+    public function __construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items = [], $originalContent = null)
     {
         $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
         $this->tagValueNodePrinter = $tagValueNodePrinter;
@@ -60,12 +63,16 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     }
     /**
      * @param mixed $value
+     * @param string $key
      */
-    public function changeItem(string $key, $value) : void
+    public function changeItem($key, $value) : void
     {
         $this->items[$key] = $value;
     }
-    public function removeItem(string $key) : void
+    /**
+     * @param string $key
+     */
+    public function removeItem($key) : void
     {
         unset($this->items[$key]);
     }
@@ -73,7 +80,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
      * @param mixed[] $contentItems
      * @return mixed[]
      */
-    protected function filterOutMissingItems(array $contentItems) : array
+    protected function filterOutMissingItems($contentItems) : array
     {
         if ($this->tagValueNodeConfiguration->getOrderedVisibleItems() === null) {
             return $contentItems;
@@ -83,7 +90,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     /**
      * @param mixed[] $items
      */
-    protected function printItems(array $items) : string
+    protected function printItems($items) : string
     {
         $items = $this->tagValueNodePrinter->completeItemsQuotes($this->tagValueNodeConfiguration, $items);
         $items = $this->filterOutMissingItems($items);
@@ -93,7 +100,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     /**
      * @param string[] $items
      */
-    protected function printContentItems(array $items) : string
+    protected function printContentItems($items) : string
     {
         $items = $this->filterOutMissingItems($items);
         // remove null values
@@ -118,8 +125,11 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     }
     /**
      * @param PhpDocTagValueNode[] $tagValueNodes
+     * @param bool $haveFinalComma
+     * @param string|null $openingSpace
+     * @param string|null $closingSpace
      */
-    protected function printNestedTag(array $tagValueNodes, bool $haveFinalComma, ?string $openingSpace, ?string $closingSpace) : string
+    protected function printNestedTag($tagValueNodes, $haveFinalComma, $openingSpace, $closingSpace) : string
     {
         $tagValueNodesAsString = $this->printTagValueNodesSeparatedByComma($tagValueNodes);
         if ($openingSpace === null) {
@@ -130,7 +140,10 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
         }
         return \sprintf('{%s%s%s%s}', $openingSpace, $tagValueNodesAsString, $haveFinalComma ? ',' : '', $closingSpace);
     }
-    protected function resolveOriginalContentSpacingAndOrder(?string $originalContent) : void
+    /**
+     * @param string|null $originalContent
+     */
+    protected function resolveOriginalContentSpacingAndOrder($originalContent) : void
     {
         $tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory(new \RectorPrefix20210317\Symplify\PackageBuilder\Php\TypeChecker());
         // prevent override
@@ -152,8 +165,9 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     }
     /**
      * @param mixed[] $value
+     * @param string $arrayItemAsString
      */
-    private function correctArraySingleItemPrint(array $value, string $arrayItemAsString) : string
+    private function correctArraySingleItemPrint($value, $arrayItemAsString) : string
     {
         if (\count($value) !== 1) {
             return $arrayItemAsString;
@@ -175,7 +189,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     /**
      * @param PhpDocTagValueNode[] $tagValueNodes
      */
-    private function printTagValueNodesSeparatedByComma(array $tagValueNodes) : string
+    private function printTagValueNodesSeparatedByComma($tagValueNodes) : string
     {
         if ($tagValueNodes === []) {
             return '';

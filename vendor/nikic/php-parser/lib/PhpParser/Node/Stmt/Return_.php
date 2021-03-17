@@ -11,10 +11,10 @@ class Return_ extends \PhpParser\Node\Stmt
     /**
      * Constructs a return node.
      *
-     * @param null|Node\Expr $expr       Expression
+     * @param \PhpParser\Node\Expr $expr       Expression
      * @param array          $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $expr = null, array $attributes = [])
+    public function __construct($expr = null, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->expr = $expr;

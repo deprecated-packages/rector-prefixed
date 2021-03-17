@@ -36,7 +36,11 @@ class ServerDumpCommand extends \RectorPrefix20210317\Symfony\Component\Console\
     private $server;
     /** @var DumpDescriptorInterface[] */
     private $descriptors;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\VarDumper\Server\DumpServer $server, array $descriptors = [])
+    /**
+     * @param \Symfony\Component\VarDumper\Server\DumpServer $server
+     * @param mixed[] $descriptors
+     */
+    public function __construct($server, $descriptors = [])
     {
         $this->server = $server;
         $this->descriptors = $descriptors + ['cli' => new \RectorPrefix20210317\Symfony\Component\VarDumper\Command\Descriptor\CliDescriptor(new \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\CliDumper()), 'html' => new \RectorPrefix20210317\Symfony\Component\VarDumper\Command\Descriptor\HtmlDescriptor(new \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\HtmlDumper())];

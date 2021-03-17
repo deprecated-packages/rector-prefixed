@@ -43,7 +43,11 @@ final class RemoveNonExistingVarAnnotationRector extends \Rector\Core\Rector\Abs
      * @var CommentRemover
      */
     private $commentRemover;
-    public function __construct(\RectorPrefix20210317\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Comments\CommentRemover $commentRemover)
+    /**
+     * @param \Symplify\PackageBuilder\Php\TypeChecker $typeChecker
+     * @param \Rector\Comments\CommentRemover $commentRemover
+     */
+    public function __construct($typeChecker, $commentRemover)
     {
         $this->typeChecker = $typeChecker;
         $this->commentRemover = $commentRemover;
@@ -78,7 +82,10 @@ CODE_SAMPLE
     {
         return [\PhpParser\Node::class];
     }
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -100,7 +107,10 @@ CODE_SAMPLE
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function shouldSkip($node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Nop) {
             return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
@@ -110,7 +120,11 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function hasVariableName(\PhpParser\Node $node, string $variableName) : bool
+    /**
+     * @param \PhpParser\Node $node
+     * @param string $variableName
+     */
+    private function hasVariableName($node, $variableName) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $unprefixedMethodToGetSet = $this->matchTypeAndMethodName($node);
         if (!$unprefixedMethodToGetSet instanceof \Rector\CakePHP\ValueObject\ModalToGetSet) {
@@ -71,13 +71,19 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($newName);
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $unprefixedMethodsToGetSet = $configuration[self::UNPREFIXED_METHODS_TO_GET_SET] ?? [];
         \RectorPrefix20210317\Webmozart\Assert\Assert::allIsInstanceOf($unprefixedMethodsToGetSet, \Rector\CakePHP\ValueObject\ModalToGetSet::class);
         $this->unprefixedMethodsToGetSet = $unprefixedMethodsToGetSet;
     }
-    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function matchTypeAndMethodName($methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
     {
         foreach ($this->unprefixedMethodsToGetSet as $unprefixedMethodToGetSet) {
             if (!$this->isObjectType($methodCall->var, $unprefixedMethodToGetSet->getObjectType())) {
@@ -90,7 +96,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function resolveNewMethodNameByCondition(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\CakePHP\ValueObject\ModalToGetSet $modalToGetSet) : string
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param \Rector\CakePHP\ValueObject\ModalToGetSet $modalToGetSet
+     */
+    private function resolveNewMethodNameByCondition($methodCall, $modalToGetSet) : string
     {
         if (\count($methodCall->args) >= $modalToGetSet->getMinimalSetterArgumentCount()) {
             return $modalToGetSet->getSetMethod();

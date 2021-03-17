@@ -14,7 +14,7 @@ class Const_ extends \PhpParser\Node\Stmt
      * @param Node\Const_[] $consts     Constant declarations
      * @param array         $attributes Additional attributes
      */
-    public function __construct(array $consts, array $attributes = [])
+    public function __construct($consts, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->consts = $consts;

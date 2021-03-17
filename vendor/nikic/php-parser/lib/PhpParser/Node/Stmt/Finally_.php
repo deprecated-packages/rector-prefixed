@@ -14,7 +14,7 @@ class Finally_ extends \PhpParser\Node\Stmt
      * @param Node\Stmt[] $stmts      Statements
      * @param array       $attributes Additional attributes
      */
-    public function __construct(array $stmts = [], array $attributes = [])
+    public function __construct($stmts = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->stmts = $stmts;

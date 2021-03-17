@@ -33,7 +33,11 @@ final class SluggableBehaviorRector extends \Rector\Core\Rector\AbstractRector
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator
+     * @param \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger
+     */
+    public function __construct($classInsertManipulator, $phpDocTypeChanger)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -89,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $slugFields = [];
         $matchedProperty = null;
@@ -123,8 +127,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $slugFields
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addGetSluggableFieldsClassMethod(\PhpParser\Node\Stmt\Class_ $class, array $slugFields) : void
+    private function addGetSluggableFieldsClassMethod($class, $slugFields) : void
     {
         $classMethod = $this->nodeFactory->createPublicMethod('getSluggableFields');
         $classMethod->returnType = new \PhpParser\Node\Identifier('array');

@@ -29,7 +29,10 @@ final class SubstrMinusToStringEndsWithRector extends \Rector\Core\Rector\Abstra
      * @var BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
-    public function __construct(\Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
+    /**
+     * @param \Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer
+     */
+    public function __construct($binaryOpAnalyzer)
     {
         $this->binaryOpAnalyzer = $binaryOpAnalyzer;
     }
@@ -55,7 +58,7 @@ CODE_SAMPLE
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $funcCallAndExpr = $this->binaryOpAnalyzer->matchFuncCallAndOtherExpr($node, self::SUBSTR);
         if (!$funcCallAndExpr instanceof \Rector\NetteCodeQuality\ValueObject\FuncCallAndExpr) {

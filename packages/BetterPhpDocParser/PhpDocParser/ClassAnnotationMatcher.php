@@ -7,7 +7,6 @@ use RectorPrefix20210317\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
@@ -46,11 +45,8 @@ final class ClassAnnotationMatcher
     private function resolveFullyQualifiedClass(array $uses, \PhpParser\Node $node, string $tag) : string
     {
         if ($uses === []) {
-            $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if (!$scope instanceof \PHPStan\Analyser\Scope) {
-                return $tag;
-            }
-            $namespace = $scope->getNamespace();
+            /** @var string|null $namespace */
+            $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
             if ($namespace !== null) {
                 $namespacedTag = $namespace . '\\' . $tag;
                 if ($this->reflectionProvider->hasClass($namespacedTag)) {

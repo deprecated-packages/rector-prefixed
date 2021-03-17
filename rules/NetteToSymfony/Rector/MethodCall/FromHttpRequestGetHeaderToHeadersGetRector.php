@@ -24,7 +24,10 @@ final class FromHttpRequestGetHeaderToHeadersGetRector extends \Rector\Core\Rect
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)
+    /**
+     * @param \Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator
+     */
+    public function __construct($classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
     }
@@ -62,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\Http\\Request'))) {
             return null;

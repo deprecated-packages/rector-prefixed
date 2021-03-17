@@ -24,15 +24,17 @@ final class NullOutputFormatterStyle implements \RectorPrefix20210317\Symfony\Co
     }
     /**
      * {@inheritdoc}
+     * @param string $color
      */
-    public function setBackground(string $color = null) : void
+    public function setBackground($color = null) : void
     {
         // do nothing
     }
     /**
      * {@inheritdoc}
+     * @param string $color
      */
-    public function setForeground(string $color = null) : void
+    public function setForeground($color = null) : void
     {
         // do nothing
     }

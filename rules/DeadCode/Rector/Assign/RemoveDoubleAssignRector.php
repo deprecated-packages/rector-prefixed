@@ -28,7 +28,10 @@ final class RemoveDoubleAssignRector extends \Rector\Core\Rector\AbstractRector
      * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
-    public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator)
+    /**
+     * @param \Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator
+     */
+    public function __construct($scopeNestingComparator)
     {
         $this->scopeNestingComparator = $scopeNestingComparator;
     }
@@ -48,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable && !$node->var instanceof \PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return null;
@@ -78,24 +81,38 @@ CODE_SAMPLE
         $this->removeNode($previousStatement);
         return $node;
     }
-    private function isCall(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function isCall($expr) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class]);
     }
-    private function shouldSkipForDifferentScope(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $expression) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Stmt\Expression $expression
+     */
+    private function shouldSkipForDifferentScope($assign, $expression) : bool
     {
         if (!$this->areInSameClassMethod($assign, $expression)) {
             return \true;
         }
         return !$this->scopeNestingComparator->areScopeNestingEqual($assign, $expression);
     }
-    private function isSelfReferencing(\PhpParser\Node\Expr\Assign $assign) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function isSelfReferencing($assign) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\PhpParser\Node $subNode) use($assign) : bool {
             return $this->nodeComparator->areNodesEqual($assign->var, $subNode);
         });
     }
-    private function areInSameClassMethod(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $previousExpression) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Stmt\Expression $previousExpression
+     */
+    private function areInSameClassMethod($assign, $previousExpression) : bool
     {
         return $this->nodeComparator->areNodesEqual($assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE), $previousExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE));
     }

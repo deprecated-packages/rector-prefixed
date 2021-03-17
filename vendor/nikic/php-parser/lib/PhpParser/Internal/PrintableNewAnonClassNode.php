@@ -27,7 +27,15 @@ class PrintableNewAnonClassNode extends \PhpParser\Node\Expr
     public $implements;
     /** @var Node\Stmt[] Statements */
     public $stmts;
-    public function __construct(array $attrGroups, array $args, \PhpParser\Node\Name $extends = null, array $implements, array $stmts, array $attributes)
+    /**
+     * @param mixed[] $attrGroups
+     * @param mixed[] $args
+     * @param \PhpParser\Node\Name $extends
+     * @param mixed[] $implements
+     * @param mixed[] $stmts
+     * @param mixed[] $attributes
+     */
+    public function __construct($attrGroups, $args, $extends = null, $implements, $stmts, $attributes)
     {
         parent::__construct($attributes);
         $this->attrGroups = $attrGroups;
@@ -36,7 +44,10 @@ class PrintableNewAnonClassNode extends \PhpParser\Node\Expr
         $this->implements = $implements;
         $this->stmts = $stmts;
     }
-    public static function fromNewNode(\PhpParser\Node\Expr\New_ $newNode)
+    /**
+     * @param \PhpParser\Node\Expr\New_ $newNode
+     */
+    public static function fromNewNode($newNode)
     {
         $class = $newNode->class;
         \assert($class instanceof \PhpParser\Node\Stmt\Class_);

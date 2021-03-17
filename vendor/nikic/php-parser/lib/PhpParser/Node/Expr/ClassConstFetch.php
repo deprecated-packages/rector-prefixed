@@ -19,7 +19,7 @@ class ClassConstFetch extends \PhpParser\Node\Expr
      * @param string|Identifier|Error $name       Constant name
      * @param array                   $attributes Additional attributes
      */
-    public function __construct($class, $name, array $attributes = [])
+    public function __construct($class, $name, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->class = $class;

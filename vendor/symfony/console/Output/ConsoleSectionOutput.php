@@ -26,8 +26,11 @@ class ConsoleSectionOutput extends \RectorPrefix20210317\Symfony\Component\Conso
     /**
      * @param resource               $stream
      * @param ConsoleSectionOutput[] $sections
+     * @param int $verbosity
+     * @param bool $decorated
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
-    public function __construct($stream, array &$sections, int $verbosity, bool $decorated, \RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function __construct($stream, &$sections, $verbosity, $decorated, $formatter)
     {
         parent::__construct($stream, $verbosity, $decorated, $formatter);
         \array_unshift($sections, $this);
@@ -39,7 +42,7 @@ class ConsoleSectionOutput extends \RectorPrefix20210317\Symfony\Component\Conso
      *
      * @param int $lines Number of lines to clear. If null, then the entire output of this section is cleared
      */
-    public function clear(int $lines = null)
+    public function clear($lines = null)
     {
         if (empty($this->content) || !$this->isDecorated()) {
             return;
@@ -70,8 +73,9 @@ class ConsoleSectionOutput extends \RectorPrefix20210317\Symfony\Component\Conso
     }
     /**
      * @internal
+     * @param string $input
      */
-    public function addContent(string $input)
+    public function addContent($input)
     {
         foreach (\explode(\PHP_EOL, $input) as $lineContent) {
             $this->lines += \ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
@@ -96,8 +100,9 @@ class ConsoleSectionOutput extends \RectorPrefix20210317\Symfony\Component\Conso
     /**
      * At initial stage, cursor is at the end of stream output. This method makes cursor crawl upwards until it hits
      * current section. Then it erases content it crawled through. Optionally, it erases part of current section too.
+     * @param int $numberOfLinesToClearFromCurrentSection
      */
-    private function popStreamContentUntilCurrentSection(int $numberOfLinesToClearFromCurrentSection = 0) : string
+    private function popStreamContentUntilCurrentSection($numberOfLinesToClearFromCurrentSection = 0) : string
     {
         $numberOfLinesToClear = $numberOfLinesToClearFromCurrentSection;
         $erasedContent = [];
@@ -116,7 +121,10 @@ class ConsoleSectionOutput extends \RectorPrefix20210317\Symfony\Component\Conso
         }
         return \implode('', \array_reverse($erasedContent));
     }
-    private function getDisplayLength(string $text) : string
+    /**
+     * @param string $text
+     */
+    private function getDisplayLength($text) : string
     {
         return \RectorPrefix20210317\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), \str_replace("\t", '        ', $text));
     }

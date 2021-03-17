@@ -15,7 +15,7 @@ class Encapsed extends \PhpParser\Node\Scalar
      * @param Expr[] $parts      Encaps list
      * @param array  $attributes Additional attributes
      */
-    public function __construct(array $parts, array $attributes = [])
+    public function __construct($parts, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->parts = $parts;

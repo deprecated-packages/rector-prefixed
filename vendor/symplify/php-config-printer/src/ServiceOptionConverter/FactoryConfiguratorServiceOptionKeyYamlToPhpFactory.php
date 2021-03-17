@@ -13,7 +13,10 @@ final class FactoryConfiguratorServiceOptionKeyYamlToPhpFactory implements \Rect
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    /**
+     * @param \Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory
+     */
+    public function __construct($argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }

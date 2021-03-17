@@ -22,7 +22,10 @@ class OutputFormatterStyleStack implements \RectorPrefix20210317\Symfony\Contrac
      */
     private $styles;
     private $emptyStyle;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle = null)
+    /**
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
+     */
+    public function __construct($emptyStyle = null)
     {
         $this->emptyStyle = $emptyStyle ?: new \RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyle();
         $this->reset();
@@ -36,8 +39,9 @@ class OutputFormatterStyleStack implements \RectorPrefix20210317\Symfony\Contrac
     }
     /**
      * Pushes a style in the stack.
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function push(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
+    public function push($style)
     {
         $this->styles[] = $style;
     }
@@ -47,8 +51,9 @@ class OutputFormatterStyleStack implements \RectorPrefix20210317\Symfony\Contrac
      * @return OutputFormatterStyleInterface
      *
      * @throws InvalidArgumentException When style tags incorrectly nested
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function pop(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style = null)
+    public function pop($style = null)
     {
         if (empty($this->styles)) {
             return $this->emptyStyle;
@@ -78,8 +83,9 @@ class OutputFormatterStyleStack implements \RectorPrefix20210317\Symfony\Contrac
     }
     /**
      * @return $this
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
      */
-    public function setEmptyStyle(\RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle)
+    public function setEmptyStyle($emptyStyle)
     {
         $this->emptyStyle = $emptyStyle;
         return $this;

@@ -41,7 +41,12 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @param \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder
+     * @param \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory
+     */
+    public function __construct($betterNodeFinder, $typeFactory, $phpDocInfoFactory)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->typeFactory = $typeFactory;
@@ -50,8 +55,9 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     /**
      * Prevents circular reference
      * @required
+     * @param \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver
      */
-    public function autowirePHPUnitDataProviderParamTypeInferer(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePHPUnitDataProviderParamTypeInferer($nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -74,7 +80,10 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         $yields = $this->betterNodeFinder->findInstanceOf((array) $dataProviderClassMethod->stmts, \PhpParser\Node\Expr\Yield_::class);
         return $this->resolveYieldStaticArrayTypeByParameterPosition($yields, $parameterPosition);
     }
-    private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    private function resolveDataProviderClassMethod($param) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
         $phpUnitDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode::class);
@@ -89,8 +98,9 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     }
     /**
      * @param Return_[] $returns
+     * @param int $parameterPosition
      */
-    private function resolveReturnStaticArrayTypeByParameterPosition(array $returns, int $parameterPosition) : \PHPStan\Type\Type
+    private function resolveReturnStaticArrayTypeByParameterPosition($returns, $parameterPosition) : \PHPStan\Type\Type
     {
         $firstReturnedExpr = $returns[0]->expr;
         if (!$firstReturnedExpr instanceof \PhpParser\Node\Expr\Array_) {
@@ -104,8 +114,9 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     }
     /**
      * @param Yield_[] $yields
+     * @param int $parameterPosition
      */
-    private function resolveYieldStaticArrayTypeByParameterPosition(array $yields, int $parameterPosition) : \PHPStan\Type\Type
+    private function resolveYieldStaticArrayTypeByParameterPosition($yields, $parameterPosition) : \PHPStan\Type\Type
     {
         $paramOnPositionTypes = [];
         foreach ($yields as $yield) {
@@ -128,7 +139,10 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         }
         return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
     }
-    private function getTypeFromClassMethodYield(\PhpParser\Node\Expr\Array_ $classMethodYieldArrayNode) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Expr\Array_ $classMethodYieldArrayNode
+     */
+    private function getTypeFromClassMethodYield($classMethodYieldArrayNode) : \PHPStan\Type\Type
     {
         $arrayTypes = $this->nodeTypeResolver->resolve($classMethodYieldArrayNode);
         // impossible to resolve
@@ -137,7 +151,10 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         }
         return $arrayTypes;
     }
-    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    private function getFunctionLikePhpDocInfo($param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         $parent = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\FunctionLike) {
@@ -147,8 +164,10 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     }
     /**
      * @return Type[]
+     * @param \PhpParser\Node\Expr\Array_ $array
+     * @param int $parameterPosition
      */
-    private function resolveParamOnPositionTypes(\PhpParser\Node\Expr\Array_ $array, int $parameterPosition) : array
+    private function resolveParamOnPositionTypes($array, $parameterPosition) : array
     {
         $paramOnPositionTypes = [];
         foreach ($array->items as $singleDataProvidedSet) {

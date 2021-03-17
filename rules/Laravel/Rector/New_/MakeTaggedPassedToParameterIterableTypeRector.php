@@ -77,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param New_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $className = $this->getName($node->class);
         if ($className === null) {
@@ -94,7 +94,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorClassWithArgType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Arg $arg) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Arg $arg
+     */
+    private function refactorClassWithArgType($class, $arg) : void
     {
         $argValueType = $this->getStaticType($arg->value);
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);

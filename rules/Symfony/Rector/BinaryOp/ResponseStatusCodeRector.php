@@ -69,14 +69,17 @@ CODE_SAMPLE
     /**
      * @param BinaryOp|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->processMethodCall($node);
         }
         return $this->processBinaryOp($node);
     }
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processMethodCall($methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isObjectType($methodCall->var, $this->responseObjectType)) {
             return null;
@@ -95,7 +98,10 @@ CODE_SAMPLE
         $methodCall->args[0] = new \PhpParser\Node\Arg($classConstFetch);
         return $methodCall;
     }
-    private function processBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\BinaryOp
+    /**
+     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
+     */
+    private function processBinaryOp($binaryOp) : ?\PhpParser\Node\Expr\BinaryOp
     {
         if (!$this->isGetStatusMethod($binaryOp->left) && !$this->isGetStatusMethod($binaryOp->right)) {
             return null;
@@ -110,7 +116,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function isGetStatusMethod(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function isGetStatusMethod($node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
@@ -122,8 +131,9 @@ CODE_SAMPLE
     }
     /**
      * @return ClassConstFetch|LNumber
+     * @param \PhpParser\Node\Scalar\LNumber $lNumber
      */
-    private function convertNumberToConstant(\PhpParser\Node\Scalar\LNumber $lNumber) : \PhpParser\Node\Expr
+    private function convertNumberToConstant($lNumber) : \PhpParser\Node\Expr
     {
         if (!isset(self::CODE_TO_CONST[$lNumber->value])) {
             return $lNumber;

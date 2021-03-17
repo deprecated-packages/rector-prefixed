@@ -27,7 +27,13 @@ final class SourceContextProvider implements \RectorPrefix20210317\Symfony\Compo
     private $charset;
     private $projectDir;
     private $fileLinkFormatter;
-    public function __construct(string $charset = null, string $projectDir = null, \RectorPrefix20210317\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, int $limit = 9)
+    /**
+     * @param string $charset
+     * @param string $projectDir
+     * @param \Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter
+     * @param int $limit
+     */
+    public function __construct($charset = null, $projectDir = null, $fileLinkFormatter = null, $limit = 9)
     {
         $this->charset = $charset;
         $this->projectDir = $projectDir;
@@ -90,7 +96,10 @@ final class SourceContextProvider implements \RectorPrefix20210317\Symfony\Compo
         }
         return $context;
     }
-    private function htmlEncode(string $s) : string
+    /**
+     * @param string $s
+     */
+    private function htmlEncode($s) : string
     {
         $html = '';
         $dumper = new \RectorPrefix20210317\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {

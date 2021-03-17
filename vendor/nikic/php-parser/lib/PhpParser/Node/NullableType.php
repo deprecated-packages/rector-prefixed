@@ -14,7 +14,7 @@ class NullableType extends \PhpParser\NodeAbstract
      * @param string|Identifier|Name $type       Type
      * @param array                  $attributes Additional attributes
      */
-    public function __construct($type, array $attributes = [])
+    public function __construct($type, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->type = \is_string($type) ? new \PhpParser\Node\Identifier($type) : $type;

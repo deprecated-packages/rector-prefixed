@@ -26,7 +26,11 @@ final class ActionInjectionToConstructorInjectionRector extends \Rector\Core\Rec
      * @var ServiceMapProvider
      */
     private $applicationServiceMapProvider;
-    public function __construct(\Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider, \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
+    /**
+     * @param \Rector\Symfony\ServiceMapProvider $applicationServiceMapProvider
+     * @param \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection
+     */
+    public function __construct($applicationServiceMapProvider, $variablesToPropertyFetchCollection)
     {
         $this->variablesToPropertyFetchCollection = $variablesToPropertyFetchCollection;
         $this->applicationServiceMapProvider = $applicationServiceMapProvider;
@@ -70,9 +74,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, '*Controller')) {
             return null;
@@ -82,7 +86,11 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function processClassMethod($class, $classMethod) : void
     {
         foreach ($classMethod->params as $key => $paramNode) {
             if (!$this->isActionInjectedParamNode($paramNode)) {
@@ -96,7 +104,10 @@ CODE_SAMPLE
             $this->variablesToPropertyFetchCollection->addVariableNameAndType($paramName, $paramNodeType);
         }
     }
-    private function isActionInjectedParamNode(\PhpParser\Node\Param $param) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    private function isActionInjectedParamNode($param) : bool
     {
         if ($param->type === null) {
             return \false;

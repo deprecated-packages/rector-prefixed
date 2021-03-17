@@ -14,7 +14,7 @@ class Isset_ extends \PhpParser\Node\Expr
      * @param Expr[] $vars       Variables
      * @param array  $attributes Additional attributes
      */
-    public function __construct(array $vars, array $attributes = [])
+    public function __construct($vars, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->vars = $vars;

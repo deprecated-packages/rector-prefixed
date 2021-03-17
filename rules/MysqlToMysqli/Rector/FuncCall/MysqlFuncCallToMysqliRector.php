@@ -42,9 +42,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->isName($node, 'mysql_create_db')) {
             return $this->processMysqlCreateDb($node);
@@ -67,19 +67,29 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processMysqlCreateDb(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlCreateDb($funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall->name = new \PhpParser\Node\Name(self::MYSQLI_QUERY);
         $funcCall->args[0]->value = $this->joinStringWithNode('CREATE DATABASE', $funcCall->args[0]->value);
         return $funcCall;
     }
-    private function processMysqlDropDb(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function processMysqlDropDb($funcCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall->name = new \PhpParser\Node\Name(self::MYSQLI_QUERY);
         $funcCall->args[0]->value = $this->joinStringWithNode('DROP DATABASE', $funcCall->args[0]->value);
         return $funcCall;
     }
-    private function joinStringWithNode(string $string, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    /**
+     * @param string $string
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function joinStringWithNode($string, $expr) : \PhpParser\Node\Expr
     {
         if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             return new \PhpParser\Node\Scalar\String_($string . ' ' . $expr->value);

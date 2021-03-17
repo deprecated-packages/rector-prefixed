@@ -19,7 +19,10 @@ final class DeleteFactoryInterfaceRector extends \Rector\Core\Rector\AbstractRec
      * @var NetteControlFactoryInterfaceAnalyzer
      */
     private $netteControlFactoryInterfaceAnalyzer;
-    public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer)
+    /**
+     * @param \Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer
+     */
+    public function __construct($netteControlFactoryInterfaceAnalyzer)
     {
         $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
     }
@@ -43,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Interface_::class];
     }
     /**
-     * @param Interface_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $smartFileInfo = $node->getAttribute(\RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {

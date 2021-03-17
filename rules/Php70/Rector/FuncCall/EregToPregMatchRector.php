@@ -37,7 +37,10 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
      * @var EregToPcreTransformer
      */
     private $eregToPcreTransformer;
-    public function __construct(\Rector\Php70\EregToPcreTransformer $eregToPcreTransformer)
+    /**
+     * @param \Rector\Php70\EregToPcreTransformer $eregToPcreTransformer
+     */
+    public function __construct($eregToPcreTransformer)
     {
         $this->eregToPcreTransformer = $eregToPcreTransformer;
     }
@@ -53,9 +56,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $functionName = $this->getName($node);
         if ($functionName === null) {
@@ -81,13 +84,23 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
         }
         return $node;
     }
-    private function processStringPattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Scalar\String_ $string, string $functionName) : void
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Scalar\String_ $string
+     * @param string $functionName
+     */
+    private function processStringPattern($funcCall, $string, $functionName) : void
     {
         $pattern = $string->value;
         $pattern = $this->eregToPcreTransformer->transform($pattern, $this->isCaseInsensitiveFunction($functionName));
         $funcCall->args[0]->value = new \PhpParser\Node\Scalar\String_($pattern);
     }
-    private function processVariablePattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Variable $variable, string $functionName) : void
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Expr\Variable $variable
+     * @param string $functionName
+     */
+    private function processVariablePattern($funcCall, $variable, $functionName) : void
     {
         $pregQuotePatternNode = $this->nodeFactory->createFuncCall('preg_quote', [new \PhpParser\Node\Arg($variable), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('#'))]);
         $startConcat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_('#'), $pregQuotePatternNode);
@@ -100,8 +113,10 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
      * split(' ', 'hey Tom', 0);
      * ↓
      * preg_split('# #', 'hey Tom', 1);
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param string $functionName
      */
-    private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
+    private function processSplitLimitArgument($funcCall, $functionName) : void
     {
         if (!\RectorPrefix20210317\Nette\Utils\Strings::startsWith($functionName, 'split')) {
             return;
@@ -120,13 +135,19 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
         }
         $limitNumberNode->value = 1;
     }
-    private function createTernaryWithStrlenOfFirstMatch(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\Ternary
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function createTernaryWithStrlenOfFirstMatch($funcCall) : \PhpParser\Node\Expr\Ternary
     {
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($funcCall->args[2]->value, new \PhpParser\Node\Scalar\LNumber(0));
         $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$arrayDimFetch]);
         return new \PhpParser\Node\Expr\Ternary($funcCall, $strlenFuncCall, $this->nodeFactory->createFalse());
     }
-    private function isCaseInsensitiveFunction(string $functionName) : bool
+    /**
+     * @param string $functionName
+     */
+    private function isCaseInsensitiveFunction($functionName) : bool
     {
         if (\RectorPrefix20210317\Nette\Utils\Strings::contains($functionName, 'eregi')) {
             return \true;

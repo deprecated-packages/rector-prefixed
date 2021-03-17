@@ -5,7 +5,6 @@ namespace Rector\NodeNameResolver\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Function_;
-use PHPStan\Analyser\Scope;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class FunctionNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
@@ -20,11 +19,7 @@ final class FunctionNameResolver implements \Rector\NodeNameResolver\Contract\No
     public function resolve(\PhpParser\Node $node) : ?string
     {
         $bareName = (string) $node->name;
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            return $bareName;
-        }
-        $namespaceName = $scope->getNamespace();
+        $namespaceName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         if ($namespaceName) {
             return $namespaceName . '\\' . $bareName;
         }

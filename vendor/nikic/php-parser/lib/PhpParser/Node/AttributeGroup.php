@@ -13,7 +13,7 @@ class AttributeGroup extends \PhpParser\NodeAbstract
      * @param Attribute[] $attrs PHP attributes
      * @param array $attributes Additional node attributes
      */
-    public function __construct(array $attrs, array $attributes = [])
+    public function __construct($attrs, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->attrs = $attrs;

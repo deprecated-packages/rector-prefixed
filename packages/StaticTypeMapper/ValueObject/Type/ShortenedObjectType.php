@@ -12,8 +12,9 @@ final class ShortenedObjectType extends \PHPStan\Type\ObjectType
     private $fullyQualifiedName;
     /**
      * @param class-string $fullyQualifiedName
+     * @param string $shortName
      */
-    public function __construct(string $shortName, string $fullyQualifiedName)
+    public function __construct($shortName, $fullyQualifiedName)
     {
         parent::__construct($shortName);
         $this->fullyQualifiedName = $fullyQualifiedName;

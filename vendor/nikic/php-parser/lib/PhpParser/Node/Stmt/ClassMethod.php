@@ -35,7 +35,7 @@ class ClassMethod extends \PhpParser\Node\Stmt implements \PhpParser\Node\Functi
      *                          'attrGroups' => array()        : PHP attribute groups
      * @param array $attributes Additional attributes
      */
-    public function __construct($name, array $subNodes = [], array $attributes = [])
+    public function __construct($name, $subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->flags = $subNodes['flags'] ?? $subNodes['type'] ?? 0;

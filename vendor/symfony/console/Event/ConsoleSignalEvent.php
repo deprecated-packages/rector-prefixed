@@ -19,7 +19,13 @@ use RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface;
 final class ConsoleSignalEvent extends \RectorPrefix20210317\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $handlingSignal;
-    public function __construct(\RectorPrefix20210317\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210317\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface $output, int $handlingSignal)
+    /**
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param int $handlingSignal
+     */
+    public function __construct($command, $input, $output, $handlingSignal)
     {
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;

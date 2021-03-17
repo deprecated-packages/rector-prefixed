@@ -27,7 +27,11 @@ final class RemoveDefaultArgumentValueRector extends \Rector\Core\Rector\Abstrac
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\DeadCode\NodeManipulator\CallDefaultParamValuesResolver $callDefaultParamValuesResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @param \Rector\DeadCode\NodeManipulator\CallDefaultParamValuesResolver $callDefaultParamValuesResolver
+     * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
+     */
+    public function __construct($callDefaultParamValuesResolver, $reflectionProvider)
     {
         $this->callDefaultParamValuesResolver = $callDefaultParamValuesResolver;
         $this->reflectionProvider = $reflectionProvider;
@@ -86,7 +90,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -104,7 +108,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    private function shouldSkip(\PhpParser\Node $node) : bool
+    private function shouldSkip($node) : bool
     {
         if ($node->args === []) {
             return \true;
@@ -132,7 +136,7 @@ CODE_SAMPLE
      * @param Expr[]|mixed[] $defaultValues
      * @return int[]
      */
-    private function resolveKeysToRemove(\PhpParser\Node $node, array $defaultValues) : array
+    private function resolveKeysToRemove($node, $defaultValues) : array
     {
         $keysToRemove = [];
         $keysToKeep = [];

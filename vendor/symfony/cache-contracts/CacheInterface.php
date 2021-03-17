@@ -29,7 +29,7 @@ interface CacheInterface
      *
      * @param string                     $key       The key of the item to retrieve from the cache
      * @param callable|CallbackInterface $callback  Should return the computed value for the given key/item
-     * @param float|null                 $beta      A float that, as it grows, controls the likeliness of triggering
+     * @param float                 $beta      A float that, as it grows, controls the likeliness of triggering
      *                                              early expiration. 0 disables it, INF forces immediate expiration.
      *                                              The default (or providing null) is implementation dependent but should
      *                                              typically be 1.0, which should provide optimal stampede protection.
@@ -39,8 +39,9 @@ interface CacheInterface
      * @return mixed The value corresponding to the provided key
      *
      * @throws InvalidArgumentException When $key is not valid or when $beta is negative
+     * @param mixed[] $metadata
      */
-    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null);
+    public function get($key, $callback, $beta = null, &$metadata = null);
     /**
      * Removes an item from the pool.
      *
@@ -50,5 +51,5 @@ interface CacheInterface
      *
      * @return bool True if the item was successfully removed, false if there was any error
      */
-    public function delete(string $key) : bool;
+    public function delete($key) : bool;
 }

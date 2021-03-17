@@ -14,10 +14,10 @@ class Declare_ extends \PhpParser\Node\Stmt
      * Constructs a declare node.
      *
      * @param DeclareDeclare[] $declares   List of declares
-     * @param Node\Stmt[]|null $stmts      Statements
+     * @param mixed[] $stmts      Statements
      * @param array            $attributes Additional attributes
      */
-    public function __construct(array $declares, array $stmts = null, array $attributes = [])
+    public function __construct($declares, $stmts = null, $attributes = [])
     {
         $this->attributes = $attributes;
         $this->declares = $declares;

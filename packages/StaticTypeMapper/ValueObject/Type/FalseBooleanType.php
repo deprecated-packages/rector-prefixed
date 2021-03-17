@@ -11,7 +11,10 @@ use PHPStan\Type\VerbosityLevel;
  */
 final class FalseBooleanType extends \PHPStan\Type\BooleanType
 {
-    public function describe(\PHPStan\Type\VerbosityLevel $verbosityLevel) : string
+    /**
+     * @param \PHPStan\Type\VerbosityLevel $verbosityLevel
+     */
+    public function describe($verbosityLevel) : string
     {
         return 'false';
     }

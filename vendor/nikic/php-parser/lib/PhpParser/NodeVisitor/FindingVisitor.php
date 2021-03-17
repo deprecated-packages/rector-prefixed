@@ -15,7 +15,10 @@ class FindingVisitor extends \PhpParser\NodeVisitorAbstract
     protected $filterCallback;
     /** @var Node[] Found nodes */
     protected $foundNodes;
-    public function __construct(callable $filterCallback)
+    /**
+     * @param callable $filterCallback
+     */
+    public function __construct($filterCallback)
     {
         $this->filterCallback = $filterCallback;
     }
@@ -30,12 +33,18 @@ class FindingVisitor extends \PhpParser\NodeVisitorAbstract
     {
         return $this->foundNodes;
     }
-    public function beforeTraverse(array $nodes)
+    /**
+     * @param mixed[] $nodes
+     */
+    public function beforeTraverse($nodes)
     {
         $this->foundNodes = [];
         return null;
     }
-    public function enterNode(\PhpParser\Node $node)
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node)
     {
         $filterCallback = $this->filterCallback;
         if ($filterCallback($node)) {

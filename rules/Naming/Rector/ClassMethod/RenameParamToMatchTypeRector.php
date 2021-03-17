@@ -45,7 +45,14 @@ final class RenameParamToMatchTypeRector extends \Rector\Core\Rector\AbstractRec
      * @var MatchParamTypeExpectedNameResolver
      */
     private $matchParamTypeExpectedNameResolver;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \Rector\Naming\ParamRenamer\ParamRenamer $paramRenamer)
+    /**
+     * @param \Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard
+     * @param \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver
+     * @param \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver
+     * @param \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory
+     * @param \Rector\Naming\ParamRenamer\ParamRenamer $paramRenamer
+     */
+    public function __construct($breakingVariableRenameGuard, $expectedNameResolver, $matchParamTypeExpectedNameResolver, $paramRenameFactory, $paramRenamer)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
@@ -83,9 +90,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->hasChanged = \false;
         foreach ($node->params as $param) {
@@ -115,7 +122,12 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Param $param
+     * @param string $expectedName
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function shouldSkipParam($param, $expectedName, $classMethod) : bool
     {
         /** @var string $paramName */
         $paramName = $this->getName($param);

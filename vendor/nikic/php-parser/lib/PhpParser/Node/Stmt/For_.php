@@ -24,7 +24,7 @@ class For_ extends \PhpParser\Node\Stmt
      *                          'stmts' => array(): Statements
      * @param array $attributes Additional attributes
      */
-    public function __construct(array $subNodes = [], array $attributes = [])
+    public function __construct($subNodes = [], $attributes = [])
     {
         $this->attributes = $attributes;
         $this->init = $subNodes['init'] ?? [];

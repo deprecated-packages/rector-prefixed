@@ -20,7 +20,10 @@ final class UsesClassNameImportSkipVoter implements \Rector\CodingStyle\Contract
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    /**
+     * @param \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector
+     */
+    public function __construct($useNodesToAddCollector)
     {
         $this->useNodesToAddCollector = $useNodesToAddCollector;
     }
