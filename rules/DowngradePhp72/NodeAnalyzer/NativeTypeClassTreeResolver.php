@@ -7,26 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Param;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionParameter;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\CallableType;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\ObjectWithoutClassType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
-use PHPStan\Type\UnionType;
-use Rector\Core\Exception\NotImplementedYetException;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
-use Rector\Tests\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector\Fixture\ParentType;
-use ReflectionNamedType;
 use RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class NativeTypeClassTreeResolver
 {
@@ -38,15 +22,10 @@ final class NativeTypeClassTreeResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    /**
-     * @var ReflectionProvider
-     */
-    private $reflectionProvider;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210317\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->privatesAccessor = $privatesAccessor;
-        $this->reflectionProvider = $reflectionProvider;
     }
     public function resolveParameterReflectionType(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : \PHPStan\Type\Type
     {
