@@ -1605,7 +1605,6 @@ return array(
     'Rector\\BetterPhpDocParser\\ValueObject\\StartAndEnd' => $baseDir . '/packages/BetterPhpDocParser/ValueObject/StartAndEnd.php',
     'Rector\\BetterPhpDocParser\\ValueObject\\TagValueNodeConfiguration' => $baseDir . '/packages/BetterPhpDocParser/ValueObject/TagValueNodeConfiguration.php',
     'Rector\\Caching\\Application\\CachedFileInfoFilterAndReporter' => $baseDir . '/packages/Caching/Application/CachedFileInfoFilterAndReporter.php',
-    'Rector\\Caching\\Cache\\Adapter\\FilesystemAdapterFactory' => $baseDir . '/packages/Caching/Cache/Adapter/FilesystemAdapterFactory.php',
     'Rector\\Caching\\Cache\\NetteCacheFactory' => $baseDir . '/packages/Caching/Cache/NetteCacheFactory.php',
     'Rector\\Caching\\Config\\FileHashComputer' => $baseDir . '/packages/Caching/Config/FileHashComputer.php',
     'Rector\\Caching\\Contract\\Rector\\ZeroCacheRectorInterface' => $baseDir . '/packages/Caching/Contract/Rector/ZeroCacheRectorInterface.php',

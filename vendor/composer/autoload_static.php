@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413
+class ComposerStaticInit5239e4775d5509b034327b3003cab720
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1919,7 +1919,6 @@ class ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413
         'Rector\\BetterPhpDocParser\\ValueObject\\StartAndEnd' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/StartAndEnd.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\TagValueNodeConfiguration' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/TagValueNodeConfiguration.php',
         'Rector\\Caching\\Application\\CachedFileInfoFilterAndReporter' => __DIR__ . '/../..' . '/packages/Caching/Application/CachedFileInfoFilterAndReporter.php',
-        'Rector\\Caching\\Cache\\Adapter\\FilesystemAdapterFactory' => __DIR__ . '/../..' . '/packages/Caching/Cache/Adapter/FilesystemAdapterFactory.php',
         'Rector\\Caching\\Cache\\NetteCacheFactory' => __DIR__ . '/../..' . '/packages/Caching/Cache/NetteCacheFactory.php',
         'Rector\\Caching\\Config\\FileHashComputer' => __DIR__ . '/../..' . '/packages/Caching/Config/FileHashComputer.php',
         'Rector\\Caching\\Contract\\Rector\\ZeroCacheRectorInterface' => __DIR__ . '/../..' . '/packages/Caching/Contract/Rector/ZeroCacheRectorInterface.php',
@@ -3516,9 +3515,9 @@ class ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit33c8d193acc9013c2fae364c9d0d3413::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5239e4775d5509b034327b3003cab720::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5239e4775d5509b034327b3003cab720::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5239e4775d5509b034327b3003cab720::$classMap;
 
         }, null, ClassLoader::class);
     }
