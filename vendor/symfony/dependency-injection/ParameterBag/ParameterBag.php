@@ -173,9 +173,8 @@ class ParameterBag implements \RectorPrefix20210318\Symfony\Component\Dependency
      * @throws ParameterNotFoundException          if a placeholder references a parameter that does not exist
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
-     * @param string $value
      */
-    public function resolveString($value, $resolving = [])
+    public function resolveString(string $value, array $resolving = [])
     {
         // we do this to deal with non string values (Boolean, integer, ...)
         // as the preg_replace_callback throw an exception when trying

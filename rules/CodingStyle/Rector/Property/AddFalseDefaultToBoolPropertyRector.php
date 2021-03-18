@@ -44,9 +44,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->props) !== 1) {
             return null;
@@ -61,10 +61,7 @@ CODE_SAMPLE
         $onlyProperty->default = $this->nodeFactory->createFalse();
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function isBoolDocType($property) : bool
+    private function isBoolDocType(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         return $phpDocInfo->getVarType() instanceof \PHPStan\Type\BooleanType;

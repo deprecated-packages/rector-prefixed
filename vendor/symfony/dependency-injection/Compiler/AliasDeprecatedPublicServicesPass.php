@@ -34,9 +34,8 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210318\Symf
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
             if (null === ($package = $tags[0]['package'] ?? null)) {

@@ -17,9 +17,8 @@ final class Reflection
     private const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
-     * @param string $type
      */
-    public static function isBuiltinType($type) : bool
+    public static function isBuiltinType(string $type) : bool
     {
         return isset(self::BUILTIN_TYPES[\strtolower($type)]);
     }
@@ -27,17 +26,15 @@ final class Reflection
      * Returns the type of return value of given function or method and normalizes `self`, `static`, and `parent` to actual class names.
      * If the function does not have a return type, it returns null.
      * If the function has union type, it throws Nette\InvalidStateException.
-     * @param \ReflectionFunctionAbstract $func
      */
-    public static function getReturnType($func) : ?string
+    public static function getReturnType(\ReflectionFunctionAbstract $func) : ?string
     {
         return self::getType($func, $func->getReturnType());
     }
     /**
      * Returns the types of return value of given function or method and normalizes `self`, `static`, and `parent` to actual class names.
-     * @param \ReflectionFunctionAbstract $func
      */
-    public static function getReturnTypes($func) : array
+    public static function getReturnTypes(\ReflectionFunctionAbstract $func) : array
     {
         return self::getType($func, $func->getReturnType(), \true);
     }
@@ -45,17 +42,15 @@ final class Reflection
      * Returns the type of given parameter and normalizes `self` and `parent` to the actual class names.
      * If the parameter does not have a type, it returns null.
      * If the parameter has union type, it throws Nette\InvalidStateException.
-     * @param \ReflectionParameter $param
      */
-    public static function getParameterType($param) : ?string
+    public static function getParameterType(\ReflectionParameter $param) : ?string
     {
         return self::getType($param, $param->getType());
     }
     /**
      * Returns the types of given parameter and normalizes `self` and `parent` to the actual class names.
-     * @param \ReflectionParameter $param
      */
-    public static function getParameterTypes($param) : array
+    public static function getParameterTypes(\ReflectionParameter $param) : array
     {
         return self::getType($param, $param->getType(), \true);
     }
@@ -63,27 +58,23 @@ final class Reflection
      * Returns the type of given property and normalizes `self` and `parent` to the actual class names.
      * If the property does not have a type, it returns null.
      * If the property has union type, it throws Nette\InvalidStateException.
-     * @param \ReflectionProperty $prop
      */
-    public static function getPropertyType($prop) : ?string
+    public static function getPropertyType(\ReflectionProperty $prop) : ?string
     {
         return self::getType($prop, \PHP_VERSION_ID >= 70400 ? $prop->getType() : null);
     }
     /**
      * Returns the types of given property and normalizes `self` and `parent` to the actual class names.
-     * @param \ReflectionProperty $prop
      */
-    public static function getPropertyTypes($prop) : array
+    public static function getPropertyTypes(\ReflectionProperty $prop) : array
     {
         return self::getType($prop, \PHP_VERSION_ID >= 70400 ? $prop->getType() : null, \true);
     }
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
      * @return string|array|null
-     * @param \ReflectionType|null $type
-     * @param bool $asArray
      */
-    private static function getType($reflection, $type, $asArray = \false)
+    private static function getType($reflection, ?\ReflectionType $type, bool $asArray = \false)
     {
         if ($type === null) {
             return $asArray ? [] : null;
@@ -108,9 +99,8 @@ final class Reflection
     }
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
-     * @param string $type
      */
-    private static function normalizeType($type, $reflection) : string
+    private static function normalizeType(string $type, $reflection) : string
     {
         $lower = \strtolower($type);
         if ($reflection instanceof \ReflectionFunction) {
@@ -127,9 +117,8 @@ final class Reflection
      * Returns the default value of parameter. If it is a constant, it returns its value.
      * @return mixed
      * @throws \ReflectionException  If the parameter does not have a default value or the constant cannot be resolved
-     * @param \ReflectionParameter $param
      */
-    public static function getParameterDefaultValue($param)
+    public static function getParameterDefaultValue(\ReflectionParameter $param)
     {
         if ($param->isDefaultValueConstant()) {
             $const = $orig = $param->getDefaultValueConstantName();
@@ -156,9 +145,8 @@ final class Reflection
     }
     /**
      * Returns a reflection of a class or trait that contains a declaration of given property. Property can also be declared in the trait.
-     * @param \ReflectionProperty $prop
      */
-    public static function getPropertyDeclaringClass($prop) : \ReflectionClass
+    public static function getPropertyDeclaringClass(\ReflectionProperty $prop) : \ReflectionClass
     {
         foreach ($prop->getDeclaringClass()->getTraits() as $trait) {
             if ($trait->hasProperty($prop->name) && $trait->getProperty($prop->name)->getDocComment() === $prop->getDocComment()) {
@@ -170,9 +158,8 @@ final class Reflection
     /**
      * Returns a reflection of a method that contains a declaration of $method.
      * Usually, each method is its own declaration, but the body of the method can also be in the trait and under a different name.
-     * @param \ReflectionMethod $method
      */
-    public static function getMethodDeclaringMethod($method) : \ReflectionMethod
+    public static function getMethodDeclaringMethod(\ReflectionMethod $method) : \ReflectionMethod
     {
         // file & line guessing as workaround for insufficient PHP reflection
         $decl = $method->getDeclaringClass();
@@ -198,10 +185,7 @@ final class Reflection
         static $res;
         return $res ?? ($res = (bool) (new \ReflectionMethod(__METHOD__))->getDocComment());
     }
-    /**
-     * @param \Reflector $ref
-     */
-    public static function toString($ref) : string
+    public static function toString(\Reflector $ref) : string
     {
         if ($ref instanceof \ReflectionClass) {
             return $ref->name;
@@ -221,10 +205,8 @@ final class Reflection
      * Expands the name of the class to full name in the given context of given class.
      * Thus, it returns how the PHP parser would understand $name if it were written in the body of the class $context.
      * @throws Nette\InvalidArgumentException
-     * @param string $name
-     * @param \ReflectionClass $context
      */
-    public static function expandClassName($name, $context) : string
+    public static function expandClassName(string $name, \ReflectionClass $context) : string
     {
         $lower = \strtolower($name);
         if (empty($name)) {
@@ -248,9 +230,8 @@ final class Reflection
             return $name;
         }
     }
-    /** @return array of [alias => class]
-     * @param \ReflectionClass $class */
-    public static function getUseStatements($class) : array
+    /** @return array of [alias => class] */
+    public static function getUseStatements(\ReflectionClass $class) : array
     {
         if ($class->isAnonymous()) {
             throw new \RectorPrefix20210318\Nette\NotImplementedException('Anonymous classes are not supported.');
@@ -268,10 +249,8 @@ final class Reflection
     }
     /**
      * Parses PHP code to [class => [alias => class, ...]]
-     * @param string $code
-     * @param string $forClass
      */
-    private static function parseUseStatements($code, $forClass = null) : array
+    private static function parseUseStatements(string $code, string $forClass = null) : array
     {
         try {
             $tokens = \token_get_all($code, \TOKEN_PARSE);
@@ -341,10 +320,7 @@ final class Reflection
         }
         return $res;
     }
-    /**
-     * @param mixed[] $tokens
-     */
-    private static function fetch(&$tokens, $take) : ?string
+    private static function fetch(array &$tokens, $take) : ?string
     {
         $res = null;
         while ($token = \current($tokens)) {

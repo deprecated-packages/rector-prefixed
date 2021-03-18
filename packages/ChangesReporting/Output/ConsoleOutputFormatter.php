@@ -67,7 +67,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     /**
      * @param FileDiff[] $fileDiffs
      */
-    private function reportFileDiffs($fileDiffs) : void
+    private function reportFileDiffs(array $fileDiffs) : void
     {
         if (\count($fileDiffs) <= 0) {
             return;
@@ -95,7 +95,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     /**
      * @param RectorError[] $errors
      */
-    private function reportErrors($errors) : void
+    private function reportErrors(array $errors) : void
     {
         foreach ($errors as $error) {
             $errorMessage = $error->getMessage();
@@ -107,10 +107,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $this->symfonyStyle->error($message);
         }
     }
-    /**
-     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
-     */
-    private function reportRemovedFilesAndNodes($errorAndDiffCollector) : void
+    private function reportRemovedFilesAndNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getAddFilesCount() !== 0) {
             $message = \sprintf('%d files were added', $errorAndDiffCollector->getAddFilesCount());
@@ -122,19 +119,13 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         }
         $this->reportRemovedNodes($errorAndDiffCollector);
     }
-    /**
-     * @param string $errorMessage
-     */
-    private function normalizePathsToRelativeWithLine($errorMessage) : string
+    private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
         $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
         $errorMessage = \RectorPrefix20210318\Nette\Utils\Strings::replace($errorMessage, $regex, '');
         return $errorMessage = \RectorPrefix20210318\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
-    /**
-     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
-     */
-    private function reportRemovedNodes($errorAndDiffCollector) : void
+    private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         if ($errorAndDiffCollector->getRemovedNodeCount() === 0) {
             return;
@@ -157,17 +148,11 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             }
         }
     }
-    /**
-     * @param string $text
-     */
-    private function colorTextToRed($text) : string
+    private function colorTextToRed(string $text) : string
     {
         return '<fg=red>' . $text . '</fg=red>';
     }
-    /**
-     * @param \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector
-     */
-    private function createSuccessMessage($errorAndDiffCollector) : string
+    private function createSuccessMessage(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : string
     {
         $changeCount = $errorAndDiffCollector->getFileDiffsCount() + $errorAndDiffCollector->getRemovedAndAddedFilesCount();
         if ($changeCount === 0) {

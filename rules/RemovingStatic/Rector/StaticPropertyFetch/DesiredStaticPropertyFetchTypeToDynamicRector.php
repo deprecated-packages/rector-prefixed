@@ -67,9 +67,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticPropertyFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticPropertyFetch $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // A. remove local fetch
         foreach ($this->staticObjectTypes as $staticObjectType) {

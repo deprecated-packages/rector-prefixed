@@ -122,9 +122,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $hasTypeTreeTagValueNode = $classPhpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeTagValueNode::class);
@@ -148,10 +148,7 @@ CODE_SAMPLE
         $this->removeClassMethodsForProperties($node, $removedPropertyNames);
         return $node;
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     */
-    private function shouldRemoveProperty($phpDocInfo) : bool
+    private function shouldRemoveProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
         if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TreeLeftTagValueNode::class)) {
             return \true;
@@ -169,9 +166,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeClassMethodsForProperties($class, $removedPropertyNames) : void
+    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {

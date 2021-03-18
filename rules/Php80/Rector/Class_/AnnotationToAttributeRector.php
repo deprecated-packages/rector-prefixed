@@ -69,7 +69,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Property|ClassMethod|Function_|Closure|ArrowFunction $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->annotationToAttributeConverter->convertNode($node);
     }

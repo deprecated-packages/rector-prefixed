@@ -15,29 +15,23 @@ interface Storage
     /**
      * Read from cache.
      * @return mixed
-     * @param string $key
      */
-    function read($key);
+    function read(string $key);
     /**
      * Prevents item reading and writing. Lock is released by write() or remove().
-     * @param string $key
      */
-    function lock($key) : void;
+    function lock(string $key) : void;
     /**
      * Writes item into the cache.
-     * @param string $key
-     * @param mixed[] $dependencies
      */
-    function write($key, $data, $dependencies) : void;
+    function write(string $key, $data, array $dependencies) : void;
     /**
      * Removes item from the cache.
-     * @param string $key
      */
-    function remove($key) : void;
+    function remove(string $key) : void;
     /**
      * Removes items from the cache by conditions.
-     * @param mixed[] $conditions
      */
-    function clean($conditions) : void;
+    function clean(array $conditions) : void;
 }
 \class_exists(\RectorPrefix20210318\Nette\Caching\IStorage::class);

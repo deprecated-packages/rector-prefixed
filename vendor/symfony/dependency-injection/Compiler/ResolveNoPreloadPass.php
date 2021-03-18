@@ -29,9 +29,8 @@ class ResolveNoPreloadPass extends \RectorPrefix20210318\Symfony\Component\Depen
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         try {

@@ -49,7 +49,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\PhpParser\Node $node) : bool {
             return $this->isClassReference($node);
@@ -79,10 +79,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
         }
         return $instanceof;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isClassReference($node) : bool
+    private function isClassReference(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             // might be
@@ -90,10 +87,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
         }
         return $this->isName($node->name, 'class');
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isGetClassFuncCallNode($node) : bool
+    private function isGetClassFuncCallNode(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;

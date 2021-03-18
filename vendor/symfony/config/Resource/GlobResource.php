@@ -63,9 +63,8 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210318\Symfony\
     }
     /**
      * {@inheritdoc}
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         $hash = $this->computeHash();
         if (null === $this->hash) {
@@ -175,10 +174,7 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210318\Symfony\
         }
         return \hash_final($hash);
     }
-    /**
-     * @param string $pattern
-     */
-    private function expandGlob($pattern) : array
+    private function expandGlob(string $pattern) : array
     {
         $segments = \preg_split('/\\{([^{}]*+)\\}/', $pattern, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $paths = [$segments[0]];

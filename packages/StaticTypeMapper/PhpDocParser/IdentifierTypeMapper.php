@@ -76,10 +76,7 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         $objectType = new \PHPStan\Type\ObjectType($typeNode->name);
         return $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, $objectType);
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function mapSelf($node) : \PHPStan\Type\Type
+    private function mapSelf(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -89,10 +86,7 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         }
         return new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($className);
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function mapParent($node) : \PHPStan\Type\Type
+    private function mapParent(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
         if ($parentClassName !== null) {
@@ -100,10 +94,7 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function mapStatic($node) : \PHPStan\Type\Type
+    private function mapStatic(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

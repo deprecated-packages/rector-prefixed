@@ -10,10 +10,7 @@ use RectorPrefix20210318\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use RectorPrefix20210318\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class SkipperKernel extends \RectorPrefix20210318\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function registerContainerConfiguration($loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);

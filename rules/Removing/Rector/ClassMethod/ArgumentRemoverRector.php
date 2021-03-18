@@ -49,7 +49,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->removedArguments as $removedArgument) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $removedArgument->getObjectType())) {
@@ -62,10 +62,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Removing\ValueObject\ArgumentRemover::class);
@@ -73,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|MethodCall $node
-     * @param \Rector\Removing\ValueObject\ArgumentRemover $argumentRemover
      */
-    private function processPosition($node, $argumentRemover) : void
+    private function processPosition(\PhpParser\Node $node, \Rector\Removing\ValueObject\ArgumentRemover $argumentRemover) : void
     {
         if ($argumentRemover->getValue() === null) {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -103,10 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|MethodCall $node
-     * @param int $position
-     * @param string $name
      */
-    private function removeByName($node, $position, $name) : void
+    private function removeByName(\PhpParser\Node $node, int $position, string $name) : void
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
             if (isset($node->args[$position]) && $this->isName($node->args[$position], $name)) {
@@ -124,9 +118,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $values
-     * @param \PhpParser\Node\Arg $arg
      */
-    private function isArgumentValueMatch($arg, $values) : bool
+    private function isArgumentValueMatch(\PhpParser\Node\Arg $arg, array $values) : bool
     {
         $nodeValue = $this->valueResolver->getValue($arg->value);
         return \in_array($nodeValue, $values, \true);

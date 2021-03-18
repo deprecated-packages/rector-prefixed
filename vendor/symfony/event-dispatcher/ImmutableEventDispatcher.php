@@ -34,34 +34,29 @@ class ImmutableEventDispatcher implements \RectorPrefix20210318\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber)
+    public function addSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener)
+    public function removeListener(string $eventName, $listener)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber($subscriber)
+    public function removeSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
@@ -75,9 +70,8 @@ class ImmutableEventDispatcher implements \RectorPrefix20210318\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority(string $eventName, $listener)
     {
         return $this->dispatcher->getListenerPriority($eventName, $listener);
     }

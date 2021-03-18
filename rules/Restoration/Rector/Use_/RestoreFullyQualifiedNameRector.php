@@ -64,7 +64,7 @@ CODE_SAMPLE
     /**
      * @param Use_|Param|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             return $this->refactoryUse($node);
@@ -74,10 +74,7 @@ CODE_SAMPLE
         }
         return $this->refactorClassMethod($node);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Use_ $use
-     */
-    private function refactoryUse($use) : \PhpParser\Node\Stmt\Use_
+    private function refactoryUse(\PhpParser\Node\Stmt\Use_ $use) : \PhpParser\Node\Stmt\Use_
     {
         foreach ($use->uses as $useUse) {
             $name = $useUse->name;
@@ -89,10 +86,7 @@ CODE_SAMPLE
         }
         return $use;
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     */
-    private function refactorParam($param) : ?\PhpParser\Node\Param
+    private function refactorParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Param
     {
         $name = $param->type;
         if (!$name instanceof \PhpParser\Node\Name) {
@@ -105,10 +99,7 @@ CODE_SAMPLE
         $param->type = $fullyQualified;
         return $param;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $this->refactorReturnTagValueNode($classMethod);
         $returnType = $classMethod->returnType;
@@ -122,10 +113,7 @@ CODE_SAMPLE
         $classMethod->returnType = $fullyQualified;
         return $classMethod;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function refactorReturnTagValueNode($classMethod) : void
+    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();

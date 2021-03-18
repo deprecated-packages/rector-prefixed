@@ -26,28 +26,22 @@ interface EventDispatcherInterface extends \RectorPrefix20210318\Symfony\Contrac
      * @param callable $listener The listener
      * @param int      $priority The higher this value, the earlier an event
      *                           listener will be triggered in the chain (defaults to 0)
-     * @param string $eventName
      */
-    public function addListener($eventName, $listener, $priority = 0);
+    public function addListener(string $eventName, $listener, int $priority = 0);
     /**
      * Adds an event subscriber.
      *
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber);
+    public function addSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Removes an event listener from the specified events.
      *
      * @param callable $listener The listener to remove
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener);
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
-     */
-    public function removeSubscriber($subscriber);
+    public function removeListener(string $eventName, $listener);
+    public function removeSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
@@ -63,9 +57,8 @@ interface EventDispatcherInterface extends \RectorPrefix20210318\Symfony\Contrac
      * @param callable $listener The listener
      *
      * @return int|null The event listener priority
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener);
+    public function getListenerPriority(string $eventName, $listener);
     /**
      * Checks whether an event has any registered listeners.
      *

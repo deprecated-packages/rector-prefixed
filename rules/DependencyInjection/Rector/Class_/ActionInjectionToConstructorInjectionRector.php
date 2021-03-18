@@ -70,9 +70,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, '*Controller')) {
             return null;
@@ -82,11 +82,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function processClassMethod($class, $classMethod) : void
+    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->params as $key => $paramNode) {
             if (!$this->isActionInjectedParamNode($paramNode)) {
@@ -100,10 +96,7 @@ CODE_SAMPLE
             $this->variablesToPropertyFetchCollection->addVariableNameAndType($paramName, $paramNodeType);
         }
     }
-    /**
-     * @param \PhpParser\Node\Param $param
-     */
-    private function isActionInjectedParamNode($param) : bool
+    private function isActionInjectedParamNode(\PhpParser\Node\Param $param) : bool
     {
         if ($param->type === null) {
             return \false;

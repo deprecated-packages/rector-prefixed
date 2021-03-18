@@ -39,9 +39,9 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         return \PHPStan\Type\ObjectWithoutClassType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ObjectWithoutClassType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if ($type instanceof \PHPStan\Type\Generic\TemplateObjectWithoutClassType) {
             $attributeAwareIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getName());
@@ -50,10 +50,9 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('object');
     }
     /**
-     * @param \PHPStan\Type\Type $type
-     * @param string|null $kind
+     * @param ObjectWithoutClassType $type
      */
-    public function mapToPhpParserNode($type, $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         $subtractedType = $type->getSubtractedType();
         if ($subtractedType !== null) {
@@ -64,18 +63,11 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         }
         return new \PhpParser\Node\Name('object');
     }
-    /**
-     * @param \PHPStan\Type\Type $type
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString($type, $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
-    /**
-     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
-     */
-    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper) : void
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

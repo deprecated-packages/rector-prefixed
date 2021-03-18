@@ -22,9 +22,8 @@ class ResolveReferencesToAliasesPass extends \RectorPrefix20210318\Symfony\Compo
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         parent::process($container);
         foreach ($container->getAliases() as $id => $alias) {
@@ -47,11 +46,7 @@ class ResolveReferencesToAliasesPass extends \RectorPrefix20210318\Symfony\Compo
         $defId = $this->getDefinitionId($id = (string) $value, $this->container);
         return $defId !== $id ? new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference($defId, $value->getInvalidBehavior()) : $value;
     }
-    /**
-     * @param string $id
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    private function getDefinitionId($id, $container) : string
+    private function getDefinitionId(string $id, \RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container) : string
     {
         if (!$container->hasAlias($id)) {
             return $id;

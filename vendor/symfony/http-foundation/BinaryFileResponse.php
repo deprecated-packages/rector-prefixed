@@ -74,11 +74,8 @@ class BinaryFileResponse extends \RectorPrefix20210318\Symfony\Component\HttpFou
      * @return $this
      *
      * @throws FileException
-     * @param string $contentDisposition
-     * @param bool $autoEtag
-     * @param bool $autoLastModified
      */
-    public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public function setFile($file, string $contentDisposition = null, bool $autoEtag = \false, bool $autoLastModified = \true)
     {
         if (!$file instanceof \RectorPrefix20210318\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
@@ -136,7 +133,7 @@ class BinaryFileResponse extends \RectorPrefix20210318\Symfony\Component\HttpFou
      *
      * @return $this
      */
-    public function setContentDisposition($disposition, $filename = '', $filenameFallback = '')
+    public function setContentDisposition(string $disposition, string $filename = '', string $filenameFallback = '')
     {
         if ('' === $filename) {
             $filename = $this->file->getFilename();
@@ -236,10 +233,7 @@ class BinaryFileResponse extends \RectorPrefix20210318\Symfony\Component\HttpFou
         }
         return $this;
     }
-    /**
-     * @param string|null $header
-     */
-    private function hasValidIfRangeHeader($header) : bool
+    private function hasValidIfRangeHeader(?string $header) : bool
     {
         if ($this->getEtag() === $header) {
             return \true;
@@ -303,9 +297,8 @@ class BinaryFileResponse extends \RectorPrefix20210318\Symfony\Component\HttpFou
      * Note: If the X-Sendfile header is used, the deleteFileAfterSend setting will not be used.
      *
      * @return $this
-     * @param bool $shouldDelete
      */
-    public function deleteFileAfterSend($shouldDelete = \true)
+    public function deleteFileAfterSend(bool $shouldDelete = \true)
     {
         $this->deleteFileAfterSend = $shouldDelete;
         return $this;

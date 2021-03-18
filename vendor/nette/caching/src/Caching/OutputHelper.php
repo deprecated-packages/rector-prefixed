@@ -28,9 +28,8 @@ class OutputHelper
     }
     /**
      * Stops and saves the cache.
-     * @param mixed[] $dependencies
      */
-    public function end($dependencies = []) : void
+    public function end(array $dependencies = []) : void
     {
         if ($this->cache === null) {
             throw new \RectorPrefix20210318\Nette\InvalidStateException('Output cache has already been saved.');

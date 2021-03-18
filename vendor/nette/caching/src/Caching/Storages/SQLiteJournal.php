@@ -51,11 +51,7 @@ class SQLiteJournal implements \RectorPrefix20210318\Nette\Caching\Storages\Jour
 			CREATE INDEX IF NOT EXISTS idx_priorities_priority ON priorities(priority);
 		');
     }
-    /**
-     * @param string $key
-     * @param mixed[] $dependencies
-     */
-    public function write($key, $dependencies) : void
+    public function write(string $key, array $dependencies) : void
     {
         if (!$this->pdo) {
             $this->open();
@@ -74,10 +70,7 @@ class SQLiteJournal implements \RectorPrefix20210318\Nette\Caching\Storages\Jour
         }
         $this->pdo->exec('COMMIT');
     }
-    /**
-     * @param mixed[] $conditions
-     */
-    public function clean($conditions) : ?array
+    public function clean(array $conditions) : ?array
     {
         if (!$this->pdo) {
             $this->open();

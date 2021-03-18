@@ -49,9 +49,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->else === null) {
             return null;
@@ -65,10 +65,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isIfWithConstantReturns($if) : bool
+    private function isIfWithConstantReturns(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $possibleContents = [];
         $possibleContents[] = $this->print($if->stmts);

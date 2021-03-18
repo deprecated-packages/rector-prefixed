@@ -27,9 +27,8 @@ class ReplaceAliasByActualDefinitionPass extends \RectorPrefix20210318\Symfony\C
      * Process the Container to replace aliases with service definitions.
      *
      * @throws InvalidArgumentException if the service definition does not exist
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         // First collect all alias targets that need to be replaced
         $seenAliasTargets = [];

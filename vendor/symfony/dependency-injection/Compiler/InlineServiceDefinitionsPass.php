@@ -33,10 +33,7 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210318\Symfony\Compone
     {
         $this->analyzingPass = $analyzingPass;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         if ($this->analyzingPass) {
@@ -143,10 +140,8 @@ class InlineServiceDefinitionsPass extends \RectorPrefix20210318\Symfony\Compone
     }
     /**
      * Checks if the definition is inlineable.
-     * @param string $id
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    private function isInlineableDefinition($id, $definition) : bool
+    private function isInlineableDefinition(string $id, \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
         if ($definition->hasErrors() || $definition->isDeprecated() || $definition->isLazy() || $definition->isSynthetic()) {
             return \false;

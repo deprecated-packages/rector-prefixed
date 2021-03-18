@@ -80,9 +80,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $changedProperties = $this->collectPropertyNamesWithMissingDefaultArray($node);
         if ($changedProperties === []) {
@@ -97,9 +97,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectPropertyNamesWithMissingDefaultArray($class) : array
+    private function collectPropertyNamesWithMissingDefaultArray(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $propertyNames = [];
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use(&$propertyNames) {
@@ -120,9 +119,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function completeDefaultArrayToPropertyNames($class, $propertyNames) : void
+    private function completeDefaultArrayToPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $class) use($propertyNames) : ?PropertyProperty {
             if (!$class instanceof \PhpParser\Node\Stmt\PropertyProperty) {
@@ -137,9 +135,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function clearNotNullBeforeCount($class, $propertyNames) : void
+    private function clearNotNullBeforeCount(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?Expr {
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
@@ -172,9 +169,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison($class, $propertyNames) : void
+    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
     {
         // replace comparison to "null" with "[]"
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?BinaryOp {
@@ -190,10 +186,7 @@ CODE_SAMPLE
             return $node;
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\PropertyProperty $propertyProperty
-     */
-    private function resolveVarType($propertyProperty) : \PHPStan\Type\Type
+    private function resolveVarType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : \PHPStan\Type\Type
     {
         /** @var Property $property */
         $property = $propertyProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -202,9 +195,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
-     * @param \PhpParser\Node\Expr $expr
      */
-    private function isLocalPropertyOfNamesNotIdenticalToNull($expr, $propertyNames) : bool
+    private function isLocalPropertyOfNamesNotIdenticalToNull(\PhpParser\Node\Expr $expr, array $propertyNames) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return \false;

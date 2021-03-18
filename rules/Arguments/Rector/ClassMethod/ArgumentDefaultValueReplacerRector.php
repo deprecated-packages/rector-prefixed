@@ -52,7 +52,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->replacedArguments as $replacedArgument) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getObjectType())) {
@@ -65,10 +65,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $replacedArguments = $configuration[self::REPLACED_ARGUMENTS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer::class);
@@ -76,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @param \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer
      */
-    private function processReplaces($node, $argumentDefaultValueReplacer) : ?\PhpParser\Node
+    private function processReplaces(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!isset($node->params[$argumentDefaultValueReplacer->getPosition()])) {
@@ -91,9 +87,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $expr
-     * @param \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer
      */
-    private function processArgs($expr, $argumentDefaultValueReplacer) : void
+    private function processArgs(\PhpParser\Node\Expr $expr, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
     {
         $position = $argumentDefaultValueReplacer->getPosition();
         $argValue = $this->valueResolver->getValue($expr->args[$position]->value);
@@ -122,9 +117,8 @@ CODE_SAMPLE
     /**
      * @param Arg[] $argumentNodes
      * @return Arg[]|null
-     * @param \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer
      */
-    private function processArrayReplacement($argumentNodes, $argumentDefaultValueReplacer) : ?array
+    private function processArrayReplacement(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?array
     {
         $argumentValues = $this->resolveArgumentValuesToBeforeRecipe($argumentNodes, $argumentDefaultValueReplacer);
         if ($argumentValues !== $argumentDefaultValueReplacer->getValueBefore()) {
@@ -143,9 +137,8 @@ CODE_SAMPLE
     /**
      * @param Arg[] $argumentNodes
      * @return mixed[]
-     * @param \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer
      */
-    private function resolveArgumentValuesToBeforeRecipe($argumentNodes, $argumentDefaultValueReplacer) : array
+    private function resolveArgumentValuesToBeforeRecipe(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : array
     {
         $argumentValues = [];
         /** @var mixed[] $valueBefore */

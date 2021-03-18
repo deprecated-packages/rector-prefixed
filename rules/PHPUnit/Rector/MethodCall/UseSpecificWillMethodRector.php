@@ -71,7 +71,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -92,7 +92,7 @@ CODE_SAMPLE
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall
      */
-    private function processWithCall($node) : \PhpParser\Node
+    private function processWithCall(\PhpParser\Node $node) : \PhpParser\Node
     {
         foreach ($node->args as $i => $argNode) {
             if (!$argNode->value instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -110,7 +110,7 @@ CODE_SAMPLE
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall|null
      */
-    private function processWillCall($node) : ?\PhpParser\Node
+    private function processWillCall(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->args[0]->value instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

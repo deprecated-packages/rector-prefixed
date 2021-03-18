@@ -54,10 +54,7 @@ final class RectorKernel extends \RectorPrefix20210318\Symfony\Component\HttpKer
         // manually configured, so it can be replaced in phar
         return \sys_get_temp_dir() . '/rector/log';
     }
-    /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function registerContainerConfiguration($loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -67,7 +64,7 @@ final class RectorKernel extends \RectorPrefix20210318\Symfony\Component\HttpKer
     /**
      * @param string[] $configs
      */
-    public function setConfigs($configs) : void
+    public function setConfigs(array $configs) : void
     {
         $this->configs = $configs;
     }
@@ -86,10 +83,7 @@ final class RectorKernel extends \RectorPrefix20210318\Symfony\Component\HttpKer
         }
         return $bundles;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    protected function build($containerBuilder) : void
+    protected function build(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $containerBuilder->addCompilerPass(new \RectorPrefix20210318\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
         // autowire Rectors by default (mainly for 3rd party code)
@@ -102,7 +96,7 @@ final class RectorKernel extends \RectorPrefix20210318\Symfony\Component\HttpKer
      * This allows to use "%vendor%" variables in imports
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader($container) : \RectorPrefix20210318\Symfony\Component\Config\Loader\DelegatingLoader
+    protected function getContainerLoader(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerInterface $container) : \RectorPrefix20210318\Symfony\Component\Config\Loader\DelegatingLoader
     {
         $fileLocator = new \RectorPrefix20210318\Symfony\Component\HttpKernel\Config\FileLocator($this);
         $loaderResolver = new \RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderResolver([new \RectorPrefix20210318\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader($container, $fileLocator, $this->configureCallValuesCollector)]);

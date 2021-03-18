@@ -71,7 +71,7 @@ class ArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definitio
      *
      * @param array $remappings An array of the form [[string, string]]
      */
-    public function setXmlRemappings($remappings)
+    public function setXmlRemappings(array $remappings)
     {
         $this->xmlRemappings = $remappings;
     }
@@ -87,33 +87,29 @@ class ArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definitio
     /**
      * Sets whether to add default values for this array if it has not been
      * defined in any of the configuration files.
-     * @param bool $boolean
      */
-    public function setAddIfNotSet($boolean)
+    public function setAddIfNotSet(bool $boolean)
     {
         $this->addIfNotSet = $boolean;
     }
     /**
      * Sets whether false is allowed as value indicating that the array should be unset.
-     * @param bool $allow
      */
-    public function setAllowFalse($allow)
+    public function setAllowFalse(bool $allow)
     {
         $this->allowFalse = $allow;
     }
     /**
      * Sets whether new keys can be defined in subsequent configurations.
-     * @param bool $allow
      */
-    public function setAllowNewKeys($allow)
+    public function setAllowNewKeys(bool $allow)
     {
         $this->allowNewKeys = $allow;
     }
     /**
      * Sets if deep merging should occur.
-     * @param bool $boolean
      */
-    public function setPerformDeepMerging($boolean)
+    public function setPerformDeepMerging(bool $boolean)
     {
         $this->performDeepMerging = $boolean;
     }
@@ -123,16 +119,15 @@ class ArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definitio
      * @param bool $boolean To allow extra keys
      * @param bool $remove  To remove extra keys
      */
-    public function setIgnoreExtraKeys($boolean, $remove = \true)
+    public function setIgnoreExtraKeys(bool $boolean, bool $remove = \true)
     {
         $this->ignoreExtraKeys = $boolean;
         $this->removeExtraKeys = $this->ignoreExtraKeys && $remove;
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -164,9 +159,8 @@ class ArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definitio
      *
      * @throws \InvalidArgumentException when the child node has no name
      * @throws \InvalidArgumentException when the child node's name is not unique
-     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
-    public function addChild($node)
+    public function addChild(\RectorPrefix20210318\Symfony\Component\Config\Definition\NodeInterface $node)
     {
         $name = $node->getName();
         if (!\strlen($name)) {
@@ -299,9 +293,8 @@ class ArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definitio
      * Remaps multiple singular values to a single plural value.
      *
      * @return array The remapped values
-     * @param mixed[] $value
      */
-    protected function remapXml($value)
+    protected function remapXml(array $value)
     {
         foreach ($this->xmlRemappings as [$singular, $plural]) {
             if (!isset($value[$singular])) {

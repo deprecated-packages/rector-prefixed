@@ -100,7 +100,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->processClass($node);
@@ -116,17 +116,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->staticTypes = $configuration[self::STATIC_TYPES] ?? [];
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function processClass($class) : \PhpParser\Node\Stmt\Class_
+    private function processClass(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($this->staticTypes as $implements => $staticType) {
             $objectType = new \PHPStan\Type\ObjectType($staticType);
@@ -153,23 +147,14 @@ CODE_SAMPLE
         }
         return $class;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PHPStan\Type\ObjectType $objectType
-     */
-    private function isEntityFactoryStaticCall($node, $objectType) : bool
+    private function isEntityFactoryStaticCall(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         return $this->isObjectType($node->class, $objectType);
     }
-    /**
-     * @param string $variableName
-     * @param \PhpParser\Node\Param $param
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function createSetEntityFactoryClassMethod($variableName, $param, $assign) : \PhpParser\Node\Stmt\ClassMethod
+    private function createSetEntityFactoryClassMethod(string $variableName, \PhpParser\Node\Param $param, \PhpParser\Node\Expr\Assign $assign) : \PhpParser\Node\Stmt\ClassMethod
     {
         $setMethodName = 'set' . \ucfirst($variableName);
         $setEntityFactoryMethodBuilder = new \RectorPrefix20210318\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($setMethodName);

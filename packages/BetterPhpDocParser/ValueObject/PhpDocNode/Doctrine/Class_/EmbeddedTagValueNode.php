@@ -34,10 +34,7 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     {
         return $this->fullyQualifiedClassName;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items['class'] = $targetEntity;
     }

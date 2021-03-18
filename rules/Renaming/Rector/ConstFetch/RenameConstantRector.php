@@ -53,9 +53,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\ConstFetch::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ConstFetch $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->oldToNewConstants as $oldConstant => $newConstant) {
             if (!$this->isName($node, $oldConstant)) {
@@ -66,10 +66,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->oldToNewConstants = $configuration[self::OLD_TO_NEW_CONSTANTS] ?? [];
     }

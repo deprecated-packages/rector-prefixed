@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Concat::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Concat $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->nodeReplacementIsRestricted = \false;
         if (!$this->isTopMostConcatNode($node)) {
@@ -71,19 +71,15 @@ CODE_SAMPLE
         }
         return $joinedNode;
     }
-    /**
-     * @param \PhpParser\Node\Expr\BinaryOp\Concat $concat
-     */
-    private function isTopMostConcatNode($concat) : bool
+    private function isTopMostConcatNode(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : bool
     {
         $parent = $concat->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         return !$parent instanceof \PhpParser\Node\Expr\BinaryOp\Concat;
     }
     /**
      * @return Concat|String_
-     * @param \PhpParser\Node\Expr\BinaryOp\Concat $node
      */
-    private function joinConcatIfStrings($node) : \PhpParser\Node
+    private function joinConcatIfStrings(\PhpParser\Node\Expr\BinaryOp\Concat $node) : \PhpParser\Node
     {
         $concat = clone $node;
         if ($concat->left instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {

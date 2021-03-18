@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if (!$classMethod instanceof \PhpParser\Node\FunctionLike) {
@@ -71,10 +71,8 @@ CODE_SAMPLE
     }
     /**
      * @return Variable[]
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     * @param \PhpParser\Node\Expr\Assign $assign
      */
-    private function findVariableUsages($functionLike, $assign) : array
+    private function findVariableUsages(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr\Assign $assign) : array
     {
         return $this->betterNodeFinder->find((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use($assign) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

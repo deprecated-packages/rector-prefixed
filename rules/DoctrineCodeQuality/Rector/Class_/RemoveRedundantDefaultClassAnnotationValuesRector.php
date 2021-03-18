@@ -55,26 +55,20 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             $this->refactorClassAnnotations($node);
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function refactorClassAnnotations($class) : void
+    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->refactorEntityAnnotation($class);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function refactorEntityAnnotation($class) : void
+    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         $entityTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);

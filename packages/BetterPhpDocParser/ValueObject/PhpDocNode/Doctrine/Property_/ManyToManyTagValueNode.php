@@ -50,10 +50,7 @@ final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         $this->items['inversedBy'] = null;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items[self::TARGET_ENTITY] = $targetEntity;
     }

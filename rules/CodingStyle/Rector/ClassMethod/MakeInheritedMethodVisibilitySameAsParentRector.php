@@ -66,9 +66,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -98,11 +98,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \ReflectionMethod $reflectionMethod
-     */
-    private function isClassMethodCompatibleWithParentReflectionMethod($classMethod, $reflectionMethod) : bool
+    private function isClassMethodCompatibleWithParentReflectionMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \ReflectionMethod $reflectionMethod) : bool
     {
         if ($reflectionMethod->isPublic() && $classMethod->isPublic()) {
             return \true;
@@ -118,10 +114,8 @@ CODE_SAMPLE
     /**
      * Parent constructor visibility override is allowed only since PHP 7.2+
      * @see https://3v4l.org/RFYmn
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param string $methodName
      */
-    private function isConstructorWithStaticFactory($classMethod, $methodName) : bool
+    private function isConstructorWithStaticFactory(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $methodName) : bool
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PARENT_VISIBILITY_OVERRIDE)) {
             return \false;
@@ -148,11 +142,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \ReflectionMethod $reflectionMethod
-     */
-    private function changeClassMethodVisibilityBasedOnReflectionMethod($classMethod, $reflectionMethod) : void
+    private function changeClassMethodVisibilityBasedOnReflectionMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \ReflectionMethod $reflectionMethod) : void
     {
         if ($reflectionMethod->isPublic()) {
             $this->visibilityManipulator->makePublic($classMethod);
@@ -172,9 +162,8 @@ CODE_SAMPLE
      * public static someMethod() { return new self(); }
      * or
      * public static someMethod() { return new static(); }
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function isStaticNamedConstructor($classMethod) : bool
+    private function isStaticNamedConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$classMethod->isPublic()) {
             return \false;

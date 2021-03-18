@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Ternary $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -61,10 +61,7 @@ CODE_SAMPLE
         $firstExpr = $funcCall->args[0]->value;
         return $this->nodeFactory->createFuncCall('get_debug_type', [$firstExpr]);
     }
-    /**
-     * @param \PhpParser\Node\Expr\Ternary $ternary
-     */
-    private function shouldSkip($ternary) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         if (!$this->nodeNameResolver->isFuncCallName($ternary->cond, 'is_object')) {
             return \true;
@@ -77,10 +74,7 @@ CODE_SAMPLE
         }
         return !$this->nodeNameResolver->isFuncCallName($ternary->else, 'gettype');
     }
-    /**
-     * @param \PhpParser\Node\Expr\Ternary $ternary
-     */
-    private function areValuesIdentical($ternary) : bool
+    private function areValuesIdentical(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         /** @var FuncCall $isObjectFuncCall */
         $isObjectFuncCall = $ternary->cond;

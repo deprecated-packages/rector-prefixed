@@ -79,9 +79,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $injectProperties = $this->getInjectProperties($node);
         if ($injectProperties === []) {
@@ -103,26 +103,19 @@ CODE_SAMPLE
     }
     /**
      * @return Property[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function getInjectProperties($class) : array
+    private function getInjectProperties(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         return \array_filter($class->getProperties(), function (\PhpParser\Node\Stmt\Property $property) : bool {
             return $this->isInjectProperty($property);
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function removeInjectAnnotation($property) : void
+    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $injectProperty
-     */
-    private function changePropertyVisibility($injectProperty) : void
+    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
             $this->visibilityManipulator->makeProtected($injectProperty);
@@ -130,10 +123,7 @@ CODE_SAMPLE
             $this->visibilityManipulator->makePrivate($injectProperty);
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function isInjectProperty($property) : bool
+    private function isInjectProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         if (!$property->isPublic()) {
             return \false;

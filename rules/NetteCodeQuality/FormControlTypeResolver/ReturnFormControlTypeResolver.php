@@ -27,9 +27,8 @@ final class ReturnFormControlTypeResolver implements \Rector\NetteCodeQuality\Co
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
             return [];
@@ -43,10 +42,7 @@ final class ReturnFormControlTypeResolver implements \Rector\NetteCodeQuality\Co
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($node);
     }
-    /**
-     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
-     */
-    public function setResolver($methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

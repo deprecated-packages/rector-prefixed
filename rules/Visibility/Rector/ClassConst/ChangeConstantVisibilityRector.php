@@ -59,9 +59,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConst $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->classConstantVisibilityChanges as $classConstantVisibilityChange) {
             if (!$this->isObjectType($node, $classConstantVisibilityChange->getObjectType())) {
@@ -75,10 +75,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Visibility\ValueObject\ChangeConstantVisibility::class);

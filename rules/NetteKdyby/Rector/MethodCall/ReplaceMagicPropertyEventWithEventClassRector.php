@@ -77,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // 1. is onProperty? call
         $eventAndListenerTree = $this->eventAndListenerTreeProvider->matchMethodCall($node);
@@ -107,11 +107,7 @@ CODE_SAMPLE
         }
         return $assign;
     }
-    /**
-     * @param string $eventClassName
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function createEventInstanceAssign($eventClassName, $methodCall) : \PhpParser\Node\Expr\Assign
+    private function createEventInstanceAssign(string $eventClassName, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Assign
     {
         $shortEventClassName = $this->classNaming->getVariableName($eventClassName);
         $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName));

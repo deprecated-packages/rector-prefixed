@@ -104,17 +104,14 @@ CODE_SAMPLE
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
         return $this->refactorClassMethod($node);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function refactorProperty($property) : ?\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
@@ -138,10 +135,7 @@ CODE_SAMPLE
         }
         return $property;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function refactorClassMethod($classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->doctrineDocBlockResolver->isInDoctrineEntityClass($classMethod)) {
             return null;
@@ -162,10 +156,7 @@ CODE_SAMPLE
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $collectionObjectType, $param, $parameterName);
         return $classMethod;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function resolveCollectionSetterAssignType($classMethod) : ?\PHPStan\Type\Type
+    private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
     {
         $propertyFetches = $this->assignManipulator->resolveAssignsToLocalPropertyFetches($classMethod);
         if (\count($propertyFetches) !== 1) {

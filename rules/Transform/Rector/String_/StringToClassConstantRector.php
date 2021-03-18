@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param String_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->stringsToClassConstants as $stringToClassConstant) {
             if (!$this->valueResolver->isValue($node, $stringToClassConstant->getString())) {
@@ -66,10 +66,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Transform\ValueObject\StringToClassConstant::class);

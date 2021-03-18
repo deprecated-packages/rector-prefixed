@@ -46,10 +46,7 @@ class LoaderResolver implements \RectorPrefix20210318\Symfony\Component\Config\L
         }
         return \false;
     }
-    /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function addLoader($loader)
+    public function addLoader(\RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $this->loaders[] = $loader;
         $loader->setResolver($this);

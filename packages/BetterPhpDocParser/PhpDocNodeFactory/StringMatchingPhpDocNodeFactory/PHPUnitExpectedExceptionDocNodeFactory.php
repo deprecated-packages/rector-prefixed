@@ -18,18 +18,12 @@ final class PHPUnitExpectedExceptionDocNodeFactory implements \Rector\BetterPhpD
     {
         $this->typeParser = $typeParser;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
-     */
-    public function createFromTokens($tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
+    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         $type = $this->typeParser->parse($tokenIterator);
         return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode($type);
     }
-    /**
-     * @param string $tag
-     */
-    public function match($tag) : bool
+    public function match(string $tag) : bool
     {
         return \strtolower($tag) === \strtolower(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode::NAME);
     }

@@ -48,9 +48,8 @@ class AnalyzeServiceReferencesPass extends \RectorPrefix20210318\Symfony\Compone
     }
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         $this->graph = $container->getCompiler()->getServiceReferenceGraph();
@@ -143,10 +142,7 @@ class AnalyzeServiceReferencesPass extends \RectorPrefix20210318\Symfony\Compone
         $this->lazy = $lazy;
         return $value;
     }
-    /**
-     * @param string $id
-     */
-    private function getDefinitionId($id) : ?string
+    private function getDefinitionId(string $id) : ?string
     {
         while (isset($this->aliases[$id])) {
             $id = (string) $this->aliases[$id];

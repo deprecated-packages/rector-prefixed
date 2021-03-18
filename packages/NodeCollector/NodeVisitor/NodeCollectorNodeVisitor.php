@@ -34,10 +34,7 @@ final class NodeCollectorNodeVisitor extends \PhpParser\NodeVisitorAbstract
         $this->parsedPropertyFetchNodeCollector = $parsedPropertyFetchNodeCollector;
         $this->parsedClassConstFetchNodeCollector = $parsedClassConstFetchNodeCollector;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node)
+    public function enterNode(\PhpParser\Node $node)
     {
         if ($this->parsedNodeCollector->isCollectableNode($node)) {
             $this->parsedNodeCollector->collect($node);

@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRendererName')) {
             $this->removeNode($node);

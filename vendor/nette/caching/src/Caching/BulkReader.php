@@ -15,8 +15,7 @@ interface BulkReader
     /**
      * Reads from cache in bulk.
      * @return array key => value pairs, missing items are omitted
-     * @param mixed[] $keys
      */
-    function bulkRead($keys) : array;
+    function bulkRead(array $keys) : array;
 }
 \class_exists(\RectorPrefix20210318\Nette\Caching\IBulkReader::class);

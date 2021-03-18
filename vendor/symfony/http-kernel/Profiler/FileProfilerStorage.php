@@ -149,9 +149,8 @@ class FileProfilerStorage implements \RectorPrefix20210318\Symfony\Component\Htt
      * Gets filename to store data, associated to the token.
      *
      * @return string The profile filename
-     * @param string $token
      */
-    protected function getFilename($token)
+    protected function getFilename(string $token)
     {
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
@@ -205,12 +204,7 @@ class FileProfilerStorage implements \RectorPrefix20210318\Symfony\Component\Htt
         }
         return '' === $line ? null : $line;
     }
-    /**
-     * @param string $token
-     * @param mixed[] $data
-     * @param \Symfony\Component\HttpKernel\Profiler\Profile $parent
-     */
-    protected function createProfileFromData($token, $data, $parent = null)
+    protected function createProfileFromData(string $token, array $data, \RectorPrefix20210318\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
         $profile = new \RectorPrefix20210318\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);

@@ -32,9 +32,8 @@ final class MethodCallFormControlTypeResolver implements \Rector\NetteCodeQualit
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
@@ -48,10 +47,7 @@ final class MethodCallFormControlTypeResolver implements \Rector\NetteCodeQualit
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($classMethod);
     }
-    /**
-     * @param \Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
-     */
-    public function setResolver($methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

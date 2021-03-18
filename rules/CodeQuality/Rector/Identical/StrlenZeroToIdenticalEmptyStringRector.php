@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Identical $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $variable = null;
         if ($node->left instanceof \PhpParser\Node\Expr\FuncCall) {

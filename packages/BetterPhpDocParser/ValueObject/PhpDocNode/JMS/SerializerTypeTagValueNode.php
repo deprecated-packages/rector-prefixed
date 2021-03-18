@@ -18,10 +18,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     {
         return '@Serializer\\Type';
     }
-    /**
-     * @param string $newName
-     */
-    public function changeName($newName) : void
+    public function changeName(string $newName) : void
     {
         $this->items[self::NAME] = $newName;
     }
@@ -29,11 +26,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     {
         return $this->items[self::NAME];
     }
-    /**
-     * @param string $oldName
-     * @param string $newName
-     */
-    public function replaceName($oldName, $newName) : bool
+    public function replaceName(string $oldName, string $newName) : bool
     {
         $oldNamePattern = '#\\b' . \preg_quote($oldName, '#') . '\\b#';
         $newNameValue = \RectorPrefix20210318\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);

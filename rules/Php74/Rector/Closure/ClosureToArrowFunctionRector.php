@@ -52,9 +52,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Closure::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Closure $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION)) {
             return null;
@@ -83,11 +83,7 @@ CODE_SAMPLE
         }
         return $arrowFunction;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Closure $closure
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function shouldSkipForUsedReferencedValue($closure, $return) : bool
+    private function shouldSkipForUsedReferencedValue(\PhpParser\Node\Expr\Closure $closure, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if ($return->expr === null) {
             return \false;
@@ -107,9 +103,8 @@ CODE_SAMPLE
     }
     /**
      * @return Variable[]
-     * @param \PhpParser\Node\Expr\Closure $closure
      */
-    private function resolveReferencedUseVariablesFromClosure($closure) : array
+    private function resolveReferencedUseVariablesFromClosure(\PhpParser\Node\Expr\Closure $closure) : array
     {
         $referencedValues = [];
         /** @var ClosureUse $use */

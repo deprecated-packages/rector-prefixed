@@ -107,9 +107,8 @@ class EnvPlaceholderParameterBag extends \RectorPrefix20210318\Symfony\Component
     }
     /**
      * Maps env prefixes to their corresponding PHP types.
-     * @param mixed[] $providedTypes
      */
-    public function setProvidedTypes($providedTypes)
+    public function setProvidedTypes(array $providedTypes)
     {
         $this->providedTypes = $providedTypes;
     }

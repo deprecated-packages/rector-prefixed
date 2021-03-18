@@ -20,9 +20,8 @@ class AutoAliasServicePass implements \RectorPrefix20210318\Symfony\Component\De
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds('auto_alias') as $serviceId => $tags) {
             foreach ($tags as $tag) {

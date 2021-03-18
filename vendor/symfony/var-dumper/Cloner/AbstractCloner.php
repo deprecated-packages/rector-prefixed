@@ -49,7 +49,7 @@ abstract class AbstractCloner implements \RectorPrefix20210318\Symfony\Component
      *
      * @param callable[] $casters A map of casters
      */
-    public function addCasters($casters)
+    public function addCasters(array $casters)
     {
         foreach ($casters as $type => $callback) {
             $this->casters[$type][] = $callback;
@@ -57,26 +57,23 @@ abstract class AbstractCloner implements \RectorPrefix20210318\Symfony\Component
     }
     /**
      * Sets the maximum number of items to clone past the minimum depth in nested structures.
-     * @param int $maxItems
      */
-    public function setMaxItems($maxItems)
+    public function setMaxItems(int $maxItems)
     {
         $this->maxItems = $maxItems;
     }
     /**
      * Sets the maximum cloned length for strings.
-     * @param int $maxString
      */
-    public function setMaxString($maxString)
+    public function setMaxString(int $maxString)
     {
         $this->maxString = $maxString;
     }
     /**
      * Sets the minimum tree depth where we are guaranteed to clone all the items.  After this
      * depth is reached, only setMaxItems items will be cloned.
-     * @param int $minDepth
      */
-    public function setMinDepth($minDepth)
+    public function setMinDepth(int $minDepth)
     {
         $this->minDepth = $minDepth;
     }
@@ -128,9 +125,8 @@ abstract class AbstractCloner implements \RectorPrefix20210318\Symfony\Component
      * @param bool $isNested True if the object is nested in the dumped structure
      *
      * @return array The object casted as array
-     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
-    protected function castObject($stub, $isNested)
+    protected function castObject(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $obj = $stub->value;
         $class = $stub->class;
@@ -177,9 +173,8 @@ abstract class AbstractCloner implements \RectorPrefix20210318\Symfony\Component
      * @param bool $isNested True if the object is nested in the dumped structure
      *
      * @return array The resource casted as array
-     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
-    protected function castResource($stub, $isNested)
+    protected function castResource(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $a = [];
         $res = $stub->value;

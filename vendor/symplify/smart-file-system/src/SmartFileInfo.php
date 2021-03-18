@@ -52,7 +52,7 @@ final class SmartFileInfo extends \RectorPrefix20210318\Symfony\Component\Finder
     /**
      * @param string[] $suffixes
      */
-    public function hasSuffixes($suffixes) : bool
+    public function hasSuffixes(array $suffixes) : bool
     {
         return \in_array($this->getSuffix(), $suffixes, \true);
     }
@@ -68,10 +68,7 @@ final class SmartFileInfo extends \RectorPrefix20210318\Symfony\Component\Finder
     {
         return $this->getRelativePath();
     }
-    /**
-     * @param string $directory
-     */
-    public function getRelativeFilePathFromDirectory($directory) : string
+    public function getRelativeFilePathFromDirectory(string $directory) : string
     {
         if (!\file_exists($directory)) {
             throw new \RectorPrefix20210318\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException(\sprintf('Directory "%s" was not found in %s.', $directory, self::class));
@@ -91,17 +88,11 @@ final class SmartFileInfo extends \RectorPrefix20210318\Symfony\Component\Finder
     {
         return $this->getRelativeFilePathFromDirectory(\getcwd());
     }
-    /**
-     * @param string $string
-     */
-    public function endsWith($string) : bool
+    public function endsWith(string $string) : bool
     {
         return \RectorPrefix20210318\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
     }
-    /**
-     * @param string $string
-     */
-    public function doesFnmatch($string) : bool
+    public function doesFnmatch(string $string) : bool
     {
         if (\fnmatch($this->normalizePath($string), $this->getNormalizedRealPath())) {
             return \true;
@@ -118,10 +109,7 @@ final class SmartFileInfo extends \RectorPrefix20210318\Symfony\Component\Finder
     {
         return \dirname($this->getRealPath());
     }
-    /**
-     * @param string $partialPath
-     */
-    public function startsWith($partialPath) : bool
+    public function startsWith(string $partialPath) : bool
     {
         return \RectorPrefix20210318\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
     }
@@ -129,10 +117,7 @@ final class SmartFileInfo extends \RectorPrefix20210318\Symfony\Component\Finder
     {
         return $this->normalizePath($this->getRealPath());
     }
-    /**
-     * @param string $path
-     */
-    private function normalizePath($path) : string
+    private function normalizePath(string $path) : string
     {
         return \str_replace('\\', '/', $path);
     }

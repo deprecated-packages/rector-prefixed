@@ -29,10 +29,7 @@ class DecoratorServicePass extends \RectorPrefix20210318\Symfony\Component\Depen
     {
         $this->innerId = $innerId;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $definitions = new \SplPriorityQueue();
         $order = \PHP_INT_MAX;

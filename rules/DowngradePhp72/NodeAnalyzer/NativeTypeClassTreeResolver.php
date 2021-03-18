@@ -30,9 +30,6 @@ final class NativeTypeClassTreeResolver
     public function resolveParameterReflectionType(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : \PHPStan\Type\Type
     {
         $nativeReflectionClass = $classReflection->getNativeReflection();
-        if (!$nativeReflectionClass->hasMethod($methodName)) {
-            return new \PHPStan\Type\MixedType();
-        }
         $reflectionMethod = $nativeReflectionClass->getMethod($methodName);
         $parameterReflection = $reflectionMethod->getParameters()[$position] ?? null;
         if (!$parameterReflection instanceof \ReflectionParameter) {

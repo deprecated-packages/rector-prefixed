@@ -66,7 +66,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentPropertiesOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\Property::class);
         $propertiesInDesiredOrder = $this->stmtVisibilitySorter->sortProperties($node);

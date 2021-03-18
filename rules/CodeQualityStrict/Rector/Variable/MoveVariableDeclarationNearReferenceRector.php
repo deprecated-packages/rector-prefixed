@@ -66,9 +66,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Variable::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Variable $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!($parent instanceof \PhpParser\Node\Expr\Assign && $parent->var === $node)) {
@@ -103,11 +103,7 @@ CODE_SAMPLE
         $this->removeNode($expression);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function isUsedAsArraykeyOrInsideIfCondition($expression, $variable) : bool
+    private function isUsedAsArraykeyOrInsideIfCondition(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         $parentExpression = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($this->isUsedAsArrayKey($parentExpression, $variable)) {
@@ -115,32 +111,20 @@ CODE_SAMPLE
         }
         return $this->isInsideCondition($expression);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function hasPropertyInExpr($expression, $expr) : bool
+    private function hasPropertyInExpr(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($expr, function (\PhpParser\Node $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\PropertyFetch || $node instanceof \PhpParser\Node\Expr\StaticPropertyFetch;
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function shouldSkipReAssign($expression, $assign) : bool
+    private function shouldSkipReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Assign $assign) : bool
     {
         if ($this->hasReAssign($expression, $assign->var)) {
             return \true;
         }
         return $this->hasReAssign($expression, $assign->expr);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function getUsageInNextStmts($expression, $variable) : ?\PhpParser\Node\Expr\Variable
+    private function getUsageInNextStmts(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
     {
         /** @var Node|null $next */
         $next = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
@@ -163,19 +147,12 @@ CODE_SAMPLE
         }
         return $this->getSameVarNameInNexts($next, $variable);
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function isInsideLoopStmts($node) : bool
+    private function isInsideLoopStmts(\PhpParser\Node $node) : bool
     {
         $loopNode = $this->betterNodeFinder->findParentTypes($node, [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Do_::class]);
         return (bool) $loopNode;
     }
-    /**
-     * @param \PhpParser\Node|null $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function isUsedAsArrayKey($node, $variable) : bool
+    private function isUsedAsArrayKey(?\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         if (!$node instanceof \PhpParser\Node) {
             return \false;
@@ -197,18 +174,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     */
-    private function isInsideCondition($expression) : bool
+    private function isInsideCondition(\PhpParser\Node\Stmt\Expression $expression) : bool
     {
         return (bool) $this->scopeAwareNodeFinder->findParentType($expression, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Expression $expression
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function hasReAssign($expression, $expr) : bool
+    private function hasReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : bool
     {
         $next = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         $exprValues = $this->betterNodeFinder->find($expr, function (\PhpParser\Node $node) : bool {
@@ -236,10 +206,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function hasCall($node) : bool
+    private function hasCall(\PhpParser\Node $node) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $n) : bool {
             if ($n instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -258,11 +225,7 @@ CODE_SAMPLE
             return \RectorPrefix20210318\Nette\Utils\Strings::startsWith($funcName, 'ob_');
         });
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function getCountFound($node, $variable) : int
+    private function getCountFound(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : int
     {
         $countFound = 0;
         while ($node) {
@@ -280,9 +243,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<int, Node|null> $multiNodes
-     * @param \PhpParser\Node\Expr\Variable $variable
      */
-    private function getSameVarName($multiNodes, $variable) : ?\PhpParser\Node\Expr\Variable
+    private function getSameVarName(array $multiNodes, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
     {
         foreach ($multiNodes as $multiNode) {
             if ($multiNode === null) {
@@ -302,11 +264,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function getSameVarNameInNexts($node, $variable) : ?\PhpParser\Node\Expr\Variable
+    private function getSameVarNameInNexts(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
     {
         while ($node) {
             $found = $this->getSameVarName([$node], $variable);
@@ -318,10 +276,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function mayBeArrayDimFetch($node) : \PhpParser\Node
+    private function mayBeArrayDimFetch(\PhpParser\Node $node) : \PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -329,12 +284,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     * @param int $countFound
-     */
-    private function countWithElseIf($node, $variable, $countFound) : int
+    private function countWithElseIf(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
         if (!$node instanceof \PhpParser\Node\Stmt\If_) {
             return $countFound;
@@ -346,12 +296,7 @@ CODE_SAMPLE
         }
         return $countFound;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     * @param int $countFound
-     */
-    private function countWithTryCatch($node, $variable, $countFound) : int
+    private function countWithTryCatch(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
         if (!$node instanceof \PhpParser\Node\Stmt\TryCatch) {
             return $countFound;
@@ -363,12 +308,7 @@ CODE_SAMPLE
         }
         return $countFound;
     }
-    /**
-     * @param \PhpParser\Node $node
-     * @param \PhpParser\Node\Expr\Variable $variable
-     * @param int $countFound
-     */
-    private function countWithSwitchCase($node, $variable, $countFound) : int
+    private function countWithSwitchCase(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Switch_) {
             return $countFound;

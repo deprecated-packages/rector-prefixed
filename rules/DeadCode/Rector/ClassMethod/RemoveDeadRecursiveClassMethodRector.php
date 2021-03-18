@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -84,18 +84,14 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function containsClassMethodAnyCalls($classMethod) : bool
+    private function containsClassMethodAnyCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return $this->betterNodeFinder->hasInstancesOf($classMethod, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
     /**
      * @param StaticCall|MethodCall|ArrayCallable $methodCall
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function shouldSkipCall($classMethod, $methodCall) : bool
+    private function shouldSkipCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, $methodCall) : bool
     {
         if ($this->classMethodVendorLockResolver->isRemovalVendorLocked($classMethod)) {
             return \true;

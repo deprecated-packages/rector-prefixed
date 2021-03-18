@@ -44,9 +44,8 @@ class Cache
     /**
      * Returns new nested cache object.
      * @return static
-     * @param string $namespace
      */
-    public function derive($namespace)
+    public function derive(string $namespace)
     {
         return new static($this->storage, $this->namespace . $namespace);
     }
@@ -54,9 +53,8 @@ class Cache
      * Reads the specified item from the cache or generate it.
      * @param  mixed  $key
      * @return mixed
-     * @param callable $generator
      */
-    public function load($key, $generator = null)
+    public function load($key, callable $generator = null)
     {
         $storageKey = $this->generateKey($key);
         $data = $this->storage->read($storageKey);
@@ -74,10 +72,8 @@ class Cache
     }
     /**
      * Reads multiple items from the cache.
-     * @param mixed[] $keys
-     * @param callable $generator
      */
-    public function bulkLoad($keys, $generator = null) : array
+    public function bulkLoad(array $keys, callable $generator = null) : array
     {
         if (\count($keys) === 0) {
             return [];
@@ -127,9 +123,8 @@ class Cache
      * @param  mixed  $data
      * @return mixed  value itself
      * @throws Nette\InvalidArgumentException
-     * @param mixed[] $dependencies
      */
-    public function save($key, $data, $dependencies = null)
+    public function save($key, $data, array $dependencies = null)
     {
         $key = $this->generateKey($key);
         if ($data instanceof \Closure) {
@@ -153,10 +148,7 @@ class Cache
             return $data;
         }
     }
-    /**
-     * @param mixed[]|null $dp
-     */
-    private function completeDependencies($dp) : array
+    private function completeDependencies(?array $dp) : array
     {
         // convert expire into relative amount of seconds
         if (isset($dp[self::EXPIRATION])) {
@@ -208,9 +200,8 @@ class Cache
      * - Cache::PRIORITY => (int) priority
      * - Cache::TAGS => (array) tags
      * - Cache::ALL => true
-     * @param mixed[] $conditions
      */
-    public function clean($conditions = null) : void
+    public function clean(array $conditions = null) : void
     {
         $conditions = (array) $conditions;
         if (isset($conditions[self::TAGS])) {
@@ -221,9 +212,8 @@ class Cache
     /**
      * Caches results of function/method calls.
      * @return mixed
-     * @param callable $function
      */
-    public function call($function)
+    public function call(callable $function)
     {
         $key = \func_get_args();
         if (\is_array($function) && \is_object($function[0])) {
@@ -235,10 +225,8 @@ class Cache
     }
     /**
      * Caches results of function/method calls.
-     * @param callable $function
-     * @param mixed[] $dependencies
      */
-    public function wrap($function, $dependencies = null) : \Closure
+    public function wrap(callable $function, array $dependencies = null) : \Closure
     {
         return function () use($function, $dependencies) {
             $key = [$function, $args = \func_get_args()];
@@ -281,9 +269,8 @@ class Cache
     /********************* dependency checkers ****************d*g**/
     /**
      * Checks CALLBACKS dependencies.
-     * @param mixed[] $callbacks
      */
-    public static function checkCallbacks($callbacks) : bool
+    public static function checkCallbacks(array $callbacks) : bool
     {
         foreach ($callbacks as $callback) {
             if (!\array_shift($callback)(...$callback)) {
@@ -294,18 +281,15 @@ class Cache
     }
     /**
      * Checks CONSTS dependency.
-     * @param string $const
      */
-    private static function checkConst($const, $value) : bool
+    private static function checkConst(string $const, $value) : bool
     {
         return \defined($const) && \constant($const) === $value;
     }
     /**
      * Checks FILES dependency.
-     * @param string $file
-     * @param int|null $time
      */
-    private static function checkFile($file, $time) : bool
+    private static function checkFile(string $file, ?int $time) : bool
     {
         return @\filemtime($file) == $time;
         // @ - stat may fail

@@ -50,10 +50,7 @@ abstract class AbstractSetProvider implements \RectorPrefix20210318\Symplify\Set
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
         throw new \RectorPrefix20210318\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
-    /**
-     * @param string $setPath
-     */
-    private function resolveSetUniquePathId($setPath) : string
+    private function resolveSetUniquePathId(string $setPath) : string
     {
         $setPath = \RectorPrefix20210318\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {

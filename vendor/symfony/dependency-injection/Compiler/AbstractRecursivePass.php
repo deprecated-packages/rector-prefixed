@@ -33,9 +33,8 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210318\Symfony\Co
     private $inExpression = \false;
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         try {
@@ -48,10 +47,7 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210318\Symfony\Co
     {
         $this->processExpressions = \true;
     }
-    /**
-     * @param bool $reset
-     */
-    protected function inExpression($reset = \true) : bool
+    protected function inExpression(bool $reset = \true) : bool
     {
         $inExpression = $this->inExpression;
         if ($reset) {
@@ -100,10 +96,8 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210318\Symfony\Co
      * @return \ReflectionFunctionAbstract|null
      *
      * @throws RuntimeException
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     * @param bool $required
      */
-    protected function getConstructor($definition, $required)
+    protected function getConstructor(\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $definition, bool $required)
     {
         if ($definition->isSynthetic()) {
             return null;
@@ -153,10 +147,8 @@ abstract class AbstractRecursivePass implements \RectorPrefix20210318\Symfony\Co
      * @throws RuntimeException
      *
      * @return \ReflectionFunctionAbstract
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     * @param string $method
      */
-    protected function getReflectionMethod($definition, $method)
+    protected function getReflectionMethod(\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $definition, string $method)
     {
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);

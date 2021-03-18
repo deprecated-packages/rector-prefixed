@@ -32,10 +32,7 @@ final class OneToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         $this->items['mappedBy'] = null;
     }
-    /**
-     * @param string $targetEntity
-     */
-    public function changeTargetEntity($targetEntity) : void
+    public function changeTargetEntity(string $targetEntity) : void
     {
         $this->items['targetEntity'] = $targetEntity;
     }

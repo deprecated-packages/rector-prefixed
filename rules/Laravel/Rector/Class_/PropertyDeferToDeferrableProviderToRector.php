@@ -49,9 +49,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Illuminate\\Support\\ServiceProvider'))) {
             return null;
@@ -64,10 +64,7 @@ CODE_SAMPLE
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Illuminate\\Contracts\\Support\\DeferrableProvider');
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function matchDeferWithFalseProperty($class) : ?\PhpParser\Node\Stmt\Property
+    private function matchDeferWithFalseProperty(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, 'defer')) {
