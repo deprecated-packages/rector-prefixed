@@ -2059,7 +2059,6 @@ return array(
     'Rector\\Core\\Reporting\\MissingRectorRulesReporter' => $baseDir . '/src/Reporting/MissingRectorRulesReporter.php',
     'Rector\\Core\\StaticReflection\\DynamicSourceLocatorDecorator' => $baseDir . '/src/StaticReflection/DynamicSourceLocatorDecorator.php',
     'Rector\\Core\\Stubs\\PHPStanStubLoader' => $baseDir . '/src/Stubs/PHPStanStubLoader.php',
-    'Rector\\Core\\Stubs\\StubLoader' => $baseDir . '/src/Stubs/StubLoader.php',
     'Rector\\Core\\Util\\PhpVersionFactory' => $baseDir . '/src/Util/PhpVersionFactory.php',
     'Rector\\Core\\Util\\StaticInstanceOf' => $baseDir . '/src/Util/StaticInstanceOf.php',
     'Rector\\Core\\Util\\StaticRectorStrings' => $baseDir . '/src/Util/StaticRectorStrings.php',

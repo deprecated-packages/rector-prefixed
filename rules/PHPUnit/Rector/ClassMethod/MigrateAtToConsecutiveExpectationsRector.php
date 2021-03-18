@@ -10,7 +10,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\ExpectationAnalyzer;
-use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\PHPUnit\NodeFactory\ConsecutiveAssertionFactory;
 use Rector\PHPUnit\ValueObject\ExpectationMock;
 use Rector\PHPUnit\ValueObject\ExpectationMockCollection;
@@ -26,17 +25,12 @@ final class MigrateAtToConsecutiveExpectationsRector extends \Rector\Core\Rector
      */
     private $consecutiveAssertionFactory;
     /**
-     * @var TestsNodeAnalyzer
-     */
-    private $testsNodeAnalyzer;
-    /**
      * @var ExpectationAnalyzer
      */
     private $expectationAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeFactory\ConsecutiveAssertionFactory $consecutiveAssertionFactory, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer, \Rector\PHPUnit\NodeAnalyzer\ExpectationAnalyzer $expectationAnalyzer)
+    public function __construct(\Rector\PHPUnit\NodeFactory\ConsecutiveAssertionFactory $consecutiveAssertionFactory, \Rector\PHPUnit\NodeAnalyzer\ExpectationAnalyzer $expectationAnalyzer)
     {
         $this->consecutiveAssertionFactory = $consecutiveAssertionFactory;
-        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
         $this->expectationAnalyzer = $expectationAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -68,7 +62,7 @@ CODE_SAMPLE
         if ($stmts === null) {
             return null;
         }
-        $expressions = \array_filter($stmts, function (\PhpParser\Node\Stmt $expr) {
+        $expressions = \array_filter($stmts, function (\PhpParser\Node\Stmt $expr) : bool {
             return $expr instanceof \PhpParser\Node\Stmt\Expression && $expr->expr instanceof \PhpParser\Node\Expr\MethodCall;
         });
         $expectationMockCollection = $this->expectationAnalyzer->getExpectationsFromExpressions($expressions);
@@ -88,7 +82,7 @@ CODE_SAMPLE
     }
     private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : \Rector\PHPUnit\ValueObject\ExpectationMockCollection
     {
-        $var = $expectationMockCollection->getExpectationMocks()[0]->getExpectationVariable();
+        $variable = $expectationMockCollection->getExpectationMocks()[0]->getExpectationVariable();
         // 0,1,2,3,4
         // min = 0 ; max = 4 ; count = 5
         // OK
@@ -101,7 +95,7 @@ CODE_SAMPLE
         // 0,1,2
         if ($expectationMockCollection->getLowestAtIndex() !== 0) {
             for ($i = 0; $i < $expectationMockCollection->getLowestAtIndex(); ++$i) {
-                $expectationMockCollection->add(new \Rector\PHPUnit\ValueObject\ExpectationMock($var, [], $i, null, [], null));
+                $expectationMockCollection->add(new \Rector\PHPUnit\ValueObject\ExpectationMock($variable, [], $i, null, [], null));
             }
         }
         // 0,1,2,4
@@ -111,7 +105,7 @@ CODE_SAMPLE
             $existingIndexes = \array_column($expectationMockCollection->getExpectationMocks(), 'index');
             for ($i = 1; $i < $expectationMockCollection->getHighestAtIndex(); ++$i) {
                 if (!\in_array($i, $existingIndexes, \true)) {
-                    $expectationMockCollection->add(new \Rector\PHPUnit\ValueObject\ExpectationMock($var, [], $i, null, [], null));
+                    $expectationMockCollection->add(new \Rector\PHPUnit\ValueObject\ExpectationMock($variable, [], $i, null, [], null));
                 }
             }
         }
@@ -122,14 +116,14 @@ CODE_SAMPLE
         if ($this->shouldSkipReplacement($expectationMockCollection)) {
             return;
         }
-        $endLines = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
-            $originalExpression = $expectationMock->originalExpression();
-            return $originalExpression === null ? 0 : $originalExpression->getEndLine();
+        $endLines = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : int {
+            $originalExpression = $expectationMock->getOriginalExpression();
+            return !$originalExpression instanceof \PhpParser\Node\Stmt\Expression ? 0 : $originalExpression->getEndLine();
         }, $expectationMockCollection->getExpectationMocks());
         $max = \max($endLines);
         foreach ($expectationMockCollection->getExpectationMocks() as $expectationMock) {
-            $originalExpression = $expectationMock->originalExpression();
-            if ($originalExpression === null) {
+            $originalExpression = $expectationMock->getOriginalExpression();
+            if (!$originalExpression instanceof \PhpParser\Node\Stmt\Expression) {
                 continue;
             }
             if ($max > $originalExpression->getEndLine()) {
@@ -150,10 +144,7 @@ CODE_SAMPLE
         if ($expectationMockCollection->hasMissingAtIndexes()) {
             return \true;
         }
-        if ($expectationMockCollection->hasMissingReturnValues()) {
-            return \true;
-        }
-        return \false;
+        return $expectationMockCollection->hasMissingReturnValues();
     }
     /**
      * @return ExpectationMockCollection[]

@@ -669,17 +669,17 @@
         },
         {
             "name": "nette\/robot-loader",
-            "version": "v3.3.1",
-            "version_normalized": "3.3.1.0",
+            "version": "v3.4.0",
+            "version_normalized": "3.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/nette\/robot-loader.git",
-                "reference": "15c1ecd0e6e69e8d908dfc4cca7b14f3b850a96b"
+                "reference": "3973cf3970d1de7b30888fd10b92dac9e0c2fd82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/nette\/robot-loader\/zipball\/15c1ecd0e6e69e8d908dfc4cca7b14f3b850a96b",
-                "reference": "15c1ecd0e6e69e8d908dfc4cca7b14f3b850a96b",
+                "url": "https:\/\/api.github.com\/repos\/nette\/robot-loader\/zipball\/3973cf3970d1de7b30888fd10b92dac9e0c2fd82",
+                "reference": "3973cf3970d1de7b30888fd10b92dac9e0c2fd82",
                 "shasum": ""
             },
             "require": {
@@ -693,11 +693,11 @@
                 "phpstan\/phpstan": "^0.12",
                 "tracy\/tracy": "^2.3"
             },
-            "time": "2020-09-15T15:14:17+00:00",
+            "time": "2021-03-07T15:12:01+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "installation-source": "dist",
@@ -733,7 +733,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/nette\/robot-loader\/issues",
-                "source": "https:\/\/github.com\/nette\/robot-loader\/tree\/v3.3.1"
+                "source": "https:\/\/github.com\/nette\/robot-loader\/tree\/v3.4.0"
             },
             "install-path": "..\/nette\/robot-loader"
         },

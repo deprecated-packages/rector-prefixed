@@ -36,20 +36,30 @@ class RobotLoader
     private $scanPaths = [];
     /** @var string[] */
     private $excludeDirs = [];
-    /** @var array of class => [file, time] */
+    /** @var array<string, array{string, int}>  class => [file, time] */
     private $classes = [];
     /** @var bool */
     private $cacheLoaded = \false;
     /** @var bool */
     private $refreshed = \false;
-    /** @var array of missing classes */
-    private $missing = [];
+    /** @var array<string, int>  class => counter */
+    private $missingClasses = [];
+    /** @var array<string, int>  file => mtime */
+    private $emptyFiles = [];
     /** @var string|null */
     private $tempDirectory;
+    /** @var bool */
+    private $needSave = \false;
     public function __construct()
     {
         if (!\extension_loaded('tokenizer')) {
             throw new \RectorPrefix20210318\Nette\NotSupportedException('PHP extension Tokenizer is not loaded.');
+        }
+    }
+    public function __destruct()
+    {
+        if ($this->needSave) {
+            $this->saveCache();
         }
     }
     /**
@@ -66,33 +76,34 @@ class RobotLoader
     public function tryLoad(string $type) : void
     {
         $this->loadCache();
-        $type = \ltrim($type, '\\');
-        // PHP namespace bug #49143
-        $info = $this->classes[$type] ?? null;
-        if ($this->autoRebuild) {
-            if (!$info || !\is_file($info['file'])) {
-                $missing =& $this->missing[$type];
-                $missing++;
-                if (!$this->refreshed && $missing <= self::RETRY_LIMIT) {
-                    $this->refreshClasses();
-                    $this->saveCache();
-                } elseif ($info) {
-                    unset($this->classes[$type]);
-                    $this->saveCache();
-                }
-            } elseif (!$this->refreshed && \filemtime($info['file']) !== $info['time']) {
-                $this->updateFile($info['file']);
-                if (empty($this->classes[$type])) {
-                    $this->missing[$type] = 0;
-                }
-                $this->saveCache();
-            }
-            $info = $this->classes[$type] ?? null;
+        $missing = $this->missingClasses[$type] ?? null;
+        if ($missing >= self::RETRY_LIMIT) {
+            return;
         }
-        if ($info) {
+        [$file, $mtime] = $this->classes[$type] ?? null;
+        if ($this->autoRebuild) {
+            if (!$this->refreshed) {
+                if (!$file || !\is_file($file)) {
+                    $this->refreshClasses();
+                    [$file] = $this->classes[$type] ?? null;
+                    $this->needSave = \true;
+                } elseif (\filemtime($file) !== $mtime) {
+                    $this->updateFile($file);
+                    [$file] = $this->classes[$type] ?? null;
+                    $this->needSave = \true;
+                }
+            }
+            if (!$file || !\is_file($file)) {
+                $this->missingClasses[$type] = ++$missing;
+                $this->needSave = $this->needSave || $file || $missing <= self::RETRY_LIMIT;
+                unset($this->classes[$type]);
+                $file = null;
+            }
+        }
+        if ($file) {
             (static function ($file) {
                 require $file;
-            })($info['file']);
+            })($file);
         }
     }
     /**
@@ -127,14 +138,14 @@ class RobotLoader
         return $this;
     }
     /**
-     * @return array of class => filename
+     * @return array<string, string>  class => filename
      */
     public function getIndexedClasses() : array
     {
         $this->loadCache();
         $res = [];
-        foreach ($this->classes as $class => $info) {
-            $res[$class] = $info['file'];
+        foreach ($this->classes as $class => [$file]) {
+            $res[$class] = $file;
         }
         return $res;
     }
@@ -144,7 +155,7 @@ class RobotLoader
     public function rebuild() : void
     {
         $this->cacheLoaded = \true;
-        $this->classes = $this->missing = [];
+        $this->classes = $this->missingClasses = $this->emptyFiles = [];
         $this->refreshClasses();
         if ($this->tempDirectory) {
             $this->saveCache();
@@ -162,35 +173,37 @@ class RobotLoader
         }
     }
     /**
-     * Refreshes $classes.
+     * Refreshes $this->classes & $this->emptyFiles.
      */
     private function refreshClasses() : void
     {
         $this->refreshed = \true;
         // prevents calling refreshClasses() or updateFile() in tryLoad()
-        $files = [];
-        foreach ($this->classes as $class => $info) {
-            $files[$info['file']]['time'] = $info['time'];
-            $files[$info['file']]['classes'][] = $class;
+        $files = $this->emptyFiles;
+        $classes = [];
+        foreach ($this->classes as $class => [$file, $mtime]) {
+            $files[$file] = $mtime;
+            $classes[$file][] = $class;
         }
-        $this->classes = [];
+        $this->classes = $this->emptyFiles = [];
         foreach ($this->scanPaths as $path) {
             $iterator = \is_file($path) ? [new \SplFileInfo($path)] : $this->createFileIterator($path);
-            foreach ($iterator as $file) {
-                $file = $file->getPathname();
-                if (isset($files[$file]) && $files[$file]['time'] == \filemtime($file)) {
-                    $classes = $files[$file]['classes'];
-                } else {
-                    $classes = $this->scanPhp($file);
+            foreach ($iterator as $fileInfo) {
+                $mtime = $fileInfo->getMTime();
+                $file = $fileInfo->getPathname();
+                $foundClasses = isset($files[$file]) && $files[$file] === $mtime ? $classes[$file] ?? [] : $this->scanPhp($file);
+                if (!$foundClasses) {
+                    $this->emptyFiles[$file] = $mtime;
                 }
-                $files[$file] = ['classes' => [], 'time' => \filemtime($file)];
-                foreach ($classes as $class) {
-                    $info =& $this->classes[$class];
-                    if (isset($info['file'])) {
-                        throw new \RectorPrefix20210318\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
+                $files[$file] = $mtime;
+                $classes[$file] = [];
+                // prevents the error when adding the same file twice
+                foreach ($foundClasses as $class) {
+                    if (isset($this->classes[$class])) {
+                        throw new \RectorPrefix20210318\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$this->classes[$class][0]} and in {$file}.");
                     }
-                    $info = ['file' => $file, 'time' => \filemtime($file)];
-                    unset($this->missing[$class]);
+                    $this->classes[$class] = [$file, $mtime];
+                    unset($this->missingClasses[$class]);
                 }
             }
         }
@@ -204,8 +217,10 @@ class RobotLoader
         if (!\is_dir($dir)) {
             throw new \RectorPrefix20210318\Nette\IOException("File or directory '{$dir}' not found.");
         }
+        $dir = \realpath($dir) ?: $dir;
+        // realpath does not work in phar
         if (\is_string($ignoreDirs = $this->ignoreDirs)) {
-            \trigger_error(__CLASS__ . ': $ignoreDirs must be an array.', \E_USER_WARNING);
+            \trigger_error(self::class . ': $ignoreDirs must be an array.', \E_USER_WARNING);
             $ignoreDirs = \preg_split('#[,\\s]+#', $ignoreDirs);
         }
         $disallow = [];
@@ -215,7 +230,7 @@ class RobotLoader
             }
         }
         if (\is_string($acceptFiles = $this->acceptFiles)) {
-            \trigger_error(__CLASS__ . ': $acceptFiles must be an array.', \E_USER_WARNING);
+            \trigger_error(self::class . ': $acceptFiles must be an array.', \E_USER_WARNING);
             $acceptFiles = \preg_split('#[,\\s]+#', $acceptFiles);
         }
         $iterator = \RectorPrefix20210318\Nette\Utils\Finder::findFiles($acceptFiles)->filter(function (\SplFileInfo $file) use(&$disallow) {
@@ -239,23 +254,23 @@ class RobotLoader
     }
     private function updateFile(string $file) : void
     {
-        foreach ($this->classes as $class => $info) {
-            if (isset($info['file']) && $info['file'] === $file) {
+        foreach ($this->classes as $class => [$prevFile]) {
+            if ($file === $prevFile) {
                 unset($this->classes[$class]);
             }
         }
-        $classes = \is_file($file) ? $this->scanPhp($file) : [];
-        foreach ($classes as $class) {
-            $info =& $this->classes[$class];
-            if (isset($info['file']) && @\filemtime($info['file']) !== $info['time']) {
+        $foundClasses = \is_file($file) ? $this->scanPhp($file) : [];
+        foreach ($foundClasses as $class) {
+            [$prevFile, $prevMtime] = $this->classes[$class] ?? null;
+            if (isset($prevFile) && @\filemtime($prevFile) !== $prevMtime) {
                 // @ file may not exists
-                $this->updateFile($info['file']);
-                $info =& $this->classes[$class];
+                $this->updateFile($prevFile);
+                [$prevFile] = $this->classes[$class] ?? null;
             }
-            if (isset($info['file'])) {
-                throw new \RectorPrefix20210318\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$info['file']} and in {$file}.");
+            if (isset($prevFile)) {
+                throw new \RectorPrefix20210318\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$prevFile} and in {$file}.");
             }
-            $info = ['file' => $file, 'time' => \filemtime($file)];
+            $this->classes[$class] = [$file, \filemtime($file)];
         }
     }
     /**
@@ -364,7 +379,7 @@ class RobotLoader
         $data = @(include $file);
         // @ file may not exist
         if (\is_array($data)) {
-            [$this->classes, $this->missing] = $data;
+            [$this->classes, $this->missingClasses, $this->emptyFiles] = $data;
             return;
         }
         if ($lock) {
@@ -376,10 +391,10 @@ class RobotLoader
         $data = @(include $file);
         // @ file may not exist
         if (\is_array($data)) {
-            [$this->classes, $this->missing] = $data;
+            [$this->classes, $this->missingClasses, $this->emptyFiles] = $data;
             return;
         }
-        $this->classes = $this->missing = [];
+        $this->classes = $this->missingClasses = $this->emptyFiles = [];
         $this->refreshClasses();
         $this->saveCache($lock);
         // On Windows concurrent creation and deletion of a file can cause a error 'permission denied',
@@ -387,6 +402,7 @@ class RobotLoader
     }
     /**
      * Writes class list to cache.
+     * @param  resource  $lock
      */
     private function saveCache($lock = null) : void
     {
@@ -395,7 +411,7 @@ class RobotLoader
         // on Windows: that the file is not read by another thread
         $file = $this->getCacheFile();
         $lock = $lock ?: $this->acquireLock("{$file}.lock", \LOCK_EX);
-        $code = "<?php\nreturn " . \var_export([$this->classes, $this->missing], \true) . ";\n";
+        $code = "<?php\nreturn " . \var_export([$this->classes, $this->missingClasses, $this->emptyFiles], \true) . ";\n";
         if (\file_put_contents("{$file}.tmp", $code) !== \strlen($code) || !\rename("{$file}.tmp", $file)) {
             @\unlink("{$file}.tmp");
             // @ file may not exist
@@ -406,6 +422,7 @@ class RobotLoader
             // @ can be restricted
         }
     }
+    /** @return resource */
     private function acquireLock(string $file, int $mode)
     {
         $handle = @\fopen($file, 'w');
@@ -427,6 +444,6 @@ class RobotLoader
     }
     protected function getCacheKey() : array
     {
-        return [$this->ignoreDirs, $this->acceptFiles, $this->scanPaths, $this->excludeDirs];
+        return [$this->ignoreDirs, $this->acceptFiles, $this->scanPaths, $this->excludeDirs, 'v2'];
     }
 }

@@ -5,9 +5,11 @@ namespace Rector\PHPUnit\NodeFactory;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -16,20 +18,23 @@ use Rector\PHPUnit\ValueObject\ExpectationMock;
 use Rector\PHPUnit\ValueObject\ExpectationMockCollection;
 final class ConsecutiveAssertionFactory
 {
+    /**
+     * @var array<string, string>
+     */
     private const REPLACE_WILL_MAP = ['willReturnMap' => 'returnValueMap', 'willReturnArgument' => 'returnArgument', 'willReturnCallback' => 'returnCallback', 'willThrowException' => 'throwException'];
     public function createAssertionFromExpectationMockCollection(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : \PhpParser\Node\Expr\MethodCall
     {
         $expectationMocks = $expectationMockCollection->getExpectationMocks();
-        $var = $expectationMocks[0]->getExpectationVariable();
+        $variable = $expectationMocks[0]->getExpectationVariable();
         $methodArguments = $expectationMocks[0]->getMethodArguments();
         $expectationMocks = $this->sortExpectationMocksByIndex($expectationMocks);
         if (!$expectationMockCollection->hasReturnValues()) {
-            return $this->createWithConsecutive($this->createMethod($var, $methodArguments), $this->createWithArgs($expectationMocks));
+            return $this->createWithConsecutive($this->createMethod($variable, $methodArguments), $this->createWithArgs($expectationMocks));
         }
         if ($expectationMockCollection->hasWithValues()) {
-            return $this->createWillReturnOnConsecutiveCalls($this->createWithConsecutive($this->createMethod($var, $methodArguments), $this->createWithArgs($expectationMocks)), $this->createReturnArgs($expectationMocks));
+            return $this->createWillReturnOnConsecutiveCalls($this->createWithConsecutive($this->createMethod($variable, $methodArguments), $this->createWithArgs($expectationMocks)), $this->createReturnArgs($expectationMocks));
         }
-        return $this->createWillReturnOnConsecutiveCalls($this->createMethod($var, $methodArguments), $this->createReturnArgs($expectationMocks));
+        return $this->createWillReturnOnConsecutiveCalls($this->createMethod($variable, $methodArguments), $this->createReturnArgs($expectationMocks));
     }
     /**
      * @param Arg[] $args
@@ -78,7 +83,7 @@ final class ConsecutiveAssertionFactory
      */
     private function createReturnArgs(array $expectationMocks) : array
     {
-        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
+        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : Arg {
             return new \PhpParser\Node\Arg($expectationMock->getReturn() ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
         }, $expectationMocks);
     }
@@ -88,8 +93,8 @@ final class ConsecutiveAssertionFactory
      */
     private function createWithArgs(array $expectationMocks) : array
     {
-        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
-            $arrayItems = \array_map(static function (?\PhpParser\Node\Expr $expr) {
+        return \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : Arg {
+            $arrayItems = \array_map(static function (?\PhpParser\Node\Expr $expr) : ArrayItem {
                 return new \PhpParser\Node\Expr\ArrayItem($expr ?: new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
             }, $expectationMock->getWithArguments());
             return new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayItems));
@@ -120,7 +125,7 @@ final class ConsecutiveAssertionFactory
      */
     private function sortExpectationMocksByIndex(array $expectationMocks) : array
     {
-        \usort($expectationMocks, static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMockA, \Rector\PHPUnit\ValueObject\ExpectationMock $expectationMockB) {
+        \usort($expectationMocks, static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMockA, \Rector\PHPUnit\ValueObject\ExpectationMock $expectationMockB) : int {
             return $expectationMockA->getIndex() > $expectationMockB->getIndex() ? 1 : -1;
         });
         return $expectationMocks;

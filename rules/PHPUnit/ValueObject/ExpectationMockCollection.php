@@ -19,7 +19,7 @@ final class ExpectationMockCollection
     }
     public function hasExpectationMocks() : bool
     {
-        return \count($this->expectationMocks) > 0;
+        return $this->expectationMocks !== [];
     }
     public function add(\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : void
     {
@@ -30,9 +30,9 @@ final class ExpectationMockCollection
         if (!$this->hasExpectationMocks()) {
             return 0;
         }
-        $indexes = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
+        $indexes = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : int {
             return $expectationMock->getIndex();
-        }, $this->getExpectationMocks());
+        }, $this->expectationMocks);
         return \max($indexes) ?: 0;
     }
     public function getLowestAtIndex() : int
@@ -40,31 +40,31 @@ final class ExpectationMockCollection
         if (!$this->hasExpectationMocks()) {
             return 0;
         }
-        $indexes = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) {
+        $indexes = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : int {
             return $expectationMock->getIndex();
-        }, $this->getExpectationMocks());
+        }, $this->expectationMocks);
         return \min($indexes) ?: 0;
     }
     public function isMissingAtIndexBetweenHighestAndLowest() : bool
     {
         $highestAtIndex = $this->getHighestAtIndex();
         $lowestAtIndex = $this->getLowestAtIndex();
-        return $highestAtIndex - $lowestAtIndex + 1 !== \count($this->getExpectationMocks());
+        return $highestAtIndex - $lowestAtIndex + 1 !== \count($this->expectationMocks);
     }
     public function hasMissingAtIndexes() : bool
     {
         if ($this->getLowestAtIndex() !== 0) {
             return \true;
         }
-        if ($this->isMissingAtIndexBetweenHighestAndLowest()) {
-            return \true;
-        }
-        return \false;
+        return $this->isMissingAtIndexBetweenHighestAndLowest();
     }
     public function hasWithValues() : bool
     {
-        foreach ($this->getExpectationMocks() as $expectationMock) {
-            if (\count($expectationMock->getWithArguments()) > 1 || \count($expectationMock->getWithArguments()) === 1 && $expectationMock->getWithArguments()[0] !== null) {
+        foreach ($this->expectationMocks as $expectationMock) {
+            if (\count($expectationMock->getWithArguments()) > 1) {
+                return \true;
+            }
+            if (\count($expectationMock->getWithArguments()) === 1 && $expectationMock->getWithArguments()[0] !== null) {
                 return \true;
             }
         }
@@ -72,7 +72,7 @@ final class ExpectationMockCollection
     }
     public function hasReturnValues() : bool
     {
-        foreach ($this->getExpectationMocks() as $expectationMock) {
+        foreach ($this->expectationMocks as $expectationMock) {
             if ($expectationMock->getReturn() !== null) {
                 return \true;
             }
@@ -81,7 +81,7 @@ final class ExpectationMockCollection
     }
     public function hasMissingReturnValues() : bool
     {
-        foreach ($this->getExpectationMocks() as $expectationMock) {
+        foreach ($this->expectationMocks as $expectationMock) {
             if ($expectationMock->getReturn() === null) {
                 return \true;
             }
@@ -91,7 +91,7 @@ final class ExpectationMockCollection
     public function isExpectedMethodAlwaysTheSame() : bool
     {
         $previousMethod = '';
-        foreach ($this->getExpectationMocks() as $expectationMock) {
+        foreach ($this->expectationMocks as $expectationMock) {
             $methodArgument = $expectationMock->getMethodArguments()[0];
             if ($methodArgument !== null && $methodArgument->value instanceof \PhpParser\Node\Scalar\String_) {
                 if ($previousMethod === '') {

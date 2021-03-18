@@ -13,7 +13,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -26,10 +25,6 @@ final class ClassMethodManipulator
      */
     private $betterNodeFinder;
     /**
-     * @var NodeComparator
-     */
-    private $nodeComparator;
-    /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
@@ -37,17 +32,11 @@ final class ClassMethodManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @var FuncCallManipulator
-     */
-    private $funcCallManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeManipulator\FuncCallManipulator $funcCallManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->funcCallManipulator = $funcCallManipulator;
-        $this->nodeComparator = $nodeComparator;
     }
     public function isNamedConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

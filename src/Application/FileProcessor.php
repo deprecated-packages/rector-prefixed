@@ -10,7 +10,6 @@ use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\PhpParser\Printer\FormatPerservingPrinter;
-use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
@@ -43,10 +42,6 @@ final class FileProcessor
      */
     private $currentFileInfoProvider;
     /**
-     * @var StubLoader
-     */
-    private $stubLoader;
-    /**
      * @var AffectedFilesCollector
      */
     private $affectedFilesCollector;
@@ -58,7 +53,7 @@ final class FileProcessor
      * @var TokensByFilePathStorage
      */
     private $tokensByFilePathStorage;
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \PhpParser\Lexer $lexer, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Stubs\StubLoader $stubLoader, \Rector\Core\Application\TokensByFilePathStorage $tokensByFilePathStorage)
+    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \PhpParser\Lexer $lexer, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Application\TokensByFilePathStorage $tokensByFilePathStorage)
     {
         $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->parser = $parser;
@@ -66,7 +61,6 @@ final class FileProcessor
         $this->rectorNodeTraverser = $rectorNodeTraverser;
         $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
-        $this->stubLoader = $stubLoader;
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->postFileProcessor = $postFileProcessor;
         $this->tokensByFilePathStorage = $tokensByFilePathStorage;
@@ -97,7 +91,6 @@ final class FileProcessor
     }
     public function refactor(\RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $this->stubLoader->loadStubs();
         $this->currentFileInfoProvider->setCurrentFileInfo($smartFileInfo);
         $this->makeSureFileIsParsed($smartFileInfo);
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);

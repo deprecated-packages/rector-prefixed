@@ -37,6 +37,9 @@ final class AdditionalAutoloader
             $this->autoloadInputAutoloadFile($input);
         }
         $autoloadPaths = $this->parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::AUTOLOAD_PATHS);
+        if ($autoloadPaths === []) {
+            return;
+        }
         $this->dynamicSourceLocatorDecorator->addPaths($autoloadPaths);
     }
     private function autoloadInputAutoloadFile(\RectorPrefix20210318\Symfony\Component\Console\Input\InputInterface $input) : void
