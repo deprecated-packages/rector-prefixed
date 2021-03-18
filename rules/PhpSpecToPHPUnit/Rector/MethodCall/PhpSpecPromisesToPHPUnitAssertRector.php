@@ -38,7 +38,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         'assertSame' => ['shouldBe', 'shouldReturn'],
         'assertNotSame' => ['shouldNotBe', 'shouldNotReturn'],
         'assertCount' => ['shouldHaveCount'],
-        'assertEquals' => ['shouldBeEqualTo'],
+        'assertEquals' => ['shouldBeEqualTo', 'shouldEqual'],
         'assertNotEquals' => ['shouldNotBeEqualTo'],
         'assertContains' => ['shouldContain'],
         'assertNotContains' => ['shouldNotContain'],
