@@ -11,7 +11,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
 use Rector\Core\ValueObject\MethodName;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
 use RectorPrefix20210318\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ConstructorAssignDetector
@@ -40,13 +39,13 @@ final class ConstructorAssignDetector
             return \false;
         }
         $isAssignedInConstructor = \false;
-        foreach ($constructClassMethod->stmts as $methodStmt) {
+        foreach ((array) $constructClassMethod->stmts as $methodStmt) {
             $methodStmt->setAttribute(self::IS_FIRST_LEVEL_STATEMENT, \true);
             if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
                 $methodStmt->expr->setAttribute(self::IS_FIRST_LEVEL_STATEMENT, \true);
             }
         }
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($constructClassMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $constructClassMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if (!$expr instanceof \PhpParser\Node\Expr) {
                 return null;

@@ -118,7 +118,7 @@ CODE_SAMPLE
         }
         $endLines = \array_map(static function (\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : int {
             $originalExpression = $expectationMock->getOriginalExpression();
-            return !$originalExpression instanceof \PhpParser\Node\Stmt\Expression ? 0 : $originalExpression->getEndLine();
+            return $originalExpression instanceof \PhpParser\Node\Stmt\Expression ? $originalExpression->getEndLine() : 0;
         }, $expectationMockCollection->getExpectationMocks());
         $max = \max($endLines);
         foreach ($expectationMockCollection->getExpectationMocks() as $expectationMock) {
