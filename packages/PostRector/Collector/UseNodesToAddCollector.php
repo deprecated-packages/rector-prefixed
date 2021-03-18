@@ -10,7 +10,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
@@ -45,10 +45,10 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     {
         /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $positionNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             // fallback for freshly created Name nodes
             $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-            if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+            if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
                 return;
             }
         }
@@ -61,7 +61,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     public function addFunctionUseImport($node, $fullyQualifiedObjectType) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $this->functionUseImportTypesInFilePath[$fileInfo->getRealPath()][] = $fullyQualifiedObjectType;
@@ -73,7 +73,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     public function removeShortUse($node, $shortUse) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $this->removedShortUsesInFilePath[$fileInfo->getRealPath()][] = $shortUse;
@@ -187,7 +187,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
             return $fileInfo->getRealPath();
         }
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if (!$smartFileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             return null;
         }
         return $smartFileInfo->getRealPath();

@@ -5,7 +5,7 @@ namespace Rector\Composer\Contract\Rector;
 
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
-use RectorPrefix20210317\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210318\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 interface ComposerRectorInterface extends \Rector\Core\Contract\Rector\RectorInterface, \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**

@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Cache\DependencyInjection;
+namespace RectorPrefix20210318\Symfony\Component\Cache\DependencyInjection;
 
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CachePoolClearerPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CachePoolClearerPass implements \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cachePoolClearerTag;
     public function __construct(string $cachePoolClearerTag = 'cache.pool.clearer')
@@ -35,7 +35,7 @@ class CachePoolClearerPass implements \RectorPrefix20210317\Symfony\Component\De
             $pools = [];
             foreach ($clearer->getArgument(0) as $name => $ref) {
                 if ($container->hasDefinition($ref)) {
-                    $pools[$name] = new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference($ref);
+                    $pools[$name] = new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference($ref);
                 }
             }
             $clearer->replaceArgument(0, $pools);

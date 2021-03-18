@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Cache\DataCollector;
+namespace RectorPrefix20210318\Symfony\Component\Cache\DataCollector;
 
-use RectorPrefix20210317\Symfony\Component\Cache\Adapter\TraceableAdapter;
-use RectorPrefix20210317\Symfony\Component\Cache\Adapter\TraceableAdapterEvent;
-use RectorPrefix20210317\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210317\Symfony\Component\HttpFoundation\Response;
-use RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\Adapter\TraceableAdapter;
+use RectorPrefix20210318\Symfony\Component\Cache\Adapter\TraceableAdapterEvent;
+use RectorPrefix20210318\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210318\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 /**
  * @author Aaron Scherer <aequasi@gmail.com>
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  *
  * @final
  */
-class CacheDataCollector extends \RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \RectorPrefix20210317\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class CacheDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     /**
      * @var TraceableAdapter[]

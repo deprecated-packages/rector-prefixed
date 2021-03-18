@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210317\Symplify\PhpConfigPrinter\ExprResolver;
+namespace RectorPrefix20210318\Symplify\PhpConfigPrinter\ExprResolver;
 
 use PhpParser\Node\Expr;
-use RectorPrefix20210317\Symfony\Component\Yaml\Tag\TaggedValue;
-use RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
+use RectorPrefix20210318\Symfony\Component\Yaml\Tag\TaggedValue;
+use RectorPrefix20210318\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
 final class TaggedServiceResolver
 {
     /**
      * @var ServiceReferenceExprResolver
      */
     private $serviceReferenceExprResolver;
-    public function __construct(\RectorPrefix20210317\Symplify\PhpConfigPrinter\ExprResolver\ServiceReferenceExprResolver $serviceReferenceExprResolver)
+    public function __construct(\RectorPrefix20210318\Symplify\PhpConfigPrinter\ExprResolver\ServiceReferenceExprResolver $serviceReferenceExprResolver)
     {
         $this->serviceReferenceExprResolver = $serviceReferenceExprResolver;
     }
-    public function resolve(\RectorPrefix20210317\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
+    public function resolve(\RectorPrefix20210318\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
     {
         $serviceName = $taggedValue->getValue()['class'];
-        $functionName = \RectorPrefix20210317\Symplify\PhpConfigPrinter\ValueObject\FunctionName::INLINE_SERVICE;
+        $functionName = \RectorPrefix20210318\Symplify\PhpConfigPrinter\ValueObject\FunctionName::INLINE_SERVICE;
         return $this->serviceReferenceExprResolver->resolveServiceReferenceExpr($serviceName, \false, $functionName);
     }
 }

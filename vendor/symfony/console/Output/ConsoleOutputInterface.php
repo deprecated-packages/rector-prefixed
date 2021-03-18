@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Console\Output;
+namespace RectorPrefix20210318\Symfony\Component\Console\Output;
 
 /**
  * ConsoleOutputInterface is the interface implemented by ConsoleOutput class.
@@ -16,7 +16,7 @@ namespace RectorPrefix20210317\Symfony\Component\Console\Output;
  *
  * @author Dariusz Górecki <darek.krk@gmail.com>
  */
-interface ConsoleOutputInterface extends \RectorPrefix20210317\Symfony\Component\Console\Output\OutputInterface
+interface ConsoleOutputInterface extends \RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface
 {
     /**
      * Gets the OutputInterface for errors.
@@ -28,5 +28,5 @@ interface ConsoleOutputInterface extends \RectorPrefix20210317\Symfony\Component
      * @param \Symfony\Component\Console\Output\OutputInterface $error
      */
     public function setErrorOutput($error);
-    public function section() : \RectorPrefix20210317\Symfony\Component\Console\Output\ConsoleSectionOutput;
+    public function section() : \RectorPrefix20210318\Symfony\Component\Console\Output\ConsoleSectionOutput;
 }

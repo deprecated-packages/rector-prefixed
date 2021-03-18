@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Console\Descriptor;
+namespace RectorPrefix20210318\Symfony\Component\Console\Descriptor;
 
-use RectorPrefix20210317\Symfony\Component\Console\Application;
-use RectorPrefix20210317\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210317\Symfony\Component\Console\Input\InputArgument;
-use RectorPrefix20210317\Symfony\Component\Console\Input\InputDefinition;
-use RectorPrefix20210317\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20210318\Symfony\Component\Console\Application;
+use RectorPrefix20210318\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210318\Symfony\Component\Console\Input\InputArgument;
+use RectorPrefix20210318\Symfony\Component\Console\Input\InputDefinition;
+use RectorPrefix20210318\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,7 +22,7 @@ use RectorPrefix20210317\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \RectorPrefix20210318\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
      * @param \Symfony\Component\Console\Input\InputDefinition $definition
@@ -79,7 +79,7 @@ class XmlDescriptor extends \RectorPrefix20210317\Symfony\Component\Console\Desc
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \RectorPrefix20210317\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \RectorPrefix20210318\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }

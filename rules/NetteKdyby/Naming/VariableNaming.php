@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix20210317\Nette\Utils\Strings;
+use RectorPrefix20210318\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -27,7 +27,7 @@ use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210317\Stringy\Stringy;
+use RectorPrefix20210318\Stringy\Stringy;
 final class VariableNaming
 {
     /**
@@ -64,7 +64,7 @@ final class VariableNaming
             $shortClassName = $this->nodeNameResolver->getShortName($type->getClassName());
             $variableName = \lcfirst($shortClassName);
         }
-        $stringy = new \RectorPrefix20210317\Stringy\Stringy($variableName);
+        $stringy = new \RectorPrefix20210318\Stringy\Stringy($variableName);
         return (string) $stringy->camelize();
     }
     public function resolveFromNodeWithScopeCountAndFallbackName(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\Scope $scope, string $fallbackName) : string
@@ -73,8 +73,8 @@ final class VariableNaming
         if ($name === null) {
             $name = $fallbackName;
         }
-        if (\RectorPrefix20210317\Nette\Utils\Strings::contains($name, '\\')) {
-            $name = (string) \RectorPrefix20210317\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\RectorPrefix20210318\Nette\Utils\Strings::contains($name, '\\')) {
+            $name = (string) \RectorPrefix20210318\Nette\Utils\Strings::after($name, '\\', -1);
         }
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);
@@ -164,7 +164,7 @@ final class VariableNaming
             if ($arrayDimFetch->dim instanceof \PhpParser\Node\Scalar) {
                 $valueName = $this->nodeNameResolver->getName($arrayDimFetch->var);
                 $dimName = $this->valueResolver->getValue($arrayDimFetch->dim);
-                $stringy = new \RectorPrefix20210317\Stringy\Stringy($dimName);
+                $stringy = new \RectorPrefix20210318\Stringy\Stringy($dimName);
                 $dimName = (string) $stringy->upperCamelize();
                 return $valueName . $dimName;
             }

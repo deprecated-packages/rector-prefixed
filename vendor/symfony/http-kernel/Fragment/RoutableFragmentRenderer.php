@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\HttpKernel\Fragment;
+namespace RectorPrefix20210318\Symfony\Component\HttpKernel\Fragment;
 
-use RectorPrefix20210317\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210317\Symfony\Component\HttpKernel\Controller\ControllerReference;
-use RectorPrefix20210317\Symfony\Component\HttpKernel\EventListener\FragmentListener;
+use RectorPrefix20210318\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210318\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use RectorPrefix20210318\Symfony\Component\HttpKernel\EventListener\FragmentListener;
 /**
  * Adds the possibility to generate a fragment URI for a given Controller.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class RoutableFragmentRenderer implements \RectorPrefix20210317\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
+abstract class RoutableFragmentRenderer implements \RectorPrefix20210318\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface
 {
     private $fragmentPath = '/_fragment';
     /**

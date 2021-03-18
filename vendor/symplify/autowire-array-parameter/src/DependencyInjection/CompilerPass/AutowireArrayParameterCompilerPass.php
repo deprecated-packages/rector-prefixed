@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210317\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
+namespace RectorPrefix20210318\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
 
-use RectorPrefix20210317\Nette\Utils\Strings;
+use RectorPrefix20210318\Nette\Utils\Strings;
 use ReflectionClass;
 use ReflectionMethod;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference;
-use RectorPrefix20210317\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
-use RectorPrefix20210317\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
-use RectorPrefix20210317\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
-use RectorPrefix20210317\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix20210318\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use RectorPrefix20210318\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
+use RectorPrefix20210318\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use RectorPrefix20210318\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
  */
-final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * These namespaces are already configured by their bundles/extensions.
@@ -32,7 +32,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
      * @var string[]
      * @noRector
      */
-    private $excludedFatalClasses = ['RectorPrefix20210317\\Symfony\\Component\\Form\\FormExtensionInterface', 'RectorPrefix20210317\\Symfony\\Component\\Asset\\PackageInterface', 'RectorPrefix20210317\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'RectorPrefix20210317\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'RectorPrefix20210317\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'RectorPrefix20210317\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'RectorPrefix20210317\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'RectorPrefix20210317\\Sonata\\Twig\\Extension\\TemplateExtension', 'RectorPrefix20210317\\Symfony\\Component\\HttpKernel\\KernelInterface'];
+    private $excludedFatalClasses = ['RectorPrefix20210318\\Symfony\\Component\\Form\\FormExtensionInterface', 'RectorPrefix20210318\\Symfony\\Component\\Asset\\PackageInterface', 'RectorPrefix20210318\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'RectorPrefix20210318\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'RectorPrefix20210318\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'RectorPrefix20210318\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'RectorPrefix20210318\\Sonata\\Twig\\Extension\\TemplateExtension', 'RectorPrefix20210318\\Symfony\\Component\\HttpKernel\\KernelInterface'];
     /**
      * @var DefinitionFinder
      */
@@ -50,10 +50,10 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
      */
     public function __construct(array $excludedFatalClasses = [])
     {
-        $this->definitionFinder = new \RectorPrefix20210317\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
-        $paramTypeDocBlockResolver = new \RectorPrefix20210317\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
-        $this->parameterTypeResolver = new \RectorPrefix20210317\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
-        $this->parameterSkipper = new \RectorPrefix20210317\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
+        $this->definitionFinder = new \RectorPrefix20210318\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $paramTypeDocBlockResolver = new \RectorPrefix20210318\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
+        $this->parameterTypeResolver = new \RectorPrefix20210318\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
+        $this->parameterSkipper = new \RectorPrefix20210318\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
     }
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
@@ -89,7 +89,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
         $resolvedClassName = $parameterBag->resolveValue($definition->getClass());
         // skip 3rd party classes, they're autowired by own config
         $excludedNamespacePattern = '#^(' . \implode('|', self::EXCLUDED_NAMESPACES) . ')\\\\#';
-        if (\RectorPrefix20210317\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
+        if (\RectorPrefix20210318\Nette\Utils\Strings::match($resolvedClassName, $excludedNamespacePattern)) {
             return \true;
         }
         if (\in_array($resolvedClassName, $this->excludedFatalClasses, \true)) {
@@ -158,7 +158,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210317\
         $references = [];
         $definitionOfTypeNames = \array_keys($definitions);
         foreach ($definitionOfTypeNames as $definitionOfTypeName) {
-            $references[] = new \RectorPrefix20210317\Symfony\Component\DependencyInjection\Reference($definitionOfTypeName);
+            $references[] = new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference($definitionOfTypeName);
         }
         return $references;
     }

@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210318\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210317\Doctrine\DBAL\Connection;
-use RectorPrefix20210317\Doctrine\DBAL\DBALException;
-use RectorPrefix20210317\Doctrine\DBAL\Driver\ServerInfoAwareConnection;
-use RectorPrefix20210317\Doctrine\DBAL\DriverManager;
-use RectorPrefix20210317\Doctrine\DBAL\Exception;
-use RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException;
-use RectorPrefix20210317\Doctrine\DBAL\Schema\Schema;
-use RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use RectorPrefix20210317\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
-use RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface;
-use RectorPrefix20210317\Symfony\Component\Cache\PruneableInterface;
-class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AbstractAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\PruneableInterface
+use RectorPrefix20210318\Doctrine\DBAL\Connection;
+use RectorPrefix20210318\Doctrine\DBAL\DBALException;
+use RectorPrefix20210318\Doctrine\DBAL\Driver\ServerInfoAwareConnection;
+use RectorPrefix20210318\Doctrine\DBAL\DriverManager;
+use RectorPrefix20210318\Doctrine\DBAL\Exception;
+use RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException;
+use RectorPrefix20210318\Doctrine\DBAL\Schema\Schema;
+use RectorPrefix20210318\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use RectorPrefix20210318\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
+use RectorPrefix20210318\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\PruneableInterface;
+class PdoAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Adapter\AbstractAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\PruneableInterface
 {
     protected $maxIdLength = 255;
     private $marshaller;
@@ -62,22 +62,22 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
      * @throws InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      * @throws InvalidArgumentException When namespace contains invalid characters
      */
-    public function __construct($connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], \RectorPrefix20210318\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (isset($namespace[0]) && \preg_match('#[^-+.A-Za-z0-9]#', $namespace, $match)) {
-            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
+            throw new \RectorPrefix20210318\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
         }
         if ($connOrDsn instanceof \PDO) {
             if (\PDO::ERRMODE_EXCEPTION !== $connOrDsn->getAttribute(\PDO::ATTR_ERRMODE)) {
-                throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)).', __CLASS__));
+                throw new \RectorPrefix20210318\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)).', __CLASS__));
             }
             $this->conn = $connOrDsn;
-        } elseif ($connOrDsn instanceof \RectorPrefix20210317\Doctrine\DBAL\Connection) {
+        } elseif ($connOrDsn instanceof \RectorPrefix20210318\Doctrine\DBAL\Connection) {
             $this->conn = $connOrDsn;
         } elseif (\is_string($connOrDsn)) {
             $this->dsn = $connOrDsn;
         } else {
-            throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO or Doctrine\\DBAL\\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \get_debug_type($connOrDsn)));
+            throw new \RectorPrefix20210318\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('"%s" requires PDO or Doctrine\\DBAL\\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \get_debug_type($connOrDsn)));
         }
         $this->table = $options['db_table'] ?? $this->table;
         $this->idCol = $options['db_id_col'] ?? $this->idCol;
@@ -88,7 +88,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         $this->password = $options['db_password'] ?? $this->password;
         $this->connectionOptions = $options['db_connection_options'] ?? $this->connectionOptions;
         $this->namespace = $namespace;
-        $this->marshaller = $marshaller ?? new \RectorPrefix20210317\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
+        $this->marshaller = $marshaller ?? new \RectorPrefix20210318\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
         parent::__construct($namespace, $defaultLifetime);
     }
     /**
@@ -106,8 +106,8 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     {
         // connect if we are not yet
         $conn = $this->getConnection();
-        if ($conn instanceof \RectorPrefix20210317\Doctrine\DBAL\Connection) {
-            $schema = new \RectorPrefix20210317\Doctrine\DBAL\Schema\Schema();
+        if ($conn instanceof \RectorPrefix20210318\Doctrine\DBAL\Connection) {
+            $schema = new \RectorPrefix20210318\Doctrine\DBAL\Schema\Schema();
             $this->addTableToSchema($schema);
             foreach ($schema->toSql($conn->getDatabasePlatform()) as $sql) {
                 if (\method_exists($conn, 'executeStatement')) {
@@ -175,7 +175,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         }
         try {
             $delete = $this->getConnection()->prepare($deleteSql);
-        } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             return \true;
         } catch (\PDOException $e) {
             return \true;
@@ -186,7 +186,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         }
         try {
             return $delete->execute();
-        } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             return \true;
         } catch (\PDOException $e) {
             return \true;
@@ -267,7 +267,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
             } else {
                 $conn->exec($sql);
             }
-        } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
         } catch (\PDOException $e) {
         }
         return \true;
@@ -283,7 +283,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         try {
             $stmt = $this->getConnection()->prepare($sql);
             $stmt->execute(\array_values($ids));
-        } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
         } catch (\PDOException $e) {
         }
         return \true;
@@ -329,7 +329,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         $lifetime = $lifetime ?: null;
         try {
             $stmt = $conn->prepare($sql);
-        } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+        } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             if (!$conn->isTransactionActive() || \in_array($this->driver, ['pgsql', 'sqlite', 'sqlsrv'], \true)) {
                 $this->createTable();
             }
@@ -365,7 +365,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
         foreach ($values as $id => $data) {
             try {
                 $result = $stmt->execute();
-            } catch (\RectorPrefix20210317\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            } catch (\RectorPrefix20210318\Doctrine\DBAL\Exception\TableNotFoundException $e) {
                 if (!$conn->isTransactionActive() || \in_array($this->driver, ['pgsql', 'sqlite', 'sqlsrv'], \true)) {
                     $this->createTable();
                 }
@@ -379,7 +379,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
             if (null === $driver && !(\is_object($result) ? $result->rowCount() : $stmt->rowCount())) {
                 try {
                     $insertStmt->execute();
-                } catch (\RectorPrefix20210317\Doctrine\DBAL\DBALException|\RectorPrefix20210317\Doctrine\DBAL\Exception $e) {
+                } catch (\RectorPrefix20210318\Doctrine\DBAL\DBALException|\RectorPrefix20210318\Doctrine\DBAL\Exception $e) {
                 } catch (\PDOException $e) {
                     // A concurrent write won, let it be
                 }
@@ -394,10 +394,10 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
     {
         if (null === $this->conn) {
             if (\strpos($this->dsn, '://')) {
-                if (!\class_exists(\RectorPrefix20210317\Doctrine\DBAL\DriverManager::class)) {
-                    throw new \RectorPrefix20210317\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Failed to parse the DSN "%s". Try running "composer require doctrine/dbal".', $this->dsn));
+                if (!\class_exists(\RectorPrefix20210318\Doctrine\DBAL\DriverManager::class)) {
+                    throw new \RectorPrefix20210318\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Failed to parse the DSN "%s". Try running "composer require doctrine/dbal".', $this->dsn));
                 }
-                $this->conn = \RectorPrefix20210317\Doctrine\DBAL\DriverManager::getConnection(['url' => $this->dsn]);
+                $this->conn = \RectorPrefix20210318\Doctrine\DBAL\DriverManager::getConnection(['url' => $this->dsn]);
             } else {
                 $this->conn = new \PDO($this->dsn, $this->username, $this->password, $this->connectionOptions);
                 $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -409,27 +409,27 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
             } else {
                 $driver = $this->conn->getDriver();
                 switch (\true) {
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\Mysqli\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\Mysqli\Driver:
                         throw new \LogicException(\sprintf('The adapter "%s" does not support the mysqli driver, use pdo_mysql instead.', static::class));
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\AbstractMySQLDriver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\AbstractMySQLDriver:
                         $this->driver = 'mysql';
                         break;
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDOSqlite\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDO\SQLite\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDOSqlite\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDO\SQLite\Driver:
                         $this->driver = 'sqlite';
                         break;
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDOPgSql\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDO\PgSQL\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDOPgSql\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDO\PgSQL\Driver:
                         $this->driver = 'pgsql';
                         break;
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\OCI8\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDOOracle\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDO\OCI\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\OCI8\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDOOracle\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDO\OCI\Driver:
                         $this->driver = 'oci';
                         break;
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\SQLSrv\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDOSqlsrv\Driver:
-                    case $driver instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\PDO\SQLSrv\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\SQLSrv\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDOSqlsrv\Driver:
+                    case $driver instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\PDO\SQLSrv\Driver:
                         $this->driver = 'sqlsrv';
                         break;
                     default:
@@ -446,7 +446,7 @@ class PdoAdapter extends \RectorPrefix20210317\Symfony\Component\Cache\Adapter\A
             $conn = $this->conn instanceof \PDO ? $this->conn : $this->conn->getWrappedConnection();
             if ($conn instanceof \PDO) {
                 $this->serverVersion = $conn->getAttribute(\PDO::ATTR_SERVER_VERSION);
-            } elseif ($conn instanceof \RectorPrefix20210317\Doctrine\DBAL\Driver\ServerInfoAwareConnection) {
+            } elseif ($conn instanceof \RectorPrefix20210318\Doctrine\DBAL\Driver\ServerInfoAwareConnection) {
                 $this->serverVersion = $conn->getServerVersion();
             } else {
                 $this->serverVersion = '0';

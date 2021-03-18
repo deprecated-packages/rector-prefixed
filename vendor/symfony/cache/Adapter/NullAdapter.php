@@ -8,25 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210318\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210317\Psr\Cache\CacheItemInterface;
-use RectorPrefix20210317\Symfony\Component\Cache\CacheItem;
-use RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20210318\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20210318\Symfony\Contracts\Cache\CacheInterface;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class NullAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface
+class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20210318\Symfony\Contracts\Cache\CacheInterface
 {
     private $createCacheItem;
     public function __construct()
     {
         $this->createCacheItem = \Closure::bind(function ($key) {
-            $item = new \RectorPrefix20210317\Symfony\Component\Cache\CacheItem();
+            $item = new \RectorPrefix20210318\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->isHit = \false;
             return $item;
-        }, $this, \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::class);
+        }, $this, \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}

@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Console\Helper;
+namespace RectorPrefix20210318\Symfony\Component\Console\Helper;
 
-use RectorPrefix20210317\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use RectorPrefix20210318\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Helper is the base class for all helper classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Helper implements \RectorPrefix20210317\Symfony\Component\Console\Helper\HelperInterface
+abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console\Helper\HelperInterface
 {
     protected $helperSet = null;
     /**

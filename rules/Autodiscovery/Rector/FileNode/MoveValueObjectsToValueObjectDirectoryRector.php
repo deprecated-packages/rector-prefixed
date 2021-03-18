@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use RectorPrefix20210317\Controller;
-use RectorPrefix20210317\Nette\Utils\Strings;
+use RectorPrefix20210318\Controller;
+use RectorPrefix20210318\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer;
@@ -175,7 +175,7 @@ CODE_SAMPLE
             return \false;
         }
         foreach ($this->suffixes as $suffix) {
-            if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($className, $suffix)) {
+            if (\RectorPrefix20210318\Nette\Utils\Strings::endsWith($className, $suffix)) {
                 return \true;
             }
         }
@@ -187,7 +187,7 @@ CODE_SAMPLE
     private function isKnownServiceType($className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
-            if (\RectorPrefix20210317\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
+            if (\RectorPrefix20210318\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
                 return \true;
             }
         }

@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\HttpKernel;
 
-use RectorPrefix20210317\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210317\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use RectorPrefix20210317\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
-use RectorPrefix20210317\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use RectorPrefix20210317\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use RectorPrefix20210317\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class RuleDocGeneratorKernel extends \RectorPrefix20210317\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210318\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20210318\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
+use RectorPrefix20210318\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use RectorPrefix20210318\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use RectorPrefix20210318\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class RuleDocGeneratorKernel extends \RectorPrefix20210318\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
@@ -24,6 +24,6 @@ final class RuleDocGeneratorKernel extends \RectorPrefix20210317\Symplify\Sympli
      */
     public function registerBundles() : iterable
     {
-        return [new \RectorPrefix20210317\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \RectorPrefix20210317\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \RectorPrefix20210317\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \RectorPrefix20210318\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \RectorPrefix20210318\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \RectorPrefix20210318\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
 }

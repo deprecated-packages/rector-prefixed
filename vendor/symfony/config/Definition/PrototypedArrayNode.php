@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Config\Definition;
+namespace RectorPrefix20210318\Symfony\Component\Config\Definition;
 
-use RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\DuplicateKeyException;
-use RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\Exception;
-use RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
+use RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\DuplicateKeyException;
+use RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\Exception;
+use RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * Represents a prototyped Array node in the config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config\Definition\ArrayNode
+class PrototypedArrayNode extends \RectorPrefix20210318\Symfony\Component\Config\Definition\ArrayNode
 {
     protected $prototype;
     protected $keyAttribute;
@@ -149,7 +149,7 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
      */
     public function addChild($node)
     {
-        throw new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\Exception('A prototyped array node can not have concrete children.');
+        throw new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\Exception('A prototyped array node can not have concrete children.');
     }
     /**
      * Finalizes the value of this node.
@@ -164,18 +164,18 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
     protected function finalizeValue($value)
     {
         if (\false === $value) {
-            throw new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
+            throw new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), \json_encode($value)));
         }
         foreach ($value as $k => $v) {
             $prototype = $this->getPrototypeForChild($k);
             try {
                 $value[$k] = $prototype->finalize($v);
-            } catch (\RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
+            } catch (\RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\UnsetKeyException $e) {
                 unset($value[$k]);
             }
         }
         if (\count($value) < $this->minNumberOfElements) {
-            $ex = new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
+            $ex = new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
             $ex->setPath($this->getPath());
             throw $ex;
         }
@@ -202,7 +202,7 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
         foreach ($value as $k => $v) {
             if (null !== $this->keyAttribute && \is_array($v)) {
                 if (!isset($v[$this->keyAttribute]) && \is_int($k) && !$isAssoc) {
-                    $ex = new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
+                    $ex = new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 } elseif (isset($v[$this->keyAttribute])) {
@@ -217,7 +217,7 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
                     // if only "value" is left
                     if (\array_keys($v) === ['value']) {
                         $v = $v['value'];
-                        if ($this->prototype instanceof \RectorPrefix20210317\Symfony\Component\Config\Definition\ArrayNode && ($children = $this->prototype->getChildren()) && \array_key_exists('value', $children)) {
+                        if ($this->prototype instanceof \RectorPrefix20210318\Symfony\Component\Config\Definition\ArrayNode && ($children = $this->prototype->getChildren()) && \array_key_exists('value', $children)) {
                             $valuePrototype = \current($this->valuePrototypes) ?: clone $children['value'];
                             $valuePrototype->parent = $this;
                             $originalClosures = $this->prototype->normalizationClosures;
@@ -230,7 +230,7 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
                     }
                 }
                 if (\array_key_exists($k, $normalized)) {
-                    $ex = new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\DuplicateKeyException(\sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
+                    $ex = new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\DuplicateKeyException(\sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }
@@ -274,7 +274,7 @@ class PrototypedArrayNode extends \RectorPrefix20210317\Symfony\Component\Config
             // no conflict
             if (!\array_key_exists($k, $leftSide)) {
                 if (!$this->allowNewKeys) {
-                    $ex = new \RectorPrefix20210317\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
+                    $ex = new \RectorPrefix20210318\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
                     $ex->setPath($this->getPath());
                     throw $ex;
                 }

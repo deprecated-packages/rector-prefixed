@@ -42,11 +42,11 @@ use Rector\PostRector\Collector\NodesToRemoveCollector;
 use Rector\PostRector\DependencyInjection\PropertyAdder;
 use Rector\Privatization\NodeManipulator\VisibilityManipulator;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210317\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210317\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
-use RectorPrefix20210317\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210317\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210318\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210318\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210318\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210318\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Testing\PHPUnit\AbstractRectorTestCase
  */
@@ -492,7 +492,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             return \true;
         }
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             return \false;
         }
         return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
@@ -551,7 +551,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     private function keepFileInfoAttribute($node, $originalNode) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $fileInfo = $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);

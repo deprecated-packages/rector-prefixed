@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210317\Symfony\Component\DependencyInjection\Definition;
-final class MergeImportedRectorConfigureCallValuesCompilerPass implements \RectorPrefix20210317\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition;
+final class MergeImportedRectorConfigureCallValuesCompilerPass implements \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string

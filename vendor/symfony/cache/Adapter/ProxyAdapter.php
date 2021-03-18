@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210317\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210318\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210317\Psr\Cache\CacheItemInterface;
-use RectorPrefix20210317\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix20210317\Symfony\Component\Cache\CacheItem;
-use RectorPrefix20210317\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix20210317\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix20210317\Symfony\Component\Cache\Traits\ContractsTrait;
-use RectorPrefix20210317\Symfony\Component\Cache\Traits\ProxyTrait;
-use RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20210318\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210318\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20210318\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20210318\Symfony\Component\Cache\Traits\ContractsTrait;
+use RectorPrefix20210318\Symfony\Component\Cache\Traits\ProxyTrait;
+use RectorPrefix20210318\Symfony\Contracts\Cache\CacheInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20210317\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210317\Symfony\Component\Cache\ResettableInterface
+class ProxyAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20210318\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20210318\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210318\Symfony\Component\Cache\ResettableInterface
 {
     use ContractsTrait;
     use ProxyTrait;
@@ -31,15 +31,15 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     private $setInnerItem;
     private $poolHash;
     private $defaultLifetime;
-    public function __construct(\RectorPrefix20210317\Psr\Cache\CacheItemPoolInterface $pool, string $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\RectorPrefix20210318\Psr\Cache\CacheItemPoolInterface $pool, string $namespace = '', int $defaultLifetime = 0)
     {
         $this->pool = $pool;
         $this->poolHash = $poolHash = \spl_object_hash($pool);
-        $this->namespace = '' === $namespace ? '' : \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::validateKey($namespace);
+        $this->namespace = '' === $namespace ? '' : \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::validateKey($namespace);
         $this->namespaceLen = \strlen($namespace);
         $this->defaultLifetime = $defaultLifetime;
         $this->createCacheItem = \Closure::bind(static function ($key, $innerItem) use($poolHash) {
-            $item = new \RectorPrefix20210317\Symfony\Component\Cache\CacheItem();
+            $item = new \RectorPrefix20210318\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             if (null === $innerItem) {
                 return $item;
@@ -54,22 +54,22 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
             if (\is_array($v) && 1 === \count($v) && 10 === \strlen($k = (string) \key($v)) && "" === $k[0] && "\0" === $k[5] && "_" === $k[9]) {
                 $item->value = $v[$k];
                 $v = \unpack('Ve/Nc', \substr($k, 1, -1));
-                $item->metadata[\RectorPrefix20210317\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $v['e'] + \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY_OFFSET;
-                $item->metadata[\RectorPrefix20210317\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = $v['c'];
-            } elseif ($innerItem instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
+                $item->metadata[\RectorPrefix20210318\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $v['e'] + \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY_OFFSET;
+                $item->metadata[\RectorPrefix20210318\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = $v['c'];
+            } elseif ($innerItem instanceof \RectorPrefix20210318\Symfony\Component\Cache\CacheItem) {
                 $item->metadata = $innerItem->metadata;
             }
             $innerItem->set(null);
             return $item;
-        }, null, \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::class);
         $this->setInnerItem = \Closure::bind(
             /**
              * @param array $item A CacheItem cast to (array); accessing protected properties requires adding the "\0*\0" PHP prefix
              */
-            static function (\RectorPrefix20210317\Psr\Cache\CacheItemInterface $innerItem, array $item) {
+            static function (\RectorPrefix20210318\Psr\Cache\CacheItemInterface $innerItem, array $item) {
                 // Tags are stored separately, no need to account for them when considering this item's newly set metadata
-                if (isset(($metadata = $item["\0*\0newMetadata"])[\RectorPrefix20210317\Symfony\Component\Cache\CacheItem::METADATA_TAGS])) {
-                    unset($metadata[\RectorPrefix20210317\Symfony\Component\Cache\CacheItem::METADATA_TAGS]);
+                if (isset(($metadata = $item["\0*\0newMetadata"])[\RectorPrefix20210318\Symfony\Component\Cache\CacheItem::METADATA_TAGS])) {
+                    unset($metadata[\RectorPrefix20210318\Symfony\Component\Cache\CacheItem::METADATA_TAGS]);
                 }
                 if ($metadata) {
                     // For compactness, expiry and creation duration are packed in the key of an array, using magic numbers as separators
@@ -79,7 +79,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
                 $innerItem->expiresAt(null !== $item["\0*\0expiry"] ? \DateTime::createFromFormat('U.u', \sprintf('%.6F', 0 === $item["\0*\0expiry"] ? \PHP_INT_MAX : $item["\0*\0expiry"])) : null);
             },
             null,
-            \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::class
+            \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::class
         );
     }
     /**
@@ -91,7 +91,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      */
     public function get($key, $callback, $beta = null, &$metadata = null)
     {
-        if (!$this->pool instanceof \RectorPrefix20210317\Symfony\Contracts\Cache\CacheInterface) {
+        if (!$this->pool instanceof \RectorPrefix20210318\Symfony\Contracts\Cache\CacheInterface) {
             return $this->doGet($this, $key, $callback, $beta, $metadata);
         }
         return $this->pool->get($this->getId($key), function ($innerItem, bool &$save) use($key, $callback) {
@@ -140,7 +140,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      */
     public function clear($prefix = '')
     {
-        if ($this->pool instanceof \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface) {
+        if ($this->pool instanceof \RectorPrefix20210318\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($this->namespace . $prefix);
         }
         return $this->pool->clear();
@@ -204,7 +204,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
      */
     private function doSave($item, $method)
     {
-        if (!$item instanceof \RectorPrefix20210317\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \RectorPrefix20210318\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $item = (array) $item;
@@ -213,7 +213,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
         }
         if ($item["\0*\0poolHash"] === $this->poolHash && $item["\0*\0innerItem"]) {
             $innerItem = $item["\0*\0innerItem"];
-        } elseif ($this->pool instanceof \RectorPrefix20210317\Symfony\Component\Cache\Adapter\AdapterInterface) {
+        } elseif ($this->pool instanceof \RectorPrefix20210318\Symfony\Component\Cache\Adapter\AdapterInterface) {
             // this is an optimization specific for AdapterInterface implementations
             // so we can save a round-trip to the backend by just creating a new item
             $f = $this->createCacheItem;
@@ -239,7 +239,7 @@ class ProxyAdapter implements \RectorPrefix20210317\Symfony\Component\Cache\Adap
     }
     private function getId($key) : string
     {
-        \RectorPrefix20210317\Symfony\Component\Cache\CacheItem::validateKey($key);
+        \RectorPrefix20210318\Symfony\Component\Cache\CacheItem::validateKey($key);
         return $this->namespace . $key;
     }
 }

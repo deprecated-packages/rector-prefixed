@@ -12,8 +12,8 @@ use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
-use RectorPrefix20210317\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
-use RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210318\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigFileFactory
 {
     /**
@@ -49,7 +49,7 @@ final class ConfigFileFactory
         }
         $phpConfigFileContent = $this->smartPhpConfigPrinter->printConfiguredServices([$rectorClass => null]);
         $fileInfo = $getRectorClassMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210317\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $configFilePath = \dirname($fileInfo->getRealPath()) . '/config/configured_rule.php';
