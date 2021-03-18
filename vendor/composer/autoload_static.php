@@ -4,15 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
+class ComposerStaticInit404fe66b3d773ca4b1044f5da5700b94
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
@@ -57,9 +57,7 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
             'RectorPrefix20210318\\Symfony\\Contracts\\Service\\' => 47,
             'RectorPrefix20210318\\Symfony\\Contracts\\HttpClient\\' => 50,
             'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\' => 55,
-            'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\' => 45,
             'RectorPrefix20210318\\Symfony\\Component\\Yaml\\' => 44,
-            'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\' => 51,
             'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\' => 49,
             'RectorPrefix20210318\\Symfony\\Component\\Uid\\' => 43,
             'RectorPrefix20210318\\Symfony\\Component\\String\\' => 46,
@@ -73,13 +71,10 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
             'RectorPrefix20210318\\Symfony\\Component\\DependencyInjection\\' => 59,
             'RectorPrefix20210318\\Symfony\\Component\\Console\\' => 47,
             'RectorPrefix20210318\\Symfony\\Component\\Config\\' => 46,
-            'RectorPrefix20210318\\Symfony\\Component\\Cache\\' => 45,
             'RectorPrefix20210318\\Stringy\\' => 29,
-            'RectorPrefix20210318\\Psr\\SimpleCache\\' => 37,
             'RectorPrefix20210318\\Psr\\Log\\' => 29,
             'RectorPrefix20210318\\Psr\\EventDispatcher\\' => 41,
             'RectorPrefix20210318\\Psr\\Container\\' => 35,
-            'RectorPrefix20210318\\Psr\\Cache\\' => 31,
             'RectorPrefix20210318\\Jean85\\' => 28,
             'RectorPrefix20210318\\Doctrine\\Inflector\\' => 40,
             'RectorPrefix20210318\\Doctrine\\Common\\Lexer\\' => 43,
@@ -217,17 +212,9 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
         ),
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/cache-contracts',
-        ),
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
-        ),
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/var-exporter',
         ),
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\' => 
         array (
@@ -281,17 +268,9 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/cache',
-        ),
         'RectorPrefix20210318\\Stringy\\' => 
         array (
             0 => __DIR__ . '/..' . '/danielstjules/stringy/src',
-        ),
-        'RectorPrefix20210318\\Psr\\SimpleCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
         'RectorPrefix20210318\\Psr\\Log\\' => 
         array (
@@ -304,10 +283,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'RectorPrefix20210318\\Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
         'RectorPrefix20210318\\Jean85\\' => 
         array (
@@ -740,6 +715,23 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Jean85\\Version' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Version.php',
         'RectorPrefix20210318\\JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'RectorPrefix20210318\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
+        'RectorPrefix20210318\\Nette\\Bridges\\CacheDI\\CacheExtension' => __DIR__ . '/..' . '/nette/caching/src/Bridges/CacheDI/CacheExtension.php',
+        'RectorPrefix20210318\\Nette\\Bridges\\CacheLatte\\CacheMacro' => __DIR__ . '/..' . '/nette/caching/src/Bridges/CacheLatte/CacheMacro.php',
+        'RectorPrefix20210318\\Nette\\Caching\\BulkReader' => __DIR__ . '/..' . '/nette/caching/src/Caching/BulkReader.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Cache' => __DIR__ . '/..' . '/nette/caching/src/Caching/Cache.php',
+        'RectorPrefix20210318\\Nette\\Caching\\IBulkReader' => __DIR__ . '/..' . '/nette/caching/src/compatibility.php',
+        'RectorPrefix20210318\\Nette\\Caching\\IStorage' => __DIR__ . '/..' . '/nette/caching/src/compatibility.php',
+        'RectorPrefix20210318\\Nette\\Caching\\OutputHelper' => __DIR__ . '/..' . '/nette/caching/src/Caching/OutputHelper.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\DevNullStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/DevNullStorage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\FileStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/FileStorage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\IJournal' => __DIR__ . '/..' . '/nette/caching/src/compatibility.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\Journal' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/Journal.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\MemcachedStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/MemcachedStorage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\MemoryStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/MemoryStorage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\NewMemcachedStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/NewMemcachedStorage.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\SQLiteJournal' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/SQLiteJournal.php',
+        'RectorPrefix20210318\\Nette\\Caching\\Storages\\SQLiteStorage' => __DIR__ . '/..' . '/nette/caching/src/Caching/Storages/SQLiteStorage.php',
         'RectorPrefix20210318\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'RectorPrefix20210318\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'RectorPrefix20210318\\Nette\\FileNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -790,10 +782,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'RectorPrefix20210318\\Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
         'RectorPrefix20210318\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
-        'RectorPrefix20210318\\Psr\\Cache\\CacheException' => __DIR__ . '/..' . '/psr/cache/src/CacheException.php',
-        'RectorPrefix20210318\\Psr\\Cache\\CacheItemInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemInterface.php',
-        'RectorPrefix20210318\\Psr\\Cache\\CacheItemPoolInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemPoolInterface.php',
-        'RectorPrefix20210318\\Psr\\Cache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/cache/src/InvalidArgumentException.php',
         'RectorPrefix20210318\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'RectorPrefix20210318\\Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'RectorPrefix20210318\\Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -811,9 +799,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/DummyTest.php',
         'RectorPrefix20210318\\Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'RectorPrefix20210318\\Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
-        'RectorPrefix20210318\\Psr\\SimpleCache\\CacheException' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheException.php',
-        'RectorPrefix20210318\\Psr\\SimpleCache\\CacheInterface' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheInterface.php',
-        'RectorPrefix20210318\\Psr\\SimpleCache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/simple-cache/src/InvalidArgumentException.php',
         'RectorPrefix20210318\\SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
         'RectorPrefix20210318\\SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
         'RectorPrefix20210318\\SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
@@ -833,61 +818,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'RectorPrefix20210318\\Stringy\\StaticStringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/StaticStringy.php',
         'RectorPrefix20210318\\Stringy\\Stringy' => __DIR__ . '/..' . '/danielstjules/stringy/src/Stringy.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractTagAwareAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/symfony/cache/Adapter/AdapterInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\ApcuAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/ApcuAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\ArrayAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/ArrayAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\ChainAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/ChainAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\CouchbaseBucketAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/CouchbaseBucketAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\DoctrineAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/DoctrineAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\FilesystemAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/FilesystemAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\FilesystemTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/FilesystemTagAwareAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\MemcachedAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/MemcachedAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\NullAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/NullAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\ParameterNormalizer' => __DIR__ . '/..' . '/symfony/cache/Adapter/ParameterNormalizer.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\PdoAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/PdoAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\PhpArrayAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/PhpArrayAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\PhpFilesAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/PhpFilesAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\ProxyAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/ProxyAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\Psr16Adapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/Psr16Adapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\RedisAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/RedisAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\RedisTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/RedisTagAwareAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\TagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/TagAwareAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\TagAwareAdapterInterface' => __DIR__ . '/..' . '/symfony/cache/Adapter/TagAwareAdapterInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\TraceableAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/TraceableAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Adapter\\TraceableTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/TraceableTagAwareAdapter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\CacheItem' => __DIR__ . '/..' . '/symfony/cache/CacheItem.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DataCollector\\CacheDataCollector' => __DIR__ . '/..' . '/symfony/cache/DataCollector/CacheDataCollector.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DependencyInjection\\CacheCollectorPass' => __DIR__ . '/..' . '/symfony/cache/DependencyInjection/CacheCollectorPass.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DependencyInjection\\CachePoolClearerPass' => __DIR__ . '/..' . '/symfony/cache/DependencyInjection/CachePoolClearerPass.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DependencyInjection\\CachePoolPass' => __DIR__ . '/..' . '/symfony/cache/DependencyInjection/CachePoolPass.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DependencyInjection\\CachePoolPrunerPass' => __DIR__ . '/..' . '/symfony/cache/DependencyInjection/CachePoolPrunerPass.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\DoctrineProvider' => __DIR__ . '/..' . '/symfony/cache/DoctrineProvider.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Exception\\CacheException' => __DIR__ . '/..' . '/symfony/cache/Exception/CacheException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/cache/Exception/InvalidArgumentException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/cache/Exception/LogicException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\LockRegistry' => __DIR__ . '/..' . '/symfony/cache/LockRegistry.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Marshaller\\DefaultMarshaller' => __DIR__ . '/..' . '/symfony/cache/Marshaller/DefaultMarshaller.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Marshaller\\DeflateMarshaller' => __DIR__ . '/..' . '/symfony/cache/Marshaller/DeflateMarshaller.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Marshaller\\MarshallerInterface' => __DIR__ . '/..' . '/symfony/cache/Marshaller/MarshallerInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Marshaller\\SodiumMarshaller' => __DIR__ . '/..' . '/symfony/cache/Marshaller/SodiumMarshaller.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Marshaller\\TagAwareMarshaller' => __DIR__ . '/..' . '/symfony/cache/Marshaller/TagAwareMarshaller.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Messenger\\EarlyExpirationDispatcher' => __DIR__ . '/..' . '/symfony/cache/Messenger/EarlyExpirationDispatcher.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Messenger\\EarlyExpirationHandler' => __DIR__ . '/..' . '/symfony/cache/Messenger/EarlyExpirationHandler.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Messenger\\EarlyExpirationMessage' => __DIR__ . '/..' . '/symfony/cache/Messenger/EarlyExpirationMessage.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\PruneableInterface' => __DIR__ . '/..' . '/symfony/cache/PruneableInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Psr16Cache' => __DIR__ . '/..' . '/symfony/cache/Psr16Cache.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\ResettableInterface' => __DIR__ . '/..' . '/symfony/cache/ResettableInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\AbstractAdapterTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/AbstractAdapterTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\ContractsTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/ContractsTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\FilesystemCommonTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/FilesystemCommonTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\FilesystemTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/FilesystemTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\MemcachedTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/MemcachedTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\ProxyTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/ProxyTrait.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\RedisClusterProxy' => __DIR__ . '/..' . '/symfony/cache/Traits/RedisClusterProxy.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\RedisProxy' => __DIR__ . '/..' . '/symfony/cache/Traits/RedisProxy.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Cache\\Traits\\RedisTrait' => __DIR__ . '/..' . '/symfony/cache/Traits/RedisTrait.php',
         'RectorPrefix20210318\\Symfony\\Component\\Config\\ConfigCache' => __DIR__ . '/..' . '/symfony/config/ConfigCache.php',
         'RectorPrefix20210318\\Symfony\\Component\\Config\\ConfigCacheFactory' => __DIR__ . '/..' . '/symfony/config/ConfigCacheFactory.php',
         'RectorPrefix20210318\\Symfony\\Component\\Config\\ConfigCacheFactoryInterface' => __DIR__ . '/..' . '/symfony/config/ConfigCacheFactoryInterface.php',
@@ -1595,16 +1525,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\Server\\DumpServer' => __DIR__ . '/..' . '/symfony/var-dumper/Server/DumpServer.php',
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait' => __DIR__ . '/..' . '/symfony/var-dumper/Test/VarDumperTestTrait.php',
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\VarDumper' => __DIR__ . '/..' . '/symfony/var-dumper/VarDumper.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Exception\\ClassNotFoundException' => __DIR__ . '/..' . '/symfony/var-exporter/Exception/ClassNotFoundException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/var-exporter/Exception/ExceptionInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Exception\\NotInstantiableTypeException' => __DIR__ . '/..' . '/symfony/var-exporter/Exception/NotInstantiableTypeException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Instantiator' => __DIR__ . '/..' . '/symfony/var-exporter/Instantiator.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Internal\\Exporter' => __DIR__ . '/..' . '/symfony/var-exporter/Internal/Exporter.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Internal\\Hydrator' => __DIR__ . '/..' . '/symfony/var-exporter/Internal/Hydrator.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Internal\\Reference' => __DIR__ . '/..' . '/symfony/var-exporter/Internal/Reference.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Internal\\Registry' => __DIR__ . '/..' . '/symfony/var-exporter/Internal/Registry.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\Internal\\Values' => __DIR__ . '/..' . '/symfony/var-exporter/Internal/Values.php',
-        'RectorPrefix20210318\\Symfony\\Component\\VarExporter\\VarExporter' => __DIR__ . '/..' . '/symfony/var-exporter/VarExporter.php',
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
@@ -1617,11 +1537,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Tag\\TaggedValue' => __DIR__ . '/..' . '/symfony/yaml/Tag/TaggedValue.php',
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Unescaper' => __DIR__ . '/..' . '/symfony/yaml/Unescaper.php',
         'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\CacheInterface' => __DIR__ . '/..' . '/symfony/cache-contracts/CacheInterface.php',
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\CacheTrait' => __DIR__ . '/..' . '/symfony/cache-contracts/CacheTrait.php',
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\CallbackInterface' => __DIR__ . '/..' . '/symfony/cache-contracts/CallbackInterface.php',
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\ItemInterface' => __DIR__ . '/..' . '/symfony/cache-contracts/ItemInterface.php',
-        'RectorPrefix20210318\\Symfony\\Contracts\\Cache\\TagAwareCacheInterface' => __DIR__ . '/..' . '/symfony/cache-contracts/TagAwareCacheInterface.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\Event' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/Event.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/EventDispatcherInterface.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\HttpClient\\ChunkInterface' => __DIR__ . '/..' . '/symfony/http-client-contracts/ChunkInterface.php',
@@ -2094,6 +2009,7 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'Rector\\BetterPhpDocParser\\ValueObject\\TagValueNodeConfiguration' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/TagValueNodeConfiguration.php',
         'Rector\\Caching\\Application\\CachedFileInfoFilterAndReporter' => __DIR__ . '/../..' . '/packages/Caching/Application/CachedFileInfoFilterAndReporter.php',
         'Rector\\Caching\\Cache\\Adapter\\FilesystemAdapterFactory' => __DIR__ . '/../..' . '/packages/Caching/Cache/Adapter/FilesystemAdapterFactory.php',
+        'Rector\\Caching\\Cache\\NetteCacheFactory' => __DIR__ . '/../..' . '/packages/Caching/Cache/NetteCacheFactory.php',
         'Rector\\Caching\\Config\\FileHashComputer' => __DIR__ . '/../..' . '/packages/Caching/Config/FileHashComputer.php',
         'Rector\\Caching\\Contract\\Rector\\ZeroCacheRectorInterface' => __DIR__ . '/../..' . '/packages/Caching/Contract/Rector/ZeroCacheRectorInterface.php',
         'Rector\\Caching\\Detector\\ChangedFilesDetector' => __DIR__ . '/../..' . '/packages/Caching/Detector/ChangedFilesDetector.php',
@@ -2934,7 +2850,6 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\TraitTypeResolver' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeTypeResolver\\VariableTypeResolver' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeTypeResolver/VariableTypeResolver.php',
         'Rector\\NodeTypeResolver\\NodeVisitor\\FileInfoNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeVisitor/FileInfoNodeVisitor.php',
-        'Rector\\NodeTypeResolver\\NodeVisitor\\FirstLevelNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeVisitor/FirstLevelNodeVisitor.php',
         'Rector\\NodeTypeResolver\\NodeVisitor\\FunctionLikeParamArgPositionNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeVisitor/FunctionLikeParamArgPositionNodeVisitor.php',
         'Rector\\NodeTypeResolver\\NodeVisitor\\FunctionMethodAndClassNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeVisitor/FunctionMethodAndClassNodeVisitor.php',
         'Rector\\NodeTypeResolver\\NodeVisitor\\NamespaceNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/NodeVisitor/NamespaceNodeVisitor.php',
@@ -3709,9 +3624,9 @@ class ComposerStaticInit13e105b400c3add0bc841eb4af97e086
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit13e105b400c3add0bc841eb4af97e086::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit13e105b400c3add0bc841eb4af97e086::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit13e105b400c3add0bc841eb4af97e086::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit404fe66b3d773ca4b1044f5da5700b94::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit404fe66b3d773ca4b1044f5da5700b94::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit404fe66b3d773ca4b1044f5da5700b94::$classMap;
 
         }, null, ClassLoader::class);
     }

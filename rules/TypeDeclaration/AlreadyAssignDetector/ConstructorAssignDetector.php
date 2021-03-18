@@ -7,6 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -14,6 +16,10 @@ use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
 use RectorPrefix20210318\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ConstructorAssignDetector
 {
+    /**
+     * @var string
+     */
+    private const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
     /**
      * @var PropertyAssignMatcher
      */
@@ -29,20 +35,25 @@ final class ConstructorAssignDetector
     }
     public function isPropertyAssigned(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
+        $constructClassMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \false;
+        }
         $isAssignedInConstructor = \false;
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
+        foreach ($constructClassMethod->stmts as $methodStmt) {
+            $methodStmt->setAttribute(self::IS_FIRST_LEVEL_STATEMENT, \true);
+            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
+                $methodStmt->expr->setAttribute(self::IS_FIRST_LEVEL_STATEMENT, \true);
+            }
+        }
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($constructClassMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if (!$expr instanceof \PhpParser\Node\Expr) {
                 return null;
             }
-            // is in constructor?
-            $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-            if ($methodName !== \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
-                return null;
-            }
             /** @var Assign $assign */
             $assign = $node;
-            $isFirstLevelStatement = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT);
+            $isFirstLevelStatement = $assign->getAttribute(self::IS_FIRST_LEVEL_STATEMENT);
             // cannot be nested
             if ($isFirstLevelStatement !== \true) {
                 return null;

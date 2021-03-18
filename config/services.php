@@ -7,6 +7,7 @@ use RectorPrefix20210318\Composer\Semver\VersionParser;
 use RectorPrefix20210318\Doctrine\Common\Annotations\Reader;
 use RectorPrefix20210318\Doctrine\Inflector\Inflector;
 use RectorPrefix20210318\Doctrine\Inflector\Rules\English\InflectorFactory;
+use RectorPrefix20210318\Nette\Caching\Cache;
 use PhpParser\BuilderFactory;
 use PhpParser\Lexer;
 use PhpParser\NodeFinder;
@@ -21,10 +22,8 @@ use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20210318\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix20210318\Psr\SimpleCache\CacheInterface;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
-use Rector\Caching\Cache\Adapter\FilesystemAdapterFactory;
+use Rector\Caching\Cache\NetteCacheFactory;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\PhpParser\Parser\NikicPhpParserFactory;
 use Rector\Core\PhpParser\Parser\PhpParserLexerFactory;
@@ -32,10 +31,6 @@ use Rector\DoctrineAnnotationGenerated\ConstantPreservingAnnotationReader;
 use Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
-use RectorPrefix20210318\Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use RectorPrefix20210318\Symfony\Component\Cache\Adapter\TagAwareAdapter;
-use RectorPrefix20210318\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use RectorPrefix20210318\Symfony\Component\Cache\Psr16Cache;
 use RectorPrefix20210318\Symfony\Component\Console\Application as SymfonyApplication;
 use RectorPrefix20210318\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -90,12 +85,7 @@ return static function (\RectorPrefix20210318\Symfony\Component\DependencyInject
     // cache
     $services->set(\PHPStan\Dependency\DependencyResolver::class)->factory([\RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
     $services->set(\PHPStan\File\FileHelper::class)->factory([\RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
-    $services->set(\RectorPrefix20210318\Symfony\Component\Cache\Psr16Cache::class);
-    $services->alias(\RectorPrefix20210318\Psr\SimpleCache\CacheInterface::class, \RectorPrefix20210318\Symfony\Component\Cache\Psr16Cache::class);
-    $services->set(\RectorPrefix20210318\Symfony\Component\Cache\Adapter\FilesystemAdapter::class)->factory([\RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\Caching\Cache\Adapter\FilesystemAdapterFactory::class), 'create']);
-    $services->set(\RectorPrefix20210318\Symfony\Component\Cache\Adapter\TagAwareAdapter::class)->arg('$itemsPool', \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210318\Symfony\Component\Cache\Adapter\FilesystemAdapter::class));
-    $services->alias(\RectorPrefix20210318\Psr\Cache\CacheItemPoolInterface::class, \RectorPrefix20210318\Symfony\Component\Cache\Adapter\FilesystemAdapter::class);
-    $services->alias(\RectorPrefix20210318\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface::class, \RectorPrefix20210318\Symfony\Component\Cache\Adapter\TagAwareAdapter::class);
+    $services->set(\RectorPrefix20210318\Nette\Caching\Cache::class)->factory([\RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\Caching\Cache\NetteCacheFactory::class), 'create']);
     // type resolving
     $services->set(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator::class);
     // PHPStan services

@@ -11,7 +11,6 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitor\NodeConnectingVisitor;
 use Rector\NodeCollector\NodeVisitor\NodeCollectorNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\FileInfoNodeVisitor;
-use Rector\NodeTypeResolver\NodeVisitor\FirstLevelNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor;
@@ -56,11 +55,7 @@ final class NodeScopeAndMetadataDecorator
      * @var FunctionLikeParamArgPositionNodeVisitor
      */
     private $functionLikeParamArgPositionNodeVisitor;
-    /**
-     * @var FirstLevelNodeVisitor
-     */
-    private $firstLevelNodeVisitor;
-    public function __construct(\PhpParser\NodeVisitor\CloningVisitor $cloningVisitor, \Rector\NodeTypeResolver\NodeVisitor\FileInfoNodeVisitor $fileInfoNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor $functionMethodAndClassNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor $namespaceNodeVisitor, \Rector\NodeCollector\NodeVisitor\NodeCollectorNodeVisitor $nodeCollectorNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver $phpStanNodeScopeResolver, \Rector\NodeTypeResolver\NodeVisitor\StatementNodeVisitor $statementNodeVisitor, \PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor $functionLikeParamArgPositionNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FirstLevelNodeVisitor $firstLevelNodeVisitor)
+    public function __construct(\PhpParser\NodeVisitor\CloningVisitor $cloningVisitor, \Rector\NodeTypeResolver\NodeVisitor\FileInfoNodeVisitor $fileInfoNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor $functionMethodAndClassNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor $namespaceNodeVisitor, \Rector\NodeCollector\NodeVisitor\NodeCollectorNodeVisitor $nodeCollectorNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver $phpStanNodeScopeResolver, \Rector\NodeTypeResolver\NodeVisitor\StatementNodeVisitor $statementNodeVisitor, \PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor $functionLikeParamArgPositionNodeVisitor)
     {
         $this->phpStanNodeScopeResolver = $phpStanNodeScopeResolver;
         $this->cloningVisitor = $cloningVisitor;
@@ -71,7 +66,6 @@ final class NodeScopeAndMetadataDecorator
         $this->nodeCollectorNodeVisitor = $nodeCollectorNodeVisitor;
         $this->nodeConnectingVisitor = $nodeConnectingVisitor;
         $this->functionLikeParamArgPositionNodeVisitor = $functionLikeParamArgPositionNodeVisitor;
-        $this->firstLevelNodeVisitor = $firstLevelNodeVisitor;
     }
     /**
      * @param Node[] $nodes
@@ -101,7 +95,6 @@ final class NodeScopeAndMetadataDecorator
         $nodeTraverser->addVisitor($this->nodeConnectingVisitor);
         $nodeTraverser->addVisitor($this->functionMethodAndClassNodeVisitor);
         $nodeTraverser->addVisitor($this->namespaceNodeVisitor);
-        $nodeTraverser->addVisitor($this->firstLevelNodeVisitor);
         $nodeTraverser->addVisitor($this->functionLikeParamArgPositionNodeVisitor);
         $nodes = $nodeTraverser->traverse($nodes);
         // this split is needed, so nodes have names, classes and namespaces
