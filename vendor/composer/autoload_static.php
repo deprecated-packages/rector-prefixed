@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit84a3adb0febfa275cbfc86713436fae9
+class ComposerStaticInit47680e1d9784313339aae87f4e94c6af
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2429,7 +2429,6 @@ class ComposerStaticInit84a3adb0febfa275cbfc86713436fae9
         'Rector\\DeadCode\\NodeAnalyzer\\DataProviderMethodNamesResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeAnalyzer/DataProviderMethodNamesResolver.php',
         'Rector\\DeadCode\\NodeCollector\\ModifiedVariableNamesCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/ModifiedVariableNamesCollector.php',
         'Rector\\DeadCode\\NodeCollector\\NodeByTypeAndPositionCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/NodeByTypeAndPositionCollector.php',
-        'Rector\\DeadCode\\NodeCollector\\UnusedParameterResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/UnusedParameterResolver.php',
         'Rector\\DeadCode\\NodeFinder\\NextVariableUsageNodeFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/NextVariableUsageNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\PreviousVariableAssignNodeFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/PreviousVariableAssignNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\VariableUseFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/VariableUseFinder.php',
@@ -2438,8 +2437,6 @@ class ComposerStaticInit84a3adb0febfa275cbfc86713436fae9
         'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/ControllerClassMethodManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/CountManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\LivingCodeManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php',
-        'Rector\\DeadCode\\NodeManipulator\\MagicMethodDetector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/MagicMethodDetector.php',
-        'Rector\\DeadCode\\NodeManipulator\\VariadicFunctionLikeDetector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/VariadicFunctionLikeDetector.php',
         'Rector\\DeadCode\\Rector\\Array_\\RemoveDuplicatedArrayKeyRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Array_/RemoveDuplicatedArrayKeyRector.php',
         'Rector\\DeadCode\\Rector\\Assign\\RemoveAssignOfVoidReturnFunctionRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Assign/RemoveAssignOfVoidReturnFunctionRector.php',
         'Rector\\DeadCode\\Rector\\Assign\\RemoveDoubleAssignRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Assign/RemoveDoubleAssignRector.php',
@@ -2455,7 +2452,6 @@ class ComposerStaticInit84a3adb0febfa275cbfc86713436fae9
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDelegatingParentCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDelegatingParentCallRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
-        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedParameterRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedParameterRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
         'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedDoctrineEntityMethodAndPropertyRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Class_/RemoveUnusedDoctrineEntityMethodAndPropertyRector.php',
@@ -3714,9 +3710,9 @@ class ComposerStaticInit84a3adb0febfa275cbfc86713436fae9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit84a3adb0febfa275cbfc86713436fae9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit84a3adb0febfa275cbfc86713436fae9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit84a3adb0febfa275cbfc86713436fae9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit47680e1d9784313339aae87f4e94c6af::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit47680e1d9784313339aae87f4e94c6af::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit47680e1d9784313339aae87f4e94c6af::$classMap;
 
         }, null, ClassLoader::class);
     }
