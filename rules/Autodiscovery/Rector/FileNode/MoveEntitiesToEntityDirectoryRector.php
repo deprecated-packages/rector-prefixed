@@ -78,9 +78,9 @@ CODE_SAMPLE
         return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
-     * @param FileNode $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isDoctrineEntityFileNode($node)) {
             return null;
@@ -97,7 +97,10 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
         return null;
     }
-    private function isDoctrineEntityFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
+    /**
+     * @param \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode
+     */
+    private function isDoctrineEntityFileNode($fileNode) : bool
     {
         $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {

@@ -81,11 +81,14 @@ CODE_SAMPLE
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
         if ($this->oldToNewClasses !== []) {

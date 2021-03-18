@@ -159,7 +159,7 @@ final class ClassMethodReturnTypeOverrideGuard
     }
     private function hasClassMethodExprReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($classMethod->getStmts(), function (\PhpParser\Node $node) : bool {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return \false;
             }

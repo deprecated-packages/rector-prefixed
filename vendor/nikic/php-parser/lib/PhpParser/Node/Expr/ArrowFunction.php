@@ -64,7 +64,7 @@ class ArrowFunction extends \PhpParser\Node\Expr implements \PhpParser\Node\Func
     /**
      * @return Node\Stmt\Return_[]
      */
-    public function getStmts() : array
+    public function getStmts() : ?array
     {
         return [new \PhpParser\Node\Stmt\Return_($this->expr)];
     }

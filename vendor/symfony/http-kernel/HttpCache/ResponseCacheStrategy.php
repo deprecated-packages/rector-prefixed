@@ -113,8 +113,9 @@ class ResponseCacheStrategy implements \RectorPrefix20210318\Symfony\Component\H
      * RFC2616, Section 13.4.
      *
      * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.4
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    private function willMakeFinalResponseUncacheable(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response) : bool
+    private function willMakeFinalResponseUncacheable($response) : bool
     {
         // RFC2616: A response received with a status code of 200, 203, 300, 301 or 410
         // MAY be stored by a cache […] unless a cache-control directive prohibits caching.
@@ -148,8 +149,11 @@ class ResponseCacheStrategy implements \RectorPrefix20210318\Symfony\Component\H
      *
      * If the value is lower than the currently stored value, we update the value, to keep a rolling
      * minimal value of each instruction. If the value is NULL, the directive will not be set on the final response.
+     * @param string $directive
+     * @param int|null $value
+     * @param int $age
      */
-    private function storeRelativeAgeDirective(string $directive, ?int $value, int $age)
+    private function storeRelativeAgeDirective($directive, $value, $age)
     {
         if (null === $value) {
             $this->ageDirectives[$directive] = \false;

@@ -17,7 +17,7 @@ trait ClassTrait
      *
      * @return $this
      */
-    public final function class(?string $class) : self
+    public final function class(?string $class)
     {
         $this->definition->setClass($class);
         return $this;

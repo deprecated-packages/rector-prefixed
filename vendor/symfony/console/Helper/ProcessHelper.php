@@ -27,12 +27,15 @@ class ProcessHelper extends \RectorPrefix20210318\Symfony\Component\Console\Help
      * Runs an external process.
      *
      * @param array|Process $cmd      An instance of Process or an array of the command and arguments
-     * @param callable|null $callback A PHP callback to run whenever there is some
+     * @param callable $callback A PHP callback to run whenever there is some
      *                                output available on STDOUT or STDERR
      *
      * @return Process The process that ran
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param string $error
+     * @param int $verbosity
      */
-    public function run(\RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null, int $verbosity = \RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) : \RectorPrefix20210318\Symfony\Component\Process\Process
+    public function run($output, $cmd, $error = null, $callback = null, $verbosity = \RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) : \RectorPrefix20210318\Symfony\Component\Process\Process
     {
         if (!\class_exists(\RectorPrefix20210318\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
@@ -79,7 +82,7 @@ class ProcessHelper extends \RectorPrefix20210318\Symfony\Component\Console\Help
      * exits with a non-zero exit code.
      *
      * @param string|Process $cmd      An instance of Process or a command to run
-     * @param callable|null  $callback A PHP callback to run whenever there is some
+     * @param callable  $callback A PHP callback to run whenever there is some
      *                                 output available on STDOUT or STDERR
      *
      * @return Process The process that ran
@@ -87,8 +90,10 @@ class ProcessHelper extends \RectorPrefix20210318\Symfony\Component\Console\Help
      * @throws ProcessFailedException
      *
      * @see run()
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param string $error
      */
-    public function mustRun(\RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null) : \RectorPrefix20210318\Symfony\Component\Process\Process
+    public function mustRun($output, $cmd, $error = null, $callback = null) : \RectorPrefix20210318\Symfony\Component\Process\Process
     {
         $process = $this->run($output, $cmd, $error, $callback);
         if (!$process->isSuccessful()) {
@@ -98,8 +103,11 @@ class ProcessHelper extends \RectorPrefix20210318\Symfony\Component\Console\Help
     }
     /**
      * Wraps a Process callback to add debugging output.
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Process\Process $process
+     * @param callable $callback
      */
-    public function wrapCallback(\RectorPrefix20210318\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210318\Symfony\Component\Process\Process $process, callable $callback = null) : callable
+    public function wrapCallback($output, $process, $callback = null) : callable
     {
         if ($output instanceof \RectorPrefix20210318\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
@@ -112,7 +120,10 @@ class ProcessHelper extends \RectorPrefix20210318\Symfony\Component\Console\Help
             }
         };
     }
-    private function escapeString(string $str) : string
+    /**
+     * @param string $str
+     */
+    private function escapeString($str) : string
     {
         return \str_replace('<', '\\<', $str);
     }

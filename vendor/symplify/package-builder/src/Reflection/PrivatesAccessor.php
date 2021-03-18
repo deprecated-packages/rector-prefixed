@@ -12,20 +12,27 @@ final class PrivatesAccessor
 {
     /**
      * @return mixed
+     * @param object $object
      */
-    public function getPrivateProperty(object $object, string $propertyName)
+    public function getPrivateProperty($object, string $propertyName)
     {
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         return $propertyReflection->getValue($object);
     }
-    public function setPrivateProperty(object $object, string $propertyName, $value) : void
+    /**
+     * @param object $object
+     */
+    public function setPrivateProperty($object, string $propertyName, $value) : void
     {
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         $propertyReflection->setValue($object, $value);
     }
-    private function resolvePropertyReflection(object $object, string $propertyName) : \ReflectionProperty
+    /**
+     * @param object $object
+     */
+    private function resolvePropertyReflection($object, string $propertyName) : \ReflectionProperty
     {
         if (\property_exists($object, $propertyName)) {
             return new \ReflectionProperty($object, $propertyName);

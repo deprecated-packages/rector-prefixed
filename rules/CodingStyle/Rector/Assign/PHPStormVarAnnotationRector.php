@@ -55,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $expression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         // unable to analyze
@@ -99,7 +99,10 @@ CODE_SAMPLE
         $nextNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         return $node;
     }
-    private function getDocContent(\PhpParser\Node $node) : string
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function getDocContent($node) : string
     {
         $docComment = $node->getDocComment();
         if ($docComment !== null) {
@@ -114,7 +117,10 @@ CODE_SAMPLE
         }
         return '';
     }
-    private function createDocComment(\PhpParser\Node $node) : \PhpParser\Comment\Doc
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function createDocComment($node) : \PhpParser\Comment\Doc
     {
         if ($node->getDocComment() !== null) {
             return $node->getDocComment();

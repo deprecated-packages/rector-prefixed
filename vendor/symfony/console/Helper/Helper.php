@@ -21,8 +21,9 @@ abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console
     protected $helperSet = null;
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
-    public function setHelperSet(\RectorPrefix20210318\Symfony\Component\Console\Helper\HelperSet $helperSet = null)
+    public function setHelperSet($helperSet = null)
     {
         $this->helperSet = $helperSet;
     }
@@ -37,8 +38,9 @@ abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console
      * Returns the length of a string, using mb_strwidth if it is available.
      *
      * @return int The length of the string
+     * @param string|null $string
      */
-    public static function strlen(?string $string)
+    public static function strlen($string)
     {
         $string = (string) $string;
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
@@ -50,8 +52,11 @@ abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console
      * Returns the subset of a string, using mb_substr if it is available.
      *
      * @return string The string subset
+     * @param string $string
+     * @param int $from
+     * @param int $length
      */
-    public static function substr(string $string, int $from, int $length = null)
+    public static function substr($string, $from, $length = null)
     {
         $string = (string) $string;
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
@@ -73,7 +78,10 @@ abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console
             }
         }
     }
-    public static function formatMemory(int $memory)
+    /**
+     * @param int $memory
+     */
+    public static function formatMemory($memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
             return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
@@ -86,11 +94,17 @@ abstract class Helper implements \RectorPrefix20210318\Symfony\Component\Console
         }
         return \sprintf('%d B', $memory);
     }
-    public static function strlenWithoutDecoration(\RectorPrefix20210318\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    /**
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     */
+    public static function strlenWithoutDecoration($formatter, $string)
     {
         return self::strlen(self::removeDecoration($formatter, $string));
     }
-    public static function removeDecoration(\RectorPrefix20210318\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    /**
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     */
+    public static function removeDecoration($formatter, $string)
     {
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(\false);

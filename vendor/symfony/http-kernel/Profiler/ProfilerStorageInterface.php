@@ -29,12 +29,12 @@ interface ProfilerStorageInterface
      * Finds profiler tokens for the given criteria.
      *
      * @param int|null $limit The maximum number of tokens to return
-     * @param int|null $start The start date to search from
-     * @param int|null $end   The end date to search to
+     * @param int $start The start date to search from
+     * @param int $end   The end date to search to
      *
      * @return array An array of tokens
      */
-    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null) : array;
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, $start = null, $end = null) : array;
     /**
      * Reads data associated with the given token.
      *

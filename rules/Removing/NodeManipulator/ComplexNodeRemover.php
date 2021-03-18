@@ -143,9 +143,8 @@ final class ComplexNodeRemover
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
-        $constructClassMethodStmts = $constructClassMethod->stmts;
         foreach ($constructClassMethod->getParams() as $param) {
-            $variable = $this->betterNodeFinder->findFirst($constructClassMethodStmts, function (\PhpParser\Node $node) use($param) : bool {
+            $variable = $this->betterNodeFinder->findFirst((array) $constructClassMethod->stmts, function (\PhpParser\Node $node) use($param) : bool {
                 return $this->nodeComparator->areNodesEqual($param->var, $node);
             });
             if (!$variable instanceof \PhpParser\Node) {

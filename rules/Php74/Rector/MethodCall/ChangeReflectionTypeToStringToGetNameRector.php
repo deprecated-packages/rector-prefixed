@@ -80,7 +80,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|String_ $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
@@ -95,7 +95,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorMethodCall($methodCall) : ?\PhpParser\Node
     {
         $this->collectCallByVariable($methodCall);
         if ($this->shouldSkipMethodCall($methodCall)) {
@@ -109,7 +112,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorIfHasReturnTypeWasCalled(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorIfHasReturnTypeWasCalled($methodCall) : ?\PhpParser\Node
     {
         if (!$methodCall->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
@@ -122,7 +128,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function collectCallByVariable(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function collectCallByVariable($methodCall) : void
     {
         // bit workaround for now
         if ($methodCall->var instanceof \PhpParser\Node\Expr\Variable) {
@@ -137,7 +146,10 @@ CODE_SAMPLE
             $this->callsByVariable[$variableName][] = $methodName;
         }
     }
-    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkipMethodCall($methodCall) : bool
     {
         $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         // just added node → skip it
@@ -152,14 +164,20 @@ CODE_SAMPLE
         // probably already converted
         return !$parentNode instanceof \PhpParser\Node\Expr\BinaryOp\Concat;
     }
-    private function isReflectionParameterGetTypeMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function isReflectionParameterGetTypeMethodCall($methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('ReflectionParameter'))) {
             return \false;
         }
         return $this->isName($methodCall->name, 'getType');
     }
-    private function refactorReflectionParameterGetName(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Ternary
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorReflectionParameterGetName($methodCall) : \PhpParser\Node\Expr\Ternary
     {
         $getNameMethodCall = $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
         $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
@@ -167,14 +185,20 @@ CODE_SAMPLE
         $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
         return $ternary;
     }
-    private function isReflectionFunctionAbstractGetReturnTypeMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function isReflectionFunctionAbstractGetReturnTypeMethodCall($methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('ReflectionFunctionAbstract'))) {
             return \false;
         }
         return $this->isName($methodCall->name, 'getReturnType');
     }
-    private function refactorReflectionFunctionGetReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function refactorReflectionFunctionGetReturnType($methodCall) : \PhpParser\Node
     {
         $refactoredMethodCall = $this->refactorIfHasReturnTypeWasCalled($methodCall);
         if ($refactoredMethodCall !== null) {

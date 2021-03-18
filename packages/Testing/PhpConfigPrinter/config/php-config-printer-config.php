@@ -11,8 +11,11 @@ use RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\YamlFileContentProvi
 return static function (\RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
-    $services->set(\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
-    $services->alias(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
-    $services->set(\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
-    $services->alias(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+    // only for dev
+    if (\interface_exists(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class)) {
+        $services->set(\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
+        $services->alias(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface::class, \Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);
+        $services->set(\Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+        $services->alias(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class, \Rector\Testing\PhpConfigPrinter\YamlFileContentProvider::class);
+    }
 };

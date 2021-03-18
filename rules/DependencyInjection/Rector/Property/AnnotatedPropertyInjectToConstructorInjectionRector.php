@@ -105,9 +105,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
@@ -137,7 +137,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $tagValueNode) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     * @param \PHPStan\Type\Type $type
+     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $tagValueNode
+     */
+    private function refactorPropertyWithAnnotation($property, $type, $tagValueNode) : void
     {
         $propertyName = $this->getName($property);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
@@ -149,7 +154,11 @@ CODE_SAMPLE
         }
         $this->addConstructorDependencyToClass($classLike, $type, $propertyName, $property->flags);
     }
-    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function refactorNetteInjectProperty($phpDocInfo, $property) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($property)) {

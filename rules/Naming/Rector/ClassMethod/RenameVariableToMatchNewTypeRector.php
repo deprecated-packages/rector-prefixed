@@ -69,9 +69,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $hasChanged = \false;
         $assignsOfNew = $this->getAssignsOfNew($node);
@@ -105,8 +105,9 @@ CODE_SAMPLE
     }
     /**
      * @return Assign[]
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function getAssignsOfNew(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function getAssignsOfNew($classMethod) : array
     {
         /** @var Assign[] $assigns */
         $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\Assign::class);

@@ -30,7 +30,10 @@ final class ConstantReferenceIdentifierRestorer
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->annotationVisibilityDetector = $annotationVisibilityDetector;
     }
-    public function restoreObject(object $annotation) : void
+    /**
+     * @param object $annotation
+     */
+    public function restoreObject($annotation) : void
     {
         // restore constant value back to original value
         $identifierToResolvedValues = \Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector::provide();
@@ -76,8 +79,9 @@ final class ConstantReferenceIdentifierRestorer
     /**
      * @param mixed[] $value
      * @param array<string, mixed> $identifierToResolvedValues
+     * @param object $annotation
      */
-    private function restoreNestedValue(array $value, array $identifierToResolvedValues, bool $isPrivate, object $annotation, string $propertyName) : void
+    private function restoreNestedValue(array $value, array $identifierToResolvedValues, bool $isPrivate, $annotation, string $propertyName) : void
     {
         foreach ($value as $key => $nestedValue) {
             $originalIdentifier = $this->matchIdentifierBasedOnResolverValue($identifierToResolvedValues, $nestedValue);

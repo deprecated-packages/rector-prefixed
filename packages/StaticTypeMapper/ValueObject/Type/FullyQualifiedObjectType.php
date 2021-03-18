@@ -18,7 +18,7 @@ final class FullyQualifiedObjectType extends \PHPStan\Type\ObjectType
     /**
      * @param AliasedObjectType|FullyQualifiedObjectType $comparedObjectType
      */
-    public function areShortNamesEqual(\PHPStan\Type\ObjectType $comparedObjectType) : bool
+    public function areShortNamesEqual($comparedObjectType) : bool
     {
         return $this->getShortName() === $comparedObjectType->getShortName();
     }

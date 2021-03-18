@@ -27,9 +27,10 @@ class Uuid extends \RectorPrefix20210318\Symfony\Component\Uid\AbstractUid
         $this->uid = \strtr($uuid, 'ABCDEF', 'abcdef');
     }
     /**
-     * @return static
+     * @return mixed
+     * @param string $uuid
      */
-    public static function fromString(string $uuid) : \RectorPrefix20210318\parent
+    public static function fromString($uuid)
     {
         if (22 === \strlen($uuid) && 22 === \strspn($uuid, \RectorPrefix20210318\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
             $uuid = \RectorPrefix20210318\Symfony\Component\Uid\BinaryUtil::fromBase($uuid, \RectorPrefix20210318\Symfony\Component\Uid\BinaryUtil::BASE58);
@@ -70,7 +71,11 @@ class Uuid extends \RectorPrefix20210318\Symfony\Component\Uid\AbstractUid
     {
         return new \RectorPrefix20210318\Symfony\Component\Uid\UuidV1();
     }
-    public static final function v3(self $namespace, string $name) : \RectorPrefix20210318\Symfony\Component\Uid\UuidV3
+    /**
+     * @param $this $namespace
+     * @param string $name
+     */
+    public static final function v3($namespace, $name) : \RectorPrefix20210318\Symfony\Component\Uid\UuidV3
     {
         // don't use uuid_generate_md5(), some versions are buggy
         $uuid = \md5(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true);
@@ -80,7 +85,11 @@ class Uuid extends \RectorPrefix20210318\Symfony\Component\Uid\AbstractUid
     {
         return new \RectorPrefix20210318\Symfony\Component\Uid\UuidV4();
     }
-    public static final function v5(self $namespace, string $name) : \RectorPrefix20210318\Symfony\Component\Uid\UuidV5
+    /**
+     * @param $this $namespace
+     * @param string $name
+     */
+    public static final function v5($namespace, $name) : \RectorPrefix20210318\Symfony\Component\Uid\UuidV5
     {
         // don't use uuid_generate_sha1(), some versions are buggy
         $uuid = \substr(\sha1(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true), 0, 16);
@@ -90,7 +99,10 @@ class Uuid extends \RectorPrefix20210318\Symfony\Component\Uid\AbstractUid
     {
         return new \RectorPrefix20210318\Symfony\Component\Uid\UuidV6();
     }
-    public static function isValid(string $uuid) : bool
+    /**
+     * @param string $uuid
+     */
+    public static function isValid($uuid) : bool
     {
         if (__CLASS__ === static::class) {
             return \uuid_is_valid($uuid);
@@ -105,14 +117,21 @@ class Uuid extends \RectorPrefix20210318\Symfony\Component\Uid\AbstractUid
     {
         return $this->uid;
     }
-    public function compare(parent $other) : int
+    /**
+     * @param mixed $other
+     */
+    public function compare($other) : int
     {
         if (\false !== ($cmp = \uuid_compare($this->uid, $other->uid))) {
             return $cmp;
         }
         return parent::compare($other);
     }
-    private static function format(string $uuid, string $version) : string
+    /**
+     * @param string $uuid
+     * @param string $version
+     */
+    private static function format($uuid, $version) : string
     {
         $uuid[8] = $uuid[8] & "?" | "€";
         $uuid = \substr_replace(\bin2hex($uuid), '-', 8, 0);

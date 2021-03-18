@@ -101,7 +101,7 @@ final class PromotedPropertyResolver
         $paramByFirstUsage = [];
         foreach ($classMethod->params as $param) {
             $paramName = $this->nodeNameResolver->getName($param);
-            $firstParamVariable = $this->betterNodeFinder->findFirst($classMethod->stmts, function (\PhpParser\Node $node) use($paramName) : bool {
+            $firstParamVariable = $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($paramName) : bool {
                 if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                     return \false;
                 }

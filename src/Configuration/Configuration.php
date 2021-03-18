@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
 use RectorPrefix20210318\Jean85\PrettyVersions;
+use RectorPrefix20210318\Nette\Utils\Strings;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
@@ -88,6 +89,7 @@ final class Configuration
         $commandLinePaths = (array) $input->getArgument(\Rector\Core\Configuration\Option::SOURCE);
         // manual command line value has priority
         if ($commandLinePaths !== []) {
+            $commandLinePaths = $this->correctBashSpacePaths($commandLinePaths);
             $this->paths = $commandLinePaths;
         }
     }
@@ -212,5 +214,19 @@ final class Configuration
             return null;
         }
         return $outputFileOption;
+    }
+    /**
+     * @param string[] $commandLinePaths
+     * @return string[]
+     */
+    private function correctBashSpacePaths(array $commandLinePaths) : array
+    {
+        // fixes bash edge-case that to merges string with space to one
+        foreach ($commandLinePaths as $commandLinePath) {
+            if (\RectorPrefix20210318\Nette\Utils\Strings::contains($commandLinePath, ' ')) {
+                $commandLinePaths = \explode(' ', $commandLinePath);
+            }
+        }
+        return $commandLinePaths;
     }
 }

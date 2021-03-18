@@ -24,57 +24,68 @@ class ImmutableEventDispatcher implements \RectorPrefix20210318\Symfony\Componen
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
+     * @param object $event
+     * @return object
      */
-    public function dispatch(object $event, string $eventName = null) : object
+    public function dispatch($event, $eventName = null)
     {
         return $this->dispatcher->dispatch($event, $eventName);
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
+     * @param int $priority
      */
-    public function addListener(string $eventName, $listener, int $priority = 0)
+    public function addListener($eventName, $listener, $priority = 0)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function addSubscriber($subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      */
-    public function removeListener(string $eventName, $listener)
+    public function removeListener($eventName, $listener)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber(\RectorPrefix20210318\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function removeSubscriber($subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      */
-    public function getListeners(string $eventName = null)
+    public function getListeners($eventName = null)
     {
         return $this->dispatcher->getListeners($eventName);
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      */
-    public function getListenerPriority(string $eventName, $listener)
+    public function getListenerPriority($eventName, $listener)
     {
         return $this->dispatcher->getListenerPriority($eventName, $listener);
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      */
-    public function hasListeners(string $eventName = null)
+    public function hasListeners($eventName = null)
     {
         return $this->dispatcher->hasListeners($eventName);
     }

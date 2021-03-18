@@ -42,7 +42,10 @@ To display the list of available commands, please use the <info>list</info> comm
 EOF
 );
     }
-    public function setCommand(\RectorPrefix20210318\Symfony\Component\Console\Command\Command $command)
+    /**
+     * @param \Symfony\Component\Console\Command\Command $command
+     */
+    public function setCommand($command)
     {
         $this->command = $command;
     }

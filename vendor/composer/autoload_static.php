@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
+class ComposerStaticInita12e83988b18dcc8aa7b17c6e4688443
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -19,6 +19,8 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -26,6 +28,8 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         array (
             'Symplify\\SymfonyPhpConfig\\' => 26,
             'Symplify\\RuleDocGenerator\\' => 26,
+            'Symfony\\Polyfill\\Php74\\' => 23,
+            'Symfony\\Polyfill\\Php72\\' => 23,
         ),
         'R' => 
         array (
@@ -38,9 +42,7 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
             'RectorPrefix20210318\\Symplify\\Skipper\\' => 38,
             'RectorPrefix20210318\\Symplify\\SimplePhpDocParser\\' => 49,
             'RectorPrefix20210318\\Symplify\\SetConfigResolver\\' => 48,
-            'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\' => 47,
             'RectorPrefix20210318\\Symplify\\PackageBuilder\\' => 45,
-            'RectorPrefix20210318\\Symplify\\MarkdownDiff\\' => 43,
             'RectorPrefix20210318\\Symplify\\EasyTesting\\' => 42,
             'RectorPrefix20210318\\Symplify\\ConsolePackageBuilder\\' => 52,
             'RectorPrefix20210318\\Symplify\\ConsoleColorDiff\\' => 47,
@@ -57,7 +59,6 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
             'RectorPrefix20210318\\Symfony\\Contracts\\Service\\' => 47,
             'RectorPrefix20210318\\Symfony\\Contracts\\HttpClient\\' => 50,
             'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\' => 55,
-            'RectorPrefix20210318\\Symfony\\Component\\Yaml\\' => 44,
             'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\' => 49,
             'RectorPrefix20210318\\Symfony\\Component\\Uid\\' => 43,
             'RectorPrefix20210318\\Symfony\\Component\\String\\' => 46,
@@ -97,7 +98,15 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         ),
         'Symplify\\RuleDocGenerator\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
+            0 => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src',
+        ),
+        'Symfony\\Polyfill\\Php74\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
+        ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Rector\\Core\\' => 
         array (
@@ -136,17 +145,9 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         array (
             0 => __DIR__ . '/..' . '/symplify/set-config-resolver/src',
         ),
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/php-config-printer/src',
-        ),
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/package-builder/src',
-        ),
-        'RectorPrefix20210318\\Symplify\\MarkdownDiff\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/markdown-diff/src',
         ),
         'RectorPrefix20210318\\Symplify\\EasyTesting\\' => 
         array (
@@ -211,10 +212,6 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
-        ),
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\' => 
         array (
@@ -1525,18 +1522,6 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\Server\\DumpServer' => __DIR__ . '/..' . '/symfony/var-dumper/Server/DumpServer.php',
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait' => __DIR__ . '/..' . '/symfony/var-dumper/Test/VarDumperTestTrait.php',
         'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\VarDumper' => __DIR__ . '/..' . '/symfony/var-dumper/VarDumper.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Command\\LintCommand' => __DIR__ . '/..' . '/symfony/yaml/Command/LintCommand.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Dumper' => __DIR__ . '/..' . '/symfony/yaml/Dumper.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Escaper' => __DIR__ . '/..' . '/symfony/yaml/Escaper.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Exception\\DumpException' => __DIR__ . '/..' . '/symfony/yaml/Exception/DumpException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/yaml/Exception/ExceptionInterface.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Exception\\ParseException' => __DIR__ . '/..' . '/symfony/yaml/Exception/ParseException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/yaml/Exception/RuntimeException.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Inline' => __DIR__ . '/..' . '/symfony/yaml/Inline.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Parser' => __DIR__ . '/..' . '/symfony/yaml/Parser.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Tag\\TaggedValue' => __DIR__ . '/..' . '/symfony/yaml/Tag/TaggedValue.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Unescaper' => __DIR__ . '/..' . '/symfony/yaml/Unescaper.php',
-        'RectorPrefix20210318\\Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\Event' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/Event.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts/EventDispatcherInterface.php',
         'RectorPrefix20210318\\Symfony\\Contracts\\HttpClient\\ChunkInterface' => __DIR__ . '/..' . '/symfony/http-client-contracts/ChunkInterface.php',
@@ -1637,10 +1622,6 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         'RectorPrefix20210318\\Symplify\\EasyTesting\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Option.php',
         'RectorPrefix20210318\\Symplify\\EasyTesting\\ValueObject\\Prefix' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Prefix.php',
         'RectorPrefix20210318\\Symplify\\EasyTesting\\ValueObject\\SplitLine' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/SplitLine.php',
-        'RectorPrefix20210318\\Symplify\\MarkdownDiff\\Bundle\\MarkdownDiffBundle' => __DIR__ . '/..' . '/symplify/markdown-diff/src/Bundle/MarkdownDiffBundle.php',
-        'RectorPrefix20210318\\Symplify\\MarkdownDiff\\DependencyInjection\\Extension\\MarkdownDiffExtension' => __DIR__ . '/..' . '/symplify/markdown-diff/src/DependencyInjection/Extension/MarkdownDiffExtension.php',
-        'RectorPrefix20210318\\Symplify\\MarkdownDiff\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/..' . '/symplify/markdown-diff/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
-        'RectorPrefix20210318\\Symplify\\MarkdownDiff\\Differ\\MarkdownDiffer' => __DIR__ . '/..' . '/symplify/markdown-diff/src/Differ/MarkdownDiffer.php',
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\Composer\\PackageVersionProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/PackageVersionProvider.php',
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\Composer\\VendorDirProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/VendorDirProvider.php',
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\Configuration\\StaticEolConfiguration' => __DIR__ . '/..' . '/symplify/package-builder/src/Configuration/StaticEolConfiguration.php',
@@ -1671,76 +1652,6 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\ValueObject\\MethodName' => __DIR__ . '/..' . '/symplify/package-builder/src/ValueObject/MethodName.php',
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/package-builder/src/ValueObject/Option.php',
         'RectorPrefix20210318\\Symplify\\PackageBuilder\\Yaml\\ParametersMerger' => __DIR__ . '/..' . '/symplify/package-builder/src/Yaml/ParametersMerger.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Bundle\\PhpConfigPrinterBundle' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Bundle/PhpConfigPrinterBundle.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\AliasCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/AliasCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ClassServiceCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ClassServiceCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ConfiguredServiceCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ConfiguredServiceCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ExtensionConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ExtensionConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ImportCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ImportCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\InstanceOfNestedCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/InstanceOfNestedCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\NameOnlyServiceCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/NameOnlyServiceCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ParameterCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ParameterCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ResourceCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ResourceCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\CaseConverter\\ServicesDefaultsCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ServicesDefaultsCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Configuration\\SymfonyFunctionNameProvider' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Configuration/SymfonyFunctionNameProvider.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\CaseConverterInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/CaseConverterInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\Converter\\ServiceOptionsKeyYamlToPhpFactoryInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/Converter/ServiceOptionsKeyYamlToPhpFactoryInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\NestedCaseConverterInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/NestedCaseConverterInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\RoutingCaseConverterInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/RoutingCaseConverterInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\SymfonyVersionFeatureGuardInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/SymfonyVersionFeatureGuardInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Contract\\YamlFileContentProviderInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/YamlFileContentProviderInterface.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Converter\\ServiceOptionsKeyYamlToPhpFactory\\TagsServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Converter/ServiceOptionsKeyYamlToPhpFactory/TagsServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\DependencyInjection\\Extension\\PhpConfigPrinterExtension' => __DIR__ . '/..' . '/symplify/php-config-printer/src/DependencyInjection/Extension/PhpConfigPrinterExtension.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Dummy\\DummySymfonyVersionFeatureGuard' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Dummy/DummySymfonyVersionFeatureGuard.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Dummy\\DummyYamlFileContentProvider' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Dummy/DummyYamlFileContentProvider.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Exception\\NotImplementedYetException' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Exception/NotImplementedYetException.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ExprResolver\\ServiceReferenceExprResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/ServiceReferenceExprResolver.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ExprResolver\\StringExprResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/StringExprResolver.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ExprResolver\\TaggedReturnsCloneResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/TaggedReturnsCloneResolver.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ExprResolver\\TaggedServiceResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/TaggedServiceResolver.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\HttpKernel\\PhpConfigPrinterKernel' => __DIR__ . '/..' . '/symplify/php-config-printer/src/HttpKernel/PhpConfigPrinterKernel.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Naming\\ClassNaming' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Naming/ClassNaming.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\ArgsNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ArgsNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\CommonNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/CommonNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\ConstantNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ConstantNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\ContainerConfiguratorReturnClosureFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ContainerConfiguratorReturnClosureFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\ContainerNestedNodesFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ContainerNestedNodesFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\NewValueObjectFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/NewValueObjectFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\RoutingConfiguratorReturnClosureFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/RoutingConfiguratorReturnClosureFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\Service\\AutoBindNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/Service/AutoBindNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\Service\\ServiceOptionNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/Service/ServiceOptionNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\Service\\ServicesPhpNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/Service/ServicesPhpNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeFactory\\Service\\SingleServicePhpNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/Service/SingleServicePhpNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeTraverser\\ImportFullyQualifiedNamesNodeTraverser' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeTraverser/ImportFullyQualifiedNamesNodeTraverser.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\NodeVisitor\\ImportFullyQualifiedNamesNodeVisitor' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeVisitor/ImportFullyQualifiedNamesNodeVisitor.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\PhpParser\\NodeFactory\\ConfiguratorClosureNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/PhpParser/NodeFactory/ConfiguratorClosureNodeFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Printer\\ArrayDecorator\\ServiceConfigurationDecorator' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Printer/ArrayDecorator/ServiceConfigurationDecorator.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Printer\\NodeDecorator\\EmptyLineNodeDecorator' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Printer/NodeDecorator/EmptyLineNodeDecorator.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Printer\\PhpParserPhpConfigPrinter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Printer/PhpParserPhpConfigPrinter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Printer\\SmartPhpConfigPrinter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Printer/SmartPhpConfigPrinter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Provider\\CurrentFilePathProvider' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Provider/CurrentFilePathProvider.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Reflection\\ConstantNameFromValueResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Reflection/ConstantNameFromValueResolver.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\RoutingCaseConverter\\ImportRoutingCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/RoutingCaseConverter/ImportRoutingCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\RoutingCaseConverter\\PathRoutingCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/RoutingCaseConverter/PathRoutingCaseConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionAnalyzer\\ServiceOptionAnalyzer' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionAnalyzer/ServiceOptionAnalyzer.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\ArgumentsServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/ArgumentsServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\CallsServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/CallsServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\DecoratesServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/DecoratesServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\DeprecatedServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/DeprecatedServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\FactoryConfiguratorServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/FactoryConfiguratorServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\PropertiesServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/PropertiesServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\SharedPublicServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/SharedPublicServiceOptionKeyYamlToPhpFactory.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Sorter\\YamlArgumentSorter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Sorter/YamlArgumentSorter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\AttributeKey' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/AttributeKey.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\FunctionName' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/FunctionName.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\MethodName' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/MethodName.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\SymfonyVersionFeature' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/SymfonyVersionFeature.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\VariableName' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/VariableName.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\YamlKey' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/YamlKey.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\ValueObject\\YamlServiceKey' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/YamlServiceKey.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\YamlToPhpConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/YamlToPhpConverter.php',
-        'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\Yaml\\CheckerServiceParametersShifter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Yaml/CheckerServiceParametersShifter.php',
         'RectorPrefix20210318\\Symplify\\SetConfigResolver\\AbstractConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/AbstractConfigResolver.php',
         'RectorPrefix20210318\\Symplify\\SetConfigResolver\\Bootstrap\\InvalidSetReporter' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Bootstrap/InvalidSetReporter.php',
         'RectorPrefix20210318\\Symplify\\SetConfigResolver\\ConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/ConfigResolver.php',
@@ -3582,38 +3493,21 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
         'Rector\\Visibility\\Rector\\Property\\ChangePropertyVisibilityRector' => __DIR__ . '/../..' . '/rules/Visibility/Rector/Property/ChangePropertyVisibilityRector.php',
         'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
         'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => __DIR__ . '/../..' . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
-        'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
-        'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
-        'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
-        'Symplify\\RuleDocGenerator\\Contract\\CodeSampleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/CodeSampleInterface.php',
-        'Symplify\\RuleDocGenerator\\Contract\\ConfigurableRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/ConfigurableRuleInterface.php',
-        'Symplify\\RuleDocGenerator\\Contract\\DocumentedRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/DocumentedRuleInterface.php',
-        'Symplify\\RuleDocGenerator\\Contract\\RuleCodeSamplePrinterInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/RuleCodeSamplePrinterInterface.php',
-        'Symplify\\RuleDocGenerator\\DirectoryToMarkdownPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/DirectoryToMarkdownPrinter.php',
-        'Symplify\\RuleDocGenerator\\Exception\\PoorDocumentationException' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Exception/PoorDocumentationException.php',
-        'Symplify\\RuleDocGenerator\\Finder\\ClassByTypeFinder' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Finder/ClassByTypeFinder.php',
-        'Symplify\\RuleDocGenerator\\HttpKernel\\RuleDocGeneratorKernel' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/HttpKernel/RuleDocGeneratorKernel.php',
-        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\BadGoodCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/BadGoodCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\CodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/CodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\DiffCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/DiffCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\Printer\\MarkdownCodeWrapper' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/MarkdownCodeWrapper.php',
-        'Symplify\\RuleDocGenerator\\Printer\\RuleDefinitionsPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/RuleDefinitionsPrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\ConfiguredCodeSamplerPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/ConfiguredCodeSamplerPrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCSFixerRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCSFixerRuleCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCodeSnifferRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCodeSnifferRuleCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPStanRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPStanRuleCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\RectorRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/RectorRuleCodeSamplePrinter.php',
-        'Symplify\\RuleDocGenerator\\RuleDefinitionsResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleDefinitionsResolver.php',
-        'Symplify\\RuleDocGenerator\\Text\\KeywordHighlighter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Text/KeywordHighlighter.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\AbstractCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/AbstractCodeSample.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\CodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/CodeSample.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ComposerJsonAwareCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ComposerJsonAwareCodeSample.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ConfiguredCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ConfiguredCodeSample.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ExtraFileCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ExtraFileCodeSample.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\Lines' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Lines.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Option.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\RuleClassWithFilePath' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/RuleClassWithFilePath.php',
-        'Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/RuleDefinition.php',
+        'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
+        'Symfony\\Polyfill\\Php74\\Php74' => __DIR__ . '/..' . '/symfony/polyfill-php74/Php74.php',
+        'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Contract/Category/CategoryInfererInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\CodeSampleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Contract/CodeSampleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\ConfigurableRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Contract/ConfigurableRuleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\DocumentedRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\RuleCodeSamplePrinterInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Contract/RuleCodeSamplePrinterInterface.php',
+        'Symplify\\RuleDocGenerator\\Exception\\PoorDocumentationException' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Exception/PoorDocumentationException.php',
+        'Symplify\\RuleDocGenerator\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/Exception/ShouldNotHappenException.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\AbstractCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/AbstractCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\CodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/CodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ComposerJsonAwareCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/ComposerJsonAwareCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ConfiguredCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/ConfiguredCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ExtraFileCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/ExtraFileCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/RuleDefinition.php',
         'Symplify\\SymfonyPhpConfig\\Exception\\ValueObjectException' => __DIR__ . '/..' . '/symplify/symfony-php-config/src/Exception/ValueObjectException.php',
         'Symplify\\SymfonyPhpConfig\\Reflection\\ArgumentAndParameterFactory' => __DIR__ . '/..' . '/symplify/symfony-php-config/src/Reflection/ArgumentAndParameterFactory.php',
         'Symplify\\SymfonyPhpConfig\\ValueObjectInliner' => __DIR__ . '/..' . '/symplify/symfony-php-config/src/ValueObjectInliner.php',
@@ -3622,9 +3516,9 @@ class ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf0f20e570fb53772bbcd499c9471a58c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita12e83988b18dcc8aa7b17c6e4688443::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita12e83988b18dcc8aa7b17c6e4688443::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita12e83988b18dcc8aa7b17c6e4688443::$classMap;
 
         }, null, ClassLoader::class);
     }

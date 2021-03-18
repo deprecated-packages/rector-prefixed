@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->matches($node)) {
             return null;
@@ -76,7 +76,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processStringKey(\PhpParser\Node\Scalar\String_ $string) : void
+    /**
+     * @param \PhpParser\Node\Scalar\String_ $string
+     */
+    private function processStringKey($string) : void
     {
         $currentOptionName = $string->value;
         $string->value = self::OLD_TO_NEW_OPTION[$currentOptionName] ?? $string->value;

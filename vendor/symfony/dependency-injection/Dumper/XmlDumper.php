@@ -53,7 +53,10 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
         $this->document = null;
         return $this->container->resolveEnvPlaceholders($xml);
     }
-    private function addParameters(\DOMElement $parent)
+    /**
+     * @param \DOMElement $parent
+     */
+    private function addParameters($parent)
     {
         $data = $this->container->getParameterBag()->all();
         if (!$data) {
@@ -66,7 +69,11 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
         $parent->appendChild($parameters);
         $this->convertParameters($data, 'parameter', $parameters);
     }
-    private function addMethodCalls(array $methodcalls, \DOMElement $parent)
+    /**
+     * @param mixed[] $methodcalls
+     * @param \DOMElement $parent
+     */
+    private function addMethodCalls($methodcalls, $parent)
     {
         foreach ($methodcalls as $methodcall) {
             $call = $this->document->createElement('call');
@@ -80,7 +87,12 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
             $parent->appendChild($call);
         }
     }
-    private function addService(\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, \DOMElement $parent)
+    /**
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string|null $id
+     * @param \DOMElement $parent
+     */
+    private function addService($definition, $id, $parent)
     {
         $service = $this->document->createElement('service');
         if (null !== $id) {
@@ -192,7 +204,12 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
         }
         $parent->appendChild($service);
     }
-    private function addServiceAlias(string $alias, \RectorPrefix20210318\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
+    /**
+     * @param string $alias
+     * @param \Symfony\Component\DependencyInjection\Alias $id
+     * @param \DOMElement $parent
+     */
+    private function addServiceAlias($alias, $id, $parent)
     {
         $service = $this->document->createElement('service');
         $service->setAttribute('id', $alias);
@@ -210,7 +227,10 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
         }
         $parent->appendChild($service);
     }
-    private function addServices(\DOMElement $parent)
+    /**
+     * @param \DOMElement $parent
+     */
+    private function addServices($parent)
     {
         $definitions = $this->container->getDefinitions();
         if (!$definitions) {
@@ -229,7 +249,13 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
         }
         $parent->appendChild($services);
     }
-    private function convertParameters(array $parameters, string $type, \DOMElement $parent, string $keyAttribute = 'key')
+    /**
+     * @param mixed[] $parameters
+     * @param string $type
+     * @param \DOMElement $parent
+     * @param string $keyAttribute
+     */
+    private function convertParameters($parameters, $type, $parent, $keyAttribute = 'key')
     {
         $withKeys = \array_keys($parameters) !== \range(0, \count($parameters) - 1);
         foreach ($parameters as $key => $value) {
@@ -302,8 +328,9 @@ class XmlDumper extends \RectorPrefix20210318\Symfony\Component\DependencyInject
     }
     /**
      * Escapes arguments.
+     * @param mixed[] $arguments
      */
-    private function escape(array $arguments) : array
+    private function escape($arguments) : array
     {
         $args = [];
         foreach ($arguments as $k => $v) {

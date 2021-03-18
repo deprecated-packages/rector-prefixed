@@ -77,9 +77,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param If_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $processNullSafeOperator = $this->processNullSafeOperatorIdentical($node);
         if ($processNullSafeOperator !== null) {
@@ -90,7 +90,11 @@ CODE_SAMPLE
         }
         return $this->processNullSafeOperatorNotIdentical($node);
     }
-    private function processNullSafeOperatorIdentical(\PhpParser\Node\Stmt\If_ $if, bool $isStartIf = \true) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param bool $isStartIf
+     */
+    private function processNullSafeOperatorIdentical($if, $isStartIf = \true) : ?\PhpParser\Node
     {
         $comparedNode = $this->ifManipulator->matchIfValueReturnValue($if);
         if (!$comparedNode instanceof \PhpParser\Node\Expr) {
@@ -116,7 +120,11 @@ CODE_SAMPLE
         }
         return $this->processAssign($prevExpr, $prevNode, $nextNode, $isStartIf);
     }
-    private function processNullSafeOperatorNotIdentical(\PhpParser\Node\Stmt\If_ $if, ?\PhpParser\Node\Expr $expr = null) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param \PhpParser\Node\Expr|null $expr
+     */
+    private function processNullSafeOperatorNotIdentical($if, $expr = null) : ?\PhpParser\Node
     {
         $assign = $this->ifManipulator->matchIfNotNullNextAssignment($if);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
@@ -146,14 +154,23 @@ CODE_SAMPLE
         }
         return $this->processNullSafeOperatorNotIdentical($nextNode, $nullSafe);
     }
-    private function processAssign(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $prevExpression, \PhpParser\Node $nextNode, bool $isStartIf) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Stmt\Expression $prevExpression
+     * @param \PhpParser\Node $nextNode
+     * @param bool $isStartIf
+     */
+    private function processAssign($assign, $prevExpression, $nextNode, $isStartIf) : ?\PhpParser\Node
     {
         if ($assign instanceof \PhpParser\Node\Expr\Assign && \property_exists($assign->expr, self::NAME) && \property_exists($nextNode, 'expr') && \property_exists($nextNode->expr, self::NAME)) {
             return $this->processAssignInCurrentNode($assign, $prevExpression, $nextNode, $isStartIf);
         }
         return $this->processAssignMayInNextNode($nextNode);
     }
-    private function processIfMayInNextNode(?\PhpParser\Node $nextNode = null) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node|null $nextNode
+     */
+    private function processIfMayInNextNode($nextNode = null) : ?\PhpParser\Node
     {
         if (!$nextNode instanceof \PhpParser\Node) {
             return null;
@@ -174,7 +191,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processAssignInCurrentNode(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node $nextNode, bool $isStartIf) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param \PhpParser\Node\Stmt\Expression $expression
+     * @param \PhpParser\Node $nextNode
+     * @param bool $isStartIf
+     */
+    private function processAssignInCurrentNode($assign, $expression, $nextNode, $isStartIf) : ?\PhpParser\Node
     {
         $assignNullSafe = $isStartIf ? $assign->expr : $this->nullsafeManipulator->processNullSafeExpr($assign->expr);
         $nullSafe = $this->nullsafeManipulator->processNullSafeExprResult($assignNullSafe, $nextNode->expr->name);
@@ -189,7 +212,10 @@ CODE_SAMPLE
         }
         return $nullSafe;
     }
-    private function processAssignMayInNextNode(\PhpParser\Node $nextNode) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $nextNode
+     */
+    private function processAssignMayInNextNode($nextNode) : ?\PhpParser\Node
     {
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
@@ -206,7 +232,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getNullSafeOnPrevAssignIsIf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node $nextNode, ?\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param \PhpParser\Node $nextNode
+     * @param \PhpParser\Node\Expr|null $expr
+     */
+    private function getNullSafeOnPrevAssignIsIf($if, $nextNode, $expr) : ?\PhpParser\Node\Expr
     {
         $prevIf = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$prevIf instanceof \PhpParser\Node\Stmt\Expression) {
@@ -240,7 +271,10 @@ CODE_SAMPLE
         $expr = $this->getNullSafeAfterStartUntilBeforeEnd($start, $expr);
         return $this->nullsafeManipulator->processNullSafeExprResult($expr, $nextNode->expr->name);
     }
-    private function getPreviousIf(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    private function getPreviousIf($node) : ?\PhpParser\Node
     {
         /** @var If_ $if */
         $if = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
@@ -250,7 +284,11 @@ CODE_SAMPLE
         $nextExpression = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         return $nextExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
     }
-    private function getNullSafeAfterStartUntilBeforeEnd(?\PhpParser\Node $node, ?\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    /**
+     * @param \PhpParser\Node|null $node
+     * @param \PhpParser\Node\Expr|null $expr
+     */
+    private function getNullSafeAfterStartUntilBeforeEnd($node, $expr) : ?\PhpParser\Node\Expr
     {
         while ($node) {
             $expr = $this->nullsafeManipulator->processNullSafeExprResult($expr, $node->expr->expr->name);

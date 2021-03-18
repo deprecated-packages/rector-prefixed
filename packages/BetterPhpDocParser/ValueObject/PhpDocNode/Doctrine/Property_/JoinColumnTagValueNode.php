@@ -28,7 +28,7 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         return $this->items['nullable'];
     }
-    public function getTag() : string
+    public function getTag() : ?string
     {
         return $this->tag ?: $this->shortName;
     }
@@ -40,7 +40,10 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     {
         return $this->shortName;
     }
-    public function changeShortName(string $shortName) : void
+    /**
+     * @param string $shortName
+     */
+    public function changeShortName($shortName) : void
     {
         $this->shortName = $shortName;
     }

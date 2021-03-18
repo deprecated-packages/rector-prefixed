@@ -93,9 +93,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -116,7 +116,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Property $property
+     */
+    private function shouldSkipProperty($property) : bool
     {
         if (\count($property->props) !== 1) {
             return \true;
@@ -141,7 +144,7 @@ CODE_SAMPLE
      * @param PropertyFetch[]|StaticPropertyFetch[] $propertyFetches
      * @return ClassMethod[]
      */
-    private function collectClassMethodsToCheck(array $propertyFetches) : array
+    private function collectClassMethodsToCheck($propertyFetches) : array
     {
         $classMethodsToCheck = [];
         foreach ($propertyFetches as $propertyFetch) {
@@ -162,7 +165,7 @@ CODE_SAMPLE
      * @param array<string, ClassMethod> $methodsToCheck
      * @return string[]
      */
-    private function getVendorLockedClassMethodNames(array $methodsToCheck) : array
+    private function getVendorLockedClassMethodNames($methodsToCheck) : array
     {
         $vendorLockedClassMethodsNames = [];
         foreach ($methodsToCheck as $methodToCheck) {
@@ -173,7 +176,10 @@ CODE_SAMPLE
         }
         return $vendorLockedClassMethodsNames;
     }
-    private function hasMethodSomeStmtsLeft(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function hasMethodSomeStmtsLeft($classMethod) : bool
     {
         foreach ((array) $classMethod->stmts as $stmt) {
             if (!$this->nodesToRemoveCollector->isNodeRemoved($stmt)) {

@@ -98,9 +98,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipFuncCall($node)) {
             return null;
@@ -124,7 +124,7 @@ CODE_SAMPLE
     /**
      * @param mixed[] $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $functionToMethodCalls = $configuration[self::FUNCTIONS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($functionToMethodCalls, \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall::class);
@@ -133,7 +133,10 @@ CODE_SAMPLE
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($arrayFunctionsToMethodCalls, \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall::class);
         $this->arrayFunctionsToMethodCalls = $arrayFunctionsToMethodCalls;
     }
-    private function shouldSkipFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function shouldSkipFuncCall($funcCall) : bool
     {
         // we can inject only in injectable class method  context
         // we can inject only in injectable class method  context
@@ -146,8 +149,11 @@ CODE_SAMPLE
     }
     /**
      * @return PropertyFetch|MethodCall
+     * @param \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
      */
-    private function refactorFuncCallToMethodCall(\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
+    private function refactorFuncCallToMethodCall($argumentFuncCallToMethodCall, $class, $funcCall) : ?\PhpParser\Node
     {
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($argumentFuncCallToMethodCall->getClass());
         $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
@@ -170,8 +176,11 @@ CODE_SAMPLE
     }
     /**
      * @return PropertyFetch|MethodCall|null
+     * @param \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function refactorArrayFunctionToMethodCall(\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
+    private function refactorArrayFunctionToMethodCall($arrayFuncCallToMethodCall, $funcCall, $class) : ?\PhpParser\Node
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($arrayFuncCallToMethodCall->getClass());
         $propertyFetch = $this->nodeFactory->createPropertyFetch('this', $propertyName);
@@ -181,8 +190,10 @@ CODE_SAMPLE
     }
     /**
      * @return PropertyFetch|MethodCall
+     * @param \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
      */
-    private function refactorEmptyFuncCallArgs(\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PhpParser\Node
+    private function refactorEmptyFuncCallArgs($argumentFuncCallToMethodCall, $propertyFetch) : \PhpParser\Node
     {
         if ($argumentFuncCallToMethodCall->getMethodIfNoArgs()) {
             $methodName = $argumentFuncCallToMethodCall->getMethodIfNoArgs();
@@ -193,7 +204,11 @@ CODE_SAMPLE
         }
         return $propertyFetch;
     }
-    private function isFunctionToMethodCallWithArgs(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall
+     */
+    private function isFunctionToMethodCallWithArgs($funcCall, $argumentFuncCallToMethodCall) : bool
     {
         if ($argumentFuncCallToMethodCall->getMethodIfArgs() === null) {
             return \false;
@@ -202,8 +217,11 @@ CODE_SAMPLE
     }
     /**
      * @return PropertyFetch|MethodCall|null
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall
+     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
      */
-    private function createMethodCallArrayFunctionToMethodCall(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
+    private function createMethodCallArrayFunctionToMethodCall($funcCall, $arrayFuncCallToMethodCall, $propertyFetch) : ?\PhpParser\Node
     {
         if ($funcCall->args === []) {
             return $propertyFetch;

@@ -46,9 +46,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
@@ -62,7 +62,10 @@ CODE_SAMPLE
         $variableName = $this->getName($node->var);
         return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($this->nodeFactory->createMethodCall($variableName, 'isSubmitted'), $this->nodeFactory->createMethodCall($variableName, 'isValid'));
     }
-    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkipMethodCall($methodCall) : bool
     {
         $originalNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
         // skip just added calls
@@ -82,7 +85,10 @@ CODE_SAMPLE
         $variableName = $this->getName($methodCall->var);
         return $variableName === null;
     }
-    private function isIsSubmittedByAlreadyCalledOnVariable(\PhpParser\Node\Expr\Variable $variable) : bool
+    /**
+     * @param \PhpParser\Node\Expr\Variable $variable
+     */
+    private function isIsSubmittedByAlreadyCalledOnVariable($variable) : bool
     {
         $previousMethodCallNamesOnVariable = $this->methodCallManipulator->findMethodCallNamesOnVariable($variable);
         // already checked by isSubmitted()

@@ -8,5 +8,8 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use RectorPrefix20210318\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 interface ComposerRectorInterface extends \Rector\Core\Contract\Rector\RectorInterface, \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
-    public function refactor(\RectorPrefix20210318\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void;
+    /**
+     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
+     */
+    public function refactor($composerJson) : void;
 }

@@ -76,7 +76,7 @@ abstract class FileLoader extends \RectorPrefix20210318\Symfony\Component\Config
      * @param string               $resource  The directory to look for classes, glob-patterns allowed
      * @param string|string[]|null $exclude   A globbed path of files to exclude or an array of globbed paths of files to exclude
      */
-    public function registerClasses(\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $prototype, $namespace, $resource, $exclude = null)
+    public function registerClasses($prototype, $namespace, $resource, $exclude = null)
     {
         if ('\\' !== \substr($namespace, -1)) {
             throw new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Namespace prefix must end with a "\\": "%s".', $namespace));
@@ -118,8 +118,9 @@ abstract class FileLoader extends \RectorPrefix20210318\Symfony\Component\Config
      * Registers a definition in the container with its instanceof-conditionals.
      *
      * @param string $id
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
-    protected function setDefinition($id, \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $definition)
+    protected function setDefinition($id, $definition)
     {
         $this->container->removeBindings($id);
         if ($this->isLoadingInstanceof) {
@@ -131,7 +132,12 @@ abstract class FileLoader extends \RectorPrefix20210318\Symfony\Component\Config
             $this->container->setDefinition($id, $definition->setInstanceofConditionals($this->instanceof));
         }
     }
-    private function findClasses(string $namespace, string $pattern, array $excludePatterns) : array
+    /**
+     * @param string $namespace
+     * @param string $pattern
+     * @param mixed[] $excludePatterns
+     */
+    private function findClasses($namespace, $pattern, $excludePatterns) : array
     {
         $parameterBag = $this->container->getParameterBag();
         $excludePaths = [];

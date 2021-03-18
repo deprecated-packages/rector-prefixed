@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symplify\\SymfonyPhpConfig\\' => array($vendorDir . '/symplify/symfony-php-config/src'),
-    'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
+    'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),
+    'Symfony\\Polyfill\\Php74\\' => array($vendorDir . '/symfony/polyfill-php74'),
+    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
     'Rector\\' => array($baseDir . '/packages', $baseDir . '/rules'),
@@ -17,9 +19,7 @@ return array(
     'RectorPrefix20210318\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
     'RectorPrefix20210318\\Symplify\\SimplePhpDocParser\\' => array($vendorDir . '/symplify/simple-php-doc-parser/src'),
     'RectorPrefix20210318\\Symplify\\SetConfigResolver\\' => array($vendorDir . '/symplify/set-config-resolver/src'),
-    'RectorPrefix20210318\\Symplify\\PhpConfigPrinter\\' => array($vendorDir . '/symplify/php-config-printer/src'),
     'RectorPrefix20210318\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
-    'RectorPrefix20210318\\Symplify\\MarkdownDiff\\' => array($vendorDir . '/symplify/markdown-diff/src'),
     'RectorPrefix20210318\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),
     'RectorPrefix20210318\\Symplify\\ConsolePackageBuilder\\' => array($vendorDir . '/symplify/console-package-builder/src'),
     'RectorPrefix20210318\\Symplify\\ConsoleColorDiff\\' => array($vendorDir . '/symplify/console-color-diff/src'),
@@ -36,7 +36,6 @@ return array(
     'RectorPrefix20210318\\Symfony\\Contracts\\Service\\' => array($vendorDir . '/symfony/service-contracts'),
     'RectorPrefix20210318\\Symfony\\Contracts\\HttpClient\\' => array($vendorDir . '/symfony/http-client-contracts'),
     'RectorPrefix20210318\\Symfony\\Contracts\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher-contracts'),
-    'RectorPrefix20210318\\Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'RectorPrefix20210318\\Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'RectorPrefix20210318\\Symfony\\Component\\Uid\\' => array($vendorDir . '/symfony/uid'),
     'RectorPrefix20210318\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),

@@ -17,7 +17,10 @@ final class FileInfoNodeVisitor extends \PhpParser\NodeVisitorAbstract
     {
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function enterNode($node) : ?\PhpParser\Node
     {
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $this->currentFileInfoProvider->getSmartFileInfo());
         return $node;

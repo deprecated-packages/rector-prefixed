@@ -108,9 +108,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             // do not any dependencies to class itself
@@ -126,7 +126,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @param \PHPStan\Type\ObjectType $objectType
+     */
+    private function completeDependencyToConstructorOnly($class, $objectType) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -142,7 +146,11 @@ CODE_SAMPLE
         }
         $constructClassMethod->params[] = $this->createParam($propertyExpectedName, $objectType);
     }
-    private function isTypeAlreadyInParamMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\ObjectType $objectType) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \PHPStan\Type\ObjectType $objectType
+     */
+    private function isTypeAlreadyInParamMethod($classMethod, $objectType) : bool
     {
         foreach ($classMethod->getParams() as $param) {
             if ($param->type === null) {
@@ -154,7 +162,11 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function createParam(string $propertyName, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Param
+    /**
+     * @param string $propertyName
+     * @param \PHPStan\Type\ObjectType $objectType
+     */
+    private function createParam($propertyName, $objectType) : \PhpParser\Node\Param
     {
         return new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($propertyName), null, new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
     }

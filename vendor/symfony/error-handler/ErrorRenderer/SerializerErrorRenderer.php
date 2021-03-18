@@ -64,7 +64,10 @@ class SerializerErrorRenderer implements \RectorPrefix20210318\Symfony\Component
             return $this->fallbackErrorRenderer->render($exception);
         }
     }
-    public static function getPreferredFormat(\RectorPrefix20210318\Symfony\Component\HttpFoundation\RequestStack $requestStack) : \Closure
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     */
+    public static function getPreferredFormat($requestStack) : \Closure
     {
         return static function () use($requestStack) {
             if (!($request = $requestStack->getCurrentRequest())) {

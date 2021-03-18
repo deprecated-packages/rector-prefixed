@@ -19,7 +19,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210318\Symplify\PackageBuilder\Php\TypeChecker;
 use RectorPrefix20210318\Webmozart\Assert\Assert;
 /**
- * @template T of Node
  * @see \Rector\Core\Tests\PhpParser\Node\BetterNodeFinder\BetterNodeFinderTest
  */
 final class BetterNodeFinder
@@ -48,6 +47,7 @@ final class BetterNodeFinder
         $this->nodeComparator = $nodeComparator;
     }
     /**
+     * @template T of Node
      * @param class-string<T> $type
      * @return T|null
      */
@@ -69,6 +69,7 @@ final class BetterNodeFinder
         return null;
     }
     /**
+     * @template T of \PhpParser\Node
      * @param array<class-string<T>> $types
      * @return T|null
      */
@@ -90,38 +91,7 @@ final class BetterNodeFinder
         return null;
     }
     /**
-     * @param class-string<T> $type
-     * @return T|null
-     */
-    public function findFirstAncestorInstanceOf(\PhpParser\Node $node, string $type) : ?\PhpParser\Node
-    {
-        $currentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($currentNode !== null) {
-            if ($currentNode instanceof $type) {
-                return $currentNode;
-            }
-            $currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        }
-        return null;
-    }
-    /**
-     * @param array<class-string<T>> $types
-     * @return T|null
-     */
-    public function findFirstAncestorInstancesOf(\PhpParser\Node $node, array $types) : ?\PhpParser\Node
-    {
-        $currentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($currentNode instanceof \PhpParser\Node) {
-            foreach ($types as $type) {
-                if (\is_a($currentNode, $type, \true)) {
-                    return $currentNode;
-                }
-            }
-            $currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        }
-        return null;
-    }
-    /**
+     * @template T of Node
      * @param class-string<T> $type
      * @param Node|Node[]|Stmt[] $nodes
      * @return T[]
@@ -132,6 +102,7 @@ final class BetterNodeFinder
         return $this->nodeFinder->findInstanceOf($nodes, $type);
     }
     /**
+     * @template T of Node
      * @param class-string<T> $type
      * @param Node|Node[] $nodes
      * @return T|null
@@ -142,7 +113,7 @@ final class BetterNodeFinder
         return $this->nodeFinder->findFirstInstanceOf($nodes, $type);
     }
     /**
-     * @param class-string<T> $type
+     * @param class-string<Node> $type
      * @param Node|Node[] $nodes
      */
     public function hasInstanceOfName($nodes, string $type, string $name) : bool
@@ -167,14 +138,14 @@ final class BetterNodeFinder
     }
     /**
      * @param Node|Node[] $nodes
-     * @param class-string<T>[] $types
+     * @param array<class-string<Node>> $types
      */
     public function hasInstancesOf($nodes, array $types) : bool
     {
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         foreach ($types as $type) {
-            $nodeFinderFindFirstInstanceOf = $this->nodeFinder->findFirstInstanceOf($nodes, $type);
-            if (!$nodeFinderFindFirstInstanceOf instanceof \PhpParser\Node) {
+            $foundNode = $this->nodeFinder->findFirstInstanceOf($nodes, $type);
+            if (!$foundNode instanceof \PhpParser\Node) {
                 continue;
             }
             return \true;
@@ -182,6 +153,7 @@ final class BetterNodeFinder
         return \false;
     }
     /**
+     * @template T of Node
      * @param class-string<T> $type
      * @param Node|Node[] $nodes
      * @return T|null
@@ -294,7 +266,8 @@ final class BetterNodeFinder
         return $this->findFirstPrevious($parent, $filter);
     }
     /**
-     * @param class-string<T>[] $types
+     * @template T of Node
+     * @param array<class-string<T>> $types
      * @return T|null
      */
     public function findFirstPreviousOfTypes(\PhpParser\Node $mainNode, array $types) : ?\PhpParser\Node
@@ -320,6 +293,7 @@ final class BetterNodeFinder
         return null;
     }
     /**
+     * @template T of Node
      * @param Node|Node[] $nodes
      * @param class-string<T> $type
      * @return T|null

@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->removeFuncCalls as $removeFuncCall) {
             if (!$this->isName($node, $removeFuncCall->getFuncCall())) {
@@ -73,13 +73,17 @@ CODE_SAMPLE
     /**
      * @param array<string, RemoveFuncCall[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $removeFuncCalls = $configuration[self::REMOVE_FUNC_CALLS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
         $this->removeFuncCalls = $removeFuncCalls;
     }
-    private function refactorFuncCallsWithPositions(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall
+     */
+    private function refactorFuncCallsWithPositions($funcCall, $removeFuncCall) : void
     {
         foreach ($removeFuncCall->getArgumentPositionAndValues() as $argumentPosition => $values) {
             if (!$this->isArgumentPositionValueMatch($funcCall, $argumentPosition, $values)) {
@@ -92,8 +96,10 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $values
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param int $argumentPosition
      */
-    private function isArgumentPositionValueMatch(\PhpParser\Node\Expr\FuncCall $funcCall, int $argumentPosition, array $values) : bool
+    private function isArgumentPositionValueMatch($funcCall, $argumentPosition, $values) : bool
     {
         if (!isset($funcCall->args[$argumentPosition])) {
             return \false;

@@ -52,7 +52,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
      * @param Stmt[] $nodes
      * @return Stmt[]
      */
-    public function beforeTraverse(array $nodes) : array
+    public function beforeTraverse($nodes) : ?array
     {
         // no nodes → just return
         if ($nodes === []) {
@@ -73,12 +73,12 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
         $useImportTypes = $this->typeFactory->uniquateTypes($useImportTypes);
         $this->useNodesToAddCollector->clear($smartFileInfo);
         // A. has namespace? add under it
-        $foundNode = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
-        if ($foundNode instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
+        if ($namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             // first clean
-            $this->useImportsRemover->removeImportsFromNamespace($foundNode, $removedShortUses);
+            $this->useImportsRemover->removeImportsFromNamespace($namespace, $removedShortUses);
             // then add, to prevent adding + removing false positive of same short use
-            $this->useImportsAdder->addImportsToNamespace($foundNode, $useImportTypes, $functionUseImportTypes);
+            $this->useImportsAdder->addImportsToNamespace($namespace, $useImportTypes, $functionUseImportTypes);
             return $nodes;
         }
         $firstNode = $nodes[0];
@@ -122,7 +122,7 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo($nodes) : ?\RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
@@ -138,7 +138,7 @@ CODE_SAMPLE
      * @param FullyQualifiedObjectType[] $useImportTypes
      * @return FullyQualifiedObjectType[]
      */
-    private function filterOutNonNamespacedNames(array $useImportTypes) : array
+    private function filterOutNonNamespacedNames($useImportTypes) : array
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {

@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Reflection\BetterReflection;
 
 use PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
 use PHPStan\Reflection\BetterReflection\BetterReflectionSourceLocatorFactory;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator;
@@ -25,6 +26,9 @@ final class RectorBetterReflectionSourceLocatorFactory
     public function create() : \PHPStan\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $phpStanSourceLocator = $this->betterReflectionSourceLocatorFactory->create();
-        return new \PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator([$this->intermediateSourceLocator, $phpStanSourceLocator]);
+        // make PHPStan first source locator, so we avoid parsing every single file - huge performance hit!
+        $aggregateSourceLocator = new \PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator([$phpStanSourceLocator, $this->intermediateSourceLocator]);
+        // important for cache
+        return new \PHPStan\BetterReflection\SourceLocator\Type\MemoizingSourceLocator($aggregateSourceLocator);
     }
 }

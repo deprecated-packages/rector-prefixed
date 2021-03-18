@@ -38,9 +38,9 @@ final class ClassConstFetchToValueRector extends \Rector\Core\Rector\AbstractRec
         return [\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
-     * @param ClassConstFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->classConstFetchesToValues as $classConstFetchToValue) {
             if (!$this->isObjectType($node->class, $classConstFetchToValue->getObjectType())) {
@@ -56,7 +56,7 @@ final class ClassConstFetchToValueRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @param array<string, ClassConstFetchToValue[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $classConstFetchesToValues = $configuration[self::CLASS_CONST_FETCHES_TO_VALUES] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($classConstFetchesToValues, \Rector\Transform\ValueObject\ClassConstFetchToValue::class);

@@ -26,8 +26,9 @@ class ParametersConfigurator extends \RectorPrefix20210318\Symfony\Component\Dep
      * Creates a parameter.
      *
      * @return $this
+     * @param string $name
      */
-    public final function set(string $name, $value) : self
+    public final function set($name, $value)
     {
         $this->container->setParameter($name, static::processValue($value, \true));
         return $this;
@@ -37,7 +38,7 @@ class ParametersConfigurator extends \RectorPrefix20210318\Symfony\Component\Dep
      *
      * @return $this
      */
-    public final function __invoke(string $name, $value) : self
+    public final function __invoke(string $name, $value)
     {
         return $this->set($name, $value);
     }

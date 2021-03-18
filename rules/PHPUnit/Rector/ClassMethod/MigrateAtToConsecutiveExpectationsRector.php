@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $stmts = $node->stmts;
         if ($stmts === null) {
@@ -75,12 +75,18 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function buildNewExpectation(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection
+     */
+    private function buildNewExpectation($expectationMockCollection) : \PhpParser\Node\Expr\MethodCall
     {
         $expectationMockCollection = $this->fillMissingAtIndexes($expectationMockCollection);
         return $this->consecutiveAssertionFactory->createAssertionFromExpectationMockCollection($expectationMockCollection);
     }
-    private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : \Rector\PHPUnit\ValueObject\ExpectationMockCollection
+    /**
+     * @param \Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection
+     */
+    private function fillMissingAtIndexes($expectationMockCollection) : \Rector\PHPUnit\ValueObject\ExpectationMockCollection
     {
         $variable = $expectationMockCollection->getExpectationMocks()[0]->getExpectationVariable();
         // 0,1,2,3,4
@@ -111,7 +117,10 @@ CODE_SAMPLE
         }
         return $expectationMockCollection;
     }
-    private function replaceExpectationNodes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : void
+    /**
+     * @param \Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection
+     */
+    private function replaceExpectationNodes($expectationMockCollection) : void
     {
         if ($this->shouldSkipReplacement($expectationMockCollection)) {
             return;
@@ -133,7 +142,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function shouldSkipReplacement(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : bool
+    /**
+     * @param \Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection
+     */
+    private function shouldSkipReplacement($expectationMockCollection) : bool
     {
         if (!$expectationMockCollection->hasReturnValues()) {
             return \false;
@@ -148,8 +160,9 @@ CODE_SAMPLE
     }
     /**
      * @return ExpectationMockCollection[]
+     * @param \Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection
      */
-    private function groupExpectationCollectionsByVariableName(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : array
+    private function groupExpectationCollectionsByVariableName($expectationMockCollection) : array
     {
         $groupedByVariable = [];
         foreach ($expectationMockCollection->getExpectationMocks() as $expectationMock) {

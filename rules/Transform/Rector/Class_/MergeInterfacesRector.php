@@ -50,9 +50,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->implements === []) {
             return null;
@@ -68,11 +68,17 @@ CODE_SAMPLE
         $this->makeImplementsUnique($node);
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $this->oldToNewInterfaces = $configuration[self::OLD_TO_NEW_INTERFACES] ?? [];
     }
-    private function makeImplementsUnique(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function makeImplementsUnique($class) : void
     {
         $alreadyAddedNames = [];
         foreach ($class->implements as $key => $name) {

@@ -104,9 +104,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\For_::class];
     }
     /**
-     * @param For_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $this->reset();
         $this->matchInit($node->init);
@@ -141,7 +141,11 @@ CODE_SAMPLE
         }
         return $this->processForToForeach($node, $iteratedVariable);
     }
-    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
+    /**
+     * @param \PhpParser\Node\Stmt\For_ $for
+     * @param string $iteratedVariable
+     */
+    private function processForToForeach($for, $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
     {
         $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
         $iteratedVariableSingle = $originalVariableSingle;
@@ -159,7 +163,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function createForeachFromForWithIteratedVariableSingle(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableSingle) : \PhpParser\Node\Stmt\Foreach_
+    /**
+     * @param \PhpParser\Node\Stmt\For_ $for
+     * @param string $iteratedVariableSingle
+     */
+    private function createForeachFromForWithIteratedVariableSingle($for, $iteratedVariableSingle) : \PhpParser\Node\Stmt\Foreach_
     {
         $foreach = $this->foreachFactory->createFromFor($for, $iteratedVariableSingle, $this->iteratedExpr, $this->keyValueName);
         $this->mirrorComments($foreach, $for);
@@ -179,7 +187,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $initExprs
      */
-    private function matchInit(array $initExprs) : void
+    private function matchInit($initExprs) : void
     {
         foreach ($initExprs as $initExpr) {
             if (!$initExpr instanceof \PhpParser\Node\Expr\Assign) {
@@ -202,7 +210,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $condExprs
      */
-    private function isConditionMatch(array $condExprs) : bool
+    private function isConditionMatch($condExprs) : bool
     {
         if ($this->forAnalyzer->isCondExprOneOrKeyValueNameNotNull($condExprs, $this->keyValueName)) {
             return \false;

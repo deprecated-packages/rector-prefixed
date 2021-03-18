@@ -85,7 +85,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         foreach ($this->addedArguments as $addedArgument) {
             if (!$this->isObjectTypeMatch($node, $addedArgument->getObjectType())) {
@@ -101,7 +101,7 @@ CODE_SAMPLE
     /**
      * @param array<string, ArgumentAdder[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
@@ -109,8 +109,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
+     * @param \PHPStan\Type\ObjectType $objectType
      */
-    private function isObjectTypeMatch(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
+    private function isObjectTypeMatch($node, $objectType) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->isObjectType($node->var, $objectType);
@@ -129,8 +130,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall|StaticCall $node
+     * @param \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder
      */
-    private function processPositionWithDefaultValues(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder) : void
+    private function processPositionWithDefaultValues($node, $argumentAdder) : void
     {
         if ($this->shouldSkipParameter($node, $argumentAdder)) {
             return;
@@ -152,8 +154,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall|StaticCall $node
+     * @param \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder
      */
-    private function shouldSkipParameter(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder) : bool
+    private function shouldSkipParameter($node, $argumentAdder) : bool
     {
         $position = $argumentAdder->getPosition();
         $argumentName = $argumentAdder->getArgumentName();
@@ -180,8 +183,12 @@ CODE_SAMPLE
     }
     /**
      * @param mixed $defaultValue
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     * @param \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder
+     * @param string|null $type
+     * @param int $position
      */
-    private function addClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder, $defaultValue, ?string $type, int $position) : void
+    private function addClassMethodParam($classMethod, $argumentAdder, $defaultValue, $type, $position) : void
     {
         $argumentName = $argumentAdder->getArgumentName();
         if ($argumentName === null) {
@@ -193,7 +200,12 @@ CODE_SAMPLE
         }
         $classMethod->params[$position] = $param;
     }
-    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall, int $position, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder) : void
+    /**
+     * @param \PhpParser\Node\Expr\StaticCall $staticCall
+     * @param int $position
+     * @param \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder
+     */
+    private function processStaticCall($staticCall, $position, $argumentAdder) : void
     {
         $argumentName = $argumentAdder->getArgumentName();
         if ($argumentName === null) {

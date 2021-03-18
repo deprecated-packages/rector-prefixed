@@ -16,22 +16,38 @@ class MemoryStorage implements \RectorPrefix20210318\Nette\Caching\Storage
     use Nette\SmartObject;
     /** @var array */
     private $data = [];
-    public function read(string $key)
+    /**
+     * @param string $key
+     */
+    public function read($key)
     {
         return $this->data[$key] ?? null;
     }
-    public function lock(string $key) : void
+    /**
+     * @param string $key
+     */
+    public function lock($key) : void
     {
     }
-    public function write(string $key, $data, array $dependencies) : void
+    /**
+     * @param string $key
+     * @param mixed[] $dependencies
+     */
+    public function write($key, $data, $dependencies) : void
     {
         $this->data[$key] = $data;
     }
-    public function remove(string $key) : void
+    /**
+     * @param string $key
+     */
+    public function remove($key) : void
     {
         unset($this->data[$key]);
     }
-    public function clean(array $conditions) : void
+    /**
+     * @param mixed[] $conditions
+     */
+    public function clean($conditions) : void
     {
         if (!empty($conditions[\RectorPrefix20210318\Nette\Caching\Cache::ALL])) {
             $this->data = [];

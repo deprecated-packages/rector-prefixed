@@ -88,9 +88,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
-     * @param Switch_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipSwitch($node)) {
             return null;
@@ -120,7 +120,10 @@ CODE_SAMPLE
         }
         return $match;
     }
-    private function shouldSkipSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\Switch_ $switch
+     */
+    private function shouldSkipSwitch($switch) : bool
     {
         if (!$this->switchAnalyzer->hasEachCaseBreak($switch)) {
             return \true;
@@ -130,7 +133,7 @@ CODE_SAMPLE
     /**
      * @param CondAndExpr[] $condAndExprs
      */
-    private function haveCondAndExprsMatchPotential(array $condAndExprs) : bool
+    private function haveCondAndExprsMatchPotential($condAndExprs) : bool
     {
         $uniqueCondAndExprKinds = $this->resolveUniqueKinds($condAndExprs);
         if (\count($uniqueCondAndExprKinds) > 1) {
@@ -151,7 +154,7 @@ CODE_SAMPLE
      * @param CondAndExpr[] $condAndExprs
      * @return MatchArm[]
      */
-    private function createMatchArmsFromCases(array $condAndExprs) : array
+    private function createMatchArmsFromCases($condAndExprs) : array
     {
         $matchArms = [];
         foreach ($condAndExprs as $condAndExpr) {
@@ -170,7 +173,7 @@ CODE_SAMPLE
      * @param CondAndExpr[] $condAndExprs
      * @return string[]
      */
-    private function resolveUniqueKinds(array $condAndExprs) : array
+    private function resolveUniqueKinds($condAndExprs) : array
     {
         $condAndExprKinds = [];
         foreach ($condAndExprs as $condAndExpr) {

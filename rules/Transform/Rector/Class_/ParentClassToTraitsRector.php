@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node->extends === null) {
             return null;
@@ -85,13 +85,16 @@ CODE_SAMPLE
     /**
      * @param array<string, ParentClassToTraits[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
         $this->parentClassToTraits = $parentClassToTraits;
     }
-    private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function removeParentClass($class) : void
     {
         $class->extends = null;
     }

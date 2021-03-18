@@ -76,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $factoryMethod = $this->matchTypeAndMethodName($node);
         if (!$factoryMethod instanceof \Rector\CakePHP\ValueObject\FactoryMethod) {
@@ -92,7 +92,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $arraysToFluentCalls = $configuration[self::ARRAYS_TO_FLUENT_CALLS] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \Rector\CakePHP\ValueObject\ArrayToFluentCall::class);
@@ -101,7 +104,10 @@ CODE_SAMPLE
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \Rector\CakePHP\ValueObject\FactoryMethod::class);
         $this->factoryMethods = $factoryMethods;
     }
-    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\FactoryMethod
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function matchTypeAndMethodName($methodCall) : ?\Rector\CakePHP\ValueObject\FactoryMethod
     {
         foreach ($this->factoryMethods as $factoryMethod) {
             if (!$this->isObjectType($methodCall->var, $factoryMethod->getObjectType())) {
@@ -114,7 +120,12 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function replaceArrayToFluentMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     * @param int $argumentPosition
+     * @param \Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall
+     */
+    private function replaceArrayToFluentMethodCalls($methodCall, $argumentPosition, $arrayToFluentCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (\count($methodCall->args) !== $argumentPosition) {
             return null;
@@ -144,7 +155,7 @@ CODE_SAMPLE
      * @param array<ArrayItem|null> $originalArrayItems
      * @param array<string, string> $arrayMap
      */
-    private function extractFluentMethods(array $originalArrayItems, array $arrayMap) : \Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass
+    private function extractFluentMethods($originalArrayItems, $arrayMap) : \Rector\CakePHP\ValueObject\ArrayItemsAndFluentClass
     {
         $newArrayItems = [];
         $fluentCalls = [];

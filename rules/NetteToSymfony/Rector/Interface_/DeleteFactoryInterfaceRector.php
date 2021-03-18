@@ -43,9 +43,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Interface_::class];
     }
     /**
-     * @param Interface_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         $smartFileInfo = $node->getAttribute(\RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {

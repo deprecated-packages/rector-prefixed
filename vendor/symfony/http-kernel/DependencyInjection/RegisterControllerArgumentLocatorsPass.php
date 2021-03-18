@@ -40,7 +40,10 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210318\Sy
         $this->controllerLocator = $controllerLocator;
         $this->notTaggedControllerResolverServiceId = $notTaggedControllerResolverServiceId;
     }
-    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         if (\false === $container->hasDefinition($this->resolverServiceId) && \false === $container->hasDefinition($this->notTaggedControllerResolverServiceId)) {
             return;

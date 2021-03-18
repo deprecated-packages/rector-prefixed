@@ -115,9 +115,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'))) {
             return null;
@@ -140,7 +140,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function collectFormMethodCallsAndCreateFormTypeClass(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Class_
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function collectFormMethodCallsAndCreateFormTypeClass($classMethod) : ?\PhpParser\Node\Stmt\Class_
     {
         $onFormVariableMethodCalls = $this->onFormVariableMethodCallsCollector->collectFromClassMethod($classMethod);
         if ($onFormVariableMethodCalls === []) {
@@ -153,7 +156,10 @@ CODE_SAMPLE
         $buildFormClassMethod->stmts = $symfonyMethodCalls;
         return $this->createFormTypeClassFromBuildFormClassMethod($buildFormClassMethod);
     }
-    private function createFormTypeClassFromBuildFormClassMethod(\PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod
+     */
+    private function createFormTypeClassFromBuildFormClassMethod($buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
     {
         $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
         $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\AbstractType');

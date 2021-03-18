@@ -68,7 +68,7 @@ class PrototypeConfigurator extends \RectorPrefix20210318\Symfony\Component\Depe
      *
      * @return $this
      */
-    public final function exclude($excludes) : self
+    public final function exclude($excludes)
     {
         $this->excludes = (array) $excludes;
         return $this;

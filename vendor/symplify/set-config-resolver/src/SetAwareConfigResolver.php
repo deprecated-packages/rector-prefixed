@@ -29,7 +29,7 @@ final class SetAwareConfigResolver extends \RectorPrefix20210318\Symplify\SetCon
      * @param SmartFileInfo[] $fileInfos
      * @return SmartFileInfo[]
      */
-    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos) : array
+    public function resolveFromParameterSetsFromConfigFiles($fileInfos) : array
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }

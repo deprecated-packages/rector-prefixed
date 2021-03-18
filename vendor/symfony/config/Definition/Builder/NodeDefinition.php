@@ -44,8 +44,9 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      * Sets the parent node.
      *
      * @return $this
+     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
-    public function setParent(\RectorPrefix20210318\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent)
+    public function setParent($parent)
     {
         $this->parent = $parent;
         return $this;
@@ -54,8 +55,9 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      * Sets info message.
      *
      * @return $this
+     * @param string $info
      */
-    public function info(string $info)
+    public function info($info)
     {
         return $this->attribute('info', $info);
     }
@@ -76,8 +78,9 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      * @param mixed $value
      *
      * @return $this
+     * @param string $key
      */
-    public function attribute(string $key, $value)
+    public function attribute($key, $value)
     {
         $this->attributes[$key] = $value;
         return $this;
@@ -98,7 +101,7 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      *
      * @return NodeInterface
      */
-    public function getNode(bool $forceRootNode = \false)
+    public function getNode($forceRootNode = \false)
     {
         if ($forceRootNode) {
             $this->parent = null;
@@ -262,8 +265,9 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      * Sets whether the node can be overwritten.
      *
      * @return $this
+     * @param bool $deny
      */
-    public function cannotBeOverwritten(bool $deny = \true)
+    public function cannotBeOverwritten($deny = \true)
     {
         $this->merge()->denyOverwrite($deny);
         return $this;
@@ -316,8 +320,9 @@ abstract class NodeDefinition implements \RectorPrefix20210318\Symfony\Component
      * Set PathSeparator to use.
      *
      * @return $this
+     * @param string $separator
      */
-    public function setPathSeparator(string $separator)
+    public function setPathSeparator($separator)
     {
         if ($this instanceof \RectorPrefix20210318\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
             foreach ($this->getChildNodeDefinitions() as $child) {

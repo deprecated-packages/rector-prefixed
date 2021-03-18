@@ -30,7 +30,10 @@ final class ChangePackageVersionComposerRector implements \Rector\Composer\Contr
     {
         $this->versionGuard = $versionGuard;
     }
-    public function refactor(\RectorPrefix20210318\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
+    /**
+     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
+     */
+    public function refactor($composerJson) : void
     {
         foreach ($this->packagesAndVersions as $packageAndVersion) {
             $composerJson->changePackageVersion($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());
@@ -57,7 +60,7 @@ CODE_SAMPLE
     /**
      * @param array<string, PackageAndVersion[]> $configuration
      */
-    public function configure(array $configuration) : void
+    public function configure($configuration) : void
     {
         $packagesAndVersions = $configuration[self::PACKAGES_AND_VERSIONS] ?? [];
         $this->versionGuard->validate($packagesAndVersions);

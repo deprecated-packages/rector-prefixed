@@ -9,11 +9,17 @@ use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterfa
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 final class ApiPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface
 {
-    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
+     */
+    public function createFromTokens($tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode();
     }
-    public function match(string $tag) : bool
+    /**
+     * @param string $tag
+     */
+    public function match($tag) : bool
     {
         return \strtolower($tag) === \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::NAME;
     }

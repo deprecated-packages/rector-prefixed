@@ -29,7 +29,10 @@ class RegisterReverseContainerPass implements \RectorPrefix20210318\Symfony\Comp
         $this->serviceId = $serviceId;
         $this->tagName = $tagName;
     }
-    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         if (!$container->hasDefinition($this->serviceId)) {
             return;

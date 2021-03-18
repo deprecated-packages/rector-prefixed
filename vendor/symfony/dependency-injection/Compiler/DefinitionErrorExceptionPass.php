@@ -23,8 +23,9 @@ class DefinitionErrorExceptionPass extends \RectorPrefix20210318\Symfony\Compone
 {
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition || !$value->hasErrors()) {
             return parent::processValue($value, $isRoot);

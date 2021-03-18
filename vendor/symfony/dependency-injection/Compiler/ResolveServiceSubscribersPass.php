@@ -22,7 +22,10 @@ use RectorPrefix20210318\Symfony\Contracts\Service\ServiceProviderInterface;
 class ResolveServiceSubscribersPass extends \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocator;
-    protected function processValue($value, bool $isRoot = \false)
+    /**
+     * @param bool $isRoot
+     */
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\RectorPrefix20210318\Psr\Container\ContainerInterface::class, \RectorPrefix20210318\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
             return new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);

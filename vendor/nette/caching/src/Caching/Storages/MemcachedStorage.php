@@ -42,7 +42,11 @@ class MemcachedStorage implements \RectorPrefix20210318\Nette\Caching\Storage, \
             $this->addServer($host, $port);
         }
     }
-    public function addServer(string $host = 'localhost', int $port = 11211) : void
+    /**
+     * @param string $host
+     * @param int $port
+     */
+    public function addServer($host = 'localhost', $port = 11211) : void
     {
         if (@$this->memcached->addServer($host, $port, 1) === \false) {
             // @ is escalated to exception
@@ -54,7 +58,10 @@ class MemcachedStorage implements \RectorPrefix20210318\Nette\Caching\Storage, \
     {
         return $this->memcached;
     }
-    public function read(string $key)
+    /**
+     * @param string $key
+     */
+    public function read($key)
     {
         $key = \urlencode($this->prefix . $key);
         $meta = $this->memcached->get($key);
@@ -77,7 +84,10 @@ class MemcachedStorage implements \RectorPrefix20210318\Nette\Caching\Storage, \
         }
         return $meta[self::META_DATA];
     }
-    public function bulkRead(array $keys) : array
+    /**
+     * @param mixed[] $keys
+     */
+    public function bulkRead($keys) : array
     {
         $prefixedKeys = \array_map(function ($key) {
             return \urlencode($this->prefix . $key);
@@ -101,10 +111,17 @@ class MemcachedStorage implements \RectorPrefix20210318\Nette\Caching\Storage, \
         }
         return $result;
     }
-    public function lock(string $key) : void
+    /**
+     * @param string $key
+     */
+    public function lock($key) : void
     {
     }
-    public function write(string $key, $data, array $dp) : void
+    /**
+     * @param string $key
+     * @param mixed[] $dp
+     */
+    public function write($key, $data, $dp) : void
     {
         if (isset($dp[\RectorPrefix20210318\Nette\Caching\Cache::ITEMS])) {
             throw new \RectorPrefix20210318\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
@@ -130,11 +147,17 @@ class MemcachedStorage implements \RectorPrefix20210318\Nette\Caching\Storage, \
         }
         $this->memcached->set($key, $meta, $expire);
     }
-    public function remove(string $key) : void
+    /**
+     * @param string $key
+     */
+    public function remove($key) : void
     {
         $this->memcached->delete(\urlencode($this->prefix . $key), 0);
     }
-    public function clean(array $conditions) : void
+    /**
+     * @param mixed[] $conditions
+     */
+    public function clean($conditions) : void
     {
         if (!empty($conditions[\RectorPrefix20210318\Nette\Caching\Cache::ALL])) {
             $this->memcached->flush();

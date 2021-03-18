@@ -142,7 +142,7 @@ final class LocalPropertyAnalyzer
     }
     private function shouldSkipForLaravelCollection(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $staticCallOrClassMethod = $this->betterNodeFinder->findFirstAncestorInstancesOf($propertyFetch, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\StaticCall::class]);
+        $staticCallOrClassMethod = $this->betterNodeFinder->findParentTypes($propertyFetch, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\StaticCall::class]);
         if (!$staticCallOrClassMethod instanceof \PhpParser\Node\Expr\StaticCall) {
             return \false;
         }

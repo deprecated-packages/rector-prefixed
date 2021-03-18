@@ -95,9 +95,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -122,7 +122,10 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function shouldSkip($methodCall) : bool
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Kdyby\\Events\\EventManager'))) {
             return \true;
@@ -133,7 +136,7 @@ CODE_SAMPLE
      * @param Arg[] $oldArgs
      * @return Arg[]
      */
-    private function createNewArgs(array $oldArgs) : array
+    private function createNewArgs($oldArgs) : array
     {
         $args = [];
         if ($oldArgs[1]->value instanceof \PhpParser\Node\Expr\New_) {

@@ -54,9 +54,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param FuncCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'get_class')) {
             return null;
@@ -82,7 +82,10 @@ CODE_SAMPLE
         $selfClassConstFetch = $this->nodeFactory->createClassConstReference('self');
         return new \PhpParser\Node\Expr\Ternary($notIdentical, $funcCall, $selfClassConstFetch);
     }
-    private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     */
+    private function shouldSkip($funcCall) : bool
     {
         $isJustAdded = (bool) $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE);
         if ($isJustAdded) {
@@ -101,7 +104,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function createGetClassFuncCall(\PhpParser\Node\Expr\FuncCall $oldFuncCall) : \PhpParser\Node\Expr\FuncCall
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $oldFuncCall
+     */
+    private function createGetClassFuncCall($oldFuncCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall = new \PhpParser\Node\Expr\FuncCall($oldFuncCall->name, $oldFuncCall->args);
         $funcCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE, \true);
@@ -109,8 +115,10 @@ CODE_SAMPLE
     }
     /**
      * E.g. "$value === [!null] ? get_class($value)"
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Expr\Ternary $ternary
      */
-    private function isIdenticalToNotNull(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Ternary $ternary) : bool
+    private function isIdenticalToNotNull($funcCall, $ternary) : bool
     {
         if (!$ternary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return \false;
@@ -125,8 +133,10 @@ CODE_SAMPLE
     }
     /**
      * E.g. "$value !== null ? get_class($value)"
+     * @param \PhpParser\Node\Expr\FuncCall $funcCall
+     * @param \PhpParser\Node\Expr\Ternary $ternary
      */
-    private function isNotIdenticalToNull(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Ternary $ternary) : bool
+    private function isNotIdenticalToNull($funcCall, $ternary) : bool
     {
         if (!$ternary->cond instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return \false;

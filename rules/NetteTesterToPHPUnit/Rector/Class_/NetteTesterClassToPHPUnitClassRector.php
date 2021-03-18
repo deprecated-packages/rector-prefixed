@@ -70,7 +70,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Include_|MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\Include_) {
             $this->processAboveTestInclude($node);
@@ -87,14 +87,20 @@ CODE_SAMPLE
         $this->processMethods($node);
         return $node;
     }
-    private function processAboveTestInclude(\PhpParser\Node\Expr\Include_ $include) : void
+    /**
+     * @param \PhpParser\Node\Expr\Include_ $include
+     */
+    private function processAboveTestInclude($include) : void
     {
         $classLike = $include->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             $this->removeNode($include);
         }
     }
-    private function processUnderTestRun(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall $methodCall
+     */
+    private function processUnderTestRun($methodCall) : void
     {
         if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Tester\\TestCase'))) {
             return;
@@ -103,11 +109,17 @@ CODE_SAMPLE
             $this->removeNode($methodCall);
         }
     }
-    private function processExtends(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function processExtends($class) : void
     {
         $class->extends = new \PhpParser\Node\Name\FullyQualified('PHPUnit\\Framework\\TestCase');
     }
-    private function processMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     */
+    private function processMethods($class) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             if ($this->isNames($classMethod, [\Rector\Core\ValueObject\MethodName::SET_UP, \Rector\Core\ValueObject\MethodName::TEAR_DOWN])) {

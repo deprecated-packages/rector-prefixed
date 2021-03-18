@@ -65,9 +65,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param Assign $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
@@ -85,13 +85,19 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, $dimFetchAssignToMethodCall->getAddMethod(), $node->expr->args);
     }
-    public function configure(array $configuration) : void
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure($configuration) : void
     {
         $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];
         \RectorPrefix20210318\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Transform\ValueObject\DimFetchAssignToMethodCall::class);
         $this->dimFetchAssignToMethodCalls = $dimFetchAssignToMethodCalls;
     }
-    private function findDimFetchAssignToMethodCall(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Transform\ValueObject\DimFetchAssignToMethodCall
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     */
+    private function findDimFetchAssignToMethodCall($assign) : ?\Rector\Transform\ValueObject\DimFetchAssignToMethodCall
     {
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $assign->var;

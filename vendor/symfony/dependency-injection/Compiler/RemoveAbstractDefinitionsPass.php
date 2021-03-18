@@ -18,8 +18,9 @@ class RemoveAbstractDefinitionsPass implements \RectorPrefix20210318\Symfony\Com
 {
     /**
      * Removes abstract definitions from the ContainerBuilder.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($definition->isAbstract()) {

@@ -145,9 +145,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param Class_ $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->classManipulator->hasInterface($node, new \PHPStan\Type\ObjectType('Gedmo\\Translatable\\Translatable'))) {
             return null;
@@ -165,8 +165,9 @@ CODE_SAMPLE
     }
     /**
      * @return PhpDocInfo[]
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectAndRemoveTranslatableProperties(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectAndRemoveTranslatableProperties($class) : array
     {
         $removedPropertyNameToPhpDocInfo = [];
         foreach ($class->getProperties() as $property) {
@@ -189,8 +190,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
+    private function removeSetAndGetMethods($class, $removedPropertyNames) : void
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {
@@ -208,8 +210,9 @@ CODE_SAMPLE
     }
     /**
      * @param PhpDocInfo[] $translatedPropertyToPhpDocInfos
+     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos) : void
+    private function dumpEntityTranslation($class, $translatedPropertyToPhpDocInfos) : void
     {
         $fileInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if (!$fileInfo instanceof \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo) {

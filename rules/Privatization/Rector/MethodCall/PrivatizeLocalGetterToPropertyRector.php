@@ -62,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param MethodCall $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
             return null;
@@ -83,7 +83,10 @@ CODE_SAMPLE
         }
         return $this->matchLocalPropertyFetchInGetterMethod($classMethod);
     }
-    private function matchLocalPropertyFetchInGetterMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
+     */
+    private function matchLocalPropertyFetchInGetterMethod($classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {

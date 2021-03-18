@@ -55,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\BinaryOp::class];
     }
     /**
-     * @param BinaryOp $node
+     * @param \PhpParser\Node $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor($node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return null;
@@ -75,7 +75,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function isStringOrStaticNonNumbericString(\PhpParser\Node\Expr $expr) : bool
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     */
+    private function isStringOrStaticNonNumbericString($expr) : bool
     {
         // replace only scalar values, not variables/constants/etc.
         if (!$expr instanceof \PhpParser\Node\Scalar && !$expr instanceof \PhpParser\Node\Expr\Variable) {
