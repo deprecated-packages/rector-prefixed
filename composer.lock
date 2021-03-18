@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4962178f4d840f97c0d1142f7b6610a6",
+    "content-hash": "3576c4054c256970a70cc61de4735fee",
     "packages": [
         {
             "name": "composer/semver",
@@ -8246,8 +8246,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "rector/rector-symfony": 20,
-        "symplify/rule-doc-generator-contracts": 20
+        "rector/rector-symfony": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
