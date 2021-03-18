@@ -1,10 +1,9 @@
-<?php declare(strict_types = 1);
+<?php
 
+declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast;
 
 interface Node
 {
-
-	public function __toString(): string;
-
+    public function __toString() : string;
 }

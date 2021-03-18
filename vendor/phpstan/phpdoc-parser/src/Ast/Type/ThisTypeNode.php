@@ -1,13 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
 
+declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\Type;
 
-class ThisTypeNode implements TypeNode
+class ThisTypeNode implements \PHPStan\PhpDocParser\Ast\Type\TypeNode
 {
-
-	public function __toString(): string
-	{
-		return '$this';
-	}
-
+    public function __toString() : string
+    {
+        return '$this';
+    }
 }

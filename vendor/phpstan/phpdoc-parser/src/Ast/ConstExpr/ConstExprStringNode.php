@@ -1,22 +1,18 @@
-<?php declare(strict_types = 1);
+<?php
 
+declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\ConstExpr;
 
-class ConstExprStringNode implements ConstExprNode
+class ConstExprStringNode implements \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode
 {
-
-	/** @var string */
-	public $value;
-
-	public function __construct(string $value)
-	{
-		$this->value = $value;
-	}
-
-
-	public function __toString(): string
-	{
-		return $this->value;
-	}
-
+    /** @var string */
+    public $value;
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+    public function __toString() : string
+    {
+        return $this->value;
+    }
 }
