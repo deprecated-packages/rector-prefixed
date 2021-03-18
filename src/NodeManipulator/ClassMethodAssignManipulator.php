@@ -18,7 +18,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
-use PHPStan\Reflection\ObjectTypeMethodReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\Type;
@@ -260,7 +260,7 @@ final class ClassMethodAssignManipulator
             return \false;
         }
         $methodReflection = $this->callReflectionResolver->resolveCall($node);
-        if (!$methodReflection instanceof \PHPStan\Reflection\ObjectTypeMethodReflection) {
+        if (!$methodReflection instanceof \PHPStan\Reflection\MethodReflection) {
             return \false;
         }
         $variableName = $this->nodeNameResolver->getName($variable);

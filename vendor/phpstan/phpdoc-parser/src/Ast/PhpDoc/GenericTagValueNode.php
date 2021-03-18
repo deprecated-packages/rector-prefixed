@@ -1,18 +1,22 @@
-<?php
+<?php declare(strict_types = 1);
 
-declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\PhpDoc;
 
-class GenericTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+class GenericTagValueNode implements PhpDocTagValueNode
 {
-    /** @var string (may be empty) */
-    public $value;
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
-    public function __toString() : string
-    {
-        return $this->value;
-    }
+
+	/** @var string (may be empty) */
+	public $value;
+
+	public function __construct(string $value)
+	{
+		$this->value = $value;
+	}
+
+
+	public function __toString(): string
+	{
+		return $this->value;
+	}
+
 }

@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types = 1);
 
-declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\ConstExpr;
 
-class ConstExprNullNode implements \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode
+class ConstExprNullNode implements ConstExprNode
 {
-    public function __toString() : string
-    {
-        return 'null';
-    }
+
+	public function __toString(): string
+	{
+		return 'null';
+	}
+
 }
