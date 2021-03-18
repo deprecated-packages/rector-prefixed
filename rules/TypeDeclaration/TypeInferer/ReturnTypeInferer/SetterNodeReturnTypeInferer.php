@@ -32,10 +32,7 @@ final class SetterNodeReturnTypeInferer implements \Rector\TypeDeclaration\Contr
         $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
         $this->typeFactory = $typeFactory;
     }
-    /**
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

@@ -55,9 +55,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\New_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param New_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->class, 'Illuminate\\Auth\\Events\\Login')) {
             return null;
@@ -71,10 +71,7 @@ CODE_SAMPLE
         $node->args = \array_merge([new \PhpParser\Node\Arg($guardVariable)], $node->args);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $guardVariable
-     */
-    private function createGuardAssign($guardVariable) : \PhpParser\Node\Expr\Assign
+    private function createGuardAssign(\PhpParser\Node\Expr\Variable $guardVariable) : \PhpParser\Node\Expr\Assign
     {
         $string = new \PhpParser\Node\Scalar\String_('auth.defaults.guard');
         return new \PhpParser\Node\Expr\Assign($guardVariable, $this->nodeFactory->createFuncCall('config', [$string]));

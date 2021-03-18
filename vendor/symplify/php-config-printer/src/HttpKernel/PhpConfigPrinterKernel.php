@@ -14,10 +14,7 @@ final class PhpConfigPrinterKernel extends \RectorPrefix20210318\Symplify\Sympli
      * @var string[]
      */
     private $configs = [];
-    /**
-     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
-     */
-    public function registerContainerConfiguration($loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210318\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -34,7 +31,7 @@ final class PhpConfigPrinterKernel extends \RectorPrefix20210318\Symplify\Sympli
     /**
      * @param string[] $configs
      */
-    public function setConfigs($configs) : void
+    public function setConfigs(array $configs) : void
     {
         $this->configs = $configs;
     }

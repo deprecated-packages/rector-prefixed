@@ -39,9 +39,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'is_object')) {
             return null;
@@ -57,10 +57,7 @@ CODE_SAMPLE
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $booleanNot);
         return $booleanNot;
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function shouldSkip($funcCall) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         return $parentNode instanceof \PhpParser\Node\Expr\BooleanNot;

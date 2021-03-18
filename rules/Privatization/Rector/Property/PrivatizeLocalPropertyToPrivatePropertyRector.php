@@ -79,9 +79,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Property $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -100,10 +100,7 @@ CODE_SAMPLE
         $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkip($property) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -125,10 +122,7 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         return $phpDocInfo->hasByTypes(self::TAG_NODES_REQUIRING_PUBLIC);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     */
-    private function shouldSkipClass($classLike) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
@@ -144,10 +138,7 @@ CODE_SAMPLE
         }
         return $this->isOpenSourceProjectType();
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function shouldSkipProperty($property) : bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         // already private
         if ($property->isPrivate()) {

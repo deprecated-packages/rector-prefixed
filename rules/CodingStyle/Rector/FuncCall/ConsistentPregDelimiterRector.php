@@ -79,7 +79,7 @@ CODE_SAMPLE
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->refactorFuncCall($node);
@@ -98,17 +98,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param mixed[] $configuration
-     */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->delimiter = $configuration[self::DELIMITER] ?? '#';
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function refactorFuncCall($funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         foreach (self::FUNCTIONS_WITH_REGEX_PATTERN as $function => $position) {
             if (!$this->isName($funcCall, $function)) {
@@ -119,10 +113,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Arg $arg
-     */
-    private function refactorArgument($arg) : void
+    private function refactorArgument(\PhpParser\Node\Arg $arg) : void
     {
         if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;

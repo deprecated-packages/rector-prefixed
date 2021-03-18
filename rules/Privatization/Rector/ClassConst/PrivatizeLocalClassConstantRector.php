@@ -76,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConst $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -114,10 +114,7 @@ CODE_SAMPLE
         $this->changeConstantVisibility($node, $directUsingClassReflections, $indirectUsingClassReflections, $parentClassConstantVisibility, $classReflection);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassConst $classConst
-     */
-    private function shouldSkip($classConst) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassConst $classConst) : bool
     {
         $hasNewAccessLevel = $classConst->getAttribute(self::HAS_NEW_ACCESS_LEVEL);
         if ($hasNewAccessLevel) {
@@ -137,11 +134,7 @@ CODE_SAMPLE
         $class = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         return $class === null;
     }
-    /**
-     * @param string $class
-     * @param string $constant
-     */
-    private function findParentClassConstantAndRefactorIfPossible($class, $constant) : ?\Rector\Privatization\ValueObject\ConstantVisibility
+    private function findParentClassConstantAndRefactorIfPossible(string $class, string $constant) : ?\Rector\Privatization\ValueObject\ConstantVisibility
     {
         $parentClassConst = $this->parentClassConstantNodeFinder->find($class, $constant);
         if ($parentClassConst !== null) {
@@ -159,11 +152,8 @@ CODE_SAMPLE
     /**
      * @param ClassReflection[] $directUsingClassReflections
      * @param ClassReflection[] $indirectUsingClassReflections
-     * @param \PhpParser\Node\Stmt\ClassConst $classConst
-     * @param \Rector\Privatization\ValueObject\ConstantVisibility|null $constantVisibility
-     * @param \PHPStan\Reflection\ClassReflection $classReflection
      */
-    private function changeConstantVisibility($classConst, $directUsingClassReflections, $indirectUsingClassReflections, $constantVisibility, $classReflection) : void
+    private function changeConstantVisibility(\PhpParser\Node\Stmt\ClassConst $classConst, array $directUsingClassReflections, array $indirectUsingClassReflections, ?\Rector\Privatization\ValueObject\ConstantVisibility $constantVisibility, \PHPStan\Reflection\ClassReflection $classReflection) : void
     {
         // 1. is actually never used
         if ($directUsingClassReflections === []) {
@@ -189,9 +179,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassReflection[] $constantUsingClassReflections
-     * @param \PHPStan\Reflection\ClassReflection $classReflection
      */
-    private function isUsedByChildrenOnly($constantUsingClassReflections, $classReflection) : bool
+    private function isUsedByChildrenOnly(array $constantUsingClassReflections, \PHPStan\Reflection\ClassReflection $classReflection) : bool
     {
         $isChild = \false;
         foreach ($constantUsingClassReflections as $constantUsingClassReflection) {

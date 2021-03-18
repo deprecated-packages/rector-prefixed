@@ -94,9 +94,8 @@ abstract class AbstractSurrogate implements \RectorPrefix20210318\Symfony\Compon
     }
     /**
      * Remove the Surrogate from the Surrogate-Control header.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function removeFromControl($response)
+    protected function removeFromControl(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response)
     {
         if (!$response->headers->has('Surrogate-Control')) {
             return;

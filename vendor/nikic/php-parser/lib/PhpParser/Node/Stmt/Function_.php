@@ -66,7 +66,7 @@ class Function_ extends \PhpParser\Node\Stmt implements \PhpParser\Node\Function
         return $this->attrGroups;
     }
     /** @return Node\Stmt[] */
-    public function getStmts() : ?array
+    public function getStmts() : array
     {
         return $this->stmts;
     }

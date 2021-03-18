@@ -86,7 +86,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -104,7 +104,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall|FuncCall $node
      */
-    private function shouldSkip($node) : bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($node->args === []) {
             return \true;
@@ -132,7 +132,7 @@ CODE_SAMPLE
      * @param Expr[]|mixed[] $defaultValues
      * @return int[]
      */
-    private function resolveKeysToRemove($node, $defaultValues) : array
+    private function resolveKeysToRemove(\PhpParser\Node $node, array $defaultValues) : array
     {
         $keysToRemove = [];
         $keysToKeep = [];

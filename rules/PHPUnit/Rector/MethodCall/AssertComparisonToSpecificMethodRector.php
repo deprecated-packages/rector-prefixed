@@ -63,7 +63,7 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse'])) {
             return null;
@@ -76,9 +76,8 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
      */
-    private function processCallWithBinaryOp($node, $binaryOp) : ?\PhpParser\Node
+    private function processCallWithBinaryOp(\PhpParser\Node $node, \PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
     {
         $binaryOpClass = \get_class($binaryOp);
         foreach ($this->binaryOpWithAssertMethods as $binaryOpWithAssertMethod) {
@@ -94,7 +93,7 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function changeArgumentsOrder($node) : void
+    private function changeArgumentsOrder(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
         /** @var BinaryOp $expression */
@@ -110,10 +109,7 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
         $newArgs = [$firstArgument, $secondArgument];
         $node->args = $this->appendArgs($newArgs, $oldArguments);
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isConstantValue($expr) : bool
+    private function isConstantValue(\PhpParser\Node\Expr $expr) : bool
     {
         $nodeClass = \get_class($expr);
         if (\in_array($nodeClass, [\PhpParser\Node\Expr\Array_::class, \PhpParser\Node\Expr\ConstFetch::class], \true)) {

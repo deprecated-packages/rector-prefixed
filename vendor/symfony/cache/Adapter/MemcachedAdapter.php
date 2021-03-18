@@ -82,7 +82,7 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
      *
      * @throws \ErrorException When invalid options or servers are provided
      */
-    public static function createConnection($servers, $options = [])
+    public static function createConnection($servers, array $options = [])
     {
         if (\is_string($servers)) {
             $servers = [$servers];
@@ -213,10 +213,8 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $values
-     * @param int $lifetime
      */
-    protected function doSave($values, $lifetime)
+    protected function doSave(array $values, int $lifetime)
     {
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
@@ -232,9 +230,8 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doFetch($ids)
+    protected function doFetch(array $ids)
     {
         try {
             $encodedIds = \array_map('self::encodeKey', $ids);
@@ -250,17 +247,15 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    protected function doHave($id)
+    protected function doHave(string $id)
     {
         return \false !== $this->getClient()->get(self::encodeKey($id)) || $this->checkResultCode(\Memcached::RES_SUCCESS === $this->client->getResultCode());
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $ids
      */
-    protected function doDelete($ids)
+    protected function doDelete(array $ids)
     {
         $ok = \true;
         $encodedIds = \array_map('self::encodeKey', $ids);
@@ -273,9 +268,8 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
     }
     /**
      * {@inheritdoc}
-     * @param string $namespace
      */
-    protected function doClear($namespace)
+    protected function doClear(string $namespace)
     {
         return '' === $namespace && $this->getClient()->flush();
     }
@@ -301,17 +295,11 @@ class MemcachedAdapter extends \RectorPrefix20210318\Symfony\Component\Cache\Ada
         }
         return $this->client = $this->lazyClient;
     }
-    /**
-     * @param string $key
-     */
-    private static function encodeKey($key) : string
+    private static function encodeKey(string $key) : string
     {
         return \strtr($key, self::RESERVED_MEMCACHED, self::RESERVED_PSR6);
     }
-    /**
-     * @param string $key
-     */
-    private static function decodeKey($key) : string
+    private static function decodeKey(string $key) : string
     {
         return \strtr($key, self::RESERVED_PSR6, self::RESERVED_MEMCACHED);
     }

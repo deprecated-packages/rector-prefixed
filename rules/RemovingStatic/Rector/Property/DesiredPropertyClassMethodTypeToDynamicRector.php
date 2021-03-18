@@ -62,7 +62,7 @@ CODE_SAMPLE
     /**
      * @param Property|ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             if (!$this->nodeNameResolver->isInClassNamed($node, $staticObjectType)) {

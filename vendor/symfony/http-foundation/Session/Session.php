@@ -52,25 +52,22 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function has($name)
+    public function has(string $name)
     {
         return $this->getAttributeBag()->has($name);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function get($name, $default = null)
+    public function get(string $name, $default = null)
     {
         return $this->getAttributeBag()->get($name, $default);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function set($name, $value)
+    public function set(string $name, $value)
     {
         $this->getAttributeBag()->set($name, $value);
     }
@@ -83,17 +80,15 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $attributes
      */
-    public function replace($attributes)
+    public function replace(array $attributes)
     {
         $this->getAttributeBag()->replace($attributes);
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
         return $this->getAttributeBag()->remove($name);
     }
@@ -153,19 +148,16 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
      */
-    public function invalidate($lifetime = null)
+    public function invalidate(int $lifetime = null)
     {
         $this->storage->clear();
         return $this->migrate(\true, $lifetime);
     }
     /**
      * {@inheritdoc}
-     * @param bool $destroy
-     * @param int $lifetime
      */
-    public function migrate($destroy = \false, $lifetime = null)
+    public function migrate(bool $destroy = \false, int $lifetime = null)
     {
         return $this->storage->regenerate($destroy, $lifetime);
     }
@@ -185,9 +177,8 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param string $id
      */
-    public function setId($id)
+    public function setId(string $id)
     {
         if ($this->storage->getId() !== $id) {
             $this->storage->setId($id);
@@ -202,9 +193,8 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->storage->setName($name);
     }
@@ -221,17 +211,15 @@ class Session implements \RectorPrefix20210318\Symfony\Component\HttpFoundation\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
-    public function registerBag($bag)
+    public function registerBag(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
     {
         $this->storage->registerBag(new \RectorPrefix20210318\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBag($name)
+    public function getBag(string $name)
     {
         $bag = $this->storage->getBag($name);
         return \method_exists($bag, 'getBag') ? $bag->getBag() : $bag;

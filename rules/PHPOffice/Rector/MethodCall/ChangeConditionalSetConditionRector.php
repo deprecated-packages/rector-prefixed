@@ -51,9 +51,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('PHPExcel_Style_Conditional'), 'setCondition')) {
             return null;
@@ -62,10 +62,7 @@ CODE_SAMPLE
         $this->castArgumentToArrayIfNotArrayType($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function castArgumentToArrayIfNotArrayType($methodCall) : void
+    private function castArgumentToArrayIfNotArrayType(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         $firstArgumentValue = $methodCall->args[0]->value;
         $firstArgumentStaticType = $this->getStaticType($firstArgumentValue);

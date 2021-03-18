@@ -58,10 +58,7 @@ class MockArraySessionStorage implements \RectorPrefix20210318\Symfony\Component
         $this->name = $name;
         $this->setMetadataBag($metaBag);
     }
-    /**
-     * @param mixed[] $array
-     */
-    public function setSessionData($array)
+    public function setSessionData(array $array)
     {
         $this->data = $array;
     }
@@ -81,9 +78,8 @@ class MockArraySessionStorage implements \RectorPrefix20210318\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
      */
-    public function regenerate(bool $destroy = \false, $lifetime = null)
+    public function regenerate(bool $destroy = \false, int $lifetime = null)
     {
         if (!$this->started) {
             $this->start();
@@ -176,10 +172,7 @@ class MockArraySessionStorage implements \RectorPrefix20210318\Symfony\Component
     {
         return $this->started;
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $bag
-     */
-    public function setMetadataBag($bag = null)
+    public function setMetadataBag(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $bag = null)
     {
         if (null === $bag) {
             $bag = new \RectorPrefix20210318\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag();

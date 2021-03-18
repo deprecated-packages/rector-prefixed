@@ -114,9 +114,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->isAbstract()) {
             return null;
@@ -154,15 +154,14 @@ CODE_SAMPLE
     /**
      * @param array<string, string> $configuration
      */
-    public function configure($configuration) : void
+    public function configure(array $configuration) : void
     {
         $this->framework = $configuration[self::FRAMEWORK];
     }
     /**
      * @return ObjectType[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveConstructorParamClassTypes($class) : array
+    private function resolveConstructorParamClassTypes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $constructorClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -181,9 +180,8 @@ CODE_SAMPLE
     }
     /**
      * @param ObjectType[] $abstractClassConstructorParamTypes
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function refactorChildConstructorClassMethod($classMethod, $abstractClassConstructorParamTypes) : void
+    private function refactorChildConstructorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             $paramType = $this->getStaticType($param);
@@ -199,10 +197,7 @@ CODE_SAMPLE
             $this->injectObjectTypes[] = $paramType;
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function clearAbstractClassConstructor($classMethod) : void
+    private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             if (!$this->nodeTypeResolver->isObjectTypes($param, $this->injectObjectTypes)) {
@@ -213,10 +208,7 @@ CODE_SAMPLE
         }
         $this->classMethodNodeRemover->removeClassMethodIfUseless($classMethod);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function addInjectOrRequiredClassMethod($class) : void
+    private function addInjectOrRequiredClassMethod(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         /** @var string $className */
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -226,10 +218,7 @@ CODE_SAMPLE
         $injectClassMethod = $this->injectMethodFactory->createFromTypes($this->injectObjectTypes, $className, $this->framework);
         $this->classInsertManipulator->addAsFirstMethod($class, $injectClassMethod);
     }
-    /**
-     * @param \PHPStan\Type\Type $paramType
-     */
-    private function popFirstObjectTypeFromUnionType($paramType) : \PHPStan\Type\Type
+    private function popFirstObjectTypeFromUnionType(\PHPStan\Type\Type $paramType) : \PHPStan\Type\Type
     {
         if (!$paramType instanceof \PHPStan\Type\UnionType) {
             return $paramType;

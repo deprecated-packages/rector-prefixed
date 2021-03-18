@@ -27,10 +27,7 @@ class ErrorListener implements \RectorPrefix20210318\Symfony\Component\EventDisp
     {
         $this->logger = $logger;
     }
-    /**
-     * @param \Symfony\Component\Console\Event\ConsoleErrorEvent $event
-     */
-    public function onConsoleError($event)
+    public function onConsoleError(\RectorPrefix20210318\Symfony\Component\Console\Event\ConsoleErrorEvent $event)
     {
         if (null === $this->logger) {
             return;
@@ -42,10 +39,7 @@ class ErrorListener implements \RectorPrefix20210318\Symfony\Component\EventDisp
         }
         $this->logger->critical('Error thrown while running command "{command}". Message: "{message}"', ['exception' => $error, 'command' => $inputString, 'message' => $error->getMessage()]);
     }
-    /**
-     * @param \Symfony\Component\Console\Event\ConsoleTerminateEvent $event
-     */
-    public function onConsoleTerminate($event)
+    public function onConsoleTerminate(\RectorPrefix20210318\Symfony\Component\Console\Event\ConsoleTerminateEvent $event)
     {
         if (null === $this->logger) {
             return;
@@ -64,10 +58,7 @@ class ErrorListener implements \RectorPrefix20210318\Symfony\Component\EventDisp
     {
         return [\RectorPrefix20210318\Symfony\Component\Console\ConsoleEvents::ERROR => ['onConsoleError', -128], \RectorPrefix20210318\Symfony\Component\Console\ConsoleEvents::TERMINATE => ['onConsoleTerminate', -128]];
     }
-    /**
-     * @param \Symfony\Component\Console\Event\ConsoleEvent $event
-     */
-    private static function getInputString($event) : ?string
+    private static function getInputString(\RectorPrefix20210318\Symfony\Component\Console\Event\ConsoleEvent $event) : ?string
     {
         $commandName = $event->getCommand() ? $event->getCommand()->getName() : null;
         $input = $event->getInput();

@@ -40,11 +40,7 @@ class ContainerConfigurator extends \RectorPrefix20210318\Symfony\Component\Depe
         $this->path = $path;
         $this->file = $file;
     }
-    /**
-     * @param string $namespace
-     * @param mixed[] $config
-     */
-    public final function extension($namespace, $config)
+    public final function extension(string $namespace, array $config)
     {
         if (!$this->container->hasExtension($namespace)) {
             $extensions = \array_filter(\array_map(function (\RectorPrefix20210318\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
@@ -54,11 +50,7 @@ class ContainerConfigurator extends \RectorPrefix20210318\Symfony\Component\Depe
         }
         $this->container->loadFromExtension($namespace, static::processValue($config));
     }
-    /**
-     * @param string $resource
-     * @param string $type
-     */
-    public final function import($resource, $type = null, $ignoreErrors = \false)
+    public final function import(string $resource, string $type = null, $ignoreErrors = \false)
     {
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
@@ -73,9 +65,8 @@ class ContainerConfigurator extends \RectorPrefix20210318\Symfony\Component\Depe
     }
     /**
      * @return static
-     * @param string $path
      */
-    public final function withPath($path)
+    public final function withPath(string $path) : self
     {
         $clone = clone $this;
         $clone->path = $clone->file = $path;

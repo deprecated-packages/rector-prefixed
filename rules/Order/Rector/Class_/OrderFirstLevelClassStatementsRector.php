@@ -54,7 +54,7 @@ CODE_SAMPLE
     /**
      * @param Class_|Trait_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $node->stmts = $this->getStmtsInDesiredPosition($node->stmts);
         return $node;
@@ -63,17 +63,14 @@ CODE_SAMPLE
      * @param Stmt[] $stmts
      * @return Stmt[]
      */
-    private function getStmtsInDesiredPosition($stmts) : array
+    private function getStmtsInDesiredPosition(array $stmts) : array
     {
         \uasort($stmts, function (\PhpParser\Node\Stmt $firstStmt, \PhpParser\Node\Stmt $secondStmt) : int {
             return [$this->resolveClassElementRank($firstStmt), $firstStmt->getLine()] <=> [$this->resolveClassElementRank($secondStmt), $secondStmt->getLine()];
         });
         return $stmts;
     }
-    /**
-     * @param \PhpParser\Node\Stmt $stmt
-     */
-    private function resolveClassElementRank($stmt) : int
+    private function resolveClassElementRank(\PhpParser\Node\Stmt $stmt) : int
     {
         foreach (self::TYPE_TO_RANK as $type => $rank) {
             if (\is_a($stmt, $type, \true)) {

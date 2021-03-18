@@ -101,9 +101,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
@@ -114,10 +114,7 @@ CODE_SAMPLE
         $this->listeningClassMethodArgumentManipulator->change($listeningClassMethods);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function refactorEventNames($classMethod) : void
+    private function refactorEventNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
@@ -134,10 +131,7 @@ CODE_SAMPLE
             $this->getSubscribedEventsArrayManipulator->change($returnedExpr);
         });
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $array
-     */
-    private function refactorArrayWithEventTable($array) : void
+    private function refactorArrayWithEventTable(\PhpParser\Node\Expr\Array_ $array) : void
     {
         foreach ($array->items as $arrayItem) {
             if ($arrayItem === null) {
@@ -151,10 +145,7 @@ CODE_SAMPLE
             $arrayItem->value = new \PhpParser\Node\Scalar\String_($methodName);
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function resolveMethodNameFromKdybyEventName($expr) : string
+    private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->valueResolver->getValue($expr);
         if (\RectorPrefix20210318\Nette\Utils\Strings::contains($kdybyEventName, '::')) {

@@ -62,10 +62,7 @@ final class ServiceConfigurationDecorator
         }
         return $configuration;
     }
-    /**
-     * @param object $value
-     */
-    private function decorateValueObject($value) : \PhpParser\Node\Expr\StaticCall
+    private function decorateValueObject(object $value) : \PhpParser\Node\Expr\StaticCall
     {
         $new = $this->newValueObjectFactory->create($value);
         $args = [new \PhpParser\Node\Arg($new)];

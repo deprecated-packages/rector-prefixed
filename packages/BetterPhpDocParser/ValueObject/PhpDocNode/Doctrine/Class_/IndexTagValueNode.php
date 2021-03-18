@@ -18,7 +18,7 @@ final class IndexTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
         $this->tag = $originalTag;
         parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
-    public function getTag() : ?string
+    public function getTag() : string
     {
         return $this->tag ?: $this->getShortName();
     }

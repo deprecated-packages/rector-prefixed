@@ -35,9 +35,8 @@ class CacheCollectorPass implements \RectorPrefix20210318\Symfony\Component\Depe
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dataCollectorCacheId)) {
             return;
@@ -47,12 +46,7 @@ class CacheCollectorPass implements \RectorPrefix20210318\Symfony\Component\Depe
             $this->addToCollector($id, $poolName, $container);
         }
     }
-    /**
-     * @param string $id
-     * @param string $name
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    private function addToCollector($id, $name, $container)
+    private function addToCollector(string $id, string $name, \RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $definition = $container->getDefinition($id);
         if ($definition->isAbstract()) {

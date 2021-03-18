@@ -63,9 +63,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConst $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->consts) > 1) {
             return null;
@@ -84,10 +84,7 @@ CODE_SAMPLE
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $constType);
         return $node;
     }
-    /**
-     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
-     */
-    private function hasTwoAndMoreGenericClassStringTypes($constantArrayType) : bool
+    private function hasTwoAndMoreGenericClassStringTypes(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
     {
         $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($constantArrayType);
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
@@ -106,10 +103,8 @@ CODE_SAMPLE
     }
     /**
      * Skip big arrays and mixed[] constants
-     * @param \PHPStan\Type\Type $constType
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
      */
-    private function shouldSkipConstantArrayType($constType, $phpDocInfo) : bool
+    private function shouldSkipConstantArrayType(\PHPStan\Type\Type $constType, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
         if (!$constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return \false;
@@ -123,10 +118,7 @@ CODE_SAMPLE
         }
         return $this->isHugeNestedConstantArrayTyp($constType);
     }
-    /**
-     * @param \PHPStan\Type\Constant\ConstantArrayType $constantArrayType
-     */
-    private function isHugeNestedConstantArrayTyp($constantArrayType) : bool
+    private function isHugeNestedConstantArrayTyp(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : bool
     {
         if (\count($constantArrayType->getValueTypes()) <= 3) {
             return \false;

@@ -25,9 +25,8 @@ interface SessionBagInterface
     public function getName();
     /**
      * Initializes the Bag.
-     * @param mixed[] $array
      */
-    public function initialize(&$array);
+    public function initialize(array &$array);
     /**
      * Gets the storage key for this bag.
      *

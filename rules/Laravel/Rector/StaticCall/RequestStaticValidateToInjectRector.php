@@ -71,7 +71,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -93,7 +93,7 @@ CODE_SAMPLE
     /**
      * @param StaticCall|FuncCall $node
      */
-    private function shouldSkip($node) : bool
+    private function shouldSkip(\PhpParser\Node $node) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return !$this->nodeTypeResolver->isObjectTypes($node->class, $this->requestObjectTypes);

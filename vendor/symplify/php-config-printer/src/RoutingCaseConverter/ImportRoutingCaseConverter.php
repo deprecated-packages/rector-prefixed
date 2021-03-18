@@ -96,7 +96,7 @@ final class ImportRoutingCaseConverter implements \RectorPrefix20210318\Symplify
      * @param mixed $values
      * @return Arg[]
      */
-    private function createAddArgs($argsNames, $values) : array
+    private function createAddArgs(array $argsNames, $values) : array
     {
         $argumentValues = [];
         foreach ($argsNames as $arg) {

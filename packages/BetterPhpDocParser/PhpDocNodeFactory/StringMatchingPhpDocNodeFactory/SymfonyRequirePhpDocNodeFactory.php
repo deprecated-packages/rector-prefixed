@@ -9,17 +9,11 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface;
 final class SymfonyRequirePhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface
 {
-    /**
-     * @param string $tag
-     */
-    public function match($tag) : bool
+    public function match(string $tag) : bool
     {
         return $tag === \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::NAME;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator
-     */
-    public function createFromTokens($tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
+    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode();
     }

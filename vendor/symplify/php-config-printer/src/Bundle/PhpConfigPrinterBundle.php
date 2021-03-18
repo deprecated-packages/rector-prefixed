@@ -17,22 +17,16 @@ use RectorPrefix20210318\Symplify\PhpConfigPrinter\Dummy\DummyYamlFileContentPro
  */
 final class PhpConfigPrinterBundle extends \RectorPrefix20210318\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    public function build($containerBuilder) : void
+    public function build(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $this->registerDefaultImplementations($containerBuilder);
         $containerBuilder->addCompilerPass(new \RectorPrefix20210318\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : ?\RectorPrefix20210318\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : \RectorPrefix20210318\Symplify\PhpConfigPrinter\DependencyInjection\Extension\PhpConfigPrinterExtension
     {
         return new \RectorPrefix20210318\Symplify\PhpConfigPrinter\DependencyInjection\Extension\PhpConfigPrinterExtension();
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     */
-    private function registerDefaultImplementations($containerBuilder) : void
+    private function registerDefaultImplementations(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         // set default implementations, if none provided - for better developer experience out of the box
         if (!$containerBuilder->has(\RectorPrefix20210318\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface::class)) {

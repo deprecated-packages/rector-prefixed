@@ -63,9 +63,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Scalar\Encapsed::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Encapsed $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->sprintfFormat = '';
         $this->argumentVariables = [];
@@ -78,10 +78,7 @@ CODE_SAMPLE
         }
         return $this->createSprintfFuncCallOrConcat($this->sprintfFormat, $this->argumentVariables);
     }
-    /**
-     * @param \PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart
-     */
-    private function collectEncapsedStringPart($encapsedStringPart) : void
+    private function collectEncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : void
     {
         $stringValue = $encapsedStringPart->value;
         if ($stringValue === "\n") {
@@ -91,10 +88,7 @@ CODE_SAMPLE
         }
         $this->sprintfFormat .= $stringValue;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function collectExpr($expr) : void
+    private function collectExpr(\PhpParser\Node\Expr $expr) : void
     {
         $this->sprintfFormat .= '%s';
         // remove: ${wrap} → $wrap
@@ -106,9 +100,8 @@ CODE_SAMPLE
     /**
      * @param Expr[] $argumentVariables
      * @return Concat|FuncCall|null
-     * @param string $string
      */
-    private function createSprintfFuncCallOrConcat($string, $argumentVariables) : ?\PhpParser\Node
+    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : ?\PhpParser\Node
     {
         // special case for variable with PHP_EOL
         if ($string === '%s%s' && \count($argumentVariables) === 2 && $this->hasEndOfLine($argumentVariables)) {
@@ -126,7 +119,7 @@ CODE_SAMPLE
     /**
      * @param Expr[] $argumentVariables
      */
-    private function hasEndOfLine($argumentVariables) : bool
+    private function hasEndOfLine(array $argumentVariables) : bool
     {
         foreach ($argumentVariables as $argumentVariable) {
             if (!$argumentVariable instanceof \PhpParser\Node\Expr\ConstFetch) {

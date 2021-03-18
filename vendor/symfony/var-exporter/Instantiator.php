@@ -55,7 +55,7 @@ final class Instantiator
      *
      * @throws ExceptionInterface When the instance cannot be created
      */
-    public static function instantiate(string $class, array $properties = [], array $privateProperties = [])
+    public static function instantiate(string $class, array $properties = [], array $privateProperties = []) : object
     {
         $reflector = \RectorPrefix20210318\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class] ?? \RectorPrefix20210318\Symfony\Component\VarExporter\Internal\Registry::getClassReflector($class);
         if (\RectorPrefix20210318\Symfony\Component\VarExporter\Internal\Registry::$cloneable[$class]) {

@@ -81,20 +81,20 @@ class JsonResponse extends \RectorPrefix20210318\Symfony\Component\HttpFoundatio
      *
      * @return static
      */
-    public static function fromJsonString($data, $status = 200, $headers = [])
+    public static function fromJsonString(string $data, int $status = 200, array $headers = [])
     {
         return new static($data, $status, $headers, \true);
     }
     /**
      * Sets the JSONP callback.
      *
-     * @param string $callback The JSONP callback or null to use none
+     * @param string|null $callback The JSONP callback or null to use none
      *
      * @return $this
      *
      * @throws \InvalidArgumentException When the callback name is not valid
      */
-    public function setCallback($callback = null)
+    public function setCallback(string $callback = null)
     {
         if (null !== $callback) {
             // partially taken from https://geekality.net/2011/08/03/valid-javascript-identifier/
@@ -117,9 +117,8 @@ class JsonResponse extends \RectorPrefix20210318\Symfony\Component\HttpFoundatio
      * Sets a raw string containing a JSON document to be sent.
      *
      * @return $this
-     * @param string $json
      */
-    public function setJson($json)
+    public function setJson(string $json)
     {
         $this->data = $json;
         return $this->update();
@@ -164,9 +163,8 @@ class JsonResponse extends \RectorPrefix20210318\Symfony\Component\HttpFoundatio
      * Sets options used while encoding data to JSON.
      *
      * @return $this
-     * @param int $encodingOptions
      */
-    public function setEncodingOptions($encodingOptions)
+    public function setEncodingOptions(int $encodingOptions)
     {
         $this->encodingOptions = $encodingOptions;
         return $this->setData(\json_decode($this->data));

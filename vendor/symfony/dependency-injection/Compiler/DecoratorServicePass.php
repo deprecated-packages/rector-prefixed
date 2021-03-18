@@ -29,10 +29,7 @@ class DecoratorServicePass extends \RectorPrefix20210318\Symfony\Component\Depen
     {
         $this->innerId = $innerId;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $definitions = new \SplPriorityQueue();
         $order = \PHP_INT_MAX;
@@ -94,10 +91,7 @@ class DecoratorServicePass extends \RectorPrefix20210318\Symfony\Component\Depen
             $container->setAlias($inner, $id)->setPublic($public);
         }
     }
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
             return new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());

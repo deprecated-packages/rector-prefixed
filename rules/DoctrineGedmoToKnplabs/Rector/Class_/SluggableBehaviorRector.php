@@ -89,9 +89,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $slugFields = [];
         $matchedProperty = null;
@@ -123,9 +123,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $slugFields
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addGetSluggableFieldsClassMethod($class, $slugFields) : void
+    private function addGetSluggableFieldsClassMethod(\PhpParser\Node\Stmt\Class_ $class, array $slugFields) : void
     {
         $classMethod = $this->nodeFactory->createPublicMethod('getSluggableFields');
         $classMethod->returnType = new \PhpParser\Node\Identifier('array');

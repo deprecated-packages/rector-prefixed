@@ -30,12 +30,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param callable $callback
-     * @param float $beta
-     * @param mixed[] $metadata
      */
-    public function get($key, $callback, $beta = null, &$metadata = null)
+    public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
     {
         $save = \true;
         return $callback(($this->createCacheItem)($key), $save);
@@ -50,9 +46,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $keys
      */
-    public function getItems($keys = [])
+    public function getItems(array $keys = [])
     {
         return $this->generateItems($keys);
     }
@@ -69,9 +64,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
      * {@inheritdoc}
      *
      * @return bool
-     * @param string $prefix
      */
-    public function clear($prefix = '')
+    public function clear(string $prefix = '')
     {
         return \true;
     }
@@ -88,9 +82,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
      * {@inheritdoc}
      *
      * @return bool
-     * @param mixed[] $keys
      */
-    public function deleteItems($keys)
+    public function deleteItems(array $keys)
     {
         return \true;
     }
@@ -98,9 +91,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\RectorPrefix20210318\Psr\Cache\CacheItemInterface $item)
     {
         return \false;
     }
@@ -108,9 +100,8 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\RectorPrefix20210318\Psr\Cache\CacheItemInterface $item)
     {
         return \false;
     }
@@ -125,16 +116,12 @@ class NullAdapter implements \RectorPrefix20210318\Symfony\Component\Cache\Adapt
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function delete($key) : bool
+    public function delete(string $key) : bool
     {
         return $this->deleteItem($key);
     }
-    /**
-     * @param mixed[] $keys
-     */
-    private function generateItems($keys)
+    private function generateItems(array $keys)
     {
         $f = $this->createCacheItem;
         foreach ($keys as $key) {

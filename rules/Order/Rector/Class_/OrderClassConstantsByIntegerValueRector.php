@@ -62,9 +62,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $numericClassConstsByKey = $this->resolveClassConstByPosition($node);
         if ($numericClassConstsByKey === []) {
@@ -82,9 +82,8 @@ CODE_SAMPLE
     }
     /**
      * @return ClassConst[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveClassConstByPosition($class) : array
+    private function resolveClassConstByPosition(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classConstConstsByValue = [];
         foreach ($class->stmts as $key => $classStmt) {
@@ -106,7 +105,7 @@ CODE_SAMPLE
      * @param array<int, ClassConst> $numericClassConstsByKey
      * @return array<int, string>
      */
-    private function resolveClassConstConstByUniqueValue($numericClassConstsByKey) : array
+    private function resolveClassConstConstByUniqueValue(array $numericClassConstsByKey) : array
     {
         $classConstConstsByValue = [];
         foreach ($numericClassConstsByKey as $position => $numericClassConst) {

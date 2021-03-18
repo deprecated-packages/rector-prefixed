@@ -63,9 +63,8 @@ class DebugHandlersListener implements \RectorPrefix20210318\Symfony\Component\E
     }
     /**
      * Configures the error handler.
-     * @param object $event
      */
-    public function configure($event = null)
+    public function configure(object $event = null)
     {
         if ($event instanceof \RectorPrefix20210318\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
             return;
@@ -135,10 +134,7 @@ class DebugHandlersListener implements \RectorPrefix20210318\Symfony\Component\E
             $this->exceptionHandler = null;
         }
     }
-    /**
-     * @param \Symfony\Component\ErrorHandler\ErrorHandler $handler
-     */
-    private function setDefaultLoggers($handler) : void
+    private function setDefaultLoggers(\RectorPrefix20210318\Symfony\Component\ErrorHandler\ErrorHandler $handler) : void
     {
         if (\is_array($this->levels)) {
             $levelsDeprecatedOnly = [];

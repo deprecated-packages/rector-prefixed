@@ -96,9 +96,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Assign $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isGetComponentMethodCallOrArrayDimFetchOnControl($node->expr)) {
             return null;
@@ -121,10 +121,7 @@ CODE_SAMPLE
         $this->varAnnotationManipulator->decorateNodeWithInlineVarType($node, $controlType, $variableName);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isGetComponentMethodCallOrArrayDimFetchOnControl($expr) : bool
+    private function isGetComponentMethodCallOrArrayDimFetchOnControl(\PhpParser\Node\Expr $expr) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
@@ -134,10 +131,7 @@ CODE_SAMPLE
         }
         return \true;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Assign $assign
-     */
-    private function resolveControlType($assign) : \PHPStan\Type\Type
+    private function resolveControlType(\PhpParser\Node\Expr\Assign $assign) : \PHPStan\Type\Type
     {
         if ($assign->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             /** @var MethodCall $methodCall */
@@ -151,10 +145,7 @@ CODE_SAMPLE
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function isArrayDimFetchStringOnControlVariable($expr) : bool
+    private function isArrayDimFetchStringOnControlVariable(\PhpParser\Node\Expr $expr) : bool
     {
         if (!$expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
@@ -168,10 +159,7 @@ CODE_SAMPLE
         }
         return \is_a($varStaticType->getClassName(), 'Nette\\Application\\UI\\Control', \true);
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     */
-    private function resolveCreateComponentMethodCallReturnType($methodCall) : \PHPStan\Type\Type
+    private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {
         $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -186,10 +174,7 @@ CODE_SAMPLE
         }
         return $this->resolveTypeFromShortControlNameAndVariable($firstArgumentValue, $scope, $methodCall->var);
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch
-     */
-    private function resolveArrayDimFetchControlType($arrayDimFetch) : \PHPStan\Type\Type
+    private function resolveArrayDimFetchControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \PHPStan\Type\Type
     {
         $scope = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -200,12 +185,7 @@ CODE_SAMPLE
         }
         return $this->resolveTypeFromShortControlNameAndVariable($arrayDimFetch->dim, $scope, $arrayDimFetch->var);
     }
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $shortControlString
-     * @param \PHPStan\Analyser\Scope $scope
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function resolveTypeFromShortControlNameAndVariable($shortControlString, $scope, $expr) : \PHPStan\Type\Type
+    private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {
         $componentName = $this->valueResolver->getValue($shortControlString);
         $componentName = \ucfirst($componentName);

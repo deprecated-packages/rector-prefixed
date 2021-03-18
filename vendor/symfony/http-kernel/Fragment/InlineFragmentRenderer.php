@@ -87,10 +87,7 @@ class InlineFragmentRenderer extends \RectorPrefix20210318\Symfony\Component\Htt
             return new \RectorPrefix20210318\Symfony\Component\HttpFoundation\Response();
         }
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    protected function createSubRequest($uri, $request)
+    protected function createSubRequest($uri, \RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request)
     {
         $cookies = $request->cookies->all();
         $server = $request->server->all();

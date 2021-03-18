@@ -102,7 +102,7 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter($name)
+    public function getParameter(string $name)
     {
         return $this->parameterBag->get($name);
     }
@@ -113,7 +113,7 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter($name)
+    public function hasParameter(string $name)
     {
         return $this->parameterBag->has($name);
     }
@@ -123,7 +123,7 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value)
     {
         $this->parameterBag->set($name, $value);
     }
@@ -132,10 +132,8 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      *
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
-     * @param object|null $service
-     * @param string $id
      */
-    public function set($id, $service)
+    public function set(string $id, ?object $service)
     {
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
@@ -200,7 +198,7 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      *
      * @see Reference
      */
-    public function get($id, $invalidBehavior = 1)
+    public function get($id, int $invalidBehavior = 1)
     {
         return $this->services[$id] ?? $this->services[$id = $this->aliases[$id] ?? $id] ?? ('service_container' === $id ? $this : ($this->factories[$id] ?? [$this, 'make'])($id, $invalidBehavior));
     }
@@ -208,10 +206,8 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      * Creates a service.
      *
      * As a separate method to allow "get()" to use the really fast `??` operator.
-     * @param string $id
-     * @param int $invalidBehavior
      */
-    private function make($id, $invalidBehavior)
+    private function make(string $id, int $invalidBehavior)
     {
         if (isset($this->loading[$id])) {
             throw new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_merge(\array_keys($this->loading), [$id]));
@@ -260,7 +256,7 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      *
      * @return bool true if service has already been initialized, false otherwise
      */
-    public function initialized($id)
+    public function initialized(string $id)
     {
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
@@ -382,10 +378,8 @@ class Container implements \RectorPrefix20210318\Symfony\Component\DependencyInj
      * @return mixed
      *
      * @internal
-     * @param string $id
-     * @param string|null $method
      */
-    protected final function getService($registry, $id, $method, $load)
+    protected final function getService($registry, string $id, ?string $method, $load)
     {
         if ('service_container' === $id) {
             return $this;

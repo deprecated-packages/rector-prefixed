@@ -80,7 +80,7 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->hasAtLeastTwoClassLikes($node)) {
             return null;
@@ -102,18 +102,12 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    private function hasAtLeastTwoClassLikes($node) : bool
+    private function hasAtLeastTwoClassLikes(\PhpParser\Node $node) : bool
     {
         $classes = $this->betterNodeFinder->findClassLikes($node);
         return \count($classes) > 1;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Namespace_ $namespace
-     */
-    private function refactorNamespace($namespace) : ?\PhpParser\Node\Stmt\Namespace_
+    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace) : ?\PhpParser\Node\Stmt\Namespace_
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($namespace->stmts);
@@ -132,10 +126,7 @@ CODE_SAMPLE
         }
         return $nodeToReturn;
     }
-    /**
-     * @param \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace
-     */
-    private function refactorFileWithoutNamespace($fileWithoutNamespace) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($fileWithoutNamespace->stmts);
@@ -153,9 +144,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $mainNode
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
      */
-    private function printNewNodes($classLike, $mainNode) : void
+    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode) : void
     {
         /** @var SmartFileInfo $smartFileInfo */
         $smartFileInfo = $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
@@ -173,11 +163,7 @@ CODE_SAMPLE
         $movedFileWithNodes = new \Rector\FileSystemRector\ValueObject\MovedFileWithNodes($nodesToPrint, $fileDestination, $smartFileInfo);
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassLike $classLike
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
-     */
-    private function createClassLikeFileDestination($classLike, $smartFileInfo) : string
+    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $currentDirectory = \dirname($smartFileInfo->getRealPath());
         return $currentDirectory . \DIRECTORY_SEPARATOR . $classLike->name . '.php';

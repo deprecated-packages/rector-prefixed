@@ -56,9 +56,8 @@ class MetadataBag implements \RectorPrefix20210318\Symfony\Component\HttpFoundat
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $array
      */
-    public function initialize(&$array)
+    public function initialize(array &$array)
     {
         $this->meta =& $array;
         if (isset($array[self::CREATED])) {
@@ -88,7 +87,7 @@ class MetadataBag implements \RectorPrefix20210318\Symfony\Component\HttpFoundat
      *                      to expire with browser session. Time is in seconds, and is
      *                      not a Unix timestamp.
      */
-    public function stampNew($lifetime = null)
+    public function stampNew(int $lifetime = null)
     {
         $this->stampCreated($lifetime);
     }
@@ -133,16 +132,12 @@ class MetadataBag implements \RectorPrefix20210318\Symfony\Component\HttpFoundat
     }
     /**
      * Sets name.
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
-    /**
-     * @param int $lifetime
-     */
-    private function stampCreated($lifetime = null) : void
+    private function stampCreated(int $lifetime = null) : void
     {
         $timeStamp = \time();
         $this->meta[self::CREATED] = $this->meta[self::UPDATED] = $this->lastUsed = $timeStamp;

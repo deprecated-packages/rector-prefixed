@@ -70,9 +70,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         /** @var Type[] $docParamTypes */
@@ -99,10 +99,7 @@ CODE_SAMPLE
         }
         return $this->processAddTypeAssert($node, $toBeProcessedTypes);
     }
-    /**
-     * @param \PHPStan\Type\Type $type
-     */
-    private function isExclusivelyObjectType($type) : bool
+    private function isExclusivelyObjectType(\PHPStan\Type\Type $type) : bool
     {
         if ($type instanceof \PHPStan\Type\ObjectType) {
             return \true;
@@ -121,9 +118,8 @@ CODE_SAMPLE
      * @param Param[] $params
      * @param ObjectType|UnionType $type
      * @return ObjectType|UnionType
-     * @param string $key
      */
-    private function getToBeProcessedTypes($params, $key, $type) : ?\PHPStan\Type\Type
+    private function getToBeProcessedTypes(array $params, string $key, \PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
     {
         foreach ($params as $param) {
             $paramName = \ltrim($key, '$');
@@ -147,9 +143,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ObjectType|UnionType> $toBeProcessedTypes
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function processAddTypeAssert($classMethod, $toBeProcessedTypes) : \PhpParser\Node\Stmt\ClassMethod
+    private function processAddTypeAssert(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $toBeProcessedTypes) : \PhpParser\Node\Stmt\ClassMethod
     {
         $assertStatements = [];
         foreach ($toBeProcessedTypes as $variableName => $requiredType) {
@@ -170,9 +165,8 @@ CODE_SAMPLE
     }
     /**
      * @param Expression[] $assertStatements
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    private function addStatements($classMethod, $assertStatements) : \PhpParser\Node\Stmt\ClassMethod
+    private function addStatements(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $assertStatements) : \PhpParser\Node\Stmt\ClassMethod
     {
         if (!isset($classMethod->stmts[0])) {
             foreach ($assertStatements as $assertStatement) {

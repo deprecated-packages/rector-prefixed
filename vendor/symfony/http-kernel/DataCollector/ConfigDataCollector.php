@@ -28,19 +28,15 @@ class ConfigDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpKe
     private $kernel;
     /**
      * Sets the Kernel associated with this Request.
-     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      */
-    public function setKernel($kernel = null)
+    public function setKernel(\RectorPrefix20210318\Symfony\Component\HttpKernel\KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'symfony_version' => \RectorPrefix20210318\Symfony\Component\HttpKernel\Kernel::VERSION, 'symfony_state' => 'unknown', 'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a', 'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a', 'php_version' => \PHP_VERSION, 'php_architecture' => \PHP_INT_SIZE * 8, 'php_intl_locale' => \class_exists(\Locale::class, \false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a', 'php_timezone' => \date_default_timezone_get(), 'xdebug_enabled' => \extension_loaded('xdebug'), 'apcu_enabled' => \extension_loaded('apcu') && \filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN), 'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN), 'bundles' => [], 'sapi_name' => \PHP_SAPI];
         if (isset($this->kernel)) {

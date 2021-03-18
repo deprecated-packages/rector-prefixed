@@ -32,5 +32,5 @@ interface TagAwareCacheInterface extends \RectorPrefix20210318\Symfony\Contracts
      *
      * @throws InvalidArgumentException When $tags is not valid
      */
-    public function invalidateTags($tags);
+    public function invalidateTags(array $tags);
 }

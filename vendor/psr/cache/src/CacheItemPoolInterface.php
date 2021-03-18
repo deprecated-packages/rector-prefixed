@@ -46,7 +46,7 @@ interface CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems($keys = array());
+    public function getItems(array $keys = array());
     /**
      * Confirms if the cache contains specified cache item.
      *
@@ -98,7 +98,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems($keys);
+    public function deleteItems(array $keys);
     /**
      * Persists a cache item immediately.
      *
@@ -108,7 +108,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save($item);
+    public function save(\RectorPrefix20210318\Psr\Cache\CacheItemInterface $item);
     /**
      * Sets a cache item to be persisted later.
      *
@@ -118,7 +118,7 @@ interface CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred($item);
+    public function saveDeferred(\RectorPrefix20210318\Psr\Cache\CacheItemInterface $item);
     /**
      * Persists any deferred cache items.
      *

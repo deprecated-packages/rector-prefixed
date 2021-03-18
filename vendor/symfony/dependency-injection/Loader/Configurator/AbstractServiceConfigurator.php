@@ -36,30 +36,24 @@ abstract class AbstractServiceConfigurator extends \RectorPrefix20210318\Symfony
     }
     /**
      * Registers a service.
-     * @param string|null $id
-     * @param string $class
      */
-    public final function set($id, $class = null) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+    public final function set(?string $id, string $class = null) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $this->__destruct();
         return $this->parent->set($id, $class);
     }
     /**
      * Creates an alias.
-     * @param string $id
-     * @param string $referencedId
      */
-    public final function alias($id, $referencedId) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
+    public final function alias(string $id, string $referencedId) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
         $this->__destruct();
         return $this->parent->alias($id, $referencedId);
     }
     /**
      * Registers a PSR-4 namespace using a glob pattern.
-     * @param string $namespace
-     * @param string $resource
      */
-    public final function load($namespace, $resource) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
+    public final function load(string $namespace, string $resource) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
     {
         $this->__destruct();
         return $this->parent->load($namespace, $resource);
@@ -68,9 +62,8 @@ abstract class AbstractServiceConfigurator extends \RectorPrefix20210318\Symfony
      * Gets an already defined service definition.
      *
      * @throws ServiceNotFoundException if the service definition does not exist
-     * @param string $id
      */
-    public final function get($id) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+    public final function get(string $id) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $this->__destruct();
         return $this->parent->get($id);
@@ -79,9 +72,8 @@ abstract class AbstractServiceConfigurator extends \RectorPrefix20210318\Symfony
      * Registers a stack of decorator services.
      *
      * @param InlineServiceConfigurator[]|ReferenceConfigurator[] $services
-     * @param string $id
      */
-    public final function stack($id, $services) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
+    public final function stack(string $id, array $services) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
         $this->__destruct();
         return $this->parent->stack($id, $services);

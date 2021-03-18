@@ -37,9 +37,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         $path = $this->locator->locate($resource);
         $xml = $this->parseFileToDOM($path);
@@ -63,9 +62,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;
@@ -75,21 +73,13 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
         }
         return 'xml' === $type;
     }
-    /**
-     * @param \DOMDocument $xml
-     * @param string $file
-     */
-    private function parseParameters($xml, $file)
+    private function parseParameters(\DOMDocument $xml, string $file)
     {
         if ($parameters = $this->getChildren($xml->documentElement, 'parameters')) {
             $this->container->getParameterBag()->add($this->getArgumentsAsPhp($parameters[0], 'parameter', $file));
         }
     }
-    /**
-     * @param \DOMDocument $xml
-     * @param string $file
-     */
-    private function parseImports($xml, $file)
+    private function parseImports(\DOMDocument $xml, string $file)
     {
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
@@ -102,12 +92,7 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
             $this->import($import->getAttribute('resource'), \RectorPrefix20210318\Symfony\Component\Config\Util\XmlUtils::phpize($import->getAttribute('type')) ?: null, \RectorPrefix20210318\Symfony\Component\Config\Util\XmlUtils::phpize($import->getAttribute('ignore-errors')) ?: \false, $file);
         }
     }
-    /**
-     * @param \DOMDocument $xml
-     * @param string $file
-     * @param \Symfony\Component\DependencyInjection\Definition $defaults
-     */
-    private function parseDefinitions($xml, $file, $defaults)
+    private function parseDefinitions(\DOMDocument $xml, string $file, \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $defaults)
     {
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
@@ -155,11 +140,7 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
             }
         }
     }
-    /**
-     * @param \DOMDocument $xml
-     * @param string $file
-     */
-    private function getServiceDefaults($xml, $file) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition
+    private function getServiceDefaults(\DOMDocument $xml, string $file) : \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition
     {
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
@@ -171,11 +152,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
     }
     /**
      * Parses an individual Definition.
-     * @param \DOMElement $service
-     * @param string $file
-     * @param \Symfony\Component\DependencyInjection\Definition $defaults
      */
-    private function parseDefinition($service, $file, $defaults) : ?\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition
+    private function parseDefinition(\DOMElement $service, string $file, \RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition $defaults) : ?\RectorPrefix20210318\Symfony\Component\DependencyInjection\Definition
     {
         if ($alias = $service->getAttribute('alias')) {
             $this->validateAlias($service, $file);
@@ -327,9 +305,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
      * Parses an XML file to a \DOMDocument.
      *
      * @throws InvalidArgumentException When loading of XML file returns error
-     * @param string $file
      */
-    private function parseFileToDOM($file) : \DOMDocument
+    private function parseFileToDOM(string $file) : \DOMDocument
     {
         try {
             $dom = \RectorPrefix20210318\Symfony\Component\Config\Util\XmlUtils::loadFile($file, [$this, 'validateSchema']);
@@ -341,10 +318,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
     }
     /**
      * Processes anonymous services.
-     * @param \DOMDocument $xml
-     * @param string $file
      */
-    private function processAnonymousServices($xml, $file)
+    private function processAnonymousServices(\DOMDocument $xml, string $file)
     {
         $definitions = [];
         $count = 0;
@@ -381,13 +356,7 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
             }
         }
     }
-    /**
-     * @param \DOMElement $node
-     * @param string $name
-     * @param string $file
-     * @param bool $isChildDefinition
-     */
-    private function getArgumentsAsPhp($node, $name, $file, $isChildDefinition = \false) : array
+    private function getArgumentsAsPhp(\DOMElement $node, string $name, string $file, bool $isChildDefinition = \false) : array
     {
         $arguments = [];
         foreach ($this->getChildren($node, $name) as $arg) {
@@ -485,10 +454,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
      * Get child elements by name.
      *
      * @return \DOMElement[]
-     * @param \DOMNode $node
-     * @param string $name
      */
-    private function getChildren($node, $name) : array
+    private function getChildren(\DOMNode $node, string $name) : array
     {
         $children = [];
         foreach ($node->childNodes as $child) {
@@ -504,9 +471,8 @@ class XmlFileLoader extends \RectorPrefix20210318\Symfony\Component\DependencyIn
      * @return bool
      *
      * @throws RuntimeException When extension references a non-existent XSD file
-     * @param \DOMDocument $dom
      */
-    public function validateSchema($dom)
+    public function validateSchema(\DOMDocument $dom)
     {
         $schemaLocations = ['http://symfony.com/schema/dic/services' => \str_replace('\\', '/', __DIR__ . '/schema/dic/services/services-1.0.xsd')];
         if ($element = $dom->documentElement->getAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'schemaLocation')) {
@@ -596,11 +562,7 @@ EOF;
         }
         return !@$dom->schemaValidateSource($schema);
     }
-    /**
-     * @param \DOMElement $alias
-     * @param string $file
-     */
-    private function validateAlias($alias, $file)
+    private function validateAlias(\DOMElement $alias, string $file)
     {
         foreach ($alias->attributes as $name => $node) {
             if (!\in_array($name, ['alias', 'id', 'public'])) {
@@ -620,10 +582,8 @@ EOF;
      * Validates an extension.
      *
      * @throws InvalidArgumentException When no extension is found corresponding to a tag
-     * @param \DOMDocument $dom
-     * @param string $file
      */
-    private function validateExtensions($dom, $file)
+    private function validateExtensions(\DOMDocument $dom, string $file)
     {
         foreach ($dom->documentElement->childNodes as $node) {
             if (!$node instanceof \DOMElement || 'http://symfony.com/schema/dic/services' === $node->namespaceURI) {
@@ -640,9 +600,8 @@ EOF;
     }
     /**
      * Loads from an extension.
-     * @param \DOMDocument $xml
      */
-    private function loadFromExtensions($xml)
+    private function loadFromExtensions(\DOMDocument $xml)
     {
         foreach ($xml->documentElement->childNodes as $node) {
             if (!$node instanceof \DOMElement || self::NS === $node->namespaceURI) {
@@ -674,7 +633,7 @@ EOF;
      *
      * @return mixed
      */
-    public static function convertDomElementToArray($element)
+    public static function convertDomElementToArray(\DOMElement $element)
     {
         return \RectorPrefix20210318\Symfony\Component\Config\Util\XmlUtils::convertDomElementToArray($element);
     }

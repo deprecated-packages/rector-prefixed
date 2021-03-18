@@ -38,11 +38,8 @@ class RequestDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpK
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -280,17 +277,11 @@ class RequestDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpK
     {
         return $this->data['forward_token'] ?? null;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
-     */
-    public function onKernelController($event)
+    public function onKernelController(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;

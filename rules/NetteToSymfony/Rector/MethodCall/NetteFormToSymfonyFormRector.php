@@ -100,7 +100,7 @@ CODE_SAMPLE
     /**
      * @param New_|MethodCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -124,22 +124,14 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Expr\New_ $new
-     */
-    private function processNew($new) : ?\PhpParser\Node\Expr\MethodCall
+    private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
         return $this->nodeFactory->createMethodCall('this', 'createFormBuilder');
     }
-    /**
-     * @param \PhpParser\Node\Expr\MethodCall $methodCall
-     * @param string $method
-     * @param string $classType
-     */
-    private function processAddMethod($methodCall, $method, $classType) : void
+    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
     {
         $methodCall->name = new \PhpParser\Node\Identifier('add');
         // remove unused params
@@ -158,11 +150,7 @@ CODE_SAMPLE
             $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
     }
-    /**
-     * @param string $method
-     * @param \PhpParser\Node\Expr\Array_ $optionsArray
-     */
-    private function addChoiceTypeOptions($method, $optionsArray) : void
+    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method === 'addSelect') {
             $expanded = \false;
@@ -182,11 +170,7 @@ CODE_SAMPLE
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
-    /**
-     * @param string $method
-     * @param \PhpParser\Node\Expr\Array_ $optionsArray
-     */
-    private function addMultiFileTypeOptions($method, $optionsArray) : void
+    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method !== 'addMultiUpload') {
             return;

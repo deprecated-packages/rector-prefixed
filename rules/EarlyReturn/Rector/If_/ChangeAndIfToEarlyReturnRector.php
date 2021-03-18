@@ -83,9 +83,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -121,10 +121,8 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $conditions
-     * @param \PhpParser\Node\Stmt\If_ $node
-     * @param \PhpParser\Node\Stmt\Return_ $ifNextReturnClone
      */
-    private function processReplaceIfs($node, $conditions, $ifNextReturnClone) : \PhpParser\Node\Stmt\If_
+    private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone) : \PhpParser\Node\Stmt\If_
     {
         $ifs = $this->invertedIfFactory->createFromConditions($node, $conditions, $ifNextReturnClone);
         $this->mirrorComments($ifs[0], $node);
@@ -137,10 +135,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function shouldSkip($if) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if (!$this->ifManipulator->isIfWithOnlyOneStmt($if)) {
             return \true;
@@ -159,11 +154,7 @@ CODE_SAMPLE
         }
         return !$this->isLastIfOrBeforeLastReturn($if);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     * @param \PhpParser\Node\Stmt\Return_ $return
-     */
-    private function isIfStmtExprUsedInNextReturn($if, $return) : bool
+    private function isIfStmtExprUsedInNextReturn(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr) {
             return \false;
@@ -179,10 +170,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function getIfNextReturn($if) : ?\PhpParser\Node\Stmt\Return_
+    private function getIfNextReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
@@ -190,10 +178,7 @@ CODE_SAMPLE
         }
         return $nextNode;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isParentIfReturnsVoidOrParentIfHasNextNode($if) : bool
+    private function isParentIfReturnsVoidOrParentIfHasNextNode(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $parentNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Stmt\If_) {
@@ -202,20 +187,14 @@ CODE_SAMPLE
         $nextParent = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         return $nextParent instanceof \PhpParser\Node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isNestedIfInLoop($if) : bool
+    private function isNestedIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if (!$this->contextAnalyzer->isInLoop($if)) {
             return \false;
         }
         return (bool) $this->betterNodeFinder->findParentTypes($if, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isLastIfOrBeforeLastReturn($if) : bool
+    private function isLastIfOrBeforeLastReturn(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if ($nextNode instanceof \PhpParser\Node) {

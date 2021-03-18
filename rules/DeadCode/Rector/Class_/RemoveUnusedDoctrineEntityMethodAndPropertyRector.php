@@ -94,9 +94,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->doctrineEntityManipulator->isNonAbstractDoctrineEntityClass($node)) {
             return null;
@@ -114,9 +114,8 @@ CODE_SAMPLE
     /**
      * Remove unused methods immediately, so we can then remove unused properties.
      * @param string[] $unusedMethodNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeClassMethodsByNames($class, $unusedMethodNames) : \PhpParser\Node\Stmt\Class_
+    private function removeClassMethodsByNames(\PhpParser\Node\Stmt\Class_ $class, array $unusedMethodNames) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$this->isNames($classMethod, $unusedMethodNames)) {
@@ -128,9 +127,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveUnusedPrivatePropertyNames($class) : array
+    private function resolveUnusedPrivatePropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $privatePropertyNames = $this->classManipulator->getPrivatePropertyNames($class);
         // get list of fetched properties
@@ -139,9 +137,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $unusedPropertyNames
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function removeClassPrivatePropertiesByNames($class, $unusedPropertyNames) : \PhpParser\Node\Stmt\Class_
+    private function removeClassPrivatePropertiesByNames(\PhpParser\Node\Stmt\Class_ $class, array $unusedPropertyNames) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
@@ -163,9 +160,8 @@ CODE_SAMPLE
     }
     /**
      * @return string[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolveClassUsedPropertyFetchNames($class) : array
+    private function resolveClassUsedPropertyFetchNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $usedPropertyNames = [];
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use(&$usedPropertyNames) {
@@ -189,11 +185,7 @@ CODE_SAMPLE
         });
         return $usedPropertyNames;
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function removeInversedByOrMappedByOnRelatedProperty($phpDocInfo, $property) : void
+    private function removeInversedByOrMappedByOnRelatedProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : void
     {
         $otherRelationProperty = $this->getOtherRelationProperty($phpDocInfo, $property);
         if (!$otherRelationProperty instanceof \PhpParser\Node\Stmt\Property) {
@@ -202,10 +194,7 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($otherRelationProperty);
         $this->doctrineEntityManipulator->removeMappedByOrInversedByFromProperty($phpDocInfo);
     }
-    /**
-     * @param \PhpParser\Node\Expr\PropertyFetch $propertyFetch
-     */
-    private function isPropertyFetchAssignOfArrayCollection($propertyFetch) : bool
+    private function isPropertyFetchAssignOfArrayCollection(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
         $parentNode = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
@@ -218,11 +207,7 @@ CODE_SAMPLE
         $new = $parentNode->expr;
         return $this->isName($new->class, \RectorPrefix20210318\Doctrine\Common\Collections\ArrayCollection::class);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    private function getOtherRelationProperty($phpDocInfo, $property) : ?\PhpParser\Node\Stmt\Property
+    private function getOtherRelationProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if (!$doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {

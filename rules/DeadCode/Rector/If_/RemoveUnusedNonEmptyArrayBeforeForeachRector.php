@@ -73,19 +73,16 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param If_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isUselessBeforeForeachCheck($node)) {
             return null;
         }
         return $node->stmts[0];
     }
-    /**
-     * @param \PhpParser\Node\Stmt\If_ $if
-     */
-    private function isUselessBeforeForeachCheck($if) : bool
+    private function isUselessBeforeForeachCheck(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if (!$this->ifManipulator->isIfWithOnly($if, \PhpParser\Node\Stmt\Foreach_::class)) {
             return \false;

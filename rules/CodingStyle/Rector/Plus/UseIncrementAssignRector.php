@@ -49,7 +49,7 @@ CODE_SAMPLE
     /**
      * @param Plus|Minus $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Scalar\LNumber) {
             return null;

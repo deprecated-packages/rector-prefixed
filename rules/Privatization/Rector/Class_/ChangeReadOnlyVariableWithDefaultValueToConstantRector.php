@@ -91,9 +91,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $readOnlyVariableAssigns = $this->collectReadOnlyVariableAssigns($node);
         $readOnlyVariableAssigns = $this->filterOutUniqueNames($readOnlyVariableAssigns);
@@ -115,9 +115,8 @@ CODE_SAMPLE
     }
     /**
      * @return Assign[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function collectReadOnlyVariableAssigns($class) : array
+    private function collectReadOnlyVariableAssigns(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $readOnlyVariables = [];
         foreach ($class->getMethods() as $classMethod) {
@@ -133,7 +132,7 @@ CODE_SAMPLE
      * @param Assign[] $assigns
      * @return Assign[]
      */
-    private function filterOutUniqueNames($assigns) : array
+    private function filterOutUniqueNames(array $assigns) : array
     {
         $assignsByName = $this->collectAssignsByName($assigns);
         $assignsWithUniqueName = [];
@@ -151,7 +150,7 @@ CODE_SAMPLE
      * @param Assign[] $assigns
      * @return array<string, Assign[]>
      */
-    private function collectAssignsByName($assigns) : array
+    private function collectAssignsByName(array $assigns) : array
     {
         $assignsByName = [];
         foreach ($assigns as $assign) {
@@ -163,10 +162,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign[] $readOnlyVariableAssigns
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function refactorClassMethod($classMethod, $class, $readOnlyVariableAssigns) : void
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns) : void
     {
         foreach ($readOnlyVariableAssigns as $readOnlyVariableAssign) {
             $this->removeNode($readOnlyVariableAssign);
@@ -186,10 +183,7 @@ CODE_SAMPLE
             $this->replaceVariableWithClassConstFetch($classMethod, $variableName, $classConst);
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function isFoundByRefParam($classMethod) : bool
+    private function isFoundByRefParam(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $params = $classMethod->getParams();
         foreach ($params as $param) {
@@ -199,11 +193,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     * @param \PhpParser\Node\Expr $expr
-     */
-    private function createPrivateClassConst($variable, $expr) : \PhpParser\Node\Stmt\ClassConst
+    private function createPrivateClassConst(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\ClassConst
     {
         $constantName = $this->createConstantNameFromVariable($variable);
         $const = new \PhpParser\Node\Const_($constantName, $expr);
@@ -214,12 +204,7 @@ CODE_SAMPLE
         $this->varAnnotationManipulator->decorateNodeWithType($classConst, $constantType);
         return $classConst;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     * @param string $variableName
-     * @param \PhpParser\Node\Stmt\ClassConst $classConst
-     */
-    private function replaceVariableWithClassConstFetch($classMethod, $variableName, $classConst) : void
+    private function replaceVariableWithClassConstFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $constantName = $this->getName($classConst);
         if ($constantName === null) {
@@ -236,10 +221,7 @@ CODE_SAMPLE
             return $classConstFetch;
         });
     }
-    /**
-     * @param \PhpParser\Node\Expr\Variable $variable
-     */
-    private function createConstantNameFromVariable($variable) : string
+    private function createConstantNameFromVariable(\PhpParser\Node\Expr\Variable $variable) : string
     {
         $variableName = $this->getName($variable);
         if ($variableName === null) {

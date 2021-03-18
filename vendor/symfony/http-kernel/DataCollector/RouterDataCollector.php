@@ -31,11 +31,8 @@ class RouterDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpKe
      * {@inheritdoc}
      *
      * @final
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if ($response instanceof \RectorPrefix20210318\Symfony\Component\HttpFoundation\RedirectResponse) {
             $this->data['redirect'] = \true;
@@ -51,18 +48,14 @@ class RouterDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpKe
         $this->controllers = new \SplObjectStorage();
         $this->data = ['redirect' => \false, 'url' => null, 'route' => null];
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    protected function guessRoute($request, $controller)
+    protected function guessRoute(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request, $controller)
     {
         return 'n/a';
     }
     /**
      * Remembers the controller associated to each request.
-     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
      */
-    public function onKernelController($event)
+    public function onKernelController(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }

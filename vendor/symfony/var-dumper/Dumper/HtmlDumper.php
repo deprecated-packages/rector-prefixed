@@ -43,17 +43,13 @@ class HtmlDumper extends \RectorPrefix20210318\Symfony\Component\VarDumper\Dumpe
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $styles
      */
-    public function setStyles($styles)
+    public function setStyles(array $styles)
     {
         $this->headerIsDumped = \false;
         $this->styles = $styles + $this->styles;
     }
-    /**
-     * @param string $themeName
-     */
-    public function setTheme($themeName)
+    public function setTheme(string $themeName)
     {
         if (!isset(static::$themes[$themeName])) {
             throw new \InvalidArgumentException(\sprintf('Theme "%s" does not exist in class "%s".', $themeName, static::class));
@@ -65,7 +61,7 @@ class HtmlDumper extends \RectorPrefix20210318\Symfony\Component\VarDumper\Dumpe
      *
      * @param array $displayOptions A map of display options to customize the behavior
      */
-    public function setDisplayOptions($displayOptions)
+    public function setDisplayOptions(array $displayOptions)
     {
         $this->headerIsDumped = \false;
         $this->displayOptions = $displayOptions + $this->displayOptions;
@@ -92,10 +88,8 @@ class HtmlDumper extends \RectorPrefix20210318\Symfony\Component\VarDumper\Dumpe
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
-     * @param mixed[] $extraDisplayOptions
      */
-    public function dump($data, $output = null, $extraDisplayOptions = [])
+    public function dump(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, array $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
         $result = parent::dump($data, $output);
@@ -738,12 +732,8 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param string $str
-     * @param bool $bin
-     * @param int $cut
      */
-    public function dumpString($cursor, $str, $bin, $cut)
+    public function dumpString(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Cursor $cursor, string $str, bool $bin, int $cut)
     {
         if ('' === $str && isset($cursor->attr['img-data'], $cursor->attr['content-type'])) {
             $this->dumpKey($cursor);
@@ -759,11 +749,8 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param int $type
-     * @param bool $hasChild
      */
-    public function enterHash($cursor, $type, $class, $hasChild)
+    public function enterHash(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild)
     {
         if (\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
             $cursor->attr['depth'] = $cursor->depth;
@@ -789,12 +776,8 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param int $type
-     * @param bool $hasChild
-     * @param int $cut
      */
-    public function leaveHash($cursor, $type, $class, $hasChild, $cut)
+    public function leaveHash(\RectorPrefix20210318\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild, int $cut)
     {
         $this->dumpEllipsis($cursor, $hasChild, $cut);
         if ($hasChild) {
@@ -883,10 +866,8 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param int $depth
-     * @param bool $endOfValue
      */
-    protected function dumpLine($depth, $endOfValue = \false)
+    protected function dumpLine(int $depth, bool $endOfValue = \false)
     {
         if (-1 === $this->lastDepth) {
             $this->line = \sprintf($this->dumpPrefix, $this->dumpId, $this->indentPad) . $this->line;
@@ -909,11 +890,7 @@ EOHTML
         }
         \RectorPrefix20210318\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine($depth);
     }
-    /**
-     * @param string $file
-     * @param int $line
-     */
-    private function getSourceLink($file, $line)
+    private function getSourceLink(string $file, int $line)
     {
         $options = $this->extraDisplayOptions + $this->displayOptions;
         if ($fmt = $options['fileLinkFormat']) {

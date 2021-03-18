@@ -73,10 +73,8 @@ class ConsoleLogger extends \RectorPrefix20210318\Psr\Log\AbstractLogger
      * Interpolates context values into the message placeholders.
      *
      * @author PHP Framework Interoperability Group
-     * @param string $message
-     * @param mixed[] $context
      */
-    private function interpolate($message, $context) : string
+    private function interpolate(string $message, array $context) : string
     {
         if (\false === \strpos($message, '{')) {
             return $message;

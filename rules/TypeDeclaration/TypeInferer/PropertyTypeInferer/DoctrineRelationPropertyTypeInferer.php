@@ -35,10 +35,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
         $this->typeFactory = $typeFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Property $property
-     */
-    public function inferProperty($property) : \PHPStan\Type\Type
+    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
@@ -58,10 +55,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     {
         return 2100;
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface $toManyTagNode
-     */
-    private function processToManyRelation($toManyTagNode) : \PHPStan\Type\Type
+    private function processToManyRelation(\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface $toManyTagNode) : \PHPStan\Type\Type
     {
         $types = [];
         $targetEntity = $toManyTagNode->getTargetEntity();
@@ -71,11 +65,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
         $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(self::COLLECTION_TYPE);
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface $toOneTagNode
-     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode|null $joinColumnTagValueNode
-     */
-    private function processToOneRelation($toOneTagNode, $joinColumnTagValueNode) : \PHPStan\Type\Type
+    private function processToOneRelation(\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface $toOneTagNode, ?\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode $joinColumnTagValueNode) : \PHPStan\Type\Type
     {
         $types = [];
         $fullyQualifiedTargetEntity = $toOneTagNode->getFullyQualifiedTargetEntity();

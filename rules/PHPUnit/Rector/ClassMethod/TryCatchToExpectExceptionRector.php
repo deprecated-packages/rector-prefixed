@@ -75,9 +75,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassMethod $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -102,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @return Expression[]|null
-     * @param \PhpParser\Node\Stmt\TryCatch $tryCatch
      */
-    private function processTryCatch($tryCatch) : ?array
+    private function processTryCatch(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
     {
         $exceptionVariable = $this->matchSingleExceptionVariable($tryCatch);
         if (!$exceptionVariable instanceof \PhpParser\Node\Expr\Variable) {
@@ -140,10 +139,7 @@ CODE_SAMPLE
         }
         return $newExpressions;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\TryCatch $tryCatch
-     */
-    private function matchSingleExceptionVariable($tryCatch) : ?\PhpParser\Node\Expr\Variable
+    private function matchSingleExceptionVariable(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?\PhpParser\Node\Expr\Variable
     {
         if (\count($tryCatch->catches) !== 1) {
             return null;
@@ -154,7 +150,7 @@ CODE_SAMPLE
      * @param MethodCall[] $methodCalls
      * @return Expression[]
      */
-    private function wrapInExpressions($methodCalls) : array
+    private function wrapInExpressions(array $methodCalls) : array
     {
         $expressions = [];
         foreach ($methodCalls as $methodCall) {

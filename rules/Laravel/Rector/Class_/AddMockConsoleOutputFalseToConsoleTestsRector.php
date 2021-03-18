@@ -78,9 +78,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Illuminate\\Foundation\\Testing\\TestCase'))) {
             return null;
@@ -96,19 +96,13 @@ CODE_SAMPLE
         $this->setUpClassMethodNodeManipulator->decorateOrCreate($node, [$assign]);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function isTestingConsoleOutput($class) : bool
+    private function isTestingConsoleOutput(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) : bool {
             return $this->nodeNameResolver->isStaticCallNamed($node, 'Illuminate\\Support\\Facades\\Artisan', 'output');
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function hasMockConsoleOutputFalse($class) : bool
+    private function hasMockConsoleOutputFalse(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
             if ($node instanceof \PhpParser\Node\Expr\Assign) {

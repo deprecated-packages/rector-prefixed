@@ -60,9 +60,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $promotedParams = $this->resolvePromotedParams($node);
         if ($promotedParams === []) {
@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @return Param[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolvePromotedParams($class) : array
+    private function resolvePromotedParams(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $constructorClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -97,9 +96,8 @@ CODE_SAMPLE
     /**
      * @param Param[] $promotedParams
      * @return Property[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addPropertiesFromParams($promotedParams, $class) : array
+    private function addPropertiesFromParams(array $promotedParams, \PhpParser\Node\Stmt\Class_ $class) : array
     {
         $properties = $this->createPropertiesFromParams($promotedParams);
         $this->classInsertManipulator->addPropertiesToClass($class, $properties);
@@ -107,9 +105,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property[] $properties
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function addPropertyAssignsToConstructorClassMethod($properties, $class) : void
+    private function addPropertyAssignsToConstructorClassMethod(array $properties, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $assigns = [];
         foreach ($properties as $property) {
@@ -125,7 +122,7 @@ CODE_SAMPLE
      * @param Param[] $params
      * @return Property[]
      */
-    private function createPropertiesFromParams($params) : array
+    private function createPropertiesFromParams(array $params) : array
     {
         $properties = [];
         foreach ($params as $param) {

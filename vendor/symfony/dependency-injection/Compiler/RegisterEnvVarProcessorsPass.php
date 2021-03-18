@@ -24,10 +24,7 @@ use RectorPrefix20210318\Symfony\Component\DependencyInjection\Reference;
 class RegisterEnvVarProcessorsPass implements \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private const ALLOWED_TYPES = ['array', 'bool', 'float', 'int', 'string'];
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $bag = $container->getParameterBag();
         $types = [];
@@ -55,11 +52,7 @@ class RegisterEnvVarProcessorsPass implements \RectorPrefix20210318\Symfony\Comp
             $container->setAlias('container.env_var_processors_locator', (string) \RectorPrefix20210318\Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass::register($container, $processors))->setPublic(\true);
         }
     }
-    /**
-     * @param string $types
-     * @param string $class
-     */
-    private static function validateProvidedTypes($types, $class) : array
+    private static function validateProvidedTypes(string $types, string $class) : array
     {
         $types = \explode('|', $types);
         foreach ($types as $type) {

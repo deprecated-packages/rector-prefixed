@@ -76,9 +76,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isFuncCallName($node, 'token_get_all')) {
             return null;
@@ -86,10 +86,7 @@ CODE_SAMPLE
         $this->refactorTokensVariable($node);
         return $this->nodeFactory->createStaticCall('PhpToken', 'getAll', $node->args);
     }
-    /**
-     * @param \PhpParser\Node\Expr\FuncCall $funcCall
-     */
-    private function refactorTokensVariable($funcCall) : void
+    private function refactorTokensVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : void
     {
         $assign = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
@@ -105,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node\Expr $assignedExpr
      */
-    private function replaceGetNameOrGetValue($functionLike, $assignedExpr) : void
+    private function replaceGetNameOrGetValue(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr $assignedExpr) : void
     {
         $tokensForeaches = $this->findForeachesOverTokenVariable($functionLike, $assignedExpr);
         foreach ($tokensForeaches as $tokenForeach) {
@@ -117,9 +113,8 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      * @return Foreach_[]
-     * @param \PhpParser\Node\Expr $assignedExpr
      */
-    private function findForeachesOverTokenVariable($functionLike, $assignedExpr) : array
+    private function findForeachesOverTokenVariable(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr $assignedExpr) : array
     {
         return $this->betterNodeFinder->find((array) $functionLike->stmts, function (\PhpParser\Node $node) use($assignedExpr) : bool {
             if (!$node instanceof \PhpParser\Node\Stmt\Foreach_) {
@@ -128,10 +123,7 @@ CODE_SAMPLE
             return $this->nodeComparator->areNodesEqual($node->expr, $assignedExpr);
         });
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Foreach_ $tokensForeach
-     */
-    private function refactorTokenInForeach($tokensForeach) : void
+    private function refactorTokenInForeach(\PhpParser\Node\Stmt\Foreach_ $tokensForeach) : void
     {
         $singleToken = $tokensForeach->valueVar;
         if (!$singleToken instanceof \PhpParser\Node\Expr\Variable) {

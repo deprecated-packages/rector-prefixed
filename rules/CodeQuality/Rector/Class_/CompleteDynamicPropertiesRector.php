@@ -80,9 +80,9 @@ CODE_SAMPLE
         return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Class_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -106,10 +106,7 @@ CODE_SAMPLE
         $node->stmts = \array_merge($newProperties, $node->stmts);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $class
-     */
-    private function shouldSkipClass($class) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->classAnalyzer->isAnonymousClass($class)) {
             return \true;
@@ -131,9 +128,8 @@ CODE_SAMPLE
     /**
      * @param array<string, Type> $fetchedLocalPropertyNameToTypes
      * @return string[]
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    private function resolvePropertiesToComplete($class, $fetchedLocalPropertyNameToTypes) : array
+    private function resolvePropertiesToComplete(\PhpParser\Node\Stmt\Class_ $class, array $fetchedLocalPropertyNameToTypes) : array
     {
         $propertyNames = $this->classLikeAnalyzer->resolvePropertyNames($class);
         /** @var string[] $fetchedLocalPropertyNames */
@@ -143,9 +139,8 @@ CODE_SAMPLE
     /**
      * @param string[] $propertiesToComplete
      * @return string[]
-     * @param \PHPStan\Reflection\ClassReflection $classReflection
      */
-    private function filterOutExistingProperties($classReflection, $propertiesToComplete) : array
+    private function filterOutExistingProperties(\PHPStan\Reflection\ClassReflection $classReflection, array $propertiesToComplete) : array
     {
         $missingPropertyNames = [];
         // remove other properties that are accessible from this scope

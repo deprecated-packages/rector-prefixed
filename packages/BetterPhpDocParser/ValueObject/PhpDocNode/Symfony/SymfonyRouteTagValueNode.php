@@ -32,7 +32,7 @@ final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     /**
      * @param string[] $methods
      */
-    public function changeMethods($methods) : void
+    public function changeMethods(array $methods) : void
     {
         $this->tagValueNodeConfiguration->addOrderedVisibleItem('methods');
         $this->items['methods'] = $methods;
@@ -45,10 +45,7 @@ final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     {
         return '@Route';
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $abstractTagValueNode
-     */
-    public function mimicTagValueNodeConfiguration($abstractTagValueNode) : void
+    public function mimicTagValueNodeConfiguration(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $abstractTagValueNode) : void
     {
         $this->tagValueNodeConfiguration->mimic($abstractTagValueNode->tagValueNodeConfiguration);
     }

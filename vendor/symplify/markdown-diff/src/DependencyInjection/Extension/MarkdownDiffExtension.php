@@ -11,9 +11,8 @@ final class MarkdownDiffExtension extends \RectorPrefix20210318\Symfony\Componen
 {
     /**
      * @param string[] $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
-    public function load($configs, $containerBuilder) : void
+    public function load(array $configs, \RectorPrefix20210318\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $phpFileLoader = new \RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210318\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');

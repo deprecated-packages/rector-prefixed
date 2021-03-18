@@ -115,7 +115,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor($node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -137,9 +137,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
-     * @param \PHPStan\Type\Type $inferedType
      */
-    private function processType($node, $inferedType) : ?\PhpParser\Node
+    private function processType(\PhpParser\Node $node, \PHPStan\Type\Type $inferedType) : ?\PhpParser\Node
     {
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_RETURN);
         // nothing to change in PHP code
@@ -161,10 +160,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
-     */
-    private function shouldSkipClassMethod($classMethod) : bool
+    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($classMethod)) {
             return \true;
@@ -174,7 +170,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkipInferredReturnNode($functionLike) : bool
+    private function shouldSkipInferredReturnNode(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         // already overridden by previous populateChild() method run
         if ($functionLike->returnType === null) {
@@ -184,9 +180,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PHPStan\Type\Type $inferedType
      */
-    private function shouldSkipExistingReturnType($functionLike, $inferedType) : bool
+    private function shouldSkipExistingReturnType(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\Type $inferedType) : bool
     {
         if ($functionLike->returnType === null) {
             return \false;
@@ -202,9 +197,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @param \PhpParser\Node $inferredReturnNode
+     * @param Name|NullableType|PhpParserUnionType $inferredReturnNode
      */
-    private function addReturnType($functionLike, $inferredReturnNode) : void
+    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
     {
         if ($functionLike->returnType === null) {
             $functionLike->returnType = $inferredReturnNode;
@@ -220,11 +215,7 @@ CODE_SAMPLE
             $functionLike->returnType = $inferredReturnNode;
         }
     }
-    /**
-     * @param \PHPStan\Type\Type $currentType
-     * @param \PHPStan\Type\Type $inferedType
-     */
-    private function isNullableTypeSubType($currentType, $inferedType) : bool
+    private function isNullableTypeSubType(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $inferedType) : bool
     {
         if (!$currentType instanceof \PHPStan\Type\UnionType) {
             return \false;
@@ -234,10 +225,7 @@ CODE_SAMPLE
         }
         return $inferedType->isSubTypeOf($currentType)->yes();
     }
-    /**
-     * @param \PhpParser\Node\FunctionLike $functionLike
-     */
-    private function shouldSkipClassLike($functionLike) : bool
+    private function shouldSkipClassLike(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;

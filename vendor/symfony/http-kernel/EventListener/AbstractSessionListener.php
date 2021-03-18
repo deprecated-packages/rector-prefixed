@@ -45,10 +45,7 @@ abstract class AbstractSessionListener implements \RectorPrefix20210318\Symfony\
         $this->container = $container;
         $this->debug = $debug;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -64,10 +61,7 @@ abstract class AbstractSessionListener implements \RectorPrefix20210318\Symfony\
         $session = $session ?? ($this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null);
         $this->sessionUsageStack[] = $session instanceof \RectorPrefix20210318\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
-     */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -123,10 +117,7 @@ abstract class AbstractSessionListener implements \RectorPrefix20210318\Symfony\
             $this->container->get('logger')->warning('Session was used while the request was declared stateless.');
         }
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
-     */
-    public function onFinishRequest($event)
+    public function onFinishRequest(\RectorPrefix20210318\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         if ($event->isMasterRequest()) {
             \array_pop($this->sessionUsageStack);
