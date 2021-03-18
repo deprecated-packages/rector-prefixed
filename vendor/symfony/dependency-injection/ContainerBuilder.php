@@ -515,9 +515,9 @@ class ContainerBuilder extends \RectorPrefix20210318\Symfony\Component\Dependenc
      * over the loaded ones.
      *
      *     $container = new ContainerBuilder(new ParameterBag(['foo' => 'bar']));
-     *    $loader = new LoaderXXX($container);
-     *    $loader->load('resource_name');
-     *    $container->register('foo', 'stdClass');
+     *     $loader = new LoaderXXX($container);
+     *     $loader->load('resource_name');
+     *     $container->register('foo', 'stdClass');
      *
      * In the above example, even if the loaded resource defines a foo
      * parameter, the value will still be 'bar' as defined in the ContainerBuilder
@@ -1047,11 +1047,11 @@ class ContainerBuilder extends \RectorPrefix20210318\Symfony\Component\Dependenc
      *     $container->register('foo')->addTag('my.tag', ['hello' => 'world']);
      *
      *     $serviceIds = $container->findTaggedServiceIds('my.tag');
-     *    foreach ($serviceIds as $serviceId => $tags) {
-     *        foreach ($tags as $tag) {
-     *            echo $tag['hello'];
-     *        }
-     *    }
+     *     foreach ($serviceIds as $serviceId => $tags) {
+     *         foreach ($tags as $tag) {
+     *             echo $tag['hello'];
+     *         }
+     *     }
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
      * @param bool $throwOnAbstract
@@ -1145,8 +1145,8 @@ class ContainerBuilder extends \RectorPrefix20210318\Symfony\Component\Dependenc
      *
      * @param mixed            $value     The value to resolve
      * @param string|true|null $format    A sprintf() format returning the replacement for each env var name or
-     *                                   null to resolve back to the original "%env(VAR)%" format or
-     *                                   true to resolve to the actual values of the referenced env vars
+     *                                    null to resolve back to the original "%env(VAR)%" format or
+     *                                    true to resolve to the actual values of the referenced env vars
      * @param array            &$usedEnvs Env vars found while resolving are added to this array
      *
      * @return mixed The value with env parameters resolved if a string or an array is passed

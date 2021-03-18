@@ -45,7 +45,7 @@ final class PhpSpecMockCollector
     public function resolveClassMocksFromParam(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $className = $this->nodeNameResolver->getName($class);
-        if (isset($this->mocks[$className])) {
+        if (isset($this->mocks[$className]) && $this->mocks[$className] !== []) {
             return $this->mocks[$className];
         }
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($class, function (\PhpParser\Node $node) : void {

@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ef8bee1d17659816998a7ef330b7a2123d6d89de',
+    'reference' => NULL,
     'name' => 'rector/rector',
   ),
   'versions' => 
@@ -154,12 +154,12 @@ private static $installed = array (
     ),
     'phpstan/phpdoc-parser' => 
     array (
-      'pretty_version' => '0.4.13',
-      'version' => '0.4.13.0',
+      'pretty_version' => '0.4.12',
+      'version' => '0.4.12.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4136e0056ac6d37b96eefe7ea33490258a874651',
+      'reference' => '2e17e4a90702d8b7ead58f4e08478a8e819ba6b8',
     ),
     'phpstan/phpstan' => 
     array (
@@ -234,7 +234,11 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ef8bee1d17659816998a7ef330b7a2123d6d89de',
+      'reference' => NULL,
+      'replaced' => 
+      array (
+        0 => 'dev-main',
+      ),
     ),
     'rector/rector-prefixed' => 
     array (
@@ -242,6 +246,16 @@ private static $installed = array (
       array (
         0 => 'dev-main',
       ),
+    ),
+    'rector/rector-symfony' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => '560c46e7533a29f397f2fec50fa8076f60549710',
     ),
     'sebastian/diff' => 
     array (

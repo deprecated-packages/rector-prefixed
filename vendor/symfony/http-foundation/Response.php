@@ -242,7 +242,7 @@ class Response
      * Example:
      *
      *     return Response::create($body, 200)
-     *        ->setSharedMaxAge(300);
+     *         ->setSharedMaxAge(300);
      *
      * @return static
      *

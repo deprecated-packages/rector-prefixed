@@ -1,0 +1,58 @@
+includes:
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
+
+parameters:
+    level: max
+
+    paths:
+        - config
+        - src
+        - tests
+
+    scanDirectories:
+        - stubs
+
+    excludePaths:
+        - */Source/*
+        - *Source/*
+
+    ignoreErrors:
+        -
+            message: '#Do not inherit from abstract class, better use composition#'
+            path: "*Rector.php"
+
+        - '#Constant string value need to only have small letters, _, \-, \. and numbers#'
+
+        # symfony native values
+        -
+            message: '#Parameter "(.*?)" cannot be nullable#'
+            path: src/Symfony/ValueObject/ServiceDefinition.php
+
+        -
+            message: '#Use decoupled factory service to create "PHPStan\\Type\\ObjectType" object#'
+            path: src/Symfony/ValueObject/ServiceMap/ServiceMap.php
+
+        -
+            message: '#Parameter "return" cannot be nullable#'
+            path: src/Symfony/NodeFactory/ThisRenderFactory.php
+
+        # fixed in dev php-parser
+        - '#Method Rector\\Symfony\\NodeFactory\\RouteNameClassFactory\:\:create\(\) should return PhpParser\\Node\\Stmt\\Namespace_ but returns PhpParser\\Node#'
+
+        # should be fixed on master
+        -
+            message: '#Do not use chained method calls\. Put each on separated lines#'
+            paths:
+                - src/Symfony/ConstantNameAndValueMatcher.php
+
+        -
+            message: '#Parameter "priority" cannot be nullable#'
+            paths:
+                - src/Symfony/NodeFactory/GetSubscribedEventsClassMethodFactory.php
+
+        # good place for value object
+        -
+            message: '#Use another value object over array with string\-keys and objects, array<string, ValueObject\>#'
+            paths:
+                - src/Symfony3/Rector/MethodCall/FormTypeInstanceToClassConstRector.php

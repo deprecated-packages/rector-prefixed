@@ -9,6 +9,7 @@ return static function (\RectorPrefix20210318\Symfony\Component\DependencyInject
     $containerConfigurator->import(__DIR__ . '/services-rules.php');
     $containerConfigurator->import(__DIR__ . '/services-packages.php');
     $containerConfigurator->import(__DIR__ . '/parameters.php');
+    $containerConfigurator->import(__DIR__ . '/../vendor/rector/rector-symfony/config/config.php');
     // require only in dev
     $containerConfigurator->import(__DIR__ . '/../utils/compiler/config/config.php', null, 'not_found');
 };

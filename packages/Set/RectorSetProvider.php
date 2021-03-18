@@ -24,7 +24,7 @@ final class RectorSetProvider extends \RectorPrefix20210318\Symplify\SetConfigRe
     /**
      * @var array<class-string<SetListInterface>>
      */
-    private const SET_LIST_CLASSES = [\Rector\Set\ValueObject\SetList::class, \Rector\Set\ValueObject\DowngradeSetList::class];
+    private const SET_LIST_CLASSES = [\Rector\Set\ValueObject\SetList::class, \Rector\Set\ValueObject\DowngradeSetList::class, \Rector\Set\SymfonySetList::class];
     /**
      * @var Set[]
      */

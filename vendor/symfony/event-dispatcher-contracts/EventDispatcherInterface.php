@@ -21,7 +21,7 @@ interface EventDispatcherInterface extends \RectorPrefix20210318\Psr\EventDispat
      *
      * @param object      $event     The event to pass to the event handlers/listeners
      * @param string $eventName The name of the event to dispatch. If not supplied,
-     *                              the class of $event should be used instead.
+     *                               the class of $event should be used instead.
      *
      * @return object The passed $event MUST be returned
      */

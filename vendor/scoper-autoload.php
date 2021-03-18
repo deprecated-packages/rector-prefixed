@@ -27,11 +27,26 @@ if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('Checkout
 if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
     spl_autoload_call('RectorPrefix20210318\Composer\InstalledVersions');
 }
-if (!class_exists('ComposerAutoloaderInit00e2c50f09e0bf7d74d4239451dd8ba5', false) && !interface_exists('ComposerAutoloaderInit00e2c50f09e0bf7d74d4239451dd8ba5', false) && !trait_exists('ComposerAutoloaderInit00e2c50f09e0bf7d74d4239451dd8ba5', false)) {
-    spl_autoload_call('RectorPrefix20210318\ComposerAutoloaderInit00e2c50f09e0bf7d74d4239451dd8ba5');
+if (!class_exists('ComposerAutoloaderInitb9f3fbae46a581f6e05b898103fbb3bb', false) && !interface_exists('ComposerAutoloaderInitb9f3fbae46a581f6e05b898103fbb3bb', false) && !trait_exists('ComposerAutoloaderInitb9f3fbae46a581f6e05b898103fbb3bb', false)) {
+    spl_autoload_call('RectorPrefix20210318\ComposerAutoloaderInitb9f3fbae46a581f6e05b898103fbb3bb');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210318\Doctrine\Inflector\Inflector');
+}
+if (!class_exists('Twig_Extension', false) && !interface_exists('Twig_Extension', false) && !trait_exists('Twig_Extension', false)) {
+    spl_autoload_call('RectorPrefix20210318\Twig_Extension');
+}
+if (!class_exists('Twig_Filter_Method', false) && !interface_exists('Twig_Filter_Method', false) && !trait_exists('Twig_Filter_Method', false)) {
+    spl_autoload_call('RectorPrefix20210318\Twig_Filter_Method');
+}
+if (!class_exists('Twig_Function_Method', false) && !interface_exists('Twig_Function_Method', false) && !trait_exists('Twig_Function_Method', false)) {
+    spl_autoload_call('RectorPrefix20210318\Twig_Function_Method');
+}
+if (!class_exists('Twig_SimpleFilter', false) && !interface_exists('Twig_SimpleFilter', false) && !trait_exists('Twig_SimpleFilter', false)) {
+    spl_autoload_call('RectorPrefix20210318\Twig_SimpleFilter');
+}
+if (!class_exists('Twig_SimpleFunction', false) && !interface_exists('Twig_SimpleFunction', false) && !trait_exists('Twig_SimpleFunction', false)) {
+    spl_autoload_call('RectorPrefix20210318\Twig_SimpleFunction');
 }
 if (!class_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !interface_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !trait_exists('Symfony\Component\Console\Style\SymfonyStyle', false)) {
     spl_autoload_call('RectorPrefix20210318\Symfony\Component\Console\Style\SymfonyStyle');
@@ -60,9 +75,9 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire00e2c50f09e0bf7d74d4239451dd8ba5')) {
-    function composerRequire00e2c50f09e0bf7d74d4239451dd8ba5() {
-        return \RectorPrefix20210318\composerRequire00e2c50f09e0bf7d74d4239451dd8ba5(...func_get_args());
+if (!function_exists('composerRequireb9f3fbae46a581f6e05b898103fbb3bb')) {
+    function composerRequireb9f3fbae46a581f6e05b898103fbb3bb() {
+        return \RectorPrefix20210318\composerRequireb9f3fbae46a581f6e05b898103fbb3bb(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {
