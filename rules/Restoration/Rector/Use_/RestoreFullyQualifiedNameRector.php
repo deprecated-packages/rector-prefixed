@@ -9,10 +9,10 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Use_;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\MixedType;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Restoration\NameMatcher\FullyQualifiedNameMatcher;
 use Rector\Restoration\NameMatcher\PhpDocTypeNodeNameMatcher;
@@ -116,19 +116,19 @@ CODE_SAMPLE
     private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();
-        if (!$attributeAwareReturnTagValueNode instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode) {
+        $returnTagValueNode = $phpDocInfo->getReturnTagValue();
+        if (!$returnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode) {
             return;
         }
         if (!$phpDocInfo->getReturnType() instanceof \PHPStan\Type\MixedType) {
             return;
         }
-        if ($attributeAwareReturnTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
-            $fullyQualifiedTypeNode = $this->phpDocTypeNodeNameMatcher->matchIdentifier($attributeAwareReturnTagValueNode->type->name);
+        if ($returnTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+            $fullyQualifiedTypeNode = $this->phpDocTypeNodeNameMatcher->matchIdentifier($returnTagValueNode->type->name);
             if (!$fullyQualifiedTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
                 return;
             }
-            $attributeAwareReturnTagValueNode->type = $fullyQualifiedTypeNode;
+            $returnTagValueNode->type = $fullyQualifiedTypeNode;
             $phpDocInfo->markAsChanged();
         }
     }

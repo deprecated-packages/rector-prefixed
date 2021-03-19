@@ -7,6 +7,7 @@ use RectorPrefix20210319\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Reflection\ReflectionProvider;
@@ -15,8 +16,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
@@ -52,15 +51,15 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
+            return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType) {
-            return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
+            return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
             return $this->mapGenericObjectType($type);
         }
-        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('\\' . $type->getClassName());
+        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('\\' . $type->getClassName());
     }
     /**
      * @param ObjectType $type
@@ -119,7 +118,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
-    private function mapGenericObjectType(\PHPStan\Type\Generic\GenericObjectType $genericObjectType) : \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode
+    private function mapGenericObjectType(\PHPStan\Type\Generic\GenericObjectType $genericObjectType) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $name = $this->resolveGenericObjectTypeName($genericObjectType);
         $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($name);
@@ -132,7 +131,10 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
             $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);
             $genericTypeNodes[] = $typeNode;
         }
-        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode($identifierTypeNode, $genericTypeNodes);
+        if ($genericTypeNodes === []) {
+            return $identifierTypeNode;
+        }
+        return new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($identifierTypeNode, $genericTypeNodes);
     }
     private function resolveGenericObjectTypeName(\PHPStan\Type\Generic\GenericObjectType $genericObjectType) : string
     {

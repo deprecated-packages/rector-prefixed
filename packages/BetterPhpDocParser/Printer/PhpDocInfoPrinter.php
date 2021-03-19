@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
 use RectorPrefix20210319\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -14,7 +15,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -170,32 +170,35 @@ final class PhpDocInfoPrinter
     {
         return \RectorPrefix20210319\Nette\Utils\Strings::replace($phpDocString, self::SPACE_AFTER_ASTERISK_REGEX, '$1*');
     }
-    private function printNode(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode, ?\Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd = null, int $key = 0, int $nodeCount = 0) : string
+    private function printNode(\PHPStan\PhpDocParser\Ast\Node $node, ?\Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd = null, int $key = 0, int $nodeCount = 0) : string
     {
         $output = '';
         /** @var StartAndEnd|null $startAndEnd */
-        $startAndEnd = $attributeAwareNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END) ?: $startAndEnd;
-        $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($attributeAwareNode);
+        $startAndEnd = $node->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END) ?: $startAndEnd;
+        $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($node);
         if ($startAndEnd !== null) {
             $isLastToken = $nodeCount === $key;
             $output = $this->addTokensFromTo($output, $this->currentTokenPosition, $startAndEnd->getStart(), $isLastToken);
             $this->currentTokenPosition = $startAndEnd->getEnd();
         }
-        if ($attributeAwareNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
             if ($startAndEnd !== null) {
-                return $this->printPhpDocTagNode($attributeAwareNode, $startAndEnd, $output);
+                return $this->printPhpDocTagNode($node, $startAndEnd, $output);
             }
-            return $output . self::NEWLINE_ASTERISK . $this->printAttributeWithAsterisk($attributeAwareNode);
+            return $output . self::NEWLINE_ASTERISK . $this->printAttributeWithAsterisk($node);
         }
-        if (!$attributeAwareNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode && !$attributeAwareNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode && $startAndEnd) {
-            $nodeContent = (string) $attributeAwareNode;
-            return $this->originalSpacingRestorer->restoreInOutputWithTokensStartAndEndPosition($attributeAwareNode, $nodeContent, $this->tokens, $startAndEnd);
+        if (!$node instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode && !$node instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode && $startAndEnd) {
+            $nodeContent = (string) $node;
+            return $this->originalSpacingRestorer->restoreInOutputWithTokensStartAndEndPosition($node, $nodeContent, $this->tokens, $startAndEnd);
         }
-        return $output . $this->printAttributeWithAsterisk($attributeAwareNode);
+        return $output . $this->printAttributeWithAsterisk($node);
     }
     private function printEnd(string $output) : string
     {
         $lastTokenPosition = $this->attributeAwarePhpDocNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
+        if ($lastTokenPosition === 0) {
+            $lastTokenPosition = 1;
+        }
         return $this->addTokensFromTo($output, $lastTokenPosition, $this->tokenCount, \true);
     }
     private function addTokensFromTo(string $output, int $from, int $to, bool $shouldSkipEmptyLinesAbove = \false) : string
@@ -215,16 +218,10 @@ final class PhpDocInfoPrinter
         }
         return $this->appendToOutput($output, $from, $to, $positionJumpSet);
     }
-    /**
-     * @param PhpDocTagNode|AttributeAwareNodeInterface $phpDocTagNode
-     */
     private function printPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode, \Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd, string $output) : string
     {
         $output .= $phpDocTagNode->name;
         $phpDocTagNodeValue = $phpDocTagNode->value;
-        if (!$phpDocTagNodeValue instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
         $nodeOutput = $this->printNode($phpDocTagNodeValue, $startAndEnd);
         $tagSpaceSeparator = $this->resolveTagSpaceSeparator($phpDocTagNode);
         // space is handled by $tagSpaceSeparator
@@ -245,9 +242,9 @@ final class PhpDocInfoPrinter
         }
         return $output . $nodeOutput;
     }
-    private function printAttributeWithAsterisk(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode) : string
+    private function printAttributeWithAsterisk(\PHPStan\PhpDocParser\Ast\Node $node) : string
     {
-        $content = (string) $attributeAwareNode;
+        $content = (string) $node;
         return $this->explodeAndImplode($content, \PHP_EOL, self::NEWLINE_ASTERISK);
     }
     /**
@@ -258,17 +255,25 @@ final class PhpDocInfoPrinter
         if ($this->removedNodePositions !== []) {
             return $this->removedNodePositions;
         }
-        /** @var AttributeAwareNodeInterface[] $removedNodes */
         $removedNodes = \array_diff($this->phpDocInfo->getOriginalPhpDocNode()->children, $this->attributeAwarePhpDocNode->children);
+        $lastEndPosition = null;
         foreach ($removedNodes as $removedNode) {
             /** @var StartAndEnd $removedPhpDocNodeInfo */
             $removedPhpDocNodeInfo = $removedNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
             // change start position to start of the line, so the whole line is removed
             $seekPosition = $removedPhpDocNodeInfo->getStart();
-            while ($this->tokens[$seekPosition][1] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+            while ($seekPosition >= 0 && $this->tokens[$seekPosition][1] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+                if ($this->tokens[$seekPosition][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+                    break;
+                }
+                // do not colide
+                if ($lastEndPosition < $seekPosition) {
+                    break;
+                }
                 --$seekPosition;
             }
-            $this->removedNodePositions[] = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($seekPosition - 1, $removedPhpDocNodeInfo->getEnd());
+            $lastEndPosition = $removedPhpDocNodeInfo->getEnd();
+            $this->removedNodePositions[] = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd(\max(0, $seekPosition - 1), $removedPhpDocNodeInfo->getEnd());
         }
         return $this->removedNodePositions;
     }
@@ -280,6 +285,7 @@ final class PhpDocInfoPrinter
         for ($i = $from; $i < $to; ++$i) {
             while (isset($positionJumpSet[$i])) {
                 $i = $positionJumpSet[$i];
+                continue;
             }
             $output .= $this->tokens[$i][0] ?? '';
         }
@@ -304,9 +310,6 @@ final class PhpDocInfoPrinter
         }
         return '';
     }
-    /**
-     * @param AttributeAwareNodeInterface&PhpDocTagNode $phpDocTagNode
-     */
     private function hasDescription(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode) : bool
     {
         $hasDescriptionWithOriginalSpaces = $phpDocTagNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::HAS_DESCRIPTION_WITH_ORIGINAL_SPACES);

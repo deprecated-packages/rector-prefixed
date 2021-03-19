@@ -6,11 +6,8 @@ namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 use RectorPrefix20210319\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class AttributeAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode
 {
-    use AttributeTrait;
     /**
      * @var string
      * @see https://regex101.com/r/4WtsUS/1

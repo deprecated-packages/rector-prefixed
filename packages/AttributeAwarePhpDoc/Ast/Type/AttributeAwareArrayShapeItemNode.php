@@ -9,11 +9,8 @@ use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode
 {
-    use AttributeTrait;
     /**
      * @var bool
      */

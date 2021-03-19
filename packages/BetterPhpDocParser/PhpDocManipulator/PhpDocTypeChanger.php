@@ -4,12 +4,12 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
 use PhpParser\Node\Param;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 use Rector\StaticTypeMapper\StaticTypeMapper;
@@ -53,8 +53,8 @@ final class PhpDocTypeChanger
             $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
-            $attributeAwareVarTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($newPHPStanPhpDocType, '', '');
-            $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
+            $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($newPHPStanPhpDocType, '', '');
+            $phpDocInfo->addTagValueNode($varTagValueNode);
         }
     }
     public function changeReturnType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
@@ -72,8 +72,8 @@ final class PhpDocTypeChanger
             $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
-            $attributeAwareReturnTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode($newPHPStanPhpDocType, '');
-            $phpDocInfo->addTagValueNode($attributeAwareReturnTagValueNode);
+            $returnTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode($newPHPStanPhpDocType, '');
+            $phpDocInfo->addTagValueNode($returnTagValueNode);
         }
     }
     public function changeParamType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType, \PhpParser\Node\Param $param, string $paramName) : void

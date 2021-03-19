@@ -21,7 +21,6 @@ use Rector\BetterPhpDocParser\Contract\PhpDocParserAwareInterface;
 use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\PhpDocNodeFactory\MultiPhpDocNodeFactory;
-use Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -38,11 +37,6 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      */
     private const TAG_REGEX = '#@(var|param|return|throws|property|deprecated)#';
     /**
-     * @see https://regex101.com/r/iCJqCv/1
-     * @var string
-     */
-    private const SPACE_REGEX = '#\\s+#';
-    /**
      * @var PhpDocNodeFactoryInterface[]
      */
     private $phpDocNodeFactories = [];
@@ -58,10 +52,6 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      * @var AttributeAwareNodeFactory
      */
     private $attributeAwareNodeFactory;
-    /**
-     * @var MultilineSpaceFormatPreserver
-     */
-    private $multilineSpaceFormatPreserver;
     /**
      * @var CurrentNodeProvider
      */
@@ -82,17 +72,16 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      * @param PhpDocNodeFactoryInterface[] $phpDocNodeFactories
      * @param StringTagMatchingPhpDocNodeFactoryInterface[] $stringTagMatchingPhpDocNodeFactories
      */
-    public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, array $phpDocNodeFactories = [], array $stringTagMatchingPhpDocNodeFactories = [])
+    public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, array $phpDocNodeFactories = [], array $stringTagMatchingPhpDocNodeFactories = [])
     {
         parent::__construct($typeParser, $constExprParser);
+        $this->setPhpDocNodeFactories($phpDocNodeFactories);
         $this->privatesCaller = new \RectorPrefix20210319\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->privatesAccessor = new \RectorPrefix20210319\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
-        $this->multilineSpaceFormatPreserver = $multilineSpaceFormatPreserver;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->classAnnotationMatcher = $classAnnotationMatcher;
         $this->annotationContentResolver = $annotationContentResolver;
-        $this->setPhpDocNodeFactories($phpDocNodeFactories);
         $this->stringTagMatchingPhpDocNodeFactories = $stringTagMatchingPhpDocNodeFactories;
     }
     /**
@@ -167,23 +156,12 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $originalTokenIterator = clone $tokenIterator;
         $docContent = $this->annotationContentResolver->resolveFromTokenIterator($originalTokenIterator);
         $tokenStart = $this->getTokenIteratorIndex($tokenIterator);
+        /** @var PhpDocNode $phpDocNode */
         $phpDocNode = $this->privatesCaller->callPrivateMethod($this, 'parseChild', [$tokenIterator]);
         $tokenEnd = $this->resolveTokenEnd($tokenIterator);
         $startAndEnd = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($tokenStart, $tokenEnd);
         $attributeAwareNode = $this->attributeAwareNodeFactory->createFromNode($phpDocNode, $docContent);
         $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END, $startAndEnd);
-        $possibleMultilineText = $this->multilineSpaceFormatPreserver->resolveCurrentPhpDocNodeText($attributeAwareNode);
-        if ($possibleMultilineText) {
-            // add original text, for keeping trimmed spaces
-            $originalContent = $this->getOriginalContentFromTokenIterator($tokenIterator);
-            // we try to match original content without trimmed spaces
-            $currentTextPattern = '#(?<line>' . \preg_quote($possibleMultilineText, '#') . ')#s';
-            $currentTextPattern = \RectorPrefix20210319\Nette\Utils\Strings::replace($currentTextPattern, self::SPACE_REGEX, '\\s+');
-            $match = \RectorPrefix20210319\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
-            if (isset($match['line'])) {
-                $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT, $match['line']);
-            }
-        }
         return $attributeAwareNode;
     }
     private function resolveTag(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
@@ -238,26 +216,6 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     {
         $tokenEnd = $this->getTokenIteratorIndex($tokenIterator);
         return $this->adjustTokenEndToFitClassAnnotation($tokenIterator, $tokenEnd);
-    }
-    private function getOriginalContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
-    {
-        $originalTokens = $this->privatesAccessor->getPrivateProperty($tokenIterator, 'tokens');
-        $originalContent = '';
-        foreach ($originalTokens as $originalToken) {
-            // skip opening
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PHPDOC) {
-                continue;
-            }
-            // skip closing
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC) {
-                continue;
-            }
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
-                $originalToken[0] = \PHP_EOL;
-            }
-            $originalContent .= $originalToken[0];
-        }
-        return \trim($originalContent);
     }
     /**
      * @see https://github.com/rectorphp/rector/issues/2158

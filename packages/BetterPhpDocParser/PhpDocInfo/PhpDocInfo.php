@@ -17,14 +17,11 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
 use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\NodeTypes;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
@@ -139,12 +136,11 @@ final class PhpDocInfo
         return $this->phpDocNode->getVarTagValues()[0] ?? null;
     }
     /**
-     * @return PhpDocTagNode[]|AttributeAwareNodeInterface[]
+     * @return array<PhpDocTagNode>
      */
     public function getTagsByName(string $name) : array
     {
         $name = $this->annotationNaming->normalizeName($name);
-        /** @var PhpDocTagNode[]|AttributeAwareNodeInterface[] $tags */
         $tags = $this->phpDocNode->getTags();
         $tags = \array_filter($tags, function (\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $tag) use($name) : bool {
             return $tag->name === $name;
@@ -154,8 +150,8 @@ final class PhpDocInfo
     }
     public function getParamType(string $name) : \PHPStan\Type\Type
     {
-        $attributeAwareParamTagValueNode = $this->getParamTagValueByName($name);
-        return $this->getTypeOrMixed($attributeAwareParamTagValueNode);
+        $paramTagValueByName = $this->getParamTagValueByName($name);
+        return $this->getTypeOrMixed($paramTagValueByName);
     }
     /**
      * @return ParamTagValueNode[]
@@ -242,7 +238,7 @@ final class PhpDocInfo
     /**
      * @template T of \PHPStan\PhpDocParser\Ast\Node
      * @param class-string<T> $type
-     * @return T[]
+     * @return array<T>
      */
     public function findAllByType(string $type) : array
     {
@@ -265,8 +261,13 @@ final class PhpDocInfo
             }
             $foundTagsValueNodes[] = $phpDocChildNode->value;
         }
+        /** @var \PHPStan\PhpDocParser\Ast\Node[] $foundTagsValueNodes */
         return $foundTagsValueNodes;
     }
+    /**
+     * @template T of \PHPStan\PhpDocParser\Ast\Node
+     * @param class-string<T> $type
+     */
     public function removeByType(string $type) : void
     {
         $this->ensureTypeIsTagValueNode($type, __METHOD__);
@@ -305,8 +306,8 @@ final class PhpDocInfo
             return;
         }
         $name = $this->resolveNameForPhpDocTagValueNode($phpDocTagValueNode);
-        $attributeAwarePhpDocTagNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode($name, $phpDocTagValueNode);
-        $this->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+        $phpDocTagNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode($name, $phpDocTagValueNode);
+        $this->addPhpDocTagNode($phpDocTagNode);
     }
     public function isNewNode() : bool
     {
@@ -323,9 +324,8 @@ final class PhpDocInfo
     {
         return $this->isSingleLine;
     }
-    public function getReturnTagValue() : ?\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode
+    public function getReturnTagValue() : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode
     {
-        /** @var AttributeAwareReturnTagValueNode[] $returnTagValueNodes */
         $returnTagValueNodes = $this->phpDocNode->getReturnTagValues();
         return $returnTagValueNodes[0] ?? null;
     }
@@ -379,7 +379,9 @@ final class PhpDocInfo
     }
     private function ensureTypeIsTagValueNode(string $type, string $location) : void
     {
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($type, [\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class, \Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface::class, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface::class])) {
+        /** @var array<class-string> $desiredTypes */
+        $desiredTypes = \array_merge([\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface::class], \Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES);
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($type, $desiredTypes)) {
             return;
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Type "%s" passed to "%s()" method must be child of "%s"', $type, $location, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class));

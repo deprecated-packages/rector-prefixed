@@ -84,8 +84,8 @@ CODE_SAMPLE
         if ($columnTagValueNode->getType() !== 'bigint') {
             return null;
         }
-        $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$attributeAwareVarTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        $varTagValueNode = $phpDocInfo->getVarTagValueNode();
+        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
         $this->docBlockClassRenamer->renamePhpDocTypes($phpDocInfo, [new \PHPStan\Type\IntegerType(), new \PHPStan\Type\FloatType(), new \PHPStan\Type\BooleanType()], new \PHPStan\Type\StringType(), $node);

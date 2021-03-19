@@ -3,24 +3,22 @@
 declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 /**
  * Use by Symfony to autowire dependencies outside constructor,
  * @see https://symfony.com/doc/current/service_container/autowiring.html#autowiring-other-methods-e-g-setters-and-public-typed-properties
  */
-final class SymfonyRequiredTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode implements \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class SymfonyRequiredTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode implements \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
-    use AttributeTrait;
     /**
      * @var string
      */
     public const NAME = '@required';
     public function __construct()
     {
-        parent::__construct(self::NAME, new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode(''));
+        parent::__construct(self::NAME, new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode(''));
     }
     public function __toString() : string
     {

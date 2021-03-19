@@ -3,23 +3,20 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
 
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 /**
  * @see \Rector\BetterPhpDocParser\PhpDocNodeFactory\StringMatchingPhpDocNodeFactory\ApiPhpDocNodeFactory
  */
-final class ApiPhpDocTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class ApiPhpDocTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
 {
-    use AttributeTrait;
     /**
      * @var string
      */
     public const NAME = '@api';
     public function __construct()
     {
-        parent::__construct(self::NAME, new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareGenericTagValueNode(''));
+        parent::__construct(self::NAME, new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode(''));
     }
     public function __toString() : string
     {

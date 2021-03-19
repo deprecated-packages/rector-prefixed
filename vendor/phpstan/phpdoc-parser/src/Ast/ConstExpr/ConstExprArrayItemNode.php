@@ -3,8 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\ConstExpr;
 
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 class ConstExprArrayItemNode implements \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode
 {
+    use NodeAttributes;
     /** @var ConstExprNode|null */
     public $key;
     /** @var ConstExprNode */

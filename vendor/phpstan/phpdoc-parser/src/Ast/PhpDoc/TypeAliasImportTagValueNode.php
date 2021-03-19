@@ -3,9 +3,11 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\PhpDoc;
 
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 class TypeAliasImportTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
 {
+    use NodeAttributes;
     /** @var string */
     public $importedAlias;
     /** @var IdentifierTypeNode */

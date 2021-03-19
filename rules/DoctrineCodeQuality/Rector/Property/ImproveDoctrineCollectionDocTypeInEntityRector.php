@@ -117,9 +117,9 @@ CODE_SAMPLE
         if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
             return null;
         }
-        $attributeAwareVarTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
-        if ($attributeAwareVarTagValueNode !== null) {
-            $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($attributeAwareVarTagValueNode->type, $property);
+        $varTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
+        if ($varTagValueNode !== null) {
+            $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($varTagValueNode->type, $property);
             if (!$collectionObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
                 return null;
             }

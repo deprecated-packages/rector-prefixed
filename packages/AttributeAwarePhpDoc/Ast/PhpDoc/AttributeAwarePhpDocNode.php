@@ -3,15 +3,14 @@
 declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use RectorPrefix20210319\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
-final class AttributeAwarePhpDocNode extends \RectorPrefix20210319\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class AttributeAwarePhpDocNode extends \RectorPrefix20210319\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
 {
-    use AttributeTrait;
+    use NodeAttributes;
     /**
-     * @var PhpDocChildNode[]|AttributeAwareNodeInterface[]
+     * @var array<PhpDocChildNode>
      */
     public $children = [];
     public function __toString() : string

@@ -13,7 +13,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
 use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
@@ -46,7 +45,7 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         return \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class;
     }
     /**
-     * @param AttributeAwareIdentifierTypeNode&IdentifierTypeNode $typeNode
+     * @param IdentifierTypeNode $typeNode
      */
     public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {

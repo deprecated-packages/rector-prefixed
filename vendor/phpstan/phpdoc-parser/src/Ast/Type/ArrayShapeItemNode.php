@@ -5,8 +5,10 @@ namespace PHPStan\PhpDocParser\Ast\Type;
 
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 class ArrayShapeItemNode implements \PHPStan\PhpDocParser\Ast\Type\TypeNode
 {
+    use NodeAttributes;
     /** @var ConstExprIntegerNode|ConstExprStringNode|IdentifierTypeNode|null */
     public $keyName;
     /** @var bool */

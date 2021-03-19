@@ -51,8 +51,8 @@ final class EntityIdNodeFactory
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         // add @var int
-        $attributeAwareVarTagValueNode = $this->phpDocTagNodeFactory->createVarTagIntValueNode();
-        $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
+        $varTagValueNode = $this->phpDocTagNodeFactory->createVarTagIntValueNode();
+        $phpDocInfo->addTagValueNode($varTagValueNode);
         // add @ORM\Id
         $idTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter);
         $phpDocInfo->addTagValueNodeWithShortName($idTagValueNode);

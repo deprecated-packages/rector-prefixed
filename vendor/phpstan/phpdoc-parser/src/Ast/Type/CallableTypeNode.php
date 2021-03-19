@@ -3,8 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\PhpDocParser\Ast\Type;
 
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 class CallableTypeNode implements \PHPStan\PhpDocParser\Ast\Type\TypeNode
 {
+    use NodeAttributes;
     /** @var IdentifierTypeNode */
     public $identifier;
     /** @var CallableTypeParameterNode[] */

@@ -7,8 +7,6 @@ use RectorPrefix20210319\Nette\Utils\Arrays;
 use RectorPrefix20210319\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Lexer\Lexer;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 final class WhitespaceDetector
 {
@@ -25,18 +23,13 @@ final class WhitespaceDetector
     {
         $oldWhitespaces = [];
         $start = $startAndEnd->getStart();
-        // this is needed, because of 1 token taken from tokens and added annotation name: "ORM" + "\X" → "ORM\X"
-        // todo, this might be needed to be dynamic, based on taken tokens count (some Collector?)
-        if ($node instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface) {
-            --$start;
-        }
         for ($i = $start; $i < $startAndEnd->getEnd(); ++$i) {
             /** @var string $tokenValue */
             $tokenValue = $tokens[$i][0];
             if ($tokens[$i][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
                 // give back "\s+\*" as well
                 // do not overlap to previous node
-                if (($node instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface || $node instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface) && $i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+                if ($i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                     $previousTokenValue = $tokens[$i - 1][0];
                     if (\RectorPrefix20210319\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
                         $tokenValue = $previousTokenValue . $tokenValue;
@@ -44,6 +37,13 @@ final class WhitespaceDetector
                 }
                 $oldWhitespaces[] = $tokenValue;
                 continue;
+            }
+            // fixes phpdoc parser multiline spaces BC break https://github.com/phpstan/phpdoc-parser/commit/b451b2f27a97c8c288de63db79c2a843727d4326
+            if ($tokens[$i][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+                $nextToken = $tokens[$i + 1];
+                if ($nextToken[1] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+                    $oldWhitespaces[] = $tokens[$i][0];
+                }
             }
             // quoted string with spaces?
             if ($this->isQuotedStringWithSpaces($tokens, $i)) {

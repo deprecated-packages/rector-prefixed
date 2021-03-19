@@ -42,35 +42,21 @@ class PhpDocParser
     private function parseText(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode
     {
         $text = '';
-        while (\true) {
-            // If we received a Lexer::TOKEN_PHPDOC_EOL, exit early to prevent
-            // them from being processed.
-            $currentTokenType = $tokens->currentTokenType();
-            if ($currentTokenType === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+        while (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL)) {
+            $text .= $tokens->getSkippedHorizontalWhiteSpaceIfAny() . $tokens->joinUntil(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END);
+            if (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL)) {
                 break;
             }
-            $text .= $tokens->joinUntil(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END);
-            $text = \rtrim($text, " \t");
-            // If we joined until TOKEN_PHPDOC_EOL, peak at the next tokens to see
-            // if we have a multiline string to join.
-            $currentTokenType = $tokens->currentTokenType();
-            if ($currentTokenType !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
-                break;
-            }
-            // Peek at the next token to determine if it is more text that needs
-            // to be combined.
             $tokens->pushSavePoint();
             $tokens->next();
-            $currentTokenType = $tokens->currentTokenType();
-            if ($currentTokenType !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER) {
+            if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_TAG) || $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) || $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC) || $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END)) {
                 $tokens->rollback();
                 break;
             }
-            // There's more text on a new line, ensure spacing.
+            $tokens->dropSavePoint();
             $text .= "\n";
         }
-        $text = \trim($text, " \t");
-        return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode($text);
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode(\trim($text, " \t"));
     }
     public function parseTag(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {

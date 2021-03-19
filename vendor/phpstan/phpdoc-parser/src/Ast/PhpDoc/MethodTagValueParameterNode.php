@@ -5,9 +5,11 @@ namespace PHPStan\PhpDocParser\Ast\PhpDoc;
 
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode;
 use PHPStan\PhpDocParser\Ast\Node;
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 class MethodTagValueParameterNode implements \PHPStan\PhpDocParser\Ast\Node
 {
+    use NodeAttributes;
     /** @var TypeNode|null */
     public $type;
     /** @var bool */

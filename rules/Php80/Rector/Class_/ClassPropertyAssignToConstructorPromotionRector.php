@@ -137,10 +137,10 @@ CODE_SAMPLE
     private function removeClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $attributeAwareParamTagValueNode = $phpDocInfo->getParamTagValueByName($paramName);
-        if (!$attributeAwareParamTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
+        $paramTagValueByName = $phpDocInfo->getParamTagValueByName($paramName);
+        if (!$paramTagValueByName instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
             return;
         }
-        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $attributeAwareParamTagValueNode);
+        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $paramTagValueByName);
     }
 }

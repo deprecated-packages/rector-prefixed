@@ -5,10 +5,10 @@ namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Expression;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
@@ -36,8 +36,8 @@ final class VarAnnotationManipulator
             return;
         }
         $fullyQualifiedIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($typeWithClassName->getClassName());
-        $attributeAwareVarTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($fullyQualifiedIdentifierTypeNode, '$' . $variableName, '');
-        $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
+        $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($fullyQualifiedIdentifierTypeNode, '$' . $variableName, '');
+        $phpDocInfo->addTagValueNode($varTagValueNode);
     }
     public function decorateNodeWithType(\PhpParser\Node $node, \PHPStan\Type\Type $staticType) : void
     {

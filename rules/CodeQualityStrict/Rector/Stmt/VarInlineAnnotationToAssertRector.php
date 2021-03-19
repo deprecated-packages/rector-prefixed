@@ -92,11 +92,11 @@ CODE_SAMPLE
     }
     private function getVarDocVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
     {
-        $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$attributeAwareVarTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        $varTagValueNode = $phpDocInfo->getVarTagValueNode();
+        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
-        $variableName = $attributeAwareVarTagValueNode->variableName;
+        $variableName = $varTagValueNode->variableName;
         // no variable
         if ($variableName === '') {
             return null;

@@ -16,8 +16,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NetteToSymfony\Event\EventInfosFactory;
 use Rector\NetteToSymfony\ValueObject\EventInfo;
+use Rector\NetteToSymfony\ValueObjectFactory\EventInfosFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -35,7 +35,7 @@ final class RenameEventNamesInEventSubscriberRector extends \Rector\Core\Rector\
      * @var EventInfo[]
      */
     private $symfonyClassConstWithAliases = [];
-    public function __construct(\Rector\NetteToSymfony\Event\EventInfosFactory $eventInfosFactory)
+    public function __construct(\Rector\NetteToSymfony\ValueObjectFactory\EventInfosFactory $eventInfosFactory)
     {
         $this->symfonyClassConstWithAliases = $eventInfosFactory->create();
     }

@@ -4,14 +4,13 @@ declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\Ast\Type;
 
 use RectorPrefix20210319\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareCallableTypeNode extends \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class AttributeAwareCallableTypeNode extends \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode
 {
-    use AttributeTrait;
+    use NodeAttributes;
     public function __toString() : string
     {
         // keep original (Psalm?) format, see https://github.com/rectorphp/rector/issues/2841

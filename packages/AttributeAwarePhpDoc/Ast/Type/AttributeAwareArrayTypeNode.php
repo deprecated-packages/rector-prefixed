@@ -7,12 +7,9 @@ use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\PHPStanStaticTypeMapper\TypeMapper\ArrayTypeMapper;
-final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
 {
-    use AttributeTrait;
     public function __toString() : string
     {
         if ($this->type instanceof \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode) {
