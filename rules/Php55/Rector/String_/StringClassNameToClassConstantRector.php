@@ -6,6 +6,7 @@ namespace Rector\Php55\Rector\String_;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassConst;
@@ -122,10 +123,10 @@ CODE_SAMPLE
             return \false;
         }
         $parentParent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentParent instanceof \PhpParser\Node) {
+        if (!$parentParent instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
-        return $this->nodeNameResolver->isFuncCallName($parentParent, 'is_a');
+        return $this->nodeNameResolver->isName($parentParent, 'is_a');
     }
     private function shouldSkip(string $classLikeName, \PhpParser\Node\Scalar\String_ $string) : bool
     {

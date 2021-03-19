@@ -211,7 +211,10 @@ CODE_SAMPLE
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($variableName, $constantName) : ?ClassConstFetch {
-            if (!$this->nodeNameResolver->isVariableName($node, $variableName)) {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return null;
+            }
+            if (!$this->nodeNameResolver->isName($node, $variableName)) {
                 return null;
             }
             // replace with constant fetch

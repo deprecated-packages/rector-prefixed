@@ -101,7 +101,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return;
             }
-            if (!$this->nodeNameResolver->isVariableName($node, $oldVariableName)) {
+            if (!$this->nodeNameResolver->isName($node, $oldVariableName)) {
                 return;
             }
             $node->name = $newVariableName;

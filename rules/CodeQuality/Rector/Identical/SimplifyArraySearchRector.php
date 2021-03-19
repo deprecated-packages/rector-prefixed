@@ -43,7 +43,10 @@ final class SimplifyArraySearchRector extends \Rector\Core\Rector\AbstractRector
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\PhpParser\Node $node) : bool {
-            return $this->nodeNameResolver->isFuncCallName($node, 'array_search');
+            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node, 'array_search');
         }, function (\PhpParser\Node $node) : bool {
             return $this->valueResolver->isFalse($node);
         });

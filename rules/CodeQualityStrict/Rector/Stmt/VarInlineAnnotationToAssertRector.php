@@ -105,8 +105,11 @@ CODE_SAMPLE
     }
     private function findVariableByName(\PhpParser\Node\Stmt $stmt, string $docVariableName) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirst($stmt, function (\PhpParser\Node $stmt) use($docVariableName) : bool {
-            return $this->nodeNameResolver->isVariableName($stmt, $docVariableName);
+        return $this->betterNodeFinder->findFirst($stmt, function (\PhpParser\Node $node) use($docVariableName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node, $docVariableName);
         });
     }
     private function isVariableJustCreated(\PhpParser\Node\Stmt $stmt, string $docVariableName) : bool
@@ -118,8 +121,11 @@ CODE_SAMPLE
             return \false;
         }
         $assign = $stmt->expr;
+        if (!$assign->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
         // the variable is on the left side = just created
-        return $this->nodeNameResolver->isVariableName($assign->var, $docVariableName);
+        return $this->nodeNameResolver->isName($assign->var, $docVariableName);
     }
     private function refactorFreshlyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {

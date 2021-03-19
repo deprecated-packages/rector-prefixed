@@ -6,6 +6,7 @@ namespace Rector\PHPOffice\Rector\StaticCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -54,7 +55,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->nodeNameResolver->isStaticCallsNamed($node, 'PHPExcel_IOFactory', ['createReader', 'createWriter', 'identify'])) {
+        $callerType = $this->getObjectType($node->class);
+        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_IOFactory'))->yes()) {
+            return null;
+        }
+        if (!$this->isNames($node->name, ['createReader', 'createWriter', 'identify'])) {
             return null;
         }
         $firstArgumentValue = $this->valueResolver->getValue($node->args[0]->value);

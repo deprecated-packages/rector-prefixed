@@ -75,8 +75,7 @@ final class RectorKernel extends \RectorPrefix20210319\Symfony\Component\HttpKer
      */
     public function registerBundles() : iterable
     {
-        $bundles = [new \RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
-        return $bundles;
+        return [new \RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
     }
     protected function build(\RectorPrefix20210319\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {

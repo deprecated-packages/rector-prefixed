@@ -75,7 +75,10 @@ CODE_SAMPLE
     private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\FuncCall
     {
         if ($this->valueResolver->isFalse($expr->left)) {
-            if (!$this->nodeNameResolver->isFuncCallNames($expr->right, self::OLD_STR_NAMES)) {
+            if (!$expr->right instanceof \PhpParser\Node\Expr\FuncCall) {
+                return null;
+            }
+            if (!$this->isNames($expr->right, self::OLD_STR_NAMES)) {
                 return null;
             }
             /** @var FuncCall $funcCall */
@@ -83,7 +86,10 @@ CODE_SAMPLE
             return $funcCall;
         }
         if ($this->valueResolver->isFalse($expr->right)) {
-            if (!$this->nodeNameResolver->isFuncCallNames($expr->left, self::OLD_STR_NAMES)) {
+            if (!$expr->left instanceof \PhpParser\Node\Expr\FuncCall) {
+                return null;
+            }
+            if (!$this->isNames($expr->left, self::OLD_STR_NAMES)) {
                 return null;
             }
             /** @var FuncCall $funcCall */

@@ -158,6 +158,9 @@ CODE_SAMPLE
     }
     private function isIteratorToArrayFuncCall(\PhpParser\Node\Expr $expr) : bool
     {
-        return $this->nodeNameResolver->isFuncCallName($expr, 'iterator_to_array');
+        if (!$expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
+        }
+        return $this->nodeNameResolver->isName($expr, 'iterator_to_array');
     }
 }

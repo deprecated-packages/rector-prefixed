@@ -60,10 +60,13 @@ CODE_SAMPLE
             return null;
         }
         $this->traverseNodesWithCallable($nextExpression, function (\PhpParser\Node $node) use($resultVariable) : ?Variable {
-            if ($this->nodeNameResolver->isFuncCallName($node, 'get_defined_vars')) {
-                return $resultVariable;
+            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return null;
             }
-            return null;
+            if (!$this->isName($node, 'get_defined_vars')) {
+                return null;
+            }
+            return $resultVariable;
         });
         return $node;
     }

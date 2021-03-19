@@ -20,6 +20,8 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\ConstantScalarType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\PHPUnit\ValueObject\BinaryOpWithAssertMethod;
@@ -111,13 +113,27 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     private function isConstantValue(\PhpParser\Node\Expr $expr) : bool
     {
-        $nodeClass = \get_class($expr);
-        if (\in_array($nodeClass, [\PhpParser\Node\Expr\Array_::class, \PhpParser\Node\Expr\ConstFetch::class], \true)) {
+        $staticType = $this->nodeTypeResolver->getStaticType($expr);
+        if ($staticType instanceof \PHPStan\Type\ConstantScalarType) {
             return \true;
         }
-        if (\is_subclass_of($expr, \PhpParser\Node\Scalar::class)) {
-            return \true;
-        }
-        return $this->nodeNameResolver->isVariableName($expr, 'exp*');
+        return $staticType instanceof \PHPStan\Type\Constant\ConstantArrayType;
+        //        dump($staticType);
+        //
+        //        $nodeClass = get_class($expr);
+        //        if (in_array($nodeClass, [Array_::class, ConstFetch::class], true)) {
+        //            return true;
+        //        }
+        //
+        //        if (is_subclass_of($expr, Scalar::class)) {
+        //            return true;
+        //        }
+        //
+        //        return false;
+        //
+        //        var_dump($expr);
+        //        die;
+        //
+        //        return $this->nodeNameResolver->isVariableName($expr, 'exp*');
     }
 }

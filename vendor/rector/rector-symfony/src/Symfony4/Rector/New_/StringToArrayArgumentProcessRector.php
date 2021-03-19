@@ -119,18 +119,20 @@ CODE_SAMPLE
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
-        $previousNodeAssign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
-        if (!$previousNodeAssign instanceof \PhpParser\Node\Expr\Assign) {
+        $assign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
+        if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
             return;
         }
-        if (!$this->nodeNameResolver->isFuncCallName($previousNodeAssign->expr, 'sprintf')) {
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return;
         }
-        /** @var FuncCall $funcCall */
-        $funcCall = $previousNodeAssign->expr;
+        $funcCall = $assign->expr;
+        if (!$this->nodeNameResolver->isName($funcCall, 'sprintf')) {
+            return;
+        }
         $arrayNode = $this->nodeTransformer->transformSprintfToArray($funcCall);
         if ($arrayNode !== null) {
-            $previousNodeAssign->expr = $arrayNode;
+            $assign->expr = $arrayNode;
         }
     }
     private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : ?\PhpParser\Node\Expr\Assign

@@ -3119,7 +3119,6 @@ return array(
     'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodVisibilityVendorLockResolver' => $baseDir . '/packages/VendorLocker/NodeVendorLocker/ClassMethodVisibilityVendorLockResolver.php',
     'Rector\\VendorLocker\\NodeVendorLocker\\PropertyTypeVendorLockResolver' => $baseDir . '/packages/VendorLocker/NodeVendorLocker/PropertyTypeVendorLockResolver.php',
     'Rector\\VendorLocker\\NodeVendorLocker\\PropertyVisibilityVendorLockResolver' => $baseDir . '/packages/VendorLocker/NodeVendorLocker/PropertyVisibilityVendorLockResolver.php',
-    'Rector\\VendorLocker\\Reflection\\ClassReflectionAncestorAnalyzer' => $baseDir . '/packages/VendorLocker/Reflection/ClassReflectionAncestorAnalyzer.php',
     'Rector\\VendorLocker\\Reflection\\MethodReflectionContractAnalyzer' => $baseDir . '/packages/VendorLocker/Reflection/MethodReflectionContractAnalyzer.php',
     'Rector\\VendorLocker\\VendorLockResolver' => $baseDir . '/packages/VendorLocker/VendorLockResolver.php',
     'Rector\\Visibility\\Rector\\ClassConst\\ChangeConstantVisibilityRector' => $baseDir . '/rules/Visibility/Rector/ClassConst/ChangeConstantVisibilityRector.php',

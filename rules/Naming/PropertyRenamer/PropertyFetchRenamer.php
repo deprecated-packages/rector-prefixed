@@ -34,14 +34,14 @@ final class PropertyFetchRenamer
                 $node->name = new \PhpParser\Node\Identifier($expectedName);
                 return $node;
             }
-            if ($this->nodeNameResolver->isLocalStaticPropertyFetchNamed($node, $currentName)) {
-                if (!$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-                    return null;
-                }
-                $node->name = new \PhpParser\Node\VarLikeIdentifier($expectedName);
-                return $node;
+            if (!$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+                return null;
             }
-            return null;
+            if (!$this->nodeNameResolver->isName($node->name, $currentName)) {
+                return null;
+            }
+            $node->name = new \PhpParser\Node\VarLikeIdentifier($expectedName);
+            return $node;
         });
     }
 }

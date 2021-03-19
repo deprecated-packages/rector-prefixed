@@ -9,13 +9,8 @@ use PHPStan\Reflection\ClassReflection;
 use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer;
 final class PropertyTypeVendorLockResolver
 {
-    /**
-     * @var ClassReflectionAncestorAnalyzer
-     */
-    private $classReflectionAncestorAnalyzer;
     /**
      * @var NodeNameResolver
      */
@@ -24,9 +19,8 @@ final class PropertyTypeVendorLockResolver
      * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
-    public function __construct(\Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer $classReflectionAncestorAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)
     {
-        $this->classReflectionAncestorAnalyzer = $classReflectionAncestorAnalyzer;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
     }
@@ -38,7 +32,7 @@ final class PropertyTypeVendorLockResolver
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if (!$this->classReflectionAncestorAnalyzer->hasAncestors($classReflection)) {
+        if (\count($classReflection->getAncestors()) === 1) {
             return \false;
         }
         /** @var string $propertyName */

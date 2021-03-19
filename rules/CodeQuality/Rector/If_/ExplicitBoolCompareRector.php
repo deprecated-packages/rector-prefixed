@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast\Bool_;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\DNumber;
@@ -113,8 +114,7 @@ CODE_SAMPLE
     }
     private function resolveNewConditionNode(\PhpParser\Node\Expr $expr, bool $isNegated) : ?\PhpParser\Node\Expr\BinaryOp
     {
-        // various cases
-        if ($this->nodeNameResolver->isFuncCallName($expr, 'count')) {
+        if ($expr instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($expr, 'count')) {
             return $this->resolveCount($isNegated, $expr);
         }
         if ($this->arrayTypeAnalyzer->isArrayType($expr)) {
@@ -137,14 +137,14 @@ CODE_SAMPLE
     /**
      * @return Identical|Greater
      */
-    private function resolveCount(bool $isNegated, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp
+    private function resolveCount(bool $isNegated, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\BinaryOp
     {
         $lNumber = new \PhpParser\Node\Scalar\LNumber(0);
         // compare === 0, assumption
         if ($isNegated) {
-            return new \PhpParser\Node\Expr\BinaryOp\Identical($expr, $lNumber);
+            return new \PhpParser\Node\Expr\BinaryOp\Identical($funcCall, $lNumber);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\Greater($expr, $lNumber);
+        return new \PhpParser\Node\Expr\BinaryOp\Greater($funcCall, $lNumber);
     }
     /**
      * @return Identical|NotIdentical

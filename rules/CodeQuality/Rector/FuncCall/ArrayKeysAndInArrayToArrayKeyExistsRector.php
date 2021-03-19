@@ -51,7 +51,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->nodeNameResolver->isFuncCallName($node, 'in_array')) {
+        if (!$this->nodeNameResolver->isName($node, 'in_array')) {
             return null;
         }
         $arrayVariable = $node->args[1]->value;
@@ -67,7 +67,10 @@ CODE_SAMPLE
             if (!$this->nodeComparator->areNodesEqual($arrayVariable, $node->var)) {
                 return \false;
             }
-            return $this->nodeNameResolver->isFuncCallName($node->expr, 'array_keys');
+            if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node->expr, 'array_keys');
         });
         if (!$previousAssignArraysKeysFuncCall instanceof \PhpParser\Node\Expr\Assign) {
             return null;

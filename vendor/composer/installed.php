@@ -234,7 +234,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '66568c203d858768aad104341e04040ab21e5e25',
+      'reference' => 'ea4cef1bbf6fd4a1b9051590535545ef04d77e28',
     ),
     'rector/rector-phpunit' => 
     array (
@@ -244,7 +244,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '0bbcc1f1d8ad6559d1f74bb6e34aa88537bd2557',
+      'reference' => '4c95801b54571c4e4d0f483679a4a48dc95ca366',
     ),
     'rector/rector-prefixed' => 
     array (
@@ -261,7 +261,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '21cdbcc8532263e4d2152d86bb2e8565d224ea8b',
+      'reference' => '2a4a12b52343a90d523f787b00375e782129b067',
     ),
     'sebastian/diff' => 
     array (

@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
@@ -119,8 +120,11 @@ CODE_SAMPLE
      */
     private function shouldSkipLeftVariable(\PhpParser\Node $node) : bool
     {
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
         // local method call
-        return $this->nodeNameResolver->isVariableName($node->var, 'this');
+        return $this->nodeNameResolver->isName($node->var, 'this');
     }
     private function isNewVariableThanBefore(?string $currentStmtVariableName) : bool
     {

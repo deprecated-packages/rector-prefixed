@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Greater;
 use PhpParser\Node\Expr\BinaryOp\Smaller;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\PostInc;
 use PhpParser\Node\Expr\PreInc;
 use PhpParser\Node\Expr\Variable;
@@ -162,9 +163,9 @@ final class ForAnalyzer
             return \false;
         }
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \PhpParser\Node) {
+        if (!$parent instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
-        return $this->nodeNameResolver->isFuncCallName($parent, self::COUNT);
+        return $this->nodeNameResolver->isName($parent, self::COUNT);
     }
 }

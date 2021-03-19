@@ -5,6 +5,7 @@ namespace Rector\Php70\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Type\ObjectType;
@@ -75,7 +76,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node->var, 'this')) {
             return null;
         }
         $methodName = $this->getName($node->name);

@@ -43,7 +43,10 @@ final class StrlenEndsWithResolver
     }
     public function matchContentExprAndNeedleExpr(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
     {
-        if (!$this->nodeNameResolver->isFuncCallName($node, 'substr')) {
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node, 'substr')) {
             return null;
         }
         /** @var FuncCall $node */
@@ -52,7 +55,10 @@ final class StrlenEndsWithResolver
         }
         /** @var UnaryMinus $unaryMinus */
         $unaryMinus = $node->args[1]->value;
-        if (!$this->nodeNameResolver->isFuncCallName($unaryMinus->expr, 'strlen')) {
+        if (!$unaryMinus->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($unaryMinus->expr, 'strlen')) {
             return null;
         }
         /** @var FuncCall $strlenFuncCall */

@@ -131,7 +131,10 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            return $this->nodeNameResolver->isVariableName($node->var, $variableName);
+            if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node->var, $variableName);
         });
     }
 }

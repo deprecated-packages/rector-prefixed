@@ -112,7 +112,10 @@ CODE_SAMPLE
         if (!$node instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
-        if (!$this->nodeNameResolver->isFuncCallName($node->expr, 'strlen')) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node->expr, 'strlen')) {
             return null;
         }
         /** @var FuncCall $funcCall */

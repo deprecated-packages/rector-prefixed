@@ -10,14 +10,9 @@ use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Type\MixedType;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer;
 use Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer;
 final class ClassMethodReturnVendorLockResolver
 {
-    /**
-     * @var ClassReflectionAncestorAnalyzer
-     */
-    private $classReflectionAncestorAnalyzer;
     /**
      * @var MethodReflectionContractAnalyzer
      */
@@ -26,9 +21,8 @@ final class ClassMethodReturnVendorLockResolver
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\VendorLocker\Reflection\ClassReflectionAncestorAnalyzer $classReflectionAncestorAnalyzer, \Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer $methodReflectionContractAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\VendorLocker\Reflection\MethodReflectionContractAnalyzer $methodReflectionContractAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->classReflectionAncestorAnalyzer = $classReflectionAncestorAnalyzer;
         $this->methodReflectionContractAnalyzer = $methodReflectionContractAnalyzer;
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -42,7 +36,7 @@ final class ClassMethodReturnVendorLockResolver
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
         }
-        if (!$this->classReflectionAncestorAnalyzer->hasAncestors($classReflection)) {
+        if (\count($classReflection->getAncestors()) === 1) {
             return \false;
         }
         $methodName = $this->nodeNameResolver->getName($classMethod);

@@ -6,6 +6,7 @@ namespace Rector\Privatization\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -66,7 +67,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node->var, 'this')) {
             return null;
         }
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

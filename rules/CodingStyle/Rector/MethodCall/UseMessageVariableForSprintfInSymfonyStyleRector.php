@@ -5,6 +5,7 @@ namespace Rector\CodingStyle\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
@@ -62,7 +63,10 @@ CODE_SAMPLE
             return null;
         }
         $argValue = $node->args[0]->value;
-        if (!$this->nodeNameResolver->isFuncCallName($argValue, 'sprintf')) {
+        if (!$argValue instanceof \PhpParser\Node\Expr\FuncCall) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($argValue, 'sprintf')) {
             return null;
         }
         $messageVariable = new \PhpParser\Node\Expr\Variable('message');
