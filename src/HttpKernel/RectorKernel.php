@@ -8,7 +8,6 @@ use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass;
 use Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader;
-use Rector\RectorGenerator\Bundle\RectorGeneratorBundle;
 use RectorPrefix20210319\Symfony\Component\Config\Loader\DelegatingLoader;
 use RectorPrefix20210319\Symfony\Component\Config\Loader\GlobFileLoader;
 use RectorPrefix20210319\Symfony\Component\Config\Loader\LoaderInterface;
@@ -19,13 +18,8 @@ use RectorPrefix20210319\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use RectorPrefix20210319\Symfony\Component\HttpKernel\Config\FileLocator;
 use RectorPrefix20210319\Symfony\Component\HttpKernel\Kernel;
 use RectorPrefix20210319\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle;
-use RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use RectorPrefix20210319\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use RectorPrefix20210319\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
-use RectorPrefix20210319\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
-use RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle;
 /**
  * @todo possibly remove symfony/http-kernel and use the container build only
  */
@@ -46,6 +40,10 @@ final class RectorKernel extends \RectorPrefix20210319\Symfony\Component\HttpKer
     }
     public function getCacheDir() : string
     {
+        $cacheDirectory = $_ENV['KERNEL_CACHE_DIRECTORY'] ?? null;
+        if ($cacheDirectory !== null) {
+            return $cacheDirectory . '/' . $this->environment;
+        }
         // manually configured, so it can be replaced in phar
         return \sys_get_temp_dir() . '/rector/cache';
     }
@@ -73,20 +71,16 @@ final class RectorKernel extends \RectorPrefix20210319\Symfony\Component\HttpKer
      */
     public function registerBundles() : iterable
     {
-        $bundles = [new \RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
-        // only for dev
-        if (\class_exists(\Rector\RectorGenerator\Bundle\RectorGeneratorBundle::class)) {
-            $bundles[] = new \Rector\RectorGenerator\Bundle\RectorGeneratorBundle();
-        }
-        if (\class_exists(\RectorPrefix20210319\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle::class)) {
-            $bundles[] = new \RectorPrefix20210319\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle();
-        }
-        return $bundles;
+        return [];
     }
     protected function build(\RectorPrefix20210319\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
+        // @see https://symfony.com/blog/new-in-symfony-4-4-dependency-injection-improvements-part-1
+        $containerBuilder->setParameter('container.dumper.inline_factories', \true);
+        // to fix reincluding files again
+        $containerBuilder->setParameter('container.dumper.inline_class_loader', \false);
         $containerBuilder->addCompilerPass(new \RectorPrefix20210319\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
-        // autowire Rectors by default (mainly for 3rd party code)
+        // autowire Rectors by default (mainly for tests)
         $containerBuilder->addCompilerPass(new \RectorPrefix20210319\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass([\Rector\Core\Contract\Rector\RectorInterface::class]));
         $containerBuilder->addCompilerPass(new \Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass());
         // add all merged arguments of Rector services

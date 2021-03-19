@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Testing\Contract;
 
-interface CommunityRectorTestCaseInterface
+interface RectorTestInterface
 {
     public function provideConfigFilePath() : string;
 }

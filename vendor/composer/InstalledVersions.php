@@ -285,7 +285,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'a0092f5bd34d056a5383da531a42da6f5d9fd92f',
+      'reference' => '21cdbcc8532263e4d2152d86bb2e8565d224ea8b',
     ),
     'sebastian/diff' => 
     array (

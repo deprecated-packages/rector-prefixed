@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit81610af07b11e8c703e9b99f223f56c8
+class ComposerStaticInit82b68945e8fc0b481d03151d246c273d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3278,26 +3278,17 @@ class ComposerStaticInit81610af07b11e8c703e9b99f223f56c8
         'Rector\\Symfony\\ValueObject\\ServiceMap\\ServiceMap' => __DIR__ . '/..' . '/rector/rector-symfony/src/Symfony/ValueObject/ServiceMap/ServiceMap.php',
         'Rector\\Symfony\\ValueObject\\Tag' => __DIR__ . '/..' . '/rector/rector-symfony/src/Symfony/ValueObject/Tag.php',
         'Rector\\Symfony\\ValueObject\\Tag\\EventListenerTag' => __DIR__ . '/..' . '/rector/rector-symfony/src/Symfony/ValueObject/Tag/EventListenerTag.php',
-        'Rector\\Testing\\Application\\EnabledRectorClassProvider' => __DIR__ . '/../..' . '/packages/Testing/Application/EnabledRectorClassProvider.php',
-        'Rector\\Testing\\Configuration\\AllRectorConfigFactory' => __DIR__ . '/../..' . '/packages/Testing/Configuration/AllRectorConfigFactory.php',
-        'Rector\\Testing\\Contract\\CommunityRectorTestCaseInterface' => __DIR__ . '/../..' . '/packages/Testing/Contract/CommunityRectorTestCaseInterface.php',
         'Rector\\Testing\\Contract\\NodeTraversableInterface' => __DIR__ . '/../..' . '/packages/Testing/Contract/NodeTraversableInterface.php',
-        'Rector\\Testing\\Finder\\RectorsFinder' => __DIR__ . '/../..' . '/packages/Testing/Finder/RectorsFinder.php',
-        'Rector\\Testing\\Guard\\FixtureGuard' => __DIR__ . '/../..' . '/packages/Testing/Guard/FixtureGuard.php',
-        'Rector\\Testing\\PHPUnit\\AbstractCommunityRectorTestCase' => __DIR__ . '/../..' . '/packages/Testing/PHPUnit/AbstractCommunityRectorTestCase.php',
+        'Rector\\Testing\\Contract\\RectorTestInterface' => __DIR__ . '/../..' . '/packages/Testing/Contract/RectorTestInterface.php',
         'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase' => __DIR__ . '/../..' . '/packages/Testing/PHPUnit/AbstractRectorTestCase.php',
         'Rector\\Testing\\PHPUnit\\Behavior\\MovingFilesTrait' => __DIR__ . '/../..' . '/packages/Testing/PHPUnit/Behavior/MovingFilesTrait.php',
         'Rector\\Testing\\PHPUnit\\StaticPHPUnitEnvironment' => __DIR__ . '/../..' . '/packages/Testing/PHPUnit/StaticPHPUnitEnvironment.php',
-        'Rector\\Testing\\PhpConfigPrinter\\PhpConfigPrinterFactory' => __DIR__ . '/../..' . '/packages/Testing/PhpConfigPrinter/PhpConfigPrinterFactory.php',
-        'Rector\\Testing\\PhpConfigPrinter\\SymfonyVersionFeatureGuard' => __DIR__ . '/../..' . '/packages/Testing/PhpConfigPrinter/SymfonyVersionFeatureGuard.php',
-        'Rector\\Testing\\PhpConfigPrinter\\YamlFileContentProvider' => __DIR__ . '/../..' . '/packages/Testing/PhpConfigPrinter/YamlFileContentProvider.php',
         'Rector\\Testing\\TestingParser\\TestingParser' => __DIR__ . '/../..' . '/packages/Testing/TestingParser/TestingParser.php',
         'Rector\\Testing\\ValueObject\\InputFilePathWithExpectedFile' => __DIR__ . '/../..' . '/packages/Testing/ValueObject/InputFilePathWithExpectedFile.php',
         'Rector\\Transform\\Naming\\FullyQualifiedNameResolver' => __DIR__ . '/../..' . '/rules/Transform/Naming/FullyQualifiedNameResolver.php',
         'Rector\\Transform\\NodeAnalyzer\\FuncCallStaticCallToMethodCallAnalyzer' => __DIR__ . '/../..' . '/rules/Transform/NodeAnalyzer/FuncCallStaticCallToMethodCallAnalyzer.php',
         'Rector\\Transform\\NodeAnalyzer\\SingletonClassMethodAnalyzer' => __DIR__ . '/../..' . '/rules/Transform/NodeAnalyzer/SingletonClassMethodAnalyzer.php',
         'Rector\\Transform\\NodeFactory\\ClassMethodFactory' => __DIR__ . '/../..' . '/rules/Transform/NodeFactory/ClassMethodFactory.php',
-        'Rector\\Transform\\NodeFactory\\ConfigFileFactory' => __DIR__ . '/../..' . '/rules/Transform/NodeFactory/ConfigFileFactory.php',
         'Rector\\Transform\\NodeFactory\\PropertyFetchFactory' => __DIR__ . '/../..' . '/rules/Transform/NodeFactory/PropertyFetchFactory.php',
         'Rector\\Transform\\NodeFactory\\ProvideConfigFilePathClassMethodFactory' => __DIR__ . '/../..' . '/rules/Transform/NodeFactory/ProvideConfigFilePathClassMethodFactory.php',
         'Rector\\Transform\\NodeFactory\\StaticMethodClassFactory' => __DIR__ . '/../..' . '/rules/Transform/NodeFactory/StaticMethodClassFactory.php',
@@ -3312,9 +3303,7 @@ class ComposerStaticInit81610af07b11e8c703e9b99f223f56c8
         'Rector\\Transform\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/ClassMethod/WrapReturnRector.php',
         'Rector\\Transform\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Transform\\Rector\\Class_\\ChangeSingletonToServiceRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/ChangeSingletonToServiceRector.php',
-        'Rector\\Transform\\Rector\\Class_\\CommunityTestCaseRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/CommunityTestCaseRector.php',
         'Rector\\Transform\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/MergeInterfacesRector.php',
-        'Rector\\Transform\\Rector\\Class_\\NativeTestCaseRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/NativeTestCaseRector.php',
         'Rector\\Transform\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/ParentClassToTraitsRector.php',
         'Rector\\Transform\\Rector\\Expression\\MethodCallToReturnRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Expression/MethodCallToReturnRector.php',
         'Rector\\Transform\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
@@ -3487,9 +3476,9 @@ class ComposerStaticInit81610af07b11e8c703e9b99f223f56c8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit81610af07b11e8c703e9b99f223f56c8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit81610af07b11e8c703e9b99f223f56c8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit81610af07b11e8c703e9b99f223f56c8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit82b68945e8fc0b481d03151d246c273d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit82b68945e8fc0b481d03151d246c273d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit82b68945e8fc0b481d03151d246c273d::$classMap;
 
         }, null, ClassLoader::class);
     }

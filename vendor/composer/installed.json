@@ -1436,12 +1436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "a0092f5bd34d056a5383da531a42da6f5d9fd92f"
+                "reference": "21cdbcc8532263e4d2152d86bb2e8565d224ea8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/a0092f5bd34d056a5383da531a42da6f5d9fd92f",
-                "reference": "a0092f5bd34d056a5383da531a42da6f5d9fd92f",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/21cdbcc8532263e4d2152d86bb2e8565d224ea8b",
+                "reference": "21cdbcc8532263e4d2152d86bb2e8565d224ea8b",
                 "shasum": ""
             },
             "require": {
@@ -1457,7 +1457,7 @@
                 "symplify/phpstan-extensions": "^9.2",
                 "symplify/phpstan-rules": "^9.2"
             },
-            "time": "2021-03-19T14:48:16+00:00",
+            "time": "2021-03-19T20:10:27+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "source",

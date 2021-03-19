@@ -12,16 +12,13 @@ use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Option;
-use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
-use Rector\Testing\Application\EnabledRectorClassProvider;
-use Rector\Testing\Configuration\AllRectorConfigFactory;
-use Rector\Testing\Guard\FixtureGuard;
+use Rector\Testing\Contract\RectorTestInterface;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
 use RectorPrefix20210319\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210319\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
@@ -29,18 +26,13 @@ use RectorPrefix20210319\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210319\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
     /**
      * @var FileProcessor
      */
     protected $fileProcessor;
-    /**
-     * @var SmartFileSystem
-     */
-    protected static $smartFileSystem;
     /**
      * @var NonPhpFileProcessor
      */
@@ -49,10 +41,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
      * @var ParameterProvider
      */
     protected $parameterProvider;
-    /**
-     * @var FixtureGuard
-     */
-    protected static $fixtureGuard;
     /**
      * @var RemovedAndAddedFilesCollector
      */
@@ -79,22 +67,12 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
     private $betterStandardPrinter;
     protected function setUp() : void
     {
+        // speed up
+        @\ini_set('memory_limit', '-1');
         $this->initializeDependencies();
-        if ($this->provideConfigFilePath() !== '') {
-            $configFileInfo = new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
-            $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
-            $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
-            /** @var EnabledRectorClassProvider $enabledRectorsProvider */
-            $enabledRectorsProvider = $this->getService(\Rector\Testing\Application\EnabledRectorClassProvider::class);
-            $enabledRectorsProvider->reset();
-        } else {
-            // prepare container with all rectors
-            // cache only rector tests - defined in phpunit.xml
-            $this->createRectorRepositoryContainer();
-            /** @var EnabledRectorClassProvider $enabledRectorsProvider */
-            $enabledRectorsProvider = $this->getService(\Rector\Testing\Application\EnabledRectorClassProvider::class);
-            $enabledRectorsProvider->setEnabledRectorClass($this->getRectorClass());
-        }
+        $configFileInfo = new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
+        $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
+        $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210319\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
@@ -102,17 +80,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
     }
-    /**
-     * @return class-string<RectorInterface>
-     */
-    protected function getRectorClass() : string
+    public function provideConfigFilePath() : string
     {
-        // can be implemented
-        return '';
-    }
-    protected function provideConfigFilePath() : string
-    {
-        // can be implemented
+        // must be implemented
         return '';
     }
     /**
@@ -127,10 +97,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
      */
     protected function doTestFileInfo(\RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFileInfos = []) : void
     {
-        self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210319\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, \false);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        // needed for PHPStan, because the analyzed file is just created in /temp
+        // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
         /** @var NodeScopeResolver $nodeScopeResolver */
         $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
@@ -173,18 +142,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
     protected function getFixtureTempDirectory() : string
     {
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
-    }
-    private function createRectorRepositoryContainer() : void
-    {
-        if (self::$allRectorContainer === null) {
-            $allRectorConfigFactory = new \Rector\Testing\Configuration\AllRectorConfigFactory();
-            $configFilePath = $allRectorConfigFactory->create();
-            $this->bootKernelWithConfigs(\Rector\Core\HttpKernel\RectorKernel::class, [$configFilePath]);
-            self::$allRectorContainer = self::$container;
-            return;
-        }
-        // load from cache
-        self::$container = self::$allRectorContainer;
     }
     /**
      * @param SmartFileInfo[] $extraFileInfos
@@ -242,8 +199,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210319\Symplify\Pac
         if (self::$isInitialized) {
             return;
         }
-        self::$smartFileSystem = new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileSystem();
-        self::$fixtureGuard = new \Rector\Testing\Guard\FixtureGuard();
         self::$rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         self::$isInitialized = \true;
     }
