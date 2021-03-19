@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210318\Symfony\Bridge\Doctrine\Validator\Constraints;
+namespace RectorPrefix20210319\Symfony\Bridge\Doctrine\Validator\Constraints;
 
-use RectorPrefix20210318\Symfony\Component\Validator\Constraint;
-if (\class_exists('RectorPrefix20210318\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
+use RectorPrefix20210319\Symfony\Component\Validator\Constraint;
+if (\class_exists('RectorPrefix20210319\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
     return;
 }
 /**
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})
  */
-class UniqueEntity extends \RectorPrefix20210318\Symfony\Component\Validator\Constraint
+class UniqueEntity extends \RectorPrefix20210319\Symfony\Component\Validator\Constraint
 {
     const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
     public $message = 'This value is already used.';

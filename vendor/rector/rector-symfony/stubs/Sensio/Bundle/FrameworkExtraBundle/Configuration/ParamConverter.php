@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210318\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('RectorPrefix20210318\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')) {
+if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter')) {
     return;
 }
 /**
  * @Annotation
 */
-class ParamConverter extends \RectorPrefix20210318\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class ParamConverter extends \RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The parameter name.

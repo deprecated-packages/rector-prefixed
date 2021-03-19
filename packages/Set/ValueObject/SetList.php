@@ -3,7 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Set\ValueObject;
 
+use Rector\Laravel\Set\LaravelSetList;
 use Rector\Set\Contract\SetListInterface;
+use Rector\Set\NetteSetList;
 use Rector\Set\SymfonySetList;
 final class SetList implements \Rector\Set\Contract\SetListInterface
 {
@@ -15,10 +17,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      * @var string
      */
     public const ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION = __DIR__ . '/../../../config/set/action-injection-to-constructor-injection.php';
-    /**
-     * @var string
-     */
-    public const ARRAY_STR_FUNCTIONS_TO_STATIC_CALL = __DIR__ . '/../../../config/set/laravel-array-str-functions-to-static-call.php';
     /**
      * @var string
      */
@@ -144,57 +142,89 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const KDYBY_TRANSLATOR_TO_CONTRIBUTTE_TRANSLATION = __DIR__ . '/../../../config/set/kdyby-translator-to-contributte-translation.php';
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_50 = __DIR__ . '/../../../config/set/laravel50.php';
+    public const ARRAY_STR_FUNCTIONS_TO_STATIC_CALL = \Rector\Laravel\Set\LaravelSetList::ARRAY_STR_FUNCTIONS_TO_STATIC_CALL;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_51 = __DIR__ . '/../../../config/set/laravel51.php';
+    public const LARAVEL_50 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_50;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_52 = __DIR__ . '/../../../config/set/laravel52.php';
+    public const LARAVEL_51 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_51;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_53 = __DIR__ . '/../../../config/set/laravel53.php';
+    public const LARAVEL_52 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_52;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_54 = __DIR__ . '/../../../config/set/laravel54.php';
+    public const LARAVEL_53 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_53;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_55 = __DIR__ . '/../../../config/set/laravel55.php';
+    public const LARAVEL_54 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_54;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_56 = __DIR__ . '/../../../config/set/laravel56.php';
+    public const LARAVEL_55 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_55;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_57 = __DIR__ . '/../../../config/set/laravel57.php';
+    public const LARAVEL_56 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_56;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_58 = __DIR__ . '/../../../config/set/laravel58.php';
+    public const LARAVEL_57 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_57;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_60 = __DIR__ . '/../../../config/set/laravel60.php';
+    public const LARAVEL_58 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_58;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_STATIC_TO_INJECTION = __DIR__ . '/../../../config/set/laravel-static-to-injection.php';
+    public const LARAVEL_60 = \Rector\Laravel\Set\LaravelSetList::LARAVEL_60;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_CODE_QUALITY = __DIR__ . '/../../../config/set/laravel-code-quality.php';
+    public const LARAVEL_STATIC_TO_INJECTION = \Rector\Laravel\Set\LaravelSetList::LARAVEL_STATIC_TO_INJECTION;
     /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
      * @var string
      */
-    public const LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL = __DIR__ . '/../../../config/set/laravel-array-str-functions-to-static-call.php';
+    public const LARAVEL_CODE_QUALITY = \Rector\Laravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY;
+    /**
+     * For BC layer
+     * @deprecated Use LaravelSetList from rector/rector-laravel instead
+     * @var string
+     */
+    public const LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL = \Rector\Laravel\Set\LaravelSetList::ARRAY_STR_FUNCTIONS_TO_STATIC_CALL;
     /**
      * @var string
      */
@@ -210,31 +240,23 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const NETTE_24 = __DIR__ . '/../../../config/set/nette-24.php';
+    public const NETTE_24 = \Rector\Set\NetteSetList::NETTE_24;
     /**
      * @var string
      */
-    public const NETTE_30 = __DIR__ . '/../../../config/set/nette-30.php';
+    public const NETTE_30 = \Rector\Set\NetteSetList::NETTE_30;
     /**
      * @var string
      */
-    public const NETTE_30_PARAM_TYPES = __DIR__ . '/../../../config/set/nette-30-param-types.php';
+    public const NETTE_31 = \Rector\Set\NetteSetList::NETTE_31;
     /**
      * @var string
      */
-    public const NETTE_30_RETURN_TYPES = __DIR__ . '/../../../config/set/nette-30-return-types.php';
+    public const NETTE_CODE_QUALITY = \Rector\Set\NetteSetList::NETTE_CODE_QUALITY;
     /**
      * @var string
      */
-    public const NETTE_30_DEPENDENCY_INJECTION = __DIR__ . '/../../../config/set/nette-30-dependency-injection.php';
-    /**
-     * @var string
-     */
-    public const NETTE_31 = __DIR__ . '/../../../config/set/nette-31.php';
-    /**
-     * @var string
-     */
-    public const NETTE_CODE_QUALITY = __DIR__ . '/../../../config/set/nette-code-quality.php';
+    public const NETTE_UTILS_CODE_QUALITY = \Rector\Set\NetteSetList::NETTE_UTILS_CODE_QUALITY;
     /**
      * @var string
      */
@@ -246,23 +268,11 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const NETTE_PARAM_TYPES = __DIR__ . '/../../../config/set/nette-30-param-types.php';
-    /**
-     * @var string
-     */
-    public const NETTE_RETURN_TYPES = __DIR__ . '/../../../config/set/nette-30-return-types.php';
-    /**
-     * @var string
-     */
     public const NETTE_TESTER_TO_PHPUNIT = __DIR__ . '/../../../config/set/nette-tester-to-phpunit.php';
     /**
      * @var string
      */
     public const NETTE_TO_SYMFONY = __DIR__ . '/../../../config/set/nette-to-symfony.php';
-    /**
-     * @var string
-     */
-    public const NETTE_UTILS_CODE_QUALITY = __DIR__ . '/../../../config/set/nette-utils-code-quality.php';
     /**
      * @var string
      */

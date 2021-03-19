@@ -37,7 +37,7 @@ final class LogoutSuccessHandlerToLogoutEventSubscriberRector extends \Rector\Co
     {
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
         $this->onSuccessLogoutClassMethodFactory = $onSuccessLogoutClassMethodFactory;
-        $this->successHandlerObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\Security\\Http\\Logout\\LogoutSuccessHandlerInterface');
+        $this->successHandlerObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Security\\Http\\Logout\\LogoutSuccessHandlerInterface');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -123,7 +123,7 @@ CODE_SAMPLE
         }
         $node->stmts[] = $this->onSuccessLogoutClassMethodFactory->createFromOnLogoutSuccessClassMethod($onLogoutSuccessClassMethod);
         // 3. add getSubscribedEvents() class method
-        $classConstFetch = $this->nodeFactory->createClassConstReference('RectorPrefix20210318\\Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
+        $classConstFetch = $this->nodeFactory->createClassConstReference('RectorPrefix20210319\\Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
         $eventReferencesToMethodNames = [new \Rector\Symfony\ValueObject\EventReferenceToMethodNameWithPriority($classConstFetch, 'onLogout', 64)];
         $getSubscribedEventsClassMethod = $this->getSubscribedEventsClassMethodFactory->create($eventReferencesToMethodNames);
         $node->stmts[] = $getSubscribedEventsClassMethod;
@@ -132,7 +132,7 @@ CODE_SAMPLE
     }
     private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210318\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
+        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210319\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {
             if (!$this->isName($implement, $this->successHandlerObjectType->getClassName())) {
                 continue;

@@ -121,7 +121,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \false;
         }
-        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase'));
+        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase'));
     }
     private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {

@@ -1,0 +1,23 @@
+includes:
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/symplify/phpstan-rules/config/symplify-rules.neon
+
+parameters:
+    level: max
+
+    paths:
+        - config
+        - src
+        - tests
+
+    scanDirectories:
+        - stubs
+
+    excludePaths:
+        - */Source/*
+        - *Source/*
+
+    ignoreErrors:
+        -
+            message: '#Do not inherit from abstract class, better use composition#'
+            path: '*Rector.php'

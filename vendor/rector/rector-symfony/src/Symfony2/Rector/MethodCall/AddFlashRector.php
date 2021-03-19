@@ -66,10 +66,10 @@ CODE_SAMPLE
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
-        if (!$classReflection->isSubclassOf('RectorPrefix20210318\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
+        if (!$classReflection->isSubclassOf('RectorPrefix20210319\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
             return null;
         }
-        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\HttpFoundation\\Request'), ['getSession', 'getFlashBag', 'add'])) {
+        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\HttpFoundation\\Request'), ['getSession', 'getFlashBag', 'add'])) {
             return null;
         }
         return $this->nodeFactory->createMethodCall('this', 'addFlash', $node->args);

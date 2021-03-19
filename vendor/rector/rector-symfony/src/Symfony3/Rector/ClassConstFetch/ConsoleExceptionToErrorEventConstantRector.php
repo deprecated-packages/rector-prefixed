@@ -25,7 +25,7 @@ final class ConsoleExceptionToErrorEventConstantRector extends \Rector\Core\Rect
     private $consoleEventsObjectType;
     public function __construct()
     {
-        $this->consoleEventsObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\Console\\ConsoleEvents');
+        $this->consoleEventsObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Console\\ConsoleEvents');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

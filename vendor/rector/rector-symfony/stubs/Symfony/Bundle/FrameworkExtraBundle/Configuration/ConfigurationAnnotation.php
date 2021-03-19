@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210318\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('RectorPrefix20210318\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ConfigurationAnnotation')) {
+if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ConfigurationAnnotation')) {
     return;
 }
 abstract class ConfigurationAnnotation

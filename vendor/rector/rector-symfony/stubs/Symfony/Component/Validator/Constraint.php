@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210318\Symfony\Component\Validator;
+namespace RectorPrefix20210319\Symfony\Component\Validator;
 
-if (\class_exists('RectorPrefix20210318\\Symfony\\Component\\Validator\\Constraint')) {
+if (\class_exists('RectorPrefix20210319\\Symfony\\Component\\Validator\\Constraint')) {
     return;
 }
 use Exception;
-use RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * @property array $groups The groups that the constraint belongs to
  */
@@ -102,10 +102,10 @@ abstract class Constraint
             }
         }
         if (\count($invalidOptions) > 0) {
-            throw new \RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The options "%s" do not exist in constraint "%s".', \implode('", "', $invalidOptions), \get_class($this)), $invalidOptions);
+            throw new \RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The options "%s" do not exist in constraint "%s".', \implode('", "', $invalidOptions), \get_class($this)), $invalidOptions);
         }
         if (\count($missingOptions) > 0) {
-            throw new \RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\MissingOptionsException(\sprintf('The options "%s" must be set for constraint "%s".', \implode('", "', \array_keys($missingOptions)), \get_class($this)), \array_keys($missingOptions));
+            throw new \RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\MissingOptionsException(\sprintf('The options "%s" must be set for constraint "%s".', \implode('", "', \array_keys($missingOptions)), \get_class($this)), \array_keys($missingOptions));
         }
     }
     /**
@@ -126,7 +126,7 @@ abstract class Constraint
             $this->groups = (array) $value;
             return;
         }
-        throw new \RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
+        throw new \RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
     }
     /**
      * Returns the value of a lazily initialized option.
@@ -149,7 +149,7 @@ abstract class Constraint
             $this->groups = [self::DEFAULT_GROUP];
             return $this->groups;
         }
-        throw new \RectorPrefix20210318\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
+        throw new \RectorPrefix20210319\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('The option "%s" does not exist in constraint "%s".', $option, \get_class($this)), [$option]);
     }
     /**
      * @param string $option The option name

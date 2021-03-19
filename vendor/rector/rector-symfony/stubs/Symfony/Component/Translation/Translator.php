@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210318\Symfony\Component\Translation;
+namespace RectorPrefix20210319\Symfony\Component\Translation;
 
-if (\class_exists('RectorPrefix20210318\\Symfony\\Component\\Translation\\Translator')) {
+if (\class_exists('RectorPrefix20210319\\Symfony\\Component\\Translation\\Translator')) {
     return;
 }
-class Translator implements \RectorPrefix20210318\Symfony\Component\Translation\TranslatorInterface
+class Translator implements \RectorPrefix20210319\Symfony\Component\Translation\TranslatorInterface
 {
 }

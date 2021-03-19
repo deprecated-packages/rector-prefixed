@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
-use RectorPrefix20210318\Nette\Utils\Strings;
+use RectorPrefix20210319\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -15,9 +15,9 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony\Exception\InvalidConfigurationException;
-use RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use RectorPrefix20210318\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use RectorPrefix20210319\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210319\Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use RectorPrefix20210319\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -38,7 +38,7 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var array<string, class-string<PhpFileLoader>|class-string<XmlFileLoader>|class-string<YamlFileLoader>>
      */
-    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20210318\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20210318\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20210318\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20210319\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20210319\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20210319\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -120,10 +120,10 @@ CODE_SAMPLE
     }
     private function isKernelOrExtensionClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension'))) {
+        if ($this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension'))) {
             return \true;
         }
-        return $this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\HttpKernel\\Kernel'));
+        return $this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\HttpKernel\\Kernel'));
     }
     private function validateConfiguration(string $from, string $to) : void
     {
@@ -144,7 +144,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210318\\Symfony\\Component\\Config\\Loader\\LoaderInterface'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Config\\Loader\\LoaderInterface'))) {
             return null;
         }
         if (!$this->isName($node->name, 'load')) {
@@ -161,7 +161,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-            $node->value = \RectorPrefix20210318\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
+            $node->value = \RectorPrefix20210319\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
             return $node;
         });
     }

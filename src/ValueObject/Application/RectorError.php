@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObject\Application;
 
-use RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorError
 {
     /**
@@ -22,7 +22,7 @@ final class RectorError
      * @var string|null
      */
     private $rectorClass;
-    public function __construct(\RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $message, ?int $line = null, ?string $rectorClass = null)
+    public function __construct(\RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $message, ?int $line = null, ?string $rectorClass = null)
     {
         $this->fileInfo = $smartFileInfo;
         $this->message = $message;
@@ -33,7 +33,7 @@ final class RectorError
     {
         return $this->fileInfo->getRelativeFilePathFromCwd();
     }
-    public function getFileInfo() : \RectorPrefix20210318\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }

@@ -23,9 +23,9 @@ use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\MixedType;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Php70\NodeAnalyzer\VariableNaming;
 use Rector\Php70\ValueObject\VariableAssignPair;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -48,7 +48,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
      * @var ParentScopeFinder
      */
     private $parentScopeFinder;
-    public function __construct(\Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
+    public function __construct(\Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver, \Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
     {
         $this->callReflectionResolver = $callReflectionResolver;
         $this->variableNaming = $variableNaming;

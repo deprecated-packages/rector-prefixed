@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector;
+namespace RectorPrefix20210319\Symfony\Component\HttpKernel\DataCollector;
 
-use RectorPrefix20210318\Symfony\Component\ErrorHandler\Exception\FlattenException;
-use RectorPrefix20210318\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210318\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210319\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use RectorPrefix20210319\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210319\Symfony\Component\HttpFoundation\Response;
 /**
  * ExceptionDataCollector.
  *
@@ -20,16 +20,16 @@ use RectorPrefix20210318\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class ExceptionDataCollector extends \RectorPrefix20210318\Symfony\Component\HttpKernel\DataCollector\DataCollector
+class ExceptionDataCollector extends \RectorPrefix20210319\Symfony\Component\HttpKernel\DataCollector\DataCollector
 {
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210318\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210318\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(\RectorPrefix20210319\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210319\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if (null !== $exception) {
-            $this->data = ['exception' => \RectorPrefix20210318\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];
+            $this->data = ['exception' => \RectorPrefix20210319\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];
         }
     }
     /**

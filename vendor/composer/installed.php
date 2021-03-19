@@ -216,6 +216,26 @@
         0 => 'dev-main',
       ),
     ),
+    'rector/rector-laravel' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => 'c53b8703817507c56d0bd9cdf7e8e2da1b7b2435',
+    ),
+    'rector/rector-nette' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => 'a7b56c121e56a9bbb9cb11ef873c78f7d4124eac',
+    ),
     'rector/rector-prefixed' => 
     array (
       'replaced' => 
