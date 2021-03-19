@@ -1244,12 +1244,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-laravel.git",
-                "reference": "c53b8703817507c56d0bd9cdf7e8e2da1b7b2435"
+                "reference": "5759983b026661973422127f6831f4b9a1a21938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/c53b8703817507c56d0bd9cdf7e8e2da1b7b2435",
-                "reference": "c53b8703817507c56d0bd9cdf7e8e2da1b7b2435",
+                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/5759983b026661973422127f6831f4b9a1a21938",
+                "reference": "5759983b026661973422127f6831f4b9a1a21938",
                 "shasum": ""
             },
             "require": {
@@ -1278,7 +1278,7 @@
                 "issues": "https://github.com/rectorphp/rector-laravel/issues",
                 "source": "https://github.com/rectorphp/rector-laravel/tree/main"
             },
-            "time": "2021-03-19T00:51:41+00:00"
+            "time": "2021-03-19T14:53:32+00:00"
         },
         {
             "name": "rector/rector-nette",
@@ -1286,12 +1286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-nette.git",
-                "reference": "a7b56c121e56a9bbb9cb11ef873c78f7d4124eac"
+                "reference": "66568c203d858768aad104341e04040ab21e5e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/a7b56c121e56a9bbb9cb11ef873c78f7d4124eac",
-                "reference": "a7b56c121e56a9bbb9cb11ef873c78f7d4124eac",
+                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/66568c203d858768aad104341e04040ab21e5e25",
+                "reference": "66568c203d858768aad104341e04040ab21e5e25",
                 "shasum": ""
             },
             "require": {
@@ -1325,7 +1325,7 @@
                 "issues": "https://github.com/rectorphp/rector-nette/issues",
                 "source": "https://github.com/rectorphp/rector-nette/tree/main"
             },
-            "time": "2021-03-19T01:00:24+00:00"
+            "time": "2021-03-19T14:46:56+00:00"
         },
         {
             "name": "rector/rector-phpunit",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-phpunit.git",
-                "reference": "68d8c1e1fec091a25c0ad5638f199b0797b263af"
+                "reference": "0bbcc1f1d8ad6559d1f74bb6e34aa88537bd2557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/68d8c1e1fec091a25c0ad5638f199b0797b263af",
-                "reference": "68d8c1e1fec091a25c0ad5638f199b0797b263af",
+                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/0bbcc1f1d8ad6559d1f74bb6e34aa88537bd2557",
+                "reference": "0bbcc1f1d8ad6559d1f74bb6e34aa88537bd2557",
                 "shasum": ""
             },
             "require": {
@@ -1367,7 +1367,7 @@
                 "issues": "https://github.com/rectorphp/rector-phpunit/issues",
                 "source": "https://github.com/rectorphp/rector-phpunit/tree/main"
             },
-            "time": "2021-03-19T10:32:21+00:00"
+            "time": "2021-03-19T14:42:18+00:00"
         },
         {
             "name": "rector/rector-symfony",
@@ -1375,12 +1375,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "4117a71f959e0162a4c7a9413d7325d0b35fdd9f"
+                "reference": "a0092f5bd34d056a5383da531a42da6f5d9fd92f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/4117a71f959e0162a4c7a9413d7325d0b35fdd9f",
-                "reference": "4117a71f959e0162a4c7a9413d7325d0b35fdd9f",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/a0092f5bd34d056a5383da531a42da6f5d9fd92f",
+                "reference": "a0092f5bd34d056a5383da531a42da6f5d9fd92f",
                 "shasum": ""
             },
             "require": {
@@ -1412,7 +1412,7 @@
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
                 "source": "https://github.com/rectorphp/rector-symfony/tree/main"
             },
-            "time": "2021-03-19T11:17:48+00:00"
+            "time": "2021-03-19T14:48:16+00:00"
         },
         {
             "name": "sebastian/diff",

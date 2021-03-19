@@ -26,10 +26,6 @@ parameters:
                  - src/Nette/Rector/FuncCall/PregFunctionToNetteUtilsStringsRector.php
                  - src/Nette/NodeAnalyzer/ReturnAnalyzer.php
 
-        -
-            message: '#Do not inherit from abstract class, better use composition#'
-            path: "*Rector.php"
-
         # useful nesting
         -
             message: '#new <class\> is limited to 3 "new <class\>\(new <class\>\)\)" nesting to each other\. You have 4 nesting#'
@@ -37,8 +33,6 @@ parameters:
 
         # fixed on php-parser dev
         - '#Method Rector\\NetteKdyby\\NodeFactory\\EventValueObjectClassFactory\:\:wrapClassToNamespace\(\) should return PhpParser\\Node\\Stmt\\Namespace_ but returns PhpParser\\Node#'
-
-        - '#Constant string value need to only have small letters, _, \-, \. and numbers#'
 
         # known types, probably make an extension for it?
         - '#Parameter \#1 \$node of method Rector\\NetteKdyby\\Naming\\VariableNaming\:\:resolveFromMethodCall\(\) expects PhpParser\\Node\\Expr\\MethodCall\|PhpParser\\Node\\Expr\\NullsafeMethodCall\|PhpParser\\Node\\Expr\\StaticCall, PhpParser\\Node given#'
