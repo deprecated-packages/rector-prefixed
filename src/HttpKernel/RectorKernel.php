@@ -18,8 +18,12 @@ use RectorPrefix20210319\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use RectorPrefix20210319\Symfony\Component\HttpKernel\Config\FileLocator;
 use RectorPrefix20210319\Symfony\Component\HttpKernel\Kernel;
 use RectorPrefix20210319\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle;
+use RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use RectorPrefix20210319\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use RectorPrefix20210319\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
+use RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
+use RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle;
 /**
  * @todo possibly remove symfony/http-kernel and use the container build only
  */
@@ -71,7 +75,8 @@ final class RectorKernel extends \RectorPrefix20210319\Symfony\Component\HttpKer
      */
     public function registerBundles() : iterable
     {
-        return [];
+        $bundles = [new \RectorPrefix20210319\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210319\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210319\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210319\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
+        return $bundles;
     }
     protected function build(\RectorPrefix20210319\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
