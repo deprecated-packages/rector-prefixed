@@ -211,10 +211,6 @@
       array (
       ),
       'reference' => NULL,
-      'replaced' => 
-      array (
-        0 => 'dev-main',
-      ),
     ),
     'rector/rector-cakephp' => 
     array (
