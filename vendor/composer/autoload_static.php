@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd388e88e879fad0725891c93588d116a
+class ComposerStaticInitb299555dc2d11ba1f8a13c5fc0ce1905
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1789,9 +1789,6 @@ class ComposerStaticInitd388e88e879fad0725891c93588d116a
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NetteCrossOriginPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NetteCrossOriginPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NetteInjectPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NetteInjectPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NettePersistentPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NettePersistentPhpDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitDataDoesNotPerformAssertionDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitDataDoesNotPerformAssertionDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitDataProviderDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitDataProviderDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitExpectedExceptionDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitExpectedExceptionDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\SymfonyRequirePhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/SymfonyRequirePhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeMapper' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeMapper.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\AnnotationContentResolver' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocParser/AnnotationContentResolver.php',
@@ -1854,9 +1851,6 @@ class ComposerStaticInitd388e88e879fad0725891c93588d116a
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Nette\\NetteInjectTagNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Nette/NetteInjectTagNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Nette\\NettePersistentTagNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Nette/NettePersistentTagNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPDI\\PHPDIInjectTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/PHPDI/PHPDIInjectTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPUnit\\PHPUnitDataProviderTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/PHPUnit/PHPUnitDataProviderTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPUnit\\PHPUnitDoesNotPerformAssertionTagNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/PHPUnit/PHPUnitDoesNotPerformAssertionTagNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPUnit\\PHPUnitExpectedExceptionTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/PHPUnit/PHPUnitExpectedExceptionTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioMethodTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioMethodTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioRouteTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioRouteTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioTemplateTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioTemplateTagValueNode.php',
@@ -3474,9 +3468,9 @@ class ComposerStaticInitd388e88e879fad0725891c93588d116a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd388e88e879fad0725891c93588d116a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd388e88e879fad0725891c93588d116a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd388e88e879fad0725891c93588d116a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb299555dc2d11ba1f8a13c5fc0ce1905::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb299555dc2d11ba1f8a13c5fc0ce1905::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb299555dc2d11ba1f8a13c5fc0ce1905::$classMap;
 
         }, null, ClassLoader::class);
     }
