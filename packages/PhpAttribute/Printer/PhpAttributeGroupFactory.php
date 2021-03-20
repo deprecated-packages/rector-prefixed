@@ -8,57 +8,22 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
-use Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use PHPStan\PhpDocParser\Ast\Node;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+use Rector\Php80\ValueObject\AnnotationToAttribute;
 final class PhpAttributeGroupFactory
 {
-    /**
-     * A dummy placeholder for annotation, that we know will be converted to attributes,
-     * but don't have specific attribute class yet.
-     *
-     * @var string
-     */
-    public const TO_BE_ANNOUNCED = 'TBA';
-    /**
-     * @param PhpAttributableTagNodeInterface[] $phpAttributableTagNodes
-     * @return AttributeGroup[]
-     */
-    public function create(array $phpAttributableTagNodes) : array
+    public function create(\PHPStan\PhpDocParser\Ast\Node $node, \Rector\Php80\ValueObject\AnnotationToAttribute $annotationToAttribute) : \PhpParser\Node\AttributeGroup
     {
-        $attributeGroups = [];
-        foreach ($phpAttributableTagNodes as $phpAttributableTagNode) {
-            $currentAttributeGroups = $this->printPhpAttributableTagNode($phpAttributableTagNode);
-            $attributeGroups = \array_merge($attributeGroups, $currentAttributeGroups);
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified($annotationToAttribute->getAttributeClass());
+        if ($node instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode) {
+            $args = $this->createArgsFromItems($node->getItemsWithoutDefaults());
+        } else {
+            $args = [];
         }
-        return $attributeGroups;
-    }
-    /**
-     * @return Arg[]
-     */
-    public function printItemsToAttributeArgs(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
-    {
-        $items = $phpAttributableTagNode->getAttributableItems();
-        return $this->createArgsFromItems($items);
-    }
-    /**
-     * @return AttributeGroup[]
-     */
-    private function printPhpAttributableTagNode(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : array
-    {
-        $args = $this->printItemsToAttributeArgs($phpAttributableTagNode);
-        $attributeClassName = $this->resolveAttributeClassName($phpAttributableTagNode);
-        $attributeGroups = [];
-        $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($attributeClassName, $args);
-        if ($phpAttributableTagNode instanceof \Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface) {
-            foreach ($phpAttributableTagNode->provide() as $shortName => $items) {
-                $args = $this->createArgsFromItems($items);
-                $name = new \PhpParser\Node\Name($shortName);
-                $attributeGroups[] = $this->createAttributeGroupFromNameAndArgs($name, $args);
-            }
-        }
-        return $attributeGroups;
+        $attribute = new \PhpParser\Node\Attribute($fullyQualified, $args);
+        return new \PhpParser\Node\AttributeGroup([$attribute]);
     }
     /**
      * @param mixed[] $items
@@ -85,21 +50,6 @@ final class PhpAttributeGroupFactory
             }
         }
         return $args;
-    }
-    private function resolveAttributeClassName(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : \PhpParser\Node\Name
-    {
-        if ($phpAttributableTagNode->getAttributeClassName() !== self::TO_BE_ANNOUNCED) {
-            return new \PhpParser\Node\Name\FullyQualified($phpAttributableTagNode->getAttributeClassName());
-        }
-        return new \PhpParser\Node\Name($phpAttributableTagNode->getShortName());
-    }
-    /**
-     * @param Arg[] $args
-     */
-    private function createAttributeGroupFromNameAndArgs(\PhpParser\Node\Name $name, array $args) : \PhpParser\Node\AttributeGroup
-    {
-        $attribute = new \PhpParser\Node\Attribute($name, $args);
-        return new \PhpParser\Node\AttributeGroup([$attribute]);
     }
     /**
      * @param mixed[] $items

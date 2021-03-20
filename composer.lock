@@ -1330,12 +1330,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-nette.git",
-                "reference": "ace50280ae05d4e52cf75012e5d7c639ee864a01"
+                "reference": "9a0ff2155bf43115e3ef7c881144212d0e385052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/ace50280ae05d4e52cf75012e5d7c639ee864a01",
-                "reference": "ace50280ae05d4e52cf75012e5d7c639ee864a01",
+                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/9a0ff2155bf43115e3ef7c881144212d0e385052",
+                "reference": "9a0ff2155bf43115e3ef7c881144212d0e385052",
                 "shasum": ""
             },
             "require": {
@@ -1369,7 +1369,7 @@
                 "issues": "https://github.com/rectorphp/rector-nette/issues",
                 "source": "https://github.com/rectorphp/rector-nette/tree/main"
             },
-            "time": "2021-03-20T21:35:24+00:00"
+            "time": "2021-03-20T22:30:32+00:00"
         },
         {
             "name": "rector/rector-phpunit",

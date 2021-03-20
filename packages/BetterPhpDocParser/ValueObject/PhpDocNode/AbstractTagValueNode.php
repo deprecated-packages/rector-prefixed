@@ -58,6 +58,13 @@ abstract class AbstractTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\
         return $this->items;
     }
     /**
+     * @return mixed[]
+     */
+    public function getItemsWithoutDefaults() : array
+    {
+        return $this->filterOutMissingItems($this->items);
+    }
+    /**
      * @param mixed $value
      */
     public function changeItem(string $key, $value) : void

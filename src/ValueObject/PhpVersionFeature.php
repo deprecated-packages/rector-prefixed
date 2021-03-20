@@ -152,4 +152,9 @@ final class PhpVersionFeature
      * @var int
      */
     public const PROPERTY_PROMOTION = \Rector\Core\ValueObject\PhpVersion::PHP_80;
+    /**
+     * @see https://wiki.php.net/rfc/attributes_v2
+     * @var int
+     */
+    public const ATTRIBUTES = \Rector\Core\ValueObject\PhpVersion::PHP_80;
 }

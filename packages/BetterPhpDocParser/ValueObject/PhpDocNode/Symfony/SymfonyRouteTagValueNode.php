@@ -7,11 +7,10 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
-final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface
+final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface
 {
     /**
      * @var string
@@ -48,17 +47,6 @@ final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     public function mimicTagValueNodeConfiguration(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $abstractTagValueNode) : void
     {
         $this->tagValueNodeConfiguration->mimic($abstractTagValueNode->tagValueNodeConfiguration);
-    }
-    /**
-     * @return mixed[]
-     */
-    public function getAttributableItems() : array
-    {
-        return $this->filterOutMissingItems($this->items);
-    }
-    public function getAttributeClassName() : string
-    {
-        return self::CLASS_NAME;
     }
     public function getClassName() : string
     {

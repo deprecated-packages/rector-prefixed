@@ -23,10 +23,10 @@ final class DoctrineItemDefaultValueManipulator
      */
     private function hasItemWithDefaultValue(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : bool
     {
-        $attributableItems = $doctrineTagValueNode->getAttributableItems();
-        if (!isset($attributableItems[$item])) {
+        $items = $doctrineTagValueNode->getItems();
+        if (!isset($items[$item])) {
             return \false;
         }
-        return $attributableItems[$item] === $defaultValue;
+        return $items[$item] === $defaultValue;
     }
 }

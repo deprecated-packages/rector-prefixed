@@ -26,7 +26,6 @@ use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticInstanceOf;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
@@ -385,7 +384,7 @@ final class PhpDocInfo
     private function ensureTypeIsTagValueNode(string $type, string $location) : void
     {
         /** @var array<class-string> $desiredTypes */
-        $desiredTypes = \array_merge([\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface::class], \Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES);
+        $desiredTypes = \array_merge([\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class], \Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES);
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($type, $desiredTypes)) {
             return;
         }

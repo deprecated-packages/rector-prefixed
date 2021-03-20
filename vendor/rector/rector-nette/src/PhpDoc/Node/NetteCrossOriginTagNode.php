@@ -5,8 +5,7 @@ namespace Rector\Nette\PhpDoc\Node;
 
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-final class NetteCrossOriginTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode implements \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
+final class NetteCrossOriginTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
 {
     /**
      * @var string
@@ -19,16 +18,5 @@ final class NetteCrossOriginTagNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\Php
     public function getShortName() : string
     {
         return self::NAME;
-    }
-    public function getAttributeClassName() : string
-    {
-        return 'RectorPrefix20210320\\Nette\\Application\\Attributes\\CrossOrigin';
-    }
-    /**
-     * @return mixed[]
-     */
-    public function getAttributableItems() : array
-    {
-        return [];
     }
 }

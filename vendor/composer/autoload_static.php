@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09
+class ComposerStaticInitae3ff8361572f1346e4785a66d392042
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3010,13 +3010,11 @@ class ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09
         'Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector' => __DIR__ . '/../..' . '/rules/Php80/Rector/Switch_/ChangeSwitchToMatchRector.php',
         'Rector\\Php80\\Rector\\Ternary\\GetDebugTypeRector' => __DIR__ . '/../..' . '/rules/Php80/Rector/Ternary/GetDebugTypeRector.php',
         'Rector\\Php80\\ValueObjectFactory\\StrStartsWithFactory' => __DIR__ . '/../..' . '/rules/Php80/ValueObjectFactory/StrStartsWithFactory.php',
+        'Rector\\Php80\\ValueObject\\AnnotationToAttribute' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/AnnotationToAttribute.php',
         'Rector\\Php80\\ValueObject\\ArrayDimFetchAndConstFetch' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/ArrayDimFetchAndConstFetch.php',
         'Rector\\Php80\\ValueObject\\CondAndExpr' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/CondAndExpr.php',
         'Rector\\Php80\\ValueObject\\PropertyPromotionCandidate' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/PropertyPromotionCandidate.php',
         'Rector\\Php80\\ValueObject\\StrStartsWith' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/StrStartsWith.php',
-        'Rector\\PhpAttribute\\AnnotationToAttributeConverter' => __DIR__ . '/../..' . '/packages/PhpAttribute/AnnotationToAttributeConverter.php',
-        'Rector\\PhpAttribute\\Contract\\ManyPhpAttributableTagNodeInterface' => __DIR__ . '/../..' . '/packages/PhpAttribute/Contract/ManyPhpAttributableTagNodeInterface.php',
-        'Rector\\PhpAttribute\\Contract\\PhpAttributableTagNodeInterface' => __DIR__ . '/../..' . '/packages/PhpAttribute/Contract/PhpAttributableTagNodeInterface.php',
         'Rector\\PhpAttribute\\Printer\\PhpAttributeGroupFactory' => __DIR__ . '/../..' . '/packages/PhpAttribute/Printer/PhpAttributeGroupFactory.php',
         'Rector\\PhpAttribute\\ValueObject\\TagName' => __DIR__ . '/../..' . '/packages/PhpAttribute/ValueObject/TagName.php',
         'Rector\\PhpSpecToPHPUnit\\LetManipulator' => __DIR__ . '/../..' . '/rules/PhpSpecToPHPUnit/LetManipulator.php',
@@ -3478,9 +3476,9 @@ class ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5913d77eea8bc96f93ad0ff3b1922b09::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitae3ff8361572f1346e4785a66d392042::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitae3ff8361572f1346e4785a66d392042::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitae3ff8361572f1346e4785a66d392042::$classMap;
 
         }, null, ClassLoader::class);
     }

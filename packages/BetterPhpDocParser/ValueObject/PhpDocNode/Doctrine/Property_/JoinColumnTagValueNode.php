@@ -7,9 +7,7 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
-final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
+final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface
 {
     /**
      * @var string
@@ -43,9 +41,5 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     public function changeShortName(string $shortName) : void
     {
         $this->shortName = $shortName;
-    }
-    public function getAttributeClassName() : string
-    {
-        return \Rector\PhpAttribute\Printer\PhpAttributeGroupFactory::TO_BE_ANNOUNCED;
     }
 }
