@@ -26,7 +26,7 @@ final class RectorContainerFactory
         $environment = $this->createEnvironment($configFileInfos);
         // mt_rand is needed to invalidate container cache in case of class changes to be registered as services
         $isPHPUnitRun = \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun();
-        if ($isPHPUnitRun === \false) {
+        if (!$isPHPUnitRun) {
             $environment .= \mt_rand(0, 10000);
         }
         $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);

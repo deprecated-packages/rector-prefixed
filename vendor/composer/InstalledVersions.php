@@ -266,7 +266,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '33ae4a073f11d7c03232e39982df42b831dacac4',
+      'reference' => 'ace50280ae05d4e52cf75012e5d7c639ee864a01',
     ),
     'rector/rector-phpunit' => 
     array (

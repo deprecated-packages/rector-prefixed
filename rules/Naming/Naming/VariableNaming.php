@@ -94,19 +94,6 @@ final class VariableNaming
         }
         return null;
     }
-    private function resolveBareFuncCallArgumentName(\PhpParser\Node\Expr\FuncCall $funcCall, string $fallbackName, string $suffix) : string
-    {
-        $argumentValue = $funcCall->args[0]->value;
-        if ($argumentValue instanceof \PhpParser\Node\Expr\MethodCall || $argumentValue instanceof \PhpParser\Node\Expr\StaticCall) {
-            $name = $this->nodeNameResolver->getName($argumentValue->name);
-        } else {
-            $name = $this->nodeNameResolver->getName($argumentValue);
-        }
-        if ($name === null) {
-            return $fallbackName;
-        }
-        return $name . $suffix;
-    }
     private function unwrapNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Arg) {

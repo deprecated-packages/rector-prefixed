@@ -5,7 +5,6 @@ namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
@@ -81,10 +80,9 @@ CODE_SAMPLE
         if ($this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
-            return null;
-        }
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\DI\\Container'))) {
+        $callerType = $this->nodeTypeResolver->resolve($node->var);
+        $containerObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\DI\\Container');
+        if (!$containerObjectType->isSuperTypeOf($callerType)->yes()) {
             return null;
         }
         if (!$this->isName($node->name, 'getByType')) {
