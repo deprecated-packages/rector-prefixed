@@ -2942,7 +2942,7 @@ return array(
     'Rector\\Symfony\\Rector\\Return_\\SimpleFunctionAndFilterRector' => $vendorDir . '/rector/rector-symfony/src/Symfony/Rector/Return_/SimpleFunctionAndFilterRector.php',
     'Rector\\Symfony\\Rector\\StaticCall\\AddMessageToEqualsResponseCodeRector' => $vendorDir . '/rector/rector-symfony/src/Symfony/Rector/StaticCall/AddMessageToEqualsResponseCodeRector.php',
     'Rector\\Symfony\\TypeAnalyzer\\ArrayUnionResponseTypeAnalyzer' => $vendorDir . '/rector/rector-symfony/src/Symfony/TypeAnalyzer/ArrayUnionResponseTypeAnalyzer.php',
-    'Rector\\Symfony\\TypeDeclaration\\ReturnTypeDeclarationUpdater' => $baseDir . '/rules/Symfony/TypeDeclaration/ReturnTypeDeclarationUpdater.php',
+    'Rector\\Symfony\\TypeDeclaration\\ReturnTypeDeclarationUpdater' => $vendorDir . '/rector/rector-symfony/src/Symfony/TypeDeclaration/ReturnTypeDeclarationUpdater.php',
     'Rector\\Symfony\\ValueObjectFactory\\ServiceMapFactory' => $vendorDir . '/rector/rector-symfony/src/Symfony/ValueObjectFactory/ServiceMapFactory.php',
     'Rector\\Symfony\\ValueObject\\ClassName' => $vendorDir . '/rector/rector-symfony/src/Symfony/ValueObject/ClassName.php',
     'Rector\\Symfony\\ValueObject\\ConstantNameAndValue' => $vendorDir . '/rector/rector-symfony/src/Symfony/ValueObject/ConstantNameAndValue.php',
