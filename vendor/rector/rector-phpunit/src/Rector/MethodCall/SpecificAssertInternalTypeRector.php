@@ -75,7 +75,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertInternalType', 'assertNotInternalType'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertInternalType', 'assertNotInternalType'])) {
             return null;
         }
         $typeNode = $node->args[0]->value;

@@ -12,11 +12,11 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
@@ -238,9 +238,9 @@ CODE_SAMPLE
         }
         return $params;
     }
-    private function createParamTagNode(string $name, \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode
+    private function createParamTagNode(string $name, \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode) : \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
     {
-        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($typeNode, \false, '$' . $name, '');
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode($typeNode, \false, '$' . $name, '');
     }
     private function setTypeIfNotNull(\Rector\PHPUnit\ValueObject\ParamAndArg $paramAndArg, \PhpParser\Node\Param $param) : void
     {

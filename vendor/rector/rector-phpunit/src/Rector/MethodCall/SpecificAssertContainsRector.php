@@ -69,7 +69,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertContains', 'assertNotContains'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertContains', 'assertNotContains'])) {
             return null;
         }
         if (!$this->isPossiblyStringType($node->args[1]->value)) {

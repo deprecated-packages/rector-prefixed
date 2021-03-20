@@ -8,8 +8,8 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode;
 use Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
 final class AppAssignFactory
 {
@@ -32,7 +32,7 @@ final class AppAssignFactory
     private function decorateWithVarAnnotation(\PhpParser\Node\Stmt\Expression $expression, \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createEmpty($expression);
-        $fullyQualifiedIdentifierTypeNode = new \Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($serviceNameTypeAndVariableName->getType());
+        $fullyQualifiedIdentifierTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode($serviceNameTypeAndVariableName->getType());
         $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($fullyQualifiedIdentifierTypeNode, '$' . $serviceNameTypeAndVariableName->getVariableName(), '');
         $phpDocInfo->addTagValueNode($varTagValueNode);
         $phpDocInfo->makeSingleLined();

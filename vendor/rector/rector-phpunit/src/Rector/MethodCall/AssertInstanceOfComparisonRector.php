@@ -53,7 +53,7 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethodNames = \array_keys(self::RENAME_METHODS_MAP);
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodNames)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethodNames)) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

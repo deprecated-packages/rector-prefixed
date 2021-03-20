@@ -41,7 +41,7 @@ final class ExpectationAnalyzer
             /** @var MethodCall $expr */
             $expr = $stmt->expr;
             $method = $this->getMethod($expr);
-            if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($method, 'method')) {
+            if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($method, 'method')) {
                 continue;
             }
             /** @var MethodCall $expects */
@@ -69,7 +69,7 @@ final class ExpectationAnalyzer
     }
     public function isValidExpectsCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($methodCall, 'expects')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'expects')) {
             return \false;
         }
         if (\count($methodCall->args) !== 1) {
@@ -79,7 +79,7 @@ final class ExpectationAnalyzer
     }
     public function isValidAtCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($methodCall, 'at')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'at')) {
             return \false;
         }
         if (\count($methodCall->args) !== 1) {
@@ -89,21 +89,21 @@ final class ExpectationAnalyzer
     }
     private function getMethod(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
-        if ($this->testsNodeAnalyzer->isPHPUnitMethodNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS) && $methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS) && $methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return $methodCall->var;
         }
         return $methodCall;
     }
     private function getWill(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS)) {
             return null;
         }
         return $this->consecutiveAssertionFactory->createWillReturn($methodCall);
     }
     private function getExpects(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'with')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($expr, 'with')) {
             return $methodCall->var;
         }
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -116,7 +116,7 @@ final class ExpectationAnalyzer
      */
     private function getWithArgs(\PhpParser\Node\Expr $expr) : array
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($expr, 'with')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($expr, 'with')) {
             return [null];
         }
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {

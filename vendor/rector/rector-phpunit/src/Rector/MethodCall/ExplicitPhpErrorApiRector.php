@@ -78,7 +78,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['expectException'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['expectException'])) {
             return null;
         }
         foreach (self::REPLACEMENTS as $class => $method) {

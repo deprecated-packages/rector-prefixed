@@ -57,7 +57,7 @@ final class AssertPropertyExistsRector extends \Rector\Core\Rector\AbstractRecto
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertTrue', 'assertFalse'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

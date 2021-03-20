@@ -1287,12 +1287,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-laravel.git",
-                "reference": "545361ea427369712e35fde2192024331a7439e0"
+                "reference": "92dffdb445a7ef0fa8a2d25425d5fffff1a001e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/545361ea427369712e35fde2192024331a7439e0",
-                "reference": "545361ea427369712e35fde2192024331a7439e0",
+                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/92dffdb445a7ef0fa8a2d25425d5fffff1a001e1",
+                "reference": "92dffdb445a7ef0fa8a2d25425d5fffff1a001e1",
                 "shasum": ""
             },
             "require": {
@@ -1322,7 +1322,7 @@
                 "issues": "https://github.com/rectorphp/rector-laravel/issues",
                 "source": "https://github.com/rectorphp/rector-laravel/tree/main"
             },
-            "time": "2021-03-20T10:53:40+00:00"
+            "time": "2021-03-20T16:17:15+00:00"
         },
         {
             "name": "rector/rector-nette",
@@ -1377,12 +1377,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-phpunit.git",
-                "reference": "aead3778f8c00a9468d55d18e3fca7322f1bd3db"
+                "reference": "cbb551416170c08c6604949534d056b69a626e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/aead3778f8c00a9468d55d18e3fca7322f1bd3db",
-                "reference": "aead3778f8c00a9468d55d18e3fca7322f1bd3db",
+                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/cbb551416170c08c6604949534d056b69a626e8e",
+                "reference": "cbb551416170c08c6604949534d056b69a626e8e",
                 "shasum": ""
             },
             "require": {
@@ -1393,7 +1393,8 @@
                 "phpunit/phpunit": "^9.5",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
-                "symplify/phpstan-rules": "^9.2"
+                "symplify/phpstan-rules": "^9.2",
+                "tracy/tracy": "^2.8"
             },
             "default-branch": true,
             "type": "library",
@@ -1411,7 +1412,7 @@
                 "issues": "https://github.com/rectorphp/rector-phpunit/issues",
                 "source": "https://github.com/rectorphp/rector-phpunit/tree/main"
             },
-            "time": "2021-03-20T01:40:07+00:00"
+            "time": "2021-03-20T16:14:50+00:00"
         },
         {
             "name": "rector/rector-symfony",
@@ -1419,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "bc7bb97587c6d548305d2fc6a15b71bb3e2f2d33"
+                "reference": "460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/bc7bb97587c6d548305d2fc6a15b71bb3e2f2d33",
-                "reference": "bc7bb97587c6d548305d2fc6a15b71bb3e2f2d33",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a",
+                "reference": "460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a",
                 "shasum": ""
             },
             "require": {
@@ -1456,7 +1457,7 @@
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
                 "source": "https://github.com/rectorphp/rector-symfony/tree/main"
             },
-            "time": "2021-03-20T10:17:50+00:00"
+            "time": "2021-03-20T16:21:25+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -4558,16 +4559,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v2.18.3",
+            "version": "v2.18.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "ab99202fccff2a9f97592fbe1b5c76dd06df3513"
+                "reference": "06f764e3cb6d60822d8f5135205f9d32b5508a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ab99202fccff2a9f97592fbe1b5c76dd06df3513",
-                "reference": "ab99202fccff2a9f97592fbe1b5c76dd06df3513",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/06f764e3cb6d60822d8f5135205f9d32b5508a31",
+                "reference": "06f764e3cb6d60822d8f5135205f9d32b5508a31",
                 "shasum": ""
             },
             "require": {
@@ -4650,7 +4651,7 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues",
-                "source": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/v2.18.3"
+                "source": "https://github.com/FriendsOfPHP/PHP-CS-Fixer/tree/v2.18.4"
             },
             "funding": [
                 {
@@ -4658,7 +4659,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-10T19:39:05+00:00"
+            "time": "2021-03-20T14:52:33+00:00"
         },
         {
             "name": "myclabs/deep-copy",

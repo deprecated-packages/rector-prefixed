@@ -51,7 +51,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethodName = \array_keys(self::RENAME_METHODS_MAP);
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodName)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethodName)) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

@@ -22,15 +22,20 @@ final class ExpectExceptionMessageRegExpFactory
      * @var NodeComparator
      */
     private $nodeComparator;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
+    /**
+     * @var \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->argumentShiftingFactory = $argumentShiftingFactory;
         $this->nodeComparator = $nodeComparator;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->nodeNameResolver->isLocalMethodCallNamed($methodCall, 'assertContains')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertContains')) {
             return null;
         }
         $secondArgument = $methodCall->args[1]->value;

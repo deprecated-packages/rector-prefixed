@@ -57,7 +57,7 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, [self::ASSERT_TRUE, self::ASSERT_FALSE])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, [self::ASSERT_TRUE, self::ASSERT_FALSE])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

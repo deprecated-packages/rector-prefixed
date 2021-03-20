@@ -57,7 +57,23 @@ final class TestsNodeAnalyzer
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasByName('test');
     }
-    public function isPHPUnitMethodName(\PhpParser\Node $node, string $name) : bool
+    public function isAssertMethodCallName(\PhpParser\Node $node, string $name) : bool
+    {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+            $callerType = $this->nodeTypeResolver->resolve($node->class);
+        } elseif ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            $callerType = $this->nodeTypeResolver->resolve($node->var);
+        } else {
+            return \false;
+        }
+        $assertObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210320\\PHPUnit\\Framework\\Assert');
+        if (!$assertObjectType->isSuperTypeOf($callerType)->yes()) {
+            return \false;
+        }
+        /** @var StaticCall|MethodCall $node */
+        return $this->nodeNameResolver->isName($node->name, $name);
+    }
+    public function isInPHPUnitMethodCallName(\PhpParser\Node $node, string $name) : bool
     {
         if (!$this->isPHPUnitTestCaseCall($node)) {
             return \false;
@@ -65,22 +81,22 @@ final class TestsNodeAnalyzer
         /** @var StaticCall|MethodCall $node */
         return $this->nodeNameResolver->isName($node->name, $name);
     }
-    public function isPHPUnitTestCaseCall(\PhpParser\Node $node) : bool
-    {
-        if (!$this->isInTestClass($node)) {
-            return \false;
-        }
-        return $node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall;
-    }
     /**
      * @param string[] $names
      */
-    public function isPHPUnitMethodNames(\PhpParser\Node $node, array $names) : bool
+    public function isPHPUnitMethodCallNames(\PhpParser\Node $node, array $names) : bool
     {
         if (!$this->isPHPUnitTestCaseCall($node)) {
             return \false;
         }
         /** @var MethodCall|StaticCall $node */
         return $this->nodeNameResolver->isNames($node->name, $names);
+    }
+    public function isPHPUnitTestCaseCall(\PhpParser\Node $node) : bool
+    {
+        if (!$this->isInTestClass($node)) {
+            return \false;
+        }
+        return $node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall;
     }
 }

@@ -91,19 +91,12 @@ CODE_SAMPLE
     }
     private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if (!$this->testsNodeAnalyzer->isInTestClass($class)) {
-            return \true;
-        }
-        $hasProphesizeMethodCall = $this->hasProphesizeMethodCall($class);
+        $hasProphesizeMethodCall = (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
+            return $this->testsNodeAnalyzer->isAssertMethodCallName($node, 'prophesize');
+        });
         if (!$hasProphesizeMethodCall) {
             return \true;
         }
         return $this->classManipulator->hasTrait($class, self::PROPHECY_TRAIT);
-    }
-    private function hasProphesizeMethodCall(\PhpParser\Node\Stmt\Class_ $class) : bool
-    {
-        return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
-            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'prophesize');
-        });
     }
 }

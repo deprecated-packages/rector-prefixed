@@ -57,7 +57,7 @@ final class AssertTrueFalseInternalTypeToSpecificMethodRector extends \Rector\Co
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethods = \array_keys(self::RENAME_METHODS_MAP);
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethods)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethods)) {
             return null;
         }
         /** @var FuncCall|Node $firstArgumentValue */

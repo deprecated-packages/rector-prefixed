@@ -68,7 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($node, 'assertArraySubset')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($node, 'assertArraySubset')) {
             return null;
         }
         return $this->nodeFactory->createStaticCall('RectorPrefix20210320\\DMS\\PHPUnitExtensions\\ArraySubset\\Assert', 'assertArraySubset', $node->args);

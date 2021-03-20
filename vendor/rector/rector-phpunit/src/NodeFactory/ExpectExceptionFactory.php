@@ -6,19 +6,25 @@ namespace Rector\PHPUnit\NodeFactory;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 final class ExpectExceptionFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->nodeNameResolver->isLocalMethodCallNamed($methodCall, 'assertInstanceOf')) {
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertInstanceOf')) {
             return null;
         }
         $argumentVariableName = $this->nodeNameResolver->getName($methodCall->args[1]->value);

@@ -58,7 +58,7 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertSame', 'assertNotSame'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

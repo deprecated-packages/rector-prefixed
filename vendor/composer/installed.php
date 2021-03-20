@@ -234,7 +234,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '545361ea427369712e35fde2192024331a7439e0',
+      'reference' => '92dffdb445a7ef0fa8a2d25425d5fffff1a001e1',
     ),
     'rector/rector-nette' => 
     array (
@@ -254,7 +254,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'aead3778f8c00a9468d55d18e3fca7322f1bd3db',
+      'reference' => 'cbb551416170c08c6604949534d056b69a626e8e',
     ),
     'rector/rector-prefixed' => 
     array (
@@ -271,7 +271,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'bc7bb97587c6d548305d2fc6a15b71bb3e2f2d33',
+      'reference' => '460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a',
     ),
     'sebastian/diff' => 
     array (
