@@ -556,12 +556,12 @@ private static $installed = array (
     ),
     'symplify/astral' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8bf6ae7282d4adea9088de712218ad17bb154597',
+      'reference' => '841485e8669b35a84bf8c9b402c792f0a159b0eb',
     ),
     'symplify/autowire-array-parameter' => 
     array (
@@ -571,7 +571,7 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => 'eed1c5f96383730164285903ea266a35b2032afc',
+      'reference' => 'f162d5640323d80ee20decb093b80431265e1453',
     ),
     'symplify/composer-json-manipulator' => 
     array (
@@ -581,16 +581,16 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => '21e24f89531e85bdc7f217da0d7f84cc1722b370',
+      'reference' => '20ef76d642ac2225d3ec3fd594ecebd21c954d53',
     ),
     'symplify/console-color-diff' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5993118ac129eb9e9f66918470d7e4fd55dc4e26',
+      'reference' => '2ac8f00c83c00413438956785f502f4838f73610',
     ),
     'symplify/console-package-builder' => 
     array (
@@ -600,7 +600,7 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => '83e5d1a2f51ea68176ee7d8d732cfe1796250f10',
+      'reference' => '4916ec5800f908b3484c4d6c4382fe3206008b03',
     ),
     'symplify/easy-testing' => 
     array (
@@ -610,7 +610,7 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => '71d603017d3d73858fdecc383fee26d3bf8ea76d',
+      'reference' => '51915d46b2dd5b6b5b1d272f4a6ba3df6d991116',
     ),
     'symplify/package-builder' => 
     array (
@@ -620,12 +620,12 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => 'b73e4f528d42161b9d85f5d4ea32b3a837a8670a',
+      'reference' => '338ed8f6efd4686c403393f5f4906931bd394705',
     ),
     'symplify/rule-doc-generator-contracts' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
@@ -633,30 +633,30 @@ private static $installed = array (
     ),
     'symplify/set-config-resolver' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1d47308ce81f5dc7190477f31d394e5e45f942de',
+      'reference' => '79b12fa41e2f6713c7c4bcccfc874718b19bb3fe',
     ),
     'symplify/simple-php-doc-parser' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f606140bc7b94a9adcd95ef5a9c72af1ce5e06d4',
+      'reference' => '09491f40da7f86d4cc1c218380bbb0607425d7f8',
     ),
     'symplify/skipper' => 
     array (
-      'pretty_version' => 'v9.2.12',
-      'version' => '9.2.12.0',
+      'pretty_version' => 'v9.2.13',
+      'version' => '9.2.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '62286b7342e0eb0ef99cd4d9eba6282357476300',
+      'reference' => '681806da42f9e7e7e5f875eb59966393130d83ad',
     ),
     'symplify/smart-file-system' => 
     array (
@@ -686,7 +686,7 @@ private static $installed = array (
       array (
         0 => '9.3.x-dev',
       ),
-      'reference' => '37e4caab2f833c67435820a93452064d1be3a43f',
+      'reference' => 'a0abfb2ee9dddd78981132f978453a203cc8b91d',
     ),
     'webmozart/assert' => 
     array (

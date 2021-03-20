@@ -19,6 +19,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
@@ -48,7 +49,7 @@ final class PhpDocNodeTraverser
         if ($node instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
             return $this->traverseTypeNode($node, $docContent, $callable);
         }
-        return $node;
+        return $callable($node, $docContent);
     }
     private function isValueNodeWithType(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
@@ -60,18 +61,25 @@ final class PhpDocNodeTraverser
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\NullableTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
             $typeNode->type = $this->traverseTypeNode($typeNode->type, $docContent, $callable);
         }
+        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode) {
+            $typeNode->returnType = $this->traverseTypeNode($typeNode->returnType, $docContent, $callable);
+            return $typeNode;
+        }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode) {
             $this->traverseArrayShapeNode($typeNode, $docContent, $callable);
             return $typeNode;
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode) {
             $typeNode->valueType = $this->traverseTypeNode($typeNode->valueType, $docContent, $callable);
+            return $typeNode;
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
             $this->traverseGenericTypeNode($typeNode, $docContent, $callable);
+            return $typeNode;
         }
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode || $typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode) {
             $this->traverseUnionIntersectionType($typeNode, $docContent, $callable);
+            return $typeNode;
         }
         return $typeNode;
     }
