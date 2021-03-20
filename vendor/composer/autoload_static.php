@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094
+class ComposerStaticInitb8e86802ac2bf15e25eab823a39efed2
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1801,7 +1801,6 @@ class ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094
         'Rector\\BetterPhpDocParser\\Printer\\ArrayPartPhpDocTagPrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/ArrayPartPhpDocTagPrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\DocBlockInliner' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/DocBlockInliner.php',
         'Rector\\BetterPhpDocParser\\Printer\\EmptyPhpDocDetector' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/EmptyPhpDocDetector.php',
-        'Rector\\BetterPhpDocParser\\Printer\\MultilineSpaceFormatPreserver' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/MultilineSpaceFormatPreserver.php',
         'Rector\\BetterPhpDocParser\\Printer\\OriginalSpacingRestorer' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/OriginalSpacingRestorer.php',
         'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/PhpDocInfoPrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\SpacePatternFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/SpacePatternFactory.php',
@@ -3475,9 +3474,9 @@ class ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit91590e2f7af3f4595f921fb9f1e2d094::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb8e86802ac2bf15e25eab823a39efed2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb8e86802ac2bf15e25eab823a39efed2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb8e86802ac2bf15e25eab823a39efed2::$classMap;
 
         }, null, ClassLoader::class);
     }

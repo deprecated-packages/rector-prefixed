@@ -1470,7 +1470,6 @@ return array(
     'Rector\\BetterPhpDocParser\\Printer\\ArrayPartPhpDocTagPrinter' => $baseDir . '/packages/BetterPhpDocParser/Printer/ArrayPartPhpDocTagPrinter.php',
     'Rector\\BetterPhpDocParser\\Printer\\DocBlockInliner' => $baseDir . '/packages/BetterPhpDocParser/Printer/DocBlockInliner.php',
     'Rector\\BetterPhpDocParser\\Printer\\EmptyPhpDocDetector' => $baseDir . '/packages/BetterPhpDocParser/Printer/EmptyPhpDocDetector.php',
-    'Rector\\BetterPhpDocParser\\Printer\\MultilineSpaceFormatPreserver' => $baseDir . '/packages/BetterPhpDocParser/Printer/MultilineSpaceFormatPreserver.php',
     'Rector\\BetterPhpDocParser\\Printer\\OriginalSpacingRestorer' => $baseDir . '/packages/BetterPhpDocParser/Printer/OriginalSpacingRestorer.php',
     'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => $baseDir . '/packages/BetterPhpDocParser/Printer/PhpDocInfoPrinter.php',
     'Rector\\BetterPhpDocParser\\Printer\\SpacePatternFactory' => $baseDir . '/packages/BetterPhpDocParser/Printer/SpacePatternFactory.php',
