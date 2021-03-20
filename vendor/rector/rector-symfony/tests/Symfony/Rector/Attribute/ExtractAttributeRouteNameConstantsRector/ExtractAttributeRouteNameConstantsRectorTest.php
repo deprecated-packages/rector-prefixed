@@ -26,7 +26,7 @@ final class ExtractAttributeRouteNameConstantsRectorTest extends \Rector\Testing
     {
         (yield [new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'src/ValueObject/Routing/RouteName.php', __DIR__ . '/Source/extra_file.php']);
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

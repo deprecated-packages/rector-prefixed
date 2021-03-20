@@ -13,7 +13,7 @@ final class ReplaceEventManagerWithEventSubscriberRectorTest extends \Rector\Tes
         $this->doTestFileInfo($fixtureFileInfo);
         $this->doTestExtraFile('Event/SomeClassCopyEvent.php', __DIR__ . '/Source/ExpectedSomeClassCopyEvent.php');
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

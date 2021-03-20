@@ -4,9 +4,12 @@ declare (strict_types=1);
 namespace Rector\Set\ValueObject;
 
 use Rector\Laravel\Set\LaravelSetList;
+use Rector\PHPUnit\Sets\PHPUnitSetList;
 use Rector\Set\Contract\SetListInterface;
 use Rector\Set\NetteSetList;
+use Rector\Set\SwiftmailerSetList;
 use Rector\Set\SymfonySetList;
+use Rector\Set\TwigSetList;
 final class SetList implements \Rector\Set\Contract\SetListInterface
 {
     /**
@@ -298,61 +301,89 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const PHPSPEC_TO_PHPUNIT = __DIR__ . '/../../../config/set/phpspec-to-phpunit.php';
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT80_DMS = __DIR__ . '/../../../config/set/phpunit80-dms.php';
+    public const PHPUNIT80_DMS = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT80_DMS;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_40 = __DIR__ . '/../../../config/set/phpunit40.php';
+    public const PHPUNIT_40 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_40;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_50 = __DIR__ . '/../../../config/set/phpunit50.php';
+    public const PHPUNIT_50 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_50;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_60 = __DIR__ . '/../../../config/set/phpunit60.php';
+    public const PHPUNIT_60 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_60;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_70 = __DIR__ . '/../../../config/set/phpunit70.php';
+    public const PHPUNIT_70 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_70;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_75 = __DIR__ . '/../../../config/set/phpunit75.php';
+    public const PHPUNIT_75 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_75;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_80 = __DIR__ . '/../../../config/set/phpunit80.php';
+    public const PHPUNIT_80 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_80;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_90 = __DIR__ . '/../../../config/set/phpunit90.php';
+    public const PHPUNIT_90 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_90;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_91 = __DIR__ . '/../../../config/set/phpunit91.php';
+    public const PHPUNIT_91 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_91;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_CODE_QUALITY = __DIR__ . '/../../../config/set/phpunit-code-quality.php';
+    public const PHPUNIT_CODE_QUALITY = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_CODE_QUALITY;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_EXCEPTION = __DIR__ . '/../../../config/set/phpunit-exception.php';
+    public const PHPUNIT_EXCEPTION = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_EXCEPTION;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_MOCK = __DIR__ . '/../../../config/set/phpunit-mock.php';
+    public const PHPUNIT_MOCK = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_MOCK;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_SPECIFIC_METHOD = __DIR__ . '/../../../config/set/phpunit-specific-method.php';
+    public const PHPUNIT_SPECIFIC_METHOD = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD;
     /**
+     * @deprecated
+     * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_YIELD_DATA_PROVIDER = __DIR__ . '/../../../config/set/phpunit-yield-data-provider.php';
+    public const PHPUNIT_YIELD_DATA_PROVIDER = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER;
     /**
      * @var string
      */
@@ -410,9 +441,11 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const SAFE_07 = __DIR__ . '/../../../config/set/safe07.php';
     /**
+     * For BC layer
+     * @deprecated Use SwiftmailerSetList from rector/rector-symfony instead
      * @var string
      */
-    public const SWIFTMAILER_60 = __DIR__ . '/../../../config/set/swiftmailer60.php';
+    public const SWIFTMAILER_60 = \Rector\Set\SwiftmailerSetList::SWIFTMAILER_60;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
@@ -516,33 +549,47 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const SYMFONY_CONSTRUCTOR_INJECTION = \Rector\Set\SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_112 = __DIR__ . '/../../../config/set/twig112.php';
+    public const TWIG_112 = \Rector\Set\TwigSetList::TWIG_112;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_127 = __DIR__ . '/../../../config/set/twig127.php';
+    public const TWIG_127 = \Rector\Set\TwigSetList::TWIG_127;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_134 = __DIR__ . '/../../../config/set/twig134.php';
+    public const TWIG_134 = \Rector\Set\TwigSetList::TWIG_134;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_140 = __DIR__ . '/../../../config/set/twig140.php';
+    public const TWIG_140 = \Rector\Set\TwigSetList::TWIG_140;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_20 = __DIR__ . '/../../../config/set/twig20.php';
+    public const TWIG_20 = \Rector\Set\TwigSetList::TWIG_20;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_240 = __DIR__ . '/../../../config/set/twig240.php';
+    public const TWIG_240 = \Rector\Set\TwigSetList::TWIG_240;
     /**
+     * For BC layer
+     * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../../config/set/twig-underscore-to-namespace.php';
+    public const TWIG_UNDERSCORE_TO_NAMESPACE = \Rector\Set\TwigSetList::TWIG_UNDERSCORE_TO_NAMESPACE;
     /**
      * @var string
      */

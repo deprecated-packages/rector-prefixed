@@ -24,9 +24,9 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeWithClassName;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeModifier\ReturnTypeDeclarationUpdater;
 use Rector\Symfony\NodeFactory\ThisRenderFactory;
 use Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer;
-use Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -54,7 +54,7 @@ final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\Abs
      * @var ArrayUnionResponseTypeAnalyzer
      */
     private $arrayUnionResponseTypeAnalyzer;
-    public function __construct(\Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer, \Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater, \Rector\Symfony\NodeFactory\ThisRenderFactory $thisRenderFactory)
+    public function __construct(\Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer, \Rector\NodeModifier\ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater, \Rector\Symfony\NodeFactory\ThisRenderFactory $thisRenderFactory)
     {
         $this->returnTypeDeclarationUpdater = $returnTypeDeclarationUpdater;
         $this->thisRenderFactory = $thisRenderFactory;

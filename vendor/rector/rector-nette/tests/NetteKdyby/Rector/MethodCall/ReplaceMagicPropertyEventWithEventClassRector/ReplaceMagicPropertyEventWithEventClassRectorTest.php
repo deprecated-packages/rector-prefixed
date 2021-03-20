@@ -29,7 +29,7 @@ final class ReplaceMagicPropertyEventWithEventClassRectorTest extends \Rector\Te
         (yield [new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/simple_event.php.inc'), '/Event/FileManagerUploadEvent.php', __DIR__ . '/Source/ExpectedFileManagerUploadEvent.php']);
         (yield [new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/duplicated_event_params.php.inc'), '/Event/DuplicatedEventParamsUploadEvent.php', __DIR__ . '/Source/ExpectedDuplicatedEventParamsUploadEvent.php']);
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

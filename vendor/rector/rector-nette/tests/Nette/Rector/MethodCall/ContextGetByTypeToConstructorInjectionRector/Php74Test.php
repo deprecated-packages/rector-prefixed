@@ -23,7 +23,7 @@ final class Php74Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp74');
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

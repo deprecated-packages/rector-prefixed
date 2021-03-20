@@ -22,7 +22,7 @@ final class AutoImportTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCas
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureAutoImport');
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/auto_import.php';
     }

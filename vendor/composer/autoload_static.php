@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit39914b1478b306aec296870bf066654f
+class ComposerStaticInitd1920c2ac09bb75a075f3a0fae6ad0be
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2677,6 +2677,7 @@ class ComposerStaticInit39914b1478b306aec296870bf066654f
         'Rector\\NodeCollector\\ScopeResolver\\ParentClassScopeResolver' => __DIR__ . '/../..' . '/packages/NodeCollector/ScopeResolver/ParentClassScopeResolver.php',
         'Rector\\NodeCollector\\StaticAnalyzer' => __DIR__ . '/../..' . '/packages/NodeCollector/StaticAnalyzer.php',
         'Rector\\NodeCollector\\ValueObject\\ArrayCallable' => __DIR__ . '/../..' . '/packages/NodeCollector/ValueObject/ArrayCallable.php',
+        'Rector\\NodeModifier\\ReturnTypeDeclarationUpdater' => __DIR__ . '/..' . '/rector/rector-symfony/src/NodeModifier/ReturnTypeDeclarationUpdater.php',
         'Rector\\NodeNameResolver\\Contract\\NodeNameResolverInterface' => __DIR__ . '/../..' . '/packages/NodeNameResolver/Contract/NodeNameResolverInterface.php',
         'Rector\\NodeNameResolver\\NodeNameResolver' => __DIR__ . '/../..' . '/packages/NodeNameResolver/NodeNameResolver.php',
         'Rector\\NodeNameResolver\\NodeNameResolver\\ClassConstFetchNameResolver' => __DIR__ . '/../..' . '/packages/NodeNameResolver/NodeNameResolver/ClassConstFetchNameResolver.php',
@@ -2874,6 +2875,7 @@ class ComposerStaticInit39914b1478b306aec296870bf066654f
         'Rector\\PHPUnit\\Rector\\MethodCall\\WithConsecutiveArgToArrayRector' => __DIR__ . '/..' . '/rector/rector-phpunit/src/Rector/MethodCall/WithConsecutiveArgToArrayRector.php',
         'Rector\\PHPUnit\\Rector\\StaticCall\\GetMockRector' => __DIR__ . '/..' . '/rector/rector-phpunit/src/Rector/StaticCall/GetMockRector.php',
         'Rector\\PHPUnit\\RobotLoader\\RobotLoaderFactory' => __DIR__ . '/..' . '/rector/rector-phpunit/src/RobotLoader/RobotLoaderFactory.php',
+        'Rector\\PHPUnit\\Sets\\PHPUnitSetList' => __DIR__ . '/..' . '/rector/rector-phpunit/src/Sets/PHPUnitSetList.php',
         'Rector\\PHPUnit\\TestClassResolver\\PHPUnitTestCaseClassesProvider' => __DIR__ . '/..' . '/rector/rector-phpunit/src/TestClassResolver/PHPUnitTestCaseClassesProvider.php',
         'Rector\\PHPUnit\\TestClassResolver\\TestClassResolver' => __DIR__ . '/..' . '/rector/rector-phpunit/src/TestClassResolver/TestClassResolver.php',
         'Rector\\PHPUnit\\ValueObject\\ArrayArgumentToDataProvider' => __DIR__ . '/..' . '/rector/rector-phpunit/src/ValueObject/ArrayArgumentToDataProvider.php',
@@ -3161,7 +3163,9 @@ class ComposerStaticInit39914b1478b306aec296870bf066654f
         'Rector\\Set\\Contract\\SetListInterface' => __DIR__ . '/../..' . '/packages/Set/Contract/SetListInterface.php',
         'Rector\\Set\\NetteSetList' => __DIR__ . '/..' . '/rector/rector-nette/src/Set/NetteSetList.php',
         'Rector\\Set\\RectorSetProvider' => __DIR__ . '/../..' . '/packages/Set/RectorSetProvider.php',
+        'Rector\\Set\\SwiftmailerSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SwiftmailerSetList.php',
         'Rector\\Set\\SymfonySetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/SymfonySetList.php',
+        'Rector\\Set\\TwigSetList' => __DIR__ . '/..' . '/rector/rector-symfony/src/Set/TwigSetList.php',
         'Rector\\Set\\ValueObject\\DowngradeSetList' => __DIR__ . '/../..' . '/packages/Set/ValueObject/DowngradeSetList.php',
         'Rector\\Set\\ValueObject\\SetList' => __DIR__ . '/../..' . '/packages/Set/ValueObject/SetList.php',
         'Rector\\StaticTypeMapper\\Contract\\PhpDocParser\\PhpDocTypeMapperInterface' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/Contract/PhpDocParser/PhpDocTypeMapperInterface.php',
@@ -3476,9 +3480,9 @@ class ComposerStaticInit39914b1478b306aec296870bf066654f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit39914b1478b306aec296870bf066654f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit39914b1478b306aec296870bf066654f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit39914b1478b306aec296870bf066654f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd1920c2ac09bb75a075f3a0fae6ad0be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd1920c2ac09bb75a075f3a0fae6ad0be::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd1920c2ac09bb75a075f3a0fae6ad0be::$classMap;
 
         }, null, ClassLoader::class);
     }

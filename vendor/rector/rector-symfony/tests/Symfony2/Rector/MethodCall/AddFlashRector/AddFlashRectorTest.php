@@ -22,7 +22,7 @@ final class AddFlashRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function provideConfigFilePath() : string
+    public function provideConfigFilePath() : string
     {
         return __DIR__ . '/config/configured_rule.php';
     }
