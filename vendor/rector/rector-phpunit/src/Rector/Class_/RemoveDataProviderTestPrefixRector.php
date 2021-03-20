@@ -7,15 +7,15 @@ use RectorPrefix20210320\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+use Rector\PHPUnit\PhpDoc\Node\PHPUnitDataProviderTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/a/46693675/1348344
  *
- * @see \Rector\Tests\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector\RemoveDataProviderTestPrefixRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\Class_\RemoveDataProviderTestPrefixRector\RemoveDataProviderTestPrefixRectorTest
  */
 final class RemoveDataProviderTestPrefixRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -94,7 +94,7 @@ CODE_SAMPLE
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
             /** @var PHPUnitDataProviderTagValueNode[] $phpunitDataProviderTagValueNodes */
-            $phpunitDataProviderTagValueNodes = $phpDocInfo->findAllByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode::class);
+            $phpunitDataProviderTagValueNodes = $phpDocInfo->findAllByType(\Rector\PHPUnit\PhpDoc\Node\PHPUnitDataProviderTagValueNode::class);
             if ($phpunitDataProviderTagValueNodes === []) {
                 continue;
             }

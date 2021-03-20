@@ -12,7 +12,7 @@ use Rector\PHPUnit\NodeManipulator\ArgumentMover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\PHPUnit\Rector\MethodCall\AssertSameTrueFalseToAssertTrueFalseRector\AssertSameTrueFalseToAssertTrueFalseRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertSameTrueFalseToAssertTrueFalseRector\AssertSameTrueFalseToAssertTrueFalseRectorTest
  */
 final class AssertSameTrueFalseToAssertTrueFalseRector extends \Rector\Core\Rector\AbstractRector
 {

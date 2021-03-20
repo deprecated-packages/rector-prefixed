@@ -13,10 +13,10 @@ use PhpParser\Node\Stmt\Expression;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\PHPUnit\PhpDoc\Node\PHPUnitExpectedExceptionTagValueNode;
 use Rector\PHPUnit\PhpDoc\PhpDocValueToNodeMapper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 final class ExpectExceptionMethodCallFactory
@@ -59,7 +59,7 @@ final class ExpectExceptionMethodCallFactory
     }
     private function createMethodCall(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode, string $methodName) : \PhpParser\Node\Expr\MethodCall
     {
-        if ($phpDocTagNode->value instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode) {
+        if ($phpDocTagNode->value instanceof \Rector\PHPUnit\PhpDoc\Node\PHPUnitExpectedExceptionTagValueNode) {
             $value = $this->resolveExpectedValue($phpDocTagNode->value);
             $methodCall = $this->nodeFactory->createMethodCall('this', $methodName);
             $methodCall->args[] = new \PhpParser\Node\Arg($value);
@@ -71,7 +71,7 @@ final class ExpectExceptionMethodCallFactory
         $node = $this->phpDocValueToNodeMapper->mapGenericTagValueNode($phpDocTagNode->value);
         return $this->nodeFactory->createMethodCall('this', $methodName, [new \PhpParser\Node\Arg($node)]);
     }
-    private function resolveExpectedValue(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode $phpUnitExpectedExceptionTagValueNode) : \PhpParser\Node\Expr
+    private function resolveExpectedValue(\Rector\PHPUnit\PhpDoc\Node\PHPUnitExpectedExceptionTagValueNode $phpUnitExpectedExceptionTagValueNode) : \PhpParser\Node\Expr
     {
         $expectedTypeNode = $phpUnitExpectedExceptionTagValueNode->getTypeNode();
         $currentNode = $this->currentNodeProvider->getNode();

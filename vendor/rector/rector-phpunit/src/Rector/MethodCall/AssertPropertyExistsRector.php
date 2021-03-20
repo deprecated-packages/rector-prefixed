@@ -16,7 +16,7 @@ use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\PHPUnit\Rector\MethodCall\AssertPropertyExistsRector\AssertPropertyExistsRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertPropertyExistsRector\AssertPropertyExistsRectorTest
  */
 final class AssertPropertyExistsRector extends \Rector\Core\Rector\AbstractRector
 {

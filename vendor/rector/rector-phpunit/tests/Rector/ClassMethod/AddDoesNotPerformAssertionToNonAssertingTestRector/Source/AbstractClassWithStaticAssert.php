@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
+namespace Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
 
 use RectorPrefix20210320\PHPUnit\Framework\TestCase;
 abstract class AbstractClassWithStaticAssert extends \RectorPrefix20210320\PHPUnit\Framework\TestCase

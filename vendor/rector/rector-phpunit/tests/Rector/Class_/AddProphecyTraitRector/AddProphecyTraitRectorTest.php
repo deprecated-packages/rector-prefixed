@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\Class_\AddProphecyTraitRector;
+namespace Rector\PHPUnit\Tests\Rector\Class_\AddProphecyTraitRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

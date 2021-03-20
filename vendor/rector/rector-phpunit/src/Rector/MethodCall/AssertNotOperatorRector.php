@@ -14,7 +14,7 @@ use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\PHPUnit\Rector\MethodCall\AssertNotOperatorRector\AssertNotOperatorRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertNotOperatorRector\AssertNotOperatorRectorTest
  */
 final class AssertNotOperatorRector extends \Rector\Core\Rector\AbstractRector
 {

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\TestClassResolver;
+namespace Rector\PHPUnit\Tests\TestClassResolver;
 
 use Iterator;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\PHPUnit\TestClassResolver\TestClassResolver;
-use Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClass;
-use Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClassTest;
+use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass;
+use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest;
 use RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 final class TestClassResolverTest extends \RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
@@ -33,6 +33,6 @@ final class TestClassResolverTest extends \RectorPrefix20210320\Symplify\Package
      */
     public function provideData() : \Iterator
     {
-        (yield [\Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClass::class, \Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClassTest::class]);
+        (yield [\Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass::class, \Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest::class]);
     }
 }

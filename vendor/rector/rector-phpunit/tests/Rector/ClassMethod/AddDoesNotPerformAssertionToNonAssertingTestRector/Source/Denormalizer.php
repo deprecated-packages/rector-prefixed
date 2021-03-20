@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
+namespace Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
 
 final class Denormalizer
 {
@@ -9,7 +9,7 @@ final class Denormalizer
      * @var DenormalizerInterface
      */
     private $denormalizer;
-    public function __construct(\Rector\Tests\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source\DenormalizerInterface $denormalizer)
+    public function __construct(\Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source\DenormalizerInterface $denormalizer)
     {
         $this->denormalizer = $denormalizer;
     }

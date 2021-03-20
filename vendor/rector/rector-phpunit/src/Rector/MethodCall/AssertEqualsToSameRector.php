@@ -17,7 +17,7 @@ use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\PHPUnit\Rector\MethodCall\AssertEqualsToSameRector\AssertEqualsToSameRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsToSameRector\AssertEqualsToSameRectorTest
  */
 final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
 {

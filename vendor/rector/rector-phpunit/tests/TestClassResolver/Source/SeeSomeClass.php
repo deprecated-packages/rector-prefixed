@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\TestClassResolver\Source;
+namespace Rector\PHPUnit\Tests\TestClassResolver\Source;
 
 final class SeeSomeClass
 {

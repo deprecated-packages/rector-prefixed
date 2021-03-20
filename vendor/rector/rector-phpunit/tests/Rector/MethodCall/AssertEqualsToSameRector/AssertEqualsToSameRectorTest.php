@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\MethodCall\AssertEqualsToSameRector;
+namespace Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsToSameRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

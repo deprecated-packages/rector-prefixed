@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\ClassMethod\TryCatchToExpectExceptionRector;
+namespace Rector\PHPUnit\Tests\Rector\ClassMethod\TryCatchToExpectExceptionRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

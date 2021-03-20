@@ -16,7 +16,7 @@ use Rector\PHPUnit\TestClassResolver\TestClassResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector\AddSeeTestAnnotationRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\Class_\AddSeeTestAnnotationRector\AddSeeTestAnnotationRectorTest
  */
 final class AddSeeTestAnnotationRector extends \Rector\Core\Rector\AbstractRector
 {

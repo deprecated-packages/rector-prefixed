@@ -252,7 +252,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'cbb551416170c08c6604949534d056b69a626e8e',
+      'reference' => 'd00356b7716c63dbca4a21c731efbede95899a8f',
     ),
     'rector/rector-prefixed' => 
     array (

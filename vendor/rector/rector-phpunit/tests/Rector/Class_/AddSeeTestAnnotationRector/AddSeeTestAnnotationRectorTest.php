@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Tests\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
+namespace Rector\PHPUnit\Tests\Rector\Class_\AddSeeTestAnnotationRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

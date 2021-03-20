@@ -7,12 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ClassMethodReflectionFactory;
 use Rector\FileSystemRector\Parser\FileInfoParser;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+use Rector\PHPUnit\PhpDoc\Node\PHPUnitDoesNotPerformAssertionTagNode;
+use Rector\PHPUnit\PhpDoc\Node\PHPUnitExpectedExceptionTagValueNode;
 use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,7 +21,7 @@ use RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo;
  * @see https://phpunit.readthedocs.io/en/7.3/annotations.html#doesnotperformassertions
  * @see https://github.com/sebastianbergmann/phpunit/issues/2484
  *
- * @see \Rector\Tests\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\AddDoesNotPerformAssertionToNonAssertingTestRectorTest
+ * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\AddDoesNotPerformAssertionToNonAssertingTestRectorTest
  */
 final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -118,7 +118,7 @@ CODE_SAMPLE
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        if ($phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode::class])) {
+        if ($phpDocInfo->hasByTypes([\Rector\PHPUnit\PhpDoc\Node\PHPUnitDoesNotPerformAssertionTagNode::class, \Rector\PHPUnit\PhpDoc\Node\PHPUnitExpectedExceptionTagValueNode::class])) {
             return \true;
         }
         return $this->containsAssertCall($classMethod);
@@ -126,7 +126,7 @@ CODE_SAMPLE
     private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->addPhpDocTagNode(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode());
+        $phpDocInfo->addPhpDocTagNode(new \Rector\PHPUnit\PhpDoc\Node\PHPUnitDoesNotPerformAssertionTagNode());
     }
     private function containsAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
