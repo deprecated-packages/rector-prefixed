@@ -6,14 +6,14 @@ namespace Rector\Defluent\NodeFactory;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\NetteKdyby\Naming\VariableNaming;
+use Rector\Naming\Naming\VariableNaming;
 final class VariableFromNewFactory
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\Rector\Naming\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }

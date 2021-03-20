@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use Rector\RemovingStatic\ValueObject\PHPUnitClass;
 final class DataProviderMethodNamesResolver
 {
     /**
@@ -49,7 +48,7 @@ final class DataProviderMethodNamesResolver
      */
     private function resolvePHPUnitDataProviderTagValueNodes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType(\Rector\RemovingStatic\ValueObject\PHPUnitClass::TEST_CASE))) {
+        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestCase'))) {
             return [];
         }
         $phpunitDataProviderTagValueNodes = [];

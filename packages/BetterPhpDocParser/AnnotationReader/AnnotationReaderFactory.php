@@ -7,9 +7,9 @@ use RectorPrefix20210320\Doctrine\Common\Annotations\AnnotationReader;
 use RectorPrefix20210320\Doctrine\Common\Annotations\AnnotationRegistry;
 use RectorPrefix20210320\Doctrine\Common\Annotations\DocParser;
 use RectorPrefix20210320\Doctrine\Common\Annotations\Reader;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\DoctrineAnnotationGenerated\ConstantPreservingAnnotationReader;
 use Rector\DoctrineAnnotationGenerated\ConstantPreservingDocParser;
+use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
 final class AnnotationReaderFactory
 {
     /**
@@ -37,7 +37,7 @@ final class AnnotationReaderFactory
         'Gedmo\\Versioned',
         'Versioned',
         // nette @inject dummy annotation
-        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::NAME,
+        \Rector\Nette\PhpDoc\Node\NetteInjectTagNode::NAME,
     ];
     public function create() : \RectorPrefix20210320\Doctrine\Common\Annotations\Reader
     {

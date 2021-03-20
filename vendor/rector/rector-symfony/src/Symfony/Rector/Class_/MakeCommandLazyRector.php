@@ -13,9 +13,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use Rector\Core\NodeAnalyzer\ParamAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
-use Rector\NetteKdyby\NodeManipulator\ParamAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,7 +29,7 @@ final class MakeCommandLazyRector extends \Rector\Core\Rector\AbstractRector
      * @var ParamAnalyzer
      */
     private $paramAnalyzer;
-    public function __construct(\Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer)
+    public function __construct(\Rector\Core\NodeAnalyzer\ParamAnalyzer $paramAnalyzer)
     {
         $this->paramAnalyzer = $paramAnalyzer;
     }

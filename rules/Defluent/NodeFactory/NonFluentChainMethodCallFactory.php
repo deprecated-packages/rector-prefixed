@@ -14,7 +14,7 @@ use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\Defluent\NodeResolver\FirstMethodCallVarResolver;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
-use Rector\NetteKdyby\Naming\VariableNaming;
+use Rector\Naming\Naming\VariableNaming;
 final class NonFluentChainMethodCallFactory
 {
     /**
@@ -29,7 +29,7 @@ final class NonFluentChainMethodCallFactory
      * @var FirstMethodCallVarResolver
      */
     private $firstMethodCallVarResolver;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeResolver\FirstMethodCallVarResolver $firstMethodCallVarResolver)
+    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Naming\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeResolver\FirstMethodCallVarResolver $firstMethodCallVarResolver)
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->variableNaming = $variableNaming;

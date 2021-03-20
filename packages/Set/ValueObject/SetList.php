@@ -5,9 +5,10 @@ namespace Rector\Set\ValueObject;
 
 use Rector\CakePHP\Sets\CakePHPSetList;
 use Rector\Laravel\Set\LaravelSetList;
+use Rector\Nette\Set\KdybySetList;
+use Rector\Nette\Set\NetteSetList;
 use Rector\PHPUnit\Sets\PHPUnitSetList;
 use Rector\Set\Contract\SetListInterface;
-use Rector\Set\NetteSetList;
 use Rector\Set\SwiftmailerSetList;
 use Rector\Set\SymfonySetList;
 use Rector\Set\TwigSetList;
@@ -156,15 +157,17 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const KDYBY_EVENTS_TO_CONTRIBUTTE_EVENT_DISPATCHER = __DIR__ . '/../../../config/set/kdyby-events-to-contributte-event-dispatcher.php';
-    /**
-     * @var string
-     */
     public const KDYBY_TO_SYMFONY = __DIR__ . '/../../../config/set/kdyby-to-symfony.php';
     /**
+     * @deprecated Use KdybySetList instead
      * @var string
      */
-    public const KDYBY_TRANSLATOR_TO_CONTRIBUTTE_TRANSLATION = __DIR__ . '/../../../config/set/kdyby-translator-to-contributte-translation.php';
+    public const KDYBY_EVENTS_TO_CONTRIBUTTE_EVENT_DISPATCHER = \Rector\Nette\Set\KdybySetList::KDYBY_EVENTS_TO_CONTRIBUTTE_EVENT_DISPATCHER;
+    /**
+     * @deprecated Use KdybySetList instead
+     * @var string
+     */
+    public const KDYBY_TRANSLATOR_TO_CONTRIBUTTE_TRANSLATION = \Rector\Nette\Set\KdybySetList::KDYBY_TRANSLATOR_TO_CONTRIBUTTE_TRANSLATION;
     /**
      * For BC layer
      * @deprecated Use LaravelSetList from rector/rector-laravel instead
@@ -264,23 +267,23 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const NETTE_24 = \Rector\Set\NetteSetList::NETTE_24;
+    public const NETTE_24 = \Rector\Nette\Set\NetteSetList::NETTE_24;
     /**
      * @var string
      */
-    public const NETTE_30 = \Rector\Set\NetteSetList::NETTE_30;
+    public const NETTE_30 = \Rector\Nette\Set\NetteSetList::NETTE_30;
     /**
      * @var string
      */
-    public const NETTE_31 = \Rector\Set\NetteSetList::NETTE_31;
+    public const NETTE_31 = \Rector\Nette\Set\NetteSetList::NETTE_31;
     /**
      * @var string
      */
-    public const NETTE_CODE_QUALITY = \Rector\Set\NetteSetList::NETTE_CODE_QUALITY;
+    public const NETTE_CODE_QUALITY = \Rector\Nette\Set\NetteSetList::NETTE_CODE_QUALITY;
     /**
      * @var string
      */
-    public const NETTE_UTILS_CODE_QUALITY = \Rector\Set\NetteSetList::NETTE_UTILS_CODE_QUALITY;
+    public const NETTE_UTILS_CODE_QUALITY = \Rector\Nette\Set\NetteSetList::NETTE_UTILS_CODE_QUALITY;
     /**
      * @var string
      */

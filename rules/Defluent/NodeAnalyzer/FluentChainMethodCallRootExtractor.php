@@ -16,8 +16,8 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\Naming\Naming\PropertyNaming;
+use Rector\Naming\Naming\VariableNaming;
 use Rector\Naming\ValueObject\ExpectedName;
-use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -51,7 +51,7 @@ final class FluentChainMethodCallRootExtractor
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Naming\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->propertyNaming = $propertyNaming;
         $this->betterNodeFinder = $betterNodeFinder;

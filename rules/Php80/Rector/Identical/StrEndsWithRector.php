@@ -11,8 +11,8 @@ use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\UnaryMinus;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer;
-use Rector\NetteCodeQuality\ValueObject\FuncCallAndExpr;
+use Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer;
+use Rector\Nette\ValueObject\FuncCallAndExpr;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,7 +26,7 @@ final class StrEndsWithRector extends \Rector\Core\Rector\AbstractRector
      * @var BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
-    public function __construct(\Rector\NetteCodeQuality\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
+    public function __construct(\Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
     {
         $this->binaryOpAnalyzer = $binaryOpAnalyzer;
     }
@@ -91,7 +91,7 @@ CODE_SAMPLE
     private function refactorSubstrCompare(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
     {
         $funcCallAndExpr = $this->binaryOpAnalyzer->matchFuncCallAndOtherExpr($binaryOp, 'substr_compare');
-        if (!$funcCallAndExpr instanceof \Rector\NetteCodeQuality\ValueObject\FuncCallAndExpr) {
+        if (!$funcCallAndExpr instanceof \Rector\Nette\ValueObject\FuncCallAndExpr) {
             return null;
         }
         $expr = $funcCallAndExpr->getExpr();

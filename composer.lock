@@ -1330,18 +1330,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-nette.git",
-                "reference": "ffc88fe2a3479e6d887acd5494be8ba3721c601a"
+                "reference": "33ae4a073f11d7c03232e39982df42b831dacac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/ffc88fe2a3479e6d887acd5494be8ba3721c601a",
-                "reference": "ffc88fe2a3479e6d887acd5494be8ba3721c601a",
+                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/33ae4a073f11d7c03232e39982df42b831dacac4",
+                "reference": "33ae4a073f11d7c03232e39982df42b831dacac4",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
                 "php": ">=7.3",
-                "rector/rector": "dev-main"
+                "rector/rector": "^0.10"
             },
             "require-dev": {
                 "nette/application": "^3.0.7",
@@ -1357,7 +1357,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Rector\\": "src"
+                    "Rector\\Nette\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1369,7 +1369,7 @@
                 "issues": "https://github.com/rectorphp/rector-nette/issues",
                 "source": "https://github.com/rectorphp/rector-nette/tree/main"
             },
-            "time": "2021-03-20T01:22:44+00:00"
+            "time": "2021-03-20T21:19:53+00:00"
         },
         {
             "name": "rector/rector-phpunit",
@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a"
+                "reference": "da23e1f36b02783dad4900df57d81d06f7e6ba78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a",
-                "reference": "460e6ce98d0cb27b4a5b3b5fb800e4f18c24bb1a",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/da23e1f36b02783dad4900df57d81d06f7e6ba78",
+                "reference": "da23e1f36b02783dad4900df57d81d06f7e6ba78",
                 "shasum": ""
             },
             "require": {
@@ -1457,7 +1457,7 @@
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
                 "source": "https://github.com/rectorphp/rector-symfony/tree/main"
             },
-            "time": "2021-03-20T16:21:25+00:00"
+            "time": "2021-03-20T21:23:45+00:00"
         },
         {
             "name": "sebastian/diff",

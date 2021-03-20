@@ -6,9 +6,9 @@ namespace Rector\DeadCode\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Interface_;
+use Rector\Core\NodeAnalyzer\ParamAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
-use Rector\NetteKdyby\NodeManipulator\ParamAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,7 +21,7 @@ final class RemoveUnusedConstructorParamRector extends \Rector\Core\Rector\Abstr
      * @var ParamAnalyzer
      */
     private $paramAnalyzer;
-    public function __construct(\Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer)
+    public function __construct(\Rector\Core\NodeAnalyzer\ParamAnalyzer $paramAnalyzer)
     {
         $this->paramAnalyzer = $paramAnalyzer;
     }

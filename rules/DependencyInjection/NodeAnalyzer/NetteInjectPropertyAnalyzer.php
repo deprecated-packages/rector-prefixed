@@ -7,9 +7,9 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\ValueObject\MethodName;
 use Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer;
+use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class NetteInjectPropertyAnalyzer
 {
@@ -23,7 +23,7 @@ final class NetteInjectPropertyAnalyzer
     }
     public function detect(\PhpParser\Node\Stmt\Property $property, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
-        if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class)) {
+        if (!$phpDocInfo->hasByType(\Rector\Nette\PhpDoc\Node\NetteInjectTagNode::class)) {
             return \false;
         }
         /** @var Scope $scope */

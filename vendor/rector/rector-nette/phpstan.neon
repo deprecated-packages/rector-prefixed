@@ -21,10 +21,10 @@ parameters:
         -
             message: '#Parameter "(.*?)" cannot be nullable#'
             paths:
-                 - src/NetteKdyby/ValueObject/*
-                 - src/NetteKdyby/NodeManipulator
-                 - src/Nette/Rector/FuncCall/PregFunctionToNetteUtilsStringsRector.php
-                 - src/Nette/NodeAnalyzer/ReturnAnalyzer.php
+                 - src/Kdyby/ValueObject
+                 - src/Kdyby/NodeManipulator
+                 - src/Rector/FuncCall/PregFunctionToNetteUtilsStringsRector.php
+                 - src/NodeAnalyzer/ReturnAnalyzer.php
 
         # useful nesting
         -
@@ -32,18 +32,15 @@ parameters:
             path: 'config/sets/*'
 
         # fixed on php-parser dev
-        - '#Method Rector\\NetteKdyby\\NodeFactory\\EventValueObjectClassFactory\:\:wrapClassToNamespace\(\) should return PhpParser\\Node\\Stmt\\Namespace_ but returns PhpParser\\Node#'
-
-        # known types, probably make an extension for it?
-        - '#Parameter \#1 \$node of method Rector\\NetteKdyby\\Naming\\VariableNaming\:\:resolveFromMethodCall\(\) expects PhpParser\\Node\\Expr\\MethodCall\|PhpParser\\Node\\Expr\\NullsafeMethodCall\|PhpParser\\Node\\Expr\\StaticCall, PhpParser\\Node given#'
+        - '#Method Rector\\Nette\\Kdyby\\NodeFactory\\EventValueObjectClassFactory\:\:wrapClassToNamespace\(\) should return PhpParser\\Node\\Stmt\\Namespace_ but returns PhpParser\\Node#'
 
         # cleanup later
         -
             message: '#Parameter "eventAndListenerTree" cannot be nullable#'
-            path: src/NetteKdyby/ContributeEventClassResolver.php
+            path: src/Kdyby/ContributeEventClassResolver.php
         -
             message: '#Parameter "node" cannot be nullable#'
-            path: src/Nette/Rector/FuncCall/PregMatchFunctionToNetteUtilsStringsRector.php
+            path: src/Rector/FuncCall/PregMatchFunctionToNetteUtilsStringsRector.php
 
         # fixed on symplify dev-main
         - '#Use decoupled factory service to create "PHPStan\\Type\\MixedType" object#'
@@ -51,12 +48,12 @@ parameters:
         # this is only setter injection of mapper - possibly cover in symplify
         -
             message: '#Do not use factory/method call in constructor\. Put factory in config and get service with dependency injection#'
-            path: src/NetteCodeQuality/NodeResolver/MethodNamesByInputNamesResolver.php
+            path: src/NodeResolver/MethodNamesByInputNamesResolver.php
         -
             message: '#\$this as argument is not allowed\. Refactor method to service composition#'
-            path: src/NetteCodeQuality/NodeResolver/MethodNamesByInputNamesResolver.php
+            path: src/NodeResolver/MethodNamesByInputNamesResolver.php
 
         # refactor later to value object
         -
             message: '#Use another value object over array with string\-keys and objects, array<string, ValueObject\>#'
-            path: src/Nette/ValueObject/TemplateParametersAssigns.php
+            path: src/ValueObject/TemplateParametersAssigns.php

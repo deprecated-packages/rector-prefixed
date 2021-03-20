@@ -11,7 +11,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver;
@@ -30,7 +29,7 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
         // Symfony DI
         \Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode::class,
         // other DI
-        \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class,
+        \Rector\Nette\PhpDoc\Node\NetteInjectTagNode::class,
     ];
     /**
      * @var PropertyVisibilityVendorLockResolver

@@ -5,14 +5,13 @@ namespace Rector\Naming\Naming;
 
 use RectorPrefix20210320\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
-use Rector\NetteKdyby\Naming\VariableNaming;
 final class MethodNameResolver
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\Rector\Naming\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
