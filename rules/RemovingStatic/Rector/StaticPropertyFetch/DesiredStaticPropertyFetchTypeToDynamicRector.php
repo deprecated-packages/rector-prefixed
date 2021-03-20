@@ -8,6 +8,8 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Rector\AbstractRector;
@@ -71,9 +73,16 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        $classObjectType = new \PHPStan\Type\ObjectType($classReflection->getName());
         // A. remove local fetch
         foreach ($this->staticObjectTypes as $staticObjectType) {
-            if (!$this->nodeNameResolver->isInClassNamed($node, $staticObjectType)) {
+            if (!$staticObjectType->isSuperTypeOf($classObjectType)->yes()) {
                 continue;
             }
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $node->name);

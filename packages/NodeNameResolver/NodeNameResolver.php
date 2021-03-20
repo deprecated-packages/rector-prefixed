@@ -9,12 +9,9 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Type\ObjectType;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -23,7 +20,6 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
@@ -52,20 +48,15 @@ final class NodeNameResolver
      */
     private $betterStandardPrinter;
     /**
-     * @var ReflectionProvider
-     */
-    private $reflectionProvider;
-    /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
-    public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $nodeNameResolvers = [])
+    public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\CodingStyle\Naming\ClassNaming $classNaming, array $nodeNameResolvers = [])
     {
         $this->regexPatternDetector = $regexPatternDetector;
         $this->nodeNameResolvers = $nodeNameResolvers;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->classNaming = $classNaming;
-        $this->reflectionProvider = $reflectionProvider;
     }
     /**
      * @param string[] $names
@@ -84,7 +75,7 @@ final class NodeNameResolver
      */
     public function isName($node, string $name) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
             $message = \sprintf('Name called on "%s" is not possible. Use $this->getName($node->name) instead', \get_class($node));
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
@@ -168,37 +159,6 @@ final class NodeNameResolver
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
         return (bool) \RectorPrefix20210320\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
-    }
-    /**
-     * @param ObjectType[] $desiredObjectTypes
-     */
-    public function isInClassNames(\PhpParser\Node $node, array $desiredObjectTypes) : bool
-    {
-        $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classNode === null) {
-            return \false;
-        }
-        foreach ($desiredObjectTypes as $desiredObjectType) {
-            if ($this->isInClassNamed($classNode, $desiredObjectType)) {
-                return \true;
-            }
-        }
-        return \false;
-    }
-    public function isInClassNamed(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : bool
-    {
-        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($className === null) {
-            return \false;
-        }
-        if (!$this->reflectionProvider->hasClass($className)) {
-            return \false;
-        }
-        $classReflection = $this->reflectionProvider->getClass($className);
-        if ($classReflection->getName() === $objectType->getClassName()) {
-            return \true;
-        }
-        return $classReflection->isSubclassOf($objectType->getClassName());
     }
     /**
      * @param string|Name|Identifier|ClassLike $name

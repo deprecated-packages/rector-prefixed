@@ -6,9 +6,12 @@ namespace Rector\RemovingStatic\Rector\Property;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210320\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -64,8 +67,15 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        /** @var Scope $scope */
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        $classObjectType = new \PHPStan\Type\ObjectType($classReflection->getName());
         foreach ($this->staticObjectTypes as $staticObjectType) {
-            if (!$this->nodeNameResolver->isInClassNamed($node, $staticObjectType)) {
+            if (!$staticObjectType->isSuperTypeOf($classObjectType)->yes()) {
                 continue;
             }
             if (!$node->isStatic()) {
