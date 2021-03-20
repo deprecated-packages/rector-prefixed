@@ -46,8 +46,8 @@ final class DocBlockNameImporter
     }
     public function importNames(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $phpParserNode) : void
     {
-        $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
-        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpDocInfo, $phpParserNode) : PhpDocParserNode {
+        $phpDocNode = $phpDocInfo->getPhpDocNode();
+        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpDocInfo, $phpParserNode) : PhpDocParserNode {
             if (!$docNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 return $docNode;
             }
@@ -55,7 +55,7 @@ final class DocBlockNameImporter
             if (!$staticType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
                 return $docNode;
             }
-            $importShortClasses = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
+            $importShortClasses = $this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
             // Importing root namespace classes (like \DateTime) is optional
             if (!$importShortClasses && \substr_count($staticType->getClassName(), '\\') === 0) {
                 return $docNode;

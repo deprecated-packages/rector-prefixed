@@ -30,9 +30,9 @@ final class PhpDocTypeRenamer
     }
     public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
     {
-        $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
+        $phpDocNode = $phpDocInfo->getPhpDocNode();
         $phpParserNode = $node;
-        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode, $phpDocInfo) : PhpDocParserNode {
+        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode, $phpDocInfo) : PhpDocParserNode {
             if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
                 return $node;
             }

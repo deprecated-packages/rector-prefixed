@@ -74,6 +74,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
     }
     public function getPriority() : int
     {
+        // this must run after NodeRemovingPostRector, sine renamed use imports can block next import
         return 600;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition

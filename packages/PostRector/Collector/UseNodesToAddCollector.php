@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\PostRector\Collector;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Use_;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -80,7 +81,19 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     public function getUseImportTypesByNode(\PhpParser\Node $node) : array
     {
         $filePath = $this->getRealPathFromNode($node);
-        return $this->useImportTypesInFilePath[$filePath] ?? [];
+        $objectTypes = $this->useImportTypesInFilePath[$filePath] ?? [];
+        /** @var Use_[] $useNodes */
+        $useNodes = (array) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
+        foreach ($useNodes as $useNode) {
+            foreach ($useNode->uses as $useUse) {
+                if ($useUse->alias === null) {
+                    $objectTypes[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType((string) $useUse->name);
+                } else {
+                    $objectTypes[] = new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($useUse->alias->toString(), (string) $useUse->name);
+                }
+            }
+        }
+        return $objectTypes;
     }
     public function hasImport(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {

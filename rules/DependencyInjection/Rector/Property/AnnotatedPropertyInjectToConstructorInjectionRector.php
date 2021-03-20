@@ -12,7 +12,6 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
@@ -118,7 +117,7 @@ CODE_SAMPLE
         }
         foreach (self::INJECT_TAG_VALUE_NODE_TYPES as $tagValueNodeType) {
             $injectTagValueNode = $phpDocInfo->getByType($tagValueNodeType);
-            if ($injectTagValueNode === null) {
+            if (!$injectTagValueNode instanceof \PHPStan\PhpDocParser\Ast\Node) {
                 continue;
             }
             if ($this->injectParameterAnalyzer->isParameterInject($injectTagValueNode)) {
@@ -137,7 +136,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode $tagValueNode) : void
+    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \PHPStan\PhpDocParser\Ast\Node $tagValueNode) : void
     {
         $propertyName = $this->getName($property);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);

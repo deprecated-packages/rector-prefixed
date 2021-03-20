@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
@@ -139,7 +139,7 @@ CODE_SAMPLE
         if ($this->classMethodVisibilityVendorLockResolver->isChildLockedMethod($classMethod)) {
             return \true;
         }
-        return $phpDocInfo->hasByTypes([\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class]);
+        return $phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class]);
     }
     private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
     {

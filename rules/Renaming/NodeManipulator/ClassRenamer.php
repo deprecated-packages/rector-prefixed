@@ -167,7 +167,13 @@ final class ClassRenamer
         if ($uses->alias !== null) {
             return;
         }
-        $this->nodeRemover->removeNode($uses);
+        // ios the only one? Remove whole use instead to avoid "use ;" constructions
+        $parentUse = $uses->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentUse instanceof \PhpParser\Node\Stmt\Use_ && \count($parentUse->uses) === 1) {
+            $this->nodeRemover->removeNode($parentUse);
+        } else {
+            $this->nodeRemover->removeNode($uses);
+        }
     }
     /**
      * @param array<string, string> $oldToNewClasses

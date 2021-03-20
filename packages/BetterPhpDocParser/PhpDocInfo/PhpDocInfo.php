@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
-use PhpParser\Node;
-use PHPStan\PhpDocParser\Ast\Node as PhpDocNode;
+use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
@@ -16,7 +16,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
 use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface;
@@ -52,11 +51,11 @@ final class PhpDocInfo
      */
     private $tokens = [];
     /**
-     * @var AttributeAwarePhpDocNode
+     * @var PhpDocNode
      */
     private $phpDocNode;
     /**
-     * @var AttributeAwarePhpDocNode
+     * @var PhpDocNode
      */
     private $originalPhpDocNode;
     /**
@@ -64,7 +63,7 @@ final class PhpDocInfo
      */
     private $staticTypeMapper;
     /**
-     * @var Node
+     * @var \PhpParser\Node
      */
     private $node;
     /**
@@ -86,11 +85,11 @@ final class PhpDocInfo
     /**
      * @param mixed[] $tokens
      */
-    public function __construct(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode, array $tokens, string $originalContent, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
+    public function __construct(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, array $tokens, string $originalContent, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
-        $this->phpDocNode = $attributeAwarePhpDocNode;
+        $this->phpDocNode = $phpDocNode;
         $this->tokens = $tokens;
-        $this->originalPhpDocNode = clone $attributeAwarePhpDocNode;
+        $this->originalPhpDocNode = clone $phpDocNode;
         $this->originalContent = $originalContent;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->node = $node;
@@ -112,11 +111,11 @@ final class PhpDocInfo
         $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode($shortNameAwareTag->getShortName(), $shortNameAwareTag);
         $this->addPhpDocTagNode($spacelessPhpDocTagNode);
     }
-    public function getPhpDocNode() : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode
+    public function getPhpDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
         return $this->phpDocNode;
     }
-    public function getOriginalPhpDocNode() : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode
+    public function getOriginalPhpDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
         return $this->originalPhpDocNode;
     }
@@ -150,8 +149,8 @@ final class PhpDocInfo
     }
     public function getParamType(string $name) : \PHPStan\Type\Type
     {
-        $paramTagValueByName = $this->getParamTagValueByName($name);
-        return $this->getTypeOrMixed($paramTagValueByName);
+        $paramTagValueNodes = $this->getParamTagValueByName($name);
+        return $this->getTypeOrMixed($paramTagValueNodes);
     }
     /**
      * @return ParamTagValueNode[]
@@ -214,11 +213,10 @@ final class PhpDocInfo
         return (bool) $this->getTagsByName($name);
     }
     /**
-     * @template T as \PHPStan\PhpDocParser\Ast\Node
-     * @param class-string<T> $type
-     * @return T|null
+     * @param class-string<TNode> $type
+     * @return TNode|null
      */
-    public function getByType(string $type) : ?\PHPStan\PhpDocParser\Ast\Node
+    public function getByType(string $type)
     {
         $this->ensureTypeIsTagValueNode($type, __METHOD__);
         foreach ($this->phpDocNode->children as $phpDocChildNode) {
@@ -261,7 +259,7 @@ final class PhpDocInfo
             }
             $foundTagsValueNodes[] = $phpDocChildNode->value;
         }
-        /** @var \PHPStan\PhpDocParser\Ast\Node[] $foundTagsValueNodes */
+        /** @var Node[] $foundTagsValueNodes */
         return $foundTagsValueNodes;
     }
     /**
@@ -331,7 +329,14 @@ final class PhpDocInfo
     }
     public function getParamTagValueByName(string $name) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
     {
-        return $this->phpDocNode->getParam($name);
+        $desiredParamNameWithDollar = '$' . \ltrim($name, '$');
+        foreach ($this->getParamTagValueNodes() as $paramTagValueNode) {
+            if ($paramTagValueNode->parameterName !== $desiredParamNameWithDollar) {
+                continue;
+            }
+            return $paramTagValueNode;
+        }
+        return null;
     }
     /**
      * @return TemplateTagValueNode[]

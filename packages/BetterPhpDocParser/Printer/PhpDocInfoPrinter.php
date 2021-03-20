@@ -7,13 +7,13 @@ use RectorPrefix20210320\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
@@ -69,9 +69,9 @@ final class PhpDocInfoPrinter
      */
     private $removedNodePositions = [];
     /**
-     * @var AttributeAwarePhpDocNode
+     * @var PhpDocNode
      */
-    private $attributeAwarePhpDocNode;
+    private $phpDocNode;
     /**
      * @var OriginalSpacingRestorer
      */
@@ -80,10 +80,6 @@ final class PhpDocInfoPrinter
      * @var PhpDocInfo
      */
     private $phpDocInfo;
-    /**
-     * @var MultilineSpaceFormatPreserver
-     */
-    private $multilineSpaceFormatPreserver;
     /**
      * @var SpacePatternFactory
      */
@@ -96,10 +92,9 @@ final class PhpDocInfoPrinter
      * @var DocBlockInliner
      */
     private $docBlockInliner;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\BetterPhpDocParser\Printer\OriginalSpacingRestorer $originalSpacingRestorer, \Rector\BetterPhpDocParser\Printer\SpacePatternFactory $spacePatternFactory, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\OriginalSpacingRestorer $originalSpacingRestorer, \Rector\BetterPhpDocParser\Printer\SpacePatternFactory $spacePatternFactory, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner)
     {
         $this->originalSpacingRestorer = $originalSpacingRestorer;
-        $this->multilineSpaceFormatPreserver = $multilineSpaceFormatPreserver;
         $this->spacePatternFactory = $spacePatternFactory;
         $this->emptyPhpDocDetector = $emptyPhpDocDetector;
         $this->docBlockInliner = $docBlockInliner;
@@ -110,7 +105,8 @@ final class PhpDocInfoPrinter
         if ($phpDocInfo->isSingleLine()) {
             return $this->docBlockInliner->inline($docContent);
         }
-        return $docContent;
+        // fix missing newline in the end of docblock
+        return \RectorPrefix20210320\Nette\Utils\Strings::replace($docContent, '#\\*/$#', "\n */");
     }
     /**
      * As in php-parser
@@ -131,28 +127,28 @@ final class PhpDocInfoPrinter
             }
             return (string) $phpDocInfo->getPhpDocNode();
         }
-        $this->attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
+        $this->phpDocNode = $phpDocInfo->getPhpDocNode();
         $this->tokens = $phpDocInfo->getTokens();
         $this->tokenCount = $phpDocInfo->getTokenCount();
         $this->phpDocInfo = $phpDocInfo;
         $this->currentTokenPosition = 0;
         $this->removedNodePositions = [];
-        $phpDocString = $this->printPhpDocNode($this->attributeAwarePhpDocNode);
+        $phpDocString = $this->printPhpDocNode($this->phpDocNode);
         $phpDocString = $this->removeExtraSpacesAfterAsterisk($phpDocString);
         // hotfix of extra space with callable ()
         return \RectorPrefix20210320\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
     }
-    private function printPhpDocNode(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode) : string
+    private function printPhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : string
     {
         // no nodes were, so empty doc
-        if ($this->emptyPhpDocDetector->isPhpDocNodeEmpty($attributeAwarePhpDocNode)) {
+        if ($this->emptyPhpDocDetector->isPhpDocNodeEmpty($phpDocNode)) {
             return '';
         }
         $this->currentTokenPosition = 0;
         $output = '';
         // node output
-        $nodeCount = \count($attributeAwarePhpDocNode->children);
-        foreach ($attributeAwarePhpDocNode->children as $key => $phpDocChildNode) {
+        $nodeCount = \count($phpDocNode->children);
+        foreach ($phpDocNode->children as $key => $phpDocChildNode) {
             $output .= $this->printNode($phpDocChildNode, null, $key + 1, $nodeCount);
         }
         $output = $this->printEnd($output);
@@ -175,7 +171,7 @@ final class PhpDocInfoPrinter
         $output = '';
         /** @var StartAndEnd|null $startAndEnd */
         $startAndEnd = $node->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END) ?: $startAndEnd;
-        $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($node);
+        //        $this->multilineSpaceFormatPreserver->fixMultilineDescriptions($node);
         if ($startAndEnd !== null) {
             $isLastToken = $nodeCount === $key;
             $output = $this->addTokensFromTo($output, $this->currentTokenPosition, $startAndEnd->getStart(), $isLastToken);
@@ -195,7 +191,7 @@ final class PhpDocInfoPrinter
     }
     private function printEnd(string $output) : string
     {
-        $lastTokenPosition = $this->attributeAwarePhpDocNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
+        $lastTokenPosition = $this->phpDocNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
         if ($lastTokenPosition === 0) {
             $lastTokenPosition = 1;
         }
@@ -255,7 +251,7 @@ final class PhpDocInfoPrinter
         if ($this->removedNodePositions !== []) {
             return $this->removedNodePositions;
         }
-        $removedNodes = \array_diff($this->phpDocInfo->getOriginalPhpDocNode()->children, $this->attributeAwarePhpDocNode->children);
+        $removedNodes = \array_diff($this->phpDocInfo->getOriginalPhpDocNode()->children, $this->phpDocNode->children);
         $lastEndPosition = null;
         foreach ($removedNodes as $removedNode) {
             /** @var StartAndEnd $removedPhpDocNodeInfo */

@@ -46,6 +46,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
             return $this->processToManyRelation($relationTagValueNode);
         }
         if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface) {
+            /** @var JoinColumnTagValueNode $joinColumnTagValueNode */
             $joinColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
             return $this->processToOneRelation($relationTagValueNode, $joinColumnTagValueNode);
         }

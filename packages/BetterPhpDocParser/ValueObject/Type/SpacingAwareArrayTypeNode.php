@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace Rector\BetterPhpDocParser\ValueObject\Type;
 
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use Rector\PHPStanStaticTypeMapper\TypeMapper\ArrayTypeMapper;
-final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
+final class SpacingAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
 {
     public function __toString() : string
     {
@@ -22,7 +22,7 @@ final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\A
         if ($this->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
             return $this->printArrayType($this->type);
         }
-        if ($this->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode) {
+        if ($this->type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode) {
             return $this->printUnionType($this->type);
         }
         return $typeAsString . '[]';
@@ -43,13 +43,13 @@ final class AttributeAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\A
         }
         return \implode('|', $singleTypesAsString);
     }
-    private function printUnionType(\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode $attributeAwareUnionTypeNode) : string
+    private function printUnionType(\Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode $bracketsAwareUnionTypeNode) : string
     {
         $unionedTypes = [];
-        if ($attributeAwareUnionTypeNode->isWrappedWithBrackets()) {
-            return $attributeAwareUnionTypeNode . '[]';
+        if ($bracketsAwareUnionTypeNode->isWrappedWithBrackets()) {
+            return $bracketsAwareUnionTypeNode . '[]';
         }
-        foreach ($attributeAwareUnionTypeNode->types as $unionedType) {
+        foreach ($bracketsAwareUnionTypeNode->types as $unionedType) {
             $unionedTypes[] = $unionedType . '[]';
         }
         return \implode('|', $unionedTypes);

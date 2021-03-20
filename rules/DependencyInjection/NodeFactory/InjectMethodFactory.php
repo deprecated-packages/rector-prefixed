@@ -6,8 +6,8 @@ namespace Rector\DependencyInjection\NodeFactory;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\FrameworkName;
@@ -66,7 +66,7 @@ final class InjectMethodFactory
         $classMethod = $methodBuilder->getNode();
         if ($framework === \Rector\Core\ValueObject\FrameworkName::SYMFONY) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-            $phpDocInfo->addPhpDocTagNode(new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode());
+            $phpDocInfo->addPhpDocTagNode(new \Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode());
         }
         return $classMethod;
     }

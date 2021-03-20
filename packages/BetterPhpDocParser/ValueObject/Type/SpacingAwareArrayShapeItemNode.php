@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace Rector\BetterPhpDocParser\ValueObject\Type;
 
 use RectorPrefix20210320\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
@@ -9,7 +9,7 @@ use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode
+final class SpacingAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode
 {
     /**
      * @var bool
