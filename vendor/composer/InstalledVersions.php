@@ -240,6 +240,16 @@ private static $installed = array (
         0 => 'dev-main',
       ),
     ),
+    'rector/rector-cakephp' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => 'f054eeca3b6be582ace24f9d1216b43f20062f97',
+    ),
     'rector/rector-laravel' => 
     array (
       'pretty_version' => 'dev-main',

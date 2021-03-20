@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Set\ValueObject;
 
+use Rector\CakePHP\Sets\CakePHPSetList;
 use Rector\Laravel\Set\LaravelSetList;
 use Rector\PHPUnit\Sets\PHPUnitSetList;
 use Rector\Set\Contract\SetListInterface;
@@ -21,45 +22,65 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION = __DIR__ . '/../../../config/set/action-injection-to-constructor-injection.php';
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_30 = __DIR__ . '/../../../config/set/cakephp30.php';
+    public const CAKEPHP_30 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_30;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_34 = __DIR__ . '/../../../config/set/cakephp34.php';
+    public const CAKEPHP_34 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_34;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_35 = __DIR__ . '/../../../config/set/cakephp35.php';
+    public const CAKEPHP_35 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_35;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_36 = __DIR__ . '/../../../config/set/cakephp36.php';
+    public const CAKEPHP_36 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_36;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_37 = __DIR__ . '/../../../config/set/cakephp37.php';
+    public const CAKEPHP_37 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_37;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_38 = __DIR__ . '/../../../config/set/cakephp38.php';
+    public const CAKEPHP_38 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_38;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_40 = __DIR__ . '/../../../config/set/cakephp40.php';
+    public const CAKEPHP_40 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_40;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_41 = __DIR__ . '/../../../config/set/cakephp41.php';
+    public const CAKEPHP_41 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_41;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_42 = __DIR__ . '/../../../config/set/cakephp42.php';
+    public const CAKEPHP_42 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_42;
     /**
+     * @deprecated
+     * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_FLUENT_OPTIONS = __DIR__ . '/../../../config/set/cakephp-fluent-options.php';
+    public const CAKEPHP_FLUENT_OPTIONS = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_FLUENT_OPTIONS;
     /**
      * @var string
      */

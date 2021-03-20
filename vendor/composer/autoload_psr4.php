@@ -14,6 +14,7 @@ return array(
     'Rector\\Laravel\\' => array($vendorDir . '/rector/rector-laravel/src'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
+    'Rector\\CakePHP\\' => array($vendorDir . '/rector/rector-cakephp/src'),
     'Rector\\' => array($baseDir . '/packages', $baseDir . '/rules', $vendorDir . '/rector/rector-nette/src', $vendorDir . '/rector/rector-symfony/src'),
     'RectorPrefix20210320\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'RectorPrefix20210320\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
