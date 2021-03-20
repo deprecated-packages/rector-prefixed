@@ -5,6 +5,7 @@
     'version' => 'dev-main',
     'aliases' => 
     array (
+      0 => '0.10.x-dev',
     ),
     'reference' => NULL,
     'name' => 'rector/rector',
@@ -209,6 +210,7 @@
       'version' => 'dev-main',
       'aliases' => 
       array (
+        0 => '0.10.x-dev',
       ),
       'reference' => NULL,
     ),
@@ -256,7 +258,8 @@
     array (
       'replaced' => 
       array (
-        0 => 'dev-main',
+        0 => '0.10.x-dev',
+        1 => 'dev-main',
       ),
     ),
     'rector/rector-symfony' => 

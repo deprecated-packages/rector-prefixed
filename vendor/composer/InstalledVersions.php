@@ -29,6 +29,7 @@ private static $installed = array (
     'version' => 'dev-main',
     'aliases' => 
     array (
+      0 => '0.10.x-dev',
     ),
     'reference' => NULL,
     'name' => 'rector/rector',
@@ -233,6 +234,7 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
+        0 => '0.10.x-dev',
       ),
       'reference' => NULL,
     ),
@@ -280,7 +282,8 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'dev-main',
+        0 => '0.10.x-dev',
+        1 => 'dev-main',
       ),
     ),
     'rector/rector-symfony' => 
