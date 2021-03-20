@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace RectorPrefix20210320\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method')) {
+if (\class_exists('RectorPrefix20210320\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method')) {
     return;
 }
 /**
  * @Annotation
  */
-class Method extends \RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class Method extends \RectorPrefix20210320\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * An array of restricted HTTP methods.

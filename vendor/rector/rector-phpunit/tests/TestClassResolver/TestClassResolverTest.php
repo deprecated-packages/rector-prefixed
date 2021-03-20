@@ -8,8 +8,8 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\PHPUnit\TestClassResolver\TestClassResolver;
 use Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClass;
 use Rector\Tests\PHPUnit\TestClassResolver\Source\SeeSomeClassTest;
-use RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TestClassResolverTest extends \RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TestClassResolverTest extends \RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TestClassResolver

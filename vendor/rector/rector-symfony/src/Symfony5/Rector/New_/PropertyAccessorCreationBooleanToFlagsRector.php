@@ -63,19 +63,19 @@ CODE_SAMPLE
         if (!$new->class instanceof \PhpParser\Node\Name) {
             return \true;
         }
-        if (!$this->isName($new->class, 'RectorPrefix20210319\\Symfony\\Component\\PropertyAccess\\PropertyAccessor')) {
+        if (!$this->isName($new->class, 'RectorPrefix20210320\\Symfony\\Component\\PropertyAccess\\PropertyAccessor')) {
             return \true;
         }
         return !$this->valueResolver->isTrueOrFalse($new->args[0]->value);
     }
     private function prepareFlags(bool $currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $magicGetClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210319\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
-        $magicSetClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210319\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
+        $magicGetClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210320\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
+        $magicSetClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210320\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
         if (!$currentValue) {
             return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($magicGetClassConstFetch, $magicSetClassConstFetch);
         }
-        $magicCallClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210319\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL');
+        $magicCallClassConstFetch = $this->nodeFactory->createClassConstFetch('RectorPrefix20210320\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL');
         return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($magicCallClassConstFetch, $magicGetClassConstFetch), $magicSetClassConstFetch);
     }
 }

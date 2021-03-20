@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Symfony\Component\Validator\Constraints;
+namespace RectorPrefix20210320\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('RectorPrefix20210319\\Symfony\\Component\\Validator\\Constraints\\Email')) {
+if (\class_exists('RectorPrefix20210320\\Symfony\\Component\\Validator\\Constraints\\Email')) {
     return;
 }
-use RectorPrefix20210319\Symfony\Component\Validator\Constraint;
+use RectorPrefix20210320\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class Email extends \RectorPrefix20210319\Symfony\Component\Validator\Constraint
+class Email extends \RectorPrefix20210320\Symfony\Component\Validator\Constraint
 {
     public const VALIDATION_MODE_HTML5 = 'html5';
     public const VALIDATION_MODE_STRICT = 'strict';

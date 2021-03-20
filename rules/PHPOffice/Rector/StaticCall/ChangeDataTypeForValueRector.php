@@ -6,6 +6,7 @@ namespace Rector\PHPOffice\Rector\StaticCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -50,7 +51,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Cell_DataType', 'dataTypeForValue')) {
+        $callerType = $this->nodeTypeResolver->resolve($node->class);
+        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_Cell_DataType'))->yes()) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node->name, 'dataTypeForValue')) {
             return null;
         }
         $node->class = new \PhpParser\Node\Name\FullyQualified('PhpOffice\\PhpSpreadsheet\\Cell\\DefaultValueBinder');

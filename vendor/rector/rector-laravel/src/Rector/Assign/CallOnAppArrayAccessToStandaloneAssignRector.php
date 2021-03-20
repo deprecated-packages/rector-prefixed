@@ -30,7 +30,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
     private $appAssignFactory;
     public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'RectorPrefix20210319\\Illuminate\\Validation\\Factory', 'validationFactory');
+        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'RectorPrefix20210320\\Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
@@ -53,7 +53,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $arrayDimFetch = $methodCall->var;
-        if (!$this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Illuminate\\Contracts\\Foundation\\Application'))) {
+        if (!$this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Illuminate\\Contracts\\Foundation\\Application'))) {
             return null;
         }
         $arrayDimFetchDim = $methodCall->var->dim;

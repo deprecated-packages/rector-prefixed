@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Tests\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\Source;
 
-use RectorPrefix20210319\PHPUnit\Framework\TestCase;
-abstract class AbstractClassWithAssert extends \RectorPrefix20210319\PHPUnit\Framework\TestCase
+use RectorPrefix20210320\PHPUnit\Framework\TestCase;
+abstract class AbstractClassWithAssert extends \RectorPrefix20210320\PHPUnit\Framework\TestCase
 {
     public function doAssertThis()
     {

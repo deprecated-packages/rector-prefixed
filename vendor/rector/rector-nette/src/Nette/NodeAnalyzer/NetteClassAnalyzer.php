@@ -28,12 +28,12 @@ final class NetteClassAnalyzer
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\Application\\UI\\Control'))) {
+        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Control'))) {
             return \false;
         }
-        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\Application\\UI\\Control'))) {
+        if (!$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Control'))) {
             return \false;
         }
-        return !$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\Application\\UI\\Presenter'));
+        return !$this->nodeTypeResolver->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Presenter'));
     }
 }

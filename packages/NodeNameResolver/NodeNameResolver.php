@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use RectorPrefix20210319\Nette\Utils\Strings;
+use RectorPrefix20210320\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
@@ -25,7 +24,7 @@ use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
     /**
@@ -168,52 +167,7 @@ final class NodeNameResolver
     public function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \RectorPrefix20210319\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
-    }
-    public function isLocalMethodCallNamed(\PhpParser\Node $node, string $name) : bool
-    {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \false;
-        }
-        if ($node->var instanceof \PhpParser\Node\Expr\StaticCall) {
-            return \false;
-        }
-        if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \false;
-        }
-        if (!$this->isName($node->var, 'this')) {
-            return \false;
-        }
-        return $this->isName($node->name, $name);
-    }
-    /**
-     * @param string[] $names
-     */
-    public function isLocalMethodCallsNamed(\PhpParser\Node $node, array $names) : bool
-    {
-        foreach ($names as $name) {
-            if ($this->isLocalMethodCallNamed($node, $name)) {
-                return \true;
-            }
-        }
-        return \false;
-    }
-    /**
-     * @deprecated Helper function causes to lose the type on the outside. Better avoid it
-     */
-    public function isStaticCallNamed(\PhpParser\Node $node, string $className, string $methodName) : bool
-    {
-        if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return \false;
-        }
-        if ($node->class instanceof \PhpParser\Node\Expr\New_) {
-            if (!$this->isName($node->class->class, $className)) {
-                return \false;
-            }
-        } elseif (!$this->isName($node->class, $className)) {
-            return \false;
-        }
-        return $this->isName($node->name, $methodName);
+        return (bool) \RectorPrefix20210320\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     /**
      * @param ObjectType[] $desiredObjectTypes
@@ -272,7 +226,7 @@ final class NodeNameResolver
     {
         $message = \sprintf('Pick more specific node than "%s", e.g. "$node->name"', \get_class($node));
         $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($fileInfo instanceof \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo) {
             $message .= \PHP_EOL . \PHP_EOL;
             $message .= \sprintf('Caused in "%s" file on line %d on code "%s"', $fileInfo->getRelativeFilePathFromCwd(), $node->getStartLine(), $this->betterStandardPrinter->print($node));
         }
@@ -281,7 +235,7 @@ final class NodeNameResolver
         if ($rectorBacktrace) {
             // issues to find the file in prefixed
             if (\file_exists($rectorBacktrace[self::FILE])) {
-                $fileInfo = new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
+                $fileInfo = new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
                 $fileAndLine = $fileInfo->getRelativeFilePathFromCwd() . ':' . $rectorBacktrace['line'];
             } else {
                 $fileAndLine = $rectorBacktrace[self::FILE] . ':' . $rectorBacktrace['line'];
@@ -324,10 +278,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \RectorPrefix20210319\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \RectorPrefix20210320\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\RectorPrefix20210319\Nette\Utils\Strings::contains($name, '*')) {
+        if (\RectorPrefix20210320\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case

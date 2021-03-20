@@ -5,6 +5,7 @@ namespace Rector\MockeryToProphecy\Rector\StaticCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -37,7 +38,11 @@ final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$this->nodeNameResolver->isStaticCallNamed($node, 'Mockery', 'close')) {
+        $callerType = $this->nodeTypeResolver->resolve($node->class);
+        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('Mockery'))->yes()) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'close')) {
             return null;
         }
         $this->removeNode($node);

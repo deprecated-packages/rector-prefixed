@@ -32,7 +32,7 @@ final class VarDumperTestTraitMethodArgsRector extends \Rector\Core\Rector\Abstr
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait'))) {
             return null;
         }
         if (!$this->isNames($node->name, ['assertDumpEquals', 'assertDumpMatchesFormat'])) {

@@ -10,7 +10,7 @@ use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayShapeItemNode;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
 use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeAwareNodeFactoryAwareInterface;
 use Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
-use RectorPrefix20210319\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210320\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactoryTest
  */
@@ -27,7 +27,7 @@ final class AttributeAwareNodeFactory
     /**
      * @param AttributeNodeAwareFactoryInterface[] $attributeAwareNodeFactories
      */
-    public function __construct(array $attributeAwareNodeFactories, \RectorPrefix20210319\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
+    public function __construct(array $attributeAwareNodeFactories, \RectorPrefix20210320\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
     {
         foreach ($attributeAwareNodeFactories as $attributeAwareNodeFactory) {
             // prevents cyclic dependency

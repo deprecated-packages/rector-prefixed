@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Symfony\Component\Validator\Constraints;
+namespace RectorPrefix20210320\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('RectorPrefix20210319\\Symfony\\Component\\Validator\\Constraints\\Range')) {
+if (\class_exists('RectorPrefix20210320\\Symfony\\Component\\Validator\\Constraints\\Range')) {
     return;
 }
-use RectorPrefix20210319\Symfony\Component\Validator\Constraint;
+use RectorPrefix20210320\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class Range extends \RectorPrefix20210319\Symfony\Component\Validator\Constraint
+class Range extends \RectorPrefix20210320\Symfony\Component\Validator\Constraint
 {
     public $notInRangeMessage = 'This value should be between {{ min }} and {{ max }}.';
     public $minMessage = 'This value should be {{ limit }} or more.';

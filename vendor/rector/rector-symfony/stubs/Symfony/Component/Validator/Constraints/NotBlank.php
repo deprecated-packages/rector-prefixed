@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Symfony\Component\Validator\Constraints;
+namespace RectorPrefix20210320\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('RectorPrefix20210319\\Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
+if (\class_exists('RectorPrefix20210320\\Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
     return;
 }
 use InvalidArgumentException;
-use RectorPrefix20210319\Symfony\Component\Validator\Constraint;
+use RectorPrefix20210320\Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class NotBlank extends \RectorPrefix20210319\Symfony\Component\Validator\Constraint
+class NotBlank extends \RectorPrefix20210320\Symfony\Component\Validator\Constraint
 {
     const IS_BLANK_ERROR = 'c1051bb4-d103-4f74-8988-acbcafc7fdc3';
     protected static $errorNames = [self::IS_BLANK_ERROR => 'IS_BLANK_ERROR'];

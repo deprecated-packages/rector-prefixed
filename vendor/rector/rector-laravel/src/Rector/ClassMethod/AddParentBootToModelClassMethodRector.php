@@ -34,7 +34,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210319\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210320\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -73,7 +73,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
-        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Illuminate\\Database\\Eloquent\\Model'))) {
+        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Illuminate\\Database\\Eloquent\\Model'))) {
             return null;
         }
         if (!$this->isName($node->name, self::BOOT)) {

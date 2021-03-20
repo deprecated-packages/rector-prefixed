@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -46,7 +47,11 @@ CODE_SAMPLE
         if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-        if (!$this->nodeNameResolver->isStaticCallNamed($node, 'ReflectionFunction', 'export')) {
+        $callerType = $this->nodeTypeResolver->resolve($node->class);
+        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('ReflectionFunction'))->yes()) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'export')) {
             return null;
         }
         $new = new \PhpParser\Node\Expr\New_($node->class, [new \PhpParser\Node\Arg($node->args[0]->value)]);

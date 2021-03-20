@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use RectorPrefix20210319\Nette\Utils\Strings;
+use RectorPrefix20210320\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -55,12 +55,12 @@ final class MultilineSpaceFormatPreserver
     {
         /** @var string $originalContent */
         $originalContent = $node->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT);
-        $oldSpaces = \RectorPrefix20210319\Nette\Utils\Strings::matchAll($originalContent, '#\\s+#ms');
+        $oldSpaces = \RectorPrefix20210320\Nette\Utils\Strings::matchAll($originalContent, '#\\s+#ms');
         $currentText = $this->resolveCurrentPhpDocNodeText($node);
         if ($currentText === null) {
             return null;
         }
-        $newParts = \RectorPrefix20210319\Nette\Utils\Strings::split($currentText, '#\\s+#');
+        $newParts = \RectorPrefix20210320\Nette\Utils\Strings::split($currentText, '#\\s+#');
         // we can't do this!
         if (\count($oldSpaces) + 1 !== \count($newParts)) {
             return null;
@@ -69,9 +69,9 @@ final class MultilineSpaceFormatPreserver
         foreach ($newParts as $key => $newPart) {
             $newText .= $newPart;
             if (isset($oldSpaces[$key])) {
-                if (\RectorPrefix20210319\Nette\Utils\Strings::match($oldSpaces[$key][0], self::NEWLINE_WITH_SPACE_REGEX)) {
+                if (\RectorPrefix20210320\Nette\Utils\Strings::match($oldSpaces[$key][0], self::NEWLINE_WITH_SPACE_REGEX)) {
                     // remove last extra space
-                    $oldSpaces[$key][0] = \RectorPrefix20210319\Nette\Utils\Strings::substring($oldSpaces[$key][0], 0, -1);
+                    $oldSpaces[$key][0] = \RectorPrefix20210320\Nette\Utils\Strings::substring($oldSpaces[$key][0], 0, -1);
                 }
                 $newText .= $oldSpaces[$key][0];
             }

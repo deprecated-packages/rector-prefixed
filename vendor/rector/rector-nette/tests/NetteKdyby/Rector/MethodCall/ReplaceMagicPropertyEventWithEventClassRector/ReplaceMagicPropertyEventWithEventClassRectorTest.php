@@ -5,18 +5,18 @@ namespace Rector\Tests\NetteKdyby\Rector\MethodCall\ReplaceMagicPropertyEventWit
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceMagicPropertyEventWithEventClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     public function testSkip() : void
     {
-        $fixtureFileInfo = new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/skip_on_success_in_control.php.inc');
+        $fixtureFileInfo = new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/skip_on_success_in_control.php.inc');
         $this->doTestFileInfo($fixtureFileInfo);
     }
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, string $expectedRelativeFilePath, string $expectedContentFilePath) : void
+    public function test(\RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, string $expectedRelativeFilePath, string $expectedContentFilePath) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
         $this->doTestExtraFile($expectedRelativeFilePath, $expectedContentFilePath);
@@ -26,8 +26,8 @@ final class ReplaceMagicPropertyEventWithEventClassRectorTest extends \Rector\Te
      */
     public function provideData() : \Iterator
     {
-        (yield [new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/simple_event.php.inc'), '/Event/FileManagerUploadEvent.php', __DIR__ . '/Source/ExpectedFileManagerUploadEvent.php']);
-        (yield [new \RectorPrefix20210319\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/duplicated_event_params.php.inc'), '/Event/DuplicatedEventParamsUploadEvent.php', __DIR__ . '/Source/ExpectedDuplicatedEventParamsUploadEvent.php']);
+        (yield [new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/simple_event.php.inc'), '/Event/FileManagerUploadEvent.php', __DIR__ . '/Source/ExpectedFileManagerUploadEvent.php']);
+        (yield [new \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/duplicated_event_params.php.inc'), '/Event/DuplicatedEventParamsUploadEvent.php', __DIR__ . '/Source/ExpectedDuplicatedEventParamsUploadEvent.php']);
     }
     protected function provideConfigFilePath() : string
     {

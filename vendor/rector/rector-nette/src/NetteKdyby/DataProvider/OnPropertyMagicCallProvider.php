@@ -18,7 +18,7 @@ final class OnPropertyMagicCallProvider
      *
      * @var string
      */
-    private const CONTROL_CLASS = 'RectorPrefix20210319\\Nette\\Application\\UI\\Control';
+    private const CONTROL_CLASS = 'RectorPrefix20210320\\Nette\\Application\\UI\\Control';
     /**
      * @var MethodCall[]
      */

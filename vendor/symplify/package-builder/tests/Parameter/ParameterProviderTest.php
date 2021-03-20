@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Symplify\PackageBuilder\Tests\Parameter;
+namespace RectorPrefix20210320\Symplify\PackageBuilder\Tests\Parameter;
 
-use RectorPrefix20210319\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210319\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel;
-final class ParameterProviderTest extends \RectorPrefix20210319\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210320\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210320\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel;
+final class ParameterProviderTest extends \RectorPrefix20210320\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     public function test() : void
     {
-        $this->bootKernelWithConfigs(\RectorPrefix20210319\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel::class, [__DIR__ . '/ParameterProviderSource/config.php']);
-        $parameterProvider = $this->getService(\RectorPrefix20210319\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->bootKernelWithConfigs(\RectorPrefix20210320\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel::class, [__DIR__ . '/ParameterProviderSource/config.php']);
+        $parameterProvider = $this->getService(\RectorPrefix20210320\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $parameters = $parameterProvider->provide();
         $this->assertArrayHasKey('key', $parameters);
         $this->assertArrayHasKey('camelCase', $parameters);
@@ -27,8 +27,8 @@ final class ParameterProviderTest extends \RectorPrefix20210319\Symplify\Package
     }
     public function testInclude() : void
     {
-        $this->bootKernelWithConfigs(\RectorPrefix20210319\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel::class, [__DIR__ . '/ParameterProviderSource/Yaml/including-config.php']);
-        $parameterProvider = $this->getService(\RectorPrefix20210319\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->bootKernelWithConfigs(\RectorPrefix20210320\Symplify\PackageBuilder\Tests\HttpKernel\PackageBuilderTestKernel::class, [__DIR__ . '/ParameterProviderSource/Yaml/including-config.php']);
+        $parameterProvider = $this->getService(\RectorPrefix20210320\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $parameters = $parameterProvider->provide();
         $this->assertArrayHasKey('one', $parameters);
         $this->assertArrayHasKey('two', $parameters);

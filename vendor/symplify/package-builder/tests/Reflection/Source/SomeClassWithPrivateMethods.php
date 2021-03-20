@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Symplify\PackageBuilder\Tests\Reflection\Source;
+namespace RectorPrefix20210320\Symplify\PackageBuilder\Tests\Reflection\Source;
 
 final class SomeClassWithPrivateMethods
 {

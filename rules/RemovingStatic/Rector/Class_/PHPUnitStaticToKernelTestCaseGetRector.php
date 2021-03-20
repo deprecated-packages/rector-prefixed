@@ -11,7 +11,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
@@ -22,6 +21,7 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use Rector\RemovingStatic\NodeAnalyzer\SetUpClassMethodUpdater;
 use Rector\RemovingStatic\NodeFactory\SelfContainerFactory;
 use Rector\RemovingStatic\NodeFactory\SetUpFactory;
 use Rector\RemovingStatic\ValueObject\PHPUnitClass;
@@ -65,27 +65,32 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      * @var SelfContainerFactory
      */
     private $selfContainerFactory;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory, \Rector\RemovingStatic\NodeFactory\SelfContainerFactory $selfContainerFactory)
+    /**
+     * @var SetUpClassMethodUpdater
+     */
+    private $setUpClassMethodUpdater;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \Rector\RemovingStatic\NodeFactory\SetUpFactory $setUpFactory, \Rector\RemovingStatic\NodeFactory\SelfContainerFactory $selfContainerFactory, \Rector\RemovingStatic\NodeAnalyzer\SetUpClassMethodUpdater $setUpClassMethodUpdater)
     {
         $this->propertyNaming = $propertyNaming;
         $this->classInsertManipulator = $classInsertManipulator;
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
         $this->setUpFactory = $setUpFactory;
         $this->selfContainerFactory = $selfContainerFactory;
+        $this->setUpClassMethodUpdater = $setUpClassMethodUpdater;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210319;
+namespace RectorPrefix20210320;
 
-use RectorPrefix20210319\PHPUnit\Framework\TestCase;
-final class SomeTestCase extends \RectorPrefix20210319\PHPUnit\Framework\TestCase
+use RectorPrefix20210320\PHPUnit\Framework\TestCase;
+final class SomeTestCase extends \RectorPrefix20210320\PHPUnit\Framework\TestCase
 {
     public function test()
     {
-        $product = \RectorPrefix20210319\EntityFactory::create('product');
+        $product = \RectorPrefix20210320\EntityFactory::create('product');
     }
 }
 \class_alias('SomeTestCase', 'SomeTestCase', \false);
@@ -193,7 +198,7 @@ CODE_SAMPLE
             $setupClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);
             // get setup or create a setup add add it there
             if ($setupClassMethod !== null) {
-                $this->updateSetUpMethod($setupClassMethod, $parentSetUpStaticCallExpression, $assign);
+                $this->setUpClassMethodUpdater->updateSetUpMethod($setupClassMethod, $parentSetUpStaticCallExpression, $assign);
             } else {
                 $setUpMethod = $this->setUpClassMethodFactory->createSetUpMethod([$assign]);
                 $this->classInsertManipulator->addAsFirstMethod($class, $setUpMethod);
@@ -236,13 +241,14 @@ CODE_SAMPLE
         return $methodCall;
     }
     /**
-     * @param ObjectType[] $newProperties
+     * @param ObjectType[] $propertyTypes
      */
-    private function addNewPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $newProperties) : \PhpParser\Node\Stmt\Class_
+    private function addNewPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $propertyTypes) : \PhpParser\Node\Stmt\Class_
     {
         $properties = [];
-        foreach ($newProperties as $newProperty) {
-            $properties[] = $this->createPropertyFromType($newProperty);
+        foreach ($propertyTypes as $propertyType) {
+            $propertyName = $this->propertyNaming->fqnToVariableName($propertyType);
+            $properties[] = $this->nodeFactory->createPrivatePropertyFromNameAndType($propertyName, $propertyType);
         }
         // add property to the start of the class
         $class->stmts = \array_merge($properties, $class->stmts);
@@ -255,33 +261,5 @@ CODE_SAMPLE
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $getMethodCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
-    }
-    private function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign) : void
-    {
-        $parentSetUpStaticCallPosition = $this->getParentSetUpStaticCallPosition($setupClassMethod);
-        if ($parentSetUpStaticCallPosition === null) {
-            $setupClassMethod->stmts = \array_merge([$parentSetupStaticCall, $assign], (array) $setupClassMethod->stmts);
-        } else {
-            \assert($setupClassMethod->stmts !== null);
-            \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
-        }
-    }
-    private function createPropertyFromType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
-    {
-        $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        return $this->nodeFactory->createPrivatePropertyFromNameAndType($propertyName, $objectType);
-    }
-    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
-    {
-        foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
-            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
-                $methodStmt = $methodStmt->expr;
-            }
-            if (!$this->nodeNameResolver->isStaticCallNamed($methodStmt, 'parent', \Rector\Core\ValueObject\MethodName::SET_UP)) {
-                continue;
-            }
-            return $position;
-        }
-        return null;
     }
 }

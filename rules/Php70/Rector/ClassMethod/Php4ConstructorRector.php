@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\Php70\Rector\ClassMethod;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -79,7 +81,7 @@ CODE_SAMPLE
         if (\count($node->stmts) === 1) {
             /** @var Expression $stmt */
             $stmt = $node->stmts[0];
-            if ($this->nodeNameResolver->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+            if ($this->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
                 $this->removeNode($node);
                 return null;
             }
@@ -162,5 +164,21 @@ CODE_SAMPLE
             return null;
         }
         return $parentClassReflection->getName();
+    }
+    private function isLocalMethodCallNamed(\PhpParser\Node\Expr $expr, string $name) : bool
+    {
+        if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
+        if ($expr->var instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \false;
+        }
+        if ($expr->var instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
+        if (!$this->isName($expr->var, 'this')) {
+            return \false;
+        }
+        return $this->isName($expr->name, $name);
     }
 }

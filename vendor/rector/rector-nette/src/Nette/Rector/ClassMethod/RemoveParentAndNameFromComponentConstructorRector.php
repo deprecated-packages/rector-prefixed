@@ -58,7 +58,7 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
         $this->staticCallAnalyzer = $staticCallAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
         $this->paramFinder = $paramFinder;
-        $this->controlObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\Application\\UI\\Control');
+        $this->controlObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Control');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -105,7 +105,7 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return $this->refactorStaticCall($node);
         }
-        if ($this->isObjectType($node->class, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\Application\\UI\\Control'))) {
+        if ($this->isObjectType($node->class, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Control'))) {
             $this->refactorNew($node);
             return $node;
         }
@@ -173,7 +173,7 @@ CODE_SAMPLE
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         // presenter is not a component
-        if ($classReflection->isSubclassOf('RectorPrefix20210319\\Nette\\Application\\UI\\Presenter')) {
+        if ($classReflection->isSubclassOf('RectorPrefix20210320\\Nette\\Application\\UI\\Presenter')) {
             return \false;
         }
         return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
@@ -184,7 +184,7 @@ CODE_SAMPLE
             if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {
                 continue;
             }
-            if ($this->isObjectType($param, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Nette\\ComponentModel\\IContainer'))) {
+            if ($this->isObjectType($param, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\ComponentModel\\IContainer'))) {
                 $this->removeNode($param);
                 continue;
             }

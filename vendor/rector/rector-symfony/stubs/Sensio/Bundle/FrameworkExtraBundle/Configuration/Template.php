@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace RectorPrefix20210320\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
+if (\class_exists('RectorPrefix20210320\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
     return;
 }
 // mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/Configuration/Template.php, is missing localy
@@ -13,7 +13,7 @@ if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\C
  * @author Fabien Potencier <fabien@symfony.com>
  * @Annotation
  */
-class Template extends \RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
+class Template extends \RectorPrefix20210320\Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationAnnotation
 {
     /**
      * The template.

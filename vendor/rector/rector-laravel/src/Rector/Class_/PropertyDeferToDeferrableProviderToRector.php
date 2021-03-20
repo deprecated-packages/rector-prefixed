@@ -53,7 +53,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Illuminate\\Support\\ServiceProvider'))) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Illuminate\\Support\\ServiceProvider'))) {
             return null;
         }
         $deferProperty = $this->matchDeferWithFalseProperty($node);
@@ -61,7 +61,7 @@ CODE_SAMPLE
             return null;
         }
         $this->removeNode($deferProperty);
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210319\\Illuminate\\Contracts\\Support\\DeferrableProvider');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210320\\Illuminate\\Contracts\\Support\\DeferrableProvider');
         return $node;
     }
     private function matchDeferWithFalseProperty(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property

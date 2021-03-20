@@ -5,8 +5,8 @@ namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
 use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
-use RectorPrefix20210319\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
-final class AttributeAwarePhpDocNode extends \RectorPrefix20210319\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
+use RectorPrefix20210320\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+final class AttributeAwarePhpDocNode extends \RectorPrefix20210320\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
 {
     use NodeAttributes;
     /**

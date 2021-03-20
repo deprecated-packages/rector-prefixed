@@ -111,10 +111,10 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if ($this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Form\\AbstractType'))) {
+        if ($this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Symfony\\Component\\Form\\AbstractType'))) {
             return $this->isName($classMethod->name, 'getParent');
         }
-        if ($this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Form\\AbstractTypeExtension'))) {
+        if ($this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Symfony\\Component\\Form\\AbstractTypeExtension'))) {
             return $this->isName($classMethod->name, 'getExtendedType');
         }
         return \false;

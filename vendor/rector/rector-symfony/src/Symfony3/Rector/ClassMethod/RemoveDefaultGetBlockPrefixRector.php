@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony3\Rector\ClassMethod;
 
-use RectorPrefix20210319\Nette\Utils\Strings;
+use RectorPrefix20210320\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
@@ -13,7 +13,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210319\Stringy\Stringy;
+use RectorPrefix20210320\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -70,10 +70,10 @@ CODE_SAMPLE
             return null;
         }
         $shortClassName = $this->nodeNameResolver->getShortName($className);
-        if (\RectorPrefix20210319\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
-            $shortClassName = (string) \RectorPrefix20210319\Nette\Utils\Strings::before($shortClassName, 'Type');
+        if (\RectorPrefix20210320\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
+            $shortClassName = (string) \RectorPrefix20210320\Nette\Utils\Strings::before($shortClassName, 'Type');
         }
-        $stringy = new \RectorPrefix20210319\Stringy\Stringy($shortClassName);
+        $stringy = new \RectorPrefix20210320\Stringy\Stringy($shortClassName);
         $underscoredClassShortName = (string) $stringy->underscored();
         if ($underscoredClassShortName !== $returnedValue) {
             return null;
@@ -87,7 +87,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if (!$this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('RectorPrefix20210319\\Symfony\\Component\\Form\\AbstractType'))) {
+        if (!$this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Symfony\\Component\\Form\\AbstractType'))) {
             return \false;
         }
         return $this->isName($classMethod->name, 'getBlockPrefix');

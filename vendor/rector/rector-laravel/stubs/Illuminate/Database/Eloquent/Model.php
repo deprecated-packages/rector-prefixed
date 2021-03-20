@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210319\Illuminate\Database\Eloquent;
+namespace RectorPrefix20210320\Illuminate\Database\Eloquent;
 
-if (\class_exists('RectorPrefix20210319\\Illuminate\\Database\\Eloquent\\Model')) {
+if (\class_exists('RectorPrefix20210320\\Illuminate\\Database\\Eloquent\\Model')) {
     return;
 }
 abstract class Model

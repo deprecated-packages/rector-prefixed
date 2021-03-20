@@ -3,11 +3,13 @@
 declare (strict_types=1);
 namespace Rector\PHPOffice\Rector\StaticCall;
 
-use RectorPrefix20210319\Nette\Utils\Strings;
+use RectorPrefix20210320\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -54,23 +56,27 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRendererName')) {
+        $callerType = $this->nodeTypeResolver->resolve($node->class);
+        if ($this->isSettingsPdfRendererStaticCall($callerType, $node)) {
             $this->removeNode($node);
             return null;
         }
-        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRenderer')) {
-            $this->removeNode($node);
-            return null;
-        }
-        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'createWriter')) {
+        if ($callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_IOFactory'))->yes() && $this->nodeNameResolver->isName($node->name, 'createWriter')) {
             if (!isset($node->args[1])) {
                 return null;
             }
             $secondArgValue = $this->valueResolver->getValue($node->args[1]->value);
-            if (\RectorPrefix20210319\Nette\Utils\Strings::match($secondArgValue, '#pdf#i')) {
+            if (\RectorPrefix20210320\Nette\Utils\Strings::match($secondArgValue, '#pdf#i')) {
                 return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Mpdf'), [$node->args[0]]);
             }
         }
         return $node;
+    }
+    private function isSettingsPdfRendererStaticCall(\PHPStan\Type\Type $callerType, \PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    {
+        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_Settings'))->yes()) {
+            return \false;
+        }
+        return $this->nodeNameResolver->isNames($staticCall->name, ['setPdfRendererName', 'setPdfRenderer']);
     }
 }

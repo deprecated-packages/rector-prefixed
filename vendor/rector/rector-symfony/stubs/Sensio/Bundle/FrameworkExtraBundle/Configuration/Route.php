@@ -2,16 +2,16 @@
 
 // mimims: https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/src/Configuration/Route.php
 declare (strict_types=1);
-namespace RectorPrefix20210319\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace RectorPrefix20210320\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-use RectorPrefix20210319\Symfony\Component\Routing\Annotation\Route as BaseRoute;
-if (\class_exists('RectorPrefix20210319\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
+use RectorPrefix20210320\Symfony\Component\Routing\Annotation\Route as BaseRoute;
+if (\class_exists('RectorPrefix20210320\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
     return;
 }
 /**
  * @Annotation
  */
-class Route extends \RectorPrefix20210319\Symfony\Component\Routing\Annotation\Route
+class Route extends \RectorPrefix20210320\Symfony\Component\Routing\Annotation\Route
 {
     private $service;
     public function setService($service)

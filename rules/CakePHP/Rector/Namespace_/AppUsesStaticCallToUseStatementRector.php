@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
+use PHPStan\Type\ObjectType;
 use Rector\CakePHP\Naming\CakePHPFullyQualifiedClassNameResolver;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
@@ -78,7 +79,11 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
-            return $this->nodeNameResolver->isStaticCallNamed($node, 'App', 'uses');
+            $callerType = $this->nodeTypeResolver->resolve($node->class);
+            if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('App'))->yes()) {
+                return \false;
+            }
+            return $this->isName($node->name, 'uses');
         });
         return $appUsesStaticCalls;
     }
