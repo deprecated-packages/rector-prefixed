@@ -234,7 +234,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '5759983b026661973422127f6831f4b9a1a21938',
+      'reference' => '545361ea427369712e35fde2192024331a7439e0',
     ),
     'rector/rector-nette' => 
     array (
@@ -271,7 +271,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'f8a98e99aa5d1ea8ebdc06743d73a32703897b55',
+      'reference' => 'bc7bb97587c6d548305d2fc6a15b71bb3e2f2d33',
     ),
     'sebastian/diff' => 
     array (

@@ -7,11 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Expression;
-use PHPStan\Type\ObjectType;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -19,6 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://symfony.com/blog/new-in-symfony-4-3-better-test-assertions
  * @see https://github.com/symfony/symfony/pull/30813/files
+ *
  * @see \Rector\Tests\Symfony4\Rector\MethodCall\SimplifyWebTestCaseAssertionsRector\SimplifyWebTestCaseAssertionsRectorTest
  */
 final class SimplifyWebTestCaseAssertionsRector extends \Rector\Core\Rector\AbstractRector
@@ -90,11 +92,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $clientGetResponseMethodCall = $this->nodeFactory->createMethodCall('client', 'getResponse');
-        $this->getStatusCodeMethodCall = $this->nodeFactory->createMethodCall($clientGetResponseMethodCall, 'getStatusCode');
         if (!$this->isInWebTestCase($node)) {
             return null;
         }
+        $clientGetResponseMethodCall = $this->nodeFactory->createMethodCall('client', 'getResponse');
+        $this->getStatusCodeMethodCall = $this->nodeFactory->createMethodCall($clientGetResponseMethodCall, 'getStatusCode');
         // assertResponseIsSuccessful
         $args = [];
         $args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(200));
@@ -117,11 +119,15 @@ CODE_SAMPLE
     }
     private function isInWebTestCase(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+        $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
-        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase'));
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return \false;
+        }
+        return $classReflection->isSubclassOf('RectorPrefix20210320\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
     }
     private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
@@ -153,7 +159,11 @@ CODE_SAMPLE
         if (!$comparedNode->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        if (!$this->nodeNameResolver->isVariableName($comparedNode->var->var, 'crawler')) {
+        $comparedMethodCaller = $comparedNode->var;
+        if (!$comparedMethodCaller->var instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        if (!$this->isName($comparedMethodCaller->var, 'crawler')) {
             return null;
         }
         if (!$this->isName($comparedNode->name, 'text')) {

@@ -109,7 +109,13 @@ CODE_SAMPLE
         }
         /** @var MethodCall[] $getMethodCalls */
         $getMethodCalls = $this->betterNodeFinder->find($classMethod, function (\PhpParser\Node $node) : bool {
-            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'get');
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+                return \false;
+            }
+            if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node->name, 'get');
         });
         foreach ($getMethodCalls as $getMethodCall) {
             if ($this->isGetMethodCallWithRequestParameters($getMethodCall)) {
@@ -127,7 +133,10 @@ CODE_SAMPLE
             return \false;
         }
         // must be $this->getRequest() in controller
-        if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        if (!$this->nodeNameResolver->isName($node->var, 'this')) {
             return \false;
         }
         if (!$this->isName($node->name, 'getRequest') && !$this->isGetMethodCallWithRequestParameters($node)) {
@@ -142,7 +151,16 @@ CODE_SAMPLE
     private function containsGetRequestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
-            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'getRequest');
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+                return \false;
+            }
+            if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            if (!$this->isName($node->var, 'this')) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node->name, 'getRequest');
         });
     }
     private function isGetMethodCallWithRequestParameters(\PhpParser\Node\Expr\MethodCall $methodCall) : bool

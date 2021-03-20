@@ -10,7 +10,6 @@ use RectorPrefix20210320\Symfony\Component\DependencyInjection\Loader\Configurat
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see: https://laravel.com/docs/5.0/upgrade
 return static function (\RectorPrefix20210320\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../config/config.php');
     $services = $containerConfigurator->services();
     # https://stackoverflow.com/a/24949656/1348344
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['RectorPrefix20210320\\Illuminate\\Cache\\CacheManager' => 'RectorPrefix20210320\\Illuminate\\Contracts\\Cache\\Repository', 'RectorPrefix20210320\\Illuminate\\Database\\Eloquent\\SoftDeletingTrait' => 'RectorPrefix20210320\\Illuminate\\Database\\Eloquent\\SoftDeletes']]]);

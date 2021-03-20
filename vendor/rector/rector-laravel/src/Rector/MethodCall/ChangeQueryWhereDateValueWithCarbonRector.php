@@ -104,7 +104,7 @@ CODE_SAMPLE
             return null;
         }
         // nothing to change
-        if ($this->nodeNameResolver->isStaticCallNamed($argValue, 'RectorPrefix20210320\\Carbon\\Carbon', 'today')) {
+        if ($this->isCarbonTodayStaticCall($argValue)) {
             return null;
         }
         if ($this->valueResolver->isValues($methodCall->args[1]->value, ['>=', '<='])) {
@@ -129,5 +129,17 @@ CODE_SAMPLE
     {
         $whereTimeArgs = [$methodCall->args[0], $methodCall->args[1], new \PhpParser\Node\Arg($dateTimeVariable)];
         return new \PhpParser\Node\Expr\MethodCall($methodCall->var, 'whereTime', $whereTimeArgs);
+    }
+    private function isCarbonTodayStaticCall(\PhpParser\Node\Expr $expr) : bool
+    {
+        if (!$expr instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \false;
+        }
+        $carbonObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Carbon\\Carbon');
+        $callerType = $this->nodeTypeResolver->resolve($expr->class);
+        if (!$carbonObjectType->isSuperTypeOf($callerType)->yes()) {
+            return \false;
+        }
+        return $this->isName($expr->name, 'today');
     }
 }

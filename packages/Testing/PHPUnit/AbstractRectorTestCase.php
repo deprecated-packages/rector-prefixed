@@ -65,6 +65,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210320\Symplify\Pac
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
+    /**
+     * @var DynamicSourceLocatorProvider
+     */
+    private $dynamicSourceLocatorProvider;
     protected function setUp() : void
     {
         // speed up
@@ -77,6 +81,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210320\Symplify\Pac
         $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210320\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
+        $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
     }
@@ -103,9 +108,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210320\Symplify\Pac
         /** @var NodeScopeResolver $nodeScopeResolver */
         $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
-        /** @var DynamicSourceLocatorProvider $dynamicDirectoryLocatorProvider */
-        $dynamicDirectoryLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
-        $dynamicDirectoryLocatorProvider->setFileInfo($inputFileInfo);
+        $this->dynamicSourceLocatorProvider->setFileInfo($inputFileInfo);
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFileInfos);
         $this->originalTempFileInfo = $inputFileInfo;
