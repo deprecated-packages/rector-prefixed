@@ -196,11 +196,11 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      */
     private function resolvePhpDocNodeFactoryClasses(\Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface $phpDocNodeFactory) : array
     {
-        if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface) {
-            return $phpDocNodeFactory->getClasses();
-        }
         if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\Contract\MultiPhpDocNodeFactoryInterface) {
             return $phpDocNodeFactory->getTagValueNodeClassesToAnnotationClasses();
+        }
+        if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface) {
+            return $phpDocNodeFactory->getClasses();
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
