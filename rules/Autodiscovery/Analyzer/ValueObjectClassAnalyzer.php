@@ -7,11 +7,11 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
 final class ValueObjectClassAnalyzer
 {
     /**
@@ -91,7 +91,7 @@ final class ValueObjectClassAnalyzer
     {
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {
+            if ($phpDocInfo->hasByType(\Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode::class)) {
                 continue;
             }
             return \false;

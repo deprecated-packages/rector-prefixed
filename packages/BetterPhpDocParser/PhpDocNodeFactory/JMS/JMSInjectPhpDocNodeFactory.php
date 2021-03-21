@@ -12,8 +12,8 @@ use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
 final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
 {
     /**
@@ -57,6 +57,6 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         // needed for proper doc block formatting
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);
         $items = $this->annotationItemsResolver->resolve($inject);
-        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items, $serviceName, $annotationContent);
+        return new \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items, $serviceName, $annotationContent);
     }
 }

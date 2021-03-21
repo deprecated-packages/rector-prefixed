@@ -8,8 +8,8 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode;
 use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use RectorPrefix20210321\Symplify\PackageBuilder\Php\TypeChecker;
 /**
@@ -118,7 +118,7 @@ final class TagValueNodeConfigurationFactory
      */
     private function resolveArrayEqualSignByPhpNodeClass(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        if ($this->typeChecker->isInstanceOf($phpDocTagValueNode, [\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class])) {
+        if ($this->typeChecker->isInstanceOf($phpDocTagValueNode, [\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface::class, \Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode::class])) {
             return '=';
         }
         return ':';

@@ -5,7 +5,7 @@ namespace Rector\DependencyInjection\TypeAnalyzer;
 
 use RectorPrefix20210321\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
+use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
 final class InjectParameterAnalyzer
 {
     /**
@@ -15,7 +15,7 @@ final class InjectParameterAnalyzer
     private const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
     public function isParameterInject(\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
-        if (!$node instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode) {
+        if (!$node instanceof \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode) {
             return \false;
         }
         $serviceName = $node->getServiceName();
