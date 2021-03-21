@@ -61,7 +61,7 @@ final class VariableConstructorFormControlTypeResolver implements \Rector\Nette\
             return [];
         }
         $formClassReflection = $this->reflectionProvider->getClass($formType->getClassName());
-        if (!$formClassReflection->isSubclassOf('RectorPrefix20210320\\Nette\\Application\\UI\\Form')) {
+        if (!$formClassReflection->isSubclassOf('RectorPrefix20210321\\Nette\\Application\\UI\\Form')) {
             return [];
         }
         $constructorClassMethod = $this->nodeRepository->findClassMethod($formType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);

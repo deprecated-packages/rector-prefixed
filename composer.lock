@@ -1330,12 +1330,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-nette.git",
-                "reference": "9a0ff2155bf43115e3ef7c881144212d0e385052"
+                "reference": "7a0f87a50b122d30833e11a0da2f304cbfc3717b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/9a0ff2155bf43115e3ef7c881144212d0e385052",
-                "reference": "9a0ff2155bf43115e3ef7c881144212d0e385052",
+                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/7a0f87a50b122d30833e11a0da2f304cbfc3717b",
+                "reference": "7a0f87a50b122d30833e11a0da2f304cbfc3717b",
                 "shasum": ""
             },
             "require": {
@@ -1369,7 +1369,7 @@
                 "issues": "https://github.com/rectorphp/rector-nette/issues",
                 "source": "https://github.com/rectorphp/rector-nette/tree/main"
             },
-            "time": "2021-03-20T22:30:32+00:00"
+            "time": "2021-03-20T23:28:35+00:00"
         },
         {
             "name": "rector/rector-phpunit",
@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "da23e1f36b02783dad4900df57d81d06f7e6ba78"
+                "reference": "df9dc53ad0628e4a43a332c02c7f0af904a56b57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/da23e1f36b02783dad4900df57d81d06f7e6ba78",
-                "reference": "da23e1f36b02783dad4900df57d81d06f7e6ba78",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/df9dc53ad0628e4a43a332c02c7f0af904a56b57",
+                "reference": "df9dc53ad0628e4a43a332c02c7f0af904a56b57",
                 "shasum": ""
             },
             "require": {
@@ -1439,13 +1439,14 @@
                 "symfony/security-http": "^5.2",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
-                "symplify/phpstan-rules": "^9.2"
+                "symplify/phpstan-rules": "^9.2",
+                "tracy/tracy": "^2.8"
             },
             "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Rector\\": "src"
+                    "Rector\\Symfony\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1457,7 +1458,7 @@
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
                 "source": "https://github.com/rectorphp/rector-symfony/tree/main"
             },
-            "time": "2021-03-20T21:23:45+00:00"
+            "time": "2021-03-21T01:28:58+00:00"
         },
         {
             "name": "sebastian/diff",

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210320;
+namespace RectorPrefix20210321;
 
-if (\class_exists('RectorPrefix20210320\\Twig_Function_Method')) {
+if (\class_exists('RectorPrefix20210321\\Twig_Function_Method')) {
     return;
 }
 class Twig_Function_Method
 {
 }
-\class_alias('RectorPrefix20210320\\Twig_Function_Method', 'Twig_Function_Method', \false);
+\class_alias('RectorPrefix20210321\\Twig_Function_Method', 'Twig_Function_Method', \false);

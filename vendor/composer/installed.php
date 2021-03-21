@@ -242,7 +242,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '9a0ff2155bf43115e3ef7c881144212d0e385052',
+      'reference' => '7a0f87a50b122d30833e11a0da2f304cbfc3717b',
     ),
     'rector/rector-phpunit' => 
     array (
@@ -270,7 +270,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'da23e1f36b02783dad4900df57d81d06f7e6ba78',
+      'reference' => 'df9dc53ad0628e4a43a332c02c7f0af904a56b57',
     ),
     'sebastian/diff' => 
     array (

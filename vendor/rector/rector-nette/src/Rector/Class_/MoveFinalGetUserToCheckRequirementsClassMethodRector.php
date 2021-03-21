@@ -74,7 +74,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Presenter'))) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\Application\\UI\\Presenter'))) {
             return null;
         }
         $getUserClassMethod = $node->getMethod('getUser');

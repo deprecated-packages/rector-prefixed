@@ -9,7 +9,7 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorChangeCollector
 {
     /**
@@ -27,7 +27,7 @@ final class RectorChangeCollector
     /**
      * @return RectorWithFileAndLineChange[]
      */
-    public function getRectorChangesByFileInfo(\RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getRectorChangesByFileInfo(\RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return \array_filter($this->rectorWithFileAndLineChanges, function (\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange) use($smartFileInfo) : bool {
             return $rectorWithFileAndLineChange->getRealPath() === $smartFileInfo->getRealPath();
@@ -36,7 +36,7 @@ final class RectorChangeCollector
     public function notifyNodeFileInfo(\PhpParser\Node $node) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo) {
             // this file was changed before and this is a sub-new node
             // array Traverse to all new nodes would have to be used, but it's not worth the performance
             return;
@@ -47,7 +47,7 @@ final class RectorChangeCollector
         }
         $this->addRectorClassWithLine($currentRector, $fileInfo, $node->getLine());
     }
-    private function addRectorClassWithLine(\Rector\Core\Contract\Rector\RectorInterface $rector, \RectorPrefix20210320\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
+    private function addRectorClassWithLine(\Rector\Core\Contract\Rector\RectorInterface $rector, \RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
     {
         $this->rectorWithFileAndLineChanges[] = new \Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange($rector, $smartFileInfo->getRealPath(), $line);
     }

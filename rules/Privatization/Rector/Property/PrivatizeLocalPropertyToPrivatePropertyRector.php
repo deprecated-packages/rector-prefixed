@@ -9,11 +9,11 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode;
 use Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -28,7 +28,7 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
     private const TAG_NODES_REQUIRING_PUBLIC = [
         \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class,
         // Symfony DI
-        \Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode::class,
+        \Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode::class,
         // other DI
         \Rector\Nette\PhpDoc\Node\NetteInjectTagNode::class,
     ];

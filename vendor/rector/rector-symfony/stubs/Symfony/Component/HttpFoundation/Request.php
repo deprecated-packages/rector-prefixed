@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210320\Symfony\Component\HttpFoundation;
+namespace RectorPrefix20210321\Symfony\Component\HttpFoundation;
 
-if (\class_exists('RectorPrefix20210320\\Symfony\\Component\\HttpFoundation\\Request')) {
+if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\HttpFoundation\\Request')) {
     return;
 }
 final class Request

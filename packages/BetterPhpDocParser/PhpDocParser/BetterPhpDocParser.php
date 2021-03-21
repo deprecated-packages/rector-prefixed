@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210320\Nette\Utils\Strings;
+use RectorPrefix20210321\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -14,17 +14,17 @@ use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
+use Rector\BetterPhpDocParser\Contract\MultiPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocParserAwareInterface;
 use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface;
-use Rector\BetterPhpDocParser\PhpDocNodeFactory\MultiPhpDocNodeFactory;
 use Rector\BetterPhpDocParser\PhpDocNodeMapper;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210320\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use RectorPrefix20210320\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210321\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210321\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
@@ -75,8 +75,8 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     {
         parent::__construct($typeParser, $constExprParser);
         $this->setPhpDocNodeFactories($phpDocNodeFactories);
-        $this->privatesCaller = new \RectorPrefix20210320\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        $this->privatesAccessor = new \RectorPrefix20210320\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesCaller = new \RectorPrefix20210321\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesAccessor = new \RectorPrefix20210321\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $this->phpDocNodeMapper = $phpDocNodeMapper;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->classAnnotationMatcher = $classAnnotationMatcher;
@@ -165,7 +165,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $tag = $tokenIterator->currentTokenValue();
         $tokenIterator->next();
         // basic annotation
-        if (\RectorPrefix20210320\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
+        if (\RectorPrefix20210321\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
             return $tag;
         }
         // is not e.g "@var "
@@ -199,7 +199,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface) {
             return $phpDocNodeFactory->getClasses();
         }
-        if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\PhpDocNodeFactory\MultiPhpDocNodeFactory) {
+        if ($phpDocNodeFactory instanceof \Rector\BetterPhpDocParser\Contract\MultiPhpDocNodeFactoryInterface) {
             return $phpDocNodeFactory->getTagValueNodeClassesToAnnotationClasses();
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();

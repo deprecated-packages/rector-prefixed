@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210320\Symplify\PackageBuilder\Tests\Reflection\Source;
+namespace RectorPrefix20210321\Symplify\PackageBuilder\Tests\Reflection\Source;
 
-final class SomeClassWithPrivateProperty extends \RectorPrefix20210320\Symplify\PackageBuilder\Tests\Reflection\Source\AbstractPrivateProperty
+final class SomeClassWithPrivateProperty extends \RectorPrefix20210321\Symplify\PackageBuilder\Tests\Reflection\Source\AbstractPrivateProperty
 {
     /**
      * @var int

@@ -138,6 +138,6 @@ CODE_SAMPLE
         $args[] = $funcCall->args[1];
         $args[] = $funcCall->args[0];
         $args = $this->pregMatchAllAnalyzer->compensateEnforcedFlag($methodName, $funcCall, $args);
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210320\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->nodeFactory->createStaticCall('RectorPrefix20210321\\Nette\\Utils\\Strings', $methodName, $args);
     }
 }

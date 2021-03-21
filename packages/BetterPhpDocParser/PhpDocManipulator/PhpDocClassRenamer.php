@@ -6,7 +6,6 @@ namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode;
 final class PhpDocClassRenamer
 {
     /**
@@ -26,8 +25,8 @@ final class PhpDocClassRenamer
      */
     private function processAssertChoiceTagValueNode(array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $assertChoiceTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode::class);
-        if (!$assertChoiceTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode) {
+        $assertChoiceTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode::class);
+        if (!$assertChoiceTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode) {
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {

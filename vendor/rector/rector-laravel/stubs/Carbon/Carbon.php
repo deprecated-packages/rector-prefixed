@@ -1,11 +1,11 @@
 <?php
 
-namespace RectorPrefix20210320\Carbon;
+namespace RectorPrefix20210321\Carbon;
 
 use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
-if (\class_exists('RectorPrefix20210320\\Carbon\\Carbon')) {
+if (\class_exists('RectorPrefix20210321\\Carbon\\Carbon')) {
     return;
 }
 class Carbon extends \DateTime

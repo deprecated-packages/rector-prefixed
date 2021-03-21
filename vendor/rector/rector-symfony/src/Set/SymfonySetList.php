@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Set;
+namespace Rector\Symfony\Set;
 
 use Rector\Set\Contract\SetListInterface;
 final class SymfonySetList implements \Rector\Set\Contract\SetListInterface

@@ -3,23 +3,23 @@
 declare (strict_types=1);
 namespace Rector\Privatization\Rector\ClassMethod;
 
-use RectorPrefix20210320\Nette\Utils\Strings;
+use RectorPrefix20210321\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
+use Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode;
+use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver;
-use RectorPrefix20210320\Symfony\Component\Routing\Annotation\Route;
+use RectorPrefix20210321\Symfony\Component\Routing\Annotation\Route;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -139,7 +139,7 @@ CODE_SAMPLE
         if ($this->classMethodVisibilityVendorLockResolver->isChildLockedMethod($classMethod)) {
             return \true;
         }
-        return $phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDoc\SymfonyRequiredTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class]);
+        return $phpDocInfo->hasByTypes([\Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class]);
     }
     private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
@@ -161,11 +161,11 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\RectorPrefix20210320\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
+        if (!\RectorPrefix20210321\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
             return \false;
         }
         $classMethodName = $this->getName($classMethod);
-        if ((bool) \RectorPrefix20210320\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
+        if ((bool) \RectorPrefix20210321\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -196,13 +196,13 @@ CODE_SAMPLE
         if ($this->hasSymfonyRouteAttrGroup($classMethod)) {
             return \true;
         }
-        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
+        return $phpDocInfo->hasByType(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class);
     }
     private function hasSymfonyRouteAttrGroup(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         foreach ($classMethod->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
-                if ($attr->name->toString() === \RectorPrefix20210320\Symfony\Component\Routing\Annotation\Route::class) {
+                if ($attr->name->toString() === \RectorPrefix20210321\Symfony\Component\Routing\Annotation\Route::class) {
                     return \true;
                 }
             }

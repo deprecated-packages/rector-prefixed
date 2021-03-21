@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210320\Nette\Http;
+namespace RectorPrefix20210321\Nette\Http;
 
-if (\class_exists('RectorPrefix20210320\\Nette\\Http\\Request')) {
+if (\class_exists('RectorPrefix20210321\\Nette\\Http\\Request')) {
     return;
 }
 class Request

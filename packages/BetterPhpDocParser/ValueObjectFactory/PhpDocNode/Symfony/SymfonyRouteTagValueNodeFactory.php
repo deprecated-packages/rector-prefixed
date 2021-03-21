@@ -5,7 +5,7 @@ namespace Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony;
 
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
+use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 final class SymfonyRouteTagValueNodeFactory
 {
     /**
@@ -21,15 +21,15 @@ final class SymfonyRouteTagValueNodeFactory
         $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
         $this->tagValueNodePrinter = $tagValueNodePrinter;
     }
-    public function create() : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode
+    public function create() : \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode
     {
         return $this->createFromItems([]);
     }
     /**
      * @param array<string, mixed> $items
      */
-    public function createFromItems(array $items) : \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode
+    public function createFromItems(array $items) : \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode
     {
-        return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items);
+        return new \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items);
     }
 }

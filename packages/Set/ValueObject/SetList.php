@@ -9,9 +9,9 @@ use Rector\Nette\Set\KdybySetList;
 use Rector\Nette\Set\NetteSetList;
 use Rector\PHPUnit\Sets\PHPUnitSetList;
 use Rector\Set\Contract\SetListInterface;
-use Rector\Set\SwiftmailerSetList;
-use Rector\Set\SymfonySetList;
-use Rector\Set\TwigSetList;
+use Rector\Symfony\Set\SwiftmailerSetList;
+use Rector\Symfony\Set\SymfonySetList;
+use Rector\Symfony\Set\TwigSetList;
 final class SetList implements \Rector\Set\Contract\SetListInterface
 {
     /**
@@ -469,151 +469,151 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      * @deprecated Use SwiftmailerSetList from rector/rector-symfony instead
      * @var string
      */
-    public const SWIFTMAILER_60 = \Rector\Set\SwiftmailerSetList::SWIFTMAILER_60;
+    public const SWIFTMAILER_60 = \Rector\Symfony\Set\SwiftmailerSetList::SWIFTMAILER_60;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_26 = \Rector\Set\SymfonySetList::SYMFONY_26;
+    public const SYMFONY_26 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_26;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_28 = \Rector\Set\SymfonySetList::SYMFONY_28;
+    public const SYMFONY_28 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_28;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_30 = \Rector\Set\SymfonySetList::SYMFONY_30;
+    public const SYMFONY_30 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_30;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_31 = \Rector\Set\SymfonySetList::SYMFONY_31;
+    public const SYMFONY_31 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_31;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_32 = \Rector\Set\SymfonySetList::SYMFONY_32;
+    public const SYMFONY_32 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_32;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_33 = \Rector\Set\SymfonySetList::SYMFONY_33;
+    public const SYMFONY_33 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_33;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_34 = \Rector\Set\SymfonySetList::SYMFONY_34;
+    public const SYMFONY_34 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_34;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_40 = \Rector\Set\SymfonySetList::SYMFONY_40;
+    public const SYMFONY_40 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_40;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_41 = \Rector\Set\SymfonySetList::SYMFONY_41;
+    public const SYMFONY_41 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_41;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_42 = \Rector\Set\SymfonySetList::SYMFONY_42;
+    public const SYMFONY_42 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_42;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_43 = \Rector\Set\SymfonySetList::SYMFONY_43;
+    public const SYMFONY_43 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_43;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_44 = \Rector\Set\SymfonySetList::SYMFONY_44;
+    public const SYMFONY_44 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_44;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_50 = \Rector\Set\SymfonySetList::SYMFONY_50;
+    public const SYMFONY_50 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_50;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_50_TYPES = \Rector\Set\SymfonySetList::SYMFONY_50_TYPES;
+    public const SYMFONY_50_TYPES = \Rector\Symfony\Set\SymfonySetList::SYMFONY_50_TYPES;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_52 = \Rector\Set\SymfonySetList::SYMFONY_52;
+    public const SYMFONY_52 = \Rector\Symfony\Set\SymfonySetList::SYMFONY_52;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_CODE_QUALITY = \Rector\Set\SymfonySetList::SYMFONY_CODE_QUALITY;
+    public const SYMFONY_CODE_QUALITY = \Rector\Symfony\Set\SymfonySetList::SYMFONY_CODE_QUALITY;
     /**
      * For BC layer
      * @deprecated Use SymfonySetList from rector/rector-symfony instead
      * @var string
      */
-    public const SYMFONY_CONSTRUCTOR_INJECTION = \Rector\Set\SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION;
+    public const SYMFONY_CONSTRUCTOR_INJECTION = \Rector\Symfony\Set\SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_112 = \Rector\Set\TwigSetList::TWIG_112;
+    public const TWIG_112 = \Rector\Symfony\Set\TwigSetList::TWIG_112;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_127 = \Rector\Set\TwigSetList::TWIG_127;
+    public const TWIG_127 = \Rector\Symfony\Set\TwigSetList::TWIG_127;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_134 = \Rector\Set\TwigSetList::TWIG_134;
+    public const TWIG_134 = \Rector\Symfony\Set\TwigSetList::TWIG_134;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_140 = \Rector\Set\TwigSetList::TWIG_140;
+    public const TWIG_140 = \Rector\Symfony\Set\TwigSetList::TWIG_140;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_20 = \Rector\Set\TwigSetList::TWIG_20;
+    public const TWIG_20 = \Rector\Symfony\Set\TwigSetList::TWIG_20;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_240 = \Rector\Set\TwigSetList::TWIG_240;
+    public const TWIG_240 = \Rector\Symfony\Set\TwigSetList::TWIG_240;
     /**
      * For BC layer
      * @deprecated Use TwigSetList from rector/rector-symfony instead
      * @var string
      */
-    public const TWIG_UNDERSCORE_TO_NAMESPACE = \Rector\Set\TwigSetList::TWIG_UNDERSCORE_TO_NAMESPACE;
+    public const TWIG_UNDERSCORE_TO_NAMESPACE = \Rector\Symfony\Set\TwigSetList::TWIG_UNDERSCORE_TO_NAMESPACE;
     /**
      * @var string
      */

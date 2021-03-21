@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use RectorPrefix20210320\Nette\Utils\Arrays;
-use RectorPrefix20210320\Nette\Utils\Strings;
+use RectorPrefix20210321\Nette\Utils\Arrays;
+use RectorPrefix20210321\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
@@ -31,7 +31,7 @@ final class WhitespaceDetector
                 // do not overlap to previous node
                 if ($i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                     $previousTokenValue = $tokens[$i - 1][0];
-                    if (\RectorPrefix20210320\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
+                    if (\RectorPrefix20210321\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
                         $tokenValue = $previousTokenValue . $tokenValue;
                     }
                 }
@@ -47,9 +47,9 @@ final class WhitespaceDetector
             }
             // quoted string with spaces?
             if ($this->isQuotedStringWithSpaces($tokens, $i)) {
-                $matches = \RectorPrefix20210320\Nette\Utils\Strings::matchAll($tokenValue, '#\\s+#m');
+                $matches = \RectorPrefix20210321\Nette\Utils\Strings::matchAll($tokenValue, '#\\s+#m');
                 if ($matches !== []) {
-                    $oldWhitespaces = \array_merge($oldWhitespaces, \RectorPrefix20210320\Nette\Utils\Arrays::flatten($matches));
+                    $oldWhitespaces = \array_merge($oldWhitespaces, \RectorPrefix20210321\Nette\Utils\Arrays::flatten($matches));
                 }
             }
         }

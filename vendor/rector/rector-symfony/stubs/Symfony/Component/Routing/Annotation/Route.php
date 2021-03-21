@@ -2,9 +2,9 @@
 
 /** @source https://github.com/symfony/symfony/blob/master/src/Symfony/Component/Routing/Annotation/Route.php */
 declare (strict_types=1);
-namespace RectorPrefix20210320\Symfony\Component\Routing\Annotation;
+namespace RectorPrefix20210321\Symfony\Component\Routing\Annotation;
 
-if (\class_exists('RectorPrefix20210320\\Symfony\\Component\\Routing\\Annotation\\Route')) {
+if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Routing\\Annotation\\Route')) {
     return;
 }
 /**

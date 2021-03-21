@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210320;
+namespace RectorPrefix20210321;
 
-use RectorPrefix20210320\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Option;
-use RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-return static function (\RectorPrefix20210320\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210321\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Option;
+use RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Set\SetList;
+return static function (\RectorPrefix20210321\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/config', __DIR__ . '/ecs.php']);
-    $parameters->set(\RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Option::SETS, [\RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Set\SetList::PSR_12, \RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Set\SetList::SYMPLIFY, \RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Set\SetList::COMMON, \RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Set\SetList::CLEAN_CODE]);
-    $parameters->set(\RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Option::SKIP, [
+    $parameters->set(\RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/config', __DIR__ . '/ecs.php']);
+    $parameters->set(\RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Option::SETS, [\RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Set\SetList::PSR_12, \RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Set\SetList::SYMPLIFY, \RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Set\SetList::COMMON, \RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Set\SetList::CLEAN_CODE]);
+    $parameters->set(\RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Option::SKIP, [
         '*/Source/*',
         '*/Fixture/*',
         // breaks annotated code - removed on symplify dev-main
-        \RectorPrefix20210320\PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer::class,
+        \RectorPrefix20210321\PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer::class,
     ]);
-    $parameters->set(\RectorPrefix20210320\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, "\n");
+    $parameters->set(\RectorPrefix20210321\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, "\n");
 };

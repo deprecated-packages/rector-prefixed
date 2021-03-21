@@ -39,7 +39,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Forms\\Form'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\Forms\\Form'))) {
             return null;
         }
         if (!$this->isName($node->name, 'addUpload')) {

@@ -12,15 +12,15 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
+use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210320\Webmozart\Assert\Assert;
+use RectorPrefix20210321\Webmozart\Assert\Assert;
 /**
  * @see https://wiki.php.net/rfc/attributes_v2
  * @see https://wiki.php.net/rfc/shorter_attribute_syntax
@@ -77,7 +77,7 @@ class SymfonyRoute
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_TO_ATTRIBUTE => [new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class, 'Symfony\\Component\\Routing\\Annotation\\Route')]])]);
+, [self::ANNOTATION_TO_ATTRIBUTE => [new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class, 'Symfony\\Component\\Routing\\Annotation\\Route')]])]);
     }
     /**
      * @return array<class-string<Node>>
@@ -122,7 +122,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $annotationsToAttributes = $configuration[self::ANNOTATION_TO_ATTRIBUTE] ?? [];
-        \RectorPrefix20210320\Webmozart\Assert\Assert::allIsInstanceOf($annotationsToAttributes, \Rector\Php80\ValueObject\AnnotationToAttribute::class);
+        \RectorPrefix20210321\Webmozart\Assert\Assert::allIsInstanceOf($annotationsToAttributes, \Rector\Php80\ValueObject\AnnotationToAttribute::class);
         $this->annotationsToAttributes = $annotationsToAttributes;
     }
 }

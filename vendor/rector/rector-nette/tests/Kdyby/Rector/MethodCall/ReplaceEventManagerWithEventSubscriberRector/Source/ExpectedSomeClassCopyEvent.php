@@ -2,7 +2,7 @@
 
 namespace Rector\Nette\Tests\Kdyby\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\Event;
 
-final class SomeClassCopyEvent extends \RectorPrefix20210320\Symfony\Contracts\EventDispatcher\Event
+final class SomeClassCopyEvent extends \RectorPrefix20210321\Symfony\Contracts\EventDispatcher\Event
 {
     private \Rector\Nette\Tests\Kdyby\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass $someClass;
     private string $key;

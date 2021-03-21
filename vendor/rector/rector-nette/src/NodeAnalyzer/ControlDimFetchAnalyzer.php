@@ -22,18 +22,18 @@ final class ControlDimFetchAnalyzer
     }
     public function matchNameOnFormOrControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Form'));
+        return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\Application\\UI\\Form'));
     }
     public function matchNameOnControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\Application\\UI\\Control'));
+        return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\Application\\UI\\Control'));
     }
     public function matchName(\PhpParser\Node $node) : ?string
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-        if (!$this->isVariableTypes($node->var, [new \PHPStan\Type\ObjectType('RectorPrefix20210320\\Nette\\ComponentModel\\IContainer')])) {
+        if (!$this->isVariableTypes($node->var, [new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\ComponentModel\\IContainer')])) {
             return null;
         }
         if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {

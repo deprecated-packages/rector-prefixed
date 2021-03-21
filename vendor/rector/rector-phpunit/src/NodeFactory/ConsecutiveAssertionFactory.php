@@ -106,7 +106,7 @@ final class ConsecutiveAssertionFactory
     }
     private function createWillReturnReference(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\New_
     {
-        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210320\\PHPUnit\\Framework\\MockObject\\Stub\\ReturnReference'), [new \PhpParser\Node\Arg($methodCall->args[0]->value)]);
+        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210321\\PHPUnit\\Framework\\MockObject\\Stub\\ReturnReference'), [new \PhpParser\Node\Arg($methodCall->args[0]->value)]);
     }
     private function createMappedWillReturn(string $methodCallName, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {

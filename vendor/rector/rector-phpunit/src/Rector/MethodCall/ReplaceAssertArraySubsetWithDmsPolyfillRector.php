@@ -28,7 +28,7 @@ final class ReplaceAssertArraySubsetWithDmsPolyfillRector extends \Rector\Core\R
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210320\\Change assertArraySubset() to static call of DMS\\PHPUnitExtensions\\ArraySubset\\Assert', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210321\\Change assertArraySubset() to static call of DMS\\PHPUnitExtensions\\ArraySubset\\Assert', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeClass extends TestCase
@@ -71,6 +71,6 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($node, 'assertArraySubset')) {
             return null;
         }
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210320\\DMS\\PHPUnitExtensions\\ArraySubset\\Assert', 'assertArraySubset', $node->args);
+        return $this->nodeFactory->createStaticCall('RectorPrefix20210321\\DMS\\PHPUnitExtensions\\ArraySubset\\Assert', 'assertArraySubset', $node->args);
     }
 }
