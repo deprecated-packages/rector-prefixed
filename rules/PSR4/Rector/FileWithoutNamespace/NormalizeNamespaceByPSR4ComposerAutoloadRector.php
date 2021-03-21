@@ -83,10 +83,8 @@ CODE_SAMPLE
         if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             return $this->refactorFileWithoutNamespace($node, $expectedNamespace);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-            $node->name = new \PhpParser\Node\Name($expectedNamespace);
-            $this->makeNamesFullyQualified($node->stmts);
-        }
+        $node->name = new \PhpParser\Node\Name($expectedNamespace);
+        $this->makeNamesFullyQualified($node->stmts);
         return $node;
     }
     private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, string $expectedNamespace) : \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace

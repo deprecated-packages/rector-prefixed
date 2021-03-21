@@ -22,7 +22,7 @@ final class ParamRenamer
         $this->variableRenamer = $variableRenamer;
         $this->propertyDocBlockManipulator = $propertyDocBlockManipulator;
     }
-    public function rename(\Rector\Naming\ValueObject\ParamRename $paramRename) : \PhpParser\Node\Param
+    public function rename(\Rector\Naming\ValueObject\ParamRename $paramRename) : void
     {
         // 1. rename param
         $paramRename->getVariable()->name = $paramRename->getExpectedName();
@@ -30,6 +30,5 @@ final class ParamRenamer
         $this->variableRenamer->renameVariableInFunctionLike($paramRename->getFunctionLike(), null, $paramRename->getCurrentName(), $paramRename->getExpectedName());
         // 3. rename @param variable in docblock too
         $this->propertyDocBlockManipulator->renameParameterNameInDocBlock($paramRename);
-        return $paramRename->getParam();
     }
 }

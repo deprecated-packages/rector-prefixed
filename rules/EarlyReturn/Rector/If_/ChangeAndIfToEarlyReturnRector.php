@@ -114,9 +114,7 @@ CODE_SAMPLE
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        if ($ifNextReturn->expr instanceof \PhpParser\Node\Expr) {
-            $this->addNodeAfterNode(new \PhpParser\Node\Stmt\Return_(), $node);
-        }
+        $this->addNodeAfterNode(new \PhpParser\Node\Stmt\Return_(), $node);
         return $this->processReplaceIfs($node, $booleanAndConditions, $ifNextReturnClone);
     }
     /**

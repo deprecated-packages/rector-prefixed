@@ -298,9 +298,6 @@ final class ClassRenamer
         $scope = $classLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         $classLike->implements = \array_unique($classLike->implements);
         foreach ($classLike->implements as $key => $implementName) {
-            if (!$implementName instanceof \PhpParser\Node\Name) {
-                continue;
-            }
             $virtualNode = $implementName->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::VIRTUAL_NODE);
             if (!$virtualNode) {
                 continue;

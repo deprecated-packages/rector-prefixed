@@ -104,10 +104,7 @@ CODE_SAMPLE
             if (!$paramRename instanceof \Rector\Naming\ValueObject\ParamRename) {
                 continue;
             }
-            $matchTypeParamRenamerRename = $this->paramRenamer->rename($paramRename);
-            if (!$matchTypeParamRenamerRename instanceof \PhpParser\Node\Param) {
-                continue;
-            }
+            $this->paramRenamer->rename($paramRename);
             $this->hasChanged = \true;
         }
         if (!$this->hasChanged) {

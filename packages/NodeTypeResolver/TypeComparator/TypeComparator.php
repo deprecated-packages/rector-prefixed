@@ -10,7 +10,6 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\TypeHasher;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
@@ -30,10 +29,6 @@ final class TypeComparator
      */
     private $staticTypeMapper;
     /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    /**
      * @var ArrayTypeComparator
      */
     private $arrayTypeComparator;
@@ -41,12 +36,11 @@ final class TypeComparator
      * @var ScalarTypeComparator
      */
     private $scalarTypeComparator;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator $arrayTypeComparator, \Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator $scalarTypeComparator)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator $arrayTypeComparator, \Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator $scalarTypeComparator)
     {
         $this->typeHasher = $typeHasher;
         $this->typeNormalizer = $typeNormalizer;
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->arrayTypeComparator = $arrayTypeComparator;
         $this->scalarTypeComparator = $scalarTypeComparator;
     }
@@ -127,12 +121,10 @@ final class TypeComparator
     private function isMutualObjectSubtypes(\PHPStan\Type\Type $firstArrayItemType, \PHPStan\Type\Type $secondArrayItemType) : bool
     {
         if ($firstArrayItemType instanceof \PHPStan\Type\ObjectType && $secondArrayItemType instanceof \PHPStan\Type\ObjectType) {
-            $firstFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($firstArrayItemType);
-            $secondFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($secondArrayItemType);
-            if (\is_a($firstFqnClassName, $secondFqnClassName, \true)) {
+            if ($firstArrayItemType->isSuperTypeOf($secondArrayItemType)->yes()) {
                 return \true;
             }
-            if (\is_a($secondFqnClassName, $firstFqnClassName, \true)) {
+            if ($secondArrayItemType->isSuperTypeOf($firstArrayItemType)->yes()) {
                 return \true;
             }
         }

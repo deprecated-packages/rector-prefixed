@@ -88,9 +88,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Property) {
-            $this->refactorPropertyAnnotations($node);
-        }
+        $this->refactorPropertyAnnotations($node);
         return $node;
     }
     private function refactorPropertyAnnotations(\PhpParser\Node\Stmt\Property $property) : void

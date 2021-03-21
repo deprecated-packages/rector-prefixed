@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -67,7 +68,7 @@ final class SetterClassMethodAnalyzer
         }
         // is nullable param
         $onlyParam = $classMethod->params[0];
-        if (!$this->nodeTypeResolver->isNullableObjectType($onlyParam)) {
+        if (!$this->nodeTypeResolver->isNullableTypeOfSpecificType($onlyParam, \PHPStan\Type\ObjectType::class)) {
             return null;
         }
         return $propertyFetch;

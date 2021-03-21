@@ -6,11 +6,9 @@ namespace Rector\DeadCode\Rector\If_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -77,21 +75,10 @@ CODE_SAMPLE
     }
     private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof) : ?\PhpParser\Node\Stmt\If_
     {
-        $previousVar = $this->betterNodeFinder->findFirstPrevious($if, function (\PhpParser\Node $node) use($instanceof) : bool {
-            if ($node === $instanceof->expr) {
-                return \false;
-            }
-            return $this->nodeComparator->areNodesEqual($node, $instanceof->expr);
-        });
-        if (!$previousVar instanceof \PhpParser\Node) {
-            return null;
-        }
-        $name = $this->getName($instanceof->class);
-        if ($name === null) {
-            return null;
-        }
-        $isSameObject = $this->isSameObject($previousVar, $name);
-        if (!$isSameObject) {
+        $classType = $this->nodeTypeResolver->resolve($instanceof->class);
+        $exprType = $this->nodeTypeResolver->resolve($instanceof->expr);
+        $isSameStaticTypeOrSubtype = $classType->equals($exprType) || $classType->isSuperTypeOf($exprType)->yes();
+        if (!$isSameStaticTypeOrSubtype) {
             return null;
         }
         if ($if->cond === $instanceof) {
@@ -101,20 +88,5 @@ CODE_SAMPLE
         }
         $this->removeNode($if);
         return $if;
-    }
-    private function isSameObject(\PhpParser\Node $node, string $name) : bool
-    {
-        $parentPreviousVar = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentPreviousVar instanceof \PhpParser\Node\Param) {
-            return \false;
-        }
-        if ($parentPreviousVar->type === null) {
-            return \false;
-        }
-        $paramName = $this->getName($parentPreviousVar->type);
-        if ($paramName === null) {
-            return \false;
-        }
-        return \is_a($paramName, $name, \true);
     }
 }

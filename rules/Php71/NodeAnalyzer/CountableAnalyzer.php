@@ -55,8 +55,8 @@ final class CountableAnalyzer
             return \false;
         }
         // this must be handled reflection, as PHPStan ReflectionProvider does not provide default values for properties in any way
-        $reflectionClass = $this->reflectionProvider->getClass($callerObjectType->getClassName());
-        $nativeReflectionClass = $reflectionClass->getNativeReflection();
+        $classReflection = $this->reflectionProvider->getClass($callerObjectType->getClassName());
+        $nativeReflectionClass = $classReflection->getNativeReflection();
         $propertiesDefaults = $nativeReflectionClass->getDefaultProperties();
         if (!\array_key_exists($propertyName, $propertiesDefaults)) {
             return \false;

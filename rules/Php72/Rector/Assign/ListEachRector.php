@@ -72,9 +72,6 @@ CODE_SAMPLE
             $this->addNodeAfterNode($nextFuncCall, $node);
             $currentFuncCall = $this->nodeFactory->createFuncCall('current', $eachFuncCall->args);
             $secondArrayItem = $listNode->items[1];
-            if (!$secondArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
-            }
             return new \PhpParser\Node\Expr\Assign($secondArrayItem->value, $currentFuncCall);
         }
         // both: list($key, $value) = each($values);

@@ -88,7 +88,7 @@ CODE_SAMPLE
             }
             return $this->castToArray($countedNode, $node);
         }
-        if ($this->nodeTypeResolver->isNullableArrayType($countedNode)) {
+        if ($this->nodeTypeResolver->isNullableTypeOfSpecificType($countedNode, \PHPStan\Type\ArrayType::class)) {
             return $this->castToArray($countedNode, $node);
         }
         if ($this->nodeTypeResolver->isNullableType($countedNode) || $this->nodeTypeResolver->isStaticType($countedNode, \PHPStan\Type\NullType::class)) {

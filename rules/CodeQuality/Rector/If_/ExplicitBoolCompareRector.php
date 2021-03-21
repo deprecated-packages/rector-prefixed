@@ -23,6 +23,7 @@ use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
@@ -129,7 +130,7 @@ CODE_SAMPLE
         if ($this->nodeTypeResolver->isStaticType($expr, \PHPStan\Type\FloatType::class)) {
             return $this->resolveFloat($isNegated, $expr);
         }
-        if ($this->nodeTypeResolver->isNullableObjectType($expr)) {
+        if ($this->nodeTypeResolver->isNullableTypeOfSpecificType($expr, \PHPStan\Type\ObjectType::class)) {
             return $this->resolveNullable($isNegated, $expr);
         }
         return null;

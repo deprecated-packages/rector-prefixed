@@ -85,15 +85,16 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
         }
-        if ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
-            if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
-                return $this->refactorIfHasReturnTypeWasCalled($node->expr);
-            }
-            if ($node->expr instanceof \PhpParser\Node\Expr\Variable && $this->isObjectType($node->expr, new \PHPStan\Type\ObjectType('ReflectionType'))) {
-                return $this->nodeFactory->createMethodCall($node->expr, self::GET_NAME);
-            }
+        if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+            return $this->refactorIfHasReturnTypeWasCalled($node->expr);
         }
-        return null;
+        if (!$node->expr instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        if (!$this->isObjectType($node->expr, new \PHPStan\Type\ObjectType('ReflectionType'))) {
+            return null;
+        }
+        return $this->nodeFactory->createMethodCall($node->expr, self::GET_NAME);
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {

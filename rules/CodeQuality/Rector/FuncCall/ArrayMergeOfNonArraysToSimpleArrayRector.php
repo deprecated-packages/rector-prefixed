@@ -64,9 +64,7 @@ CODE_SAMPLE
         }
         $array = new \PhpParser\Node\Expr\Array_();
         foreach ($node->args as $arg) {
-            /** @var Array_ $nestedArrayItem */
             $nestedArrayItem = $arg->value;
-            // skip
             if (!$nestedArrayItem instanceof \PhpParser\Node\Expr\Array_) {
                 return null;
             }

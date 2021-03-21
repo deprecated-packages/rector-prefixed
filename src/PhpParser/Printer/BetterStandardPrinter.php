@@ -351,7 +351,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         return $stmts;
     }
     /**
-     * @param Node[] $nodes
+     * @param array<Node|null> $nodes
      */
     private function moveCommentsFromAttributeObjectToCommentsAttribute(array $nodes) : void
     {

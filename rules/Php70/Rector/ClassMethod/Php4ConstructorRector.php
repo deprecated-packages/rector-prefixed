@@ -117,9 +117,7 @@ CODE_SAMPLE
         }
         /** @var Expression $methodStmt */
         foreach ($classMethod->stmts as $methodStmt) {
-            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
-                $methodStmt = $methodStmt->expr;
-            }
+            $methodStmt = $methodStmt->expr;
             if (!$methodStmt instanceof \PhpParser\Node\Expr\StaticCall) {
                 continue;
             }

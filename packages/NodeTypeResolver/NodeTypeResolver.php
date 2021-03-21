@@ -27,7 +27,6 @@ use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\ThisType;
@@ -243,21 +242,16 @@ final class NodeTypeResolver
         }
         return \is_a($this->resolve($node), $staticTypeClass);
     }
-    public function isNullableObjectType(\PhpParser\Node $node) : bool
-    {
-        return $this->isNullableTypeOfSpecificType($node, \PHPStan\Type\ObjectType::class);
-    }
-    public function isNullableArrayType(\PhpParser\Node $node) : bool
-    {
-        return $this->isNullableTypeOfSpecificType($node, \PHPStan\Type\ArrayType::class);
-    }
+    /**
+     * @param class-string<Type> $desiredType
+     */
     public function isNullableTypeOfSpecificType(\PhpParser\Node $node, string $desiredType) : bool
     {
         $nodeType = $this->resolve($node);
         if (!$nodeType instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
-        if ($nodeType->isSuperTypeOf(new \PHPStan\Type\NullType())->no()) {
+        if (!\PHPStan\Type\TypeCombinator::containsNull($nodeType)) {
             return \false;
         }
         if (\count($nodeType->getTypes()) !== 2) {
@@ -429,11 +423,9 @@ final class NodeTypeResolver
             return \false;
         }
         $classReflection = $this->reflectionProvider->getClass($resolvedObjectType->getClassName());
-        if ($classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
-                if ($ancestorClassReflection->hasTraitUse($requiredObjectType->getClassName())) {
-                    return \true;
-                }
+        foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
+            if ($ancestorClassReflection->hasTraitUse($requiredObjectType->getClassName())) {
+                return \true;
             }
         }
         return $classReflection->isSubclassOf($requiredObjectType->getClassName());

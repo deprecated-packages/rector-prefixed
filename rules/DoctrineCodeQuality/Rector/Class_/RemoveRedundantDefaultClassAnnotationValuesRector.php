@@ -59,9 +59,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
-            $this->refactorClassAnnotations($node);
-        }
+        $this->refactorClassAnnotations($node);
         return $node;
     }
     private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class) : void

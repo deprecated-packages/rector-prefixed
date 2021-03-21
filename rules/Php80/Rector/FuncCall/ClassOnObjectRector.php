@@ -55,9 +55,6 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CLASS_ON_OBJECT)) {
             return null;
         }
-        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
-            return null;
-        }
         if (!$this->nodeNameResolver->isName($node, 'get_class')) {
             return null;
         }

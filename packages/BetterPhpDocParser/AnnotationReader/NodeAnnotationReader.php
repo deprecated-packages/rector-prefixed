@@ -141,6 +141,7 @@ final class NodeAnnotationReader
     }
     /**
      * @param object[] $annotations
+     * @param class-string $annotationClassName
      * @return object|null
      */
     private function matchNextAnnotation(array $annotations, string $annotationClassName, \PhpParser\Node $node)

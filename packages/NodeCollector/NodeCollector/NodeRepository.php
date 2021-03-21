@@ -17,6 +17,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
@@ -465,9 +466,13 @@ final class NodeRepository
         }
         return $constructorClassMethod;
     }
-    public function findPropertyByPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @param PropertyFetch|StaticPropertyFetch $expr
+     */
+    public function findPropertyByPropertyFetch(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Property
     {
-        $propertyCallerType = $this->nodeTypeResolver->getStaticType($propertyFetch->var);
+        $propertyCaller = $expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch ? $expr->class : $expr->var;
+        $propertyCallerType = $this->nodeTypeResolver->getStaticType($propertyCaller);
         if (!$propertyCallerType instanceof \PHPStan\Type\TypeWithClassName) {
             return null;
         }
@@ -476,7 +481,7 @@ final class NodeRepository
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $propertyName = $this->nodeNameResolver->getName($propertyFetch->name);
+        $propertyName = $this->nodeNameResolver->getName($expr->name);
         if ($propertyName === null) {
             return null;
         }
@@ -720,9 +725,6 @@ final class NodeRepository
             return;
         }
         $classReflection = $this->reflectionProvider->getClass($typeWithClassName->getClassName());
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return;
-        }
         foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
             $this->callsByTypeAndMethod[$ancestorClassReflection->getName()][$methodName][] = $node;
         }

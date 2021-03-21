@@ -1959,7 +1959,6 @@ return array(
     'Rector\\Defluent\\Rector\\Return_\\ReturnNewFluentChainMethodCallToNonFluentRector' => $baseDir . '/rules/Defluent/Rector/Return_/ReturnNewFluentChainMethodCallToNonFluentRector.php',
     'Rector\\Defluent\\Reflection\\MethodCallToClassMethodParser' => $baseDir . '/rules/Defluent/Reflection/MethodCallToClassMethodParser.php',
     'Rector\\Defluent\\Skipper\\FluentMethodCallSkipper' => $baseDir . '/rules/Defluent/Skipper/FluentMethodCallSkipper.php',
-    'Rector\\Defluent\\Skipper\\StringMatcher' => $baseDir . '/rules/Defluent/Skipper/StringMatcher.php',
     'Rector\\Defluent\\ValueObjectFactory\\FluentMethodCallsFactory' => $baseDir . '/rules/Defluent/ValueObjectFactory/FluentMethodCallsFactory.php',
     'Rector\\Defluent\\ValueObject\\AbstractRootExpr' => $baseDir . '/rules/Defluent/ValueObject/AbstractRootExpr.php',
     'Rector\\Defluent\\ValueObject\\AssignAndRootExpr' => $baseDir . '/rules/Defluent/ValueObject/AssignAndRootExpr.php',

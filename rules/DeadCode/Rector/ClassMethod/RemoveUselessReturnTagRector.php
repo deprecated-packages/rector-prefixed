@@ -10,7 +10,7 @@ use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector\RemoveUselessReturnTagRectorTest
+ * @see \Rector\Tests\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector\RemoveUselessReturnTagRectorTest
  */
 final class RemoveUselessReturnTagRector extends \Rector\Core\Rector\AbstractRector
 {

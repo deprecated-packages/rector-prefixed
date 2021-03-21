@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Order;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\NodeNameResolver\NodeNameResolver;
 /**
@@ -63,6 +64,7 @@ final class StmtOrder
         }
     }
     /**
+     * @param class-string<Node> $type
      * @return array<int, string>
      */
     public function getStmtsOfTypeOrder(\PhpParser\Node\Stmt\ClassLike $classLike, string $type) : array

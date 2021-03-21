@@ -10,7 +10,6 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\Encapsed;
@@ -94,9 +93,6 @@ CODE_SAMPLE
         $stmts = $this->parseStringToBody($node->args[1]->value);
         $refactored = $this->anonymousFunctionFactory->create($params, $stmts, null);
         foreach ($refactored->uses as $key => $use) {
-            if (!$use->var instanceof \PhpParser\Node\Expr\Variable) {
-                continue;
-            }
             $variableName = $this->getName($use->var);
             if ($variableName === null) {
                 continue;
@@ -119,7 +115,6 @@ CODE_SAMPLE
         $expression = $nodes[0];
         /** @var Assign $assign */
         $assign = $expression->expr;
-        /** @var Closure $function */
         $function = $assign->expr;
         if (!$function instanceof \PhpParser\Node\Expr\Closure) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

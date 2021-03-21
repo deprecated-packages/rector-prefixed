@@ -108,9 +108,6 @@ CODE_SAMPLE
             }
             return;
         }
-        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return;
-        }
         if (!(isset($node->params[$position]) && $this->isName($node->params[$position], $name))) {
             return;
         }

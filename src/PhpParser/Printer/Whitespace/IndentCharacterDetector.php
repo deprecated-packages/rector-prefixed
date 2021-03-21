@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Core\PhpParser\Printer\Whitespace;
 
 use RectorPrefix20210321\Nette\Utils\Strings;
-use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,9 +24,6 @@ final class IndentCharacterDetector
     public function detect(array $stmts) : string
     {
         foreach ($stmts as $stmt) {
-            if (!$stmt instanceof \PhpParser\Node) {
-                continue;
-            }
             $fileInfo = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
             if (!$fileInfo instanceof \RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo) {
                 continue;

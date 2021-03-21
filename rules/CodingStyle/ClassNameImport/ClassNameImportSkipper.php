@@ -45,11 +45,7 @@ final class ClassNameImportSkipper
         /** @var Use_[] $uses */
         $uses = (array) $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
         foreach ($uses as $use) {
-            $useUses = $use->uses;
-            foreach ($useUses as $useUse) {
-                if (!$useUse->name instanceof \PhpParser\Node\Name) {
-                    continue;
-                }
+            foreach ($use->uses as $useUse) {
                 if ($useUse->name->getLast() !== $name->getLast()) {
                     continue;
                 }
