@@ -1,0 +1,29 @@
+name: PHP 8 Attributes
+
+on: [pull_request, push]
+
+jobs:
+    php8_attributes:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.0'
+                    coverage: none
+
+            -   run: |
+                    mkdir standalone
+                    cd standalone
+                    # wait for deploy to packagist
+                    sleep 70
+
+            -   run: |
+                    cd standalone
+                    # run
+                    composer require rector/rector-prefixed:dev-main --dev --ansi
+
+            -
+                run: vendor/bin/rector process ../tests/fixture-php8-attributes --config ../ci/rector-attributes.php --ansi
