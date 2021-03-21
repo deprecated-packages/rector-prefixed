@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://laravel.com/docs/5.8/upgrade#deferred-service-providers
  *
- * @see \Rector\Tests\Laravel\Rector\Class_\PropertyDeferToDeferrableProviderToRector\PropertyDeferToDeferrableProviderToRectorTest
+ * @see \Rector\Laravel\Tests\Rector\Class_\PropertyDeferToDeferrableProviderToRector\PropertyDeferToDeferrableProviderToRectorTest
  */
 final class PropertyDeferToDeferrableProviderToRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -53,7 +53,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Support\\ServiceProvider'))) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Illuminate\\Support\\ServiceProvider'))) {
             return null;
         }
         $deferProperty = $this->matchDeferWithFalseProperty($node);
@@ -61,7 +61,7 @@ CODE_SAMPLE
             return null;
         }
         $this->removeNode($deferProperty);
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210321\\Illuminate\\Contracts\\Support\\DeferrableProvider');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Illuminate\\Contracts\\Support\\DeferrableProvider');
         return $node;
     }
     private function matchDeferWithFalseProperty(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property

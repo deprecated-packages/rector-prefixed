@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Illuminate\Contracts\Cache;
 
-if (\interface_exists('RectorPrefix20210321\\Illuminate\\Contracts\\Cache\\Store')) {
+if (\interface_exists('Illuminate\\Contracts\\Cache\\Store')) {
     return;
 }
 interface Store

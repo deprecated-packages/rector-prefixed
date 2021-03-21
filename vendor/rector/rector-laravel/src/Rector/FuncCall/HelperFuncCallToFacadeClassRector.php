@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://laravel.com/docs/8.x/helpers#method-app
  * @see https://github.com/laravel/framework/blob/8.x/src/Illuminate/Foundation/helpers.php
  *
- * @see \Rector\Tests\Laravel\Rector\FuncCall\HelperFuncCallToFacadeClassRector\HelperFuncCallToFacadeClassRectorTest
+ * @see \Rector\Laravel\Tests\Rector\FuncCall\HelperFuncCallToFacadeClassRector\HelperFuncCallToFacadeClassRectorTest
  */
 final class HelperFuncCallToFacadeClassRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -56,6 +56,6 @@ CODE_SAMPLE
         if (\count($node->args) !== 1) {
             return null;
         }
-        return $this->nodeFactory->createStaticCall('RectorPrefix20210321\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
+        return $this->nodeFactory->createStaticCall('Illuminate\\Support\\Facades\\App', 'get', $node->args);
     }
 }

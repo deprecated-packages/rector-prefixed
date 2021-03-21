@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
-if (\class_exists('RectorPrefix20210321\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
+if (\class_exists('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
     return;
 }
 // mimics https://github.com/sensiolabs/SensioFrameworkExtraBundle/blob/master/Configuration/Template.php, is missing localy

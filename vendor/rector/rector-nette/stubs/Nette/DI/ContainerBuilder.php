@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210321\Nette\DI;
 
 use RectorPrefix20210321\Nette\DI\Definitions\Definition;
-if (\class_exists('RectorPrefix20210321\\Nette\\DI\\ContainerBuilder')) {
+if (\class_exists('Nette\\DI\\ContainerBuilder')) {
     return;
 }
 final class ContainerBuilder

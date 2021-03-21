@@ -69,7 +69,7 @@ CODE_SAMPLE
         if (!$contentExprAndNeedleExpr instanceof \Rector\Nette\ValueObject\ContentExprAndNeedleExpr) {
             return null;
         }
-        $staticCall = $this->nodeFactory->createStaticCall('RectorPrefix20210321\\Nette\\Utils\\Strings', 'startsWith', [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
+        $staticCall = $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', 'startsWith', [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return new \PhpParser\Node\Expr\BooleanNot($staticCall);
         }

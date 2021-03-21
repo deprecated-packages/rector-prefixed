@@ -5,7 +5,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210321\Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
 use RectorPrefix20210321\Symfony\Component\Routing\Annotation\Route as BaseRoute;
-if (\class_exists('RectorPrefix20210321\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
+if (\class_exists('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
     return;
 }
 /**

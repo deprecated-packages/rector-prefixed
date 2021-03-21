@@ -8,7 +8,7 @@ final class ClassName
     /**
      * @var string
      */
-    public const ROUTE_NAME_NAMESPACE = 'RectorPrefix20210321\\App\\ValueObject\\Routing';
+    public const ROUTE_NAME_NAMESPACE = 'App\\ValueObject\\Routing';
     /**
      * @var string
      */

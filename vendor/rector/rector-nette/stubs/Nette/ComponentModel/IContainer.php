@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210321\Nette\ComponentModel;
 
 // mimics: https://github.com/nette/component-model/blob/master/src/ComponentModel/IContainer.php
-if (\interface_exists('RectorPrefix20210321\\Nette\\ComponentModel\\IContainer')) {
+if (\interface_exists('Nette\\ComponentModel\\IContainer')) {
     return;
 }
 // mimics: https://github.com/nette/component-model/blob/master/src/ComponentModel/IContainer.php

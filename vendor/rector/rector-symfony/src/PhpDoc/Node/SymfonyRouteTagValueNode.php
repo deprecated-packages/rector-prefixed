@@ -15,7 +15,7 @@ final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     /**
      * @var string
      */
-    public const CLASS_NAME = 'RectorPrefix20210321\\Symfony\\Component\\Routing\\Annotation\\Route';
+    public const CLASS_NAME = 'Symfony\\Component\\Routing\\Annotation\\Route';
     /**
      * @var string
      */

@@ -6,4 +6,4 @@ namespace RectorPrefix20210321;
 class AppController
 {
 }
-\class_alias('RectorPrefix20210321\\AppController', 'AppController', \false);
+\class_alias('AppController', 'AppController', \false);

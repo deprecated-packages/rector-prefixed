@@ -16,13 +16,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/laravel/framework/commit/f5d8c0a673aa9fc6cd94aa4858a0027fe550a22e#diff-162a49c054acde9f386ec735607b95bc4a1c0c765a6f46da8de9a8a4ef5199d3
  * @see https://github.com/laravel/framework/pull/25261
  *
- * @see \Rector\Tests\Laravel\Rector\New_\AddGuardToLoginEventRector\AddGuardToLoginEventRectorTest
+ * @see \Rector\Laravel\Tests\Rector\New_\AddGuardToLoginEventRector\AddGuardToLoginEventRectorTest
  */
 final class AddGuardToLoginEventRector extends \Rector\Core\Rector\AbstractRector
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210321\\Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Auth\Events\Login;
 
 final class SomeClass
@@ -59,7 +59,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node->class, 'RectorPrefix20210321\\Illuminate\\Auth\\Events\\Login')) {
+        if (!$this->isName($node->class, 'Illuminate\\Auth\\Events\\Login')) {
             return null;
         }
         if (\count($node->args) === 3) {

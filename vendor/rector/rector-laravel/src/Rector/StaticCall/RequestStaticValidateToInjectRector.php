@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/laravel/framework/pull/27276
- * @see \Rector\Tests\Laravel\Rector\StaticCall\RequestStaticValidateToInjectRector\RequestStaticValidateToInjectRectorTest
+ * @see \Rector\Laravel\Tests\Rector\StaticCall\RequestStaticValidateToInjectRector\RequestStaticValidateToInjectRectorTest
  */
 final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -33,7 +33,7 @@ final class RequestStaticValidateToInjectRector extends \Rector\Core\Rector\Abst
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
-        $this->requestObjectTypes = [new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Http\\Request'), new \PHPStan\Type\ObjectType('Request')];
+        $this->requestObjectTypes = [new \PHPStan\Type\ObjectType('Illuminate\\Http\\Request'), new \PHPStan\Type\ObjectType('Request')];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -76,7 +76,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Http\\Request'), ['request', 'httpRequest']);
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, new \PHPStan\Type\ObjectType('Illuminate\\Http\\Request'), ['request', 'httpRequest']);
         $variable = new \PhpParser\Node\Expr\Variable($requestName);
         $methodName = $this->getName($node->name);
         if ($methodName === null) {

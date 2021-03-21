@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Form;
 
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Form\\AbstractTypeExtension')) {
+if (\class_exists('Symfony\\Component\\Form\\AbstractTypeExtension')) {
     return;
 }
 abstract class AbstractTypeExtension

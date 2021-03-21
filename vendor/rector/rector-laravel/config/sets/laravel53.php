@@ -9,6 +9,6 @@ return static function (\RectorPrefix20210321\Symfony\Component\DependencyInject
     $services = $containerConfigurator->services();
     $services->set(\Rector\Removing\Rector\Class_\RemoveTraitRector::class)->call('configure', [[\Rector\Removing\Rector\Class_\RemoveTraitRector::TRAITS_TO_REMOVE => [
         # see https://laravel.com/docs/5.3/upgrade
-        'RectorPrefix20210321\\Illuminate\\Foundation\\Auth\\Access\\AuthorizesResources',
+        'Illuminate\\Foundation\\Auth\\Access\\AuthorizesResources',
     ]]]);
 };

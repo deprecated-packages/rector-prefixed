@@ -37,7 +37,7 @@ final class LogoutHandlerToLogoutEventSubscriberRector extends \Rector\Core\Rect
     {
         $this->onLogoutClassMethodFactory = $onLogoutClassMethodFactory;
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
-        $this->logoutHandlerObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Security\\Http\\Logout\\LogoutHandlerInterface');
+        $this->logoutHandlerObjectType = new \PHPStan\Type\ObjectType('Symfony\\Component\\Security\\Http\\Logout\\LogoutHandlerInterface');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -104,7 +104,7 @@ CODE_SAMPLE
         $node->stmts[] = $this->onLogoutClassMethodFactory->createFromLogoutClassMethod($logoutClassMethod);
         $this->removeNode($logoutClassMethod);
         // 3. add getSubscribedEvents() class method
-        $classConstFetch = $this->nodeFactory->createClassConstReference('RectorPrefix20210321\\Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
+        $classConstFetch = $this->nodeFactory->createClassConstReference('Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
         $eventReferencesToMethodNames = [new \Rector\Symfony\ValueObject\EventReferenceToMethodName($classConstFetch, 'onLogout')];
         $getSubscribedEventsClassMethod = $this->getSubscribedEventsClassMethodFactory->create($eventReferencesToMethodNames);
         $node->stmts[] = $getSubscribedEventsClassMethod;
@@ -112,7 +112,7 @@ CODE_SAMPLE
     }
     private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210321\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
+        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {
             if (!$this->isName($implement, $this->logoutHandlerObjectType->getClassName())) {
                 continue;

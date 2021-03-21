@@ -80,7 +80,7 @@ CODE_SAMPLE
             return null;
         }
         $classReflection = $this->reflectionProvider->getClass($varType->getClassName());
-        if (!$classReflection->isSubclassOf('RectorPrefix20210321\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
+        if (!$classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
             return null;
         }
         if (!$this->isName($node->name, 'getParameter')) {

@@ -14,4 +14,4 @@ final class App
 }
 // faking cake php App class
 // see https://github.com/cakephp/cakephp/blob/2.4.1/lib/Cake/Core/App.php#L521
-\class_alias('RectorPrefix20210321\\App', 'App', \false);
+\class_alias('App', 'App', \false);

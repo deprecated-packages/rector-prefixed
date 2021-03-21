@@ -16,7 +16,7 @@ use Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\Laravel\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector\CallOnAppArrayAccessToStandaloneAssignRectorTest
+ * @see \Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector\CallOnAppArrayAccessToStandaloneAssignRectorTest
  */
 final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -30,7 +30,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
     private $appAssignFactory;
     public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'RectorPrefix20210321\\Illuminate\\Validation\\Factory', 'validationFactory');
+        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
@@ -53,7 +53,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $arrayDimFetch = $methodCall->var;
-        if (!$this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Contracts\\Foundation\\Application'))) {
+        if (!$this->isObjectType($arrayDimFetch->var, new \PHPStan\Type\ObjectType('Illuminate\\Contracts\\Foundation\\Application'))) {
             return null;
         }
         $arrayDimFetchDim = $methodCall->var->dim;

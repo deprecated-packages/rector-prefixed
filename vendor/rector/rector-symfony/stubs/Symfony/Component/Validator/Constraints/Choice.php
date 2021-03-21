@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\Choice')) {
+if (\class_exists('Symfony\\Component\\Validator\\Constraints\\Choice')) {
     return;
 }
 use RectorPrefix20210321\Symfony\Component\Validator\Constraint;

@@ -4,7 +4,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Routing\Annotation;
 
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Routing\\Annotation\\Route')) {
+if (\class_exists('Symfony\\Component\\Routing\\Annotation\\Route')) {
     return;
 }
 /**

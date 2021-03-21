@@ -87,7 +87,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if (!$this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Form\\AbstractType'))) {
+        if (!$this->isObjectType($classMethod, new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\AbstractType'))) {
             return \false;
         }
         return $this->isName($classMethod->name, 'getBlockPrefix');

@@ -41,12 +41,12 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         return [
             // tag value node class => annotation class
             // symfony/http-kernel
-            \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class => 'RectorPrefix20210321\\Symfony\\Component\\Routing\\Annotation\\Route',
+            \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class => 'Symfony\\Component\\Routing\\Annotation\\Route',
             // symfony/validator
-            \Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode::class => 'RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\Range',
-            \Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode::class => 'RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\Type',
-            \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode::class => 'RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\Choice',
-            \Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode::class => 'RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\Email',
+            \Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Range',
+            \Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Type',
+            \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Choice',
+            \Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Email',
         ];
     }
     public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode

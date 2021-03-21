@@ -23,7 +23,7 @@ final class FormAddMethodCallAnalyzer
     private $nodeNameResolver;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->formObjectTypes = [new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Form\\FormBuilderInterface'), new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Form\\FormInterface')];
+        $this->formObjectTypes = [new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\FormBuilderInterface'), new \PHPStan\Type\ObjectType('Symfony\\Component\\Form\\FormInterface')];
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }

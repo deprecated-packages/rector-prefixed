@@ -83,7 +83,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface'))) {
+        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface'))) {
             return \true;
         }
         if (!$this->isName($methodCall->name, 'dispatch')) {

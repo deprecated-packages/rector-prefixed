@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Validator\Constraints;
 
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
+if (\class_exists('Symfony\\Component\\Validator\\Constraints\\NotBlank')) {
     return;
 }
 use InvalidArgumentException;

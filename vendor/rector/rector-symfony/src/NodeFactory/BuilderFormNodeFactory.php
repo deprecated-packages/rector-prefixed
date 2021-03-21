@@ -41,7 +41,7 @@ final class BuilderFormNodeFactory
     private function createBuilderParam() : \PhpParser\Node\Param
     {
         $builderParamBuilder = new \RectorPrefix20210321\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder('builder');
-        $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20210321\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\FormBuilderInterface'));
         return $builderParamBuilder->getNode();
     }
     private function createOptionsParam() : \PhpParser\Node\Param

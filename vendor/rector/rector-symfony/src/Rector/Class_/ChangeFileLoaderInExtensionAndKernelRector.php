@@ -38,7 +38,7 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var array<string, class-string<PhpFileLoader>|class-string<XmlFileLoader>|class-string<YamlFileLoader>>
      */
-    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20210321\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20210321\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20210321\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => 'Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -120,10 +120,10 @@ CODE_SAMPLE
     }
     private function isKernelOrExtensionClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension'))) {
+        if ($this->isObjectType($class, new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension'))) {
             return \true;
         }
-        return $this->isObjectType($class, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\HttpKernel\\Kernel'));
+        return $this->isObjectType($class, new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpKernel\\Kernel'));
     }
     private function validateConfiguration(string $from, string $to) : void
     {
@@ -144,7 +144,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Config\\Loader\\LoaderInterface'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Config\\Loader\\LoaderInterface'))) {
             return null;
         }
         if (!$this->isName($node->name, 'load')) {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Nette\ComponentModel;
 
-if (\class_exists('RectorPrefix20210321\\Nette\\ComponentModel\\Container')) {
+if (\class_exists('Nette\\ComponentModel\\Container')) {
     return;
 }
 abstract class Container implements \RectorPrefix20210321\Nette\ComponentModel\IContainer

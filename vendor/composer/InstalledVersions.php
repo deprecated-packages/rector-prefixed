@@ -256,7 +256,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '92dffdb445a7ef0fa8a2d25425d5fffff1a001e1',
+      'reference' => 'd0c16f6664a8cbb02f09360f8335d5dc032e0a46',
     ),
     'rector/rector-nette' => 
     array (

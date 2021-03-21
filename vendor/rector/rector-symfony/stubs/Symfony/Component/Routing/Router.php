@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Routing;
 
 use RectorPrefix20210321\Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\Routing\\Router')) {
+if (\class_exists('Symfony\\Component\\Routing\\Router')) {
     return;
 }
 class Router implements \RectorPrefix20210321\Symfony\Component\Routing\RouterInterface

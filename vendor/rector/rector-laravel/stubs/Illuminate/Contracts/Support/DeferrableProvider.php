@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Illuminate\Contracts\Support;
 
-if (\interface_exists('RectorPrefix20210321\\Illuminate\\Contracts\\Support\\DeferrableProvider')) {
+if (\interface_exists('Illuminate\\Contracts\\Support\\DeferrableProvider')) {
     return;
 }
 interface DeferrableProvider

@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://laracasts.com/discuss/channels/laravel/laravel-57-upgrade-observer-problem
  *
- * @see \Rector\Tests\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector\AddParentBootToModelClassMethodRectorTest
+ * @see \Rector\Laravel\Tests\Rector\ClassMethod\AddParentBootToModelClassMethodRector\AddParentBootToModelClassMethodRectorTest
  */
 final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -34,7 +34,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20210321\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -73,7 +73,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
-        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Database\\Eloquent\\Model'))) {
+        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Illuminate\\Database\\Eloquent\\Model'))) {
             return null;
         }
         if (!$this->isName($node->name, self::BOOT)) {

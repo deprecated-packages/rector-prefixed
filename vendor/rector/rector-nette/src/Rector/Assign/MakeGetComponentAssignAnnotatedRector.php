@@ -126,7 +126,7 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
-        if (!$this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Nette\\Application\\UI\\Control'), 'getComponent')) {
+        if (!$this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), 'getComponent')) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
         return \true;
@@ -157,7 +157,7 @@ CODE_SAMPLE
         if (!$varStaticType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        return \is_a($varStaticType->getClassName(), 'RectorPrefix20210321\\Nette\\Application\\UI\\Control', \true);
+        return \is_a($varStaticType->getClassName(), 'Nette\\Application\\UI\\Control', \true);
     }
     private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {

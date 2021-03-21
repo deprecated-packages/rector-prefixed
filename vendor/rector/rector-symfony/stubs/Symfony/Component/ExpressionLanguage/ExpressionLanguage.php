@@ -5,7 +5,7 @@ declare (strict_types=1);
 // because it has optional-dependency on expression language
 namespace RectorPrefix20210321\Symfony\Component\ExpressionLanguage;
 
-if (\class_exists('RectorPrefix20210321\\Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage')) {
+if (\class_exists('Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage')) {
     return;
 }
 final class ExpressionLanguage

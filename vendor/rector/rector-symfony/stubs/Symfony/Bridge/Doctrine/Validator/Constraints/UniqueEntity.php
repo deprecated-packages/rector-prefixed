@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Bridge\Doctrine\Validator\Constraints;
 
 use RectorPrefix20210321\Symfony\Component\Validator\Constraint;
-if (\class_exists('RectorPrefix20210321\\Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
+if (\class_exists('Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')) {
     return;
 }
 /**

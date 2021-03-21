@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://laravel.com/docs/5.7/upgrade
- * @see \Rector\Tests\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector\Redirect301ToPermanentRedirectRectorTest
+ * @see \Rector\Laravel\Tests\Rector\StaticCall\Redirect301ToPermanentRedirectRector\Redirect301ToPermanentRedirectRectorTest
  */
 final class Redirect301ToPermanentRedirectRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -22,7 +22,7 @@ final class Redirect301ToPermanentRedirectRector extends \Rector\Core\Rector\Abs
     private $routerObjectTypes = [];
     public function __construct()
     {
-        $this->routerObjectTypes = [new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Support\\Facades\\Route'), new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Routing\\Route')];
+        $this->routerObjectTypes = [new \PHPStan\Type\ObjectType('Illuminate\\Support\\Facades\\Route'), new \PHPStan\Type\ObjectType('Illuminate\\Routing\\Route')];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

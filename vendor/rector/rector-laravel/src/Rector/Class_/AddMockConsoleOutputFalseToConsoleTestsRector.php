@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/laravel/framework/issues/26450#issuecomment-449401202
  * @see https://github.com/laravel/framework/commit/055fe52dbb7169dc51bd5d5deeb05e8da9be0470#diff-76a649cb397ea47f5613459c335f88c1b68e5f93e51d46e9fb5308ec55ded221
  *
- * @see \Rector\Tests\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector\AddMockConsoleOutputFalseToConsoleTestsRectorTest
+ * @see \Rector\Laravel\Tests\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector\AddMockConsoleOutputFalseToConsoleTestsRectorTest
  */
 final class AddMockConsoleOutputFalseToConsoleTestsRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -83,7 +83,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Foundation\\Testing\\TestCase'))) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Illuminate\\Foundation\\Testing\\TestCase'))) {
             return null;
         }
         if (!$this->isTestingConsoleOutput($node)) {
@@ -104,7 +104,7 @@ CODE_SAMPLE
                 return \false;
             }
             $callerType = $this->nodeTypeResolver->resolve($node->class);
-            if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Illuminate\\Support\\Facades\\Artisan'))->yes()) {
+            if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('Illuminate\\Support\\Facades\\Artisan'))->yes()) {
                 return \false;
             }
             return $this->isName($node->name, 'output');

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210321\Symfony\Component\Routing\Generator;
 
-if (\interface_exists('RectorPrefix20210321\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface')) {
+if (\interface_exists('Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface')) {
     return;
 }
 interface UrlGeneratorInterface

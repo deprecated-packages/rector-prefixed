@@ -29,7 +29,7 @@ final class ResponseStatusCodeRector extends \Rector\Core\Rector\AbstractRector
     private $responseObjectType;
     public function __construct()
     {
-        $this->responseObjectType = new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\HttpFoundation\\Response');
+        $this->responseObjectType = new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpFoundation\\Response');
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

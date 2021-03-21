@@ -55,7 +55,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Symfony\\Component\\Validator\\ValidatorBuilder'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Validator\\ValidatorBuilder'))) {
             return null;
         }
         if (!$this->isName($node->name, 'enableAnnotationMapping')) {
@@ -64,7 +64,7 @@ CODE_SAMPLE
         if ($this->valueResolver->isTrueOrFalse($node->args[0]->value)) {
             return null;
         }
-        if (!$this->isObjectType($node->args[0]->value, new \PHPStan\Type\ObjectType('RectorPrefix20210321\\Doctrine\\Common\\Annotations\\Reader'))) {
+        if (!$this->isObjectType($node->args[0]->value, new \PHPStan\Type\ObjectType('Doctrine\\Common\\Annotations\\Reader'))) {
             return null;
         }
         $readerType = $node->args[0]->value;
