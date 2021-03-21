@@ -111,7 +111,7 @@ final class CallTypesResolver
             if (!$unionedType instanceof \PHPStan\Type\TypeWithClassName) {
                 return $type;
             }
-            if (!\is_a($firstUnionedType->getClassName(), $unionedType->getClassName(), \true)) {
+            if ($unionedType->isSuperTypeOf($firstUnionedType)->yes()) {
                 return $type;
             }
         }

@@ -20,6 +20,9 @@ final class PropertyNameResolver implements \Rector\NodeNameResolver\Contract\No
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Stmt\Property::class;

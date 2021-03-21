@@ -20,6 +20,9 @@ final class ClassConstNameResolver implements \Rector\NodeNameResolver\Contract\
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Stmt\ClassConst::class;

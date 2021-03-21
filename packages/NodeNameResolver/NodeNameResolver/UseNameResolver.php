@@ -20,6 +20,9 @@ final class UseNameResolver implements \Rector\NodeNameResolver\Contract\NodeNam
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Stmt\Use_::class;

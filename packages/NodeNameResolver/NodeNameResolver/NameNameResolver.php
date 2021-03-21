@@ -19,6 +19,9 @@ final class NameNameResolver implements \Rector\NodeNameResolver\Contract\NodeNa
     {
         $this->funcCallNameResolver = $funcCallNameResolver;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Name::class;

@@ -17,6 +17,7 @@ use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use RectorPrefix20210321\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
@@ -54,7 +55,14 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
             if (!$value instanceof \PhpParser\Node\Expr) {
                 continue;
             }
-            $types[] = $this->nodeTypeResolver->getStaticType($value);
+            $resolvedType = $this->nodeTypeResolver->getStaticType($value);
+            if ($resolvedType instanceof \PHPStan\Type\MixedType) {
+                continue;
+            }
+            $types[] = $resolvedType;
+        }
+        if ($types === []) {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('Iterator');
         }
         $types = $this->typeFactory->createMixedPassedOrUnionType($types);
         return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType('Iterator', [$types]);

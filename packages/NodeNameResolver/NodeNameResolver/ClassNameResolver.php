@@ -21,6 +21,9 @@ final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Stmt\ClassLike::class;

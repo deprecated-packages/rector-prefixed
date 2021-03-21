@@ -21,20 +21,13 @@ final class ObjectTypeComparator
         if ($this->isBothCallable($currentType, $newType)) {
             return \true;
         }
-        if ($this->isBothIterableIteratorGeneratorTraversable($currentType, $newType)) {
-            return \true;
-        }
         if (!$currentType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
         if (!$newType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return \is_a($currentType->getClassName(), $newType->getClassName(), \true);
-    }
-    private function isClosure(\PHPStan\Type\Type $type) : bool
-    {
-        return $type instanceof \PHPStan\Type\ObjectType && $type->getClassName() === 'Closure';
+        return $newType->isSuperTypeOf($currentType)->yes();
     }
     private function isBothCallable(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $newType) : bool
     {
@@ -43,24 +36,9 @@ final class ObjectTypeComparator
         }
         return $newType instanceof \PHPStan\Type\CallableType && $this->isClosure($currentType);
     }
-    private function isBothIterableIteratorGeneratorTraversable(\PHPStan\Type\Type $currentType, \PHPStan\Type\Type $newType) : bool
+    private function isClosure(\PHPStan\Type\Type $type) : bool
     {
-        if (!$currentType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
-        }
-        if (!$newType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
-        }
-        if ($currentType->getClassName() === 'iterable' && $this->isTraversableGeneratorIterator($newType)) {
-            return \true;
-        }
-        if ($newType->getClassName() !== 'iterable') {
-            return \false;
-        }
-        return $this->isTraversableGeneratorIterator($currentType);
-    }
-    private function isTraversableGeneratorIterator(\PHPStan\Type\ObjectType $objectType) : bool
-    {
-        return \in_array($objectType->getClassName(), ['Traversable', 'Generator', 'Iterator'], \true);
+        $closureObjectType = new \PHPStan\Type\ObjectType('Closure');
+        return $closureObjectType->equals($type);
     }
 }

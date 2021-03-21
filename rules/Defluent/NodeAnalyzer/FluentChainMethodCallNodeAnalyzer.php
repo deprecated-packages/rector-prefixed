@@ -15,7 +15,7 @@ use PHPStan\Analyser\MutatingScope;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Rector\Core\Util\StaticInstanceOf;
+use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\Defluent\Reflection\MethodCallToClassMethodParser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -193,7 +193,7 @@ final class FluentChainMethodCallNodeAnalyzer
     }
     private function isCall(\PhpParser\Node\Expr $expr) : bool
     {
-        return \Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
+        return \Rector\Core\Util\StaticNodeInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
     private function isMethodCallCreatingNewInstance(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {

@@ -1456,7 +1456,7 @@
             "description": "Rector upgrades rules for Symfony Framework",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
-                "source": "https://github.com/rectorphp/rector-symfony/tree/main"
+                "source": "https://github.com/rectorphp/rector-symfony/tree/0.10.0"
             },
             "time": "2021-03-21T12:46:29+00:00"
         },

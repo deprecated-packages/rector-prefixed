@@ -39,10 +39,11 @@ final class ScopeAwareNodeFinder
     }
     /**
      * Find node based on $callable or null, when the nesting scope is broken
-     * @param class-string[] $allowedTypes
+     * @param array<class-string<Node>> $allowedTypes
      */
     public function findParent(\PhpParser\Node $node, callable $callable, array $allowedTypes) : ?\PhpParser\Node
     {
+        /** @var array<class-string<Node>> $parentNestingBreakTypes */
         $parentNestingBreakTypes = \array_diff(\Rector\NodeNestingScope\ValueObject\ControlStructure::BREAKING_SCOPE_NODE_TYPES, $allowedTypes);
         $this->isBreakingNodeFoundFirst = \false;
         $foundNode = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $node) use($callable, $parentNestingBreakTypes) : bool {

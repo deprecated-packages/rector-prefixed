@@ -16,7 +16,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticInstanceOf;
+use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer;
 use Rector\Renaming\ValueObject\PseudoNamespaceToNamespace;
@@ -110,7 +110,7 @@ CODE_SAMPLE
     private function refactorStmts(array $stmts) : array
     {
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) : ?Node {
-            if (!\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
+            if (!\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
                 return null;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);

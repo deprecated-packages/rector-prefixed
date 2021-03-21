@@ -25,7 +25,6 @@ use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Util\StaticInstanceOf;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
@@ -381,19 +380,25 @@ final class PhpDocInfo
         }
         return $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType($phpDocTagValueNode, $this->node);
     }
+    /**
+     * @param class-string $type
+     */
     private function ensureTypeIsTagValueNode(string $type, string $location) : void
     {
-        /** @var array<class-string> $desiredTypes */
+        /** @var array<class-string<\PhpParser\Node>> $desiredTypes */
         $desiredTypes = \array_merge([\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class], \Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES);
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($type, $desiredTypes)) {
-            return;
+        foreach ($desiredTypes as $desiredType) {
+            if (\is_a($type, $desiredType, \true)) {
+                return;
+            }
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Type "%s" passed to "%s()" method must be child of "%s"', $type, $location, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class));
     }
     private function resolveNameForPhpDocTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
         foreach (self::TAGS_TYPES_TO_NAMES as $tagValueNodeType => $name) {
-            if ($phpDocTagValueNode instanceof $tagValueNodeType) {
+            /** @var class-string<PhpDocTagNode> $tagValueNodeType */
+            if (\is_a($phpDocTagValueNode, $tagValueNodeType, \true)) {
                 return $name;
             }
         }

@@ -20,6 +20,9 @@ final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\No
     {
         $this->reflectionProvider = $reflectionProvider;
     }
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Expr\FuncCall::class;

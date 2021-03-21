@@ -12,6 +12,9 @@ use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
+    /**
+     * @return class-string<Node>
+     */
     public function getNode() : string
     {
         return \PhpParser\Node\Expr\Variable::class;
