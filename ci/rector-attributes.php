@@ -7,6 +7,9 @@ use Rector\Core\ValueObject\PhpVersion;
 use Rector\Symfony\Set\SymfonySetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
+// route class must exist and be loaded, as annotation parser uses dynamic reflection
+require_once __DIR__ . '/../stubs/Symfony/Component/Routing/Annotation/Route.php';
+
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(SymfonySetList::SYMFONY_52);
 
