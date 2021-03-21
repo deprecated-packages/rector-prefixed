@@ -5,6 +5,7 @@ namespace Rector\CodeQuality\Rector\Concat;
 
 use RectorPrefix20210321\Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -79,7 +80,7 @@ CODE_SAMPLE
     /**
      * @return Concat|String_
      */
-    private function joinConcatIfStrings(\PhpParser\Node\Expr\BinaryOp\Concat $node) : \PhpParser\Node
+    private function joinConcatIfStrings(\PhpParser\Node\Expr\BinaryOp\Concat $node) : \PhpParser\Node\Expr
     {
         $concat = clone $node;
         if ($concat->left instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {

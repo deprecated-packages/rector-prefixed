@@ -102,7 +102,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function refactorNode(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node
+    private function refactorNode(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node\Expr\FuncCall
     {
         $newItems = $this->createArrayItems($array);
         // Replace this array node with an `array_merge`

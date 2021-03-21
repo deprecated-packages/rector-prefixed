@@ -38,10 +38,7 @@ final class TypeUnwrapper
         }
         return $type;
     }
-    /**
-     * @return Type|UnionType
-     */
-    public function removeNullTypeFromUnionType(\PHPStan\Type\UnionType $unionType) : \PHPStan\Type\Type
+    public function removeNullTypeFromUnionType(\PHPStan\Type\UnionType $unionType) : \PHPStan\Type\UnionType
     {
         $unionedTypesWithoutNullType = [];
         foreach ($unionType->getTypes() as $type) {

@@ -1856,6 +1856,7 @@ return array(
     'Rector\\DeadCode\\Contract\\ConditionInterface' => $baseDir . '/rules/DeadCode/Contract/ConditionInterface.php',
     'Rector\\DeadCode\\FeatureSupport\\FunctionSupportResolver' => $baseDir . '/rules/DeadCode/FeatureSupport/FunctionSupportResolver.php',
     'Rector\\DeadCode\\NodeAnalyzer\\DataProviderMethodNamesResolver' => $baseDir . '/rules/DeadCode/NodeAnalyzer/DataProviderMethodNamesResolver.php',
+    'Rector\\DeadCode\\NodeAnalyzer\\InstanceOfUniqueKeyResolver' => $baseDir . '/rules/DeadCode/NodeAnalyzer/InstanceOfUniqueKeyResolver.php',
     'Rector\\DeadCode\\NodeCollector\\ModifiedVariableNamesCollector' => $baseDir . '/rules/DeadCode/NodeCollector/ModifiedVariableNamesCollector.php',
     'Rector\\DeadCode\\NodeCollector\\NodeByTypeAndPositionCollector' => $baseDir . '/rules/DeadCode/NodeCollector/NodeByTypeAndPositionCollector.php',
     'Rector\\DeadCode\\NodeFinder\\NextVariableUsageNodeFinder' => $baseDir . '/rules/DeadCode/NodeFinder/NextVariableUsageNodeFinder.php',

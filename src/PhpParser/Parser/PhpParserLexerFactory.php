@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Parser;
 
-use PhpParser\Lexer;
 use PhpParser\Lexer\Emulative;
 /**
  * This Lexer allows Format-perserving AST Transformations.
@@ -11,7 +10,7 @@ use PhpParser\Lexer\Emulative;
  */
 final class PhpParserLexerFactory
 {
-    public function create() : \PhpParser\Lexer
+    public function create() : \PhpParser\Lexer\Emulative
     {
         return new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startTokenPos', 'endTokenPos'], 'phpVersion' => \PHP_VERSION]);
     }

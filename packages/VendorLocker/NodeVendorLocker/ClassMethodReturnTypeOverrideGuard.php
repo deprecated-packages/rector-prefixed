@@ -16,14 +16,11 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
-use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodReturnTypeOverrideGuard
 {
     /**
@@ -34,10 +31,6 @@ final class ClassMethodReturnTypeOverrideGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
     /**
      * @var ReflectionProvider
      */
@@ -50,10 +43,9 @@ final class ClassMethodReturnTypeOverrideGuard
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -91,13 +83,10 @@ final class ClassMethodReturnTypeOverrideGuard
             return \false;
         }
         // new generic string type is more advanced than old array type
-        if ($oldType instanceof \PHPStan\Type\ArrayType && $newType instanceof \PHPStan\Type\ArrayType && ($oldType->getItemType() instanceof \PHPStan\Type\StringType && $newType->getItemType() instanceof \PHPStan\Type\Generic\GenericClassStringType)) {
+        if ($this->isFirstArrayTypeMoreAdvanced($oldType, $newType)) {
             return \false;
         }
-        if ($oldType->isSuperTypeOf($newType)->yes()) {
-            return \true;
-        }
-        return $this->isArrayMutualType($newType, $oldType);
+        return $oldType->isSuperTypeOf($newType)->yes();
     }
     private function shouldSkipChaoticClassMethods(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -126,37 +115,6 @@ final class ClassMethodReturnTypeOverrideGuard
         }
         return \false;
     }
-    private function isArrayMutualType(\PHPStan\Type\Type $newType, \PHPStan\Type\Type $oldType) : bool
-    {
-        if (!$newType instanceof \PHPStan\Type\ArrayType) {
-            return \false;
-        }
-        if (!$oldType instanceof \PHPStan\Type\ArrayType) {
-            return \false;
-        }
-        $oldTypeWithClassName = $oldType->getItemType();
-        if (!$oldTypeWithClassName instanceof \PHPStan\Type\TypeWithClassName) {
-            return \false;
-        }
-        $arrayItemType = $newType->getItemType();
-        if (!$arrayItemType instanceof \PHPStan\Type\UnionType) {
-            return \false;
-        }
-        $isMatchingClassTypes = \false;
-        foreach ($arrayItemType->getTypes() as $newUnionedType) {
-            if (!$newUnionedType instanceof \PHPStan\Type\TypeWithClassName) {
-                return \false;
-            }
-            $oldClass = $this->nodeTypeResolver->getFullyQualifiedClassName($oldTypeWithClassName);
-            $newClass = $this->nodeTypeResolver->getFullyQualifiedClassName($newUnionedType);
-            if (\is_a($oldClass, $newClass, \true) || \is_a($newClass, $oldClass, \true)) {
-                $isMatchingClassTypes = \true;
-            } else {
-                return \false;
-            }
-        }
-        return $isMatchingClassTypes;
-    }
     private function hasClassMethodExprReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
@@ -165,5 +123,18 @@ final class ClassMethodReturnTypeOverrideGuard
             }
             return $node->expr instanceof \PhpParser\Node\Expr;
         });
+    }
+    private function isFirstArrayTypeMoreAdvanced(\PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType) : bool
+    {
+        if (!$oldType instanceof \PHPStan\Type\ArrayType) {
+            return \false;
+        }
+        if (!$newType instanceof \PHPStan\Type\ArrayType) {
+            return \false;
+        }
+        if (!$oldType->getItemType() instanceof \PHPStan\Type\StringType) {
+            return \false;
+        }
+        return $newType->getItemType() instanceof \PHPStan\Type\Generic\GenericClassStringType;
     }
 }

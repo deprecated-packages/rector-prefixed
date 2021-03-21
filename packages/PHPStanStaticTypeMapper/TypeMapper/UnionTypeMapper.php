@@ -249,13 +249,6 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         return null;
     }
-    private function areTypeWithClassNamesRelated(\PHPStan\Type\TypeWithClassName $firstType, \PHPStan\Type\TypeWithClassName $secondType) : bool
-    {
-        if (\is_a($firstType->getClassName(), $secondType->getClassName(), \true)) {
-            return \true;
-        }
-        return \is_a($secondType->getClassName(), $firstType->getClassName(), \true);
-    }
     private function matchTwoObjectTypes(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
     {
         /** @var TypeWithClassName $unionedType */
@@ -269,6 +262,13 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return $unionedType;
         }
         return null;
+    }
+    private function areTypeWithClassNamesRelated(\PHPStan\Type\TypeWithClassName $firstType, \PHPStan\Type\TypeWithClassName $secondType) : bool
+    {
+        if ($firstType->accepts($secondType, \false)->yes()) {
+            return \true;
+        }
+        return $secondType->accepts($firstType, \false)->yes();
     }
     private function correctObjectType(\PHPStan\Type\TypeWithClassName $typeWithClassName) : \PHPStan\Type\TypeWithClassName
     {

@@ -330,7 +330,7 @@ final class IfManipulator
         }
         return \is_a($stmts[0], $desiredType);
     }
-    private function getIfCondVar(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node
+    private function getIfCondVar(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node\Expr
     {
         /** @var Identical|NotIdentical $ifCond */
         $ifCond = $if->cond;

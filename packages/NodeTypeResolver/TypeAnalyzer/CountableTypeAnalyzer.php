@@ -4,10 +4,7 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\TypeAnalyzer;
 
 use PhpParser\Node;
-use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
 use Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class CountableTypeAnalyzer
@@ -24,50 +21,26 @@ final class CountableTypeAnalyzer
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+    /**
+     * @var ObjectType[]
+     */
+    private $countableObjectTypes = [];
     public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector $pregMatchTypeCorrector)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
         $this->pregMatchTypeCorrector = $pregMatchTypeCorrector;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->countableObjectTypes = [new \PHPStan\Type\ObjectType('Countable'), new \PHPStan\Type\ObjectType('SimpleXMLElement'), new \PHPStan\Type\ObjectType('ResourceBundle')];
     }
     public function isCountableType(\PhpParser\Node $node) : bool
     {
         $nodeType = $this->nodeTypeResolver->resolve($node);
         $nodeType = $this->pregMatchTypeCorrector->correct($node, $nodeType);
-        if ($this->isCountableObjectType($nodeType)) {
-            return \true;
+        foreach ($this->countableObjectTypes as $countableObjectType) {
+            if ($countableObjectType->isSuperTypeOf($nodeType)->yes()) {
+                return \true;
+            }
         }
         return $this->arrayTypeAnalyzer->isArrayType($node);
-    }
-    private function isCountableObjectType(\PHPStan\Type\Type $type) : bool
-    {
-        $countableObjectTypes = [new \PHPStan\Type\ObjectType('Countable'), new \PHPStan\Type\ObjectType('SimpleXMLElement'), new \PHPStan\Type\ObjectType('ResourceBundle')];
-        if ($type instanceof \PHPStan\Type\UnionType) {
-            return $this->isCountableUnionType($type, $countableObjectTypes);
-        }
-        if ($type instanceof \PHPStan\Type\ObjectType) {
-            foreach ($countableObjectTypes as $countableObjectType) {
-                if (!\is_a($type->getClassName(), $countableObjectType->getClassName(), \true)) {
-                    continue;
-                }
-                return \true;
-            }
-        }
-        return \false;
-    }
-    /**
-     * @param ObjectType[] $countableObjectTypes
-     */
-    private function isCountableUnionType(\PHPStan\Type\UnionType $unionType, array $countableObjectTypes) : bool
-    {
-        if ($unionType->isSubTypeOf(new \PHPStan\Type\NullType())->yes()) {
-            return \false;
-        }
-        foreach ($countableObjectTypes as $countableObjectType) {
-            if ($unionType->isSuperTypeOf($countableObjectType)->yes()) {
-                return \true;
-            }
-        }
-        return \false;
     }
 }

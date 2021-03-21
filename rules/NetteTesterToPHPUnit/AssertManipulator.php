@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NetteTesterToPHPUnit;
 
-use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Expr\Closure;
@@ -91,7 +90,7 @@ final class AssertManipulator
     /**
      * @return StaticCall|MethodCall
      */
-    public function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node
+    public function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr
     {
         if ($this->nodeNameResolver->isNames($staticCall->name, ['truthy', 'falsey'])) {
             return $this->processTruthyOrFalseyCall($staticCall);

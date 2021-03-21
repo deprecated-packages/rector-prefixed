@@ -114,7 +114,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function processSingleUnionType(\PhpParser\Node $node, \PHPStan\Type\UnionType $unionType, \PhpParser\Node\NullableType $nullableType) : \PhpParser\Node
+    private function processSingleUnionType(\PhpParser\Node $node, \PHPStan\Type\UnionType $unionType, \PhpParser\Node\NullableType $nullableType) : \PhpParser\Node\FunctionLike
     {
         $types = $unionType->getTypes();
         $returnType = $types[0] instanceof \PHPStan\Type\ObjectType && $types[1] instanceof \PHPStan\Type\NullType ? new \PhpParser\Node\NullableType(new \PhpParser\Node\Name\FullyQualified($types[0]->getClassName())) : $nullableType;
@@ -205,7 +205,7 @@ CODE_SAMPLE
      * @param ClassMethod|Function_|Closure $functionLike
      * @param Name|NullableType|PhpParserUnionType $returnedStrictTypeNode
      */
-    private function refactorSingleReturnType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node $returnedStrictTypeNode, \PhpParser\Node\FunctionLike $functionLike) : \PhpParser\Node
+    private function refactorSingleReturnType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node $returnedStrictTypeNode, \PhpParser\Node\FunctionLike $functionLike) : \PhpParser\Node\FunctionLike
     {
         $resolvedType = $this->nodeTypeResolver->resolve($return);
         if ($resolvedType instanceof \PHPStan\Type\UnionType) {

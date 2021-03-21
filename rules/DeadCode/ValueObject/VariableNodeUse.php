@@ -57,7 +57,7 @@ final class VariableNodeUse
     {
         return $this->type === $type;
     }
-    public function getVariableNode() : \PhpParser\Node
+    public function getVariableNode() : \PhpParser\Node\Expr\Variable
     {
         return $this->variable;
     }

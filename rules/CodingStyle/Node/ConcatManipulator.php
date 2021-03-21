@@ -23,7 +23,7 @@ final class ConcatManipulator
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeComparator = $nodeComparator;
     }
-    public function getFirstConcatItem(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \PhpParser\Node
+    public function getFirstConcatItem(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \PhpParser\Node\Expr
     {
         // go to the deep, until there is no concat
         while ($concat->left instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
@@ -31,7 +31,7 @@ final class ConcatManipulator
         }
         return $concat->left;
     }
-    public function removeFirstItemFromConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \PhpParser\Node
+    public function removeFirstItemFromConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \PhpParser\Node\Expr
     {
         // just 2 items, return right one
         if (!$concat->left instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {

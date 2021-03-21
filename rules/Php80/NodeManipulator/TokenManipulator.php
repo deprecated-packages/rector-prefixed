@@ -260,7 +260,7 @@ final class TokenManipulator
         }
         return \false;
     }
-    private function matchParentNodeInCaseOfIdenticalTrue(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node
+    private function matchParentNodeInCaseOfIdenticalTrue(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr
     {
         $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
