@@ -14,16 +14,4 @@ jobs:
                     php-version: '8.0'
                     coverage: none
 
-            -   run: |
-                    mkdir standalone
-                    cd standalone
-                    # wait for deploy to packagist
-                    sleep 70
-
-            -   run: |
-                    cd standalone
-                    # run
-                    composer require rector/rector-prefixed:dev-main --dev --ansi
-
-            -
-                run: vendor/bin/rector process ../tests/fixture-php8-attributes --config ../ci/rector-attributes.php --ansi
+            -   run: bin/rector process tests/fixture-php8-attributes --config ci/rector-attributes.php --ansi
