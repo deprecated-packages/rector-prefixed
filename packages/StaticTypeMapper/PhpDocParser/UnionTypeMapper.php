@@ -25,6 +25,9 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
     {
         $this->typeFactory = $typeFactory;
     }
+    /**
+     * @return class-string<TypeNode>
+     */
     public function getNodeType() : string
     {
         return \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode::class;

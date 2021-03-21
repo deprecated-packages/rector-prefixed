@@ -122,3 +122,7 @@ final class SmartFileInfo extends \RectorPrefix20210321\Symfony\Component\Finder
         return \str_replace('\\', '/', $path);
     }
 }
+/**
+ * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
+ */
+\class_alias('RectorPrefix20210321\\Symplify\\SmartFileSystem\\SmartFileInfo', 'Symplify\\SmartFileSystem\\SmartFileInfo', \false);

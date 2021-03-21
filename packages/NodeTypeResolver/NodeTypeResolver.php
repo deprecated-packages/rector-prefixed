@@ -281,6 +281,9 @@ final class NodeTypeResolver
         }
         return $this->isStaticType($defaultNodeValue, \PHPStan\Type\BooleanType::class);
     }
+    /**
+     * @return class-string
+     */
     public function getFullyQualifiedClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
     {
         if ($typeWithClassName instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {

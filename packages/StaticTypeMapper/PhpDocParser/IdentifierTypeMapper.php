@@ -40,6 +40,9 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
         $this->objectTypeSpecifier = $objectTypeSpecifier;
         $this->parentClassScopeResolver = $parentClassScopeResolver;
     }
+    /**
+     * @return class-string<TypeNode>
+     */
     public function getNodeType() : string
     {
         return \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class;

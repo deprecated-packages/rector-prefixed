@@ -234,6 +234,10 @@ CODE_SAMPLE
      */
     private function isIterableType(\PHPStan\Type\Type $type) : bool
     {
-        return $type instanceof \PHPStan\Type\IterableType || $type instanceof \PHPStan\Type\ObjectType && \is_a($type->getClassName(), \Traversable::class, \true);
+        if ($type instanceof \PHPStan\Type\IterableType) {
+            return \true;
+        }
+        $traversableObjectType = new \PHPStan\Type\ObjectType('Traversable');
+        return $traversableObjectType->isSuperTypeOf($type)->yes();
     }
 }

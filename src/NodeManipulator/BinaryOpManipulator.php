@@ -26,8 +26,8 @@ final class BinaryOpManipulator
      * Tries to match left or right parts (xor),
      * returns null or match on first condition and then second condition. No matter what the origin order is.
      *
-     * @param callable|string $firstCondition callable or Node to instanceof
-     * @param callable|string $secondCondition callable or Node to instanceof
+     * @param callable|class-string<Node> $firstCondition
+     * @param callable|class-string<Node> $secondCondition
      */
     public function matchFirstAndSecondConditionNode(\PhpParser\Node\Expr\BinaryOp $binaryOp, $firstCondition, $secondCondition) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {
@@ -92,7 +92,7 @@ final class BinaryOpManipulator
         return new \PhpParser\Node\Expr\BooleanNot($expr);
     }
     /**
-     * @param string|callable $firstCondition
+     * @param callable|class-string<Node> $firstCondition
      */
     private function validateCondition($firstCondition) : void
     {
@@ -105,7 +105,7 @@ final class BinaryOpManipulator
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
-     * @param callable|string $condition
+     * @param callable|class-string<Node> $condition
      */
     private function normalizeCondition($condition) : callable
     {

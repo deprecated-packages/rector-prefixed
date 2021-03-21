@@ -7,6 +7,7 @@ use RectorPrefix20210321\Controller;
 use RectorPrefix20210321\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
@@ -46,7 +47,7 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
      */
     private $enableValueObjectGuessing = \true;
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private $types = [];
     /**
@@ -131,6 +132,9 @@ CODE_SAMPLE
         $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
         return null;
     }
+    /**
+     * @param array<string, mixed> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->types = $configuration[self::TYPES] ?? [];
@@ -146,8 +150,10 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
+        $classObjectType = new \PHPStan\Type\ObjectType($className);
         foreach ($this->types as $type) {
-            if (\is_a($className, $type, \true)) {
+            $desiredObjectType = new \PHPStan\Type\ObjectType($type);
+            if ($desiredObjectType->isSuperTypeOf($classObjectType)->yes()) {
                 return \true;
             }
         }
