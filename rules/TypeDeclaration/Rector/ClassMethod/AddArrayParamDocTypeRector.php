@@ -12,7 +12,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
-use Rector\DeadDocBlock\TagRemover\ParamTagRemover;
+use Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -33,7 +33,7 @@ final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRecto
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;

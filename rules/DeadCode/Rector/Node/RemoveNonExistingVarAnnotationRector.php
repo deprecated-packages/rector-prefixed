@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadDocBlock\Rector\Node;
+namespace Rector\DeadCode\Rector\Node;
 
 use PhpParser\Comment;
 use PhpParser\Node;

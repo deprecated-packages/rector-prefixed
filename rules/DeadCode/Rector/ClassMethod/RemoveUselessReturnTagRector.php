@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadDocBlock\Rector\ClassMethod;
+namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
-use Rector\DeadDocBlock\TagRemover\ReturnTagRemover;
+use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -18,7 +18,7 @@ final class RemoveUselessReturnTagRector extends \Rector\Core\Rector\AbstractRec
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
-    public function __construct(\Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover)
+    public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover)
     {
         $this->returnTagRemover = $returnTagRemover;
     }

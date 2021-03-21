@@ -18,7 +18,6 @@ use Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode;
 use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectParamsTagValueNode;
-use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
 use Rector\Symfony\PhpDoc\Node\JMS\JMSServiceTagValueNode;
 use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
 use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
@@ -60,7 +59,6 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
             \Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode::class => 'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route',
             // JMS
             \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectParamsTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\InjectParams',
-            \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\Inject',
             \Rector\Symfony\PhpDoc\Node\JMS\JMSServiceTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\Service',
             \Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode::class => 'JMS\\Serializer\\Annotation\\Type',
         ];

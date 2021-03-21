@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadDocBlock;
+namespace Rector\DeadCode\PhpDoc;
 
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Param;

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DeadDocBlock\TagRemover;
+namespace Rector\DeadCode\PhpDoc\TagRemover;
 
 use PhpParser\Node\FunctionLike;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer;
+use Rector\DeadCode\PhpDoc\DeadReturnTagValueNodeAnalyzer;
 final class ReturnTagRemover
 {
     /**
      * @var DeadReturnTagValueNodeAnalyzer
      */
     private $deadReturnTagValueNodeAnalyzer;
-    public function __construct(\Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer $deadReturnTagValueNodeAnalyzer)
+    public function __construct(\Rector\DeadCode\PhpDoc\DeadReturnTagValueNodeAnalyzer $deadReturnTagValueNodeAnalyzer)
     {
         $this->deadReturnTagValueNodeAnalyzer = $deadReturnTagValueNodeAnalyzer;
     }

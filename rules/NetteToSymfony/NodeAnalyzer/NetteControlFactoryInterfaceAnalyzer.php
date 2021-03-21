@@ -4,8 +4,10 @@ declare (strict_types=1);
 namespace Rector\NetteToSymfony\NodeAnalyzer;
 
 use PhpParser\Node\Stmt\Interface_;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
-use Rector\NodeTypeResolver\NodeTypeResolver;
+use PHPStan\Type\UnionType;
+use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 final class NetteControlFactoryInterfaceAnalyzer
 {
@@ -13,14 +15,9 @@ final class NetteControlFactoryInterfaceAnalyzer
      * @var ReturnTypeInferer
      */
     private $returnTypeInferer;
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer)
     {
         $this->returnTypeInferer = $returnTypeInferer;
-        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
      * @see https://doc.nette.org/en/3.0/components#toc-components-with-dependencies
@@ -32,11 +29,11 @@ final class NetteControlFactoryInterfaceAnalyzer
             if (!$returnType instanceof \PHPStan\Type\TypeWithClassName) {
                 return \false;
             }
-            $className = $this->nodeTypeResolver->getFullyQualifiedClassName($returnType);
-            if (\is_a($className, 'Nette\\Application\\UI\\Control', \true)) {
-                return \true;
+            $controlOrForm = new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form')]);
+            if ($returnType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
+                $returnType = new \PHPStan\Type\ObjectType($returnType->getFullyQualifiedName());
             }
-            if (\is_a($className, 'Nette\\Application\\UI\\Form', \true)) {
+            if ($controlOrForm->isSuperTypeOf($returnType)->yes()) {
                 return \true;
             }
         }

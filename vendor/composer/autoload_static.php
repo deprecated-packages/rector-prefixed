@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
+class ComposerStaticInita8d303b59abd4137f11d8d131a7dc50c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2205,6 +2205,12 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/ControllerClassMethodManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/CountManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\LivingCodeManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php',
+        'Rector\\DeadCode\\PhpDoc\\DeadParamTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadParamTagValueNodeAnalyzer.php',
+        'Rector\\DeadCode\\PhpDoc\\DeadReturnTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadReturnTagValueNodeAnalyzer.php',
+        'Rector\\DeadCode\\PhpDoc\\DeadVarTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadVarTagValueNodeAnalyzer.php',
+        'Rector\\DeadCode\\PhpDoc\\TagRemover\\ParamTagRemover' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/TagRemover/ParamTagRemover.php',
+        'Rector\\DeadCode\\PhpDoc\\TagRemover\\ReturnTagRemover' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/TagRemover/ReturnTagRemover.php',
+        'Rector\\DeadCode\\PhpDoc\\TagRemover\\VarTagRemover' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/TagRemover/VarTagRemover.php',
         'Rector\\DeadCode\\Rector\\Array_\\RemoveDuplicatedArrayKeyRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Array_/RemoveDuplicatedArrayKeyRector.php',
         'Rector\\DeadCode\\Rector\\Assign\\RemoveAssignOfVoidReturnFunctionRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Assign/RemoveAssignOfVoidReturnFunctionRector.php',
         'Rector\\DeadCode\\Rector\\Assign\\RemoveDoubleAssignRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Assign/RemoveDoubleAssignRector.php',
@@ -2215,6 +2221,7 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\DeadCode\\Rector\\Cast\\RecastingRemovalRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Cast/RecastingRemovalRector.php',
         'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedClassConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedClassConstantRector.php',
         'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedPrivateConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedPrivateConstantRector.php',
+        'Rector\\DeadCode\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassLike/RemoveAnnotationRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDeadConstructorRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDeadConstructorRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDeadRecursiveClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDeadRecursiveClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDelegatingParentCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDelegatingParentCallRector.php',
@@ -2222,6 +2229,8 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessParamTagRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
         'Rector\\DeadCode\\Rector\\Concat\\RemoveConcatAutocastRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Concat/RemoveConcatAutocastRector.php',
         'Rector\\DeadCode\\Rector\\Expression\\RemoveDeadStmtRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Expression/RemoveDeadStmtRector.php',
         'Rector\\DeadCode\\Rector\\Expression\\SimplifyMirrorAssignRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Expression/SimplifyMirrorAssignRector.php',
@@ -2241,10 +2250,12 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfPhpVersionRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/If_/UnwrapFutureCompatibleIfPhpVersionRector.php',
         'Rector\\DeadCode\\Rector\\MethodCall\\RemoveDefaultArgumentValueRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/MethodCall/RemoveDefaultArgumentValueRector.php',
         'Rector\\DeadCode\\Rector\\MethodCall\\RemoveEmptyMethodCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/MethodCall/RemoveEmptyMethodCallRector.php',
+        'Rector\\DeadCode\\Rector\\Node\\RemoveNonExistingVarAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Node/RemoveNonExistingVarAnnotationRector.php',
         'Rector\\DeadCode\\Rector\\Plus\\RemoveDeadZeroAndOneOperationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Plus/RemoveDeadZeroAndOneOperationRector.php',
         'Rector\\DeadCode\\Rector\\PropertyProperty\\RemoveNullPropertyInitializationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/PropertyProperty/RemoveNullPropertyInitializationRector.php',
         'Rector\\DeadCode\\Rector\\Property\\RemoveSetterOnlyPropertyAndMethodCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Property/RemoveSetterOnlyPropertyAndMethodCallRector.php',
         'Rector\\DeadCode\\Rector\\Property\\RemoveUnusedPrivatePropertyRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Property/RemoveUnusedPrivatePropertyRector.php',
+        'Rector\\DeadCode\\Rector\\Property\\RemoveUselessVarTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Property/RemoveUselessVarTagRector.php',
         'Rector\\DeadCode\\Rector\\Return_\\RemoveDeadConditionAboveReturnRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Return_/RemoveDeadConditionAboveReturnRector.php',
         'Rector\\DeadCode\\Rector\\StaticCall\\RemoveParentCallWithoutParentRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/StaticCall/RemoveParentCallWithoutParentRector.php',
         'Rector\\DeadCode\\Rector\\Stmt\\RemoveUnreachableStatementRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Stmt/RemoveUnreachableStatementRector.php',
@@ -2258,17 +2269,6 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\DeadCode\\ValueObject\\BinaryToVersionCompareCondition' => __DIR__ . '/../..' . '/rules/DeadCode/ValueObject/BinaryToVersionCompareCondition.php',
         'Rector\\DeadCode\\ValueObject\\VariableNodeUse' => __DIR__ . '/../..' . '/rules/DeadCode/ValueObject/VariableNodeUse.php',
         'Rector\\DeadCode\\ValueObject\\VersionCompareCondition' => __DIR__ . '/../..' . '/rules/DeadCode/ValueObject/VersionCompareCondition.php',
-        'Rector\\DeadDocBlock\\DeadParamTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadDocBlock/DeadParamTagValueNodeAnalyzer.php',
-        'Rector\\DeadDocBlock\\DeadReturnTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadDocBlock/DeadReturnTagValueNodeAnalyzer.php',
-        'Rector\\DeadDocBlock\\DeadVarTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadDocBlock/DeadVarTagValueNodeAnalyzer.php',
-        'Rector\\DeadDocBlock\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadDocBlock/Rector/ClassLike/RemoveAnnotationRector.php',
-        'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/DeadDocBlock/Rector/ClassMethod/RemoveUselessParamTagRector.php',
-        'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/DeadDocBlock/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
-        'Rector\\DeadDocBlock\\Rector\\Node\\RemoveNonExistingVarAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadDocBlock/Rector/Node/RemoveNonExistingVarAnnotationRector.php',
-        'Rector\\DeadDocBlock\\Rector\\Property\\RemoveUselessVarTagRector' => __DIR__ . '/../..' . '/rules/DeadDocBlock/Rector/Property/RemoveUselessVarTagRector.php',
-        'Rector\\DeadDocBlock\\TagRemover\\ParamTagRemover' => __DIR__ . '/../..' . '/rules/DeadDocBlock/TagRemover/ParamTagRemover.php',
-        'Rector\\DeadDocBlock\\TagRemover\\ReturnTagRemover' => __DIR__ . '/../..' . '/rules/DeadDocBlock/TagRemover/ReturnTagRemover.php',
-        'Rector\\DeadDocBlock\\TagRemover\\VarTagRemover' => __DIR__ . '/../..' . '/rules/DeadDocBlock/TagRemover/VarTagRemover.php',
         'Rector\\Defluent\\ConflictGuard\\ParentClassMethodTypeOverrideGuard' => __DIR__ . '/../..' . '/rules/Defluent/ConflictGuard/ParentClassMethodTypeOverrideGuard.php',
         'Rector\\Defluent\\Contract\\ValueObject\\FirstCallFactoryAwareInterface' => __DIR__ . '/../..' . '/rules/Defluent/Contract/ValueObject/FirstCallFactoryAwareInterface.php',
         'Rector\\Defluent\\Contract\\ValueObject\\RootExprAwareInterface' => __DIR__ . '/../..' . '/rules/Defluent/Contract/ValueObject/RootExprAwareInterface.php',
@@ -3204,6 +3204,7 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
         'Rector\\Symfony\\NodeFactory\\OnSuccessLogoutClassMethodFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/NodeFactory/OnSuccessLogoutClassMethodFactory.php',
         'Rector\\Symfony\\NodeFactory\\RouteNameClassFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/NodeFactory/RouteNameClassFactory.php',
         'Rector\\Symfony\\NodeFactory\\ThisRenderFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/NodeFactory/ThisRenderFactory.php',
+        'Rector\\Symfony\\PhpDoc\\NodeFactory\\JMS\\JMSServiceInjectTagValueNodeFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/NodeFactory/JMS/JMSServiceInjectTagValueNodeFactory.php',
         'Rector\\Symfony\\PhpDoc\\NodeFactory\\MultiPhpDocNodeFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/NodeFactory/MultiPhpDocNodeFactory.php',
         'Rector\\Symfony\\PhpDoc\\NodeFactory\\SymfonyRequirePhpDocNodeFactory' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/NodeFactory/SymfonyRequirePhpDocNodeFactory.php',
         'Rector\\Symfony\\PhpDoc\\Node\\AssertChoiceTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/AssertChoiceTagValueNode.php',
@@ -3481,9 +3482,9 @@ class ComposerStaticInit51375322928e42db0227f1f3989d6b9e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit51375322928e42db0227f1f3989d6b9e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit51375322928e42db0227f1f3989d6b9e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit51375322928e42db0227f1f3989d6b9e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita8d303b59abd4137f11d8d131a7dc50c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita8d303b59abd4137f11d8d131a7dc50c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita8d303b59abd4137f11d8d131a7dc50c::$classMap;
 
         }, null, ClassLoader::class);
     }
