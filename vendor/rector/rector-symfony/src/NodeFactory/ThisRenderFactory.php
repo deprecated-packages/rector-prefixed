@@ -14,11 +14,11 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ArrayType;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\Symfony\Helper\TemplateGuesser;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
 final class ThisRenderFactory
 {
     /**
@@ -49,7 +49,7 @@ final class ThisRenderFactory
         $this->arrayFromCompactFactory = $arrayFromCompactFactory;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : \PhpParser\Node\Expr\MethodCall
+    public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : \PhpParser\Node\Expr\MethodCall
     {
         $renderArguments = $this->resolveRenderArguments($classMethod, $return, $sensioTemplateTagValueNode);
         return $this->nodeFactory->createMethodCall('this', 'render', $renderArguments);
@@ -57,7 +57,7 @@ final class ThisRenderFactory
     /**
      * @return Arg[]
      */
-    private function resolveRenderArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : array
+    private function resolveRenderArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : array
     {
         $templateNameString = $this->resolveTemplateName($classMethod, $sensioTemplateTagValueNode);
         $arguments = [$templateNameString];
@@ -67,14 +67,14 @@ final class ThisRenderFactory
         }
         return $this->nodeFactory->createArgs($arguments);
     }
-    private function resolveTemplateName(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : string
+    private function resolveTemplateName(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : string
     {
         if ($sensioTemplateTagValueNode->getTemplate() !== null) {
             return $sensioTemplateTagValueNode->getTemplate();
         }
         return $this->templateGuesser->resolveFromClassMethodNode($classMethod);
     }
-    private function resolveParametersExpr(?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : ?\PhpParser\Node\Expr
+    private function resolveParametersExpr(?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : ?\PhpParser\Node\Expr
     {
         if ($sensioTemplateTagValueNode->getVars() !== []) {
             return $this->createArrayFromVars($sensioTemplateTagValueNode->getVars());

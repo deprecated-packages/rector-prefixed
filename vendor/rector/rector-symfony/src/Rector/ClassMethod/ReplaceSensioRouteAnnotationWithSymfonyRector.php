@@ -6,9 +6,9 @@ namespace Rector\Symfony\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode;
 use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -74,11 +74,11 @@ CODE_SAMPLE
         if ($phpDocInfo->hasByType(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class)) {
             return null;
         }
-        $sensioRouteTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class);
-        if (!$sensioRouteTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
+        $sensioRouteTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode::class);
+        if (!$sensioRouteTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode) {
             return null;
         }
-        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class);
+        $phpDocInfo->removeByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode::class);
         // unset service, that is deprecated
         $items = $sensioRouteTagValueNode->getItems();
         $symfonyRouteTagValueNode = $this->symfonyRouteTagValueNodeFactory->createFromItems($items);

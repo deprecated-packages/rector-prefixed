@@ -6,9 +6,9 @@ namespace Rector\Symfony\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
 use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -72,8 +72,8 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $sensioMethodTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class);
-        if (!$sensioMethodTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode) {
+        $sensioMethodTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode::class);
+        if (!$sensioMethodTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode) {
             return null;
         }
         $methods = $sensioMethodTagValueNode->getMethods();
@@ -82,7 +82,7 @@ CODE_SAMPLE
             return null;
         }
         $symfonyRouteTagValueNode->changeMethods($methods);
-        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class);
+        $phpDocInfo->removeByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode::class);
         return $node;
     }
 }

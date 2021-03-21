@@ -1,12 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
+namespace Rector\Symfony\PhpDoc\Node\JMS;
 
 use RectorPrefix20210321\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+/**
+ * @see https://jmsyst.com/libs/serializer/master/reference/annotations#type
+ */
 final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**

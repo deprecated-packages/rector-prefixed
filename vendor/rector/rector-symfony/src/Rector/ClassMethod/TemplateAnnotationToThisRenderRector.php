@@ -22,9 +22,9 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeWithClassName;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony\NodeFactory\ThisRenderFactory;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
 use Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer;
 use Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -112,8 +112,8 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $sensioTemplateTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
-        if (!$sensioTemplateTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode) {
+        $sensioTemplateTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode::class);
+        if (!$sensioTemplateTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode) {
             return null;
         }
         $this->refactorClassMethod($classMethod, $sensioTemplateTagValueNode);
@@ -123,13 +123,13 @@ CODE_SAMPLE
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-            if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class)) {
+            if ($phpDocInfo->hasByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode::class)) {
                 return \true;
             }
         }
         return \false;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : void
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : void
     {
         /** @var Return_[] $returns */
         $returns = $this->findReturnsInCurrentScope((array) $classMethod->stmts);
@@ -185,7 +185,7 @@ CODE_SAMPLE
         }
         return \is_a($returnType->getClassName(), $objectType, \true);
     }
-    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode, bool $hasThisRenderOrReturnsResponse) : void
+    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode, bool $hasThisRenderOrReturnsResponse) : void
     {
         // nothing we can do
         if ($return->expr === null) {
@@ -200,7 +200,7 @@ CODE_SAMPLE
         $this->processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
+        $phpDocInfo->removeByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode::class);
     }
     private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -223,7 +223,7 @@ CODE_SAMPLE
         }
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
+        $phpDocInfo->removeByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode::class);
     }
     private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d
+class ComposerStaticInitb02b5b3aa0fdd952310fe05e84576917
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1848,14 +1848,7 @@ class ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Gedmo\\TreeRootTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Gedmo/TreeRootTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Gedmo\\TreeTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Gedmo/TreeTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Gedmo\\VersionedTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Gedmo/VersionedTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\JMSInjectParamsTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/JMS/JMSInjectParamsTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\JMSInjectTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/JMS/JMSInjectTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\JMSServiceValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/JMS/JMSServiceValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\SerializerTypeTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/JMS/SerializerTypeTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPDI\\PHPDIInjectTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/PHPDI/PHPDIInjectTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioMethodTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioMethodTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioRouteTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioRouteTagValueNode.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioTemplateTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDocNode/Sensio/SensioTemplateTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDoc\\SpacingAwareTemplateTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDoc/SpacingAwareTemplateTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDoc\\VariadicAwareParamTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDoc/VariadicAwareParamTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\StartAndEnd' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/StartAndEnd.php',
@@ -3217,6 +3210,13 @@ class ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d
         'Rector\\Symfony\\PhpDoc\\Node\\AssertEmailTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/AssertEmailTagValueNode.php',
         'Rector\\Symfony\\PhpDoc\\Node\\AssertRangeTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/AssertRangeTagValueNode.php',
         'Rector\\Symfony\\PhpDoc\\Node\\AssertTypeTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/AssertTypeTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\JMS\\JMSInjectParamsTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/JMS/JMSInjectParamsTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\JMS\\JMSInjectTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/JMS/JMSInjectTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\JMS\\JMSServiceTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/JMS/JMSServiceTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\JMS\\SerializerTypeTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/JMS/SerializerTypeTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\Sensio\\SensioMethodTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/Sensio/SensioMethodTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\Sensio\\SensioRouteTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/Sensio/SensioRouteTagValueNode.php',
+        'Rector\\Symfony\\PhpDoc\\Node\\Sensio\\SensioTemplateTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/Sensio/SensioTemplateTagValueNode.php',
         'Rector\\Symfony\\PhpDoc\\Node\\SymfonyRequiredTagNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/SymfonyRequiredTagNode.php',
         'Rector\\Symfony\\PhpDoc\\Node\\SymfonyRouteTagValueNode' => __DIR__ . '/..' . '/rector/rector-symfony/src/PhpDoc/Node/SymfonyRouteTagValueNode.php',
         'Rector\\Symfony\\Rector\\Attribute\\ExtractAttributeRouteNameConstantsRector' => __DIR__ . '/..' . '/rector/rector-symfony/src/Rector/Attribute/ExtractAttributeRouteNameConstantsRector.php',
@@ -3481,9 +3481,9 @@ class ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitac22acbd9f0866d97d936a0b424ee68d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb02b5b3aa0fdd952310fe05e84576917::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb02b5b3aa0fdd952310fe05e84576917::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb02b5b3aa0fdd952310fe05e84576917::$classMap;
 
         }, null, ClassLoader::class);
     }

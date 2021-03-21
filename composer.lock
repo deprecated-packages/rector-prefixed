@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "df9dc53ad0628e4a43a332c02c7f0af904a56b57"
+                "reference": "b7c1c29e5af8f4179a221fdfb37d09841e504aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/df9dc53ad0628e4a43a332c02c7f0af904a56b57",
-                "reference": "df9dc53ad0628e4a43a332c02c7f0af904a56b57",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/b7c1c29e5af8f4179a221fdfb37d09841e504aeb",
+                "reference": "b7c1c29e5af8f4179a221fdfb37d09841e504aeb",
                 "shasum": ""
             },
             "require": {
@@ -1458,7 +1458,7 @@
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
                 "source": "https://github.com/rectorphp/rector-symfony/tree/main"
             },
-            "time": "2021-03-21T01:28:58+00:00"
+            "time": "2021-03-21T11:05:35+00:00"
         },
         {
             "name": "sebastian/diff",

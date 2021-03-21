@@ -17,6 +17,13 @@ use Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode;
+use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectParamsTagValueNode;
+use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
+use Rector\Symfony\PhpDoc\Node\JMS\JMSServiceTagValueNode;
+use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
 use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface, \Rector\BetterPhpDocParser\Contract\MultiPhpDocNodeFactoryInterface
 {
@@ -47,6 +54,15 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
             \Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Type',
             \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Choice',
             \Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode::class => 'Symfony\\Component\\Validator\\Constraints\\Email',
+            // Sensio
+            \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode::class => 'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template',
+            \Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode::class => 'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method',
+            \Rector\Symfony\PhpDoc\Node\Sensio\SensioRouteTagValueNode::class => 'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route',
+            // JMS
+            \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectParamsTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\InjectParams',
+            \Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\Inject',
+            \Rector\Symfony\PhpDoc\Node\JMS\JMSServiceTagValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\Service',
+            \Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode::class => 'JMS\\Serializer\\Annotation\\Type',
         ];
     }
     public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode

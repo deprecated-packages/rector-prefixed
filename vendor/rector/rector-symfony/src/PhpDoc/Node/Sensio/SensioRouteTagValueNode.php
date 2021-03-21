@@ -1,11 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio;
+namespace Rector\Symfony\PhpDoc\Node\Sensio;
 
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+/**
+ * @see https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/routing.html
+ */
 final class SensioRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     public function getShortName() : string

@@ -270,7 +270,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'df9dc53ad0628e4a43a332c02c7f0af904a56b57',
+      'reference' => 'b7c1c29e5af8f4179a221fdfb37d09841e504aeb',
     ),
     'sebastian/diff' => 
     array (
