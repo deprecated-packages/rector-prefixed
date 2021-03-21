@@ -216,41 +216,37 @@
     ),
     'rector/rector-cakephp' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => 'f054eeca3b6be582ace24f9d1216b43f20062f97',
+      'reference' => 'a96728adb127cc98ec044858d736f5b09f3b2ad7',
     ),
     'rector/rector-laravel' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => 'd0c16f6664a8cbb02f09360f8335d5dc032e0a46',
+      'reference' => 'f4f3e386eb83d332ec421863aefaad6e67fd073d',
     ),
     'rector/rector-nette' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
       'reference' => '7a0f87a50b122d30833e11a0da2f304cbfc3717b',
     ),
     'rector/rector-phpunit' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
       'reference' => 'd00356b7716c63dbca4a21c731efbede95899a8f',
     ),
@@ -264,13 +260,12 @@
     ),
     'rector/rector-symfony' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => 'd9d447fb2959d2c9d9a7321e76ede10b08b063d7',
+      'reference' => 'a4c8386f59abbcc9d2c02b82e9fb465c1cb0a136',
     ),
     'sebastian/diff' => 
     array (
