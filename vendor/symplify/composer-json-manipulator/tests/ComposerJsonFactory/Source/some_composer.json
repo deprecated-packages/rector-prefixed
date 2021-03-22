@@ -5,7 +5,7 @@
             "src"
         ],
         "psr-4": {
-            "RectorPrefix20210321\\App\\": "directory"
+            "RectorPrefix20210322\\App\\": "directory"
         }
     },
     "autoload-dev": {

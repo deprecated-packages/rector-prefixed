@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210321\Symplify\ComposerJsonManipulator\Tests\ComposerJsonSchemaValidation;
+namespace RectorPrefix20210322\Symplify\ComposerJsonManipulator\Tests\ComposerJsonSchemaValidation;
 
-use RectorPrefix20210321\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use RectorPrefix20210321\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
-use RectorPrefix20210321\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
-use RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileSystem;
-final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210322\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use RectorPrefix20210322\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
+use RectorPrefix20210322\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
+use RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileSystem;
+final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var JsonFileManager
@@ -20,9 +20,9 @@ final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210321\Sympl
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210321\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
-        $this->jsonFileManager = $this->getService(\RectorPrefix20210321\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
-        $this->smartFileSystem = new \RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->bootKernel(\RectorPrefix20210322\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
+        $this->jsonFileManager = $this->getService(\RectorPrefix20210322\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
+        $this->smartFileSystem = new \RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileSystem();
     }
     public function testCheckEmptyKeysAreRemoved() : void
     {
@@ -35,9 +35,9 @@ final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210321\Sympl
         /*
          * Check empty keys are present in "source" but not in "target"
          */
-        $this->assertArrayHasKey(\RectorPrefix20210321\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV, $sourceJson);
+        $this->assertArrayHasKey(\RectorPrefix20210322\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV, $sourceJson);
         $this->assertArrayHasKey('auto-scripts', $sourceJson['scripts']);
-        $this->assertArrayNotHasKey(\RectorPrefix20210321\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV, $targetJson);
+        $this->assertArrayNotHasKey(\RectorPrefix20210322\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV, $targetJson);
         $this->assertArrayNotHasKey('auto-scripts', $targetJson['scripts']);
     }
 }

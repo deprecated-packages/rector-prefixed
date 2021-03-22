@@ -13,7 +13,7 @@ use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\DataProvider\ServiceMapProvider;
 use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
-use RectorPrefix20210321\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo;
 final class JMSDITypeResolver
 {
     /**

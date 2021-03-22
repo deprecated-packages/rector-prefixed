@@ -5,11 +5,11 @@ namespace Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner;
 
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
-use RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SymfonyPhpConfig\Tests\HttpKernel\SymfonyPhpConfigKernel;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\ServiceWithValueObject;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\WithType;
-final class ConfigFactoryTest extends \RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+final class ConfigFactoryTest extends \RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     protected function setUp() : void
     {

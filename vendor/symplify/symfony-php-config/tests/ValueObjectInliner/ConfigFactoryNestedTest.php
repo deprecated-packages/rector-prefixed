@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner;
 
 use PHPStan\Type\UnionType;
-use RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SymfonyPhpConfig\Tests\HttpKernel\SymfonyPhpConfigKernel;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\ServiceWithValueObject;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\WithType;
-final class ConfigFactoryNestedTest extends \RectorPrefix20210321\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+final class ConfigFactoryNestedTest extends \RectorPrefix20210322\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     protected function setUp() : void
     {
