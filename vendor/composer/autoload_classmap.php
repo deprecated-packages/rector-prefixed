@@ -1703,6 +1703,7 @@ return array(
     'Rector\\Core\\DependencyInjection\\Collector\\ConfigureCallValuesCollector' => $baseDir . '/src/DependencyInjection/Collector/ConfigureCallValuesCollector.php',
     'Rector\\Core\\DependencyInjection\\CompilerPass\\MakeRectorsPublicCompilerPass' => $baseDir . '/src/DependencyInjection/CompilerPass/MakeRectorsPublicCompilerPass.php',
     'Rector\\Core\\DependencyInjection\\CompilerPass\\MergeImportedRectorConfigureCallValuesCompilerPass' => $baseDir . '/src/DependencyInjection/CompilerPass/MergeImportedRectorConfigureCallValuesCompilerPass.php',
+    'Rector\\Core\\DependencyInjection\\CompilerPass\\VerifyRectorServiceExistsCompilerPass' => $baseDir . '/src/DependencyInjection/CompilerPass/VerifyRectorServiceExistsCompilerPass.php',
     'Rector\\Core\\DependencyInjection\\Loader\\ConfigurableCallValuesCollectingPhpFileLoader' => $baseDir . '/src/DependencyInjection/Loader/ConfigurableCallValuesCollectingPhpFileLoader.php',
     'Rector\\Core\\DependencyInjection\\RectorContainerFactory' => $baseDir . '/src/DependencyInjection/RectorContainerFactory.php',
     'Rector\\Core\\Differ\\DefaultDiffer' => $baseDir . '/src/Differ/DefaultDiffer.php',

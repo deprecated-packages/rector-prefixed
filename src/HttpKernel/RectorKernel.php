@@ -7,6 +7,7 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass;
+use Rector\Core\DependencyInjection\CompilerPass\VerifyRectorServiceExistsCompilerPass;
 use Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader;
 use RectorPrefix20210322\Symfony\Component\Config\Loader\DelegatingLoader;
 use RectorPrefix20210322\Symfony\Component\Config\Loader\GlobFileLoader;
@@ -89,6 +90,7 @@ final class RectorKernel extends \RectorPrefix20210322\Symfony\Component\HttpKer
         $containerBuilder->addCompilerPass(new \Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass());
         // add all merged arguments of Rector services
         $containerBuilder->addCompilerPass(new \Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass($this->configureCallValuesCollector));
+        $containerBuilder->addCompilerPass(new \Rector\Core\DependencyInjection\CompilerPass\VerifyRectorServiceExistsCompilerPass());
     }
     /**
      * This allows to use "%vendor%" variables in imports
