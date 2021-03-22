@@ -1319,7 +1319,7 @@
             "description": "Rector upgrades rules for Doctrine",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-doctrine/issues",
-                "source": "https://github.com/rectorphp/rector-doctrine/tree/main"
+                "source": "https://github.com/rectorphp/rector-doctrine/tree/0.10.0"
             },
             "time": "2021-03-22T01:25:47+00:00"
         },
