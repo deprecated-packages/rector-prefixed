@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping\OneToOne;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\Contract\MultiPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
 use Rector\Doctrine\PhpDoc\Node\Class_\EmbeddableTagValueNode;
 use Rector\Doctrine\PhpDoc\Node\Class_\EmbeddedTagValueNode;
 use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
@@ -112,7 +112,7 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         }
         $items = $this->annotationItemsResolver->resolve($annotation);
         $content = $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
-        if (\is_a($tagValueNodeClass, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class, \true)) {
+        if (\is_a($tagValueNodeClass, \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class, \true)) {
             /** @var ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation */
             $fullyQualifiedTargetEntity = $this->resolveEntityClass($annotation, $node);
             return new $tagValueNodeClass($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items, $content, $fullyQualifiedTargetEntity);

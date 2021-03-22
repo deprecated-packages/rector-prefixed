@@ -9,9 +9,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\ReflectionProvider;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
 use Rector\Doctrine\PhpDoc\Node\Class_\EmbeddableTagValueNode;
 use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
 use Rector\Doctrine\PhpDoc\Node\Property_\IdTagValueNode;
@@ -71,8 +71,8 @@ final class DoctrineDocBlockResolver
     public function getTargetEntity(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        if (!$doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
+        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class);
+        if (!$doctrineRelationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface) {
             return null;
         }
         return $doctrineRelationTagValueNode->getTargetEntity();

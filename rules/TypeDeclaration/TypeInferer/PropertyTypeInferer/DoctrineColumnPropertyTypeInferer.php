@@ -13,7 +13,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
 final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
@@ -81,8 +81,8 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
-        if (!$doctrineColumnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode) {
+        $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode::class);
+        if (!$doctrineColumnTagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode) {
             return new \PHPStan\Type\MixedType();
         }
         $type = $doctrineColumnTagValueNode->getType();

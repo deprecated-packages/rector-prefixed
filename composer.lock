@@ -1286,12 +1286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-doctrine.git",
-                "reference": "e8bcbcb1d8a93f1cd267bb734beeefbad46392bb"
+                "reference": "1e430e84395256b6cf802f69feaad3e5616074c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/e8bcbcb1d8a93f1cd267bb734beeefbad46392bb",
-                "reference": "e8bcbcb1d8a93f1cd267bb734beeefbad46392bb",
+                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/1e430e84395256b6cf802f69feaad3e5616074c4",
+                "reference": "1e430e84395256b6cf802f69feaad3e5616074c4",
                 "shasum": ""
             },
             "require": {
@@ -1321,7 +1321,7 @@
                 "issues": "https://github.com/rectorphp/rector-doctrine/issues",
                 "source": "https://github.com/rectorphp/rector-doctrine/tree/main"
             },
-            "time": "2021-03-22T00:59:54+00:00"
+            "time": "2021-03-22T01:25:47+00:00"
         },
         {
             "name": "rector/rector-laravel",

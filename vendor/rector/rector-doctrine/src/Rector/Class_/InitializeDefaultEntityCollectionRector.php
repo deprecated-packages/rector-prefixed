@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
-use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface;
 use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -102,7 +102,7 @@ CODE_SAMPLE
                 continue;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface::class)) {
+            if (!$phpDocInfo->hasByType(\Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface::class)) {
                 continue;
             }
             /** @var string $propertyName */

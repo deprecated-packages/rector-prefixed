@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
 use Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode;
 use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
 final class PhpDocClassRenamer
@@ -44,8 +44,8 @@ final class PhpDocClassRenamer
      */
     private function processDoctrineRelationTagValueNode(array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        if (!$doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
+        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class);
+        if (!$doctrineRelationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface) {
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {

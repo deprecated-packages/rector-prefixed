@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PhpDoc\Node\Class_;
 
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
+use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
 use Rector\Doctrine\PhpDoc\Node\AbstractDoctrineTagValueNode;
-final class EmbeddedTagValueNode extends \Rector\Doctrine\PhpDoc\Node\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
+final class EmbeddedTagValueNode extends \Rector\Doctrine\PhpDoc\Node\AbstractDoctrineTagValueNode implements \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface
 {
     /**
      * @var string

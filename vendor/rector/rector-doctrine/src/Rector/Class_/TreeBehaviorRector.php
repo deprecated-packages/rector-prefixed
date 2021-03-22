@@ -127,8 +127,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $hasTypeTreeTagValueNode = $classPhpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeTagValueNode::class);
-        if (!$hasTypeTreeTagValueNode) {
+        if (!$classPhpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeTagValueNode::class)) {
             return null;
         }
         // we're in a tree entity

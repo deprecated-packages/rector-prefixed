@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Contract\Doctrine;
+namespace Rector\Doctrine\Contract\PhpDoc\Node;
 
 interface MappedByNodeInterface
 {

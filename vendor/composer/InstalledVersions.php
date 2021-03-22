@@ -255,7 +255,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'e8bcbcb1d8a93f1cd267bb734beeefbad46392bb',
+      'reference' => '1e430e84395256b6cf802f69feaad3e5616074c4',
     ),
     'rector/rector-laravel' => 
     array (

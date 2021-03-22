@@ -8,11 +8,11 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
-use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
+use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
+use Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface;
+use Rector\Doctrine\Contract\PhpDoc\Node\ToOneTagNodeInterface;
+use Rector\Doctrine\PhpDoc\Node\Property_\JoinColumnTagValueNode;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
@@ -38,16 +38,16 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        if (!$relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
+        $relationTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class);
+        if (!$relationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface) {
             return new \PHPStan\Type\MixedType();
         }
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface) {
+        if ($relationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface) {
             return $this->processToManyRelation($relationTagValueNode);
         }
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface) {
+        if ($relationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\ToOneTagNodeInterface) {
             /** @var JoinColumnTagValueNode $joinColumnTagValueNode */
-            $joinColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
+            $joinColumnTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Property_\JoinColumnTagValueNode::class);
             return $this->processToOneRelation($relationTagValueNode, $joinColumnTagValueNode);
         }
         return new \PHPStan\Type\MixedType();
@@ -56,7 +56,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     {
         return 2100;
     }
-    private function processToManyRelation(\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface $toManyTagNode) : \PHPStan\Type\Type
+    private function processToManyRelation(\Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface $toManyTagNode) : \PHPStan\Type\Type
     {
         $types = [];
         $targetEntity = $toManyTagNode->getTargetEntity();
@@ -66,7 +66,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
         $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(self::COLLECTION_TYPE);
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
-    private function processToOneRelation(\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface $toOneTagNode, ?\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode $joinColumnTagValueNode) : \PHPStan\Type\Type
+    private function processToOneRelation(\Rector\Doctrine\Contract\PhpDoc\Node\ToOneTagNodeInterface $toOneTagNode, ?\Rector\Doctrine\PhpDoc\Node\Property_\JoinColumnTagValueNode $joinColumnTagValueNode) : \PHPStan\Type\Type
     {
         $types = [];
         $fullyQualifiedTargetEntity = $toOneTagNode->getFullyQualifiedTargetEntity();
@@ -74,7 +74,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
             $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($fullyQualifiedTargetEntity);
         }
         // nullable by default
-        if (!$joinColumnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode || $joinColumnTagValueNode->isNullable()) {
+        if (!$joinColumnTagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\JoinColumnTagValueNode || $joinColumnTagValueNode->isNullable()) {
             $types[] = new \PHPStan\Type\NullType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a
+class ComposerStaticInita91b9c5ff6d72fcf1cdcd273537f9c52
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1769,12 +1769,6 @@ class ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a
         'Rector\\BetterPhpDocParser\\Attributes\\Ast\\PhpDoc\\SpacelessPhpDocTagNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Attributes/Ast/PhpDoc/SpacelessPhpDocTagNode.php',
         'Rector\\BetterPhpDocParser\\Attributes\\Attribute\\Attribute' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Attributes/Attribute/Attribute.php',
         'Rector\\BetterPhpDocParser\\Comment\\CommentsMerger' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Comment/CommentsMerger.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\DoctrineRelationTagValueNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/DoctrineRelationTagValueNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\DoctrineTagNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/DoctrineTagNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\InversedByNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/InversedByNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\MappedByNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/MappedByNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\ToManyTagNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/ToManyTagNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\ToOneTagNodeInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/Doctrine/ToOneTagNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\MultiPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/MultiPhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/PhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\ClassNameAwareTagInterface' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Contract/PhpDocNode/ClassNameAwareTagInterface.php',
@@ -1809,7 +1803,6 @@ class ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a
         'Rector\\BetterPhpDocParser\\Printer\\TagValueNodePrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/TagValueNodePrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\WhitespaceDetector' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/WhitespaceDetector.php',
         'Rector\\BetterPhpDocParser\\Utils\\ArrayItemStaticHelper' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Utils/ArrayItemStaticHelper.php',
-        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\ColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Doctrine/ColumnTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\AroundSpaces' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/AroundSpaces.php',
@@ -2291,6 +2284,12 @@ class ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a
         'Rector\\DoctrineAnnotationGenerated\\ConstantPreservingDocParser' => __DIR__ . '/../..' . '/packages/DoctrineAnnotationGenerated/ConstantPreservingDocParser.php',
         'Rector\\DoctrineAnnotationGenerated\\DataCollector\\ResolvedConstantStaticCollector' => __DIR__ . '/../..' . '/packages/DoctrineAnnotationGenerated/DataCollector/ResolvedConstantStaticCollector.php',
         'Rector\\DoctrineAnnotationGenerated\\PhpDocNode\\ConstantReferenceIdentifierRestorer' => __DIR__ . '/../..' . '/packages/DoctrineAnnotationGenerated/PhpDocNode/ConstantReferenceIdentifierRestorer.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\DoctrineRelationTagValueNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/DoctrineRelationTagValueNodeInterface.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\DoctrineTagNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/DoctrineTagNodeInterface.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\InversedByNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/InversedByNodeInterface.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\MappedByNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/MappedByNodeInterface.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\ToManyTagNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/ToManyTagNodeInterface.php',
+        'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\ToOneTagNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/ToOneTagNodeInterface.php',
         'Rector\\Doctrine\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => __DIR__ . '/..' . '/rector/rector-doctrine/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
         'Rector\\Doctrine\\NodeAnalyzer\\EntityObjectTypeResolver' => __DIR__ . '/..' . '/rector/rector-doctrine/src/NodeAnalyzer/EntityObjectTypeResolver.php',
         'Rector\\Doctrine\\NodeAnalyzer\\MethodCallNameOnTypeResolver' => __DIR__ . '/..' . '/rector/rector-doctrine/src/NodeAnalyzer/MethodCallNameOnTypeResolver.php',
@@ -3488,9 +3487,9 @@ class ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9c99a2b8b3704d8d545b1d2766b4ea5a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita91b9c5ff6d72fcf1cdcd273537f9c52::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita91b9c5ff6d72fcf1cdcd273537f9c52::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita91b9c5ff6d72fcf1cdcd273537f9c52::$classMap;
 
         }, null, ClassLoader::class);
     }
