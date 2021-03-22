@@ -29,7 +29,19 @@ class PhpDocParser
                 $children[] = $this->parseChild($tokens);
             }
         }
-        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC);
+        try {
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC);
+        } catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
+            $name = '';
+            if (\count($children) > 0) {
+                $lastChild = $children[\count($children) - 1];
+                if ($lastChild instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+                    $name = $lastChild->name;
+                }
+            }
+            $tokens->forwardToTheEnd();
+            return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode($name, new \PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode($e->getMessage(), $e))]);
+        }
         return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode(\array_values($children));
     }
     private function parseChild(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode
