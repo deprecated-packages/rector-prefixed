@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca523d542c51b24bc1532e99a5a4375b",
+    "content-hash": "72d6f7045db8d63d2f4a4225a9187900",
     "packages": [
         {
             "name": "composer/semver",
@@ -1279,6 +1279,49 @@
                 "source": "https://github.com/rectorphp/rector-cakephp/tree/0.10.0"
             },
             "time": "2021-03-21T23:19:28+00:00"
+        },
+        {
+            "name": "rector/rector-doctrine",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector-doctrine.git",
+                "reference": "e8bcbcb1d8a93f1cd267bb734beeefbad46392bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/e8bcbcb1d8a93f1cd267bb734beeefbad46392bb",
+                "reference": "e8bcbcb1d8a93f1cd267bb734beeefbad46392bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3",
+                "rector/rector": "^0.10"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "symplify/easy-coding-standard": "^9.2",
+                "symplify/phpstan-extensions": "^9.2",
+                "symplify/phpstan-rules": "^9.2",
+                "tracy/tracy": "^2.8"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rector\\Doctrine\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Rector upgrades rules for Doctrine",
+            "support": {
+                "issues": "https://github.com/rectorphp/rector-doctrine/issues",
+                "source": "https://github.com/rectorphp/rector-doctrine/tree/main"
+            },
+            "time": "2021-03-22T00:59:54+00:00"
         },
         {
             "name": "rector/rector-laravel",
@@ -8423,7 +8466,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rector/rector-doctrine": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -223,6 +223,16 @@
       ),
       'reference' => 'a96728adb127cc98ec044858d736f5b09f3b2ad7',
     ),
+    'rector/rector-doctrine' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+        0 => '9999999-dev',
+      ),
+      'reference' => 'e8bcbcb1d8a93f1cd267bb734beeefbad46392bb',
+    ),
     'rector/rector-laravel' => 
     array (
       'pretty_version' => '0.10.0',

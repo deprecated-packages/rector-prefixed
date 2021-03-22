@@ -14,6 +14,7 @@ return array(
     'Rector\\PHPUnit\\' => array($vendorDir . '/rector/rector-phpunit/src'),
     'Rector\\Nette\\' => array($vendorDir . '/rector/rector-nette/src'),
     'Rector\\Laravel\\' => array($vendorDir . '/rector/rector-laravel/src'),
+    'Rector\\Doctrine\\' => array($vendorDir . '/rector/rector-doctrine/src'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
     'Rector\\CakePHP\\' => array($vendorDir . '/rector/rector-cakephp/src'),

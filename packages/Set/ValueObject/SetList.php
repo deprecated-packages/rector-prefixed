@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Set\ValueObject;
 
 use Rector\CakePHP\Sets\CakePHPSetList;
+use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Laravel\Set\LaravelSetList;
 use Rector\Nette\Set\KdybySetList;
 use Rector\Nette\Set\NetteSetList;
@@ -103,41 +104,59 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const DEAD_CODE = __DIR__ . '/../../../config/set/dead-code.php';
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_25 = __DIR__ . '/../../../config/set/doctrine25.php';
+    public const DOCTRINE_25 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_25;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_BEHAVIORS_20 = __DIR__ . '/../../../config/set/doctrine-behaviors-20.php';
+    public const DOCTRINE_BEHAVIORS_20 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_BEHAVIORS_20;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_CODE_QUALITY = __DIR__ . '/../../../config/set/doctrine-code-quality.php';
+    public const DOCTRINE_CODE_QUALITY = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_CODE_QUALITY;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_COMMON_20 = __DIR__ . '/../../../config/set/doctrine-common-20.php';
+    public const DOCTRINE_COMMON_20 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_COMMON_20;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_DBAL_210 = __DIR__ . '/../../../config/set/doctrine-dbal-210.php';
+    public const DOCTRINE_DBAL_210 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_210;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_DBAL_211 = __DIR__ . '/../../../config/set/doctrine-dbal-211.php';
+    public const DOCTRINE_DBAL_211 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_211;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_DBAL_30 = __DIR__ . '/../../../config/set/doctrine-dbal-30.php';
+    public const DOCTRINE_DBAL_30 = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_30;
     /**
+     * @deprecated
+     * @see Use DoctrineSetList instead
      * @var string
      */
-    public const DOCTRINE_GEDMO_TO_KNPLABS = __DIR__ . '/../../../config/set/doctrine-gedmo-to-knplabs.php';
+    public const DOCTRINE_GEDMO_TO_KNPLABS = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS;
     /**
-     * @var string
-     */
-    public const DOCTRINE_REPOSITORY_AS_SERVICE = __DIR__ . '/../../../config/set/doctrine-repository-as-service.php';
+    * @deprecated
+     @see Use DoctrineSetList instead
+    * @var string
+    */
+    public const DOCTRINE_REPOSITORY_AS_SERVICE = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE;
     /**
      * @var string
      */
