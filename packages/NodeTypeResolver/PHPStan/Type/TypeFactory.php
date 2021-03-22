@@ -128,7 +128,7 @@ final class TypeFactory
         $flattenItemTypes = \PHPStan\Type\TypeUtils::flattenTypes($constantArrayType->getItemType());
         foreach ($flattenItemTypes as $position => $nestedFlattenItemType) {
             /** @var Type|null $nestedFlattenKeyType */
-            $nestedFlattenKeyType = $flattenKeyTypes[$position] ?? null;
+            $nestedFlattenKeyType = $flattenKeyTypes[$position];
             if ($nestedFlattenKeyType === null) {
                 $nestedFlattenKeyType = new \PHPStan\Type\MixedType();
             }
