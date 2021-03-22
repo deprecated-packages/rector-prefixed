@@ -142,10 +142,10 @@ CODE_SAMPLE
             return \true;
         }
         $parent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parent, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
-            return !$arrayDimFetch->dim instanceof \PhpParser\Node\Expr\Variable;
+        if (!$parent instanceof \PhpParser\Node\Expr\Isset_ && !$parent instanceof \PhpParser\Node\Stmt\Unset_) {
+            return \false;
         }
-        return \false;
+        return !$arrayDimFetch->dim instanceof \PhpParser\Node\Expr\Variable;
     }
     private function resolveControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlName) : \PHPStan\Type\ObjectType
     {

@@ -267,12 +267,12 @@ private static $installed = array (
     ),
     'rector/rector-nette' => 
     array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
+      'pretty_version' => '0.10.1',
+      'version' => '0.10.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7a0f87a50b122d30833e11a0da2f304cbfc3717b',
+      'reference' => 'd87348303f8a9e8ba4422def9ea9b6f0479cd5d6',
     ),
     'rector/rector-phpunit' => 
     array (
