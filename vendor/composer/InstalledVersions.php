@@ -249,11 +249,10 @@ private static $installed = array (
     ),
     'rector/rector-doctrine' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '0.10.0',
+      'version' => '0.10.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
       'reference' => '1e430e84395256b6cf802f69feaad3e5616074c4',
     ),

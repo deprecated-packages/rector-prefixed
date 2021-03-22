@@ -1336,8 +1336,8 @@
         },
         {
             "name": "rector/rector-doctrine",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
+            "version": "0.10.0",
+            "version_normalized": "0.10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-doctrine.git",
@@ -1361,9 +1361,8 @@
                 "tracy/tracy": "^2.8"
             },
             "time": "2021-03-22T01:25:47+00:00",
-            "default-branch": true,
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Rector\\Doctrine\\": "src"
@@ -1376,7 +1375,7 @@
             "description": "Rector upgrades rules for Doctrine",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-doctrine/issues",
-                "source": "https://github.com/rectorphp/rector-doctrine/tree/main"
+                "source": "https://github.com/rectorphp/rector-doctrine/tree/0.10.0"
             },
             "install-path": "../rector/rector-doctrine"
         },

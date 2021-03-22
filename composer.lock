@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72d6f7045db8d63d2f4a4225a9187900",
+    "content-hash": "1192b6592cf554c201eaf22d0b9b84b3",
     "packages": [
         {
             "name": "composer/semver",
@@ -1282,7 +1282,7 @@
         },
         {
             "name": "rector/rector-doctrine",
-            "version": "dev-main",
+            "version": "0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-doctrine.git",
@@ -1305,7 +1305,6 @@
                 "symplify/phpstan-rules": "^9.2",
                 "tracy/tracy": "^2.8"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -8466,9 +8465,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "rector/rector-doctrine": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
