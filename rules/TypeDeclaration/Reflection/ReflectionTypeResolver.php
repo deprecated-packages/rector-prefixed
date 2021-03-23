@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\Php\PhpFunctionReflection;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
@@ -113,6 +114,10 @@ final class ReflectionTypeResolver
             return null;
         }
         $callerScope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        // probably trait
+        if (!$callerScope instanceof \PHPStan\Analyser\Scope) {
+            return null;
+        }
         $methodReflection = $classReflection->getMethod($methodName, $callerScope);
         if (!$methodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
             return null;
