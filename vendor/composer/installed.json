@@ -1291,17 +1291,17 @@
         },
         {
             "name": "rector/rector-cakephp",
-            "version": "0.10.0",
-            "version_normalized": "0.10.0.0",
+            "version": "0.10.1",
+            "version_normalized": "0.10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-cakephp.git",
-                "reference": "a96728adb127cc98ec044858d736f5b09f3b2ad7"
+                "reference": "d665305a0267078373b52fd4f3262ed9b922211d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-cakephp/zipball/a96728adb127cc98ec044858d736f5b09f3b2ad7",
-                "reference": "a96728adb127cc98ec044858d736f5b09f3b2ad7",
+                "url": "https://api.github.com/repos/rectorphp/rector-cakephp/zipball/d665305a0267078373b52fd4f3262ed9b922211d",
+                "reference": "d665305a0267078373b52fd4f3262ed9b922211d",
                 "shasum": ""
             },
             "require": {
@@ -1313,10 +1313,16 @@
                 "phpunit/phpunit": "^9.5",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
-                "symplify/phpstan-rules": "^9.2"
+                "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2"
             },
-            "time": "2021-03-21T23:19:28+00:00",
+            "time": "2021-03-23T20:49:22+00:00",
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.10-dev"
+                }
+            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -1330,7 +1336,7 @@
             "description": "Rector upgrades rules for CakePHP",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-cakephp/issues",
-                "source": "https://github.com/rectorphp/rector-cakephp/tree/0.10.0"
+                "source": "https://github.com/rectorphp/rector-cakephp/tree/0.10.1"
             },
             "install-path": "../rector/rector-cakephp"
         },
@@ -1480,17 +1486,17 @@
         },
         {
             "name": "rector/rector-phpunit",
-            "version": "0.10.0",
-            "version_normalized": "0.10.0.0",
+            "version": "0.10.2",
+            "version_normalized": "0.10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-phpunit.git",
-                "reference": "d00356b7716c63dbca4a21c731efbede95899a8f"
+                "reference": "f836b6aac19bc71637a3d4da81ab51c00181c18f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/d00356b7716c63dbca4a21c731efbede95899a8f",
-                "reference": "d00356b7716c63dbca4a21c731efbede95899a8f",
+                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/f836b6aac19bc71637a3d4da81ab51c00181c18f",
+                "reference": "f836b6aac19bc71637a3d4da81ab51c00181c18f",
                 "shasum": ""
             },
             "require": {
@@ -1502,10 +1508,16 @@
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
                 "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2",
                 "tracy/tracy": "^2.8"
             },
-            "time": "2021-03-20T20:03:34+00:00",
+            "time": "2021-03-23T20:57:25+00:00",
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.10-dev"
+                }
+            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -1519,7 +1531,7 @@
             "description": "Rector upgrades rules for PHPUnit",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-phpunit/issues",
-                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.0"
+                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.2"
             },
             "install-path": "../rector/rector-phpunit"
         },

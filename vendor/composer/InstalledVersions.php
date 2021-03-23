@@ -240,12 +240,12 @@ private static $installed = array (
     ),
     'rector/rector-cakephp' => 
     array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
+      'pretty_version' => '0.10.1',
+      'version' => '0.10.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a96728adb127cc98ec044858d736f5b09f3b2ad7',
+      'reference' => 'd665305a0267078373b52fd4f3262ed9b922211d',
     ),
     'rector/rector-doctrine' => 
     array (
@@ -276,12 +276,12 @@ private static $installed = array (
     ),
     'rector/rector-phpunit' => 
     array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
+      'pretty_version' => '0.10.2',
+      'version' => '0.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd00356b7716c63dbca4a21c731efbede95899a8f',
+      'reference' => 'f836b6aac19bc71637a3d4da81ab51c00181c18f',
     ),
     'rector/rector-prefixed' => 
     array (

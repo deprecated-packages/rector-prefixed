@@ -11,7 +11,6 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticInstanceOf;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -74,10 +73,19 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
         }
         $valueNode = $node->args[0];
         $valueNodeType = $this->nodeTypeResolver->resolve($valueNode->value);
-        if (!\Rector\Core\Util\StaticInstanceOf::isOneOf($valueNodeType, self::SCALAR_TYPES)) {
+        if (!$this->isScalarType($valueNodeType)) {
             return null;
         }
         $this->identifierManipulator->renameNodeWithMap($node, self::RENAME_METHODS_MAP);
         return $node;
+    }
+    private function isScalarType(\PHPStan\Type\Type $valueNodeType) : bool
+    {
+        foreach (self::SCALAR_TYPES as $scalarType) {
+            if (\is_a($valueNodeType, $scalarType, \true)) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

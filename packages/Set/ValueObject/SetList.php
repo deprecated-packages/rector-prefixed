@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Set\ValueObject;
 
-use Rector\CakePHP\Sets\CakePHPSetList;
+use Rector\CakePHP\Set\CakePHPSetList;
 use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Laravel\Set\LaravelSetList;
 use Rector\Nette\Set\KdybySetList;
 use Rector\Nette\Set\NetteSetList;
-use Rector\PHPUnit\Sets\PHPUnitSetList;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\Contract\SetListInterface;
 use Rector\Symfony\Set\SwiftmailerSetList;
 use Rector\Symfony\Set\SymfonySetList;
@@ -28,61 +28,61 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_30 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_30;
+    public const CAKEPHP_30 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_30;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_34 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_34;
+    public const CAKEPHP_34 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_34;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_35 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_35;
+    public const CAKEPHP_35 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_35;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_36 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_36;
+    public const CAKEPHP_36 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_36;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_37 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_37;
+    public const CAKEPHP_37 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_37;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_38 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_38;
+    public const CAKEPHP_38 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_38;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_40 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_40;
+    public const CAKEPHP_40 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_40;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_41 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_41;
+    public const CAKEPHP_41 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_41;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_42 = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_42;
+    public const CAKEPHP_42 = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_42;
     /**
      * @deprecated
      * @see Use CakePHPSetList instead
      * @var string
      */
-    public const CAKEPHP_FLUENT_OPTIONS = \Rector\CakePHP\Sets\CakePHPSetList::CAKEPHP_FLUENT_OPTIONS;
+    public const CAKEPHP_FLUENT_OPTIONS = \Rector\CakePHP\Set\CakePHPSetList::CAKEPHP_FLUENT_OPTIONS;
     /**
      * @var string
      */
@@ -348,85 +348,85 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT80_DMS = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT80_DMS;
+    public const PHPUNIT80_DMS = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT80_DMS;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_40 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_40;
+    public const PHPUNIT_40 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_40;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_50 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_50;
+    public const PHPUNIT_50 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_50;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_60 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_60;
+    public const PHPUNIT_60 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_60;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_70 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_70;
+    public const PHPUNIT_70 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_70;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_75 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_75;
+    public const PHPUNIT_75 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_75;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_80 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_80;
+    public const PHPUNIT_80 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_80;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_90 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_90;
+    public const PHPUNIT_90 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_90;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_91 = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_91;
+    public const PHPUNIT_91 = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_91;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_CODE_QUALITY = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_CODE_QUALITY;
+    public const PHPUNIT_CODE_QUALITY = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_CODE_QUALITY;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_EXCEPTION = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_EXCEPTION;
+    public const PHPUNIT_EXCEPTION = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_EXCEPTION;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_MOCK = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_MOCK;
+    public const PHPUNIT_MOCK = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_MOCK;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_SPECIFIC_METHOD = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD;
+    public const PHPUNIT_SPECIFIC_METHOD = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD;
     /**
      * @deprecated
      * @see Use PHPUnitSetList instead
      * @var string
      */
-    public const PHPUNIT_YIELD_DATA_PROVIDER = \Rector\PHPUnit\Sets\PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER;
+    public const PHPUNIT_YIELD_DATA_PROVIDER = \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER;
     /**
      * @var string
      */
