@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845
+class ComposerStaticInit0c44934741e9a00f6c9a84d9241e3629
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3314,6 +3314,7 @@ class ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845
         'Rector\\Transform\\Rector\\ClassConstFetch\\ClassConstFetchToValueRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/ClassConstFetch/ClassConstFetchToValueRector.php',
         'Rector\\Transform\\Rector\\ClassMethod\\SingleToManyMethodRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/ClassMethod/SingleToManyMethodRector.php',
         'Rector\\Transform\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/ClassMethod/WrapReturnRector.php',
+        'Rector\\Transform\\Rector\\Class_\\AddInterfaceByParentRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/AddInterfaceByParentRector.php',
         'Rector\\Transform\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Transform\\Rector\\Class_\\ChangeSingletonToServiceRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/ChangeSingletonToServiceRector.php',
         'Rector\\Transform\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/Transform/Rector/Class_/MergeInterfacesRector.php',
@@ -3488,9 +3489,9 @@ class ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite57e3d0d85845b429c00d0cc5e54d845::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0c44934741e9a00f6c9a84d9241e3629::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0c44934741e9a00f6c9a84d9241e3629::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0c44934741e9a00f6c9a84d9241e3629::$classMap;
 
         }, null, ClassLoader::class);
     }

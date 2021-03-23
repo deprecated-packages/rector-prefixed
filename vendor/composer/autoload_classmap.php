@@ -2970,6 +2970,7 @@ return array(
     'Rector\\Transform\\Rector\\ClassConstFetch\\ClassConstFetchToValueRector' => $baseDir . '/rules/Transform/Rector/ClassConstFetch/ClassConstFetchToValueRector.php',
     'Rector\\Transform\\Rector\\ClassMethod\\SingleToManyMethodRector' => $baseDir . '/rules/Transform/Rector/ClassMethod/SingleToManyMethodRector.php',
     'Rector\\Transform\\Rector\\ClassMethod\\WrapReturnRector' => $baseDir . '/rules/Transform/Rector/ClassMethod/WrapReturnRector.php',
+    'Rector\\Transform\\Rector\\Class_\\AddInterfaceByParentRector' => $baseDir . '/rules/Transform/Rector/Class_/AddInterfaceByParentRector.php',
     'Rector\\Transform\\Rector\\Class_\\AddInterfaceByTraitRector' => $baseDir . '/rules/Transform/Rector/Class_/AddInterfaceByTraitRector.php',
     'Rector\\Transform\\Rector\\Class_\\ChangeSingletonToServiceRector' => $baseDir . '/rules/Transform/Rector/Class_/ChangeSingletonToServiceRector.php',
     'Rector\\Transform\\Rector\\Class_\\MergeInterfacesRector' => $baseDir . '/rules/Transform/Rector/Class_/MergeInterfacesRector.php',
