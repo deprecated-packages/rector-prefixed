@@ -56,7 +56,7 @@ final class ClassMethodParamTypeCompleter
         if (!isset($classMethod->params[$position])) {
             return \true;
         }
-        if ($this->classMethodParamVendorLockResolver->isVendorLocked($classMethod, $position)) {
+        if ($this->classMethodParamVendorLockResolver->isVendorLocked($classMethod)) {
             return \true;
         }
         $parameter = $classMethod->params[$position];

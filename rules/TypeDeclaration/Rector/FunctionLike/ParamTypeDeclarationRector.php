@@ -170,10 +170,10 @@ CODE_SAMPLE
     }
     private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
     {
-        if ($this->vendorLockResolver->isClassMethodParamLockedIn($functionLike, $position)) {
+        if ($param->variadic) {
             return \true;
         }
-        if ($param->variadic) {
+        if ($this->vendorLockResolver->isClassMethodParamLockedIn($functionLike)) {
             return \true;
         }
         // no type → check it

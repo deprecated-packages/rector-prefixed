@@ -35,12 +35,12 @@ final class VendorLockResolver
         $this->propertyTypeVendorLockResolver = $propertyTypeVendorLockResolver;
         $this->classMethodVendorLockResolver = $classMethodVendorLockResolver;
     }
-    public function isClassMethodParamLockedIn(\PhpParser\Node $node, int $paramPosition) : bool
+    public function isClassMethodParamLockedIn(\PhpParser\Node $node) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
-        return $this->classMethodParamVendorLockResolver->isVendorLocked($node, $paramPosition);
+        return $this->classMethodParamVendorLockResolver->isVendorLocked($node);
     }
     public function isReturnChangeVendorLockedIn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
