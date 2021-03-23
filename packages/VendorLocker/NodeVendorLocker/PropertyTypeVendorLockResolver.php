@@ -26,8 +26,11 @@ final class PropertyTypeVendorLockResolver
     }
     public function isVendorLocked(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        /** @var Scope $scope */
         $scope = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        // possibly trait
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return \true;
+        }
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \false;
