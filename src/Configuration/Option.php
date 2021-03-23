@@ -17,6 +17,10 @@ final class Option
     /**
      * @var string
      */
+    public const BOOTSTRAP_FILES = 'bootstrap_files';
+    /**
+     * @var string
+     */
     public const OPTION_DRY_RUN = 'dry-run';
     /**
      * @var string

@@ -12,6 +12,8 @@ return static function (\RectorPrefix20210323\Symfony\Component\DependencyInject
     $parameters->set(\Rector\Core\Configuration\Option::PATHS, []);
     $parameters->set(\Rector\Core\Configuration\Option::FILE_EXTENSIONS, ['php']);
     $parameters->set(\Rector\Core\Configuration\Option::AUTOLOAD_PATHS, []);
+    // these files will be executed, useful e.g. for constant definitions
+    $parameters->set(\Rector\Core\Configuration\Option::BOOTSTRAP_FILES, []);
     // FQN class importing
     $parameters->set(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \false);
     $parameters->set(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \true);

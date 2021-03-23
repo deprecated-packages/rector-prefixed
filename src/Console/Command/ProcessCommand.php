@@ -27,6 +27,8 @@ use RectorPrefix20210323\Symfony\Component\Console\Input\InputOption;
 use RectorPrefix20210323\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210323\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210323\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Throwable;
 final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Console\Command\Command
 {
     /**
@@ -81,7 +83,11 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
      * @var MissingRectorRulesReporter
      */
     private $missingRectorRulesReporter;
-    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter)
+    /**
+     * @var ParameterProvider
+     */
+    private $parameterProvider;
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter, \RectorPrefix20210323\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->filesFinder = $filesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -97,6 +103,7 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         $this->phpFilesFinder = $phpFilesFinder;
         $this->missingRectorRulesReporter = $missingRectorRulesReporter;
         parent::__construct();
+        $this->parameterProvider = $parameterProvider;
     }
     protected function configure() : void
     {
@@ -123,6 +130,8 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         $this->configuration->validateConfigParameters();
         $paths = $this->configuration->getPaths();
         $phpFileInfos = $this->phpFilesFinder->findInPaths($paths);
+        // register autoloaded and included files
+        $this->includeBootstrapFiles();
         $this->additionalAutoloader->autoloadWithInputAndSource($input);
         if ($this->configuration->isCacheDebug()) {
             $message = \sprintf('[cache] %d files after cache filter', \count($phpFileInfos));
@@ -199,6 +208,25 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         }
         foreach ($this->errorAndDiffCollector->getAffectedFileInfos() as $affectedFileInfo) {
             $this->changedFilesDetector->invalidateFile($affectedFileInfo);
+        }
+    }
+    /**
+     * Inspired by
+     * @see https://github.com/phpstan/phpstan-src/commit/aad1bf888ab7b5808898ee5fe2228bb8bb4e4cf1
+     */
+    private function includeBootstrapFiles() : void
+    {
+        $bootstrapFiles = $this->parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::BOOTSTRAP_FILES);
+        foreach ($bootstrapFiles as $bootstrapFile) {
+            if (!\is_file($bootstrapFile)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException('Bootstrap file %s does not exist.', $bootstrapFile);
+            }
+            try {
+                require_once $bootstrapFile;
+            } catch (\Throwable $throwable) {
+                $errorMessage = \sprintf('"%s" thrown in "%s" on line %d while loading bootstrap file %s: %s', \get_class($throwable), $throwable->getFile(), $throwable->getLine(), $bootstrapFile, $throwable->getMessage());
+                throw new \Rector\Core\Exception\ShouldNotHappenException($errorMessage);
+            }
         }
     }
 }
