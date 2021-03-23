@@ -138,4 +138,13 @@ final class ErrorAndDiffCollector
             $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($fileInfo, $throwable->getMessage(), $throwable->getCode());
         }
     }
+    public function hasErrors(\RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo) : bool
+    {
+        foreach ($this->errors as $error) {
+            if ($error->getFileInfo() === $phpFileInfo) {
+                return \true;
+            }
+        }
+        return \false;
+    }
 }

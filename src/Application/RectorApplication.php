@@ -132,6 +132,11 @@ final class RectorApplication
         }
         // 4. print to file or string
         foreach ($phpFileInfos as $phpFileInfo) {
+            // cannot print file with errors, as print would break everything to orignal nodes
+            if ($this->errorAndDiffCollector->hasErrors($phpFileInfo)) {
+                $this->advance($phpFileInfo, 'printing');
+                continue;
+            }
             $this->tryCatchWrapper($phpFileInfo, function (\RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->printFileInfo($smartFileInfo);
             }, 'printing');
