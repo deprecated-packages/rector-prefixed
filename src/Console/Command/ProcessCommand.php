@@ -16,7 +16,6 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\FileSystem\FilesFinder;
 use Rector\Core\FileSystem\PhpFilesFinder;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
-use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\Reporting\MissingRectorRulesReporter;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use RectorPrefix20210323\Symfony\Component\Console\Application;
@@ -56,10 +55,6 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
      */
     private $outputFormatterCollector;
     /**
-     * @var RectorNodeTraverser
-     */
-    private $rectorNodeTraverser;
-    /**
      * @var NonPhpFileProcessor
      */
     private $nonPhpFileProcessor;
@@ -87,7 +82,7 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter, \RectorPrefix20210323\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter, \RectorPrefix20210323\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->filesFinder = $filesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -95,7 +90,6 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         $this->configuration = $configuration;
         $this->rectorApplication = $rectorApplication;
         $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->rectorNodeTraverser = $rectorNodeTraverser;
         $this->nonPhpFileProcessor = $nonPhpFileProcessor;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->symfonyStyle = $symfonyStyle;
@@ -145,7 +139,6 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         $this->nonPhpFileProcessor->runOnFileInfos($nonPhpFileInfos);
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $this->composerProcessor->process($composerJsonFilePath);
-        $this->reportZeroCacheRectorsCondition();
         // report diffs and errors
         $outputFormat = (string) $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
@@ -183,23 +176,6 @@ final class ProcessCommand extends \RectorPrefix20210323\Symfony\Component\Conso
         if ($optionClearCache) {
             $this->changedFilesDetector->clear();
         }
-    }
-    private function reportZeroCacheRectorsCondition() : void
-    {
-        if (!$this->configuration->isCacheEnabled()) {
-            return;
-        }
-        if ($this->configuration->shouldClearCache()) {
-            return;
-        }
-        if (!$this->rectorNodeTraverser->hasZeroCacheRectors()) {
-            return;
-        }
-        if ($this->configuration->shouldHideClutter()) {
-            return;
-        }
-        $message = \sprintf('Ruleset contains %d rules that need "--clear-cache" option to analyse full project', $this->rectorNodeTraverser->getZeroCacheRectorCount());
-        $this->symfonyStyle->note($message);
     }
     private function invalidateAffectedCacheFiles() : void
     {

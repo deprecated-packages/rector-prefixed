@@ -18,6 +18,7 @@ use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticNodeInstanceOf;
+use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -91,6 +92,9 @@ CODE_SAMPLE
         }
         $privatePropertyNames = $this->classManipulator->getPrivatePropertyNames($node);
         $propertyUsageByMethods = $this->collectPropertyFetchByMethods($node, $privatePropertyNames);
+        if ($propertyUsageByMethods === []) {
+            return null;
+        }
         foreach ($propertyUsageByMethods as $propertyName => $methodNames) {
             if (\count($methodNames) === 1) {
                 continue;
@@ -110,24 +114,21 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $privatePropertyNames
-     * @return string[][]
+     * @return array<string, string[]>
      */
     private function collectPropertyFetchByMethods(\PhpParser\Node\Stmt\Class_ $class, array $privatePropertyNames) : array
     {
         $propertyUsageByMethods = [];
         foreach ($privatePropertyNames as $privatePropertyName) {
             foreach ($class->getMethods() as $classMethod) {
-                $hasProperty = (bool) $this->betterNodeFinder->findFirst($classMethod, function (\PhpParser\Node $node) use($privatePropertyName) : bool {
-                    if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
-                        return \false;
-                    }
-                    return $this->isName($node->name, $privatePropertyName);
-                });
-                if (!$hasProperty) {
+                // assigned in constructor injection → skip
+                if ($this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+                    return [];
+                }
+                if (!$this->propertyFetchAnalyzer->containsLocalPropertyFetchName($classMethod, $privatePropertyName)) {
                     continue;
                 }
-                $isPropertyChangingInMultipleMethodCalls = $this->isPropertyChangingInMultipleMethodCalls($classMethod, $privatePropertyName);
-                if ($isPropertyChangingInMultipleMethodCalls) {
+                if ($this->isPropertyChangingInMultipleMethodCalls($classMethod, $privatePropertyName)) {
                     continue;
                 }
                 /** @var string $classMethodName */
@@ -140,14 +141,14 @@ CODE_SAMPLE
     /**
      * Covers https://github.com/rectorphp/rector/pull/2558#discussion_r363036110
      */
-    private function isPropertyChangingInMultipleMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $privatePropertyName) : bool
+    private function isPropertyChangingInMultipleMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName) : bool
     {
         $isPropertyChanging = \false;
         $isPropertyReadInIf = \false;
         $isIfFollowedByAssign = \false;
-        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$isPropertyChanging, $privatePropertyName, &$isPropertyReadInIf, &$isIfFollowedByAssign) : ?int {
+        $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$isPropertyChanging, $propertyName, &$isPropertyReadInIf, &$isIfFollowedByAssign) : ?int {
             if ($isPropertyReadInIf) {
-                if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$privatePropertyName])) {
+                if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$propertyName])) {
                     return null;
                 }
                 $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -159,15 +160,15 @@ CODE_SAMPLE
                 return null;
             }
             if ($node instanceof \PhpParser\Node\Stmt\If_) {
-                $isPropertyReadInIf = $this->refactorIf($node, $privatePropertyName);
+                $isPropertyReadInIf = $this->refactorIf($node, $propertyName);
             }
-            $isPropertyChanging = $this->isPropertyChanging($node, $privatePropertyName);
+            $isPropertyChanging = $this->isPropertyChanging($node, $propertyName);
             if (!$isPropertyChanging) {
                 return null;
             }
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
-        return $isPropertyChanging || $isIfFollowedByAssign;
+        return $isPropertyChanging || $isIfFollowedByAssign || $isPropertyReadInIf;
     }
     private function isScopeChangingNode(\PhpParser\Node $node) : bool
     {

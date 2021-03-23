@@ -7,7 +7,6 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
-use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
@@ -30,21 +29,16 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     private $currentFileInfoProvider;
     /**
-     * @var Configuration
-     */
-    private $configuration;
-    /**
      * @var bool
      */
     private $areNodeVisitorsPrepared = \false;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         /** @var PhpRectorInterface[] $phpRectors */
         $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->allPhpRectors = $phpRectors;
         $this->nodeFinder = $nodeFinder;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
-        $this->configuration = $configuration;
     }
     /**
      * @return Node[]
@@ -81,19 +75,6 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
         $this->prepareNodeVisitors();
         return \count($this->visitors);
     }
-    public function hasZeroCacheRectors() : bool
-    {
-        $this->prepareNodeVisitors();
-        return (bool) $this->getZeroCacheRectorCount();
-    }
-    public function getZeroCacheRectorCount() : int
-    {
-        $this->prepareNodeVisitors();
-        $zeroCacheRectors = \array_filter($this->allPhpRectors, function (\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool {
-            return $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-        });
-        return \count($zeroCacheRectors);
-    }
     private function hasFileNodeRectorsEnabled() : bool
     {
         foreach ($this->visitors as $visitor) {
@@ -118,9 +99,6 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
             return;
         }
         foreach ($this->allPhpRectors as $allPhpRector) {
-            if ($this->configuration->isCacheEnabled() && !$this->configuration->shouldClearCache() && $allPhpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
-                continue;
-            }
             $this->addVisitor($allPhpRector);
         }
         $this->areNodeVisitorsPrepared = \true;

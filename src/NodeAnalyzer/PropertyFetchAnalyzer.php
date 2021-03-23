@@ -10,6 +10,8 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyFetchAnalyzer
@@ -18,9 +20,14 @@ final class PropertyFetchAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
     public function isLocalPropertyFetch(\PhpParser\Node $node) : bool
     {
@@ -42,6 +49,15 @@ final class PropertyFetchAnalyzer
         }
         /** @var PropertyFetch|StaticPropertyFetch $node */
         return $this->nodeNameResolver->isName($node->name, $desiredPropertyName);
+    }
+    public function containsLocalPropertyFetchName(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirst($classMethod, function (\PhpParser\Node $node) use($propertyName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node->name, $propertyName);
+        });
     }
     public function isPropertyToSelf(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {

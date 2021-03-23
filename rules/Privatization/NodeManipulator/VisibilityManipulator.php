@@ -11,7 +11,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Exception\InvalidNodeTypeException;
 use Rector\Core\ValueObject\Visibility;
-use Rector\Privatization\ValueObject\ConstantVisibility;
 use RectorPrefix20210323\Webmozart\Assert\Assert;
 final class VisibilityManipulator
 {
@@ -114,16 +113,6 @@ final class VisibilityManipulator
     public function removeFinal(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->flags -= \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
-    }
-    public function makeClassConstPrivateOrWeaker(\PhpParser\Node\Stmt\ClassConst $classConst, ?\Rector\Privatization\ValueObject\ConstantVisibility $parentConstantVisibility) : void
-    {
-        if ($parentConstantVisibility !== null && $parentConstantVisibility->isProtected()) {
-            $this->makeProtected($classConst);
-        } elseif ($parentConstantVisibility !== null && $parentConstantVisibility->isPrivate() && !$parentConstantVisibility->isProtected()) {
-            $this->makePrivate($classConst);
-        } elseif ($parentConstantVisibility === null) {
-            $this->makePrivate($classConst);
-        }
     }
     /**
      * @param Class_|ClassMethod|Property|ClassConst $node

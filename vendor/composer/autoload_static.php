@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
+class ComposerStaticInit02eebf1bed305affe44a6344340d038d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1824,7 +1824,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\Caching\\Application\\CachedFileInfoFilterAndReporter' => __DIR__ . '/../..' . '/packages/Caching/Application/CachedFileInfoFilterAndReporter.php',
         'Rector\\Caching\\Cache\\NetteCacheFactory' => __DIR__ . '/../..' . '/packages/Caching/Cache/NetteCacheFactory.php',
         'Rector\\Caching\\Config\\FileHashComputer' => __DIR__ . '/../..' . '/packages/Caching/Config/FileHashComputer.php',
-        'Rector\\Caching\\Contract\\Rector\\ZeroCacheRectorInterface' => __DIR__ . '/../..' . '/packages/Caching/Contract/Rector/ZeroCacheRectorInterface.php',
         'Rector\\Caching\\Detector\\ChangedFilesDetector' => __DIR__ . '/../..' . '/packages/Caching/Detector/ChangedFilesDetector.php',
         'Rector\\Caching\\FileSystem\\DependencyResolver' => __DIR__ . '/../..' . '/packages/Caching/FileSystem/DependencyResolver.php',
         'Rector\\Caching\\UnchangedFilesFilter' => __DIR__ . '/../..' . '/packages/Caching/UnchangedFilesFilter.php',
@@ -2156,7 +2155,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\DeadCode\\ConditionResolver' => __DIR__ . '/../..' . '/rules/DeadCode/ConditionResolver.php',
         'Rector\\DeadCode\\Contract\\ConditionInterface' => __DIR__ . '/../..' . '/rules/DeadCode/Contract/ConditionInterface.php',
         'Rector\\DeadCode\\FeatureSupport\\FunctionSupportResolver' => __DIR__ . '/../..' . '/rules/DeadCode/FeatureSupport/FunctionSupportResolver.php',
-        'Rector\\DeadCode\\NodeAnalyzer\\DataProviderMethodNamesResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeAnalyzer/DataProviderMethodNamesResolver.php',
         'Rector\\DeadCode\\NodeAnalyzer\\InstanceOfUniqueKeyResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeAnalyzer/InstanceOfUniqueKeyResolver.php',
         'Rector\\DeadCode\\NodeCollector\\ModifiedVariableNamesCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/ModifiedVariableNamesCollector.php',
         'Rector\\DeadCode\\NodeCollector\\NodeByTypeAndPositionCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/NodeByTypeAndPositionCollector.php',
@@ -2164,7 +2162,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\DeadCode\\NodeFinder\\PreviousVariableAssignNodeFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/PreviousVariableAssignNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\VariableUseFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/VariableUseFinder.php',
         'Rector\\DeadCode\\NodeManipulator\\CallDefaultParamValuesResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/CallDefaultParamValuesResolver.php',
-        'Rector\\DeadCode\\NodeManipulator\\ClassMethodAndCallMatcher' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/ClassMethodAndCallMatcher.php',
         'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/ControllerClassMethodManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/CountManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\LivingCodeManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php',
@@ -2182,16 +2179,14 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\DeadCode\\Rector\\BinaryOp\\RemoveDuplicatedInstanceOfRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/BinaryOp/RemoveDuplicatedInstanceOfRector.php',
         'Rector\\DeadCode\\Rector\\BooleanAnd\\RemoveAndTrueRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/BooleanAnd/RemoveAndTrueRector.php',
         'Rector\\DeadCode\\Rector\\Cast\\RecastingRemovalRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Cast/RecastingRemovalRector.php',
-        'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedClassConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedClassConstantRector.php',
+        'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedPrivateClassConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedPrivateClassConstantRector.php',
         'Rector\\DeadCode\\Rector\\ClassConst\\RemoveUnusedPrivateConstantRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassConst/RemoveUnusedPrivateConstantRector.php',
         'Rector\\DeadCode\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassLike/RemoveAnnotationRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDeadConstructorRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDeadConstructorRector.php',
-        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDeadRecursiveClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDeadRecursiveClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDelegatingParentCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDelegatingParentCallRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
-        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessParamTagRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
         'Rector\\DeadCode\\Rector\\Concat\\RemoveConcatAutocastRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Concat/RemoveConcatAutocastRector.php',
@@ -2204,7 +2199,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\DeadCode\\Rector\\FunctionLike\\RemoveDeadReturnRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/FunctionLike/RemoveDeadReturnRector.php',
         'Rector\\DeadCode\\Rector\\FunctionLike\\RemoveDuplicatedIfReturnRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/FunctionLike/RemoveDuplicatedIfReturnRector.php',
         'Rector\\DeadCode\\Rector\\FunctionLike\\RemoveOverriddenValuesRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/FunctionLike/RemoveOverriddenValuesRector.php',
-        'Rector\\DeadCode\\Rector\\Function_\\RemoveUnusedFunctionRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/Function_/RemoveUnusedFunctionRector.php',
         'Rector\\DeadCode\\Rector\\If_\\RemoveAlwaysTrueIfConditionRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/If_/RemoveAlwaysTrueIfConditionRector.php',
         'Rector\\DeadCode\\Rector\\If_\\RemoveDeadInstanceOfRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/If_/RemoveDeadInstanceOfRector.php',
         'Rector\\DeadCode\\Rector\\If_\\RemoveUnusedNonEmptyArrayBeforeForeachRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/If_/RemoveUnusedNonEmptyArrayBeforeForeachRector.php',
@@ -2660,7 +2654,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\Nette\\ValueObject\\TemplateParametersAssigns' => __DIR__ . '/..' . '/rector/rector-nette/src/ValueObject/TemplateParametersAssigns.php',
         'Rector\\NodeCollector\\NodeAnalyzer\\ArrayCallableMethodReferenceAnalyzer' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeAnalyzer/ArrayCallableMethodReferenceAnalyzer.php',
         'Rector\\NodeCollector\\NodeCollector\\NodeRepository' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeCollector/NodeRepository.php',
-        'Rector\\NodeCollector\\NodeCollector\\ParsedClassConstFetchNodeCollector' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeCollector/ParsedClassConstFetchNodeCollector.php',
         'Rector\\NodeCollector\\NodeCollector\\ParsedNodeCollector' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeCollector/ParsedNodeCollector.php',
         'Rector\\NodeCollector\\NodeCollector\\ParsedPropertyFetchNodeCollector' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeCollector/ParsedPropertyFetchNodeCollector.php',
         'Rector\\NodeCollector\\NodeVisitor\\NodeCollectorNodeVisitor' => __DIR__ . '/../..' . '/packages/NodeCollector/NodeVisitor/NodeCollectorNodeVisitor.php',
@@ -3049,19 +3042,14 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\PostRector\\Rector\\UseAddingPostRector' => __DIR__ . '/../..' . '/packages/PostRector/Rector/UseAddingPostRector.php',
         'Rector\\PostRector\\ValueObject\\PropertyMetadata' => __DIR__ . '/../..' . '/packages/PostRector/ValueObject/PropertyMetadata.php',
         'Rector\\Privatization\\Naming\\ConstantNaming' => __DIR__ . '/../..' . '/rules/Privatization/Naming/ConstantNaming.php',
-        'Rector\\Privatization\\NodeAnalyzer\\ClassMethodExternalCallNodeAnalyzer' => __DIR__ . '/../..' . '/rules/Privatization/NodeAnalyzer/ClassMethodExternalCallNodeAnalyzer.php',
         'Rector\\Privatization\\NodeAnalyzer\\EventSubscriberMethodNamesResolver' => __DIR__ . '/../..' . '/rules/Privatization/NodeAnalyzer/EventSubscriberMethodNamesResolver.php',
         'Rector\\Privatization\\NodeFactory\\ClassConstantFactory' => __DIR__ . '/../..' . '/rules/Privatization/NodeFactory/ClassConstantFactory.php',
         'Rector\\Privatization\\NodeFactory\\ClassConstantFetchValueFactory' => __DIR__ . '/../..' . '/rules/Privatization/NodeFactory/ClassConstantFetchValueFactory.php',
-        'Rector\\Privatization\\NodeFinder\\ParentClassConstantNodeFinder' => __DIR__ . '/../..' . '/rules/Privatization/NodeFinder/ParentClassConstantNodeFinder.php',
         'Rector\\Privatization\\NodeManipulator\\VisibilityManipulator' => __DIR__ . '/../..' . '/rules/Privatization/NodeManipulator/VisibilityManipulator.php',
         'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithConstFetchReplacer' => __DIR__ . '/../..' . '/rules/Privatization/NodeReplacer/PropertyFetchWithConstFetchReplacer.php',
         'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithVariableReplacer' => __DIR__ . '/../..' . '/rules/Privatization/NodeReplacer/PropertyFetchWithVariableReplacer.php',
-        'Rector\\Privatization\\Rector\\ClassConst\\PrivatizeLocalClassConstantRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/ClassConst/PrivatizeLocalClassConstantRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\ChangeGlobalVariablesToPropertiesRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/ClassMethod/ChangeGlobalVariablesToPropertiesRector.php',
-        'Rector\\Privatization\\Rector\\ClassMethod\\MakeOnlyUsedByChildrenProtectedRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/ClassMethod/MakeOnlyUsedByChildrenProtectedRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeFinalClassMethodRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/ClassMethod/PrivatizeFinalClassMethodRector.php',
-        'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeLocalOnlyMethodRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/ClassMethod/PrivatizeLocalOnlyMethodRector.php',
         'Rector\\Privatization\\Rector\\Class_\\ChangeLocalPropertyToVariableRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/ChangeLocalPropertyToVariableRector.php',
         'Rector\\Privatization\\Rector\\Class_\\ChangeReadOnlyVariableWithDefaultValueToConstantRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/ChangeReadOnlyVariableWithDefaultValueToConstantRector.php',
         'Rector\\Privatization\\Rector\\Class_\\FinalizeClassesWithoutChildrenRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/FinalizeClassesWithoutChildrenRector.php',
@@ -3073,11 +3061,9 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\Privatization\\Rector\\Property\\PrivatizeFinalClassPropertyRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Property/PrivatizeFinalClassPropertyRector.php',
         'Rector\\Privatization\\Rector\\Property\\PrivatizeLocalPropertyToPrivatePropertyRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Property/PrivatizeLocalPropertyToPrivatePropertyRector.php',
         'Rector\\Privatization\\Reflection\\ClassConstantsResolver' => __DIR__ . '/../..' . '/rules/Privatization/Reflection/ClassConstantsResolver.php',
-        'Rector\\Privatization\\Reflection\\ParentConstantReflectionResolver' => __DIR__ . '/../..' . '/rules/Privatization/Reflection/ParentConstantReflectionResolver.php',
         'Rector\\Privatization\\TypeManipulator\\NormalizeTypeToRespectArrayScalarType' => __DIR__ . '/../..' . '/rules/Privatization/TypeManipulator/NormalizeTypeToRespectArrayScalarType.php',
         'Rector\\Privatization\\ValueObject\\ConstantVisibility' => __DIR__ . '/../..' . '/rules/Privatization/ValueObject/ConstantVisibility.php',
         'Rector\\Privatization\\ValueObject\\ReplaceStringWithClassConstant' => __DIR__ . '/../..' . '/rules/Privatization/ValueObject/ReplaceStringWithClassConstant.php',
-        'Rector\\Privatization\\VisibilityGuard\\ChildClassMethodOverrideGuard' => __DIR__ . '/../..' . '/rules/Privatization/VisibilityGuard/ChildClassMethodOverrideGuard.php',
         'Rector\\Privatization\\VisibilityGuard\\ClassMethodVisibilityGuard' => __DIR__ . '/../..' . '/rules/Privatization/VisibilityGuard/ClassMethodVisibilityGuard.php',
         'Rector\\ReadWrite\\Contract\\ReadNodeAnalyzerInterface' => __DIR__ . '/../..' . '/packages/ReadWrite/Contract/ReadNodeAnalyzerInterface.php',
         'Rector\\ReadWrite\\Guard\\VariableToConstantGuard' => __DIR__ . '/../..' . '/packages/ReadWrite/Guard/VariableToConstantGuard.php',
@@ -3456,7 +3442,6 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodReturnTypeOverrideGuard' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/ClassMethodReturnTypeOverrideGuard.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodReturnVendorLockResolver' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/ClassMethodReturnVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodVendorLockResolver' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/ClassMethodVendorLockResolver.php',
-        'Rector\\VendorLocker\\NodeVendorLocker\\ClassMethodVisibilityVendorLockResolver' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/ClassMethodVisibilityVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyTypeVendorLockResolver' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/PropertyTypeVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyVisibilityVendorLockResolver' => __DIR__ . '/../..' . '/packages/VendorLocker/NodeVendorLocker/PropertyVisibilityVendorLockResolver.php',
         'Rector\\VendorLocker\\Reflection\\MethodReflectionContractAnalyzer' => __DIR__ . '/../..' . '/packages/VendorLocker/Reflection/MethodReflectionContractAnalyzer.php',
@@ -3489,9 +3474,9 @@ class ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1e5cc1e1660b149dc5bf38f56a73641f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit02eebf1bed305affe44a6344340d038d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit02eebf1bed305affe44a6344340d038d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit02eebf1bed305affe44a6344340d038d::$classMap;
 
         }, null, ClassLoader::class);
     }

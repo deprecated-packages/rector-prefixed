@@ -8,11 +8,8 @@ use Rector\Privatization\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToC
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
 use Rector\Privatization\Rector\Class_\RepeatedLiteralToClassConstantRector;
-use Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector;
 use Rector\Privatization\Rector\ClassMethod\ChangeGlobalVariablesToPropertiesRector;
-use Rector\Privatization\Rector\ClassMethod\MakeOnlyUsedByChildrenProtectedRector;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
-use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
 use Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector;
 use Rector\Privatization\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector;
 use Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector;
@@ -26,12 +23,10 @@ return static function (\RectorPrefix20210323\Symfony\Component\DependencyInject
     $services->set(\Rector\Privatization\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Class_\RepeatedLiteralToClassConstantRector::class);
-    // $services->set(ChangeLocalPropertyToVariableRector::class);
-    $services->set(\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class);
     $services->set(\Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class);
     $services->set(\Rector\Privatization\Rector\Property\PrivatizeLocalPropertyToPrivatePropertyRector::class);
-    $services->set(\Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector::class);
     $services->set(\Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector::class);
-    $services->set(\Rector\Privatization\Rector\ClassMethod\MakeOnlyUsedByChildrenProtectedRector::class);
+    // buggy, requires more work
+    // $services->set(ChangeLocalPropertyToVariableRector::class);
 };
