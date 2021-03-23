@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210322\Nette\Utils\Strings;
+use RectorPrefix20210323\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -24,8 +24,8 @@ use Rector\BetterPhpDocParser\PhpDocNodeMapper;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210322\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use RectorPrefix20210322\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210323\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210323\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
@@ -76,8 +76,8 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     {
         parent::__construct($typeParser, $constExprParser);
         $this->setPhpDocNodeFactories($phpDocNodeFactories);
-        $this->privatesCaller = new \RectorPrefix20210322\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        $this->privatesAccessor = new \RectorPrefix20210322\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesCaller = new \RectorPrefix20210323\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesAccessor = new \RectorPrefix20210323\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $this->phpDocNodeMapper = $phpDocNodeMapper;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->classAnnotationMatcher = $classAnnotationMatcher;
@@ -166,7 +166,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $tag = $tokenIterator->currentTokenValue();
         $tokenIterator->next();
         // basic annotation
-        if (\RectorPrefix20210322\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
+        if (\RectorPrefix20210323\Nette\Utils\Strings::match($tag, self::TAG_REGEX)) {
             return $tag;
         }
         // is not e.g "@var "

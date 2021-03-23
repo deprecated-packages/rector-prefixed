@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210322\Symfony\Component\Uid;
+namespace RectorPrefix20210323\Symfony\Component\Uid;
 
 /**
  * @experimental in 5.2
@@ -42,7 +42,7 @@ abstract class AbstractUid implements \JsonSerializable
      */
     public function toBase58() : string
     {
-        return \strtr(\sprintf('%022s', \RectorPrefix20210322\Symfony\Component\Uid\BinaryUtil::toBase($this->toBinary(), \RectorPrefix20210322\Symfony\Component\Uid\BinaryUtil::BASE58)), '0', '1');
+        return \strtr(\sprintf('%022s', \RectorPrefix20210323\Symfony\Component\Uid\BinaryUtil::toBase($this->toBinary(), \RectorPrefix20210323\Symfony\Component\Uid\BinaryUtil::BASE58)), '0', '1');
     }
     /**
      * Returns the identifier as a base-32 case insensitive string.

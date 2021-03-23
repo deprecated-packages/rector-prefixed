@@ -5,7 +5,7 @@ namespace Rector\Core\PhpParser\Node\CustomNode;
 
 use PhpParser\Node;
 use PhpParser\NodeAbstract;
-use RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/phpstan/phpstan-src/commit/ed81c3ad0b9877e6122c79b4afda9d10f3994092
  */
@@ -22,7 +22,7 @@ final class FileNode extends \PhpParser\NodeAbstract
     /**
      * @param Node[] $stmts
      */
-    public function __construct(\RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, array $stmts)
+    public function __construct(\RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, array $stmts)
     {
         parent::__construct();
         $this->fileInfo = $fileInfo;
@@ -39,7 +39,7 @@ final class FileNode extends \PhpParser\NodeAbstract
     {
         return ['stmts'];
     }
-    public function getFileInfo() : \RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }

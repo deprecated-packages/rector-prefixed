@@ -5,10 +5,10 @@ namespace Rector\Core\Bootstrap;
 
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use Rector\Set\RectorSetProvider;
-use RectorPrefix20210322\Symfony\Component\Console\Input\ArgvInput;
-use RectorPrefix20210322\Symplify\SetConfigResolver\ConfigResolver;
-use RectorPrefix20210322\Symplify\SetConfigResolver\SetAwareConfigResolver;
-use RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210323\Symfony\Component\Console\Input\ArgvInput;
+use RectorPrefix20210323\Symplify\SetConfigResolver\ConfigResolver;
+use RectorPrefix20210323\Symplify\SetConfigResolver\SetAwareConfigResolver;
+use RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorConfigsResolver
 {
     /**
@@ -25,14 +25,14 @@ final class RectorConfigsResolver
     private $resolvedConfigFileInfos = [];
     public function __construct()
     {
-        $this->configResolver = new \RectorPrefix20210322\Symplify\SetConfigResolver\ConfigResolver();
+        $this->configResolver = new \RectorPrefix20210323\Symplify\SetConfigResolver\ConfigResolver();
         $rectorSetProvider = new \Rector\Set\RectorSetProvider();
-        $this->setAwareConfigResolver = new \RectorPrefix20210322\Symplify\SetConfigResolver\SetAwareConfigResolver($rectorSetProvider);
+        $this->setAwareConfigResolver = new \RectorPrefix20210323\Symplify\SetConfigResolver\SetAwareConfigResolver($rectorSetProvider);
     }
     /**
      * @return SmartFileInfo[]
      */
-    public function resolveFromConfigFileInfo(\RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    public function resolveFromConfigFileInfo(\RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         $hash = \sha1($configFileInfo->getRealPath());
         if (isset($this->resolvedConfigFileInfos[$hash])) {
@@ -47,7 +47,7 @@ final class RectorConfigsResolver
     public function provide() : \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs
     {
         $configFileInfos = [];
-        $argvInput = new \RectorPrefix20210322\Symfony\Component\Console\Input\ArgvInput();
+        $argvInput = new \RectorPrefix20210323\Symfony\Component\Console\Input\ArgvInput();
         $mainConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
         if ($mainConfigFileInfo !== null) {
             $setFileInfos = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$mainConfigFileInfo]);
@@ -57,12 +57,12 @@ final class RectorConfigsResolver
             // autoload rector recipe file if present, just for \Rector\RectorGenerator\Command\GenerateCommand
             $rectorRecipeFilePath = \getcwd() . '/rector-recipe.php';
             if (\file_exists($rectorRecipeFilePath)) {
-                $configFileInfos[] = new \RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
+                $configFileInfos[] = new \RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
             }
         }
         // load config only if "sync" command is used to avoid useless rules traversing
         if ($argvInput->getFirstArgument() === 'sync-annotation-parser') {
-            $configFileInfos[] = new \RectorPrefix20210322\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../utils/doctrine-annotation-parser-syncer/config/config.php');
+            $configFileInfos[] = new \RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../utils/doctrine-annotation-parser-syncer/config/config.php');
         }
         return new \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
