@@ -50,6 +50,9 @@ final class InflectorSingularResolver
         foreach ($camelCases as $camelCase) {
             $singularValueVarName .= $this->inflector->singularize($camelCase['camelcase']);
         }
+        if ($singularValueVarName === '') {
+            return $currentName;
+        }
         $singularValueVarName = $singularValueVarName === $currentName ? self::SINGLE . \ucfirst($singularValueVarName) : $singularValueVarName;
         if (\strpos($singularValueVarName, self::SINGLE) !== 0) {
             return $singularValueVarName;
