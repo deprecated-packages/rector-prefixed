@@ -7,150 +7,150 @@ $loader = require_once __DIR__.'/autoload.php';
 // Aliases for the whitelisted classes. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#class-whitelisting
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
-    spl_autoload_call('RectorPrefix20210323\AutoloadIncluder');
+    spl_autoload_call('RectorPrefix20210324\AutoloadIncluder');
 }
 if (!class_exists('SomeFormType', false) && !interface_exists('SomeFormType', false) && !trait_exists('SomeFormType', false)) {
-    spl_autoload_call('RectorPrefix20210323\SomeFormType');
+    spl_autoload_call('RectorPrefix20210324\SomeFormType');
 }
 if (!class_exists('SomeClass', false) && !interface_exists('SomeClass', false) && !trait_exists('SomeClass', false)) {
-    spl_autoload_call('RectorPrefix20210323\SomeClass');
+    spl_autoload_call('RectorPrefix20210324\SomeClass');
 }
 if (!class_exists('AnotherClass', false) && !interface_exists('AnotherClass', false) && !trait_exists('AnotherClass', false)) {
-    spl_autoload_call('RectorPrefix20210323\AnotherClass');
+    spl_autoload_call('RectorPrefix20210324\AnotherClass');
 }
 if (!class_exists('SomeTestCase', false) && !interface_exists('SomeTestCase', false) && !trait_exists('SomeTestCase', false)) {
-    spl_autoload_call('RectorPrefix20210323\SomeTestCase');
+    spl_autoload_call('RectorPrefix20210324\SomeTestCase');
 }
 if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('CheckoutEntityFactory', false) && !trait_exists('CheckoutEntityFactory', false)) {
-    spl_autoload_call('RectorPrefix20210323\CheckoutEntityFactory');
+    spl_autoload_call('RectorPrefix20210324\CheckoutEntityFactory');
 }
 if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
-    spl_autoload_call('RectorPrefix20210323\Composer\InstalledVersions');
+    spl_autoload_call('RectorPrefix20210324\Composer\InstalledVersions');
 }
-if (!class_exists('ComposerAutoloaderInit392362521e40ce0d2bfd71b687deeb83', false) && !interface_exists('ComposerAutoloaderInit392362521e40ce0d2bfd71b687deeb83', false) && !trait_exists('ComposerAutoloaderInit392362521e40ce0d2bfd71b687deeb83', false)) {
-    spl_autoload_call('RectorPrefix20210323\ComposerAutoloaderInit392362521e40ce0d2bfd71b687deeb83');
+if (!class_exists('ComposerAutoloaderInit7b6bbe53e37cf4a2edf8873ca02f524e', false) && !interface_exists('ComposerAutoloaderInit7b6bbe53e37cf4a2edf8873ca02f524e', false) && !trait_exists('ComposerAutoloaderInit7b6bbe53e37cf4a2edf8873ca02f524e', false)) {
+    spl_autoload_call('RectorPrefix20210324\ComposerAutoloaderInit7b6bbe53e37cf4a2edf8873ca02f524e');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
-    spl_autoload_call('RectorPrefix20210323\Doctrine\Inflector\Inflector');
+    spl_autoload_call('RectorPrefix20210324\Doctrine\Inflector\Inflector');
 }
 if (!class_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !interface_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !trait_exists('Symfony\Component\Console\Style\SymfonyStyle', false)) {
-    spl_autoload_call('RectorPrefix20210323\Symfony\Component\Console\Style\SymfonyStyle');
+    spl_autoload_call('RectorPrefix20210324\Symfony\Component\Console\Style\SymfonyStyle');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
-    spl_autoload_call('RectorPrefix20210323\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
+    spl_autoload_call('RectorPrefix20210324\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
 }
 if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false) && !trait_exists('Normalizer', false)) {
-    spl_autoload_call('RectorPrefix20210323\Normalizer');
+    spl_autoload_call('RectorPrefix20210324\Normalizer');
 }
 if (!class_exists('JsonException', false) && !interface_exists('JsonException', false) && !trait_exists('JsonException', false)) {
-    spl_autoload_call('RectorPrefix20210323\JsonException');
+    spl_autoload_call('RectorPrefix20210324\JsonException');
 }
 if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
-    spl_autoload_call('RectorPrefix20210323\Attribute');
+    spl_autoload_call('RectorPrefix20210324\Attribute');
 }
 if (!class_exists('Stringable', false) && !interface_exists('Stringable', false) && !trait_exists('Stringable', false)) {
-    spl_autoload_call('RectorPrefix20210323\Stringable');
+    spl_autoload_call('RectorPrefix20210324\Stringable');
 }
 if (!class_exists('UnhandledMatchError', false) && !interface_exists('UnhandledMatchError', false) && !trait_exists('UnhandledMatchError', false)) {
-    spl_autoload_call('RectorPrefix20210323\UnhandledMatchError');
+    spl_autoload_call('RectorPrefix20210324\UnhandledMatchError');
 }
 if (!class_exists('ValueError', false) && !interface_exists('ValueError', false) && !trait_exists('ValueError', false)) {
-    spl_autoload_call('RectorPrefix20210323\ValueError');
+    spl_autoload_call('RectorPrefix20210324\ValueError');
 }
 if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !trait_exists('Symplify\SmartFileSystem\SmartFileInfo', false)) {
-    spl_autoload_call('RectorPrefix20210323\Symplify\SmartFileSystem\SmartFileInfo');
+    spl_autoload_call('RectorPrefix20210324\Symplify\SmartFileSystem\SmartFileInfo');
 }
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire392362521e40ce0d2bfd71b687deeb83')) {
-    function composerRequire392362521e40ce0d2bfd71b687deeb83() {
-        return \RectorPrefix20210323\composerRequire392362521e40ce0d2bfd71b687deeb83(...func_get_args());
+if (!function_exists('composerRequire7b6bbe53e37cf4a2edf8873ca02f524e')) {
+    function composerRequire7b6bbe53e37cf4a2edf8873ca02f524e() {
+        return \RectorPrefix20210324\composerRequire7b6bbe53e37cf4a2edf8873ca02f524e(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {
     function parseArgs() {
-        return \RectorPrefix20210323\parseArgs(...func_get_args());
+        return \RectorPrefix20210324\parseArgs(...func_get_args());
     }
 }
 if (!function_exists('showHelp')) {
     function showHelp() {
-        return \RectorPrefix20210323\showHelp(...func_get_args());
+        return \RectorPrefix20210324\showHelp(...func_get_args());
     }
 }
 if (!function_exists('formatErrorMessage')) {
     function formatErrorMessage() {
-        return \RectorPrefix20210323\formatErrorMessage(...func_get_args());
+        return \RectorPrefix20210324\formatErrorMessage(...func_get_args());
     }
 }
 if (!function_exists('resolveNodes')) {
     function resolveNodes() {
-        return \RectorPrefix20210323\resolveNodes(...func_get_args());
+        return \RectorPrefix20210324\resolveNodes(...func_get_args());
     }
 }
 if (!function_exists('resolveMacros')) {
     function resolveMacros() {
-        return \RectorPrefix20210323\resolveMacros(...func_get_args());
+        return \RectorPrefix20210324\resolveMacros(...func_get_args());
     }
 }
 if (!function_exists('resolveStackAccess')) {
     function resolveStackAccess() {
-        return \RectorPrefix20210323\resolveStackAccess(...func_get_args());
+        return \RectorPrefix20210324\resolveStackAccess(...func_get_args());
     }
 }
 if (!function_exists('execCmd')) {
     function execCmd() {
-        return \RectorPrefix20210323\execCmd(...func_get_args());
+        return \RectorPrefix20210324\execCmd(...func_get_args());
     }
 }
 if (!function_exists('removeTrailingWhitespace')) {
     function removeTrailingWhitespace() {
-        return \RectorPrefix20210323\removeTrailingWhitespace(...func_get_args());
+        return \RectorPrefix20210324\removeTrailingWhitespace(...func_get_args());
     }
 }
 if (!function_exists('ensureDirExists')) {
     function ensureDirExists() {
-        return \RectorPrefix20210323\ensureDirExists(...func_get_args());
+        return \RectorPrefix20210324\ensureDirExists(...func_get_args());
     }
 }
 if (!function_exists('magicSplit')) {
     function magicSplit() {
-        return \RectorPrefix20210323\magicSplit(...func_get_args());
+        return \RectorPrefix20210324\magicSplit(...func_get_args());
     }
 }
 if (!function_exists('assertArgs')) {
     function assertArgs() {
-        return \RectorPrefix20210323\assertArgs(...func_get_args());
+        return \RectorPrefix20210324\assertArgs(...func_get_args());
     }
 }
 if (!function_exists('regex')) {
     function regex() {
-        return \RectorPrefix20210323\regex(...func_get_args());
+        return \RectorPrefix20210324\regex(...func_get_args());
     }
 }
 if (!function_exists('setproctitle')) {
     function setproctitle() {
-        return \RectorPrefix20210323\setproctitle(...func_get_args());
+        return \RectorPrefix20210324\setproctitle(...func_get_args());
     }
 }
 if (!function_exists('trigger_deprecation')) {
     function trigger_deprecation() {
-        return \RectorPrefix20210323\trigger_deprecation(...func_get_args());
+        return \RectorPrefix20210324\trigger_deprecation(...func_get_args());
     }
 }
 if (!function_exists('includeIfExists')) {
     function includeIfExists() {
-        return \RectorPrefix20210323\includeIfExists(...func_get_args());
+        return \RectorPrefix20210324\includeIfExists(...func_get_args());
     }
 }
 if (!function_exists('dump')) {
     function dump() {
-        return \RectorPrefix20210323\dump(...func_get_args());
+        return \RectorPrefix20210324\dump(...func_get_args());
     }
 }
 if (!function_exists('dd')) {
     function dd() {
-        return \RectorPrefix20210323\dd(...func_get_args());
+        return \RectorPrefix20210324\dd(...func_get_args());
     }
 }
 
