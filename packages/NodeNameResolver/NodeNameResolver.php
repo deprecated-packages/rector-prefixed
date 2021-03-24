@@ -75,9 +75,11 @@ final class NodeNameResolver
      */
     public function isName($node, string $name) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
-            $message = \sprintf('Name called on "%s" is not possible. Use $this->getName($node->name) instead', \get_class($node));
-            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \false;
         }
         $nodes = \is_array($node) ? $node : [$node];
         foreach ($nodes as $node) {
