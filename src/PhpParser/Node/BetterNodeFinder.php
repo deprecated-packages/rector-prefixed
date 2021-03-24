@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
@@ -238,6 +239,9 @@ final class BetterNodeFinder
             return $this->findFirstPreviousOfNode($previousStatement, $filter);
         }
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\FunctionLike) {
+            return null;
+        }
         if ($parent instanceof \PhpParser\Node) {
             return $this->findFirstPreviousOfNode($parent, $filter);
         }

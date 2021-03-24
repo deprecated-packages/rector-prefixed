@@ -86,9 +86,15 @@ CODE_SAMPLE
         if ($this->processVariable($node, $variable)) {
             return $node;
         }
+        $isFoundPrev = (bool) $this->betterNodeFinder->findFirstPreviousOfNode($variable, function (\PhpParser\Node $node) use($variable) : bool {
+            return $this->nodeComparator->areNodesEqual($node, $variable);
+        });
+        if (!$isFoundPrev) {
+            return null;
+        }
         // there is "$string[] = ...;", which would cause error in PHP 7+
         // fallback - if no array init found, retype to (array)
-        $assign = new \PhpParser\Node\Expr\Assign($arrayDimFetchNode->var, new \PhpParser\Node\Expr\Cast\Array_($arrayDimFetchNode->var));
+        $assign = new \PhpParser\Node\Expr\Assign($variable, new \PhpParser\Node\Expr\Cast\Array_($variable));
         $this->addNodeAfterNode(clone $node, $node);
         return $assign;
     }
