@@ -291,6 +291,9 @@ final class BetterNodeFinder
             return $this->findFirstNext($next, $filter);
         }
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\FunctionLike) {
+            return null;
+        }
         if ($parent instanceof \PhpParser\Node) {
             return $this->findFirstNext($parent, $filter);
         }

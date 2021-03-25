@@ -34,12 +34,12 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
         foreach ($psr4Autoloads as $namespace => $path) {
             // remove extra slash
             $paths = \is_array($path) ? $path : [$path];
-            foreach ($paths as $singlePath) {
-                $singlePath = \rtrim($singlePath, '/');
-                if (!\RectorPrefix20210325\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $singlePath)) {
+            foreach ($paths as $path) {
+                $path = \rtrim($path, '/');
+                if (!\RectorPrefix20210325\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $path)) {
                     continue;
                 }
-                $expectedNamespace = $namespace . $this->resolveExtraNamespace($smartFileInfo, $singlePath);
+                $expectedNamespace = $namespace . $this->resolveExtraNamespace($smartFileInfo, $path);
                 return \rtrim($expectedNamespace, '\\');
             }
         }

@@ -132,8 +132,8 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\New_) {
             return;
         }
-        foreach ($this->constructorInjectionObjectTypes as $typesToConstructorInjection) {
-            if (!$this->isObjectType($assign->expr, $typesToConstructorInjection)) {
+        foreach ($this->constructorInjectionObjectTypes as $constructorInjectionObjectType) {
+            if (!$this->isObjectType($assign->expr, $constructorInjectionObjectType)) {
                 continue;
             }
             $this->removeNode($assign);

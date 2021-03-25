@@ -378,8 +378,8 @@ final class NodeFactory
     public function createUsesFromNames(array $names) : array
     {
         $uses = [];
-        foreach ($names as $resolvedName) {
-            $useUse = new \PhpParser\Node\Stmt\UseUse(new \PhpParser\Node\Name($resolvedName));
+        foreach ($names as $name) {
+            $useUse = new \PhpParser\Node\Stmt\UseUse(new \PhpParser\Node\Name($name));
             $uses[] = new \PhpParser\Node\Stmt\Use_([$useUse]);
         }
         return $uses;

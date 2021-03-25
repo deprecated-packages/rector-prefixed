@@ -108,11 +108,11 @@ CODE_SAMPLE
         }
         /** @var Class_ $classLike */
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        foreach ($this->argumentFuncCallToMethodCalls as $functionToMethodCall) {
-            if (!$this->isName($node, $functionToMethodCall->getFunction())) {
+        foreach ($this->argumentFuncCallToMethodCalls as $argumentFuncCallToMethodCall) {
+            if (!$this->isName($node, $argumentFuncCallToMethodCall->getFunction())) {
                 continue;
             }
-            return $this->refactorFuncCallToMethodCall($functionToMethodCall, $classLike, $node);
+            return $this->refactorFuncCallToMethodCall($argumentFuncCallToMethodCall, $classLike, $node);
         }
         foreach ($this->arrayFunctionsToMethodCalls as $arrayFunctionToMethodCall) {
             if (!$this->isName($node, $arrayFunctionToMethodCall->getFunction())) {

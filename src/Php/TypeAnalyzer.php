@@ -35,11 +35,11 @@ final class TypeAnalyzer
     {
         $types = \explode('|', $type);
         $reservedTypes = \array_merge($this->phpSupportedTypes, self::EXTRA_TYPES);
-        foreach ($types as $singleType) {
-            $singleType = \strtolower($singleType);
+        foreach ($types as $type) {
+            $type = \strtolower($type);
             // remove [] from arrays
-            $singleType = \RectorPrefix20210325\Nette\Utils\Strings::replace($singleType, self::SQUARE_BRACKET_REGEX, '');
-            if (\in_array($singleType, $reservedTypes, \true)) {
+            $type = \RectorPrefix20210325\Nette\Utils\Strings::replace($type, self::SQUARE_BRACKET_REGEX, '');
+            if (\in_array($type, $reservedTypes, \true)) {
                 return \true;
             }
         }
