@@ -97,6 +97,9 @@ CODE_SAMPLE
             return null;
         }
         foreach ($keysToRemove as $keyToRemove) {
+            if (!isset($defaultValues[$keyToRemove])) {
+                continue;
+            }
             $this->nodeRemover->removeArg($node, $keyToRemove);
         }
         return $node;
@@ -134,7 +137,6 @@ CODE_SAMPLE
      */
     private function resolveKeysToRemove(\PhpParser\Node $node, array $defaultValues) : array
     {
-        $keysToRemove = [];
         $keysToKeep = [];
         /** @var int $key */
         foreach ($node->args as $key => $arg) {
@@ -142,23 +144,19 @@ CODE_SAMPLE
                 $keysToKeep[] = $key;
                 continue;
             }
-            if ($this->nodeComparator->areNodesEqual($defaultValues[$key], $arg->value)) {
-                $keysToRemove[] = $key;
-            } else {
+            if (!$this->nodeComparator->areNodesEqual($defaultValues[$key], $arg->value)) {
                 $keysToKeep[] = $key;
             }
         }
-        if ($keysToRemove === []) {
+        $lastKeyToKeep = \end($keysToKeep);
+        $maxKey = \count($node->args) - 1;
+        if ($lastKeyToKeep === \false) {
+            return \range(0, $maxKey);
+        }
+        $startremove = $lastKeyToKeep + 1;
+        if ($maxKey < $startremove) {
             return [];
         }
-        if ($keysToKeep === []) {
-            /** @var int[] $keysToRemove */
-            return $keysToRemove;
-        }
-        if (\max($keysToKeep) <= \max($keysToRemove)) {
-            /** @var int[] $keysToRemove */
-            return $keysToRemove;
-        }
-        return [];
+        return \range($startremove, $maxKey);
     }
 }
