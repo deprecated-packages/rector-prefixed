@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210324\\Symplify\\Astral\\": "src"
+            "RectorPrefix20210325\\Symplify\\Astral\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210324\\Symplify\\Astral\\Tests\\": "tests"
+            "RectorPrefix20210325\\Symplify\\Astral\\Tests\\": "tests"
         }
     },
     "extra": {

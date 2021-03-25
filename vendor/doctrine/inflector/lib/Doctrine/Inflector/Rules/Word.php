@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210324\Doctrine\Inflector\Rules;
+namespace RectorPrefix20210325\Doctrine\Inflector\Rules;
 
 class Word
 {

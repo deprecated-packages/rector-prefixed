@@ -22,19 +22,21 @@
         "psr\/log": "^1.0"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8"
+        "symfony\/phpunit-bridge": "^4.2 || ^5",
+        "phpstan\/phpstan": "^0.12.55"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210324\\Composer\\XdebugHandler\\": "src"
+            "RectorPrefix20210325\\Composer\\XdebugHandler\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210324\\Composer\\XdebugHandler\\": "tests"
+            "RectorPrefix20210325\\Composer\\XdebugHandler\\": "tests"
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT=1 vendor\/bin\/simple-phpunit",
+        "phpstan": "vendor\/bin\/phpstan analyse"
     }
 }

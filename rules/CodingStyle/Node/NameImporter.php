@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Node;
 
-use RectorPrefix20210324\Nette\Utils\Strings;
+use RectorPrefix20210325\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
@@ -21,7 +21,7 @@ use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210324\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210325\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class NameImporter
 {
     /**
@@ -60,7 +60,7 @@ final class NameImporter
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210324\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210325\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->aliasUsesResolver = $aliasUsesResolver;
@@ -156,7 +156,7 @@ final class NameImporter
         $parentNode = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $fullName = $name->toString();
         $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
-        if ($autoImportNames && !$parentNode instanceof \PhpParser\Node && !\RectorPrefix20210324\Nette\Utils\Strings::contains($fullName, '\\') && $this->reflectionProvider->hasFunction(new \PhpParser\Node\Name($fullName), null)) {
+        if ($autoImportNames && !$parentNode instanceof \PhpParser\Node && !\RectorPrefix20210325\Nette\Utils\Strings::contains($fullName, '\\') && $this->reflectionProvider->hasFunction(new \PhpParser\Node\Name($fullName), null)) {
             return \true;
         }
         if ($parentNode instanceof \PhpParser\Node\Expr\ConstFetch) {
