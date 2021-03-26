@@ -24,7 +24,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210325\Webmozart\Assert\Assert;
+use RectorPrefix20210326\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Arguments\Rector\ClassMethod\ArgumentAdderRector\ArgumentAdderRectorTest
  */
@@ -48,7 +48,7 @@ final class ArgumentAdderRector extends \Rector\Core\Rector\AbstractRector imple
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $exampleConfiguration = [self::ADDED_ARGUMENTS => [new \Rector\Arguments\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', 'true', 'SomeType')]];
+        $exampleConfiguration = [self::ADDED_ARGUMENTS => [new \Rector\Arguments\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', \true, 'SomeType')]];
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('This Rector adds new default arguments in calls of defined methods and class types.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeExampleClass;
 $someObject->someMethod();
@@ -104,7 +104,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
-        \RectorPrefix20210325\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
+        \RectorPrefix20210326\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }
     /**

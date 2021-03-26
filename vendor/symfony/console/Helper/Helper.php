@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210325\Symfony\Component\Console\Helper;
+namespace RectorPrefix20210326\Symfony\Component\Console\Helper;
 
-use RectorPrefix20210325\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use RectorPrefix20210326\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Helper is the base class for all helper classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Helper implements \RectorPrefix20210325\Symfony\Component\Console\Helper\HelperInterface
+abstract class Helper implements \RectorPrefix20210326\Symfony\Component\Console\Helper\HelperInterface
 {
     protected $helperSet = null;
     /**
@@ -87,11 +87,11 @@ abstract class Helper implements \RectorPrefix20210325\Symfony\Component\Console
         }
         return \sprintf('%d B', $memory);
     }
-    public static function strlenWithoutDecoration(\RectorPrefix20210325\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    public static function strlenWithoutDecoration(\RectorPrefix20210326\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
     {
         return self::strlen(self::removeDecoration($formatter, $string));
     }
-    public static function removeDecoration(\RectorPrefix20210325\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    public static function removeDecoration(\RectorPrefix20210326\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
     {
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(\false);

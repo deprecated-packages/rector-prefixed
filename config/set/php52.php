@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210325;
+namespace RectorPrefix20210326;
 
 use Rector\Php52\Rector\Property\VarToPublicPropertyRector;
 use Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
 use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
 use Rector\Removing\ValueObject\RemoveFuncCallArg;
-use RectorPrefix20210325\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210326\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210325\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210326\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Php52\Rector\Property\VarToPublicPropertyRector::class);
     $services->set(\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector::class);

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210325;
+namespace RectorPrefix20210326;
 
-use RectorPrefix20210325\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use RectorPrefix20210325\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210325\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210326\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use RectorPrefix20210326\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210326\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set('sets', ['not_here']);
     $services = $containerConfigurator->services();
-    $services->set(\RectorPrefix20210325\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
+    $services->set(\RectorPrefix20210326\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
 };

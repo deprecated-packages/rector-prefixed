@@ -20,7 +20,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210325\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210326\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/translatable.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/translatable.md
@@ -210,7 +210,7 @@ CODE_SAMPLE
     private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos) : void
     {
         $fileInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210325\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210326\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $classShortName = $class->name . 'Translation';
