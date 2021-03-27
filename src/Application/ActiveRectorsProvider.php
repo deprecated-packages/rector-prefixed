@@ -5,7 +5,7 @@ namespace Rector\Core\Application;
 
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210326\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210327\Symplify\Skipper\Skipper\Skipper;
 /**
  * Provides list of Rector rules, that are not internal → only those registered by user
  */
@@ -18,7 +18,7 @@ final class ActiveRectorsProvider
     /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(array $rectors, \RectorPrefix20210326\Symplify\Skipper\Skipper\Skipper $skipper)
+    public function __construct(array $rectors, \RectorPrefix20210327\Symplify\Skipper\Skipper\Skipper $skipper)
     {
         foreach ($rectors as $key => $rector) {
             if ($skipper->shouldSkipElement($rector)) {

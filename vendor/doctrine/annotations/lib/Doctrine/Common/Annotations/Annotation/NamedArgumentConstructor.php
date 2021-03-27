@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210326\Doctrine\Common\Annotations\Annotation;
+namespace RectorPrefix20210327\Doctrine\Common\Annotations\Annotation;
 
 /**
  * Annotation that indicates that the annotated class should be constructed with a named argument call.
