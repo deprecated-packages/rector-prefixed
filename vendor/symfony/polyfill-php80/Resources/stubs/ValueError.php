@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210329;
+
 
 class ValueError extends \Error
 {

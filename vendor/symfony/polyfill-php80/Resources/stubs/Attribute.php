@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210329;
+
 
 #[Attribute(Attribute::TARGET_CLASS)]
 final class Attribute
