@@ -17,7 +17,6 @@ final class UnwrapClosureFactory
      */
     public function createAssign(\PhpParser\Node\Expr\Variable $resultVariable, \PhpParser\Node\Arg $arg) : array
     {
-        $assignedExpr = null;
         $argValue = $arg->value;
         if ($argValue instanceof \PhpParser\Node\Expr\Closure) {
             $unwrappedNodes = $argValue->getStmts();
