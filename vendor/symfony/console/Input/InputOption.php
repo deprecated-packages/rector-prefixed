@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210327\Symfony\Component\Console\Input;
+namespace RectorPrefix20210329\Symfony\Component\Console\Input;
 
-use RectorPrefix20210327\Symfony\Component\Console\Exception\InvalidArgumentException;
-use RectorPrefix20210327\Symfony\Component\Console\Exception\LogicException;
+use RectorPrefix20210329\Symfony\Component\Console\Exception\InvalidArgumentException;
+use RectorPrefix20210329\Symfony\Component\Console\Exception\LogicException;
 /**
  * Represents a command line option.
  *
@@ -29,11 +29,11 @@ class InputOption
     private $default;
     private $description;
     /**
-     * @param string                        $name        The option name
-     * @param string|array|null             $shortcut    The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
-     * @param int|null                      $mode        The option mode: One of the VALUE_* constants
-     * @param string                        $description A description text
-     * @param string|string[]|int|bool|null $default     The default value (must be null for self::VALUE_NONE)
+     * @param string                    $name        The option name
+     * @param string|array|null         $shortcut    The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
+     * @param int|null                  $mode        The option mode: One of the VALUE_* constants
+     * @param string                    $description A description text
+     * @param string|string[]|bool|null $default     The default value (must be null for self::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      */
@@ -43,7 +43,7 @@ class InputOption
             $name = \substr($name, 2);
         }
         if (empty($name)) {
-            throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\InvalidArgumentException('An option name cannot be empty.');
+            throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\InvalidArgumentException('An option name cannot be empty.');
         }
         if (empty($shortcut)) {
             $shortcut = null;
@@ -56,20 +56,20 @@ class InputOption
             $shortcuts = \array_filter($shortcuts);
             $shortcut = \implode('|', $shortcuts);
             if (empty($shortcut)) {
-                throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\InvalidArgumentException('An option shortcut cannot be empty.');
+                throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\InvalidArgumentException('An option shortcut cannot be empty.');
             }
         }
         if (null === $mode) {
             $mode = self::VALUE_NONE;
         } elseif ($mode > 15 || $mode < 1) {
-            throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Option mode "%s" is not valid.', $mode));
+            throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Option mode "%s" is not valid.', $mode));
         }
         $this->name = $name;
         $this->shortcut = $shortcut;
         $this->mode = $mode;
         $this->description = $description;
         if ($this->isArray() && !$this->acceptValue()) {
-            throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
+            throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\InvalidArgumentException('Impossible to have an option mode VALUE_IS_ARRAY if the option does not accept a value.');
         }
         $this->setDefault($default);
     }
@@ -130,20 +130,20 @@ class InputOption
     /**
      * Sets the default value.
      *
-     * @param string|string[]|int|bool|null $default The default value
+     * @param string|string[]|bool|null $default The default value
      *
      * @throws LogicException When incorrect default value is given
      */
     public function setDefault($default = null)
     {
         if (self::VALUE_NONE === (self::VALUE_NONE & $this->mode) && null !== $default) {
-            throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\LogicException('Cannot set a default value when using InputOption::VALUE_NONE mode.');
+            throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\LogicException('Cannot set a default value when using InputOption::VALUE_NONE mode.');
         }
         if ($this->isArray()) {
             if (null === $default) {
                 $default = [];
             } elseif (!\is_array($default)) {
-                throw new \RectorPrefix20210327\Symfony\Component\Console\Exception\LogicException('A default value for an array option must be an array.');
+                throw new \RectorPrefix20210329\Symfony\Component\Console\Exception\LogicException('A default value for an array option must be an array.');
             }
         }
         $this->default = $this->acceptValue() ? $default : \false;
@@ -151,7 +151,7 @@ class InputOption
     /**
      * Returns the default value.
      *
-     * @return string|string[]|int|bool|null The default value
+     * @return string|string[]|bool|null The default value
      */
     public function getDefault()
     {

@@ -18,7 +18,7 @@ use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayShapeItemNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode;
-use RectorPrefix20210327\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210329\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocNodeMapperTest
  */
@@ -28,7 +28,7 @@ final class PhpDocNodeMapper
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    public function __construct(\RectorPrefix20210327\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
+    public function __construct(\RectorPrefix20210329\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
     }

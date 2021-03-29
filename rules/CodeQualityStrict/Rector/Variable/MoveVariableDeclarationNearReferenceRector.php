@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQualityStrict\Rector\Variable;
 
-use RectorPrefix20210327\Nette\Utils\Strings;
+use RectorPrefix20210329\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Do_;
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\ElseIf_;
@@ -24,6 +25,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -206,10 +208,20 @@ CODE_SAMPLE
         }
         return \false;
     }
+    private function isClassCallerThrowable(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    {
+        $class = $staticCall->class;
+        if (!$class instanceof \PhpParser\Node\Name) {
+            return \false;
+        }
+        $throwableType = new \PHPStan\Type\ObjectType('Throwable');
+        $type = new \PHPStan\Type\ObjectType($class->toString());
+        return $throwableType->isSuperTypeOf($type)->yes();
+    }
     private function hasCall(\PhpParser\Node $node) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $n) : bool {
-            if ($n instanceof \PhpParser\Node\Expr\StaticCall) {
+            if ($n instanceof \PhpParser\Node\Expr\StaticCall && !$this->isClassCallerThrowable($n)) {
                 return \true;
             }
             if ($n instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -222,7 +234,7 @@ CODE_SAMPLE
             if ($funcName === null) {
                 return \false;
             }
-            return \RectorPrefix20210327\Nette\Utils\Strings::startsWith($funcName, 'ob_');
+            return \RectorPrefix20210329\Nette\Utils\Strings::startsWith($funcName, 'ob_');
         });
     }
     private function getCountFound(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : int

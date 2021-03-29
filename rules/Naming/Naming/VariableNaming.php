@@ -24,7 +24,7 @@ use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210327\Stringy\Stringy;
+use RectorPrefix20210329\Stringy\Stringy;
 final class VariableNaming
 {
     /**
@@ -61,7 +61,7 @@ final class VariableNaming
             $shortClassName = $this->nodeNameResolver->getShortName($type->getClassName());
             $variableName = \lcfirst($shortClassName);
         }
-        $stringy = new \RectorPrefix20210327\Stringy\Stringy($variableName);
+        $stringy = new \RectorPrefix20210329\Stringy\Stringy($variableName);
         return (string) $stringy->camelize();
     }
     private function resolveBareFromNode(\PhpParser\Node $node) : ?string
@@ -113,7 +113,7 @@ final class VariableNaming
             if ($arrayDimFetch->dim instanceof \PhpParser\Node\Scalar) {
                 $valueName = $this->nodeNameResolver->getName($arrayDimFetch->var);
                 $dimName = $this->valueResolver->getValue($arrayDimFetch->dim);
-                $stringy = new \RectorPrefix20210327\Stringy\Stringy($dimName);
+                $stringy = new \RectorPrefix20210329\Stringy\Stringy($dimName);
                 $dimName = (string) $stringy->upperCamelize();
                 return $valueName . $dimName;
             }

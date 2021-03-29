@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDoc;
 
-use RectorPrefix20210327\Nette\Utils\Strings;
+use RectorPrefix20210329\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 final class SpacingAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode
@@ -20,7 +20,7 @@ final class SpacingAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\P
     public function __construct(string $name, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $originalContent)
     {
         parent::__construct($name, $typeNode, $description);
-        $matches = \RectorPrefix20210327\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
+        $matches = \RectorPrefix20210329\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
         $this->preposition = $matches['preposition'] ?? 'of';
     }
     public function __toString() : string
