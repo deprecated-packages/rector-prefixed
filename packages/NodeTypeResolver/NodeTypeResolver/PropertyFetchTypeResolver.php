@@ -109,6 +109,9 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
             return new \PHPStan\Type\MixedType();
         }
         $propertyFetchScope = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($propertyFetchScope === null) {
+            return new \PHPStan\Type\MixedType();
+        }
         $propertyReflection = $classReflection->getProperty($propertyName, $propertyFetchScope);
         return $propertyReflection->getReadableType();
     }
