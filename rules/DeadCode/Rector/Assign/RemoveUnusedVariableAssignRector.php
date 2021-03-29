@@ -89,7 +89,7 @@ CODE_SAMPLE
         if ($isUsedNext) {
             return \true;
         }
-        /** @var FuncCall|MethodCall|New_|NullsafeMethodCall|StaticCall $expr  */
+        /** @var FuncCall|MethodCall|New_|NullsafeMethodCall|StaticCall $expr */
         $expr = $assign->expr;
         if (!$this->isCall($expr)) {
             return \false;
