@@ -3,6 +3,15 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\CustomIdGenerator;
+use Doctrine\ORM\Mapping\Embedded;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\Table;
+use RectorPrefix20210330\Gedmo\Mapping\Annotation\Blameable;
+use RectorPrefix20210330\Gedmo\Mapping\Annotation\Slug;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -21,11 +30,28 @@ use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\ValueObject\NodeTypes;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Doctrine\PhpDoc\Node\Class_\EmbeddedTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Class_\TableTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Gedmo\SlugTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Property_\CustomIdGeneratorTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Property_\GeneratedValueTagValueNode;
+use Rector\Doctrine\PhpDoc\Node\Property_\JoinTableTagValueNode;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+use Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode;
+use Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
+use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
+use RectorPrefix20210330\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210330\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use RectorPrefix20210330\Symfony\Component\Validator\Constraints\Choice;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
@@ -372,6 +398,48 @@ final class PhpDocInfo
             $methodTagNames[] = $methodTagValueNode->methodName;
         }
         return $methodTagNames;
+    }
+    public function hasByAnnotationClass(string $annotationClass) : bool
+    {
+        $tagValueNodes = $this->findAllByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode::class);
+        foreach ($tagValueNodes as $tagValueNode) {
+            // temporary hack
+            if ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\CustomIdGeneratorTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\CustomIdGenerator::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\Column::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\GeneratedValueTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\GeneratedValue::class;
+            } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Symfony\Component\Validator\Constraints\Choice::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\JoinTableTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\JoinTable::class;
+            } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Symfony\Component\Validator\Constraints\Type::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\TableTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\Table::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Gedmo\SlugTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Gedmo\Mapping\Annotation\Slug::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Gedmo\Mapping\Annotation\Blameable::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\Entity::class;
+            } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\EmbeddedTagValueNode) {
+                $tagClassName = \Doctrine\ORM\Mapping\Embedded::class;
+            } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method::class;
+            } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode) {
+                $tagClassName = \RectorPrefix20210330\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template::class;
+            } elseif (\defined(\get_class($tagValueNode) . '::CLASS_NAME')) {
+                $tagClassName = $tagValueNode::CLASS_NAME;
+            } else {
+                continue;
+            }
+            if ($tagClassName === $annotationClass) {
+                return \true;
+            }
+        }
+        return \false;
     }
     private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use RectorPrefix20210329\Nette\Utils\Strings;
+use RectorPrefix20210330\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -108,7 +108,7 @@ final class PhpDocInfoPrinter
     {
         $docContent = (string) $phpDocInfo->getPhpDocNode();
         // fix missing newline in the end of docblock - keep BC compatible for both cases until phpstan with phpdoc-parser 0.5.2 is released
-        $docContent = \RectorPrefix20210329\Nette\Utils\Strings::replace($docContent, self::MISSING_NEWLINE_REGEX, "\$1\n */");
+        $docContent = \RectorPrefix20210330\Nette\Utils\Strings::replace($docContent, self::MISSING_NEWLINE_REGEX, "\$1\n */");
         if ($phpDocInfo->isSingleLine()) {
             return $this->docBlockInliner->inline($docContent);
         }
@@ -142,7 +142,7 @@ final class PhpDocInfoPrinter
         $phpDocString = $this->printPhpDocNode($this->phpDocNode);
         $phpDocString = $this->removeExtraSpacesAfterAsterisk($phpDocString);
         // hotfix of extra space with callable ()
-        return \RectorPrefix20210329\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
+        return \RectorPrefix20210330\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
     }
     private function printPhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : string
     {
@@ -159,18 +159,18 @@ final class PhpDocInfoPrinter
         }
         $output = $this->printEnd($output);
         // fix missing start
-        if (!\RectorPrefix20210329\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
+        if (!\RectorPrefix20210330\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
             $output = '/**' . $output;
         }
         // fix missing end
-        if (\RectorPrefix20210329\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20210329\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
+        if (\RectorPrefix20210330\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20210330\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
             $output .= ' */';
         }
         return $output;
     }
     private function removeExtraSpacesAfterAsterisk(string $phpDocString) : string
     {
-        return \RectorPrefix20210329\Nette\Utils\Strings::replace($phpDocString, self::SPACE_AFTER_ASTERISK_REGEX, '$1*');
+        return \RectorPrefix20210330\Nette\Utils\Strings::replace($phpDocString, self::SPACE_AFTER_ASTERISK_REGEX, '$1*');
     }
     private function printNode(\PHPStan\PhpDocParser\Ast\Node $node, ?\Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd = null, int $key = 0, int $nodeCount = 0) : string
     {
@@ -214,7 +214,7 @@ final class PhpDocInfoPrinter
             --$from;
         }
         // skip extra empty lines above if this is the last one
-        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20210329\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20210329\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
+        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20210330\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20210330\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
             ++$from;
         }
         return $this->appendToOutput($output, $from, $to, $positionJumpSet);
@@ -232,13 +232,13 @@ final class PhpDocInfoPrinter
         }
         if ($this->hasDescription($phpDocTagNode)) {
             $quotedDescription = \preg_quote($phpDocTagNode->value->description, '#');
-            $pattern = \RectorPrefix20210329\Nette\Utils\Strings::replace($quotedDescription, '#[\\s]+#', '\\s+');
-            $nodeOutput = \RectorPrefix20210329\Nette\Utils\Strings::replace($nodeOutput, '#' . $pattern . '#', function () use($phpDocTagNode) {
+            $pattern = \RectorPrefix20210330\Nette\Utils\Strings::replace($quotedDescription, '#[\\s]+#', '\\s+');
+            $nodeOutput = \RectorPrefix20210330\Nette\Utils\Strings::replace($nodeOutput, '#' . $pattern . '#', function () use($phpDocTagNode) {
                 // warning: classic string replace() breaks double "\\" slashes to "\"
                 return $phpDocTagNode->value->description;
             });
             if (\substr_count($nodeOutput, "\n") !== 0) {
-                $nodeOutput = \RectorPrefix20210329\Nette\Utils\Strings::replace($nodeOutput, "#\n#", self::NEWLINE_ASTERISK);
+                $nodeOutput = \RectorPrefix20210330\Nette\Utils\Strings::replace($nodeOutput, "#\n#", self::NEWLINE_ASTERISK);
             }
         }
         return $output . $nodeOutput;
@@ -302,7 +302,7 @@ final class PhpDocInfoPrinter
     {
         $originalContent = $this->phpDocInfo->getOriginalContent();
         $spacePattern = $this->spacePatternFactory->createSpacePattern($phpDocTagNode);
-        $matches = \RectorPrefix20210329\Nette\Utils\Strings::match($originalContent, $spacePattern);
+        $matches = \RectorPrefix20210330\Nette\Utils\Strings::match($originalContent, $spacePattern);
         if (isset($matches['space'])) {
             return $matches['space'];
         }
