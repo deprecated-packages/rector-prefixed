@@ -11,7 +11,7 @@ use RectorPrefix20210330\Symplify\SmartFileSystem\SmartFileSystem;
 final class Parser
 {
     /**
-     * @var Stmt[][]
+     * @var array<string, Stmt[]>
      */
     private $nodesByFile = [];
     /**
@@ -26,17 +26,6 @@ final class Parser
     {
         $this->nikicParser = $nikicParser;
         $this->smartFileSystem = $smartFileSystem;
-    }
-    /**
-     * @return Node[]
-     */
-    public function parseContent(string $content) : array
-    {
-        $nodes = $this->nikicParser->parse($content);
-        if ($nodes === null) {
-            $nodes = [];
-        }
-        return $nodes;
     }
     /**
      * @return Node[]
