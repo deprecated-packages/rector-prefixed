@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210330\Composer\XdebugHandler;
+namespace RectorPrefix20210331\Composer\XdebugHandler;
 
-use RectorPrefix20210330\Psr\Log\LoggerInterface;
+use RectorPrefix20210331\Psr\Log\LoggerInterface;
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
  */
@@ -63,7 +63,7 @@ class XdebugHandler
         if ($this->cli = \PHP_SAPI === 'cli') {
             $this->debug = \getenv(self::DEBUG);
         }
-        $this->statusWriter = new \RectorPrefix20210330\Composer\XdebugHandler\Status($this->envAllowXdebug, (bool) $this->debug);
+        $this->statusWriter = new \RectorPrefix20210331\Composer\XdebugHandler\Status($this->envAllowXdebug, (bool) $this->debug);
     }
     /**
      * Activates status message output to a PSR3 logger
@@ -72,7 +72,7 @@ class XdebugHandler
      *
      * @return $this
      */
-    public function setLogger(\RectorPrefix20210330\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\RectorPrefix20210331\Psr\Log\LoggerInterface $logger)
     {
         $this->statusWriter->setLogger($logger);
         return $this;
@@ -108,11 +108,11 @@ class XdebugHandler
      */
     public function check()
     {
-        $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::CHECK, $this->loaded);
+        $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::CHECK, $this->loaded);
         $envArgs = \explode('|', (string) \getenv($this->envAllowXdebug));
         if (empty($envArgs[0]) && $this->requiresRestart((bool) $this->loaded)) {
             // Restart required
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::RESTART);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::RESTART);
             if ($this->prepareRestart()) {
                 $command = $this->getCommand();
                 $this->restart($command);
@@ -121,8 +121,8 @@ class XdebugHandler
         }
         if (self::RESTART_ID === $envArgs[0] && \count($envArgs) === 5) {
             // Restarted, so unset environment variable and use saved values
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::RESTARTED);
-            \RectorPrefix20210330\Composer\XdebugHandler\Process::setEnv($this->envAllowXdebug);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::RESTARTED);
+            \RectorPrefix20210331\Composer\XdebugHandler\Process::setEnv($this->envAllowXdebug);
             self::$inRestart = \true;
             if (!$this->loaded) {
                 // Skipped version is only set if Xdebug is not loaded
@@ -133,7 +133,7 @@ class XdebugHandler
             $this->setEnvRestartSettings($envArgs);
             return;
         }
-        $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::NORESTART);
+        $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::NORESTART);
         if ($settings = self::getRestartSettings()) {
             // Called with existing settings, so sync our settings
             $this->syncSettings($settings);
@@ -214,7 +214,7 @@ class XdebugHandler
     private function doRestart($command)
     {
         $this->tryEnableSignals();
-        $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::RESTARTING, $command);
+        $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::RESTARTING, $command);
         // Prefer proc_open to keep fds intact, because passthru pipes to stdout
         if (\function_exists('proc_open')) {
             if (\defined('PHP_WINDOWS_VERSION_BUILD') && \PHP_VERSION_ID < 80000) {
@@ -229,13 +229,13 @@ class XdebugHandler
         }
         if (!isset($exitCode)) {
             // Unlikely that the default shell cannot be invoked
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::ERROR, 'Unable to restart process');
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::ERROR, 'Unable to restart process');
             $exitCode = -1;
         } else {
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::INFO, 'Restarted process exited ' . $exitCode);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::INFO, 'Restarted process exited ' . $exitCode);
         }
         if ($this->debug === '2') {
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::INFO, 'Temp ini saved: ' . $this->tmpIni);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::INFO, 'Temp ini saved: ' . $this->tmpIni);
         } else {
             @\unlink($this->tmpIni);
         }
@@ -273,7 +273,7 @@ class XdebugHandler
             $error = 'Unable to set environment variables';
         }
         if ($error) {
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::ERROR, $error);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::ERROR, $error);
         }
         return empty($error);
     }
@@ -327,13 +327,13 @@ class XdebugHandler
             // Use command-line options
             \array_push($php, '-n', '-c', $this->tmpIni);
         }
-        if (\defined('STDOUT') && \RectorPrefix20210330\Composer\XdebugHandler\Process::supportsColor(\STDOUT)) {
-            $args = \RectorPrefix20210330\Composer\XdebugHandler\Process::addColorOption($args, $this->colorOption);
+        if (\defined('STDOUT') && \RectorPrefix20210331\Composer\XdebugHandler\Process::supportsColor(\STDOUT)) {
+            $args = \RectorPrefix20210331\Composer\XdebugHandler\Process::addColorOption($args, $this->colorOption);
         }
         $args = \array_merge($php, array($this->script), $args);
-        $cmd = \RectorPrefix20210330\Composer\XdebugHandler\Process::escape(\array_shift($args), \true, \true);
+        $cmd = \RectorPrefix20210331\Composer\XdebugHandler\Process::escape(\array_shift($args), \true, \true);
         foreach ($args as $arg) {
-            $cmd .= ' ' . \RectorPrefix20210330\Composer\XdebugHandler\Process::escape($arg);
+            $cmd .= ' ' . \RectorPrefix20210331\Composer\XdebugHandler\Process::escape($arg);
         }
         return $cmd;
     }
@@ -428,7 +428,7 @@ class XdebugHandler
     private function setEnvRestartSettings($envArgs)
     {
         $settings = array(\php_ini_loaded_file(), $envArgs[2], $envArgs[3], $envArgs[4], \getenv($this->envOriginalInis), self::$skipped);
-        \RectorPrefix20210330\Composer\XdebugHandler\Process::setEnv(self::RESTART_SETTINGS, \implode('|', $settings));
+        \RectorPrefix20210331\Composer\XdebugHandler\Process::setEnv(self::RESTART_SETTINGS, \implode('|', $settings));
     }
     /**
      * Syncs settings and the environment if called with existing settings
@@ -439,10 +439,10 @@ class XdebugHandler
     {
         if (\false === \getenv($this->envOriginalInis)) {
             // Called by another app, so make original inis available
-            \RectorPrefix20210330\Composer\XdebugHandler\Process::setEnv($this->envOriginalInis, \implode(\PATH_SEPARATOR, $settings['inis']));
+            \RectorPrefix20210331\Composer\XdebugHandler\Process::setEnv($this->envOriginalInis, \implode(\PATH_SEPARATOR, $settings['inis']));
         }
         self::$skipped = $settings['skipped'];
-        $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::INFO, 'Process called with existing restart settings');
+        $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::INFO, 'Process called with existing restart settings');
     }
     /**
      * Returns true if there are scanned inis and PHP is able to report them
@@ -498,7 +498,7 @@ class XdebugHandler
                 \pcntl_signal(\SIGINT, \SIG_DFL);
                 $message .= ' (SIGINT = SIG_DFL)';
             }
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::INFO, $message);
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::INFO, $message);
         }
         if (!self::$inRestart && \function_exists('sapi_windows_set_ctrl_handler')) {
             // Restarting, so set a handler to ignore CTRL events in the parent.
@@ -506,7 +506,7 @@ class XdebugHandler
             // process without having to enable them there, which is unreliable.
             \sapi_windows_set_ctrl_handler(function ($evt) {
             });
-            $this->notify(\RectorPrefix20210330\Composer\XdebugHandler\Status::INFO, 'CTRL signals suppressed');
+            $this->notify(\RectorPrefix20210331\Composer\XdebugHandler\Status::INFO, 'CTRL signals suppressed');
         }
     }
 }

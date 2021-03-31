@@ -130,9 +130,12 @@ CODE_SAMPLE
         if ($array->items[1] === null) {
             return \true;
         }
-        return $this->isCallbackAtFunctionName($array, 'register_shutdown_function');
+        return $this->isCallbackAtFunctionNames($array, ['register_shutdown_function', 'forward_static_call']);
     }
-    private function isCallbackAtFunctionName(\PhpParser\Node\Expr\Array_ $array, string $functionName) : bool
+    /**
+     * @param string[] $functionNames
+     */
+    private function isCallbackAtFunctionNames(\PhpParser\Node\Expr\Array_ $array, array $functionNames) : bool
     {
         $parentNode = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Arg) {
@@ -142,6 +145,6 @@ CODE_SAMPLE
         if (!$parentParentNode instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
-        return $this->isName($parentParentNode, $functionName);
+        return $this->isNames($parentParentNode, $functionNames);
     }
 }

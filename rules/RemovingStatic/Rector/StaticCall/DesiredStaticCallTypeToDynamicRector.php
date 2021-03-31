@@ -14,7 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210330\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210331\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,7 +30,7 @@ final class DesiredStaticCallTypeToDynamicRector extends \Rector\Core\Rector\Abs
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210330\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210331\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
