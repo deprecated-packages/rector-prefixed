@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\Table;
-use RectorPrefix20210331\Gedmo\Mapping\Annotation\Blameable;
-use RectorPrefix20210331\Gedmo\Mapping\Annotation\Slug;
+use RectorPrefix20210402\Gedmo\Mapping\Annotation\Blameable;
+use RectorPrefix20210402\Gedmo\Mapping\Annotation\Slug;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -49,9 +49,9 @@ use Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode;
 use Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode;
 use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
 use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
-use RectorPrefix20210331\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use RectorPrefix20210331\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use RectorPrefix20210331\Symfony\Component\Validator\Constraints\Choice;
+use RectorPrefix20210402\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210402\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use RectorPrefix20210402\Symfony\Component\Validator\Constraints\Choice;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
@@ -411,25 +411,25 @@ final class PhpDocInfo
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\GeneratedValueTagValueNode) {
                 $tagClassName = \Doctrine\ORM\Mapping\GeneratedValue::class;
             } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Symfony\Component\Validator\Constraints\Choice::class;
+                $tagClassName = \RectorPrefix20210402\Symfony\Component\Validator\Constraints\Choice::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\JoinTableTagValueNode) {
                 $tagClassName = \Doctrine\ORM\Mapping\JoinTable::class;
             } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertTypeTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Symfony\Component\Validator\Constraints\Type::class;
+                $tagClassName = \RectorPrefix20210402\Symfony\Component\Validator\Constraints\Type::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\TableTagValueNode) {
                 $tagClassName = \Doctrine\ORM\Mapping\Table::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Gedmo\SlugTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Gedmo\Mapping\Annotation\Slug::class;
+                $tagClassName = \RectorPrefix20210402\Gedmo\Mapping\Annotation\Slug::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Gedmo\Mapping\Annotation\Blameable::class;
+                $tagClassName = \RectorPrefix20210402\Gedmo\Mapping\Annotation\Blameable::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode) {
                 $tagClassName = \Doctrine\ORM\Mapping\Entity::class;
             } elseif ($tagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Class_\EmbeddedTagValueNode) {
                 $tagClassName = \Doctrine\ORM\Mapping\Embedded::class;
             } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method::class;
+                $tagClassName = \RectorPrefix20210402\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method::class;
             } elseif ($tagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode) {
-                $tagClassName = \RectorPrefix20210331\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template::class;
+                $tagClassName = \RectorPrefix20210402\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template::class;
             } elseif (\defined(\get_class($tagValueNode) . '::CLASS_NAME')) {
                 $tagClassName = $tagValueNode::CLASS_NAME;
             } else {

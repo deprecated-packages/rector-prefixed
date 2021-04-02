@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210331\Symplify\SetConfigResolver;
+namespace RectorPrefix20210402\Symplify\SetConfigResolver;
 
-use RectorPrefix20210331\Symplify\SetConfigResolver\Config\SetsParameterResolver;
-use RectorPrefix20210331\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210331\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210402\Symplify\SetConfigResolver\Config\SetsParameterResolver;
+use RectorPrefix20210402\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use RectorPrefix20210402\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\SetAwareConfigResolverTest
  */
-final class SetAwareConfigResolver extends \RectorPrefix20210331\Symplify\SetConfigResolver\AbstractConfigResolver
+final class SetAwareConfigResolver extends \RectorPrefix20210402\Symplify\SetConfigResolver\AbstractConfigResolver
 {
     /**
      * @var SetsParameterResolver
@@ -19,10 +19,10 @@ final class SetAwareConfigResolver extends \RectorPrefix20210331\Symplify\SetCon
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20210331\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\RectorPrefix20210402\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
-        $this->setResolver = new \RectorPrefix20210331\Symplify\SetConfigResolver\SetResolver($setProvider);
-        $this->setsParameterResolver = new \RectorPrefix20210331\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
+        $this->setResolver = new \RectorPrefix20210402\Symplify\SetConfigResolver\SetResolver($setProvider);
+        $this->setsParameterResolver = new \RectorPrefix20210402\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
         parent::__construct();
     }
     /**

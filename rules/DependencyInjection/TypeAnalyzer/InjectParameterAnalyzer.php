@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DependencyInjection\TypeAnalyzer;
 
-use RectorPrefix20210331\Nette\Utils\Strings;
+use RectorPrefix20210402\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use Rector\Symfony\PhpDoc\Node\JMS\JMSInjectTagValueNode;
 final class InjectParameterAnalyzer
@@ -22,6 +22,6 @@ final class InjectParameterAnalyzer
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210331\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \RectorPrefix20210402\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
 }
