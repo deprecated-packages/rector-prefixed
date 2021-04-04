@@ -38,6 +38,7 @@ final class VarAnnotationManipulator
         $fullyQualifiedIdentifierTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode($typeWithClassName->getClassName());
         $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($fullyQualifiedIdentifierTypeNode, '$' . $variableName, '');
         $phpDocInfo->addTagValueNode($varTagValueNode);
+        $phpDocInfo->makeSingleLined();
     }
     public function decorateNodeWithType(\PhpParser\Node $node, \PHPStan\Type\Type $staticType) : void
     {
