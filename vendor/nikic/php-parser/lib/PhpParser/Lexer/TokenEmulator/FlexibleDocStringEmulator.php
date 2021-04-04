@@ -35,6 +35,11 @@ REGEX;
             // No heredoc/nowdoc found
             return $code;
         }
+        \array_walk_recursive($matches, function (&$value) {
+            if ($value === '') {
+                $value = null;
+            }
+        });
         // Keep track of how much we need to adjust string offsets due to the modifications we
         // already made
         $posDelta = 0;

@@ -203,7 +203,7 @@ class ByteString extends \RectorPrefix20210404\Symfony\Component\String\Abstract
             throw new \RectorPrefix20210404\Symfony\Component\String\Exception\InvalidArgumentException($m);
         });
         try {
-            if (\false === $match($regexp, $this->string, $matches, $flags | \PREG_UNMATCHED_AS_NULL, $offset)) {
+            if (\false === $match($regexp, $this->string, $matches, $flags, $offset)) {
                 $lastError = \preg_last_error();
                 foreach (\get_defined_constants(\true)['pcre'] as $k => $v) {
                     if ($lastError === $v && '_ERROR' === \substr($k, -6)) {
@@ -212,6 +212,11 @@ class ByteString extends \RectorPrefix20210404\Symfony\Component\String\Abstract
                 }
                 throw new \RectorPrefix20210404\Symfony\Component\String\Exception\RuntimeException('Matching failed with unknown error code.');
             }
+            \array_walk_recursive($matches, function (&$value) {
+                if ($value === '') {
+                    $value = null;
+                }
+            });
         } finally {
             \restore_error_handler();
         }

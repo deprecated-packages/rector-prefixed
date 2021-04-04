@@ -2008,6 +2008,7 @@ return array(
     'Rector\\DowngradePhp72\\NodeAnalyzer\\ClassLikeParentResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/ClassLikeParentResolver.php',
     'Rector\\DowngradePhp72\\NodeAnalyzer\\NativeTypeClassTreeResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/NativeTypeClassTreeResolver.php',
     'Rector\\DowngradePhp72\\Rector\\ClassMethod\\DowngradeParameterTypeWideningRector' => $baseDir . '/rules/DowngradePhp72/Rector/ClassMethod/DowngradeParameterTypeWideningRector.php',
+    'Rector\\DowngradePhp72\\Rector\\FuncCall\\DowngradePregUnmatchedAsNullConstantRector' => $baseDir . '/rules/DowngradePhp72/Rector/FuncCall/DowngradePregUnmatchedAsNullConstantRector.php',
     'Rector\\DowngradePhp72\\Rector\\FunctionLike\\DowngradeObjectTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp72/Rector/FunctionLike/DowngradeObjectTypeDeclarationRector.php',
     'Rector\\DowngradePhp73\\Rector\\FuncCall\\DowngradeTrailingCommasInFunctionCallsRector' => $baseDir . '/rules/DowngradePhp73/Rector/FuncCall/DowngradeTrailingCommasInFunctionCallsRector.php',
     'Rector\\DowngradePhp73\\Rector\\FuncCall\\SetCookieOptionsArrayToArgumentsRector' => $baseDir . '/rules/DowngradePhp73/Rector/FuncCall/SetCookieOptionsArrayToArgumentsRector.php',
