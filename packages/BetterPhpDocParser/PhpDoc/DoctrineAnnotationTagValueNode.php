@@ -86,6 +86,10 @@ final class DoctrineAnnotationTagValueNode extends \Rector\BetterPhpDocParser\Va
     {
         return $this->values;
     }
+    public function removeValue(string $key) : void
+    {
+        unset($this->values[$key]);
+    }
     /**
      * Useful for attributes
      * @return array<string, mixed>
