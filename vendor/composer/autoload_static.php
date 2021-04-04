@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7af0db5ba87dc36acfcabee714caf070
+class ComposerStaticInitbe33c7e3429abcecbd18ffb5013c8f14
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1765,6 +1765,7 @@ class ComposerStaticInit7af0db5ba87dc36acfcabee714caf070
         'Rector\\BetterPhpDocParser\\Printer\\DocBlockInliner' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/DocBlockInliner.php',
         'Rector\\BetterPhpDocParser\\Printer\\EmptyPhpDocDetector' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/EmptyPhpDocDetector.php',
         'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/PhpDocInfoPrinter.php',
+        'Rector\\BetterPhpDocParser\\Printer\\RemoveNodesStartAndEndResolver' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/RemoveNodesStartAndEndResolver.php',
         'Rector\\BetterPhpDocParser\\Printer\\TagValueNodePrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/TagValueNodePrinter.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
@@ -3440,9 +3441,9 @@ class ComposerStaticInit7af0db5ba87dc36acfcabee714caf070
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7af0db5ba87dc36acfcabee714caf070::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7af0db5ba87dc36acfcabee714caf070::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7af0db5ba87dc36acfcabee714caf070::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbe33c7e3429abcecbd18ffb5013c8f14::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbe33c7e3429abcecbd18ffb5013c8f14::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbe33c7e3429abcecbd18ffb5013c8f14::$classMap;
 
         }, null, ClassLoader::class);
     }

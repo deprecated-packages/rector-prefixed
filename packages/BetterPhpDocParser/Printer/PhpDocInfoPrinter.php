@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
 use RectorPrefix20210404\Nette\Utils\Strings;
-use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -76,10 +75,6 @@ final class PhpDocInfoPrinter
      */
     private $tokens = [];
     /**
-     * @var StartAndEnd[]
-     */
-    private $removedNodePositions = [];
-    /**
      * @var PhpDocNode
      */
     private $phpDocNode;
@@ -95,10 +90,15 @@ final class PhpDocInfoPrinter
      * @var DocBlockInliner
      */
     private $docBlockInliner;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner)
+    /**
+     * @var RemoveNodesStartAndEndResolver
+     */
+    private $removeNodesStartAndEndResolver;
+    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner, \Rector\BetterPhpDocParser\Printer\RemoveNodesStartAndEndResolver $removeNodesStartAndEndResolver)
     {
         $this->emptyPhpDocDetector = $emptyPhpDocDetector;
         $this->docBlockInliner = $docBlockInliner;
+        $this->removeNodesStartAndEndResolver = $removeNodesStartAndEndResolver;
     }
     public function printNew(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
     {
@@ -134,7 +134,6 @@ final class PhpDocInfoPrinter
         $this->tokenCount = $phpDocInfo->getTokenCount();
         $this->phpDocInfo = $phpDocInfo;
         $this->currentTokenPosition = 0;
-        $this->removedNodePositions = [];
         $phpDocString = $this->printPhpDocNode($this->phpDocNode);
         $phpDocString = $this->removeExtraSpacesAfterAsterisk($phpDocString);
         // hotfix of extra space with callable ()
@@ -233,8 +232,9 @@ final class PhpDocInfoPrinter
     {
         // skip removed nodes
         $positionJumpSet = [];
-        foreach ($this->getRemovedNodesPositions() as $startAndEnd) {
-            $positionJumpSet[$startAndEnd->getStart()] = $startAndEnd->getEnd();
+        $removedStartAndEnds = $this->removeNodesStartAndEndResolver->resolve($this->phpDocInfo->getOriginalPhpDocNode(), $this->phpDocNode, $this->tokens);
+        foreach ($removedStartAndEnds as $removedStartAndEnd) {
+            $positionJumpSet[$removedStartAndEnd->getStart()] = $removedStartAndEnd->getEnd();
         }
         // include also space before, in case of inlined docs
         if (isset($this->tokens[$from - 1]) && $this->tokens[$from - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
@@ -247,37 +247,7 @@ final class PhpDocInfoPrinter
         return $this->appendToOutput($output, $from, $to, $positionJumpSet);
     }
     /**
-     * @return StartAndEnd[]
-     */
-    private function getRemovedNodesPositions() : array
-    {
-        if ($this->removedNodePositions !== []) {
-            return $this->removedNodePositions;
-        }
-        $removedNodes = \array_diff($this->phpDocInfo->getOriginalPhpDocNode()->children, $this->phpDocNode->children);
-        $lastEndPosition = null;
-        foreach ($removedNodes as $removedNode) {
-            /** @var StartAndEnd $removedPhpDocNodeInfo */
-            $removedPhpDocNodeInfo = $removedNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
-            // change start position to start of the line, so the whole line is removed
-            $seekPosition = $removedPhpDocNodeInfo->getStart();
-            while ($seekPosition >= 0 && $this->tokens[$seekPosition][1] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
-                if ($this->tokens[$seekPosition][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
-                    break;
-                }
-                // do not colide
-                if ($lastEndPosition < $seekPosition) {
-                    break;
-                }
-                --$seekPosition;
-            }
-            $lastEndPosition = $removedPhpDocNodeInfo->getEnd();
-            $this->removedNodePositions[] = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd(\max(0, $seekPosition - 1), $removedPhpDocNodeInfo->getEnd());
-        }
-        return $this->removedNodePositions;
-    }
-    /**
-     * @param int[] $positionJumpSet
+     * @param array<int, int> $positionJumpSet
      */
     private function appendToOutput(string $output, int $from, int $to, array $positionJumpSet) : string
     {

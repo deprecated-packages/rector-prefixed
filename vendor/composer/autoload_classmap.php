@@ -1431,6 +1431,7 @@ return array(
     'Rector\\BetterPhpDocParser\\Printer\\DocBlockInliner' => $baseDir . '/packages/BetterPhpDocParser/Printer/DocBlockInliner.php',
     'Rector\\BetterPhpDocParser\\Printer\\EmptyPhpDocDetector' => $baseDir . '/packages/BetterPhpDocParser/Printer/EmptyPhpDocDetector.php',
     'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => $baseDir . '/packages/BetterPhpDocParser/Printer/PhpDocInfoPrinter.php',
+    'Rector\\BetterPhpDocParser\\Printer\\RemoveNodesStartAndEndResolver' => $baseDir . '/packages/BetterPhpDocParser/Printer/RemoveNodesStartAndEndResolver.php',
     'Rector\\BetterPhpDocParser\\Printer\\TagValueNodePrinter' => $baseDir . '/packages/BetterPhpDocParser/Printer/TagValueNodePrinter.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
     'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => $baseDir . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
