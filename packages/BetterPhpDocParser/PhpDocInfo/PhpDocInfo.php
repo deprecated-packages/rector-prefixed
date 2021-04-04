@@ -104,6 +104,8 @@ final class PhpDocInfo
     public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : void
     {
         $this->phpDocNode->children[] = $phpDocChildNode;
+        // to give node more space
+        $this->makeMultiLined();
         $this->markAsChanged();
     }
     public function addTagValueNodeWithShortName(\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface $shortNameAwareTag) : void
