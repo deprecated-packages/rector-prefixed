@@ -14,7 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\ValueObject\NormalToFluent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210402\Webmozart\Assert\Assert;
+use RectorPrefix20210404\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Defluent\Rector\ClassMethod\NormalToFluentRector\NormalToFluentRectorTest
  */
@@ -65,6 +65,9 @@ CODE_SAMPLE
         $classMethodStatementCount = \count($node->stmts);
         // iterate from bottom to up, so we can merge
         for ($i = $classMethodStatementCount - 1; $i >= 0; --$i) {
+            if (!isset($node->stmts[$i])) {
+                continue;
+            }
             /** @var Expression $stmt */
             $stmt = $node->stmts[$i];
             if ($this->shouldSkipPreviousStmt($node, $i, $stmt)) {
@@ -94,7 +97,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
-        \RectorPrefix20210402\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
+        \RectorPrefix20210404\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
         $this->callsToFluent = $callsToFluent;
     }
     private function shouldSkipPreviousStmt(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \PhpParser\Node\Stmt\Expression $expression) : bool

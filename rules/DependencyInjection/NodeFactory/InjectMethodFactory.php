@@ -5,6 +5,8 @@ namespace Rector\DependencyInjection\NodeFactory;
 
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\Naming\ClassNaming;
@@ -12,9 +14,8 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\FrameworkName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode;
-use RectorPrefix20210402\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210402\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use RectorPrefix20210404\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210404\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class InjectMethodFactory
 {
     /**
@@ -52,12 +53,12 @@ final class InjectMethodFactory
     {
         $objectTypes = $this->typeFactory->uniquateTypes($objectTypes);
         $shortClassName = $this->classNaming->getShortName($className);
-        $methodBuilder = new \RectorPrefix20210402\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
+        $methodBuilder = new \RectorPrefix20210404\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
         $methodBuilder->makePublic();
         foreach ($objectTypes as $objectType) {
             /** @var ObjectType $objectType */
             $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-            $paramBuilder = new \RectorPrefix20210402\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
+            $paramBuilder = new \RectorPrefix20210404\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
             $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
             $methodBuilder->addParam($paramBuilder);
             $assign = $this->nodeFactory->createPropertyAssignment($propertyName);
@@ -66,7 +67,8 @@ final class InjectMethodFactory
         $classMethod = $methodBuilder->getNode();
         if ($framework === \Rector\Core\ValueObject\FrameworkName::SYMFONY) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-            $phpDocInfo->addPhpDocTagNode(new \Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode());
+            $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@required', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
+            $phpDocInfo->makeMultiLined();
         }
         return $classMethod;
     }

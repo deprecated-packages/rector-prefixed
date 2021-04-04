@@ -86,7 +86,7 @@ CODE_SAMPLE
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
     /**
-     * @param array<string, mixed> $configuration
+     * @param array<string, array<string, string>> $configuration
      */
     public function configure(array $configuration) : void
     {

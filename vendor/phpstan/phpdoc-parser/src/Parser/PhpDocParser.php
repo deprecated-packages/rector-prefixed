@@ -305,14 +305,14 @@ class PhpDocParser
         if (!$tokens->tryConsumeTokenValue('from')) {
             throw new \PHPStan\PhpDocParser\Parser\ParserException($tokens->currentTokenValue(), $tokens->currentTokenType(), $tokens->currentTokenOffset(), \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
         }
-        $importedFrom = $this->typeParser->parse($tokens);
-        \assert($importedFrom instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode);
+        $importedFrom = $tokens->currentTokenValue();
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
         $importedAs = null;
         if ($tokens->tryConsumeTokenValue('as')) {
             $importedAs = $tokens->currentTokenValue();
             $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
         }
-        return new \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode($importedAlias, $importedFrom, $importedAs);
+        return new \PHPStan\PhpDocParser\Ast\PhpDoc\TypeAliasImportTagValueNode($importedAlias, new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($importedFrom), $importedAs);
     }
     private function parseOptionalVariableName(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : string
     {

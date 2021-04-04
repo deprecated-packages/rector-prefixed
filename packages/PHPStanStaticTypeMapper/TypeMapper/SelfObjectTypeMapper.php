@@ -36,8 +36,9 @@ final class SelfObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Cont
     }
     /**
      * @param SelfObjectType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }

@@ -52,8 +52,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     }
     /**
      * @param IntersectionType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         $stringTypes = [];
         foreach ($type->getTypes() as $unionedType) {

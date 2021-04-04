@@ -55,6 +55,7 @@ final class PhpDocTypeChanger
             // add completely new one
             $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($newPHPStanPhpDocType, '', '');
             $phpDocInfo->addTagValueNode($varTagValueNode);
+            $phpDocInfo->makeMultiLined();
         }
     }
     public function changeReturnType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
@@ -74,6 +75,7 @@ final class PhpDocTypeChanger
             // add completely new one
             $returnTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode($newPHPStanPhpDocType, '');
             $phpDocInfo->addTagValueNode($returnTagValueNode);
+            $phpDocInfo->makeMultiLined();
         }
     }
     public function changeParamType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType, \PhpParser\Node\Param $param, string $paramName) : void
@@ -96,6 +98,7 @@ final class PhpDocTypeChanger
         } else {
             $paramTagValueNode = $this->paramPhpDocNodeFactory->create($phpDocType, $param);
             $phpDocInfo->addTagValueNode($paramTagValueNode);
+            $phpDocInfo->makeMultiLined();
         }
     }
 }

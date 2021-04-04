@@ -3,33 +3,18 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony;
 
-use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
-use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 final class SymfonyRouteTagValueNodeFactory
 {
-    /**
-     * @var ArrayPartPhpDocTagPrinter
-     */
-    private $arrayPartPhpDocTagPrinter;
-    /**
-     * @var TagValueNodePrinter
-     */
-    private $tagValueNodePrinter;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter)
-    {
-        $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
-        $this->tagValueNodePrinter = $tagValueNodePrinter;
-    }
-    public function create() : \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode
+    public function create() : \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode
     {
         return $this->createFromItems([]);
     }
     /**
      * @param array<string, mixed> $items
      */
-    public function createFromItems(array $items) : \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode
+    public function createFromItems(array $items) : \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode
     {
-        return new \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items);
+        return new \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode('Symfony\\Component\\Routing\\Annotation\\Route', null, $items, 'path');
     }
 }

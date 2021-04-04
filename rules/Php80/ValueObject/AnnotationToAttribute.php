@@ -3,32 +3,31 @@
 declare (strict_types=1);
 namespace Rector\Php80\ValueObject;
 
-use PHPStan\PhpDocParser\Ast\Node;
 final class AnnotationToAttribute
 {
     /**
-     * @var class-string<Node>
+     * @var class-string|string
      */
-    private $tagNodeClass;
+    private $tag;
     /**
      * @var class-string
      */
     private $attributeClass;
     /**
-     * @param class-string<Node> $tagNodeClass
+     * @param class-string|string $tag
      * @param class-string $attributeClass
      */
-    public function __construct(string $tagNodeClass, string $attributeClass)
+    public function __construct(string $tag, string $attributeClass)
     {
-        $this->tagNodeClass = $tagNodeClass;
+        $this->tag = $tag;
         $this->attributeClass = $attributeClass;
     }
     /**
-     * @return class-string<Node>
+     * @return class-string|string
      */
-    public function getTagNodeClass() : string
+    public function getTag() : string
     {
-        return $this->tagNodeClass;
+        return $this->tag;
     }
     /**
      * @return class-string

@@ -120,7 +120,7 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         return new $tagValueNodeClass($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items, $content);
     }
     /**
-     * @param ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation
+     * @param object $annotation
      */
     private function resolveEntityClass($annotation, \PhpParser\Node $node) : string
     {

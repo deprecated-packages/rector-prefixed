@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\NetteToSymfony\Routing;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 final class ExplicitRouteAnnotationDecorator
 {
     /**
@@ -20,10 +20,11 @@ final class ExplicitRouteAnnotationDecorator
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function decorateClassMethodWithRouteAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode $symfonyRouteTagValueNode) : void
+    public function decorateClassMethodWithRouteAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->addTagValueNode($symfonyRouteTagValueNode);
+        $phpDocInfo->addTagValueNode($doctrineAnnotationTagValueNode);
+        $phpDocInfo->makeMultiLined();
         $classMethod->setAttribute(self::HAS_ROUTE_ANNOTATION, \true);
     }
 }

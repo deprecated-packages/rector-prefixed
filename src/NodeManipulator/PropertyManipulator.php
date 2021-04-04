@@ -17,12 +17,10 @@ use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
-use Rector\Doctrine\PhpDoc\Node\AbstractDoctrineTagValueNode;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\Guard\VariableToConstantGuard;
 use Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer;
-use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
-use RectorPrefix20210402\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210404\Symplify\PackageBuilder\Php\TypeChecker;
 /**
  * "private $property"
  */
@@ -56,7 +54,7 @@ final class PropertyManipulator
      * @var PropertyFetchFinder
      */
     private $propertyFetchFinder;
-    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210402\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder)
+    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210404\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->assignManipulator = $assignManipulator;
@@ -69,10 +67,7 @@ final class PropertyManipulator
     public function isPropertyUsedInReadContext(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\AbstractDoctrineTagValueNode::class)) {
-            return \true;
-        }
-        if ($phpDocInfo->hasByType(\Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode::class)) {
+        if ($phpDocInfo->hasByAnnotationClasses(['Doctrine\\ORM\\*', 'JMS\\Serializer\\Annotation\\Type'])) {
             return \true;
         }
         $privatePropertyFetches = $this->propertyFetchFinder->findPrivatePropertyFetches($property);

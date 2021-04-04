@@ -3,19 +3,19 @@
 declare (strict_types=1);
 namespace Rector\Set;
 
-use RectorPrefix20210402\Nette\Utils\Strings;
+use RectorPrefix20210404\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Set\Contract\SetListInterface;
 use Rector\Set\ValueObject\DowngradeSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
 use ReflectionClass;
-use RectorPrefix20210402\Stringy\Stringy;
-use RectorPrefix20210402\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use RectorPrefix20210402\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
-use RectorPrefix20210402\Symplify\SetConfigResolver\ValueObject\Set;
-use RectorPrefix20210402\Symplify\SmartFileSystem\SmartFileInfo;
-final class RectorSetProvider extends \RectorPrefix20210402\Symplify\SetConfigResolver\Provider\AbstractSetProvider
+use RectorPrefix20210404\Stringy\Stringy;
+use RectorPrefix20210404\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210404\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
+use RectorPrefix20210404\Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20210404\Symplify\SmartFileSystem\SmartFileInfo;
+final class RectorSetProvider extends \RectorPrefix20210404\Symplify\SetConfigResolver\Provider\AbstractSetProvider
 {
     /**
      * @var string
@@ -44,10 +44,10 @@ final class RectorSetProvider extends \RectorPrefix20210402\Symplify\SetConfigRe
     {
         return $this->sets;
     }
-    public function provideByName(string $desiredSetName) : ?\RectorPrefix20210402\Symplify\SetConfigResolver\ValueObject\Set
+    public function provideByName(string $desiredSetName) : ?\RectorPrefix20210404\Symplify\SetConfigResolver\ValueObject\Set
     {
         $foundSet = parent::provideByName($desiredSetName);
-        if ($foundSet instanceof \RectorPrefix20210402\Symplify\SetConfigResolver\ValueObject\Set) {
+        if ($foundSet instanceof \RectorPrefix20210404\Symplify\SetConfigResolver\ValueObject\Set) {
             return $foundSet;
         }
         // sencond approach by set path
@@ -55,7 +55,7 @@ final class RectorSetProvider extends \RectorPrefix20210402\Symplify\SetConfigRe
             if (!\file_exists($desiredSetName)) {
                 continue;
             }
-            $desiredSetFileInfo = new \RectorPrefix20210402\Symplify\SmartFileSystem\SmartFileInfo($desiredSetName);
+            $desiredSetFileInfo = new \RectorPrefix20210404\Symplify\SmartFileSystem\SmartFileInfo($desiredSetName);
             $setFileInfo = $set->getSetFileInfo();
             if ($setFileInfo->getRealPath() !== $desiredSetFileInfo->getRealPath()) {
                 continue;
@@ -63,7 +63,7 @@ final class RectorSetProvider extends \RectorPrefix20210402\Symplify\SetConfigRe
             return $set;
         }
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
-        throw new \RectorPrefix20210402\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
+        throw new \RectorPrefix20210404\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
     private function hydrateSetsFromConstants(\ReflectionClass $setListReflectionClass) : void
     {
@@ -72,11 +72,11 @@ final class RectorSetProvider extends \RectorPrefix20210402\Symplify\SetConfigRe
                 $message = \sprintf('Set path "%s" was not found', $name);
                 throw new \Rector\Core\Exception\ShouldNotHappenException($message);
             }
-            $stringy = new \RectorPrefix20210402\Stringy\Stringy($name);
+            $stringy = new \RectorPrefix20210404\Stringy\Stringy($name);
             $setName = (string) $stringy->dasherize();
             // remove `-` before numbers
-            $setName = \RectorPrefix20210402\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
-            $this->sets[] = new \RectorPrefix20210402\Symplify\SetConfigResolver\ValueObject\Set($setName, new \RectorPrefix20210402\Symplify\SmartFileSystem\SmartFileInfo($setPath));
+            $setName = \RectorPrefix20210404\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
+            $this->sets[] = new \RectorPrefix20210404\Symplify\SetConfigResolver\ValueObject\Set($setName, new \RectorPrefix20210404\Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
     }
 }

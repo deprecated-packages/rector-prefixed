@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use RectorPrefix20210402\Nette\Utils\Strings;
+use RectorPrefix20210404\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -94,8 +94,9 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     }
     /**
      * @param ObjectType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType) {
             // no preslash for alias
@@ -141,7 +142,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         if ($genericObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedGenericObjectType) {
             return '\\' . $genericObjectType->getClassName();
         }
-        if (\RectorPrefix20210402\Nette\Utils\Strings::contains($genericObjectType->getClassName(), '\\')) {
+        if (\RectorPrefix20210404\Nette\Utils\Strings::contains($genericObjectType->getClassName(), '\\')) {
             return '\\' . $genericObjectType->getClassName();
         }
         return $genericObjectType->getClassName();

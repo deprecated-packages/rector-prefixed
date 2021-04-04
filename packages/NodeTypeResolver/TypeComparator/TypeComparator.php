@@ -7,9 +7,12 @@ use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\NodeTypeResolver\PHPStan\TypeHasher;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
@@ -36,13 +39,18 @@ final class TypeComparator
      * @var ScalarTypeComparator
      */
     private $scalarTypeComparator;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator $arrayTypeComparator, \Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator $scalarTypeComparator)
+    /**
+     * @var TypeFactory
+     */
+    private $typeFactory;
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator $arrayTypeComparator, \Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator $scalarTypeComparator, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeHasher = $typeHasher;
         $this->typeNormalizer = $typeNormalizer;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->arrayTypeComparator = $arrayTypeComparator;
         $this->scalarTypeComparator = $scalarTypeComparator;
+        $this->typeFactory = $typeFactory;
     }
     public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
     {
@@ -51,6 +59,9 @@ final class TypeComparator
         }
         // aliases and types
         if ($this->areAliasedObjectMatchingFqnObject($firstType, $secondType)) {
+            return \true;
+        }
+        if ($this->areArrayUnionConstantEqualTypes($firstType, $secondType)) {
             return \true;
         }
         $firstType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($firstType);
@@ -129,5 +140,39 @@ final class TypeComparator
             }
         }
         return \false;
+    }
+    private function normalizeSingleUnionType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+    {
+        if ($type instanceof \PHPStan\Type\UnionType) {
+            $uniqueTypes = $this->typeFactory->uniquateTypes($type->getTypes());
+            if (\count($uniqueTypes) === 1) {
+                return $uniqueTypes[0];
+            }
+        }
+        return $type;
+    }
+    private function areArrayUnionConstantEqualTypes(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
+    {
+        if (!$firstType instanceof \PHPStan\Type\ArrayType) {
+            return \false;
+        }
+        if (!$secondType instanceof \PHPStan\Type\ArrayType) {
+            return \false;
+        }
+        $firstKeyType = $this->normalizeSingleUnionType($firstType->getKeyType());
+        $secondKeyType = $this->normalizeSingleUnionType($secondType->getKeyType());
+        // mixed and integer type are mutual replaceable in practise
+        if ($firstKeyType instanceof \PHPStan\Type\MixedType) {
+            $firstKeyType = new \PHPStan\Type\IntegerType();
+        }
+        if ($secondKeyType instanceof \PHPStan\Type\MixedType) {
+            $secondKeyType = new \PHPStan\Type\IntegerType();
+        }
+        if (!$this->areTypesEqual($firstKeyType, $secondKeyType)) {
+            return \false;
+        }
+        $firstArrayType = $this->normalizeSingleUnionType($firstType->getItemType());
+        $secondArrayType = $this->normalizeSingleUnionType($secondType->getItemType());
+        return $this->areTypesEqual($firstArrayType, $secondArrayType);
     }
 }

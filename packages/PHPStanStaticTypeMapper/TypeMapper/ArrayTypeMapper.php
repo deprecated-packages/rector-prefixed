@@ -100,8 +100,9 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     }
     /**
      * @param ArrayType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         $itemType = $type->getItemType();
         $normalizedType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($type);

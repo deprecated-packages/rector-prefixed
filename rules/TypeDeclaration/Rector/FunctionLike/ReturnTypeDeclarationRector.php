@@ -142,7 +142,7 @@ CODE_SAMPLE
     {
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_RETURN);
         // nothing to change in PHP code
-        if ($inferredReturnNode === null) {
+        if (!$inferredReturnNode instanceof \PhpParser\Node) {
             return null;
         }
         if ($this->shouldSkipInferredReturnNode($node)) {

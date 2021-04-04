@@ -3,15 +3,11 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
-use RectorPrefix20210402\Nette\Utils\Strings;
+use RectorPrefix20210404\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
-use Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader;
-use Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver;
 use Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -34,18 +30,6 @@ abstract class AbstractPhpDocNodeFactory
      */
     private const CLOSING_SPACE_REGEX = '#(?<closing_space>\\s+)\\}$#';
     /**
-     * @var NodeAnnotationReader
-     */
-    protected $nodeAnnotationReader;
-    /**
-     * @var AnnotationContentResolver
-     */
-    protected $annotationContentResolver;
-    /**
-     * @var AnnotationItemsResolver
-     */
-    protected $annotationItemsResolver;
-    /**
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
@@ -56,17 +40,10 @@ abstract class AbstractPhpDocNodeFactory
     /**
      * @required
      */
-    public function autowireAbstractPhpDocNodeFactory(\Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader $nodeAnnotationReader, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function autowireAbstractPhpDocNodeFactory(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
-        $this->nodeAnnotationReader = $nodeAnnotationReader;
-        $this->annotationContentResolver = $annotationContentResolver;
-        $this->annotationItemsResolver = $annotationItemsResolver;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
         $this->reflectionProvider = $reflectionProvider;
-    }
-    protected function resolveContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
-    {
-        return $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
     }
     protected function resolveFqnTargetEntity(string $targetEntity, \PhpParser\Node $node) : string
     {
@@ -94,14 +71,14 @@ abstract class AbstractPhpDocNodeFactory
      */
     protected function matchCurlyBracketAroundSpaces(string $annotationContent) : \Rector\BetterPhpDocParser\ValueObject\AroundSpaces
     {
-        $match = \RectorPrefix20210402\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
+        $match = \RectorPrefix20210404\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
         $openingSpace = $match['opening_space'] ?? '';
-        $match = \RectorPrefix20210402\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
+        $match = \RectorPrefix20210404\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
         $closingSpace = $match['closing_space'] ?? '';
         return new \Rector\BetterPhpDocParser\ValueObject\AroundSpaces($openingSpace, $closingSpace);
     }
     private function getCleanedUpTargetEntity(string $targetEntity) : string
     {
-        return \RectorPrefix20210402\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
+        return \RectorPrefix20210404\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
     }
 }

@@ -65,8 +65,9 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param IterableType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             // iterable type is better done in PHP code, than in doc

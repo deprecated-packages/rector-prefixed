@@ -6,7 +6,6 @@ namespace Rector\Privatization\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -14,14 +13,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FinalizeClassesWithoutChildrenRector extends \Rector\Core\Rector\AbstractRector
 {
-    /**
-     * @var DoctrineDocBlockResolver
-     */
-    private $doctrineDocBlockResolver;
-    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
-    {
-        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
-    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Finalize every class that has no children', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -73,7 +64,8 @@ CODE_SAMPLE
         if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
         }
-        if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        if ($phpDocInfo->hasByAnnotationClasses(['Doctrine\\ORM\\Mapping\\Entity', 'Doctrine\\ORM\\Mapping\\Embeddable'])) {
             return null;
         }
         if ($this->nodeRepository->hasClassChildren($node)) {

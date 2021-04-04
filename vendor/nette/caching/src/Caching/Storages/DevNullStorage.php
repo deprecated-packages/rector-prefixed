@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210402\Nette\Caching\Storages;
+namespace RectorPrefix20210404\Nette\Caching\Storages;
 
-use RectorPrefix20210402\Nette;
+use RectorPrefix20210404\Nette;
 /**
  * Cache dummy storage.
  */
-class DevNullStorage implements \RectorPrefix20210402\Nette\Caching\Storage
+class DevNullStorage implements \RectorPrefix20210404\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     public function read(string $key)

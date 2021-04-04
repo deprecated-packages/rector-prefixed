@@ -11,13 +11,16 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
+use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 final class TypeFactory
@@ -61,6 +64,9 @@ final class TypeFactory
             }
             if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
                 $type = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type->getFullyQualifiedName());
+            }
+            if ($type instanceof \PHPStan\Type\ObjectType && !$type instanceof \PHPStan\Type\Generic\GenericObjectType && !$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType && $type->getClassName() !== 'Iterator') {
+                $type = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type->getClassName());
             }
             $typeHash = \md5($type->describe(\PHPStan\Type\VerbosityLevel::cache()));
             $uniqueTypes[$typeHash] = $type;

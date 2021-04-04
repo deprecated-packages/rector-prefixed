@@ -3,74 +3,135 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
+use RectorPrefix20210404\Nette\Utils\Strings;
+use PhpParser\Node;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
-use Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode;
-use Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 final class PhpDocClassRenamer
 {
+    /**
+     * @var ClassAnnotationMatcher
+     */
+    private $classAnnotationMatcher;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher)
+    {
+        $this->classAnnotationMatcher = $classAnnotationMatcher;
+    }
     /**
      * Covers annotations like @ORM, @Serializer, @Assert etc
      * See https://github.com/rectorphp/rector/issues/1872
      *
      * @param string[] $oldToNewClasses
      */
-    public function changeTypeInAnnotationTypes(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewClasses) : void
+    public function changeTypeInAnnotationTypes(\PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewClasses) : void
     {
         $this->processAssertChoiceTagValueNode($oldToNewClasses, $phpDocInfo);
-        $this->processDoctrineRelationTagValueNode($oldToNewClasses, $phpDocInfo);
+        $this->processDoctrineRelationTagValueNode($node, $oldToNewClasses, $phpDocInfo);
         $this->processSerializerTypeTagValueNode($oldToNewClasses, $phpDocInfo);
     }
     /**
-     * @param string[] $oldToNewClasses
+     * @param array<string, string> $oldToNewClasses
      */
     private function processAssertChoiceTagValueNode(array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $assertChoiceTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode::class);
-        if (!$assertChoiceTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\AssertChoiceTagValueNode) {
+        $assertChoiceTagValueNode = $phpDocInfo->getByAnnotationClass('Symfony\\Component\\Validator\\Constraints\\Choice');
+        if (!$assertChoiceTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+            return;
+        }
+        $callback = $assertChoiceTagValueNode->getValueWithoutQuotes('callback');
+        if ($callback === null) {
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {
-            if (!$assertChoiceTagValueNode->isCallbackClass($oldClass)) {
+            if ($callback[0] !== $oldClass) {
                 continue;
             }
-            $assertChoiceTagValueNode->changeCallbackClass($newClass);
+            $callback[0] = $newClass;
+            $assertChoiceTagValueNode->changeValue('callback', $callback);
             $phpDocInfo->markAsChanged();
             break;
         }
+        if ($phpDocInfo->hasChanged()) {
+            // invoke override
+            $assertChoiceTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
+        }
     }
     /**
-     * @param string[] $oldToNewClasses
+     * @param array<string, string> $oldToNewClasses
      */
-    private function processDoctrineRelationTagValueNode(array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    private function processDoctrineRelationTagValueNode(\PhpParser\Node $node, array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class);
-        if (!$doctrineRelationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClasses(['Doctrine\\ORM\\Mapping\\OneToMany', 'Doctrine\\ORM\\Mapping\\ManyToMany', 'Doctrine\\ORM\\Mapping\\Embedded']);
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return;
         }
-        foreach ($oldToNewClasses as $oldClass => $newClass) {
-            if ($doctrineRelationTagValueNode->getFullyQualifiedTargetEntity() !== $oldClass) {
-                continue;
-            }
-            $doctrineRelationTagValueNode->changeTargetEntity($newClass);
-            $phpDocInfo->markAsChanged();
-            break;
-        }
+        $this->processDoctrineToMany($doctrineAnnotationTagValueNode, $node, $oldToNewClasses, $phpDocInfo);
     }
     /**
-     * @param string[] $oldToNewClasses
+     * @param array<string, string> $oldToNewClasses
      */
     private function processSerializerTypeTagValueNode(array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $serializerTypeTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode::class);
-        if (!$serializerTypeTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\JMS\SerializerTypeTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('JMS\\Serializer\\Annotation\\Type');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {
-            $hasReplaced = $serializerTypeTagValueNode->replaceName($oldClass, $newClass);
-            if ($hasReplaced) {
+            $className = $doctrineAnnotationTagValueNode->getSilentValue();
+            if ($className) {
+                if ($className === $oldClass) {
+                    $doctrineAnnotationTagValueNode->changeSilentValue($newClass);
+                    $phpDocInfo->markAsChanged();
+                    continue;
+                }
+                $newContent = \RectorPrefix20210404\Nette\Utils\Strings::replace($className, '#\\b' . \preg_quote($oldClass, '#') . '\\b#', $newClass);
+                if ($newContent === $className) {
+                    continue;
+                }
+                $doctrineAnnotationTagValueNode->changeSilentValue($newContent);
                 $phpDocInfo->markAsChanged();
+                continue;
             }
+            $currentType = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
+            if ($currentType === $oldClass) {
+                $doctrineAnnotationTagValueNode->changeValue('type', $newClass);
+                $phpDocInfo->markAsChanged();
+                continue;
+            }
+        }
+        if ($phpDocInfo->hasChanged()) {
+            // invoke override
+            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
+        }
+    }
+    /**
+     * @param array<string, string> $oldToNewClasses
+     */
+    private function processDoctrineToMany(\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode, \PhpParser\Node $node, array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    {
+        if ($doctrineAnnotationTagValueNode->getAnnotationClass() === 'Doctrine\\ORM\\Mapping\\Embedded') {
+            $classKey = 'class';
+        } else {
+            $classKey = 'targetEntity';
+        }
+        $targetEntity = $doctrineAnnotationTagValueNode->getValueWithoutQuotes($classKey);
+        if ($targetEntity === null) {
+            return;
+        }
+        // resolve to FQN
+        $tagFullyQualifiedName = $this->classAnnotationMatcher->resolveTagFullyQualifiedName($targetEntity, $node);
+        foreach ($oldToNewClasses as $oldClass => $newClass) {
+            if ($tagFullyQualifiedName !== $oldClass) {
+                continue;
+            }
+            $doctrineAnnotationTagValueNode->changeValue($classKey, $newClass);
+            $phpDocInfo->markAsChanged();
+        }
+        if ($phpDocInfo->hasChanged()) {
+            // invoke override
+            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
         }
     }
 }

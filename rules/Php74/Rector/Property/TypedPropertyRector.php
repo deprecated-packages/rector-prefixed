@@ -118,7 +118,7 @@ CODE_SAMPLE
             return null;
         }
         $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($varType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_PROPERTY);
-        if ($propertyTypeNode === null) {
+        if (!$propertyTypeNode instanceof \PhpParser\Node) {
             return null;
         }
         // is not class-type and should be skipped

@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -12,8 +13,8 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
 final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
@@ -81,11 +82,11 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode::class);
-        if (!$doctrineColumnTagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return new \PHPStan\Type\MixedType();
         }
-        $type = $doctrineColumnTagValueNode->getType();
+        $type = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
         if ($type === null) {
             return new \PHPStan\Type\MixedType();
         }
@@ -94,8 +95,9 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
             return new \PHPStan\Type\MixedType();
         }
         $types = [$scalarType];
+        $isNullable = $doctrineAnnotationTagValueNode->getValue('nullable');
         // is nullable?
-        if ($doctrineColumnTagValueNode->isNullable()) {
+        if ($isNullable instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
             $types[] = new \PHPStan\Type\NullType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);

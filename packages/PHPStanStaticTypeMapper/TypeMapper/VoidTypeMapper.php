@@ -53,7 +53,10 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
         }
         return new \PhpParser\Node\Name(self::VOID);
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    /**
+     * @param \PHPStan\Type\Type|null $parentType
+     */
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             // the void type is better done in PHP code

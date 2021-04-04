@@ -50,7 +50,10 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
     {
         return $this->callableTypeMapper->mapToPhpParserNode($type, $kind);
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    /**
+     * @param \PHPStan\Type\Type|null $parentType
+     */
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         return '\\' . \Closure::class;
     }

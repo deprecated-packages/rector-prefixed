@@ -118,7 +118,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return null;
         }
         $nullabledTypeNode = $this->phpStanStaticTypeMapper->mapToPhpParserNode($nullabledType);
-        if ($nullabledTypeNode === null) {
+        if (!$nullabledTypeNode instanceof \PhpParser\Node) {
             return null;
         }
         if ($nullabledTypeNode instanceof \PhpParser\Node\NullableType) {
@@ -131,8 +131,9 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     }
     /**
      * @param UnionType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         $docStrings = [];
         foreach ($type->getTypes() as $unionedType) {

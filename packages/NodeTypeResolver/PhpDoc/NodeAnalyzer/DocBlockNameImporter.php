@@ -6,14 +6,16 @@ namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\Core\Configuration\Option;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210402\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210402\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210404\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockNameImporter
 {
     /**
@@ -36,7 +38,7 @@ final class DocBlockNameImporter
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \RectorPrefix20210402\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210402\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \RectorPrefix20210404\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -47,6 +49,10 @@ final class DocBlockNameImporter
     public function importNames(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $phpParserNode) : void
     {
         $phpDocNode = $phpDocInfo->getPhpDocNode();
+        // connect parents
+        if ($phpDocNode->children === []) {
+            return;
+        }
         $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpDocInfo, $phpParserNode) : PhpDocParserNode {
             if (!$docNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 return $docNode;
@@ -73,12 +79,20 @@ final class DocBlockNameImporter
             if ($this->useNodesToAddCollector->isImportShortable($node, $fullyQualifiedObjectType)) {
                 $identifierTypeNode->name = $fullyQualifiedObjectType->getShortName();
                 $phpDocInfo->markAsChanged();
+                // to invoke node override
+                $identifierTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
             }
             return $identifierTypeNode;
         }
         $shortenedIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
         $this->useNodesToAddCollector->addUseImport($node, $fullyQualifiedObjectType);
         $phpDocInfo->markAsChanged();
+        // mirror attributes
+        $parentTypeNode = $identifierTypeNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT);
+        if ($parentTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
+            $parentTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
+            $shortenedIdentifierTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, $parentTypeNode);
+        }
         return $shortenedIdentifierTypeNode;
     }
 }

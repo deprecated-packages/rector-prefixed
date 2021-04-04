@@ -55,8 +55,9 @@ final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
     }
     /**
      * @param BooleanType $type
+     * @param \PHPStan\Type\Type|null $parentType
      */
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
     {
         if ($this->isFalseBooleanTypeWithUnion($type)) {
             return 'false';

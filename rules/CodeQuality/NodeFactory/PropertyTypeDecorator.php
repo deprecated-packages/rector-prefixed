@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\NodeFactory;
 
+use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ArrayType;
@@ -46,6 +47,7 @@ final class PropertyTypeDecorator
     private function decoratePropertyWithVarDoc(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $phpDocInfo->makeMultiLined();
         if ($this->isNonMixedArrayType($propertyType)) {
             $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
             $property->type = new \PhpParser\Node\Identifier('array');
@@ -53,7 +55,7 @@ final class PropertyTypeDecorator
         }
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             $phpParserNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-            if ($phpParserNode === null) {
+            if (!$phpParserNode instanceof \PhpParser\Node) {
                 // fallback to doc type in PHP 7.4
                 $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
             }
@@ -67,7 +69,7 @@ final class PropertyTypeDecorator
             return;
         }
         $phpParserNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-        if ($phpParserNode === null) {
+        if (!$phpParserNode instanceof \PhpParser\Node) {
             return;
         }
         $property->type = $phpParserNode;

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210402\Symfony\Component\HttpKernel\Profiler;
+namespace RectorPrefix20210404\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * ProfilerStorageInterface.
@@ -30,7 +30,7 @@ interface ProfilerStorageInterface
      *
      * @param int|null $limit The maximum number of tokens to return
      * @param int $start The start date to search from
-     * @param int $end   The end date to search to
+     * @param int $end The end date to search to
      *
      * @return array An array of tokens
      */
@@ -42,13 +42,13 @@ interface ProfilerStorageInterface
      *
      * @return Profile|null The profile associated with token
      */
-    public function read(string $token) : ?\RectorPrefix20210402\Symfony\Component\HttpKernel\Profiler\Profile;
+    public function read(string $token) : ?\RectorPrefix20210404\Symfony\Component\HttpKernel\Profiler\Profile;
     /**
      * Saves a Profile.
      *
      * @return bool Write operation successful
      */
-    public function write(\RectorPrefix20210402\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool;
+    public function write(\RectorPrefix20210404\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool;
     /**
      * Purges all data from the database.
      */

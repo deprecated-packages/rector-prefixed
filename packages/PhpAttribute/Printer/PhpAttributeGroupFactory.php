@@ -9,19 +9,25 @@ use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
 use PHPStan\PhpDocParser\Ast\Node;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 final class PhpAttributeGroupFactory
 {
-    public function create(\PHPStan\PhpDocParser\Ast\Node $node, \Rector\Php80\ValueObject\AnnotationToAttribute $annotationToAttribute) : \PhpParser\Node\AttributeGroup
+    public function createFromSimpleTag(\Rector\Php80\ValueObject\AnnotationToAttribute $annotationToAttribute) : \PhpParser\Node\AttributeGroup
     {
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified($annotationToAttribute->getAttributeClass());
-        if ($node instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode) {
-            $args = $this->createArgsFromItems($node->getItemsWithoutDefaults());
-        } else {
-            $args = [];
-        }
+        $attribute = new \PhpParser\Node\Attribute($fullyQualified);
+        return new \PhpParser\Node\AttributeGroup([$attribute]);
+    }
+    public function create(\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode, \Rector\Php80\ValueObject\AnnotationToAttribute $annotationToAttribute) : \PhpParser\Node\AttributeGroup
+    {
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified($annotationToAttribute->getAttributeClass());
+        $values = $doctrineAnnotationTagValueNode->getValuesWithExplicitSilentAndWithoutQuotes();
+        $args = $this->createArgsFromItems($values);
         $attribute = new \PhpParser\Node\Attribute($fullyQualified, $args);
         return new \PhpParser\Node\AttributeGroup([$attribute]);
     }
@@ -40,6 +46,7 @@ final class PhpAttributeGroupFactory
         if ($this->isArrayArguments($items)) {
             foreach ($items as $key => $value) {
                 $argumentName = new \PhpParser\Node\Identifier($key);
+                $value = $this->normalizeNodeValue($value);
                 $value = \PhpParser\BuilderHelpers::normalizeValue($value);
                 $args[] = new \PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
             }
@@ -62,5 +69,25 @@ final class PhpAttributeGroupFactory
             }
         }
         return \false;
+    }
+    /**
+     * @param mixed $value
+     * @return bool|float|int|string
+     */
+    private function normalizeNodeValue($value)
+    {
+        if ($value instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
+            return (int) $value->value;
+        }
+        if ($value instanceof \PHPStan\Type\Constant\ConstantFloatType) {
+            return $value->getValue();
+        }
+        if ($value instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+            return $value->getValue();
+        }
+        if ($value instanceof \PHPStan\PhpDocParser\Ast\Node) {
+            return (string) $value;
+        }
+        return $value;
     }
 }

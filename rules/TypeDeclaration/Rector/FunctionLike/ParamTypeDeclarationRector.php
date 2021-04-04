@@ -156,7 +156,7 @@ CODE_SAMPLE
             return;
         }
         $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_PARAM);
-        if ($paramTypeNode === null) {
+        if (!$paramTypeNode instanceof \PhpParser\Node) {
             return;
         }
         $parentNode = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

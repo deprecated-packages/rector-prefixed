@@ -7,14 +7,13 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\ParserException;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\PhpDocNodeMapper;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
+use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
@@ -97,11 +96,7 @@ final class PhpDocInfoFactory
         } else {
             $content = $docComment->getText();
             $tokens = $this->lexer->tokenize($content);
-            try {
-                $phpDocNode = $this->parseTokensToPhpDocNode($tokens);
-            } catch (\PHPStan\PhpDocParser\Parser\ParserException $parserException) {
-                return null;
-            }
+            $phpDocNode = $this->parseTokensToPhpDocNode($tokens);
             $this->setPositionOfLastToken($phpDocNode);
         }
         $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, $content, $tokens, $node);
@@ -113,14 +108,17 @@ final class PhpDocInfoFactory
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
         $phpDocNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([]);
-        return $this->createFromPhpDocNode($phpDocNode, '', [], $node);
+        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, '', [], $node);
+        // multiline by default
+        $phpDocInfo->makeMultiLined();
+        return $phpDocInfo;
     }
     /**
      * @param mixed[][] $tokens
      */
     private function parseTokensToPhpDocNode(array $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
-        $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
+        $tokenIterator = new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator($tokens);
         return $this->betterPhpDocParser->parse($tokenIterator);
     }
     /**

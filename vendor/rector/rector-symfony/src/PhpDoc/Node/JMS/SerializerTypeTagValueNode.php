@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\PhpDoc\Node\JMS;
 
-use RectorPrefix20210402\Nette\Utils\Strings;
+use RectorPrefix20210404\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
@@ -31,7 +31,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     public function replaceName(string $oldName, string $newName) : bool
     {
         $oldNamePattern = '#\\b' . \preg_quote($oldName, '#') . '\\b#';
-        $newNameValue = \RectorPrefix20210402\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
+        $newNameValue = \RectorPrefix20210404\Nette\Utils\Strings::replace($this->items[self::NAME], $oldNamePattern, $newName);
         if ($newNameValue !== $this->items[self::NAME]) {
             $this->changeName($newNameValue);
             return \true;

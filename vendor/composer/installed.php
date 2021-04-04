@@ -39,15 +39,6 @@
       ),
       'reference' => 'df24ab62d2d8213bbbe88cc36fc35a4503b4bd7e',
     ),
-    'doctrine/annotations' => 
-    array (
-      'pretty_version' => '1.12.1',
-      'version' => '1.12.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b17c5014ef81d212ac539f07a1001832df1b6d3b',
-    ),
     'doctrine/inflector' => 
     array (
       'pretty_version' => '2.0.3',
@@ -56,15 +47,6 @@
       array (
       ),
       'reference' => '9cf661f4eb38f7c881cac67c75ea9b00bf97b210',
-    ),
-    'doctrine/lexer' => 
-    array (
-      'pretty_version' => '1.2.1',
-      'version' => '1.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e864bbf5904cb8f5bb334f99209b48018522f042',
     ),
     'jean85/pretty-package-versions' => 
     array (
@@ -131,21 +113,21 @@
     ),
     'phpstan/phpdoc-parser' => 
     array (
-      'pretty_version' => '0.5.3',
-      'version' => '0.5.3.0',
+      'pretty_version' => '0.5.4',
+      'version' => '0.5.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7c3115eeb29211577a64a7a5757abbb2d20a652d',
+      'reference' => 'e352d065af1ae9b41c12d1dfd309e90f7b1f55c9',
     ),
     'phpstan/phpstan' => 
     array (
-      'pretty_version' => '0.12.82',
-      'version' => '0.12.82.0',
+      'pretty_version' => '0.12.83',
+      'version' => '0.12.83.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3920f0fb0aff39263d3a4cb0bca120a67a1a6a11',
+      'reference' => '4a967cec6efb46b500dd6d768657336a3ffe699f',
     ),
     'phpstan/phpstan-phpunit' => 
     array (

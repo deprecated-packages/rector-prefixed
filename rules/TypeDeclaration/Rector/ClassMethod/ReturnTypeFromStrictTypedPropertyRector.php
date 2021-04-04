@@ -89,7 +89,7 @@ CODE_SAMPLE
             return null;
         }
         $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-        if ($propertyTypeNode === null) {
+        if (!$propertyTypeNode instanceof \PhpParser\Node) {
             return null;
         }
         $node->returnType = $propertyTypeNode;

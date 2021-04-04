@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210402\Nette\Utils\Strings;
+use RectorPrefix20210404\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
@@ -34,9 +34,9 @@ final class ClassAnnotationMatcher
             return $this->fullyQualifiedNameByHash[$uniqueHash];
         }
         $tag = \ltrim($tag, '@');
-        /** @var Use_[] $useNodes */
-        $useNodes = (array) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
-        $fullyQualifiedClass = $this->resolveFullyQualifiedClass($useNodes, $node, $tag);
+        /** @var Use_[] $uses */
+        $uses = (array) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
+        $fullyQualifiedClass = $this->resolveFullyQualifiedClass($uses, $node, $tag);
         $this->fullyQualifiedNameByHash[$uniqueHash] = $fullyQualifiedClass;
         return $fullyQualifiedClass;
     }
@@ -45,11 +45,8 @@ final class ClassAnnotationMatcher
      */
     private function resolveFullyQualifiedClass(array $uses, \PhpParser\Node $node, string $tag) : string
     {
-        if ($uses === []) {
-            $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if (!$scope instanceof \PHPStan\Analyser\Scope) {
-                return $tag;
-            }
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($scope instanceof \PHPStan\Analyser\Scope) {
             $namespace = $scope->getNamespace();
             if ($namespace !== null) {
                 $namespacedTag = $namespace . '\\' . $tag;
@@ -57,7 +54,6 @@ final class ClassAnnotationMatcher
                     return $namespacedTag;
                 }
             }
-            return $tag;
         }
         return $this->matchFullAnnotationClassWithUses($tag, $uses) ?? $tag;
     }
@@ -80,15 +76,15 @@ final class ClassAnnotationMatcher
     {
         $shortName = $useUse->alias !== null ? $useUse->alias->name : $useUse->name->getLast();
         $shortNamePattern = \preg_quote($shortName, '#');
-        return (bool) \RectorPrefix20210402\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
+        return (bool) \RectorPrefix20210404\Nette\Utils\Strings::match($tag, '#' . $shortNamePattern . '(\\\\[\\w]+)?#i');
     }
     private function resolveName(string $tag, \PhpParser\Node\Stmt\UseUse $useUse) : string
     {
         if ($useUse->alias === null) {
             return $useUse->name->toString();
         }
-        $unaliasedShortClass = \RectorPrefix20210402\Nette\Utils\Strings::substring($tag, \RectorPrefix20210402\Nette\Utils\Strings::length($useUse->alias->toString()));
-        if (\RectorPrefix20210402\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
+        $unaliasedShortClass = \RectorPrefix20210404\Nette\Utils\Strings::substring($tag, \RectorPrefix20210404\Nette\Utils\Strings::length($useUse->alias->toString()));
+        if (\RectorPrefix20210404\Nette\Utils\Strings::startsWith($unaliasedShortClass, '\\')) {
             return $useUse->name . $unaliasedShortClass;
         }
         return $useUse->name . '\\' . $unaliasedShortClass;

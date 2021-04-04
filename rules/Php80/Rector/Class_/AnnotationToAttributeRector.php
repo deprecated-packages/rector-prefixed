@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -17,10 +18,9 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210402\Webmozart\Assert\Assert;
+use RectorPrefix20210404\Webmozart\Assert\Assert;
 /**
  * @see https://wiki.php.net/rfc/attributes_v2
  * @see https://wiki.php.net/rfc/shorter_attribute_syntax
@@ -77,7 +77,7 @@ class SymfonyRoute
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_TO_ATTRIBUTE => [new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class, 'Symfony\\Component\\Routing\\Annotation\\Route')]])]);
+, [self::ANNOTATION_TO_ATTRIBUTE => [new \Rector\Php80\ValueObject\AnnotationToAttribute('Symfony\\Component\\Routing\\Annotation\\Route', 'Symfony\\Component\\Routing\\Annotation\\Route')]])]);
     }
     /**
      * @return array<class-string<Node>>
@@ -100,15 +100,23 @@ CODE_SAMPLE
         }
         $hasNewAttrGroups = \false;
         foreach ($this->annotationsToAttributes as $annotationToAttribute) {
-            $tagNodeType = $annotationToAttribute->getTagNodeClass();
-            $phpDocTagNode = $phpDocInfo->getByType($tagNodeType);
-            if (!$phpDocTagNode instanceof \PHPStan\PhpDocParser\Ast\Node) {
+            $tag = $annotationToAttribute->getTag();
+            // 1. simple doc tags
+            if ($phpDocInfo->hasByName($tag)) {
+                // 1. remove php-doc tag
+                $this->phpDocTagRemover->removeByName($phpDocInfo, $tag);
+                // 2. add attributes
+                $node->attrGroups[] = $this->phpAttributeGroupFactory->createFromSimpleTag($annotationToAttribute);
+                $hasNewAttrGroups = \true;
+            }
+            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass($tag);
+            if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
                 continue;
             }
             // 1. remove php-doc tag
-            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $phpDocTagNode);
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
             // 2. add attributes
-            $node->attrGroups[] = $this->phpAttributeGroupFactory->create($phpDocTagNode, $annotationToAttribute);
+            $node->attrGroups[] = $this->phpAttributeGroupFactory->create($doctrineAnnotationTagValueNode, $annotationToAttribute);
             $hasNewAttrGroups = \true;
         }
         if ($hasNewAttrGroups) {
@@ -122,7 +130,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $annotationsToAttributes = $configuration[self::ANNOTATION_TO_ATTRIBUTE] ?? [];
-        \RectorPrefix20210402\Webmozart\Assert\Assert::allIsInstanceOf($annotationsToAttributes, \Rector\Php80\ValueObject\AnnotationToAttribute::class);
+        \RectorPrefix20210404\Webmozart\Assert\Assert::allIsInstanceOf($annotationsToAttributes, \Rector\Php80\ValueObject\AnnotationToAttribute::class);
         $this->annotationsToAttributes = $annotationsToAttributes;
     }
 }

@@ -5,6 +5,7 @@ namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 final class PhpDocTagRemover
 {
@@ -15,11 +16,17 @@ final class PhpDocTagRemover
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
-            if (!$this->areAnnotationNamesEqual($name, $phpDocChildNode->name)) {
-                continue;
+            if ($this->areAnnotationNamesEqual($name, $phpDocChildNode->name)) {
+                unset($phpDocNode->children[$key]);
+                $phpDocInfo->markAsChanged();
             }
-            unset($phpDocNode->children[$key]);
-            $phpDocInfo->markAsChanged();
+            if ($phpDocChildNode->value instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+                $tagClass = $phpDocChildNode->value->getAnnotationClass();
+                if ($tagClass === $name) {
+                    unset($phpDocNode->children[$key]);
+                    $phpDocInfo->markAsChanged();
+                }
+            }
         }
     }
     public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\Node $desiredNode) : void

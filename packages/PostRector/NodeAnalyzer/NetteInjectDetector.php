@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\ValueObject\MethodName;
-use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class NetteInjectDetector
 {
@@ -43,7 +42,7 @@ final class NetteInjectDetector
                 continue;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByType(\Rector\Nette\PhpDoc\Node\NetteInjectTagNode::class)) {
+            if ($phpDocInfo->hasByName('inject')) {
                 return \true;
             }
         }
