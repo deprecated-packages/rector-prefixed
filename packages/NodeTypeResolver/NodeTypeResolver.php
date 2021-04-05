@@ -46,7 +46,6 @@ use Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector;
 use Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
-use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
 final class NodeTypeResolver
@@ -203,6 +202,9 @@ final class NodeTypeResolver
         if ($node instanceof \PhpParser\Node\Param) {
             return $this->resolve($node);
         }
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
+            return $this->resolve($node);
+        }
         if ($node instanceof \PhpParser\Node\Stmt\Return_) {
             return $this->resolve($node);
         }
@@ -218,12 +220,6 @@ final class NodeTypeResolver
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
-        }
-        if ($node instanceof \PhpParser\Node\Expr\New_) {
-            $isAnonymousClass = $this->classAnalyzer->isAnonymousClass($node->class);
-            if ($isAnonymousClass) {
-                return $this->resolveAnonymousClassType($node);
-            }
         }
         $staticType = $scope->getType($node);
         if ($staticType instanceof \PHPStan\Type\Generic\GenericObjectType) {
@@ -360,31 +356,6 @@ final class NodeTypeResolver
             return $this->removeNonEmptyArrayFromIntersectionWithArrayType($arrayType);
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
-    }
-    private function resolveAnonymousClassType(\PhpParser\Node\Expr\New_ $new) : \PHPStan\Type\ObjectWithoutClassType
-    {
-        if (!$new->class instanceof \PhpParser\Node\Stmt\Class_) {
-            return new \PHPStan\Type\ObjectWithoutClassType();
-        }
-        $types = [];
-        /** @var Class_ $class */
-        $class = $new->class;
-        if ($class->extends !== null) {
-            $parentClass = (string) $class->extends;
-            $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($parentClass);
-        }
-        foreach ($class->implements as $implement) {
-            $parentClass = (string) $implement;
-            $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($parentClass);
-        }
-        if (\count($types) > 1) {
-            $unionType = $this->unionTypeFactory->createUnionObjectType($types);
-            return new \PHPStan\Type\ObjectWithoutClassType($unionType);
-        }
-        if (\count($types) === 1) {
-            return new \PHPStan\Type\ObjectWithoutClassType($types[0]);
-        }
-        return new \PHPStan\Type\ObjectWithoutClassType();
     }
     private function resolveByNodeTypeResolvers(\PhpParser\Node $node) : ?\PHPStan\Type\Type
     {
