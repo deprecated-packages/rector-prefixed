@@ -55,6 +55,14 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     public function removeValue(string $key) : void
     {
         unset($this->values[$key]);
+        unset($this->values['"' . $key . '"']);
+    }
+    /**
+     * @return mixed[]
+     */
+    public function getValues() : array
+    {
+        return $this->values;
     }
     /**
      * @param string|int $key
