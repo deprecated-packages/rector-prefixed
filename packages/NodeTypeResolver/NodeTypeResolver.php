@@ -45,7 +45,6 @@ use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
 use Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector;
 use Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
-use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
 final class NodeTypeResolver
@@ -71,10 +70,6 @@ final class NodeTypeResolver
      */
     private $genericClassStringTypeCorrector;
     /**
-     * @var UnionTypeFactory
-     */
-    private $unionTypeFactory;
-    /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
@@ -89,7 +84,7 @@ final class NodeTypeResolver
     /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector $hasOffsetTypeCorrector, \Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver $identifierTypeResolver, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector $hasOffsetTypeCorrector, \Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver $identifierTypeResolver, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
@@ -97,7 +92,6 @@ final class NodeTypeResolver
         $this->objectTypeSpecifier = $objectTypeSpecifier;
         $this->classAnalyzer = $classAnalyzer;
         $this->genericClassStringTypeCorrector = $genericClassStringTypeCorrector;
-        $this->unionTypeFactory = $unionTypeFactory;
         $this->reflectionProvider = $reflectionProvider;
         $this->hasOffsetTypeCorrector = $hasOffsetTypeCorrector;
         $this->identifierTypeResolver = $identifierTypeResolver;
