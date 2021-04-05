@@ -7,6 +7,7 @@ use RectorPrefix20210405\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -54,8 +55,15 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     }
     public function removeValue(string $key) : void
     {
+        $quotedKey = '"' . $key . '"';
+        // isset?
+        if (!isset($this->values[$key]) && !isset($this->values[$quotedKey])) {
+            return;
+        }
         unset($this->values[$key]);
-        unset($this->values['"' . $key . '"']);
+        unset($this->values[$quotedKey]);
+        // invoke reprint
+        $this->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
     }
     /**
      * @return mixed[]
@@ -87,6 +95,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
             $value = '"' . $value . '"';
         }
         $this->values[$key] = $value;
+        // invoke reprint
+        $this->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
     }
     /**
      * @param string|int $key
