@@ -11,8 +11,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface;
-use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -80,7 +78,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (!$phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode::class)) {
+        if (!$phpDocInfo->hasByAnnotationClass('Doctrine\\ORM\\Mapping\\Entity')) {
             return null;
         }
         $toManyPropertyNames = $this->resolveToManyPropertyNames($node);
@@ -102,7 +100,8 @@ CODE_SAMPLE
                 continue;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (!$phpDocInfo->hasByType(\Rector\Doctrine\Contract\PhpDoc\Node\ToManyTagNodeInterface::class)) {
+            $hasToManyNode = $phpDocInfo->hasByAnnotationClasses(['Doctrine\\ORM\\Mapping\\OneToMany', 'Doctrine\\ORM\\Mapping\\ManyToMany']);
+            if (!$hasToManyNode) {
                 continue;
             }
             /** @var string $propertyName */

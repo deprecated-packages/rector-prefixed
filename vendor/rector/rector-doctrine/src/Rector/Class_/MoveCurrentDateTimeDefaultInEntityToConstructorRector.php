@@ -7,12 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\NodeAnalyzer\ConstructorAssignPropertyAnalyzer;
 use Rector\Doctrine\NodeFactory\ValueAssignFactory;
-use Rector\Doctrine\NodeManipulator\ColumnDatetimePropertyManipulator;
 use Rector\Doctrine\NodeManipulator\ConstructorManipulator;
-use Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -31,18 +31,13 @@ final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \Recto
      */
     private $valueAssignFactory;
     /**
-     * @var ColumnDatetimePropertyManipulator
-     */
-    private $columnDatetimePropertyManipulator;
-    /**
      * @var ConstructorAssignPropertyAnalyzer
      */
     private $constructorAssignPropertyAnalyzer;
-    public function __construct(\Rector\Doctrine\NodeManipulator\ConstructorManipulator $constructorManipulator, \Rector\Doctrine\NodeFactory\ValueAssignFactory $valueAssignFactory, \Rector\Doctrine\NodeManipulator\ColumnDatetimePropertyManipulator $columnDatetimePropertyManipulator, \Rector\Doctrine\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
+    public function __construct(\Rector\Doctrine\NodeManipulator\ConstructorManipulator $constructorManipulator, \Rector\Doctrine\NodeFactory\ValueAssignFactory $valueAssignFactory, \Rector\Doctrine\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
     {
         $this->constructorManipulator = $constructorManipulator;
         $this->valueAssignFactory = $valueAssignFactory;
-        $this->columnDatetimePropertyManipulator = $columnDatetimePropertyManipulator;
         $this->constructorAssignPropertyAnalyzer = $constructorAssignPropertyAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -106,12 +101,12 @@ CODE_SAMPLE
     private function refactorProperty(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $columnTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode::class);
-        if (!$columnTagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-        /** @var ColumnTagValueNode $columnTagValueNode */
-        if ($columnTagValueNode->getType() !== 'datetime') {
+        $type = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
+        if ($type !== 'datetime') {
             return null;
         }
         $constructorAssign = $this->constructorAssignPropertyAnalyzer->resolveConstructorAssign($property);
@@ -120,7 +115,14 @@ CODE_SAMPLE
             return null;
         }
         // 1. remove default options from database level
-        $this->columnDatetimePropertyManipulator->removeDefaultOption($columnTagValueNode);
+        $options = $doctrineAnnotationTagValueNode->getValue('options');
+        if ($options instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode) {
+            $options->removeValue('default');
+            // if empty, remove it completely
+            if ($options->getValues() === []) {
+                $doctrineAnnotationTagValueNode->removeValue('options');
+            }
+        }
         $phpDocInfo->markAsChanged();
         $this->refactorClass($class, $property);
         // 3. remove default from property

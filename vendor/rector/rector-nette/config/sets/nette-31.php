@@ -9,9 +9,6 @@ use PHPStan\Type\UnionType;
 use Rector\Composer\Rector\ChangePackageVersionComposerRector;
 use Rector\Composer\Rector\RemovePackageComposerRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use Rector\Nette\PhpDoc\Node\NetteCrossOriginTagNode;
-use Rector\Nette\PhpDoc\Node\NetteInjectTagNode;
-use Rector\Nette\PhpDoc\Node\NettePersistentTagNode;
 use Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
@@ -33,9 +30,9 @@ return static function (\RectorPrefix20210405\Symfony\Component\DependencyInject
     // some attributes were added in nette 3.0, but only in one of latest patch versions; it's is safer to add them in 3.1
     $services->set(\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::class)->call('configure', [[\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::ANNOTATION_TO_ATTRIBUTE => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // nette 3.0+, see https://github.com/nette/application/commit/d2471134ed909210de8a3e8559931902b1bee67b#diff-457507a8bdc046dd4f3a4aa1ca51794543fbb1e06f03825ab69ee864549a570c
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Nette\PhpDoc\Node\NetteInjectTagNode::class, 'Nette\\DI\\Attributes\\Inject'),
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Nette\PhpDoc\Node\NettePersistentTagNode::class, 'Nette\\Application\\Attributes\\Persistent'),
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Nette\PhpDoc\Node\NetteCrossOriginTagNode::class, 'Nette\\Application\\Attributes\\CrossOrigin'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('inject', 'Nette\\DI\\Attributes\\Inject'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('persistent', 'Nette\\Application\\Attributes\\Persistent'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('crossOrigin', 'Nette\\Application\\Attributes\\CrossOrigin'),
     ])]]);
     $services->set(\Rector\Transform\Rector\MethodCall\CallableInMethodCallToVariableRector::class)->call('configure', [[
         // see https://github.com/nette/caching/commit/5ffe263752af5ccf3866a28305e7b2669ab4da82

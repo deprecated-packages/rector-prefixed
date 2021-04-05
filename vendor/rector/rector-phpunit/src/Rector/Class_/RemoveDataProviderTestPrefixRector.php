@@ -7,9 +7,10 @@ use RectorPrefix20210405\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
-use Rector\PHPUnit\PhpDoc\Node\PHPUnitDataProviderTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDataProviderTestPrefixRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $providerMethodNamesToNewNames = [];
     /**
@@ -93,20 +94,26 @@ CODE_SAMPLE
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-            /** @var PHPUnitDataProviderTagValueNode[] $phpunitDataProviderTagValueNodes */
-            $phpunitDataProviderTagValueNodes = $phpDocInfo->findAllByType(\Rector\PHPUnit\PhpDoc\Node\PHPUnitDataProviderTagValueNode::class);
-            if ($phpunitDataProviderTagValueNodes === []) {
+            $dataProviderTagValueNodes = $phpDocInfo->getTagsByName('dataProvider');
+            if ($dataProviderTagValueNodes === []) {
                 continue;
             }
-            foreach ($phpunitDataProviderTagValueNodes as $phpunitDataProviderTagValueNode) {
-                $oldMethodName = $phpunitDataProviderTagValueNode->getMethodName();
+            foreach ($dataProviderTagValueNodes as $dataProviderTagValueNode) {
+                if (!$dataProviderTagValueNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                    continue;
+                }
+                $oldMethodName = $dataProviderTagValueNode->value->value;
                 if (!\RectorPrefix20210405\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
                     continue;
                 }
                 $newMethodName = $this->createNewMethodName($oldMethodName);
-                $phpunitDataProviderTagValueNode->changeMethodName($newMethodName);
+                $dataProviderTagValueNode->value->value = \RectorPrefix20210405\Nette\Utils\Strings::replace($oldMethodName, '#' . \preg_quote($oldMethodName, '#') . '#', $newMethodName);
+                // invoke reprint
+                $dataProviderTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
                 $phpDocInfo->markAsChanged();
-                $this->providerMethodNamesToNewNames[$oldMethodName] = $newMethodName;
+                $oldMethodNameWithoutBrackets = \rtrim($oldMethodName, '()');
+                $newMethodWithoutBrackets = $this->createNewMethodName($oldMethodNameWithoutBrackets);
+                $this->providerMethodNamesToNewNames[$oldMethodNameWithoutBrackets] = $newMethodWithoutBrackets;
             }
         }
     }

@@ -14,11 +14,12 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ArrayType;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\Symfony\Helper\TemplateGuesser;
-use Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode;
 final class ThisRenderFactory
 {
     /**
@@ -49,35 +50,40 @@ final class ThisRenderFactory
         $this->arrayFromCompactFactory = $arrayFromCompactFactory;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : \PhpParser\Node\Expr\MethodCall
+    public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode) : \PhpParser\Node\Expr\MethodCall
     {
-        $renderArguments = $this->resolveRenderArguments($classMethod, $return, $sensioTemplateTagValueNode);
+        $renderArguments = $this->resolveRenderArguments($classMethod, $return, $templateDoctrineAnnotationTagValueNode);
         return $this->nodeFactory->createMethodCall('this', 'render', $renderArguments);
     }
     /**
      * @return Arg[]
      */
-    private function resolveRenderArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : array
+    private function resolveRenderArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode) : array
     {
-        $templateNameString = $this->resolveTemplateName($classMethod, $sensioTemplateTagValueNode);
+        $templateNameString = $this->resolveTemplateName($classMethod, $templateDoctrineAnnotationTagValueNode);
         $arguments = [$templateNameString];
-        $parametersExpr = $this->resolveParametersExpr($return, $sensioTemplateTagValueNode);
+        $parametersExpr = $this->resolveParametersExpr($return, $templateDoctrineAnnotationTagValueNode);
         if ($parametersExpr !== null) {
             $arguments[] = new \PhpParser\Node\Arg($parametersExpr);
         }
         return $this->nodeFactory->createArgs($arguments);
     }
-    private function resolveTemplateName(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : string
+    private function resolveTemplateName(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode) : string
     {
-        if ($sensioTemplateTagValueNode->getTemplate() !== null) {
-            return $sensioTemplateTagValueNode->getTemplate();
+        $template = $templateDoctrineAnnotationTagValueNode->getValue('template') ?: $templateDoctrineAnnotationTagValueNode->getSilentValue();
+        if ($template !== null) {
+            return $template;
         }
         return $this->templateGuesser->resolveFromClassMethodNode($classMethod);
     }
-    private function resolveParametersExpr(?\PhpParser\Node\Stmt\Return_ $return, \Rector\Symfony\PhpDoc\Node\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : ?\PhpParser\Node\Expr
+    private function resolveParametersExpr(?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode) : ?\PhpParser\Node\Expr
     {
-        if ($sensioTemplateTagValueNode->getVars() !== []) {
-            return $this->createArrayFromVars($sensioTemplateTagValueNode->getVars());
+        $vars = $templateDoctrineAnnotationTagValueNode->getValue('vars');
+        if ($vars instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode) {
+            $vars = $vars->getValuesWithExplicitSilentAndWithoutQuotes();
+        }
+        if (\is_array($vars) && $vars !== []) {
+            return $this->createArrayFromVars($vars);
         }
         if ($return === null) {
             return null;

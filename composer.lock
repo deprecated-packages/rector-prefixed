@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe509d3952d81867533263637ef1949a",
+    "content-hash": "1852d921810dccd0c96850a1dbd7d75d",
     "packages": [
         {
             "name": "composer/semver",
@@ -1091,22 +1091,25 @@
         },
         {
             "name": "rector/rector-cakephp",
-            "version": "0.10.1",
+            "version": "0.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-cakephp.git",
-                "reference": "d665305a0267078373b52fd4f3262ed9b922211d"
+                "reference": "fe28736b3481a3a30d52edc7b556cb184d48874e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-cakephp/zipball/d665305a0267078373b52fd4f3262ed9b922211d",
-                "reference": "d665305a0267078373b52fd4f3262ed9b922211d",
+                "url": "https://api.github.com/repos/rectorphp/rector-cakephp/zipball/fe28736b3481a3a30d52edc7b556cb184d48874e",
+                "reference": "fe28736b3481a3a30d52edc7b556cb184d48874e",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
                 "php": ">=7.3",
-                "rector/rector": "^0.10"
+                "rector/rector": "dev-main"
+            },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -1133,36 +1136,45 @@
             "description": "Rector upgrades rules for CakePHP",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-cakephp/issues",
-                "source": "https://github.com/rectorphp/rector-cakephp/tree/0.10.1"
+                "source": "https://github.com/rectorphp/rector-cakephp/tree/0.10.2"
             },
-            "time": "2021-03-23T20:49:22+00:00"
+            "time": "2021-04-05T13:26:47+00:00"
         },
         {
             "name": "rector/rector-doctrine",
-            "version": "0.10.0",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-doctrine.git",
-                "reference": "1e430e84395256b6cf802f69feaad3e5616074c4"
+                "reference": "a7005e448a3756acffc81391972f7900ca79204b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/1e430e84395256b6cf802f69feaad3e5616074c4",
-                "reference": "1e430e84395256b6cf802f69feaad3e5616074c4",
+                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/a7005e448a3756acffc81391972f7900ca79204b",
+                "reference": "a7005e448a3756acffc81391972f7900ca79204b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.3",
-                "rector/rector": "^0.10"
+                "rector/rector": "dev-main"
+            },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
                 "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2",
                 "tracy/tracy": "^2.8"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.10-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Rector\\Doctrine\\": "src"
@@ -1175,36 +1187,45 @@
             "description": "Rector upgrades rules for Doctrine",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-doctrine/issues",
-                "source": "https://github.com/rectorphp/rector-doctrine/tree/0.10.0"
+                "source": "https://github.com/rectorphp/rector-doctrine/tree/0.10.1"
             },
-            "time": "2021-03-22T01:25:47+00:00"
+            "time": "2021-04-05T10:51:54+00:00"
         },
         {
             "name": "rector/rector-laravel",
-            "version": "0.10.0",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-laravel.git",
-                "reference": "f4f3e386eb83d332ec421863aefaad6e67fd073d"
+                "reference": "d821ae834d7311c92fde91b12d6293c3590c9c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/f4f3e386eb83d332ec421863aefaad6e67fd073d",
-                "reference": "f4f3e386eb83d332ec421863aefaad6e67fd073d",
+                "url": "https://api.github.com/repos/rectorphp/rector-laravel/zipball/d821ae834d7311c92fde91b12d6293c3590c9c5a",
+                "reference": "d821ae834d7311c92fde91b12d6293c3590c9c5a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.3",
                 "rector/rector": "^0.10"
             },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
+            },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
                 "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2",
                 "tracy/tracy": "^2.8"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.10-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Rector\\Laravel\\": "src"
@@ -1217,28 +1238,31 @@
             "description": "Rector upgrades rules for Laravel Framework",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-laravel/issues",
-                "source": "https://github.com/rectorphp/rector-laravel/tree/0.10.0"
+                "source": "https://github.com/rectorphp/rector-laravel/tree/0.10.1"
             },
-            "time": "2021-03-21T23:20:38+00:00"
+            "time": "2021-04-05T10:56:24+00:00"
         },
         {
             "name": "rector/rector-nette",
-            "version": "0.10.1",
+            "version": "0.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-nette.git",
-                "reference": "d87348303f8a9e8ba4422def9ea9b6f0479cd5d6"
+                "reference": "3e3b848c55bae61f73d93d2a2d867c7c74cf1db7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/d87348303f8a9e8ba4422def9ea9b6f0479cd5d6",
-                "reference": "d87348303f8a9e8ba4422def9ea9b6f0479cd5d6",
+                "url": "https://api.github.com/repos/rectorphp/rector-nette/zipball/3e3b848c55bae61f73d93d2a2d867c7c74cf1db7",
+                "reference": "3e3b848c55bae61f73d93d2a2d867c7c74cf1db7",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
                 "php": ">=7.3",
-                "rector/rector": "^0.10"
+                "rector/rector": "dev-main"
+            },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
             },
             "require-dev": {
                 "nette/application": "^3.0.7",
@@ -1248,7 +1272,8 @@
                 "phpunit/phpunit": "^9.5",
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
-                "symplify/phpstan-rules": "^9.2"
+                "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2"
             },
             "type": "library",
             "extra": {
@@ -1268,27 +1293,30 @@
             "description": "Rector upgrades rules for Nette Framework",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-nette/issues",
-                "source": "https://github.com/rectorphp/rector-nette/tree/0.10.1"
+                "source": "https://github.com/rectorphp/rector-nette/tree/0.10.4"
             },
-            "time": "2021-03-22T11:44:42+00:00"
+            "time": "2021-04-05T13:45:25+00:00"
         },
         {
             "name": "rector/rector-phpunit",
-            "version": "0.10.2",
+            "version": "0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-phpunit.git",
-                "reference": "f836b6aac19bc71637a3d4da81ab51c00181c18f"
+                "reference": "515f787837ad068e3134e627eba91ec7adef5b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/f836b6aac19bc71637a3d4da81ab51c00181c18f",
-                "reference": "f836b6aac19bc71637a3d4da81ab51c00181c18f",
+                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/515f787837ad068e3134e627eba91ec7adef5b40",
+                "reference": "515f787837ad068e3134e627eba91ec7adef5b40",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.3",
-                "rector/rector": "^0.10"
+                "rector/rector": "dev-main"
+            },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -1316,28 +1344,31 @@
             "description": "Rector upgrades rules for PHPUnit",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-phpunit/issues",
-                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.2"
+                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.3"
             },
-            "time": "2021-03-23T20:57:25+00:00"
+            "time": "2021-04-05T10:52:55+00:00"
         },
         {
             "name": "rector/rector-symfony",
-            "version": "0.10.0",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-symfony.git",
-                "reference": "a4c8386f59abbcc9d2c02b82e9fb465c1cb0a136"
+                "reference": "2bc055bd04b60c243de7db0483dba82dc4bdfa0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/a4c8386f59abbcc9d2c02b82e9fb465c1cb0a136",
-                "reference": "a4c8386f59abbcc9d2c02b82e9fb465c1cb0a136",
+                "url": "https://api.github.com/repos/rectorphp/rector-symfony/zipball/2bc055bd04b60c243de7db0483dba82dc4bdfa0b",
+                "reference": "2bc055bd04b60c243de7db0483dba82dc4bdfa0b",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
                 "php": ">=7.3",
-                "rector/rector": "^0.10"
+                "rector/rector": "dev-main"
+            },
+            "conflict": {
+                "rector/rector": "<=0.10.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -1346,9 +1377,15 @@
                 "symplify/easy-coding-standard": "^9.2",
                 "symplify/phpstan-extensions": "^9.2",
                 "symplify/phpstan-rules": "^9.2",
+                "symplify/rule-doc-generator": "^9.2",
                 "tracy/tracy": "^2.8"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.10-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Rector\\Symfony\\": "src"
@@ -1361,9 +1398,9 @@
             "description": "Rector upgrades rules for Symfony Framework",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-symfony/issues",
-                "source": "https://github.com/rectorphp/rector-symfony/tree/0.10.0"
+                "source": "https://github.com/rectorphp/rector-symfony/tree/0.10.1"
             },
-            "time": "2021-03-21T23:21:08+00:00"
+            "time": "2021-04-05T13:29:03+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -8474,9 +8511,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.3|^8.0",

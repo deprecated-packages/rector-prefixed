@@ -6,10 +6,11 @@ namespace Rector\Symfony\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,6 +21,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MergeMethodAnnotationToRouteAnnotationRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    /**
+     * @var PhpDocInfoPrinter
+     */
+    private $phpDocInfoPrinter;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover, \Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter $phpDocInfoPrinter)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->phpDocInfoPrinter = $phpDocInfoPrinter;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Merge removed @Method annotation to @Route one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -72,17 +86,21 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $sensioMethodTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode::class);
-        if (!$sensioMethodTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode) {
+        $sensioDoctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Method');
+        if (!$sensioDoctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-        $methods = $sensioMethodTagValueNode->getMethods();
-        $symfonyRouteTagValueNode = $phpDocInfo->getByType(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class);
-        if (!$symfonyRouteTagValueNode instanceof \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode) {
+        $symfonyDoctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Symfony\\Component\\Routing\\Annotation\\Route');
+        if (!$symfonyDoctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-        $symfonyRouteTagValueNode->changeMethods($methods);
-        $phpDocInfo->removeByType(\Rector\Symfony\PhpDoc\Node\Sensio\SensioMethodTagValueNode::class);
+        $methods = $sensioDoctrineAnnotationTagValueNode->getValue('methods') ?: $sensioDoctrineAnnotationTagValueNode->getSilentValue();
+        if ($methods === null) {
+            return null;
+        }
+        $symfonyDoctrineAnnotationTagValueNode->changeValue('methods', $methods);
+        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $sensioDoctrineAnnotationTagValueNode);
+        $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
         return $node;
     }
 }

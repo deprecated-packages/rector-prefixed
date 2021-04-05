@@ -10,7 +10,6 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\Symfony\ConstantNameAndValueMatcher;
 use Rector\Symfony\ConstantNameAndValueResolver;
 use Rector\Symfony\NodeFactory\RouteNameClassFactory;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Rector\Symfony\ValueObject\ClassName;
 use Rector\Symfony\ValueObject\ConstantNameAndValue;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
@@ -101,7 +100,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node->name, \Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::CLASS_NAME)) {
+        if (!$this->isName($node->name, 'Symfony\\Component\\Routing\\Annotation\\Route')) {
             return null;
         }
         $this->createRouteNameValueObject();
@@ -126,7 +125,7 @@ CODE_SAMPLE
             // avoid override
             return;
         }
-        $routeAttributes = $this->nodeRepository->findAttributes(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::CLASS_NAME);
+        $routeAttributes = $this->nodeRepository->findAttributes('Symfony\\Component\\Routing\\Annotation\\Route');
         $constantNameAndValues = $this->constantNameAndValueResolver->resolveFromAttributes($routeAttributes, 'ROUTE_');
         $namespace = $this->routeNameClassFactory->create($constantNameAndValues, self::ROUTE_NAME_FILE_LOCATION);
         $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes(self::ROUTE_NAME_FILE_LOCATION, [$namespace]);

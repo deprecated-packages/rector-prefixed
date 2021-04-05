@@ -12,10 +12,6 @@ use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Renaming\ValueObject\RenameProperty;
-use Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode;
-use Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode;
-use Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode;
-use Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode;
 use Rector\Symfony\Rector\MethodCall\DefinitionAliasSetPrivateToSetPublicRector;
 use Rector\Symfony\Rector\MethodCall\FormBuilderSetDataMapperRector;
 use Rector\Symfony\Rector\MethodCall\ReflectionExtractorEnableMagicCallExtractorRector;
@@ -34,11 +30,11 @@ return static function (\RectorPrefix20210405\Symfony\Component\DependencyInject
     // @see https://symfony.com/blog/new-in-symfony-5-2-php-8-attributes
     $services->set(\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::class)->call('configure', [[\Rector\Php80\Rector\Class_\AnnotationToAttributeRector::ANNOTATION_TO_ATTRIBUTE => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // symfony
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\SymfonyRequiredTagNode::class, 'Symfony\\Contracts\\Service\\Attribute\\Required'),
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\SymfonyRouteTagValueNode::class, 'Symfony\\Component\\Routing\\Annotation\\Route'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('required', 'Symfony\\Contracts\\Service\\Attribute\\Required'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('Symfony\\Component\\Routing\\Annotation\\Route', 'Symfony\\Component\\Routing\\Annotation\\Route'),
         // symfony/validation
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\AssertEmailTagValueNode::class, 'Symfony\\Component\\Validator\\Constraints\\Email'),
-        new \Rector\Php80\ValueObject\AnnotationToAttribute(\Rector\Symfony\PhpDoc\Node\AssertRangeTagValueNode::class, 'Symfony\\Component\\Validator\\Constraints\\Range'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('Symfony\\Component\\Validator\\Constraints\\Email', 'Symfony\\Component\\Validator\\Constraints\\Email'),
+        new \Rector\Php80\ValueObject\AnnotationToAttribute('Symfony\\Component\\Validator\\Constraints\\Range', 'Symfony\\Component\\Validator\\Constraints\\Range'),
     ])]]);
     # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#form
     $services->set(\Rector\Symfony\Rector\New_\PropertyPathMapperToDataMapperRector::class);

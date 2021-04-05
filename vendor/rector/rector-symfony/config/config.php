@@ -10,5 +10,5 @@ return static function (\RectorPrefix20210405\Symfony\Component\DependencyInject
     $parameters->set(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, null);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\Symfony\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/{Rector,PhpDoc/Node,ValueObject}', __DIR__ . '/../src/PhpDoc/Node']);
+    $services->load('Rector\\Symfony\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/{Rector,ValueObject}']);
 };

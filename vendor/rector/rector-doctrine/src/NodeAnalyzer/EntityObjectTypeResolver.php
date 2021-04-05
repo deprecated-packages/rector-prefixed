@@ -13,10 +13,10 @@ use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\SubtractableType;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\ValueObject\MethodName;
-use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
 use Rector\Doctrine\TypeAnalyzer\TypeFinder;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -89,12 +89,12 @@ final class EntityObjectTypeResolver
                 continue;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
-            if (!$phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode::class)) {
+            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Entity');
+            if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
                 continue;
             }
-            /** @var EntityTagValueNode $entityTagValueNode */
-            $entityTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode::class);
-            if ($entityTagValueNode->getRepositoryClass() !== $repositoryClassName) {
+            $repositoryClass = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('repositoryClass');
+            if ($repositoryClass !== $repositoryClassName) {
                 continue;
             }
             $className = $this->nodeNameResolver->getName($class);

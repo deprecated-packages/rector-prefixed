@@ -6,9 +6,10 @@ namespace Rector\Doctrine\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\SoftDeleteableTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -23,9 +24,14 @@ final class SoftDeletableBehaviorRector extends \Rector\Core\Rector\AbstractRect
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->classInsertManipulator = $classInsertManipulator;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -76,18 +82,16 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $hasTypeSoftDeleteableTagValueNode = $classPhpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\SoftDeleteableTagValueNode::class);
-        if (!$hasTypeSoftDeleteableTagValueNode) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\SoftDeleteable');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-        /** @var SoftDeleteableTagValueNode $softDeleteableTagValueNode */
-        $softDeleteableTagValueNode = $classPhpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\SoftDeleteableTagValueNode::class);
-        $fieldName = $softDeleteableTagValueNode->getFieldName();
+        $fieldName = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('fieldName');
         $this->removePropertyAndClassMethods($node, $fieldName);
         $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
-        $classPhpDocInfo->removeByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\SoftDeleteableTagValueNode::class);
+        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
         return $node;
     }
     private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void

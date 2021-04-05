@@ -7,12 +7,14 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
+use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -88,6 +90,9 @@ CODE_SAMPLE
         $this->replaceSecondParamInClassMethodBody($node, $secondParam);
         $secondParam->default = null;
         $secondParam->variadic = \true;
+        if ($secondParam->var instanceof \PhpParser\Node\Expr\Error) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
         $secondParam->var->name = self::PARAMETERS;
         return $node;
     }

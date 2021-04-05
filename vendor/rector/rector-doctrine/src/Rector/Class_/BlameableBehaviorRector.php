@@ -8,7 +8,6 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -108,7 +107,7 @@ CODE_SAMPLE
     {
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode::class)) {
+            if ($phpDocInfo->hasByAnnotationClass('Gedmo\\Mapping\\Annotation\\Blameable')) {
                 return \true;
             }
         }
@@ -119,7 +118,7 @@ CODE_SAMPLE
         $removedPropertyNames = [];
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (!$phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\BlameableTagValueNode::class)) {
+            if (!$phpDocInfo->hasByAnnotationClass('Gedmo\\Mapping\\Annotation\\Blameable')) {
                 continue;
             }
             /** @var string $propertyName */

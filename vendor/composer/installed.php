@@ -198,48 +198,48 @@
     ),
     'rector/rector-cakephp' => 
     array (
-      'pretty_version' => '0.10.1',
-      'version' => '0.10.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd665305a0267078373b52fd4f3262ed9b922211d',
-    ),
-    'rector/rector-doctrine' => 
-    array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '1e430e84395256b6cf802f69feaad3e5616074c4',
-    ),
-    'rector/rector-laravel' => 
-    array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f4f3e386eb83d332ec421863aefaad6e67fd073d',
-    ),
-    'rector/rector-nette' => 
-    array (
-      'pretty_version' => '0.10.1',
-      'version' => '0.10.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd87348303f8a9e8ba4422def9ea9b6f0479cd5d6',
-    ),
-    'rector/rector-phpunit' => 
-    array (
       'pretty_version' => '0.10.2',
       'version' => '0.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f836b6aac19bc71637a3d4da81ab51c00181c18f',
+      'reference' => 'fe28736b3481a3a30d52edc7b556cb184d48874e',
+    ),
+    'rector/rector-doctrine' => 
+    array (
+      'pretty_version' => '0.10.1',
+      'version' => '0.10.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a7005e448a3756acffc81391972f7900ca79204b',
+    ),
+    'rector/rector-laravel' => 
+    array (
+      'pretty_version' => '0.10.1',
+      'version' => '0.10.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd821ae834d7311c92fde91b12d6293c3590c9c5a',
+    ),
+    'rector/rector-nette' => 
+    array (
+      'pretty_version' => '0.10.4',
+      'version' => '0.10.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3e3b848c55bae61f73d93d2a2d867c7c74cf1db7',
+    ),
+    'rector/rector-phpunit' => 
+    array (
+      'pretty_version' => '0.10.3',
+      'version' => '0.10.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '515f787837ad068e3134e627eba91ec7adef5b40',
     ),
     'rector/rector-prefixed' => 
     array (
@@ -251,12 +251,12 @@
     ),
     'rector/rector-symfony' => 
     array (
-      'pretty_version' => '0.10.0',
-      'version' => '0.10.0.0',
+      'pretty_version' => '0.10.1',
+      'version' => '0.10.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a4c8386f59abbcc9d2c02b82e9fb465c1cb0a136',
+      'reference' => '2bc055bd04b60c243de7db0483dba82dc4bdfa0b',
     ),
     'sebastian/diff' => 
     array (

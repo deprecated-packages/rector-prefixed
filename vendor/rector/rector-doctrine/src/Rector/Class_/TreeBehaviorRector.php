@@ -6,15 +6,11 @@ namespace Rector\Doctrine\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeLeftTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeLevelTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeParentTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeRightTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeRootTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Gedmo\TreeTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,9 +25,14 @@ final class TreeBehaviorRector extends \Rector\Core\Rector\AbstractRector
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->classInsertManipulator = $classInsertManipulator;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -126,12 +127,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (!$classPhpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeTagValueNode::class)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\Tree');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
         // we're in a tree entity
-        $classPhpDocInfo->removeByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeTagValueNode::class);
+        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\TreeNodeInterface');
         $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\Tree\\TreeNodeTrait');
         // remove all tree-related properties and their getters and setters - it's handled by behavior trait
@@ -151,19 +153,7 @@ CODE_SAMPLE
     }
     private function shouldRemoveProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
-        if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeLeftTagValueNode::class)) {
-            return \true;
-        }
-        if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeRightTagValueNode::class)) {
-            return \true;
-        }
-        if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeRootTagValueNode::class)) {
-            return \true;
-        }
-        if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeParentTagValueNode::class)) {
-            return \true;
-        }
-        return $phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Gedmo\TreeLevelTagValueNode::class);
+        return $phpDocInfo->hasByAnnotationClasses(['Gedmo\\Mapping\\Annotation\\TreeLeft', 'Gedmo\\Mapping\\Annotation\\TreeRight', 'Gedmo\\Mapping\\Annotation\\TreeRoot', 'Gedmo\\Mapping\\Annotation\\TreeParent', 'Gedmo\\Mapping\\Annotation\\TreeLevel']);
     }
     /**
      * @param string[] $removedPropertyNames

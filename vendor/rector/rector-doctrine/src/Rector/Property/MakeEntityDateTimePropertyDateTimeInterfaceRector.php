@@ -1,21 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Doctrine\Rector\ClassMethod;
+namespace Rector\Doctrine\Rector\Property;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\NodeAnalyzer\SetterClassMethodAnalyzer;
 use Rector\Doctrine\NodeManipulator\PropertyTypeManipulator;
+use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see related to maker bundle https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html
  *
- * @see \Rector\Doctrine\Tests\Rector\ClassMethod\MakeEntityDateTimePropertyDateTimeInterfaceRector\MakeEntityDateTimePropertyDateTimeInterfaceRectorTest
+ * @see \Rector\Doctrine\Tests\Rector\Property\MakeEntityDateTimePropertyDateTimeInterfaceRector\MakeEntityDateTimePropertyDateTimeInterfaceRectorTest
  */
 final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -27,10 +29,15 @@ final class MakeEntityDateTimePropertyDateTimeInterfaceRector extends \Rector\Co
      * @var PropertyTypeManipulator
      */
     private $propertyTypeManipulator;
-    public function __construct(\Rector\Doctrine\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\Doctrine\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator)
+    /**
+     * @var PropertyTypeInferer
+     */
+    private $propertyTypeInferer;
+    public function __construct(\Rector\Doctrine\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\Doctrine\NodeManipulator\PropertyTypeManipulator $propertyTypeManipulator, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
         $this->propertyTypeManipulator = $propertyTypeManipulator;
+        $this->propertyTypeInferer = $propertyTypeInferer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -79,21 +86,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\Property::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param Property $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $property = $this->setterClassMethodAnalyzer->matchDateTimeSetterProperty($node);
-        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
+        $inferredType = $this->propertyTypeInferer->inferProperty($node);
+        if ($inferredType instanceof \PHPStan\Type\UnionType) {
+            $inferredType = \PHPStan\Type\TypeCombinator::removeNull($inferredType);
+        }
+        $dateTimeObjectType = new \PHPStan\Type\ObjectType('DateTimeInterface');
+        if (!$dateTimeObjectType->equals($inferredType)) {
             return null;
         }
-        if (!$this->isObjectType($property, new \PHPStan\Type\ObjectType('DateTime'))) {
+        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('DateTime'))) {
             return null;
         }
-        $this->propertyTypeManipulator->changePropertyType($property, 'DateTime', 'DateTimeInterface');
+        $this->propertyTypeManipulator->changePropertyType($node, 'DateTime', 'DateTimeInterface');
         return $node;
     }
 }

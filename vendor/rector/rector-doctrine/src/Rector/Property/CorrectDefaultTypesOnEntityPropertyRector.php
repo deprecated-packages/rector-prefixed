@@ -10,9 +10,9 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -65,8 +65,8 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $columnTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode::class);
-        if (!$columnTagValueNode instanceof \Rector\Doctrine\PhpDoc\Node\Property_\ColumnTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
         $onlyProperty = $node->props[0];
@@ -74,10 +74,11 @@ CODE_SAMPLE
         if (!$defaultValue instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        if (\in_array($columnTagValueNode->getType(), ['bool', 'boolean'], \true)) {
+        $type = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
+        if (\in_array($type, ['bool', 'boolean'], \true)) {
             return $this->refactorToBoolType($onlyProperty, $node);
         }
-        if (\in_array($columnTagValueNode->getType(), ['int', 'integer', 'bigint', 'smallint'], \true)) {
+        if (\in_array($type, ['int', 'integer', 'bigint', 'smallint'], \true)) {
             return $this->refactorToIntType($onlyProperty, $node);
         }
         return null;

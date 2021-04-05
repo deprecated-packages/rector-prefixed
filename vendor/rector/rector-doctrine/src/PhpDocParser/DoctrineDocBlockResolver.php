@@ -9,14 +9,12 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\ReflectionProvider;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface;
-use Rector\Doctrine\PhpDoc\Node\Class_\EmbeddableTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode;
-use Rector\Doctrine\PhpDoc\Node\Property_\IdTagValueNode;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\TypeDeclaration\PhpDoc\ShortClassExpander;
 final class DoctrineDocBlockResolver
 {
     /**
@@ -36,11 +34,16 @@ final class DoctrineDocBlockResolver
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @var ShortClassExpander
+     */
+    private $shortClassExpander;
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\TypeDeclaration\PhpDoc\ShortClassExpander $shortClassExpander)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeRepository = $nodeRepository;
         $this->reflectionProvider = $reflectionProvider;
+        $this->shortClassExpander = $shortClassExpander;
     }
     /**
      * @param Class_|string|mixed $class
@@ -55,27 +58,15 @@ final class DoctrineDocBlockResolver
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    public function isDoctrineEntityClassWithIdProperty(\PhpParser\Node\Stmt\Class_ $class) : bool
-    {
-        if (!$this->isDoctrineEntityClass($class)) {
-            return \false;
-        }
-        foreach ($class->getProperties() as $property) {
-            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Property_\IdTagValueNode::class)) {
-                return \true;
-            }
-        }
-        return \false;
-    }
     public function getTargetEntity(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface::class);
-        if (!$doctrineRelationTagValueNode instanceof \Rector\Doctrine\Contract\PhpDoc\Node\DoctrineRelationTagValueNodeInterface) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClasses(['Doctrine\\ORM\\Mapping\\OneToMany', 'Doctrine\\ORM\\Mapping\\ManyToMany', 'Doctrine\\ORM\\Mapping\\OneToOne', 'Doctrine\\ORM\\Mapping\\ManyToOne']);
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-        return $doctrineRelationTagValueNode->getTargetEntity();
+        $targetEntity = $doctrineAnnotationTagValueNode->getValue('targetEntity');
+        return $this->shortClassExpander->resolveFqnTargetEntity($targetEntity, $property);
     }
     public function isInDoctrineEntityClass(\PhpParser\Node $node) : bool
     {
@@ -88,7 +79,7 @@ final class DoctrineDocBlockResolver
     private function isDoctrineEntityClassNode(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
-        return $phpDocInfo->hasByTypes([\Rector\Doctrine\PhpDoc\Node\Class_\EntityTagValueNode::class, \Rector\Doctrine\PhpDoc\Node\Class_\EmbeddableTagValueNode::class]);
+        return $phpDocInfo->hasByAnnotationClasses(['Doctrine\\ORM\\Mapping\\Entity', 'Doctrine\\ORM\\Mapping\\Embeddable']);
     }
     private function isStringClassEntity(string $class) : bool
     {

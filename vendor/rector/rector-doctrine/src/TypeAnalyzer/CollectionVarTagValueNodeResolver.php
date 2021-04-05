@@ -6,7 +6,6 @@ namespace Rector\Doctrine\TypeAnalyzer;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use Rector\Doctrine\PhpDoc\Node\Property_\OneToManyTagValueNode;
 final class CollectionVarTagValueNodeResolver
 {
     /**
@@ -20,7 +19,7 @@ final class CollectionVarTagValueNodeResolver
     public function resolve(\PhpParser\Node\Stmt\Property $property) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        if (!$phpDocInfo->hasByType(\Rector\Doctrine\PhpDoc\Node\Property_\OneToManyTagValueNode::class)) {
+        if (!$phpDocInfo->hasByAnnotationClass('Doctrine\\ORM\\Mapping\\OneToMany')) {
             return null;
         }
         return $phpDocInfo->getVarTagValueNode();

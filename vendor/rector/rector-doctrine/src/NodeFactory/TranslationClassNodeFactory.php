@@ -5,9 +5,10 @@ namespace Rector\Doctrine\NodeFactory;
 
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
+use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
-use Rector\Doctrine\PhpDoc\NodeFactory\Class_\EntityTagValueNodeFactory;
 final class TranslationClassNodeFactory
 {
     /**
@@ -18,15 +19,10 @@ final class TranslationClassNodeFactory
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    /**
-     * @var EntityTagValueNodeFactory
-     */
-    private $entityTagValueNodeFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Doctrine\PhpDoc\NodeFactory\Class_\EntityTagValueNodeFactory $entityTagValueNodeFactory)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->classInsertManipulator = $classInsertManipulator;
-        $this->entityTagValueNodeFactory = $entityTagValueNodeFactory;
     }
     public function create(string $classShortName) : \PhpParser\Node\Stmt\Class_
     {
@@ -34,8 +30,8 @@ final class TranslationClassNodeFactory
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface');
         $this->classInsertManipulator->addAsFirstTrait($class, 'Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait');
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
-        $entityTagValueNode = $this->entityTagValueNodeFactory->create();
-        $phpDocInfo->addTagValueNodeWithShortName($entityTagValueNode);
+        $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode('@ORM\\Entity', new \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode('Doctrine\\ORM\\Mapping\\Entity', null, []));
+        $phpDocInfo->addPhpDocTagNode($spacelessPhpDocTagNode);
         return $class;
     }
 }

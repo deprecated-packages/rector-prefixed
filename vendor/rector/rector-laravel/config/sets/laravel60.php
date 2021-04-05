@@ -50,9 +50,9 @@ return static function (\RectorPrefix20210405\Symfony\Component\DependencyInject
     $services->set(\Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Visibility\ValueObject\ChangeMethodVisibility('Illuminate\\Foundation\\Http\\FormRequest', 'validationData', \Rector\Core\ValueObject\Visibility::PUBLIC)])]]);
     $services->set(\Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/laravel/framework/commit/6c1e014943a508afb2c10869c3175f7783a004e1
-        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Capsule\\Manager', 'table', 1, 'as', 'null'),
-        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Connection', 'table', 1, 'as', 'null'),
-        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\ConnectionInterface', 'table', 1, 'as', 'null'),
-        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Query\\Builder', 'from', 1, 'as', 'null'),
+        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Capsule\\Manager', 'table', 1, 'as', null),
+        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Connection', 'table', 1, 'as', null),
+        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\ConnectionInterface', 'table', 1, 'as', null),
+        new \Rector\Arguments\ValueObject\ArgumentAdder('Illuminate\\Database\\Query\\Builder', 'from', 1, 'as', null),
     ])]]);
 };
