@@ -2330,6 +2330,7 @@ return array(
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ClassMethodOrClassConstTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/ClassMethodOrClassConstTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\IdentifierTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/IdentifierTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\NameTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/NameTypeResolver.php',
+    'Rector\\NodeTypeResolver\\NodeTypeResolver\\NewTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/NewTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\ParamTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/ParamTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\PropertyFetchTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/PropertyFetchTypeResolver.php',
     'Rector\\NodeTypeResolver\\NodeTypeResolver\\PropertyTypeResolver' => $baseDir . '/packages/NodeTypeResolver/NodeTypeResolver/PropertyTypeResolver.php',
