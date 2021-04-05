@@ -21,7 +21,7 @@ use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayShapeItemNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode;
-use RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocNodeMapperTest
  */
@@ -39,7 +39,7 @@ final class PhpDocNodeMapper
      * @var ParentNodeTraverser
      */
     private $parentNodeTraverser;
-    public function __construct(\RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, \Rector\BetterPhpDocParser\PhpDocParser\ParentNodeTraverser $parentNodeTraverser)
+    public function __construct(\RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, \Rector\BetterPhpDocParser\PhpDocParser\ParentNodeTraverser $parentNodeTraverser)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->tokenIteratorFactory = $tokenIteratorFactory;

@@ -13,14 +13,14 @@ use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
-use RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class ParentNodeTraverser
 {
     /**
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    public function __construct(\RectorPrefix20210404\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
+    public function __construct(\RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
     }

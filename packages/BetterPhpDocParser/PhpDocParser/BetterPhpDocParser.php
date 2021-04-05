@@ -20,7 +20,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
 use Rector\BetterPhpDocParser\PhpDocNodeMapper;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
-use RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
@@ -56,7 +56,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\PhpDocNodeMapper $phpDocNodeMapper, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\PhpDocParser\DoctrineAnnotationDecorator $doctrineAnnotationDecorator, array $stringTagMatchingPhpDocNodeFactories = [])
     {
         parent::__construct($typeParser, $constExprParser);
-        $this->privatesCaller = new \RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesCaller = new \RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->phpDocNodeMapper = $phpDocNodeMapper;
         $this->annotationContentResolver = $annotationContentResolver;
         $this->stringTagMatchingPhpDocNodeFactories = $stringTagMatchingPhpDocNodeFactories;

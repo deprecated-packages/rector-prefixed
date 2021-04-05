@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\Parser;
 
 use PHPStan\PhpDocParser\Parser\TokenIterator;
-use RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterator
 {
     /**
@@ -21,7 +21,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     public function __construct(array $tokens, int $index = 0)
     {
         parent::__construct($tokens, $index);
-        $this->privatesAccessor = new \RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesAccessor = new \RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
     }
     /**
      * @param int[] $types

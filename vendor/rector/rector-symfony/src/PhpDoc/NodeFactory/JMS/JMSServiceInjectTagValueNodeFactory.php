@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\PhpDoc\NodeFactory\JMS;
 
-use RectorPrefix20210404\JMS\DiExtraBundle\Annotation\Inject;
+use RectorPrefix20210405\JMS\DiExtraBundle\Annotation\Inject;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
@@ -50,7 +50,7 @@ final class JMSServiceInjectTagValueNodeFactory extends \Rector\BetterPhpDocPars
             return null;
         }
         $inject = $this->nodeAnnotationReader->readPropertyAnnotation($node, $annotationClass);
-        if (!$inject instanceof \RectorPrefix20210404\JMS\DiExtraBundle\Annotation\Inject) {
+        if (!$inject instanceof \RectorPrefix20210405\JMS\DiExtraBundle\Annotation\Inject) {
             return null;
         }
         $serviceName = $inject->value === null ? $this->nodeNameResolver->getName($node) : $inject->value;

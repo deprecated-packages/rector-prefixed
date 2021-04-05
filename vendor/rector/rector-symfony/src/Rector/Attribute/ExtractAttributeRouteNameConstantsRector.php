@@ -15,7 +15,7 @@ use Rector\Symfony\ValueObject\ClassName;
 use Rector\Symfony\ValueObject\ConstantNameAndValue;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210404\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see https://tomasvotruba.com/blog/2020/12/21/5-new-combos-opened-by-symfony-52-and-php-80/
  *
@@ -47,7 +47,7 @@ final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\Symfony\NodeFactory\RouteNameClassFactory $routeNameClassFactory, \Rector\Symfony\ConstantNameAndValueMatcher $constantNameAndValueMatcher, \Rector\Symfony\ConstantNameAndValueResolver $constantNameAndValueResolver, \RectorPrefix20210404\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\Rector\Symfony\NodeFactory\RouteNameClassFactory $routeNameClassFactory, \Rector\Symfony\ConstantNameAndValueMatcher $constantNameAndValueMatcher, \Rector\Symfony\ConstantNameAndValueResolver $constantNameAndValueResolver, \RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->routeNameClassFactory = $routeNameClassFactory;
         $this->constantNameAndValueMatcher = $constantNameAndValueMatcher;

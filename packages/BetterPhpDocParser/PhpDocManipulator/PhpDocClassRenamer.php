@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use RectorPrefix20210404\Nette\Utils\Strings;
+use RectorPrefix20210405\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -86,7 +86,7 @@ final class PhpDocClassRenamer
                     $phpDocInfo->markAsChanged();
                     continue;
                 }
-                $newContent = \RectorPrefix20210404\Nette\Utils\Strings::replace($className, '#\\b' . \preg_quote($oldClass, '#') . '\\b#', $newClass);
+                $newContent = \RectorPrefix20210405\Nette\Utils\Strings::replace($className, '#\\b' . \preg_quote($oldClass, '#') . '\\b#', $newClass);
                 if ($newContent === $className) {
                     continue;
                 }

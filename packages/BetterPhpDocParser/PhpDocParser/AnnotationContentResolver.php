@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210404\Nette\Utils\Strings;
+use RectorPrefix20210405\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
-use RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class AnnotationContentResolver
 {
     /**
@@ -24,7 +24,7 @@ final class AnnotationContentResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\RectorPrefix20210404\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory)
+    public function __construct(\RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory)
     {
         $this->tokenIteratorFactory = $tokenIteratorFactory;
         $this->privatesAccessor = $privatesAccessor;
@@ -49,8 +49,8 @@ final class AnnotationContentResolver
             }
             // remove new line "*"
             $annotationContent = $this->appendPreviousWhitespace($tokenIterator, $annotationContent);
-            if (\RectorPrefix20210404\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
-                $tokenValueWithoutAsterisk = \RectorPrefix20210404\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
+            if (\RectorPrefix20210405\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
+                $tokenValueWithoutAsterisk = \RectorPrefix20210405\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
                 $annotationContent .= $tokenValueWithoutAsterisk;
             } else {
                 $annotationContent .= $tokenIterator->currentTokenValue();
@@ -117,7 +117,7 @@ final class AnnotationContentResolver
     }
     private function cleanMultilineAnnotationContent(string $annotationContent) : string
     {
-        return \RectorPrefix20210404\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
+        return \RectorPrefix20210405\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
     }
     private function tryStartWithKey(string $name, bool $start, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $localTokenIterator) : bool
     {

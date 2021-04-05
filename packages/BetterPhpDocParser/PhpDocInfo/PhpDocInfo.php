@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
-use RectorPrefix20210404\Nette\Utils\Strings;
+use RectorPrefix20210405\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -88,7 +88,7 @@ final class PhpDocInfo
         $this->tokens = $tokens;
         $this->originalPhpDocNode = clone $phpDocNode;
         $this->originalContent = $originalContent;
-        if ($this->originalContent !== null && !\RectorPrefix20210404\Nette\Utils\Strings::match(\trim($this->originalContent), "#\n#")) {
+        if ($this->originalContent !== null && !\RectorPrefix20210405\Nette\Utils\Strings::match(\trim($this->originalContent), "#\n#")) {
             $this->isSingleLine = \true;
         }
         $this->staticTypeMapper = $staticTypeMapper;
@@ -425,7 +425,7 @@ final class PhpDocInfo
     }
     private function isFnmatch(string $currentValue, string $desiredValue) : bool
     {
-        if (!\RectorPrefix20210404\Nette\Utils\Strings::contains($desiredValue, '*')) {
+        if (!\RectorPrefix20210405\Nette\Utils\Strings::contains($desiredValue, '*')) {
             return \false;
         }
         return \fnmatch($desiredValue, $currentValue, \FNM_NOESCAPE);

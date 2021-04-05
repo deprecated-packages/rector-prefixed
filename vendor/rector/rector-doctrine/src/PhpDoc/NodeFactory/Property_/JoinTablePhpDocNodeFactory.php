@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Doctrine\PhpDoc\NodeFactory\Property_;
 
 use Doctrine\ORM\Mapping\JoinTable;
-use RectorPrefix20210404\Nette\Utils\Strings;
+use RectorPrefix20210405\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
@@ -96,6 +96,6 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      */
     private function matchJoinColumnContents(string $annotationContent) : array
     {
-        return \RectorPrefix20210404\Nette\Utils\Strings::matchAll($annotationContent, self::JOIN_COLUMN_REGEX);
+        return \RectorPrefix20210405\Nette\Utils\Strings::matchAll($annotationContent, self::JOIN_COLUMN_REGEX);
     }
 }

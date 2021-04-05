@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210404\Symfony\Component\HttpFoundation\File\Exception;
+namespace RectorPrefix20210405\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an error occurred in the component File.

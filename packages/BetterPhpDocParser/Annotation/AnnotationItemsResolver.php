@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Annotation;
 
-use RectorPrefix20210404\Doctrine\Common\Annotations\Annotation;
+use RectorPrefix20210405\Doctrine\Common\Annotations\Annotation;
 /**
  * @deprecated
  * Only for BC with rector-doctrine package
