@@ -183,7 +183,7 @@ final class PhpDocInfoPrinter
                 return $this->standardPrintPhpDocChildNode($phpDocChildNode);
             }
             if ($phpDocChildNode->value instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode && $shouldReprintChildNode) {
-                $printedNode = $phpDocChildNode->name . $phpDocChildNode->value;
+                $printedNode = (string) $phpDocChildNode;
                 // remove extra space between tags
                 $printedNode = \RectorPrefix20210406\Nette\Utils\Strings::replace($printedNode, self::TAG_AND_SPACE_REGEX, '$1(');
                 return self::NEWLINE_WITH_ASTERISK . $printedNode;
@@ -207,7 +207,7 @@ final class PhpDocInfoPrinter
     }
     private function printEnd(string $output) : string
     {
-        $lastTokenPosition = $this->phpDocNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
+        $lastTokenPosition = $this->phpDocNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::LAST_PHP_DOC_TOKEN_POSITION) ?: $this->currentTokenPosition;
         if ($lastTokenPosition === 0) {
             $lastTokenPosition = 1;
         }

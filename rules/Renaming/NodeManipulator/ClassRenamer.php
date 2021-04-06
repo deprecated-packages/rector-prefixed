@@ -16,6 +16,7 @@ use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer;
 use Rector\BetterPhpDocParser\ValueObject\NodeTypes;
@@ -26,6 +27,8 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeRemoval\NodeRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
+use Rector\NodeTypeResolver\ValueObject\OldToNewType;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use RectorPrefix20210406\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use RectorPrefix20210406\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ClassRenamer
@@ -92,7 +95,11 @@ final class ClassRenamer
      */
     public function renameNode(\PhpParser\Node $node, array $oldToNewClasses) : ?\PhpParser\Node
     {
-        $this->refactorPhpDoc($node, $oldToNewClasses);
+        $oldToNewTypes = [];
+        foreach ($oldToNewClasses as $oldClass => $newClass) {
+            $oldToNewTypes[] = new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\ObjectType($oldClass), new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($newClass));
+        }
+        $this->refactorPhpDoc($node, $oldToNewTypes, $oldToNewClasses);
         if ($node instanceof \PhpParser\Node\Name) {
             return $this->refactorName($node, $oldToNewClasses);
         }
@@ -105,18 +112,16 @@ final class ClassRenamer
         return null;
     }
     /**
-     * Replace types in @var/@param/@return/@throws,
-     * Doctrine @ORM entity targetClass, Serialize, Assert etc.
-     *
+     * @param OldToNewType[] $oldToNewTypes
      * @param array<string, string> $oldToNewClasses
      */
-    private function refactorPhpDoc(\PhpParser\Node $node, array $oldToNewClasses) : void
+    private function refactorPhpDoc(\PhpParser\Node $node, array $oldToNewTypes, array $oldToNewClasses) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if (!$phpDocInfo->hasByTypes(\Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES) && !$phpDocInfo->hasByAnnotationClasses(\Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_DOCTRINE_ANNOTATION_CLASSES)) {
             return;
         }
-        $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldToNewClasses);
+        $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldToNewTypes);
         $this->phpDocClassRenamer->changeTypeInAnnotationTypes($node, $phpDocInfo, $oldToNewClasses);
     }
     /**

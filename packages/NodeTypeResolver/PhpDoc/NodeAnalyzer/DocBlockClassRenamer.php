@@ -5,6 +5,7 @@ namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\NodeTypeResolver\PhpDocNodeVisitor\ClassRenamePhpDocNodeVisitor;
+use Rector\NodeTypeResolver\ValueObject\OldToNewType;
 use RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
@@ -17,15 +18,15 @@ final class DocBlockClassRenamer
         $this->classRenamePhpDocNodeVisitor = $classRenamePhpDocNodeVisitor;
     }
     /**
-     * @param array<string, string> $oldToNewClasses
+     * @param OldToNewType[] $oldToNewTypes
      */
-    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewClasses) : void
+    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewTypes) : void
     {
-        if ($oldToNewClasses === []) {
+        if ($oldToNewTypes === []) {
             return;
         }
         $phpDocNodeTraverser = new \RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
-        $this->classRenamePhpDocNodeVisitor->setOldToNewClasses($oldToNewClasses);
+        $this->classRenamePhpDocNodeVisitor->setOldToNewTypes($oldToNewTypes);
         $phpDocNodeTraverser->addPhpDocNodeVisitor($this->classRenamePhpDocNodeVisitor);
         $phpDocNodeTraverser->traverse($phpDocInfo->getPhpDocNode());
     }

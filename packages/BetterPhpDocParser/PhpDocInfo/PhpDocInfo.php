@@ -15,12 +15,14 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor;
+use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
@@ -37,17 +39,9 @@ final class PhpDocInfo
      */
     private const TAGS_TYPES_TO_NAMES = [\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class => '@return', \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class => '@param', \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => '@var', \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode::class => '@method', \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode::class => '@property'];
     /**
-     * @var string
-     */
-    private $originalContent;
-    /**
      * @var bool
      */
     private $isSingleLine = \false;
-    /**
-     * @var mixed[]
-     */
-    private $tokens = [];
     /**
      * @var PhpDocNode
      */
@@ -81,15 +75,15 @@ final class PhpDocInfo
      */
     private $rectorChangeCollector;
     /**
-     * @param mixed[] $tokens
+     * @var BetterTokenIterator
      */
-    public function __construct(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, array $tokens, string $originalContent, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
+    private $betterTokenIterator;
+    public function __construct(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->phpDocNode = $phpDocNode;
-        $this->tokens = $tokens;
+        $this->betterTokenIterator = $betterTokenIterator;
         $this->originalPhpDocNode = clone $phpDocNode;
-        $this->originalContent = $originalContent;
-        if ($this->originalContent !== null && !\RectorPrefix20210406\Nette\Utils\Strings::match(\trim($this->originalContent), "#\n#")) {
+        if (!$betterTokenIterator->containsTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL)) {
             $this->isSingleLine = \true;
         }
         $this->staticTypeMapper = $staticTypeMapper;
@@ -97,10 +91,6 @@ final class PhpDocInfo
         $this->annotationNaming = $annotationNaming;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->rectorChangeCollector = $rectorChangeCollector;
-    }
-    public function getOriginalContent() : string
-    {
-        return $this->originalContent;
     }
     public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : void
     {
@@ -121,11 +111,11 @@ final class PhpDocInfo
      */
     public function getTokens() : array
     {
-        return $this->tokens;
+        return $this->betterTokenIterator->getTokens();
     }
     public function getTokenCount() : int
     {
-        return \count($this->tokens);
+        return $this->betterTokenIterator->count();
     }
     public function getVarTagValueNode() : ?\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
     {
@@ -328,7 +318,7 @@ final class PhpDocInfo
         if ($this->phpDocNode->children === []) {
             return \false;
         }
-        return $this->tokens === [];
+        return $this->betterTokenIterator->count() === 0;
     }
     public function makeSingleLined() : void
     {

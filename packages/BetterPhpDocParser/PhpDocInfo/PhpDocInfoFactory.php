@@ -91,15 +91,16 @@ final class PhpDocInfoFactory
             }
             // create empty node
             $content = '';
-            $tokens = [];
+            $tokenIterator = new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator([]);
             $phpDocNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([]);
         } else {
             $content = $docComment->getText();
             $tokens = $this->lexer->tokenize($content);
-            $phpDocNode = $this->parseTokensToPhpDocNode($tokens);
+            $tokenIterator = new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator($tokens);
+            $phpDocNode = $this->betterPhpDocParser->parse($tokenIterator);
             $this->setPositionOfLastToken($phpDocNode);
         }
-        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, $content, $tokens, $node);
+        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, $tokenIterator, $node);
         $this->phpDocInfosByObjectHash[$objectHash] = $phpDocInfo;
         return $phpDocInfo;
     }
@@ -108,18 +109,10 @@ final class PhpDocInfoFactory
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
         $phpDocNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode([]);
-        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, '', [], $node);
+        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator([]), $node);
         // multiline by default
         $phpDocInfo->makeMultiLined();
         return $phpDocInfo;
-    }
-    /**
-     * @param mixed[][] $tokens
-     */
-    private function parseTokensToPhpDocNode(array $tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
-    {
-        $tokenIterator = new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator($tokens);
-        return $this->betterPhpDocParser->parse($tokenIterator);
     }
     /**
      * Needed for printing
@@ -131,19 +124,15 @@ final class PhpDocInfoFactory
         }
         $phpDocChildNodes = $phpDocNode->children;
         $lastChildNode = \array_pop($phpDocChildNodes);
-        /** @var StartAndEnd $startAndEnd */
         $startAndEnd = $lastChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
-        if ($startAndEnd !== null) {
-            $phpDocNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::LAST_TOKEN_POSITION, $startAndEnd->getEnd());
+        if ($startAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
+            $phpDocNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::LAST_PHP_DOC_TOKEN_POSITION, $startAndEnd->getEnd());
         }
     }
-    /**
-     * @param mixed[] $tokens
-     */
-    private function createFromPhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $content, array $tokens, \PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function createFromPhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator, \PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $this->phpDocNodeMapper->transform($phpDocNode, new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator($tokens));
-        $phpDocInfo = new \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($phpDocNode, $tokens, $content, $this->staticTypeMapper, $node, $this->annotationNaming, $this->currentNodeProvider, $this->rectorChangeCollector);
+        $this->phpDocNodeMapper->transform($phpDocNode, $betterTokenIterator);
+        $phpDocInfo = new \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($phpDocNode, $betterTokenIterator, $this->staticTypeMapper, $node, $this->annotationNaming, $this->currentNodeProvider, $this->rectorChangeCollector);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         return $phpDocInfo;
     }

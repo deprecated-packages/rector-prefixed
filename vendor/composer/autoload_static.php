@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd2b1c6b418191ee75fd7b203910df893
+class ComposerStaticInita9633b1cc404bdbb2238b756dec9eb6f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1749,7 +1749,6 @@ class ComposerStaticInitd2b1c6b418191ee75fd7b203910df893
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\ArrayTypePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/ArrayTypePhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\CallableTypePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/CallableTypePhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\ChangedPhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/ChangedPhpDocNodeVisitor.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\CloningPhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/CloningPhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\IntersectionTypeNodePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/IntersectionTypeNodePhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\ParamPhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/ParamPhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\TemplatePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/TemplatePhpDocNodeVisitor.php',
@@ -2655,6 +2654,7 @@ class ComposerStaticInitd2b1c6b418191ee75fd7b203910df893
         'Rector\\NodeTypeResolver\\TypeComparator\\ArrayTypeComparator' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/TypeComparator/ArrayTypeComparator.php',
         'Rector\\NodeTypeResolver\\TypeComparator\\ScalarTypeComparator' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php',
         'Rector\\NodeTypeResolver\\TypeComparator\\TypeComparator' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/TypeComparator/TypeComparator.php',
+        'Rector\\NodeTypeResolver\\ValueObject\\OldToNewType' => __DIR__ . '/../..' . '/packages/NodeTypeResolver/ValueObject/OldToNewType.php',
         'Rector\\Order\\Contract\\RankeableInterface' => __DIR__ . '/../..' . '/rules/Order/Contract/RankeableInterface.php',
         'Rector\\Order\\Order\\OrderChangeAnalyzer' => __DIR__ . '/../..' . '/rules/Order/Order/OrderChangeAnalyzer.php',
         'Rector\\Order\\Rector\\Class_\\OrderClassConstantsByIntegerValueRector' => __DIR__ . '/../..' . '/rules/Order/Rector/Class_/OrderClassConstantsByIntegerValueRector.php',
@@ -3377,9 +3377,9 @@ class ComposerStaticInitd2b1c6b418191ee75fd7b203910df893
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita9633b1cc404bdbb2238b756dec9eb6f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita9633b1cc404bdbb2238b756dec9eb6f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita9633b1cc404bdbb2238b756dec9eb6f::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -47,7 +47,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     }
     public function isTokenTypeOnPosition(int $tokenType, int $position) : bool
     {
-        $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
+        $tokens = $this->getTokens();
         $token = $tokens[$position] ?? null;
         if ($token === null) {
             return \false;
@@ -66,7 +66,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
         if ($to < $from) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Arguments are flipped');
         }
-        $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
+        $tokens = $this->getTokens();
         $content = '';
         foreach ($tokens as $key => $token) {
             if ($key < $from) {
@@ -81,9 +81,8 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     }
     public function print() : string
     {
-        $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
         $content = '';
-        foreach ($tokens as $token) {
+        foreach ($this->getTokens() as $token) {
             $content .= $token[0];
         }
         return $content;
@@ -91,7 +90,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     public function nextTokenType() : ?int
     {
         $this->pushSavePoint();
-        $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
+        $tokens = $this->getTokens();
         $index = $this->privatesAccessor->getPrivateProperty($this, self::INDEX);
         // does next token exist?
         $nextIndex = $index + 1;
@@ -106,5 +105,37 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     public function currentPosition() : int
     {
         return $this->privatesAccessor->getPrivateProperty($this, self::INDEX);
+    }
+    /**
+     * @return mixed[]
+     */
+    public function getTokens() : array
+    {
+        return $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
+    }
+    public function count() : int
+    {
+        return \count($this->getTokens());
+    }
+    /**
+     * @return mixed[]
+     */
+    public function partialTokens(int $start, int $end) : array
+    {
+        $tokens = $this->getTokens();
+        $chunkTokens = [];
+        for ($i = $start; $i <= $end; ++$i) {
+            $chunkTokens[$i] = $tokens[$i];
+        }
+        return $chunkTokens;
+    }
+    public function containsTokenType(int $type) : bool
+    {
+        foreach ($this->getTokens() as $token) {
+            if ($token[1] === $type) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }
