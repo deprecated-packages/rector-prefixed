@@ -3,12 +3,11 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use RectorPrefix20210405\Nette\Utils\Strings;
+use RectorPrefix20210406\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 final class PhpDocClassRenamer
 {
     /**
@@ -50,12 +49,7 @@ final class PhpDocClassRenamer
             }
             $callback[0] = $newClass;
             $assertChoiceTagValueNode->changeValue('callback', $callback);
-            $phpDocInfo->markAsChanged();
             break;
-        }
-        if ($phpDocInfo->hasChanged()) {
-            // invoke override
-            $assertChoiceTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
         }
     }
     /**
@@ -83,27 +77,20 @@ final class PhpDocClassRenamer
             if ($className) {
                 if ($className === $oldClass) {
                     $doctrineAnnotationTagValueNode->changeSilentValue($newClass);
-                    $phpDocInfo->markAsChanged();
                     continue;
                 }
-                $newContent = \RectorPrefix20210405\Nette\Utils\Strings::replace($className, '#\\b' . \preg_quote($oldClass, '#') . '\\b#', $newClass);
+                $newContent = \RectorPrefix20210406\Nette\Utils\Strings::replace($className, '#\\b' . \preg_quote($oldClass, '#') . '\\b#', $newClass);
                 if ($newContent === $className) {
                     continue;
                 }
                 $doctrineAnnotationTagValueNode->changeSilentValue($newContent);
-                $phpDocInfo->markAsChanged();
                 continue;
             }
             $currentType = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
             if ($currentType === $oldClass) {
                 $doctrineAnnotationTagValueNode->changeValue('type', $newClass);
-                $phpDocInfo->markAsChanged();
                 continue;
             }
-        }
-        if ($phpDocInfo->hasChanged()) {
-            // invoke override
-            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
         }
     }
     /**
@@ -127,11 +114,6 @@ final class PhpDocClassRenamer
                 continue;
             }
             $doctrineAnnotationTagValueNode->changeValue($classKey, $newClass);
-            $phpDocInfo->markAsChanged();
-        }
-        if ($phpDocInfo->hasChanged()) {
-            // invoke override
-            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
         }
     }
 }

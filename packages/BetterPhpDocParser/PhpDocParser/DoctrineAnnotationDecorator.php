@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use RectorPrefix20210405\Nette\Utils\Strings;
+use RectorPrefix20210406\Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
 use Rector\BetterPhpDocParser\ValueObject\DoctrineAnnotation\SilentKeyMap;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -63,7 +63,7 @@ final class DoctrineAnnotationDecorator
             // known doc tag to annotation class
             $fullyQualifiedAnnotationClass = $this->classAnnotationMatcher->resolveTagFullyQualifiedName($phpDocChildNode->name, $currentPhpNode);
             // not an annotations class
-            if (!\RectorPrefix20210405\Nette\Utils\Strings::contains($fullyQualifiedAnnotationClass, '\\')) {
+            if (!\RectorPrefix20210406\Nette\Utils\Strings::contains($fullyQualifiedAnnotationClass, '\\')) {
                 continue;
             }
             $genericTagValueNode = $phpDocChildNode->value;
@@ -71,9 +71,9 @@ final class DoctrineAnnotationDecorator
             // mimics doctrine behavior just in phpdoc-parser syntax :)
             // https://github.com/doctrine/annotations/blob/c66f06b7c83e9a2a7523351a9d5a4b55f885e574/lib/Doctrine/Common/Annotations/DocParser.php#L742
             $values = $this->staticDoctrineAnnotationParser->resolveAnnotationMethodCall($nestedTokenIterator);
-            $formerStartEnd = $genericTagValueNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
+            $formerStartEnd = $genericTagValueNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
             $doctrineAnnotationTagValueNode = new \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode($fullyQualifiedAnnotationClass, $genericTagValueNode->value, $values, \Rector\BetterPhpDocParser\ValueObject\DoctrineAnnotation\SilentKeyMap::CLASS_NAMES_TO_SILENT_KEYS[$fullyQualifiedAnnotationClass] ?? null);
-            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class, $formerStartEnd);
+            $doctrineAnnotationTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, $formerStartEnd);
             $phpDocChildNode->value = $doctrineAnnotationTagValueNode;
         }
     }
@@ -96,7 +96,7 @@ final class DoctrineAnnotationDecorator
             $genericTagValueNode = $phpDocChildNode->value;
             /** @var GenericTagValueNode $currentGenericTagValueNode */
             $currentGenericTagValueNode = $genericTagValueNode;
-            while (\RectorPrefix20210405\Nette\Utils\Strings::match($currentGenericTagValueNode->value, self::OPEN_ANNOTATION_SUFFIX_REGEX)) {
+            while (\RectorPrefix20210406\Nette\Utils\Strings::match($currentGenericTagValueNode->value, self::OPEN_ANNOTATION_SUFFIX_REGEX)) {
                 $nextPhpDocChildNode = $phpDocNode->children[$key + 1];
                 if (!$nextPhpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                     continue;
@@ -106,11 +106,11 @@ final class DoctrineAnnotationDecorator
                 }
                 $genericTagValueNode->value .= \PHP_EOL . $nextPhpDocChildNode->name . $nextPhpDocChildNode->value;
                 /** @var StartAndEnd $currentStartAndEnd */
-                $currentStartAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class);
+                $currentStartAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
                 /** @var StartAndEnd $nextStartAndEnd */
-                $nextStartAndEnd = $nextPhpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class);
+                $nextStartAndEnd = $nextPhpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
                 $startAndEnd = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($currentStartAndEnd->getStart(), $nextStartAndEnd->getEnd());
-                $phpDocChildNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class, $startAndEnd);
+                $phpDocChildNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, $startAndEnd);
                 ++$key;
                 if (!isset($phpDocNode->children[$key])) {
                     break;

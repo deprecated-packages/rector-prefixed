@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use RectorPrefix20210405\Nette\Utils\Strings;
+use RectorPrefix20210406\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -13,11 +13,12 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
-use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
+use RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfoPrinter\PhpDocInfoPrinterTest
  */
@@ -89,17 +90,28 @@ final class PhpDocInfoPrinter
      * @var RemoveNodesStartAndEndResolver
      */
     private $removeNodesStartAndEndResolver;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner, \Rector\BetterPhpDocParser\Printer\RemoveNodesStartAndEndResolver $removeNodesStartAndEndResolver)
+    /**
+     * @var ChangedPhpDocNodeVisitor
+     */
+    private $changedPhpDocNodeVisitor;
+    /**
+     * @var PhpDocNodeTraverser
+     */
+    private $changedPhpDocNodeTraverser;
+    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner, \Rector\BetterPhpDocParser\Printer\RemoveNodesStartAndEndResolver $removeNodesStartAndEndResolver, \Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor $changedPhpDocNodeVisitor)
     {
         $this->emptyPhpDocDetector = $emptyPhpDocDetector;
         $this->docBlockInliner = $docBlockInliner;
         $this->removeNodesStartAndEndResolver = $removeNodesStartAndEndResolver;
+        $this->changedPhpDocNodeVisitor = $changedPhpDocNodeVisitor;
+        $this->changedPhpDocNodeTraverser = new \RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $this->changedPhpDocNodeTraverser->addPhpDocNodeVisitor($this->changedPhpDocNodeVisitor);
     }
     public function printNew(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
     {
         $docContent = (string) $phpDocInfo->getPhpDocNode();
         // fix missing newline in the end of docblock - keep BC compatible for both cases until phpstan with phpdoc-parser 0.5.2 is released
-        $docContent = \RectorPrefix20210405\Nette\Utils\Strings::replace($docContent, self::MISSING_NEWLINE_REGEX, "\$1\n */");
+        $docContent = \RectorPrefix20210406\Nette\Utils\Strings::replace($docContent, self::MISSING_NEWLINE_REGEX, "\$1\n */");
         if ($phpDocInfo->isSingleLine()) {
             return $this->docBlockInliner->inline($docContent);
         }
@@ -131,7 +143,7 @@ final class PhpDocInfoPrinter
         $this->currentTokenPosition = 0;
         $phpDocString = $this->printPhpDocNode($this->phpDocNode);
         // hotfix of extra space with callable ()
-        return \RectorPrefix20210405\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
+        return \RectorPrefix20210406\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
     }
     private function printPhpDocNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : string
     {
@@ -139,7 +151,6 @@ final class PhpDocInfoPrinter
         if ($this->emptyPhpDocDetector->isPhpDocNodeEmpty($phpDocNode)) {
             return '';
         }
-        $this->currentTokenPosition = 0;
         $output = '';
         // node output
         $nodeCount = \count($phpDocNode->children);
@@ -148,11 +159,11 @@ final class PhpDocInfoPrinter
         }
         $output = $this->printEnd($output);
         // fix missing start
-        if (!\RectorPrefix20210405\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
+        if (!\RectorPrefix20210406\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
             $output = '/**' . $output;
         }
         // fix missing end
-        if (\RectorPrefix20210405\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20210405\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
+        if (\RectorPrefix20210406\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20210406\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
             $output .= ' */';
         }
         return $output;
@@ -160,43 +171,27 @@ final class PhpDocInfoPrinter
     private function printDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode, int $key = 0, int $nodeCount = 0) : string
     {
         $output = '';
+        $shouldReprintChildNode = $this->shouldReprint($phpDocChildNode);
         if ($phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-            if ($phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode) {
-                $typeNode = $phpDocChildNode->value->type;
-                $typeStartAndEnd = $typeNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
+            if ($shouldReprintChildNode && ($phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode || $phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode)) {
                 // the type has changed → reprint
-                if ($typeStartAndEnd === null) {
-                    $phpDocChildNodeStartEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
-                    // bump the last position of token after just printed node
-                    if ($phpDocChildNodeStartEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
-                        $this->currentTokenPosition = $phpDocChildNodeStartEnd->getEnd();
-                    }
-                    if ($this->phpDocInfo->isSingleLine()) {
-                        return ' ' . $phpDocChildNode;
-                    }
-                    return self::NEWLINE_WITH_ASTERISK . $phpDocChildNode;
+                $phpDocChildNodeStartEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
+                // bump the last position of token after just printed node
+                if ($phpDocChildNodeStartEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
+                    $this->currentTokenPosition = $phpDocChildNodeStartEnd->getEnd();
                 }
+                return $this->standardPrintPhpDocChildNode($phpDocChildNode);
             }
-            if ($phpDocChildNode->value instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
-                $startAndEnd = $phpDocChildNode->value->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
-                if ($startAndEnd === null) {
-                    $printedNode = $phpDocChildNode->name . $phpDocChildNode->value;
-                    // remove extra space between tags
-                    $printedNode = \RectorPrefix20210405\Nette\Utils\Strings::replace($printedNode, self::TAG_AND_SPACE_REGEX, '$1(');
-                    return self::NEWLINE_WITH_ASTERISK . $printedNode;
-                }
+            if ($phpDocChildNode->value instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode && $shouldReprintChildNode) {
+                $printedNode = $phpDocChildNode->name . $phpDocChildNode->value;
+                // remove extra space between tags
+                $printedNode = \RectorPrefix20210406\Nette\Utils\Strings::replace($printedNode, self::TAG_AND_SPACE_REGEX, '$1(');
+                return self::NEWLINE_WITH_ASTERISK . $printedNode;
             }
         }
         /** @var StartAndEnd|null $startAndEnd */
-        $startAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
-        $shouldReprint = \false;
-        if ($phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-            $phpDocTagValueNodeStartAndEnd = $phpDocChildNode->value->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
-            if (!$phpDocTagValueNodeStartAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
-                $shouldReprint = \true;
-            }
-        }
-        if ($startAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd && !$shouldReprint) {
+        $startAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
+        if ($startAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd && !$shouldReprintChildNode) {
             $isLastToken = $nodeCount === $key;
             // correct previously changed node
             $this->correctPreviouslyReprintedFirstNode($key, $startAndEnd);
@@ -207,14 +202,12 @@ final class PhpDocInfoPrinter
         if ($startAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
             $this->currentTokenPosition = $startAndEnd->getEnd();
         }
-        if ($this->phpDocInfo->isSingleLine()) {
-            return $output . ' ' . $phpDocChildNode;
-        }
-        return $output . self::NEWLINE_WITH_ASTERISK . $phpDocChildNode;
+        $standardPrintedPhpDocChildNode = $this->standardPrintPhpDocChildNode($phpDocChildNode);
+        return $output . $standardPrintedPhpDocChildNode;
     }
     private function printEnd(string $output) : string
     {
-        $lastTokenPosition = $this->phpDocNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
+        $lastTokenPosition = $this->phpDocNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::LAST_TOKEN_POSITION) ?: $this->currentTokenPosition;
         if ($lastTokenPosition === 0) {
             $lastTokenPosition = 1;
         }
@@ -233,7 +226,7 @@ final class PhpDocInfoPrinter
             --$from;
         }
         // skip extra empty lines above if this is the last one
-        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20210405\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20210405\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
+        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20210406\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20210406\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
             ++$from;
         }
         return $this->appendToOutput($output, $from, $to, $positionJumpSet);
@@ -270,5 +263,17 @@ final class PhpDocInfoPrinter
             --$startTokenPosition;
         }
         $this->currentTokenPosition = $startTokenPosition;
+    }
+    private function shouldReprint(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : bool
+    {
+        $this->changedPhpDocNodeTraverser->traverse($phpDocChildNode);
+        return $this->changedPhpDocNodeVisitor->hasChanged();
+    }
+    private function standardPrintPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : string
+    {
+        if ($this->phpDocInfo->isSingleLine()) {
+            return ' ' . $phpDocChildNode;
+        }
+        return self::NEWLINE_WITH_ASTERISK . $phpDocChildNode;
     }
 }

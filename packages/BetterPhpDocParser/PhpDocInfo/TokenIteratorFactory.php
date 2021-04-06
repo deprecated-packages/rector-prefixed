@@ -6,9 +6,13 @@ namespace Rector\BetterPhpDocParser\PhpDocInfo;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
-use RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210406\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class TokenIteratorFactory
 {
+    /**
+     * @var string
+     */
+    private const INDEX = 'index';
     /**
      * @var Lexer
      */
@@ -17,7 +21,7 @@ final class TokenIteratorFactory
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\PHPStan\PhpDocParser\Lexer\Lexer $lexer, \RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\PHPStan\PhpDocParser\Lexer\Lexer $lexer, \RectorPrefix20210406\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->lexer = $lexer;
         $this->privatesAccessor = $privatesAccessor;
@@ -36,7 +40,7 @@ final class TokenIteratorFactory
         $betterTokenIterator = new \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator($tokens);
         // keep original position
         $currentIndex = $this->privatesAccessor->getPrivateProperty($tokenIterator, 'index');
-        $this->privatesAccessor->setPrivateProperty($betterTokenIterator, 'index', $currentIndex);
+        $this->privatesAccessor->setPrivateProperty($betterTokenIterator, self::INDEX, $currentIndex);
         return $betterTokenIterator;
     }
 }

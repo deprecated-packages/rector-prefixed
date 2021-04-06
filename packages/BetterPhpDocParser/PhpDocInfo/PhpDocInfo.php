@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
-use RectorPrefix20210405\Nette\Utils\Strings;
+use RectorPrefix20210406\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -18,13 +18,14 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
-use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode;
+use Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+use RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 /**
  * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\Tests\BetterPhpDocParser\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
@@ -88,7 +89,7 @@ final class PhpDocInfo
         $this->tokens = $tokens;
         $this->originalPhpDocNode = clone $phpDocNode;
         $this->originalContent = $originalContent;
-        if ($this->originalContent !== null && !\RectorPrefix20210405\Nette\Utils\Strings::match(\trim($this->originalContent), "#\n#")) {
+        if ($this->originalContent !== null && !\RectorPrefix20210406\Nette\Utils\Strings::match(\trim($this->originalContent), "#\n#")) {
             $this->isSingleLine = \true;
         }
         $this->staticTypeMapper = $staticTypeMapper;
@@ -106,12 +107,6 @@ final class PhpDocInfo
         $this->phpDocNode->children[] = $phpDocChildNode;
         // to give node more space
         $this->makeMultiLined();
-        $this->markAsChanged();
-    }
-    public function addTagValueNodeWithShortName(\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface $shortNameAwareTag) : void
-    {
-        $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode($shortNameAwareTag->getShortName(), $shortNameAwareTag);
-        $this->addPhpDocTagNode($spacelessPhpDocTagNode);
     }
     public function getPhpDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
@@ -320,7 +315,7 @@ final class PhpDocInfo
     public function addTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
     {
         if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
-            $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode('@\\' . $phpDocTagValueNode->getAnnotationClass(), $phpDocTagValueNode);
+            $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode('@\\' . $phpDocTagValueNode->getAnnotationClass(), $phpDocTagValueNode);
             $this->addPhpDocTagNode($spacelessPhpDocTagNode);
             return;
         }
@@ -370,6 +365,11 @@ final class PhpDocInfo
     {
         return $this->hasByNames(['inheritdoc', 'inheritDoc']);
     }
+    /**
+     * @deprecated
+     * Should be handled by attributes of phpdoc node - if stard_and_end is missing in one of nodes, it has been changed
+     * Similar to missing original node in php-aprser
+     */
     public function markAsChanged() : void
     {
         $this->hasChanged = \true;
@@ -383,7 +383,15 @@ final class PhpDocInfo
         if ($this->isNewNode()) {
             return \true;
         }
-        return $this->hasChanged;
+        if ($this->hasChanged) {
+            return \true;
+        }
+        // has a single node with missing start_end
+        $phpDocNodeTraverser = new \RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $changedPhpDocNodeVisitor = new \Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor();
+        $phpDocNodeTraverser->addPhpDocNodeVisitor($changedPhpDocNodeVisitor);
+        $phpDocNodeTraverser->traverse($this->phpDocNode);
+        return $changedPhpDocNodeVisitor->hasChanged();
     }
     /**
      * @return string[]
@@ -419,7 +427,7 @@ final class PhpDocInfo
     }
     private function isFnmatch(string $currentValue, string $desiredValue) : bool
     {
-        if (!\RectorPrefix20210405\Nette\Utils\Strings::contains($desiredValue, '*')) {
+        if (!\RectorPrefix20210406\Nette\Utils\Strings::contains($desiredValue, '*')) {
             return \false;
         }
         return \fnmatch($desiredValue, $currentValue, \FNM_NOESCAPE);

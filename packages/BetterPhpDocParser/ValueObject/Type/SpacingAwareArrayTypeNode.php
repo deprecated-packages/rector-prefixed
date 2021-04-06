@@ -46,7 +46,7 @@ final class SpacingAwareArrayTypeNode extends \PHPStan\PhpDocParser\Ast\Type\Arr
     private function printUnionType(\Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode $bracketsAwareUnionTypeNode) : string
     {
         $unionedTypes = [];
-        if ($bracketsAwareUnionTypeNode->isWrappedWithBrackets()) {
+        if ($bracketsAwareUnionTypeNode->isWrappedInBrackets()) {
             return $bracketsAwareUnionTypeNode . '[]';
         }
         foreach ($bracketsAwareUnionTypeNode->types as $unionedType) {

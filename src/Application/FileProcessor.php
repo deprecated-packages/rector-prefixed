@@ -14,7 +14,7 @@ use Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use Rector\PostRector\Application\PostFileProcessor;
-use RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileProcessor
 {
     /**
@@ -65,7 +65,7 @@ final class FileProcessor
         $this->postFileProcessor = $postFileProcessor;
         $this->tokensByFilePathStorage = $tokensByFilePathStorage;
     }
-    public function parseFileInfoToLocalCache(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function parseFileInfoToLocalCache(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if ($this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             return;
@@ -75,7 +75,7 @@ final class FileProcessor
         $parsedStmtsAndTokens = $this->parseAndTraverseFileInfoToNodes($smartFileInfo);
         $this->tokensByFilePathStorage->addForRealPath($smartFileInfo, $parsedStmtsAndTokens);
     }
-    public function printToFile(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printToFile(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         return $this->formatPerservingPrinter->printParsedStmstAndTokens($smartFileInfo, $parsedStmtsAndTokens);
@@ -83,13 +83,13 @@ final class FileProcessor
     /**
      * See https://github.com/nikic/PHP-Parser/issues/344#issuecomment-298162516.
      */
-    public function printToString(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printToString(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $this->makeSureFileIsParsed($smartFileInfo);
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         return $this->formatPerservingPrinter->printParsedStmstAndTokensToString($parsedStmtsAndTokens);
     }
-    public function refactor(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function refactor(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->currentFileInfoProvider->setCurrentFileInfo($smartFileInfo);
         $this->makeSureFileIsParsed($smartFileInfo);
@@ -106,7 +106,7 @@ final class FileProcessor
             $this->refactor($otherTouchedFile);
         }
     }
-    public function postFileRefactor(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function postFileRefactor(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if (!$this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             $this->parseFileInfoToLocalCache($smartFileInfo);
@@ -118,7 +118,7 @@ final class FileProcessor
         // this is needed for new tokens added in "afterTraverse()"
         $parsedStmtsAndTokens->updateNewStmts($newStmts);
     }
-    private function parseAndTraverseFileInfoToNodes(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens
+    private function parseAndTraverseFileInfoToNodes(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens
     {
         $oldStmts = $this->parser->parseFileInfo($smartFileInfo);
         $oldTokens = $this->lexer->getTokens();
@@ -128,7 +128,7 @@ final class FileProcessor
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $smartFileInfo);
         return new \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
     }
-    private function makeSureFileIsParsed(\RectorPrefix20210405\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    private function makeSureFileIsParsed(\RectorPrefix20210406\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if ($this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             return;

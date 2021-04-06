@@ -4,95 +4,27 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
 use PhpParser\Node;
-use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
-use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
-use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
-use Rector\Core\Configuration\Option;
-use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210405\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use Rector\NodeTypeResolver\PhpDocNodeVisitor\NameImportingPhpDocNodeVisitor;
+use RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockNameImporter
 {
     /**
-     * @var PhpDocNodeTraverser
+     * @var NameImportingPhpDocNodeVisitor
      */
-    private $phpDocNodeTraverser;
-    /**
-     * @var StaticTypeMapper
-     */
-    private $staticTypeMapper;
-    /**
-     * @var ClassNameImportSkipper
-     */
-    private $classNameImportSkipper;
-    /**
-     * @var ParameterProvider
-     */
-    private $parameterProvider;
-    /**
-     * @var UseNodesToAddCollector
-     */
-    private $useNodesToAddCollector;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \RectorPrefix20210405\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210405\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    private $nameImportingPhpDocNodeVisitor;
+    public function __construct(\Rector\NodeTypeResolver\PhpDocNodeVisitor\NameImportingPhpDocNodeVisitor $nameImportingPhpDocNodeVisitor)
     {
-        $this->phpDocNodeTraverser = $phpDocNodeTraverser;
-        $this->staticTypeMapper = $staticTypeMapper;
-        $this->classNameImportSkipper = $classNameImportSkipper;
-        $this->parameterProvider = $parameterProvider;
-        $this->useNodesToAddCollector = $useNodesToAddCollector;
+        $this->nameImportingPhpDocNodeVisitor = $nameImportingPhpDocNodeVisitor;
     }
-    public function importNames(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $phpParserNode) : void
+    public function importNames(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $node) : void
     {
-        $phpDocNode = $phpDocInfo->getPhpDocNode();
-        // connect parents
         if ($phpDocNode->children === []) {
             return;
         }
-        $this->phpDocNodeTraverser->traverseWithCallable($phpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpDocInfo, $phpParserNode) : PhpDocParserNode {
-            if (!$docNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
-                return $docNode;
-            }
-            $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($docNode, $phpParserNode);
-            if (!$staticType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
-                return $docNode;
-            }
-            $importShortClasses = $this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
-            // Importing root namespace classes (like \DateTime) is optional
-            if (!$importShortClasses && \substr_count($staticType->getClassName(), '\\') === 0) {
-                return $docNode;
-            }
-            return $this->processFqnNameImport($phpDocInfo, $phpParserNode, $docNode, $staticType);
-        });
-    }
-    private function processFqnNameImport(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifierTypeNode, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode
-    {
-        if ($this->classNameImportSkipper->shouldSkipNameForFullyQualifiedObjectType($node, $fullyQualifiedObjectType)) {
-            return $identifierTypeNode;
-        }
-        // should skip because its already used
-        if ($this->useNodesToAddCollector->isShortImported($node, $fullyQualifiedObjectType)) {
-            if ($this->useNodesToAddCollector->isImportShortable($node, $fullyQualifiedObjectType)) {
-                $identifierTypeNode->name = $fullyQualifiedObjectType->getShortName();
-                $phpDocInfo->markAsChanged();
-                // to invoke node override
-                $identifierTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
-            }
-            return $identifierTypeNode;
-        }
-        $shortenedIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
-        $this->useNodesToAddCollector->addUseImport($node, $fullyQualifiedObjectType);
-        $phpDocInfo->markAsChanged();
-        // mirror attributes
-        $parentTypeNode = $identifierTypeNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT);
-        if ($parentTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
-            $parentTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
-            $shortenedIdentifierTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, $parentTypeNode);
-        }
-        return $shortenedIdentifierTypeNode;
+        $phpDocNodeTraverser = new \RectorPrefix20210406\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $this->nameImportingPhpDocNodeVisitor->setCurrentNode($node);
+        $phpDocNodeTraverser->addPhpDocNodeVisitor($this->nameImportingPhpDocNodeVisitor);
+        $phpDocNodeTraverser->traverse($phpDocNode);
     }
 }

@@ -50,7 +50,6 @@ final class PhpDocTypeChanger
         if ($currentVarTagValueNode !== null) {
             // only change type
             $currentVarTagValueNode->type = $newPHPStanPhpDocType;
-            $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
             $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($newPHPStanPhpDocType, '', '');
@@ -69,7 +68,6 @@ final class PhpDocTypeChanger
         if ($currentReturnTagValueNode !== null) {
             // only change type
             $currentReturnTagValueNode->type = $newPHPStanPhpDocType;
-            $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
             $returnTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode($newPHPStanPhpDocType, '');
@@ -92,7 +90,6 @@ final class PhpDocTypeChanger
                 return;
             }
             $paramTagValueNode->type = $phpDocType;
-            $phpDocInfo->markAsChanged();
         } else {
             $paramTagValueNode = $this->paramPhpDocNodeFactory->create($phpDocType, $param);
             $phpDocInfo->addTagValueNode($paramTagValueNode);

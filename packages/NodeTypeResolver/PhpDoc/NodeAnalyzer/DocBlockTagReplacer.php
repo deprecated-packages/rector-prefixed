@@ -31,7 +31,6 @@ final class DocBlockTagReplacer
             }
             unset($phpDocNode->children[$key]);
             $phpDocNode->children[] = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode($newTag, new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode(''));
-            $phpDocInfo->markAsChanged();
         }
     }
 }

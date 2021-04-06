@@ -4,13 +4,18 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\Parser;
 
 use PHPStan\PhpDocParser\Parser\TokenIterator;
-use RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Rector\Core\Exception\ShouldNotHappenException;
+use RectorPrefix20210406\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterator
 {
     /**
      * @var string
      */
     private const TOKENS = 'tokens';
+    /**
+     * @var string
+     */
+    private const INDEX = 'index';
     /**
      * @var PrivatesAccessor
      */
@@ -20,8 +25,13 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
      */
     public function __construct(array $tokens, int $index = 0)
     {
-        parent::__construct($tokens, $index);
-        $this->privatesAccessor = new \RectorPrefix20210405\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesAccessor = new \RectorPrefix20210406\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        if ($tokens === []) {
+            $this->privatesAccessor->setPrivateProperty($this, self::TOKENS, []);
+            $this->privatesAccessor->setPrivateProperty($this, self::INDEX, 0);
+        } else {
+            parent::__construct($tokens, $index);
+        }
     }
     /**
      * @param int[] $types
@@ -35,6 +45,15 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
         }
         return \false;
     }
+    public function isTokenTypeOnPosition(int $tokenType, int $position) : bool
+    {
+        $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
+        $token = $tokens[$position] ?? null;
+        if ($token === null) {
+            return \false;
+        }
+        return $token[1] === $tokenType;
+    }
     public function isNextTokenType(int $tokenType) : bool
     {
         if ($this->nextTokenType() === null) {
@@ -44,6 +63,9 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     }
     public function printFromTo(int $from, int $to) : string
     {
+        if ($to < $from) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException('Arguments are flipped');
+        }
         $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
         $content = '';
         foreach ($tokens as $key => $token) {
@@ -70,7 +92,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     {
         $this->pushSavePoint();
         $tokens = $this->privatesAccessor->getPrivateProperty($this, self::TOKENS);
-        $index = $this->privatesAccessor->getPrivateProperty($this, 'index');
+        $index = $this->privatesAccessor->getPrivateProperty($this, self::INDEX);
         // does next token exist?
         $nextIndex = $index + 1;
         if (!isset($tokens[$nextIndex])) {
@@ -83,6 +105,6 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     }
     public function currentPosition() : int
     {
-        return $this->privatesAccessor->getPrivateProperty($this, 'index');
+        return $this->privatesAccessor->getPrivateProperty($this, self::INDEX);
     }
 }

@@ -152,10 +152,10 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
      */
     public const DOCTRINE_GEDMO_TO_KNPLABS = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_GEDMO_TO_KNPLABS;
     /**
-    * @deprecated
-     @see Use DoctrineSetList instead
-    * @var string
-    */
+     * @deprecated
+     * @see Use DoctrineSetList instead
+     * @var string
+     */
     public const DOCTRINE_REPOSITORY_AS_SERVICE = \Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_REPOSITORY_AS_SERVICE;
     /**
      * @var string

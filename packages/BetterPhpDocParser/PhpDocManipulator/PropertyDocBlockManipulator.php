@@ -30,7 +30,6 @@ final class PropertyDocBlockManipulator
             return;
         }
         $paramTagValueNode->parameterName = '$' . $renameValueObject->getExpectedName();
-        $paramTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
-        $phpDocInfo->markAsChanged();
+        $paramTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE, null);
     }
 }
