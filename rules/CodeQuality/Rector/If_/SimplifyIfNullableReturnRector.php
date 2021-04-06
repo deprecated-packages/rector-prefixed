@@ -19,6 +19,7 @@ use PHPStan\Type\UnionType;
 use Rector\CodeQuality\TypeResolver\AssignVariableTypeResolver;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -36,10 +37,15 @@ final class SimplifyIfNullableReturnRector extends \Rector\Core\Rector\AbstractR
      * @var AssignVariableTypeResolver
      */
     private $assignVariableTypeResolver;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\CodeQuality\TypeResolver\AssignVariableTypeResolver $assignVariableTypeResolver)
+    /**
+     * @var VarTagRemover
+     */
+    private $varTagRemover;
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\CodeQuality\TypeResolver\AssignVariableTypeResolver $assignVariableTypeResolver, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->ifManipulator = $ifManipulator;
         $this->assignVariableTypeResolver = $assignVariableTypeResolver;
+        $this->varTagRemover = $varTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -101,7 +107,7 @@ CODE_SAMPLE
         }
         /** @var Return_ $returnIfStmt */
         $returnIfStmt = $node->stmts[0];
-        if ($this->isIfStmtReturnInCorrect($cond, $variable, $returnIfStmt)) {
+        if ($this->isIfStmtReturnIncorrect($cond, $variable, $returnIfStmt)) {
             return null;
         }
         $previous = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
@@ -117,7 +123,7 @@ CODE_SAMPLE
         }
         /** @var Return_ $next */
         $next = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if ($this->isNextReturnInCorrect($cond, $variable, $next)) {
+        if ($this->isNextReturnIncorrect($cond, $variable, $next)) {
             return null;
         }
         $variableType = $this->assignVariableTypeResolver->resolve($previousAssign);
@@ -126,9 +132,9 @@ CODE_SAMPLE
         }
         $className = $class->toString();
         $types = $variableType->getTypes();
-        return $this->processSimplifyNullableReturn($types, $className, $next, $previous, $previousAssign->expr);
+        return $this->processSimplifyNullableReturn($variableType, $types, $className, $next, $previous, $previousAssign->expr);
     }
-    private function isIfStmtReturnInCorrect(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr $variable, \PhpParser\Node\Stmt\Return_ $return) : bool
+    private function isIfStmtReturnIncorrect(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr $variable, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr) {
             return \true;
@@ -138,7 +144,7 @@ CODE_SAMPLE
         }
         return $expr instanceof \PhpParser\Node\Expr\Instanceof_ && !$this->nodeComparator->areNodesEqual($variable, $return->expr);
     }
-    private function isNextReturnInCorrect(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr $variable, \PhpParser\Node\Stmt\Return_ $return) : bool
+    private function isNextReturnIncorrect(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr $variable, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr) {
             return \true;
@@ -151,21 +157,21 @@ CODE_SAMPLE
     /**
      * @param Type[] $types
      */
-    private function processSimplifyNullableReturn(array $types, string $className, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Return_
+    private function processSimplifyNullableReturn(\PHPStan\Type\UnionType $unionType, array $types, string $className, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Return_
     {
         if (\count($types) > 2) {
             return null;
         }
         if ($types[0] instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && $types[1] instanceof \PHPStan\Type\NullType && $className === $types[0]->getClassName()) {
-            return $this->removeAndReturn($return, $expression, $expr);
+            return $this->removeAndReturn($return, $expression, $expr, $unionType);
         }
         if ($types[0] instanceof \PHPStan\Type\NullType && $types[1] instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && $className === $types[1]->getClassName()) {
-            return $this->removeAndReturn($return, $expression, $expr);
+            return $this->removeAndReturn($return, $expression, $expr, $unionType);
         }
         if ($this->isNotTypedNullable($types, $className)) {
             return null;
         }
-        return $this->removeAndReturn($return, $expression, $expr);
+        return $this->removeAndReturn($return, $expression, $expr, $unionType);
     }
     /**
      * @param Type[] $types
@@ -180,25 +186,28 @@ CODE_SAMPLE
         }
         return $className !== $types[0]->getClassName();
     }
-    private function removeAndReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\Return_
+    private function removeAndReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr, \PHPStan\Type\UnionType $unionType) : \PhpParser\Node\Stmt\Return_
     {
         $this->removeNode($return);
         $this->removeNode($expression);
-        return new \PhpParser\Node\Stmt\Return_($expr);
+        $return = new \PhpParser\Node\Stmt\Return_($expr);
+        $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($expression, $unionType);
+        $this->mirrorComments($return, $expression);
+        return $return;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if (!$this->ifManipulator->isIfWithOnly($if, \PhpParser\Node\Stmt\Return_::class)) {
             return \true;
         }
+        $next = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$next instanceof \PhpParser\Node\Stmt\Return_) {
+            return \true;
+        }
         $cond = $if->cond;
         if (!$cond instanceof \PhpParser\Node\Expr\BooleanNot) {
             return !$cond instanceof \PhpParser\Node\Expr\Instanceof_;
         }
-        if (!$cond->expr instanceof \PhpParser\Node\Expr\Instanceof_) {
-            return \true;
-        }
-        $next = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        return !$next instanceof \PhpParser\Node\Stmt\Return_;
+        return !$cond->expr instanceof \PhpParser\Node\Expr\Instanceof_;
     }
 }

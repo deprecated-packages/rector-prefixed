@@ -52,6 +52,7 @@ use Rector\CodeQuality\Rector\If_\ShortenElseIfRector;
 use Rector\CodeQuality\Rector\If_\SimplifyIfElseToTernaryRector;
 use Rector\CodeQuality\Rector\If_\SimplifyIfIssetToNullCoalescingRector;
 use Rector\CodeQuality\Rector\If_\SimplifyIfNotNullReturnRector;
+use Rector\CodeQuality\Rector\If_\SimplifyIfNullableReturnRector;
 use Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector;
 use Rector\CodeQuality\Rector\Include_\AbsolutizeRequireAndIncludePathRector;
 use Rector\CodeQuality\Rector\Isset_\IssetOnPropertyObjectToPropertyExistsRector;
@@ -164,4 +165,5 @@ return static function (\RectorPrefix20210406\Symfony\Component\DependencyInject
     $services->set(\Rector\CodeQuality\Rector\FuncCall\UnwrapSprintfOneArgumentRector::class);
     $services->set(\Rector\CodeQuality\Rector\Ternary\SwitchNegatedTernaryRector::class);
     $services->set(\Rector\CodeQuality\Rector\Switch_\SingularSwitchToIfRector::class);
+    $services->set(\Rector\CodeQuality\Rector\If_\SimplifyIfNullableReturnRector::class);
 };

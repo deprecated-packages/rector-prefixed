@@ -244,11 +244,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return $this->correctObjectType($sharedTypeWithClassName);
         }
         // find least common denominator
-        $sharedObjectType = $this->unionTypeCommonTypeNarrower->narrowToSharedObjectType($unionType);
-        if ($sharedObjectType instanceof \PHPStan\Type\ObjectType) {
-            return $sharedObjectType;
-        }
-        return null;
+        return $this->unionTypeCommonTypeNarrower->narrowToSharedObjectType($unionType);
     }
     private function matchTwoObjectTypes(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
     {
