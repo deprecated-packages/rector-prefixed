@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitef1d7083d628d63710d9b486bd4f7984
+class ComposerStaticInitd2b1c6b418191ee75fd7b203910df893
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1887,6 +1887,7 @@ class ComposerStaticInitef1d7083d628d63710d9b486bd4f7984
         'Rector\\CodeQuality\\Rector\\If_\\SimplifyIfElseToTernaryRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/SimplifyIfElseToTernaryRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\SimplifyIfIssetToNullCoalescingRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/SimplifyIfIssetToNullCoalescingRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\SimplifyIfNotNullReturnRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/SimplifyIfNotNullReturnRector.php',
+        'Rector\\CodeQuality\\Rector\\If_\\SimplifyIfNullableReturnRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/SimplifyIfNullableReturnRector.php',
         'Rector\\CodeQuality\\Rector\\If_\\SimplifyIfReturnBoolRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/If_/SimplifyIfReturnBoolRector.php',
         'Rector\\CodeQuality\\Rector\\Include_\\AbsolutizeRequireAndIncludePathRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Include_/AbsolutizeRequireAndIncludePathRector.php',
         'Rector\\CodeQuality\\Rector\\Isset_\\IssetOnPropertyObjectToPropertyExistsRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Isset_/IssetOnPropertyObjectToPropertyExistsRector.php',
@@ -1903,6 +1904,7 @@ class ComposerStaticInitef1d7083d628d63710d9b486bd4f7984
         'Rector\\CodeQuality\\Rector\\Ternary\\SwitchNegatedTernaryRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Ternary/SwitchNegatedTernaryRector.php',
         'Rector\\CodeQuality\\Rector\\Ternary\\UnnecessaryTernaryExpressionRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/Ternary/UnnecessaryTernaryExpressionRector.php',
         'Rector\\CodeQuality\\TypeResolver\\ArrayDimFetchTypeResolver' => __DIR__ . '/../..' . '/rules/CodeQuality/TypeResolver/ArrayDimFetchTypeResolver.php',
+        'Rector\\CodeQuality\\TypeResolver\\AssignVariableTypeResolver' => __DIR__ . '/../..' . '/rules/CodeQuality/TypeResolver/AssignVariableTypeResolver.php',
         'Rector\\CodingStyle\\Application\\UseImportsAdder' => __DIR__ . '/../..' . '/rules/CodingStyle/Application/UseImportsAdder.php',
         'Rector\\CodingStyle\\Application\\UseImportsRemover' => __DIR__ . '/../..' . '/rules/CodingStyle/Application/UseImportsRemover.php',
         'Rector\\CodingStyle\\ClassNameImport\\AliasUsesResolver' => __DIR__ . '/../..' . '/rules/CodingStyle/ClassNameImport/AliasUsesResolver.php',
@@ -3375,9 +3377,9 @@ class ComposerStaticInitef1d7083d628d63710d9b486bd4f7984
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitef1d7083d628d63710d9b486bd4f7984::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitef1d7083d628d63710d9b486bd4f7984::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitef1d7083d628d63710d9b486bd4f7984::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd2b1c6b418191ee75fd7b203910df893::$classMap;
 
         }, null, ClassLoader::class);
     }
