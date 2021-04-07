@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp72\Rector\FuncCall;
 
-use RectorPrefix20210406\Nette\NotImplementedException;
+use RectorPrefix20210407\Nette\NotImplementedException;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -217,7 +217,7 @@ CODE_SAMPLE
             return $this->processInIf($parent, $funcCall, $replaceEmptystringToNull);
         }
         if (!$parent instanceof \PhpParser\Node) {
-            throw new \RectorPrefix20210406\Nette\NotImplementedException();
+            throw new \RectorPrefix20210407\Nette\NotImplementedException();
         }
         $if = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Expr\BooleanNot) {

@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Core\Reporting;
 
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
-use RectorPrefix20210406\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210406\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210407\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210407\Symplify\PackageBuilder\Console\ShellCode;
 final class MissingRectorRulesReporter
 {
     /**
@@ -16,7 +16,7 @@ final class MissingRectorRulesReporter
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210406\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \RectorPrefix20210407\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->rectorNodeTraverser = $rectorNodeTraverser;
         $this->symfonyStyle = $symfonyStyle;
@@ -27,7 +27,7 @@ final class MissingRectorRulesReporter
             return null;
         }
         $this->report();
-        return \RectorPrefix20210406\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return \RectorPrefix20210407\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     public function report() : void
     {

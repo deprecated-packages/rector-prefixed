@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210406\Symplify\ComposerJsonManipulator\Tests\Sorter;
+namespace RectorPrefix20210407\Symplify\ComposerJsonManipulator\Tests\Sorter;
 
 use Iterator;
-use RectorPrefix20210406\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
-use RectorPrefix20210406\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
-use RectorPrefix20210406\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class ComposerPackageSorterTest extends \RectorPrefix20210406\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210407\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
+use RectorPrefix20210407\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
+use RectorPrefix20210407\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class ComposerPackageSorterTest extends \RectorPrefix20210407\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var ComposerPackageSorter
@@ -15,8 +15,8 @@ final class ComposerPackageSorterTest extends \RectorPrefix20210406\Symplify\Pac
     private $composerPackageSorter;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210406\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
-        $this->composerPackageSorter = $this->getService(\RectorPrefix20210406\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter::class);
+        $this->bootKernel(\RectorPrefix20210407\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
+        $this->composerPackageSorter = $this->getService(\RectorPrefix20210407\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter::class);
     }
     /**
      * @dataProvider provideData()

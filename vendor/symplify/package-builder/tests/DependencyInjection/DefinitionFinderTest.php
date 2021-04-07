@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210406\Symplify\PackageBuilder\Tests\DependencyInjection;
+namespace RectorPrefix20210407\Symplify\PackageBuilder\Tests\DependencyInjection;
 
-use RectorPrefix20210406\PHPUnit\Framework\TestCase;
+use RectorPrefix20210407\PHPUnit\Framework\TestCase;
 use stdClass;
-use RectorPrefix20210406\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210406\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
-use RectorPrefix20210406\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
-final class DefinitionFinderTest extends \RectorPrefix20210406\PHPUnit\Framework\TestCase
+use RectorPrefix20210407\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210407\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
+use RectorPrefix20210407\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
+final class DefinitionFinderTest extends \RectorPrefix20210407\PHPUnit\Framework\TestCase
 {
     /**
      * @var ContainerBuilder
@@ -20,8 +20,8 @@ final class DefinitionFinderTest extends \RectorPrefix20210406\PHPUnit\Framework
     private $definitionFinder;
     protected function setUp() : void
     {
-        $this->containerBuilder = new \RectorPrefix20210406\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $this->definitionFinder = new \RectorPrefix20210406\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $this->containerBuilder = new \RectorPrefix20210407\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $this->definitionFinder = new \RectorPrefix20210407\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
     }
     public function testAutowired() : void
     {
@@ -37,7 +37,7 @@ final class DefinitionFinderTest extends \RectorPrefix20210406\PHPUnit\Framework
     }
     public function testMissing() : void
     {
-        $this->expectException(\RectorPrefix20210406\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException::class);
+        $this->expectException(\RectorPrefix20210407\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException::class);
         $this->definitionFinder->getByType($this->containerBuilder, \stdClass::class);
     }
 }

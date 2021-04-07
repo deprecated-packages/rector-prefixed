@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObjectFactory;
 
-use RectorPrefix20210406\Nette\Utils\Strings;
+use RectorPrefix20210407\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 final class TagValueNodeConfigurationFactory
 {
@@ -22,8 +22,8 @@ final class TagValueNodeConfigurationFactory
         if ($originalContent === null) {
             return new \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
         }
-        $hasNewlineAfterOpening = (bool) \RectorPrefix20210406\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
-        $hasNewlineBeforeClosing = (bool) \RectorPrefix20210406\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
+        $hasNewlineAfterOpening = (bool) \RectorPrefix20210407\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
+        $hasNewlineBeforeClosing = (bool) \RectorPrefix20210407\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
         return new \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration($hasNewlineAfterOpening, $hasNewlineBeforeClosing);
     }
 }
