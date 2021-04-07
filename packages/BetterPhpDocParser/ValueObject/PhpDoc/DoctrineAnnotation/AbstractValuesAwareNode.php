@@ -8,9 +8,6 @@ use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
-use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
-use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
-use Rector\Core\Exception\ShouldNotHappenException;
 abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
 {
     use NodeAttributes;
@@ -32,10 +29,6 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
      */
     protected $silentKey;
     /**
-     * @var TagValueNodeConfiguration
-     */
-    protected $tagValueNodeConfiguration;
-    /**
      * @var string|null
      */
     protected $originalContent;
@@ -44,14 +37,9 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
      */
     public function __construct(array $values = [], ?string $originalContent = null, ?string $silentKey = null)
     {
-        $this->resolveOriginalContentSpacingAndOrder($originalContent);
         $this->values = $values;
         $this->originalContent = $originalContent;
         $this->silentKey = $silentKey;
-    }
-    public function getOriginalContent() : ?string
-    {
-        return $this->originalContent;
     }
     public function removeValue(string $key) : void
     {
@@ -154,15 +142,6 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
             }
         }
         return $explicitKeysValues;
-    }
-    protected function resolveOriginalContentSpacingAndOrder(?string $originalContent) : void
-    {
-        $tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory();
-        // prevent override
-        if ($this->tagValueNodeConfiguration !== null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $this->tagValueNodeConfiguration = $tagValueNodeConfigurationFactory->createFromOriginalContent($originalContent);
     }
     /**
      * @param mixed|string $value

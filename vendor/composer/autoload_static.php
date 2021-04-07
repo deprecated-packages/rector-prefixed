@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit16775701b6af5bb07bd194710441de5b
+class ComposerStaticInit66feb8dd7557a760179b38f28be48bbc
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1768,7 +1768,6 @@ class ComposerStaticInit16775701b6af5bb07bd194710441de5b
         'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/PhpDocInfoPrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\RemoveNodesStartAndEndResolver' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/Printer/RemoveNodesStartAndEndResolver.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\AroundSpaces' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/AroundSpaces.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\DoctrineAnnotation\\SilentKeyMap' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/DoctrineAnnotation/SilentKeyMap.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\NodeTypes' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/NodeTypes.php',
@@ -1780,7 +1779,6 @@ class ComposerStaticInit16775701b6af5bb07bd194710441de5b
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDoc\\SpacingAwareTemplateTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDoc/SpacingAwareTemplateTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDoc\\VariadicAwareParamTagValueNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/PhpDoc/VariadicAwareParamTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\StartAndEnd' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/StartAndEnd.php',
-        'Rector\\BetterPhpDocParser\\ValueObject\\TagValueNodeConfiguration' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/TagValueNodeConfiguration.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\Type\\BracketsAwareIntersectionTypeNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/Type/BracketsAwareIntersectionTypeNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\Type\\BracketsAwareUnionTypeNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/Type/BracketsAwareUnionTypeNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\Type\\EmptyGenericTypeNode' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/ValueObject/Type/EmptyGenericTypeNode.php',
@@ -3377,9 +3375,9 @@ class ComposerStaticInit16775701b6af5bb07bd194710441de5b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit16775701b6af5bb07bd194710441de5b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit16775701b6af5bb07bd194710441de5b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit16775701b6af5bb07bd194710441de5b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit66feb8dd7557a760179b38f28be48bbc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit66feb8dd7557a760179b38f28be48bbc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit66feb8dd7557a760179b38f28be48bbc::$classMap;
 
         }, null, ClassLoader::class);
     }
