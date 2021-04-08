@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Nette\Kdyby\Naming;
 
-use RectorPrefix20210407\Nette\Utils\Strings;
+use RectorPrefix20210408\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210407\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo;
 final class EventClassNaming
 {
     /**
@@ -45,7 +45,7 @@ final class EventClassNaming
         $fileInfo = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         return $fileInfo->getPath() . \DIRECTORY_SEPARATOR . self::EVENT . \DIRECTORY_SEPARATOR . $shortEventClassName . '.php';
     }
-    public function resolveEventFileLocationFromClassNameAndFileInfo(string $className, \RectorPrefix20210407\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function resolveEventFileLocationFromClassNameAndFileInfo(string $className, \RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $shortClassName = $this->nodeNameResolver->getShortName($className);
         return $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . self::EVENT . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
@@ -71,7 +71,7 @@ final class EventClassNaming
     }
     private function prependShortClassEventWithNamespace(string $shortEventClassName, string $orinalClassName) : string
     {
-        $namespaceAbove = \RectorPrefix20210407\Nette\Utils\Strings::before($orinalClassName, '\\', -1);
+        $namespaceAbove = \RectorPrefix20210408\Nette\Utils\Strings::before($orinalClassName, '\\', -1);
         return $namespaceAbove . '\\Event\\' . $shortEventClassName;
     }
     /**
@@ -81,7 +81,7 @@ final class EventClassNaming
     {
         $shortClassName = $this->classNaming->getShortName($class);
         // "onMagic" => "Magic"
-        $shortPropertyName = \RectorPrefix20210407\Nette\Utils\Strings::substring($property, \strlen('on'));
+        $shortPropertyName = \RectorPrefix20210408\Nette\Utils\Strings::substring($property, \strlen('on'));
         return $shortClassName . $shortPropertyName . self::EVENT;
     }
 }

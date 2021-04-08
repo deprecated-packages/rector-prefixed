@@ -1,12 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210407\Symplify\SimplePhpDocParser;
+namespace RectorPrefix20210408\Symplify\SimplePhpDocParser;
 
 use PHPStan\PhpDocParser\Ast\Node;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use RectorPrefix20210407\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface;
-use RectorPrefix20210407\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CallablePhpDocNodeVisitor;
+use RectorPrefix20210408\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface;
+use RectorPrefix20210408\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CallablePhpDocNodeVisitor;
 /**
  * Mimics
  * https://github.com/nikic/PHP-Parser/blob/4abdcde5f16269959a834e4e58ea0ba0938ab133/lib/PhpParser/NodeTraverser.php
@@ -19,7 +18,7 @@ final class PhpDocNodeTraverser
      * @var PhpDocNodeVisitorInterface[]
      */
     private $phpDocNodeVisitors = [];
-    public function addPhpDocNodeVisitor(\RectorPrefix20210407\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface $phpDocNodeVisitor) : void
+    public function addPhpDocNodeVisitor(\RectorPrefix20210408\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface $phpDocNodeVisitor) : void
     {
         $this->phpDocNodeVisitors[] = $phpDocNodeVisitor;
     }
@@ -33,15 +32,15 @@ final class PhpDocNodeTraverser
             $phpDocNodeVisitor->afterTraverse($node);
         }
     }
-    public function traverseWithCallable(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $docContent, callable $callable) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
+    public function traverseWithCallable(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent, callable $callable) : \PHPStan\PhpDocParser\Ast\Node
     {
-        $callableNodeVisitor = new \RectorPrefix20210407\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CallablePhpDocNodeVisitor($callable, $docContent);
-        $this->addPhpDocNodeVisitor($callableNodeVisitor);
-        $this->traverse($phpDocNode);
-        return $phpDocNode;
+        $callablePhpDocNodeVisitor = new \RectorPrefix20210408\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CallablePhpDocNodeVisitor($callable, $docContent);
+        $this->addPhpDocNodeVisitor($callablePhpDocNodeVisitor);
+        $this->traverse($node);
+        return $node;
     }
     /**
-     * @template TNode as Node
+     * @template TNode of Node
      * @param TNode $node
      * @return TNode
      */

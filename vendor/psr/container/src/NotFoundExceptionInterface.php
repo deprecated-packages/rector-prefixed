@@ -1,10 +1,10 @@
 <?php
 
-namespace RectorPrefix20210407\Psr\Container;
+namespace RectorPrefix20210408\Psr\Container;
 
 /**
  * No entry was found in the container.
  */
-interface NotFoundExceptionInterface extends \RectorPrefix20210407\Psr\Container\ContainerExceptionInterface
+interface NotFoundExceptionInterface extends \RectorPrefix20210408\Psr\Container\ContainerExceptionInterface
 {
 }
