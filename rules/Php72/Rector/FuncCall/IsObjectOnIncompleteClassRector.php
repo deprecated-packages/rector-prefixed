@@ -53,9 +53,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $booleanNot = new \PhpParser\Node\Expr\BooleanNot($node);
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $booleanNot);
-        return $booleanNot;
+        return new \PhpParser\Node\Expr\BooleanNot($node);
     }
     private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {

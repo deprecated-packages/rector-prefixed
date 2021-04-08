@@ -13,6 +13,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\ParentConnectingVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -231,10 +233,14 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         }
         // changed!
         if ($this->hasNodeChanged($originalNode, $node)) {
-            $this->mirrorAttributes($originalNodeWithAttributes, $node);
             $this->updateAttributes($node);
             $this->keepFileInfoAttribute($node, $originalNode);
             $this->rectorChangeCollector->notifyNodeFileInfo($node);
+            // update parents relations
+            $nodeTraverser = new \PhpParser\NodeTraverser();
+            $nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\ParentConnectingVisitor());
+            $nodeTraverser->traverse([$node]);
+            $this->mirrorAttributes($originalNodeWithAttributes, $node);
         }
         // if stmt ("$value;") was replaced by expr ("$value"), add the ending ";" (Expression) to prevent breaking the code
         if ($originalNode instanceof \PhpParser\Node\Stmt && $node instanceof \PhpParser\Node\Expr) {

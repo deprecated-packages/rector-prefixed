@@ -145,15 +145,13 @@ final class ClassRenamer
             return null;
         }
         $last = $name->getLast();
-        $newNameName = new \PhpParser\Node\Name\FullyQualified($newName);
-        $newNameLastName = $newNameName->getLast();
-        $importNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
-        if ($last === $newNameLastName && $importNames) {
+        $newFullyQualified = new \PhpParser\Node\Name\FullyQualified($newName);
+        $newNameLastName = $newFullyQualified->getLast();
+        $importNames = $this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
+        if ($this->shouldRemoveUseName($last, $newNameLastName, $importNames)) {
             $this->removeUseName($name);
         }
-        $name = new \PhpParser\Node\Name\FullyQualified($newName);
-        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $parentNode);
-        return $name;
+        return new \PhpParser\Node\Name\FullyQualified($newName);
     }
     private function removeUseName(\PhpParser\Node\Name $oldName) : void
     {
@@ -233,9 +231,7 @@ final class ClassRenamer
         if ($newNamespacePart && !$classNamingGetNamespace) {
             $this->changeNameToFullyQualifiedName($classLike);
             $nameNode = new \PhpParser\Node\Name($newNamespacePart);
-            $namespace = new \PhpParser\Node\Stmt\Namespace_($nameNode, [$classLike]);
-            $nameNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $namespace);
-            return $namespace;
+            return new \PhpParser\Node\Stmt\Namespace_($nameNode, [$classLike]);
         }
         return $classLike;
     }
@@ -352,5 +348,9 @@ final class ClassRenamer
             }
         }
         return \true;
+    }
+    private function shouldRemoveUseName(string $last, string $newNameLastName, bool $importNames) : bool
+    {
+        return $last === $newNameLastName && $importNames;
     }
 }

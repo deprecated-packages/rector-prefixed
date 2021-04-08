@@ -97,9 +97,7 @@ CODE_SAMPLE
             if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
                 continue;
             }
-            $return = new \PhpParser\Node\Stmt\Return_($methodCall);
-            $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $return);
-            return $return;
+            return new \PhpParser\Node\Stmt\Return_($methodCall);
         }
         return null;
     }

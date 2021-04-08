@@ -163,10 +163,7 @@ CODE_SAMPLE
     private function refactorReflectionParameterGetName(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Ternary
     {
         $getNameMethodCall = $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
-        // to prevent looping
-        $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
-        return $ternary;
+        return new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
     }
     private function isReflectionFunctionAbstractGetReturnTypeMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
@@ -182,9 +179,6 @@ CODE_SAMPLE
             return $refactoredMethodCall;
         }
         $getNameMethodCall = $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
-        // to prevent looping
-        $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
-        return $ternary;
+        return new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
     }
 }

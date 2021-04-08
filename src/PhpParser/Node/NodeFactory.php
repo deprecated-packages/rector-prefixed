@@ -219,7 +219,6 @@ final class NodeFactory
         $propertyBuilder->makePublic();
         $property = $propertyBuilder->getNode();
         $this->addPropertyType($property, $type);
-        $this->decorateParentPropertyProperty($property);
         // add @inject
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@inject', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
@@ -231,7 +230,6 @@ final class NodeFactory
         $propertyBuilder->makePrivate();
         $property = $propertyBuilder->getNode();
         $this->addPropertyType($property, $type);
-        $this->decorateParentPropertyProperty($property);
         return $property;
     }
     /**
@@ -260,9 +258,7 @@ final class NodeFactory
         if ($variable instanceof \PhpParser\Node\Expr\MethodCall) {
             $variable = new \PhpParser\Node\Expr\MethodCall($variable->var, $variable->name, $variable->args);
         }
-        $methodCallNode = $this->builderFactory->methodCall($variable, $method, $arguments);
-        $variable->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $methodCallNode);
-        return $methodCallNode;
+        return $this->builderFactory->methodCall($variable, $method, $arguments);
     }
     /**
      * @param string|Expr $variable
@@ -287,15 +283,12 @@ final class NodeFactory
         $propertyBuilder->makeProtected();
         $propertyBuilder->makeStatic();
         $propertyBuilder->setDefault($node);
-        $property = $propertyBuilder->getNode();
-        $this->decorateParentPropertyProperty($property);
-        return $property;
+        return $propertyBuilder->getNode();
     }
     public function createProperty(string $name) : \PhpParser\Node\Stmt\Property
     {
         $propertyBuilder = new \RectorPrefix20210408\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $property = $propertyBuilder->getNode();
-        $this->decorateParentPropertyProperty($property);
         $this->phpDocInfoFactory->createFromNode($property);
         return $property;
     }
@@ -304,7 +297,6 @@ final class NodeFactory
         $propertyBuilder = new \RectorPrefix20210408\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePrivate();
         $property = $propertyBuilder->getNode();
-        $this->decorateParentPropertyProperty($property);
         $this->phpDocInfoFactory->createFromNode($property);
         return $property;
     }
@@ -313,7 +305,6 @@ final class NodeFactory
         $propertyBuilder = new \RectorPrefix20210408\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePublic();
         $property = $propertyBuilder->getNode();
-        $this->decorateParentPropertyProperty($property);
         $this->phpDocInfoFactory->createFromNode($property);
         return $property;
     }
@@ -546,12 +537,6 @@ final class NodeFactory
             }
         }
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $type);
-    }
-    private function decorateParentPropertyProperty(\PhpParser\Node\Stmt\Property $property) : void
-    {
-        // complete property property parent, needed for other operations
-        $propertyProperty = $property->props[0];
-        $propertyProperty->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $property);
     }
     /**
      * @param mixed $value

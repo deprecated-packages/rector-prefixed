@@ -47,8 +47,6 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
                 continue;
             }
             $node->name = $this->createName($newFunction);
-            // to keep relationship to parent
-            $node->name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $node);
             $node->name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
             return $node;
         }
