@@ -2843,6 +2843,7 @@ return array(
     'Rector\\Symfony\\ValueObject\\Tag\\EventListenerTag' => $vendorDir . '/rector/rector-symfony/src/ValueObject/Tag/EventListenerTag.php',
     'Rector\\Testing\\Contract\\NodeTraversableInterface' => $baseDir . '/packages/Testing/Contract/NodeTraversableInterface.php',
     'Rector\\Testing\\Contract\\RectorTestInterface' => $baseDir . '/packages/Testing/Contract/RectorTestInterface.php',
+    'Rector\\Testing\\PHPUnit\\AbstractComposerRectorTestCase' => $baseDir . '/packages/Testing/PHPUnit/AbstractComposerRectorTestCase.php',
     'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase' => $baseDir . '/packages/Testing/PHPUnit/AbstractRectorTestCase.php',
     'Rector\\Testing\\PHPUnit\\Behavior\\MovingFilesTrait' => $baseDir . '/packages/Testing/PHPUnit/Behavior/MovingFilesTrait.php',
     'Rector\\Testing\\PHPUnit\\StaticPHPUnitEnvironment' => $baseDir . '/packages/Testing/PHPUnit/StaticPHPUnitEnvironment.php',
