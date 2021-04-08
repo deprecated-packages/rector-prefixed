@@ -2841,6 +2841,7 @@ return array(
     'Rector\\Symfony\\ValueObject\\ServiceMap\\ServiceMap' => $vendorDir . '/rector/rector-symfony/src/ValueObject/ServiceMap/ServiceMap.php',
     'Rector\\Symfony\\ValueObject\\Tag' => $vendorDir . '/rector/rector-symfony/src/ValueObject/Tag.php',
     'Rector\\Symfony\\ValueObject\\Tag\\EventListenerTag' => $vendorDir . '/rector/rector-symfony/src/ValueObject/Tag/EventListenerTag.php',
+    'Rector\\Testing\\Contract\\ConfigFileAwareInterface' => $baseDir . '/packages/Testing/Contract/ConfigFileAwareInterface.php',
     'Rector\\Testing\\Contract\\NodeTraversableInterface' => $baseDir . '/packages/Testing/Contract/NodeTraversableInterface.php',
     'Rector\\Testing\\Contract\\RectorTestInterface' => $baseDir . '/packages/Testing/Contract/RectorTestInterface.php',
     'Rector\\Testing\\PHPUnit\\AbstractComposerRectorTestCase' => $baseDir . '/packages/Testing/PHPUnit/AbstractComposerRectorTestCase.php',

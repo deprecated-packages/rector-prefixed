@@ -6,12 +6,12 @@ namespace Rector\Testing\PHPUnit;
 use RectorPrefix20210408\Nette\Utils\Json;
 use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Tests\Composer\Contract\ConfigFileAwareInterface;
+use Rector\Testing\Contract\ConfigFileAwareInterface;
 use RectorPrefix20210408\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use RectorPrefix20210408\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210408\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractComposerRectorTestCase extends \RectorPrefix20210408\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Tests\Composer\Contract\ConfigFileAwareInterface
+abstract class AbstractComposerRectorTestCase extends \RectorPrefix20210408\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\ConfigFileAwareInterface
 {
     /**
      * @var ComposerJsonFactory
