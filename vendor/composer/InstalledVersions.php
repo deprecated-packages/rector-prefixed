@@ -222,21 +222,21 @@ private static $installed = array (
     ),
     'rector/rector-cakephp' => 
     array (
+      'pretty_version' => '0.10.3',
+      'version' => '0.10.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '25cfd2b68c2c995e79d61a241d74d5adebe57538',
+    ),
+    'rector/rector-doctrine' => 
+    array (
       'pretty_version' => '0.10.2',
       'version' => '0.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fe28736b3481a3a30d52edc7b556cb184d48874e',
-    ),
-    'rector/rector-doctrine' => 
-    array (
-      'pretty_version' => '0.10.1',
-      'version' => '0.10.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a7005e448a3756acffc81391972f7900ca79204b',
+      'reference' => '3d22958431fdeca89388667a9caec52bb0eb9832',
     ),
     'rector/rector-laravel' => 
     array (
@@ -258,12 +258,12 @@ private static $installed = array (
     ),
     'rector/rector-phpunit' => 
     array (
-      'pretty_version' => '0.10.5',
-      'version' => '0.10.5.0',
+      'pretty_version' => '0.10.6',
+      'version' => '0.10.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '15279b370d336fe1bc7184292143e87a18cb15fc',
+      'reference' => 'bafe2fa86b30739a0defb87041145b9f5f0a7db1',
     ),
     'rector/rector-prefixed' => 
     array (
@@ -275,12 +275,12 @@ private static $installed = array (
     ),
     'rector/rector-symfony' => 
     array (
-      'pretty_version' => '0.10.2',
-      'version' => '0.10.2.0',
+      'pretty_version' => '0.10.3',
+      'version' => '0.10.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ff9ace2fd67f1a233f07bfc9915a93f47cea1799',
+      'reference' => '32cdf3f3e78a0afaecaf8c3c89fd0b7b78072aab',
     ),
     'sebastian/diff' => 
     array (

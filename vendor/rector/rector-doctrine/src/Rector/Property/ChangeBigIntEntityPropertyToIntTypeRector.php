@@ -13,6 +13,7 @@ use PHPStan\Type\StringType;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
+use Rector\NodeTypeResolver\ValueObject\OldToNewType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -89,7 +90,8 @@ CODE_SAMPLE
         if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
-        $this->docBlockClassRenamer->renamePhpDocTypes($phpDocInfo, [new \PHPStan\Type\IntegerType(), new \PHPStan\Type\FloatType(), new \PHPStan\Type\BooleanType()], new \PHPStan\Type\StringType(), $node);
+        $oldToNewTypes = [new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\IntegerType(), new \PHPStan\Type\StringType()), new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\FloatType(), new \PHPStan\Type\StringType()), new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\BooleanType(), new \PHPStan\Type\StringType())];
+        $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldToNewTypes);
         return $node;
     }
 }
