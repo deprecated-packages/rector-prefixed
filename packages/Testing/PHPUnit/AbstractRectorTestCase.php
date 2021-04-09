@@ -173,7 +173,12 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210409\Symplify\Pac
             // mimic post-rectors
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
         } elseif (\RectorPrefix20210409\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
-            $changedContent = $this->nonPhpFileProcessor->processFileInfo($originalFileInfo);
+            $nonPhpFileChange = $this->nonPhpFileProcessor->process($originalFileInfo);
+            if ($nonPhpFileChange !== null) {
+                $changedContent = $nonPhpFileChange->getNewContent();
+            } else {
+                $changedContent = '';
+            }
         } else {
             $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);

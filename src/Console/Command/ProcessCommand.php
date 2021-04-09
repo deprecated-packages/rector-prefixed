@@ -6,7 +6,6 @@ namespace Rector\Core\Console\Command;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
-use Rector\Composer\Processor\ComposerProcessor;
 use Rector\Core\Application\RectorApplication;
 use Rector\Core\Autoloading\AdditionalAutoloader;
 use Rector\Core\Configuration\Configuration;
@@ -15,9 +14,8 @@ use Rector\Core\Console\Output\OutputFormatterCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\FileSystem\FilesFinder;
 use Rector\Core\FileSystem\PhpFilesFinder;
-use Rector\Core\NonPhpFile\NonPhpFileProcessor;
+use Rector\Core\NonPhpFile\NonPhpFileProcessorService;
 use Rector\Core\Reporting\MissingRectorRulesReporter;
-use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use RectorPrefix20210409\Symfony\Component\Console\Application;
 use RectorPrefix20210409\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210409\Symfony\Component\Console\Input\InputArgument;
@@ -55,17 +53,9 @@ final class ProcessCommand extends \RectorPrefix20210409\Symfony\Component\Conso
      */
     private $outputFormatterCollector;
     /**
-     * @var NonPhpFileProcessor
-     */
-    private $nonPhpFileProcessor;
-    /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    /**
-     * @var ComposerProcessor
-     */
-    private $composerProcessor;
     /**
      * @var PhpFilesFinder
      */
@@ -82,7 +72,11 @@ final class ProcessCommand extends \RectorPrefix20210409\Symfony\Component\Conso
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \RectorPrefix20210409\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Composer\Processor\ComposerProcessor $composerProcessor, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter, \RectorPrefix20210409\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    /**
+     * @var NonPhpFileProcessorService
+     */
+    private $nonPhpFileProcessor;
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \RectorPrefix20210409\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder, \Rector\Core\Reporting\MissingRectorRulesReporter $missingRectorRulesReporter, \RectorPrefix20210409\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\NonPhpFile\NonPhpFileProcessorService $nonPhpFileProcessor)
     {
         $this->filesFinder = $filesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -90,14 +84,13 @@ final class ProcessCommand extends \RectorPrefix20210409\Symfony\Component\Conso
         $this->configuration = $configuration;
         $this->rectorApplication = $rectorApplication;
         $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->nonPhpFileProcessor = $nonPhpFileProcessor;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->symfonyStyle = $symfonyStyle;
-        $this->composerProcessor = $composerProcessor;
         $this->phpFilesFinder = $phpFilesFinder;
         $this->missingRectorRulesReporter = $missingRectorRulesReporter;
         parent::__construct();
         $this->parameterProvider = $parameterProvider;
+        $this->nonPhpFileProcessor = $nonPhpFileProcessor;
     }
     protected function configure() : void
     {
@@ -134,11 +127,7 @@ final class ProcessCommand extends \RectorPrefix20210409\Symfony\Component\Conso
         }
         $this->configuration->setFileInfos($phpFileInfos);
         $this->rectorApplication->runOnPaths($paths);
-        // must run after PHP rectors, because they might change class names, and these class names must be changed in configs
-        $nonPhpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::SUFFIXES);
-        $this->nonPhpFileProcessor->runOnFileInfos($nonPhpFileInfos);
-        $composerJsonFilePath = \getcwd() . '/composer.json';
-        $this->composerProcessor->process($composerJsonFilePath);
+        $this->nonPhpFileProcessor->runOnPaths($paths);
         // report diffs and errors
         $outputFormat = (string) $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
