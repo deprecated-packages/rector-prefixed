@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210408\\Symfony\\Contracts\\HttpClient\\": ""
+            "RectorPrefix20210409\\Symfony\\Contracts\\HttpClient\\": ""
         }
     },
     "minimum-stability": "dev",

@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210408\Symfony\Component\Config\Definition\Dumper;
+namespace RectorPrefix20210409\Symfony\Component\Config\Definition\Dumper;
 
-use RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\ConfigurationInterface;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\EnumNode;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\NodeInterface;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\ScalarNode;
-use RectorPrefix20210408\Symfony\Component\Config\Definition\VariableNode;
-use RectorPrefix20210408\Symfony\Component\Yaml\Inline;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\ConfigurationInterface;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\EnumNode;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\NodeInterface;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\ScalarNode;
+use RectorPrefix20210409\Symfony\Component\Config\Definition\VariableNode;
+use RectorPrefix20210409\Symfony\Component\Yaml\Inline;
 /**
  * Dumps a Yaml reference configuration for the given configuration/node instance.
  *
@@ -26,19 +26,19 @@ use RectorPrefix20210408\Symfony\Component\Yaml\Inline;
 class YamlReferenceDumper
 {
     private $reference;
-    public function dump(\RectorPrefix20210408\Symfony\Component\Config\Definition\ConfigurationInterface $configuration)
+    public function dump(\RectorPrefix20210409\Symfony\Component\Config\Definition\ConfigurationInterface $configuration)
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
-    public function dumpAtPath(\RectorPrefix20210408\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, string $path)
+    public function dumpAtPath(\RectorPrefix20210409\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, string $path)
     {
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
         foreach (\explode('.', $path) as $step) {
-            if (!$node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode) {
+            if (!$node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode) {
                 throw new \UnexpectedValueException(\sprintf('Unable to find node at path "%s.%s".', $rootNode->getName(), $path));
             }
             /** @var NodeInterface[] $children */
-            $children = $node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode ? $this->getPrototypeChildren($node) : $node->getChildren();
+            $children = $node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode ? $this->getPrototypeChildren($node) : $node->getChildren();
             foreach ($children as $child) {
                 if ($child->getName() === $step) {
                     $node = $child;
@@ -49,7 +49,7 @@ class YamlReferenceDumper
         }
         return $this->dumpNode($node);
     }
-    public function dumpNode(\RectorPrefix20210408\Symfony\Component\Config\Definition\NodeInterface $node)
+    public function dumpNode(\RectorPrefix20210409\Symfony\Component\Config\Definition\NodeInterface $node)
     {
         $this->reference = '';
         $this->writeNode($node);
@@ -57,7 +57,7 @@ class YamlReferenceDumper
         $this->reference = null;
         return $ref;
     }
-    private function writeNode(\RectorPrefix20210408\Symfony\Component\Config\Definition\NodeInterface $node, \RectorPrefix20210408\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, int $depth = 0, bool $prototypedArray = \false)
+    private function writeNode(\RectorPrefix20210409\Symfony\Component\Config\Definition\NodeInterface $node, \RectorPrefix20210409\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, int $depth = 0, bool $prototypedArray = \false)
     {
         $comments = [];
         $default = '';
@@ -65,9 +65,9 @@ class YamlReferenceDumper
         $children = null;
         $example = $node->getExample();
         // defaults
-        if ($node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode) {
+        if ($node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode) {
             $children = $node->getChildren();
-            if ($node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode) {
+            if ($node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode) {
                 $children = $this->getPrototypeChildren($node);
             }
             if (!$children) {
@@ -77,10 +77,10 @@ class YamlReferenceDumper
                     $default = '[]';
                 }
             }
-        } elseif ($node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\EnumNode) {
+        } elseif ($node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\EnumNode) {
             $comments[] = 'One of ' . \implode('; ', \array_map('json_encode', $node->getValues()));
-            $default = $node->hasDefaultValue() ? \RectorPrefix20210408\Symfony\Component\Yaml\Inline::dump($node->getDefaultValue()) : '~';
-        } elseif (\RectorPrefix20210408\Symfony\Component\Config\Definition\VariableNode::class === \get_class($node) && \is_array($example)) {
+            $default = $node->hasDefaultValue() ? \RectorPrefix20210409\Symfony\Component\Yaml\Inline::dump($node->getDefaultValue()) : '~';
+        } elseif (\RectorPrefix20210409\Symfony\Component\Config\Definition\VariableNode::class === \get_class($node) && \is_array($example)) {
             // If there is an array example, we are sure we dont need to print a default value
             $default = '';
         } else {
@@ -94,7 +94,7 @@ class YamlReferenceDumper
                         $default = '[]';
                     }
                 } else {
-                    $default = \RectorPrefix20210408\Symfony\Component\Yaml\Inline::dump($default);
+                    $default = \RectorPrefix20210409\Symfony\Component\Yaml\Inline::dump($default);
                 }
             }
         }
@@ -109,7 +109,7 @@ class YamlReferenceDumper
         }
         // example
         if ($example && !\is_array($example)) {
-            $comments[] = 'Example: ' . \RectorPrefix20210408\Symfony\Component\Yaml\Inline::dump($example);
+            $comments[] = 'Example: ' . \RectorPrefix20210409\Symfony\Component\Yaml\Inline::dump($example);
         }
         $default = '' != (string) $default ? ' ' . $default : '';
         $comments = \count($comments) ? '# ' . \implode(', ', $comments) : '';
@@ -133,11 +133,11 @@ class YamlReferenceDumper
             $this->writeLine('');
             $message = \count($example) > 1 ? 'Examples' : 'Example';
             $this->writeLine('# ' . $message . ':', $depth * 4 + 4);
-            $this->writeArray(\array_map([\RectorPrefix20210408\Symfony\Component\Yaml\Inline::class, 'dump'], $example), $depth + 1);
+            $this->writeArray(\array_map([\RectorPrefix20210409\Symfony\Component\Yaml\Inline::class, 'dump'], $example), $depth + 1);
         }
         if ($children) {
             foreach ($children as $childNode) {
-                $this->writeNode($childNode, $node, $depth + 1, $node instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode && !$node->getKeyAttribute());
+                $this->writeNode($childNode, $node, $depth + 1, $node instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode && !$node->getKeyAttribute());
             }
         }
     }
@@ -169,18 +169,18 @@ class YamlReferenceDumper
             }
         }
     }
-    private function getPrototypeChildren(\RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode $node) : array
+    private function getPrototypeChildren(\RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode $node) : array
     {
         $prototype = $node->getPrototype();
         $key = $node->getKeyAttribute();
         // Do not expand prototype if it isn't an array node nor uses attribute as key
-        if (!$key && !$prototype instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode) {
+        if (!$key && !$prototype instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode) {
             return $node->getChildren();
         }
-        if ($prototype instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode) {
-            $keyNode = new \RectorPrefix20210408\Symfony\Component\Config\Definition\ArrayNode($key, $node);
+        if ($prototype instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode) {
+            $keyNode = new \RectorPrefix20210409\Symfony\Component\Config\Definition\ArrayNode($key, $node);
             $children = $prototype->getChildren();
-            if ($prototype instanceof \RectorPrefix20210408\Symfony\Component\Config\Definition\PrototypedArrayNode && $prototype->getKeyAttribute()) {
+            if ($prototype instanceof \RectorPrefix20210409\Symfony\Component\Config\Definition\PrototypedArrayNode && $prototype->getKeyAttribute()) {
                 $children = $this->getPrototypeChildren($prototype);
             }
             // add children
@@ -188,7 +188,7 @@ class YamlReferenceDumper
                 $keyNode->addChild($childNode);
             }
         } else {
-            $keyNode = new \RectorPrefix20210408\Symfony\Component\Config\Definition\ScalarNode($key, $node);
+            $keyNode = new \RectorPrefix20210409\Symfony\Component\Config\Definition\ScalarNode($key, $node);
         }
         $info = 'Prototype';
         if (null !== $prototype->getInfo()) {

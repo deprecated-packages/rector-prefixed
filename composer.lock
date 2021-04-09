@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8110cee00c6e55bdcf7064bc7ff2e0ad",
+    "content-hash": "98f5636f6cd7f7b913301a15cc59759d",
     "packages": [
         {
             "name": "composer/semver",
@@ -6355,16 +6355,16 @@
         },
         {
             "name": "rector/rector-generator",
-            "version": "0.1.1",
+            "version": "0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-generator.git",
-                "reference": "a2ffca2ad275ddadae3533ae7a6bbfdced8362b0"
+                "reference": "a034c28ecf2ede0dc562dd1b030505598a8d0d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-generator/zipball/a2ffca2ad275ddadae3533ae7a6bbfdced8362b0",
-                "reference": "a2ffca2ad275ddadae3533ae7a6bbfdced8362b0",
+                "url": "https://api.github.com/repos/rectorphp/rector-generator/zipball/a034c28ecf2ede0dc562dd1b030505598a8d0d45",
+                "reference": "a034c28ecf2ede0dc562dd1b030505598a8d0d45",
                 "shasum": ""
             },
             "require": {
@@ -6409,7 +6409,7 @@
             "homepage": "https://getrector.org",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-generator/issues",
-                "source": "https://github.com/rectorphp/rector-generator/tree/0.1.1"
+                "source": "https://github.com/rectorphp/rector-generator/tree/0.1.6"
             },
             "funding": [
                 {
@@ -6417,7 +6417,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-12T17:36:18+00:00"
+            "time": "2021-04-08T22:22:08+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -7319,16 +7319,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.8",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
+                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
-                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
+                "reference": "ffced0d2c8fa8e6cdc4d695a743271fab6c38625",
                 "shasum": ""
             },
             "require": {
@@ -7371,7 +7371,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2020-10-23T02:01:07+00:00"
+            "time": "2021-04-09T00:54:41+00:00"
         },
         {
             "name": "symfony/cache",

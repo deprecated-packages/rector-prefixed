@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Printer\Whitespace;
 
-use RectorPrefix20210408\Nette\Utils\Strings;
+use RectorPrefix20210409\Nette\Utils\Strings;
 use PhpParser\Node\Stmt;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210409\Symplify\SmartFileSystem\SmartFileInfo;
 final class IndentCharacterDetector
 {
     /**
@@ -25,11 +25,11 @@ final class IndentCharacterDetector
     {
         foreach ($stmts as $stmt) {
             $fileInfo = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-            if (!$fileInfo instanceof \RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo) {
+            if (!$fileInfo instanceof \RectorPrefix20210409\Symplify\SmartFileSystem\SmartFileInfo) {
                 continue;
             }
-            $whitespaces = \count(\RectorPrefix20210408\Nette\Utils\Strings::matchAll($fileInfo->getContents(), self::FOUR_SPACE_START_REGEX));
-            $tabs = \count(\RectorPrefix20210408\Nette\Utils\Strings::matchAll($fileInfo->getContents(), '#^\\t#m'));
+            $whitespaces = \count(\RectorPrefix20210409\Nette\Utils\Strings::matchAll($fileInfo->getContents(), self::FOUR_SPACE_START_REGEX));
+            $tabs = \count(\RectorPrefix20210409\Nette\Utils\Strings::matchAll($fileInfo->getContents(), '#^\\t#m'));
             // tab vs space
             return ($whitespaces <=> $tabs) >= 0 ? ' ' : "\t";
         }

@@ -6,7 +6,7 @@ namespace Rector\NodeTypeResolver\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210409\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -94,7 +94,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210408\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210409\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!
