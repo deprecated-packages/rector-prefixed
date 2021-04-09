@@ -83,12 +83,20 @@ final class NameImportingPhpDocNodeVisitor extends \RectorPrefix20210409\Symplif
         // should skip because its already used
         if ($this->useNodesToAddCollector->isShortImported($phpParserNode, $fullyQualifiedObjectType)) {
             if ($this->useNodesToAddCollector->isImportShortable($phpParserNode, $fullyQualifiedObjectType)) {
-                return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
+                $newNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
+                if ($newNode->name !== $identifierTypeNode->name) {
+                    return $newNode;
+                }
+                return $identifierTypeNode;
             }
             return $identifierTypeNode;
         }
         $this->useNodesToAddCollector->addUseImport($phpParserNode, $fullyQualifiedObjectType);
-        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
+        $newNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
+        if ($newNode->name !== $identifierTypeNode->name) {
+            return $newNode;
+        }
+        return $identifierTypeNode;
     }
     private function shouldSkipShortClassName(\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {
