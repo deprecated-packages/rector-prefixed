@@ -75,10 +75,7 @@ CODE_SAMPLE
         if (!$this->isNames($methodCall->name, ['dispatch', 'emit'])) {
             return \true;
         }
-        if ($this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('League\\Event\\EventDispatcher'))) {
-            return \false;
-        }
-        if ($this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('League\\Event\\Emitter'))) {
+        if ($this->nodeTypeResolver->isObjectTypes($methodCall->var, [new \PHPStan\Type\ObjectType('League\\Event\\EventDispatcher'), new \PHPStan\Type\ObjectType('League\\Event\\Emitter')])) {
             return \false;
         }
         if (!$this->getStaticType($methodCall->args[0]->value) instanceof \PHPStan\Type\StringType) {
@@ -97,7 +94,6 @@ CODE_SAMPLE
         return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Stmt\Class_(null, ['implements' => $implements, 'stmts' => $this->createAnonymousEventClassBody($eventName)]));
     }
     /**
-     * @param Expr $eventName
      * @return Stmt[]
      */
     private function createAnonymousEventClassBody(\PhpParser\Node\Expr $eventName) : array
