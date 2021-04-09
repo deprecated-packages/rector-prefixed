@@ -162,6 +162,9 @@ CODE_SAMPLE
         // rename method to new one handling non-array input
         $methodCall->name = new \PhpParser\Node\Identifier($arrayArgumentToDataProvider->getNewMethod());
         $dataProviderMethodName = $this->createDataProviderMethodName($methodCall);
+        if ($dataProviderMethodName === null) {
+            return;
+        }
         $this->dataProviderClassMethodRecipes[] = new \Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe($dataProviderMethodName, $methodCall->args);
         $methodCall->args = [];
         $paramAndArgs = $this->paramAndArgFromArrayResolver->resolve($firstArgumentValue, $arrayArgumentToDataProvider->getVariableName());
@@ -195,11 +198,17 @@ CODE_SAMPLE
         }
         return $this->isName($methodCall->name, $arrayArgumentToDataProvider->getOldMethod());
     }
-    private function createDataProviderMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    private function createDataProviderMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
-        /** @var string $methodName */
-        $methodName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        return 'provideDataFor' . \ucfirst($methodName);
+        $methodNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$methodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return null;
+        }
+        $classMethodName = $this->getName($methodNode);
+        if ($classMethodName === null) {
+            return null;
+        }
+        return 'provideDataFor' . \ucfirst($classMethodName);
     }
     /**
      * @param ParamAndArg[] $paramAndArgs

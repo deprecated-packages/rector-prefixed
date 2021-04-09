@@ -258,12 +258,12 @@ private static $installed = array (
     ),
     'rector/rector-phpunit' => 
     array (
-      'pretty_version' => '0.10.3',
-      'version' => '0.10.3.0',
+      'pretty_version' => '0.10.5',
+      'version' => '0.10.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '515f787837ad068e3134e627eba91ec7adef5b40',
+      'reference' => '15279b370d336fe1bc7184292143e87a18cb15fc',
     ),
     'rector/rector-prefixed' => 
     array (

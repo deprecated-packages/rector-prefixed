@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cb0bcc5169c171d804d8aca35f4621d",
+    "content-hash": "57db0eae3e2d750915510fe5546cfbb3",
     "packages": [
         {
             "name": "composer/semver",
@@ -1300,16 +1300,16 @@
         },
         {
             "name": "rector/rector-phpunit",
-            "version": "0.10.3",
+            "version": "0.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-phpunit.git",
-                "reference": "515f787837ad068e3134e627eba91ec7adef5b40"
+                "reference": "15279b370d336fe1bc7184292143e87a18cb15fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/515f787837ad068e3134e627eba91ec7adef5b40",
-                "reference": "515f787837ad068e3134e627eba91ec7adef5b40",
+                "url": "https://api.github.com/repos/rectorphp/rector-phpunit/zipball/15279b370d336fe1bc7184292143e87a18cb15fc",
+                "reference": "15279b370d336fe1bc7184292143e87a18cb15fc",
                 "shasum": ""
             },
             "require": {
@@ -1345,9 +1345,9 @@
             "description": "Rector upgrades rules for PHPUnit",
             "support": {
                 "issues": "https://github.com/rectorphp/rector-phpunit/issues",
-                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.3"
+                "source": "https://github.com/rectorphp/rector-phpunit/tree/0.10.5"
             },
-            "time": "2021-04-05T10:52:55+00:00"
+            "time": "2021-04-09T15:14:35+00:00"
         },
         {
             "name": "rector/rector-symfony",
