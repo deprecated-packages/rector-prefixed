@@ -76,22 +76,23 @@ CODE_SAMPLE
     {
         if ($this->valueResolver->isFalse($binaryOp->left)) {
             $rightExpr = $binaryOp->right;
-            if (!$rightExpr instanceof \PhpParser\Node\Expr\FuncCall) {
-                return null;
-            }
-            if ($this->isName($rightExpr, 'strpos')) {
+            if ($this->isStrposFuncCall($rightExpr)) {
                 return $rightExpr;
             }
         }
         if ($this->valueResolver->isFalse($binaryOp->right)) {
             $leftExpr = $binaryOp->left;
-            if (!$leftExpr instanceof \PhpParser\Node\Expr\FuncCall) {
-                return null;
-            }
-            if ($this->isName($leftExpr, 'strpos')) {
+            if ($this->isStrposFuncCall($leftExpr)) {
                 return $leftExpr;
             }
         }
         return null;
+    }
+    private function isStrposFuncCall(\PhpParser\Node\Expr $expr) : bool
+    {
+        if (!$expr instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
+        }
+        return $this->isName($expr, 'strpos');
     }
 }

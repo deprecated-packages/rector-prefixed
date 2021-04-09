@@ -108,7 +108,7 @@ CODE_SAMPLE
             return null;
         }
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($this->typeChecker->isInstanceOf($parent, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
+        if ($parent instanceof \PhpParser\Node\Expr\Isset_ || $parent instanceof \PhpParser\Node\Stmt\Unset_) {
             return null;
         }
         $inputName = $this->controlDimFetchAnalyzer->matchNameOnFormOrControlVariable($node);

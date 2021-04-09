@@ -249,12 +249,12 @@ private static $installed = array (
     ),
     'rector/rector-nette' => 
     array (
-      'pretty_version' => '0.10.4',
-      'version' => '0.10.4.0',
+      'pretty_version' => '0.10.5',
+      'version' => '0.10.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3e3b848c55bae61f73d93d2a2d867c7c74cf1db7',
+      'reference' => 'ada32a577959df278cddce1da7251bf565028853',
     ),
     'rector/rector-phpunit' => 
     array (
@@ -275,12 +275,12 @@ private static $installed = array (
     ),
     'rector/rector-symfony' => 
     array (
-      'pretty_version' => '0.10.1',
-      'version' => '0.10.1.0',
+      'pretty_version' => '0.10.2',
+      'version' => '0.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2bc055bd04b60c243de7db0483dba82dc4bdfa0b',
+      'reference' => 'ff9ace2fd67f1a233f07bfc9915a93f47cea1799',
     ),
     'sebastian/diff' => 
     array (

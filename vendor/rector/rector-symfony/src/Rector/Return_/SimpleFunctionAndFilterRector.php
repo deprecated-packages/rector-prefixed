@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
@@ -92,8 +93,11 @@ CODE_SAMPLE
         if (!$classReflection->isSubclassOf('Twig_Extension')) {
             return null;
         }
-        $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        if (!\in_array($methodName, ['getFunctions', 'getFilters'], \true)) {
+        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isNames($classMethod, ['getFunctions', 'getFilters'])) {
             return null;
         }
         $this->traverseNodesWithCallable($node->expr, function (\PhpParser\Node $node) : ?Node {
