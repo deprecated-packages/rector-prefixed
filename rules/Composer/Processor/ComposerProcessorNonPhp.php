@@ -63,6 +63,9 @@ final class ComposerProcessorNonPhp implements \Rector\Core\Contract\Processor\N
     {
         return $smartFileInfo->getRealPath() === \getcwd() . '/composer.json';
     }
+    /**
+     * @return string[]
+     */
     public function getSupportedFileExtensions() : array
     {
         return ['json'];

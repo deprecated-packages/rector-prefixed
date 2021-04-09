@@ -1150,7 +1150,6 @@ class ContainerBuilder extends \RectorPrefix20210409\Symfony\Component\Dependenc
      * @param array            &$usedEnvs Env vars found while resolving are added to this array
      *
      * @return mixed The value with env parameters resolved if a string or an array is passed
-     * @param mixed[] $usedEnvs
      */
     public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
     {
