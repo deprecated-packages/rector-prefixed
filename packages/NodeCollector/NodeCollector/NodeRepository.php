@@ -286,9 +286,8 @@ final class NodeRepository
         if (!\is_string($class)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        /** @var string $method */
-        $method = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        return $this->findCallsByClassAndMethod($class, $method);
+        $methodName = $this->nodeNameResolver->getName($classMethod);
+        return $this->findCallsByClassAndMethod($class, $methodName);
     }
     public function hasClassChildren(\PhpParser\Node\Stmt\Class_ $desiredClass) : bool
     {

@@ -82,8 +82,8 @@ CODE_SAMPLE
                 return $this->createFromSelf($node);
             }
             $propertyName = $this->propertyNaming->fqnToVariableName($staticObjectType);
-            $currentMethodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-            if ($currentMethodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+            $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+            if ($this->nodeNameResolver->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
                 $propertyFetch = new \PhpParser\Node\Expr\Variable($propertyName);
             } else {
                 $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);

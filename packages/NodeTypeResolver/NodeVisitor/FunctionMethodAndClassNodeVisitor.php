@@ -13,10 +13,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
     /**
      * @var string|null
      */
-    private $methodName;
-    /**
-     * @var string|null
-     */
     private $className;
     /**
      * @var ClassLike[]|null[]
@@ -42,7 +38,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
     {
         $this->classLike = null;
         $this->className = null;
-        $this->methodName = null;
         $this->classMethod = null;
         return null;
     }
@@ -60,7 +55,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         }
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->classMethod = \array_pop($this->methodStack);
-            $this->methodName = (string) $this->methodName;
         }
         return null;
     }
@@ -78,9 +72,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->methodStack[] = $this->classMethod;
             $this->classMethod = $node;
-            $this->methodName = (string) $node->name;
         }
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME, $this->methodName);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, $this->classMethod);
     }
     private function setClassNodeAndName(?\PhpParser\Node\Stmt\ClassLike $classLike) : void

@@ -95,8 +95,8 @@ CODE_SAMPLE
         if ($this->isName($node->name, $getterMethodName)) {
             return null;
         }
-        $node->name = new \PhpParser\Node\Identifier($getterMethodName);
         $this->methodCallRenamer->updateClassMethodCalls($node, $getterMethodName);
+        $node->name = new \PhpParser\Node\Identifier($getterMethodName);
         return $node;
     }
     private function isAlreadyGetterNamedClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

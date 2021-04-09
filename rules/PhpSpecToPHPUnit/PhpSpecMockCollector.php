@@ -88,7 +88,12 @@ final class PhpSpecMockCollector
         $variable = $this->nodeNameResolver->getName($param->var);
         /** @var string $class */
         $class = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        $this->mocks[$class][$variable][] = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $methodName = $this->nodeNameResolver->getName($classMethod);
+        $this->mocks[$class][$variable][] = $methodName;
         if ($param->type === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }

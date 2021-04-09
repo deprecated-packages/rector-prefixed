@@ -131,8 +131,11 @@ final class ComplexNodeRemover
     }
     private function removeConstructorDependency(\PhpParser\Node\Expr\Assign $assign) : void
     {
-        $methodName = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        if ($methodName !== \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
+        $classMethod = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return;
+        }
+        if (!$this->nodeNameResolver->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return;
         }
         $class = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

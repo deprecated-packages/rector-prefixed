@@ -118,7 +118,11 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         $classMocks = $this->phpSpecMockCollector->resolveClassMocksFromParam($classLike);
         $variable = $this->getName($param->var);
-        $method = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $methodName = $this->nodeNameResolver->getName($classMethod);
         $methodsWithWThisMock = $classMocks[$variable];
         if ($param->var instanceof \PhpParser\Node\Expr\Error) {
             return null;
@@ -129,7 +133,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         $reversedMethodsWithThisMock = \array_flip($methodsWithWThisMock);
         // first use of many: "$this->mock = $this->createMock()"
-        if ($reversedMethodsWithThisMock[$method] === 0) {
+        if ($reversedMethodsWithThisMock[$methodName] === 0) {
             return $this->createPropertyFetchMockVariableAssign($param, $name);
         }
         return null;

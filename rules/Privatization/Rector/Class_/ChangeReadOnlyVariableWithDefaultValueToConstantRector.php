@@ -101,10 +101,11 @@ CODE_SAMPLE
             return null;
         }
         foreach ($readOnlyVariableAssigns as $readOnlyVariableAssign) {
-            $methodName = $readOnlyVariableAssign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-            if (!\is_string($methodName)) {
+            $classMethod = $readOnlyVariableAssign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
+            $methodName = $this->getName($classMethod);
             $classMethod = $node->getMethod($methodName);
             if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
