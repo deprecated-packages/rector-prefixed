@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
 use RectorPrefix20210410\Nette\Utils\Strings;
+use Rector\ChangesReporting\Annotation\AnnotationExtractor;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -37,11 +38,16 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    /**
+     * @var AnnotationExtractor
+     */
+    private $annotationExtractor;
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\AnnotationExtractor $annotationExtractor)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->configuration = $configuration;
+        $this->annotationExtractor = $annotationExtractor;
     }
     public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
@@ -87,7 +93,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             if ($fileDiff->getRectorChanges() !== []) {
                 $this->symfonyStyle->writeln('<options=underscore>Applied rules:</>');
                 $this->symfonyStyle->newLine();
-                $this->symfonyStyle->listing($fileDiff->getRectorClasses());
+                $this->symfonyStyle->listing($fileDiff->getRectorClassesWithChangelogUrl($this->annotationExtractor));
                 $this->symfonyStyle->newLine();
             }
         }
