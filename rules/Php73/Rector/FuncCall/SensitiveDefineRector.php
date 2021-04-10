@@ -9,7 +9,8 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/case_insensitive_constant_deprecation
+ * @changelog https://wiki.php.net/rfc/case_insensitive_constant_deprecation
+ *
  * @see \Rector\Tests\Php73\Rector\FuncCall\SensitiveDefineRector\SensitiveDefineRectorTest
  */
 final class SensitiveDefineRector extends \Rector\Core\Rector\AbstractRector

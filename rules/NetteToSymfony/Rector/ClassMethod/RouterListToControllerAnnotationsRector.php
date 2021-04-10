@@ -23,8 +23,7 @@ use RectorPrefix20210410\Stringy\Stringy;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://doc.nette.org/en/2.4/routing
- * @see https://symfony.com/doc/current/routing.html
+ * @changelog https://doc.nette.org/en/2.4/routing, https://symfony.com/doc/current/routing.html
  *
  * @see \Rector\Tests\NetteToSymfony\Rector\ClassMethod\RouterListToControllerAnnotationsRector\RouterListToControllerAnnotationsRectorTest
  */

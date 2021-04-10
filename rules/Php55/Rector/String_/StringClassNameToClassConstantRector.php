@@ -19,8 +19,7 @@ use RectorPrefix20210410\Symplify\PackageBuilder\Reflection\ClassLikeExistenceCh
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/class_name_scalars
- * @see https://github.com/symfony/symfony/blob/2.8/UPGRADE-2.8.md#form
+ * @changelog https://wiki.php.net/rfc/class_name_scalars https://github.com/symfony/symfony/blob/2.8/UPGRADE-2.8.md#form
  *
  * @see \Rector\Tests\Php55\Rector\String_\StringClassNameToClassConstantRector\StringClassNameToClassConstantRectorTest
  */

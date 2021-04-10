@@ -20,7 +20,7 @@ use Rector\NetteToSymfony\NodeFactory\SymfonyMethodCallsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://symfony.com/doc/current/forms.html#creating-form-classes
+ * @changelog https://symfony.com/doc/current/forms.html#creating-form-classes
  *
  * @see \Rector\Tests\NetteToSymfony\Rector\Class_\FormControlToControllerAndFormTypeRector\FormControlToControllerAndFormTypeRectorTest
  */

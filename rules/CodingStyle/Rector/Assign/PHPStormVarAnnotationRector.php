@@ -15,7 +15,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://github.com/shopsys/shopsys/pull/524
+ * @changelog https://github.com/shopsys/shopsys/pull/524
  * @see \Rector\Tests\CodingStyle\Rector\Assign\PHPStormVarAnnotationRector\PHPStormVarAnnotationRectorTest
  */
 final class PHPStormVarAnnotationRector extends \Rector\Core\Rector\AbstractRector

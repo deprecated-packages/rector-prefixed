@@ -16,8 +16,7 @@ use Rector\Symfony\NodeAnalyzer\FluentNodeRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://ocramius.github.io/blog/fluent-interfaces-are-evil/
- * @see https://www.yegor256.com/2018/03/13/fluent-interfaces.html
+ * @changelog https://ocramius.github.io/blog/fluent-interfaces-are-evil/
  *
  * @see \Rector\Tests\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector\FluentChainMethodCallToNormalMethodCallRectorTest
  * @see \Rector\Tests\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector\ReturnNewFluentChainMethodCallToNonFluentRectorTest

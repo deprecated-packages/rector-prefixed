@@ -10,7 +10,7 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://carbon.nesbot.com/docs/#api-carbon-2
+ * @changelog https://carbon.nesbot.com/docs/#api-carbon-2
  *
  * @see \Rector\Tests\Carbon\Rector\MethodCall\ChangeCarbonSingularMethodCallToPluralRector\ChangeCarbonSingularMethodCallToPluralRectorTest
  */

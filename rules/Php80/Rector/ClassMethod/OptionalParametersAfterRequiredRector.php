@@ -15,7 +15,7 @@ use Rector\Php80\NodeResolver\RequireOptionalParamResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://php.watch/versions/8.0#deprecate-required-param-after-optional
+ * @changelog https://php.watch/versions/8.0#deprecate-required-param-after-optional
  *
  * @see \Rector\Tests\Php80\Rector\ClassMethod\OptionalParametersAfterRequiredRector\OptionalParametersAfterRequiredRectorTest
  */

@@ -10,7 +10,7 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://www.php.net/manual/en/function.call-user-func-array.php#117655
+ * @changelog https://www.php.net/manual/en/function.call-user-func-array.php#117655
  *
  * @see \Rector\Tests\CodingStyle\Rector\FuncCall\CallUserFuncCallToVariadicRector\CallUserFuncCallToVariadicRectorTest
  */

@@ -10,7 +10,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://stackoverflow.com/a/4294663/1348344
+ * @changelog https://stackoverflow.com/a/4294663/1348344
  * @see \Rector\Tests\CodeQuality\Rector\NotEqual\CommonNotEqualRector\CommonNotEqualRectorTest
  */
 final class CommonNotEqualRector extends \Rector\Core\Rector\AbstractRector

@@ -19,7 +19,7 @@ use Rector\Php80\NodeManipulator\TokenManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/token_as_object
+ * @changelog https://wiki.php.net/rfc/token_as_object
  *
  * @see \Rector\Tests\Php80\Rector\FuncCall\TokenGetAllToObjectRector\TokenGetAllToObjectRectorTest
  */

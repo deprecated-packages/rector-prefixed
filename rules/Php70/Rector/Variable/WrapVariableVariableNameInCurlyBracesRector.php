@@ -11,7 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Tests\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector\WrapVariableVariableNameInCurlyBracesRectorTest
- * @see https://www.php.net/manual/en/language.variables.variable.php
+ * @changelog https://www.php.net/manual/en/language.variables.variable.php
  */
 final class WrapVariableVariableNameInCurlyBracesRector extends \Rector\Core\Rector\AbstractRector
 {

@@ -17,7 +17,7 @@ use Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://github.com/rectorphp/rector/issues/2945
+ * @changelog https://github.com/rectorphp/rector/issues/2945
  *
  * @see \Rector\Tests\DeadCode\Rector\FunctionLike\RemoveDuplicatedIfReturnRector\RemoveDuplicatedIfReturnRectorTest
  */

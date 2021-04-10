@@ -12,7 +12,7 @@ use Rector\DeadCode\Contract\ConditionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://www.php.net/manual/en/function.version-compare.php
+ * @changelog https://www.php.net/manual/en/function.version-compare.php
  *
  * @see \Rector\Tests\DeadCode\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector\UnwrapFutureCompatibleIfPhpVersionRectorTest
  */

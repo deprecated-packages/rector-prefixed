@@ -19,7 +19,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://www.php.net/manual/en/language.types.callable.php#117260
+ * @changelog https://www.php.net/manual/en/language.types.callable.php#117260
  * @see https://3v4l.org/MsMbQ
  * @see https://3v4l.org/KM1Ji
  *

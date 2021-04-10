@@ -21,7 +21,7 @@ use Rector\Php70\NodeAnalyzer\Php4ConstructorClassMethodAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/remove_php4_constructors
+ * @changelog https://wiki.php.net/rfc/remove_php4_constructors
  * @see \Rector\Tests\Php70\Rector\ClassMethod\Php4ConstructorRector\Php4ConstructorRectorTest
  */
 final class Php4ConstructorRector extends \Rector\Core\Rector\AbstractRector

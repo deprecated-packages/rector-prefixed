@@ -25,7 +25,7 @@ use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://phpstan.org/r/e909844a-084e-427e-92ac-fed3c2aeabab
+ * @changelog https://phpstan.org/r/e909844a-084e-427e-92ac-fed3c2aeabab
  *
  * @see \Rector\Tests\CodeQuality\Rector\FunctionLike\RemoveAlwaysTrueConditionSetInConstructorRector\RemoveAlwaysTrueConditionSetInConstructorRectorTest
  */

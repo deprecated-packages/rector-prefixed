@@ -12,8 +12,8 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/deprecations_php_7_4 (not confirmed yet)
- * @see https://3v4l.org/kLdtB
+ * @changelog https://wiki.php.net/rfc/deprecations_php_7_4 https://3v4l.org/kLdtB
+ *
  * @see \Rector\Tests\Php74\Rector\FuncCall\MbStrrposEncodingArgumentPositionRector\MbStrrposEncodingArgumentPositionRectorTest
  */
 final class MbStrrposEncodingArgumentPositionRector extends \Rector\Core\Rector\AbstractRector

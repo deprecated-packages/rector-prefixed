@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210410\Webmozart\Assert\Assert;
 /**
- * @see https://github.com/symfony/symfony/pull/35308
+ * @changelog https://github.com/symfony/symfony/pull/35308
  *
  * @see \Rector\Tests\Transform\Rector\New_\NewArgToMethodCallRector\NewArgToMethodCallRectorTest
  */

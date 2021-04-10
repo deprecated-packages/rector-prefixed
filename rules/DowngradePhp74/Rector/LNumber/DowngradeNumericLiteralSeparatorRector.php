@@ -12,7 +12,8 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see https://wiki.php.net/rfc/numeric_literal_separator
+ * @changelog https://wiki.php.net/rfc/numeric_literal_separator
+ *
  * @see \Rector\Tests\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector\DowngradeNumericLiteralSeparatorRectorTest
  */
 final class DowngradeNumericLiteralSeparatorRector extends \Rector\Core\Rector\AbstractRector
