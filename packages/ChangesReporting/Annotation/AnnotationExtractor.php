@@ -3,7 +3,11 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Annotation;
 
+use RectorPrefix20210410\Nette\Utils\Strings;
 use ReflectionClass;
+/**
+ * @see \Rector\Tests\ChangesReporting\Annotation\AnnotationExtractorTest
+ */
 final class AnnotationExtractor
 {
     /**
@@ -11,16 +15,17 @@ final class AnnotationExtractor
      */
     public function extractAnnotationFromClass(string $className, string $annotation) : ?string
     {
-        $classReflection = new \ReflectionClass($className);
-        $docComment = $classReflection->getDocComment();
+        $reflectionClass = new \ReflectionClass($className);
+        $docComment = $reflectionClass->getDocComment();
         if (!\is_string($docComment)) {
             return null;
         }
-        $pattern = '#' . \preg_quote($annotation) . '\\s*(?<annotation>[a-zA-Z0-9, ()_].*)#';
-        \preg_match($pattern, $docComment, $matches);
-        if (!\array_key_exists('annotation', $matches)) {
+        // @see https://regex101.com/r/oYGaWU/1
+        $pattern = '#' . \preg_quote($annotation, '#') . '\\s+(?<content>.*?)$#m';
+        $matches = \RectorPrefix20210410\Nette\Utils\Strings::match($docComment, $pattern);
+        if ($matches === \false) {
             return null;
         }
-        return \trim((string) $matches['annotation']);
+        return $matches['content'] ?? null;
     }
 }

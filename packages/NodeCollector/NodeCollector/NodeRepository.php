@@ -173,27 +173,6 @@ final class NodeRepository
             return $node instanceof \PhpParser\Node\Expr\StaticCall;
         });
     }
-    /**
-     * @return ClassMethod[]
-     */
-    public function findClassMethodByTypeAndMethod(string $desiredType, string $desiredMethodName) : array
-    {
-        $classMethods = [];
-        foreach ($this->classMethodsByType as $className => $classMethodByMethodName) {
-            if (!$this->reflectionProvider->hasClass($className)) {
-                continue;
-            }
-            $classReflection = $this->reflectionProvider->getClass($className);
-            if (!$classReflection->isSubclassOf($desiredType)) {
-                continue;
-            }
-            if (!isset($classMethodByMethodName[$desiredMethodName])) {
-                continue;
-            }
-            $classMethods[] = $classMethodByMethodName[$desiredMethodName];
-        }
-        return $classMethods;
-    }
     public function findClassMethodByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $method = $this->nodeNameResolver->getName($staticCall->name);
