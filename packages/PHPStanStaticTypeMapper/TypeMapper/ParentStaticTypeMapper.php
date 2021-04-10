@@ -8,7 +8,6 @@ use PhpParser\Node\Name;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Type;
-use PHPStan\Type\VerbosityLevel;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType;
 final class ParentStaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
@@ -33,12 +32,5 @@ final class ParentStaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('parent');
-    }
-    /**
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
 }

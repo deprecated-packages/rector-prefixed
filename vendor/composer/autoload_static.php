@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc
+class ComposerStaticInit09014725abe9cc273fff7bec41d08158
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3082,7 +3082,6 @@ class ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc
         'Rector\\StaticTypeMapper\\StaticTypeMapper' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/StaticTypeMapper.php',
         'Rector\\StaticTypeMapper\\TypeFactory\\UnionTypeFactory' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/TypeFactory/UnionTypeFactory.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\AliasedObjectType' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php',
-        'Rector\\StaticTypeMapper\\ValueObject\\Type\\FalseBooleanType' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/ValueObject/Type/FalseBooleanType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\FullyQualifiedGenericObjectType' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedGenericObjectType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\FullyQualifiedObjectType' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedObjectType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\ParentStaticType' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/ValueObject/Type/ParentStaticType.php',
@@ -3384,9 +3383,9 @@ class ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit09014725abe9cc273fff7bec41d08158::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit09014725abe9cc273fff7bec41d08158::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit09014725abe9cc273fff7bec41d08158::$classMap;
 
         }, null, ClassLoader::class);
     }

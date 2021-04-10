@@ -11,6 +11,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType as PhpParserUnionType;
 use PhpParser\NodeAbstract;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -107,6 +108,10 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         if ($this->boolUnionTypeAnalyzer->isNullableBoolUnionType($type) && !$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
             return new \PhpParser\Node\NullableType(new \PhpParser\Node\Name('bool'));
         }
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES) && $this->isFalseBoolUnion($type)) {
+            // return new Bool
+            return new \PhpParser\Node\Name('bool');
+        }
         // special case for nullable
         $nullabledType = $this->matchTypeForNullableUnionType($type);
         if (!$nullabledType instanceof \PHPStan\Type\Type) {
@@ -128,21 +133,6 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return new \PhpParser\Node\NullableType($nullabledTypeNode);
-    }
-    /**
-     * @param UnionType $type
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        $docStrings = [];
-        foreach ($type->getTypes() as $unionedType) {
-            $docStrings[] = $this->phpStanStaticTypeMapper->mapToDocString($unionedType);
-        }
-        // remove empty values, e.g. void/iterable
-        $docStrings = \array_unique($docStrings);
-        $docStrings = \array_filter($docStrings);
-        return \implode('|', $docStrings);
     }
     private function shouldSkipIterable(\PHPStan\Type\UnionType $unionType) : bool
     {
@@ -276,5 +266,18 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return new \PHPStan\Type\ObjectType('Rector\\Core\\Contract\\Rector\\RectorInterface');
         }
         return $typeWithClassName;
+    }
+    private function isFalseBoolUnion(\PHPStan\Type\UnionType $unionType) : bool
+    {
+        if (\count($unionType->getTypes()) !== 2) {
+            return \false;
+        }
+        foreach ($unionType->getTypes() as $unionedType) {
+            if ($unionedType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+                continue;
+            }
+            return \false;
+        }
+        return \true;
     }
 }

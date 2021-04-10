@@ -9,7 +9,6 @@ use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\Type;
-use PHPStan\Type\VerbosityLevel;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
@@ -46,12 +45,5 @@ final class FloatTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return null;
         }
         return new \PhpParser\Node\Name('float');
-    }
-    /**
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
 }

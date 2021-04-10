@@ -53,14 +53,4 @@ final class PHPStanStaticTypeMapper
         }
         throw new \Rector\Core\Exception\NotImplementedYetException(__METHOD__ . ' for ' . \get_class($type));
     }
-    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
-    {
-        foreach ($this->typeMappers as $typeMapper) {
-            if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
-                continue;
-            }
-            return $typeMapper->mapToDocString($type, $parentType);
-        }
-        throw new \Rector\Core\Exception\NotImplementedYetException(__METHOD__ . ' for ' . \get_class($type));
-    }
 }

@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
@@ -187,14 +186,10 @@ CODE_SAMPLE
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
     }
     /**
-     * @return Identifier|Name|NullableType|PhpParserUnionType|null
+     * @return Name|NullableType|PhpParserUnionType|null
      */
     private function resolveFuncCallReturnNode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
     {
-        $function = $this->nodeRepository->findFunctionByFuncCall($funcCall);
-        if ($function instanceof \PhpParser\Node\Stmt\Function_) {
-            return $function->returnType;
-        }
         $returnType = $this->reflectionTypeResolver->resolveFuncCallReturnType($funcCall);
         if (!$returnType instanceof \PHPStan\Type\Type) {
             return null;

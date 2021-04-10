@@ -2748,7 +2748,6 @@ return array(
     'Rector\\StaticTypeMapper\\StaticTypeMapper' => $baseDir . '/packages/StaticTypeMapper/StaticTypeMapper.php',
     'Rector\\StaticTypeMapper\\TypeFactory\\UnionTypeFactory' => $baseDir . '/packages/StaticTypeMapper/TypeFactory/UnionTypeFactory.php',
     'Rector\\StaticTypeMapper\\ValueObject\\Type\\AliasedObjectType' => $baseDir . '/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php',
-    'Rector\\StaticTypeMapper\\ValueObject\\Type\\FalseBooleanType' => $baseDir . '/packages/StaticTypeMapper/ValueObject/Type/FalseBooleanType.php',
     'Rector\\StaticTypeMapper\\ValueObject\\Type\\FullyQualifiedGenericObjectType' => $baseDir . '/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedGenericObjectType.php',
     'Rector\\StaticTypeMapper\\ValueObject\\Type\\FullyQualifiedObjectType' => $baseDir . '/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedObjectType.php',
     'Rector\\StaticTypeMapper\\ValueObject\\Type\\ParentStaticType' => $baseDir . '/packages/StaticTypeMapper/ValueObject/Type/ParentStaticType.php',

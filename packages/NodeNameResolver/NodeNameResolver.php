@@ -209,7 +209,6 @@ final class NodeNameResolver
     }
     /**
      * @param mixed[] $backtrace
-     * @return mixed[]|null
      */
     private function matchRectorBacktraceCall(array $backtrace) : ?array
     {

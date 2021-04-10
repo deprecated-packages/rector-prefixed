@@ -32,11 +32,4 @@ final class NeverTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     {
         return null;
     }
-    /**
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        return 'mixed';
-    }
 }

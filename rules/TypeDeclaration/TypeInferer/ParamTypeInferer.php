@@ -29,11 +29,11 @@ final class ParamTypeInferer
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         foreach ($this->paramTypeInferers as $paramTypeInferer) {
-            $type = $paramTypeInferer->inferParam($param);
-            if ($type instanceof \PHPStan\Type\MixedType) {
+            $paramType = $paramTypeInferer->inferParam($param);
+            if ($paramType instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
-            return $this->genericClassStringTypeNormalizer->normalize($type);
+            return $this->genericClassStringTypeNormalizer->normalize($paramType);
         }
         return new \PHPStan\Type\MixedType();
     }

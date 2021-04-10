@@ -49,6 +49,6 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
             $unionedTypes[] = $this->phpDocTypeMapper->mapToPHPStanType($unionedTypeNode, $node, $nameScope);
         }
         // to prevent missing class error, e.g. in tests
-        return $this->typeFactory->createMixedPassedOrUnionType($unionedTypes);
+        return $this->typeFactory->createMixedPassedOrUnionTypeAndKeepConstant($unionedTypes);
     }
 }

@@ -7,6 +7,7 @@ use RectorPrefix20210410\Nette\Utils\Strings;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
@@ -17,16 +18,21 @@ use PHPStan\Type\ResourceType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
-use Rector\StaticTypeMapper\ValueObject\Type\FalseBooleanType;
 final class ScalarStringToTypeMapper
 {
     /**
      * @var array<class-string<Type>, string[]>
      */
-    private const SCALAR_NAME_BY_TYPE = [\PHPStan\Type\StringType::class => ['string'], \PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \PHPStan\Type\IntegerType::class => ['int', 'integer'], \Rector\StaticTypeMapper\ValueObject\Type\FalseBooleanType::class => ['false'], \PHPStan\Type\BooleanType::class => ['true', 'bool', 'boolean'], \PHPStan\Type\NullType::class => ['null'], \PHPStan\Type\VoidType::class => ['void'], \PHPStan\Type\ResourceType::class => ['resource'], \PHPStan\Type\CallableType::class => ['callback', 'callable'], \PHPStan\Type\ObjectWithoutClassType::class => ['object']];
+    private const SCALAR_NAME_BY_TYPE = [\PHPStan\Type\StringType::class => ['string'], \PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \PHPStan\Type\IntegerType::class => ['int', 'integer'], \PHPStan\Type\BooleanType::class => ['bool', 'boolean'], \PHPStan\Type\NullType::class => ['null'], \PHPStan\Type\VoidType::class => ['void'], \PHPStan\Type\ResourceType::class => ['resource'], \PHPStan\Type\CallableType::class => ['callback', 'callable'], \PHPStan\Type\ObjectWithoutClassType::class => ['object']];
     public function mapScalarStringToType(string $scalarName) : \PHPStan\Type\Type
     {
         $loweredScalarName = \RectorPrefix20210410\Nette\Utils\Strings::lower($scalarName);
+        if ($loweredScalarName === 'false') {
+            return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
+        }
+        if ($loweredScalarName === 'true') {
+            return new \PHPStan\Type\Constant\ConstantBooleanType(\true);
+        }
         foreach (self::SCALAR_NAME_BY_TYPE as $objectType => $scalarNames) {
             if (!\in_array($loweredScalarName, $scalarNames, \true)) {
                 continue;

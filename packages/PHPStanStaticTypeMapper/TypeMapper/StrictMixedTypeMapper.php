@@ -37,11 +37,4 @@ final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     {
         return new \PhpParser\Node\Name(self::MIXED);
     }
-    /**
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        return self::MIXED;
-    }
 }

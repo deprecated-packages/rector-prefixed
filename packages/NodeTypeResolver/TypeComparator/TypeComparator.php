@@ -6,11 +6,14 @@ namespace Rector\NodeTypeResolver\TypeComparator;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\UnionType;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\NodeTypeResolver\PHPStan\TypeHasher;
@@ -76,6 +79,9 @@ final class TypeComparator
     {
         $phpParserNodeType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($phpParserNode);
         $phpStanDocType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($phpStanDocTypeNode, $node);
+        // normalize bool union types
+        $phpParserNodeType = $this->normalizeConstantBooleanType($phpParserNodeType);
+        $phpStanDocType = $this->normalizeConstantBooleanType($phpStanDocType);
         return $this->areTypesEqual($phpParserNodeType, $phpStanDocType);
     }
     public function isSubtype(\PHPStan\Type\Type $checkedType, \PHPStan\Type\Type $mainType) : bool
@@ -174,5 +180,14 @@ final class TypeComparator
         $firstArrayType = $this->normalizeSingleUnionType($firstType->getItemType());
         $secondArrayType = $this->normalizeSingleUnionType($secondType->getItemType());
         return $this->areTypesEqual($firstArrayType, $secondArrayType);
+    }
+    private function normalizeConstantBooleanType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+    {
+        return \PHPStan\Type\TypeTraverser::map($type, function (\PHPStan\Type\Type $type, callable $callable) : Type {
+            if ($type instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+                return new \PHPStan\Type\BooleanType();
+            }
+            return $callable($type);
+        });
     }
 }

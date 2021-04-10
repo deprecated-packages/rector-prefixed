@@ -11,7 +11,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
@@ -157,10 +156,7 @@ CODE_SAMPLE
     }
     private function isParamDocTypeEqualToPhpType(\PhpParser\Node\Param $param, \PHPStan\Type\Type $paramType) : bool
     {
-        $currentParamType = $this->getObjectType($param);
-        if ($currentParamType instanceof \PHPStan\Type\UnionType) {
-            $currentParamType = $currentParamType->getTypes()[0];
-        }
+        $currentParamType = $this->nodeTypeResolver->getStaticType($param);
         return $currentParamType->equals($paramType);
     }
 }

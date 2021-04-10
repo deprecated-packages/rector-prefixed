@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -18,7 +19,6 @@ use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-use Rector\StaticTypeMapper\ValueObject\Type\FalseBooleanType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
@@ -95,7 +95,7 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
             return new \PHPStan\Type\StringType();
         }
         if ($name === 'false') {
-            return new \Rector\StaticTypeMapper\ValueObject\Type\FalseBooleanType();
+            return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
         }
         if ($name === 'bool') {
             return new \PHPStan\Type\BooleanType();

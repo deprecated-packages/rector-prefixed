@@ -25,7 +25,6 @@ use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
-use Rector\TypeDeclaration\TypeNormalizer;
 /**
  * @see \Rector\PHPStanStaticTypeMapper\Tests\TypeMapper\ArrayTypeMapperTest
  */
@@ -40,10 +39,6 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
      */
     private $phpStanStaticTypeMapper;
     /**
-     * @var TypeNormalizer
-     */
-    private $typeNormalizer;
-    /**
      * @var UnionTypeCommonTypeNarrower
      */
     private $unionTypeCommonTypeNarrower;
@@ -55,10 +50,9 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
      * To avoid circular dependency
      * @required
      */
-    public function autowireArrayTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower, \PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function autowireArrayTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower, \PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
-        $this->typeNormalizer = $typeNormalizer;
         $this->unionTypeCommonTypeNarrower = $unionTypeCommonTypeNarrower;
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -97,19 +91,6 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('array');
-    }
-    /**
-     * @param ArrayType $type
-     * @param \PHPStan\Type\Type|null $parentType
-     */
-    public function mapToDocString(\PHPStan\Type\Type $type, $parentType = null) : string
-    {
-        $itemType = $type->getItemType();
-        $normalizedType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($type);
-        if ($normalizedType instanceof \PHPStan\Type\UnionType) {
-            return $this->mapArrayUnionTypeToDocString($type, $normalizedType);
-        }
-        return $this->phpStanStaticTypeMapper->mapToDocString($itemType, $parentType) . '[]';
     }
     private function createArrayTypeNodeFromUnionType(\PHPStan\Type\UnionType $unionType) : \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode
     {
@@ -176,16 +157,6 @@ final class ArrayTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         $identifierTypeNode->setAttribute(self::HAS_GENERIC_TYPE_PARENT, $withKey);
         return new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($identifierTypeNode, $genericTypes);
-    }
-    private function mapArrayUnionTypeToDocString(\PHPStan\Type\ArrayType $arrayType, \PHPStan\Type\UnionType $unionType) : string
-    {
-        $unionedTypesAsString = [];
-        foreach ($unionType->getTypes() as $unionedArrayItemType) {
-            $unionedTypesAsString[] = $this->phpStanStaticTypeMapper->mapToDocString($unionedArrayItemType, $arrayType);
-        }
-        $unionedTypesAsString = \array_values($unionedTypesAsString);
-        $unionedTypesAsString = \array_unique($unionedTypesAsString);
-        return \implode('|', $unionedTypesAsString);
     }
     private function isIntegerKeyAndNonNestedArray(\PHPStan\Type\ArrayType $arrayType) : bool
     {
