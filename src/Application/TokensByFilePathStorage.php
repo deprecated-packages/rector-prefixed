@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Application;
 
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
 use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
 final class TokensByFilePathStorage
@@ -21,6 +22,9 @@ final class TokensByFilePathStorage
     }
     public function getForFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Rector\Core\ValueObject\Application\ParsedStmtsAndTokens
     {
+        if (!$this->hasForFileInfo($smartFileInfo)) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('File "%s" was not preparsed, so it cannot be printed.%sCheck "%s" method.', $smartFileInfo->getRealPath(), \PHP_EOL, self::class . '::parseFileInfoToLocalCache()'));
+        }
         return $this->tokensByFilePath[$smartFileInfo->getRealPath()];
     }
 }

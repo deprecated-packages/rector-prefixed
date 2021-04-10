@@ -97,10 +97,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         return \RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively($directory, $suffix);
     }
-    /**
-     * @param SmartFileInfo[] $extraFileInfos
-     */
-    protected function doTestFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFileInfos = []) : void
+    protected function doTestFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, \false);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
@@ -110,7 +107,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
         $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
         $this->dynamicSourceLocatorProvider->setFileInfo($inputFileInfo);
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
-        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFileInfos);
+        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
         $this->originalTempFileInfo = $inputFileInfo;
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
@@ -146,39 +143,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-    /**
-     * @param SmartFileInfo[] $extraFileInfos
-     */
-    private function doTestFileMatchesExpectedContent(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFileInfos = []) : void
+    private function doTestFileMatchesExpectedContent(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
-        if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
-            if ($extraFileInfos === []) {
-                $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
-                $this->fileProcessor->refactor($originalFileInfo);
-                $this->fileProcessor->postFileRefactor($originalFileInfo);
-            } else {
-                $fileInfosToProcess = \array_merge([$originalFileInfo], $extraFileInfos);
-                // life-cycle trio :)
-                foreach ($fileInfosToProcess as $fileInfoToProcess) {
-                    $this->fileProcessor->parseFileInfoToLocalCache($fileInfoToProcess);
-                }
-                foreach ($fileInfosToProcess as $fileInfoToProcess) {
-                    $this->fileProcessor->refactor($fileInfoToProcess);
-                }
-                foreach ($fileInfosToProcess as $fileInfoToProcess) {
-                    $this->fileProcessor->postFileRefactor($fileInfoToProcess);
-                }
-            }
-            // mimic post-rectors
-            $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-        } elseif (\RectorPrefix20210410\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
-            $nonPhpFileChange = $this->nonPhpFileProcessor->process($originalFileInfo);
-            $changedContent = $nonPhpFileChange !== null ? $nonPhpFileChange->getNewContent() : '';
-        } else {
-            $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
-            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
-        }
+        $changedContent = $this->processFileInfo($originalFileInfo);
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
@@ -205,5 +173,21 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
         }
         self::$rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         self::$isInitialized = \true;
+    }
+    private function processFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo) : string
+    {
+        if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
+            $this->fileProcessor->refactor($originalFileInfo);
+            $this->fileProcessor->postFileRefactor($originalFileInfo);
+            // mimic post-rectors
+            $changedContent = $this->fileProcessor->printToString($originalFileInfo);
+        } elseif (\RectorPrefix20210410\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
+            $nonPhpFileChange = $this->nonPhpFileProcessor->process($originalFileInfo);
+            $changedContent = $nonPhpFileChange !== null ? $nonPhpFileChange->getNewContent() : '';
+        } else {
+            $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
+            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
+        }
+        return $changedContent;
     }
 }
