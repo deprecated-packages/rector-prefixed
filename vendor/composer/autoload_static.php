@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1bfda0d292aef2682d128974721f1319
+class ComposerStaticInitc917e7c04fab9a9fcf396b1c57c2ad5a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2976,7 +2976,6 @@ class ComposerStaticInit1bfda0d292aef2682d128974721f1319
         'Rector\\Privatization\\Rector\\Class_\\ChangeLocalPropertyToVariableRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/ChangeLocalPropertyToVariableRector.php',
         'Rector\\Privatization\\Rector\\Class_\\ChangeReadOnlyVariableWithDefaultValueToConstantRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/ChangeReadOnlyVariableWithDefaultValueToConstantRector.php',
         'Rector\\Privatization\\Rector\\Class_\\FinalizeClassesWithoutChildrenRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/FinalizeClassesWithoutChildrenRector.php',
-        'Rector\\Privatization\\Rector\\Class_\\MakeUnusedClassesWithChildrenAbstractRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/MakeUnusedClassesWithChildrenAbstractRector.php',
         'Rector\\Privatization\\Rector\\Class_\\RepeatedLiteralToClassConstantRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/Class_/RepeatedLiteralToClassConstantRector.php',
         'Rector\\Privatization\\Rector\\MethodCall\\PrivatizeLocalGetterToPropertyRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/MethodCall/PrivatizeLocalGetterToPropertyRector.php',
         'Rector\\Privatization\\Rector\\MethodCall\\ReplaceStringWithClassConstantRector' => __DIR__ . '/../..' . '/rules/Privatization/Rector/MethodCall/ReplaceStringWithClassConstantRector.php',
@@ -3386,9 +3385,9 @@ class ComposerStaticInit1bfda0d292aef2682d128974721f1319
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc917e7c04fab9a9fcf396b1c57c2ad5a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc917e7c04fab9a9fcf396b1c57c2ad5a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc917e7c04fab9a9fcf396b1c57c2ad5a::$classMap;
 
         }, null, ClassLoader::class);
     }

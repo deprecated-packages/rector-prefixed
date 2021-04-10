@@ -179,20 +179,6 @@ final class ParsedNodeCollector
             $this->classConstFetches[] = $node;
         }
     }
-    /**
-     * @return New_[]
-     */
-    public function findNewsByClass(string $className) : array
-    {
-        $newsByClass = [];
-        foreach ($this->news as $new) {
-            if (!$this->nodeNameResolver->isName($new->class, $className)) {
-                continue;
-            }
-            $newsByClass[] = $new;
-        }
-        return $newsByClass;
-    }
     public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\PhpParser\Node\Stmt\ClassConst
     {
         $className = $this->nodeNameResolver->getName($classConstFetch->class);

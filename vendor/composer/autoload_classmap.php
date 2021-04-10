@@ -2642,7 +2642,6 @@ return array(
     'Rector\\Privatization\\Rector\\Class_\\ChangeLocalPropertyToVariableRector' => $baseDir . '/rules/Privatization/Rector/Class_/ChangeLocalPropertyToVariableRector.php',
     'Rector\\Privatization\\Rector\\Class_\\ChangeReadOnlyVariableWithDefaultValueToConstantRector' => $baseDir . '/rules/Privatization/Rector/Class_/ChangeReadOnlyVariableWithDefaultValueToConstantRector.php',
     'Rector\\Privatization\\Rector\\Class_\\FinalizeClassesWithoutChildrenRector' => $baseDir . '/rules/Privatization/Rector/Class_/FinalizeClassesWithoutChildrenRector.php',
-    'Rector\\Privatization\\Rector\\Class_\\MakeUnusedClassesWithChildrenAbstractRector' => $baseDir . '/rules/Privatization/Rector/Class_/MakeUnusedClassesWithChildrenAbstractRector.php',
     'Rector\\Privatization\\Rector\\Class_\\RepeatedLiteralToClassConstantRector' => $baseDir . '/rules/Privatization/Rector/Class_/RepeatedLiteralToClassConstantRector.php',
     'Rector\\Privatization\\Rector\\MethodCall\\PrivatizeLocalGetterToPropertyRector' => $baseDir . '/rules/Privatization/Rector/MethodCall/PrivatizeLocalGetterToPropertyRector.php',
     'Rector\\Privatization\\Rector\\MethodCall\\ReplaceStringWithClassConstantRector' => $baseDir . '/rules/Privatization/Rector/MethodCall/ReplaceStringWithClassConstantRector.php',
