@@ -54,14 +54,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
      */
     protected static $allRectorContainer;
     /**
-     * @var bool
-     */
-    private static $isInitialized = \false;
-    /**
-     * @var RectorConfigsResolver
-     */
-    private static $rectorConfigsResolver;
-    /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
@@ -73,9 +65,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         // speed up
         @\ini_set('memory_limit', '-1');
-        $this->initializeDependencies();
         $configFileInfo = new \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
-        $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
+        $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
+        $configFileInfos = $rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
         $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
@@ -162,17 +154,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     private function normalizeNewlines(string $string) : string
     {
         return \RectorPrefix20210410\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
-    }
-    /**
-     * Static to avoid reboot on each data fixture
-     */
-    private function initializeDependencies() : void
-    {
-        if (self::$isInitialized) {
-            return;
-        }
-        self::$rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
-        self::$isInitialized = \true;
     }
     private function processFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo) : string
     {
