@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
 use RectorPrefix20210410\Nette\Utils\Strings;
-use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\ChangesReporting\Annotation\RectorsChangelogResolver;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -39,15 +39,15 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      */
     private $betterStandardPrinter;
     /**
-     * @var AnnotationExtractor
+     * @var RectorsChangelogResolver
      */
-    private $annotationExtractor;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\AnnotationExtractor $annotationExtractor)
+    private $rectorsChangelogResolver;
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->configuration = $configuration;
-        $this->annotationExtractor = $annotationExtractor;
+        $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
     public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
@@ -90,10 +90,11 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->writeln($fileDiff->getDiffConsoleFormatted());
             $this->symfonyStyle->newLine();
+            $rectorsChangelogsLines = $this->createRectorChangelogLines($fileDiff);
             if ($fileDiff->getRectorChanges() !== []) {
                 $this->symfonyStyle->writeln('<options=underscore>Applied rules:</>');
                 $this->symfonyStyle->newLine();
-                $this->symfonyStyle->listing($fileDiff->getRectorClassesWithChangelogUrl($this->annotationExtractor));
+                $this->symfonyStyle->listing($rectorsChangelogsLines);
                 $this->symfonyStyle->newLine();
             }
         }
@@ -165,5 +166,17 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             return 'Rector is done!';
         }
         return \sprintf('%d file%s %s by Rector.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
+    }
+    /**
+     * @return string[]
+     */
+    private function createRectorChangelogLines(\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff) : array
+    {
+        $rectorsChangelogs = $this->rectorsChangelogResolver->resolveIncludingMissing($fileDiff->getRectorClasses());
+        $rectorsChangelogsLines = [];
+        foreach ($rectorsChangelogs as $rectorClass => $changelog) {
+            $rectorsChangelogsLines[] = $changelog === null ? $rectorClass : $rectorClass . ' ' . $changelog;
+        }
+        return $rectorsChangelogsLines;
     }
 }

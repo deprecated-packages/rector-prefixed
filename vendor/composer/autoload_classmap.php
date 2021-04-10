@@ -1477,6 +1477,7 @@ return array(
     'Rector\\Carbon\\Rector\\MethodCall\\ChangeCarbonSingularMethodCallToPluralRector' => $baseDir . '/rules/Carbon/Rector/MethodCall/ChangeCarbonSingularMethodCallToPluralRector.php',
     'Rector\\Carbon\\Rector\\MethodCall\\ChangeDiffForHumansArgsRector' => $baseDir . '/rules/Carbon/Rector/MethodCall/ChangeDiffForHumansArgsRector.php',
     'Rector\\ChangesReporting\\Annotation\\AnnotationExtractor' => $baseDir . '/packages/ChangesReporting/Annotation/AnnotationExtractor.php',
+    'Rector\\ChangesReporting\\Annotation\\RectorsChangelogResolver' => $baseDir . '/packages/ChangesReporting/Annotation/RectorsChangelogResolver.php',
     'Rector\\ChangesReporting\\Application\\ErrorAndDiffCollector' => $baseDir . '/packages/ChangesReporting/Application/ErrorAndDiffCollector.php',
     'Rector\\ChangesReporting\\Collector\\AffectedFilesCollector' => $baseDir . '/packages/ChangesReporting/Collector/AffectedFilesCollector.php',
     'Rector\\ChangesReporting\\Collector\\RectorChangeCollector' => $baseDir . '/packages/ChangesReporting/Collector/RectorChangeCollector.php',

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObject\Reporting;
 
-use Rector\ChangesReporting\Annotation\AnnotationExtractor;
 use Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
+use Rector\Core\Contract\Rector\RectorInterface;
 use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
@@ -58,7 +58,7 @@ final class FileDiff
         return $this->rectorWithFileAndLineChanges;
     }
     /**
-     * @return string[]
+     * @return array<class-string<RectorInterface>>
      */
     public function getRectorClasses() : array
     {
@@ -69,35 +69,9 @@ final class FileDiff
         return $this->sortClasses($rectorClasses);
     }
     /**
-     * @return string[]
-     */
-    public function getRectorClassesWithChangelogUrl(\Rector\ChangesReporting\Annotation\AnnotationExtractor $annotationExtractor) : array
-    {
-        $rectorClasses = [];
-        foreach ($this->rectorWithFileAndLineChanges as $rectorWithFileAndLineChange) {
-            $rectorClasses[] = $rectorWithFileAndLineChange->getRectorClassWithChangelogUrl($annotationExtractor);
-        }
-        return $this->sortClasses($rectorClasses);
-    }
-    /**
-     * @return array<string, string>
-     */
-    public function getRectorClassesWithChangelogUrlAndRectorClassAsKey(\Rector\ChangesReporting\Annotation\AnnotationExtractor $annotationExtractor) : array
-    {
-        $rectorClasses = [];
-        foreach ($this->rectorWithFileAndLineChanges as $rectorWithFileAndLineChange) {
-            $changelogUrl = $rectorWithFileAndLineChange->getChangelogUrl($annotationExtractor);
-            if ($changelogUrl !== null) {
-                $rectorClasses[$rectorWithFileAndLineChange->getRectorClass()] = $changelogUrl;
-            }
-        }
-        $rectorClasses = \array_unique($rectorClasses);
-        \ksort($rectorClasses);
-        return $rectorClasses;
-    }
-    /**
-     * @param string[] $rectorClasses
-     * @return string[]
+     * @template TType as object
+     * @param array<class-string<TType>> $rectorClasses
+     * @return array<class-string<TType>>
      */
     private function sortClasses(array $rectorClasses) : array
     {

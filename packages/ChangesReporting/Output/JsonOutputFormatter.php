@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
 use RectorPrefix20210410\Nette\Utils\Json;
-use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\ChangesReporting\Annotation\RectorsChangelogResolver;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -24,14 +24,14 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
      */
     private $smartFileSystem;
     /**
-     * @var AnnotationExtractor
+     * @var RectorsChangelogResolver
      */
-    private $annotationExtractor;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\ChangesReporting\Annotation\AnnotationExtractor $annotationExtractor)
+    private $rectorsChangelogResolver;
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
         $this->configuration = $configuration;
         $this->smartFileSystem = $smartFileSystem;
-        $this->annotationExtractor = $annotationExtractor;
+        $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
     public function getName() : string
     {
@@ -44,7 +44,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
         \ksort($fileDiffs);
         foreach ($fileDiffs as $fileDiff) {
             $relativeFilePath = $fileDiff->getRelativeFilePath();
-            $appliedRectorsWithChangelog = $fileDiff->getRectorClassesWithChangelogUrlAndRectorClassAsKey($this->annotationExtractor);
+            $appliedRectorsWithChangelog = $this->rectorsChangelogResolver->resolve($fileDiff->getRectorClasses());
             $errorsArray['file_diffs'][] = ['file' => $relativeFilePath, 'diff' => $fileDiff->getDiff(), 'applied_rectors' => $fileDiff->getRectorClasses(), 'applied_rectors_with_changelog' => $appliedRectorsWithChangelog];
             // for Rector CI
             $errorsArray['changed_files'][] = $relativeFilePath;

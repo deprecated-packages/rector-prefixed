@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\ChangesReporting\Annotation;
 
 use RectorPrefix20210410\Nette\Utils\Strings;
+use Rector\Core\Contract\Rector\RectorInterface;
 use ReflectionClass;
 /**
  * @see \Rector\Tests\ChangesReporting\Annotation\AnnotationExtractorTest
@@ -11,7 +12,7 @@ use ReflectionClass;
 final class AnnotationExtractor
 {
     /**
-     * @param class-string<object> $className
+     * @param class-string<RectorInterface> $className
      */
     public function extractAnnotationFromClass(string $className, string $annotation) : ?string
     {
