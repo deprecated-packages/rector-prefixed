@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210409;
+namespace RectorPrefix20210410;
 
 /*
  * This file is part of the Symfony package.
@@ -10,7 +10,7 @@ namespace RectorPrefix20210409;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme as p;
+use RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme as p;
 if (!\defined('GRAPHEME_EXTR_COUNT')) {
     \define('GRAPHEME_EXTR_COUNT', 0);
 }
@@ -23,54 +23,54 @@ if (!\defined('GRAPHEME_EXTR_MAXCHARS')) {
 if (!\function_exists('grapheme_extract')) {
     function grapheme_extract(?string $haystack, ?int $size, ?int $type = \GRAPHEME_EXTR_COUNT, ?int $offset = 0, &$next = null) : string|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_extract((string) $haystack, (int) $size, (int) $type, (int) $offset, $next);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_extract((string) $haystack, (int) $size, (int) $type, (int) $offset, $next);
     }
 }
 if (!\function_exists('grapheme_stripos')) {
     function grapheme_stripos(?string $haystack, ?string $needle, ?int $offset = 0) : int|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_stripos((string) $haystack, (string) $needle, (int) $offset);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_stripos((string) $haystack, (string) $needle, (int) $offset);
     }
 }
 if (!\function_exists('grapheme_stristr')) {
     function grapheme_stristr(?string $haystack, ?string $needle, ?bool $beforeNeedle = \false) : string|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_stristr((string) $haystack, (string) $needle, (bool) $beforeNeedle);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_stristr((string) $haystack, (string) $needle, (bool) $beforeNeedle);
     }
 }
 if (!\function_exists('grapheme_strlen')) {
     function grapheme_strlen(?string $string) : int|false|null
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strlen((string) $string);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strlen((string) $string);
     }
 }
 if (!\function_exists('grapheme_strpos')) {
     function grapheme_strpos(?string $haystack, ?string $needle, ?int $offset = 0) : int|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strpos((string) $haystack, (string) $needle, (int) $offset);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strpos((string) $haystack, (string) $needle, (int) $offset);
     }
 }
 if (!\function_exists('grapheme_strripos')) {
     function grapheme_strripos(?string $haystack, ?string $needle, ?int $offset = 0) : int|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strripos((string) $haystack, (string) $needle, (int) $offset);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strripos((string) $haystack, (string) $needle, (int) $offset);
     }
 }
 if (!\function_exists('grapheme_strrpos')) {
     function grapheme_strrpos(?string $haystack, ?string $needle, ?int $offset = 0) : int|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strrpos((string) $haystack, (string) $needle, (int) $offset);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strrpos((string) $haystack, (string) $needle, (int) $offset);
     }
 }
 if (!\function_exists('grapheme_strstr')) {
     function grapheme_strstr(?string $haystack, ?string $needle, ?bool $beforeNeedle = \false) : string|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strstr((string) $haystack, (string) $needle, (bool) $beforeNeedle);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_strstr((string) $haystack, (string) $needle, (bool) $beforeNeedle);
     }
 }
 if (!\function_exists('grapheme_substr')) {
     function grapheme_substr(?string $string, ?int $offset, ?int $length = null) : string|false
     {
-        return \RectorPrefix20210409\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_substr((string) $string, (int) $offset, (int) $length);
+        return \RectorPrefix20210410\Symfony\Polyfill\Intl\Grapheme\Grapheme::grapheme_substr((string) $string, (int) $offset, (int) $length);
     }
 }

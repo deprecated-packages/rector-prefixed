@@ -56,6 +56,9 @@ final class SomeClass
 CODE_SAMPLE
 )]);
     }
+    /**
+     * @return array<class-string<Expr>>
+     */
     public function getNodeTypes() : array
     {
         return [\PhpParser\Node\Expr\MethodCall::class];
@@ -78,26 +81,23 @@ CODE_SAMPLE
         if ($this->nodeTypeResolver->isObjectTypes($methodCall->var, [new \PHPStan\Type\ObjectType('League\\Event\\EventDispatcher'), new \PHPStan\Type\ObjectType('League\\Event\\Emitter')])) {
             return \false;
         }
-        if (!$this->getStaticType($methodCall->args[0]->value) instanceof \PHPStan\Type\StringType) {
-            return \true;
-        }
-        return \true;
+        return $this->getStaticType($methodCall->args[0]->value) instanceof \PHPStan\Type\StringType;
     }
     private function updateNode(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
         $methodCall->args[0] = new \PhpParser\Node\Arg($this->createNewAnonymousEventClass($methodCall->args[0]->value));
         return $methodCall;
     }
-    private function createNewAnonymousEventClass(\PhpParser\Node\Expr $eventName) : \PhpParser\Node\Expr\New_
+    private function createNewAnonymousEventClass(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\New_
     {
         $implements = [new \PhpParser\Node\Name\FullyQualified('League\\Event\\HasEventName')];
-        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Stmt\Class_(null, ['implements' => $implements, 'stmts' => $this->createAnonymousEventClassBody($eventName)]));
+        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Stmt\Class_(null, ['implements' => $implements, 'stmts' => $this->createAnonymousEventClassBody($expr)]));
     }
     /**
      * @return Stmt[]
      */
-    private function createAnonymousEventClassBody(\PhpParser\Node\Expr $eventName) : array
+    private function createAnonymousEventClassBody(\PhpParser\Node\Expr $expr) : array
     {
-        return [new \PhpParser\Node\Stmt\ClassMethod('eventName', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'returnType' => 'string', 'stmts' => [new \PhpParser\Node\Stmt\Return_($eventName)]])];
+        return [new \PhpParser\Node\Stmt\ClassMethod('eventName', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'returnType' => 'string', 'stmts' => [new \PhpParser\Node\Stmt\Return_($expr)]])];
     }
 }
