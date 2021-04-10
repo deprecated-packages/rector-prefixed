@@ -202,6 +202,13 @@ final class PureFunctionDetector
         'pg_query_params',
         // ftp
         'ftp_close',
+        // bcmath
+        'bcscale',
+        'bcdiv',
+        // json
+        'json_encode',
+        'json_decode',
+        'json_last_error',
     ];
     /**
      * @var NodeNameResolver

@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\CodeQualityStrict\Rector\Variable;
 
-use RectorPrefix20210410\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -27,6 +26,7 @@ use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DeadCode\SideEffect\PureFunctionDetector;
 use Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -40,9 +40,14 @@ final class MoveVariableDeclarationNearReferenceRector extends \Rector\Core\Rect
      * @var ScopeAwareNodeFinder
      */
     private $scopeAwareNodeFinder;
-    public function __construct(\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
+    /**
+     * @var PureFunctionDetector
+     */
+    private $pureFunctionDetector;
+    public function __construct(\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder, \Rector\DeadCode\SideEffect\PureFunctionDetector $pureFunctionDetector)
     {
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
+        $this->pureFunctionDetector = $pureFunctionDetector;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -234,7 +239,7 @@ CODE_SAMPLE
             if ($funcName === null) {
                 return \false;
             }
-            return \RectorPrefix20210410\Nette\Utils\Strings::startsWith($funcName, 'ob_');
+            return !$this->pureFunctionDetector->detect($n);
         });
     }
     private function getCountFound(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : int
