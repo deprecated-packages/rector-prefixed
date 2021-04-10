@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit97bb34f689df956490ba0eb433493a1c
+class ComposerStaticInit47b3ffcf9f4319afda51d671fe68edd9
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1997,6 +1997,7 @@ class ComposerStaticInit97bb34f689df956490ba0eb433493a1c
         'Rector\\Core\\Application\\TokensByFilePathStorage' => __DIR__ . '/../..' . '/src/Application/TokensByFilePathStorage.php',
         'Rector\\Core\\Autoloading\\AdditionalAutoloader' => __DIR__ . '/../..' . '/src/Autoloading/AdditionalAutoloader.php',
         'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/RectorConfigsResolver.php',
+        'Rector\\Core\\Bootstrap\\SetConfigResolver' => __DIR__ . '/../..' . '/src/Bootstrap/SetConfigResolver.php',
         'Rector\\Core\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
         'Rector\\Core\\Configuration\\CurrentNodeProvider' => __DIR__ . '/../..' . '/src/Configuration/CurrentNodeProvider.php',
         'Rector\\Core\\Configuration\\Option' => __DIR__ . '/../..' . '/src/Configuration/Option.php',
@@ -3061,7 +3062,6 @@ class ComposerStaticInit97bb34f689df956490ba0eb433493a1c
         'Rector\\Restoration\\ValueObject\\CompleteImportForPartialAnnotation' => __DIR__ . '/../..' . '/rules/Restoration/ValueObject/CompleteImportForPartialAnnotation.php',
         'Rector\\Restoration\\ValueObject\\InferParamFromClassMethodReturn' => __DIR__ . '/../..' . '/rules/Restoration/ValueObject/InferParamFromClassMethodReturn.php',
         'Rector\\Set\\Contract\\SetListInterface' => __DIR__ . '/../..' . '/packages/Set/Contract/SetListInterface.php',
-        'Rector\\Set\\RectorSetProvider' => __DIR__ . '/../..' . '/packages/Set/RectorSetProvider.php',
         'Rector\\Set\\ValueObject\\DowngradeSetList' => __DIR__ . '/../..' . '/packages/Set/ValueObject/DowngradeSetList.php',
         'Rector\\Set\\ValueObject\\SetList' => __DIR__ . '/../..' . '/packages/Set/ValueObject/SetList.php',
         'Rector\\StaticTypeMapper\\Contract\\PhpDocParser\\PhpDocTypeMapperInterface' => __DIR__ . '/../..' . '/packages/StaticTypeMapper/Contract/PhpDocParser/PhpDocTypeMapperInterface.php',
@@ -3385,9 +3385,9 @@ class ComposerStaticInit97bb34f689df956490ba0eb433493a1c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit97bb34f689df956490ba0eb433493a1c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit97bb34f689df956490ba0eb433493a1c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit97bb34f689df956490ba0eb433493a1c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit47b3ffcf9f4319afda51d671fe68edd9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit47b3ffcf9f4319afda51d671fe68edd9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit47b3ffcf9f4319afda51d671fe68edd9::$classMap;
 
         }, null, ClassLoader::class);
     }

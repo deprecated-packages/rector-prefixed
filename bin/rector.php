@@ -10,8 +10,6 @@ use Rector\Core\DependencyInjection\RectorContainerFactory;
 use Rector\Core\HttpKernel\RectorKernel;
 use RectorPrefix20210410\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210410\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use RectorPrefix20210410\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use RectorPrefix20210410\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use RectorPrefix20210410\Tracy\Debugger;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
@@ -37,10 +35,6 @@ try {
     $bootstrapConfigs = $rectorConfigsResolver->provide();
     $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();
     $container = $rectorContainerFactory->createFromBootstrapConfigs($bootstrapConfigs);
-} catch (\RectorPrefix20210410\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
-    $invalidSetReporter = new \RectorPrefix20210410\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
-    $invalidSetReporter->report($setNotFoundException);
-    exit(\RectorPrefix20210410\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 } catch (\Throwable $throwable) {
     $symfonyStyle->error($throwable->getMessage());
     exit(\RectorPrefix20210410\Symplify\PackageBuilder\Console\ShellCode::ERROR);
