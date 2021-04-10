@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit32f63ef1117713ae675991a7c8084470
+class ComposerStaticInit1bfda0d292aef2682d128974721f1319
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2196,7 +2196,6 @@ class ComposerStaticInit32f63ef1117713ae675991a7c8084470
         'Rector\\DeadCode\\Rector\\TryCatch\\RemoveDeadTryCatchRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/TryCatch/RemoveDeadTryCatchRector.php',
         'Rector\\DeadCode\\SideEffect\\PureFunctionDetector' => __DIR__ . '/../..' . '/rules/DeadCode/SideEffect/PureFunctionDetector.php',
         'Rector\\DeadCode\\SideEffect\\SideEffectNodeDetector' => __DIR__ . '/../..' . '/rules/DeadCode/SideEffect/SideEffectNodeDetector.php',
-        'Rector\\DeadCode\\UnusedNodeResolver\\ClassUnusedPrivateClassMethodResolver' => __DIR__ . '/../..' . '/rules/DeadCode/UnusedNodeResolver/ClassUnusedPrivateClassMethodResolver.php',
         'Rector\\DeadCode\\UselessIfCondBeforeForeachDetector' => __DIR__ . '/../..' . '/rules/DeadCode/UselessIfCondBeforeForeachDetector.php',
         'Rector\\DeadCode\\ValueObject\\BinaryToVersionCompareCondition' => __DIR__ . '/../..' . '/rules/DeadCode/ValueObject/BinaryToVersionCompareCondition.php',
         'Rector\\DeadCode\\ValueObject\\VariableNodeUse' => __DIR__ . '/../..' . '/rules/DeadCode/ValueObject/VariableNodeUse.php',
@@ -3387,9 +3386,9 @@ class ComposerStaticInit32f63ef1117713ae675991a7c8084470
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit32f63ef1117713ae675991a7c8084470::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit32f63ef1117713ae675991a7c8084470::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit32f63ef1117713ae675991a7c8084470::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1bfda0d292aef2682d128974721f1319::$classMap;
 
         }, null, ClassLoader::class);
     }
