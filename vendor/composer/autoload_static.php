@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5
+class ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2118,7 +2118,6 @@ class ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5
         'Rector\\Core\\ValueObject\\PhpVersion' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersion.php',
         'Rector\\Core\\ValueObject\\PhpVersionFeature' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersionFeature.php',
         'Rector\\Core\\ValueObject\\ProjectType' => __DIR__ . '/../..' . '/src/ValueObject/ProjectType.php',
-        'Rector\\Core\\ValueObject\\RenamedNamespace' => __DIR__ . '/../..' . '/src/ValueObject/RenamedNamespace.php',
         'Rector\\Core\\ValueObject\\Reporting\\FileDiff' => __DIR__ . '/../..' . '/src/ValueObject/Reporting/FileDiff.php',
         'Rector\\Core\\ValueObject\\SprintfStringAndArgs' => __DIR__ . '/../..' . '/src/ValueObject/SprintfStringAndArgs.php',
         'Rector\\Core\\ValueObject\\StaticNonPhpFileSuffixes' => __DIR__ . '/../..' . '/src/ValueObject/StaticNonPhpFileSuffixes.php',
@@ -3046,6 +3045,7 @@ class ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5
         'Rector\\Renaming\\ValueObject\\RenameClassConstFetch' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenameClassConstFetch.php',
         'Rector\\Renaming\\ValueObject\\RenameProperty' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenameProperty.php',
         'Rector\\Renaming\\ValueObject\\RenameStaticMethod' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenameStaticMethod.php',
+        'Rector\\Renaming\\ValueObject\\RenamedNamespace' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenamedNamespace.php',
         'Rector\\Restoration\\ClassMap\\ExistingClassesProvider' => __DIR__ . '/../..' . '/rules/Restoration/ClassMap/ExistingClassesProvider.php',
         'Rector\\Restoration\\NameMatcher\\FullyQualifiedNameMatcher' => __DIR__ . '/../..' . '/rules/Restoration/NameMatcher/FullyQualifiedNameMatcher.php',
         'Rector\\Restoration\\NameMatcher\\NameMatcher' => __DIR__ . '/../..' . '/rules/Restoration/NameMatcher/NameMatcher.php',
@@ -3384,9 +3384,9 @@ class ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb81c1441fb636a65a618fdc5833c2df5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfa2ec6a5017a2da647a44adbc5c588fc::$classMap;
 
         }, null, ClassLoader::class);
     }

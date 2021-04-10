@@ -12,9 +12,9 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\RenamedNamespace;
 use Rector\Naming\NamespaceMatcher;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Renaming\ValueObject\RenamedNamespace;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -59,7 +59,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
             return null;
         }
         $renamedNamespaceValueObject = $this->namespaceMatcher->matchRenamedNamespace($name, $this->oldToNewNamespaces);
-        if (!$renamedNamespaceValueObject instanceof \Rector\Core\ValueObject\RenamedNamespace) {
+        if (!$renamedNamespaceValueObject instanceof \Rector\Renaming\ValueObject\RenamedNamespace) {
             return null;
         }
         if ($this->isClassFullyQualifiedName($node)) {
@@ -114,7 +114,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
         }
         return \false;
     }
-    private function resolvePartialNewName(\PhpParser\Node\Name $name, \Rector\Core\ValueObject\RenamedNamespace $renamedNamespace) : string
+    private function resolvePartialNewName(\PhpParser\Node\Name $name, \Rector\Renaming\ValueObject\RenamedNamespace $renamedNamespace) : string
     {
         $nameInNewNamespace = $renamedNamespace->getNameInNewNamespace();
         // first dummy implementation - improve
