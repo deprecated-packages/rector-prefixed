@@ -4,10 +4,12 @@ declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
 use Iterator;
+use RectorPrefix20210410\Nette\Utils\Json;
 use RectorPrefix20210410\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20210410\PHPUnit\Framework\ExpectationFailedException;
 use RectorPrefix20210410\Psr\Container\ContainerInterface;
+use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
@@ -20,6 +22,7 @@ use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
+use RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter;
@@ -61,6 +64,14 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
      * @var DynamicSourceLocatorProvider
      */
     private $dynamicSourceLocatorProvider;
+    /**
+     * @var ComposerJsonFactory
+     */
+    private $composerJsonFactory;
+    /**
+     * @var ComposerModifier
+     */
+    private $composerModifier;
     protected function setUp() : void
     {
         // speed up
@@ -74,6 +85,8 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
         $this->parameterProvider = $this->getService(\RectorPrefix20210410\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
+        $this->composerJsonFactory = $this->getService(\RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
+        $this->composerModifier = $this->getService(\Rector\Composer\Modifier\ComposerModifier::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
     }
@@ -91,16 +104,24 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     }
     protected function doTestFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
-        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, \false);
+        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
-        /** @var NodeScopeResolver $nodeScopeResolver */
-        $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
-        $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
-        $this->dynamicSourceLocatorProvider->setFileInfo($inputFileInfo);
-        $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
-        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
-        $this->originalTempFileInfo = $inputFileInfo;
+        if ($inputFileInfo->getSuffix() === 'json') {
+            $inputFileInfoAndExpected = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fixtureFileInfo);
+            $composerJson = $this->composerJsonFactory->createFromFileInfo($inputFileInfoAndExpected->getInputFileInfo());
+            $this->composerModifier->modify($composerJson);
+            $changedComposerJson = \RectorPrefix20210410\Nette\Utils\Json::encode($composerJson->getJsonArray(), \RectorPrefix20210410\Nette\Utils\Json::PRETTY);
+            $this->assertJsonStringEqualsJsonString($inputFileInfoAndExpected->getExpected(), $changedComposerJson);
+        } else {
+            // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
+            /** @var NodeScopeResolver $nodeScopeResolver */
+            $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
+            $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
+            $this->dynamicSourceLocatorProvider->setFileInfo($inputFileInfo);
+            $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
+            $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
+            $this->originalTempFileInfo = $inputFileInfo;
+        }
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {

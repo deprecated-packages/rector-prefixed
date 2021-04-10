@@ -5,7 +5,7 @@ namespace Rector\Core\Contract\Processor;
 
 use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
-interface NonPhpFileProcessorInterface
+interface FileProcessorInterface
 {
     public function process(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
     public function supports(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool;
