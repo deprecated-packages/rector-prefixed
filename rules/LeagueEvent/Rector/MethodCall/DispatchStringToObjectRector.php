@@ -78,10 +78,7 @@ CODE_SAMPLE
         if (!$this->isNames($methodCall->name, ['dispatch', 'emit'])) {
             return \true;
         }
-        if ($this->nodeTypeResolver->isObjectTypes($methodCall->var, [new \PHPStan\Type\ObjectType('League\\Event\\EventDispatcher'), new \PHPStan\Type\ObjectType('League\\Event\\Emitter')])) {
-            return \false;
-        }
-        return $this->getStaticType($methodCall->args[0]->value) instanceof \PHPStan\Type\StringType;
+        return !$this->nodeTypeResolver->isObjectTypes($methodCall->var, [new \PHPStan\Type\ObjectType('League\\Event\\EventDispatcher'), new \PHPStan\Type\ObjectType('League\\Event\\Emitter')]);
     }
     private function updateNode(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
