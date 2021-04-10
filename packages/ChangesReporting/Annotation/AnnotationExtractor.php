@@ -23,9 +23,6 @@ final class AnnotationExtractor
         // @see https://regex101.com/r/oYGaWU/1
         $pattern = '#' . \preg_quote($annotation, '#') . '\\s+(?<content>.*?)$#m';
         $matches = \RectorPrefix20210410\Nette\Utils\Strings::match($docComment, $pattern);
-        if ($matches === \false) {
-            return null;
-        }
         return $matches['content'] ?? null;
     }
 }
