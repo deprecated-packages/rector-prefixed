@@ -9,12 +9,9 @@ use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210411\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
@@ -35,17 +32,12 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      */
     private $configuration;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var RectorsChangelogResolver
      */
     private $rectorsChangelogResolver;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210411\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210411\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
         $this->symfonyStyle = $symfonyStyle;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->configuration = $configuration;
         $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
@@ -130,7 +122,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     {
         $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
         $errorMessage = \RectorPrefix20210411\Nette\Utils\Strings::replace($errorMessage, $regex, '');
-        return $errorMessage = \RectorPrefix20210411\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        return \RectorPrefix20210411\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
@@ -139,25 +131,6 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         }
         $message = \sprintf('%d nodes were removed', $errorAndDiffCollector->getRemovedNodeCount());
         $this->symfonyStyle->warning($message);
-        if ($this->symfonyStyle->isVeryVerbose()) {
-            $i = 0;
-            foreach ($errorAndDiffCollector->getRemovedNodes() as $removedNode) {
-                /** @var SmartFileInfo $fileInfo */
-                $fileInfo = $removedNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-                $message = \sprintf('<options=bold>%d) %s:%d</>', ++$i, $fileInfo->getRelativeFilePath(), $removedNode->getStartLine());
-                $this->symfonyStyle->writeln($message);
-                $printedNode = $this->betterStandardPrinter->print($removedNode);
-                // color red + prefix with "-" to visually demonstrate removal
-                $printedNode = '-' . \RectorPrefix20210411\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
-                $printedNode = $this->colorTextToRed($printedNode);
-                $this->symfonyStyle->writeln($printedNode);
-                $this->symfonyStyle->newLine(1);
-            }
-        }
-    }
-    private function colorTextToRed(string $text) : string
-    {
-        return '<fg=red>' . $text . '</fg=red>';
     }
     private function createSuccessMessage(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : string
     {
@@ -165,7 +138,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         if ($changeCount === 0) {
             return 'Rector is done!';
         }
-        return \sprintf('%d file%s %s by Rector.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
+        return \sprintf('%d file%s %s by Rector', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
     }
     /**
      * @return string[]
