@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
-use RectorPrefix20210410\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210410\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210410\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210411\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210411\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210411\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetConfigResolver
 {
     /**
@@ -16,10 +16,10 @@ final class SetConfigResolver
     /**
      * @return SmartFileInfo[]
      */
-    public function resolve(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function resolve(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
-        $containerBuilder = new \RectorPrefix20210410\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \RectorPrefix20210410\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210410\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \RectorPrefix20210411\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \RectorPrefix20210411\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210411\Symfony\Component\Config\FileLocator());
         $phpFileLoader->load($smartFileInfo->getRealPath());
         if (!$containerBuilder->hasParameter(self::SETS)) {
             return [];
@@ -35,7 +35,7 @@ final class SetConfigResolver
     {
         $setFileInfos = [];
         foreach ($sets as $set) {
-            $setFileInfos[] = new \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfos[] = new \RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo($set);
         }
         return $setFileInfos;
     }

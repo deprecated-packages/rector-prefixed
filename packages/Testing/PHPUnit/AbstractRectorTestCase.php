@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
 use Iterator;
-use RectorPrefix20210410\Nette\Utils\Json;
-use RectorPrefix20210410\Nette\Utils\Strings;
+use RectorPrefix20210411\Nette\Utils\Json;
+use RectorPrefix20210411\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
-use RectorPrefix20210410\PHPUnit\Framework\ExpectationFailedException;
-use RectorPrefix20210410\Psr\Container\ContainerInterface;
+use RectorPrefix20210411\PHPUnit\Framework\ExpectationFailedException;
+use RectorPrefix20210411\Psr\Container\ContainerInterface;
 use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
@@ -22,14 +22,14 @@ use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
-use RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
-use RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter;
-use RectorPrefix20210410\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210410\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
+use RectorPrefix20210411\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210411\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210411\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
+use RectorPrefix20210411\Symplify\EasyTesting\StaticFixtureSplitter;
+use RectorPrefix20210411\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210411\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
+abstract class AbstractRectorTestCase extends \RectorPrefix20210411\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
     /**
@@ -76,16 +76,16 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         // speed up
         @\ini_set('memory_limit', '-1');
-        $configFileInfo = new \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
+        $configFileInfo = new \RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
         $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         $configFileInfos = $rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
         $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
-        $this->parameterProvider = $this->getService(\RectorPrefix20210410\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->parameterProvider = $this->getService(\RectorPrefix20210411\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
-        $this->composerJsonFactory = $this->getService(\RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
+        $this->composerJsonFactory = $this->getService(\RectorPrefix20210411\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
         $this->composerModifier = $this->getService(\Rector\Composer\Modifier\ComposerModifier::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
@@ -100,17 +100,17 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
      */
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {
-        return \RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively($directory, $suffix);
+        return \RectorPrefix20210411\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively($directory, $suffix);
     }
-    protected function doTestFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    protected function doTestFileInfo(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
-        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
+        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210411\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         if ($inputFileInfo->getSuffix() === 'json') {
-            $inputFileInfoAndExpected = \RectorPrefix20210410\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fixtureFileInfo);
+            $inputFileInfoAndExpected = \RectorPrefix20210411\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fixtureFileInfo);
             $composerJson = $this->composerJsonFactory->createFromFileInfo($inputFileInfoAndExpected->getInputFileInfo());
             $this->composerModifier->modify($composerJson);
-            $changedComposerJson = \RectorPrefix20210410\Nette\Utils\Json::encode($composerJson->getJsonArray(), \RectorPrefix20210410\Nette\Utils\Json::PRETTY);
+            $changedComposerJson = \RectorPrefix20210411\Nette\Utils\Json::encode($composerJson->getJsonArray(), \RectorPrefix20210411\Nette\Utils\Json::PRETTY);
             $this->assertJsonStringEqualsJsonString($inputFileInfoAndExpected->getExpected(), $changedComposerJson);
         } else {
             // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
@@ -127,7 +127,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         $addedFilesWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         foreach ($addedFilesWithContents as $addedFileWithContent) {
-            if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($addedFileWithContent->getFilePath(), $expectedExtraFileName)) {
+            if (!\RectorPrefix20210411\Nette\Utils\Strings::endsWith($addedFileWithContent->getFilePath(), $expectedExtraFileName)) {
                 continue;
             }
             $this->assertStringEqualsFile($expectedExtraContentFilePath, $addedFileWithContent->getFileContent());
@@ -135,7 +135,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
         }
         $addedFilesWithNodes = $this->removedAndAddedFilesCollector->getAddedFilesWithNodes();
         foreach ($addedFilesWithNodes as $addedFileWithNode) {
-            if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($addedFileWithNode->getFilePath(), $expectedExtraFileName)) {
+            if (!\RectorPrefix20210411\Nette\Utils\Strings::endsWith($addedFileWithNode->getFilePath(), $expectedExtraFileName)) {
                 continue;
             }
             $printedFileContent = $this->betterStandardPrinter->prettyPrintFile($addedFileWithNode->getNodes());
@@ -144,7 +144,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
         }
         $movedFilesWithContent = $this->removedAndAddedFilesCollector->getMovedFileWithContent();
         foreach ($movedFilesWithContent as $movedFileWithContent) {
-            if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($movedFileWithContent->getNewPathname(), $expectedExtraFileName)) {
+            if (!\RectorPrefix20210411\Nette\Utils\Strings::endsWith($movedFileWithContent->getNewPathname(), $expectedExtraFileName)) {
                 continue;
             }
             $this->assertStringEqualsFile($expectedExtraContentFilePath, $movedFileWithContent->getFileContent());
@@ -156,15 +156,15 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     {
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-    private function doTestFileMatchesExpectedContent(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    private function doTestFileMatchesExpectedContent(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         $changedContent = $this->processFileInfo($originalFileInfo);
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
-        } catch (\RectorPrefix20210410\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
-            \RectorPrefix20210410\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
+        } catch (\RectorPrefix20210411\PHPUnit\Framework\ExpectationFailedException $expectationFailedException) {
+            \RectorPrefix20210411\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
             $contents = $expectedFileInfo->getContents();
             // make sure we don't get a diff in which every line is different (because of differences in EOL)
             $contents = $this->normalizeNewlines($contents);
@@ -174,16 +174,16 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210410\Symplify\Pac
     }
     private function normalizeNewlines(string $string) : string
     {
-        return \RectorPrefix20210410\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
+        return \RectorPrefix20210411\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
     }
-    private function processFileInfo(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo) : string
+    private function processFileInfo(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo) : string
     {
-        if (!\RectorPrefix20210410\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
+        if (!\RectorPrefix20210411\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
             $this->fileProcessor->refactor($originalFileInfo);
             $this->fileProcessor->postFileRefactor($originalFileInfo);
             // mimic post-rectors
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-        } elseif (\RectorPrefix20210410\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
+        } elseif (\RectorPrefix20210411\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
             $nonPhpFileChange = $this->nonPhpFileProcessor->process($originalFileInfo);
             $changedContent = $nonPhpFileChange !== null ? $nonPhpFileChange->getNewContent() : '';
         } else {

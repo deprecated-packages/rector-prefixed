@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\EarlyReturn\NodeFactory\InvertedIfFactory;
+use Rector\NodeCollector\NodeAnalyzer\BooleanAndAnalyzer;
 use Rector\NodeNestingScope\ContextAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -35,11 +36,16 @@ final class ChangeAndIfToEarlyReturnRector extends \Rector\Core\Rector\AbstractR
      * @var ContextAnalyzer
      */
     private $contextAnalyzer;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\EarlyReturn\NodeFactory\InvertedIfFactory $invertedIfFactory, \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer)
+    /**
+     * @var BooleanAndAnalyzer
+     */
+    private $booleanAndAnalyzer;
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\EarlyReturn\NodeFactory\InvertedIfFactory $invertedIfFactory, \Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer, \Rector\NodeCollector\NodeAnalyzer\BooleanAndAnalyzer $booleanAndAnalyzer)
     {
         $this->ifManipulator = $ifManipulator;
         $this->invertedIfFactory = $invertedIfFactory;
         $this->contextAnalyzer = $contextAnalyzer;
+        $this->booleanAndAnalyzer = $booleanAndAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -96,7 +102,7 @@ CODE_SAMPLE
         }
         /** @var BooleanAnd $expr */
         $expr = $node->cond;
-        $booleanAndConditions = $this->nodeRepository->findBooleanAndConditions($expr);
+        $booleanAndConditions = $this->booleanAndAnalyzer->findBooleanAndConditions($expr);
         if (!$ifNextReturn instanceof \PhpParser\Node\Stmt\Return_) {
             $this->addNodeAfterNode($node->stmts[0], $node);
             return $this->processReplaceIfs($node, $booleanAndConditions, new \PhpParser\Node\Stmt\Return_());

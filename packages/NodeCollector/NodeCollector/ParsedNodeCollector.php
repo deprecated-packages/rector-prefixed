@@ -3,14 +3,12 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use RectorPrefix20210410\Nette\Utils\Strings;
+use RectorPrefix20210411\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
@@ -40,13 +38,10 @@ final class ParsedNodeCollector
         \PhpParser\Node\Stmt\Trait_::class,
         \PhpParser\Node\Stmt\ClassMethod::class,
         // simply collected
-        \PhpParser\Node\Expr\New_::class,
         \PhpParser\Node\Expr\StaticCall::class,
         \PhpParser\Node\Expr\MethodCall::class,
         // for array callable - [$this, 'someCall']
         \PhpParser\Node\Expr\Array_::class,
-        // for unused classes
-        \PhpParser\Node\Param::class,
     ];
     /**
      * @var Class_[]
@@ -68,18 +63,6 @@ final class ParsedNodeCollector
      * @var StaticCall[]
      */
     private $staticCalls = [];
-    /**
-     * @var New_[]
-     */
-    private $news = [];
-    /**
-     * @var Param[]
-     */
-    private $params = [];
-    /**
-     * @var ClassConstFetch[]
-     */
-    private $classConstFetches = [];
     /**
      * @var NodeNameResolver
      */
@@ -126,7 +109,7 @@ final class ParsedNodeCollector
     public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classes as $className => $classNode) {
-            if (\RectorPrefix20210410\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
+            if (\RectorPrefix20210411\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
                 return $classNode;
             }
         }
@@ -134,7 +117,7 @@ final class ParsedNodeCollector
     }
     public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
-        if (\RectorPrefix20210410\Nette\Utils\Strings::contains($constantName, '\\')) {
+        if (\RectorPrefix20210411\Nette\Utils\Strings::contains($constantName, '\\')) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
         }
         return $this->constantsByType[$className][$constantName] ?? null;
@@ -167,17 +150,6 @@ final class ParsedNodeCollector
             $this->staticCalls[] = $node;
             return;
         }
-        if ($node instanceof \PhpParser\Node\Expr\New_) {
-            $this->news[] = $node;
-            return;
-        }
-        if ($node instanceof \PhpParser\Node\Param) {
-            $this->params[] = $node;
-            return;
-        }
-        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
-            $this->classConstFetches[] = $node;
-        }
     }
     public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\PhpParser\Node\Stmt\ClassConst
     {
@@ -192,27 +164,6 @@ final class ParsedNodeCollector
         /** @var string $constantName */
         $constantName = $this->nodeNameResolver->getName($classConstFetch->name);
         return $this->findClassConstant($class, $constantName);
-    }
-    /**
-     * @return ClassConstFetch[]
-     */
-    public function getClassConstFetches() : array
-    {
-        return $this->classConstFetches;
-    }
-    /**
-     * @return Param[]
-     */
-    public function getParams() : array
-    {
-        return $this->params;
-    }
-    /**
-     * @return New_[]
-     */
-    public function getNews() : array
-    {
-        return $this->news;
     }
     /**
      * @return StaticCall[]
@@ -277,6 +228,6 @@ final class ParsedNodeCollector
             return \true;
         }
         // PHPStan polution
-        return \RectorPrefix20210410\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
+        return \RectorPrefix20210411\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
     }
 }

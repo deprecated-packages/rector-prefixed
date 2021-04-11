@@ -6,9 +6,9 @@ namespace Rector\Composer\Processor;
 use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
-use RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use RectorPrefix20210410\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
-use RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210411\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210411\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
+use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
     /**
@@ -23,13 +23,13 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
      * @var ComposerModifier
      */
     private $composerModifier;
-    public function __construct(\RectorPrefix20210410\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210410\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, \Rector\Composer\Modifier\ComposerModifier $composerModifier)
+    public function __construct(\RectorPrefix20210411\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210411\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, \Rector\Composer\Modifier\ComposerModifier $composerModifier)
     {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->composerModifier = $composerModifier;
     }
-    public function process(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
+    public function process(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
     {
         // to avoid modification of file
         if (!$this->composerModifier->enabled()) {
@@ -46,7 +46,7 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
         $newContent = $this->composerJsonPrinter->printToString($composerJson);
         return new \Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange($oldContent, $newContent);
     }
-    public function supports(\RectorPrefix20210410\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function supports(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         return $smartFileInfo->getRealPath() === \getcwd() . '/composer.json';
     }
