@@ -148,7 +148,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $rectorsChangelogs = $this->rectorsChangelogResolver->resolveIncludingMissing($fileDiff->getRectorClasses());
         $rectorsChangelogsLines = [];
         foreach ($rectorsChangelogs as $rectorClass => $changelog) {
-            $rectorsChangelogsLines[] = $changelog === null ? $rectorClass : $rectorClass . ' (' . $changelog . ')';
+            $rectorShortClass = (string) \RectorPrefix20210412\Nette\Utils\Strings::after($rectorClass, '\\', -1);
+            $rectorsChangelogsLines[] = $changelog === null ? $rectorShortClass : $rectorShortClass . ' (' . $changelog . ')';
         }
         return $rectorsChangelogsLines;
     }
