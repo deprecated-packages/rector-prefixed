@@ -13,9 +13,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
@@ -46,10 +44,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
      */
     protected static $allRectorContainer;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var DynamicSourceLocatorProvider
      */
     private $dynamicSourceLocatorProvider;
@@ -67,7 +61,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
         $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->applicationFileProcessor = $this->getService(\Rector\Core\Application\ApplicationFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210412\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-        $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
@@ -94,35 +87,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
         $this->originalTempFileInfo = $inputFileInfo;
-    }
-    protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
-    {
-        $addedFilesWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-        foreach ($addedFilesWithContents as $addedFileWithContent) {
-            if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($addedFileWithContent->getFilePath(), $expectedExtraFileName)) {
-                continue;
-            }
-            $this->assertStringEqualsFile($expectedExtraContentFilePath, $addedFileWithContent->getFileContent());
-            return;
-        }
-        $addedFilesWithNodes = $this->removedAndAddedFilesCollector->getAddedFilesWithNodes();
-        foreach ($addedFilesWithNodes as $addedFileWithNode) {
-            if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($addedFileWithNode->getFilePath(), $expectedExtraFileName)) {
-                continue;
-            }
-            $printedFileContent = $this->betterStandardPrinter->prettyPrintFile($addedFileWithNode->getNodes());
-            $this->assertStringEqualsFile($expectedExtraContentFilePath, $printedFileContent);
-            return;
-        }
-        $movedFilesWithContent = $this->removedAndAddedFilesCollector->getMovedFileWithContent();
-        foreach ($movedFilesWithContent as $movedFileWithContent) {
-            if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($movedFileWithContent->getNewPathname(), $expectedExtraFileName)) {
-                continue;
-            }
-            $this->assertStringEqualsFile($expectedExtraContentFilePath, $movedFileWithContent->getFileContent());
-            return;
-        }
-        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
     protected function getFixtureTempDirectory() : string
     {
