@@ -53,7 +53,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('PHPExcel_Worksheet'), 'duplicateStyleArray')) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('PHPExcel_Worksheet'))) {
+            return null;
+        }
+        if (!$this->nodeNameResolver->isName($node->name, 'duplicateStyleArray')) {
             return null;
         }
         $variable = clone $node->var;

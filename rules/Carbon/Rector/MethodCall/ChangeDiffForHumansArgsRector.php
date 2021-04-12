@@ -58,7 +58,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('Carbon\\Carbon'), 'diffForHumans')) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Carbon\\Carbon'))) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'diffForHumans')) {
             return null;
         }
         if (!isset($node->args[1])) {

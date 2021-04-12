@@ -55,8 +55,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $callerType = $this->getObjectType($node->class);
-        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_IOFactory'))->yes()) {
+        if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('PHPExcel_IOFactory'))) {
             return null;
         }
         if (!$this->isNames($node->name, ['createReader', 'createWriter', 'identify'])) {
