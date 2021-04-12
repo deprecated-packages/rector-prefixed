@@ -51,8 +51,7 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
     }
     private function processFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
-        $fileInfo = $file->getSmartFileInfo();
-        $oldFileContents = $fileInfo->getContents();
+        $oldFileContents = $file->getFileContent();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
         $changedFileContents = $this->nonPhpFileClassRenamer->renameClasses($oldFileContents, $classRenames);
         $file->changeFileContent($changedFileContents);
