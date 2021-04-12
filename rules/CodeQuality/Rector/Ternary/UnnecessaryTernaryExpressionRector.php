@@ -80,17 +80,34 @@ final class UnnecessaryTernaryExpressionRector extends \Rector\Core\Rector\Abstr
     private function processNonBinaryCondition(\PhpParser\Node\Expr $ifExpression, \PhpParser\Node\Expr $elseExpression, \PhpParser\Node\Expr $condition) : ?\PhpParser\Node
     {
         if ($this->valueResolver->isTrue($ifExpression) && $this->valueResolver->isFalse($elseExpression)) {
-            if ($this->nodeTypeResolver->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
-                return $condition;
-            }
-            return new \PhpParser\Node\Expr\Cast\Bool_($condition);
+            return $this->processTrueIfExpressionWithFalseElseExpression($condition);
         }
-        if ($this->valueResolver->isFalse($ifExpression) && $this->valueResolver->isTrue($elseExpression)) {
-            if ($this->nodeTypeResolver->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
-                return new \PhpParser\Node\Expr\BooleanNot($condition);
-            }
-            return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Cast\Bool_($condition));
+        if (!$this->valueResolver->isFalse($ifExpression)) {
+            return null;
         }
-        return null;
+        if (!$this->valueResolver->isTrue($elseExpression)) {
+            return null;
+        }
+        return $this->processFalseIfExpressionWithTrueElseExpression($condition);
+    }
+    private function processTrueIfExpressionWithFalseElseExpression(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    {
+        if ($this->nodeTypeResolver->isStaticType($expr, \PHPStan\Type\BooleanType::class)) {
+            return $expr;
+        }
+        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+    }
+    private function processFalseIfExpressionWithTrueElseExpression(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    {
+        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
+            if ($this->nodeTypeResolver->isStaticType($expr->expr, \PHPStan\Type\BooleanType::class)) {
+                return $expr->expr;
+            }
+            return new \PhpParser\Node\Expr\Cast\Bool_($expr->expr);
+        }
+        if ($this->nodeTypeResolver->isStaticType($expr, \PHPStan\Type\BooleanType::class)) {
+            return new \PhpParser\Node\Expr\BooleanNot($expr);
+        }
+        return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Cast\Bool_($expr));
     }
 }
