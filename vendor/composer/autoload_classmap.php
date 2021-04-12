@@ -1968,6 +1968,7 @@ return array(
     'Rector\\Doctrine\\TypeAnalyzer\\CollectionVarTagValueNodeResolver' => $vendorDir . '/rector/rector-doctrine/src/TypeAnalyzer/CollectionVarTagValueNodeResolver.php',
     'Rector\\Doctrine\\TypeAnalyzer\\TypeFinder' => $vendorDir . '/rector/rector-doctrine/src/TypeAnalyzer/TypeFinder.php',
     'Rector\\Doctrine\\Type\\RepositoryTypeFactory' => $vendorDir . '/rector/rector-doctrine/src/Type/RepositoryTypeFactory.php',
+    'Rector\\DowngradePhp70\\Rector\\Declare_\\DowngradeStrictTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/Declare_/DowngradeStrictTypeDeclarationRector.php',
     'Rector\\DowngradePhp70\\Rector\\FunctionLike\\DowngradeTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/FunctionLike/DowngradeTypeDeclarationRector.php',
     'Rector\\DowngradePhp71\\Rector\\Array_\\SymmetricArrayDestructuringToListRector' => $baseDir . '/rules/DowngradePhp71/Rector/Array_/SymmetricArrayDestructuringToListRector.php',
     'Rector\\DowngradePhp71\\Rector\\ClassConst\\DowngradeClassConstantVisibilityRector' => $baseDir . '/rules/DowngradePhp71/Rector/ClassConst/DowngradeClassConstantVisibilityRector.php',
