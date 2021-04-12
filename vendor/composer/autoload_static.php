@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
+class ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1818,6 +1818,7 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\ChangesReporting\\Contract\\Output\\OutputFormatterInterface' => __DIR__ . '/../..' . '/packages/ChangesReporting/Contract/Output/OutputFormatterInterface.php',
         'Rector\\ChangesReporting\\Output\\ConsoleOutputFormatter' => __DIR__ . '/../..' . '/packages/ChangesReporting/Output/ConsoleOutputFormatter.php',
         'Rector\\ChangesReporting\\Output\\JsonOutputFormatter' => __DIR__ . '/../..' . '/packages/ChangesReporting/Output/JsonOutputFormatter.php',
+        'Rector\\ChangesReporting\\ValueObjectFactory\\FileDiffFactory' => __DIR__ . '/../..' . '/packages/ChangesReporting/ValueObjectFactory/FileDiffFactory.php',
         'Rector\\ChangesReporting\\ValueObject\\RectorWithFileAndLineChange' => __DIR__ . '/../..' . '/packages/ChangesReporting/ValueObject/RectorWithFileAndLineChange.php',
         'Rector\\CodeQualityStrict\\NodeFactory\\ClassConstFetchFactory' => __DIR__ . '/../..' . '/rules/CodeQualityStrict/NodeFactory/ClassConstFetchFactory.php',
         'Rector\\CodeQualityStrict\\Rector\\ClassMethod\\ParamTypeToAssertTypeRector' => __DIR__ . '/../..' . '/rules/CodeQualityStrict/Rector/ClassMethod/ParamTypeToAssertTypeRector.php',
@@ -1979,11 +1980,11 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Comments\\NodeDocBlock\\DocBlockUpdater' => __DIR__ . '/../..' . '/packages/Comments/NodeDocBlock/DocBlockUpdater.php',
         'Rector\\Comments\\NodeTraverser\\CommentRemovingNodeTraverser' => __DIR__ . '/../..' . '/packages/Comments/NodeTraverser/CommentRemovingNodeTraverser.php',
         'Rector\\Comments\\NodeVisitor\\CommentRemovingNodeVisitor' => __DIR__ . '/../..' . '/packages/Comments/NodeVisitor/CommentRemovingNodeVisitor.php',
+        'Rector\\Composer\\Application\\FileProcessor\\ComposerFileProcessor' => __DIR__ . '/../..' . '/rules/Composer/Application/FileProcessor/ComposerFileProcessor.php',
         'Rector\\Composer\\Contract\\Rector\\ComposerRectorInterface' => __DIR__ . '/../..' . '/rules/Composer/Contract/Rector/ComposerRectorInterface.php',
         'Rector\\Composer\\Contract\\VersionAwareInterface' => __DIR__ . '/../..' . '/rules/Composer/Contract/VersionAwareInterface.php',
         'Rector\\Composer\\Guard\\VersionGuard' => __DIR__ . '/../..' . '/rules/Composer/Guard/VersionGuard.php',
         'Rector\\Composer\\Modifier\\ComposerModifier' => __DIR__ . '/../..' . '/rules/Composer/Modifier/ComposerModifier.php',
-        'Rector\\Composer\\Processor\\ComposerFileProcessor' => __DIR__ . '/../..' . '/rules/Composer/Processor/ComposerFileProcessor.php',
         'Rector\\Composer\\Rector\\AddPackageToRequireComposerRector' => __DIR__ . '/../..' . '/rules/Composer/Rector/AddPackageToRequireComposerRector.php',
         'Rector\\Composer\\Rector\\AddPackageToRequireDevComposerRector' => __DIR__ . '/../..' . '/rules/Composer/Rector/AddPackageToRequireDevComposerRector.php',
         'Rector\\Composer\\Rector\\ChangePackageVersionComposerRector' => __DIR__ . '/../..' . '/rules/Composer/Rector/ChangePackageVersionComposerRector.php',
@@ -1992,12 +1993,15 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Composer\\ValueObject\\PackageAndVersion' => __DIR__ . '/../..' . '/rules/Composer/ValueObject/PackageAndVersion.php',
         'Rector\\Composer\\ValueObject\\ReplacePackageAndVersion' => __DIR__ . '/../..' . '/rules/Composer/ValueObject/ReplacePackageAndVersion.php',
         'Rector\\Core\\Application\\ActiveRectorsProvider' => __DIR__ . '/../..' . '/src/Application/ActiveRectorsProvider.php',
+        'Rector\\Core\\Application\\ApplicationFileProcessor' => __DIR__ . '/../..' . '/src/Application/ApplicationFileProcessor.php',
+        'Rector\\Core\\Application\\FileDecorator\\FileDiffFileDecorator' => __DIR__ . '/../..' . '/src/Application/FileDecorator/FileDiffFileDecorator.php',
         'Rector\\Core\\Application\\FileProcessor' => __DIR__ . '/../..' . '/src/Application/FileProcessor.php',
+        'Rector\\Core\\Application\\FileProcessor\\PhpFileProcessor' => __DIR__ . '/../..' . '/src/Application/FileProcessor/PhpFileProcessor.php',
         'Rector\\Core\\Application\\FileSystem\\RemovedAndAddedFilesCollector' => __DIR__ . '/../..' . '/src/Application/FileSystem/RemovedAndAddedFilesCollector.php',
         'Rector\\Core\\Application\\FileSystem\\RemovedAndAddedFilesProcessor' => __DIR__ . '/../..' . '/src/Application/FileSystem/RemovedAndAddedFilesProcessor.php',
-        'Rector\\Core\\Application\\RectorApplication' => __DIR__ . '/../..' . '/src/Application/RectorApplication.php',
         'Rector\\Core\\Application\\TokensByFilePathStorage' => __DIR__ . '/../..' . '/src/Application/TokensByFilePathStorage.php',
         'Rector\\Core\\Autoloading\\AdditionalAutoloader' => __DIR__ . '/../..' . '/src/Autoloading/AdditionalAutoloader.php',
+        'Rector\\Core\\Autoloading\\BootstrapFilesIncluder' => __DIR__ . '/../..' . '/src/Autoloading/BootstrapFilesIncluder.php',
         'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/RectorConfigsResolver.php',
         'Rector\\Core\\Bootstrap\\SetConfigResolver' => __DIR__ . '/../..' . '/src/Bootstrap/SetConfigResolver.php',
         'Rector\\Core\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
@@ -2011,7 +2015,6 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Core\\Console\\Output\\OutputFormatterCollector' => __DIR__ . '/../..' . '/src/Console/Output/OutputFormatterCollector.php',
         'Rector\\Core\\Console\\Style\\SymfonyStyleFactory' => __DIR__ . '/../..' . '/src/Console/Style/SymfonyStyleFactory.php',
         'Rector\\Core\\Contract\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverInterface' => __DIR__ . '/../..' . '/src/Contract/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverInterface.php',
-        'Rector\\Core\\Contract\\PostRunnerInterface' => __DIR__ . '/../..' . '/src/Contract/PostRunnerInterface.php',
         'Rector\\Core\\Contract\\Processor\\FileProcessorInterface' => __DIR__ . '/../..' . '/src/Contract/Processor/FileProcessorInterface.php',
         'Rector\\Core\\Contract\\Rector\\ConfigurableRectorInterface' => __DIR__ . '/../..' . '/src/Contract/Rector/ConfigurableRectorInterface.php',
         'Rector\\Core\\Contract\\Rector\\PhpRectorInterface' => __DIR__ . '/../..' . '/src/Contract/Rector/PhpRectorInterface.php',
@@ -2069,7 +2072,6 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Core\\NodeManipulator\\VariableManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VariableManipulator.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileClassRenamer' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileClassRenamer.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileProcessor' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileProcessor.php',
-        'Rector\\Core\\NonPhpFile\\NonPhpFileProcessorService' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileProcessorService.php',
         'Rector\\Core\\PHPStan\\Reflection\\CallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/CallReflectionResolver.php',
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\ClosureTypeToCallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/ClosureTypeToCallReflectionResolver.php',
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\ConstantArrayTypeToCallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/ConstantArrayTypeToCallReflectionResolver.php',
@@ -2104,6 +2106,7 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Core\\Rector\\AbstractRector' => __DIR__ . '/../..' . '/src/Rector/AbstractRector.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionFactory.php',
         'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => __DIR__ . '/../..' . '/src/Reflection/ClassReflectionToAstResolver.php',
+        'Rector\\Core\\Reflection\\FunctionLikeReflectionParser' => __DIR__ . '/../..' . '/src/Reflection/FunctionLikeReflectionParser.php',
         'Rector\\Core\\Reflection\\MethodReflectionToAstResolver' => __DIR__ . '/../..' . '/src/Reflection/MethodReflectionToAstResolver.php',
         'Rector\\Core\\Reporting\\MissingRectorRulesReporter' => __DIR__ . '/../..' . '/src/Reporting/MissingRectorRulesReporter.php',
         'Rector\\Core\\StaticReflection\\DynamicSourceLocatorDecorator' => __DIR__ . '/../..' . '/src/StaticReflection/DynamicSourceLocatorDecorator.php',
@@ -2111,14 +2114,17 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Core\\Util\\PhpVersionFactory' => __DIR__ . '/../..' . '/src/Util/PhpVersionFactory.php',
         'Rector\\Core\\Util\\StaticNodeInstanceOf' => __DIR__ . '/../..' . '/src/Util/StaticNodeInstanceOf.php',
         'Rector\\Core\\Util\\StaticRectorStrings' => __DIR__ . '/../..' . '/src/Util/StaticRectorStrings.php',
+        'Rector\\Core\\ValueObjectFactory\\Application\\FileFactory' => __DIR__ . '/../..' . '/src/ValueObjectFactory/Application/FileFactory.php',
+        'Rector\\Core\\ValueObjectFactory\\ProcessResultFactory' => __DIR__ . '/../..' . '/src/ValueObjectFactory/ProcessResultFactory.php',
+        'Rector\\Core\\ValueObject\\Application\\File' => __DIR__ . '/../..' . '/src/ValueObject/Application/File.php',
         'Rector\\Core\\ValueObject\\Application\\ParsedStmtsAndTokens' => __DIR__ . '/../..' . '/src/ValueObject/Application/ParsedStmtsAndTokens.php',
         'Rector\\Core\\ValueObject\\Application\\RectorError' => __DIR__ . '/../..' . '/src/ValueObject/Application/RectorError.php',
         'Rector\\Core\\ValueObject\\Bootstrap\\BootstrapConfigs' => __DIR__ . '/../..' . '/src/ValueObject/Bootstrap/BootstrapConfigs.php',
         'Rector\\Core\\ValueObject\\FrameworkName' => __DIR__ . '/../..' . '/src/ValueObject/FrameworkName.php',
         'Rector\\Core\\ValueObject\\MethodName' => __DIR__ . '/../..' . '/src/ValueObject/MethodName.php',
-        'Rector\\Core\\ValueObject\\NonPhpFile\\NonPhpFileChange' => __DIR__ . '/../..' . '/src/ValueObject/NonPhpFile/NonPhpFileChange.php',
         'Rector\\Core\\ValueObject\\PhpVersion' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersion.php',
         'Rector\\Core\\ValueObject\\PhpVersionFeature' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersionFeature.php',
+        'Rector\\Core\\ValueObject\\ProcessResult' => __DIR__ . '/../..' . '/src/ValueObject/ProcessResult.php',
         'Rector\\Core\\ValueObject\\ProjectType' => __DIR__ . '/../..' . '/src/ValueObject/ProjectType.php',
         'Rector\\Core\\ValueObject\\Reporting\\FileDiff' => __DIR__ . '/../..' . '/src/ValueObject/Reporting/FileDiff.php',
         'Rector\\Core\\ValueObject\\SprintfStringAndArgs' => __DIR__ . '/../..' . '/src/ValueObject/SprintfStringAndArgs.php',
@@ -2931,7 +2937,6 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
         'Rector\\Php80\\ValueObject\\PropertyPromotionCandidate' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/PropertyPromotionCandidate.php',
         'Rector\\Php80\\ValueObject\\StrStartsWith' => __DIR__ . '/../..' . '/rules/Php80/ValueObject/StrStartsWith.php',
         'Rector\\PhpAttribute\\Printer\\PhpAttributeGroupFactory' => __DIR__ . '/../..' . '/packages/PhpAttribute/Printer/PhpAttributeGroupFactory.php',
-        'Rector\\PhpAttribute\\ValueObject\\TagName' => __DIR__ . '/../..' . '/packages/PhpAttribute/ValueObject/TagName.php',
         'Rector\\PhpSpecToPHPUnit\\LetManipulator' => __DIR__ . '/../..' . '/rules/PhpSpecToPHPUnit/LetManipulator.php',
         'Rector\\PhpSpecToPHPUnit\\MatchersManipulator' => __DIR__ . '/../..' . '/rules/PhpSpecToPHPUnit/MatchersManipulator.php',
         'Rector\\PhpSpecToPHPUnit\\Naming\\PhpSpecRenaming' => __DIR__ . '/../..' . '/rules/PhpSpecToPHPUnit/Naming/PhpSpecRenaming.php',
@@ -3387,9 +3392,9 @@ class ComposerStaticInit22b40aabcb02eb36982a691cf7508348
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit22b40aabcb02eb36982a691cf7508348::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit22b40aabcb02eb36982a691cf7508348::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit22b40aabcb02eb36982a691cf7508348::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$classMap;
 
         }, null, ClassLoader::class);
     }

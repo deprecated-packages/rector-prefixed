@@ -63,13 +63,14 @@ final class TypeHasher
         if ($booleanType->isSuperTypeOf($unionType)->yes()) {
             return $booleanType->describe(\PHPStan\Type\VerbosityLevel::precise());
         }
+        $normalizedUnionType = clone $sortedUnionType;
         // change alias to non-alias
-        $sortedUnionType = \PHPStan\Type\TypeTraverser::map($sortedUnionType, function (\PHPStan\Type\Type $type, callable $callable) : Type {
+        $normalizedUnionType = \PHPStan\Type\TypeTraverser::map($normalizedUnionType, function (\PHPStan\Type\Type $type, callable $callable) : Type {
             if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType) {
                 return $callable($type);
             }
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type->getFullyQualifiedClass());
         });
-        return $sortedUnionType->describe(\PHPStan\Type\VerbosityLevel::cache());
+        return $normalizedUnionType->describe(\PHPStan\Type\VerbosityLevel::cache());
     }
 }

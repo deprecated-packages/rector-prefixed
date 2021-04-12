@@ -5,9 +5,9 @@ namespace Rector\ChangesReporting\Output;
 
 use RectorPrefix20210412\Nette\Utils\Json;
 use Rector\ChangesReporting\Annotation\RectorsChangelogResolver;
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
+use Rector\Core\ValueObject\ProcessResult;
 use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
@@ -37,10 +37,10 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
     {
         return self::NAME;
     }
-    public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
-        $errorsArray = ['meta' => ['version' => $this->configuration->getPrettyVersion(), 'config' => $this->configuration->getMainConfigFilePath()], 'totals' => ['changed_files' => $errorAndDiffCollector->getFileDiffsCount(), 'removed_and_added_files_count' => $errorAndDiffCollector->getRemovedAndAddedFilesCount(), 'removed_node_count' => $errorAndDiffCollector->getRemovedNodeCount()]];
-        $fileDiffs = $errorAndDiffCollector->getFileDiffs();
+        $errorsArray = ['meta' => ['version' => $this->configuration->getPrettyVersion(), 'config' => $this->configuration->getMainConfigFilePath()], 'totals' => ['changed_files' => \count($processResult->getFileDiffs()), 'removed_and_added_files_count' => $processResult->getRemovedAndAddedFilesCount(), 'removed_node_count' => $processResult->getRemovedNodeCount()]];
+        $fileDiffs = $processResult->getFileDiffs();
         \ksort($fileDiffs);
         foreach ($fileDiffs as $fileDiff) {
             $relativeFilePath = $fileDiff->getRelativeFilePath();
@@ -49,7 +49,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
             // for Rector CI
             $errorsArray['changed_files'][] = $relativeFilePath;
         }
-        $errors = $errorAndDiffCollector->getErrors();
+        $errors = $processResult->getErrors();
         $errorsArray['totals']['errors'] = \count($errors);
         $errorsData = $this->createErrorsData($errors);
         if ($errorsData !== []) {

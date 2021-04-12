@@ -61,6 +61,9 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
         }
         $maximumAllowedParameterCount = $this->resolveMaximumAllowedParameterCount($functionLikeReflection);
         $numberOfArguments = \count($node->args);
+        if ($numberOfArguments <= $maximumAllowedParameterCount) {
+            return null;
+        }
         for ($i = $maximumAllowedParameterCount; $i <= $numberOfArguments; ++$i) {
             unset($node->args[$i]);
         }

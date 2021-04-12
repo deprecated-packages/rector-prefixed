@@ -38,10 +38,6 @@ final class Configuration
      */
     private $isCacheEnabled = \false;
     /**
-     * @var SmartFileInfo[]
-     */
-    private $fileInfos = [];
-    /**
      * @var string[]
      */
     private $fileExtensions = [];
@@ -119,20 +115,6 @@ final class Configuration
     public function getOutputFile() : ?string
     {
         return $this->outputFile;
-    }
-    /**
-     * @param SmartFileInfo[] $fileInfos
-     */
-    public function setFileInfos(array $fileInfos) : void
-    {
-        $this->fileInfos = $fileInfos;
-    }
-    /**
-     * @return SmartFileInfo[]
-     */
-    public function getFileInfos() : array
-    {
-        return $this->fileInfos;
     }
     public function shouldClearCache() : bool
     {

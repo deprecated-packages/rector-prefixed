@@ -71,7 +71,7 @@ final class NodeScopeAndMetadataDecorator
      * @param Node[] $nodes
      * @return Node[]
      */
-    public function decorateNodesFromFile(array $nodes, \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, bool $needsScope = \false) : array
+    public function decorateNodesFromFile(array $nodes, \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver(null, [

@@ -5,9 +5,10 @@ namespace Rector\Caching\FileSystem;
 
 use PhpParser\Node;
 use PHPStan\Analyser\MutatingScope;
+use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
 use PHPStan\File\FileHelper;
-use Rector\Core\Configuration\Configuration;
+use RectorPrefix20210412\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class DependencyResolver
 {
     /**
@@ -15,29 +16,30 @@ final class DependencyResolver
      */
     private $fileHelper;
     /**
-     * @var Configuration
-     */
-    private $configuration;
-    /**
      * @var PHPStanDependencyResolver
      */
     private $phpStanDependencyResolver;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper)
+    /**
+     * @var NodeScopeResolver
+     */
+    private $nodeScopeResolver;
+    /**
+     * @var PrivatesAccessor
+     */
+    private $privatesAccessor;
+    public function __construct(\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper, \RectorPrefix20210412\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->fileHelper = $fileHelper;
-        $this->configuration = $configuration;
         $this->phpStanDependencyResolver = $phpStanDependencyResolver;
+        $this->nodeScopeResolver = $nodeScopeResolver;
+        $this->privatesAccessor = $privatesAccessor;
     }
     /**
      * @return string[]
      */
     public function resolveDependencies(\PhpParser\Node $node, \PHPStan\Analyser\MutatingScope $mutatingScope) : array
     {
-        $fileInfos = $this->configuration->getFileInfos();
-        $analysedFileAbsolutesPaths = [];
-        foreach ($fileInfos as $fileInfo) {
-            $analysedFileAbsolutesPaths[] = $fileInfo->getRealPath();
-        }
+        $analysedFileAbsolutesPaths = $this->privatesAccessor->getPrivateProperty($this->nodeScopeResolver, 'analysedFiles');
         $dependencyFiles = [];
         $nodeDependencies = $this->phpStanDependencyResolver->resolveDependencies($node, $mutatingScope);
         foreach ($nodeDependencies as $nodeDependency) {

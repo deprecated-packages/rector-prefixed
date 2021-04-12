@@ -3,26 +3,28 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Collector;
 
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Core\ValueObject\Application\File;
 final class AffectedFilesCollector
 {
     /**
-     * @var SmartFileInfo[]
+     * @var File[]
      */
     private $affectedFiles = [];
-    public function addFile(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
-        $this->affectedFiles[$fileInfo->getRealPath()] = $fileInfo;
+        $fileInfo = $file->getSmartFileInfo();
+        $this->affectedFiles[$fileInfo->getRealPath()] = $file;
     }
-    public function getNext() : ?\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo
+    public function getNext() : ?\Rector\Core\ValueObject\Application\File
     {
         if ($this->affectedFiles !== []) {
             return \current($this->affectedFiles);
         }
         return null;
     }
-    public function removeFromList(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function removeFromList(\Rector\Core\ValueObject\Application\File $file) : void
     {
+        $fileInfo = $file->getSmartFileInfo();
         unset($this->affectedFiles[$fileInfo->getRealPath()]);
     }
 }

@@ -5,10 +5,9 @@ namespace Rector\Core\NonPhpFile;
 
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
-use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
+use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\Renaming\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
@@ -32,23 +31,30 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->nonPhpFileClassRenamer = $nonPhpFileClassRenamer;
     }
-    public function process(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
+    /**
+     * @param File[] $files
+     */
+    public function process(array $files) : void
     {
-        $oldContents = $smartFileInfo->getContents();
-        $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
-        $newContents = $this->nonPhpFileClassRenamer->renameClasses($oldContents, $classRenames);
-        // nothing has changed
-        if ($oldContents === $newContents) {
-            return null;
+        foreach ($files as $file) {
+            $this->processFile($file);
         }
-        return new \Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange($oldContents, $newContents);
     }
-    public function supports(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function supports(\Rector\Core\ValueObject\Application\File $file) : bool
     {
-        return \in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), \true);
+        $fileInfo = $file->getSmartFileInfo();
+        return $fileInfo->hasSuffixes($this->getSupportedFileExtensions());
     }
     public function getSupportedFileExtensions() : array
     {
         return \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::SUFFIXES;
+    }
+    private function processFile(\Rector\Core\ValueObject\Application\File $file) : void
+    {
+        $fileInfo = $file->getSmartFileInfo();
+        $oldFileContents = $fileInfo->getContents();
+        $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
+        $changedFileContents = $this->nonPhpFileClassRenamer->renameClasses($oldFileContents, $classRenames);
+        $file->changeFileContent($changedFileContents);
     }
 }

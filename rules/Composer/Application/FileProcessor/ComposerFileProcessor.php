@@ -1,11 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Composer\Processor;
+namespace Rector\Composer\Application\FileProcessor;
 
 use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
-use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
+use Rector\Core\ValueObject\Application\File;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210412\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use RectorPrefix20210412\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
@@ -29,26 +30,22 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->composerModifier = $composerModifier;
     }
-    public function process(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
+    /**
+     * @param File[] $files
+     */
+    public function process(array $files) : void
     {
-        // to avoid modification of file
-        if (!$this->composerModifier->enabled()) {
-            return null;
+        foreach ($files as $file) {
+            $this->processFile($file);
         }
-        $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);
-        $oldComposerJson = clone $composerJson;
-        $this->composerModifier->modify($composerJson);
-        // nothing has changed
-        if ($oldComposerJson->getJsonArray() === $composerJson->getJsonArray()) {
-            return null;
-        }
-        $oldContent = $this->composerJsonPrinter->printToString($oldComposerJson);
-        $newContent = $this->composerJsonPrinter->printToString($composerJson);
-        return new \Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange($oldContent, $newContent);
     }
-    public function supports(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function supports(\Rector\Core\ValueObject\Application\File $file) : bool
     {
-        return $smartFileInfo->getRealPath() === \getcwd() . '/composer.json';
+        $fileInfo = $file->getSmartFileInfo();
+        if ($this->isJsonInTests($fileInfo)) {
+            return \true;
+        }
+        return $fileInfo->getRealPath() === \getcwd() . '/composer.json';
     }
     /**
      * @return string[]
@@ -56,5 +53,29 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
     public function getSupportedFileExtensions() : array
     {
         return ['json'];
+    }
+    private function processFile(\Rector\Core\ValueObject\Application\File $file) : void
+    {
+        // to avoid modification of file
+        if (!$this->composerModifier->enabled()) {
+            return;
+        }
+        $smartFileInfo = $file->getSmartFileInfo();
+        $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);
+        $oldComposerJson = clone $composerJson;
+        $this->composerModifier->modify($composerJson);
+        // nothing has changed
+        if ($oldComposerJson->getJsonArray() === $composerJson->getJsonArray()) {
+            return;
+        }
+        $changeFileContent = $this->composerJsonPrinter->printToString($composerJson);
+        $file->changeFileContent($changeFileContent);
+    }
+    private function isJsonInTests(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : bool
+    {
+        if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return \false;
+        }
+        return $fileInfo->hasSuffixes(['json']);
     }
 }

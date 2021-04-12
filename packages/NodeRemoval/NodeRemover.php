@@ -81,11 +81,7 @@ final class NodeRemover
      */
     public function removeParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, $keyOrParam) : void
     {
-        if ($keyOrParam instanceof \PhpParser\Node\Param) {
-            $key = $keyOrParam->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION);
-        } else {
-            $key = $keyOrParam;
-        }
+        $key = $keyOrParam instanceof \PhpParser\Node\Param ? $keyOrParam->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION) : $keyOrParam;
         if ($classMethod->params === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }

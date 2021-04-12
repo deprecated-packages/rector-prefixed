@@ -7,7 +7,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypeWithClassName;
-use Rector\Core\PhpParser\Parser\FunctionLikeParser;
+use Rector\Core\Reflection\FunctionLikeReflectionParser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class MethodCallToClassMethodParser
@@ -25,15 +25,15 @@ final class MethodCallToClassMethodParser
      */
     private $reflectionProvider;
     /**
-     * @var FunctionLikeParser
+     * @var FunctionLikeReflectionParser
      */
-    private $functionLikeParser;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser)
+    private $functionLikeReflectionParser;
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Reflection\FunctionLikeReflectionParser $functionLikeReflectionParser)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
-        $this->functionLikeParser = $functionLikeParser;
+        $this->functionLikeReflectionParser = $functionLikeReflectionParser;
     }
     public function parseMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
@@ -47,6 +47,6 @@ final class MethodCallToClassMethodParser
             return null;
         }
         $methodReflection = $callerClassReflection->getNativeMethod($methodName);
-        return $this->functionLikeParser->parseMethodReflection($methodReflection);
+        return $this->functionLikeReflectionParser->parseMethodReflection($methodReflection);
     }
 }

@@ -19,7 +19,7 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     /**
      * @var PhpRectorInterface[]
      */
-    private $allPhpRectors = [];
+    private $phpRectors = [];
     /**
      * @var NodeFinder
      */
@@ -36,7 +36,7 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     {
         /** @var PhpRectorInterface[] $phpRectors */
         $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
-        $this->allPhpRectors = $phpRectors;
+        $this->phpRectors = $phpRectors;
         $this->nodeFinder = $nodeFinder;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
@@ -98,8 +98,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
         if ($this->areNodeVisitorsPrepared) {
             return;
         }
-        foreach ($this->allPhpRectors as $allPhpRector) {
-            $this->addVisitor($allPhpRector);
+        foreach ($this->phpRectors as $phpRector) {
+            $this->addVisitor($phpRector);
         }
         $this->areNodeVisitorsPrepared = \true;
     }

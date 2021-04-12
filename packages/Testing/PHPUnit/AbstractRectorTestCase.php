@@ -4,25 +4,24 @@ declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
 use Iterator;
-use RectorPrefix20210412\Nette\Utils\Json;
 use RectorPrefix20210412\Nette\Utils\Strings;
 use PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20210412\PHPUnit\Framework\ExpectationFailedException;
 use RectorPrefix20210412\Psr\Container\ContainerInterface;
-use Rector\Composer\Modifier\ComposerModifier;
+use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
+use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
+use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
-use RectorPrefix20210412\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use RectorPrefix20210412\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210412\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210412\Symplify\EasyTesting\StaticFixtureSplitter;
@@ -65,13 +64,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
      */
     private $dynamicSourceLocatorProvider;
     /**
-     * @var ComposerJsonFactory
+     * @var ApplicationFileProcessor
      */
-    private $composerJsonFactory;
-    /**
-     * @var ComposerModifier
-     */
-    private $composerModifier;
+    private $applicationFileProcessor;
     protected function setUp() : void
     {
         // speed up
@@ -82,13 +77,15 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
         $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
+        $this->applicationFileProcessor = $this->getService(\Rector\Core\Application\ApplicationFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210412\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
-        $this->composerJsonFactory = $this->getService(\RectorPrefix20210412\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
-        $this->composerModifier = $this->getService(\Rector\Composer\Modifier\ComposerModifier::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
+        /** @var Configuration $configuration */
+        $configuration = $this->getService(\Rector\Core\Configuration\Configuration::class);
+        $configuration->setIsDryRun(\true);
     }
     public function provideConfigFilePath() : string
     {
@@ -106,22 +103,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
     {
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210412\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        if ($inputFileInfo->getSuffix() === 'json') {
-            $inputFileInfoAndExpected = \RectorPrefix20210412\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fixtureFileInfo);
-            $composerJson = $this->composerJsonFactory->createFromFileInfo($inputFileInfoAndExpected->getInputFileInfo());
-            $this->composerModifier->modify($composerJson);
-            $changedComposerJson = \RectorPrefix20210412\Nette\Utils\Json::encode($composerJson->getJsonArray(), \RectorPrefix20210412\Nette\Utils\Json::PRETTY);
-            $this->assertJsonStringEqualsJsonString($inputFileInfoAndExpected->getExpected(), $changedComposerJson);
-        } else {
-            // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
-            /** @var NodeScopeResolver $nodeScopeResolver */
-            $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
-            $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
-            $this->dynamicSourceLocatorProvider->setFileInfo($inputFileInfo);
-            $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
-            $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
-            $this->originalTempFileInfo = $inputFileInfo;
-        }
+        $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
+        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo);
+        $this->originalTempFileInfo = $inputFileInfo;
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
@@ -160,6 +144,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         $changedContent = $this->processFileInfo($originalFileInfo);
+        // file is removed, we cannot compare it
+        if ($this->removedAndAddedFilesCollector->isFileRemoved($originalFileInfo)) {
+            return;
+        }
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
         try {
             $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
@@ -176,20 +164,15 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
     {
         return \RectorPrefix20210412\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
     }
-    private function processFileInfo(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo) : string
+    private function processFileInfo(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
-        if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
-            $this->fileProcessor->refactor($originalFileInfo);
-            $this->fileProcessor->postFileRefactor($originalFileInfo);
-            // mimic post-rectors
-            $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-        } elseif (\RectorPrefix20210412\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
-            $nonPhpFileChange = $this->nonPhpFileProcessor->process($originalFileInfo);
-            $changedContent = $nonPhpFileChange !== null ? $nonPhpFileChange->getNewContent() : '';
-        } else {
-            $message = \sprintf('Suffix "%s" is not supported yet', $originalFileInfo->getSuffix());
-            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
-        }
-        return $changedContent;
+        $this->dynamicSourceLocatorProvider->setFileInfo($fileInfo);
+        // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps
+        /** @var NodeScopeResolver $nodeScopeResolver */
+        $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
+        $nodeScopeResolver->setAnalysedFiles([$fileInfo->getRealPath()]);
+        $file = new \Rector\Core\ValueObject\Application\File($fileInfo, $fileInfo->getContents());
+        $this->applicationFileProcessor->run([$file]);
+        return $file->getFileContent();
     }
 }

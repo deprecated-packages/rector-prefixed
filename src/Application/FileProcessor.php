@@ -9,6 +9,7 @@ use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\PhpParser\Printer\FormatPerservingPrinter;
+use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Application\ParsedStmtsAndTokens;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
@@ -64,8 +65,9 @@ final class FileProcessor
         $this->postFileProcessor = $postFileProcessor;
         $this->tokensByFilePathStorage = $tokensByFilePathStorage;
     }
-    public function parseFileInfoToLocalCache(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function parseFileInfoToLocalCache(\Rector\Core\ValueObject\Application\File $file) : void
     {
+        $smartFileInfo = $file->getSmartFileInfo();
         if ($this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
             return;
         }
@@ -87,9 +89,10 @@ final class FileProcessor
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         return $this->formatPerservingPrinter->printParsedStmstAndTokensToString($parsedStmtsAndTokens);
     }
-    public function refactor(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function refactor(\Rector\Core\ValueObject\Application\File $file) : void
     {
-        $this->parseFileInfoToLocalCache($smartFileInfo);
+        $this->parseFileInfoToLocalCache($file);
+        $smartFileInfo = $file->getSmartFileInfo();
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         $this->currentFileInfoProvider->setCurrentStmts($parsedStmtsAndTokens->getNewStmts());
         // run file node only if
@@ -98,15 +101,16 @@ final class FileProcessor
         $newStmts = $this->rectorNodeTraverser->traverse($parsedStmtsAndTokens->getNewStmts());
         // this is needed for new tokens added in "afterTraverse()"
         $parsedStmtsAndTokens->updateNewStmts($newStmts);
-        $this->affectedFilesCollector->removeFromList($smartFileInfo);
+        $this->affectedFilesCollector->removeFromList($file);
         while ($otherTouchedFile = $this->affectedFilesCollector->getNext()) {
             $this->refactor($otherTouchedFile);
         }
     }
-    public function postFileRefactor(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function postFileRefactor(\Rector\Core\ValueObject\Application\File $file) : void
     {
+        $smartFileInfo = $file->getSmartFileInfo();
         if (!$this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
-            $this->parseFileInfoToLocalCache($smartFileInfo);
+            $this->parseFileInfoToLocalCache($file);
         }
         $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
         $this->currentFileInfoProvider->setCurrentStmts($parsedStmtsAndTokens->getNewStmts());
