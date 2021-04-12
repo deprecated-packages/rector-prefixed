@@ -11,10 +11,12 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Autodiscovery\Configuration\CategoryNamespaceProvider;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
+use Rector\PSR4\Collector\RenamedClassesCollector;
+use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\FileRelocationResolver;
 use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
-final class MovedFileWithNodesFactory
+final class AddedFileWithNodesFactory
 {
     /**
      * @var BetterNodeFinder
@@ -28,16 +30,26 @@ final class MovedFileWithNodesFactory
      * @var CategoryNamespaceProvider
      */
     private $categoryNamespaceProvider;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Autodiscovery\Configuration\CategoryNamespaceProvider $categoryNamespaceProvider, \Rector\PSR4\FileRelocationResolver $fileRelocationResolver)
+    /**
+     * @var RenamedClassesCollector
+     */
+    private $renamedClassesCollector;
+    /**
+     * @var FileInfoDeletionAnalyzer
+     */
+    private $fileInfoDeletionAnalyzer;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Autodiscovery\Configuration\CategoryNamespaceProvider $categoryNamespaceProvider, \Rector\PSR4\FileRelocationResolver $fileRelocationResolver, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->fileRelocationResolver = $fileRelocationResolver;
         $this->categoryNamespaceProvider = $categoryNamespaceProvider;
+        $this->renamedClassesCollector = $renamedClassesCollector;
+        $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
     /**
      * @param Node[] $nodes
      */
-    public function createWithDesiredGroup(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\MovedFileWithNodes
+    public function createWithDesiredGroup(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
     {
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
         // file without namespace → skip
@@ -48,11 +60,11 @@ final class MovedFileWithNodesFactory
             return null;
         }
         // is already in the right group
-        $currentNamespaceName = (string) $currentNamespace->name;
+        $currentNamespaceName = $currentNamespace->name->toString();
         if (\RectorPrefix20210412\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
             return null;
         }
-        $oldClassName = $currentNamespaceName . '\\' . $oldFileInfo->getBasenameWithoutSuffix();
+        $oldClassName = $currentNamespaceName . '\\' . $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($oldFileInfo->getBasenameWithoutSuffix());
         // change namespace to new one
         $newNamespaceName = $this->createNewNamespaceName($desiredGroupName, $currentNamespace);
         $newClassName = $this->createNewClassName($oldFileInfo, $newNamespaceName);
@@ -75,7 +87,8 @@ final class MovedFileWithNodesFactory
         // clone to prevent deep override
         $classLike = clone $classLike;
         $classLike->namespacedName = new \PhpParser\Node\Name\FullyQualified($newClassName);
-        return new \Rector\FileSystemRector\ValueObject\MovedFileWithNodes($nodes, $newFileDestination, $oldFileInfo, $oldClassName, $newClassName);
+        $this->renamedClassesCollector->addClassRename($oldClassName, $newClassName);
+        return new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($newFileDestination, $nodes);
     }
     private function createNewNamespaceName(string $desiredGroupName, \PhpParser\Node\Stmt\Namespace_ $currentNamespace) : string
     {
@@ -83,7 +96,8 @@ final class MovedFileWithNodesFactory
     }
     private function createNewClassName(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
     {
-        return $newNamespaceName . '\\' . $smartFileInfo->getBasenameWithoutSuffix();
+        $basename = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($smartFileInfo->getBasenameWithoutSuffix());
+        return $newNamespaceName . '\\' . $basename;
     }
     /**
      * @param Node[] $nodes
@@ -94,10 +108,7 @@ final class MovedFileWithNodesFactory
             if (!$node instanceof \PhpParser\Node\Stmt\Namespace_) {
                 continue;
             }
-            // prevent namespace override
-            $node = clone $node;
             $node->name = new \PhpParser\Node\Name($newNamespaceName);
-            break;
         }
     }
 }

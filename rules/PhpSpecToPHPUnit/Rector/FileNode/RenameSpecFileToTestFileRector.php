@@ -7,7 +7,7 @@ use RectorPrefix20210412\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
-use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -55,9 +55,10 @@ CODE_SAMPLE
         if (!\RectorPrefix20210412\Nette\Utils\Strings::match($oldPathname, self::SPEC_SUFFIX_REGEX)) {
             return null;
         }
+        $this->removedAndAddedFilesCollector->removeFile($fileInfo);
         $newPathName = $this->createPathName($oldPathname);
-        $movedFileWithContent = new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($fileInfo, $newPathName);
-        $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithContent);
+        $addedFileWithContent = new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($newPathName, $fileInfo->getContents());
+        $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
         return null;
     }
     private function createPathName(string $oldRealPath) : string

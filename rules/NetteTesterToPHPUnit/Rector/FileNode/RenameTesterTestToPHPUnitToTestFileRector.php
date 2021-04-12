@@ -7,7 +7,8 @@ use RectorPrefix20210412\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
-use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -25,6 +26,14 @@ final class RenameTesterTestToPHPUnitToTestFileRector extends \Rector\Core\Recto
      * @see https://regex101.com/r/cOMZIj/1
      */
     private const PHPT_SUFFIX_REGEX = '#\\.phpt$#';
+    /**
+     * @var FileInfoDeletionAnalyzer
+     */
+    private $fileInfoDeletionAnalyzer;
+    public function __construct(\Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
+    {
+        $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*.phpt" file to "*Test.php" file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -56,14 +65,17 @@ CODE_SAMPLE
         if ($newRealPath === $oldRealPath) {
             return null;
         }
-        $movedFileWithContent = new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newRealPath);
-        $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithContent);
+        $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
+        $addedFileWithContent = new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($newRealPath, $smartFileInfo->getContents());
+        $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
         return null;
     }
     private function createNewRealPath(string $oldRealPath) : string
     {
         // file suffix
         $newRealPath = \RectorPrefix20210412\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
+        // cleanup tests prefix
+        $newRealPath = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($newRealPath);
         // Test suffix
         if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
             return \RectorPrefix20210412\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');

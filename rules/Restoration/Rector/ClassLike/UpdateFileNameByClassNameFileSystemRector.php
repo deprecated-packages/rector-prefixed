@@ -6,7 +6,7 @@ namespace Rector\Restoration\Rector\ClassLike;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\Core\Rector\AbstractRector;
-use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
@@ -58,7 +58,9 @@ CODE_SAMPLE
         }
         // no match → rename file
         $newFileLocation = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $classShortName . '.php';
-        $this->removedAndAddedFilesCollector->addMovedFile(new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newFileLocation));
+        $addedFileWithContent = new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($newFileLocation, $smartFileInfo->getContents());
+        $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
+        $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
         return null;
     }
 }

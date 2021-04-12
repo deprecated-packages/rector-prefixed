@@ -6,6 +6,7 @@ namespace Rector\PSR4;
 use RectorPrefix20210412\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
+use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\PSR4\FileRelocationResolverTest
@@ -17,12 +18,21 @@ final class FileRelocationResolver
      */
     private const NAMESPACE_SEPARATOR = '\\';
     /**
+     * @var FileInfoDeletionAnalyzer
+     */
+    private $fileInfoDeletionAnalyzer;
+    public function __construct(\Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
+    {
+        $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
+    }
+    /**
      * @param string[] $groupNames
      */
     public function createNewFileDestination(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
         $newDirectory = $this->resolveRootDirectory($smartFileInfo, $suffixName, $groupNames);
-        return $newDirectory . \DIRECTORY_SEPARATOR . $smartFileInfo->getFilename();
+        $filename = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($smartFileInfo->getFilename());
+        return $newDirectory . \DIRECTORY_SEPARATOR . $filename;
     }
     /**
      * @param string[] $groupNames
@@ -44,7 +54,11 @@ final class FileRelocationResolver
      */
     private function resolveRootDirectory(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
-        $currentTraversePath = \dirname($smartFileInfo->getRelativeFilePath());
+        if (\RectorPrefix20210412\Nette\Utils\Strings::startsWith($smartFileInfo->getRealPathDirectory(), '/tmp')) {
+            $currentTraversePath = $smartFileInfo->getRealPathDirectory();
+        } else {
+            $currentTraversePath = $smartFileInfo->getRelativeDirectoryPath();
+        }
         $currentDirectoryParts = \explode(\DIRECTORY_SEPARATOR, $currentTraversePath);
         return $this->resolveNearestRootWithCategory($currentDirectoryParts, $suffixName, \DIRECTORY_SEPARATOR, $groupNames);
     }

@@ -9,14 +9,12 @@ use PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20210412\PHPUnit\Framework\ExpectationFailedException;
 use RectorPrefix20210412\Psr\Container\ContainerInterface;
 use Rector\Core\Application\ApplicationFileProcessor;
-use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
@@ -31,14 +29,6 @@ use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
-    /**
-     * @var FileProcessor
-     */
-    protected $fileProcessor;
-    /**
-     * @var NonPhpFileProcessor
-     */
-    protected $nonPhpFileProcessor;
     /**
      * @var ParameterProvider
      */
@@ -75,8 +65,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210412\Symplify\Pac
         $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         $configFileInfos = $rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
         $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
-        $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
-        $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
         $this->applicationFileProcessor = $this->getService(\Rector\Core\Application\ApplicationFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210412\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);

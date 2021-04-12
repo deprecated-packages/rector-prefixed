@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2
+class ComposerStaticInit10835daf14cd1026079484e34bfb4f0f
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2361,13 +2361,10 @@ class ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2
         'Rector\\FamilyTree\\Reflection\\FamilyRelationsAnalyzer' => __DIR__ . '/../..' . '/packages/FamilyTree/Reflection/FamilyRelationsAnalyzer.php',
         'Rector\\FileSystemRector\\Contract\\AddedFileInterface' => __DIR__ . '/../..' . '/packages/FileSystemRector/Contract/AddedFileInterface.php',
         'Rector\\FileSystemRector\\Contract\\FileWithNodesInterface' => __DIR__ . '/../..' . '/packages/FileSystemRector/Contract/FileWithNodesInterface.php',
-        'Rector\\FileSystemRector\\Contract\\MovedFileInterface' => __DIR__ . '/../..' . '/packages/FileSystemRector/Contract/MovedFileInterface.php',
         'Rector\\FileSystemRector\\Parser\\FileInfoParser' => __DIR__ . '/../..' . '/packages/FileSystemRector/Parser/FileInfoParser.php',
-        'Rector\\FileSystemRector\\ValueObjectFactory\\MovedFileWithNodesFactory' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObjectFactory/MovedFileWithNodesFactory.php',
+        'Rector\\FileSystemRector\\ValueObjectFactory\\AddedFileWithNodesFactory' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObjectFactory/AddedFileWithNodesFactory.php',
         'Rector\\FileSystemRector\\ValueObject\\AddedFileWithContent' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObject/AddedFileWithContent.php',
         'Rector\\FileSystemRector\\ValueObject\\AddedFileWithNodes' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObject/AddedFileWithNodes.php',
-        'Rector\\FileSystemRector\\ValueObject\\MovedFileWithContent' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObject/MovedFileWithContent.php',
-        'Rector\\FileSystemRector\\ValueObject\\MovedFileWithNodes' => __DIR__ . '/../..' . '/packages/FileSystemRector/ValueObject/MovedFileWithNodes.php',
         'Rector\\Generics\\Filter\\UnnededMethodTagValueNodeFilter' => __DIR__ . '/../..' . '/rules/Generics/Filter/UnnededMethodTagValueNodeFilter.php',
         'Rector\\Generics\\NodeType\\ExtendsTemplateTypeMapFallbackFactory' => __DIR__ . '/../..' . '/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php',
         'Rector\\Generics\\NodeType\\GenericTypeSpecifier' => __DIR__ . '/../..' . '/rules/Generics/NodeType/GenericTypeSpecifier.php',
@@ -3392,9 +3389,9 @@ class ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb380e7fe3924ba3925e09c3b88aefce2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit10835daf14cd1026079484e34bfb4f0f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit10835daf14cd1026079484e34bfb4f0f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit10835daf14cd1026079484e34bfb4f0f::$classMap;
 
         }, null, ClassLoader::class);
     }
