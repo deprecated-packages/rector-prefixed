@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\Expression;
+use Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer;
 use Rector\Core\Php\ReservedKeywordAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -29,9 +30,14 @@ final class RemoveUnusedVariableAssignRector extends \Rector\Core\Rector\Abstrac
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)
+    /**
+     * @var CompactFuncCallAnalyzer
+     */
+    private $compactFuncCallAnalyzer;
+    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer $compactFuncCallAnalyzer)
     {
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
+        $this->compactFuncCallAnalyzer = $compactFuncCallAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -97,7 +103,13 @@ CODE_SAMPLE
             return \true;
         }
         $isUsedNext = (bool) $this->betterNodeFinder->findFirstNext($variable, function (\PhpParser\Node $node) use($variable) : bool {
-            return $this->isVariableNamed($node, $variable);
+            if ($this->isVariableNamed($node, $variable)) {
+                return \true;
+            }
+            if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return $this->compactFuncCallAnalyzer->isInCompact($node, $variable);
+            }
+            return \false;
         });
         if ($isUsedNext) {
             return \true;
@@ -107,6 +119,13 @@ CODE_SAMPLE
         if (!$this->isCall($expr)) {
             return \false;
         }
+        return $this->isUsedInAssignExpr($expr, $assign);
+    }
+    /**
+     * @param FuncCall|MethodCall|New_|NullsafeMethodCall|StaticCall $expr
+     */
+    private function isUsedInAssignExpr(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Assign $assign) : bool
+    {
         $args = $expr->args;
         foreach ($args as $arg) {
             $variable = $arg->value;

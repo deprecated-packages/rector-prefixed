@@ -15,7 +15,7 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\DataProvider\ServiceMapProvider;
 use Rector\Symfony\ValueObject\ServiceMap\ServiceMap;
-use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 final class JMSDITypeResolver
 {
     /**

@@ -8,7 +8,7 @@ use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\Renaming\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
@@ -32,7 +32,7 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->nonPhpFileClassRenamer = $nonPhpFileClassRenamer;
     }
-    public function process(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
+    public function process(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange
     {
         $oldContents = $smartFileInfo->getContents();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
@@ -43,7 +43,7 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
         }
         return new \Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange($oldContents, $newContents);
     }
-    public function supports(\RectorPrefix20210411\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function supports(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         return \in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), \true);
     }

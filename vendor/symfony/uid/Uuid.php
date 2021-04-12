@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210411\Symfony\Component\Uid;
+namespace RectorPrefix20210412\Symfony\Component\Uid;
 
 /**
  * @experimental in 5.2
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class Uuid extends \RectorPrefix20210411\Symfony\Component\Uid\AbstractUid
+class Uuid extends \RectorPrefix20210412\Symfony\Component\Uid\AbstractUid
 {
     protected const TYPE = 0;
     public function __construct(string $uuid)
@@ -31,8 +31,8 @@ class Uuid extends \RectorPrefix20210411\Symfony\Component\Uid\AbstractUid
      */
     public static function fromString(string $uuid)
     {
-        if (22 === \strlen($uuid) && 22 === \strspn($uuid, \RectorPrefix20210411\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
-            $uuid = \RectorPrefix20210411\Symfony\Component\Uid\BinaryUtil::fromBase($uuid, \RectorPrefix20210411\Symfony\Component\Uid\BinaryUtil::BASE58);
+        if (22 === \strlen($uuid) && 22 === \strspn($uuid, \RectorPrefix20210412\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
+            $uuid = \RectorPrefix20210412\Symfony\Component\Uid\BinaryUtil::fromBase($uuid, \RectorPrefix20210412\Symfony\Component\Uid\BinaryUtil::BASE58);
         }
         if (16 === \strlen($uuid)) {
             // don't use uuid_unparse(), it's slower
@@ -41,8 +41,8 @@ class Uuid extends \RectorPrefix20210411\Symfony\Component\Uid\AbstractUid
             $uuid = \substr_replace($uuid, '-', 13, 0);
             $uuid = \substr_replace($uuid, '-', 18, 0);
             $uuid = \substr_replace($uuid, '-', 23, 0);
-        } elseif (26 === \strlen($uuid) && \RectorPrefix20210411\Symfony\Component\Uid\Ulid::isValid($uuid)) {
-            $uuid = (new \RectorPrefix20210411\Symfony\Component\Uid\Ulid($uuid))->toRfc4122();
+        } elseif (26 === \strlen($uuid) && \RectorPrefix20210412\Symfony\Component\Uid\Ulid::isValid($uuid)) {
+            $uuid = (new \RectorPrefix20210412\Symfony\Component\Uid\Ulid($uuid))->toRfc4122();
         }
         if (__CLASS__ !== static::class || 36 !== \strlen($uuid)) {
             return new static($uuid);
@@ -51,50 +51,50 @@ class Uuid extends \RectorPrefix20210411\Symfony\Component\Uid\AbstractUid
             throw new \InvalidArgumentException(\sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v' . static::TYPE : '', $uuid));
         }
         switch (\uuid_type($uuid)) {
-            case \RectorPrefix20210411\Symfony\Component\Uid\UuidV1::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV1($uuid);
-            case \RectorPrefix20210411\Symfony\Component\Uid\UuidV3::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV3($uuid);
-            case \RectorPrefix20210411\Symfony\Component\Uid\UuidV4::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV4($uuid);
-            case \RectorPrefix20210411\Symfony\Component\Uid\UuidV5::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV5($uuid);
-            case \RectorPrefix20210411\Symfony\Component\Uid\UuidV6::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV6($uuid);
-            case \RectorPrefix20210411\Symfony\Component\Uid\NilUuid::TYPE:
-                return new \RectorPrefix20210411\Symfony\Component\Uid\NilUuid();
+            case \RectorPrefix20210412\Symfony\Component\Uid\UuidV1::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV1($uuid);
+            case \RectorPrefix20210412\Symfony\Component\Uid\UuidV3::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV3($uuid);
+            case \RectorPrefix20210412\Symfony\Component\Uid\UuidV4::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV4($uuid);
+            case \RectorPrefix20210412\Symfony\Component\Uid\UuidV5::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV5($uuid);
+            case \RectorPrefix20210412\Symfony\Component\Uid\UuidV6::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV6($uuid);
+            case \RectorPrefix20210412\Symfony\Component\Uid\NilUuid::TYPE:
+                return new \RectorPrefix20210412\Symfony\Component\Uid\NilUuid();
         }
         return new self($uuid);
     }
-    public static final function v1() : \RectorPrefix20210411\Symfony\Component\Uid\UuidV1
+    public static final function v1() : \RectorPrefix20210412\Symfony\Component\Uid\UuidV1
     {
-        return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV1();
+        return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV1();
     }
     /**
      * @param $this $namespace
      */
-    public static final function v3($namespace, string $name) : \RectorPrefix20210411\Symfony\Component\Uid\UuidV3
+    public static final function v3($namespace, string $name) : \RectorPrefix20210412\Symfony\Component\Uid\UuidV3
     {
         // don't use uuid_generate_md5(), some versions are buggy
         $uuid = \md5(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true);
-        return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV3(self::format($uuid, '-3'));
+        return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV3(self::format($uuid, '-3'));
     }
-    public static final function v4() : \RectorPrefix20210411\Symfony\Component\Uid\UuidV4
+    public static final function v4() : \RectorPrefix20210412\Symfony\Component\Uid\UuidV4
     {
-        return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV4();
+        return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV4();
     }
     /**
      * @param $this $namespace
      */
-    public static final function v5($namespace, string $name) : \RectorPrefix20210411\Symfony\Component\Uid\UuidV5
+    public static final function v5($namespace, string $name) : \RectorPrefix20210412\Symfony\Component\Uid\UuidV5
     {
         // don't use uuid_generate_sha1(), some versions are buggy
         $uuid = \substr(\sha1(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true), 0, 16);
-        return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV5(self::format($uuid, '-5'));
+        return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV5(self::format($uuid, '-5'));
     }
-    public static final function v6() : \RectorPrefix20210411\Symfony\Component\Uid\UuidV6
+    public static final function v6() : \RectorPrefix20210412\Symfony\Component\Uid\UuidV6
     {
-        return new \RectorPrefix20210411\Symfony\Component\Uid\UuidV6();
+        return new \RectorPrefix20210412\Symfony\Component\Uid\UuidV6();
     }
     public static function isValid(string $uuid) : bool
     {
