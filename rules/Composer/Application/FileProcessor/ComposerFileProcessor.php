@@ -45,7 +45,7 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
         if ($this->isJsonInTests($fileInfo)) {
             return \true;
         }
-        return $fileInfo->getRealPath() === \getcwd() . '/composer.json';
+        return $fileInfo->getBasename() === 'composer.json';
     }
     /**
      * @return string[]
