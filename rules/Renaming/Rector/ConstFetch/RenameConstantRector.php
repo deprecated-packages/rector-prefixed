@@ -18,9 +18,9 @@ final class RenameConstantRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const OLD_TO_NEW_CONSTANTS = '$oldToNewConstants';
+    public const OLD_TO_NEW_CONSTANTS = 'old_to_new_constants';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $oldToNewConstants = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -58,14 +58,17 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->oldToNewConstants as $oldConstant => $newConstant) {
-            if (!$this->isName($node, $oldConstant)) {
+            if (!$this->isName($node->name, $oldConstant)) {
                 continue;
             }
             $node->name = new \PhpParser\Node\Name($newConstant);
-            break;
+            return $node;
         }
-        return $node;
+        return null;
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->oldToNewConstants = $configuration[self::OLD_TO_NEW_CONSTANTS] ?? [];
