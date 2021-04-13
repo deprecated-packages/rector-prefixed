@@ -155,6 +155,9 @@ final class DoctrineAnnotationDecorator
         $tokenCount = $composedTokenIterator->count();
         $openBracketCount = 0;
         $closeBracketCount = 0;
+        if ($composedContent === '') {
+            return \true;
+        }
         do {
             if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES]) || \RectorPrefix20210413\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), '(')) {
                 ++$openBracketCount;
