@@ -1784,7 +1784,6 @@ return array(
     'Rector\\Core\\ValueObjectFactory\\Application\\FileFactory' => $baseDir . '/src/ValueObjectFactory/Application/FileFactory.php',
     'Rector\\Core\\ValueObjectFactory\\ProcessResultFactory' => $baseDir . '/src/ValueObjectFactory/ProcessResultFactory.php',
     'Rector\\Core\\ValueObject\\Application\\File' => $baseDir . '/src/ValueObject/Application/File.php',
-    'Rector\\Core\\ValueObject\\Application\\ParsedStmtsAndTokens' => $baseDir . '/src/ValueObject/Application/ParsedStmtsAndTokens.php',
     'Rector\\Core\\ValueObject\\Application\\RectorError' => $baseDir . '/src/ValueObject/Application/RectorError.php',
     'Rector\\Core\\ValueObject\\Bootstrap\\BootstrapConfigs' => $baseDir . '/src/ValueObject/Bootstrap/BootstrapConfigs.php',
     'Rector\\Core\\ValueObject\\FrameworkName' => $baseDir . '/src/ValueObject/FrameworkName.php',
