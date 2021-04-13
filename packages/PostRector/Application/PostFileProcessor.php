@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\PostRector\Application;
 
-use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\NodeTraverser;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Logging\CurrentRectorProvider;
-use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210412\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210413\Symplify\Skipper\Skipper\Skipper;
 final class PostFileProcessor
 {
     /**
@@ -22,26 +22,26 @@ final class PostFileProcessor
      */
     private $skipper;
     /**
-     * @var CurrentFileInfoProvider
-     */
-    private $currentFileInfoProvider;
-    /**
      * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
     /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+    /**
      * @param PostRectorInterface[] $postRectors
      */
-    public function __construct(\RectorPrefix20210412\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, array $postRectors)
+    public function __construct(\RectorPrefix20210413\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, array $postRectors)
     {
         $this->postRectors = $this->sortByPriority($postRectors);
         $this->skipper = $skipper;
-        $this->currentFileInfoProvider = $currentFileInfoProvider;
         $this->currentRectorProvider = $currentRectorProvider;
+        $this->currentFileProvider = $currentFileProvider;
     }
     /**
-     * @param Node[] $nodes
-     * @return Node[]
+     * @param Stmt[] $nodes
+     * @return Stmt[]
      */
     public function traverse(array $nodes) : array
     {
@@ -74,10 +74,11 @@ final class PostFileProcessor
     }
     private function shouldSkipPostRector(\Rector\PostRector\Contract\Rector\PostRectorInterface $postRector) : bool
     {
-        $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if (!$smartFileInfo instanceof \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo) {
+        $file = $this->currentFileProvider->getFile();
+        if (!$file instanceof \Rector\Core\ValueObject\Application\File) {
             return \false;
         }
+        $smartFileInfo = $file->getSmartFileInfo();
         return $this->skipper->shouldSkipElementAndFileInfo($postRector, $smartFileInfo);
     }
 }

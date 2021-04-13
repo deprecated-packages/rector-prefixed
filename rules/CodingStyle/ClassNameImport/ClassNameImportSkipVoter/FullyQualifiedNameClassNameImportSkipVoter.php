@@ -6,6 +6,7 @@ namespace Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
 use PhpParser\Node;
 use Rector\CodingStyle\ClassNameImport\ShortNameResolver;
 use Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 /**
  * Prevents adding:
@@ -22,14 +23,20 @@ final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\Coding
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
     {
         $this->shortNameResolver = $shortNameResolver;
+        $this->currentFileProvider = $currentFileProvider;
     }
     public function shouldSkip(\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
-        $shortNamesToFullyQualifiedNames = $this->shortNameResolver->resolveForNode($node);
+        $file = $this->currentFileProvider->getFile();
+        $shortNamesToFullyQualifiedNames = $this->shortNameResolver->resolveForNode($file);
         foreach ($shortNamesToFullyQualifiedNames as $shortName => $fullyQualifiedName) {
             $shortNameLowered = \strtolower($shortName);
             if ($fullyQualifiedObjectType->getShortNameLowered() !== $shortNameLowered) {

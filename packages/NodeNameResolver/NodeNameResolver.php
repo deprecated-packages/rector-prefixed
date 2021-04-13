@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
@@ -13,20 +13,12 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use Rector\NodeNameResolver\Error\InvalidNameNodeReporter;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
-use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
-    /**
-     * @var string
-     */
-    private const FILE = 'file';
     /**
      * @var NodeNameResolverInterface[]
      */
@@ -36,27 +28,22 @@ final class NodeNameResolver
      */
     private $regexPatternDetector;
     /**
-     * @var CurrentFileInfoProvider
-     */
-    private $currentFileInfoProvider;
-    /**
      * @var ClassNaming
      */
     private $classNaming;
     /**
-     * @var BetterStandardPrinter
+     * @var InvalidNameNodeReporter
      */
-    private $betterStandardPrinter;
+    private $invalidNameNodeReporter;
     /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
-    public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\CodingStyle\Naming\ClassNaming $classNaming, array $nodeNameResolvers = [])
+    public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\Error\InvalidNameNodeReporter $invalidNameNodeReporter, array $nodeNameResolvers = [])
     {
         $this->regexPatternDetector = $regexPatternDetector;
         $this->nodeNameResolvers = $nodeNameResolvers;
-        $this->currentFileInfoProvider = $currentFileInfoProvider;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->classNaming = $classNaming;
+        $this->invalidNameNodeReporter = $invalidNameNodeReporter;
     }
     /**
      * @param string[] $names
@@ -95,7 +82,7 @@ final class NodeNameResolver
             if ($this->isCallOrIdentifier($node->name)) {
                 return null;
             }
-            $this->reportInvalidNodeForName($node);
+            $this->invalidNameNodeReporter->reportInvalidNodeForName($node);
         }
         foreach ($this->nodeNameResolvers as $nodeNameResolver) {
             if (!\is_a($node, $nodeNameResolver->getNode(), \true)) {
@@ -160,7 +147,7 @@ final class NodeNameResolver
     public function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \RectorPrefix20210412\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \RectorPrefix20210413\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     /**
      * @param string|Name|Identifier|ClassLike $name
@@ -179,50 +166,13 @@ final class NodeNameResolver
     }
     private function isCallOrIdentifier(\PhpParser\Node $node) : bool
     {
-        return \Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Identifier::class]);
-    }
-    /**
-     * @param MethodCall|StaticCall $node
-     */
-    private function reportInvalidNodeForName(\PhpParser\Node $node) : void
-    {
-        $message = \sprintf('Pick more specific node than "%s", e.g. "$node->name"', \get_class($node));
-        $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($fileInfo instanceof \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo) {
-            $message .= \PHP_EOL . \PHP_EOL;
-            $message .= \sprintf('Caused in "%s" file on line %d on code "%s"', $fileInfo->getRelativeFilePathFromCwd(), $node->getStartLine(), $this->betterStandardPrinter->print($node));
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \true;
         }
-        $backtrace = \debug_backtrace();
-        $rectorBacktrace = $this->matchRectorBacktraceCall($backtrace);
-        if ($rectorBacktrace) {
-            // issues to find the file in prefixed
-            if (\file_exists($rectorBacktrace[self::FILE])) {
-                $fileInfo = new \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
-                $fileAndLine = $fileInfo->getRelativeFilePathFromCwd() . ':' . $rectorBacktrace['line'];
-            } else {
-                $fileAndLine = $rectorBacktrace[self::FILE] . ':' . $rectorBacktrace['line'];
-            }
-            $message .= \PHP_EOL . \PHP_EOL;
-            $message .= \sprintf('Look at "%s"', $fileAndLine);
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \true;
         }
-        throw new \Rector\Core\Exception\ShouldNotHappenException($message);
-    }
-    /**
-     * @param mixed[] $backtrace
-     */
-    private function matchRectorBacktraceCall(array $backtrace) : ?array
-    {
-        foreach ($backtrace as $singleBacktrace) {
-            if (!isset($singleBacktrace['object'])) {
-                continue;
-            }
-            // match a Rector class
-            if (!\is_a($singleBacktrace['object'], \Rector\Core\Contract\Rector\RectorInterface::class)) {
-                continue;
-            }
-            return $singleBacktrace;
-        }
-        return $backtrace[1] ?? null;
+        return $node instanceof \PhpParser\Node\Identifier;
     }
     private function isSingleName(\PhpParser\Node $node, string $name) : bool
     {
@@ -239,10 +189,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \RectorPrefix20210412\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \RectorPrefix20210413\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\RectorPrefix20210412\Nette\Utils\Strings::contains($name, '*')) {
+        if (\RectorPrefix20210413\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case

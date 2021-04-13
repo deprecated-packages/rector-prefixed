@@ -52,11 +52,11 @@ final class GetAndSetToMethodCallRector extends \Rector\Core\Rector\AbstractRect
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined `__get`/`__set` to specific method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-$container = new SomeContainer;
+            $container = new SomeContainer;
 $container->someService = $someService;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-$container = new SomeContainer;
+            $container = new SomeContainer;
 $container->setService("someService", $someService);
 CODE_SAMPLE
 , [self::TYPE_TO_METHOD_CALLS => ['SomeContainer' => ['set' => 'addService']]]), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'

@@ -91,7 +91,7 @@ final class BeforeListHook implements TestListener
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-namespace App\Tests;
+            namespace App\Tests;
 
 final class BeforeListHook implements \PHPUnit\Runner\BeforeTestHook, \PHPUnit\Runner\AfterTestHook
 {

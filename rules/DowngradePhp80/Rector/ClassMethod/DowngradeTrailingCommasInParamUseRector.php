@@ -127,7 +127,7 @@ CODE_SAMPLE
     {
         $lastPosition = \array_key_last($array);
         $last = $array[$lastPosition];
-        if (!$this->followedByCommaAnalyzer->isFollowed($last)) {
+        if (!$this->followedByCommaAnalyzer->isFollowed($this->file, $last)) {
             return $node;
         }
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);

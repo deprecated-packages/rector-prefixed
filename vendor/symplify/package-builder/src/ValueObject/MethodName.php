@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210412\Symplify\PackageBuilder\ValueObject;
+namespace RectorPrefix20210413\Symplify\PackageBuilder\ValueObject;
 
 final class MethodName
 {

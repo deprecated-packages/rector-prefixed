@@ -6,6 +6,7 @@ namespace Rector\CodingStyle\Node;
 use PhpParser\Node\Stmt\Use_;
 use Rector\CodingStyle\ClassNameImport\ShortNameResolver;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\ValueObject\Application\File;
 final class UseNameAliasToNameResolver
 {
     /**
@@ -24,10 +25,10 @@ final class UseNameAliasToNameResolver
     /**
      * @return array<string, string[]>
      */
-    public function resolve(\PhpParser\Node\Stmt\Use_ $use) : array
+    public function resolve(\Rector\Core\ValueObject\Application\File $file, \PhpParser\Node\Stmt\Use_ $use) : array
     {
         $useNamesAliasToName = [];
-        $shortNames = $this->shortNameResolver->resolveForNode($use);
+        $shortNames = $this->shortNameResolver->resolveForNode($file);
         foreach ($shortNames as $alias => $useImport) {
             if (!\is_string($alias)) {
                 continue;

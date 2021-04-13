@@ -89,7 +89,8 @@ CODE_SAMPLE
             $node->var = $getCellMethodCall;
             $node->args = $args;
             $node->name = new \PhpParser\Node\Identifier($conditionalSetValue->getNewSetMethod());
+            return $node;
         }
-        return $node;
+        return null;
     }
 }

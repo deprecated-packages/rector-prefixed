@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\PhpSpecToPHPUnit\Rector\FileNode;
+namespace Rector\PhpSpecToPHPUnit\Rector\Class_;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @changelog https://gnugat.github.io/2015/09/23/phpunit-with-phpspec.html
  *
- * @see \Rector\Tests\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector\RenameSpecFileToTestFileRectorTest
+ * @see \Rector\Tests\PhpSpecToPHPUnit\Rector\Class_\RenameSpecFileToTestFileRector\RenameSpecFileToTestFileRectorTest
  */
 final class RenameSpecFileToTestFileRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -42,30 +42,30 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param FileNode $node
+     * @param Class_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $fileInfo = $node->getFileInfo();
-        $oldPathname = $fileInfo->getPathname();
+        $smartFileInfo = $this->file->getSmartFileInfo();
+        $oldPathname = $smartFileInfo->getPathname();
         // ends with Spec.php
-        if (!\RectorPrefix20210412\Nette\Utils\Strings::match($oldPathname, self::SPEC_SUFFIX_REGEX)) {
+        if (!\RectorPrefix20210413\Nette\Utils\Strings::match($oldPathname, self::SPEC_SUFFIX_REGEX)) {
             return null;
         }
-        $this->removedAndAddedFilesCollector->removeFile($fileInfo);
+        $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
         $newPathName = $this->createPathName($oldPathname);
-        $addedFileWithContent = new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($newPathName, $fileInfo->getContents());
+        $addedFileWithContent = new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($newPathName, $smartFileInfo->getContents());
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
         return null;
     }
     private function createPathName(string $oldRealPath) : string
     {
         // suffix
-        $newRealPath = \RectorPrefix20210412\Nette\Utils\Strings::replace($oldRealPath, self::SPEC_SUFFIX_REGEX, 'Test.php');
+        $newRealPath = \RectorPrefix20210413\Nette\Utils\Strings::replace($oldRealPath, self::SPEC_SUFFIX_REGEX, 'Test.php');
         // directory
-        return \RectorPrefix20210412\Nette\Utils\Strings::replace($newRealPath, self::SPEC_REGEX, '/tests/');
+        return \RectorPrefix20210413\Nette\Utils\Strings::replace($newRealPath, self::SPEC_REGEX, '/tests/');
     }
 }

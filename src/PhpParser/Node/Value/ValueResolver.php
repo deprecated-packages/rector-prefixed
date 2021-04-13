@@ -17,10 +17,10 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ConstantScalarType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ConstFetchAnalyzer;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\Value\ValueResolverTest
  */
@@ -46,12 +46,17 @@ final class ValueResolver
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->constFetchAnalyzer = $constFetchAnalyzer;
         $this->reflectionProvider = $reflectionProvider;
+        $this->currentFileProvider = $currentFileProvider;
     }
     /**
      * @param mixed $value
@@ -195,19 +200,15 @@ final class ValueResolver
     }
     private function resolveDirConstant(\PhpParser\Node\Scalar\MagicConst\Dir $dir) : string
     {
-        $fileInfo = $dir->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        return $fileInfo->getPath();
+        $file = $this->currentFileProvider->getFile();
+        $smartFileInfo = $file->getSmartFileInfo();
+        return $smartFileInfo->getPath();
     }
     private function resolveFileConstant(\PhpParser\Node\Scalar\MagicConst\File $file) : string
     {
-        $fileInfo = $file->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        return $fileInfo->getPathname();
+        $file = $this->currentFileProvider->getFile();
+        $smartFileInfo = $file->getSmartFileInfo();
+        return $smartFileInfo->getPathname();
     }
     /**
      * @return string|mixed

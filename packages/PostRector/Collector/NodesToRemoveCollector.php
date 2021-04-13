@@ -16,11 +16,11 @@ use Rector\ChangesReporting\Collector\AffectedFilesCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\ValueObject\Application\File;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
@@ -43,12 +43,17 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
      * @var NodeComparator
      */
     private $nodeComparator;
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
     {
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->breakingRemovalGuard = $breakingRemovalGuard;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeComparator = $nodeComparator;
+        $this->currentFileProvider = $currentFileProvider;
     }
     public function addNodeToRemove(\PhpParser\Node $node) : void
     {
@@ -65,10 +70,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
         } else {
             $this->breakingRemovalGuard->ensureNodeCanBeRemove($node);
         }
-        /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo !== null) {
-            $this->affectedFilesCollector->addFile(new \Rector\Core\ValueObject\Application\File($fileInfo, $fileInfo->getContents()));
+        $file = $this->currentFileProvider->getFile();
+        // /** @var SmartFileInfo|null $fileInfo */
+        if ($file !== null) {
+            $this->affectedFilesCollector->addFile($file);
         }
         /** @var Stmt $node */
         $this->nodesToRemove[] = $node;

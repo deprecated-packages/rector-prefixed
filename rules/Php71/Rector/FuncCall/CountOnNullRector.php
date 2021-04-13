@@ -52,11 +52,11 @@ final class CountOnNullRector extends \Rector\Core\Rector\AbstractRector
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes count() on null to safe ternary check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-$values = null;
+        $values = null;
 $count = count($values);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-$values = null;
+        $values = null;
 $count = count((array) $values);
 CODE_SAMPLE
 )]);

@@ -68,7 +68,7 @@ CODE_SAMPLE
         if ($node->args) {
             $lastArgumentPosition = \array_key_last($node->args);
             $last = $node->args[$lastArgumentPosition];
-            if (!$this->followedByCommaAnalyzer->isFollowed($last)) {
+            if (!$this->followedByCommaAnalyzer->isFollowed($this->file, $last)) {
                 return null;
             }
             // remove comma

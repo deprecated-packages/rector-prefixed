@@ -1,11 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Rector\FileNode;
+namespace Rector\Autodiscovery\Rector\Interface_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Interface_;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
@@ -15,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  *
- * @see \Rector\Tests\Autodiscovery\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\MoveInterfacesToContractNamespaceDirectoryRectorTest
+ * @see \Rector\Tests\Autodiscovery\Rector\Interface_\MoveInterfacesToContractNamespaceDirectoryRector\MoveInterfacesToContractNamespaceDirectoryRectorTest
  */
 final class MoveInterfacesToContractNamespaceDirectoryRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -59,25 +58,21 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\PhpParser\Node\Stmt\Interface_::class];
     }
     /**
-     * @param FileNode $node
+     * @param Interface_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $interface = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Interface_::class);
-        if (!$interface instanceof \PhpParser\Node\Stmt\Interface_) {
+        if ($this->netteControlFactoryInterfaceAnalyzer->isComponentFactoryInterface($node)) {
             return null;
         }
-        if ($this->netteControlFactoryInterfaceAnalyzer->isComponentFactoryInterface($interface)) {
-            return null;
-        }
-        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($node->getFileInfo(), $node->stmts, 'Contract');
+        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($this->file->getSmartFileInfo(), $this->file, 'Contract');
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {
             return null;
         }
-        $this->removedAndAddedFilesCollector->removeFile($node->getFileInfo());
+        $this->removedAndAddedFilesCollector->removeFile($this->file->getSmartFileInfo());
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
         return null;
     }

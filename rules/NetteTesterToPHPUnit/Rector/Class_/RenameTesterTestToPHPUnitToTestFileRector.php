@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteTesterToPHPUnit\Rector\FileNode;
+namespace Rector\NetteTesterToPHPUnit\Rector\Class_;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\NetteTesterToPHPUnit\Rector\FileNode\RenameTesterTestToPHPUnitToTestFileRector\RenameTesterTestToPHPUnitToTestFileRectorTest
+ * @see \Rector\Tests\NetteTesterToPHPUnit\Rector\Class_\RenameTesterTestToPHPUnitToTestFileRector\RenameTesterTestToPHPUnitToTestFileRectorTest
  */
 final class RenameTesterTestToPHPUnitToTestFileRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -49,16 +49,16 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param FileNode $node
+     * @param Class_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $smartFileInfo = $node->getFileInfo();
+        $smartFileInfo = $this->file->getSmartFileInfo();
         $oldRealPath = $smartFileInfo->getRealPath();
-        if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
+        if (!\RectorPrefix20210413\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
             return null;
         }
         $newRealPath = $this->createNewRealPath($oldRealPath);
@@ -73,12 +73,12 @@ CODE_SAMPLE
     private function createNewRealPath(string $oldRealPath) : string
     {
         // file suffix
-        $newRealPath = \RectorPrefix20210412\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
+        $newRealPath = \RectorPrefix20210413\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
         // cleanup tests prefix
         $newRealPath = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($newRealPath);
         // Test suffix
-        if (!\RectorPrefix20210412\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
-            return \RectorPrefix20210412\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
+        if (!\RectorPrefix20210413\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
+            return \RectorPrefix20210413\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
         }
         return $newRealPath;
     }

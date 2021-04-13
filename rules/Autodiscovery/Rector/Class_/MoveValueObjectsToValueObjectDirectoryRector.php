@@ -1,16 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Rector\FileNode;
+namespace Rector\Autodiscovery\Rector\Class_;
 
-use RectorPrefix20210412\Controller;
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Controller;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Autodiscovery\Analyzer\ValueObjectClassAnalyzer;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
@@ -21,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  * @wip
  *
- * @see \Rector\Tests\Autodiscovery\Rector\FileNode\MoveValueObjectsToValueObjectDirectoryRector\MoveValueObjectsToValueObjectDirectoryRectorTest
+ * @see \Rector\Tests\Autodiscovery\Rector\Class_\MoveValueObjectsToValueObjectDirectoryRector\MoveValueObjectsToValueObjectDirectoryRectorTest
  */
 final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
@@ -110,22 +109,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param FileNode $node
+     * @param Class_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Class_::class);
-        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
+        if (!$this->isValueObjectMatch($node)) {
             return null;
         }
-        if (!$this->isValueObjectMatch($class)) {
-            return null;
-        }
-        $smartFileInfo = $node->getFileInfo();
-        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'ValueObject');
+        $smartFileInfo = $this->file->getSmartFileInfo();
+        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $this->file, 'ValueObject');
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {
             return null;
         }
@@ -173,7 +168,7 @@ CODE_SAMPLE
             return \false;
         }
         foreach ($this->suffixes as $suffix) {
-            if (\RectorPrefix20210412\Nette\Utils\Strings::endsWith($className, $suffix)) {
+            if (\RectorPrefix20210413\Nette\Utils\Strings::endsWith($className, $suffix)) {
                 return \true;
             }
         }
@@ -182,7 +177,7 @@ CODE_SAMPLE
     private function isKnownServiceType(string $className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
-            if (\RectorPrefix20210412\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
+            if (\RectorPrefix20210413\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
                 return \true;
             }
         }

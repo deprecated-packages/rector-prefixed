@@ -3,37 +3,19 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp73\Tokenizer;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
-use Rector\Core\Application\TokensByFilePathStorage;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Core\ValueObject\Application\File;
 final class FollowedByCommaAnalyzer
 {
-    /**
-     * @var TokensByFilePathStorage
-     */
-    private $tokensByFilePathStorage;
-    public function __construct(\Rector\Core\Application\TokensByFilePathStorage $tokensByFilePathStorage)
+    public function isFollowed(\Rector\Core\ValueObject\Application\File $file, \PhpParser\Node $node) : bool
     {
-        $this->tokensByFilePathStorage = $tokensByFilePathStorage;
-    }
-    public function isFollowed(\PhpParser\Node $node) : bool
-    {
-        $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$smartFileInfo instanceof \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo) {
-            return \false;
-        }
-        if (!$this->tokensByFilePathStorage->hasForFileInfo($smartFileInfo)) {
-            return \false;
-        }
-        $parsedStmtsAndTokens = $this->tokensByFilePathStorage->getForFileInfo($smartFileInfo);
-        $oldTokens = $parsedStmtsAndTokens->getOldTokens();
+        $oldTokens = $file->getOldTokens();
         $nextTokenPosition = $node->getEndTokenPos() + 1;
         while (isset($oldTokens[$nextTokenPosition])) {
             $currentToken = $oldTokens[$nextTokenPosition];
             // only space
-            if (\is_array($currentToken) || \RectorPrefix20210412\Nette\Utils\Strings::match($currentToken, '#\\s+#')) {
+            if (\is_array($currentToken) || \RectorPrefix20210413\Nette\Utils\Strings::match($currentToken, '#\\s+#')) {
                 ++$nextTokenPosition;
                 continue;
             }

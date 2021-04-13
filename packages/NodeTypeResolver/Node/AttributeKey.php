@@ -3,10 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Node;
 
-use PhpParser\Node\Stmt\ClassLike;
-use PHPStan\Analyser\Scope;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -16,7 +13,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const SCOPE = \PHPStan\Analyser\Scope::class;
+    public const SCOPE = 'scope';
     /**
      * @var string
      */
@@ -28,7 +25,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const CLASS_NODE = \PhpParser\Node\Stmt\ClassLike::class;
+    public const CLASS_NODE = 'class_node';
     /**
      * @var string
      */
@@ -92,9 +89,10 @@ final class AttributeKey
      */
     public const CURRENT_STATEMENT = 'currentExpression';
     /**
+     * @deprecated Use File object instead, e.g. via CurrentFileProvider
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!
@@ -128,7 +126,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const PHP_DOC_INFO = \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo::class;
+    public const PHP_DOC_INFO = 'php_doc_info';
     /**
      * @var string
      */

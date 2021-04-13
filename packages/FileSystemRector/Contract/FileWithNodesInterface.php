@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\Contract;
 
-use PhpParser\Node;
+use PhpParser\Node\Stmt;
 interface FileWithNodesInterface
 {
     /**
-     * @return Node[]
+     * @return Stmt[]
      */
     public function getNodes() : array;
 }

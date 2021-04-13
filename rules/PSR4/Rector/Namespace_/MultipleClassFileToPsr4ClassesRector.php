@@ -10,12 +10,11 @@ use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\NodeManipulator\NamespaceManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\PSR4\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\MultipleClassFileToPsr4ClassesRectorTest
  */
@@ -96,8 +95,7 @@ CODE_SAMPLE
         if ($nodeToReturn !== null) {
             return $nodeToReturn;
         }
-        /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $smartFileInfo = $this->file->getSmartFileInfo();
         // 2. nothing to return - remove the file
         $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
         return null;
@@ -117,7 +115,7 @@ CODE_SAMPLE
             $newNamespace = clone $namespace;
             $newNamespace->stmts[] = $classLike;
             // 1. is the class that will be kept in original file?
-            if ($this->fileInfoDeletionAnalyzer->isClassLikeAndFileInfoMatch($classLike)) {
+            if ($this->fileInfoDeletionAnalyzer->isClassLikeAndFileInfoMatch($this->file, $classLike)) {
                 $nodeToReturn = $newNamespace;
                 continue;
             }
@@ -133,7 +131,7 @@ CODE_SAMPLE
         $nodeToReturn = null;
         foreach ($classLikes as $classLike) {
             // 1. is the class that will be kept in original file?
-            if ($this->fileInfoDeletionAnalyzer->isClassLikeAndFileInfoMatch($classLike)) {
+            if ($this->fileInfoDeletionAnalyzer->isClassLikeAndFileInfoMatch($this->file, $classLike)) {
                 $nodeToReturn = $fileWithoutNamespace;
                 continue;
             }
@@ -147,8 +145,7 @@ CODE_SAMPLE
      */
     private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode) : void
     {
-        /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $smartFileInfo = $this->file->getSmartFileInfo();
         $declares = [];
         $declare = $this->betterNodeFinder->findFirstPreviousOfTypes($mainNode, [\PhpParser\Node\Stmt\Declare_::class]);
         if ($declare instanceof \PhpParser\Node\Stmt\Declare_) {
@@ -164,7 +161,7 @@ CODE_SAMPLE
         $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($fileDestination, $nodesToPrint);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
     }
-    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $currentDirectory = \dirname($smartFileInfo->getRealPath());
         return $currentDirectory . \DIRECTORY_SEPARATOR . $classLike->name . '.php';

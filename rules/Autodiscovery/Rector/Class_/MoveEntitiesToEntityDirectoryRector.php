@@ -1,12 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Autodiscovery\Rector\FileNode;
+namespace Rector\Autodiscovery\Rector\Class_;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
@@ -16,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  *
- * @see \Rector\Tests\Autodiscovery\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\MoveEntitiesToEntityDirectoryRectorTest
+ * @see \Rector\Tests\Autodiscovery\Rector\Class_\MoveEntitiesToEntityDirectoryRector\MoveEntitiesToEntityDirectoryRectorTest
  */
 final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -75,35 +74,27 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param FileNode $node
+     * @param Class_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isDoctrineEntityFileNode($node)) {
+        if (!$this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
             return null;
         }
         // is entity in expected directory?
-        $smartFileInfo = $node->getFileInfo();
-        if (\RectorPrefix20210412\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
+        $smartFileInfo = $this->file->getSmartFileInfo();
+        if (\RectorPrefix20210413\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
             return null;
         }
-        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'Entity');
+        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $this->file, 'Entity');
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {
             return null;
         }
         $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
         return null;
-    }
-    private function isDoctrineEntityFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
-    {
-        $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \PhpParser\Node\Stmt\Class_::class);
-        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
-            return \false;
-        }
-        return $this->doctrineDocBlockResolver->isDoctrineEntityClass($class);
     }
 }

@@ -12,8 +12,8 @@ final class AffectedFilesCollector
     private $affectedFiles = [];
     public function addFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
-        $fileInfo = $file->getSmartFileInfo();
-        $this->affectedFiles[$fileInfo->getRealPath()] = $file;
+        $smartFileInfo = $file->getSmartFileInfo();
+        $this->affectedFiles[$smartFileInfo->getRealPath()] = $file;
     }
     public function getNext() : ?\Rector\Core\ValueObject\Application\File
     {
@@ -24,7 +24,7 @@ final class AffectedFilesCollector
     }
     public function removeFromList(\Rector\Core\ValueObject\Application\File $file) : void
     {
-        $fileInfo = $file->getSmartFileInfo();
-        unset($this->affectedFiles[$fileInfo->getRealPath()]);
+        $smartFileInfo = $file->getSmartFileInfo();
+        unset($this->affectedFiles[$smartFileInfo->getRealPath()]);
     }
 }

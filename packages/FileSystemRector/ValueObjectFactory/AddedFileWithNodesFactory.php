@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObjectFactory;
 
-use RectorPrefix20210412\Nette\Utils\Strings;
+use RectorPrefix20210413\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -11,11 +11,12 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Autodiscovery\Configuration\CategoryNamespaceProvider;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\FileRelocationResolver;
-use RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddedFileWithNodesFactory
 {
     /**
@@ -46,12 +47,10 @@ final class AddedFileWithNodesFactory
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
-    /**
-     * @param Node[] $nodes
-     */
-    public function createWithDesiredGroup(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
+    public function createWithDesiredGroup(\RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
     {
-        $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
+        $fileNodes = $file->getNewStmts();
+        $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileNodes, \PhpParser\Node\Stmt\Namespace_::class);
         // file without namespace → skip
         if (!$currentNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             return null;
@@ -61,7 +60,7 @@ final class AddedFileWithNodesFactory
         }
         // is already in the right group
         $currentNamespaceName = $currentNamespace->name->toString();
-        if (\RectorPrefix20210412\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
+        if (\RectorPrefix20210413\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
             return null;
         }
         $oldClassName = $currentNamespaceName . '\\' . $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($oldFileInfo->getBasenameWithoutSuffix());
@@ -72,15 +71,15 @@ final class AddedFileWithNodesFactory
         if ($oldClassName === $newClassName) {
             return null;
         }
-        if (\RectorPrefix20210412\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
+        if (\RectorPrefix20210413\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
             return null;
         }
         // 1. rename namespace
-        $this->renameNamespace($nodes, $newNamespaceName);
+        $this->renameNamespace($file->getNewStmts(), $newNamespaceName);
         // 2. return changed nodes and new file destination
         $newFileDestination = $this->fileRelocationResolver->createNewFileDestination($oldFileInfo, $desiredGroupName, $this->categoryNamespaceProvider->provide());
         // 3. update fully qualifed name of the class like - will be used further
-        $classLike = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\ClassLike::class);
+        $classLike = $this->betterNodeFinder->findFirstInstanceOf($fileNodes, \PhpParser\Node\Stmt\ClassLike::class);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
@@ -88,13 +87,13 @@ final class AddedFileWithNodesFactory
         $classLike = clone $classLike;
         $classLike->namespacedName = new \PhpParser\Node\Name\FullyQualified($newClassName);
         $this->renamedClassesCollector->addClassRename($oldClassName, $newClassName);
-        return new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($newFileDestination, $nodes);
+        return new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($newFileDestination, $fileNodes);
     }
     private function createNewNamespaceName(string $desiredGroupName, \PhpParser\Node\Stmt\Namespace_ $currentNamespace) : string
     {
         return $this->fileRelocationResolver->resolveNewNamespaceName($currentNamespace, $desiredGroupName, $this->categoryNamespaceProvider->provide());
     }
-    private function createNewClassName(\RectorPrefix20210412\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
+    private function createNewClassName(\RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
     {
         $basename = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($smartFileInfo->getBasenameWithoutSuffix());
         return $newNamespaceName . '\\' . $basename;

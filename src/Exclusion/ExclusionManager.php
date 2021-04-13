@@ -15,7 +15,6 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
- * @todo move to symplify/skipper if grown enough
  * @see \Rector\Core\Tests\Exclusion\ExclusionManagerTest
  */
 final class ExclusionManager
@@ -32,18 +31,15 @@ final class ExclusionManager
     {
         if ($node instanceof \PhpParser\Node\Stmt\PropertyProperty || $node instanceof \PhpParser\Node\Const_) {
             $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$node instanceof \PhpParser\Node) {
-                return \false;
-            }
         }
         if ($this->hasNoRectorPhpDocTagMatch($node, $phpRector)) {
             return \true;
         }
-        // recurse up until a Stmt node is found since it might contain a noRector
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($node instanceof \PhpParser\Node\Stmt) {
             return \false;
         }
+        // recurse up until a Stmt node is found since it might contain a noRector
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode === null) {
             return \false;
         }

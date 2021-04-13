@@ -26,7 +26,7 @@ final class MethodCallToPropertyFetchRector extends \Rector\Core\Rector\Abstract
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns method call "$this->something()" to property fetch "$this->something"', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-class SomeClass
+            class SomeClass
 {
     public function run()
     {
@@ -35,7 +35,7 @@ class SomeClass
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-class SomeClass
+            class SomeClass
 {
     public function run()
     {
