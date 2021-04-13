@@ -28,6 +28,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DispatchStringToObjectRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const STMTS = 'stmts';
+    /**
+     * @var string
+     */
+    private const NAME = 'name';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change string events to anonymous class which implement \\League\\Event\\HasEventName', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -97,24 +105,24 @@ CODE_SAMPLE
     private function createNewAnonymousEventClass(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\New_
     {
         $implements = [new \PhpParser\Node\Name\FullyQualified('League\\Event\\HasEventName')];
-        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Stmt\Class_(null, ['implements' => $implements, 'stmts' => $this->createAnonymousEventClassBody()]), [new \PhpParser\Node\Arg($expr)]);
+        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Stmt\Class_(null, ['implements' => $implements, self::STMTS => $this->createAnonymousEventClassBody()]), [new \PhpParser\Node\Arg($expr)]);
     }
     /**
      * @return Stmt[]
      */
     private function createAnonymousEventClassBody() : array
     {
-        return [new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('name')]), new \PhpParser\Node\Stmt\ClassMethod('__construct', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'params' => $this->createConstructParams(), 'stmts' => [new \PhpParser\Node\Stmt\Expression($this->createConstructAssign())]]), new \PhpParser\Node\Stmt\ClassMethod('eventName', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'returnType' => 'string', 'stmts' => [new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\Variable('this->name'))]])];
+        return [new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty(self::NAME)]), new \PhpParser\Node\Stmt\ClassMethod('__construct', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'params' => $this->createConstructParams(), self::STMTS => [new \PhpParser\Node\Stmt\Expression($this->createConstructAssign())]]), new \PhpParser\Node\Stmt\ClassMethod('eventName', ['flags' => \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC, 'returnType' => 'string', self::STMTS => [new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\Variable('this->name'))]])];
     }
     /**
      * @return Param[]
      */
     private function createConstructParams() : array
     {
-        return [new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('name'), null, 'string')];
+        return [new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable(self::NAME), null, 'string')];
     }
     private function createConstructAssign() : \PhpParser\Node\Expr\Assign
     {
-        return new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable('this->name'), new \PhpParser\Node\Expr\Variable('name'));
+        return new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable('this->name'), new \PhpParser\Node\Expr\Variable(self::NAME));
     }
 }

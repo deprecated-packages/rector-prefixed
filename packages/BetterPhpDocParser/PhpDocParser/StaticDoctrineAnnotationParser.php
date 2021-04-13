@@ -96,7 +96,7 @@ final class StaticDoctrineAnnotationParser
     private function parseValue(\Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $tokenIterator)
     {
         if ($tokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET)) {
-            $items = $this->arrayParser->parserArray($tokenIterator);
+            $items = $this->arrayParser->parseCurlyArray($tokenIterator);
             return new \Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode($items);
         }
         return $this->plainValueParser->parseValue($tokenIterator);

@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\BetterPhpDocParser\Attributes\AttributeMirrorer;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode;
@@ -19,11 +20,6 @@ use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
 final class DoctrineAnnotationDecorator
 {
-    /**
-     * @see https://regex101.com/r/jHF5D9/1
-     * @var string
-     */
-    private const OPEN_ANNOTATION_SUFFIX_REGEX = '#(\\{|\\,)$#';
     /**
      * @var CurrentNodeProvider
      */
@@ -60,6 +56,69 @@ final class DoctrineAnnotationDecorator
         }
         // merge split doctrine nested tags
         $this->mergeNestedDoctrineAnnotations($phpDocNode);
+        $this->transformGenericTagValueNodesToDoctrineAnnotationTagValueNodes($phpDocNode, $currentPhpNode);
+    }
+    /**
+     * Join token iterator with all the following nodes if nested
+     */
+    private function mergeNestedDoctrineAnnotations(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
+    {
+        $removedKeys = [];
+        foreach ($phpDocNode->children as $key => $phpDocChildNode) {
+            if (\in_array($key, $removedKeys, \true)) {
+                continue;
+            }
+            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+                continue;
+            }
+            if (!$phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                continue;
+            }
+            $genericTagValueNode = $phpDocChildNode->value;
+            while (isset($phpDocNode->children[$key])) {
+                ++$key;
+                // no more next nodes
+                if (!isset($phpDocNode->children[$key])) {
+                    break;
+                }
+                $nextPhpDocChildNode = $phpDocNode->children[$key];
+                if (!$nextPhpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+                    continue;
+                }
+                if (!$nextPhpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                    continue;
+                }
+                if ($this->isClosedContent($genericTagValueNode->value)) {
+                    break;
+                }
+                $composedContent = $genericTagValueNode->value . \PHP_EOL . $nextPhpDocChildNode->name . $nextPhpDocChildNode->value;
+                $genericTagValueNode->value = $composedContent;
+                /** @var StartAndEnd $currentStartAndEnd */
+                $currentStartAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
+                /** @var StartAndEnd $nextStartAndEnd */
+                $nextStartAndEnd = $nextPhpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
+                $startAndEnd = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($currentStartAndEnd->getStart(), $nextStartAndEnd->getEnd());
+                $phpDocChildNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, $startAndEnd);
+                $currentChildValueNode = $phpDocNode->children[$key];
+                if (!$currentChildValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+                    continue;
+                }
+                $currentGenericTagValueNode = $currentChildValueNode->value;
+                if (!$currentGenericTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                    continue;
+                }
+                $removedKeys[] = $key;
+            }
+        }
+        foreach (\array_keys($phpDocNode->children) as $key) {
+            if (!\in_array($key, $removedKeys, \true)) {
+                continue;
+            }
+            unset($phpDocNode->children[$key]);
+        }
+    }
+    private function transformGenericTagValueNodesToDoctrineAnnotationTagValueNodes(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $currentPhpNode) : void
+    {
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
@@ -87,59 +146,24 @@ final class DoctrineAnnotationDecorator
         }
     }
     /**
-     * Join token iterator with all the following nodes if nested
+     * This is closed block, e.g. {( ... )},
+     * false on: {( ... )
      */
-    private function mergeNestedDoctrineAnnotations(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
+    private function isClosedContent(string $composedContent) : bool
     {
-        $removedKeys = [];
-        foreach ($phpDocNode->children as $key => $phpDocChildNode) {
-            if (\in_array($key, $removedKeys, \true)) {
-                continue;
+        $composedTokenIterator = $this->tokenIteratorFactory->create($composedContent);
+        $tokenCount = $composedTokenIterator->count();
+        $openBracketCount = 0;
+        $closeBracketCount = 0;
+        do {
+            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES]) || \RectorPrefix20210413\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), '(')) {
+                ++$openBracketCount;
             }
-            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-                continue;
+            if ($composedTokenIterator->isCurrentTokenTypes([\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES]) || \RectorPrefix20210413\Nette\Utils\Strings::contains($composedTokenIterator->currentTokenValue(), ')')) {
+                ++$closeBracketCount;
             }
-            if (!$phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
-                continue;
-            }
-            $genericTagValueNode = $phpDocChildNode->value;
-            /** @var GenericTagValueNode $currentGenericTagValueNode */
-            $currentGenericTagValueNode = $genericTagValueNode;
-            while (\RectorPrefix20210413\Nette\Utils\Strings::match($currentGenericTagValueNode->value, self::OPEN_ANNOTATION_SUFFIX_REGEX)) {
-                $nextPhpDocChildNode = $phpDocNode->children[$key + 1];
-                if (!$nextPhpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-                    continue;
-                }
-                if (!$nextPhpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
-                    continue;
-                }
-                $genericTagValueNode->value .= \PHP_EOL . $nextPhpDocChildNode->name . $nextPhpDocChildNode->value;
-                /** @var StartAndEnd $currentStartAndEnd */
-                $currentStartAndEnd = $phpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
-                /** @var StartAndEnd $nextStartAndEnd */
-                $nextStartAndEnd = $nextPhpDocChildNode->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
-                $startAndEnd = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($currentStartAndEnd->getStart(), $nextStartAndEnd->getEnd());
-                $phpDocChildNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, $startAndEnd);
-                ++$key;
-                if (!isset($phpDocNode->children[$key])) {
-                    break;
-                }
-                $currentChildValueNode = $phpDocNode->children[$key];
-                if (!$currentChildValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-                    continue;
-                }
-                $currentGenericTagValueNode = $currentChildValueNode->value;
-                if (!$currentGenericTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
-                    continue;
-                }
-                $removedKeys[] = $key;
-            }
-        }
-        foreach (\array_keys($phpDocNode->children) as $key) {
-            if (!\in_array($key, $removedKeys, \true)) {
-                continue;
-            }
-            unset($phpDocNode->children[$key]);
-        }
+            $composedTokenIterator->next();
+        } while ($composedTokenIterator->currentPosition() < $tokenCount - 1);
+        return $openBracketCount === $closeBracketCount;
     }
 }

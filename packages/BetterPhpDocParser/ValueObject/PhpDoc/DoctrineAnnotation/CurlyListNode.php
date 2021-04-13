@@ -32,6 +32,9 @@ final class CurlyListNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDoc\
         if ($value === \true) {
             return 'true';
         }
+        if (\is_array($value)) {
+            return \implode(', ', $value);
+        }
         return (string) $value;
     }
 }
