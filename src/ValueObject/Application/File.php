@@ -49,6 +49,10 @@ final class File
      * @var RectorWithLineChange[]
      */
     private $rectorWithLineChanges = [];
+    /**
+     * @var RectorError[]
+     */
+    private $rectorErrors = [];
     public function __construct(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $fileContent)
     {
         $this->smartFileInfo = $smartFileInfo;
@@ -139,5 +143,20 @@ final class File
     public function getRectorWithLineChanges() : array
     {
         return $this->rectorWithLineChanges;
+    }
+    public function addRectorError(\Rector\Core\ValueObject\Application\RectorError $rectorError) : void
+    {
+        $this->rectorErrors[] = $rectorError;
+    }
+    public function hasErrors() : bool
+    {
+        return $this->rectorErrors !== [];
+    }
+    /**
+     * @return RectorError[]
+     */
+    public function getErrors() : array
+    {
+        return $this->rectorErrors;
     }
 }

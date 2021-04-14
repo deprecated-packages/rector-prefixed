@@ -15,6 +15,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\FormatPerservingPrinter;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Application\RectorError;
 use Rector\PostRector\Application\PostFileProcessor;
 use RectorPrefix20210414\Symfony\Component\Console\Helper\ProgressBar;
 use RectorPrefix20210414\Symfony\Component\Console\Style\SymfonyStyle;
@@ -126,7 +127,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         foreach ($files as $file) {
             $this->currentFileProvider->setFile($file);
             // cannot print file with errors, as print would break everything to original nodes
-            if ($this->errorAndDiffCollector->hasSmartFileErrors($file)) {
+            if ($file->hasErrors()) {
                 $this->advance($file, 'printing skipped due error');
                 continue;
             }
@@ -191,8 +192,8 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             if ($this->symfonyStyle->isVerbose()) {
                 throw $throwable;
             }
-            $smartFileInfo = $file->getSmartFileInfo();
-            $this->errorAndDiffCollector->addThrowableWithFileInfo($throwable, $smartFileInfo);
+            $rectorError = new \Rector\Core\ValueObject\Application\RectorError($throwable->getMessage(), $throwable->getLine());
+            $file->addRectorError($rectorError);
         }
     }
     private function printFile(\Rector\Core\ValueObject\Application\File $file) : void

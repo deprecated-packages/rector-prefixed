@@ -9,8 +9,6 @@ use Rector\Core\Error\ExceptionCorrector;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
-use Throwable;
 final class ErrorAndDiffCollector
 {
     /**
@@ -61,28 +59,7 @@ final class ErrorAndDiffCollector
     public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \Rector\Core\ValueObject\Application\File $file) : void
     {
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
-        $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($file->getSmartFileInfo(), $message);
-    }
-    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
-    {
-        $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
-    }
-    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
-    {
-        $rectorClass = $this->exceptionCorrector->matchRectorClass($throwable);
-        if ($rectorClass) {
-            $this->addErrorWithRectorClassMessageAndFileInfo($rectorClass, $throwable->getMessage(), $fileInfo);
-        } else {
-            $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($fileInfo, $throwable->getMessage(), $throwable->getCode());
-        }
-    }
-    public function hasSmartFileErrors(\Rector\Core\ValueObject\Application\File $file) : bool
-    {
-        foreach ($this->errors as $error) {
-            if ($error->getFileInfo() === $file->getSmartFileInfo()) {
-                return \true;
-            }
-        }
-        return \false;
+        $rectorError = new \Rector\Core\ValueObject\Application\RectorError($message);
+        $file->addRectorError($rectorError);
     }
 }

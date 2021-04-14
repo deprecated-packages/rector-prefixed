@@ -22,9 +22,8 @@ final class RectorError
      * @var string|null
      */
     private $rectorClass;
-    public function __construct(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $message, ?int $line = null, ?string $rectorClass = null)
+    public function __construct(string $message, ?int $line = null, ?string $rectorClass = null)
     {
-        $this->fileInfo = $smartFileInfo;
         $this->message = $message;
         $this->line = $line;
         $this->rectorClass = $rectorClass;

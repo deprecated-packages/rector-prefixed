@@ -22,12 +22,14 @@ final class ProcessResultFactory
     public function create(array $files) : \Rector\Core\ValueObject\ProcessResult
     {
         $fileDiffs = [];
+        $errors = [];
         foreach ($files as $file) {
             if ($file->getFileDiff() === null) {
                 continue;
             }
+            $errors = \array_merge($errors, $file->getErrors());
             $fileDiffs[] = $file->getFileDiff();
         }
-        return new \Rector\Core\ValueObject\ProcessResult($fileDiffs, $this->errorAndDiffCollector->getErrors(), $this->errorAndDiffCollector->getAddedFilesCount(), $this->errorAndDiffCollector->getRemovedFilesCount(), $this->errorAndDiffCollector->getRemovedNodeCount());
+        return new \Rector\Core\ValueObject\ProcessResult($fileDiffs, $errors, $this->errorAndDiffCollector->getAddedFilesCount(), $this->errorAndDiffCollector->getRemovedFilesCount(), $this->errorAndDiffCollector->getRemovedNodeCount());
     }
 }
