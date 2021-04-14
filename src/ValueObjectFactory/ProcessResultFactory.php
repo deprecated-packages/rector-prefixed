@@ -3,18 +3,24 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObjectFactory;
 
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\ProcessResult;
+use Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ProcessResultFactory
 {
     /**
-     * @var ErrorAndDiffCollector
+     * @var RemovedAndAddedFilesCollector
      */
-    private $errorAndDiffCollector;
-    public function __construct(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
+    private $removedAndAddedFilesCollector;
+    /**
+     * @var NodesToRemoveCollector
+     */
+    private $nodesToRemoveCollector;
+    public function __construct(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
     {
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->nodesToRemoveCollector = $nodesToRemoveCollector;
     }
     /**
      * @param File[] $files
@@ -30,6 +36,6 @@ final class ProcessResultFactory
             $errors = \array_merge($errors, $file->getErrors());
             $fileDiffs[] = $file->getFileDiff();
         }
-        return new \Rector\Core\ValueObject\ProcessResult($fileDiffs, $errors, $this->errorAndDiffCollector->getAddedFilesCount(), $this->errorAndDiffCollector->getRemovedFilesCount(), $this->errorAndDiffCollector->getRemovedNodeCount());
+        return new \Rector\Core\ValueObject\ProcessResult($fileDiffs, $errors, $this->removedAndAddedFilesCollector->getAddedFileCount(), $this->removedAndAddedFilesCollector->getRemovedFilesCount(), $this->nodesToRemoveCollector->getCount());
     }
 }

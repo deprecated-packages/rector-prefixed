@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Application\FileProcessor;
 
 use PHPStan\AnalysedCodeException;
-use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Rector\ChangesReporting\ValueObjectFactory\ErrorFactory;
 use Rector\Core\Application\FileDecorator\FileDiffFileDecorator;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
@@ -47,10 +47,6 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
      */
     private $symfonyStyle;
     /**
-     * @var ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-    /**
      * @var FileProcessor
      */
     private $fileProcessor;
@@ -82,10 +78,13 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
      * @var PostFileProcessor
      */
     private $postFileProcessor;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210414\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor)
+    /**
+     * @var ErrorFactory
+     */
+    private $errorFactory;
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \Rector\Core\Application\FileProcessor $fileProcessor, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210414\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory $errorFactory)
     {
         $this->symfonyStyle = $symfonyStyle;
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->configuration = $configuration;
         $this->fileProcessor = $fileProcessor;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
@@ -96,6 +95,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         $this->currentFileProvider = $currentFileProvider;
         $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->postFileProcessor = $postFileProcessor;
+        $this->errorFactory = $errorFactory;
     }
     /**
      * @param File[] $files
@@ -187,7 +187,8 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             $callback($file);
         } catch (\PHPStan\AnalysedCodeException $analysedCodeException) {
             $this->notParsedFiles[] = $file;
-            $this->errorAndDiffCollector->addAutoloadError($analysedCodeException, $file);
+            $error = $this->errorFactory->createAutoloadError($analysedCodeException);
+            $file->addRectorError($error);
         } catch (\Throwable $throwable) {
             if ($this->symfonyStyle->isVerbose()) {
                 throw $throwable;
