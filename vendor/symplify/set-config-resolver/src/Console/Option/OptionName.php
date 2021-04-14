@@ -1,7 +1,8 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\SetConfigResolver\Console\Option;
+declare(strict_types=1);
+
+namespace Symplify\SetConfigResolver\Console\Option;
 
 final class OptionName
 {
@@ -9,6 +10,7 @@ final class OptionName
      * @var string[]
      */
     public const CONFIG = ['--config', '-c'];
+
     /**
      * @var string[]
      */

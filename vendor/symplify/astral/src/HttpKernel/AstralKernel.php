@@ -1,13 +1,15 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Astral\HttpKernel;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210414\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class AstralKernel extends \RectorPrefix20210414\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+namespace Symplify\Astral\HttpKernel;
+
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+
+final class AstralKernel extends AbstractSymplifyKernel
 {
-    public function registerContainerConfiguration(\RectorPrefix20210414\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
     }

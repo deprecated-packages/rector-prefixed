@@ -1,12 +1,14 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Astral\ValueObject\NodeBuilder;
+declare(strict_types=1);
+
+namespace Symplify\Astral\ValueObject\NodeBuilder;
 
 use PhpParser\Builder\Property;
+
 /**
  * Fixed duplicated naming in php-parser and prevents confusion
  */
-final class PropertyBuilder extends \PhpParser\Builder\Property
+final class PropertyBuilder extends Property
 {
 }

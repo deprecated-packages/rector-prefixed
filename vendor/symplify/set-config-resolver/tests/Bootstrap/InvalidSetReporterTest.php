@@ -1,27 +1,31 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\SetConfigResolver\Tests\Bootstrap;
+declare(strict_types=1);
 
-use RectorPrefix20210414\PHPUnit\Framework\TestCase;
-use RectorPrefix20210414\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use RectorPrefix20210414\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-final class InvalidSetReporterTest extends \RectorPrefix20210414\PHPUnit\Framework\TestCase
+namespace Symplify\SetConfigResolver\Tests\Bootstrap;
+
+use PHPUnit\Framework\TestCase;
+use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
+use Symplify\SetConfigResolver\Exception\SetNotFoundException;
+
+final class InvalidSetReporterTest extends TestCase
 {
     /**
      * @var InvalidSetReporter
      */
     private $invalidSetReporter;
-    protected function setUp() : void
+
+    protected function setUp(): void
     {
-        $this->invalidSetReporter = new \RectorPrefix20210414\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
+        $this->invalidSetReporter = new InvalidSetReporter();
     }
+
     /**
      * @doesNotPerformAssertions
      */
-    public function test() : void
+    public function test(): void
     {
-        $setNotFoundException = new \RectorPrefix20210414\Symplify\SetConfigResolver\Exception\SetNotFoundException('not found', 'one', ['two', 'three']);
+        $setNotFoundException = new SetNotFoundException('not found', 'one', ['two', 'three']);
         $this->invalidSetReporter->report($setNotFoundException);
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Skipper\SkipCriteriaResolver;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Nette\Utils\Strings;
-use RectorPrefix20210414\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210414\Symplify\Skipper\ValueObject\Option;
-use RectorPrefix20210414\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+namespace Symplify\Skipper\SkipCriteriaResolver;
+
+use Nette\Utils\Strings;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\Skipper\ValueObject\Option;
+use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+
 /**
  * @see \Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
  */
@@ -16,41 +18,50 @@ final class SkippedPathsResolver
      * @var ParameterProvider
      */
     private $parameterProvider;
+
     /**
      * @var string[]
      */
     private $skippedPaths = [];
+
     /**
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    public function __construct(\RectorPrefix20210414\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210414\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
+
+    public function __construct(ParameterProvider $parameterProvider, PathNormalizer $pathNormalizer)
     {
         $this->parameterProvider = $parameterProvider;
         $this->pathNormalizer = $pathNormalizer;
     }
+
     /**
      * @return string[]
      */
-    public function resolve() : array
+    public function resolve(): array
     {
         if ($this->skippedPaths !== []) {
             return $this->skippedPaths;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\RectorPrefix20210414\Symplify\Skipper\ValueObject\Option::SKIP);
+
+        $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
+
         foreach ($skip as $key => $value) {
-            if (!\is_int($key)) {
+            if (! is_int($key)) {
                 continue;
             }
-            if (\file_exists($value)) {
+
+            if (file_exists($value)) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
-            if (\RectorPrefix20210414\Nette\Utils\Strings::contains($value, '*')) {
+
+            if (Strings::contains($value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
         }
+
         return $this->skippedPaths;
     }
 }

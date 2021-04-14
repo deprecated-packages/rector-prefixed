@@ -1,25 +1,30 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
-use RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
-use RectorPrefix20210414\Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
+use Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
+use Symplify\Skipper\ValueObject\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\RectorPrefix20210414\Symplify\Skipper\ValueObject\Option::SKIP, [
+
+    $parameters->set(Option::SKIP, [
         // classes
-        \RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class,
-        \RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
+        SomeClassToSkip::class,
+
+        AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
+
         // code
-        \RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode' => null,
-        \RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
-        \RectorPrefix20210414\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
+        AnotherClassToSkip::class . '.someCode' => null,
+        AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
+        AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
+
         // file paths
         __DIR__ . '/../Fixture/AlwaysSkippedPath',
-        '*\\PathSkippedWithMask\\*',
+        '*\PathSkippedWithMask\*',
+
         // messages
         'some fishy code at line 5!' => null,
         'some another fishy code at line 5!' => ['someDirectory/*'],

@@ -1,30 +1,39 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\EasyTesting\FixtureSplitter;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Nette\Utils\Strings;
-use RectorPrefix20210414\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent;
-use RectorPrefix20210414\Symplify\EasyTesting\ValueObject\SplitLine;
-use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210414\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+namespace Symplify\EasyTesting\FixtureSplitter;
+
+use Nette\Utils\Strings;
+use Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent;
+use Symplify\EasyTesting\ValueObject\SplitLine;
+use Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+
 final class TrioFixtureSplitter
 {
-    public function splitFileInfo(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \RectorPrefix20210414\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent
+    public function splitFileInfo(SmartFileInfo $smartFileInfo): TrioContent
     {
-        $parts = \RectorPrefix20210414\Nette\Utils\Strings::split($smartFileInfo->getContents(), \RectorPrefix20210414\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+        $parts = Strings::split($smartFileInfo->getContents(), SplitLine::SPLIT_LINE_REGEX);
         $this->ensureHasThreeParts($parts, $smartFileInfo);
-        return new \RectorPrefix20210414\Symplify\EasyTesting\ValueObject\FixtureSplit\TrioContent($parts[0], $parts[1], $parts[2]);
+
+        return new TrioContent($parts[0], $parts[1], $parts[2]);
     }
+
     /**
      * @param mixed[] $parts
      */
-    private function ensureHasThreeParts(array $parts, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    private function ensureHasThreeParts(array $parts, SmartFileInfo $smartFileInfo): void
     {
-        if (\count($parts) === 3) {
+        if (count($parts) === 3) {
             return;
         }
-        $message = \sprintf('The fixture "%s" should have 3 parts. %d found', $smartFileInfo->getRelativeFilePathFromCwd(), \count($parts));
-        throw new \RectorPrefix20210414\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
+
+        $message = sprintf(
+            'The fixture "%s" should have 3 parts. %d found',
+            $smartFileInfo->getRelativeFilePathFromCwd(),
+            count($parts)
+        );
+        throw new ShouldNotHappenException($message);
     }
 }

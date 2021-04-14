@@ -1,26 +1,30 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Astral\NodeNameResolver;
+declare(strict_types=1);
+
+namespace Symplify\Astral\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
-use RectorPrefix20210414\Symplify\Astral\Contract\NodeNameResolverInterface;
-final class FuncCallNodeNameResolver implements \RectorPrefix20210414\Symplify\Astral\Contract\NodeNameResolverInterface
+use Symplify\Astral\Contract\NodeNameResolverInterface;
+
+final class FuncCallNodeNameResolver implements NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool
+    public function match(Node $node): bool
     {
-        return $node instanceof \PhpParser\Node\Expr\FuncCall;
+        return $node instanceof FuncCall;
     }
+
     /**
      * @param FuncCall $node
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(Node $node): ?string
     {
-        if ($node->name instanceof \PhpParser\Node\Expr) {
+        if ($node->name instanceof Expr) {
             return null;
         }
+
         return (string) $node->name;
     }
 }

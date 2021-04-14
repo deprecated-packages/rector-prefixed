@@ -1,31 +1,37 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\PackageBuilder\Composer;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Composer\Autoload\ClassLoader;
-use RectorPrefix20210414\Nette\Utils\Strings;
+namespace Symplify\PackageBuilder\Composer;
+
+use Composer\Autoload\ClassLoader;
+use Nette\Utils\Strings;
 use ReflectionClass;
+
 /**
  * @see \Symplify\PackageBuilder\Tests\Composer\VendorDirProviderTest
  */
 final class VendorDirProvider
 {
-    public function provide() : string
+    public function provide(): string
     {
-        $rootFolder = \getenv('SystemDrive', \true) . \DIRECTORY_SEPARATOR;
+        $rootFolder = getenv('SystemDrive', true) . DIRECTORY_SEPARATOR;
+
         $path = __DIR__;
-        while (!\RectorPrefix20210414\Nette\Utils\Strings::endsWith($path, 'vendor') && $path !== $rootFolder) {
-            $path = \dirname($path);
+        while (! Strings::endsWith($path, 'vendor') && $path !== $rootFolder) {
+            $path = dirname($path);
         }
+
         if ($path !== $rootFolder) {
             return $path;
         }
+
         return $this->reflectionFallback();
     }
-    private function reflectionFallback() : string
+
+    private function reflectionFallback(): string
     {
-        $reflectionClass = new \ReflectionClass(\RectorPrefix20210414\Composer\Autoload\ClassLoader::class);
-        return \dirname($reflectionClass->getFileName(), 2);
+        $reflectionClass = new ReflectionClass(ClassLoader::class);
+        return dirname($reflectionClass->getFileName(), 2);
     }
 }

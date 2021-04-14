@@ -1,11 +1,14 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Astral\Contract;
+declare(strict_types=1);
+
+namespace Symplify\Astral\Contract;
 
 use PhpParser\Node;
+
 interface NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool;
-    public function resolve(\PhpParser\Node $node) : ?string;
+    public function match(Node $node): bool;
+
+    public function resolve(Node $node): ?string;
 }

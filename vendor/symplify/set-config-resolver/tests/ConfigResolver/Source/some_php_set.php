@@ -1,10 +1,11 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
+
     $parameters->set('key', 'value');
 };

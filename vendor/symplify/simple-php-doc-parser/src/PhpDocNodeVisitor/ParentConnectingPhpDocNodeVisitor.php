@@ -1,36 +1,43 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\SimplePhpDocParser\PhpDocNodeVisitor;
+declare(strict_types=1);
+
+namespace Symplify\SimplePhpDocParser\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
-use RectorPrefix20210414\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey;
+use Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey;
+
 /**
  * Mimics https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/NodeVisitor/ParentConnectingVisitor.php
  *
  * @see \Symplify\SimplePhpDocParser\Tests\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitorTest
  */
-final class ParentConnectingPhpDocNodeVisitor extends \RectorPrefix20210414\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor
+final class ParentConnectingPhpDocNodeVisitor extends AbstractPhpDocNodeVisitor
 {
     /**
      * @var Node[]
      */
     private $stack = [];
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
+
+    public function beforeTraverse(Node $node): void
     {
         $this->stack = [$node];
     }
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
+
+    public function enterNode(Node $node): ?Node
     {
         if ($this->stack !== []) {
-            $parentNode = $this->stack[\count($this->stack) - 1];
-            $node->setAttribute(\RectorPrefix20210414\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, $parentNode);
+            $parentNode = $this->stack[count($this->stack) - 1];
+            $node->setAttribute(PhpDocAttributeKey::PARENT, $parentNode);
         }
+
         $this->stack[] = $node;
+
         return $node;
     }
-    public function leaveNode(\PHPStan\PhpDocParser\Ast\Node $node) : void
+
+    public function leaveNode(Node $node): void
     {
-        \array_pop($this->stack);
+        array_pop($this->stack);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414;
+declare(strict_types=1);
 
 echo 'hi';

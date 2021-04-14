@@ -1,14 +1,16 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\Skipper\Bundle;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210414\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension;
-final class SkipperBundle extends \RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle
+namespace Symplify\Skipper\Bundle;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symplify\Skipper\DependencyInjection\Extension\SkipperExtension;
+
+final class SkipperBundle extends Bundle
 {
-    protected function createContainerExtension() : ?\RectorPrefix20210414\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension(): SkipperExtension
     {
-        return new \RectorPrefix20210414\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension();
+        return new SkipperExtension();
     }
 }

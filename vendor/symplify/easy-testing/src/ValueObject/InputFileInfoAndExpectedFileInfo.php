@@ -1,37 +1,45 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\EasyTesting\ValueObject;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
+namespace Symplify\EasyTesting\ValueObject;
+
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class InputFileInfoAndExpectedFileInfo
 {
     /**
      * @var SmartFileInfo
      */
     private $inputFileInfo;
+
     /**
      * @var SmartFileInfo
      */
     private $expectedFileInfo;
-    public function __construct(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
+
+    public function __construct(SmartFileInfo $inputFileInfo, SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;
     }
-    public function getInputFileInfo() : \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo
+
+    public function getInputFileInfo(): SmartFileInfo
     {
         return $this->inputFileInfo;
     }
-    public function getExpectedFileInfo() : \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo
+
+    public function getExpectedFileInfo(): SmartFileInfo
     {
         return $this->expectedFileInfo;
     }
-    public function getExpectedFileContent() : string
+
+    public function getExpectedFileContent(): string
     {
         return $this->expectedFileInfo->getContents();
     }
-    public function getExpectedFileInfoRealPath() : string
+
+    public function getExpectedFileInfoRealPath(): string
     {
         return $this->expectedFileInfo->getRealPath();
     }

@@ -1,10 +1,10 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
-use RectorPrefix20210414\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
+use Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+
 $possibleAutoloadPaths = [
     // dependency
     __DIR__ . '/../../../autoload.php',
@@ -13,11 +13,14 @@ $possibleAutoloadPaths = [
     // monorepo
     __DIR__ . '/../../../vendor/autoload.php',
 ];
+
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (\file_exists($possibleAutoloadPath)) {
+    if (file_exists($possibleAutoloadPath)) {
         require_once $possibleAutoloadPath;
         break;
     }
 }
-$kernelBootAndApplicationRun = new \RectorPrefix20210414\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\RectorPrefix20210414\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
+
+
+$kernelBootAndApplicationRun = new KernelBootAndApplicationRun(EasyTestingKernel::class);
 $kernelBootAndApplicationRun->run();

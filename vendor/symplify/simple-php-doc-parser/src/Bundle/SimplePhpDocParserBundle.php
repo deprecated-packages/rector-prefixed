@@ -1,15 +1,17 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\SimplePhpDocParser\Bundle;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210414\Symplify\SimplePhpDocParser\Bundle\DependencyInjection\Extension\SimplePhpDocParserExtension;
-final class SimplePhpDocParserBundle extends \RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle
+namespace Symplify\SimplePhpDocParser\Bundle;
+
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symplify\SimplePhpDocParser\Bundle\DependencyInjection\Extension\SimplePhpDocParserExtension;
+
+final class SimplePhpDocParserBundle extends Bundle
 {
-    public function getContainerExtension() : ?\RectorPrefix20210414\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    public function getContainerExtension(): ?ExtensionInterface
     {
-        return new \RectorPrefix20210414\Symplify\SimplePhpDocParser\Bundle\DependencyInjection\Extension\SimplePhpDocParserExtension();
+        return new SimplePhpDocParserExtension();
     }
 }

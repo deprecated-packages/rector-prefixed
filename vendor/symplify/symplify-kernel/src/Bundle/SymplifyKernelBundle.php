@@ -1,22 +1,26 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\SymplifyKernel\Bundle;
+declare(strict_types=1);
 
-use RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210414\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use RectorPrefix20210414\Symplify\SymplifyKernel\DependencyInjection\CompilerPass\PrepareConsoleApplicationCompilerPass;
-use RectorPrefix20210414\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
-final class SymplifyKernelBundle extends \RectorPrefix20210414\Symfony\Component\HttpKernel\Bundle\Bundle
+namespace Symplify\SymplifyKernel\Bundle;
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use Symplify\SymplifyKernel\DependencyInjection\CompilerPass\PrepareConsoleApplicationCompilerPass;
+use Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
+
+final class SymplifyKernelBundle extends Bundle
 {
-    public function build(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function build(ContainerBuilder $containerBuilder): void
     {
-        $containerBuilder->addCompilerPass(new \RectorPrefix20210414\Symplify\SymplifyKernel\DependencyInjection\CompilerPass\PrepareConsoleApplicationCompilerPass());
-        $containerBuilder->addCompilerPass(new \RectorPrefix20210414\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new PrepareConsoleApplicationCompilerPass());
+
+        $containerBuilder->addCompilerPass(new AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : ?\RectorPrefix20210414\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+
+    protected function createContainerExtension(): SymplifyKernelExtension
     {
-        return new \RectorPrefix20210414\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
+        return new SymplifyKernelExtension();
     }
 }

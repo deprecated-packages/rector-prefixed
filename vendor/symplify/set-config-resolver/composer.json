@@ -1,29 +1,29 @@
 {
-    "name": "symplify\/set-config-resolver",
+    "name": "symplify/set-config-resolver",
     "description": "Resolve config and sets from configs and cli opptions for CLI applications",
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.2",
-        "symfony\/config": "^4.4|^5.2",
-        "symfony\/dependency-injection": "^5.2",
-        "symfony\/console": "^4.4|^5.2",
-        "symfony\/finder": "^4.4|^5.2",
-        "symfony\/filesystem": "^4.4|^5.2",
-        "symplify\/symplify-kernel": "^9.2.16",
-        "symplify\/smart-file-system": "^9.2.16"
+        "nette/utils": "^3.2",
+        "symfony/config": "^4.4|^5.2",
+        "symfony/dependency-injection": "^5.2",
+        "symfony/console": "^4.4|^5.2",
+        "symfony/finder": "^4.4|^5.2",
+        "symfony/filesystem": "^4.4|^5.2",
+        "symplify/symplify-kernel": "^9.2.17",
+        "symplify/smart-file-system": "^9.2.17"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210414\\Symplify\\SetConfigResolver\\": "src"
+            "Symplify\\SetConfigResolver\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210414\\Symplify\\SetConfigResolver\\Tests\\": "tests"
+            "Symplify\\SetConfigResolver\\Tests\\": "tests"
         }
     },
     "extra": {

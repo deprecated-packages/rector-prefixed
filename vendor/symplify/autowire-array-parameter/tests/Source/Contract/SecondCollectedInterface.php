@@ -1,8 +1,10 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210414\Symplify\AutowireArrayParameter\Tests\Source\Contract;
+declare(strict_types=1);
+
+namespace Symplify\AutowireArrayParameter\Tests\Source\Contract;
 
 interface SecondCollectedInterface
 {
+
 }
