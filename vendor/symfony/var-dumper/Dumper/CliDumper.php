@@ -513,7 +513,7 @@ class CliDumper extends \RectorPrefix20210414\Symfony\Component\VarDumper\Dumper
         if (\DIRECTORY_SEPARATOR === '\\') {
             return \function_exists('sapi_windows_vt100_support') && @\sapi_windows_vt100_support($stream) || \false !== \getenv('ANSICON') || 'ON' === \getenv('ConEmuANSI') || 'xterm' === \getenv('TERM');
         }
-        return \stream_isatty($stream);
+        return $streamIsatty($stream);
     }
     /**
      * Returns true if the Windows terminal supports true color.

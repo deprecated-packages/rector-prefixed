@@ -5,6 +5,7 @@ namespace RectorPrefix20210414;
 
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\Downgrade72\Rector\FuncCall\DowngradeStreamIsattyRector;
 use Rector\DowngradePhp72\Rector\ClassMethod\DowngradeParameterTypeWideningRector;
 use Rector\DowngradePhp72\Rector\FuncCall\DowngradePregUnmatchedAsNullConstantRector;
 use Rector\DowngradePhp72\Rector\FunctionLike\DowngradeObjectTypeDeclarationRector;
@@ -16,4 +17,5 @@ return static function (\RectorPrefix20210414\Symfony\Component\DependencyInject
     $services->set(\Rector\DowngradePhp72\Rector\FunctionLike\DowngradeObjectTypeDeclarationRector::class);
     $services->set(\Rector\DowngradePhp72\Rector\ClassMethod\DowngradeParameterTypeWideningRector::class);
     $services->set(\Rector\DowngradePhp72\Rector\FuncCall\DowngradePregUnmatchedAsNullConstantRector::class);
+    $services->set(\Rector\Downgrade72\Rector\FuncCall\DowngradeStreamIsattyRector::class);
 };

@@ -1967,6 +1967,7 @@ return array(
     'Rector\\Doctrine\\TypeAnalyzer\\CollectionVarTagValueNodeResolver' => $vendorDir . '/rector/rector-doctrine/src/TypeAnalyzer/CollectionVarTagValueNodeResolver.php',
     'Rector\\Doctrine\\TypeAnalyzer\\TypeFinder' => $vendorDir . '/rector/rector-doctrine/src/TypeAnalyzer/TypeFinder.php',
     'Rector\\Doctrine\\Type\\RepositoryTypeFactory' => $vendorDir . '/rector/rector-doctrine/src/Type/RepositoryTypeFactory.php',
+    'Rector\\Downgrade72\\Rector\\FuncCall\\DowngradeStreamIsattyRector' => $baseDir . '/rules/Downgrade72/Rector/FuncCall/DowngradeStreamIsattyRector.php',
     'Rector\\Downgrade73\\Rector\\FuncCall\\DowngradeArrayKeyFirstLastRector' => $baseDir . '/rules/Downgrade73/Rector/FuncCall/DowngradeArrayKeyFirstLastRector.php',
     'Rector\\DowngradePhp70\\Rector\\Declare_\\DowngradeStrictTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/Declare_/DowngradeStrictTypeDeclarationRector.php',
     'Rector\\DowngradePhp70\\Rector\\FunctionLike\\DowngradeTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/FunctionLike/DowngradeTypeDeclarationRector.php',
