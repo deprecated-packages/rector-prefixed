@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObject\Reporting;
 
-use Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Contract\Rector\RectorInterface;
-use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
@@ -17,21 +17,21 @@ final class FileDiff
      */
     private $diffConsoleFormatted;
     /**
-     * @var RectorWithFileAndLineChange[]
+     * @var RectorWithLineChange[]
      */
-    private $rectorWithFileAndLineChanges = [];
+    private $rectorWithLineChanges = [];
     /**
      * @var SmartFileInfo
      */
     private $smartFileInfo;
     /**
-     * @param RectorWithFileAndLineChange[] $rectorWithFileAndLineChanges
+     * @param RectorWithLineChange[] $rectorWithLineChanges
      */
-    public function __construct(\RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithFileAndLineChanges = [])
+    public function __construct(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithLineChanges = [])
     {
         $this->smartFileInfo = $smartFileInfo;
         $this->diff = $diff;
-        $this->rectorWithFileAndLineChanges = $rectorWithFileAndLineChanges;
+        $this->rectorWithLineChanges = $rectorWithLineChanges;
         $this->diffConsoleFormatted = $diffConsoleFormatted;
     }
     public function getDiff() : string
@@ -46,16 +46,16 @@ final class FileDiff
     {
         return $this->smartFileInfo->getRelativeFilePath();
     }
-    public function getFileInfo() : \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }
     /**
-     * @return RectorWithFileAndLineChange[]
+     * @return RectorWithLineChange[]
      */
     public function getRectorChanges() : array
     {
-        return $this->rectorWithFileAndLineChanges;
+        return $this->rectorWithLineChanges;
     }
     /**
      * @return array<class-string<RectorInterface>>
@@ -63,8 +63,8 @@ final class FileDiff
     public function getRectorClasses() : array
     {
         $rectorClasses = [];
-        foreach ($this->rectorWithFileAndLineChanges as $rectorWithFileAndLineChange) {
-            $rectorClasses[] = $rectorWithFileAndLineChange->getRectorClass();
+        foreach ($this->rectorWithLineChanges as $rectorWithLineChange) {
+            $rectorClasses[] = $rectorWithLineChange->getRectorClass();
         }
         return $this->sortClasses($rectorClasses);
     }

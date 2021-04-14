@@ -28,6 +28,9 @@ final class MethodReflectionClassMethodResolver
             return null;
         }
         $classReflection = $this->reflectionProvider->getClass($className);
+        if ($classReflection->isAnonymous()) {
+            return null;
+        }
         if (!$classReflection->hasMethod($methodName)) {
             return null;
         }

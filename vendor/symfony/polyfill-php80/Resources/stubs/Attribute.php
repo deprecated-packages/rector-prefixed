@@ -21,4 +21,4 @@ final class Attribute
     }
 }
 #[Attribute(Attribute::TARGET_CLASS)]
-\class_alias('RectorPrefix20210413\\Attribute', 'Attribute', \false);
+\class_alias('RectorPrefix20210414\\Attribute', 'Attribute', \false);

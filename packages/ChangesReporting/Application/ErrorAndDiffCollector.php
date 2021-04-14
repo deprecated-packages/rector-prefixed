@@ -9,7 +9,7 @@ use Rector\Core\Error\ExceptionCorrector;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class ErrorAndDiffCollector
 {
@@ -63,11 +63,11 @@ final class ErrorAndDiffCollector
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($file->getSmartFileInfo(), $message);
     }
-    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
     }
-    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $rectorClass = $this->exceptionCorrector->matchRectorClass($throwable);
         if ($rectorClass) {

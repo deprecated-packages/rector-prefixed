@@ -7,7 +7,7 @@ use PhpParser\Node\Stmt;
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\ValueObjectFactory\Application\FileFactory
  */
@@ -49,13 +49,13 @@ final class File
      * @var RectorWithLineChange[]
      */
     private $rectorWithLineChanges = [];
-    public function __construct(\RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $fileContent)
+    public function __construct(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $fileContent)
     {
         $this->smartFileInfo = $smartFileInfo;
         $this->fileContent = $fileContent;
         $this->originalFileContent = $fileContent;
     }
-    public function getSmartFileInfo() : \RectorPrefix20210413\Symplify\SmartFileSystem\SmartFileInfo
+    public function getSmartFileInfo() : \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->smartFileInfo;
     }

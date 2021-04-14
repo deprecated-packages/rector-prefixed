@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210413\Symfony\Component\Uid;
+namespace RectorPrefix20210414\Symfony\Component\Uid;
 
 /**
  * A ULID is lexicographically sortable and contains a 48-bit timestamp and 80-bit of crypto-random entropy.
@@ -19,7 +19,7 @@ namespace RectorPrefix20210413\Symfony\Component\Uid;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Ulid extends \RectorPrefix20210413\Symfony\Component\Uid\AbstractUid
+class Ulid extends \RectorPrefix20210414\Symfony\Component\Uid\AbstractUid
 {
     private static $time = '';
     private static $rand = [];
@@ -49,10 +49,10 @@ class Ulid extends \RectorPrefix20210413\Symfony\Component\Uid\AbstractUid
      */
     public static function fromString(string $ulid)
     {
-        if (36 === \strlen($ulid) && \RectorPrefix20210413\Symfony\Component\Uid\Uuid::isValid($ulid)) {
-            $ulid = (new \RectorPrefix20210413\Symfony\Component\Uid\Uuid($ulid))->toBinary();
-        } elseif (22 === \strlen($ulid) && 22 === \strspn($ulid, \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
-            $ulid = \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::fromBase($ulid, \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::BASE58);
+        if (36 === \strlen($ulid) && \RectorPrefix20210414\Symfony\Component\Uid\Uuid::isValid($ulid)) {
+            $ulid = (new \RectorPrefix20210414\Symfony\Component\Uid\Uuid($ulid))->toBinary();
+        } elseif (22 === \strlen($ulid) && 22 === \strspn($ulid, \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
+            $ulid = \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::fromBase($ulid, \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::BASE58);
         }
         if (16 !== \strlen($ulid)) {
             return new static($ulid);
@@ -81,7 +81,7 @@ class Ulid extends \RectorPrefix20210413\Symfony\Component\Uid\AbstractUid
             return \hexdec(\base_convert($time, 32, 16)) / 1000;
         }
         $time = \sprintf('%02s%05s%05s', \base_convert(\substr($time, 0, 2), 32, 16), \base_convert(\substr($time, 2, 4), 32, 16), \base_convert(\substr($time, 6, 4), 32, 16));
-        return \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::toBase(\hex2bin($time), \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::BASE10) / 1000;
+        return \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::toBase(\hex2bin($time), \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::BASE10) / 1000;
     }
     private static function generate() : string
     {
@@ -108,7 +108,7 @@ class Ulid extends \RectorPrefix20210413\Symfony\Component\Uid\AbstractUid
         if (\PHP_INT_SIZE >= 8) {
             $time = \base_convert($time, 10, 32);
         } else {
-            $time = \str_pad(\bin2hex(\RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::fromBase($time, \RectorPrefix20210413\Symfony\Component\Uid\BinaryUtil::BASE10)), 12, '0', \STR_PAD_LEFT);
+            $time = \str_pad(\bin2hex(\RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::fromBase($time, \RectorPrefix20210414\Symfony\Component\Uid\BinaryUtil::BASE10)), 12, '0', \STR_PAD_LEFT);
             $time = \sprintf('%s%04s%04s', \base_convert(\substr($time, 0, 2), 16, 32), \base_convert(\substr($time, 2, 5), 16, 32), \base_convert(\substr($time, 7, 5), 16, 32));
         }
         return \strtr(\sprintf('%010s%04s%04s%04s%04s', $time, \base_convert(self::$rand[0], 10, 32), \base_convert(self::$rand[1], 10, 32), \base_convert(self::$rand[2], 10, 32), \base_convert(self::$rand[3], 10, 32)), 'abcdefghijklmnopqrstuv', 'ABCDEFGHJKMNPQRSTVWXYZ');
