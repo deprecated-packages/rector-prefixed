@@ -18,7 +18,10 @@ if (!\function_exists('normalizer_is_normalized')) {
     }
 }
 if (!\function_exists('normalizer_normalize')) {
-    function normalizer_normalize(?string $string, ?int $form = \RectorPrefix20210414\Symfony\Polyfill\Intl\Normalizer\Normalizer::FORM_C) : string|false
+    /**
+     * @return string|bool
+     */
+    function normalizer_normalize(?string $string, ?int $form = \RectorPrefix20210414\Symfony\Polyfill\Intl\Normalizer\Normalizer::FORM_C)
     {
         return \RectorPrefix20210414\Symfony\Polyfill\Intl\Normalizer\Normalizer::normalize((string) $string, (int) $form);
     }

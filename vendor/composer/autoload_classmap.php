@@ -3031,8 +3031,6 @@ return array(
     'Rector\\Visibility\\ValueObject\\ChangeConstantVisibility' => $baseDir . '/rules/Visibility/ValueObject/ChangeConstantVisibility.php',
     'Rector\\Visibility\\ValueObject\\ChangeMethodVisibility' => $baseDir . '/rules/Visibility/ValueObject/ChangeMethodVisibility.php',
     'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-    'Symfony\\Polyfill\\Php72\\Php72' => $vendorDir . '/symfony/polyfill-php72/Php72.php',
-    'Symfony\\Polyfill\\Php74\\Php74' => $vendorDir . '/symfony/polyfill-php74/Php74.php',
     'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => $vendorDir . '/symplify/rule-doc-generator-contracts/src/Contract/Category/CategoryInfererInterface.php',
     'Symplify\\RuleDocGenerator\\Contract\\CodeSampleInterface' => $vendorDir . '/symplify/rule-doc-generator-contracts/src/Contract/CodeSampleInterface.php',
     'Symplify\\RuleDocGenerator\\Contract\\ConfigurableRuleInterface' => $vendorDir . '/symplify/rule-doc-generator-contracts/src/Contract/ConfigurableRuleInterface.php',

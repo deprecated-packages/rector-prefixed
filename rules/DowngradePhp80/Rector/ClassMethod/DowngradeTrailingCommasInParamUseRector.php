@@ -125,7 +125,8 @@ CODE_SAMPLE
      */
     private function cleanTrailingComma(\PhpParser\Node $node, array $array) : \PhpParser\Node
     {
-        $lastPosition = \array_key_last($array);
+        \end($array);
+        $lastPosition = \key($array);
         $last = $array[$lastPosition];
         if (!$this->followedByCommaAnalyzer->isFollowed($this->file, $last)) {
             return $node;

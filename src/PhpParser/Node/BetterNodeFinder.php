@@ -166,7 +166,8 @@ final class BetterNodeFinder
         if ($foundInstances === []) {
             return null;
         }
-        $lastItemKey = \array_key_last($foundInstances);
+        \end($foundInstances);
+        $lastItemKey = \key($foundInstances);
         return $foundInstances[$lastItemKey];
     }
     /**

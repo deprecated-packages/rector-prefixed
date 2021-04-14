@@ -185,7 +185,8 @@ CODE_SAMPLE
         if ($parent->stmts === []) {
             return [];
         }
-        $firstItemPosition = \array_key_last($parent->stmts);
+        \end($parent->stmts);
+        $firstItemPosition = \key($parent->stmts);
         if ($parent->stmts[$firstItemPosition] !== $return) {
             return [];
         }

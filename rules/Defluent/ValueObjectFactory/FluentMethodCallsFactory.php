@@ -40,7 +40,8 @@ final class FluentMethodCallsFactory
      */
     private function resolveRootMethodCall(array $chainMethodCalls) : \PhpParser\Node\Expr\MethodCall
     {
-        $lastKey = \array_key_last($chainMethodCalls);
+        \end($chainMethodCalls);
+        $lastKey = \key($chainMethodCalls);
         return $chainMethodCalls[$lastKey];
     }
 }

@@ -8,8 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symplify\\SymfonyPhpConfig\\' => array($vendorDir . '/symplify/symfony-php-config/src'),
     'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),
-    'Symfony\\Polyfill\\Php74\\' => array($vendorDir . '/symfony/polyfill-php74'),
-    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Rector\\Symfony\\' => array($vendorDir . '/rector/rector-symfony/src'),
     'Rector\\PHPUnit\\' => array($vendorDir . '/rector/rector-phpunit/src'),
     'Rector\\Nette\\' => array($vendorDir . '/rector/rector-nette/src'),

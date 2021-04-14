@@ -164,7 +164,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     protected function printValuesContent(array $values) : string
     {
         $itemContents = '';
-        $lastItemKey = \array_key_last($values);
+        \end($values);
+        $lastItemKey = \key($values);
         foreach ($values as $key => $value) {
             if (\is_int($key)) {
                 $itemContents .= $this->stringifyValue($value);

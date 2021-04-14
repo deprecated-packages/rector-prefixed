@@ -94,7 +94,8 @@ CODE_SAMPLE
         if ($spreadParams === []) {
             return null;
         }
-        $firstSpreadParamPosition = \array_key_first($spreadParams);
+        \reset($spreadParams);
+        $firstSpreadParamPosition = \key($spreadParams);
         $variadicArgs = $this->resolveVariadicArgsByVariadicParams($methodCall, $firstSpreadParamPosition);
         $hasUnpacked = \false;
         foreach ($variadicArgs as $position => $variadicArg) {
