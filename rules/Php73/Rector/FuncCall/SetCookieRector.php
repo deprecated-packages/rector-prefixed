@@ -37,10 +37,10 @@ CODE_SAMPLE
 setcookie('name', $value, ['expires' => 360]);
 CODE_SAMPLE
 ), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-            setcookie('name', $name, 0, '', '', true, true);
+setcookie('name', $name, 0, '', '', true, true);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            setcookie('name', $name, ['expires' => 0, 'path' => '', 'domain' => '', 'secure' => true, 'httponly' => true]);
+setcookie('name', $name, ['expires' => 0, 'path' => '', 'domain' => '', 'secure' => true, 'httponly' => true]);
 CODE_SAMPLE
 )]);
     }

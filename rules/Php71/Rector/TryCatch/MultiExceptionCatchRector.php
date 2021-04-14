@@ -21,7 +21,7 @@ final class MultiExceptionCatchRector extends \Rector\Core\Rector\AbstractRector
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes multi catch of same exception to single one | separated.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-            try {
+try {
     // Some code...
 } catch (ExceptionType1 $exception) {
     $sameCode;
@@ -30,7 +30,7 @@ final class MultiExceptionCatchRector extends \Rector\Core\Rector\AbstractRector
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            try {
+try {
    // Some code...
 } catch (ExceptionType1 | ExceptionType2 $exception) {
    $sameCode;

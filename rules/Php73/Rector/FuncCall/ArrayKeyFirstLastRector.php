@@ -53,11 +53,11 @@ CODE_SAMPLE
 $firstKey = array_key_first($items);
 CODE_SAMPLE
 ), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-            end($items);
+end($items);
 $lastKey = key($items);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            $lastKey = array_key_last($items);
+$lastKey = array_key_last($items);
 CODE_SAMPLE
 )]);
     }

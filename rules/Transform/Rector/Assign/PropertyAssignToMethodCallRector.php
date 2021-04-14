@@ -29,11 +29,11 @@ final class PropertyAssignToMethodCallRector extends \Rector\Core\Rector\Abstrac
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns property assign of specific type and property name to method call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            $someObject = new SomeClass;
+$someObject = new SomeClass;
 $someObject->oldProperty = false;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            $someObject = new SomeClass;
+$someObject = new SomeClass;
 $someObject->newMethodCall(false);
 CODE_SAMPLE
 , [self::PROPERTY_ASSIGNS_TO_METHODS_CALLS => [new \Rector\Transform\ValueObject\PropertyAssignToMethodCall('SomeClass', 'oldProperty', 'newMethodCall')]])]);

@@ -29,12 +29,12 @@ final class ToStringToMethodCallRector extends \Rector\Core\Rector\AbstractRecto
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined code uses of "__toString()" method  to specific method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            $someValue = new SomeObject;
+$someValue = new SomeObject;
 $result = (string) $someValue;
 $result = $someValue->__toString();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            $someValue = new SomeObject;
+$someValue = new SomeObject;
 $result = $someValue->getPath();
 $result = $someValue->getPath();
 CODE_SAMPLE

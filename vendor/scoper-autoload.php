@@ -27,8 +27,8 @@ if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('Checkout
 if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
     spl_autoload_call('RectorPrefix20210414\Composer\InstalledVersions');
 }
-if (!class_exists('ComposerAutoloaderInit37494754d84ff3bf23231bbfc24b41a5', false) && !interface_exists('ComposerAutoloaderInit37494754d84ff3bf23231bbfc24b41a5', false) && !trait_exists('ComposerAutoloaderInit37494754d84ff3bf23231bbfc24b41a5', false)) {
-    spl_autoload_call('RectorPrefix20210414\ComposerAutoloaderInit37494754d84ff3bf23231bbfc24b41a5');
+if (!class_exists('ComposerAutoloaderInitc05e0e82721d0ff39dd84dbd43db68f7', false) && !interface_exists('ComposerAutoloaderInitc05e0e82721d0ff39dd84dbd43db68f7', false) && !trait_exists('ComposerAutoloaderInitc05e0e82721d0ff39dd84dbd43db68f7', false)) {
+    spl_autoload_call('RectorPrefix20210414\ComposerAutoloaderInitc05e0e82721d0ff39dd84dbd43db68f7');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210414\Doctrine\Inflector\Inflector');
@@ -63,9 +63,9 @@ if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire37494754d84ff3bf23231bbfc24b41a5')) {
-    function composerRequire37494754d84ff3bf23231bbfc24b41a5() {
-        return \RectorPrefix20210414\composerRequire37494754d84ff3bf23231bbfc24b41a5(...func_get_args());
+if (!function_exists('composerRequirec05e0e82721d0ff39dd84dbd43db68f7')) {
+    function composerRequirec05e0e82721d0ff39dd84dbd43db68f7() {
+        return \RectorPrefix20210414\composerRequirec05e0e82721d0ff39dd84dbd43db68f7(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

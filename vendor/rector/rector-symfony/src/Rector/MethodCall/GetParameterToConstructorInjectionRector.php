@@ -37,7 +37,7 @@ final class GetParameterToConstructorInjectionRector extends \Rector\Core\Rector
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of parameters via `getParameter()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-            class MyCommand extends ContainerAwareCommand
+class MyCommand extends ContainerAwareCommand
 {
     public function someMethod()
     {
@@ -46,7 +46,7 @@ final class GetParameterToConstructorInjectionRector extends \Rector\Core\Rector
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            class MyCommand extends Command
+class MyCommand extends Command
 {
     private $someParameter;
 

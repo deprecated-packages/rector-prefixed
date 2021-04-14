@@ -56,12 +56,12 @@ final class PseudoNamespaceToNamespaceRector extends \Rector\Core\Rector\Abstrac
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined Pseudo_Namespaces by Namespace\\Ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            /** @var Some_Chicken $someService */
+/** @var Some_Chicken $someService */
 $someService = new Some_Chicken;
 $someClassToKeep = new Some_Class_To_Keep;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            /** @var Some\Chicken $someService */
+/** @var Some\Chicken $someService */
 $someService = new Some\Chicken;
 $someClassToKeep = new Some_Class_To_Keep;
 CODE_SAMPLE

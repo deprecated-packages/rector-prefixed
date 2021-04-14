@@ -88,7 +88,7 @@ class SomeClass
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-        class SomeClass
+class SomeClass
 {
     /**
      * @var \Illuminate\Contracts\Foundation\Application

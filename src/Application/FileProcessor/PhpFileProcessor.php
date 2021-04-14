@@ -108,7 +108,6 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         $this->prepareProgressBar($fileCount);
         // 1. parse files to nodes
         foreach ($files as $file) {
-            $this->currentFileProvider->setFile($file);
             $this->tryCatchWrapper($file, function (\Rector\Core\ValueObject\Application\File $file) : void {
                 $this->fileProcessor->parseFileInfoToLocalCache($file);
             }, 'parsing');
@@ -117,7 +116,6 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         $this->refactorNodesWithRectors($files);
         // 3. apply post rectors
         foreach ($files as $file) {
-            $this->currentFileProvider->setFile($file);
             $this->tryCatchWrapper($file, function (\Rector\Core\ValueObject\Application\File $file) : void {
                 $newStmts = $this->postFileProcessor->traverse($file->getNewStmts());
                 // this is needed for new tokens added in "afterTraverse()"
@@ -170,6 +168,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
     private function refactorNodesWithRectors(array $files) : void
     {
         foreach ($files as $file) {
+            $this->currentFileProvider->setFile($file);
             $this->tryCatchWrapper($file, function (\Rector\Core\ValueObject\Application\File $file) : void {
                 $this->fileProcessor->refactor($file);
             }, 'refactoring');
@@ -177,6 +176,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
     }
     private function tryCatchWrapper(\Rector\Core\ValueObject\Application\File $file, callable $callback, string $phase) : void
     {
+        $this->currentFileProvider->setFile($file);
         $this->advance($file, $phase);
         try {
             if (\in_array($file, $this->notParsedFiles, \true)) {

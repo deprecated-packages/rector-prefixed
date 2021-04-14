@@ -37,11 +37,11 @@ final class OptionNameRector extends \Rector\Core\Rector\AbstractRector
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old option names to new ones in FormTypes in Form in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-            $builder = new FormBuilder;
+$builder = new FormBuilder;
 $builder->add("...", ["precision" => "...", "virtual" => "..."];
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            $builder = new FormBuilder;
+$builder = new FormBuilder;
 $builder->add("...", ["scale" => "...", "inherit_data" => "..."];
 CODE_SAMPLE
 )]);

@@ -24,7 +24,7 @@ try {
  }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            try {
+try {
     // Some code...
 } catch (ExceptionType1 $exception) {
     $sameCode;

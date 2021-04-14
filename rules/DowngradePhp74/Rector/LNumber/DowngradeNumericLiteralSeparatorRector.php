@@ -31,7 +31,7 @@ class SomeClass
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            class SomeClass
+class SomeClass
 {
     public function run()
     {

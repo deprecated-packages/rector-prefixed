@@ -30,7 +30,7 @@ final class UnsetAndIssetToMethodCallRector extends \Rector\Core\Rector\Abstract
     {
         $unsetAndIssetToMethodCall = new \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall('SomeContainer', 'hasService', 'removeService');
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined `__isset`/`__unset` calls to specific method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            $container = new SomeContainer;
+$container = new SomeContainer;
 isset($container["someKey"]);
 unset($container["someKey"]);
 CODE_SAMPLE

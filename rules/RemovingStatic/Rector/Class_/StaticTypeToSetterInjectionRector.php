@@ -53,7 +53,8 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
     {
         // custom made only for Elasticr
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes types to setter injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            <?php 
+<?php
+
 namespace RectorPrefix20210414;
 
 final class CheckoutEntityFactory
@@ -66,7 +67,8 @@ final class CheckoutEntityFactory
 \class_alias('CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            <?php 
+<?php
+
 namespace RectorPrefix20210414;
 
 final class CheckoutEntityFactory

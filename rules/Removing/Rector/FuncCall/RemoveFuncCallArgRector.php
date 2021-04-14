@@ -28,10 +28,10 @@ final class RemoveFuncCallArgRector extends \Rector\Core\Rector\AbstractRector i
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument by position by function name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-            remove_last_arg(1, 2);
+remove_last_arg(1, 2);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-            remove_last_arg(1);
+remove_last_arg(1);
 CODE_SAMPLE
 , [self::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Removing\ValueObject\RemoveFuncCallArg('remove_last_arg', 1)]])]);
     }
