@@ -91,6 +91,10 @@ CODE_SAMPLE
         if (\is_string($variable->name) && $this->reservedKeywordAnalyzer->isNativeVariable($variable->name)) {
             return null;
         }
+        if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall || $node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+            // keep the expr, can have side effect
+            return $node->expr;
+        }
         $this->removeNode($node);
         return $node;
     }
