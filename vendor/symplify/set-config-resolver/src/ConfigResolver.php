@@ -1,9 +1,8 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\SetConfigResolver;
 
-namespace Symplify\SetConfigResolver;
-
-final class ConfigResolver extends AbstractConfigResolver
+final class ConfigResolver extends \RectorPrefix20210414\Symplify\SetConfigResolver\AbstractConfigResolver
 {
 }

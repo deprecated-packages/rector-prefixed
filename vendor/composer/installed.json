@@ -3703,7 +3703,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\Astral\\": "src"
+                    "RectorPrefix20210414\\Symplify\\Astral\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3760,7 +3760,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\AutowireArrayParameter\\": "src"
+                    "RectorPrefix20210414\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3821,7 +3821,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ComposerJsonManipulator\\": "src"
+                    "RectorPrefix20210414\\Symplify\\ComposerJsonManipulator\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3881,7 +3881,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ConsoleColorDiff\\": "src"
+                    "RectorPrefix20210414\\Symplify\\ConsoleColorDiff\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3940,7 +3940,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ConsolePackageBuilder\\": "src"
+                    "RectorPrefix20210414\\Symplify\\ConsolePackageBuilder\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3996,7 +3996,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\EasyTesting\\": "src"
+                    "RectorPrefix20210414\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4059,7 +4059,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\PackageBuilder\\": "src"
+                    "RectorPrefix20210414\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4173,7 +4173,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SetConfigResolver\\": "src"
+                    "RectorPrefix20210414\\Symplify\\SetConfigResolver\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4233,7 +4233,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SimplePhpDocParser\\": "src"
+                    "RectorPrefix20210414\\Symplify\\SimplePhpDocParser\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4295,7 +4295,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\Skipper\\": "src"
+                    "RectorPrefix20210414\\Symplify\\Skipper\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4353,7 +4353,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SmartFileSystem\\": "src"
+                    "RectorPrefix20210414\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4464,7 +4464,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SymplifyKernel\\": "src"
+                    "RectorPrefix20210414\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

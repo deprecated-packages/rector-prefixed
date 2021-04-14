@@ -1,42 +1,37 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
 
 use Iterator;
-use PHPUnit\Framework\TestCase;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use Symplify\SmartFileSystem\Finder\SmartFinder;
-
-final class SmartFinderTest extends TestCase
+use RectorPrefix20210414\PHPUnit\Framework\TestCase;
+use RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210414\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210414\Symplify\SmartFileSystem\Finder\SmartFinder;
+final class SmartFinderTest extends \RectorPrefix20210414\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFinder
      */
     private $smartFinder;
-
-    protected function setUp(): void
+    protected function setUp() : void
     {
-        $this->smartFinder = new SmartFinder(new FinderSanitizer(), new FileSystemFilter());
+        $this->smartFinder = new \RectorPrefix20210414\Symplify\SmartFileSystem\Finder\SmartFinder(new \RectorPrefix20210414\Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemFilter());
     }
-
     /**
      * @param string[] $paths
      * @dataProvider provideData()
      */
-    public function test(array $paths, string $suffix, int $expectedCount): void
+    public function test(array $paths, string $suffix, int $expectedCount) : void
     {
         $fileInfos = $this->smartFinder->find($paths, $suffix);
         $this->assertCount($expectedCount, $fileInfos);
     }
-
-    public function provideData(): Iterator
+    public function provideData() : \Iterator
     {
-        yield [[__DIR__ . '/Fixture'], '*.twig', 2];
-        yield [[__DIR__ . '/Fixture'], '*.txt', 1];
-        yield [[__DIR__ . '/Fixture/some_file.twig'], '*.txt', 1];
-        yield [[__DIR__ . '/Fixture/some_file.twig', __DIR__ . '/Fixture/nested_path'], '*.txt', 2];
+        (yield [[__DIR__ . '/Fixture'], '*.twig', 2]);
+        (yield [[__DIR__ . '/Fixture'], '*.txt', 1]);
+        (yield [[__DIR__ . '/Fixture/some_file.twig'], '*.txt', 1]);
+        (yield [[__DIR__ . '/Fixture/some_file.twig', __DIR__ . '/Fixture/nested_path'], '*.txt', 2]);
     }
 }

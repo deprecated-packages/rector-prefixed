@@ -1,34 +1,26 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\EasyTesting\Tests\StaticFixtureSplitter;
 
-namespace Symplify\EasyTesting\Tests\StaticFixtureSplitter;
-
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
-final class StaticFixtureSplitterTest extends TestCase
+use RectorPrefix20210414\PHPUnit\Framework\TestCase;
+use RectorPrefix20210414\Symplify\EasyTesting\StaticFixtureSplitter;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
+final class StaticFixtureSplitterTest extends \RectorPrefix20210414\PHPUnit\Framework\TestCase
 {
-    public function test(): void
+    public function test() : void
     {
-        $fileInfo = new SmartFileInfo(__DIR__ . '/Source/simple_fixture.php.inc');
-
-        $inputAndExpected = StaticFixtureSplitter::splitFileInfoToInputAndExpected($fileInfo);
-
-        $this->assertSame('a' . PHP_EOL, $inputAndExpected->getInput());
-        $this->assertSame('b' . PHP_EOL, $inputAndExpected->getExpected());
+        $fileInfo = new \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/simple_fixture.php.inc');
+        $inputAndExpected = \RectorPrefix20210414\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToInputAndExpected($fileInfo);
+        $this->assertSame('a' . \PHP_EOL, $inputAndExpected->getInput());
+        $this->assertSame('b' . \PHP_EOL, $inputAndExpected->getExpected());
     }
-
-    public function testSplitFileInfoToLocalInputAndExpected(): void
+    public function testSplitFileInfoToLocalInputAndExpected() : void
     {
-        $fileInfo = new SmartFileInfo(__DIR__ . '/Source/file_and_value.php.inc');
-
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fileInfo);
-
+        $fileInfo = new \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file_and_value.php.inc');
+        $inputFileInfoAndExpected = \RectorPrefix20210414\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fileInfo);
         $inputFileRealPath = $inputFileInfoAndExpected->getInputFileRealPath();
         $this->assertFileExists($inputFileRealPath);
-
         $this->assertSame(15025, $inputFileInfoAndExpected->getExpected());
     }
 }

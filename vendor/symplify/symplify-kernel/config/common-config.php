@@ -1,55 +1,43 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use Symplify\ComposerJsonManipulator\Json\JsonCleaner;
-use Symplify\ComposerJsonManipulator\Json\JsonInliner;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use Symplify\SmartFileSystem\Finder\SmartFinder;
-use Symplify\SmartFileSystem\SmartFileSystem;
-use Symplify\SymplifyKernel\Console\ConsoleApplicationFactory;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+use RectorPrefix20210414\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210414\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210414\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use RectorPrefix20210414\Symplify\ComposerJsonManipulator\Json\JsonCleaner;
+use RectorPrefix20210414\Symplify\ComposerJsonManipulator\Json\JsonInliner;
+use RectorPrefix20210414\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use RectorPrefix20210414\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210414\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210414\Symplify\SmartFileSystem\Finder\SmartFinder;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210414\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory;
+use function RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+return static function (\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->public()
-        ->autowire()
-        ->autoconfigure();
-
+    $services->defaults()->public()->autowire()->autoconfigure();
     // symfony style
-    $services->set(SymfonyStyleFactory::class);
-    $services->set(SymfonyStyle::class)
-        ->factory([service(SymfonyStyleFactory::class), 'create']);
-
+    $services->set(\RectorPrefix20210414\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\RectorPrefix20210414\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210414\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     // filesystem
-    $services->set(FinderSanitizer::class);
-    $services->set(SmartFileSystem::class);
-    $services->set(SmartFinder::class);
-    $services->set(FileSystemGuard::class);
-    $services->set(FileSystemFilter::class);
-
-    $services->set(ParameterProvider::class)
-        ->args([service(ContainerInterface::class)]);
-
-    $services->set(PrivatesAccessor::class);
-
-    $services->set(ConsoleApplicationFactory::class);
-
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\Finder\SmartFinder::class);
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemGuard::class);
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\RectorPrefix20210414\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
+    $services->set(\RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->set(\RectorPrefix20210414\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory::class);
     // composer json factory
-    $services->set(ComposerJsonFactory::class);
-    $services->set(JsonFileManager::class);
-    $services->set(JsonCleaner::class);
-    $services->set(JsonInliner::class);
+    $services->set(\RectorPrefix20210414\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
+    $services->set(\RectorPrefix20210414\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
+    $services->set(\RectorPrefix20210414\Symplify\ComposerJsonManipulator\Json\JsonCleaner::class);
+    $services->set(\RectorPrefix20210414\Symplify\ComposerJsonManipulator\Json\JsonInliner::class);
 };

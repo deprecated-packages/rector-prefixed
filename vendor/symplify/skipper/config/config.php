@@ -1,28 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414;
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use Symplify\Skipper\ValueObject\Option;
-use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210414\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210414\Symplify\Skipper\ValueObject\Option;
+use RectorPrefix20210414\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+return static function (\RectorPrefix20210414\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SKIP, []);
-    $parameters->set(Option::ONLY, []);
-
+    $parameters->set(\RectorPrefix20210414\Symplify\Skipper\ValueObject\Option::SKIP, []);
+    $parameters->set(\RectorPrefix20210414\Symplify\Skipper\ValueObject\Option::ONLY, []);
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->public()
-        ->autowire()
-        ->autoconfigure();
-
-    $services->load('Symplify\Skipper\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
-
-    $services->set(ClassLikeExistenceChecker::class);
-
-    $services->set(PathNormalizer::class);
+    $services->defaults()->public()->autowire()->autoconfigure();
+    $services->load('RectorPrefix20210414\Symplify\\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
+    $services->set(\RectorPrefix20210414\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
+    $services->set(\RectorPrefix20210414\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
 };

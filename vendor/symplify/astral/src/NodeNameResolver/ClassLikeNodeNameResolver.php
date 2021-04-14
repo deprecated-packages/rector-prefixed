@@ -1,33 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\Astral\NodeNameResolver;
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\Astral\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
-use Symplify\Astral\Contract\NodeNameResolverInterface;
-
-final class ClassLikeNodeNameResolver implements NodeNameResolverInterface
+use RectorPrefix20210414\Symplify\Astral\Contract\NodeNameResolverInterface;
+final class ClassLikeNodeNameResolver implements \RectorPrefix20210414\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    public function match(Node $node): bool
+    public function match(\PhpParser\Node $node) : bool
     {
-        return $node instanceof ClassLike;
+        return $node instanceof \PhpParser\Node\Stmt\ClassLike;
     }
-
     /**
      * @param ClassLike $node
      */
-    public function resolve(Node $node): ?string
+    public function resolve(\PhpParser\Node $node) : ?string
     {
-        if (property_exists($node, 'namespacedName')) {
+        if (\property_exists($node, 'namespacedName')) {
             return (string) $node->namespacedName;
         }
-
         if ($node->name === null) {
             return null;
         }
-
         return (string) $node->name;
     }
 }

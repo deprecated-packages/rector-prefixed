@@ -1,40 +1,33 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\SetConfigResolver\ValueObject;
 
-namespace Symplify\SetConfigResolver\ValueObject;
-
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
 final class Set
 {
     /**
      * @var string
      */
     private $name;
-
     /**
      * @var SmartFileInfo
      */
     private $setFileInfo;
-
-    public function __construct(string $name, SmartFileInfo $setFileInfo)
+    public function __construct(string $name, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
         $this->name = $name;
         $this->setFileInfo = $setFileInfo;
     }
-
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
-
-    public function getSetFileInfo(): SmartFileInfo
+    public function getSetFileInfo() : \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->setFileInfo;
     }
-
-    public function getSetPathname(): string
+    public function getSetPathname() : string
     {
         return $this->setFileInfo->getPathname();
     }

@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\PackageBuilder\DependencyInjection;
 
-namespace Symplify\PackageBuilder\DependencyInjection;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-use Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20210414\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
 use Throwable;
-
 /**
  * @see \Symplify\PackageBuilder\Tests\DependencyInjection\DefinitionFinderTest
  */
@@ -17,57 +15,49 @@ final class DefinitionFinder
     /**
      * @return Definition[]
      */
-    public function findAllByType(ContainerBuilder $containerBuilder, string $type): array
+    public function findAllByType(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : array
     {
         $definitions = [];
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
             $class = $definition->getClass() ?: $name;
-            if (! $this->doesClassExists($class)) {
+            if (!$this->doesClassExists($class)) {
                 continue;
             }
-
-            if (is_a($class, $type, true)) {
+            if (\is_a($class, $type, \true)) {
                 $definitions[$name] = $definition;
             }
         }
-
         return $definitions;
     }
-
-    public function getByType(ContainerBuilder $containerBuilder, string $type): Definition
+    public function getByType(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : \RectorPrefix20210414\Symfony\Component\DependencyInjection\Definition
     {
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
         if ($definition !== null) {
             return $definition;
         }
-
-        throw new DefinitionForTypeNotFoundException(sprintf('Definition for type "%s" was not found.', $type));
+        throw new \RectorPrefix20210414\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException(\sprintf('Definition for type "%s" was not found.', $type));
     }
-
-    private function getByTypeIfExists(ContainerBuilder $containerBuilder, string $type): ?Definition
+    private function getByTypeIfExists(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : ?\RectorPrefix20210414\Symfony\Component\DependencyInjection\Definition
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
             $class = $definition->getClass() ?: $name;
-            if (! $this->doesClassExists($class)) {
+            if (!$this->doesClassExists($class)) {
                 continue;
             }
-
-            if (is_a($class, $type, true)) {
+            if (\is_a($class, $type, \true)) {
                 return $definition;
             }
         }
-
         return null;
     }
-
-    private function doesClassExists(string $class): bool
+    private function doesClassExists(string $class) : bool
     {
         try {
-            return class_exists($class);
-        } catch (Throwable $throwable) {
-            return false;
+            return \class_exists($class);
+        } catch (\Throwable $throwable) {
+            return \false;
         }
     }
 }

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\ConsoleColorDiff\Diff\Output;
 
-namespace Symplify\ConsoleColorDiff\Diff\Output;
-
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-
+use RectorPrefix20210414\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
  */
@@ -16,18 +14,16 @@ final class CompleteUnifiedDiffOutputBuilderFactory
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-
-    public function __construct(PrivatesAccessor $privatesAccessor)
+    public function __construct(\RectorPrefix20210414\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->privatesAccessor = $privatesAccessor;
     }
-
     /**
      * @api
      */
-    public function create(): UnifiedDiffOutputBuilder
+    public function create() : \RectorPrefix20210414\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
     {
-        $unifiedDiffOutputBuilder = new UnifiedDiffOutputBuilder('');
+        $unifiedDiffOutputBuilder = new \RectorPrefix20210414\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
         $this->privatesAccessor->setPrivateProperty($unifiedDiffOutputBuilder, 'contextLines', 10000);
         return $unifiedDiffOutputBuilder;
     }

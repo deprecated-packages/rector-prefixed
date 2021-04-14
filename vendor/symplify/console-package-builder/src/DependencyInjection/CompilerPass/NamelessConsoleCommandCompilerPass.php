@@ -1,32 +1,28 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
 
-namespace Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass;
-
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\PackageBuilder\Console\Command\CommandNaming;
-
+use RectorPrefix20210414\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210414\Symplify\PackageBuilder\Console\Command\CommandNaming;
 /**
  * @see \Symplify\ConsolePackageBuilder\Tests\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPassTest
  */
-final class NamelessConsoleCommandCompilerPass implements CompilerPassInterface
+final class NamelessConsoleCommandCompilerPass implements \RectorPrefix20210414\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(ContainerBuilder $containerBuilder): void
+    public function process(\RectorPrefix20210414\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $definitionClass = $definition->getClass();
             if ($definitionClass === null) {
                 continue;
             }
-
-            if (! is_a($definitionClass, Command::class, true)) {
+            if (!\is_a($definitionClass, \RectorPrefix20210414\Symfony\Component\Console\Command\Command::class, \true)) {
                 continue;
             }
-
-            $commandName = CommandNaming::classToName($definitionClass);
+            $commandName = \RectorPrefix20210414\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName($definitionClass);
             $definition->addMethodCall('setName', [$commandName]);
         }
     }

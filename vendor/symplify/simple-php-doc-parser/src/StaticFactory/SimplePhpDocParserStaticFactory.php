@@ -1,20 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\SimplePhpDocParser\StaticFactory;
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\SimplePhpDocParser\StaticFactory;
 
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TypeParser;
-use Symplify\SimplePhpDocParser\SimplePhpDocParser;
-
+use RectorPrefix20210414\Symplify\SimplePhpDocParser\SimplePhpDocParser;
 final class SimplePhpDocParserStaticFactory
 {
-    public static function create(): SimplePhpDocParser
+    public static function create() : \RectorPrefix20210414\Symplify\SimplePhpDocParser\SimplePhpDocParser
     {
-        $phpDocParser = new PhpDocParser(new TypeParser(), new ConstExprParser());
-        return new SimplePhpDocParser($phpDocParser, new Lexer());
+        $phpDocParser = new \PHPStan\PhpDocParser\Parser\PhpDocParser(new \PHPStan\PhpDocParser\Parser\TypeParser(), new \PHPStan\PhpDocParser\Parser\ConstExprParser());
+        return new \RectorPrefix20210414\Symplify\SimplePhpDocParser\SimplePhpDocParser($phpDocParser, new \PHPStan\PhpDocParser\Lexer\Lexer());
     }
 }

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\Skipper\Skipper;
 
-namespace Symplify\Skipper\Skipper;
-
-use Symplify\Skipper\Contract\SkipVoterInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use RectorPrefix20210414\Symplify\Skipper\Contract\SkipVoterInterface;
+use RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Skipper\SkipperTest
  */
@@ -16,12 +14,10 @@ final class Skipper
      * @var string
      */
     private const FILE_ELEMENT = 'file_elements';
-
     /**
      * @var SkipVoterInterface[]
      */
     private $skipVoters = [];
-
     /**
      * @param SkipVoterInterface[] $skipVoters
      */
@@ -29,32 +25,28 @@ final class Skipper
     {
         $this->skipVoters = $skipVoters;
     }
-
     /**
      * @param string|object $element
      */
-    public function shouldSkipElement($element): bool
+    public function shouldSkipElement($element) : bool
     {
-        $fileInfo = new SmartFileInfo(__FILE__);
+        $fileInfo = new \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
     }
-
-    public function shouldSkipFileInfo(SmartFileInfo $smartFileInfo): bool
+    public function shouldSkipFileInfo(\RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
-
     /**
      * @param string|object $element
      */
-    public function shouldSkipElementAndFileInfo($element, SmartFileInfo $smartFileInfo): bool
+    public function shouldSkipElementAndFileInfo($element, \RectorPrefix20210414\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->skipVoters as $skipVoter) {
             if ($skipVoter->match($element)) {
                 return $skipVoter->shouldSkip($element, $smartFileInfo);
             }
         }
-
-        return false;
+        return \false;
     }
 }

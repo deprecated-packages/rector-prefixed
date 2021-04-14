@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210414\Symplify\SymplifyKernel\Console;
 
-namespace Symplify\SymplifyKernel\Console;
-
-use Symfony\Component\Console\Command\Command;
-
+use RectorPrefix20210414\Symfony\Component\Console\Command\Command;
 /**
  * @see \Symplify\SymplifyKernel\Tests\Console\AbstractSymplifyConsoleApplication\AutowiredConsoleApplicationTest
  */
-final class AutowiredConsoleApplication extends AbstractSymplifyConsoleApplication
+final class AutowiredConsoleApplication extends \RectorPrefix20210414\Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication
 {
     /**
      * @param Command[] $commands
