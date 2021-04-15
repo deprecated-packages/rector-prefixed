@@ -34,7 +34,6 @@ use Rector\DeadCode\Rector\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector;
 use Rector\DeadCode\Rector\If_\SimplifyIfElseWithSameContentRector;
 use Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
 use Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector;
-use Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector;
 use Rector\DeadCode\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector;
@@ -69,7 +68,6 @@ return static function (\RectorPrefix20210415\Symfony\Component\DependencyInject
     $services->set(\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector::class);
     $services->set(\Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector::class);
     $services->set(\Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector::class);
-    $services->set(\Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector::class);
     $services->set(\Rector\DeadCode\Rector\Concat\RemoveConcatAutocastRector::class);
     $services->set(\Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector::class);
     $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveDelegatingParentCallRector::class);

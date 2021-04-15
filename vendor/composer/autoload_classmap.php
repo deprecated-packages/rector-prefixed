@@ -1850,7 +1850,6 @@ return array(
     'Rector\\DeadCode\\Rector\\If_\\SimplifyIfElseWithSameContentRector' => $baseDir . '/rules/DeadCode/Rector/If_/SimplifyIfElseWithSameContentRector.php',
     'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfFunctionExistsRector' => $baseDir . '/rules/DeadCode/Rector/If_/UnwrapFutureCompatibleIfFunctionExistsRector.php',
     'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfPhpVersionRector' => $baseDir . '/rules/DeadCode/Rector/If_/UnwrapFutureCompatibleIfPhpVersionRector.php',
-    'Rector\\DeadCode\\Rector\\MethodCall\\RemoveDefaultArgumentValueRector' => $baseDir . '/rules/DeadCode/Rector/MethodCall/RemoveDefaultArgumentValueRector.php',
     'Rector\\DeadCode\\Rector\\MethodCall\\RemoveEmptyMethodCallRector' => $baseDir . '/rules/DeadCode/Rector/MethodCall/RemoveEmptyMethodCallRector.php',
     'Rector\\DeadCode\\Rector\\Node\\RemoveNonExistingVarAnnotationRector' => $baseDir . '/rules/DeadCode/Rector/Node/RemoveNonExistingVarAnnotationRector.php',
     'Rector\\DeadCode\\Rector\\Plus\\RemoveDeadZeroAndOneOperationRector' => $baseDir . '/rules/DeadCode/Rector/Plus/RemoveDeadZeroAndOneOperationRector.php',
