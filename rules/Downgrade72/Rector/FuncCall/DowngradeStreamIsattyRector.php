@@ -104,13 +104,13 @@ CODE_SAMPLE
         $if->stmts[] = new \PhpParser\Node\Stmt\Return_($ternary);
         return $if;
     }
-    private function createClosure($node) : \PhpParser\Node\Expr\Closure
+    private function createClosure(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\Closure
     {
-        $if = $this->createIf($node->args[0]->value);
+        $if = $this->createIf($funcCall->args[0]->value);
         $function = new \PhpParser\Node\Expr\Closure();
         $function->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('stream'));
         $function->stmts[] = $if;
-        $posixIsatty = $this->nodeFactory->createFuncCall('posix_isatty', [$node->args[0]->value]);
+        $posixIsatty = $this->nodeFactory->createFuncCall('posix_isatty', [$funcCall->args[0]->value]);
         $function->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\ErrorSuppress($posixIsatty));
         return $function;
     }
