@@ -1807,7 +1807,6 @@ return array(
     'Rector\\DeadCode\\NodeFinder\\NextVariableUsageNodeFinder' => $baseDir . '/rules/DeadCode/NodeFinder/NextVariableUsageNodeFinder.php',
     'Rector\\DeadCode\\NodeFinder\\PreviousVariableAssignNodeFinder' => $baseDir . '/rules/DeadCode/NodeFinder/PreviousVariableAssignNodeFinder.php',
     'Rector\\DeadCode\\NodeFinder\\VariableUseFinder' => $baseDir . '/rules/DeadCode/NodeFinder/VariableUseFinder.php',
-    'Rector\\DeadCode\\NodeManipulator\\CallDefaultParamValuesResolver' => $baseDir . '/rules/DeadCode/NodeManipulator/CallDefaultParamValuesResolver.php',
     'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => $baseDir . '/rules/DeadCode/NodeManipulator/ControllerClassMethodManipulator.php',
     'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => $baseDir . '/rules/DeadCode/NodeManipulator/CountManipulator.php',
     'Rector\\DeadCode\\NodeManipulator\\LivingCodeManipulator' => $baseDir . '/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php',
