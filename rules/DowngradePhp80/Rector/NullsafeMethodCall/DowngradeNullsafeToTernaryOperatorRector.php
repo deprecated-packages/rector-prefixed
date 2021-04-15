@@ -4,12 +4,15 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp80\Rector\NullsafeMethodCall;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\NullsafeMethodCall;
 use PhpParser\Node\Expr\NullsafePropertyFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Ternary;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Php70\NodeAnalyzer\VariableNaming;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,6 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DowngradeNullsafeToTernaryOperatorRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var VariableNaming
+     */
+    public $variableNaming;
+    public function __construct(\Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming)
+    {
+        $this->variableNaming = $variableNaming;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change nullsafe operator to ternary operator rector', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -24,8 +35,8 @@ $dateAsString = $booking->getStartDate()?->asDateTimeString();
 $dateAsString = $booking->startDate?->dateTimeString;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-$dateAsString = $booking->getStartDate() ? $booking->getStartDate()->asDateTimeString() : null;
-$dateAsString = $booking->startDate ? $booking->startDate->dateTimeString : null;
+$dateAsString = ($bookingGetStartDate = $booking->getStartDate()) ? $bookingGetStartDate->asDateTimeString() : null;
+$dateAsString = ($bookingGetStartDate = $booking->startDate) ? $bookingGetStartDate->dateTimeString : null;
 CODE_SAMPLE
 )]);
     }
@@ -41,7 +52,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $called = $node instanceof \PhpParser\Node\Expr\NullsafeMethodCall ? new \PhpParser\Node\Expr\MethodCall($node->var, $node->name, $node->args) : new \PhpParser\Node\Expr\PropertyFetch($node->var, $node->name);
-        return new \PhpParser\Node\Expr\Ternary($node->var, $called, $this->nodeFactory->createNull());
+        $tempVarName = $this->variableNaming->resolveFromNodeWithScopeCountAndFallbackName($node->var, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE), '_');
+        $tempVar = new \PhpParser\Node\Expr\Variable($tempVarName);
+        $called = $node instanceof \PhpParser\Node\Expr\NullsafeMethodCall ? new \PhpParser\Node\Expr\MethodCall($tempVar, $node->name, $node->args) : new \PhpParser\Node\Expr\PropertyFetch($tempVar, $node->name);
+        return new \PhpParser\Node\Expr\Ternary(new \PhpParser\Node\Expr\Assign($tempVar, $node->var), $called, $this->nodeFactory->createNull());
     }
 }
