@@ -1778,6 +1778,7 @@ return array(
     'Rector\\Core\\StaticReflection\\DynamicSourceLocatorDecorator' => $baseDir . '/src/StaticReflection/DynamicSourceLocatorDecorator.php',
     'Rector\\Core\\Stubs\\PHPStanStubLoader' => $baseDir . '/src/Stubs/PHPStanStubLoader.php',
     'Rector\\Core\\Util\\PhpVersionFactory' => $baseDir . '/src/Util/PhpVersionFactory.php',
+    'Rector\\Core\\Util\\StaticNodeInstanceOf' => $baseDir . '/src/Util/StaticNodeInstanceOf.php',
     'Rector\\Core\\Util\\StaticRectorStrings' => $baseDir . '/src/Util/StaticRectorStrings.php',
     'Rector\\Core\\ValueObjectFactory\\Application\\FileFactory' => $baseDir . '/src/ValueObjectFactory/Application/FileFactory.php',
     'Rector\\Core\\ValueObjectFactory\\ProcessResultFactory' => $baseDir . '/src/ValueObjectFactory/ProcessResultFactory.php',

@@ -17,6 +17,7 @@ use PhpParser\NodeTraverser;
 use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer;
@@ -171,12 +172,7 @@ CODE_SAMPLE
     }
     private function isScopeChangingNode(\PhpParser\Node $node) : bool
     {
-        foreach (self::SCOPE_CHANGING_NODE_TYPES as $type) {
-            if (\is_a($node, $type, \true)) {
-                return \true;
-            }
-        }
-        return \false;
+        return \Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node, self::SCOPE_CHANGING_NODE_TYPES);
     }
     private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName) : ?bool
     {
