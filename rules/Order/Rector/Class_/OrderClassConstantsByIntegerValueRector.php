@@ -112,9 +112,9 @@ CODE_SAMPLE
             $constantValue = $this->valueResolver->getValue($numericClassConst->consts[0]->value);
             $classConstConstsByValue[$position] = $constantValue;
         }
+        $arrayCountValue = \array_count_values($classConstConstsByValue);
         // work only with unique constants
         foreach ($classConstConstsByValue as $position => $constantValue) {
-            $arrayCountValue = \array_count_values($classConstConstsByValue);
             if ($arrayCountValue[$constantValue] > 1) {
                 unset($classConstConstsByValue[$position]);
             }
