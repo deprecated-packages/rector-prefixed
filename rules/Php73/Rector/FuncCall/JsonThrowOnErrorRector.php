@@ -28,7 +28,7 @@ json_decode($json);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 json_encode($content, JSON_THROW_ON_ERROR);
-json_decode($json, null, null, JSON_THROW_ON_ERROR);
+json_decode($json, null, 512, JSON_THROW_ON_ERROR);
 CODE_SAMPLE
 )]);
     }
@@ -47,6 +47,9 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::JSON_EXCEPTION)) {
             return null;
         }
+        if ($this->shouldSkip($node)) {
+            return null;
+        }
         if ($this->isName($node, 'json_encode')) {
             return $this->processJsonEncode($node);
         }
@@ -54,6 +57,18 @@ CODE_SAMPLE
             return $this->processJsonDecode($node);
         }
         return null;
+    }
+    private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    {
+        if (!$this->isNames($funcCall, ['json_encode', 'json_decode'])) {
+            return \true;
+        }
+        return (bool) $this->betterNodeFinder->findFirstNext($funcCall, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
+            }
+            return $this->isNames($node, ['json_last_error', 'json_last_error_msg']);
+        });
     }
     private function processJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
@@ -70,7 +85,7 @@ CODE_SAMPLE
         }
         // set default to inter-args
         if (!isset($funcCall->args[1])) {
-            $funcCall->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createFalse());
+            $funcCall->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createNull());
         }
         if (!isset($funcCall->args[2])) {
             $funcCall->args[2] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(512));
