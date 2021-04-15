@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\NullsafeMethodCall;
 use PhpParser\Node\Expr\NullsafePropertyFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Ternary;
+use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php70\NodeAnalyzer\VariableNaming;
@@ -23,7 +24,7 @@ final class DowngradeNullsafeToTernaryOperatorRector extends \Rector\Core\Rector
     /**
      * @var VariableNaming
      */
-    public $variableNaming;
+    private $variableNaming;
     public function __construct(\Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
@@ -53,8 +54,8 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $tempVarName = $this->variableNaming->resolveFromNodeWithScopeCountAndFallbackName($node->var, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE), '_');
-        $tempVar = new \PhpParser\Node\Expr\Variable($tempVarName);
-        $called = $node instanceof \PhpParser\Node\Expr\NullsafeMethodCall ? new \PhpParser\Node\Expr\MethodCall($tempVar, $node->name, $node->args) : new \PhpParser\Node\Expr\PropertyFetch($tempVar, $node->name);
-        return new \PhpParser\Node\Expr\Ternary(new \PhpParser\Node\Expr\Assign($tempVar, $node->var), $called, $this->nodeFactory->createNull());
+        $variable = new \PhpParser\Node\Expr\Variable($tempVarName);
+        $called = $node instanceof \PhpParser\Node\Expr\NullsafeMethodCall ? new \PhpParser\Node\Expr\MethodCall($variable, $node->name, $node->args) : new \PhpParser\Node\Expr\PropertyFetch($variable, $node->name);
+        return new \PhpParser\Node\Expr\Ternary(new \PhpParser\Node\Expr\Assign($variable, $node->var), $called, $this->nodeFactory->createNull());
     }
 }

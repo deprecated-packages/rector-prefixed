@@ -104,6 +104,9 @@ CODE_SAMPLE
         if ($this->classConstManipulator->isEnum($classConst)) {
             return \true;
         }
+        if ($this->classConstManipulator->hasClassConstFetch($classConst)) {
+            return \true;
+        }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classConst);
         if ($phpDocInfo->hasByName('api')) {
             return \true;

@@ -98,9 +98,10 @@ final class VarTagRemover
     {
         if ($varTagValueNode->type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode) {
             foreach ($varTagValueNode->type->types as $type) {
-                if ($type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode && $this->isArrayOfExistingClassNode($node, $type)) {
-                    return \true;
+                if (!$type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode) {
+                    return \false;
                 }
+                return $this->isArrayOfExistingClassNode($node, $type);
             }
         }
         if (!$this->isArrayTypeNode($varTagValueNode)) {
