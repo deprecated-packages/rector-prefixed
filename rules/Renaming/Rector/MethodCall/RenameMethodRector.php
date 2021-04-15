@@ -16,6 +16,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Renaming\Collector\MethodCallRenameCollector;
 use Rector\Renaming\Contract\MethodCallRenameInterface;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
@@ -39,9 +40,14 @@ final class RenameMethodRector extends \Rector\Core\Rector\AbstractRector implem
      * @var ClassManipulator
      */
     private $classManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
+    /**
+     * @var MethodCallRenameCollector
+     */
+    private $methodCallRenameCollector;
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\Renaming\Collector\MethodCallRenameCollector $methodCallRenameCollector)
     {
         $this->classManipulator = $classManipulator;
+        $this->methodCallRenameCollector = $methodCallRenameCollector;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -97,6 +103,9 @@ CODE_SAMPLE
         $methodCallRenames = $configuration[self::METHOD_CALL_RENAMES] ?? [];
         \RectorPrefix20210415\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenames, \Rector\Renaming\Contract\MethodCallRenameInterface::class);
         $this->methodCallRenames = $methodCallRenames;
+        foreach ($methodCallRenames as $methodCallRename) {
+            $this->methodCallRenameCollector->addMethodCallRename($methodCallRename);
+        }
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
