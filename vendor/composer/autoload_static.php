@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb
+class ComposerStaticInit15a6506147ec53b90dd01df3210b2134
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3238,6 +3238,7 @@ class ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb
         'Rector\\Transform\\ValueObject\\FuncCallToMethodCall' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/FuncCallToMethodCall.php',
         'Rector\\Transform\\ValueObject\\FuncCallToStaticCall' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/FuncCallToStaticCall.php',
         'Rector\\Transform\\ValueObject\\FunctionToStaticCall' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/FunctionToStaticCall.php',
+        'Rector\\Transform\\ValueObject\\GetAndSetToMethodCall' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/GetAndSetToMethodCall.php',
         'Rector\\Transform\\ValueObject\\MethodCallToAnotherMethodCallWithArguments' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/MethodCallToAnotherMethodCallWithArguments.php',
         'Rector\\Transform\\ValueObject\\MethodCallToReturn' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/MethodCallToReturn.php',
         'Rector\\Transform\\ValueObject\\MethodCallToStaticCall' => __DIR__ . '/../..' . '/rules/Transform/ValueObject/MethodCallToStaticCall.php',
@@ -3377,9 +3378,9 @@ class ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit401b7bca645aaf31021ef2e8d99b7efb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit15a6506147ec53b90dd01df3210b2134::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit15a6506147ec53b90dd01df3210b2134::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit15a6506147ec53b90dd01df3210b2134::$classMap;
 
         }, null, ClassLoader::class);
     }

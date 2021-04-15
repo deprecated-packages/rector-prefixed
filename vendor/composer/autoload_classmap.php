@@ -2916,6 +2916,7 @@ return array(
     'Rector\\Transform\\ValueObject\\FuncCallToMethodCall' => $baseDir . '/rules/Transform/ValueObject/FuncCallToMethodCall.php',
     'Rector\\Transform\\ValueObject\\FuncCallToStaticCall' => $baseDir . '/rules/Transform/ValueObject/FuncCallToStaticCall.php',
     'Rector\\Transform\\ValueObject\\FunctionToStaticCall' => $baseDir . '/rules/Transform/ValueObject/FunctionToStaticCall.php',
+    'Rector\\Transform\\ValueObject\\GetAndSetToMethodCall' => $baseDir . '/rules/Transform/ValueObject/GetAndSetToMethodCall.php',
     'Rector\\Transform\\ValueObject\\MethodCallToAnotherMethodCallWithArguments' => $baseDir . '/rules/Transform/ValueObject/MethodCallToAnotherMethodCallWithArguments.php',
     'Rector\\Transform\\ValueObject\\MethodCallToReturn' => $baseDir . '/rules/Transform/ValueObject/MethodCallToReturn.php',
     'Rector\\Transform\\ValueObject\\MethodCallToStaticCall' => $baseDir . '/rules/Transform/ValueObject/MethodCallToStaticCall.php',

@@ -26,7 +26,6 @@ use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210415\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
@@ -239,7 +238,7 @@ final class ClassMethodAssignManipulator
         if (!\property_exists($node, 'byRef')) {
             return \false;
         }
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node, [\PhpParser\Node\Arg::class, \PhpParser\Node\Expr\ClosureUse::class, \PhpParser\Node\Param::class])) {
+        if ($node instanceof \PhpParser\Node\Arg || $node instanceof \PhpParser\Node\Expr\ClosureUse || $node instanceof \PhpParser\Node\Param) {
             return $node->byRef;
         }
         return \false;

@@ -29,7 +29,6 @@ use PhpParser\Node\Expr\UnaryPlus;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\PostRector\Collector\NodesToAddCollector;
 final class LivingCodeManipulator
 {
@@ -57,7 +56,7 @@ final class LivingCodeManipulator
         if (!$expr instanceof \PhpParser\Node\Expr) {
             return [];
         }
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Scalar::class, \PhpParser\Node\Expr\ConstFetch::class])) {
+        if ($expr instanceof \PhpParser\Node\Expr\Closure || $expr instanceof \PhpParser\Node\Scalar || $expr instanceof \PhpParser\Node\Expr\ConstFetch) {
             return [];
         }
         if ($this->isNestedExpr($expr)) {
@@ -72,8 +71,7 @@ final class LivingCodeManipulator
         if ($expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \array_merge($this->keepLivingCodeFromExpr($expr->var), $this->keepLivingCodeFromExpr($expr->dim));
         }
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
-            /** @var ClassConstFetch|StaticPropertyFetch $expr */
+        if ($expr instanceof \PhpParser\Node\Expr\ClassConstFetch || $expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return \array_merge($this->keepLivingCodeFromExpr($expr->class), $this->keepLivingCodeFromExpr($expr->name));
         }
         if ($this->isBinaryOpWithoutChange($expr)) {

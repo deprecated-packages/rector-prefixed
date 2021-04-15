@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\NodeManipulator\ForeachManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -104,7 +103,7 @@ CODE_SAMPLE
                 return null;
             }
             $innerNode = $node->stmts[0] instanceof \PhpParser\Node\Stmt\Expression ? $node->stmts[0]->expr : $node->stmts[0];
-            if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($innerNode, [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Stmt\Return_::class])) {
+            if ($innerNode instanceof \PhpParser\Node\Expr\Assign || $innerNode instanceof \PhpParser\Node\Stmt\Return_) {
                 return $innerNode;
             }
             return null;

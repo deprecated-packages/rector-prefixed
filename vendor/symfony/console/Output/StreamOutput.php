@@ -96,10 +96,10 @@ class StreamOutput extends \RectorPrefix20210415\Symfony\Component\Console\Outpu
         }
         $streamIsatty = function ($stream) {
             if ('\\' === \DIRECTORY_SEPARATOR) {
-                $stat = @\fstat($this->stream);
+                $stat = @\fstat($stream);
                 return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
             }
-            return @\posix_isatty($this->stream);
+            return @\posix_isatty($stream);
         };
         return $streamIsatty($this->stream);
     }

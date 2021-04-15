@@ -26,7 +26,6 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\NodeTraverser;
 use PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -174,7 +173,7 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node && ($parentNode instanceof \PhpParser\Node\Expr\Assign || $parentNode instanceof \PhpParser\Node\Expr\AssignRef || $this->isStaticVariable($parentNode))) {
             return \true;
         }
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($parentNode, [\PhpParser\Node\Stmt\Unset_::class, \PhpParser\Node\Expr\Cast\Unset_::class])) {
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Unset_ || $parentNode instanceof \PhpParser\Node\Expr\Cast\Unset_) {
             return \true;
         }
         // list() = | [$values] = defines variables as null
@@ -205,7 +204,10 @@ CODE_SAMPLE
     }
     private function isListAssign(\PhpParser\Node $node) : bool
     {
-        $parentParentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        return \Rector\Core\Util\StaticNodeInstanceOf::isOneOf($parentParentNode, [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class]);
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \PhpParser\Node\Expr\List_) {
+            return \true;
+        }
+        return $parentNode instanceof \PhpParser\Node\Expr\Array_;
     }
 }

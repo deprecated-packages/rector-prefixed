@@ -15,8 +15,8 @@ use PhpParser\Node\Stmt;
 use PhpParser\Parser;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
+use RectorPrefix20210415\Symplify\SmartFileSystem\SmartFileSystem;
 final class InlineCodeParser
 {
     /**
@@ -30,6 +30,16 @@ final class InlineCodeParser
      */
     private const CURLY_BRACKET_WRAPPER_REGEX = "#'{(\\\$.*?)}'#";
     /**
+     * @var string
+     * @see https://regex101.com/r/TBlhoR/1
+     */
+    private const OPEN_PHP_TAG_REGEX = '#^\\<\\?php\\s+#';
+    /**
+     * @var string
+     * @see https://regex101.com/r/TUWwKw/1/
+     */
+    private const ENDING_SEMI_COLON_REGEX = '#;(\\s+)?$#';
+    /**
      * @var Parser
      */
     private $parser;
@@ -41,20 +51,29 @@ final class InlineCodeParser
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \PhpParser\Parser $parser)
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \PhpParser\Parser $parser, \RectorPrefix20210415\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parser = $parser;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
+        $this->smartFileSystem = $smartFileSystem;
     }
     /**
      * @return Stmt[]
      */
     public function parse(string $content) : array
     {
+        // to cover files too
+        if (\is_file($content)) {
+            $content = $this->smartFileSystem->readFile($content);
+        }
         // wrap code so php-parser can interpret it
-        $content = \RectorPrefix20210415\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
-        $content = \RectorPrefix20210415\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
+        $content = \RectorPrefix20210415\Nette\Utils\Strings::match($content, self::OPEN_PHP_TAG_REGEX) ? $content : '<?php ' . $content;
+        $content = \RectorPrefix20210415\Nette\Utils\Strings::match($content, self::ENDING_SEMI_COLON_REGEX) ? $content : $content . ';';
         $nodes = (array) $this->parser->parse($content);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromString($nodes);
     }
@@ -74,7 +93,7 @@ final class InlineCodeParser
         if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->stringify($expr->left) . $this->stringify($expr->right);
         }
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
+        if ($expr instanceof \PhpParser\Node\Expr\Variable || $expr instanceof \PhpParser\Node\Expr\PropertyFetch || $expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return $this->betterStandardPrinter->print($expr);
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException(\get_class($expr) . ' ' . __METHOD__);

@@ -19,7 +19,6 @@ use PhpParser\Node\Stmt\Unset_;
 use Rector\Core\NodeManipulator\AssignManipulator;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ForAnalyzer
@@ -84,9 +83,8 @@ final class ForAnalyzer
         if ($keyValueName === null) {
             return \false;
         }
-        /** @var PreInc|PostInc $prePostInc */
         $prePostInc = $loopExprs[0];
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($prePostInc, [\PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class])) {
+        if ($prePostInc instanceof \PhpParser\Node\Expr\PreInc || $prePostInc instanceof \PhpParser\Node\Expr\PostInc) {
             return $this->nodeNameResolver->isName($prePostInc->var, $keyValueName);
         }
         return \false;

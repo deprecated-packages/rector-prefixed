@@ -12,7 +12,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 /**
@@ -47,7 +46,7 @@ final class ParsedPropertyFetchNodeCollector
             return;
         }
         // make sure name is valid
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node->name, [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class])) {
+        if ($node->name instanceof \PhpParser\Node\Expr\StaticCall || $node->name instanceof \PhpParser\Node\Expr\MethodCall) {
             return;
         }
         $propertyName = $this->nodeNameResolver->getName($node->name);

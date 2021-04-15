@@ -7,10 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
 final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
@@ -107,8 +107,12 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
     }
     private function resolveNearestExpressionPosition(\PhpParser\Node $node) : string
     {
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($node, [\PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt::class])) {
+        if ($node instanceof \PhpParser\Node\Stmt\Expression || $node instanceof \PhpParser\Node\Stmt) {
             return \spl_object_hash($node);
+        }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
+            return \spl_object_hash($parent);
         }
         $foundNode = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Expression::class);
         if (!$foundNode instanceof \PhpParser\Node\Stmt\Expression) {

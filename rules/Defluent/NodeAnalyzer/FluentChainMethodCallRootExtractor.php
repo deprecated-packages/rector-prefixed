@@ -12,7 +12,6 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\Naming\Naming\PropertyNaming;
@@ -70,7 +69,7 @@ final class FluentChainMethodCallRootExtractor
             return null;
         }
         foreach ($methodCalls as $methodCall) {
-            if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($methodCall->var, [\PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class])) {
+            if ($methodCall->var instanceof \PhpParser\Node\Expr\Variable || $methodCall->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 return $this->createAssignAndRootExprForVariableOrPropertyFetch($methodCall);
             }
             if ($methodCall->var instanceof \PhpParser\Node\Expr\New_) {

@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\NullsafeMethodCall;
 use PhpParser\Node\Expr\NullsafePropertyFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Identifier;
-use Rector\Core\Util\StaticNodeInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class NullsafeManipulator
 {
@@ -29,7 +28,7 @@ final class NullsafeManipulator
             return null;
         }
         $parentIdentifier = $nextExprIdentifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (\Rector\Core\Util\StaticNodeInstanceOf::isOneOf($parentIdentifier, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class])) {
+        if ($parentIdentifier instanceof \PhpParser\Node\Expr\MethodCall || $parentIdentifier instanceof \PhpParser\Node\Expr\NullsafeMethodCall) {
             return new \PhpParser\Node\Expr\NullsafeMethodCall($expr, $nextExprIdentifier);
         }
         return new \PhpParser\Node\Expr\NullsafePropertyFetch($expr, $nextExprIdentifier);

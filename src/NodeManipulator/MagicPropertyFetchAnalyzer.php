@@ -4,7 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\NodeManipulator;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticPropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ErrorType;
@@ -39,9 +41,12 @@ final class MagicPropertyFetchAnalyzer
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function isMagicOnType(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, \PHPStan\Type\Type $type) : bool
+    /**
+     * @param PropertyFetch|Node\Expr\StaticPropertyFetch $expr
+     */
+    public function isMagicOnType(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type) : bool
     {
-        $varNodeType = $this->nodeTypeResolver->resolve($propertyFetch);
+        $varNodeType = $this->nodeTypeResolver->resolve($expr);
         if ($varNodeType instanceof \PHPStan\Type\ErrorType) {
             return \true;
         }
@@ -51,19 +56,26 @@ final class MagicPropertyFetchAnalyzer
         if ($varNodeType->isSuperTypeOf($type)->yes()) {
             return \false;
         }
-        $nodeName = $this->nodeNameResolver->getName($propertyFetch);
+        $nodeName = $this->nodeNameResolver->getName($expr->name);
         if ($nodeName === null) {
             return \false;
         }
-        return !$this->hasPublicProperty($propertyFetch, $nodeName);
+        return !$this->hasPublicProperty($expr, $nodeName);
     }
-    private function hasPublicProperty(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $propertyName) : bool
+    /**
+     * @param PropertyFetch|StaticPropertyFetch $expr
+     */
+    private function hasPublicProperty(\PhpParser\Node\Expr $expr, string $propertyName) : bool
     {
-        $scope = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $propertyFetchType = $scope->getType($propertyFetch->var);
+        if ($expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            $propertyFetchType = $scope->getType($expr->var);
+        } else {
+            $propertyFetchType = $this->nodeTypeResolver->resolve($expr->class);
+        }
         if (!$propertyFetchType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
