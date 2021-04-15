@@ -2636,6 +2636,7 @@ return array(
     'Rector\\PostRector\\ValueObject\\PropertyMetadata' => $baseDir . '/packages/PostRector/ValueObject/PropertyMetadata.php',
     'Rector\\Privatization\\Naming\\ConstantNaming' => $baseDir . '/rules/Privatization/Naming/ConstantNaming.php',
     'Rector\\Privatization\\NodeAnalyzer\\EventSubscriberMethodNamesResolver' => $baseDir . '/rules/Privatization/NodeAnalyzer/EventSubscriberMethodNamesResolver.php',
+    'Rector\\Privatization\\NodeAnalyzer\\PropertyFetchByMethodAnalyzer' => $baseDir . '/rules/Privatization/NodeAnalyzer/PropertyFetchByMethodAnalyzer.php',
     'Rector\\Privatization\\NodeFactory\\ClassConstantFactory' => $baseDir . '/rules/Privatization/NodeFactory/ClassConstantFactory.php',
     'Rector\\Privatization\\NodeFactory\\ClassConstantFetchValueFactory' => $baseDir . '/rules/Privatization/NodeFactory/ClassConstantFetchValueFactory.php',
     'Rector\\Privatization\\NodeManipulator\\VisibilityManipulator' => $baseDir . '/rules/Privatization/NodeManipulator/VisibilityManipulator.php',

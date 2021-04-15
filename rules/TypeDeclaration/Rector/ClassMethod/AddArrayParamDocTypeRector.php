@@ -11,6 +11,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
@@ -102,6 +103,7 @@ CODE_SAMPLE
             $this->phpDocTypeChanger->changeParamType($phpDocInfo, $paramType, $param, $paramName);
         }
         if ($phpDocInfo->hasChanged()) {
+            $this->file->addRectorClassWithLine(new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine()));
             $this->paramTagRemover->removeParamTagsIfUseless($phpDocInfo, $node);
             return $node;
         }
