@@ -80,14 +80,14 @@ CODE_SAMPLE
         if (!$this->isName($node, 'stream_isatty')) {
             return null;
         }
-        $if = $this->createIf($node->args[0]->value);
-        $function = new \PhpParser\Node\Expr\Closure();
-        $function->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('stream'));
-        $function->stmts[] = $if;
-        $posixIsatty = $this->nodeFactory->createFuncCall('posix_isatty', [$node->args[0]->value]);
-        $function->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\ErrorSuppress($posixIsatty));
+        $function = $this->createClosure($node);
         $assign = new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable('streamIsatty'), $function);
-        $this->addNodeBeforeNode($assign, $node);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
+            $this->addNodeBeforeNode($assign, $parent);
+        } else {
+            $this->addNodeBeforeNode($assign, $node);
+        }
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Expr\Variable('streamIsatty'), $node->args);
     }
     private function createIf(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\If_
@@ -103,5 +103,15 @@ CODE_SAMPLE
         $ternary = new \PhpParser\Node\Expr\Ternary(new \PhpParser\Node\Expr\Variable(self::STAT), $identical, $this->nodeFactory->createFalse());
         $if->stmts[] = new \PhpParser\Node\Stmt\Return_($ternary);
         return $if;
+    }
+    private function createClosure($node) : \PhpParser\Node\Expr\Closure
+    {
+        $if = $this->createIf($node->args[0]->value);
+        $function = new \PhpParser\Node\Expr\Closure();
+        $function->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('stream'));
+        $function->stmts[] = $if;
+        $posixIsatty = $this->nodeFactory->createFuncCall('posix_isatty', [$node->args[0]->value]);
+        $function->stmts[] = new \PhpParser\Node\Stmt\Return_(new \PhpParser\Node\Expr\ErrorSuppress($posixIsatty));
+        return $function;
     }
 }
