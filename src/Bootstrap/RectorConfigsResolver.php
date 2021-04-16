@@ -21,10 +21,15 @@ final class RectorConfigsResolver
      * @var SetConfigResolver
      */
     private $setConfigResolver;
+    /**
+     * @var ExtensionConfigResolver
+     */
+    private $extensionConfigResolver;
     public function __construct()
     {
         $this->setConfigResolver = new \Rector\Core\Bootstrap\SetConfigResolver();
         $this->configResolver = new \RectorPrefix20210416\Symplify\SetConfigResolver\ConfigResolver();
+        $this->extensionConfigResolver = new \Rector\Core\Bootstrap\ExtensionConfigResolver();
     }
     /**
      * @return SmartFileInfo[]
@@ -49,6 +54,7 @@ final class RectorConfigsResolver
         $mainConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
         $configFileInfos = $mainConfigFileInfo instanceof \RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo ? $this->resolveFromConfigFileInfo($mainConfigFileInfo) : [];
         $configFileInfos = $this->appendRectorRecipeConfig($argvInput, $configFileInfos);
+        $configFileInfos = $this->extensionConfigResolver->appendExtensionsConfig($configFileInfos);
         return new \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
     /**

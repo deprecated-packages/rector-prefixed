@@ -1667,6 +1667,7 @@ return array(
     'Rector\\Core\\Application\\FileSystem\\RemovedAndAddedFilesProcessor' => $baseDir . '/src/Application/FileSystem/RemovedAndAddedFilesProcessor.php',
     'Rector\\Core\\Autoloading\\AdditionalAutoloader' => $baseDir . '/src/Autoloading/AdditionalAutoloader.php',
     'Rector\\Core\\Autoloading\\BootstrapFilesIncluder' => $baseDir . '/src/Autoloading/BootstrapFilesIncluder.php',
+    'Rector\\Core\\Bootstrap\\ExtensionConfigResolver' => $baseDir . '/src/Bootstrap/ExtensionConfigResolver.php',
     'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => $baseDir . '/src/Bootstrap/RectorConfigsResolver.php',
     'Rector\\Core\\Bootstrap\\SetConfigResolver' => $baseDir . '/src/Bootstrap/SetConfigResolver.php',
     'Rector\\Core\\Configuration\\Configuration' => $baseDir . '/src/Configuration/Configuration.php',

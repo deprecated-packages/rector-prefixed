@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9af5c7569386f2b978d51dbac3b81273
+class ComposerStaticInit1056d1cc1d0cba36c79b0177e146be5c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1989,6 +1989,7 @@ class ComposerStaticInit9af5c7569386f2b978d51dbac3b81273
         'Rector\\Core\\Application\\FileSystem\\RemovedAndAddedFilesProcessor' => __DIR__ . '/../..' . '/src/Application/FileSystem/RemovedAndAddedFilesProcessor.php',
         'Rector\\Core\\Autoloading\\AdditionalAutoloader' => __DIR__ . '/../..' . '/src/Autoloading/AdditionalAutoloader.php',
         'Rector\\Core\\Autoloading\\BootstrapFilesIncluder' => __DIR__ . '/../..' . '/src/Autoloading/BootstrapFilesIncluder.php',
+        'Rector\\Core\\Bootstrap\\ExtensionConfigResolver' => __DIR__ . '/../..' . '/src/Bootstrap/ExtensionConfigResolver.php',
         'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/RectorConfigsResolver.php',
         'Rector\\Core\\Bootstrap\\SetConfigResolver' => __DIR__ . '/../..' . '/src/Bootstrap/SetConfigResolver.php',
         'Rector\\Core\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
@@ -3377,9 +3378,9 @@ class ComposerStaticInit9af5c7569386f2b978d51dbac3b81273
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9af5c7569386f2b978d51dbac3b81273::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9af5c7569386f2b978d51dbac3b81273::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9af5c7569386f2b978d51dbac3b81273::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1056d1cc1d0cba36c79b0177e146be5c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1056d1cc1d0cba36c79b0177e146be5c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1056d1cc1d0cba36c79b0177e146be5c::$classMap;
 
         }, null, ClassLoader::class);
     }
