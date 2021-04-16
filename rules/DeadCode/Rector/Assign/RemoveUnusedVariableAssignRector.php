@@ -121,7 +121,12 @@ CODE_SAMPLE
             return \true;
         }
         $variable = $assign->var;
-        return !$variable instanceof \PhpParser\Node\Expr\Variable;
+        if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
+            return \true;
+        }
+        return $variable->name instanceof \PhpParser\Node\Expr\Variable && (bool) $this->betterNodeFinder->findFirstNext($assign, function (\PhpParser\Node $node) : bool {
+            return $node instanceof \PhpParser\Node\Expr\Variable;
+        });
     }
     private function isUsed(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\Variable $variable) : bool
     {
