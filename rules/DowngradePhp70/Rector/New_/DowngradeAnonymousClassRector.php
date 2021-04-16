@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DowngradePhp70\Rector\New_;
 
-use RectorPrefix20210415\Nette\Utils\Strings;
+use RectorPrefix20210416\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Identifier;
@@ -104,7 +104,7 @@ CODE_SAMPLE
         /** @var Identifier $shortClassName */
         $shortClassName = $class->name;
         $shortClassName = (string) $this->getName($shortClassName);
-        $namespace = $namespacedClassName === $shortClassName ? '' : \RectorPrefix20210415\Nette\Utils\Strings::substring($namespacedClassName, 0, -\strlen($shortClassName) - 1);
+        $namespace = $namespacedClassName === $shortClassName ? '' : \RectorPrefix20210416\Nette\Utils\Strings::substring($namespacedClassName, 0, -\strlen($shortClassName) - 1);
         $className = $this->getClassName($namespace, $shortClassName);
         return $this->processMove($new, $className, $class);
     }
@@ -112,7 +112,7 @@ CODE_SAMPLE
     {
         $namespacedFunctionName = (string) $this->getName($function);
         $shortFunctionName = (string) $this->getName($function->name);
-        $namespace = $namespacedFunctionName === $shortFunctionName ? '' : \RectorPrefix20210415\Nette\Utils\Strings::substring($namespacedFunctionName, 0, -\strlen($shortFunctionName) - 1);
+        $namespace = $namespacedFunctionName === $shortFunctionName ? '' : \RectorPrefix20210416\Nette\Utils\Strings::substring($namespacedFunctionName, 0, -\strlen($shortFunctionName) - 1);
         $className = $this->getClassName($namespace, $shortFunctionName);
         return $this->processMove($new, $className, $function);
     }

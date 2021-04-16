@@ -10,13 +10,13 @@ use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\If_;
 final class ConditionSearcher
 {
-    public function searchIfAndElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $node, \PhpParser\Node\Stmt\If_ $ifNode) : bool
+    public function searchIfAndElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\If_ $if) : bool
     {
         /** @var Variable $varNode */
-        $varNode = $node->var;
+        $varNode = $assign->var;
         // search if for redeclaration of variable
         /** @var Node\Stmt\Expression $statementIf */
-        foreach ($ifNode->stmts as $statementIf) {
+        foreach ($if->stmts as $statementIf) {
             if (!$statementIf->expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
@@ -25,26 +25,26 @@ final class ConditionSearcher
             if ($varNode->name !== $varIf->name) {
                 continue;
             }
-            $elseNode = $ifNode->else;
+            $elseNode = $if->else;
             if (!$elseNode instanceof \PhpParser\Node\Stmt\Else_) {
                 continue;
             }
             // search else for redeclaration of variable
-            return $this->searchElseForVariableRedeclaration($node, $elseNode);
+            return $this->searchElseForVariableRedeclaration($assign, $elseNode);
         }
         return \false;
     }
-    private function searchElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $node, \PhpParser\Node\Stmt\Else_ $elseNode) : bool
+    private function searchElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Else_ $else) : bool
     {
         /** @var Node\Stmt\Expression $statementElse */
-        foreach ($elseNode->stmts as $statementElse) {
+        foreach ($else->stmts as $statementElse) {
             if (!$statementElse->expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
             /** @var Variable $varElse */
             $varElse = $statementElse->expr->var;
             /** @var Variable $varNode */
-            $varNode = $node->var;
+            $varNode = $assign->var;
             if ($varNode->name !== $varElse->name) {
                 continue;
             }

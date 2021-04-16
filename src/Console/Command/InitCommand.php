@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use RectorPrefix20210415\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210415\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210415\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20210415\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210415\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20210415\Symplify\SmartFileSystem\FileSystemGuard;
-use RectorPrefix20210415\Symplify\SmartFileSystem\SmartFileSystem;
-final class InitCommand extends \RectorPrefix20210415\Symfony\Component\Console\Command\Command
+use RectorPrefix20210416\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210416\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210416\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210416\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210416\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210416\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileSystem;
+final class InitCommand extends \RectorPrefix20210416\Symfony\Component\Console\Command\Command
 {
     /**
      * @var FileSystemGuard
@@ -24,7 +24,7 @@ final class InitCommand extends \RectorPrefix20210415\Symfony\Component\Console\
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\RectorPrefix20210415\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210415\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210415\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\RectorPrefix20210416\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210416\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->fileSystemGuard = $fileSystemGuard;
         $this->smartFileSystem = $smartFileSystem;
@@ -35,7 +35,7 @@ final class InitCommand extends \RectorPrefix20210415\Symfony\Component\Console\
     {
         $this->setDescription('Generate rector.php configuration file');
     }
-    protected function execute(\RectorPrefix20210415\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210415\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20210416\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210416\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorTemplateFilePath = __DIR__ . '/../../../templates/rector.php.dist';
         $this->fileSystemGuard->ensureFileExists($rectorTemplateFilePath, __METHOD__);
@@ -47,6 +47,6 @@ final class InitCommand extends \RectorPrefix20210415\Symfony\Component\Console\
             $this->smartFileSystem->copy($rectorTemplateFilePath, $rectorRootFilePath);
             $this->symfonyStyle->success('"rector.php" config file was added');
         }
-        return \RectorPrefix20210415\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \RectorPrefix20210416\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

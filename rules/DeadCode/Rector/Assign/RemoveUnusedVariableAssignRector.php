@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Include_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\NullsafeMethodCall;
@@ -79,12 +80,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \PhpParser\Node\FunctionLike) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
+        /** @var Variable $variable */
         $variable = $node->var;
-        if (!$variable instanceof \PhpParser\Node\Expr\Variable || \is_string($variable->name) && $this->reservedKeywordAnalyzer->isNativeVariable($variable->name)) {
+        if (\is_string($variable->name) && $this->reservedKeywordAnalyzer->isNativeVariable($variable->name)) {
             return null;
         }
         // variable is used
@@ -113,6 +114,15 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
+    private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
+    {
+        $classMethod = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\FunctionLike) {
+            return \true;
+        }
+        $variable = $assign->var;
+        return !$variable instanceof \PhpParser\Node\Expr\Variable;
+    }
     private function isUsed(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         $isUsedPrev = (bool) $this->betterNodeFinder->findFirstPreviousOfNode($variable, function (\PhpParser\Node $node) use($variable) : bool {
@@ -121,16 +131,7 @@ CODE_SAMPLE
         if ($isUsedPrev) {
             return \true;
         }
-        $isUsedNext = (bool) $this->betterNodeFinder->findFirstNext($variable, function (\PhpParser\Node $node) use($variable) : bool {
-            if ($this->isVariableNamed($node, $variable)) {
-                return \true;
-            }
-            if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
-                return $this->compactFuncCallAnalyzer->isInCompact($node, $variable);
-            }
-            return \false;
-        });
-        if ($isUsedNext) {
+        if ($this->isUsedNext($variable)) {
             return \true;
         }
         /** @var FuncCall|MethodCall|New_|NullsafeMethodCall|StaticCall $expr */
@@ -139,6 +140,18 @@ CODE_SAMPLE
             return \false;
         }
         return $this->isUsedInAssignExpr($expr, $assign);
+    }
+    private function isUsedNext(\PhpParser\Node\Expr\Variable $variable) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirstNext($variable, function (\PhpParser\Node $node) use($variable) : bool {
+            if ($this->isVariableNamed($node, $variable)) {
+                return \true;
+            }
+            if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
+                return $this->compactFuncCallAnalyzer->isInCompact($node, $variable);
+            }
+            return $node instanceof \PhpParser\Node\Expr\Include_;
+        });
     }
     /**
      * @param FuncCall|MethodCall|New_|NullsafeMethodCall|StaticCall $expr

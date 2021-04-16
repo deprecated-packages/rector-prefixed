@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210415\Symplify\ComposerJsonManipulator\Printer;
+namespace RectorPrefix20210416\Symplify\ComposerJsonManipulator\Printer;
 
-use RectorPrefix20210415\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use RectorPrefix20210415\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use RectorPrefix20210415\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210416\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use RectorPrefix20210416\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerJsonPrinter
 {
     /**
      * @var JsonFileManager
      */
     private $jsonFileManager;
-    public function __construct(\RectorPrefix20210415\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
+    public function __construct(\RectorPrefix20210416\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager $jsonFileManager)
     {
         $this->jsonFileManager = $jsonFileManager;
     }
-    public function printToString(\RectorPrefix20210415\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
+    public function printToString(\RectorPrefix20210416\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : string
     {
         return $this->jsonFileManager->encodeJsonToFileContent($composerJson->getJsonArray());
     }
     /**
      * @param string|SmartFileInfo $targetFile
      */
-    public function print(\RectorPrefix20210415\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
+    public function print(\RectorPrefix20210416\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $targetFile) : string
     {
         if (\is_string($targetFile)) {
             return $this->jsonFileManager->printComposerJsonToFilePath($composerJson, $targetFile);
