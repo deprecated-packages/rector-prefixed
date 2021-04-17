@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210416\Symplify\PackageBuilder\Parameter;
+namespace RectorPrefix20210417\Symplify\PackageBuilder\Parameter;
 
-use RectorPrefix20210416\Symfony\Component\DependencyInjection\Container;
-use RectorPrefix20210416\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix20210416\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use RectorPrefix20210417\Symfony\Component\DependencyInjection\Container;
+use RectorPrefix20210417\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210417\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest
  */
@@ -18,10 +18,14 @@ final class ParameterProvider
     /**
      * @param Container|ContainerInterface $container
      */
-    public function __construct(\RectorPrefix20210416\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(\RectorPrefix20210417\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $parameterBag = $container->getParameterBag();
         $this->parameters = $parameterBag->all();
+    }
+    public function hasParameter(string $name) : bool
+    {
+        return isset($this->parameters[$name]);
     }
     /**
      * @api
@@ -83,6 +87,6 @@ final class ParameterProvider
         if (\array_key_exists($name, $this->parameters)) {
             return;
         }
-        throw new \RectorPrefix20210416\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+        throw new \RectorPrefix20210417\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
     }
 }

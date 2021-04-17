@@ -3,7 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
-use RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\RectorInstaller\GeneratedConfig;
+use ReflectionClass;
+use RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo;
 final class ExtensionConfigResolver
 {
     /**
@@ -15,26 +17,37 @@ final class ExtensionConfigResolver
         if (!\class_exists('Rector\\RectorInstaller\\GeneratedConfig')) {
             return $configFileInfos;
         }
-        $generatedConfigReflection = new \ReflectionClass('Rector\\RectorInstaller\\GeneratedConfig');
-        if ($generatedConfigReflection->getFileName() === \false) {
+        $generatedConfigReflectionClass = new \ReflectionClass('Rector\\RectorInstaller\\GeneratedConfig');
+        if ($generatedConfigReflectionClass->getFileName() === \false) {
             return $configFileInfos;
         }
-        $generatedConfigDirectory = \dirname($generatedConfigReflection->getFileName());
-        foreach (\Rector\RectorInstaller\GeneratedConfig::EXTENSIONS as $name => $extensionConfig) {
+        $generatedConfigDirectory = \dirname($generatedConfigReflectionClass->getFileName());
+        foreach (\Rector\RectorInstaller\GeneratedConfig::EXTENSIONS as $extensionConfig) {
             foreach ($extensionConfig['extra']['includes'] ?? [] as $includedFile) {
-                $includedFilePath = null;
-                if (isset($extensionConfig['relative_install_path'])) {
-                    $includedFilePath = \sprintf('%s/%s/%s', $generatedConfigDirectory, $extensionConfig['relative_install_path'], $includedFile);
-                    if (!\file_exists($includedFilePath) || !\is_readable($includedFilePath)) {
-                        $includedFilePath = null;
-                    }
-                }
+                $includedFilePath = $this->resolveIncludeFilePath($extensionConfig, $generatedConfigDirectory, $includedFile);
                 if ($includedFilePath === null) {
                     $includedFilePath = \sprintf('%s/%s', $extensionConfig['install_path'], $includedFile);
                 }
-                $configFileInfos[] = new \RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo($includedFilePath);
+                $configFileInfos[] = new \RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo($includedFilePath);
             }
         }
         return $configFileInfos;
+    }
+    /**
+     * @param array<string, mixed> $extensionConfig
+     */
+    private function resolveIncludeFilePath(array $extensionConfig, string $generatedConfigDirectory, string $includedFile) : ?string
+    {
+        if (!isset($extensionConfig['relative_install_path'])) {
+            return null;
+        }
+        $includedFilePath = \sprintf('%s/%s/%s', $generatedConfigDirectory, $extensionConfig['relative_install_path'], $includedFile);
+        if (!\file_exists($includedFilePath)) {
+            return null;
+        }
+        if (!\is_readable($includedFilePath)) {
+            return null;
+        }
+        return $includedFilePath;
     }
 }

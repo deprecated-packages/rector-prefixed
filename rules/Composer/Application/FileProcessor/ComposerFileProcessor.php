@@ -7,9 +7,9 @@ use Rector\Composer\Modifier\ComposerModifier;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20210416\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use RectorPrefix20210416\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
-use RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210417\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210417\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
+use RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
     /**
@@ -24,7 +24,7 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
      * @var ComposerModifier
      */
     private $composerModifier;
-    public function __construct(\RectorPrefix20210416\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210416\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, \Rector\Composer\Modifier\ComposerModifier $composerModifier)
+    public function __construct(\RectorPrefix20210417\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210417\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, \Rector\Composer\Modifier\ComposerModifier $composerModifier)
     {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
@@ -71,7 +71,7 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
         $changeFileContent = $this->composerJsonPrinter->printToString($composerJson);
         $file->changeFileContent($changeFileContent);
     }
-    private function isJsonInTests(\RectorPrefix20210416\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : bool
+    private function isJsonInTests(\RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : bool
     {
         if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return \false;
