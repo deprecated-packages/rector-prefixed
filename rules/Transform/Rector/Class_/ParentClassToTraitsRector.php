@@ -67,7 +67,7 @@ CODE_SAMPLE
         if ($node->extends === null) {
             return null;
         }
-        if ($node->isAnonymous()) {
+        if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
         }
         foreach ($this->parentClassToTraits as $parentClassToTrait) {
