@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210417\Symplify\SetConfigResolver\Config;
+namespace RectorPrefix20210418\Symplify\SetConfigResolver\Config;
 
-use RectorPrefix20210417\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210417\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210417\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210417\Symplify\Astral\Exception\ShouldNotHappenException;
-use RectorPrefix20210417\Symplify\SetConfigResolver\SetResolver;
-use RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210418\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210418\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210418\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210418\Symplify\Astral\Exception\ShouldNotHappenException;
+use RectorPrefix20210418\Symplify\SetConfigResolver\SetResolver;
+use RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetsParameterResolver
 {
     /**
@@ -19,7 +19,7 @@ final class SetsParameterResolver
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20210417\Symplify\SetConfigResolver\SetResolver $setResolver)
+    public function __construct(\RectorPrefix20210418\Symplify\SetConfigResolver\SetResolver $setResolver)
     {
         $this->setResolver = $setResolver;
     }
@@ -41,21 +41,21 @@ final class SetsParameterResolver
     /**
      * @return string[]
      */
-    private function resolveSetsFromFileInfo(\RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsFromFileInfo(\RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         if ($configFileInfo->hasSuffixes(['yml', 'yaml'])) {
-            throw new \RectorPrefix20210417\Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
+            throw new \RectorPrefix20210418\Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
         }
         return $this->resolveSetsParameterFromPhpFileInfo($configFileInfo);
     }
     /**
      * @return string[]
      */
-    private function resolveSetsParameterFromPhpFileInfo(\RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsParameterFromPhpFileInfo(\RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         // php file loader
-        $containerBuilder = new \RectorPrefix20210417\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \RectorPrefix20210417\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210417\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \RectorPrefix20210418\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \RectorPrefix20210418\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210418\Symfony\Component\Config\FileLocator());
         $phpFileLoader->load($configFileInfo->getRealPath());
         if (!$containerBuilder->hasParameter(self::SETS)) {
             return [];

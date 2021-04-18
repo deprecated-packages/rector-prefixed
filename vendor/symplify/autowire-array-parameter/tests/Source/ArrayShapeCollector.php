@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210417\Symplify\AutowireArrayParameter\Tests\Source;
+namespace RectorPrefix20210418\Symplify\AutowireArrayParameter\Tests\Source;
 
-use RectorPrefix20210417\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-use RectorPrefix20210417\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
+use RectorPrefix20210418\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+use RectorPrefix20210418\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
 final class ArrayShapeCollector
 {
     /**

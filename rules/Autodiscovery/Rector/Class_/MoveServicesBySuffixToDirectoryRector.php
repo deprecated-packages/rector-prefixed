@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\Class_;
 
-use RectorPrefix20210417\Nette\Utils\Strings;
+use RectorPrefix20210418\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
@@ -14,8 +14,8 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210417\Webmozart\Assert\Assert;
+use RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210418\Webmozart\Assert\Assert;
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  *
@@ -87,7 +87,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $groupNamesBySuffix = $configuration[self::GROUP_NAMES_BY_SUFFIX] ?? [];
-        \RectorPrefix20210417\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
+        \RectorPrefix20210418\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
         $this->groupNamesBySuffix = $groupNamesBySuffix;
     }
     /**
@@ -99,31 +99,31 @@ CODE_SAMPLE
      *
      * @param string[] $groupNamesBySuffix
      */
-    private function processGroupNamesBySuffix(\RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix) : void
+    private function processGroupNamesBySuffix(\RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix) : void
     {
         foreach ($groupNamesBySuffix as $groupNames) {
             // has class suffix
             $suffixPattern = '\\w+' . $groupNames . '(Test)?\\.php$';
-            if (!\RectorPrefix20210417\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
+            if (!\RectorPrefix20210418\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
                 continue;
             }
             if ($this->isLocatedInExpectedLocation($groupNames, $suffixPattern, $smartFileInfo)) {
                 continue;
             }
             // file is already in the group
-            if (\RectorPrefix20210417\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupNames . '$#')) {
+            if (\RectorPrefix20210418\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupNames . '$#')) {
                 continue;
             }
             $this->moveFileToGroupName($smartFileInfo, $this->file, $groupNames);
             return;
         }
     }
-    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
-        return (bool) \RectorPrefix20210417\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
+        return (bool) \RectorPrefix20210418\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
-    private function moveFileToGroupName(\RectorPrefix20210417\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : void
+    private function moveFileToGroupName(\RectorPrefix20210418\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : void
     {
         $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $this->file, $desiredGroupName);
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210417\Symplify\AutowireArrayParameter\Tests\Source\Contract;
+namespace RectorPrefix20210418\Symplify\AutowireArrayParameter\Tests\Source\Contract;
 
 interface FirstCollectedInterface
 {
