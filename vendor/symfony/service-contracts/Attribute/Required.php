@@ -8,9 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210418\Symfony\Contracts\Service\Attribute;
+namespace RectorPrefix20210419\Symfony\Contracts\Service\Attribute;
 
-use Attribute;
 /**
  * A required dependency.
  *
@@ -19,7 +18,7 @@ use Attribute;
  *
  * @author Alexander M. Turek <me@derrabus.de>
  */
-#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY)]
+#[\Attribute(\Attribute::TARGET_METHOD | \Attribute::TARGET_PROPERTY)]
 final class Required
 {
 }

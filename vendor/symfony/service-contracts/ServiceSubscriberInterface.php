@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210418\Symfony\Contracts\Service;
+namespace RectorPrefix20210419\Symfony\Contracts\Service;
 
 /**
  * A ServiceSubscriber exposes its dependencies via the static {@link getSubscribedServices} method.
@@ -46,7 +46,7 @@ interface ServiceSubscriberInterface
      *  * ['?Psr\Log\LoggerInterface'] is a shortcut for
      *  * ['Psr\Log\LoggerInterface' => '?Psr\Log\LoggerInterface']
      *
-     * @return array The required service types, optionally keyed by service names
+     * @return string[] The required service types, optionally keyed by service names
      */
     public static function getSubscribedServices();
 }

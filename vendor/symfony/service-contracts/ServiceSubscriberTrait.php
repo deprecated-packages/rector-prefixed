@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210418\Symfony\Contracts\Service;
+namespace RectorPrefix20210419\Symfony\Contracts\Service;
 
-use RectorPrefix20210418\Psr\Container\ContainerInterface;
+use RectorPrefix20210419\Psr\Container\ContainerInterface;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from
  * private method return types. Service ids are available as "ClassName::methodName".
@@ -21,6 +21,9 @@ trait ServiceSubscriberTrait
 {
     /** @var ContainerInterface */
     protected $container;
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedServices() : array
     {
         static $services;
@@ -33,7 +36,7 @@ trait ServiceSubscriberTrait
                 continue;
             }
             if (self::class === $method->getDeclaringClass()->name && ($returnType = $method->getReturnType()) && !$returnType->isBuiltin()) {
-                $services[self::class . '::' . $method->name] = '?' . ($returnType instanceof \ReflectionNamedType ? $returnType->getName() : $type);
+                $services[self::class . '::' . $method->name] = '?' . ($returnType instanceof \ReflectionNamedType ? $returnType->getName() : $returnType);
             }
         }
         return $services;
@@ -41,7 +44,7 @@ trait ServiceSubscriberTrait
     /**
      * @required
      */
-    public function setContainer(\RectorPrefix20210418\Psr\Container\ContainerInterface $container)
+    public function setContainer(\RectorPrefix20210419\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
         if (\is_callable(['parent', __FUNCTION__])) {

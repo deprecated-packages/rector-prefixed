@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use RectorPrefix20210418\Nette\Utils\Strings;
+use RectorPrefix20210419\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
@@ -30,7 +30,7 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
      *
      * For modifiers see https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
      */
-    private const INNER_REGEX = '#(?<content>.*?)(?<close>[imsxeADSUXJu]*)$#';
+    private const INNER_REGEX = '#(?<content>.*?)(?<close>[imsxeADSUXJu]*)$#s';
     /**
      * All with pattern as 1st argument
      * @var array<string, int>
@@ -121,7 +121,7 @@ CODE_SAMPLE
         /** @var String_ $string */
         $string = $arg->value;
         $value = $string->value;
-        $string->value = \RectorPrefix20210418\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
+        $string->value = \RectorPrefix20210419\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
             $innerPattern = $match['content'];
             $positionDelimiter = \strpos($innerPattern, $this->delimiter);
             if ($positionDelimiter > 0) {

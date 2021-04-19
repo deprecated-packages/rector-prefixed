@@ -6,7 +6,7 @@
     <title>Welcome to Symfony!</title>
     <style>
         <?php 
-namespace RectorPrefix20210418;
+namespace RectorPrefix20210419;
 
 $hue = \random_int(0, 360);
 ?>

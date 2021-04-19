@@ -30,14 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210418\\Symfony\\Contracts\\HttpClient\\": ""
+            "RectorPrefix20210419\\Symfony\\Contracts\\HttpClient\\": ""
         }
     },
     "minimum-stability": "dev",
     "extra": {
-        "branch-version": "2.3",
         "branch-alias": {
-            "dev-main": "2.3-dev"
+            "dev-main": "2.4-dev"
         },
         "thanks": {
             "name": "symfony\/contracts",

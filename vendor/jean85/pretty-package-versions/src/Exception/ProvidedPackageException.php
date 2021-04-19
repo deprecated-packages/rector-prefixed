@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210418\Jean85\Exception;
+namespace RectorPrefix20210419\Jean85\Exception;
 
-class ProvidedPackageException extends \Exception implements \RectorPrefix20210418\Jean85\Exception\VersionMissingExceptionInterface
+class ProvidedPackageException extends \Exception implements \RectorPrefix20210419\Jean85\Exception\VersionMissingExceptionInterface
 {
-    public static function create(string $packageName) : \RectorPrefix20210418\Jean85\Exception\VersionMissingExceptionInterface
+    public static function create(string $packageName) : \RectorPrefix20210419\Jean85\Exception\VersionMissingExceptionInterface
     {
         return new self('Cannot retrieve a version for package ' . $packageName . ' since it is provided, probably a metapackage');
     }

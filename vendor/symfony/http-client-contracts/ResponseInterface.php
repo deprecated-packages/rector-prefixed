@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210418\Symfony\Contracts\HttpClient;
+namespace RectorPrefix20210419\Symfony\Contracts\HttpClient;
 
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use RectorPrefix20210418\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use RectorPrefix20210419\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * A (lazily retrieved) HTTP response.
  *
@@ -88,15 +88,15 @@ interface ResponseInterface
      *  - response_headers (array) - an array modelled after the special $http_response_header variable
      *  - start_time (float) - the time when the request was sent or 0.0 when it's pending
      *  - url (string) - the last effective URL of the request
-     *  - user_data (mixed|null) - the value of the "user_data" request option, null if not set
+     *  - user_data (mixed) - the value of the "user_data" request option, null if not set
      *
      * When the "capture_peer_cert_chain" option is true, the "peer_certificate_chain"
      * attribute SHOULD list the peer certificates as an array of OpenSSL X.509 resources.
      *
      * Other info SHOULD be named after curl_getinfo()'s associative return value.
      *
-     * @return array|mixed|null An array of all available info, or one of them when $type is
-     *                          provided, or null when an unsupported type is requested
+     * @return mixed An array of all available info, or one of them when $type is
+     *               provided, or null when an unsupported type is requested
      */
     public function getInfo(string $type = null);
 }
