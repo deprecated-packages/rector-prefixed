@@ -13,7 +13,7 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @source http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.variable-handling.list
+ * @changelog http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.variable-handling.list
  * @see \Rector\Tests\Php70\Rector\Assign\ListSwapArrayOrderRector\ListSwapArrayOrderRectorTest
  */
 final class ListSwapArrayOrderRector extends \Rector\Core\Rector\AbstractRector

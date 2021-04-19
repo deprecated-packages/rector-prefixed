@@ -16,7 +16,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @source https://wiki.php.net/rfc/deprecations_php_7_2#each
+ * @changelog https://wiki.php.net/rfc/deprecations_php_7_2#each
  *
  * @see \Rector\Tests\Php72\Rector\Assign\ListEachRector\ListEachRectorTest
  */

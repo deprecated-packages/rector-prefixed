@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @source http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.variable-handling.list
+ * @changelog http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.variable-handling.list
  * @see \Rector\Tests\Php70\Rector\List_\EmptyListRector\EmptyListRectorTest
  */
 final class EmptyListRector extends \Rector\Core\Rector\AbstractRector
