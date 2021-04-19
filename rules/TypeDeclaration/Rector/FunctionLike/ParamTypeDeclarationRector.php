@@ -145,7 +145,7 @@ CODE_SAMPLE
      */
     private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : void
     {
-        if ($this->shouldSkipParam($param, $functionLike, $position)) {
+        if ($this->shouldSkipParam($param, $functionLike)) {
             return;
         }
         $inferedType = $this->paramTypeInferer->inferParam($param);
@@ -168,7 +168,7 @@ CODE_SAMPLE
         $this->paramTagRemover->removeParamTagsIfUseless($functionLikePhpDocInfo, $functionLike);
         $this->childParamPopulator->populateChildClassMethod($functionLike, $position, $inferedType);
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
+    private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \true;

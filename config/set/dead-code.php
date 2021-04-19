@@ -16,6 +16,7 @@ use Rector\DeadCode\Rector\ClassMethod\RemoveDeadConstructorRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveDelegatingParentCallRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedConstructorParamRector;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodParameterRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
@@ -89,6 +90,7 @@ return static function (\RectorPrefix20210419\Symfony\Component\DependencyInject
     $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedConstructorParamRector::class);
     $services->set(\Rector\DeadCode\Rector\If_\RemoveDeadInstanceOfRector::class);
     $services->set(\Rector\DeadCode\Rector\For_\RemoveDeadLoopRector::class);
+    $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class);
     // docblock
     $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class);
     $services->set(\Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector::class);

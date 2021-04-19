@@ -70,7 +70,7 @@ CODE_SAMPLE
             }
             /** @var Expression $stmt */
             $stmt = $node->stmts[$i];
-            if ($this->shouldSkipPreviousStmt($node, $i, $stmt)) {
+            if ($this->shouldSkipPreviousStmt($node, $i)) {
                 continue;
             }
             /** @var Expression $prevStmt */
@@ -100,7 +100,7 @@ CODE_SAMPLE
         \RectorPrefix20210419\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
         $this->callsToFluent = $callsToFluent;
     }
-    private function shouldSkipPreviousStmt(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i, \PhpParser\Node\Stmt\Expression $expression) : bool
+    private function shouldSkipPreviousStmt(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $i) : bool
     {
         // we look only for 2+ stmts
         if (!isset($classMethod->stmts[$i - 1])) {

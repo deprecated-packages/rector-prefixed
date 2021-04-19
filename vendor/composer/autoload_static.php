@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit37c912f58846549baada94245cecec9d
+class ComposerStaticInitf9427cdb0fb178cd1690cfd43050b0e1
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2129,12 +2129,14 @@ class ComposerStaticInit37c912f58846549baada94245cecec9d
         'Rector\\DeadCode\\NodeAnalyzer\\UsedVariableNameAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/NodeAnalyzer/UsedVariableNameAnalyzer.php',
         'Rector\\DeadCode\\NodeCollector\\ModifiedVariableNamesCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/ModifiedVariableNamesCollector.php',
         'Rector\\DeadCode\\NodeCollector\\NodeByTypeAndPositionCollector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/NodeByTypeAndPositionCollector.php',
+        'Rector\\DeadCode\\NodeCollector\\UnusedParameterResolver' => __DIR__ . '/../..' . '/rules/DeadCode/NodeCollector/UnusedParameterResolver.php',
         'Rector\\DeadCode\\NodeFinder\\NextVariableUsageNodeFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/NextVariableUsageNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\PreviousVariableAssignNodeFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/PreviousVariableAssignNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\VariableUseFinder' => __DIR__ . '/../..' . '/rules/DeadCode/NodeFinder/VariableUseFinder.php',
         'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/ControllerClassMethodManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/CountManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\LivingCodeManipulator' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php',
+        'Rector\\DeadCode\\NodeManipulator\\VariadicFunctionLikeDetector' => __DIR__ . '/../..' . '/rules/DeadCode/NodeManipulator/VariadicFunctionLikeDetector.php',
         'Rector\\DeadCode\\PhpDoc\\DeadParamTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadParamTagValueNodeAnalyzer.php',
         'Rector\\DeadCode\\PhpDoc\\DeadReturnTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadReturnTagValueNodeAnalyzer.php',
         'Rector\\DeadCode\\PhpDoc\\DeadVarTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/DeadCode/PhpDoc/DeadVarTagValueNodeAnalyzer.php',
@@ -2155,6 +2157,7 @@ class ComposerStaticInit37c912f58846549baada94245cecec9d
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDelegatingParentCallRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveDelegatingParentCallRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodParameterRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodParameterRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessParamTagRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
@@ -3380,9 +3383,9 @@ class ComposerStaticInit37c912f58846549baada94245cecec9d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit37c912f58846549baada94245cecec9d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit37c912f58846549baada94245cecec9d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit37c912f58846549baada94245cecec9d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf9427cdb0fb178cd1690cfd43050b0e1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf9427cdb0fb178cd1690cfd43050b0e1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf9427cdb0fb178cd1690cfd43050b0e1::$classMap;
 
         }, null, ClassLoader::class);
     }

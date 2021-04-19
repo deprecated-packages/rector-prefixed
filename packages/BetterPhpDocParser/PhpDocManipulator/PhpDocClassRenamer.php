@@ -61,7 +61,7 @@ final class PhpDocClassRenamer
         if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return;
         }
-        $this->processDoctrineToMany($doctrineAnnotationTagValueNode, $node, $oldToNewClasses, $phpDocInfo);
+        $this->processDoctrineToMany($doctrineAnnotationTagValueNode, $node, $oldToNewClasses);
     }
     /**
      * @param array<string, string> $oldToNewClasses
@@ -96,7 +96,7 @@ final class PhpDocClassRenamer
     /**
      * @param array<string, string> $oldToNewClasses
      */
-    private function processDoctrineToMany(\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode, \PhpParser\Node $node, array $oldToNewClasses, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    private function processDoctrineToMany(\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode, \PhpParser\Node $node, array $oldToNewClasses) : void
     {
         if ($doctrineAnnotationTagValueNode->getAnnotationClass() === 'Doctrine\\ORM\\Mapping\\Embedded') {
             $classKey = 'class';

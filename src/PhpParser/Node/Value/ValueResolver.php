@@ -160,7 +160,7 @@ final class ValueResolver
         $this->constExprEvaluator = new \PhpParser\ConstExprEvaluator(function (\PhpParser\Node\Expr $expr) {
             if ($expr instanceof \PhpParser\Node\Scalar\MagicConst\Dir) {
                 // __DIR__
-                return $this->resolveDirConstant($expr);
+                return $this->resolveDirConstant();
             }
             if ($expr instanceof \PhpParser\Node\Scalar\MagicConst\File) {
                 // __FILE__
@@ -198,7 +198,7 @@ final class ValueResolver
         }
         return $values;
     }
-    private function resolveDirConstant(\PhpParser\Node\Scalar\MagicConst\Dir $dir) : string
+    private function resolveDirConstant() : string
     {
         $file = $this->currentFileProvider->getFile();
         $smartFileInfo = $file->getSmartFileInfo();
