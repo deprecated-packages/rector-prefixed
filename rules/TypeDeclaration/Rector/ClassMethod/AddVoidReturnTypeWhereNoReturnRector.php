@@ -68,7 +68,7 @@ CODE_SAMPLE
         if ($node->returnType !== null) {
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && $node->isMagic()) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && ($node->isMagic() || $node->isAbstract())) {
             return null;
         }
         if (!$this->silentVoidResolver->hasExlusiveVoid($node)) {
