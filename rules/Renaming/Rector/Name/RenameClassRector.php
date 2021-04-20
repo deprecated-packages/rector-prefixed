@@ -27,7 +27,7 @@ final class RenameClassRector extends \Rector\Core\Rector\AbstractRector impleme
      */
     const OLD_TO_NEW_CLASSES = 'old_to_new_classes';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $oldToNewClasses = [];
     /**
@@ -92,9 +92,8 @@ CODE_SAMPLE
      */
     public function configure(array $configuration)
     {
-        $this->oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
-        if ($this->oldToNewClasses !== []) {
-            $this->renamedClassesDataCollector->addOldToNewClasses($this->oldToNewClasses);
-        }
+        $oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
+        $this->renamedClassesDataCollector->addOldToNewClasses($oldToNewClasses);
+        $this->oldToNewClasses = $this->renamedClassesDataCollector->getOldToNewClasses();
     }
 }
