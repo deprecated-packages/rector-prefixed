@@ -36,6 +36,9 @@ final class SilentVoidResolver
         if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
             return \false;
         }
+        if ($this->hasNeverType($functionLike)) {
+            return \false;
+        }
         if ($this->betterNodeFinder->hasInstancesOf((array) $functionLike->stmts, [\PhpParser\Node\Expr\Yield_::class])) {
             return \false;
         }
@@ -111,5 +114,13 @@ final class SilentVoidResolver
             return $this->hasStmtsAlwaysReturn($catch->stmts);
         }
         return \true;
+    }
+    /**
+     * @see https://phpstan.org/writing-php-code/phpdoc-types#bottom-type
+     * @param ClassMethod|Closure|Function_ $functionLike
+     */
+    private function hasNeverType(\PhpParser\Node\FunctionLike $functionLike) : bool
+    {
+        return $this->betterNodeFinder->hasInstancesOf($functionLike, [\PhpParser\Node\Stmt\Throw_::class]);
     }
 }

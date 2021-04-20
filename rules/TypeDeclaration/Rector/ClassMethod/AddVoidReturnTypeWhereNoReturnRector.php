@@ -63,7 +63,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
             return null;
         }
         if ($node->returnType !== null) {
@@ -75,9 +75,7 @@ CODE_SAMPLE
         if (!$this->silentVoidResolver->hasExlusiveVoid($node)) {
             return null;
         }
-        if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
-            $node->returnType = new \PhpParser\Node\Identifier('void');
-        }
+        $node->returnType = new \PhpParser\Node\Identifier('void');
         return $node;
     }
 }
