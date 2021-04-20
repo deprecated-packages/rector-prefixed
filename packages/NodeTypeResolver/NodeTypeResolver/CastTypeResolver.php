@@ -24,7 +24,7 @@ final class CastTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
     /**
      * @var array<class-string<Node>, class-string<Type>>
      */
-    private const CAST_CLASS_TO_TYPE_MAP = [\PhpParser\Node\Expr\Cast\Bool_::class => \PHPStan\Type\BooleanType::class, \PhpParser\Node\Expr\Cast\String_::class => \PHPStan\Type\StringType::class, \PhpParser\Node\Expr\Cast\Int_::class => \PHPStan\Type\IntegerType::class, \PhpParser\Node\Expr\Cast\Double::class => \PHPStan\Type\FloatType::class];
+    const CAST_CLASS_TO_TYPE_MAP = [\PhpParser\Node\Expr\Cast\Bool_::class => \PHPStan\Type\BooleanType::class, \PhpParser\Node\Expr\Cast\String_::class => \PHPStan\Type\StringType::class, \PhpParser\Node\Expr\Cast\Int_::class => \PHPStan\Type\IntegerType::class, \PhpParser\Node\Expr\Cast\Double::class => \PHPStan\Type\FloatType::class];
     /**
      * @return array<class-string<Node>>
      */

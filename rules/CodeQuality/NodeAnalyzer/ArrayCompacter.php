@@ -9,7 +9,10 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 final class ArrayCompacter
 {
-    public function compactStringToVariableArray(\PhpParser\Node\Expr\Array_ $array) : void
+    /**
+     * @return void
+     */
+    public function compactStringToVariableArray(\PhpParser\Node\Expr\Array_ $array)
     {
         foreach ($array->items as $arrayItem) {
             if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {

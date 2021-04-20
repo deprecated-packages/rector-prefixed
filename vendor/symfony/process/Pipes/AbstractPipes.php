@@ -76,8 +76,9 @@ abstract class AbstractPipes implements \RectorPrefix20210420\Symfony\Component\
      * Writes input to stdin.
      *
      * @throws InvalidArgumentException When an input iterator yields a non supported value
+     * @return mixed[]|null
      */
-    protected function write() : ?array
+    protected function write()
     {
         if (!isset($this->pipes[0])) {
             return null;

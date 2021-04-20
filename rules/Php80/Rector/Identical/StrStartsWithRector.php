@@ -67,8 +67,9 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->strStartWithMatchAndRefactors as $strStartWithMatchAndRefactor) {
             $strStartsWithValueObject = $strStartWithMatchAndRefactor->match($node);

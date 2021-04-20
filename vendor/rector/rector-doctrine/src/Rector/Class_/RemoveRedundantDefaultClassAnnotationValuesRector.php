@@ -56,17 +56,24 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $this->refactorClassAnnotations($node);
         return $node;
     }
-    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class)
     {
         $this->refactorEntityAnnotation($class);
     }
-    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         $doctrineTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Entity');

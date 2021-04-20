@@ -14,7 +14,7 @@ use RectorPrefix20210420\Nette;
 class Floats
 {
     use Nette\StaticClass;
-    private const EPSILON = 1.0E-10;
+    const EPSILON = 1.0E-10;
     public static function isZero(float $value) : bool
     {
         return \abs($value) < self::EPSILON;

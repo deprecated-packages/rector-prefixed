@@ -33,8 +33,9 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
     }
     /**
      * @param File[] $files
+     * @return void
      */
-    public function process(array $files) : void
+    public function process(array $files)
     {
         foreach ($files as $file) {
             $this->processFile($file);
@@ -49,7 +50,10 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
     {
         return \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::SUFFIXES;
     }
-    private function processFile(\Rector\Core\ValueObject\Application\File $file) : void
+    /**
+     * @return void
+     */
+    private function processFile(\Rector\Core\ValueObject\Application\File $file)
     {
         $fileContent = $file->getFileContent();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());

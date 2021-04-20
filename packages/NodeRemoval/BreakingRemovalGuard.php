@@ -12,7 +12,10 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class BreakingRemovalGuard
 {
-    public function ensureNodeCanBeRemove(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function ensureNodeCanBeRemove(\PhpParser\Node $node)
     {
         if ($this->isLegalNodeRemoval($node)) {
             return;

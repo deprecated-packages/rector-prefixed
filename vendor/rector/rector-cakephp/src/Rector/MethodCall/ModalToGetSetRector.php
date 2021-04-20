@@ -24,7 +24,7 @@ final class ModalToGetSetRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    public const UNPREFIXED_METHODS_TO_GET_SET = 'unprefixed_methods_to_get_set';
+    const UNPREFIXED_METHODS_TO_GET_SET = 'unprefixed_methods_to_get_set';
     /**
      * @var ModalToGetSet[]
      */
@@ -60,8 +60,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $unprefixedMethodToGetSet = $this->matchTypeAndMethodName($node);
         if (!$unprefixedMethodToGetSet instanceof \Rector\CakePHP\ValueObject\ModalToGetSet) {
@@ -71,13 +72,19 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($newName);
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $unprefixedMethodsToGetSet = $configuration[self::UNPREFIXED_METHODS_TO_GET_SET] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($unprefixedMethodsToGetSet, \Rector\CakePHP\ValueObject\ModalToGetSet::class);
         $this->unprefixedMethodsToGetSet = $unprefixedMethodsToGetSet;
     }
-    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\ModalToGetSet
+    /**
+     * @return \Rector\CakePHP\ValueObject\ModalToGetSet|null
+     */
+    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         foreach ($this->unprefixedMethodsToGetSet as $unprefixedMethodToGetSet) {
             if (!$this->isObjectType($methodCall->var, $unprefixedMethodToGetSet->getObjectType())) {

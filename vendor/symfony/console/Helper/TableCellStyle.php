@@ -16,7 +16,7 @@ use RectorPrefix20210420\Symfony\Component\Console\Exception\InvalidArgumentExce
  */
 class TableCellStyle
 {
-    public const DEFAULT_ALIGN = 'left';
+    const DEFAULT_ALIGN = 'left';
     private $options = ['fg' => 'default', 'bg' => 'default', 'options' => null, 'align' => self::DEFAULT_ALIGN, 'cellFormat' => null];
     private $tagOptions = ['fg', 'bg', 'options'];
     private $alignMap = ['left' => \STR_PAD_RIGHT, 'center' => \STR_PAD_BOTH, 'right' => \STR_PAD_LEFT];
@@ -49,7 +49,10 @@ class TableCellStyle
     {
         return $this->alignMap[$this->getOptions()['align']];
     }
-    public function getCellFormat() : ?string
+    /**
+     * @return string|null
+     */
+    public function getCellFormat()
     {
         return $this->getOptions()['cellFormat'];
     }

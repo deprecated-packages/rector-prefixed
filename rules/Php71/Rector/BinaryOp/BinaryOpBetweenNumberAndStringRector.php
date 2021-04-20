@@ -56,8 +56,9 @@ CODE_SAMPLE
     }
     /**
      * @param BinaryOp $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return null;

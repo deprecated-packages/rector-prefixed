@@ -50,8 +50,9 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->nodeTypeResolver->isStaticType($node->left, \PHPStan\Type\BooleanType::class) && !$this->valueResolver->isTrueOrFalse($node->left)) {
             return $this->processBoolTypeToNotBool($node, $node->left, $node->right);
@@ -64,7 +65,10 @@ CODE_SAMPLE
         }
         return $this->processBoolTypeToNotBool($node, $node->right, $node->left);
     }
-    private function processBoolTypeToNotBool(\PhpParser\Node $node, \PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function processBoolTypeToNotBool(\PhpParser\Node $node, \PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr)
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($leftExpr, $rightExpr);
@@ -74,7 +78,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function refactorIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr)
     {
         if ($this->valueResolver->isTrue($rightExpr)) {
             return $leftExpr;
@@ -88,7 +95,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorNotIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function refactorNotIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr)
     {
         if ($this->valueResolver->isFalse($rightExpr)) {
             return $leftExpr;

@@ -23,7 +23,7 @@ final class ContainerGetToConstructorInjectionRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    public const CONTAINER_AWARE_PARENT_TYPES = 'container_aware_parent_types';
+    const CONTAINER_AWARE_PARENT_TYPES = 'container_aware_parent_types';
     /**
      * @var string[]
      */
@@ -81,8 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\ContainerInterface'))) {
             return null;
@@ -99,7 +100,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->containerAwareParentTypes = $configuration[self::CONTAINER_AWARE_PARENT_TYPES] ?? [];
     }

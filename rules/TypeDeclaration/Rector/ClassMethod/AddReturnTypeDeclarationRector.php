@@ -23,7 +23,7 @@ final class AddReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    public const METHOD_RETURN_TYPES = 'method_return_types';
+    const METHOD_RETURN_TYPES = 'method_return_types';
     /**
      * @var AddReturnTypeDeclaration[]
      */
@@ -67,8 +67,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->methodReturnTypes as $methodReturnType) {
             if (!$this->isObjectType($node, $methodReturnType->getObjectType())) {
@@ -82,13 +83,19 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $methodReturnTypes = $configuration[self::METHOD_RETURN_TYPES] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($methodReturnTypes, \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration::class);
         $this->methodReturnTypes = $methodReturnTypes;
     }
-    private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType) : void
+    /**
+     * @return void
+     */
+    private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType)
     {
         // remove it
         if ($newType instanceof \PHPStan\Type\MixedType) {

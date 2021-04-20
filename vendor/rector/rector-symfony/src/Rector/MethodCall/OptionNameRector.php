@@ -20,7 +20,7 @@ final class OptionNameRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    private const OLD_TO_NEW_OPTION = ['precision' => 'scale', 'virtual' => 'inherit_data'];
+    const OLD_TO_NEW_OPTION = ['precision' => 'scale', 'virtual' => 'inherit_data'];
     /**
      * @var FormAddMethodCallAnalyzer
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->formAddMethodCallAnalyzer->isMatching($node)) {
             return null;
@@ -76,7 +77,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processStringKey(\PhpParser\Node\Scalar\String_ $string) : void
+    /**
+     * @return void
+     */
+    private function processStringKey(\PhpParser\Node\Scalar\String_ $string)
     {
         $currentOptionName = $string->value;
         $string->value = self::OLD_TO_NEW_OPTION[$currentOptionName] ?? $string->value;

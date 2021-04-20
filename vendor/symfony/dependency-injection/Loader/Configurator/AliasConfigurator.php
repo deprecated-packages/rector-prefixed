@@ -16,7 +16,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Alias;
  */
 class AliasConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    public const FACTORY = 'alias';
+    const FACTORY = 'alias';
     use Traits\DeprecateTrait;
     use Traits\PublicTrait;
     public function __construct(\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210420\Symfony\Component\DependencyInjection\Alias $alias)

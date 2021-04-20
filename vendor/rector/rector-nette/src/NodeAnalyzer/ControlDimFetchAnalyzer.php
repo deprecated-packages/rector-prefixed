@@ -20,15 +20,24 @@ final class ControlDimFetchAnalyzer
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function matchNameOnFormOrControlVariable(\PhpParser\Node $node) : ?string
+    /**
+     * @return string|null
+     */
+    public function matchNameOnFormOrControlVariable(\PhpParser\Node $node)
     {
         return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'));
     }
-    public function matchNameOnControlVariable(\PhpParser\Node $node) : ?string
+    /**
+     * @return string|null
+     */
+    public function matchNameOnControlVariable(\PhpParser\Node $node)
     {
         return $this->matchNameOnVariableType($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'));
     }
-    public function matchName(\PhpParser\Node $node) : ?string
+    /**
+     * @return string|null
+     */
+    public function matchName(\PhpParser\Node $node)
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
@@ -41,7 +50,10 @@ final class ControlDimFetchAnalyzer
         }
         return $node->dim->value;
     }
-    private function matchNameOnVariableType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType) : ?string
+    /**
+     * @return string|null
+     */
+    private function matchNameOnVariableType(\PhpParser\Node $node, \PHPStan\Type\ObjectType $objectType)
     {
         $matchedName = $this->matchName($node);
         if ($matchedName === null) {

@@ -51,8 +51,9 @@ CODE_SAMPLE
     }
     /**
      * @param Equal|NotEqual $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $leftStaticType = $this->getStaticType($node->left);
         $rightStaticType = $this->getStaticType($node->right);

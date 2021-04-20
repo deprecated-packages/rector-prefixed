@@ -33,7 +33,7 @@ use RectorPrefix20210420\Symfony\Component\ExpressionLanguage\Expression;
  */
 class XmlFileLoader extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
-    public const NS = 'http://symfony.com/schema/dic/services';
+    const NS = 'http://symfony.com/schema/dic/services';
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
@@ -154,8 +154,9 @@ class XmlFileLoader extends \RectorPrefix20210420\Symfony\Component\DependencyIn
     }
     /**
      * Parses an individual Definition.
+     * @return \Symfony\Component\DependencyInjection\Definition|null
      */
-    private function parseDefinition(\DOMElement $service, string $file, \RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $defaults) : ?\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition
+    private function parseDefinition(\DOMElement $service, string $file, \RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $defaults)
     {
         if ($alias = $service->getAttribute('alias')) {
             $this->validateAlias($service, $file);
@@ -352,7 +353,7 @@ class XmlFileLoader extends \RectorPrefix20210420\Symfony\Component\DependencyIn
         }
         // resolve definitions
         \uksort($definitions, 'strnatcmp');
-        foreach (\array_reverse($definitions) as $id => [$domElement, $file]) {
+        foreach (\array_reverse($definitions) as $id => list($domElement, $file)) {
             if (null !== ($definition = $this->parseDefinition($domElement, $file, new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition()))) {
                 $this->setDefinition($id, $definition);
             }

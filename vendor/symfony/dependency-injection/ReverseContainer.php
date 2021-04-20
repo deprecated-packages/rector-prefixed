@@ -37,8 +37,9 @@ final class ReverseContainer
      *
      * To be reversible, services need to be either public or be tagged with "container.reversible".
      * @param object $service
+     * @return string|null
      */
-    public function getId($service) : ?string
+    public function getId($service)
     {
         if ($this->serviceContainer === $service) {
             return 'service_container';

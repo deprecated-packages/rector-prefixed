@@ -28,7 +28,7 @@ final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\C
     /**
      * @var int
      */
-    private const MAX_LOOKING_FOR_ASSERT_METHOD_CALL_NESTING_LEVEL = 3;
+    const MAX_LOOKING_FOR_ASSERT_METHOD_CALL_NESTING_LEVEL = 3;
     /**
      * This should prevent segfaults while going too deep into to parsed code. Without it, it might end-up with segfault
      *
@@ -99,8 +99,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $this->classMethodNestingLevel = 0;
         if ($this->shouldSkipClassMethod($node)) {
@@ -123,7 +124,10 @@ CODE_SAMPLE
         }
         return $this->containsAssertCall($classMethod);
     }
-    private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@doesNotPerformAssertions', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
@@ -195,8 +199,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function findClassMethod(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function findClassMethod(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
@@ -214,8 +219,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function findClassMethodByParsingReflection(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
+    private function findClassMethodByParsingReflection(\PhpParser\Node $node)
     {
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
@@ -240,7 +246,10 @@ CODE_SAMPLE
         }
         return $this->findClassMethodInFile($fileName, $methodName);
     }
-    private function findClassMethodInFile(string $fileName, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function findClassMethodInFile(string $fileName, string $methodName)
     {
         // skip already anayzed method to prevent cycling
         if (isset($this->analyzedMethodsInFileName[$fileName][$methodName])) {

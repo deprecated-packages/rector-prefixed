@@ -34,7 +34,7 @@ final class ShortNameResolver
      * @var string
      * @see https://regex101.com/r/KphLd2/1
      */
-    private const BIG_LETTER_START_REGEX = '#^[A-Z]#';
+    const BIG_LETTER_START_REGEX = '#^[A-Z]#';
     /**
      * @var string[][]
      */
@@ -112,7 +112,7 @@ final class ShortNameResolver
     private function resolveForStmts(array $stmts) : array
     {
         $shortNamesToFullyQualifiedNames = [];
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNamesToFullyQualifiedNames) : void {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNamesToFullyQualifiedNames) {
             // class name is used!
             if ($node instanceof \PhpParser\Node\Stmt\ClassLike && $node->name instanceof \PhpParser\Node\Identifier) {
                 $fullyQualifiedName = $this->nodeNameResolver->getName($node);
@@ -147,7 +147,7 @@ final class ShortNameResolver
     {
         $reflectionClass = $this->resolveNativeClassReflection($stmts);
         $shortNamesToFullyQualifiedNames = [];
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNamesToFullyQualifiedNames, $reflectionClass) : void {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNamesToFullyQualifiedNames, $reflectionClass) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
             foreach ($phpDocInfo->getPhpDocNode()->children as $phpDocChildNode) {
                 /** @var PhpDocChildNode $phpDocChildNode */
@@ -165,7 +165,10 @@ final class ShortNameResolver
         });
         return $shortNamesToFullyQualifiedNames;
     }
-    private function resolveShortTagNameFromPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveShortTagNameFromPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode)
     {
         if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
             return null;
@@ -193,8 +196,9 @@ final class ShortNameResolver
     }
     /**
      * @param Node[] $stmts
+     * @return \ReflectionClass|null
      */
-    private function resolveNativeClassReflection(array $stmts) : ?\ReflectionClass
+    private function resolveNativeClassReflection(array $stmts)
     {
         $firstClassLike = $this->nodeFinder->findFirstInstanceOf($stmts, \PhpParser\Node\Stmt\ClassLike::class);
         if (!$firstClassLike instanceof \PhpParser\Node\Stmt\ClassLike) {

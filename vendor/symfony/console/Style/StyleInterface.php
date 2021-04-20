@@ -73,9 +73,10 @@ interface StyleInterface
      * Asks a question.
      *
      * @return mixed
+     * @param string|null $default
      * @param callable $validator
      */
-    public function ask(string $question, ?string $default = null, $validator = null);
+    public function ask(string $question, $default = null, $validator = null);
     /**
      * Asks a question with the user input hidden.
      *

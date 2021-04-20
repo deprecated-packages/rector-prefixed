@@ -30,7 +30,7 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    private const OLD_NAMES_TO_NEW_ONES = ['ereg' => 'preg_match', 'eregi' => 'preg_match', 'ereg_replace' => 'preg_replace', 'eregi_replace' => 'preg_replace', 'split' => 'preg_split', 'spliti' => 'preg_split'];
+    const OLD_NAMES_TO_NEW_ONES = ['ereg' => 'preg_match', 'eregi' => 'preg_match', 'ereg_replace' => 'preg_replace', 'eregi_replace' => 'preg_replace', 'split' => 'preg_split', 'spliti' => 'preg_split'];
     /**
      * @var EregToPcreTransformer
      */
@@ -52,8 +52,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $functionName = $this->getName($node);
         if ($functionName === null) {
@@ -79,13 +80,19 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
         }
         return $node;
     }
-    private function processStringPattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Scalar\String_ $string, string $functionName) : void
+    /**
+     * @return void
+     */
+    private function processStringPattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Scalar\String_ $string, string $functionName)
     {
         $pattern = $string->value;
         $pattern = $this->eregToPcreTransformer->transform($pattern, $this->isCaseInsensitiveFunction($functionName));
         $funcCall->args[0]->value = new \PhpParser\Node\Scalar\String_($pattern);
     }
-    private function processVariablePattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Variable $variable, string $functionName) : void
+    /**
+     * @return void
+     */
+    private function processVariablePattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Variable $variable, string $functionName)
     {
         $pregQuotePatternNode = $this->nodeFactory->createFuncCall('preg_quote', [new \PhpParser\Node\Arg($variable), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('#'))]);
         $startConcat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_('#'), $pregQuotePatternNode);
@@ -98,8 +105,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
      * split(' ', 'hey Tom', 0);
      * ↓
      * preg_split('# #', 'hey Tom', 1);
+     * @return void
      */
-    private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
+    private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName)
     {
         if (!\RectorPrefix20210420\Nette\Utils\Strings::startsWith($functionName, 'split')) {
             return;

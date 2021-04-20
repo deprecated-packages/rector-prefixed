@@ -18,8 +18,8 @@ use RectorPrefix20210420\Symfony\Component\Process\Process;
  */
 class ProcessTimedOutException extends \RectorPrefix20210420\Symfony\Component\Process\Exception\RuntimeException
 {
-    public const TYPE_GENERAL = 1;
-    public const TYPE_IDLE = 2;
+    const TYPE_GENERAL = 1;
+    const TYPE_IDLE = 2;
     private $process;
     private $timeoutType;
     public function __construct(\RectorPrefix20210420\Symfony\Component\Process\Process $process, int $timeoutType)

@@ -25,7 +25,10 @@ final class SetResolver
         }
         return $set->getSetFileInfo();
     }
-    private function reportSetNotFound(string $setName) : void
+    /**
+     * @return void
+     */
+    private function reportSetNotFound(string $setName)
     {
         $message = \sprintf('Set "%s" was not found', $setName);
         throw new \RectorPrefix20210420\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());

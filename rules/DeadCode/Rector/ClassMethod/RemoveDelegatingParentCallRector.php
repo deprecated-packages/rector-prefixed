@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($this->shouldSkipClass($classLike)) {
@@ -88,7 +89,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function shouldSkipClass(?\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    /**
+     * @param \PhpParser\Node\Stmt\ClassLike|null $classLike
+     */
+    private function shouldSkipClass($classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
@@ -102,7 +106,10 @@ CODE_SAMPLE
         }
         return $this->isName($classMethod->returnType, $type);
     }
-    private function matchStaticCall(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
+    /**
+     * @return \PhpParser\Node\Expr\StaticCall|null
+     */
+    private function matchStaticCall(\PhpParser\Node $node)
     {
         // must be static call
         if ($node instanceof \PhpParser\Node\Stmt\Return_) {

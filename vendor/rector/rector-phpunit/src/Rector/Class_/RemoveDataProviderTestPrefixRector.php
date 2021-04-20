@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -90,7 +91,10 @@ CODE_SAMPLE
         $this->renameProviderMethods($node);
         return $node;
     }
-    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class)
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -117,7 +121,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class)
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($this->providerMethodNamesToNewNames as $oldName => $newName) {

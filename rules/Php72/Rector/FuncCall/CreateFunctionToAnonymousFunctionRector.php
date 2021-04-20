@@ -81,9 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return Closure|null
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node, 'create_function')) {
             return null;

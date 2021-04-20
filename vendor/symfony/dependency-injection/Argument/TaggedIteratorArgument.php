@@ -45,11 +45,17 @@ class TaggedIteratorArgument extends \RectorPrefix20210420\Symfony\Component\Dep
     {
         return $this->tag;
     }
-    public function getIndexAttribute() : ?string
+    /**
+     * @return string|null
+     */
+    public function getIndexAttribute()
     {
         return $this->indexAttribute;
     }
-    public function getDefaultIndexMethod() : ?string
+    /**
+     * @return string|null
+     */
+    public function getDefaultIndexMethod()
     {
         return $this->defaultIndexMethod;
     }
@@ -57,7 +63,10 @@ class TaggedIteratorArgument extends \RectorPrefix20210420\Symfony\Component\Dep
     {
         return $this->needsIndexes;
     }
-    public function getDefaultPriorityMethod() : ?string
+    /**
+     * @return string|null
+     */
+    public function getDefaultPriorityMethod()
     {
         return $this->defaultPriorityMethod;
     }

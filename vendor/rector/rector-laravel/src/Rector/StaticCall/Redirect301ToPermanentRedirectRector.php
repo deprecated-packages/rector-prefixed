@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->class, $this->routerObjectTypes)) {
             return null;

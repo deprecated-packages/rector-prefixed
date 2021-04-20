@@ -19,7 +19,7 @@ final class MethodCallToStaticCallRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var string
      */
-    public const METHOD_CALLS_TO_STATIC_CALLS = 'method_calls_to_static_calls';
+    const METHOD_CALLS_TO_STATIC_CALLS = 'method_calls_to_static_calls';
     /**
      * @var MethodCallToStaticCall[]
      */
@@ -69,8 +69,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->methodCallsToStaticCalls as $methodCallToStaticCall) {
             if (!$this->isObjectType($node->var, $methodCallToStaticCall->getOldObjectType())) {
@@ -83,7 +84,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $methodCallsToStaticCalls = $configuration[self::METHOD_CALLS_TO_STATIC_CALLS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($methodCallsToStaticCalls, \Rector\Transform\ValueObject\MethodCallToStaticCall::class);

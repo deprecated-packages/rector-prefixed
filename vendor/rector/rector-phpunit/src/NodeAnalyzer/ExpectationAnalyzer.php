@@ -17,7 +17,7 @@ final class ExpectationAnalyzer
     /**
      * @var string[]
      */
-    private const PROCESSABLE_WILL_STATEMENTS = ['will', 'willReturn', 'willReturnReference', 'willReturnMap', 'willReturnArgument', 'willReturnCallback', 'willReturnSelf', 'willThrowException'];
+    const PROCESSABLE_WILL_STATEMENTS = ['will', 'willReturn', 'willReturnReference', 'willReturnMap', 'willReturnArgument', 'willReturnCallback', 'willReturnSelf', 'willThrowException'];
     /**
      * @var TestsNodeAnalyzer
      */
@@ -94,7 +94,10 @@ final class ExpectationAnalyzer
         }
         return $methodCall;
     }
-    private function getWill(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function getWill(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS)) {
             return null;

@@ -27,7 +27,10 @@ final class ServiceTypeMethodCallResolver
         $this->serviceMapProvider = $serviceMapProvider;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolve(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    public function resolve(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!isset($methodCall->args[0])) {
             return new \PHPStan\Type\MixedType();

@@ -23,11 +23,11 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
     /**
      * @var string
      */
-    private const ASSERT_TRUE = 'assertTrue';
+    const ASSERT_TRUE = 'assertTrue';
     /**
      * @var string
      */
-    private const ASSERT_FALSE = 'assertFalse';
+    const ASSERT_FALSE = 'assertFalse';
     /**
      * @var IdentifierManipulator
      */
@@ -54,8 +54,9 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, [self::ASSERT_TRUE, self::ASSERT_FALSE])) {
             return null;
@@ -81,8 +82,9 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function refactorPropertyFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : void
+    private function refactorPropertyFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\PropertyFetch $propertyFetch)
     {
         $name = $this->getName($propertyFetch);
         if ($name === null) {
@@ -96,8 +98,9 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function refactorArrayDimFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : void
+    private function refactorArrayDimFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch)
     {
         $this->identifierManipulator->renameNodeWithMap($node, [self::ASSERT_TRUE => 'assertArrayHasKey', self::ASSERT_FALSE => 'assertArrayNotHasKey']);
         $oldArgs = $node->args;

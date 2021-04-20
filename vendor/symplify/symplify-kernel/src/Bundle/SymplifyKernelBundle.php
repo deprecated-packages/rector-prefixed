@@ -10,12 +10,18 @@ use RectorPrefix20210420\Symplify\SymplifyKernel\DependencyInjection\CompilerPas
 use RectorPrefix20210420\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
 final class SymplifyKernelBundle extends \RectorPrefix20210420\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    public function build(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    /**
+     * @return void
+     */
+    public function build(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $containerBuilder->addCompilerPass(new \RectorPrefix20210420\Symplify\SymplifyKernel\DependencyInjection\CompilerPass\PrepareConsoleApplicationCompilerPass());
         $containerBuilder->addCompilerPass(new \RectorPrefix20210420\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-    protected function createContainerExtension() : ?\RectorPrefix20210420\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    /**
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
+     */
+    protected function createContainerExtension()
     {
         return new \RectorPrefix20210420\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
     }

@@ -37,7 +37,10 @@ final class DependencyInjectionMethodCallAnalyzer
         $this->nodeFactory = $nodeFactory;
         $this->propertyAdder = $propertyAdder;
     }
-    public function replaceMethodCallWithPropertyFetchAndDependency(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function replaceMethodCallWithPropertyFetchAndDependency(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $serviceType = $this->serviceTypeMethodCallResolver->resolve($methodCall);
         if (!$serviceType instanceof \PHPStan\Type\ObjectType) {

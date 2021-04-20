@@ -67,8 +67,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $this->reset();
         $hasChanged = \false;
@@ -86,12 +87,18 @@ CODE_SAMPLE
         }
         return $hasChanged ? $node : null;
     }
-    private function reset() : void
+    /**
+     * @return void
+     */
+    private function reset()
     {
         $this->previousStmtVariableName = null;
         $this->previousPreviousStmtVariableName = null;
     }
-    private function resolveCurrentStmtVariableName(\PhpParser\Node\Stmt $stmt) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveCurrentStmtVariableName(\PhpParser\Node\Stmt $stmt)
     {
         $stmt = $this->unwrapExpression($stmt);
         if ($stmt instanceof \PhpParser\Node\Expr\Assign || $stmt instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -106,8 +113,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @param string|null $currentStmtVariableName
      */
-    private function shouldAddEmptyLine(?string $currentStmtVariableName, \PhpParser\Node $node, int $key) : bool
+    private function shouldAddEmptyLine($currentStmtVariableName, \PhpParser\Node $node, int $key) : bool
     {
         if (!$this->isNewVariableThanBefore($currentStmtVariableName)) {
             return \false;
@@ -126,7 +134,10 @@ CODE_SAMPLE
         // local method call
         return $this->nodeNameResolver->isName($node->var, 'this');
     }
-    private function isNewVariableThanBefore(?string $currentStmtVariableName) : bool
+    /**
+     * @param string|null $currentStmtVariableName
+     */
+    private function isNewVariableThanBefore($currentStmtVariableName) : bool
     {
         if ($this->previousPreviousStmtVariableName === null) {
             return \false;

@@ -22,7 +22,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\PhpFileLoa
  */
 class ServicesConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    public const FACTORY = 'services';
+    const FACTORY = 'services';
     private $defaults;
     private $container;
     private $loader;
@@ -62,7 +62,7 @@ class ServicesConfigurator extends \RectorPrefix20210420\Symfony\Component\Depen
      * @param string|null $id    The service id, or null to create an anonymous service
      * @param string|null $class The class of the service, or null when $id is also the class name
      */
-    public final function set(?string $id, string $class = null) : \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+    public final function set($id, string $class = null) : \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $defaults = $this->defaults;
         $definition = new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition();

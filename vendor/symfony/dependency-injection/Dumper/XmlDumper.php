@@ -80,7 +80,10 @@ class XmlDumper extends \RectorPrefix20210420\Symfony\Component\DependencyInject
             $parent->appendChild($call);
         }
     }
-    private function addService(\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, \DOMElement $parent)
+    /**
+     * @param string|null $id
+     */
+    private function addService(\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $definition, $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
         if (null !== $id) {
@@ -105,7 +108,7 @@ class XmlDumper extends \RectorPrefix20210420\Symfony\Component\DependencyInject
             $service->setAttribute('lazy', 'true');
         }
         if (null !== ($decoratedService = $definition->getDecoratedService())) {
-            [$decorated, $renamedId, $priority] = $decoratedService;
+            list($decorated, $renamedId, $priority) = $decoratedService;
             $service->setAttribute('decorates', $decorated);
             $decorationOnInvalid = $decoratedService[3] ?? \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if (\in_array($decorationOnInvalid, [\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE], \true)) {

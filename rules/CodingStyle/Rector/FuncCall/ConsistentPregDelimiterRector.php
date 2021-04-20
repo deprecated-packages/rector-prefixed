@@ -23,24 +23,24 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
      * @api
      * @var string
      */
-    public const DELIMITER = 'delimiter';
+    const DELIMITER = 'delimiter';
     /**
      * @var string
      * @see https://regex101.com/r/isdgEN/1
      *
      * For modifiers see https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
      */
-    private const INNER_REGEX = '#(?<content>.*?)(?<close>[imsxeADSUXJu]*)$#s';
+    const INNER_REGEX = '#(?<content>.*?)(?<close>[imsxeADSUXJu]*)$#s';
     /**
      * All with pattern as 1st argument
      * @var array<string, int>
      */
-    private const FUNCTIONS_WITH_REGEX_PATTERN = ['preg_match' => 0, 'preg_replace_callback_array' => 0, 'preg_replace_callback' => 0, 'preg_replace' => 0, 'preg_match_all' => 0, 'preg_split' => 0, 'preg_grep' => 0];
+    const FUNCTIONS_WITH_REGEX_PATTERN = ['preg_match' => 0, 'preg_replace_callback_array' => 0, 'preg_replace_callback' => 0, 'preg_replace' => 0, 'preg_match_all' => 0, 'preg_split' => 0, 'preg_grep' => 0];
     /**
      * All with pattern as 2st argument
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    const STATIC_METHODS_WITH_REGEX_PATTERN = ['Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var string
      */
@@ -78,8 +78,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->refactorFuncCall($node);
@@ -98,11 +99,17 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->delimiter = $configuration[self::DELIMITER] ?? '#';
     }
-    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @return \PhpParser\Node\Expr\FuncCall|null
+     */
+    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         foreach (self::FUNCTIONS_WITH_REGEX_PATTERN as $function => $position) {
             if (!$this->isName($funcCall, $function)) {
@@ -113,7 +120,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorArgument(\PhpParser\Node\Arg $arg) : void
+    /**
+     * @return void
+     */
+    private function refactorArgument(\PhpParser\Node\Arg $arg)
     {
         if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;

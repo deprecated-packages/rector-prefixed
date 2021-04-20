@@ -27,11 +27,11 @@ final class DowngradeListReferenceAssignmentRector extends \Rector\Core\Rector\A
     /**
      * @var int
      */
-    private const ALL = 0;
+    const ALL = 0;
     /**
      * @var int
      */
-    private const ANY = 1;
+    const ANY = 1;
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert the list reference assignment to its equivalent PHP 7.2 code', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -77,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param List_|Array_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->shouldRefactor($node)) {
             return null;
@@ -101,9 +102,9 @@ CODE_SAMPLE
      * since they are not needed anymore.
      * If all of them can be removed, then directly remove `list()`.
      * @param List_|Array_ $node
-     * @return List_|Array_|null
+     * @return \PhpParser\Node|null
      */
-    public function removeStaleParams(\PhpParser\Node $node, int $rightSideRemovableParamsCount) : ?\PhpParser\Node
+    public function removeStaleParams(\PhpParser\Node $node, int $rightSideRemovableParamsCount)
     {
         $nodeItemsCount = \count($node->items);
         if ($rightSideRemovableParamsCount === $nodeItemsCount) {

@@ -21,7 +21,10 @@ final class ExpectationMockCollection
     {
         return $this->expectationMocks !== [];
     }
-    public function add(\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock) : void
+    /**
+     * @return void
+     */
+    public function add(\Rector\PHPUnit\ValueObject\ExpectationMock $expectationMock)
     {
         $this->expectationMocks[] = $expectationMock;
     }

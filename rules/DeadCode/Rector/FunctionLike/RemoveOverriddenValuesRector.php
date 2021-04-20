@@ -72,8 +72,9 @@ CODE_SAMPLE
     }
     /**
      * @param FunctionLike $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         // 1. collect assigns
         $assignedVariables = $this->resolveAssignedVariables($node);
@@ -162,7 +163,10 @@ CODE_SAMPLE
         }
         return $nodesToRemove;
     }
-    private function isAssignNodeUsed(?\Rector\DeadCode\ValueObject\VariableNodeUse $previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
+    /**
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse|null $previousNode
+     */
+    private function isAssignNodeUsed($previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
     {
         // this node was just used, skip to next one
         if (!$previousNode instanceof \Rector\DeadCode\ValueObject\VariableNodeUse) {
@@ -173,7 +177,10 @@ CODE_SAMPLE
         }
         return $nodeByTypeAndPosition->isType(\Rector\DeadCode\ValueObject\VariableNodeUse::TYPE_USE);
     }
-    private function shouldRemoveAssignNode(?\Rector\DeadCode\ValueObject\VariableNodeUse $previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
+    /**
+     * @param \Rector\DeadCode\ValueObject\VariableNodeUse|null $previousNode
+     */
+    private function shouldRemoveAssignNode($previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
     {
         if ($previousNode === null) {
             return \false;

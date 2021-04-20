@@ -53,8 +53,9 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * @param ClassMethod|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -69,7 +70,10 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         return $this->processMethodCall($node);
     }
-    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         // remove params and turn them to instances
         $assigns = [];
@@ -86,7 +90,10 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $classMethod->params = [];
         $classMethod->stmts = \array_merge($assigns, (array) $classMethod->stmts);
     }
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if ($this->isName($methodCall->name, 'shouldBeCalled')) {
             if (!$methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -111,8 +118,9 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * Variable or property fetch, based on number of present params in whole class
+     * @return \PhpParser\Node\Stmt\Expression|null
      */
-    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : ?\PhpParser\Node\Stmt\Expression
+    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name)
     {
         /** @var Class_ $classLike */
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

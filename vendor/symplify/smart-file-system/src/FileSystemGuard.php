@@ -7,14 +7,20 @@ use RectorPrefix20210420\Symplify\SmartFileSystem\Exception\DirectoryNotFoundExc
 use RectorPrefix20210420\Symplify\SmartFileSystem\Exception\FileNotFoundException;
 final class FileSystemGuard
 {
-    public function ensureFileExists(string $file, string $location) : void
+    /**
+     * @return void
+     */
+    public function ensureFileExists(string $file, string $location)
     {
         if (\file_exists($file)) {
             return;
         }
         throw new \RectorPrefix20210420\Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File "%s" not found in "%s".', $file, $location));
     }
-    public function ensureDirectoryExists(string $directory, string $extraMessage = '') : void
+    /**
+     * @return void
+     */
+    public function ensureDirectoryExists(string $directory, string $extraMessage = '')
     {
         if (\is_dir($directory) && \file_exists($directory)) {
             return;

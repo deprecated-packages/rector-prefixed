@@ -11,7 +11,10 @@ final class SpacingAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\P
      * @var string
      */
     private $preposition;
-    public function __construct(string $name, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $preposition)
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode|null $typeNode
+     */
+    public function __construct(string $name, $typeNode, string $description, string $preposition)
     {
         parent::__construct($name, $typeNode, $description);
         $this->preposition = $preposition;

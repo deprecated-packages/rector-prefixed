@@ -20,7 +20,7 @@ final class ContributeEventClassResolver
     /**
      * @var array<string, array<string, string>>
      */
-    private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
+    const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
         'Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
         'Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['Nette\\Application\\Application' => 'getApplication'],
@@ -61,7 +61,10 @@ final class ContributeEventClassResolver
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeComparator = $nodeComparator;
     }
-    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \PhpParser\Node\Param $param, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree) : string
+    /**
+     * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
+     */
+    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \PhpParser\Node\Param $param, $eventAndListenerTree) : string
     {
         $getterMethodsWithType = self::CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE[$eventClass] ?? null;
         $paramType = $param->type;

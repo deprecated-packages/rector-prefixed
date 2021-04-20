@@ -9,69 +9,69 @@ final class SymfonySetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const SYMFONY_26 = __DIR__ . '/../../config/sets/symfony/symfony26.php';
+    const SYMFONY_26 = __DIR__ . '/../../config/sets/symfony/symfony26.php';
     /**
      * @var string
      */
-    public const SYMFONY_28 = __DIR__ . '/../../config/sets/symfony/symfony28.php';
+    const SYMFONY_28 = __DIR__ . '/../../config/sets/symfony/symfony28.php';
     /**
      * @var string
      */
-    public const SYMFONY_30 = __DIR__ . '/../../config/sets/symfony/symfony30.php';
+    const SYMFONY_30 = __DIR__ . '/../../config/sets/symfony/symfony30.php';
     /**
      * @var string
      */
-    public const SYMFONY_31 = __DIR__ . '/../../config/sets/symfony/symfony31.php';
+    const SYMFONY_31 = __DIR__ . '/../../config/sets/symfony/symfony31.php';
     /**
      * @var string
      */
-    public const SYMFONY_32 = __DIR__ . '/../../config/sets/symfony/symfony32.php';
+    const SYMFONY_32 = __DIR__ . '/../../config/sets/symfony/symfony32.php';
     /**
      * @var string
      */
-    public const SYMFONY_33 = __DIR__ . '/../../config/sets/symfony/symfony33.php';
+    const SYMFONY_33 = __DIR__ . '/../../config/sets/symfony/symfony33.php';
     /**
      * @var string
      */
-    public const SYMFONY_34 = __DIR__ . '/../../config/sets/symfony/symfony34.php';
+    const SYMFONY_34 = __DIR__ . '/../../config/sets/symfony/symfony34.php';
     /**
      * @var string
      */
-    public const SYMFONY_40 = __DIR__ . '/../../config/sets/symfony/symfony40.php';
+    const SYMFONY_40 = __DIR__ . '/../../config/sets/symfony/symfony40.php';
     /**
      * @var string
      */
-    public const SYMFONY_41 = __DIR__ . '/../../config/sets/symfony/symfony41.php';
+    const SYMFONY_41 = __DIR__ . '/../../config/sets/symfony/symfony41.php';
     /**
      * @var string
      */
-    public const SYMFONY_42 = __DIR__ . '/../../config/sets/symfony/symfony42.php';
+    const SYMFONY_42 = __DIR__ . '/../../config/sets/symfony/symfony42.php';
     /**
      * @var string
      */
-    public const SYMFONY_43 = __DIR__ . '/../../config/sets/symfony/symfony43.php';
+    const SYMFONY_43 = __DIR__ . '/../../config/sets/symfony/symfony43.php';
     /**
      * @var string
      */
-    public const SYMFONY_44 = __DIR__ . '/../../config/sets/symfony/symfony44.php';
+    const SYMFONY_44 = __DIR__ . '/../../config/sets/symfony/symfony44.php';
     /**
      * @var string
      */
-    public const SYMFONY_50 = __DIR__ . '/../../config/sets/symfony/symfony50.php';
+    const SYMFONY_50 = __DIR__ . '/../../config/sets/symfony/symfony50.php';
     /**
      * @var string
      */
-    public const SYMFONY_50_TYPES = __DIR__ . '/../../config/sets/symfony/symfony50-types.php';
+    const SYMFONY_50_TYPES = __DIR__ . '/../../config/sets/symfony/symfony50-types.php';
     /**
      * @var string
      */
-    public const SYMFONY_52 = __DIR__ . '/../../config/sets/symfony/symfony52.php';
+    const SYMFONY_52 = __DIR__ . '/../../config/sets/symfony/symfony52.php';
     /**
      * @var string
      */
-    public const SYMFONY_CODE_QUALITY = __DIR__ . '/../../config/sets/symfony/symfony-code-quality.php';
+    const SYMFONY_CODE_QUALITY = __DIR__ . '/../../config/sets/symfony/symfony-code-quality.php';
     /**
      * @var string
      */
-    public const SYMFONY_CONSTRUCTOR_INJECTION = __DIR__ . '/../../config/sets/symfony/symfony-constructor-injection.php';
+    const SYMFONY_CONSTRUCTOR_INJECTION = __DIR__ . '/../../config/sets/symfony/symfony-constructor-injection.php';
 }

@@ -10,7 +10,10 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Nette\Contract\ValueObject\ParameterArrayInterface;
 final class RenderParameterArrayFactory
 {
-    public function createArray(\Rector\Nette\Contract\ValueObject\ParameterArrayInterface $parameterArray) : ?\PhpParser\Node\Expr\Array_
+    /**
+     * @return \PhpParser\Node\Expr\Array_|null
+     */
+    public function createArray(\Rector\Nette\Contract\ValueObject\ParameterArrayInterface $parameterArray)
     {
         $arrayItems = [];
         foreach ($parameterArray->getTemplateVariables() as $name => $expr) {

@@ -11,7 +11,7 @@ final class RectorNamingInflector
      * @var string
      * @see https://regex101.com/r/VqVvke/3
      */
-    private const DATA_INFO_SUFFIX_REGEX = '#^(?<prefix>.+)(?<suffix>Data|Info)$#';
+    const DATA_INFO_SUFFIX_REGEX = '#^(?<prefix>.+)(?<suffix>Data|Info)$#';
     /**
      * @var Inflector
      */

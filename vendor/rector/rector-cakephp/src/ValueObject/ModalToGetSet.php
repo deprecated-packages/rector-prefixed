@@ -30,7 +30,12 @@ final class ModalToGetSet
      * @var string|null
      */
     private $firstArgumentType;
-    public function __construct(string $type, string $unprefixedMethod, ?string $getMethod = null, ?string $setMethod = null, int $minimalSetterArgumentCount = 1, ?string $firstArgumentType = null)
+    /**
+     * @param string|null $getMethod
+     * @param string|null $setMethod
+     * @param string|null $firstArgumentType
+     */
+    public function __construct(string $type, string $unprefixedMethod, $getMethod = null, $setMethod = null, int $minimalSetterArgumentCount = 1, $firstArgumentType = null)
     {
         $this->type = $type;
         $this->unprefixedMethod = $unprefixedMethod;
@@ -59,7 +64,10 @@ final class ModalToGetSet
     {
         return $this->minimalSetterArgumentCount;
     }
-    public function getFirstArgumentType() : ?string
+    /**
+     * @return string|null
+     */
+    public function getFirstArgumentType()
     {
         return $this->firstArgumentType;
     }

@@ -23,7 +23,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    private const BOOT = 'boot';
+    const BOOT = 'boot';
     /**
      * @var StaticCallAnalyzer
      */
@@ -66,8 +66,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

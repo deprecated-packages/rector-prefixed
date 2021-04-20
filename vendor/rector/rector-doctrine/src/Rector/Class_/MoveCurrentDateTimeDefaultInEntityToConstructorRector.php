@@ -90,15 +90,19 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($node->getProperties() as $property) {
             $this->refactorProperty($property, $node);
         }
         return $node;
     }
-    private function refactorProperty(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    private function refactorProperty(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
@@ -130,7 +134,10 @@ CODE_SAMPLE
         $onlyProperty->default = null;
         return $property;
     }
-    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @return void
+     */
+    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property)
     {
         /** @var string $propertyName */
         $propertyName = $this->getName($property);

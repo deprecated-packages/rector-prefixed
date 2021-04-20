@@ -20,18 +20,30 @@ class MemoryStorage implements \RectorPrefix20210420\Nette\Caching\Storage
     {
         return $this->data[$key] ?? null;
     }
-    public function lock(string $key) : void
+    /**
+     * @return void
+     */
+    public function lock(string $key)
     {
     }
-    public function write(string $key, $data, array $dependencies) : void
+    /**
+     * @return void
+     */
+    public function write(string $key, $data, array $dependencies)
     {
         $this->data[$key] = $data;
     }
-    public function remove(string $key) : void
+    /**
+     * @return void
+     */
+    public function remove(string $key)
     {
         unset($this->data[$key]);
     }
-    public function clean(array $conditions) : void
+    /**
+     * @return void
+     */
+    public function clean(array $conditions)
     {
         if (!empty($conditions[\RectorPrefix20210420\Nette\Caching\Cache::ALL])) {
             $this->data = [];

@@ -86,8 +86,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->isSkipped($node)) {
             return null;
@@ -161,7 +162,10 @@ CODE_SAMPLE
         }
         return $this->typeNodeUnwrapper->uniquateNodes($returnedStrictTypeNodes);
     }
-    private function resolveMethodCallReturnNode(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function resolveMethodCallReturnNode(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
         if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -173,7 +177,10 @@ CODE_SAMPLE
         }
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
     }
-    private function resolveStaticCallReturnNode(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function resolveStaticCallReturnNode(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
         if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -186,9 +193,9 @@ CODE_SAMPLE
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
     }
     /**
-     * @return Name|NullableType|PhpParserUnionType|null
+     * @return \PhpParser\Node|null
      */
-    private function resolveFuncCallReturnNode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
+    private function resolveFuncCallReturnNode(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $returnType = $this->reflectionTypeResolver->resolveFuncCallReturnType($funcCall);
         if (!$returnType instanceof \PHPStan\Type\Type) {

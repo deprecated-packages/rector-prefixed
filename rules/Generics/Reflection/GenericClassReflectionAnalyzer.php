@@ -11,7 +11,10 @@ use Rector\Generics\ValueObject\ChildParentClassReflections;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class GenericClassReflectionAnalyzer
 {
-    public function resolveChildParent(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Generics\ValueObject\ChildParentClassReflections
+    /**
+     * @return \Rector\Generics\ValueObject\ChildParentClassReflections|null
+     */
+    public function resolveChildParent(\PhpParser\Node\Stmt\Class_ $class)
     {
         if ($class->extends === null) {
             return null;

@@ -34,8 +34,9 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
     }
     /**
      * @required
+     * @return void
      */
-    public function autowireUnionTypeMapper(\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper) : void
+    public function autowireUnionTypeMapper(\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper)
     {
         $this->phpDocTypeMapper = $phpDocTypeMapper;
     }

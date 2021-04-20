@@ -19,7 +19,7 @@ final class NewToStaticCallRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    public const TYPE_TO_STATIC_CALLS = 'type_to_static_calls';
+    const TYPE_TO_STATIC_CALLS = 'type_to_static_calls';
     /**
      * @var NewToStaticCall[]
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->typeToStaticCalls as $typeToStaticCall) {
             if (!$this->isObjectType($node->class, $typeToStaticCall->getObjectType())) {
@@ -66,7 +67,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $typeToStaticCalls = $configuration[self::TYPE_TO_STATIC_CALLS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($typeToStaticCalls, \Rector\Transform\ValueObject\NewToStaticCall::class);

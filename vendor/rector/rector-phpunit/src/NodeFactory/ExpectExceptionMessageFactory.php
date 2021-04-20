@@ -39,7 +39,10 @@ final class ExpectExceptionMessageFactory
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, ['assertSame', 'assertEquals'])) {
             return null;

@@ -65,7 +65,10 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\Nette\Contract\F
         }
         return [$controlShortName => $createComponentClassMethodReturnType->getClassName()];
     }
-    private function matchCreateComponentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function matchCreateComponentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName)
     {
         $callerType = $this->nodeTypeResolver->getStaticType($arrayDimFetch->var);
         if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {

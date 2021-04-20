@@ -66,7 +66,10 @@ final class ClassDependencyManipulator
         $this->propertyPresenceChecker = $propertyPresenceChecker;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function addConstructorDependency(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
+    /**
+     * @return void
+     */
+    public function addConstructorDependency(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata)
     {
         if ($this->hasClassPropertyAndDependency($class, $propertyMetadata)) {
             return;
@@ -81,7 +84,11 @@ final class ClassDependencyManipulator
             $this->addConstructorDependencyWithCustomAssign($class, $propertyMetadata->getName(), $propertyMetadata->getType(), $assign);
         }
     }
-    public function addConstructorDependencyWithCustomAssign(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign) : void
+    /**
+     * @param \PHPStan\Type\Type|null $type
+     * @return void
+     */
+    public function addConstructorDependencyWithCustomAssign(\PhpParser\Node\Stmt\Class_ $class, string $name, $type, \PhpParser\Node\Expr\Assign $assign)
     {
         /** @var ClassMethod|null $constructorMethod */
         $constructorMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
@@ -97,8 +104,9 @@ final class ClassDependencyManipulator
     }
     /**
      * @param Stmt[] $stmts
+     * @return void
      */
-    public function addStmtsToConstructorIfNotThereYet(\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
+    public function addStmtsToConstructorIfNotThereYet(\PhpParser\Node\Stmt\Class_ $class, array $stmts)
     {
         $classMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -118,14 +126,20 @@ final class ClassDependencyManipulator
         }
         $classMethod->stmts = \array_merge($stmts, (array) $classMethod->stmts);
     }
-    public function addInjectProperty(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
+    /**
+     * @return void
+     */
+    public function addInjectProperty(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata)
     {
         if ($this->propertyPresenceChecker->hasClassContextPropertyByName($class, $propertyMetadata->getName())) {
             return;
         }
         $this->classInsertManipulator->addInjectPropertyToClass($class, $propertyMetadata);
     }
-    private function addPromotedProperty(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
+    /**
+     * @return void
+     */
+    private function addPromotedProperty(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata)
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $param = $this->nodeFactory->createPromotedPropertyParam($propertyMetadata);

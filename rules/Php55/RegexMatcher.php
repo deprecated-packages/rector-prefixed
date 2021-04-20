@@ -15,12 +15,12 @@ final class RegexMatcher
      * @var string
      * @see https://regex101.com/r/Ok4wuE/1
      */
-    private const LAST_E_REGEX = '#(\\w+)?e(\\w+)?$#';
+    const LAST_E_REGEX = '#(\\w+)?e(\\w+)?$#';
     /**
      * @var string
      * @see https://regex101.com/r/2NWVwT/1
      */
-    private const LETTER_SUFFIX_REGEX = '#(?<modifiers>\\w+)$#';
+    const LETTER_SUFFIX_REGEX = '#(?<modifiers>\\w+)$#';
     /**
      * @var ValueResolver
      */
@@ -29,7 +29,10 @@ final class RegexMatcher
     {
         $this->valueResolver = $valueResolver;
     }
-    public function resolvePatternExpressionWithoutEIfFound(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    public function resolvePatternExpressionWithoutEIfFound(\PhpParser\Node\Expr $expr)
     {
         if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             $pattern = $this->valueResolver->getValue($expr);
@@ -58,7 +61,10 @@ final class RegexMatcher
         $modifiersWithoutE = \RectorPrefix20210420\Nette\Utils\Strings::replace($modifiers, '#e#', '');
         return \RectorPrefix20210420\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
     }
-    private function matchConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat)
     {
         $lastItem = $concat->right;
         if (!$lastItem instanceof \PhpParser\Node\Scalar\String_) {

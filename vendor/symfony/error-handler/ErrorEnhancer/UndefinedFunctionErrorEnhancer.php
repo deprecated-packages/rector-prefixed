@@ -19,8 +19,9 @@ class UndefinedFunctionErrorEnhancer implements \RectorPrefix20210420\Symfony\Co
 {
     /**
      * {@inheritdoc}
+     * @return \Throwable|null
      */
-    public function enhance(\Throwable $error) : ?\Throwable
+    public function enhance(\Throwable $error)
     {
         if ($error instanceof \RectorPrefix20210420\Symfony\Component\ErrorHandler\Error\FatalError) {
             return null;

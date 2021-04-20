@@ -31,11 +31,11 @@ final class ArgumentFuncCallToMethodCallRector extends \Rector\Core\Rector\Abstr
     /**
      * @var string
      */
-    public const FUNCTIONS_TO_METHOD_CALLS = 'functions_to_method_calls';
+    const FUNCTIONS_TO_METHOD_CALLS = 'functions_to_method_calls';
     /**
      * @var string
      */
-    public const ARRAY_FUNCTIONS_TO_METHOD_CALLS = 'array_functions_to_method_calls';
+    const ARRAY_FUNCTIONS_TO_METHOD_CALLS = 'array_functions_to_method_calls';
     /**
      * @var ArgumentFuncCallToMethodCall[]
      */
@@ -100,8 +100,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkipFuncCall($node)) {
             return null;
@@ -124,8 +125,9 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $functionToMethodCalls = $configuration[self::FUNCTIONS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($functionToMethodCalls, \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall::class);
@@ -146,9 +148,9 @@ CODE_SAMPLE
         return $classMethod->isStatic();
     }
     /**
-     * @return PropertyFetch|MethodCall
+     * @return \PhpParser\Node|null
      */
-    private function refactorFuncCallToMethodCall(\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
+    private function refactorFuncCallToMethodCall(\Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall $argumentFuncCallToMethodCall, \PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($argumentFuncCallToMethodCall->getClass());
         $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
@@ -170,9 +172,9 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @return PropertyFetch|MethodCall|null
+     * @return \PhpParser\Node|null
      */
-    private function refactorArrayFunctionToMethodCall(\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
+    private function refactorArrayFunctionToMethodCall(\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Stmt\Class_ $class)
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($arrayFuncCallToMethodCall->getClass());
         $propertyFetch = $this->nodeFactory->createPropertyFetch('this', $propertyName);
@@ -202,9 +204,9 @@ CODE_SAMPLE
         return \count($funcCall->args) >= 1;
     }
     /**
-     * @return PropertyFetch|MethodCall|null
+     * @return \PhpParser\Node|null
      */
-    private function createMethodCallArrayFunctionToMethodCall(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
+    private function createMethodCallArrayFunctionToMethodCall(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\PropertyFetch $propertyFetch)
     {
         if ($funcCall->args === []) {
             return $propertyFetch;

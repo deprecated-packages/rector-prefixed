@@ -62,9 +62,9 @@ class ArrowFunction extends \PhpParser\Node\Expr implements \PhpParser\Node\Func
         return $this->attrGroups;
     }
     /**
-     * @return Node\Stmt\Return_[]
+     * @return mixed[]|null
      */
-    public function getStmts() : ?array
+    public function getStmts()
     {
         return [new \PhpParser\Node\Stmt\Return_($this->expr)];
     }

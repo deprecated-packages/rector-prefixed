@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
@@ -80,7 +81,10 @@ CODE_SAMPLE
         }
         return $this->refactorClassStmts($node, $propertyAndClassMethodName);
     }
-    private function matchStaticPropertyFetchAndGetSingletonMethodName(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Transform\ValueObject\PropertyAndClassMethodName
+    /**
+     * @return \Rector\Transform\ValueObject\PropertyAndClassMethodName|null
+     */
+    private function matchStaticPropertyFetchAndGetSingletonMethodName(\PhpParser\Node\Stmt\Class_ $class)
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$classMethod->isStatic()) {
@@ -121,7 +125,10 @@ CODE_SAMPLE
         $this->removePropertyByName($class, $propertyAndClassMethodName->getPropertyName());
         return $class;
     }
-    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
+    /**
+     * @return void
+     */
+    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName)
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $propertyName)) {

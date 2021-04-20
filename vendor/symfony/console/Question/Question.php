@@ -136,8 +136,9 @@ class Question
      * @return $this
      *
      * @throws LogicException
+     * @param mixed[]|null $values
      */
-    public function setAutocompleterValues(?iterable $values)
+    public function setAutocompleterValues($values)
     {
         if (\is_array($values)) {
             $values = $this->isAssoc($values) ? \array_merge(\array_keys($values), \array_values($values)) : \array_values($values);
@@ -156,8 +157,9 @@ class Question
     }
     /**
      * Gets the callback function used for the autocompleter.
+     * @return callable|null
      */
-    public function getAutocompleterCallback() : ?callable
+    public function getAutocompleterCallback()
     {
         return $this->autocompleterCallback;
     }
@@ -203,8 +205,9 @@ class Question
      * @return $this
      *
      * @throws InvalidArgumentException in case the number of attempts is invalid
+     * @param int|null $attempts
      */
-    public function setMaxAttempts(?int $attempts)
+    public function setMaxAttempts($attempts)
     {
         if (null !== $attempts) {
             $attempts = (int) $attempts;

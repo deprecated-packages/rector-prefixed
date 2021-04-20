@@ -77,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param Variable $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isInControllerActionMethod($node)) {
             return null;

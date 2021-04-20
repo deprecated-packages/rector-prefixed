@@ -64,8 +64,9 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $methodCall = $this->matchReturnMethodCall($node);
         if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -82,7 +83,10 @@ CODE_SAMPLE
         $this->addNodesAfterNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);
         return null;
     }
-    private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return)
     {
         if ($return->expr === null) {
             return null;

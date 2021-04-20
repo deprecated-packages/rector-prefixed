@@ -35,7 +35,10 @@ final class SetterClassMethodAnalyzer
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
-    public function matchNullalbeClassMethodProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    public function matchNullalbeClassMethodProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $propertyFetch = $this->matchNullalbeClassMethodPropertyFetch($classMethod);
         if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
@@ -47,8 +50,9 @@ final class SetterClassMethodAnalyzer
      * Matches:
      *
      * public function setSomething(?Type $someValue); { <$this->someProperty> = $someValue; }
+     * @return \PhpParser\Node\Expr\PropertyFetch|null
      */
-    private function matchNullalbeClassMethodPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
+    private function matchNullalbeClassMethodPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $propertyFetch = $this->matchSetterOnlyPropertyFetch($classMethod);
         if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
@@ -61,7 +65,10 @@ final class SetterClassMethodAnalyzer
         }
         return $propertyFetch;
     }
-    private function matchSetterOnlyPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @return \PhpParser\Node\Expr\PropertyFetch|null
+     */
+    private function matchSetterOnlyPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if (\count($classMethod->params) !== 1) {
             return null;
@@ -89,7 +96,10 @@ final class SetterClassMethodAnalyzer
         }
         return $propertyFetch;
     }
-    private function isVariableName(?\PhpParser\Node $node, string $name) : bool
+    /**
+     * @param \PhpParser\Node|null $node
+     */
+    private function isVariableName($node, string $name) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return \false;

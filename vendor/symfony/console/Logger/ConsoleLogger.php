@@ -24,8 +24,8 @@ use RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface;
  */
 class ConsoleLogger extends \RectorPrefix20210420\Psr\Log\AbstractLogger
 {
-    public const INFO = 'info';
-    public const ERROR = 'error';
+    const INFO = 'info';
+    const ERROR = 'error';
     private $output;
     private $verbosityLevelMap = [\RectorPrefix20210420\Psr\Log\LogLevel::EMERGENCY => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \RectorPrefix20210420\Psr\Log\LogLevel::ALERT => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \RectorPrefix20210420\Psr\Log\LogLevel::CRITICAL => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \RectorPrefix20210420\Psr\Log\LogLevel::ERROR => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \RectorPrefix20210420\Psr\Log\LogLevel::WARNING => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \RectorPrefix20210420\Psr\Log\LogLevel::NOTICE => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \RectorPrefix20210420\Psr\Log\LogLevel::INFO => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \RectorPrefix20210420\Psr\Log\LogLevel::DEBUG => \RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
     private $formatLevelMap = [\RectorPrefix20210420\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \RectorPrefix20210420\Psr\Log\LogLevel::ALERT => self::ERROR, \RectorPrefix20210420\Psr\Log\LogLevel::CRITICAL => self::ERROR, \RectorPrefix20210420\Psr\Log\LogLevel::ERROR => self::ERROR, \RectorPrefix20210420\Psr\Log\LogLevel::WARNING => self::INFO, \RectorPrefix20210420\Psr\Log\LogLevel::NOTICE => self::INFO, \RectorPrefix20210420\Psr\Log\LogLevel::INFO => self::INFO, \RectorPrefix20210420\Psr\Log\LogLevel::DEBUG => self::INFO];

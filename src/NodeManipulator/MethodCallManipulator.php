@@ -70,7 +70,10 @@ final class MethodCallManipulator
         $methodCalls = \array_merge($chainMethodCalls, $onVariableMethodCalls);
         return $this->uniquateObjects($methodCalls);
     }
-    public function findAssignToVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Assign
+    /**
+     * @return \PhpParser\Node\Expr\Assign|null
+     */
+    public function findAssignToVariable(\PhpParser\Node\Expr\Variable $variable)
     {
         $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node) {
@@ -133,7 +136,10 @@ final class MethodCallManipulator
         // re-index
         return \array_values($uniqueObjects);
     }
-    private function findAssignToVariableName(\PhpParser\Node $node, string $variableName) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function findAssignToVariableName(\PhpParser\Node $node, string $variableName)
     {
         return $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -145,7 +151,10 @@ final class MethodCallManipulator
             return $this->nodeNameResolver->isName($node->var, $variableName);
         });
     }
-    private function resolvePreviousNodeInSameScope(\PhpParser\Node $parentNode) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function resolvePreviousNodeInSameScope(\PhpParser\Node $parentNode)
     {
         $previousParentNode = $parentNode;
         $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

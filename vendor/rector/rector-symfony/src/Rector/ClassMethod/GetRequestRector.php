@@ -23,7 +23,7 @@ final class GetRequestRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const REQUEST_CLASS = 'Symfony\\Component\\HttpFoundation\\Request';
+    const REQUEST_CLASS = 'Symfony\\Component\\HttpFoundation\\Request';
     /**
      * @var string
      */
@@ -69,8 +69,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->requestVariableAndParamName = $this->resolveUniqueName($node, 'request');

@@ -44,7 +44,10 @@ final class PropertyAdder
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->propertyNaming = $propertyNaming;
     }
-    public function addPropertyToCollector(\PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @return void
+     */
+    public function addPropertyToCollector(\PhpParser\Node\Stmt\Property $property)
     {
         $classNode = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
@@ -58,12 +61,18 @@ final class PropertyAdder
         $propertyName = $this->nodeNameResolver->getName($property);
         $this->addConstructorDependencyToClass($classNode, $propertyType, $propertyName, $property->flags);
     }
-    public function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
+    /**
+     * @return void
+     */
+    public function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0)
     {
         $this->propertyToAddCollector->addPropertyToClass($class, $propertyName, $propertyType, $propertyFlags);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
-    public function addServiceConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : void
+    /**
+     * @return void
+     */
+    public function addServiceConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType)
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $this->addConstructorDependencyToClass($class, $objectType, $propertyName);

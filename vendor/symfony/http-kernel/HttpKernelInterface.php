@@ -19,8 +19,8 @@ use RectorPrefix20210420\Symfony\Component\HttpFoundation\Response;
  */
 interface HttpKernelInterface
 {
-    public const MASTER_REQUEST = 1;
-    public const SUB_REQUEST = 2;
+    const MASTER_REQUEST = 1;
+    const SUB_REQUEST = 2;
     /**
      * Handles a Request to convert it to a Response.
      *

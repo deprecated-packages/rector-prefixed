@@ -24,7 +24,7 @@ final class TestListenerToHooksRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, array<class-string|string>>
      */
-    private const LISTENER_METHOD_TO_HOOK_INTERFACES = [
+    const LISTENER_METHOD_TO_HOOK_INTERFACES = [
         'addIncompleteTest' => ['PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
         'addRiskyTest' => ['PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
         'addSkippedTest' => ['PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
@@ -121,8 +121,9 @@ CODE_SAMPLE
      * Process Node of matched type
      *
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestListener'))) {
             return null;
@@ -137,7 +138,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         foreach (self::LISTENER_METHOD_TO_HOOK_INTERFACES as $methodName => $hookClassAndMethod) {
             /** @var string $methodName */

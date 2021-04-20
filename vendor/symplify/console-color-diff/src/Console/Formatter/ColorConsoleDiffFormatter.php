@@ -18,22 +18,22 @@ final class ColorConsoleDiffFormatter
      * @var string
      * @see https://regex101.com/r/ovLMDF/1
      */
-    private const PLUS_START_REGEX = '#^(\\+.*)#';
+    const PLUS_START_REGEX = '#^(\\+.*)#';
     /**
      * @var string
      * @see https://regex101.com/r/xwywpa/1
      */
-    private const MINUT_START_REGEX = '#^(\\-.*)#';
+    const MINUT_START_REGEX = '#^(\\-.*)#';
     /**
      * @var string
      * @see https://regex101.com/r/CMlwa8/1
      */
-    private const AT_START_REGEX = '#^(@.*)#';
+    const AT_START_REGEX = '#^(@.*)#';
     /**
      * @var string
      * @see https://regex101.com/r/qduj2O/1
      */
-    private const NEWLINES_REGEX = "#\n\r|\n#";
+    const NEWLINES_REGEX = "#\n\r|\n#";
     /**
      * @var string
      */

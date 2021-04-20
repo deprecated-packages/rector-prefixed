@@ -23,7 +23,7 @@ final class AnonymousFunctionNodeFactory
      * @var string
      * @see https://regex101.com/r/jkLLlM/2
      */
-    private const DIM_FETCH_REGEX = '#(\\$|\\\\|\\x0)(?<number>\\d+)#';
+    const DIM_FETCH_REGEX = '#(\\$|\\\\|\\x0)(?<number>\\d+)#';
     /**
      * @var Parser
      */
@@ -37,7 +37,10 @@ final class AnonymousFunctionNodeFactory
         $this->parser = $parser;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
-    public function createAnonymousFunctionFromString(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\Closure
+    /**
+     * @return \PhpParser\Node\Expr\Closure|null
+     */
+    public function createAnonymousFunctionFromString(\PhpParser\Node\Expr $expr)
     {
         if (!$expr instanceof \PhpParser\Node\Scalar\String_) {
             // not supported yet

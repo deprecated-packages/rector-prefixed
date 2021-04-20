@@ -17,7 +17,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition;
  */
 class ServiceConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    public const FACTORY = 'services';
+    const FACTORY = 'services';
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;

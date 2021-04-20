@@ -124,8 +124,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\Tree');
@@ -157,8 +158,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
+     * @return void
      */
-    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
+    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {

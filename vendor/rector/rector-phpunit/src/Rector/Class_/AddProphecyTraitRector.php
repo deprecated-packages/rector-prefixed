@@ -23,7 +23,7 @@ final class AddProphecyTraitRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const PROPHECY_TRAIT = 'Prophecy\\PhpUnit\\ProphecyTrait';
+    const PROPHECY_TRAIT = 'Prophecy\\PhpUnit\\ProphecyTrait';
     /**
      * @var ClassInsertManipulator
      */
@@ -80,8 +80,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkipClass($node)) {
             return null;

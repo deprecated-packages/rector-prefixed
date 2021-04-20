@@ -38,8 +38,9 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -57,7 +58,10 @@ final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\
         }
         return $node;
     }
-    private function processTestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function processTestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         // special case, @see https://johannespichler.com/writing-custom-phpspec-matchers/
         if ($this->isName($classMethod, 'getMatchers')) {

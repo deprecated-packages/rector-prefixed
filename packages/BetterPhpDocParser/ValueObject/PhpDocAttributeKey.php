@@ -9,17 +9,17 @@ final class PhpDocAttributeKey
     /**
      * @var string
      */
-    public const START_AND_END = 'start_and_end';
+    const START_AND_END = 'start_and_end';
     /**
      * @var string
      */
-    public const PARENT = \RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::PARENT;
+    const PARENT = \RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::PARENT;
     /**
      * @var string
      */
-    public const LAST_PHP_DOC_TOKEN_POSITION = 'last_token_position';
+    const LAST_PHP_DOC_TOKEN_POSITION = 'last_token_position';
     /**
      * @var string
      */
-    public const ORIG_NODE = \RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE;
+    const ORIG_NODE = \RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE;
 }

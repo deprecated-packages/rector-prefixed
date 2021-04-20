@@ -23,7 +23,10 @@ final class ParamTagRemover
         $this->deadParamTagValueNodeAnalyzer = $deadParamTagValueNodeAnalyzer;
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-    public function removeParamTagsIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\FunctionLike $functionLike) : void
+    /**
+     * @return void
+     */
+    public function removeParamTagsIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\FunctionLike $functionLike)
     {
         foreach ($phpDocInfo->getParamTagValueNodes() as $paramTagValueNode) {
             $paramName = $paramTagValueNode->parameterName;

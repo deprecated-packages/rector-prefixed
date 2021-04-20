@@ -20,7 +20,7 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var string
      */
-    public const DETECTED_TRAITS = 'detected_traits';
+    const DETECTED_TRAITS = 'detected_traits';
     /**
      * @var string[]
      */
@@ -82,8 +82,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -94,8 +95,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->detectedTraits = $configuration[self::DETECTED_TRAITS] ?? [];
     }

@@ -42,8 +42,9 @@ final class FullyQualifyStmtsAnalyzer
     }
     /**
      * @param Stmt[] $nodes
+     * @return void
      */
-    public function process(array $nodes) : void
+    public function process(array $nodes)
     {
         // no need to
         if ($this->parameterProvider->provideBoolParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES)) {

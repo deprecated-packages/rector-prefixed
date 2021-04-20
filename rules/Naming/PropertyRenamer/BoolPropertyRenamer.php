@@ -21,7 +21,10 @@ final class BoolPropertyRenamer
         $this->boolPropertyConflictingNameGuard = $boolPropertyConflictingNameGuard;
         $this->propertyRenamer = $propertyRenamer;
     }
-    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename)
     {
         if ($this->boolPropertyConflictingNameGuard->isConflicting($propertyRename)) {
             return null;

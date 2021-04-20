@@ -39,7 +39,10 @@ abstract class AbstractRootExpr implements \Rector\Defluent\Contract\ValueObject
         }
         return new \PhpParser\Node\Expr\Assign($assignVar, $assignExpr);
     }
-    protected function getFirstAssign() : ?\PhpParser\Node\Expr\Assign
+    /**
+     * @return \PhpParser\Node\Expr\Assign|null
+     */
+    protected function getFirstAssign()
     {
         $currentStmt = $this->assignExpr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if (!$currentStmt instanceof \PhpParser\Node\Stmt\Expression) {

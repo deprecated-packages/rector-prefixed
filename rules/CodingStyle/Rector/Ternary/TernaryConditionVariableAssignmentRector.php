@@ -41,8 +41,9 @@ CODE_SAMPLE
     }
     /**
      * @param Ternary $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $nodeIf = $node->if;
         $nodeElse = $node->else;

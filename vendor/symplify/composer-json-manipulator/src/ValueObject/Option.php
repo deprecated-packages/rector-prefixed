@@ -9,5 +9,5 @@ final class Option
      * @var string
      * @api
      */
-    public const INLINE_SECTIONS = 'inline_sections';
+    const INLINE_SECTIONS = 'inline_sections';
 }

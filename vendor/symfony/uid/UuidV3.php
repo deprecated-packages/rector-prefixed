@@ -21,5 +21,5 @@ namespace RectorPrefix20210420\Symfony\Component\Uid;
  */
 class UuidV3 extends \RectorPrefix20210420\Symfony\Component\Uid\Uuid
 {
-    protected const TYPE = 3;
+    const TYPE = 3;
 }

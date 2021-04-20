@@ -36,8 +36,11 @@ final class ArgumentAdder
     private $scope;
     /**
      * @param mixed|null $argumentDefaultValue
+     * @param string|null $argumentName
+     * @param string|null $argumentType
+     * @param string|null $scope
      */
-    public function __construct(string $class, string $method, int $position, ?string $argumentName = null, $argumentDefaultValue = null, ?string $argumentType = null, ?string $scope = null)
+    public function __construct(string $class, string $method, int $position, $argumentName = null, $argumentDefaultValue = null, $argumentType = null, $scope = null)
     {
         $this->class = $class;
         $this->method = $method;
@@ -59,7 +62,10 @@ final class ArgumentAdder
     {
         return $this->position;
     }
-    public function getArgumentName() : ?string
+    /**
+     * @return string|null
+     */
+    public function getArgumentName()
     {
         return $this->argumentName;
     }
@@ -70,11 +76,17 @@ final class ArgumentAdder
     {
         return $this->argumentDefaultValue;
     }
-    public function getArgumentType() : ?string
+    /**
+     * @return string|null
+     */
+    public function getArgumentType()
     {
         return $this->argumentType;
     }
-    public function getScope() : ?string
+    /**
+     * @return string|null
+     */
+    public function getScope()
     {
         return $this->scope;
     }

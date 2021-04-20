@@ -11,7 +11,10 @@ use RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttribute
  */
 final class CloningPhpDocNodeVisitor extends \RectorPrefix20210420\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor
 {
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $origNode) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $origNode)
     {
         $node = clone $origNode;
         $node->setAttribute(\RectorPrefix20210420\Symplify\SimplePhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE, $origNode);

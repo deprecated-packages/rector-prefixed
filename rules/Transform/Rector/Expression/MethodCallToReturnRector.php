@@ -22,7 +22,7 @@ final class MethodCallToReturnRector extends \Rector\Core\Rector\AbstractRector 
     /**
      * @var string
      */
-    public const METHOD_CALL_WRAPS = 'method_call_wraps';
+    const METHOD_CALL_WRAPS = 'method_call_wraps';
     /**
      * @var MethodCallToReturn[]
      */
@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expression $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
@@ -77,13 +78,19 @@ CODE_SAMPLE
         $methodCall = $node->expr;
         return $this->refactorMethodCall($methodCall);
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
         $this->methodCallWraps = $methodCallWraps;
     }
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         foreach ($this->methodCallWraps as $methodCallWrap) {

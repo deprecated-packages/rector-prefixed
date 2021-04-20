@@ -15,7 +15,7 @@ final class SmartFileSystem extends \RectorPrefix20210420\Symfony\Component\File
      * @var string
      * @see https://regex101.com/r/tx6eyw/1
      */
-    private const BEFORE_COLLON_REGEX = '#^\\w+\\(.*?\\): #';
+    const BEFORE_COLLON_REGEX = '#^\\w+\\(.*?\\): #';
     /**
      * @see https://github.com/symfony/filesystem/pull/4/files
      */

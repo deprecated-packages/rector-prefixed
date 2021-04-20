@@ -18,7 +18,7 @@ final class RenameConstantRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const OLD_TO_NEW_CONSTANTS = 'old_to_new_constants';
+    const OLD_TO_NEW_CONSTANTS = 'old_to_new_constants';
     /**
      * @var array<string, string>
      */
@@ -54,8 +54,9 @@ CODE_SAMPLE
     }
     /**
      * @param ConstFetch $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->oldToNewConstants as $oldConstant => $newConstant) {
             if (!$this->isName($node->name, $oldConstant)) {
@@ -68,8 +69,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->oldToNewConstants = $configuration[self::OLD_TO_NEW_CONSTANTS] ?? [];
     }

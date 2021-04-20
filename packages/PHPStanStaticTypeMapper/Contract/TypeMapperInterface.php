@@ -17,7 +17,8 @@ interface TypeMapperInterface
     public function getNodeClass() : string;
     public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode;
     /**
-     * @return Name|NullableType|UnionType|null
+     * @return \PhpParser\Node|null
+     * @param string|null $kind
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node;
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null);
 }

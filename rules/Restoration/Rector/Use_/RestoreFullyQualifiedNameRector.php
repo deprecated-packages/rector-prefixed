@@ -63,8 +63,9 @@ CODE_SAMPLE
     }
     /**
      * @param Use_|Param|ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             return $this->refactoryUse($node);
@@ -86,7 +87,10 @@ CODE_SAMPLE
         }
         return $use;
     }
-    private function refactorParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Param
+    /**
+     * @return \PhpParser\Node\Param|null
+     */
+    private function refactorParam(\PhpParser\Node\Param $param)
     {
         $name = $param->type;
         if (!$name instanceof \PhpParser\Node\Name) {
@@ -99,7 +103,10 @@ CODE_SAMPLE
         $param->type = $fullyQualified;
         return $param;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->refactorReturnTagValueNode($classMethod);
         $returnType = $classMethod->returnType;
@@ -113,7 +120,10 @@ CODE_SAMPLE
         $classMethod->returnType = $fullyQualified;
         return $classMethod;
     }
-    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $returnTagValueNode = $phpDocInfo->getReturnTagValue();

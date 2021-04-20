@@ -42,8 +42,10 @@ final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     }
     /**
      * @param StaticType $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         if ($type instanceof \PHPStan\Type\ThisType) {
             // @todo wait for PHPStan to differentiate between self/static

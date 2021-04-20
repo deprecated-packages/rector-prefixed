@@ -8,7 +8,10 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
 final class ForeachManipulator
 {
-    public function matchOnlyStmt(\PhpParser\Node\Stmt\Foreach_ $foreach, callable $callable) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function matchOnlyStmt(\PhpParser\Node\Stmt\Foreach_ $foreach, callable $callable)
     {
         $stmts = $foreach->stmts;
         if (\count($stmts) !== 1) {

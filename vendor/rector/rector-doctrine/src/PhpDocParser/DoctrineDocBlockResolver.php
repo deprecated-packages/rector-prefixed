@@ -21,7 +21,7 @@ final class DoctrineDocBlockResolver
      * @var string
      * @see https://regex101.com/r/doLRPw/1
      */
-    private const ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX = '#@ORM\\\\(Entity|Embeddable)#';
+    const ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX = '#@ORM\\\\(Entity|Embeddable)#';
     /**
      * @var PhpDocInfoFactory
      */
@@ -58,7 +58,10 @@ final class DoctrineDocBlockResolver
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    public function getTargetEntity(\PhpParser\Node\Stmt\Property $property) : ?string
+    /**
+     * @return string|null
+     */
+    public function getTargetEntity(\PhpParser\Node\Stmt\Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClasses(['Doctrine\\ORM\\Mapping\\OneToMany', 'Doctrine\\ORM\\Mapping\\ManyToMany', 'Doctrine\\ORM\\Mapping\\OneToOne', 'Doctrine\\ORM\\Mapping\\ManyToOne']);

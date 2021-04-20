@@ -11,7 +11,7 @@ use Rector\Symfony\Rector\MethodCall\ProcessBuilderGetProcessRector;
 use Rector\Symfony\Rector\MethodCall\VarDumperTestTraitMethodArgsRector;
 use Rector\Symfony\Rector\StaticCall\ProcessBuilderInstanceRector;
 use RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony\Rector\ConstFetch\ConstraintUrlOptionRector::class);
     $services->set(\Rector\Symfony\Rector\MethodCall\FormIsValidRector::class);

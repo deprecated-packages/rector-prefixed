@@ -34,7 +34,10 @@ final class ResponseEvent extends \RectorPrefix20210420\Symfony\Component\HttpKe
     {
         return $this->response;
     }
-    public function setResponse(\RectorPrefix20210420\Symfony\Component\HttpFoundation\Response $response) : void
+    /**
+     * @return void
+     */
+    public function setResponse(\RectorPrefix20210420\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
     }

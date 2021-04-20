@@ -33,13 +33,19 @@ class DumpServer
         $this->host = $host;
         $this->logger = $logger;
     }
-    public function start() : void
+    /**
+     * @return void
+     */
+    public function start()
     {
         if (!($this->socket = \stream_socket_server($this->host, $errno, $errstr))) {
             throw new \RuntimeException(\sprintf('Server start failed on "%s": ', $this->host) . $errstr . ' ' . $errno);
         }
     }
-    public function listen(callable $callback) : void
+    /**
+     * @return void
+     */
+    public function listen(callable $callback)
     {
         if (null === $this->socket) {
             $this->start();
@@ -62,7 +68,7 @@ class DumpServer
                 }
                 continue;
             }
-            [$data, $context] = $payload;
+            list($data, $context) = $payload;
             $callback($data, $context, $clientId);
         }
     }

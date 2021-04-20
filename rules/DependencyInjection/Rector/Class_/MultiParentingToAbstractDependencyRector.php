@@ -29,7 +29,7 @@ final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    public const FRAMEWORK = 'framework';
+    const FRAMEWORK = 'framework';
     /**
      * @var string
      */
@@ -115,8 +115,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->isAbstract()) {
             return null;
@@ -153,8 +154,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->framework = $configuration[self::FRAMEWORK];
     }
@@ -180,8 +182,9 @@ CODE_SAMPLE
     }
     /**
      * @param ObjectType[] $abstractClassConstructorParamTypes
+     * @return void
      */
-    private function refactorChildConstructorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes) : void
+    private function refactorChildConstructorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes)
     {
         foreach ($classMethod->getParams() as $key => $param) {
             $paramType = $this->getStaticType($param);
@@ -197,7 +200,10 @@ CODE_SAMPLE
             $this->injectObjectTypes[] = $paramType;
         }
     }
-    private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         foreach ($classMethod->getParams() as $key => $param) {
             if (!$this->nodeTypeResolver->isObjectTypes($param, $this->injectObjectTypes)) {
@@ -208,7 +214,10 @@ CODE_SAMPLE
         }
         $this->classMethodNodeRemover->removeClassMethodIfUseless($classMethod);
     }
-    private function addInjectOrRequiredClassMethod(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function addInjectOrRequiredClassMethod(\PhpParser\Node\Stmt\Class_ $class)
     {
         /** @var string $className */
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

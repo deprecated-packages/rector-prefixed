@@ -13,7 +13,7 @@ final class StaticRectorStrings
      * @var string
      * @see https://regex101.com/r/4w2of2/2
      */
-    private const CAMEL_CASE_SPLIT_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#';
+    const CAMEL_CASE_SPLIT_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#';
     /**
      * From: utf-8 → to: UTF_8
      */

@@ -96,7 +96,10 @@ class CodePointString extends \RectorPrefix20210420\Symfony\Component\String\Abs
         }
         return $string === $this->string;
     }
-    public function indexOf($needle, int $offset = 0) : ?int
+    /**
+     * @return int|null
+     */
+    public function indexOf($needle, int $offset = 0)
     {
         if ($needle instanceof \RectorPrefix20210420\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
@@ -111,7 +114,10 @@ class CodePointString extends \RectorPrefix20210420\Symfony\Component\String\Abs
         $i = $this->ignoreCase ? \mb_stripos($this->string, $needle, $offset, 'UTF-8') : \mb_strpos($this->string, $needle, $offset, 'UTF-8');
         return \false === $i ? null : $i;
     }
-    public function indexOfLast($needle, int $offset = 0) : ?int
+    /**
+     * @return int|null
+     */
+    public function indexOfLast($needle, int $offset = 0)
     {
         if ($needle instanceof \RectorPrefix20210420\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;

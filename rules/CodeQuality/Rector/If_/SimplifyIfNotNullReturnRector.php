@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $comparedNode = $this->ifManipulator->matchIfNotNullReturnValue($node);
         if ($comparedNode !== null) {

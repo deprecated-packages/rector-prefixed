@@ -61,8 +61,9 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertTrue', 'assertFalse'])) {
             return null;
@@ -75,8 +76,9 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    private function processCallWithBinaryOp(\PhpParser\Node $node, \PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
+    private function processCallWithBinaryOp(\PhpParser\Node $node, \PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         $binaryOpClass = \get_class($binaryOp);
         foreach ($this->binaryOpWithAssertMethods as $binaryOpWithAssertMethod) {
@@ -91,8 +93,9 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function changeArgumentsOrder(\PhpParser\Node $node) : void
+    private function changeArgumentsOrder(\PhpParser\Node $node)
     {
         $oldArguments = $node->args;
         /** @var BinaryOp $expression */

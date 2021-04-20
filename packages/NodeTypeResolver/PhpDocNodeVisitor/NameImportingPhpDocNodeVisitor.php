@@ -45,13 +45,19 @@ final class NameImportingPhpDocNodeVisitor extends \RectorPrefix20210420\Symplif
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->useNodesToAddCollector = $useNodesToAddCollector;
     }
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
+    /**
+     * @return void
+     */
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if ($this->currentPhpParserNode === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set "$currentPhpParserNode" first');
         }
     }
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;
@@ -66,11 +72,17 @@ final class NameImportingPhpDocNodeVisitor extends \RectorPrefix20210420\Symplif
         }
         return $this->processFqnNameImport($this->currentPhpParserNode, $node, $staticType);
     }
-    public function setCurrentNode(\PhpParser\Node $phpParserNode) : void
+    /**
+     * @return void
+     */
+    public function setCurrentNode(\PhpParser\Node $phpParserNode)
     {
         $this->currentPhpParserNode = $phpParserNode;
     }
-    private function processFqnNameImport(\PhpParser\Node $phpParserNode, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifierTypeNode, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : ?\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode|null
+     */
+    private function processFqnNameImport(\PhpParser\Node $phpParserNode, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifierTypeNode, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
     {
         if ($this->classNameImportSkipper->shouldSkipNameForFullyQualifiedObjectType($phpParserNode, $fullyQualifiedObjectType)) {
             return $identifierTypeNode;

@@ -229,7 +229,7 @@ class Store implements \RectorPrefix20210420\Symfony\Component\HttpKernel\HttpCa
      * @param array       $env1 A Request HTTP header array
      * @param array       $env2 A Request HTTP header array
      */
-    private function requestsMatch(?string $vary, array $env1, array $env2) : bool
+    private function requestsMatch($vary, array $env1, array $env2) : bool
     {
         if (empty($vary)) {
             return \true;
@@ -290,8 +290,9 @@ class Store implements \RectorPrefix20210420\Symfony\Component\HttpKernel\HttpCa
     }
     /**
      * Loads data for the given key.
+     * @return string|null
      */
-    private function load(string $key) : ?string
+    private function load(string $key)
     {
         $path = $this->getPath($key);
         return \is_file($path) && \false !== ($contents = \file_get_contents($path)) ? $contents : null;

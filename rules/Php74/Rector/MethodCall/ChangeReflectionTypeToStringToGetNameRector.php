@@ -28,7 +28,7 @@ final class ChangeReflectionTypeToStringToGetNameRector extends \Rector\Core\Rec
     /**
      * @var string
      */
-    private const GET_NAME = 'getName';
+    const GET_NAME = 'getName';
     /**
      * Possibly extract node decorator with scope breakers (Function_, If_) to respect node flow
      * @var string[][]
@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
@@ -96,7 +97,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall($node->expr, self::GET_NAME);
     }
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $this->collectCallByVariable($methodCall);
         if ($this->shouldSkipMethodCall($methodCall)) {
@@ -110,7 +114,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorIfHasReturnTypeWasCalled(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function refactorIfHasReturnTypeWasCalled(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!$methodCall->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
@@ -123,7 +130,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function collectCallByVariable(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @return void
+     */
+    private function collectCallByVariable(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         // bit workaround for now
         if ($methodCall->var instanceof \PhpParser\Node\Expr\Variable) {

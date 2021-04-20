@@ -6,5 +6,8 @@ namespace Symplify\RuleDocGenerator\Contract\Category;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface CategoryInfererInterface
 {
-    public function infer(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : ?string;
+    /**
+     * @return string|null
+     */
+    public function infer(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

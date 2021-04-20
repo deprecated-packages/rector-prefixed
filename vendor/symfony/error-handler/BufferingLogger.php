@@ -19,7 +19,10 @@ use RectorPrefix20210420\Psr\Log\AbstractLogger;
 class BufferingLogger extends \RectorPrefix20210420\Psr\Log\AbstractLogger
 {
     private $logs = [];
-    public function log($level, $message, array $context = []) : void
+    /**
+     * @return void
+     */
+    public function log($level, $message, array $context = [])
     {
         $this->logs[] = [$level, $message, $context];
     }
@@ -39,7 +42,7 @@ class BufferingLogger extends \RectorPrefix20210420\Psr\Log\AbstractLogger
     }
     public function __destruct()
     {
-        foreach ($this->logs as [$level, $message, $context]) {
+        foreach ($this->logs as list($level, $message, $context)) {
             if (\false !== \strpos($message, '{')) {
                 foreach ($context as $key => $val) {
                     if (null === $val || \is_scalar($val) || \is_object($val) && \is_callable([$val, '__toString'])) {

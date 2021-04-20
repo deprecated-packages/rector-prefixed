@@ -27,7 +27,10 @@ final class ConstructorAssignPropertyAnalyzer
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolveConstructorAssign(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function resolveConstructorAssign(\PhpParser\Node\Stmt\Property $property)
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

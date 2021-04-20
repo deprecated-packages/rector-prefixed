@@ -35,7 +35,10 @@ final class CollectionTypeResolver
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->shortClassExpander = $shortClassExpander;
     }
-    public function resolveFromTypeNode(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node) : ?\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType
+    /**
+     * @return \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType|null
+     */
+    public function resolveFromTypeNode(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node)
     {
         if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             foreach ($typeNode->types as $unionedTypeNode) {
@@ -52,7 +55,10 @@ final class CollectionTypeResolver
         }
         return null;
     }
-    public function resolveFromOneToManyProperty(\PhpParser\Node\Stmt\Property $property) : ?\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType
+    /**
+     * @return \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType|null
+     */
+    public function resolveFromOneToManyProperty(\PhpParser\Node\Stmt\Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\OneToMany');

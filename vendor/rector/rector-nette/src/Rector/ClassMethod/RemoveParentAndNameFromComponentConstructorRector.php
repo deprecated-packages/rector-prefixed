@@ -32,11 +32,11 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
     /**
      * @var string
      */
-    private const PARENT = 'parent';
+    const PARENT = 'parent';
     /**
      * @var string
      */
-    private const NAME = 'name';
+    const NAME = 'name';
     /**
      * @var StaticCallAnalyzer
      */
@@ -96,8 +96,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|New_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
@@ -111,7 +112,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if (!$this->isInsideNetteComponentClass($classMethod)) {
             return null;
@@ -122,7 +126,10 @@ CODE_SAMPLE
         $this->removeClassMethodParams($classMethod);
         return $classMethod;
     }
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\StaticCall
+    /**
+     * @return \PhpParser\Node\Expr\StaticCall|null
+     */
+    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         if (!$this->isInsideNetteComponentClass($staticCall)) {
             return null;
@@ -147,7 +154,10 @@ CODE_SAMPLE
         }
         return $staticCall;
     }
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : void
+    /**
+     * @return void
+     */
+    private function refactorNew(\PhpParser\Node\Expr\New_ $new)
     {
         $parameterNames = $this->methodReflectionProvider->provideParameterNamesByNew($new);
         foreach ($new->args as $position => $arg) {
@@ -178,7 +188,10 @@ CODE_SAMPLE
         }
         return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
     }
-    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         foreach ($classMethod->params as $param) {
             if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {

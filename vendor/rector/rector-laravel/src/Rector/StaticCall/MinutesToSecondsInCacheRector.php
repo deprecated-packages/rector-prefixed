@@ -27,19 +27,19 @@ final class MinutesToSecondsInCacheRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    private const ATTRIBUTE_KEY_ALREADY_MULTIPLIED = 'already_multiplied';
+    const ATTRIBUTE_KEY_ALREADY_MULTIPLIED = 'already_multiplied';
     /**
      * @var string
      */
-    private const PUT = 'put';
+    const PUT = 'put';
     /**
      * @var string
      */
-    private const ADD = 'add';
+    const ADD = 'add';
     /**
      * @var string
      */
-    private const REMEMBER = 'remember';
+    const REMEMBER = 'remember';
     /**
      * @var TypeToTimeMethodAndPosition[]
      */
@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->typeToTimeMethodsAndPositions as $typeToTimeMethodAndPosition) {
             if (!$this->isObjectType($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class, $typeToTimeMethodAndPosition->getObjectType())) {
@@ -99,9 +100,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|MethodCall $node
-     * @return StaticCall|MethodCall|null
+     * @return \PhpParser\Node\Expr|null
      */
-    private function processArgumentOnPosition(\PhpParser\Node $node, \PhpParser\Node\Expr $argExpr, int $argumentPosition) : ?\PhpParser\Node\Expr
+    private function processArgumentOnPosition(\PhpParser\Node $node, \PhpParser\Node\Expr $argExpr, int $argumentPosition)
     {
         if ($argExpr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $this->refactorClassConstFetch($argExpr);
@@ -114,7 +115,10 @@ CODE_SAMPLE
         $node->args[$argumentPosition] = new \PhpParser\Node\Arg($mul);
         return $node;
     }
-    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : void
+    /**
+     * @return void
+     */
+    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
     {
         $classConst = $this->nodeRepository->findClassConstByClassConstFetch($classConstFetch);
         if (!$classConst instanceof \PhpParser\Node\Stmt\ClassConst) {

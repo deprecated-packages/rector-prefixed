@@ -66,8 +66,9 @@ final class Chunk
     }
     /**
      * @param Line[] $lines
+     * @return void
      */
-    public function setLines(array $lines) : void
+    public function setLines(array $lines)
     {
         foreach ($lines as $line) {
             if (!$line instanceof \RectorPrefix20210420\SebastianBergmann\Diff\Line) {

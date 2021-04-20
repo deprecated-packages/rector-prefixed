@@ -16,7 +16,10 @@ final class CollectionVarTagValueNodeResolver
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode|null
+     */
+    public function resolve(\PhpParser\Node\Stmt\Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if (!$phpDocInfo->hasByAnnotationClass('Doctrine\\ORM\\Mapping\\OneToMany')) {

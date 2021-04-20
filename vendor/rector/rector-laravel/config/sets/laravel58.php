@@ -16,7 +16,7 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # https://laravel-news.com/laravel-5-8-deprecates-string-and-array-helpers
 # https://github.com/laravel/framework/pull/26898
 # see: https://laravel.com/docs/5.8/upgrade
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/laravel-array-str-functions-to-static-call.php');
     $services = $containerConfigurator->services();
     $services->set(\Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector::class);

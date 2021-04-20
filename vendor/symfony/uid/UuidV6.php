@@ -21,7 +21,7 @@ namespace RectorPrefix20210420\Symfony\Component\Uid;
  */
 class UuidV6 extends \RectorPrefix20210420\Symfony\Component\Uid\Uuid
 {
-    protected const TYPE = 6;
+    const TYPE = 6;
     private static $seed;
     public function __construct(string $uuid = null)
     {

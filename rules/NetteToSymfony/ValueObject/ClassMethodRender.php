@@ -59,7 +59,10 @@ final class ClassMethodRender implements \Rector\Nette\Contract\ValueObject\Para
     {
         return $this->nodesToRemove;
     }
-    public function getFirstTemplateFileExpr() : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    public function getFirstTemplateFileExpr()
     {
         return $this->templateFileExprs[0] ?? null;
     }

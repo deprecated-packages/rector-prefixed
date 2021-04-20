@@ -14,8 +14,9 @@ final class AttributeNodeNameResolver implements \RectorPrefix20210420\Symplify\
     }
     /**
      * @param Attribute $node
+     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node $node)
     {
         return $node->name->toString();
     }

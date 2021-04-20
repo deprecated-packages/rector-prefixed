@@ -24,7 +24,7 @@ final class WrapTransParameterNameRector extends \Rector\Core\Rector\AbstractRec
      * @var string
      * @see https://regex101.com/r/b8boED/1
      */
-    private const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
+    const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds %% to placeholder name of trans() method if missing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\Translation\\TranslatorInterface'))) {
             return null;

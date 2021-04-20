@@ -119,7 +119,7 @@ class Definition
      *
      * @throws InvalidArgumentException in case the decorated service id and the new decorated service id are equals
      */
-    public function setDecoratedService(?string $id, ?string $renamedId = null, int $priority = 0, int $invalidBehavior = \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function setDecoratedService($id, $renamedId = null, int $priority = 0, int $invalidBehavior = \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if ($renamedId && $id === $renamedId) {
             throw new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
@@ -148,8 +148,9 @@ class Definition
      * Sets the service class.
      *
      * @return $this
+     * @param string|null $class
      */
-    public function setClass(?string $class)
+    public function setClass($class)
     {
         $this->changes['class'] = \true;
         $this->class = $class;
@@ -458,8 +459,9 @@ class Definition
      * Sets a file to require before creating the service.
      *
      * @return $this
+     * @param string|null $file
      */
-    public function setFile(?string $file)
+    public function setFile($file)
     {
         $this->changes['file'] = \true;
         $this->file = $file;

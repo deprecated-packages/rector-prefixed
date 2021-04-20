@@ -69,7 +69,10 @@ class ErrorListener implements \RectorPrefix20210420\Symfony\Component\EventDisp
             $event->getRequest()->attributes->set('_remove_csp_headers', \true);
         }
     }
-    public function removeCspHeader(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\ResponseEvent $event) : void
+    /**
+     * @return void
+     */
+    public function removeCspHeader(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if ($this->debug && $event->getRequest()->attributes->get('_remove_csp_headers', \false)) {
             $event->getResponse()->headers->remove('Content-Security-Policy');
@@ -95,8 +98,9 @@ class ErrorListener implements \RectorPrefix20210420\Symfony\Component\EventDisp
     }
     /**
      * Logs an exception.
+     * @return void
      */
-    protected function logException(\Throwable $exception, string $message) : void
+    protected function logException(\Throwable $exception, string $message)
     {
         if (null !== $this->logger) {
             if (!$exception instanceof \RectorPrefix20210420\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {

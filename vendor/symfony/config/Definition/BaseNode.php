@@ -22,7 +22,7 @@ use RectorPrefix20210420\Symfony\Component\Config\Definition\Exception\UnsetKeyE
  */
 abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Config\Definition\NodeInterface
 {
-    public const DEFAULT_PATH_SEPARATOR = '.';
+    const DEFAULT_PATH_SEPARATOR = '.';
     private static $placeholderUniquePrefixes = [];
     private static $placeholders = [];
     protected $name;
@@ -38,8 +38,9 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
     private $handlingPlaceholder;
     /**
      * @throws \InvalidArgumentException if the name contains a period
+     * @param string|null $name
      */
-    public function __construct(?string $name, \RectorPrefix20210420\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \RectorPrefix20210420\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -55,8 +56,9 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
      * successfully processed the configuration value is returned as is, thus preserving the placeholder.
      *
      * @internal
+     * @return void
      */
-    public static function setPlaceholder(string $placeholder, array $values) : void
+    public static function setPlaceholder(string $placeholder, array $values)
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -70,8 +72,9 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
      * placeholder. An exact match provided by {@see setPlaceholder()} might take precedence.
      *
      * @internal
+     * @return void
      */
-    public static function setPlaceholderUniquePrefix(string $prefix) : void
+    public static function setPlaceholderUniquePrefix(string $prefix)
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -79,8 +82,9 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
      * Resets all current placeholders available.
      *
      * @internal
+     * @return void
      */
-    public static function resetPlaceholders() : void
+    public static function resetPlaceholders()
     {
         self::$placeholderUniquePrefixes = [];
         self::$placeholders = [];
@@ -181,7 +185,7 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path
      */
-    public function setDeprecated(?string $package)
+    public function setDeprecated($package)
     {
         $args = \func_get_args();
         if (\func_num_args() < 2) {
@@ -470,7 +474,10 @@ abstract class BaseNode implements \RectorPrefix20210420\Symfony\Component\Confi
         }
         return $value;
     }
-    private function doValidateType($value) : void
+    /**
+     * @return void
+     */
+    private function doValidateType($value)
     {
         if (null !== $this->handlingPlaceholder && !$this->allowPlaceholders()) {
             $e = new \RectorPrefix20210420\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));

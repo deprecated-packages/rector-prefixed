@@ -22,7 +22,10 @@ final class PropertyRenamer
         $this->propertyRenameGuard = $propertyRenameGuard;
         $this->propertyFetchRenamer = $propertyFetchRenamer;
     }
-    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename)
     {
         if ($propertyRename->isAlreadyExpectedName()) {
             return null;
@@ -35,7 +38,10 @@ final class PropertyRenamer
         $this->renamePropertyFetchesInClass($propertyRename);
         return $propertyRename->getProperty();
     }
-    private function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
+    /**
+     * @return void
+     */
+    private function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename)
     {
         $this->propertyFetchRenamer->renamePropertyFetchesInClass($propertyRename->getClassLike(), $propertyRename->getCurrentName(), $propertyRename->getExpectedName());
     }

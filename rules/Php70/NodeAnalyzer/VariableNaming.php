@@ -62,7 +62,10 @@ final class VariableNaming
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);
     }
-    public function createCountedValueName(string $valueName, ?\PHPStan\Analyser\Scope $scope) : string
+    /**
+     * @param \PHPStan\Analyser\Scope|null $scope
+     */
+    public function createCountedValueName(string $valueName, $scope) : string
     {
         if ($scope === null) {
             return $valueName;
@@ -80,7 +83,10 @@ final class VariableNaming
         }
         return $valueName;
     }
-    public function resolveFromNodeAndType(\PhpParser\Node $node, \PHPStan\Type\Type $type) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveFromNodeAndType(\PhpParser\Node $node, \PHPStan\Type\Type $type)
     {
         $variableName = $this->resolveBareFromNode($node);
         if ($variableName === null) {
@@ -94,17 +100,26 @@ final class VariableNaming
         $stringy = new \RectorPrefix20210420\Stringy\Stringy($variableName);
         return (string) $stringy->camelize();
     }
-    public function resolveFromFuncCallFirstArgumentWithSuffix(\PhpParser\Node\Expr\FuncCall $funcCall, string $suffix, string $fallbackName, ?\PHPStan\Analyser\Scope $scope) : string
+    /**
+     * @param \PHPStan\Analyser\Scope|null $scope
+     */
+    public function resolveFromFuncCallFirstArgumentWithSuffix(\PhpParser\Node\Expr\FuncCall $funcCall, string $suffix, string $fallbackName, $scope) : string
     {
         $bareName = $this->resolveBareFuncCallArgumentName($funcCall, $fallbackName, $suffix);
         return $this->createCountedValueName($bareName, $scope);
     }
-    private function resolveFromNode(\PhpParser\Node $node) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveFromNode(\PhpParser\Node $node)
     {
         $nodeType = $this->nodeTypeResolver->getStaticType($node);
         return $this->resolveFromNodeAndType($node, $nodeType);
     }
-    private function unwrapNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function unwrapNode(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Arg) {
             return $node->value;
@@ -117,7 +132,10 @@ final class VariableNaming
         }
         return $node;
     }
-    private function resolveParamNameFromArrayDimFetch(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveParamNameFromArrayDimFetch(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch)
     {
         while ($arrayDimFetch instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             if ($arrayDimFetch->dim instanceof \PhpParser\Node\Scalar) {
@@ -131,7 +149,10 @@ final class VariableNaming
         }
         return $this->resolveBareFromNode($arrayDimFetch);
     }
-    private function resolveBareFromNode(\PhpParser\Node $node) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveBareFromNode(\PhpParser\Node $node)
     {
         $node = $this->unwrapNode($node);
         if ($node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -171,8 +192,9 @@ final class VariableNaming
     }
     /**
      * @param MethodCall|NullsafeMethodCall|StaticCall $node
+     * @return string|null
      */
-    private function resolveFromMethodCall(\PhpParser\Node $node) : ?string
+    private function resolveFromMethodCall(\PhpParser\Node $node)
     {
         if ($node->name instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->resolveFromMethodCall($node->name);

@@ -66,8 +66,9 @@ CODE_SAMPLE
     }
     /**
      * @param Isset_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $newNodes = [];
         foreach ($node->vars as $issetVar) {

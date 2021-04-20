@@ -101,15 +101,19 @@ CODE_SAMPLE
     }
     /**
      * @param Property|ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return $this->refactorProperty($node);
         }
         return $this->refactorClassMethod($node);
     }
-    private function refactorProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    private function refactorProperty(\PhpParser\Node\Stmt\Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if (!$phpDocInfo->hasByAnnotationClass('Doctrine\\ORM\\Mapping\\OneToMany')) {
@@ -133,7 +137,10 @@ CODE_SAMPLE
         }
         return $property;
     }
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if (!$this->doctrineDocBlockResolver->isInDoctrineEntityClass($classMethod)) {
             return null;
@@ -155,7 +162,10 @@ CODE_SAMPLE
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $collectionObjectType, $param, $parameterName);
         return $classMethod;
     }
-    private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $propertyFetches = $this->assignManipulator->resolveAssignsToLocalPropertyFetches($classMethod);
         if (\count($propertyFetches) !== 1) {

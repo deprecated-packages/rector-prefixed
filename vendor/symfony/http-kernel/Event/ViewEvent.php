@@ -47,8 +47,9 @@ final class ViewEvent extends \RectorPrefix20210420\Symfony\Component\HttpKernel
      * Assigns the return value of the controller.
      *
      * @param mixed $controllerResult The controller return value
+     * @return void
      */
-    public function setControllerResult($controllerResult) : void
+    public function setControllerResult($controllerResult)
     {
         $this->controllerResult = $controllerResult;
     }

@@ -29,7 +29,7 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    public const CLASSES_TO_SKIP = 'classes_to_skip';
+    const CLASSES_TO_SKIP = 'classes_to_skip';
     /**
      * @var string[]
      */
@@ -85,8 +85,9 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CLASSNAME_CONSTANT)) {
             return null;
@@ -105,8 +106,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         if (!isset($configuration[self::CLASSES_TO_SKIP])) {
             return;

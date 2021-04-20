@@ -92,8 +92,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isGedmoBlameableClass($node)) {
             return null;
@@ -113,7 +114,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function removeBlameablePropertiesAndMethods(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function removeBlameablePropertiesAndMethods(\PhpParser\Node\Stmt\Class_ $class)
     {
         $removedPropertyNames = [];
         foreach ($class->getProperties() as $property) {
@@ -130,8 +134,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
+     * @return void
      */
-    private function removeSetterAndGetterByPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
+    private function removeSetterAndGetterByPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($removedPropertyNames as $removedPropertyName) {

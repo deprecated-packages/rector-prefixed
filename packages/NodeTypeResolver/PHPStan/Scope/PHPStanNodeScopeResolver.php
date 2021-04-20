@@ -36,7 +36,7 @@ final class PHPStanNodeScopeResolver
      * @var string
      * @see https://regex101.com/r/aXsCkK/1
      */
-    private const ANONYMOUS_CLASS_START_REGEX = '#^AnonymousClass(\\w+)#';
+    const ANONYMOUS_CLASS_START_REGEX = '#^AnonymousClass(\\w+)#';
     /**
      * @var string[]
      */
@@ -99,7 +99,7 @@ final class PHPStanNodeScopeResolver
         $scope = $this->scopeFactory->createFromFile($smartFileInfo);
         $this->dependentFiles = [];
         // skip chain method calls, performance issue: https://github.com/phpstan/phpstan/issues/254
-        $nodeCallback = function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void {
+        $nodeCallback = function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) {
             // traversing trait inside class that is using it scope (from referenced) - the trait traversed by Rector is different (directly from parsed file)
             if ($scope->isInTrait()) {
                 /** @var ClassReflection $classReflection */
@@ -133,8 +133,9 @@ final class PHPStanNodeScopeResolver
     }
     /**
      * @param Node[] $nodes
+     * @return void
      */
-    private function removeDeepChainMethodCallNodes(array $nodes) : void
+    private function removeDeepChainMethodCallNodes(array $nodes)
     {
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($this->removeDeepChainMethodCallNodeVisitor);
@@ -157,7 +158,10 @@ final class PHPStanNodeScopeResolver
         /** @var MutatingScope $scope */
         return $scope->enterClass($classReflection);
     }
-    private function resolveDependentFiles(\PhpParser\Node $node, \PHPStan\Analyser\MutatingScope $mutatingScope) : void
+    /**
+     * @return void
+     */
+    private function resolveDependentFiles(\PhpParser\Node $node, \PHPStan\Analyser\MutatingScope $mutatingScope)
     {
         if (!$this->configuration->isCacheEnabled()) {
             return;
@@ -173,8 +177,9 @@ final class PHPStanNodeScopeResolver
     }
     /**
      * @param string[] $dependentFiles
+     * @return void
      */
-    private function reportCacheDebugAndSaveDependentFiles(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebugAndSaveDependentFiles(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles)
     {
         if (!$this->configuration->isCacheEnabled()) {
             return;
@@ -198,8 +203,9 @@ final class PHPStanNodeScopeResolver
     }
     /**
      * @param string[] $dependentFiles
+     * @return void
      */
-    private function reportCacheDebug(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebug(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles)
     {
         if (!$this->configuration->isCacheDebug()) {
             return;

@@ -39,12 +39,18 @@ final class PropertyTypeDecorator
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function decorateProperty(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    /**
+     * @return void
+     */
+    public function decorateProperty(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
     {
         $this->decoratePropertyWithVarDoc($property, $propertyType);
         $this->decoratePropertyWithType($property, $propertyType);
     }
-    private function decoratePropertyWithVarDoc(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    /**
+     * @return void
+     */
+    private function decoratePropertyWithVarDoc(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->makeMultiLined();
@@ -63,7 +69,10 @@ final class PropertyTypeDecorator
             $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
         }
     }
-    private function decoratePropertyWithType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
+    /**
+     * @return void
+     */
+    private function decoratePropertyWithType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return;

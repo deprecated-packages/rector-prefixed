@@ -11,8 +11,9 @@ final class ComposerJsonManipulatorExtension extends \RectorPrefix20210420\Symfo
 {
     /**
      * @param string[] $configs
+     * @return void
      */
-    public function load(array $configs, \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function load(array $configs, \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $phpFileLoader = new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210420\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');

@@ -85,8 +85,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $injectProperties = $this->getInjectProperties($node);
         if ($injectProperties === []) {
@@ -115,7 +116,10 @@ CODE_SAMPLE
             return $this->isInjectProperty($property);
         });
     }
-    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @return void
+     */
+    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $injectTagValueNode = $phpDocInfo->getByName('inject');
@@ -123,7 +127,10 @@ CODE_SAMPLE
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $injectTagValueNode);
         }
     }
-    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
+    /**
+     * @return void
+     */
+    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty)
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
             $this->visibilityManipulator->makeProtected($injectProperty);

@@ -94,8 +94,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
@@ -126,7 +127,10 @@ CODE_SAMPLE
         $this->visibilityManipulator->makeStatic($classMethodNode);
         return null;
     }
-    private function resolveStaticCallClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveStaticCallClassName(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         if ($staticCall->class instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $objectType = $this->getObjectType($staticCall->class);

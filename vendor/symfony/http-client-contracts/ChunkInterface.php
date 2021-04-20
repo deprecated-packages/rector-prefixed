@@ -44,8 +44,9 @@ interface ChunkInterface
      * Returns a [status code, headers] tuple when a 1xx status code was just received.
      *
      * @throws TransportExceptionInterface on a network error or when the idle timeout is reached
+     * @return mixed[]|null
      */
-    public function getInformationalStatus() : ?array;
+    public function getInformationalStatus();
     /**
      * Returns the content of the response chunk.
      *
@@ -58,6 +59,7 @@ interface ChunkInterface
     public function getOffset() : int;
     /**
      * In case of error, returns the message that describes it.
+     * @return string|null
      */
-    public function getError() : ?string;
+    public function getError();
 }

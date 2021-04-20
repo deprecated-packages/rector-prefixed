@@ -27,7 +27,10 @@ class ControllerDoesNotReturnResponseException extends \LogicException
         $r->setAccessible(\true);
         $r->setValue($this, \array_merge([['line' => $line, 'file' => $file]], $this->getTrace()));
     }
-    private function parseControllerDefinition(callable $controller) : ?array
+    /**
+     * @return mixed[]|null
+     */
+    private function parseControllerDefinition(callable $controller)
     {
         if (\is_string($controller) && \false !== \strpos($controller, '::')) {
             $controller = \explode('::', $controller);

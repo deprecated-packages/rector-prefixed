@@ -45,8 +45,12 @@ class FileProfilerStorage implements \RectorPrefix20210420\Symfony\Component\Htt
      * @param int $start
      * @param int $end
      * @param string $statusCode
+     * @param string|null $ip
+     * @param string|null $url
+     * @param int|null $limit
+     * @param string|null $method
      */
-    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, $start = null, $end = null, $statusCode = null) : array
+    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -57,7 +61,7 @@ class FileProfilerStorage implements \RectorPrefix20210420\Symfony\Component\Htt
         $result = [];
         while (\count($result) < $limit && ($line = $this->readLineFromFile($file))) {
             $values = \str_getcsv($line);
-            [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
+            list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
             $csvTime = (int) $csvTime;
             if ($ip && \false === \strpos($csvIp, $ip) || $url && \false === \strpos($csvUrl, $url) || $method && \false === \strpos($csvMethod, $method) || $statusCode && \false === \strpos($csvStatusCode, $statusCode)) {
                 continue;
@@ -91,8 +95,9 @@ class FileProfilerStorage implements \RectorPrefix20210420\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
+     * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      */
-    public function read(string $token) : ?\RectorPrefix20210420\Symfony\Component\HttpKernel\Profiler\Profile
+    public function read(string $token)
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;

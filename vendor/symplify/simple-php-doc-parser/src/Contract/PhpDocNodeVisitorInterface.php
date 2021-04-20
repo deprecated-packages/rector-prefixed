@@ -9,8 +9,20 @@ use PHPStan\PhpDocParser\Ast\Node;
  */
 interface PhpDocNodeVisitorInterface
 {
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void;
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node;
-    public function leaveNode(\PHPStan\PhpDocParser\Ast\Node $node) : void;
-    public function afterTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void;
+    /**
+     * @return void
+     */
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node);
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node);
+    /**
+     * @return void
+     */
+    public function leaveNode(\PHPStan\PhpDocParser\Ast\Node $node);
+    /**
+     * @return void
+     */
+    public function afterTraverse(\PHPStan\PhpDocParser\Ast\Node $node);
 }

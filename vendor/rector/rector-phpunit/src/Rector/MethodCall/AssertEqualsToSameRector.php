@@ -23,7 +23,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    private const RENAME_METHODS_MAP = ['assertEquals' => 'assertSame'];
+    const RENAME_METHODS_MAP = ['assertEquals' => 'assertSame'];
     /**
      * We exclude
      * - bool because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
@@ -31,7 +31,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
      *
      * @var array<class-string<Type>>
      */
-    private const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
+    const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
     /**
      * @var IdentifierManipulator
      */
@@ -58,8 +58,9 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;

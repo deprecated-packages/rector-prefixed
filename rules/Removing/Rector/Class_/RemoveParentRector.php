@@ -19,7 +19,7 @@ final class RemoveParentRector extends \Rector\Core\Rector\AbstractRector implem
      * @api
      * @var string
      */
-    public const PARENT_TYPES_TO_REMOVE = 'parents_types_to_remove';
+    const PARENT_TYPES_TO_REMOVE = 'parents_types_to_remove';
     /**
      * @var string[]
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
         if ($parentClassName === null) {
@@ -74,8 +75,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, class-string[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->parentClassesToRemove = $configuration[self::PARENT_TYPES_TO_REMOVE] ?? [];
     }

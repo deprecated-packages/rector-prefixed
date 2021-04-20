@@ -22,7 +22,7 @@ final class PhpSpecRenaming
     /**
      * @var string
      */
-    private const SPEC = 'Spec';
+    const SPEC = 'Spec';
     /**
      * @var StringFormatConverter
      */
@@ -41,7 +41,10 @@ final class PhpSpecRenaming
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    public function renameMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    public function renameMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($classMethod->isPrivate()) {
             return;
@@ -56,11 +59,17 @@ final class PhpSpecRenaming
         }
         $classMethod->name = new \PhpParser\Node\Identifier($classMethodName);
     }
-    public function renameExtends(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    public function renameExtends(\PhpParser\Node\Stmt\Class_ $class)
     {
         $class->extends = new \PhpParser\Node\Name\FullyQualified('PHPUnit\\Framework\\TestCase');
     }
-    public function renameNamespace(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    public function renameNamespace(\PhpParser\Node\Stmt\Class_ $class)
     {
         $namespace = $this->betterNodeFinder->findParentType($class, \PhpParser\Node\Stmt\Namespace_::class);
         if (!$namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
@@ -73,7 +82,10 @@ final class PhpSpecRenaming
         $newNamespaceName = \Rector\Core\Util\StaticRectorStrings::removePrefixes($namespaceName, ['spec\\']);
         $namespace->name = new \PhpParser\Node\Name('Tests\\' . $newNamespaceName);
     }
-    public function renameClass(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    public function renameClass(\PhpParser\Node\Stmt\Class_ $class)
     {
         $classShortName = $this->nodeNameResolver->getShortName($class);
         // anonymous class?

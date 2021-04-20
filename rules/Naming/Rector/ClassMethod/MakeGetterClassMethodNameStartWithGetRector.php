@@ -23,7 +23,7 @@ final class MakeGetterClassMethodNameStartWithGetRector extends \Rector\Core\Rec
     /**
      * @var string
      */
-    private const GETTER_NAME_PATTERN = '#^(is|should|has|was|must|get|provide|__)#';
+    const GETTER_NAME_PATTERN = '#^(is|should|has|was|must|get|provide|__)#';
     /**
      * @var MethodNameResolver
      */
@@ -78,8 +78,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->isAlreadyGetterNamedClassMethod($node)) {
             return null;
@@ -103,7 +104,10 @@ CODE_SAMPLE
     {
         return $this->isName($classMethod, self::GETTER_NAME_PATTERN);
     }
-    private function matchGetterClassMethodReturnedExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchGetterClassMethodReturnedExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {

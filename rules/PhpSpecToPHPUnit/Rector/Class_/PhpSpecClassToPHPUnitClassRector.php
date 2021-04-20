@@ -62,8 +62,9 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -126,8 +127,9 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * @param Stmt[] $stmts
+     * @return \PhpParser\Node|null
      */
-    private function resolveFirstNonExpressionStmt(array $stmts) : ?\PhpParser\Node
+    private function resolveFirstNonExpressionStmt(array $stmts)
     {
         if (!isset($stmts[0])) {
             return null;

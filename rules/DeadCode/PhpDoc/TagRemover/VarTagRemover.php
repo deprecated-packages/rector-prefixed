@@ -51,7 +51,10 @@ final class VarTagRemover
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
         $this->deadVarTagValueNodeAnalyzer = $deadVarTagValueNodeAnalyzer;
     }
-    public function removeVarTagIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @return void
+     */
+    public function removeVarTagIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property)
     {
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
         if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
@@ -65,8 +68,9 @@ final class VarTagRemover
     }
     /**
      * @param Expression|Property|Param $node
+     * @return void
      */
-    public function removeVarPhpTagValueNodeIfNotComment(\PhpParser\Node $node, \PHPStan\Type\Type $type) : void
+    public function removeVarPhpTagValueNodeIfNotComment(\PhpParser\Node $node, \PHPStan\Type\Type $type)
     {
         // keep doctrine collection narrow type
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type)) {

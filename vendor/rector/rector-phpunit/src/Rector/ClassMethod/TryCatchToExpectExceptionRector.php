@@ -76,8 +76,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -101,9 +102,9 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @return Expression[]|null
+     * @return mixed[]|null
      */
-    private function processTryCatch(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
+    private function processTryCatch(\PhpParser\Node\Stmt\TryCatch $tryCatch)
     {
         $exceptionVariable = $this->matchSingleExceptionVariable($tryCatch);
         if (!$exceptionVariable instanceof \PhpParser\Node\Expr\Variable) {
@@ -139,7 +140,10 @@ CODE_SAMPLE
         }
         return $newExpressions;
     }
-    private function matchSingleExceptionVariable(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @return \PhpParser\Node\Expr\Variable|null
+     */
+    private function matchSingleExceptionVariable(\PhpParser\Node\Stmt\TryCatch $tryCatch)
     {
         if (\count($tryCatch->catches) !== 1) {
             return null;

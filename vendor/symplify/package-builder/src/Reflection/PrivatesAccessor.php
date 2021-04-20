@@ -22,8 +22,9 @@ final class PrivatesAccessor
     }
     /**
      * @param object $object
+     * @return void
      */
-    public function setPrivateProperty($object, string $propertyName, $value) : void
+    public function setPrivateProperty($object, string $propertyName, $value)
     {
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);

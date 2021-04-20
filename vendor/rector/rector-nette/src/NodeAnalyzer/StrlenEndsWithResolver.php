@@ -30,8 +30,9 @@ final class StrlenEndsWithResolver
     }
     /**
      * @param Identical|NotIdentical $binaryOp
+     * @return \Rector\Nette\ValueObject\ContentExprAndNeedleExpr|null
      */
-    public function resolveBinaryOpForFunction(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
+    public function resolveBinaryOpForFunction(\PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\Variable) {
             return $this->matchContentExprAndNeedleExpr($binaryOp->right, $binaryOp->left);
@@ -41,7 +42,10 @@ final class StrlenEndsWithResolver
         }
         return null;
     }
-    public function matchContentExprAndNeedleExpr(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
+    /**
+     * @return \Rector\Nette\ValueObject\ContentExprAndNeedleExpr|null
+     */
+    public function matchContentExprAndNeedleExpr(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable)
     {
         if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;

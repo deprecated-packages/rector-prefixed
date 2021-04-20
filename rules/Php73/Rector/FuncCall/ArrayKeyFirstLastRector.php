@@ -26,15 +26,15 @@ final class ArrayKeyFirstLastRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const ARRAY_KEY_FIRST = 'array_key_first';
+    const ARRAY_KEY_FIRST = 'array_key_first';
     /**
      * @var string
      */
-    private const ARRAY_KEY_LAST = 'array_key_last';
+    const ARRAY_KEY_LAST = 'array_key_last';
     /**
      * @var array<string, string>
      */
-    private const PREVIOUS_TO_NEW_FUNCTIONS = ['reset' => self::ARRAY_KEY_FIRST, 'end' => self::ARRAY_KEY_LAST];
+    const PREVIOUS_TO_NEW_FUNCTIONS = ['reset' => self::ARRAY_KEY_FIRST, 'end' => self::ARRAY_KEY_LAST];
     /**
      * @var ReflectionProvider
      */
@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -111,7 +112,10 @@ CODE_SAMPLE
         }
         return !$this->reflectionProvider->hasFunction(new \PhpParser\Node\Name(self::ARRAY_KEY_LAST), null);
     }
-    private function getNextExpression(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function getNextExpression(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $currentExpression = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {

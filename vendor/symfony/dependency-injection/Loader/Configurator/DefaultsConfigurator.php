@@ -17,7 +17,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\Invalid
  */
 class DefaultsConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    public const FACTORY = 'defaults';
+    const FACTORY = 'defaults';
     use Traits\AutoconfigureTrait;
     use Traits\AutowireTrait;
     use Traits\BindTrait;

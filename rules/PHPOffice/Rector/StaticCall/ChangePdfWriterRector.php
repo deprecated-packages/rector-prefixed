@@ -53,8 +53,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $callerType = $this->nodeTypeResolver->resolve($node->class);
         if ($this->isSettingsPdfRendererStaticCall($callerType, $node)) {

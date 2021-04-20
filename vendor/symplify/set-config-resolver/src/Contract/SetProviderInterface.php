@@ -14,5 +14,8 @@ interface SetProviderInterface
      * @return string[]
      */
     public function provideSetNames() : array;
-    public function provideByName(string $setName) : ?\RectorPrefix20210420\Symplify\SetConfigResolver\ValueObject\Set;
+    /**
+     * @return \Symplify\SetConfigResolver\ValueObject\Set|null
+     */
+    public function provideByName(string $setName);
 }

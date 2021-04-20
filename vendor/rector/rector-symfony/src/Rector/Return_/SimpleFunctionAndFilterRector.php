@@ -30,7 +30,7 @@ final class SimpleFunctionAndFilterRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var array<string, class-string>>
      */
-    private const OLD_TO_NEW_CLASSES = ['Twig_Function_Method' => 'Twig_SimpleFunction', 'Twig_Filter_Method' => 'Twig_SimpleFilter'];
+    const OLD_TO_NEW_CLASSES = ['Twig_Function_Method' => 'Twig_SimpleFunction', 'Twig_Filter_Method' => 'Twig_SimpleFilter'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Twig_Function_Method to Twig_SimpleFunction calls in Twig_Extension.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -80,8 +80,9 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->expr === null) {
             return null;
@@ -113,7 +114,10 @@ CODE_SAMPLE
         });
         return $node;
     }
-    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType) : void
+    /**
+     * @return void
+     */
+    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType)
     {
         foreach (self::OLD_TO_NEW_CLASSES as $oldClass => $newClass) {
             $oldClassObjectType = new \PHPStan\Type\ObjectType($oldClass);
@@ -137,8 +141,9 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $oldArguments
+     * @return void
      */
-    private function decorateArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, array $oldArguments, string $filterName) : void
+    private function decorateArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, array $oldArguments, string $filterName)
     {
         /** @var New_ $new */
         $new = $arrayItem->value;

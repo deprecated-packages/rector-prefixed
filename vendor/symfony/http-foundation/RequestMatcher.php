@@ -73,8 +73,9 @@ class RequestMatcher implements \RectorPrefix20210420\Symfony\Component\HttpFoun
     }
     /**
      * Adds a check for the URL host name.
+     * @param string|null $regexp
      */
-    public function matchHost(?string $regexp)
+    public function matchHost($regexp)
     {
         $this->host = $regexp;
     }
@@ -83,14 +84,15 @@ class RequestMatcher implements \RectorPrefix20210420\Symfony\Component\HttpFoun
      *
      * @param int|null $port The port number to connect to
      */
-    public function matchPort(?int $port)
+    public function matchPort($port)
     {
         $this->port = $port;
     }
     /**
      * Adds a check for the URL path info.
+     * @param string|null $regexp
      */
-    public function matchPath(?string $regexp)
+    public function matchPath($regexp)
     {
         $this->path = $regexp;
     }

@@ -162,8 +162,9 @@ class ErrorHandler
      * @param LoggerInterface $logger  A PSR-3 logger to put as default for the given levels
      * @param array|int       $levels  An array map of E_* to LogLevel::* or an integer bit field of E_* constants
      * @param bool            $replace Whether to replace or not any existing logger
+     * @return void
      */
-    public function setDefaultLogger(\RectorPrefix20210420\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, bool $replace = \false) : void
+    public function setDefaultLogger(\RectorPrefix20210420\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, bool $replace = \false)
     {
         $loggers = [];
         if (\is_array($levels)) {
@@ -240,7 +241,7 @@ class ErrorHandler
      *
      * @return callable|null The previous exception handler
      */
-    public function setExceptionHandler(?callable $handler) : ?callable
+    public function setExceptionHandler($handler)
     {
         $prev = $this->exceptionHandler;
         $this->exceptionHandler = $handler;
@@ -317,8 +318,9 @@ class ErrorHandler
     }
     /**
      * Re-registers as a PHP error handler if levels changed.
+     * @return void
      */
-    private function reRegister(int $prev) : void
+    private function reRegister(int $prev)
     {
         if ($prev !== $this->thrownErrors | $this->loggedErrors) {
             $handler = \set_error_handler('var_dump');
@@ -530,8 +532,9 @@ class ErrorHandler
      * @param array|null $error An array as returned by error_get_last()
      *
      * @internal
+     * @return void
      */
-    public static function handleFatalError(array $error = null) : void
+    public static function handleFatalError(array $error = null)
     {
         if (null === self::$reservedMemory) {
             return;
@@ -601,8 +604,9 @@ class ErrorHandler
      *
      * As this method is mainly called during boot where nothing is yet available,
      * the output is always either HTML or CLI depending where PHP runs.
+     * @return void
      */
-    private function renderException(\Throwable $exception) : void
+    private function renderException(\Throwable $exception)
     {
         $renderer = \in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) ? new \RectorPrefix20210420\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer() : new \RectorPrefix20210420\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer($this->debug);
         $exception = $renderer->render($exception);

@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -122,7 +123,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Stmt\Return_($this->exprBoolCaster->boolCastOrNullCompareIfNeeded($if->cond));
     }
-    private function processReturnFalse(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode) : ?\PhpParser\Node\Stmt\Return_
+    /**
+     * @return \PhpParser\Node\Stmt\Return_|null
+     */
+    private function processReturnFalse(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $nextReturnNode)
     {
         if ($if->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($if->cond->left, $if->cond->right);

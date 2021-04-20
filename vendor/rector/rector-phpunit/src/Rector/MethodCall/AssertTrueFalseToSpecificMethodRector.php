@@ -46,8 +46,9 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertTrue', 'assertFalse', 'assertNotTrue', 'assertNotFalse'])) {
             return null;
@@ -75,8 +76,9 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
+    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods)
     {
         /** @var Identifier $identifierNode */
         $identifierNode = $node->name;
@@ -100,8 +102,9 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
      * - $this->assertArrayHasKey('...', ['...'], 'second argument');
      *
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node) : void
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node)
     {
         $funcCallOrEmptyNode = $node->args[0]->value;
         if ($funcCallOrEmptyNode instanceof \PhpParser\Node\Expr\FuncCall) {

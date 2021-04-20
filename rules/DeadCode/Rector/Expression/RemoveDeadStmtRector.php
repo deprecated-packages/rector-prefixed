@@ -44,8 +44,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expression $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -59,7 +60,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($expression);
         if ($expression->getComments() !== []) {

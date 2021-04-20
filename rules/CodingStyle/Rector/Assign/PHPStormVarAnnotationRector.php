@@ -24,17 +24,17 @@ final class PHPStormVarAnnotationRector extends \Rector\Core\Rector\AbstractRect
      * @var string
      * @see https://regex101.com/r/YY5stJ/1
      */
-    private const SINGLE_ASTERISK_COMMENT_START_REGEX = '#^\\/\\* #';
+    const SINGLE_ASTERISK_COMMENT_START_REGEX = '#^\\/\\* #';
     /**
      * @var string
      * @see https://regex101.com/r/meD7rP/1
      */
-    private const VAR_ANNOTATION_REGEX = '#\\@var(\\s)+\\$#';
+    const VAR_ANNOTATION_REGEX = '#\\@var(\\s)+\\$#';
     /**
      * @var string
      * @see https://regex101.com/r/yz2AZ7/1
      */
-    private const VARIABLE_NAME_AND_TYPE_MATCH_REGEX = '#(?<variableName>\\$\\w+)(?<space>\\s+)(?<type>[\\\\\\w]+)#';
+    const VARIABLE_NAME_AND_TYPE_MATCH_REGEX = '#(?<variableName>\\$\\w+)(?<space>\\s+)(?<type>[\\\\\\w]+)#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change various @var annotation formats to one PHPStorm understands', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -56,8 +56,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $expression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         // unable to analyze

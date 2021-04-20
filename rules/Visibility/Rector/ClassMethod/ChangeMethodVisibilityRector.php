@@ -21,7 +21,7 @@ final class ChangeMethodVisibilityRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var string
      */
-    public const METHOD_VISIBILITIES = 'method_visibilities';
+    const METHOD_VISIBILITIES = 'method_visibilities';
     /**
      * @var ChangeMethodVisibility[]
      */
@@ -77,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
         if ($parentClassName === null) {
@@ -98,8 +99,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ChangeMethodVisibility[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $methodVisibilities = $configuration[self::METHOD_VISIBILITIES] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($methodVisibilities, \Rector\Visibility\ValueObject\ChangeMethodVisibility::class);

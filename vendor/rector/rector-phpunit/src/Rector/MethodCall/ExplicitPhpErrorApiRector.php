@@ -24,7 +24,7 @@ final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    private const REPLACEMENTS = ['PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    const REPLACEMENTS = ['PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
     /**
      * @var AssertCallFactory
      */
@@ -75,8 +75,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['expectException'])) {
             return null;
@@ -91,8 +92,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    private function replaceExceptionWith(\PhpParser\Node $node, string $exceptionClass, string $explicitMethod) : ?\PhpParser\Node
+    private function replaceExceptionWith(\PhpParser\Node $node, string $exceptionClass, string $explicitMethod)
     {
         if (!isset($node->args[0])) {
             return null;

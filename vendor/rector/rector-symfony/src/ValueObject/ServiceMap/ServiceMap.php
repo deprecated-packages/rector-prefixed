@@ -23,7 +23,10 @@ final class ServiceMap
     {
         return isset($this->services[$id]);
     }
-    public function getServiceType(string $id) : ?\PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    public function getServiceType(string $id)
     {
         $serviceDefinition = $this->getService($id);
         if (!$serviceDefinition instanceof \Rector\Symfony\ValueObject\ServiceDefinition) {
@@ -57,7 +60,10 @@ final class ServiceMap
         }
         return $servicesWithTag;
     }
-    private function getService(string $id) : ?\Rector\Symfony\ValueObject\ServiceDefinition
+    /**
+     * @return \Rector\Symfony\ValueObject\ServiceDefinition|null
+     */
+    private function getService(string $id)
     {
         return $this->services[$id] ?? null;
     }

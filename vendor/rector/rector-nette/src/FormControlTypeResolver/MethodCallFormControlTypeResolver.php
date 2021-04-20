@@ -47,7 +47,10 @@ final class MethodCallFormControlTypeResolver implements \Rector\Nette\Contract\
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($classMethod);
     }
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    /**
+     * @return void
+     */
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

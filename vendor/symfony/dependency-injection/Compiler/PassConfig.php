@@ -20,11 +20,11 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\Invalid
  */
 class PassConfig
 {
-    public const TYPE_AFTER_REMOVING = 'afterRemoving';
-    public const TYPE_BEFORE_OPTIMIZATION = 'beforeOptimization';
-    public const TYPE_BEFORE_REMOVING = 'beforeRemoving';
-    public const TYPE_OPTIMIZE = 'optimization';
-    public const TYPE_REMOVE = 'removing';
+    const TYPE_AFTER_REMOVING = 'afterRemoving';
+    const TYPE_BEFORE_OPTIMIZATION = 'beforeOptimization';
+    const TYPE_BEFORE_REMOVING = 'beforeRemoving';
+    const TYPE_OPTIMIZE = 'optimization';
+    const TYPE_REMOVE = 'removing';
     private $mergePass;
     private $afterRemovingPasses = [];
     private $beforeOptimizationPasses = [];

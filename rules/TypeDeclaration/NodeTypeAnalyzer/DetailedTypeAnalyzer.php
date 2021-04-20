@@ -12,7 +12,7 @@ final class DetailedTypeAnalyzer
     /**
      * @var int
      */
-    private const MAX_NUMBER_OF_TYPES = 3;
+    const MAX_NUMBER_OF_TYPES = 3;
     public function isTooDetailed(\PHPStan\Type\Type $type) : bool
     {
         if ($type instanceof \PHPStan\Type\UnionType) {

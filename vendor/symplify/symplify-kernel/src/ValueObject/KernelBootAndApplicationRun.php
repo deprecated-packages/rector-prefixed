@@ -31,7 +31,10 @@ final class KernelBootAndApplicationRun
         $this->setKernelClass($kernelClass);
         $this->extraConfigs = $extraConfigs;
     }
-    public function run() : void
+    /**
+     * @return void
+     */
+    public function run()
     {
         try {
             $this->booKernelAndRunApplication();
@@ -51,7 +54,10 @@ final class KernelBootAndApplicationRun
         $this->setExtraConfigs($kernel, $kernelClass);
         return $kernel;
     }
-    private function booKernelAndRunApplication() : void
+    /**
+     * @return void
+     */
+    private function booKernelAndRunApplication()
     {
         $kernel = $this->createKernel();
         if ($kernel instanceof \RectorPrefix20210420\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface && $this->extraConfigs !== []) {
@@ -63,7 +69,10 @@ final class KernelBootAndApplicationRun
         $application = $container->get(\RectorPrefix20210420\Symfony\Component\Console\Application::class);
         exit($application->run());
     }
-    private function setExtraConfigs(\RectorPrefix20210420\Symfony\Component\HttpKernel\KernelInterface $kernel, string $kernelClass) : void
+    /**
+     * @return void
+     */
+    private function setExtraConfigs(\RectorPrefix20210420\Symfony\Component\HttpKernel\KernelInterface $kernel, string $kernelClass)
     {
         if ($this->extraConfigs === []) {
             return;
@@ -78,8 +87,9 @@ final class KernelBootAndApplicationRun
     }
     /**
      * @param class-string $kernelClass
+     * @return void
      */
-    private function setKernelClass(string $kernelClass) : void
+    private function setKernelClass(string $kernelClass)
     {
         if (!\is_a($kernelClass, \RectorPrefix20210420\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
             $message = \sprintf('Class "%s" must by type of "%s"', $kernelClass, \RectorPrefix20210420\Symfony\Component\HttpKernel\KernelInterface::class);

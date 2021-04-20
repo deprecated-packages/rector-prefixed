@@ -22,15 +22,15 @@ final class ReflectionExtractorEnableMagicCallExtractorRector extends \Rector\Co
     /**
      * @var string
      */
-    private const OLD_OPTION_NAME = 'enable_magic_call_extraction';
+    const OLD_OPTION_NAME = 'enable_magic_call_extraction';
     /**
      * @var string
      */
-    private const NEW_OPTION_NAME = 'enable_magic_methods_extraction';
+    const NEW_OPTION_NAME = 'enable_magic_methods_extraction';
     /**
      * @var string[]
      */
-    private const METHODS_WITH_OPTION = ['getWriteInfo', 'getReadInfo'];
+    const METHODS_WITH_OPTION = ['getWriteInfo', 'getReadInfo'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrates from deprecated enable_magic_call_extraction context option in ReflectionExtractor', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -72,8 +72,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -102,7 +103,10 @@ CODE_SAMPLE
         $contextOptions = $methodCall->args[2]->value;
         return $contextOptions->items === [];
     }
-    private function getContextOptionValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?bool
+    /**
+     * @return bool|null
+     */
+    private function getContextOptionValue(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         /** @var Array_ $contextOptions */
         $contextOptions = $methodCall->args[2]->value;

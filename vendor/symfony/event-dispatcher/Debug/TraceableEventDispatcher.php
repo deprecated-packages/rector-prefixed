@@ -161,7 +161,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210420\Symfony\Componen
         $hash = $request ? \spl_object_hash($request) : null;
         $called = [];
         foreach ($this->callStack as $listener) {
-            [$eventName, $requestHash] = $this->callStack->getInfo();
+            list($eventName, $requestHash) = $this->callStack->getInfo();
             if (null === $hash || $hash === $requestHash) {
                 $called[] = $listener->getInfo($eventName);
             }
@@ -186,7 +186,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210420\Symfony\Componen
         $calledListeners = [];
         if (null !== $this->callStack) {
             foreach ($this->callStack as $calledListener) {
-                [, $requestHash] = $this->callStack->getInfo();
+                list($requestHash) = $this->callStack->getInfo();
                 if (null === $hash || $hash === $requestHash) {
                     $calledListeners[] = $calledListener->getWrappedListener();
                 }
@@ -248,7 +248,10 @@ class TraceableEventDispatcher implements \RectorPrefix20210420\Symfony\Componen
     protected function afterDispatch(string $eventName, $event)
     {
     }
-    private function preProcess(string $eventName) : void
+    /**
+     * @return void
+     */
+    private function preProcess(string $eventName)
     {
         if (!$this->dispatcher->hasListeners($eventName)) {
             $this->orphanedEvents[$this->currentRequestHash][] = $eventName;
@@ -263,7 +266,10 @@ class TraceableEventDispatcher implements \RectorPrefix20210420\Symfony\Componen
             $this->callStack->attach($wrappedListener, [$eventName, $this->currentRequestHash]);
         }
     }
-    private function postProcess(string $eventName) : void
+    /**
+     * @return void
+     */
+    private function postProcess(string $eventName)
     {
         unset($this->wrappedListeners[$eventName]);
         $skipped = \false;

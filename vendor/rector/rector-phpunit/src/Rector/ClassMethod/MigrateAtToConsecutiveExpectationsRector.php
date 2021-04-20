@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $stmts = $node->stmts;
         if ($stmts === null) {
@@ -80,7 +81,10 @@ CODE_SAMPLE
         $this->fillMissingAtIndexes($expectationMockCollection);
         return $this->consecutiveAssertionFactory->createAssertionFromExpectationMockCollection($expectationMockCollection);
     }
-    private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : void
+    /**
+     * @return void
+     */
+    private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection)
     {
         $variable = $expectationMockCollection->getExpectationMocks()[0]->getExpectationVariable();
         // OR
@@ -98,7 +102,10 @@ CODE_SAMPLE
             }
         }
     }
-    private function replaceExpectationNodes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : void
+    /**
+     * @return void
+     */
+    private function replaceExpectationNodes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection)
     {
         if ($this->shouldSkipReplacement($expectationMockCollection)) {
             return;

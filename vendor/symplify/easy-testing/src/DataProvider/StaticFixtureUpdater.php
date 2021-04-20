@@ -7,7 +7,10 @@ use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
-    public static function updateFixtureContent(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    /**
+     * @return void
+     */
+    public static function updateFixtureContent(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -15,7 +18,10 @@ final class StaticFixtureUpdater
         $newOriginalContent = self::resolveNewFixtureContent($originalFileInfo, $changedContent);
         self::getSmartFileSystem()->dumpFile($fixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    public static function updateExpectedFixtureContent(string $newOriginalContent, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
+    /**
+     * @return void
+     */
+    public static function updateExpectedFixtureContent(string $newOriginalContent, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;

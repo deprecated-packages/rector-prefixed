@@ -29,8 +29,9 @@ final class UseImportsRemover
     }
     /**
      * @param string[] $removedShortUses
+     * @return void
      */
-    public function removeImportsFromNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, array $removedShortUses) : void
+    public function removeImportsFromNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, array $removedShortUses)
     {
         foreach ($namespace->stmts as $namespaceKey => $stmt) {
             if (!$stmt instanceof \PhpParser\Node\Stmt\Use_) {
@@ -45,8 +46,9 @@ final class UseImportsRemover
     }
     /**
      * @param string[] $removedShortUses
+     * @return void
      */
-    private function removeUseFromUse(array $removedShortUses, \PhpParser\Node\Stmt\Use_ $use) : void
+    private function removeUseFromUse(array $removedShortUses, \PhpParser\Node\Stmt\Use_ $use)
     {
         foreach ($use->uses as $usesKey => $useUse) {
             foreach ($removedShortUses as $removedShortUse) {

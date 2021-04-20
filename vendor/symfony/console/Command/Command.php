@@ -28,8 +28,8 @@ use RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface;
 class Command
 {
     // see https://tldp.org/LDP/abs/html/exitcodes.html
-    public const SUCCESS = 0;
-    public const FAILURE = 1;
+    const SUCCESS = 0;
+    const FAILURE = 1;
     /**
      * @var string|null The default command name
      */

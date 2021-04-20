@@ -107,7 +107,7 @@ class ContainerBuilder extends \RectorPrefix20210420\Symfony\Component\Dependenc
     private $autoconfiguredInstanceof = [];
     private $removedIds = [];
     private $removedBindingIds = [];
-    private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
+    const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
     public function __construct(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
@@ -270,8 +270,10 @@ class ContainerBuilder extends \RectorPrefix20210420\Symfony\Component\Dependenc
      * @throws \ReflectionException when a parent class/interface/trait is not found and $throw is true
      *
      * @final
+     * @param string|null $class
+     * @return \ReflectionClass|null
      */
-    public function getReflectionClass(?string $class, bool $throw = \true) : ?\ReflectionClass
+    public function getReflectionClass($class, bool $throw = \true)
     {
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
@@ -1243,7 +1245,7 @@ class ContainerBuilder extends \RectorPrefix20210420\Symfony\Component\Dependenc
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
-                [, $bindingId] = $binding->getValues();
+                list($bindingId) = $binding->getValues();
                 $this->removedBindingIds[(int) $bindingId] = \true;
             }
         }
@@ -1344,8 +1346,9 @@ class ContainerBuilder extends \RectorPrefix20210420\Symfony\Component\Dependenc
      * Shares a given service in the container.
      *
      * @param mixed $service
+     * @param string|null $id
      */
-    private function shareService(\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
+    private function shareService(\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition $definition, $service, $id, array &$inlineServices)
     {
         $inlineServices[null !== $id ? $id : \spl_object_hash($definition)] = $service;
         if (null !== $id && $definition->isShared()) {

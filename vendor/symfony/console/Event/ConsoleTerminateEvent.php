@@ -26,7 +26,10 @@ final class ConsoleTerminateEvent extends \RectorPrefix20210420\Symfony\Componen
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);
     }
-    public function setExitCode(int $exitCode) : void
+    /**
+     * @return void
+     */
+    public function setExitCode(int $exitCode)
     {
         $this->exitCode = $exitCode;
     }

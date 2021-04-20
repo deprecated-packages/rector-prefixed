@@ -10,7 +10,10 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Compiler\Compiler
 use RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder;
 final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210420\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    /**
+     * @return void
+     */
+    public function process(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $class = $definition->getClass();

@@ -20,7 +20,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
+    const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
     /**
      * @var array<string, string>
      */
@@ -38,8 +38,9 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->oldFunctionToNewFunction as $oldFunction => $newFunction) {
             if (!$this->isName($node, $oldFunction)) {
@@ -52,8 +53,9 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     }
     /**
      * @param mixed[] $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->oldFunctionToNewFunction = $configuration[self::OLD_FUNCTION_TO_NEW_FUNCTION] ?? [];
     }

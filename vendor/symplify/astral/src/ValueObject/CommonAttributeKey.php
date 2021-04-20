@@ -10,5 +10,5 @@ final class CommonAttributeKey
      *
      * @var string
      */
-    public const PARENT = 'parent';
+    const PARENT = 'parent';
 }

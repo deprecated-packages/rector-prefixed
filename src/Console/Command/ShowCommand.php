@@ -33,7 +33,10 @@ final class ShowCommand extends \RectorPrefix20210420\Symfony\Component\Console\
         $this->parameterProvider = $parameterProvider;
         parent::__construct();
     }
-    protected function configure() : void
+    /**
+     * @return void
+     */
+    protected function configure()
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
@@ -43,7 +46,10 @@ final class ShowCommand extends \RectorPrefix20210420\Symfony\Component\Console\
         $this->reportLoadedSets();
         return \RectorPrefix20210420\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
-    private function reportLoadedRectors() : void
+    /**
+     * @return void
+     */
+    private function reportLoadedRectors()
     {
         $activeRectors = $this->activeRectorsProvider->provide();
         $rectorCount = \count($activeRectors);
@@ -59,7 +65,10 @@ final class ShowCommand extends \RectorPrefix20210420\Symfony\Component\Console\
             $this->symfonyStyle->warning($warningMessage);
         }
     }
-    private function reportLoadedSets() : void
+    /**
+     * @return void
+     */
+    private function reportLoadedSets()
     {
         $sets = (array) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::SETS);
         if ($sets === []) {

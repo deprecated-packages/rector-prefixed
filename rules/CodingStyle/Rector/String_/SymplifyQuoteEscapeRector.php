@@ -19,7 +19,7 @@ final class SymplifyQuoteEscapeRector extends \Rector\Core\Rector\AbstractRector
      * @var string
      * @see https://regex101.com/r/qEkCe9/2
      */
-    private const ESCAPED_CHAR_REGEX = '#\\\\|\\$|\\n|\\t#sim';
+    const ESCAPED_CHAR_REGEX = '#\\\\|\\$|\\n|\\t#sim';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Prefer quote that are not inside the string', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -53,8 +53,9 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $doubleQuoteCount = \substr_count($node->value, '"');
         $singleQuoteCount = \substr_count($node->value, "'");
@@ -68,7 +69,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processSingleQuoted(\PhpParser\Node\Scalar\String_ $string, int $doubleQuoteCount, int $singleQuoteCount) : void
+    /**
+     * @return void
+     */
+    private function processSingleQuoted(\PhpParser\Node\Scalar\String_ $string, int $doubleQuoteCount, int $singleQuoteCount)
     {
         if ($doubleQuoteCount === 0 && $singleQuoteCount > 0) {
             // contains chars that will be newly escaped
@@ -80,7 +84,10 @@ CODE_SAMPLE
             $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         }
     }
-    private function processDoubleQuoted(\PhpParser\Node\Scalar\String_ $string, int $singleQuoteCount, int $doubleQuoteCount) : void
+    /**
+     * @return void
+     */
+    private function processDoubleQuoted(\PhpParser\Node\Scalar\String_ $string, int $singleQuoteCount, int $doubleQuoteCount)
     {
         if ($singleQuoteCount === 0 && $doubleQuoteCount > 0) {
             // contains chars that will be newly escaped

@@ -19,7 +19,7 @@ final class FuncCallToConstFetchRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    public const FUNCTIONS_TO_CONSTANTS = 'functions_to_constants';
+    const FUNCTIONS_TO_CONSTANTS = 'functions_to_constants';
     /**
      * @var string[]
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $functionName = $this->getName($node);
         if (!$functionName) {
@@ -67,7 +68,10 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($this->functionsToConstants[$functionName]));
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->functionsToConstants = $configuration[self::FUNCTIONS_TO_CONSTANTS] ?? [];
     }

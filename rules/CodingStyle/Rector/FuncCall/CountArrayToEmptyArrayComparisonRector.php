@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|BooleanNot $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
             return $this->processMarkTruthyNegation($node);
@@ -78,7 +79,10 @@ CODE_SAMPLE
         }
         return $this->processMarkTruthy($parent, $node, $expr);
     }
-    private function processMarkTruthyNegation(\PhpParser\Node\Expr\BooleanNot $booleanNot) : ?\PhpParser\Node\Expr\BinaryOp\Identical
+    /**
+     * @return \PhpParser\Node\Expr\BinaryOp\Identical|null
+     */
+    private function processMarkTruthyNegation(\PhpParser\Node\Expr\BooleanNot $booleanNot)
     {
         if (!$booleanNot->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
@@ -103,7 +107,10 @@ CODE_SAMPLE
         }
         return $scope->getType($expr) instanceof \PHPStan\Type\ArrayType;
     }
-    private function processIdentical(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function processIdentical(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && $node->right instanceof \PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
             $this->removeNode($funcCall);
@@ -117,7 +124,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processGreaterOrSmaller(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\BinaryOp\NotIdentical
+    /**
+     * @return \PhpParser\Node\Expr\BinaryOp\NotIdentical|null
+     */
+    private function processGreaterOrSmaller(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $node->right instanceof \PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
             $this->removeNode($funcCall);
@@ -131,7 +141,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processMarkTruthy(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function processMarkTruthy(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
     {
         if (!$node instanceof \PhpParser\Node\Stmt\If_ && !$node instanceof \PhpParser\Node\Stmt\ElseIf_) {
             return null;

@@ -31,7 +31,7 @@ final class FluentChainMethodCallNodeAnalyzer
      *
      * @var class-string<MutatingScope>[]
      */
-    private const KNOWN_FACTORY_FLUENT_TYPES = ['PHPStan\\Analyser\\MutatingScope'];
+    const KNOWN_FACTORY_FLUENT_TYPES = ['PHPStan\\Analyser\\MutatingScope'];
     /**
      * @var NodeTypeResolver
      */
@@ -179,7 +179,10 @@ final class FluentChainMethodCallNodeAnalyzer
         }
         return $callerNode;
     }
-    public function resolveRootMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    public function resolveRootMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $callerNode = $methodCall->var;
         while ($callerNode instanceof \PhpParser\Node\Expr\MethodCall && $callerNode->var instanceof \PhpParser\Node\Expr\MethodCall) {

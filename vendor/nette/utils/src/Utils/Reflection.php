@@ -14,7 +14,7 @@ use RectorPrefix20210420\Nette;
 final class Reflection
 {
     use Nette\StaticClass;
-    private const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
+    const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
      */
@@ -26,8 +26,9 @@ final class Reflection
      * Returns the type of return value of given function or method and normalizes `self`, `static`, and `parent` to actual class names.
      * If the function does not have a return type, it returns null.
      * If the function has union type, it throws Nette\InvalidStateException.
+     * @return string|null
      */
-    public static function getReturnType(\ReflectionFunctionAbstract $func) : ?string
+    public static function getReturnType(\ReflectionFunctionAbstract $func)
     {
         return self::getType($func, $func->getReturnType());
     }
@@ -42,8 +43,9 @@ final class Reflection
      * Returns the type of given parameter and normalizes `self` and `parent` to the actual class names.
      * If the parameter does not have a type, it returns null.
      * If the parameter has union type, it throws Nette\InvalidStateException.
+     * @return string|null
      */
-    public static function getParameterType(\ReflectionParameter $param) : ?string
+    public static function getParameterType(\ReflectionParameter $param)
     {
         return self::getType($param, $param->getType());
     }
@@ -58,8 +60,9 @@ final class Reflection
      * Returns the type of given property and normalizes `self` and `parent` to the actual class names.
      * If the property does not have a type, it returns null.
      * If the property has union type, it throws Nette\InvalidStateException.
+     * @return string|null
      */
-    public static function getPropertyType(\ReflectionProperty $prop) : ?string
+    public static function getPropertyType(\ReflectionProperty $prop)
     {
         return self::getType($prop, \PHP_VERSION_ID >= 70400 ? $prop->getType() : null);
     }
@@ -73,8 +76,9 @@ final class Reflection
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
      * @return string|array|null
+     * @param \ReflectionType|null $type
      */
-    private static function getType($reflection, ?\ReflectionType $type, bool $asArray = \false)
+    private static function getType($reflection, $type, bool $asArray = \false)
     {
         if ($type === null) {
             return $asArray ? [] : null;
@@ -320,11 +324,14 @@ final class Reflection
         }
         return $res;
     }
-    private static function fetch(array &$tokens, $take) : ?string
+    /**
+     * @return string|null
+     */
+    private static function fetch(array &$tokens, $take)
     {
         $res = null;
         while ($token = \current($tokens)) {
-            [$token, $s] = \is_array($token) ? $token : [$token, $token];
+            list($token, $s) = \is_array($token) ? $token : [$token, $token];
             if (\in_array($token, (array) $take, \true)) {
                 $res .= $s;
             } elseif (!\in_array($token, [\T_DOC_COMMENT, \T_WHITESPACE, \T_COMMENT], \true)) {

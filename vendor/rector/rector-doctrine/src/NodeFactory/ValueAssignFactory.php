@@ -36,7 +36,10 @@ final class ValueAssignFactory
     {
         return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('DateTime'));
     }
-    private function addDateTimeArgumentIfNotDefault(\PhpParser\Node\Expr $defaultExpr, \PhpParser\Node\Expr\New_ $dateTimeNew) : void
+    /**
+     * @return void
+     */
+    private function addDateTimeArgumentIfNotDefault(\PhpParser\Node\Expr $defaultExpr, \PhpParser\Node\Expr\New_ $dateTimeNew)
     {
         if ($defaultExpr instanceof \PhpParser\Node\Scalar\String_ && ($defaultExpr->value === 'now' || $defaultExpr->value === 'now()')) {
             return;

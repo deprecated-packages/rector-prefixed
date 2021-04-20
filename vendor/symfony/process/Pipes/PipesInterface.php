@@ -19,7 +19,7 @@ namespace RectorPrefix20210420\Symfony\Component\Process\Pipes;
  */
 interface PipesInterface
 {
-    public const CHUNK_SIZE = 16384;
+    const CHUNK_SIZE = 16384;
     /**
      * Returns an array of descriptors for the use of proc_open.
      */

@@ -21,7 +21,10 @@ final class PHPUnitTypeDeclarationDecorator
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if (!$this->reflectionProvider->hasClass('PHPUnit\\Framework\\TestCase')) {
             return;

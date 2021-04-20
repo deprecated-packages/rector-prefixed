@@ -41,8 +41,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::JSON_EXCEPTION)) {
             return null;
@@ -70,7 +71,10 @@ CODE_SAMPLE
             return $this->isNames($node, ['json_last_error', 'json_last_error_msg']);
         });
     }
-    private function processJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @return \PhpParser\Node\Expr\FuncCall|null
+     */
+    private function processJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         if (isset($funcCall->args[1])) {
             return null;
@@ -78,7 +82,10 @@ CODE_SAMPLE
         $funcCall->args[1] = new \PhpParser\Node\Arg($this->createConstFetch('JSON_THROW_ON_ERROR'));
         return $funcCall;
     }
-    private function processJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @return \PhpParser\Node\Expr\FuncCall|null
+     */
+    private function processJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         if (isset($funcCall->args[3])) {
             return null;

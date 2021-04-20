@@ -44,8 +44,9 @@ final class EventAndListenerTree
     /**
      * @param array<class-string, ClassMethod[]> $listenerMethodsByEventSubscriberClass
      * @param GetterMethodBlueprint[] $getterMethodsBlueprints
+     * @param \PhpParser\Node\Stmt\Property|null $onMagicProperty
      */
-    public function __construct(\PhpParser\Node\Expr\MethodCall $magicDispatchMethodCall, ?\PhpParser\Node\Stmt\Property $onMagicProperty, string $eventClassName, string $eventFileLocation, \PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace, \PhpParser\Node\Expr\MethodCall $eventDispatcherDispatchMethodCall, array $listenerMethodsByEventSubscriberClass, array $getterMethodsBlueprints)
+    public function __construct(\PhpParser\Node\Expr\MethodCall $magicDispatchMethodCall, $onMagicProperty, string $eventClassName, string $eventFileLocation, \PhpParser\Node\Stmt\Namespace_ $eventClassInNamespace, \PhpParser\Node\Expr\MethodCall $eventDispatcherDispatchMethodCall, array $listenerMethodsByEventSubscriberClass, array $getterMethodsBlueprints)
     {
         $this->magicDispatchMethodCall = $magicDispatchMethodCall;
         $this->onMagicProperty = $onMagicProperty;
@@ -67,7 +68,10 @@ final class EventAndListenerTree
     {
         return $this->listenerMethodsByEventSubscriberClass[$className] ?? [];
     }
-    public function getOnMagicProperty() : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    public function getOnMagicProperty()
     {
         return $this->onMagicProperty;
     }

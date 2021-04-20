@@ -18,7 +18,10 @@ abstract class AbstractConfigResolver
     {
         $this->optionValueResolver = new \RectorPrefix20210420\Symplify\SetConfigResolver\Console\OptionValueResolver();
     }
-    public function resolveFromInput(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo
+    /**
+     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
+     */
+    public function resolveFromInput(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input)
     {
         $configValue = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20210420\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
@@ -32,8 +35,9 @@ abstract class AbstractConfigResolver
     }
     /**
      * @param string[] $fallbackFiles
+     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    public function resolveFromInputWithFallback(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInputWithFallback(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles)
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {
@@ -43,8 +47,9 @@ abstract class AbstractConfigResolver
     }
     /**
      * @param string[] $fallbackFiles
+     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFallbackFileInfoIfFound(array $fallbackFiles)
     {
         foreach ($fallbackFiles as $fallbackFile) {
             $rootFallbackFile = \getcwd() . \DIRECTORY_SEPARATOR . $fallbackFile;

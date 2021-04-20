@@ -13,7 +13,7 @@ final class ComposerAutoloadedDirectoryProvider
     /**
      * @var string[]
      */
-    private const AUTOLOAD_SECTIONS = [\RectorPrefix20210420\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210420\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV];
+    const AUTOLOAD_SECTIONS = [\RectorPrefix20210420\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210420\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV];
     /**
      * @var string
      */

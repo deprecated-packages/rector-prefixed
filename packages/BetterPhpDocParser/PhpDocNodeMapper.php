@@ -42,7 +42,10 @@ final class PhpDocNodeMapper
         $this->parentConnectingPhpDocNodeVisitor = $parentConnectingPhpDocNodeVisitor;
         $this->cloningPhpDocNodeVisitor = $cloningPhpDocNodeVisitor;
     }
-    public function transform(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator) : void
+    /**
+     * @return void
+     */
+    public function transform(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator)
     {
         $this->currentTokenIteratorProvider->setBetterTokenIterator($betterTokenIterator);
         $parentPhpDocNodeTraverser = new \RectorPrefix20210420\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();

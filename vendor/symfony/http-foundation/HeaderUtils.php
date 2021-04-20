@@ -17,8 +17,8 @@ namespace RectorPrefix20210420\Symfony\Component\HttpFoundation;
  */
 class HeaderUtils
 {
-    public const DISPOSITION_ATTACHMENT = 'attachment';
-    public const DISPOSITION_INLINE = 'inline';
+    const DISPOSITION_ATTACHMENT = 'attachment';
+    const DISPOSITION_INLINE = 'inline';
     /**
      * This class should not be instantiated.
      */

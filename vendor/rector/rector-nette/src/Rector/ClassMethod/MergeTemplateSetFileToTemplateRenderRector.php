@@ -60,8 +60,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
@@ -87,8 +88,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall[] $methodCalls
+     * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function resolveSingleSetFileMethodCall(array $methodCalls) : ?\PhpParser\Node\Expr\MethodCall
+    private function resolveSingleSetFileMethodCall(array $methodCalls)
     {
         $singleSetFileMethodCall = null;
         foreach ($methodCalls as $methodCall) {

@@ -13,7 +13,7 @@ final class ImplicitNameResolver
      *
      * @var string[]
      */
-    private const IMPLICIT_MAP = [
+    const IMPLICIT_MAP = [
         'App' => 'Cake\\Core\\App',
         'AppController' => 'App\\Controller\\AppController',
         'AppHelper' => 'App\\View\\Helper\\AppHelper',
@@ -48,8 +48,9 @@ final class ImplicitNameResolver
     ];
     /**
      * This value used to be directory So "/" in path should be "\" in namespace
+     * @return string|null
      */
-    public function resolve(string $shortClass) : ?string
+    public function resolve(string $shortClass)
     {
         return self::IMPLICIT_MAP[$shortClass] ?? null;
     }

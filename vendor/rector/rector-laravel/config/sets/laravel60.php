@@ -20,7 +20,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurat
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see https://laravel.com/docs/6.x/upgrade
 # https://github.com/laravel/docs/pull/5531/files
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Transform\Rector\Expression\MethodCallToReturnRector::class)->call('configure', [[\Rector\Transform\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\MethodCallToReturn('Illuminate\\Auth\\Access\\HandlesAuthorization', 'deny')])]]);
     # https://github.com/laravel/framework/commit/67a38ba0fa2acfbd1f4af4bf7d462bb4419cc091

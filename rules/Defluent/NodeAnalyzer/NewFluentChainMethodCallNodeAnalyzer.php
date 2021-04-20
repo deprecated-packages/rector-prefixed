@@ -28,8 +28,9 @@ final class NewFluentChainMethodCallNodeAnalyzer
      * e.g.
      *
      * $this->setItem(new Item) // → returns "Item"
+     * @return \PhpParser\Node\Expr\New_|null
      */
-    public function matchNewInFluentSetterMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\New_
+    public function matchNewInFluentSetterMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (\count($methodCall->args) !== 1) {
             return null;

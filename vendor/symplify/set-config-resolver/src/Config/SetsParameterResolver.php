@@ -14,7 +14,7 @@ final class SetsParameterResolver
     /**
      * @var string
      */
-    private const SETS = 'sets';
+    const SETS = 'sets';
     /**
      * @var SetResolver
      */

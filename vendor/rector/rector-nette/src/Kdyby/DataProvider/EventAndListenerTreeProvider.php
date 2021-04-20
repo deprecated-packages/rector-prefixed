@@ -63,7 +63,10 @@ final class EventAndListenerTreeProvider
         $this->dispatchMethodCallFactory = $dispatchMethodCallFactory;
         $this->getSubscribedEventsClassMethodProvider = $getSubscribedEventsClassMethodProvider;
     }
-    public function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree
+    /**
+     * @return \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null
+     */
+    public function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $this->initializeEventAndListenerTrees();
         foreach ($this->eventAndListenerTrees as $eventAndListenerTree) {
@@ -82,7 +85,10 @@ final class EventAndListenerTreeProvider
         $this->initializeEventAndListenerTrees();
         return $this->eventAndListenerTrees;
     }
-    private function initializeEventAndListenerTrees() : void
+    /**
+     * @return void
+     */
+    private function initializeEventAndListenerTrees()
     {
         if ($this->eventAndListenerTrees !== [] && !\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;
@@ -100,7 +106,10 @@ final class EventAndListenerTreeProvider
             $this->eventAndListenerTrees[] = $eventAndListenerTree;
         }
     }
-    private function resolveMagicProperty(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Stmt\Property
+    /**
+     * @return \PhpParser\Node\Stmt\Property|null
+     */
+    private function resolveMagicProperty(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($methodCall->name);

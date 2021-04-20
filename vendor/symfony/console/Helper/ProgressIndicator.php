@@ -53,8 +53,9 @@ class ProgressIndicator
     }
     /**
      * Sets the current indicator message.
+     * @param string|null $message
      */
-    public function setMessage(?string $message)
+    public function setMessage($message)
     {
         $this->message = $message;
         $this->display();

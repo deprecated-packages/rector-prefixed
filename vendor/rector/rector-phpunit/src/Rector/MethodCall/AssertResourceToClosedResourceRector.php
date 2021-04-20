@@ -21,7 +21,7 @@ final class AssertResourceToClosedResourceRector extends \Rector\Core\Rector\Abs
     /**
      * @var array<string, string>
      */
-    private const RENAME_METHODS_MAP = ['assertIsNotResource' => 'assertIsClosedResource'];
+    const RENAME_METHODS_MAP = ['assertIsNotResource' => 'assertIsClosedResource'];
     /**
      * @var IdentifierManipulator
      */
@@ -48,8 +48,9 @@ final class AssertResourceToClosedResourceRector extends \Rector\Core\Rector\Abs
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;

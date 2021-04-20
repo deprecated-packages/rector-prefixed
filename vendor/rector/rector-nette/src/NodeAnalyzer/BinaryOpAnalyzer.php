@@ -17,7 +17,10 @@ final class BinaryOpAnalyzer
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function matchFuncCallAndOtherExpr(\PhpParser\Node\Expr\BinaryOp $binaryOp, string $funcCallName) : ?\Rector\Nette\ValueObject\FuncCallAndExpr
+    /**
+     * @return \Rector\Nette\ValueObject\FuncCallAndExpr|null
+     */
+    public function matchFuncCallAndOtherExpr(\PhpParser\Node\Expr\BinaryOp $binaryOp, string $funcCallName)
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall) {
             if (!$this->nodeNameResolver->isName($binaryOp->left, $funcCallName)) {

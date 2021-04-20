@@ -9,10 +9,10 @@ final class Option
      * @api
      * @var string
      */
-    public const CONFIG = 'config';
+    const CONFIG = 'config';
     /**
      * @api
      * @var string
      */
-    public const SOURCES = 'sources';
+    const SOURCES = 'sources';
 }

@@ -116,7 +116,7 @@ class YamlDumper extends \RectorPrefix20210420\Symfony\Component\DependencyInjec
             $code .= "        shared: false\n";
         }
         if (null !== ($decoratedService = $definition->getDecoratedService())) {
-            [$decorated, $renamedId, $priority] = $decoratedService;
+            list($decorated, $renamedId, $priority) = $decoratedService;
             $code .= \sprintf("        decorates: %s\n", $decorated);
             if (null !== $renamedId) {
                 $code .= \sprintf("        decoration_inner_name: %s\n", $renamedId);

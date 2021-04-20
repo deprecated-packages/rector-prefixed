@@ -28,7 +28,7 @@ final class SimplifyWebTestCaseAssertionsRector extends \Rector\Core\Rector\Abst
     /**
      * @var string
      */
-    private const ASSERT_SAME = 'assertSame';
+    const ASSERT_SAME = 'assertSame';
     /**
      * @var MethodCall
      */
@@ -89,8 +89,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isInWebTestCase($node)) {
             return null;
@@ -129,7 +130,10 @@ CODE_SAMPLE
         }
         return $classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
     }
-    private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!$this->isName($methodCall->name, self::ASSERT_SAME)) {
             return null;
@@ -145,9 +149,9 @@ CODE_SAMPLE
         return $this->nodeFactory->createLocalMethodCall('assertResponseStatusCodeSame', [$methodCall->args[0]]);
     }
     /**
-     * @return Arg[]|null
+     * @return mixed[]|null
      */
-    private function matchAssertContainsCrawlerArg(\PhpParser\Node\Expr\MethodCall $methodCall) : ?array
+    private function matchAssertContainsCrawlerArg(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!$this->isName($methodCall->name, 'assertContains')) {
             return null;
@@ -174,7 +178,10 @@ CODE_SAMPLE
         $args[] = $methodCall->args[0];
         return $args;
     }
-    private function processAssertResponseRedirects(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function processAssertResponseRedirects(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         /** @var Expression|null $previousStatement */
         $previousStatement = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);

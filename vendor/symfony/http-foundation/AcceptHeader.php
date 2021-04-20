@@ -43,8 +43,9 @@ class AcceptHeader
      * Builds an AcceptHeader instance from a string.
      *
      * @return self
+     * @param string|null $headerValue
      */
-    public static function fromString(?string $headerValue)
+    public static function fromString($headerValue)
     {
         $index = 0;
         $parts = \RectorPrefix20210420\Symfony\Component\HttpFoundation\HeaderUtils::split($headerValue ?? '', ',;=');
@@ -127,8 +128,9 @@ class AcceptHeader
     }
     /**
      * Sorts items by descending quality.
+     * @return void
      */
-    private function sort() : void
+    private function sort()
     {
         if (!$this->sorted) {
             \uasort($this->items, function (\RectorPrefix20210420\Symfony\Component\HttpFoundation\AcceptHeaderItem $a, \RectorPrefix20210420\Symfony\Component\HttpFoundation\AcceptHeaderItem $b) {

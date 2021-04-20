@@ -22,7 +22,7 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var array<string, string>
      */
-    private const RENAME_METHODS_MAP = ['assertTrue' => 'assertInstanceOf', 'assertFalse' => 'assertNotInstanceOf'];
+    const RENAME_METHODS_MAP = ['assertTrue' => 'assertInstanceOf', 'assertFalse' => 'assertNotInstanceOf'];
     /**
      * @var IdentifierManipulator
      */
@@ -49,8 +49,9 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $oldMethodNames = \array_keys(self::RENAME_METHODS_MAP);
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethodNames)) {
@@ -66,8 +67,9 @@ final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\Abstrac
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function changeArgumentsOrder(\PhpParser\Node $node) : void
+    private function changeArgumentsOrder(\PhpParser\Node $node)
     {
         $oldArguments = $node->args;
         /** @var Instanceof_ $comparison */

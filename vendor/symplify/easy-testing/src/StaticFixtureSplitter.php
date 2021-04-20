@@ -22,7 +22,7 @@ final class StaticFixtureSplitter
         // if more or less, it could be a test cases for monorepo line in it
         if ($splitLineCount === 1) {
             // input → expected
-            [$input, $expected] = \RectorPrefix20210420\Nette\Utils\Strings::split($smartFileInfo->getContents(), \RectorPrefix20210420\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            list($input, $expected) = \RectorPrefix20210420\Nette\Utils\Strings::split($smartFileInfo->getContents(), \RectorPrefix20210420\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             $expected = self::retypeExpected($expected);
             return new \RectorPrefix20210420\Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
         }

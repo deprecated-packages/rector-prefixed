@@ -109,8 +109,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isObjectType($node, $this->successHandlerObjectType)) {
             return null;
@@ -130,7 +131,10 @@ CODE_SAMPLE
         $this->removeNode($onLogoutSuccessClassMethod);
         return $node;
     }
-    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class)
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {

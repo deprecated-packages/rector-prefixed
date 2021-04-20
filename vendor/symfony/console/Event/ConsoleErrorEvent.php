@@ -31,11 +31,17 @@ final class ConsoleErrorEvent extends \RectorPrefix20210420\Symfony\Component\Co
     {
         return $this->error;
     }
-    public function setError(\Throwable $error) : void
+    /**
+     * @return void
+     */
+    public function setError(\Throwable $error)
     {
         $this->error = $error;
     }
-    public function setExitCode(int $exitCode) : void
+    /**
+     * @return void
+     */
+    public function setExitCode(int $exitCode)
     {
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');

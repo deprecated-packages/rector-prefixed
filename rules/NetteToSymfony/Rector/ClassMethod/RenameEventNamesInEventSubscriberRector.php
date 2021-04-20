@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -93,7 +94,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function renameArrayKeys(\PhpParser\Node\Stmt\Return_ $return) : void
+    /**
+     * @return void
+     */
+    private function renameArrayKeys(\PhpParser\Node\Stmt\Return_ $return)
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -116,7 +120,10 @@ CODE_SAMPLE
             $this->processMethodArgument($className, $methodName, $eventInfo);
         }
     }
-    private function matchStringKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
+    /**
+     * @return \Rector\NetteToSymfony\ValueObject\EventInfo|null
+     */
+    private function matchStringKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem)
     {
         if (!$arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
             return null;
@@ -130,7 +137,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function matchClassConstKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem) : ?\Rector\NetteToSymfony\ValueObject\EventInfo
+    /**
+     * @return \Rector\NetteToSymfony\ValueObject\EventInfo|null
+     */
+    private function matchClassConstKeys(\PhpParser\Node\Expr\ArrayItem $arrayItem)
     {
         if (!$arrayItem->key instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return null;
@@ -143,7 +153,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : void
+    /**
+     * @return void
+     */
+    private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo)
     {
         $classMethodNode = $this->nodeRepository->findClassMethod($class, $method);
         if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {

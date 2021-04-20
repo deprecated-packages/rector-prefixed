@@ -73,14 +73,15 @@ class Arrays
      * @param  string|int  $key
      * @return int|null offset if it is found, null otherwise
      */
-    public static function getKeyOffset(array $array, $key) : ?int
+    public static function getKeyOffset(array $array, $key)
     {
         return \RectorPrefix20210420\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
     }
     /**
      * @deprecated  use  getKeyOffset()
+     * @return int|null
      */
-    public static function searchKey(array $array, $key) : ?int
+    public static function searchKey(array $array, $key)
     {
         return self::getKeyOffset($array, $key);
     }
@@ -112,8 +113,9 @@ class Arrays
      * Inserts the contents of the $inserted array into the $array immediately after the $key.
      * If $key is null (or does not exist), it is inserted at the beginning.
      * @param  string|int|null  $key
+     * @return void
      */
-    public static function insertBefore(array &$array, $key, array $inserted) : void
+    public static function insertBefore(array &$array, $key, array $inserted)
     {
         $offset = $key === null ? 0 : (int) self::getKeyOffset($array, $key);
         $array = \array_slice($array, 0, $offset, \true) + $inserted + \array_slice($array, $offset, \count($array), \true);
@@ -122,8 +124,9 @@ class Arrays
      * Inserts the contents of the $inserted array into the $array before the $key.
      * If $key is null (or does not exist), it is inserted at the end.
      * @param  string|int|null  $key
+     * @return void
      */
-    public static function insertAfter(array &$array, $key, array $inserted) : void
+    public static function insertAfter(array &$array, $key, array $inserted)
     {
         if ($key === null || ($offset = self::getKeyOffset($array, $key)) === null) {
             $offset = \count($array) - 1;
@@ -162,9 +165,9 @@ class Arrays
     public static function flatten(array $array, bool $preserveKeys = \false) : array
     {
         $res = [];
-        $cb = $preserveKeys ? function ($v, $k) use(&$res) : void {
+        $cb = $preserveKeys ? function ($v, $k) use(&$res) {
             $res[$k] = $v;
-        } : function ($v) use(&$res) : void {
+        } : function ($v) use(&$res) {
             $res[] = $v;
         };
         \array_walk_recursive($array, $cb);

@@ -37,7 +37,10 @@ final class AssignAnalyzer
         $this->nodesToAddCollector = $nodesToAddCollector;
         $this->varAnnotationManipulator = $varAnnotationManipulator;
     }
-    public function addAssignExpressionForFirstCase(string $variableName, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \PHPStan\Type\ObjectType $controlObjectType) : void
+    /**
+     * @return void
+     */
+    public function addAssignExpressionForFirstCase(string $variableName, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \PHPStan\Type\ObjectType $controlObjectType)
     {
         if ($this->shouldSkipForAlreadyAddedInCurrentClassMethod($arrayDimFetch, $variableName)) {
             return;

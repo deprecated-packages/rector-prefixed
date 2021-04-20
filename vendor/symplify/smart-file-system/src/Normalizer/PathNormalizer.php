@@ -17,21 +17,21 @@ final class PathNormalizer
      * @see https://regex101.com/r/d4F5Fm/1
      * @var string
      */
-    private const SCHEME_PATH_REGEX = '#^([a-z]+)\\:\\/\\/(.+)#';
+    const SCHEME_PATH_REGEX = '#^([a-z]+)\\:\\/\\/(.+)#';
     /**
      * @see https://regex101.com/r/no28vw/1
      * @var string
      */
-    private const TWO_AND_MORE_SLASHES_REGEX = '#/{2,}#';
+    const TWO_AND_MORE_SLASHES_REGEX = '#/{2,}#';
     /**
      * @var string
      */
-    private const SCHEME_UNDEFINED = 'undefined';
+    const SCHEME_UNDEFINED = 'undefined';
     public function normalizePath(string $originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
         $matches = \RectorPrefix20210420\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
-            [, $scheme, $path] = $matches;
+            list($scheme, $path) = $matches;
         } else {
             $scheme = self::SCHEME_UNDEFINED;
             $path = $originalPath;

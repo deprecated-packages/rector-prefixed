@@ -8,27 +8,27 @@ final class MethodName
     /**
      * @var string
      */
-    public const CONSTRUCT = '__construct';
+    const CONSTRUCT = '__construct';
     /**
      * @var string
      */
-    public const DESCTRUCT = '__destruct';
+    const DESCTRUCT = '__destruct';
     /**
      * @var string
      */
-    public const CLONE = '__clone';
-    /**
-     * Mostly used in unit tests
-     * @var string
-     */
-    public const SET_UP = 'setUp';
+    const CLONE = '__clone';
     /**
      * Mostly used in unit tests
      * @var string
      */
-    public const TEAR_DOWN = 'tearDown';
+    const SET_UP = 'setUp';
+    /**
+     * Mostly used in unit tests
+     * @var string
+     */
+    const TEAR_DOWN = 'tearDown';
     /**
      * @var string
      */
-    public const SET_STATE = '__set_state';
+    const SET_STATE = '__set_state';
 }

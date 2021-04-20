@@ -94,11 +94,17 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    /**
+     * @return void
+     */
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName)
     {
         $classReflection = $this->resolveClassReflectionByMethodCall($methodCall);
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
@@ -107,7 +113,10 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName)
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
@@ -116,7 +125,10 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\ClassReflection
+    /**
+     * @return \PHPStan\Reflection\ClassReflection|null
+     */
+    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $callerClassName = $this->nodeRepository->resolveCallerClassName($methodCall);
         if ($callerClassName === null) {

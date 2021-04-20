@@ -32,7 +32,10 @@ final class OutputFormatterCollector
     {
         return \array_keys($this->outputFormatters);
     }
-    private function ensureOutputFormatExists(string $name) : void
+    /**
+     * @return void
+     */
+    private function ensureOutputFormatExists(string $name)
     {
         if (isset($this->outputFormatters[$name])) {
             return;

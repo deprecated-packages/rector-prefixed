@@ -73,10 +73,16 @@ class SQLiteStorage implements \RectorPrefix20210420\Nette\Caching\Storage, \Rec
         }
         return $result;
     }
-    public function lock(string $key) : void
+    /**
+     * @return void
+     */
+    public function lock(string $key)
     {
     }
-    public function write(string $key, $data, array $dependencies) : void
+    /**
+     * @return void
+     */
+    public function write(string $key, $data, array $dependencies)
     {
         $expire = isset($dependencies[\RectorPrefix20210420\Nette\Caching\Cache::EXPIRATION]) ? $dependencies[\RectorPrefix20210420\Nette\Caching\Cache::EXPIRATION] + \time() : null;
         $slide = isset($dependencies[\RectorPrefix20210420\Nette\Caching\Cache::SLIDING]) ? $dependencies[\RectorPrefix20210420\Nette\Caching\Cache::EXPIRATION] : null;
@@ -91,11 +97,17 @@ class SQLiteStorage implements \RectorPrefix20210420\Nette\Caching\Storage, \Rec
         }
         $this->pdo->exec('COMMIT');
     }
-    public function remove(string $key) : void
+    /**
+     * @return void
+     */
+    public function remove(string $key)
     {
         $this->pdo->prepare('DELETE FROM cache WHERE key=?')->execute([$key]);
     }
-    public function clean(array $conditions) : void
+    /**
+     * @return void
+     */
+    public function clean(array $conditions)
     {
         if (!empty($conditions[\RectorPrefix20210420\Nette\Caching\Cache::ALL])) {
             $this->pdo->prepare('DELETE FROM cache')->execute();

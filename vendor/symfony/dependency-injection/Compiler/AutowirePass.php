@@ -109,7 +109,7 @@ class AutowirePass extends \RectorPrefix20210420\Symfony\Component\DependencyInj
         }
         $this->methodCalls = $this->autowireCalls($reflectionClass, $isRoot);
         if ($constructor) {
-            [, $arguments] = \array_shift($this->methodCalls);
+            list($arguments) = \array_shift($this->methodCalls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }
@@ -129,7 +129,7 @@ class AutowirePass extends \RectorPrefix20210420\Symfony\Component\DependencyInj
         }
         foreach ($this->methodCalls as $i => $call) {
             $this->decoratedMethodIndex = $i;
-            [$method, $arguments] = $call;
+            list($method, $arguments) = $call;
             if ($method instanceof \ReflectionFunctionAbstract) {
                 $reflectionMethod = $method;
             } else {
@@ -235,8 +235,9 @@ class AutowirePass extends \RectorPrefix20210420\Symfony\Component\DependencyInj
     }
     /**
      * Returns a reference to the service matching the given type, if any.
+     * @return \Symfony\Component\DependencyInjection\TypedReference|null
      */
-    private function getAutowiredReference(\RectorPrefix20210420\Symfony\Component\DependencyInjection\TypedReference $reference) : ?\RectorPrefix20210420\Symfony\Component\DependencyInjection\TypedReference
+    private function getAutowiredReference(\RectorPrefix20210420\Symfony\Component\DependencyInjection\TypedReference $reference)
     {
         $this->lastFailure = null;
         $type = $reference->getType();
@@ -374,7 +375,10 @@ class AutowirePass extends \RectorPrefix20210420\Symfony\Component\DependencyInj
         }
         return \sprintf(' You should maybe alias this %s to %s.', \class_exists($type, \false) ? 'class' : 'interface', $message);
     }
-    private function getAliasesSuggestionForType(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type) : ?string
+    /**
+     * @return string|null
+     */
+    private function getAliasesSuggestionForType(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type)
     {
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {

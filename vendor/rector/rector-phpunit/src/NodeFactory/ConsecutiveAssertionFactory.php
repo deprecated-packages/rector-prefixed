@@ -21,7 +21,7 @@ final class ConsecutiveAssertionFactory
     /**
      * @var array<string, string>
      */
-    private const REPLACE_WILL_MAP = ['willReturnMap' => 'returnValueMap', 'willReturnArgument' => 'returnArgument', 'willReturnCallback' => 'returnCallback', 'willThrowException' => 'throwException'];
+    const REPLACE_WILL_MAP = ['willReturnMap' => 'returnValueMap', 'willReturnArgument' => 'returnArgument', 'willReturnCallback' => 'returnCallback', 'willThrowException' => 'throwException'];
     public function createAssertionFromExpectationMockCollection(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : \PhpParser\Node\Expr\MethodCall
     {
         $expectationMocks = $expectationMockCollection->getExpectationMocks();

@@ -72,8 +72,9 @@ final class FuncCallStaticCallToMethodCallAnalyzer
     }
     /**
      * @param ClassMethod|Function_ $functionLike
+     * @return void
      */
-    private function addClassMethodParamForVariable(\PhpParser\Node\Expr\Variable $variable, \PHPStan\Type\ObjectType $objectType, \PhpParser\Node\FunctionLike $functionLike) : void
+    private function addClassMethodParamForVariable(\PhpParser\Node\Expr\Variable $variable, \PHPStan\Type\ObjectType $objectType, \PhpParser\Node\FunctionLike $functionLike)
     {
         /** @var string $variableName */
         $variableName = $this->nodeNameResolver->getName($variable);

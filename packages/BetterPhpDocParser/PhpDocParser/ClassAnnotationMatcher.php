@@ -59,8 +59,9 @@ final class ClassAnnotationMatcher
     }
     /**
      * @param Use_[] $uses
+     * @return string|null
      */
-    private function matchFullAnnotationClassWithUses(string $tag, array $uses) : ?string
+    private function matchFullAnnotationClassWithUses(string $tag, array $uses)
     {
         foreach ($uses as $use) {
             foreach ($use->uses as $useUse) {

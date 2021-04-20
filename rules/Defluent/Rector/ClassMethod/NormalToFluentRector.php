@@ -23,7 +23,7 @@ final class NormalToFluentRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const CALLS_TO_FLUENT = 'calls_to_fluent';
+    const CALLS_TO_FLUENT = 'calls_to_fluent';
     /**
      * @var NormalToFluent[]
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         // process only existing statements
         if ($node->stmts === null) {
@@ -94,7 +95,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
@@ -128,7 +132,10 @@ CODE_SAMPLE
         // is the same type
         return $firstMethodCallMatchObjectType->equals($secondMethodCallMatchObjectType);
     }
-    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $i = 0;
         $fluentMethodCallIndex = null;
@@ -157,7 +164,10 @@ CODE_SAMPLE
             $fluentMethodCall->var = new \PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\ObjectType
+    /**
+     * @return \PHPStan\Type\ObjectType|null
+     */
+    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         foreach ($this->callsToFluent as $callToFluent) {
             if (!$this->isObjectType($methodCall->var, $callToFluent->getObjectType())) {

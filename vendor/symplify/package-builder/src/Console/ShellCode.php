@@ -8,9 +8,9 @@ final class ShellCode
     /**
      * @var int
      */
-    public const SUCCESS = 0;
+    const SUCCESS = 0;
     /**
      * @var int
      */
-    public const ERROR = 1;
+    const ERROR = 1;
 }

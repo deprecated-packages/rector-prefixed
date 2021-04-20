@@ -33,7 +33,7 @@ final class GetSubscribedEventsClassMethodFactory
     /**
      * @var string
      */
-    private const GET_SUBSCRIBED_EVENTS_METHOD_NAME = 'getSubscribedEvents';
+    const GET_SUBSCRIBED_EVENTS_METHOD_NAME = 'getSubscribedEvents';
     /**
      * @var NodeFactory
      */
@@ -112,7 +112,10 @@ final class GetSubscribedEventsClassMethodFactory
         $this->visibilityManipulator->makeStatic($classMethod);
         return $classMethod;
     }
-    private function createArrayItemFromMethodAndPriority(?int $priority, string $methodName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\ArrayItem
+    /**
+     * @param int|null $priority
+     */
+    private function createArrayItemFromMethodAndPriority($priority, string $methodName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\ArrayItem
     {
         if ($priority !== null && $priority !== 0) {
             $methodNameWithPriorityArray = new \PhpParser\Node\Expr\Array_();
@@ -122,7 +125,10 @@ final class GetSubscribedEventsClassMethodFactory
         }
         return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($methodName), $expr);
     }
-    private function decorateClassMethodWithReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function decorateClassMethodWithReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             $classMethod->returnType = new \PhpParser\Node\Identifier('array');
@@ -134,8 +140,9 @@ final class GetSubscribedEventsClassMethodFactory
     /**
      * @param ClassConstFetch|String_ $expr
      * @param ServiceDefinition[] $methodNamesWithPriorities
+     * @return void
      */
-    private function createSingleMethod(array $methodNamesWithPriorities, string $eventName, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray) : void
+    private function createSingleMethod(array $methodNamesWithPriorities, string $eventName, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray)
     {
         $methodName = $this->resolveMethodName($methodNamesWithPriorities[0], $eventName);
         $priority = $this->resolvePriority($methodNamesWithPriorities[0], $eventName);
@@ -147,8 +154,9 @@ final class GetSubscribedEventsClassMethodFactory
     /**
      * @param ClassConstFetch|String_ $expr
      * @param ServiceDefinition[] $methodNamesWithPriorities
+     * @return void
      */
-    private function createMultipleMethods(array $methodNamesWithPriorities, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray, string $eventName) : void
+    private function createMultipleMethods(array $methodNamesWithPriorities, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $eventsToMethodsArray, string $eventName)
     {
         $eventItems = [];
         $alreadyUsedTags = [];
@@ -167,7 +175,10 @@ final class GetSubscribedEventsClassMethodFactory
         $multipleMethodsArray = new \PhpParser\Node\Expr\Array_($eventItems);
         $eventsToMethodsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multipleMethodsArray, $expr);
     }
-    private function resolveMethodName(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveMethodName(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName)
     {
         /** @var EventListenerTag[]|Tag[] $eventTags */
         $eventTags = $serviceDefinition->getTags();
@@ -182,7 +193,10 @@ final class GetSubscribedEventsClassMethodFactory
         }
         return null;
     }
-    private function resolvePriority(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName) : ?int
+    /**
+     * @return int|null
+     */
+    private function resolvePriority(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName)
     {
         /** @var EventListenerTag[]|Tag[] $eventTags */
         $eventTags = $serviceDefinition->getTags();

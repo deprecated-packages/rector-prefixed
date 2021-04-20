@@ -21,8 +21,9 @@ final class OnlySkipper
     /**
      * @param object|string $checker
      * @param mixed[] $only
+     * @return bool|null
      */
-    public function doesMatchOnly($checker, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only) : ?bool
+    public function doesMatchOnly($checker, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only)
     {
         foreach ($only as $onlyClass => $onlyFiles) {
             if (\is_int($onlyClass)) {

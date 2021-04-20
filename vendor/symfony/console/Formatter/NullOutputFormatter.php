@@ -18,8 +18,10 @@ final class NullOutputFormatter implements \RectorPrefix20210420\Symfony\Compone
     private $style;
     /**
      * {@inheritdoc}
+     * @param string|null $message
+     * @return void
      */
-    public function format(?string $message) : void
+    public function format($message)
     {
         // do nothing
     }
@@ -50,15 +52,17 @@ final class NullOutputFormatter implements \RectorPrefix20210420\Symfony\Compone
     }
     /**
      * {@inheritdoc}
+     * @return void
      */
-    public function setDecorated(bool $decorated) : void
+    public function setDecorated(bool $decorated)
     {
         // do nothing
     }
     /**
      * {@inheritdoc}
+     * @return void
      */
-    public function setStyle(string $name, \RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style) : void
+    public function setStyle(string $name, \RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         // do nothing
     }

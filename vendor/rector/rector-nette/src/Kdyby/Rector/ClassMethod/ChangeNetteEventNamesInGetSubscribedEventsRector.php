@@ -102,8 +102,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
@@ -114,7 +115,10 @@ CODE_SAMPLE
         $this->listeningClassMethodArgumentManipulator->change($listeningClassMethods);
         return $node;
     }
-    private function refactorEventNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function refactorEventNames(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
@@ -131,7 +135,10 @@ CODE_SAMPLE
             $this->getSubscribedEventsArrayManipulator->change($returnedExpr);
         });
     }
-    private function refactorArrayWithEventTable(\PhpParser\Node\Expr\Array_ $array) : void
+    /**
+     * @return void
+     */
+    private function refactorArrayWithEventTable(\PhpParser\Node\Expr\Array_ $array)
     {
         foreach ($array->items as $arrayItem) {
             if ($arrayItem === null) {

@@ -13,8 +13,9 @@ final class AnnotationExtractor
 {
     /**
      * @param class-string<RectorInterface> $className
+     * @return string|null
      */
-    public function extractAnnotationFromClass(string $className, string $annotation) : ?string
+    public function extractAnnotationFromClass(string $className, string $annotation)
     {
         $reflectionClass = new \ReflectionClass($className);
         $docComment = $reflectionClass->getDocComment();

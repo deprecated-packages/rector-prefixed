@@ -45,8 +45,9 @@ final class CallableClassMethodMatcher
     }
     /**
      * @param Variable|PropertyFetch $objectExpr
+     * @return \PHPStan\Reflection\Php\PhpMethodReflection|null
      */
-    public function match(\PhpParser\Node\Expr $objectExpr, \PhpParser\Node\Scalar\String_ $string) : ?\PHPStan\Reflection\Php\PhpMethodReflection
+    public function match(\PhpParser\Node\Expr $objectExpr, \PhpParser\Node\Scalar\String_ $string)
     {
         $methodName = $this->valueResolver->getValue($string);
         if (!\is_string($methodName)) {

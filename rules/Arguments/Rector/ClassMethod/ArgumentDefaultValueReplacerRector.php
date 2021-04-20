@@ -25,7 +25,7 @@ final class ArgumentDefaultValueReplacerRector extends \Rector\Core\Rector\Abstr
     /**
      * @var string
      */
-    public const REPLACED_ARGUMENTS = 'replaced_arguments';
+    const REPLACED_ARGUMENTS = 'replaced_arguments';
     /**
      * @var ArgumentDefaultValueReplacer[]
      */
@@ -51,8 +51,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->replacedArguments as $replacedArgument) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getObjectType())) {
@@ -65,7 +66,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $replacedArguments = $configuration[self::REPLACED_ARGUMENTS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer::class);
@@ -73,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    private function processReplaces(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?\PhpParser\Node
+    private function processReplaces(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!isset($node->params[$argumentDefaultValueReplacer->getPosition()])) {
@@ -87,8 +92,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $expr
+     * @return void
      */
-    private function processArgs(\PhpParser\Node\Expr $expr, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
+    private function processArgs(\PhpParser\Node\Expr $expr, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
     {
         $position = $argumentDefaultValueReplacer->getPosition();
         $argValue = $this->valueResolver->getValue($expr->args[$position]->value);
@@ -108,7 +114,7 @@ CODE_SAMPLE
     {
         // class constants → turn string to composite
         if (\is_string($value) && \RectorPrefix20210420\Nette\Utils\Strings::contains($value, '::')) {
-            [$class, $constant] = \explode('::', $value);
+            list($class, $constant) = \explode('::', $value);
             $classConstFetch = $this->nodeFactory->createClassConstFetch($class, $constant);
             return new \PhpParser\Node\Arg($classConstFetch);
         }
@@ -116,9 +122,9 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $argumentNodes
-     * @return Arg[]|null
+     * @return mixed[]|null
      */
-    private function processArrayReplacement(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?array
+    private function processArrayReplacement(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
     {
         $argumentValues = $this->resolveArgumentValuesToBeforeRecipe($argumentNodes, $argumentDefaultValueReplacer);
         if ($argumentValues !== $argumentDefaultValueReplacer->getValueBefore()) {

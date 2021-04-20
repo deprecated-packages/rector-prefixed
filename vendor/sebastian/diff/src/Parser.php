@@ -56,7 +56,10 @@ final class Parser
         }
         return $diffs;
     }
-    private function parseFileDiff(\RectorPrefix20210420\SebastianBergmann\Diff\Diff $diff, array $lines) : void
+    /**
+     * @return void
+     */
+    private function parseFileDiff(\RectorPrefix20210420\SebastianBergmann\Diff\Diff $diff, array $lines)
     {
         $chunks = [];
         $chunk = null;

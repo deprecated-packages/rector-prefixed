@@ -65,8 +65,9 @@ class Validators
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
      * @throws AssertionException
+     * @return void
      */
-    public static function assert($value, string $expected, string $label = 'variable') : void
+    public static function assert($value, string $expected, string $label = 'variable')
     {
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
@@ -85,8 +86,9 @@ class Validators
      * @param  mixed[]  $array
      * @param  int|string  $key
      * @throws AssertionException
+     * @return void
      */
-    public static function assertField(array $array, $key, string $expected = null, string $label = "item '%' in array") : void
+    public static function assertField(array $array, $key, string $expected = null, string $label = "item '%' in array")
     {
         if (!\array_key_exists($key, $array)) {
             throw new \RectorPrefix20210420\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
@@ -112,7 +114,7 @@ class Validators
                     return \true;
                 }
             }
-            [$type] = $item = \explode(':', $item, 2);
+            list($type) = $item = \explode(':', $item, 2);
             if (isset(static::$validators[$type])) {
                 try {
                     if (!static::$validators[$type]($value)) {

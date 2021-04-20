@@ -34,7 +34,10 @@ final class DataProviderClassMethodFactory
         $this->decorateClassMethodWithReturnTypeAndTag($classMethod);
         return $classMethod;
     }
-    private function decorateClassMethodWithReturnTypeAndTag(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function decorateClassMethodWithReturnTypeAndTag(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified('Iterator');
     }

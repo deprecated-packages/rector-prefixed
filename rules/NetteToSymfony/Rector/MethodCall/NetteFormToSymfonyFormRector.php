@@ -27,7 +27,7 @@ final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var array<string, string>
      */
-    private const ADD_METHOD_TO_FORM_TYPE = [
+    const ADD_METHOD_TO_FORM_TYPE = [
         'addText' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
         'addPassword' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
         'addTextArea' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
@@ -90,8 +90,9 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -115,14 +116,20 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function processNew(\PhpParser\Node\Expr\New_ $new)
     {
         if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
         return $this->nodeFactory->createMethodCall('this', 'createFormBuilder');
     }
-    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
+    /**
+     * @return void
+     */
+    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType)
     {
         $methodCall->name = new \PhpParser\Node\Identifier('add');
         // remove unused params
@@ -141,7 +148,10 @@ CODE_SAMPLE
             $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
     }
-    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
+    /**
+     * @return void
+     */
+    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
     {
         if ($method === 'addSelect') {
             $expanded = \false;
@@ -161,7 +171,10 @@ CODE_SAMPLE
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
-    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
+    /**
+     * @return void
+     */
+    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
     {
         if ($method !== 'addMultiUpload') {
             return;

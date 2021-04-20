@@ -37,9 +37,9 @@ use RectorPrefix20210420\Symfony\Component\Finder\Iterator\SortableIterator;
  */
 class Finder implements \IteratorAggregate, \Countable
 {
-    public const IGNORE_VCS_FILES = 1;
-    public const IGNORE_DOT_FILES = 2;
-    public const IGNORE_VCS_IGNORED_FILES = 4;
+    const IGNORE_VCS_FILES = 1;
+    const IGNORE_DOT_FILES = 2;
+    const IGNORE_VCS_IGNORED_FILES = 4;
     private $mode = 0;
     private $names = [];
     private $notNames = [];

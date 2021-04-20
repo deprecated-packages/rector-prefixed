@@ -17,8 +17,9 @@ final class VersionGuard
     }
     /**
      * @param VersionAwareInterface[] $versionAwares
+     * @return void
      */
-    public function validate(array $versionAwares) : void
+    public function validate(array $versionAwares)
     {
         foreach ($versionAwares as $versionAware) {
             $this->versionParser->parseConstraints($versionAware->getVersion());

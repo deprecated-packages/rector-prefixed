@@ -53,8 +53,9 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -68,7 +69,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorPropertyWithArrayDefault(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : void
+    /**
+     * @return void
+     */
+    private function refactorPropertyWithArrayDefault(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
     {
         if (!$propertyProperty->default instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -85,9 +89,12 @@ CODE_SAMPLE
             $this->renameFixtureName($itemValue);
         }
     }
-    private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string) : void
+    /**
+     * @return void
+     */
+    private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string)
     {
-        [$prefix, $table] = \explode('.', $string->value);
+        list($prefix, $table) = \explode('.', $string->value);
         $tableParts = \explode('/', $table);
         $pascalCaseTableParts = \array_map(function (string $token) : string {
             $stringy = new \RectorPrefix20210420\Stringy\Stringy($token);

@@ -27,7 +27,10 @@ final class RightAssignTemplateRemover
         $this->thisTemplatePropertyFetchAnalyzer = $thisTemplatePropertyFetchAnalyzer;
         $this->nodeRemover = $nodeRemover;
     }
-    public function removeInClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    public function removeInClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         /** @var Assign[] $assigns */
         $assigns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Expr\Assign::class);

@@ -15,7 +15,10 @@ namespace RectorPrefix20210420\Symfony\Component\DependencyInjection\Dumper;
  */
 final class Preloader
 {
-    public static function append(string $file, array $list) : void
+    /**
+     * @return void
+     */
+    public static function append(string $file, array $list)
     {
         if (!\file_exists($file)) {
             throw new \LogicException(\sprintf('File "%s" does not exist.', $file));
@@ -31,7 +34,10 @@ final class Preloader
         }
         \file_put_contents($file, \sprintf("\n\$classes = [];\n%sPreloader::preload(\$classes);\n", \implode('', $classes)), \FILE_APPEND);
     }
-    public static function preload(array $classes) : void
+    /**
+     * @return void
+     */
+    public static function preload(array $classes)
     {
         \set_error_handler(function ($t, $m, $f, $l) {
             if (\error_reporting() & $t) {
@@ -57,7 +63,10 @@ final class Preloader
             \restore_error_handler();
         }
     }
-    private static function doPreload(string $class, array &$preloaded) : void
+    /**
+     * @return void
+     */
+    private static function doPreload(string $class, array &$preloaded)
     {
         if (isset($preloaded[$class]) || \in_array($class, ['self', 'static', 'parent'], \true)) {
             return;
@@ -91,7 +100,11 @@ final class Preloader
             // ignore missing classes
         }
     }
-    private static function preloadType(?\ReflectionType $t, array &$preloaded) : void
+    /**
+     * @param \ReflectionType|null $t
+     * @return void
+     */
+    private static function preloadType($t, array &$preloaded)
     {
         if (!$t) {
             return;

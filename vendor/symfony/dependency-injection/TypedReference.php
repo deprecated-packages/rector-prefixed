@@ -35,7 +35,10 @@ class TypedReference extends \RectorPrefix20210420\Symfony\Component\DependencyI
     {
         return $this->type;
     }
-    public function getName() : ?string
+    /**
+     * @return string|null
+     */
+    public function getName()
     {
         return $this->name;
     }

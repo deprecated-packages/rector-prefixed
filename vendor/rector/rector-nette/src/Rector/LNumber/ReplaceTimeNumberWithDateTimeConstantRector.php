@@ -50,8 +50,9 @@ CODE_SAMPLE
     }
     /**
      * @param LNumber $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $number = $node->value;
         $constantName = self::NUMBER_TO_CONSTANT_NAME[$number] ?? null;

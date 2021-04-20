@@ -25,7 +25,10 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Reference;
 class DecoratorServicePass extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
-    public function __construct(?string $innerId = '.inner')
+    /**
+     * @param string|null $innerId
+     */
+    public function __construct($innerId = '.inner')
     {
         $this->innerId = $innerId;
     }
@@ -40,9 +43,9 @@ class DecoratorServicePass extends \RectorPrefix20210420\Symfony\Component\Depen
             $definitions->insert([$id, $definition], [$decorated[2], --$order]);
         }
         $decoratingDefinitions = [];
-        foreach ($definitions as [$id, $definition]) {
+        foreach ($definitions as list($id, $definition)) {
             $decoratedService = $definition->getDecoratedService();
-            [$inner, $renamedId] = $decoratedService;
+            list($inner, $renamedId) = $decoratedService;
             $invalidBehavior = $decoratedService[3] ?? \RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {

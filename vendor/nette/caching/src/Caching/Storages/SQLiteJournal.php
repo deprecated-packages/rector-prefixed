@@ -26,7 +26,10 @@ class SQLiteJournal implements \RectorPrefix20210420\Nette\Caching\Storages\Jour
         }
         $this->path = $path;
     }
-    private function open() : void
+    /**
+     * @return void
+     */
+    private function open()
     {
         if ($this->path !== ':memory:' && !\is_file($this->path)) {
             \touch($this->path);
@@ -51,7 +54,10 @@ class SQLiteJournal implements \RectorPrefix20210420\Nette\Caching\Storages\Jour
 			CREATE INDEX IF NOT EXISTS idx_priorities_priority ON priorities(priority);
 		');
     }
-    public function write(string $key, array $dependencies) : void
+    /**
+     * @return void
+     */
+    public function write(string $key, array $dependencies)
     {
         if (!$this->pdo) {
             $this->open();
@@ -70,7 +76,10 @@ class SQLiteJournal implements \RectorPrefix20210420\Nette\Caching\Storages\Jour
         }
         $this->pdo->exec('COMMIT');
     }
-    public function clean(array $conditions) : ?array
+    /**
+     * @return mixed[]|null
+     */
+    public function clean(array $conditions)
     {
         if (!$this->pdo) {
             $this->open();

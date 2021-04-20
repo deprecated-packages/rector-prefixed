@@ -34,7 +34,7 @@ class AutowireRequiredMethodsPass extends \RectorPrefix20210420\Symfony\Componen
         }
         $alreadyCalledMethods = [];
         $withers = [];
-        foreach ($value->getMethodCalls() as [$method]) {
+        foreach ($value->getMethodCalls() as list($method)) {
             $alreadyCalledMethods[\strtolower($method)] = \true;
         }
         foreach ($reflectionClass->getMethods() as $reflectionMethod) {

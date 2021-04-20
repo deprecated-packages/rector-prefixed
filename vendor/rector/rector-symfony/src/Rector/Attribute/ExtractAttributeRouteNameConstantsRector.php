@@ -25,7 +25,7 @@ final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector
     /**
      * @var string
      */
-    private const ROUTE_NAME_FILE_LOCATION = 'src/ValueObject/Routing/RouteName.php';
+    const ROUTE_NAME_FILE_LOCATION = 'src/ValueObject/Routing/RouteName.php';
     /**
      * @var RouteNameClassFactory
      */
@@ -97,8 +97,9 @@ CODE_SAMPLE
     }
     /**
      * @param Attribute $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node->name, 'Symfony\\Component\\Routing\\Annotation\\Route')) {
             return null;
@@ -116,7 +117,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function createRouteNameValueObject() : void
+    /**
+     * @return void
+     */
+    private function createRouteNameValueObject()
     {
         if ($this->isRouteNameValueObjectCreated) {
             return;

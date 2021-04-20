@@ -80,8 +80,9 @@ final class ProgressBar
      *
      * @param string   $name     The placeholder name (including the delimiter char like %)
      * @param callable $callable A PHP callable
+     * @return void
      */
-    public static function setPlaceholderFormatterDefinition(string $name, callable $callable) : void
+    public static function setPlaceholderFormatterDefinition(string $name, callable $callable)
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -95,7 +96,7 @@ final class ProgressBar
      *
      * @return callable|null A PHP callable
      */
-    public static function getPlaceholderFormatterDefinition(string $name) : ?callable
+    public static function getPlaceholderFormatterDefinition(string $name)
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -109,8 +110,9 @@ final class ProgressBar
      *
      * @param string $name   The format name
      * @param string $format A format string
+     * @return void
      */
-    public static function setFormatDefinition(string $name, string $format) : void
+    public static function setFormatDefinition(string $name, string $format)
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -124,7 +126,7 @@ final class ProgressBar
      *
      * @return string|null A format string
      */
-    public static function getFormatDefinition(string $name) : ?string
+    public static function getFormatDefinition(string $name)
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -230,17 +232,23 @@ final class ProgressBar
     /**
      * Sets the redraw frequency.
      *
-     * @param int|float $freq The frequency in steps
+     * @param int|null $freq The frequency in steps
      */
-    public function setRedrawFrequency(?int $freq)
+    public function setRedrawFrequency($freq)
     {
         $this->redrawFreq = null !== $freq ? \max(1, $freq) : null;
     }
-    public function minSecondsBetweenRedraws(float $seconds) : void
+    /**
+     * @return void
+     */
+    public function minSecondsBetweenRedraws(float $seconds)
     {
         $this->minSecondsBetweenRedraws = $seconds;
     }
-    public function maxSecondsBetweenRedraws(float $seconds) : void
+    /**
+     * @return void
+     */
+    public function maxSecondsBetweenRedraws(float $seconds)
     {
         $this->maxSecondsBetweenRedraws = $seconds;
     }
@@ -324,8 +332,9 @@ final class ProgressBar
     }
     /**
      * Finishes the progress output.
+     * @return void
      */
-    public function finish() : void
+    public function finish()
     {
         if (!$this->max) {
             $this->max = $this->step;
@@ -338,8 +347,9 @@ final class ProgressBar
     }
     /**
      * Outputs the current progress string.
+     * @return void
      */
-    public function display() : void
+    public function display()
     {
         if (\RectorPrefix20210420\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET === $this->output->getVerbosity()) {
             return;
@@ -355,8 +365,9 @@ final class ProgressBar
      * This is useful if you wish to write some output
      * while a progress bar is running.
      * Call display() to show the progress bar again.
+     * @return void
      */
-    public function clear() : void
+    public function clear()
     {
         if (!$this->overwrite) {
             return;
@@ -380,8 +391,9 @@ final class ProgressBar
     }
     /**
      * Overwrites a previous message to the output.
+     * @return void
      */
-    private function overwrite(string $message) : void
+    private function overwrite(string $message)
     {
         if ($this->previousMessage === $message) {
             return;

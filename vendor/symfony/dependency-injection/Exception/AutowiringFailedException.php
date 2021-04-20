@@ -50,7 +50,10 @@ class AutowiringFailedException extends \RectorPrefix20210420\Symfony\Component\
             }
         };
     }
-    public function getMessageCallback() : ?\Closure
+    /**
+     * @return \Closure|null
+     */
+    public function getMessageCallback()
     {
         return $this->messageCallback;
     }

@@ -14,7 +14,7 @@ final class EventClassNaming
     /**
      * @var string
      */
-    private const EVENT = 'Event';
+    const EVENT = 'Event';
     /**
      * @var NodeNameResolver
      */
@@ -57,7 +57,7 @@ final class EventClassNaming
     }
     public function createEventClassNameFromClassPropertyReference(string $classAndPropertyName) : string
     {
-        [$class, $property] = \explode('::', $classAndPropertyName);
+        list($class, $property) = \explode('::', $classAndPropertyName);
         $shortEventClass = $this->createShortEventClassNameFromClassAndProperty($class, $property);
         return $this->prependShortClassEventWithNamespace($shortEventClass, $class);
     }

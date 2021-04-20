@@ -38,7 +38,10 @@ final class DefinitionFinder
         }
         throw new \RectorPrefix20210420\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException(\sprintf('Definition for type "%s" was not found.', $type));
     }
-    private function getByTypeIfExists(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type) : ?\RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition
+    /**
+     * @return \Symfony\Component\DependencyInjection\Definition|null
+     */
+    private function getByTypeIfExists(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, string $type)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {

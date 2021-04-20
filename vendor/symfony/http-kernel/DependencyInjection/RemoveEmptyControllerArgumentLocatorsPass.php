@@ -36,12 +36,12 @@ class RemoveEmptyControllerArgumentLocatorsPass implements \RectorPrefix20210420
             } else {
                 // any methods listed for call-at-instantiation cannot be actions
                 $reason = \false;
-                [$id, $action] = \explode('::', $controller);
+                list($id, $action) = \explode('::', $controller);
                 if ($container->hasAlias($id)) {
                     continue;
                 }
                 $controllerDef = $container->getDefinition($id);
-                foreach ($controllerDef->getMethodCalls() as [$method]) {
+                foreach ($controllerDef->getMethodCalls() as list($method)) {
                     if (0 === \strcasecmp($action, $method)) {
                         $reason = \sprintf('Removing method "%s" of service "%s" from controller candidates: the method is called at instantiation, thus cannot be an action.', $action, $id);
                         break;

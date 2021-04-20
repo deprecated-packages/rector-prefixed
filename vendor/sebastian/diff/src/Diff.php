@@ -51,8 +51,9 @@ final class Diff
     }
     /**
      * @param Chunk[] $chunks
+     * @return void
      */
-    public function setChunks(array $chunks) : void
+    public function setChunks(array $chunks)
     {
         $this->chunks = $chunks;
     }

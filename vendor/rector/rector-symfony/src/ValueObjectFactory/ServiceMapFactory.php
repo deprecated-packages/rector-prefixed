@@ -17,7 +17,7 @@ final class ServiceMapFactory
     /**
      * @var string
      */
-    private const TAG = 'tag';
+    const TAG = 'tag';
     /**
      * @var SmartFileSystem
      */

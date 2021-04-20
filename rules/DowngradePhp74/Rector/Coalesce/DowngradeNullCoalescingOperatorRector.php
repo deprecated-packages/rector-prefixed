@@ -37,8 +37,9 @@ CODE_SAMPLE
     }
     /**
      * @param AssignCoalesce $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         return new \PhpParser\Node\Expr\Assign($node->var, new \PhpParser\Node\Expr\BinaryOp\Coalesce($node->var, $node->expr));
     }

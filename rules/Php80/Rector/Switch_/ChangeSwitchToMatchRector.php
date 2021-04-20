@@ -89,8 +89,9 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkipSwitch($node)) {
             return null;

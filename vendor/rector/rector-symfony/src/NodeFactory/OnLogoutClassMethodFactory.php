@@ -17,7 +17,7 @@ final class OnLogoutClassMethodFactory
     /**
      * @var array<string, string>
      */
-    private const PARAMETER_TO_GETTER_NAMES = ['request' => 'getRequest', 'response' => 'getResponse', 'token' => 'getToken'];
+    const PARAMETER_TO_GETTER_NAMES = ['request' => 'getRequest', 'response' => 'getResponse', 'token' => 'getToken'];
     /**
      * @var NodeNameResolver
      */

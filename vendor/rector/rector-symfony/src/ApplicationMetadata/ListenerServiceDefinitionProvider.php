@@ -13,7 +13,7 @@ final class ListenerServiceDefinitionProvider
      * @var string
      * @see https://regex101.com/r/j6SAga/1
      */
-    private const SYMFONY_FAMILY_REGEX = '#^(Symfony|Sensio|Doctrine)\\b#';
+    const SYMFONY_FAMILY_REGEX = '#^(Symfony|Sensio|Doctrine)\\b#';
     /**
      * @var bool
      */

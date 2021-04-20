@@ -24,7 +24,7 @@ final class MakeIsserClassMethodNameStartWithIsRector extends \Rector\Core\Recto
      * @see https://regex101.com/r/Hc73ar/1
      * @var string
      */
-    private const ISSER_NAME_REGEX = '#^(is|has|was|must|does|have|should|__)#';
+    const ISSER_NAME_REGEX = '#^(is|has|was|must|does|have|should|__)#';
     /**
      * @var MethodNameResolver
      */
@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->isAlreadyIsserNamedClassMethod($node)) {
             return null;
@@ -104,7 +105,10 @@ CODE_SAMPLE
     {
         return $this->isName($classMethod, self::ISSER_NAME_REGEX);
     }
-    private function matchIsserClassMethodReturnedExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchIsserClassMethodReturnedExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 1) {

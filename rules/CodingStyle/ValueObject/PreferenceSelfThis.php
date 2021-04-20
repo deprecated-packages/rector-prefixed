@@ -11,15 +11,15 @@ final class PreferenceSelfThis
     /**
      * @var string[]
      */
-    public const ALLOWED_VALUES = [self::PREFER_THIS, self::PREFER_SELF];
+    const ALLOWED_VALUES = [self::PREFER_THIS, self::PREFER_SELF];
     /**
      * @api
      * @var string
      */
-    public const PREFER_THIS = 'prefer_this';
+    const PREFER_THIS = 'prefer_this';
     /**
      * @api
      * @var string
      */
-    public const PREFER_SELF = 'prefer_self';
+    const PREFER_SELF = 'prefer_self';
 }

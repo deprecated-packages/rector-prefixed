@@ -25,11 +25,11 @@ class ResponseCacheStrategy implements \RectorPrefix20210420\Symfony\Component\H
     /**
      * Cache-Control headers that are sent to the final response if they appear in ANY of the responses.
      */
-    private const OVERRIDE_DIRECTIVES = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
+    const OVERRIDE_DIRECTIVES = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
     /**
      * Cache-Control headers that are sent to the final response if they appear in ALL of the responses.
      */
-    private const INHERIT_DIRECTIVES = ['public', 'immutable'];
+    const INHERIT_DIRECTIVES = ['public', 'immutable'];
     private $embeddedResponses = 0;
     private $isNotCacheableResponseEmbedded = \false;
     private $age = 0;
@@ -148,8 +148,9 @@ class ResponseCacheStrategy implements \RectorPrefix20210420\Symfony\Component\H
      *
      * If the value is lower than the currently stored value, we update the value, to keep a rolling
      * minimal value of each instruction. If the value is NULL, the directive will not be set on the final response.
+     * @param int|null $value
      */
-    private function storeRelativeAgeDirective(string $directive, ?int $value, int $age)
+    private function storeRelativeAgeDirective(string $directive, $value, int $age)
     {
         if (null === $value) {
             $this->ageDirectives[$directive] = \false;

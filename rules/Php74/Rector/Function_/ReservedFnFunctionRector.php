@@ -22,7 +22,7 @@ final class ReservedFnFunctionRector extends \Rector\Core\Rector\AbstractRector 
      * @api
      * @var string
      */
-    public const RESERVED_NAMES_TO_NEW_ONES = '$reservedNamesToNewOnes';
+    const RESERVED_NAMES_TO_NEW_ONES = '$reservedNamesToNewOnes';
     /**
      * @var string[]
      */
@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param Function_|FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->reservedNamesToNewOnes as $reservedName => $newName) {
             if (!$this->isName($node->name, $reservedName)) {
@@ -84,7 +85,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->reservedNamesToNewOnes = $configuration[self::RESERVED_NAMES_TO_NEW_ONES] ?? [];
     }

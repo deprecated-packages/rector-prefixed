@@ -20,7 +20,7 @@ final class ConsoleCommandEvent extends \RectorPrefix20210420\Symfony\Component\
     /**
      * The return code for skipped commands, this will also be passed into the terminate event.
      */
-    public const RETURN_CODE_DISABLED = 113;
+    const RETURN_CODE_DISABLED = 113;
     /**
      * Indicates if the command should be run or skipped.
      */

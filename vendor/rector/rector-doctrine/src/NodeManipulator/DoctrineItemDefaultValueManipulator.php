@@ -12,8 +12,9 @@ final class DoctrineItemDefaultValueManipulator
 {
     /**
      * @param string|bool|int $defaultValue
+     * @return void
      */
-    public function remove(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : void
+    public function remove(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineTagValueNode, string $item, $defaultValue)
     {
         if (!$this->hasItemWithDefaultValue($doctrineTagValueNode, $item, $defaultValue)) {
             return;

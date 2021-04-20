@@ -8,7 +8,10 @@ use RectorPrefix20210420\Symfony\Component\HttpKernel\Bundle\Bundle;
 use RectorPrefix20210420\Symplify\SimplePhpDocParser\Bundle\DependencyInjection\Extension\SimplePhpDocParserExtension;
 final class SimplePhpDocParserBundle extends \RectorPrefix20210420\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    public function getContainerExtension() : ?\RectorPrefix20210420\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    /**
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
+     */
+    public function getContainerExtension()
     {
         return new \RectorPrefix20210420\Symplify\SimplePhpDocParser\Bundle\DependencyInjection\Extension\SimplePhpDocParserExtension();
     }

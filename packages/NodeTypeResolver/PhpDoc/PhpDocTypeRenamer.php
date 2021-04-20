@@ -18,7 +18,10 @@ final class PhpDocTypeRenamer
     {
         $this->underscoreRenamePhpDocNodeVisitor = $underscoreRenamePhpDocNodeVisitor;
     }
-    public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
+    /**
+     * @return void
+     */
+    public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace)
     {
         $phpDocNode = $phpDocInfo->getPhpDocNode();
         $phpDocNodeTraverser = new \RectorPrefix20210420\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();

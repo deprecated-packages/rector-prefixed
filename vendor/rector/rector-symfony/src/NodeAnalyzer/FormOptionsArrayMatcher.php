@@ -7,7 +7,10 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 final class FormOptionsArrayMatcher
 {
-    public function match(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\Array_
+    /**
+     * @return \PhpParser\Node\Expr\Array_|null
+     */
+    public function match(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!isset($methodCall->args[2])) {
             return null;

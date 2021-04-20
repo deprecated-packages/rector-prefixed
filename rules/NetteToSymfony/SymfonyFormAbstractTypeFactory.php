@@ -72,7 +72,10 @@ final class SymfonyFormAbstractTypeFactory
         }
         return $buildFormMethodCalls;
     }
-    private function createOptionsArray(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\Array_
+    /**
+     * @return \PhpParser\Node\Expr\Array_|null
+     */
+    private function createOptionsArray(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!isset($methodCall->args[1])) {
             return null;

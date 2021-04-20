@@ -23,7 +23,7 @@ use RectorPrefix20210420\Symfony\Component\String\Exception\RuntimeException;
  */
 class ByteString extends \RectorPrefix20210420\Symfony\Component\String\AbstractString
 {
-    private const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     public function __construct(string $string = '')
     {
         $this->string = $string;
@@ -142,7 +142,10 @@ class ByteString extends \RectorPrefix20210420\Symfony\Component\String\Abstract
         $str->string = \strtolower($str->string);
         return $str;
     }
-    public function indexOf($needle, int $offset = 0) : ?int
+    /**
+     * @return int|null
+     */
+    public function indexOf($needle, int $offset = 0)
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;
@@ -157,7 +160,10 @@ class ByteString extends \RectorPrefix20210420\Symfony\Component\String\Abstract
         $i = $this->ignoreCase ? \stripos($this->string, $needle, $offset) : \strpos($this->string, $needle, $offset);
         return \false === $i ? null : $i;
     }
-    public function indexOfLast($needle, int $offset = 0) : ?int
+    /**
+     * @return int|null
+     */
+    public function indexOfLast($needle, int $offset = 0)
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;

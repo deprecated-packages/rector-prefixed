@@ -50,7 +50,10 @@ class OutputFormatterStyle implements \RectorPrefix20210420\Symfony\Component\Co
     {
         $this->color = new \RectorPrefix20210420\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
-    public function setHref(string $url) : void
+    /**
+     * @return void
+     */
+    public function setHref(string $url)
     {
         $this->href = $url;
     }

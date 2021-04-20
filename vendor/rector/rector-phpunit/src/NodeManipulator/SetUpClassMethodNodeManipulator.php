@@ -25,8 +25,9 @@ final class SetUpClassMethodNodeManipulator
     }
     /**
      * @param Stmt[]|Expr[] $stmts
+     * @return void
      */
-    public function decorateOrCreate(\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
+    public function decorateOrCreate(\PhpParser\Node\Stmt\Class_ $class, array $stmts)
     {
         $stmts = $this->stmtManipulator->normalizeStmts($stmts);
         $setUpClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::SET_UP);

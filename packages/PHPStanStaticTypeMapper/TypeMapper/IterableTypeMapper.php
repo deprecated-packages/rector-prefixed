@@ -22,8 +22,9 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     private $phpStanStaticTypeMapper;
     /**
      * @required
+     * @return void
      */
-    public function autowireIterableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireIterableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -47,8 +48,10 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param IterableType $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return new \PhpParser\Node\Name('iterable');
     }

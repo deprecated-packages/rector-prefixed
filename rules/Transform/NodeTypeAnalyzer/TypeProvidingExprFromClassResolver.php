@@ -52,9 +52,9 @@ final class TypeProvidingExprFromClassResolver
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @return MethodCall|PropertyFetch|Variable|null
+     * @return \PhpParser\Node\Expr|null
      */
-    public function resolveTypeProvidingExprFromClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Expr
+    public function resolveTypeProvidingExprFromClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\ObjectType $objectType)
     {
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
@@ -78,7 +78,10 @@ final class TypeProvidingExprFromClassResolver
         // C. param in constructor?
         return $this->resolveConstructorParamProvidingType($functionLike, $objectType);
     }
-    private function resolveMethodCallProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function resolveMethodCallProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Type\ObjectType $objectType)
     {
         foreach ($classReflection->getNativeMethods() as $methodReflection) {
             $functionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
@@ -91,7 +94,10 @@ final class TypeProvidingExprFromClassResolver
         }
         return null;
     }
-    private function resolvePropertyFetchProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Analyser\Scope $scope, \PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @return \PhpParser\Node\Expr\PropertyFetch|null
+     */
+    private function resolvePropertyFetchProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Analyser\Scope $scope, \PHPStan\Type\ObjectType $objectType)
     {
         $reflectionClass = $classReflection->getNativeReflection();
         foreach ($reflectionClass->getProperties() as $reflectionProperty) {
@@ -105,7 +111,10 @@ final class TypeProvidingExprFromClassResolver
         }
         return null;
     }
-    private function resolveConstructorParamProvidingType(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @return \PhpParser\Node\Expr\Variable|null
+     */
+    private function resolveConstructorParamProvidingType(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\ObjectType $objectType)
     {
         if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;

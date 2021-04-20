@@ -30,7 +30,7 @@ final class SetTypeToCastRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, class-string<Cast>>
      */
-    private const TYPE_TO_CAST = ['array' => \PhpParser\Node\Expr\Cast\Array_::class, 'bool' => \PhpParser\Node\Expr\Cast\Bool_::class, 'boolean' => \PhpParser\Node\Expr\Cast\Bool_::class, 'double' => \PhpParser\Node\Expr\Cast\Double::class, 'float' => \PhpParser\Node\Expr\Cast\Double::class, 'int' => \PhpParser\Node\Expr\Cast\Int_::class, 'integer' => \PhpParser\Node\Expr\Cast\Int_::class, 'object' => \PhpParser\Node\Expr\Cast\Object_::class, 'string' => \PhpParser\Node\Expr\Cast\String_::class];
+    const TYPE_TO_CAST = ['array' => \PhpParser\Node\Expr\Cast\Array_::class, 'bool' => \PhpParser\Node\Expr\Cast\Bool_::class, 'boolean' => \PhpParser\Node\Expr\Cast\Bool_::class, 'double' => \PhpParser\Node\Expr\Cast\Double::class, 'float' => \PhpParser\Node\Expr\Cast\Double::class, 'int' => \PhpParser\Node\Expr\Cast\Int_::class, 'integer' => \PhpParser\Node\Expr\Cast\Int_::class, 'object' => \PhpParser\Node\Expr\Cast\Object_::class, 'string' => \PhpParser\Node\Expr\Cast\String_::class];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes settype() to (type) where possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -66,8 +66,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node, 'settype')) {
             return null;

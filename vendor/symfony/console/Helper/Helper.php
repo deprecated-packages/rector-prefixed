@@ -39,8 +39,9 @@ abstract class Helper implements \RectorPrefix20210420\Symfony\Component\Console
      * Returns the length of a string, using mb_strwidth if it is available.
      *
      * @return int The length of the string
+     * @param string|null $string
      */
-    public static function strlen(?string $string)
+    public static function strlen($string)
     {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
@@ -55,8 +56,9 @@ abstract class Helper implements \RectorPrefix20210420\Symfony\Component\Console
      * Returns the subset of a string, using mb_substr if it is available.
      *
      * @return string The string subset
+     * @param string|null $string
      */
-    public static function substr(?string $string, int $from, int $length = null)
+    public static function substr($string, int $from, int $length = null)
     {
         $string ?? ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
@@ -91,7 +93,10 @@ abstract class Helper implements \RectorPrefix20210420\Symfony\Component\Console
         }
         return \sprintf('%d B', $memory);
     }
-    public static function strlenWithoutDecoration(\RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
+    /**
+     * @param string|null $string
+     */
+    public static function strlenWithoutDecoration(\RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
     {
         $string = self::removeDecoration($formatter, $string);
         if (\preg_match('//u', $string)) {
@@ -99,7 +104,10 @@ abstract class Helper implements \RectorPrefix20210420\Symfony\Component\Console
         }
         return self::strlen($string);
     }
-    public static function removeDecoration(\RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
+    /**
+     * @param string|null $string
+     */
+    public static function removeDecoration(\RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
     {
         $isDecorated = $formatter->isDecorated();
         $formatter->setDecorated(\false);

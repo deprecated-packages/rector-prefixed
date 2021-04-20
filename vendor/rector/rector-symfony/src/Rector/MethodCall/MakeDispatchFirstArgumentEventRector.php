@@ -63,8 +63,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -91,15 +92,21 @@ CODE_SAMPLE
         }
         return !isset($methodCall->args[1]);
     }
-    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @return void
+     */
+    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         // swap arguments
-        [$methodCall->args[0], $methodCall->args[1]] = [$methodCall->args[1], $methodCall->args[0]];
+        list($methodCall->args[0], $methodCall->args[1]) = [$methodCall->args[1], $methodCall->args[0]];
         if ($this->isEventNameSameAsEventObjectClass($methodCall)) {
             unset($methodCall->args[1]);
         }
     }
-    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : void
+    /**
+     * @return void
+     */
+    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
     {
         if (!$this->isName($funcCall, 'get_class')) {
             return;

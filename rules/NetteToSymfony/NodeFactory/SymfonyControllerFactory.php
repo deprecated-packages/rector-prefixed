@@ -25,7 +25,10 @@ final class SymfonyControllerFactory
         $this->nodeNameResolver = $nodeNameResolver;
         $this->actionWithFormProcessClassMethodFactory = $actionWithFormProcessClassMethodFactory;
     }
-    public function createNamespace(\PhpParser\Node\Stmt\Class_ $node, \PhpParser\Node\Stmt\Class_ $formTypeClass) : ?\PhpParser\Node\Stmt\Namespace_
+    /**
+     * @return \PhpParser\Node\Stmt\Namespace_|null
+     */
+    public function createNamespace(\PhpParser\Node\Stmt\Class_ $node, \PhpParser\Node\Stmt\Class_ $formTypeClass)
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

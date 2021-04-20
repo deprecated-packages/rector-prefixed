@@ -27,8 +27,9 @@ final class SimplifyStrposLowerRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node, 'strpos')) {
             return null;

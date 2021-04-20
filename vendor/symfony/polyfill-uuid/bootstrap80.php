@@ -53,73 +53,112 @@ if (!\defined('UUID_TYPE_INVALID')) {
     \define('UUID_TYPE_INVALID', -42);
 }
 if (!\function_exists('uuid_create')) {
-    function uuid_create(?int $uuid_type = \UUID_TYPE_DEFAULT) : string
+    /**
+     * @param int|null $uuid_type
+     */
+    function uuid_create($uuid_type = \UUID_TYPE_DEFAULT) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_create((int) $uuid_type);
     }
 }
 if (!\function_exists('uuid_generate_md5')) {
-    function uuid_generate_md5(?string $uuid_ns, ?string $name) : string
+    /**
+     * @param string|null $uuid_ns
+     * @param string|null $name
+     */
+    function uuid_generate_md5($uuid_ns, $name) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_generate_md5((string) $uuid_ns, (string) $name);
     }
 }
 if (!\function_exists('uuid_generate_sha1')) {
-    function uuid_generate_sha1(?string $uuid_ns, ?string $name) : string
+    /**
+     * @param string|null $uuid_ns
+     * @param string|null $name
+     */
+    function uuid_generate_sha1($uuid_ns, $name) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_generate_sha1((string) $uuid_ns, (string) $name);
     }
 }
 if (!\function_exists('uuid_is_valid')) {
-    function uuid_is_valid(?string $uuid) : bool
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_is_valid($uuid) : bool
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_is_valid((string) $uuid);
     }
 }
 if (!\function_exists('uuid_compare')) {
-    function uuid_compare(?string $uuid1, ?string $uuid2) : int
+    /**
+     * @param string|null $uuid1
+     * @param string|null $uuid2
+     */
+    function uuid_compare($uuid1, $uuid2) : int
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_compare((string) $uuid1, (string) $uuid2);
     }
 }
 if (!\function_exists('uuid_is_null')) {
-    function uuid_is_null(?string $uuid) : bool
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_is_null($uuid) : bool
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_is_null((string) $uuid);
     }
 }
 if (!\function_exists('uuid_type')) {
-    function uuid_type(?string $uuid) : int
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_type($uuid) : int
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_type((string) $uuid);
     }
 }
 if (!\function_exists('uuid_variant')) {
-    function uuid_variant(?string $uuid) : int
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_variant($uuid) : int
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_variant((string) $uuid);
     }
 }
 if (!\function_exists('uuid_time')) {
-    function uuid_time(?string $uuid) : int
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_time($uuid) : int
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_time((string) $uuid);
     }
 }
 if (!\function_exists('uuid_mac')) {
-    function uuid_mac(?string $uuid) : string
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_mac($uuid) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_mac((string) $uuid);
     }
 }
 if (!\function_exists('uuid_parse')) {
-    function uuid_parse(?string $uuid) : string
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_parse($uuid) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_parse((string) $uuid);
     }
 }
 if (!\function_exists('uuid_unparse')) {
-    function uuid_unparse(?string $uuid) : string
+    /**
+     * @param string|null $uuid
+     */
+    function uuid_unparse($uuid) : string
     {
         return \RectorPrefix20210420\Symfony\Polyfill\Uuid\Uuid::uuid_unparse((string) $uuid);
     }

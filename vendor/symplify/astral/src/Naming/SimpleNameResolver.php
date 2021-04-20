@@ -21,7 +21,7 @@ final class SimpleNameResolver
      * @see https://regex101.com/r/ChpDsj/1
      * @var string
      */
-    private const ANONYMOUS_CLASS_REGEX = '#^AnonymousClass[\\w+]#';
+    const ANONYMOUS_CLASS_REGEX = '#^AnonymousClass[\\w+]#';
     /**
      * @var NodeNameResolverInterface[]
      */
@@ -35,8 +35,9 @@ final class SimpleNameResolver
     }
     /**
      * @param Node|string $node
+     * @return string|null
      */
-    public function getName($node) : ?string
+    public function getName($node)
     {
         if (\is_string($node)) {
             return $node;
@@ -93,7 +94,10 @@ final class SimpleNameResolver
         }
         return $this->isName($secondNode, $firstName);
     }
-    public function resolveShortNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveShortNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike)
     {
         $className = $this->getName($classLike);
         if ($className === null) {
@@ -105,7 +109,10 @@ final class SimpleNameResolver
         }
         return $this->resolveShortName($className);
     }
-    public function resolveShortNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveShortNameFromScope(\PHPStan\Analyser\Scope $scope)
     {
         $className = $this->getClassNameFromScope($scope);
         if ($className === null) {
@@ -113,7 +120,10 @@ final class SimpleNameResolver
         }
         return $this->resolveShortName($className);
     }
-    public function getClassNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
+    /**
+     * @return string|null
+     */
+    public function getClassNameFromScope(\PHPStan\Analyser\Scope $scope)
     {
         if ($scope->isInTrait()) {
             $traitReflection = $scope->getTraitReflection();

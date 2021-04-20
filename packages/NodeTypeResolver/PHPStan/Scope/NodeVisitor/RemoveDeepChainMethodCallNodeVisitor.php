@@ -34,7 +34,10 @@ final class RemoveDeepChainMethodCallNodeVisitor extends \PhpParser\NodeVisitorA
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nestedChainMethodCallLimit = (int) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::NESTED_CHAIN_METHOD_CALL_LIMIT);
     }
-    public function enterNode(\PhpParser\Node $node) : ?int
+    /**
+     * @return int|null
+     */
+    public function enterNode(\PhpParser\Node $node)
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Expression) {
             return null;

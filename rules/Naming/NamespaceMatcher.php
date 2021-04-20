@@ -9,8 +9,9 @@ final class NamespaceMatcher
 {
     /**
      * @param string[] $oldToNewNamespace
+     * @return \Rector\Renaming\ValueObject\RenamedNamespace|null
      */
-    public function matchRenamedNamespace(string $name, array $oldToNewNamespace) : ?\Rector\Renaming\ValueObject\RenamedNamespace
+    public function matchRenamedNamespace(string $name, array $oldToNewNamespace)
     {
         \krsort($oldToNewNamespace);
         /** @var string $oldNamespace */

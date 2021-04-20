@@ -17,7 +17,7 @@ final class SubstrStrlenFunctionToNetteUtilsStringsRector extends \Rector\Core\R
     /**
      * @var array<string, string>
      */
-    private const FUNCTION_TO_STATIC_METHOD = ['substr' => 'substring'];
+    const FUNCTION_TO_STATIC_METHOD = ['substr' => 'substring'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare string-functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach (self::FUNCTION_TO_STATIC_METHOD as $function => $staticMethod) {
             if (!$this->isName($node, $function)) {

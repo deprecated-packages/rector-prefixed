@@ -33,12 +33,12 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      * @var string
      * @see https://regex101.com/r/85PZHm/1
      */
-    private const UNQUOTED_OBJECT_HASH_REGEX = '#(?<start>[^\\"])(?<hash>____\\w+____)#';
+    const UNQUOTED_OBJECT_HASH_REGEX = '#(?<start>[^\\"])(?<hash>____\\w+____)#';
     /**
      * @var string
      * @see https://regex101.com/r/jdJ6n9/1
      */
-    private const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
+    const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
     /**
      * @var ConcatJoiner
      */
@@ -99,8 +99,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->expr instanceof \PhpParser\Node\Scalar\String_) {
             $stringValue = $node->expr->value;
@@ -179,8 +180,9 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodesToRemove
      * @param Expr[] $placeholderNodes
+     * @return \PhpParser\Node\Expr\Assign|null
      */
-    private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
+    private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign)
     {
         $stringValue = \RectorPrefix20210420\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
@@ -195,8 +197,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign|ConcatAssign $currentNode
+     * @return \Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem|null
      */
-    private function matchNextExprAssignConcatToSameVariable(\PhpParser\Node\Expr $expr, \PhpParser\Node $currentNode) : ?\Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem
+    private function matchNextExprAssignConcatToSameVariable(\PhpParser\Node\Expr $expr, \PhpParser\Node $currentNode)
     {
         $nextExpression = $this->getNextExpression($currentNode);
         if (!$nextExpression instanceof \PhpParser\Node\Stmt\Expression) {
@@ -230,7 +233,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function getNextExpression(\PhpParser\Node $node)
     {
         $currentExpression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {

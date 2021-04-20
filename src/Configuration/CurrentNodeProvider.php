@@ -10,11 +10,17 @@ final class CurrentNodeProvider
      * @var Node|null
      */
     private $node;
-    public function setNode(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function setNode(\PhpParser\Node $node)
     {
         $this->node = $node;
     }
-    public function getNode() : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function getNode()
     {
         return $this->node;
     }

@@ -24,9 +24,9 @@ final class ChildTypeResolver
         $this->staticTypeMapper = $staticTypeMapper;
     }
     /**
-     * @return Name|NullableType|UnionType|null
+     * @return \PhpParser\Node|null
      */
-    public function resolveChildTypeNode(\PHPStan\Type\Type $type) : ?\PhpParser\Node
+    public function resolveChildTypeNode(\PHPStan\Type\Type $type)
     {
         if ($type instanceof \PHPStan\Type\MixedType) {
             return null;

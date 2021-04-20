@@ -13,7 +13,7 @@ final class Skipper
     /**
      * @var string
      */
-    private const FILE_ELEMENT = 'file_elements';
+    const FILE_ELEMENT = 'file_elements';
     /**
      * @var SkipVoterInterface[]
      */

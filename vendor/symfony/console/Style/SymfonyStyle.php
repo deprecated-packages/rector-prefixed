@@ -33,7 +33,7 @@ use RectorPrefix20210420\Symfony\Component\Console\Terminal;
  */
 class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style\OutputStyle
 {
-    public const MAX_LINE_LENGTH = 120;
+    const MAX_LINE_LENGTH = 120;
     private $input;
     private $questionHelper;
     private $progressBar;
@@ -52,8 +52,10 @@ class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style
      * Formats a message as a block of text.
      *
      * @param string|array $messages The message to write in the block
+     * @param string|null $type
+     * @param string|null $style
      */
-    public function block($messages, ?string $type = null, ?string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \true)
+    public function block($messages, $type = null, $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \true)
     {
         $messages = \is_array($messages) ? \array_values($messages) : [$messages];
         $this->autoPrependBlock();
@@ -226,8 +228,9 @@ class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style
     }
     /**
      * {@inheritdoc}
+     * @param string|null $default
      */
-    public function ask(string $question, ?string $default = null, $validator = null)
+    public function ask(string $question, $default = null, $validator = null)
     {
         $question = new \RectorPrefix20210420\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);
@@ -368,7 +371,10 @@ class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style
         }
         return $this->progressBar;
     }
-    private function autoPrependBlock() : void
+    /**
+     * @return void
+     */
+    private function autoPrependBlock()
     {
         $chars = \substr(\str_replace(\PHP_EOL, "\n", $this->bufferedOutput->fetch()), -2);
         if (!isset($chars[0])) {
@@ -379,7 +385,10 @@ class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style
         //Prepend new line for each non LF chars (This means no blank line was output before)
         $this->newLine(2 - \substr_count($chars, "\n"));
     }
-    private function autoPrependText() : void
+    /**
+     * @return void
+     */
+    private function autoPrependText()
     {
         $fetched = $this->bufferedOutput->fetch();
         //Prepend new line if last char isn't EOL:
@@ -387,7 +396,10 @@ class SymfonyStyle extends \RectorPrefix20210420\Symfony\Component\Console\Style
             $this->newLine();
         }
     }
-    private function writeBuffer(string $message, bool $newLine, int $type) : void
+    /**
+     * @return void
+     */
+    private function writeBuffer(string $message, bool $newLine, int $type)
     {
         // We need to know if the last chars are PHP_EOL
         $this->bufferedOutput->write($message, $newLine, $type);

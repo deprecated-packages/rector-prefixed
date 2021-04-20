@@ -19,7 +19,10 @@ final class IntersectionTypeNodePhpDocNodeVisitor extends \RectorPrefix20210420\
     {
         $this->attributeMirrorer = $attributeMirrorer;
     }
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode) {
             return null;

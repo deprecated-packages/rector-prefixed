@@ -16,7 +16,10 @@ final class BetterTypeParser extends \PHPStan\PhpDocParser\Parser\TypeParser
      * @var TokenIteratorFactory
      */
     private $tokenIteratorFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, ?\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser = null)
+    /**
+     * @param \PHPStan\PhpDocParser\Parser\ConstExprParser|null $constExprParser
+     */
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, $constExprParser = null)
     {
         parent::__construct($constExprParser);
         $this->tokenIteratorFactory = $tokenIteratorFactory;

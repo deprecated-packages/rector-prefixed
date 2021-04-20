@@ -41,7 +41,10 @@ final class DeadParamTagValueNodeAnalyzer
         }
         return $paramTagValueNode->description === '';
     }
-    private function matchParamByName(string $desiredParamName, \PhpParser\Node\FunctionLike $functionLike) : ?\PhpParser\Node\Param
+    /**
+     * @return \PhpParser\Node\Param|null
+     */
+    private function matchParamByName(string $desiredParamName, \PhpParser\Node\FunctionLike $functionLike)
     {
         foreach ($functionLike->getParams() as $param) {
             $paramName = $this->nodeNameResolver->getName($param);

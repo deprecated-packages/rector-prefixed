@@ -40,7 +40,10 @@ final class RouteInfoFactory
         $this->nodeRepository = $nodeRepository;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function createFromNode(\PhpParser\Node $node) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
+    /**
+     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
+     */
+    public function createFromNode(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\New_) {
             if ($this->hasNoArg($node)) {
@@ -80,8 +83,9 @@ final class RouteInfoFactory
     /**
      * @param New_|StaticCall $node
      * @param string[] $methods
+     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
      */
-    private function createRouteInfoFromArgs(\PhpParser\Node $node, array $methods = []) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
+    private function createRouteInfoFromArgs(\PhpParser\Node $node, array $methods = [])
     {
         $pathArgument = $node->args[0]->value;
         $routePath = $this->valueResolver->getValue($pathArgument);
@@ -109,8 +113,9 @@ final class RouteInfoFactory
     /**
      * @param New_|StaticCall $node
      * @param string[] $methods
+     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
      */
-    private function createForClassConstFetch(\PhpParser\Node $node, array $methods, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
+    private function createForClassConstFetch(\PhpParser\Node $node, array $methods, string $routePath)
     {
         /** @var ClassConstFetch $controllerMethodNode */
         $controllerMethodNode = $node->args[1]->value;
@@ -130,13 +135,16 @@ final class RouteInfoFactory
         }
         return null;
     }
-    private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
+    /**
+     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
+     */
+    private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath)
     {
         $targetValue = $string->value;
         if (!\RectorPrefix20210420\Nette\Utils\Strings::contains($targetValue, ':')) {
             return null;
         }
-        [$controller, $method] = \explode(':', $targetValue);
+        list($controller, $method) = \explode(':', $targetValue);
         // detect class by controller name?
         // foreach all instance and try to match a name $controller . 'Presenter/Controller'
         $class = $this->nodeRepository->findByShortName($controller . 'Presenter');

@@ -21,7 +21,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
      * @api
      * @var string
      */
-    public const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
+    const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
     /**
      * @var ObjectType[]
      */
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->doctrineManagerRegistryObjectTypes)) {
             return null;
@@ -78,7 +79,10 @@ CODE_SAMPLE
         $node->args[0]->value = $this->nodeFactory->createClassConstReference($this->convertAliasToFqn($node->args[0]->value->value));
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->aliasesToNamespaces = $configuration[self::ALIASES_TO_NAMESPACES] ?? [];
     }
@@ -91,7 +95,7 @@ CODE_SAMPLE
     }
     private function convertAliasToFqn(string $name) : string
     {
-        [$namespaceAlias, $simpleClassName] = \explode(':', $name, 2);
+        list($namespaceAlias, $simpleClassName) = \explode(':', $name, 2);
         return \sprintf('%s\\%s', $this->aliasesToNamespaces[$namespaceAlias], $simpleClassName);
     }
     private function isAlias(string $name) : bool

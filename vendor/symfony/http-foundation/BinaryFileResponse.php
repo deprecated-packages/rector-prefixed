@@ -188,7 +188,7 @@ class BinaryFileResponse extends \RectorPrefix20210420\Symfony\Component\HttpFou
                 // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
                 $parts = \RectorPrefix20210420\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
-                    [$pathPrefix, $location] = $part;
+                    list($pathPrefix, $location) = $part;
                     if (\substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
                         $path = $location . \substr($path, \strlen($pathPrefix));
                         // Only set X-Accel-Redirect header if a valid URI can be produced
@@ -207,7 +207,7 @@ class BinaryFileResponse extends \RectorPrefix20210420\Symfony\Component\HttpFou
             if (!$request->headers->has('If-Range') || $this->hasValidIfRangeHeader($request->headers->get('If-Range'))) {
                 $range = $request->headers->get('Range');
                 if (0 === \strpos($range, 'bytes=')) {
-                    [$start, $end] = \explode('-', \substr($range, 6), 2) + [0];
+                    list($start, $end) = \explode('-', \substr($range, 6), 2) + [0];
                     $end = '' === $end ? $fileSize - 1 : (int) $end;
                     if ('' === $start) {
                         $start = $fileSize - $end;
@@ -233,7 +233,10 @@ class BinaryFileResponse extends \RectorPrefix20210420\Symfony\Component\HttpFou
         }
         return $this;
     }
-    private function hasValidIfRangeHeader(?string $header) : bool
+    /**
+     * @param string|null $header
+     */
+    private function hasValidIfRangeHeader($header) : bool
     {
         if ($this->getEtag() === $header) {
             return \true;
@@ -270,8 +273,9 @@ class BinaryFileResponse extends \RectorPrefix20210420\Symfony\Component\HttpFou
      * {@inheritdoc}
      *
      * @throws \LogicException when the content is not null
+     * @param string|null $content
      */
-    public function setContent(?string $content)
+    public function setContent($content)
     {
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a BinaryFileResponse instance.');

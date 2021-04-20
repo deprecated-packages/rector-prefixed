@@ -20,7 +20,7 @@ final class RemoveFuncCallArgRector extends \Rector\Core\Rector\AbstractRector i
     /**
      * @var string
      */
-    public const REMOVED_FUNCTION_ARGUMENTS = 'removed_function_arguments';
+    const REMOVED_FUNCTION_ARGUMENTS = 'removed_function_arguments';
     /**
      * @var RemoveFuncCallArg[]
      */
@@ -44,8 +44,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
@@ -63,7 +64,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $removedFunctionArguments = $configuration[self::REMOVED_FUNCTION_ARGUMENTS] ?? [];
         \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Removing\ValueObject\RemoveFuncCallArg::class);

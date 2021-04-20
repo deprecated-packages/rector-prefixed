@@ -31,7 +31,10 @@ class RequestDataCollector extends \RectorPrefix20210420\Symfony\Component\HttpK
     protected $controllers;
     private $sessionUsages = [];
     private $requestStack;
-    public function __construct(?\RectorPrefix20210420\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    /**
+     * @param \Symfony\Component\HttpFoundation\RequestStack|null $requestStack
+     */
+    public function __construct($requestStack = null)
     {
         $this->controllers = new \SplObjectStorage();
         $this->requestStack = $requestStack;
@@ -302,7 +305,10 @@ class RequestDataCollector extends \RectorPrefix20210420\Symfony\Component\HttpK
     {
         return 'request';
     }
-    public function collectSessionUsage() : void
+    /**
+     * @return void
+     */
+    public function collectSessionUsage()
     {
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $traceEndIndex = \count($trace) - 1;

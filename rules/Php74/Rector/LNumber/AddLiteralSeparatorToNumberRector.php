@@ -29,19 +29,20 @@ final class AddLiteralSeparatorToNumberRector extends \Rector\Core\Rector\Abstra
      * @api
      * @var string
      */
-    public const LIMIT_VALUE = 'limit_value';
+    const LIMIT_VALUE = 'limit_value';
     /**
      * @var int
      */
-    private const GROUP_SIZE = 3;
+    const GROUP_SIZE = 3;
     /**
      * @var int
      */
     private $limitValue = 1000000;
     /**
      * @param mixed[] $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $limitValue = $configuration[self::LIMIT_VALUE] ?? 1000000;
         \RectorPrefix20210420\Webmozart\Assert\Assert::integer($limitValue);
@@ -80,8 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param LNumber|DNumber $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::LITERAL_SEPARATOR)) {
             return null;
@@ -91,7 +93,7 @@ CODE_SAMPLE
             return null;
         }
         if (\RectorPrefix20210420\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
-            [$mainPart, $decimalPart] = \explode('.', $numericValueAsString);
+            list($mainPart, $decimalPart) = \explode('.', $numericValueAsString);
             $chunks = $this->strSplitNegative($mainPart, self::GROUP_SIZE);
             $literalSeparatedNumber = \implode('_', $chunks) . '.' . $decimalPart;
         } else {

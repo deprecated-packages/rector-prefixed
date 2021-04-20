@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param FileWithoutNamespace $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $names = $this->findNames($node);
         if ($names === []) {

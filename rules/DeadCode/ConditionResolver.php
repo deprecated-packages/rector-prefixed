@@ -42,7 +42,10 @@ final class ConditionResolver
         $this->phpVersionProvider = $phpVersionProvider;
         $this->phpVersionFactory = $phpVersionFactory;
     }
-    public function resolveFromExpr(\PhpParser\Node\Expr $expr) : ?\Rector\DeadCode\Contract\ConditionInterface
+    /**
+     * @return \Rector\DeadCode\Contract\ConditionInterface|null
+     */
+    public function resolveFromExpr(\PhpParser\Node\Expr $expr)
     {
         if ($this->isVersionCompareFuncCall($expr)) {
             /** @var FuncCall $expr */
@@ -76,7 +79,10 @@ final class ConditionResolver
         }
         return $this->nodeNameResolver->isName($node, 'version_compare');
     }
-    private function resolveVersionCompareConditionForFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\Rector\DeadCode\ValueObject\VersionCompareCondition
+    /**
+     * @return \Rector\DeadCode\ValueObject\VersionCompareCondition|null
+     */
+    private function resolveVersionCompareConditionForFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $firstVersion = $this->resolveArgumentValue($funcCall, 0);
         if ($firstVersion === null) {
@@ -93,7 +99,10 @@ final class ConditionResolver
         }
         return new \Rector\DeadCode\ValueObject\VersionCompareCondition($firstVersion, $secondVersion, $versionCompareSign);
     }
-    private function resolveFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr, string $binaryClass) : ?\Rector\DeadCode\ValueObject\BinaryToVersionCompareCondition
+    /**
+     * @return \Rector\DeadCode\ValueObject\BinaryToVersionCompareCondition|null
+     */
+    private function resolveFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr, string $binaryClass)
     {
         $versionCompareCondition = $this->resolveVersionCompareConditionForFuncCall($funcCall);
         if (!$versionCompareCondition instanceof \Rector\DeadCode\ValueObject\VersionCompareCondition) {
@@ -102,7 +111,10 @@ final class ConditionResolver
         $expectedValue = $this->valueResolver->getValue($expr);
         return new \Rector\DeadCode\ValueObject\BinaryToVersionCompareCondition($versionCompareCondition, $binaryClass, $expectedValue);
     }
-    private function resolveArgumentValue(\PhpParser\Node\Expr\FuncCall $funcCall, int $argumentPosition) : ?int
+    /**
+     * @return int|null
+     */
+    private function resolveArgumentValue(\PhpParser\Node\Expr\FuncCall $funcCall, int $argumentPosition)
     {
         $firstArgValue = $funcCall->args[$argumentPosition]->value;
         /** @var mixed|null $version */

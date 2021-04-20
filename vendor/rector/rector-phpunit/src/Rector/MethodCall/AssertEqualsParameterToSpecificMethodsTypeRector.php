@@ -77,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertEquals', 'assertNotEquals'])) {
             return null;
@@ -96,8 +97,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function processAssertEqualsIgnoringCase(\PhpParser\Node $node) : void
+    private function processAssertEqualsIgnoringCase(\PhpParser\Node $node)
     {
         if (isset($node->args[6])) {
             if ($this->valueResolver->isTrue($node->args[6]->value)) {
@@ -112,8 +114,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function processAssertEqualsCanonicalizing(\PhpParser\Node $node) : void
+    private function processAssertEqualsCanonicalizing(\PhpParser\Node $node)
     {
         if (isset($node->args[5])) {
             // add new node only in case of non-default value
@@ -129,8 +132,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function processAssertEqualsWithDelta(\PhpParser\Node $node) : void
+    private function processAssertEqualsWithDelta(\PhpParser\Node $node)
     {
         if (isset($node->args[3])) {
             // add new node only in case of non-default value

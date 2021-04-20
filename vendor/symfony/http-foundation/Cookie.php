@@ -17,9 +17,9 @@ namespace RectorPrefix20210420\Symfony\Component\HttpFoundation;
  */
 class Cookie
 {
-    public const SAMESITE_NONE = 'none';
-    public const SAMESITE_LAX = 'lax';
-    public const SAMESITE_STRICT = 'strict';
+    const SAMESITE_NONE = 'none';
+    const SAMESITE_LAX = 'lax';
+    const SAMESITE_STRICT = 'strict';
     protected $name;
     protected $value;
     protected $domain;
@@ -31,8 +31,8 @@ class Cookie
     private $sameSite;
     private $secureDefault = \false;
     private static $reservedCharsList = "=,; \t\r\n\v\f";
-    private const RESERVED_CHARS_FROM = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
-    private const RESERVED_CHARS_TO = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
+    const RESERVED_CHARS_FROM = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
+    const RESERVED_CHARS_TO = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
     /**
      * Creates cookie from raw header string.
      *
@@ -54,8 +54,10 @@ class Cookie
     }
     /**
      * @return $this
+     * @param string|null $path
+     * @param string|null $sameSite
      */
-    public static function create(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = self::SAMESITE_LAX)
+    public static function create(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = self::SAMESITE_LAX)
     {
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
@@ -72,7 +74,7 @@ class Cookie
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = 'lax')
+    public function __construct(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = 'lax')
     {
         // from PHP source code
         if ($raw && \false !== \strpbrk($name, self::$reservedCharsList)) {
@@ -95,8 +97,9 @@ class Cookie
      * Creates a cookie copy with a new value.
      *
      * @return static
+     * @param string|null $value
      */
-    public function withValue(?string $value)
+    public function withValue($value)
     {
         $cookie = clone $this;
         $cookie->value = $value;
@@ -106,8 +109,9 @@ class Cookie
      * Creates a cookie copy with a new domain that the cookie is available to.
      *
      * @return static
+     * @param string|null $domain
      */
-    public function withDomain(?string $domain)
+    public function withDomain($domain)
     {
         $cookie = clone $this;
         $cookie->domain = $domain;
@@ -197,8 +201,9 @@ class Cookie
      * Creates a cookie copy with SameSite attribute.
      *
      * @return static
+     * @param string|null $sameSite
      */
-    public function withSameSite(?string $sameSite)
+    public function withSameSite($sameSite)
     {
         if ('' === $sameSite) {
             $sameSite = null;
@@ -352,8 +357,9 @@ class Cookie
     }
     /**
      * @param bool $default The default value of the "secure" flag when it is set to null
+     * @return void
      */
-    public function setSecureDefault(bool $default) : void
+    public function setSecureDefault(bool $default)
     {
         $this->secureDefault = $default;
     }

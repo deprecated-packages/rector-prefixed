@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\SoftDeleteable');
@@ -94,7 +95,10 @@ CODE_SAMPLE
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
         return $node;
     }
-    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void
+    /**
+     * @return void
+     */
+    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName)
     {
         // remove property
         foreach ($class->getProperties() as $property) {

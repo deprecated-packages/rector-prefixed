@@ -23,22 +23,22 @@ final class InlineCodeParser
      * @var string
      * @see https://regex101.com/r/dwe4OW/1
      */
-    private const PRESLASHED_DOLLAR_REGEX = '#\\\\\\$#';
+    const PRESLASHED_DOLLAR_REGEX = '#\\\\\\$#';
     /**
      * @var string
      * @see https://regex101.com/r/tvwhWq/1
      */
-    private const CURLY_BRACKET_WRAPPER_REGEX = "#'{(\\\$.*?)}'#";
+    const CURLY_BRACKET_WRAPPER_REGEX = "#'{(\\\$.*?)}'#";
     /**
      * @var string
      * @see https://regex101.com/r/TBlhoR/1
      */
-    private const OPEN_PHP_TAG_REGEX = '#^\\<\\?php\\s+#';
+    const OPEN_PHP_TAG_REGEX = '#^\\<\\?php\\s+#';
     /**
      * @var string
      * @see https://regex101.com/r/TUWwKw/1/
      */
-    private const ENDING_SEMI_COLON_REGEX = '#;(\\s+)?$#';
+    const ENDING_SEMI_COLON_REGEX = '#;(\\s+)?$#';
     /**
      * @var Parser
      */

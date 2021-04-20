@@ -18,7 +18,10 @@ final class ThisTemplatePropertyFetchAnalyzer
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolveTemplateParameterNameFromAssign(\PhpParser\Node\Expr\Assign $assign) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveTemplateParameterNameFromAssign(\PhpParser\Node\Expr\Assign $assign)
     {
         if (!$assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
@@ -31,8 +34,9 @@ final class ThisTemplatePropertyFetchAnalyzer
     }
     /**
      * $this->template->someKey => "someKey"
+     * @return string|null
      */
-    public function matchThisTemplateKey(\PhpParser\Node\Expr $expr) : ?string
+    public function matchThisTemplateKey(\PhpParser\Node\Expr $expr)
     {
         if (!$expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;

@@ -15,9 +15,9 @@ namespace RectorPrefix20210420\Symfony\Component\DependencyInjection\Argument;
  */
 final class BoundArgument implements \RectorPrefix20210420\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
 {
-    public const SERVICE_BINDING = 0;
-    public const DEFAULTS_BINDING = 1;
-    public const INSTANCEOF_BINDING = 2;
+    const SERVICE_BINDING = 0;
+    const DEFAULTS_BINDING = 1;
+    const INSTANCEOF_BINDING = 2;
     private static $sequence = 0;
     private $value;
     private $identifier;
@@ -48,9 +48,9 @@ final class BoundArgument implements \RectorPrefix20210420\Symfony\Component\Dep
     public function setValues(array $values)
     {
         if (5 === \count($values)) {
-            [$this->value, $this->identifier, $this->used, $this->type, $this->file] = $values;
+            list($this->value, $this->identifier, $this->used, $this->type, $this->file) = $values;
         } else {
-            [$this->value, $this->identifier, $this->used] = $values;
+            list($this->value, $this->identifier, $this->used) = $values;
         }
     }
 }

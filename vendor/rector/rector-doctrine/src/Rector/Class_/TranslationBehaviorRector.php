@@ -147,8 +147,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classType = $this->nodeTypeResolver->resolve($node);
         $translatableObjectType = new \PHPStan\Type\ObjectType('Gedmo\\Translatable\\Translatable');
@@ -189,8 +190,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
+     * @return void
      */
-    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
+    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {
@@ -208,8 +210,9 @@ CODE_SAMPLE
     }
     /**
      * @param PhpDocInfo[] $translatedPropertyToPhpDocInfos
+     * @return void
      */
-    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos) : void
+    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos)
     {
         $fileInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if (!$fileInfo instanceof \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo) {

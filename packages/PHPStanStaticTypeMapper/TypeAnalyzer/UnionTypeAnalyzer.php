@@ -13,7 +13,10 @@ use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
 use Traversable;
 final class UnionTypeAnalyzer
 {
-    public function analyseForNullableAndIterable(\PHPStan\Type\UnionType $unionType) : ?\Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis
+    /**
+     * @return \Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis|null
+     */
+    public function analyseForNullableAndIterable(\PHPStan\Type\UnionType $unionType)
     {
         $isNullableType = \false;
         $hasIterable = \false;

@@ -15,7 +15,7 @@ final class ClassAnalyzer
      * @var string
      * @see https://regex101.com/r/FQH6RT/1
      */
-    private const ANONYMOUS_CLASS_REGEX = '#AnonymousClass\\w+$#';
+    const ANONYMOUS_CLASS_REGEX = '#AnonymousClass\\w+$#';
     /**
      * @var NodeNameResolver
      */

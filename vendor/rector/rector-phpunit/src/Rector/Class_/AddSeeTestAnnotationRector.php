@@ -23,7 +23,7 @@ final class AddSeeTestAnnotationRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    private const SEE = 'see';
+    const SEE = 'see';
     /**
      * @var TestClassResolver
      */
@@ -80,8 +80,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $testCaseClassName = $this->testClassResolver->resolveFromClass($node);
         if ($testCaseClassName === null) {
@@ -142,7 +143,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function removeNonExistingClassSeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
+    /**
+     * @return void
+     */
+    private function removeNonExistingClassSeeAnnotation(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo)
     {
         $seePhpDocTagNodes = $phpDocInfo->getTagsByName(self::SEE);
         /** @var PhpDocTagNode[] $seePhpDocTagNodes */

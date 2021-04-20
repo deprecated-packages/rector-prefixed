@@ -10,7 +10,7 @@ use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
 use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     # source: https://book.cakephp.org/3.0/en/appendices/3-6-migration-guide.html
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\ORM\\Table', 'association', 'getAssociation'), new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Validation\\ValidationSet', 'isPresenceRequired', 'requirePresence'), new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Validation\\ValidationSet', 'isEmptyAllowed', 'allowEmpty')])]]);

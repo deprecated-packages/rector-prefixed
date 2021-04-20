@@ -18,7 +18,9 @@ final class PackageVersionProvider
         try {
             $version = $this->getVersion($packageName, 'symplify/symplify');
             return $version->getPrettyVersion();
-        } catch (\OutOfBoundsException|\RectorPrefix20210420\PharIo\Version\InvalidVersionException $exceptoin) {
+        } catch (\OutOfBoundsException $exceptoin) {
+            return 'Unknown';
+        } catch (\RectorPrefix20210420\PharIo\Version\InvalidVersionException $exceptoin) {
             return 'Unknown';
         }
     }
@@ -32,7 +34,9 @@ final class PackageVersionProvider
     {
         try {
             return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($packageName);
-        } catch (\OutOfBoundsException|\RectorPrefix20210420\Jean85\Exception\ReplacedPackageException $exception) {
+        } catch (\OutOfBoundsException $exception) {
+            return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($replacingPackageName);
+        } catch (\RectorPrefix20210420\Jean85\Exception\ReplacedPackageException $exception) {
             return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($replacingPackageName);
         }
     }

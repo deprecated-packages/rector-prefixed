@@ -37,7 +37,10 @@ final class BundleClassResolver
         $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function resolveShortBundleClassFromControllerClass(string $class) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveShortBundleClassFromControllerClass(string $class)
     {
         $classReflection = $this->reflectionProvider->getClass($class);
         // resolve bundle from existing ones
@@ -64,7 +67,10 @@ final class BundleClassResolver
         }
         return null;
     }
-    private function resolveClassNameFromFilePath(string $filePath) : ?string
+    /**
+     * @return string|null
+     */
+    private function resolveClassNameFromFilePath(string $filePath)
     {
         $fileInfo = new \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $nodes = $this->parser->parseFileInfo($fileInfo);
@@ -77,8 +83,9 @@ final class BundleClassResolver
     }
     /**
      * @param Node[] $nodes
+     * @return void
      */
-    private function addFullyQualifiedNamesToNodes(array $nodes) : void
+    private function addFullyQualifiedNamesToNodes(array $nodes)
     {
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nameResolver = new \PhpParser\NodeVisitor\NameResolver();

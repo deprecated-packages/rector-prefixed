@@ -19,7 +19,7 @@ final class GetToConstructorInjectionRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    public const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
+    const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
     /**
      * @var ObjectType[]
      */
@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
             return null;
@@ -83,8 +84,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $getMethodAwareTypes = $configuration[self::GET_METHOD_AWARE_TYPES] ?? [];
         foreach ($getMethodAwareTypes as $getMethodAwareType) {

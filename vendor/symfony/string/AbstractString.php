@@ -27,14 +27,14 @@ use RectorPrefix20210420\Symfony\Component\String\Exception\RuntimeException;
  */
 abstract class AbstractString implements \Stringable, \JsonSerializable
 {
-    public const PREG_PATTERN_ORDER = \PREG_PATTERN_ORDER;
-    public const PREG_SET_ORDER = \PREG_SET_ORDER;
-    public const PREG_OFFSET_CAPTURE = \PREG_OFFSET_CAPTURE;
-    public const PREG_UNMATCHED_AS_NULL = 512;
-    public const PREG_SPLIT = 0;
-    public const PREG_SPLIT_NO_EMPTY = \PREG_SPLIT_NO_EMPTY;
-    public const PREG_SPLIT_DELIM_CAPTURE = \PREG_SPLIT_DELIM_CAPTURE;
-    public const PREG_SPLIT_OFFSET_CAPTURE = \PREG_SPLIT_OFFSET_CAPTURE;
+    const PREG_PATTERN_ORDER = \PREG_PATTERN_ORDER;
+    const PREG_SET_ORDER = \PREG_SET_ORDER;
+    const PREG_OFFSET_CAPTURE = \PREG_OFFSET_CAPTURE;
+    const PREG_UNMATCHED_AS_NULL = 512;
+    const PREG_SPLIT = 0;
+    const PREG_SPLIT_NO_EMPTY = \PREG_SPLIT_NO_EMPTY;
+    const PREG_SPLIT_DELIM_CAPTURE = \PREG_SPLIT_DELIM_CAPTURE;
+    const PREG_SPLIT_OFFSET_CAPTURE = \PREG_SPLIT_OFFSET_CAPTURE;
     protected $string = '';
     protected $ignoreCase = \false;
     public abstract function __construct(string $string = '');
@@ -287,8 +287,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     }
     /**
      * @param string|string[] $needle
+     * @return int|null
      */
-    public function indexOf($needle, int $offset = 0) : ?int
+    public function indexOf($needle, int $offset = 0)
     {
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));
@@ -304,8 +305,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     }
     /**
      * @param string|string[] $needle
+     * @return int|null
      */
-    public function indexOfLast($needle, int $offset = 0) : ?int
+    public function indexOfLast($needle, int $offset = 0)
     {
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));

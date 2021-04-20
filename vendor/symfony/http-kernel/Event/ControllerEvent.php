@@ -26,7 +26,10 @@ use RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface;
 final class ControllerEvent extends \RectorPrefix20210420\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
-    public function __construct(\RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \RectorPrefix20210420\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
+    /**
+     * @param int|null $requestType
+     */
+    public function __construct(\RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \RectorPrefix20210420\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setController($controller);
@@ -35,7 +38,10 @@ final class ControllerEvent extends \RectorPrefix20210420\Symfony\Component\Http
     {
         return $this->controller;
     }
-    public function setController(callable $controller) : void
+    /**
+     * @return void
+     */
+    public function setController(callable $controller)
     {
         $this->controller = $controller;
     }

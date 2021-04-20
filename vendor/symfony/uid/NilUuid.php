@@ -17,7 +17,7 @@ namespace RectorPrefix20210420\Symfony\Component\Uid;
  */
 class NilUuid extends \RectorPrefix20210420\Symfony\Component\Uid\Uuid
 {
-    protected const TYPE = -1;
+    const TYPE = -1;
     public function __construct()
     {
         $this->uid = '00000000-0000-0000-0000-000000000000';

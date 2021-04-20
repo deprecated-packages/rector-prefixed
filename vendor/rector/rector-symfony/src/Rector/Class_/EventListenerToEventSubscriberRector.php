@@ -23,20 +23,20 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    private const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
+    const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
     /**
      * @var string
      */
-    private const KERNEL_EVENTS_CLASS = 'Symfony\\Component\\HttpKernel\\KernelEvents';
+    const KERNEL_EVENTS_CLASS = 'Symfony\\Component\\HttpKernel\\KernelEvents';
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = 'Symfony\\Component\\Console\\ConsoleEvents';
+    const CONSOLE_EVENTS_CLASS = 'Symfony\\Component\\Console\\ConsoleEvents';
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
      */
-    private const LISTENER_MATCH_REGEX = '#^(.*?)(Listener)?$#';
+    const LISTENER_MATCH_REGEX = '#^(.*?)(Listener)?$#';
     /**
      * @var EventNameToClassAndConstant[]
      */
@@ -114,8 +114,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         // anonymous class
         if ($node->name === null) {
@@ -148,8 +149,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ServiceDefinition[]> $eventsToMethods
+     * @return void
      */
-    private function changeListenerToSubscriberWithMethods(\PhpParser\Node\Stmt\Class_ $class, array $eventsToMethods) : void
+    private function changeListenerToSubscriberWithMethods(\PhpParser\Node\Stmt\Class_ $class, array $eventsToMethods)
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = $this->nodeNameResolver->getShortName($class);

@@ -21,7 +21,10 @@ final class InvalidSetReporter
         $symfonyStyleFactory = new \RectorPrefix20210420\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
         $this->symfonyStyle = $symfonyStyleFactory->create();
     }
-    public function report(\RectorPrefix20210420\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
+    /**
+     * @return void
+     */
+    public function report(\RectorPrefix20210420\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException)
     {
         $message = $setNotFoundException->getMessage();
         $suggestedSet = \RectorPrefix20210420\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());

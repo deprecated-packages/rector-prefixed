@@ -19,7 +19,10 @@ final class SignalRegistry
             \pcntl_async_signals(\true);
         }
     }
-    public function register(int $signal, callable $signalHandler) : void
+    /**
+     * @return void
+     */
+    public function register(int $signal, callable $signalHandler)
     {
         if (!isset($this->signalHandlers[$signal])) {
             $previousCallback = \pcntl_signal_get_handler($signal);
@@ -42,8 +45,9 @@ final class SignalRegistry
     }
     /**
      * @internal
+     * @return void
      */
-    public function handle(int $signal) : void
+    public function handle(int $signal)
     {
         $count = \count($this->signalHandlers[$signal]);
         foreach ($this->signalHandlers[$signal] as $i => $signalHandler) {

@@ -20,7 +20,7 @@ use RectorPrefix20210420\Psr\Log\LogLevel;
  */
 class Logger extends \RectorPrefix20210420\Psr\Log\AbstractLogger
 {
-    private const LEVELS = [\RectorPrefix20210420\Psr\Log\LogLevel::DEBUG => 0, \RectorPrefix20210420\Psr\Log\LogLevel::INFO => 1, \RectorPrefix20210420\Psr\Log\LogLevel::NOTICE => 2, \RectorPrefix20210420\Psr\Log\LogLevel::WARNING => 3, \RectorPrefix20210420\Psr\Log\LogLevel::ERROR => 4, \RectorPrefix20210420\Psr\Log\LogLevel::CRITICAL => 5, \RectorPrefix20210420\Psr\Log\LogLevel::ALERT => 6, \RectorPrefix20210420\Psr\Log\LogLevel::EMERGENCY => 7];
+    const LEVELS = [\RectorPrefix20210420\Psr\Log\LogLevel::DEBUG => 0, \RectorPrefix20210420\Psr\Log\LogLevel::INFO => 1, \RectorPrefix20210420\Psr\Log\LogLevel::NOTICE => 2, \RectorPrefix20210420\Psr\Log\LogLevel::WARNING => 3, \RectorPrefix20210420\Psr\Log\LogLevel::ERROR => 4, \RectorPrefix20210420\Psr\Log\LogLevel::CRITICAL => 5, \RectorPrefix20210420\Psr\Log\LogLevel::ALERT => 6, \RectorPrefix20210420\Psr\Log\LogLevel::EMERGENCY => 7];
     private $minLevelIndex;
     private $formatter;
     private $handle;

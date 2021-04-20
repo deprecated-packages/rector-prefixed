@@ -21,7 +21,7 @@ class UnauthorizedHttpException extends \RectorPrefix20210420\Symfony\Component\
      * @param \Throwable|null $previous  The previous exception
      * @param int|null        $code      The internal exception code
      */
-    public function __construct(string $challenge, ?string $message = '', \Throwable $previous = null, ?int $code = 0, array $headers = [])
+    public function __construct(string $challenge, $message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
         $headers['WWW-Authenticate'] = $challenge;
         parent::__construct(401, $message, $previous, $headers, $code);

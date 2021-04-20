@@ -36,11 +36,11 @@ use RectorPrefix20210420\SebastianBergmann\Diff\Output\DiffOutputBuilderInterfac
 use RectorPrefix20210420\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 final class Differ
 {
-    public const OLD = 0;
-    public const ADDED = 1;
-    public const REMOVED = 2;
-    public const DIFF_LINE_END_WARNING = 3;
-    public const NO_LINE_END_EOF_WARNING = 4;
+    const OLD = 0;
+    const ADDED = 1;
+    const REMOVED = 2;
+    const DIFF_LINE_END_WARNING = 3;
+    const NO_LINE_END_EOF_WARNING = 4;
     /**
      * @var DiffOutputBuilderInterface
      */
@@ -103,7 +103,7 @@ final class Differ
         } elseif (!\is_array($to)) {
             throw new \RectorPrefix20210420\SebastianBergmann\Diff\InvalidArgumentException('"to" must be an array or string.');
         }
-        [$from, $to, $start, $end] = self::getArrayDiffParted($from, $to);
+        list($from, $to, $start, $end) = self::getArrayDiffParted($from, $to);
         if ($lcs === null) {
             $lcs = $this->selectLcsImplementation($from, $to);
         }

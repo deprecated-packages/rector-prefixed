@@ -95,7 +95,7 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210420\Sy
                 if (!isset($methods[$action = \strtolower($attributes['action'])])) {
                     throw new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "action" attribute on tag "%s" for service "%s": no public "%s()" method found on class "%s".', $this->controllerTag, $id, $attributes['action'], $class));
                 }
-                [$r, $parameters] = $methods[$action];
+                list($r, $parameters) = $methods[$action];
                 $found = \false;
                 foreach ($parameters as $p) {
                     if ($attributes['argument'] === $p->name) {
@@ -110,7 +110,7 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210420\Sy
                     throw new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" tag for service "%s": method "%s()" has no "%s" argument on class "%s".', $this->controllerTag, $id, $r->name, $attributes['argument'], $class));
                 }
             }
-            foreach ($methods as [$r, $parameters]) {
+            foreach ($methods as list($r, $parameters)) {
                 /** @var \ReflectionMethod $r */
                 // create a per-method map of argument-names to service/type-references
                 $args = [];
@@ -129,7 +129,7 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210420\Sy
                         }
                     } elseif (isset($bindings[$bindingName = $type . ' $' . $p->name]) || isset($bindings[$bindingName = '$' . $p->name]) || isset($bindings[$bindingName = $type])) {
                         $binding = $bindings[$bindingName];
-                        [$bindingValue, $bindingId, , $bindingType, $bindingFile] = $binding->getValues();
+                        list($bindingValue, $bindingId, $bindingType, $bindingFile) = $binding->getValues();
                         $binding->setValues([$bindingValue, $bindingId, \true, $bindingType, $bindingFile]);
                         if (!$bindingValue instanceof \RectorPrefix20210420\Symfony\Component\DependencyInjection\Reference) {
                             $args[$p->name] = new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Reference('.value.' . $container->hash($bindingValue));

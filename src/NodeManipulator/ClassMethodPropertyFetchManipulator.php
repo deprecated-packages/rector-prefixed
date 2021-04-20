@@ -35,8 +35,9 @@ final class ClassMethodPropertyFetchManipulator
      * $this->value = $anotherValue;
      * ↓
      * (SomeType $anotherValue)
+     * @return \PhpParser\Node\Param|null
      */
-    public function resolveParamForPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName) : ?\PhpParser\Node\Param
+    public function resolveParamForPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName)
     {
         $assignedParamName = null;
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedParamName) : ?int {

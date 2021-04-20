@@ -397,8 +397,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
     /**
      * Overloaded setter for element's attribute.
      * @param  mixed  $value
+     * @return void
      */
-    public final function __set(string $name, $value) : void
+    public final function __set(string $name, $value)
     {
         $this->attrs[$name] = $value;
     }
@@ -419,8 +420,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
     }
     /**
      * Overloaded unsetter for element's attribute.
+     * @return void
      */
-    public final function __unset(string $name) : void
+    public final function __unset(string $name)
     {
         unset($this->attrs[$name]);
     }
@@ -552,8 +554,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
      * Inserts child node.
      * @param  HtmlStringable|string $child Html node or raw HTML string
      * @return static
+     * @param int|null $index
      */
-    public function insert(?int $index, $child, bool $replace = \false)
+    public function insert($index, $child, bool $replace = \false)
     {
         $child = $child instanceof self ? $child : (string) $child;
         if ($index === null) {
@@ -569,8 +572,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
      * Inserts (replaces) child node (\ArrayAccess implementation).
      * @param  int|null  $index  position or null for appending
      * @param  Html|string  $child  Html node or raw HTML string
+     * @return void
      */
-    public final function offsetSet($index, $child) : void
+    public final function offsetSet($index, $child)
     {
         $this->insert($index, $child, \true);
     }
@@ -594,8 +598,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
     /**
      * Removes child node (\ArrayAccess implementation).
      * @param  int  $index
+     * @return void
      */
-    public function offsetUnset($index) : void
+    public function offsetUnset($index)
     {
         if (isset($this->children[$index])) {
             \array_splice($this->children, $index, 1);
@@ -610,8 +615,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
     }
     /**
      * Removes all children.
+     * @return void
      */
-    public function removeChildren() : void
+    public function removeChildren()
     {
         $this->children = [];
     }

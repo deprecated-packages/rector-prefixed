@@ -12,7 +12,7 @@ final class TokenIteratorFactory
     /**
      * @var string
      */
-    private const INDEX = 'index';
+    const INDEX = 'index';
     /**
      * @var Lexer
      */

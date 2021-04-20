@@ -60,8 +60,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $argValue = $this->matchWhereDateThirdArgValue($node);
         if (!$argValue instanceof \PhpParser\Node\Expr) {
@@ -91,7 +92,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function matchWhereDateThirdArgValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchWhereDateThirdArgValue(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         if (!$this->isOnClassMethodCall($methodCall, new \PHPStan\Type\ObjectType('Illuminate\\Database\\Query\\Builder'), 'whereDate')) {
             return null;
@@ -112,7 +116,10 @@ CODE_SAMPLE
         }
         return $argValue;
     }
-    private function changeCompareSignExpr(\PhpParser\Node\Arg $arg) : void
+    /**
+     * @return void
+     */
+    private function changeCompareSignExpr(\PhpParser\Node\Arg $arg)
     {
         if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;

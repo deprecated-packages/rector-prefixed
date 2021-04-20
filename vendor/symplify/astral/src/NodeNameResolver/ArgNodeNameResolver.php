@@ -14,8 +14,9 @@ final class ArgNodeNameResolver implements \RectorPrefix20210420\Symplify\Astral
     }
     /**
      * @param Arg $node
+     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node $node)
     {
         if ($node->name === null) {
             return null;

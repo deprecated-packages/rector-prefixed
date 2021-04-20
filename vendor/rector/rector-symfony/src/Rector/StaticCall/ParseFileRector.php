@@ -24,17 +24,17 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
      * @var string
      * @see https://regex101.com/r/ZaY42i/1
      */
-    private const YAML_SUFFIX_IN_QUOTE_REGEX = '#\\.(yml|yaml)(\'|\\")$#';
+    const YAML_SUFFIX_IN_QUOTE_REGEX = '#\\.(yml|yaml)(\'|\\")$#';
     /**
      * @var string
      * @see https://regex101.com/r/YHA05g/1
      */
-    private const FILE_SUFFIX_REGEX = '#File$#';
+    const FILE_SUFFIX_REGEX = '#File$#';
     /**
      * @var string
      * @see https://regex101.com/r/JmNhZj/1
      */
-    private const YAML_SUFFIX_REGEX = '#\\.(yml|yaml)$#';
+    const YAML_SUFFIX_REGEX = '#\\.(yml|yaml)$#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('session > use_strict_mode is true by default and can be removed', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('session > use_strict_mode: true', 'session:')]);
@@ -50,8 +50,9 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
      * Process Node of matched type
      *
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node->name, 'parse')) {
             return null;

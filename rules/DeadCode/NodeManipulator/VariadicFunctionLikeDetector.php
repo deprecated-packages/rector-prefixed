@@ -14,7 +14,7 @@ final class VariadicFunctionLikeDetector
     /**
      * @var string[]
      */
-    private const VARIADIC_FUNCTION_NAMES = ['func_get_arg', 'func_get_args', 'func_num_args'];
+    const VARIADIC_FUNCTION_NAMES = ['func_get_arg', 'func_get_args', 'func_num_args'];
     /**
      * @var NodeNameResolver
      */

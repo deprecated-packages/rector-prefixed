@@ -64,8 +64,10 @@ class ServiceReferenceGraph
     }
     /**
      * Connects 2 nodes together in the Graph.
+     * @param string|null $sourceId
+     * @param string|null $destId
      */
-    public function connect(?string $sourceId, $sourceValue, ?string $destId, $destValue = null, $reference = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
+    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         if (null === $sourceId || null === $destId) {
             return;

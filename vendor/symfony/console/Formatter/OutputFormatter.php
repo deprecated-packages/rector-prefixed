@@ -111,15 +111,17 @@ class OutputFormatter implements \RectorPrefix20210420\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param string|null $message
      */
-    public function format(?string $message)
+    public function format($message)
     {
         return $this->formatAndWrap($message, 0);
     }
     /**
      * {@inheritdoc}
+     * @param string|null $message
      */
-    public function formatAndWrap(?string $message, int $width)
+    public function formatAndWrap($message, int $width)
     {
         $offset = 0;
         $output = '';
@@ -167,8 +169,9 @@ class OutputFormatter implements \RectorPrefix20210420\Symfony\Component\Console
     }
     /**
      * Tries to create new style instance from string.
+     * @return \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface|null
      */
-    private function createStyleFromString(string $string) : ?\RectorPrefix20210420\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    private function createStyleFromString(string $string)
     {
         if (isset($this->styles[$string])) {
             return $this->styles[$string];

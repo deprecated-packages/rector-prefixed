@@ -24,8 +24,9 @@ final class PropertyAssignMatcher
      * Covers:
      * - $this->propertyName = $expr;
      * - $this->propertyName[] = $expr;
+     * @return \PhpParser\Node\Expr|null
      */
-    public function matchPropertyAssignExpr(\PhpParser\Node\Expr\Assign $assign, string $propertyName) : ?\PhpParser\Node\Expr
+    public function matchPropertyAssignExpr(\PhpParser\Node\Expr\Assign $assign, string $propertyName)
     {
         if ($this->isPropertyFetch($assign->var)) {
             if (!$this->nodeNameResolver->isName($assign->var, $propertyName)) {

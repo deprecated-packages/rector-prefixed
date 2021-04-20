@@ -22,7 +22,7 @@ final class UseSpecificWillMethodRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const NESTED_METHOD_TO_RENAME_MAP = ['returnArgument' => 'willReturnArgument', 'returnCallback' => 'willReturnCallback', 'returnSelf' => 'willReturnSelf', 'returnValue' => 'willReturn', 'returnValueMap' => 'willReturnMap', 'throwException' => 'willThrowException'];
+    const NESTED_METHOD_TO_RENAME_MAP = ['returnArgument' => 'willReturnArgument', 'returnCallback' => 'willReturnCallback', 'returnSelf' => 'willReturnSelf', 'returnValue' => 'willReturn', 'returnValueMap' => 'willReturnMap', 'throwException' => 'willThrowException'];
     /**
      * @var TestsNodeAnalyzer
      */
@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -108,9 +109,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return MethodCall|StaticCall|null
+     * @return \PhpParser\Node|null
      */
-    private function processWillCall(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function processWillCall(\PhpParser\Node $node)
     {
         if (!$node->args[0]->value instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

@@ -17,8 +17,8 @@ namespace RectorPrefix20210420\Symfony\Component\HttpFoundation;
  */
 class HeaderBag implements \IteratorAggregate, \Countable
 {
-    protected const UPPER = '_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    protected const LOWER = '-abcdefghijklmnopqrstuvwxyz';
+    const UPPER = '_ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const LOWER = '-abcdefghijklmnopqrstuvwxyz';
     protected $headers = [];
     protected $cacheControl = [];
     public function __construct(array $headers = [])

@@ -16,7 +16,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\Definition;
  */
 class InstanceofConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    public const FACTORY = 'instanceof';
+    const FACTORY = 'instanceof';
     use Traits\AutowireTrait;
     use Traits\BindTrait;
     use Traits\CallTrait;

@@ -46,8 +46,9 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
     }
     /**
      * @required
+     * @return void
      */
-    public function autowirePropertyFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePropertyFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }

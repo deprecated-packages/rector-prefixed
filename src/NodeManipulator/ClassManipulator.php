@@ -115,7 +115,10 @@ final class ClassManipulator
         }
         return \false;
     }
-    public function replaceTrait(\PhpParser\Node\Stmt\Class_ $class, string $oldTrait, string $newTrait) : void
+    /**
+     * @return void
+     */
+    public function replaceTrait(\PhpParser\Node\Stmt\Class_ $class, string $oldTrait, string $newTrait)
     {
         foreach ($class->getTraitUses() as $traitUse) {
             foreach ($traitUse->traits as $key => $traitTrait) {
@@ -138,7 +141,10 @@ final class ClassManipulator
         }
         return $this->nodeNameResolver->getNames($classLike->extends);
     }
-    public function removeInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : void
+    /**
+     * @return void
+     */
+    public function removeInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface)
     {
         foreach ($class->implements as $implement) {
             if (!$this->nodeNameResolver->isName($implement, $desiredInterface)) {

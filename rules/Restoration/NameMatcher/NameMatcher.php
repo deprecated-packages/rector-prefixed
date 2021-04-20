@@ -15,7 +15,10 @@ final class NameMatcher
     {
         $this->existingClassesProvider = $existingClassesProvider;
     }
-    public function makeNameFullyQualified(string $shortName) : ?string
+    /**
+     * @return string|null
+     */
+    public function makeNameFullyQualified(string $shortName)
     {
         foreach ($this->existingClassesProvider->provide() as $declaredClass) {
             $declaredShortClass = (string) \RectorPrefix20210420\Nette\Utils\Strings::after($declaredClass, '\\', -1);

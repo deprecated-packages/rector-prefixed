@@ -86,7 +86,7 @@ final class ArrayParser
     {
         $array = [];
         foreach ($values as $value) {
-            [$key, $val] = $value;
+            list($key, $val) = $value;
             if ($key !== null) {
                 $array[$key] = $val;
             } else {

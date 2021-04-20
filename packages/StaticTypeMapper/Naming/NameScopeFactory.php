@@ -31,8 +31,9 @@ final class NameScopeFactory
     /**
      * This is needed to avoid circular references
      * @required
+     * @return void
      */
-    public function autowireNameScopeFactory(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory) : void
+    public function autowireNameScopeFactory(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
@@ -52,7 +53,10 @@ final class NameScopeFactory
         $templateTypeMap = $this->templateTemplateTypeMap($node);
         return new \PHPStan\Analyser\NameScope($nameScope->getNamespace(), $nameScope->getUses(), $nameScope->getClassName(), null, $templateTypeMap);
     }
-    public function setStaticTypeMapper(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper) : void
+    /**
+     * @return void
+     */
+    public function setStaticTypeMapper(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }

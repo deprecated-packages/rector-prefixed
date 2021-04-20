@@ -48,8 +48,9 @@ class PhpProcess extends \RectorPrefix20210420\Symfony\Component\Process\Process
     }
     /**
      * {@inheritdoc}
+     * @param float|null $timeout
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
         throw new \RectorPrefix20210420\Symfony\Component\Process\Exception\LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
     }

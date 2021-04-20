@@ -16,7 +16,7 @@ use RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class ParametersConfigurator extends \RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    public const FACTORY = 'parameters';
+    const FACTORY = 'parameters';
     private $container;
     public function __construct(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {

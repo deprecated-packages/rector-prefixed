@@ -41,7 +41,19 @@ class ControllerResolver implements \RectorPrefix20210420\Symfony\Component\Http
             if (isset($controller[0]) && \is_string($controller[0]) && isset($controller[1])) {
                 try {
                     $controller[0] = $this->instantiateController($controller[0]);
-                } catch (\Error|\LogicException $e) {
+                } catch (\Error $e) {
+                    try {
+                        // We cannot just check is_callable but have to use reflection because a non-static method
+                        // can still be called statically in PHP but we don't want that. This is deprecated in PHP 7, so we
+                        // could simplify this with PHP 8.
+                        if ((new \ReflectionMethod($controller[0], $controller[1]))->isStatic()) {
+                            return $controller;
+                        }
+                    } catch (\ReflectionException $reflectionException) {
+                        throw $e;
+                    }
+                    throw $e;
+                } catch (\LogicException $e) {
                     try {
                         // We cannot just check is_callable but have to use reflection because a non-static method
                         // can still be called statically in PHP but we don't want that. This is deprecated in PHP 7, so we
@@ -95,10 +107,19 @@ class ControllerResolver implements \RectorPrefix20210420\Symfony\Component\Http
             }
             return $controller;
         }
-        [$class, $method] = \explode('::', $controller, 2);
+        list($class, $method) = \explode('::', $controller, 2);
         try {
             $controller = [$this->instantiateController($class), $method];
-        } catch (\Error|\LogicException $e) {
+        } catch (\Error $e) {
+            try {
+                if ((new \ReflectionMethod($class, $method))->isStatic()) {
+                    return $class . '::' . $method;
+                }
+            } catch (\ReflectionException $reflectionException) {
+                throw $e;
+            }
+            throw $e;
+        } catch (\LogicException $e) {
             try {
                 if ((new \ReflectionMethod($class, $method))->isStatic()) {
                     return $class . '::' . $method;
@@ -142,7 +163,7 @@ class ControllerResolver implements \RectorPrefix20210420\Symfony\Component\Http
         if (!isset($callable[0]) || !isset($callable[1]) || 2 !== \count($callable)) {
             return 'Invalid array callable, expected [controller, method].';
         }
-        [$controller, $method] = $callable;
+        list($controller, $method) = $callable;
         if (\is_string($controller) && !\class_exists($controller)) {
             return \sprintf('Class "%s" does not exist.', $controller);
         }

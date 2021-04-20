@@ -8,5 +8,5 @@ final class Option
     /**
      * @var string
      */
-    public const SOURCE = 'source';
+    const SOURCE = 'source';
 }

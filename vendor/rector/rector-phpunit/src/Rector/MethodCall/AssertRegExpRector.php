@@ -24,19 +24,19 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const ASSERT_SAME = 'assertSame';
+    const ASSERT_SAME = 'assertSame';
     /**
      * @var string
      */
-    private const ASSERT_EQUALS = 'assertEquals';
+    const ASSERT_EQUALS = 'assertEquals';
     /**
      * @var string
      */
-    private const ASSERT_NOT_SAME = 'assertNotSame';
+    const ASSERT_NOT_SAME = 'assertNotSame';
     /**
      * @var string
      */
-    private const ASSERT_NOT_EQUALS = 'assertNotEquals';
+    const ASSERT_NOT_EQUALS = 'assertNotEquals';
     /**
      * @var TestsNodeAnalyzer
      */
@@ -58,8 +58,9 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, [self::ASSERT_SAME, self::ASSERT_EQUALS, self::ASSERT_NOT_SAME, self::ASSERT_NOT_EQUALS])) {
             return null;
@@ -94,8 +95,9 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function renameMethod(\PhpParser\Node $node, string $oldMethodName, int $oldCondition) : void
+    private function renameMethod(\PhpParser\Node $node, string $oldMethodName, int $oldCondition)
     {
         if (\in_array($oldMethodName, [self::ASSERT_SAME, self::ASSERT_EQUALS], \true) && $oldCondition === 1 || \in_array($oldMethodName, [self::ASSERT_NOT_SAME, self::ASSERT_NOT_EQUALS], \true) && $oldCondition === 0) {
             $node->name = new \PhpParser\Node\Identifier('assertRegExp');
@@ -106,8 +108,9 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return void
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node) : void
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node)
     {
         $oldArguments = $node->args;
         /** @var FuncCall $pregMatchFunction */

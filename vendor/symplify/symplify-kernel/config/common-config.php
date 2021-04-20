@@ -20,7 +20,7 @@ use RectorPrefix20210420\Symplify\SmartFileSystem\Finder\SmartFinder;
 use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileSystem;
 use RectorPrefix20210420\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory;
 use function RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     // symfony style

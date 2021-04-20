@@ -64,7 +64,10 @@ final class NameImporter
         $this->useNodesToAddCollector = $useNodesToAddCollector;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function importName(\PhpParser\Node\Name $name) : ?\PhpParser\Node\Name
+    /**
+     * @return \PhpParser\Node\Name|null
+     */
+    public function importName(\PhpParser\Node\Name $name)
     {
         if ($this->shouldSkipName($name)) {
             return null;
@@ -107,7 +110,10 @@ final class NameImporter
         }
         return \false;
     }
-    private function importNameAndCollectNewUseStatement(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : ?\PhpParser\Node\Name
+    /**
+     * @return \PhpParser\Node\Name|null
+     */
+    private function importNameAndCollectNewUseStatement(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
     {
         // the same end is already imported → skip
         if ($this->classNameImportSkipper->shouldSkipNameForFullyQualifiedObjectType($name, $fullyQualifiedObjectType)) {
@@ -157,7 +163,10 @@ final class NameImporter
         }
         return \false;
     }
-    private function addUseImport(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
+    /**
+     * @return void
+     */
+    private function addUseImport(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
     {
         if ($this->useNodesToAddCollector->hasImport($name, $fullyQualifiedObjectType)) {
             return;

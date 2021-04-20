@@ -52,8 +52,9 @@ final class FunctionLikeFirstLevelStatementResolver
      * Form might be costructured inside private closure for multiplier
      *
      * @see https://doc.nette.org/en/3.0/multiplier
+     * @return \PhpParser\Node\Expr\Closure|null
      */
-    private function matchMultiplierClosure(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\Closure
+    private function matchMultiplierClosure(\PhpParser\Node $node)
     {
         $closure = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Expr\Closure::class);
         if (!$closure instanceof \PhpParser\Node\Expr\Closure) {

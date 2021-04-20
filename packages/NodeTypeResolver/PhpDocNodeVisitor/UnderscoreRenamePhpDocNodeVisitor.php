@@ -29,7 +29,10 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210420\Symp
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
+    /**
+     * @return void
+     */
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if ($this->pseudoNamespaceToNamespace === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set PseudoNamespaceToNamespace first');
@@ -38,7 +41,10 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210420\Symp
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set "$currentPhpParserNode" first');
         }
     }
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;
@@ -55,11 +61,17 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210420\Symp
         $slashedName = '\\' . \RectorPrefix20210420\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($slashedName);
     }
-    public function setPseudoNamespaceToNamespace(\Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
+    /**
+     * @return void
+     */
+    public function setPseudoNamespaceToNamespace(\Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace)
     {
         $this->pseudoNamespaceToNamespace = $pseudoNamespaceToNamespace;
     }
-    public function setCurrentPhpParserNode(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function setCurrentPhpParserNode(\PhpParser\Node $node)
     {
         $this->currentPhpParserNode = $node;
     }

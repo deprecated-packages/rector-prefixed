@@ -31,7 +31,10 @@ final class AdditionalAutoloader
         $this->parameterProvider = $parameterProvider;
         $this->dynamicSourceLocatorDecorator = $dynamicSourceLocatorDecorator;
     }
-    public function autoloadWithInputAndSource(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input) : void
+    /**
+     * @return void
+     */
+    public function autoloadWithInputAndSource(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input)
     {
         if ($input->hasOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
             $this->autoloadInputAutoloadFile($input);
@@ -42,7 +45,10 @@ final class AdditionalAutoloader
         }
         $this->dynamicSourceLocatorDecorator->addPaths($autoloadPaths);
     }
-    private function autoloadInputAutoloadFile(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input) : void
+    /**
+     * @return void
+     */
+    private function autoloadInputAutoloadFile(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input)
     {
         /** @var string|null $autoloadFile */
         $autoloadFile = $input->getOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE);

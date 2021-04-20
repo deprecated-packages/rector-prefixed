@@ -21,7 +21,7 @@ final class ToStringToMethodCallRector extends \Rector\Core\Rector\AbstractRecto
      * @api
      * @var string
      */
-    public const METHOD_NAMES_BY_TYPE = 'method_names_by_type';
+    const METHOD_NAMES_BY_TYPE = 'method_names_by_type';
     /**
      * @var array<string, string>
      */
@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param String_|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
             return $this->processStringNode($node);
@@ -59,12 +60,16 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->methodNamesByType = $configuration[self::METHOD_NAMES_BY_TYPE] ?? [];
     }
-    private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string)
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($string->expr, new \PHPStan\Type\ObjectType($type))) {
@@ -74,7 +79,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType($type))) {

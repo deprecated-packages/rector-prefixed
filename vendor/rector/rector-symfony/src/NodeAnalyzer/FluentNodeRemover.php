@@ -22,8 +22,9 @@ final class FluentNodeRemover
     }
     /**
      * @param MethodCall|Return_ $node
+     * @return void
      */
-    public function removeCurrentNode(\PhpParser\Node $node) : void
+    public function removeCurrentNode(\PhpParser\Node $node)
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Expr\Assign) {

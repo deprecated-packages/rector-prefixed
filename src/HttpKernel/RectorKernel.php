@@ -57,7 +57,10 @@ final class RectorKernel extends \RectorPrefix20210420\Symfony\Component\HttpKer
         // manually configured, so it can be replaced in phar
         return \sys_get_temp_dir() . '/rector/log';
     }
-    public function registerContainerConfiguration(\RectorPrefix20210420\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    /**
+     * @return void
+     */
+    public function registerContainerConfiguration(\RectorPrefix20210420\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -66,8 +69,9 @@ final class RectorKernel extends \RectorPrefix20210420\Symfony\Component\HttpKer
     }
     /**
      * @param string[] $configs
+     * @return void
      */
-    public function setConfigs(array $configs) : void
+    public function setConfigs(array $configs)
     {
         $this->configs = $configs;
     }
@@ -78,7 +82,10 @@ final class RectorKernel extends \RectorPrefix20210420\Symfony\Component\HttpKer
     {
         return [new \RectorPrefix20210420\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \RectorPrefix20210420\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \RectorPrefix20210420\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210420\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
     }
-    protected function build(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    /**
+     * @return void
+     */
+    protected function build(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         // @see https://symfony.com/blog/new-in-symfony-4-4-dependency-injection-improvements-part-1
         $containerBuilder->setParameter('container.dumper.inline_factories', \true);

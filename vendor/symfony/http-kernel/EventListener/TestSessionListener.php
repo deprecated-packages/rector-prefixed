@@ -27,7 +27,10 @@ class TestSessionListener extends \RectorPrefix20210420\Symfony\Component\HttpKe
         $this->container = $container;
         parent::__construct($sessionOptions);
     }
-    protected function getSession() : ?\RectorPrefix20210420\Symfony\Component\HttpFoundation\Session\SessionInterface
+    /**
+     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
+     */
+    protected function getSession()
     {
         if (!$this->container->has('session')) {
             return null;

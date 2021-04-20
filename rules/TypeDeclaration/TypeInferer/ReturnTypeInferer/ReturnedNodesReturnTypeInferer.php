@@ -122,7 +122,10 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         return new \PHPStan\Type\MixedType();
     }
-    private function processSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : void
+    /**
+     * @return void
+     */
+    private function processSwitch(\PhpParser\Node\Stmt\Switch_ $switch)
     {
         foreach ($switch->cases as $case) {
             if ($case->cond === null) {

@@ -14,8 +14,9 @@ final class PropertyNodeNameResolver implements \RectorPrefix20210420\Symplify\A
     }
     /**
      * @param Property $node
+     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node $node)
     {
         $propertyProperty = $node->props[0];
         return (string) $propertyProperty->name;

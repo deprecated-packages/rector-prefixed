@@ -12,7 +12,7 @@ final class SetConfigResolver
     /**
      * @var string
      */
-    private const SETS = 'sets';
+    const SETS = 'sets';
     /**
      * @return SmartFileInfo[]
      */

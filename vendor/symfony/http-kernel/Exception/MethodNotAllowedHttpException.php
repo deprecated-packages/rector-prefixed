@@ -21,7 +21,7 @@ class MethodNotAllowedHttpException extends \RectorPrefix20210420\Symfony\Compon
      * @param \Throwable|null $previous The previous exception
      * @param int|null        $code     The internal exception code
      */
-    public function __construct(array $allow, ?string $message = '', \Throwable $previous = null, ?int $code = 0, array $headers = [])
+    public function __construct(array $allow, $message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
         $headers['Allow'] = \strtoupper(\implode(', ', $allow));
         parent::__construct(405, $message, $previous, $headers, $code);

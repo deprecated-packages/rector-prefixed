@@ -11,7 +11,10 @@ use PHPStan\PhpDocParser\Ast\Type\TypeNode;
  */
 class SimplePhpDocNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
 {
-    public function getParam(string $desiredParamName) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode|null
+     */
+    public function getParam(string $desiredParamName)
     {
         $desiredParamNameWithDollar = '$' . \ltrim($desiredParamName, '$');
         foreach ($this->getParamTagValues() as $paramTagValueNode) {
@@ -22,7 +25,10 @@ class SimplePhpDocNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
         }
         return null;
     }
-    public function getParamType(string $desiredParamName) : ?\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Type\TypeNode|null
+     */
+    public function getParamType(string $desiredParamName)
     {
         $paramTagValueNode = $this->getParam($desiredParamName);
         if (!$paramTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {

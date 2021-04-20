@@ -84,8 +84,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isClassAndMethodMatch($node)) {
             return null;
@@ -119,7 +120,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function replaceStringWIthFormTypeClassConstIfFound(string $stringValue, \PhpParser\Node\Stmt\Return_ $return) : void
+    /**
+     * @return void
+     */
+    private function replaceStringWIthFormTypeClassConstIfFound(string $stringValue, \PhpParser\Node\Stmt\Return_ $return)
     {
         $formClass = $this->formTypeStringToTypeProvider->matchClassForNameWithPrefix($stringValue);
         if ($formClass === null) {

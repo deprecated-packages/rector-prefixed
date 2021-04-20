@@ -76,7 +76,10 @@ final class PhpDocInfoFactory
         }
         return $this->createEmpty($node);
     }
-    public function createFromNode(\PhpParser\Node $node) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    /**
+     * @return \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo|null
+     */
+    public function createFromNode(\PhpParser\Node $node)
     {
         $objectHash = \spl_object_hash($node);
         if (isset($this->phpDocInfosByObjectHash[$objectHash])) {
@@ -116,8 +119,9 @@ final class PhpDocInfoFactory
     }
     /**
      * Needed for printing
+     * @return void
      */
-    private function setPositionOfLastToken(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
+    private function setPositionOfLastToken(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode)
     {
         if ($phpDocNode->children === []) {
             return;

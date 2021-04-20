@@ -51,8 +51,9 @@ class DirectoryResource implements \RectorPrefix20210420\Symfony\Component\Confi
     }
     /**
      * Returns the pattern to restrict monitored files.
+     * @return string|null
      */
-    public function getPattern() : ?string
+    public function getPattern()
     {
         return $this->pattern;
     }

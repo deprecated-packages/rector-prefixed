@@ -17,7 +17,7 @@ final class EnglishInflector implements \RectorPrefix20210420\Symfony\Component\
      *
      * @see http://english-zone.com/spelling/plurals.html
      */
-    private const PLURAL_MAP = [
+    const PLURAL_MAP = [
         // First entry: plural suffix, reversed
         // Second entry: length of plural suffix
         // Third entry: Whether the suffix may succeed a vocal
@@ -102,7 +102,7 @@ final class EnglishInflector implements \RectorPrefix20210420\Symfony\Component\
      *
      * @see http://english-zone.com/spelling/plurals.html
      */
-    private const SINGULAR_MAP = [
+    const SINGULAR_MAP = [
         // First entry: singular suffix, reversed
         // Second entry: length of singular suffix
         // Third entry: Whether the suffix may succeed a vocal
@@ -218,7 +218,7 @@ final class EnglishInflector implements \RectorPrefix20210420\Symfony\Component\
     /**
      * A list of words which should not be inflected, reversed.
      */
-    private const UNINFLECTED = ['', 'atad', 'reed', 'kcabdeef', 'hsif', 'ofni', 'esoom', 'seires', 'peehs', 'seiceps'];
+    const UNINFLECTED = ['', 'atad', 'reed', 'kcabdeef', 'hsif', 'ofni', 'esoom', 'seires', 'peehs', 'seiceps'];
     /**
      * {@inheritdoc}
      */

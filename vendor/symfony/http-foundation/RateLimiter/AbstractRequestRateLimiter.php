@@ -39,7 +39,10 @@ abstract class AbstractRequestRateLimiter implements \RectorPrefix20210420\Symfo
         }
         return $minimalRateLimit;
     }
-    public function reset(\RectorPrefix20210420\Symfony\Component\HttpFoundation\Request $request) : void
+    /**
+     * @return void
+     */
+    public function reset(\RectorPrefix20210420\Symfony\Component\HttpFoundation\Request $request)
     {
         foreach ($this->getLimiters($request) as $limiter) {
             $limiter->reset();

@@ -67,14 +67,14 @@ abstract class Kernel implements \RectorPrefix20210420\Symfony\Component\HttpKer
     private $requestStackSize = 0;
     private $resetServices = \false;
     private static $freshCache = [];
-    public const VERSION = '5.2.6';
-    public const VERSION_ID = 50206;
-    public const MAJOR_VERSION = 5;
-    public const MINOR_VERSION = 2;
-    public const RELEASE_VERSION = 6;
-    public const EXTRA_VERSION = '';
-    public const END_OF_MAINTENANCE = '07/2021';
-    public const END_OF_LIFE = '07/2021';
+    const VERSION = '5.2.6';
+    const VERSION_ID = 50206;
+    const MAJOR_VERSION = 5;
+    const MINOR_VERSION = 2;
+    const RELEASE_VERSION = 6;
+    const EXTRA_VERSION = '';
+    const END_OF_MAINTENANCE = '07/2021';
+    const END_OF_LIFE = '07/2021';
     public function __construct(string $environment, bool $debug)
     {
         $this->environment = $environment;
@@ -115,8 +115,9 @@ abstract class Kernel implements \RectorPrefix20210420\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
+     * @param string|null $warmupDir
      */
-    public function reboot(?string $warmupDir)
+    public function reboot($warmupDir)
     {
         $this->shutdown();
         $this->warmupDir = $warmupDir;
@@ -211,7 +212,7 @@ abstract class Kernel implements \RectorPrefix20210420\Symfony\Component\HttpKer
         $bundleName = \substr($name, 1);
         $path = '';
         if (\false !== \strpos($bundleName, '/')) {
-            [$bundleName, $path] = \explode('/', $bundleName, 2);
+            list($bundleName, $path) = \explode('/', $bundleName, 2);
         }
         $bundle = $this->getBundle($bundleName);
         if (\file_exists($file = $bundle->getPath() . '/' . $path)) {

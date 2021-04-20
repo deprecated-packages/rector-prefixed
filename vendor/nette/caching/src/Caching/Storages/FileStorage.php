@@ -26,10 +26,10 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
      * delete* = try unlink, if fails (on NTFS) { lock(EX), truncate, close, unlink } else close (on ext3)
      */
     /** @internal cache file structure: meta-struct size + serialized meta-struct + data */
-    private const META_HEADER_LEN = 6, META_TIME = 'time', META_SERIALIZED = 'serialized', META_EXPIRE = 'expire', META_DELTA = 'delta', META_ITEMS = 'di', META_CALLBACKS = 'callbacks';
+    const META_HEADER_LEN = 6, META_TIME = 'time', META_SERIALIZED = 'serialized', META_EXPIRE = 'expire', META_DELTA = 'delta', META_ITEMS = 'di', META_CALLBACKS = 'callbacks';
     // array of callbacks (function, args)
     /** additional cache structure */
-    private const FILE = 'file', HANDLE = 'handle';
+    const FILE = 'file', HANDLE = 'handle';
     /** @var float  probability that the clean() routine is started */
     public static $gcProbability = 0.001;
     /** @deprecated */
@@ -88,7 +88,10 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
         // meta[handle] & meta[file] was added by readMetaAndLock()
         return \false;
     }
-    public function lock(string $key) : void
+    /**
+     * @return void
+     */
+    public function lock(string $key)
     {
         $cacheFile = $this->getCacheFile($key);
         if (!\is_dir($dir = \dirname($cacheFile))) {
@@ -102,7 +105,10 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
         $this->locks[$key] = $handle;
         \flock($handle, \LOCK_EX);
     }
-    public function write(string $key, $data, array $dp) : void
+    /**
+     * @return void
+     */
+    public function write(string $key, $data, array $dp)
     {
         $meta = [self::META_TIME => \microtime()];
         if (isset($dp[\RectorPrefix20210420\Nette\Caching\Cache::EXPIRATION])) {
@@ -165,12 +171,18 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
         } while (\false);
         $this->delete($cacheFile, $handle);
     }
-    public function remove(string $key) : void
+    /**
+     * @return void
+     */
+    public function remove(string $key)
     {
         unset($this->locks[$key]);
         $this->delete($this->getCacheFile($key));
     }
-    public function clean(array $conditions) : void
+    /**
+     * @return void
+     */
+    public function clean(array $conditions)
     {
         $all = !empty($conditions[\RectorPrefix20210420\Nette\Caching\Cache::ALL]);
         $collector = empty($conditions);
@@ -228,8 +240,9 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
     }
     /**
      * Reads cache data from disk.
+     * @return mixed[]|null
      */
-    protected function readMetaAndLock(string $file, int $lock) : ?array
+    protected function readMetaAndLock(string $file, int $lock)
     {
         $handle = @\fopen($file, 'r+b');
         // @ - file may not exist
@@ -275,8 +288,9 @@ class FileStorage implements \RectorPrefix20210420\Nette\Caching\Storage
     /**
      * Deletes and closes file.
      * @param  resource  $handle
+     * @return void
      */
-    private static function delete(string $file, $handle = null) : void
+    private static function delete(string $file, $handle = null)
     {
         if (@\unlink($file)) {
             // @ - file may not already exist

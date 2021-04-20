@@ -64,8 +64,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConst $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (\count($node->consts) > 1) {
             return null;

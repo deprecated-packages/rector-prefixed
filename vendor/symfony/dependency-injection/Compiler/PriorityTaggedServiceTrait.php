@@ -78,7 +78,7 @@ trait PriorityTaggedServiceTrait
             return $b[0] <=> $a[0] ?: $a[1] <=> $b[1];
         });
         $refs = [];
-        foreach ($services as [, , $index, $serviceId, $class]) {
+        foreach ($services as list($index, $serviceId, $class)) {
             if (!$class) {
                 $reference = new \RectorPrefix20210420\Symfony\Component\DependencyInjection\Reference($serviceId);
             } elseif ($index === $serviceId) {
@@ -102,8 +102,10 @@ class PriorityTaggedServiceUtil
 {
     /**
      * Gets the index defined by the default index method.
+     * @param string|null $indexAttribute
+     * @return string|null
      */
-    public static function getDefaultIndex(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultIndexMethod, string $tagName, ?string $indexAttribute) : ?string
+    public static function getDefaultIndex(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultIndexMethod, string $tagName, $indexAttribute)
     {
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultIndexMethod)) {
             return null;
@@ -128,8 +130,9 @@ class PriorityTaggedServiceUtil
     }
     /**
      * Gets the priority defined by the default priority method.
+     * @return int|null
      */
-    public static function getDefaultPriority(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultPriorityMethod, string $tagName) : ?int
+    public static function getDefaultPriority(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultPriorityMethod, string $tagName)
     {
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultPriorityMethod)) {
             return null;

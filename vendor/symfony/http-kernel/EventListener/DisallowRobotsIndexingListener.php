@@ -20,8 +20,11 @@ use RectorPrefix20210420\Symfony\Component\HttpKernel\KernelEvents;
  */
 class DisallowRobotsIndexingListener implements \RectorPrefix20210420\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
-    private const HEADER_NAME = 'X-Robots-Tag';
-    public function onResponse(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\ResponseEvent $event) : void
+    const HEADER_NAME = 'X-Robots-Tag';
+    /**
+     * @return void
+     */
+    public function onResponse(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->getResponse()->headers->has(static::HEADER_NAME)) {
             $event->getResponse()->headers->set(static::HEADER_NAME, 'noindex');

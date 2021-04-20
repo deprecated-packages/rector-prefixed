@@ -25,17 +25,17 @@ final class RegexDashEscapeRector extends \Rector\Core\Rector\AbstractRector
      *
      * Use {2} as detected only 2 after $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern() call
      */
-    private const THREE_BACKSLASH_FOR_ESCAPE_NEXT_REGEX = '#(?<=[^\\\\])\\\\{2}(?=[^\\\\])#';
+    const THREE_BACKSLASH_FOR_ESCAPE_NEXT_REGEX = '#(?<=[^\\\\])\\\\{2}(?=[^\\\\])#';
     /**
      * @var string
      * @see https://regex101.com/r/YgVJFp/1
      */
-    private const LEFT_HAND_UNESCAPED_DASH_REGEX = '#(\\[.*?\\\\(w|s|d))-(?!\\])#i';
+    const LEFT_HAND_UNESCAPED_DASH_REGEX = '#(\\[.*?\\\\(w|s|d))-(?!\\])#i';
     /**
      * @var string
      * @see https://regex101.com/r/TBVme9/3
      */
-    private const RIGHT_HAND_UNESCAPED_DASH_REGEX = '#(?<!\\[)-(\\\\(w|s|d)[^\\?]*?)\\]#i';
+    const RIGHT_HAND_UNESCAPED_DASH_REGEX = '#(?<!\\[)-(\\\\(w|s|d)[^\\?]*?)\\]#i';
     /**
      * @var RegexPatternArgumentManipulator
      */
@@ -63,8 +63,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $regexArguments = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($regexArguments === []) {
@@ -78,7 +79,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function escapeStringNode(\PhpParser\Node\Scalar\String_ $string) : void
+    /**
+     * @return void
+     */
+    private function escapeStringNode(\PhpParser\Node\Scalar\String_ $string)
     {
         $stringValue = $string->value;
         if (\RectorPrefix20210420\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {

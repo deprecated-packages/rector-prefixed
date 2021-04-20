@@ -47,8 +47,9 @@ CODE_SAMPLE
     }
     /**
      * @param Do_|For_|Foreach_|While_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->stmts !== []) {
             return null;

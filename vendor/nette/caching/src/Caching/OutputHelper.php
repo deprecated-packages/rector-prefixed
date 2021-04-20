@@ -28,8 +28,9 @@ class OutputHelper
     }
     /**
      * Stops and saves the cache.
+     * @return void
      */
-    public function end(array $dependencies = []) : void
+    public function end(array $dependencies = [])
     {
         if ($this->cache === null) {
             throw new \RectorPrefix20210420\Nette\InvalidStateException('Output cache has already been saved.');
@@ -39,8 +40,9 @@ class OutputHelper
     }
     /**
      * Stops and throws away the output.
+     * @return void
      */
-    public function rollback() : void
+    public function rollback()
     {
         \ob_end_flush();
         $this->cache = null;

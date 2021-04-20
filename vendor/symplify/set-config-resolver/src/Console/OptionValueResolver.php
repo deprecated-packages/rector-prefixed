@@ -8,8 +8,9 @@ final class OptionValueResolver
 {
     /**
      * @param string[] $optionNames
+     * @return string|null
      */
-    public function getOptionValue(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input, array $optionNames) : ?string
+    public function getOptionValue(\RectorPrefix20210420\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
     {
         foreach ($optionNames as $optionName) {
             if ($input->hasParameterOption($optionName, \true)) {

@@ -47,7 +47,10 @@ final class AddedFileWithNodesFactory
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
-    public function createWithDesiredGroup(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
+    /**
+     * @return \Rector\FileSystemRector\ValueObject\AddedFileWithNodes|null
+     */
+    public function createWithDesiredGroup(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName)
     {
         $fileNodes = $file->getNewStmts();
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileNodes, \PhpParser\Node\Stmt\Namespace_::class);
@@ -100,8 +103,9 @@ final class AddedFileWithNodesFactory
     }
     /**
      * @param Node[] $nodes
+     * @return void
      */
-    private function renameNamespace(array $nodes, string $newNamespaceName) : void
+    private function renameNamespace(array $nodes, string $newNamespaceName)
     {
         foreach ($nodes as $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Namespace_) {

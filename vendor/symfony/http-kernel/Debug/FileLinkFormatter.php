@@ -64,8 +64,9 @@ class FileLinkFormatter
     }
     /**
      * @internal
+     * @return string|null
      */
-    public static function generateUrlFormat(\RectorPrefix20210420\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString) : ?string
+    public static function generateUrlFormat(\RectorPrefix20210420\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, string $routeName, string $queryString)
     {
         try {
             return $router->generate($routeName) . $queryString;

@@ -21,7 +21,10 @@ final class AbstractArgument
     {
         $this->text = \trim($text, '. ');
     }
-    public function setContext(string $context) : void
+    /**
+     * @return void
+     */
+    public function setContext(string $context)
     {
         $this->context = $context . ' is abstract' . ('' === $this->text ? '' : ': ');
     }

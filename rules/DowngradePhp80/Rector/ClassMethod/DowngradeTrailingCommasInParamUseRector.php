@@ -79,8 +79,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|FuncCall|MethodCall|StaticCall|New_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\FuncCall || $node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\New_) {
             /** @var MethodCall|FuncCall|StaticCall|New_ $node */
@@ -94,8 +95,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|MethodCall|StaticCall|New_ $node
+     * @return \PhpParser\Node|null
      */
-    private function processArgs(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function processArgs(\PhpParser\Node $node)
     {
         if ($node->args === []) {
             return null;
@@ -111,8 +113,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
+     * @return \PhpParser\Node|null
      */
-    private function processParams(\PhpParser\Node $node) : ?\PhpParser\Node
+    private function processParams(\PhpParser\Node $node)
     {
         if ($node->params === []) {
             return null;

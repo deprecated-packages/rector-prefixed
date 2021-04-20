@@ -33,11 +33,17 @@ class LocaleAwareListener implements \RectorPrefix20210420\Symfony\Component\Eve
         $this->localeAwareServices = $localeAwareServices;
         $this->requestStack = $requestStack;
     }
-    public function onKernelRequest(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\RequestEvent $event) : void
+    /**
+     * @return void
+     */
+    public function onKernelRequest(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $this->setLocale($event->getRequest()->getLocale(), $event->getRequest()->getDefaultLocale());
     }
-    public function onKernelFinishRequest(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event) : void
+    /**
+     * @return void
+     */
+    public function onKernelFinishRequest(\RectorPrefix20210420\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         if (null === ($parentRequest = $this->requestStack->getParentRequest())) {
             foreach ($this->localeAwareServices as $service) {
@@ -55,7 +61,10 @@ class LocaleAwareListener implements \RectorPrefix20210420\Symfony\Component\Eve
             \RectorPrefix20210420\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', -15]],
         ];
     }
-    private function setLocale(string $locale, string $defaultLocale) : void
+    /**
+     * @return void
+     */
+    private function setLocale(string $locale, string $defaultLocale)
     {
         foreach ($this->localeAwareServices as $service) {
             try {
