@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Comparing;
 
-use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Else_;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 final class ConditionSearcher
 {
@@ -15,14 +15,18 @@ final class ConditionSearcher
         /** @var Variable $varNode */
         $varNode = $assign->var;
         // search if for redeclaration of variable
-        /** @var Node\Stmt\Expression $statementIf */
         foreach ($if->stmts as $statementIf) {
+            if (!$statementIf instanceof \PhpParser\Node\Stmt\Expression) {
+                continue;
+            }
             if (!$statementIf->expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
-            /** @var Variable $varIf */
-            $varIf = $statementIf->expr->var;
-            if ($varNode->name !== $varIf->name) {
+            $assignVar = $statementIf->expr->var;
+            if (!$assignVar instanceof \PhpParser\Node\Expr\Variable) {
+                continue;
+            }
+            if ($varNode->name !== $assignVar->name) {
                 continue;
             }
             $elseNode = $if->else;
@@ -36,7 +40,7 @@ final class ConditionSearcher
     }
     private function searchElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Else_ $else) : bool
     {
-        /** @var Node\Stmt\Expression $statementElse */
+        /** @var Expression $statementElse */
         foreach ($else->stmts as $statementElse) {
             if (!$statementElse->expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
