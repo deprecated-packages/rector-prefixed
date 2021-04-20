@@ -12,6 +12,7 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
 use RectorPrefix20210420\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ForeachAnalyzer
@@ -32,12 +33,17 @@ final class ForeachAnalyzer
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210420\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210420\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeComparator = $nodeComparator;
         $this->forAnalyzer = $forAnalyzer;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
     /**
      * Matches$
@@ -92,6 +98,24 @@ final class ForeachAnalyzer
                 return null;
             }
             return $singleValue;
+        });
+    }
+    public function isValueVarUsed(\PhpParser\Node\Stmt\Foreach_ $foreach, string $singularValueVarName) : bool
+    {
+        $isUsedInStmts = (bool) $this->betterNodeFinder->findFirst($foreach->stmts, function (\PhpParser\Node $node) use($singularValueVarName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node, $singularValueVarName);
+        });
+        if ($isUsedInStmts) {
+            return \true;
+        }
+        return (bool) $this->betterNodeFinder->findFirstNext($foreach, function (\PhpParser\Node $node) use($singularValueVarName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
+            }
+            return $this->nodeNameResolver->isName($node, $singularValueVarName);
         });
     }
 }
