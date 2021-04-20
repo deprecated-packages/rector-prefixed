@@ -9,8 +9,8 @@ use PhpParser\NodeFinder;
 use PhpParser\Parser;
 use PHPStan\Reflection\MethodReflection;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use RectorPrefix20210419\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210419\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileSystem;
 class FunctionLikeReflectionParser
 {
     /**
@@ -29,7 +29,7 @@ class FunctionLikeReflectionParser
      * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210419\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator)
+    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
@@ -48,7 +48,7 @@ class FunctionLikeReflectionParser
             return null;
         }
         $nodes = (array) $this->parser->parse($fileContent);
-        $nodes = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($nodes, new \RectorPrefix20210419\Symplify\SmartFileSystem\SmartFileInfo($fileName));
+        $nodes = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($nodes, new \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo($fileName));
         $class = $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Restoration\ClassMap;
 
-use RectorPrefix20210419\Nette\Loaders\RobotLoader;
-use RectorPrefix20210419\Nette\Utils\Arrays;
-use RectorPrefix20210419\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210420\Nette\Loaders\RobotLoader;
+use RectorPrefix20210420\Nette\Utils\Arrays;
+use RectorPrefix20210420\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 final class ExistingClassesProvider
 {
     /**
@@ -16,7 +16,7 @@ final class ExistingClassesProvider
      * @var ComposerJsonFactory
      */
     private $composerJsonFactory;
-    public function __construct(\RectorPrefix20210419\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
+    public function __construct(\RectorPrefix20210420\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory)
     {
         $this->composerJsonFactory = $composerJsonFactory;
     }
@@ -43,7 +43,7 @@ final class ExistingClassesProvider
         $composerJsonFilePath = \getcwd() . '/composer.json';
         $composerJson = $this->composerJsonFactory->createFromFilePath($composerJsonFilePath);
         $psr4AndClassmapDirectories = $composerJson->getPsr4AndClassmapDirectories();
-        return \RectorPrefix20210419\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
+        return \RectorPrefix20210420\Nette\Utils\Arrays::flatten($psr4AndClassmapDirectories);
     }
     /**
      * @param string[] $directories
@@ -51,7 +51,7 @@ final class ExistingClassesProvider
      */
     private function findClassesInDirectories(array $directories) : array
     {
-        $robotLoader = new \RectorPrefix20210419\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20210420\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/rector');
         foreach ($directories as $directory) {
             $robotLoader->addDirectory(\getcwd() . '/' . $directory);

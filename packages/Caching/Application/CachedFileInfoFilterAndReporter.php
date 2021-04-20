@@ -6,7 +6,7 @@ namespace Rector\Caching\Application;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Caching\UnchangedFilesFilter;
 use Rector\Core\Configuration\Configuration;
-use RectorPrefix20210419\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
 final class CachedFileInfoFilterAndReporter
 {
     /**

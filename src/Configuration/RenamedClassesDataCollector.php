@@ -12,9 +12,9 @@ final class RenamedClassesDataCollector
     /**
      * @param array<string, string> $oldToNewClasses
      */
-    public function setOldToNewClasses(array $oldToNewClasses) : void
+    public function addOldToNewClasses(array $oldToNewClasses) : void
     {
-        $this->oldToNewClasses = $oldToNewClasses;
+        $this->oldToNewClasses = \array_merge($this->oldToNewClasses, $oldToNewClasses);
     }
     /**
      * @return array<string, string>
