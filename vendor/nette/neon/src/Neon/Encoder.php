@@ -13,7 +13,7 @@ namespace RectorPrefix20210420\Nette\Neon;
  */
 final class Encoder
 {
-    public const BLOCK = 1;
+    const BLOCK = 1;
     /**
      * Returns the NEON representation of a value.
      */

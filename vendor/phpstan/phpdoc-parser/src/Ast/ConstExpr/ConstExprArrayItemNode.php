@@ -11,7 +11,10 @@ class ConstExprArrayItemNode implements \PHPStan\PhpDocParser\Ast\ConstExpr\Cons
     public $key;
     /** @var ConstExprNode */
     public $value;
-    public function __construct(?\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $key, \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $value)
+    /**
+     * @param \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode|null $key
+     */
+    public function __construct($key, \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $value)
     {
         $this->key = $key;
         $this->value = $value;

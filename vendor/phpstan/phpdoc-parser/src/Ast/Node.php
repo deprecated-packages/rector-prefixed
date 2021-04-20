@@ -9,8 +9,9 @@ interface Node
     /**
      * @param string $key
      * @param mixed $value
+     * @return void
      */
-    public function setAttribute(string $key, $value) : void;
+    public function setAttribute(string $key, $value);
     public function hasAttribute(string $key) : bool;
     /**
      * @param string $key

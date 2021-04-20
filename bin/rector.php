@@ -48,7 +48,10 @@ final class AutoloadIncluder
      * @var string[]
      */
     private $alreadyLoadedAutoloadFiles = [];
-    public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
+    /**
+     * @return void
+     */
+    public function includeDependencyOrRepositoryVendorAutoloadIfExists()
     {
         // Rector's vendor is already loaded
         if (\class_exists(\Rector\Core\HttpKernel\RectorKernel::class)) {
@@ -60,12 +63,16 @@ final class AutoloadIncluder
     /**
      * In case Rector is installed as vendor dependency,
      * this autoloads the project vendor/autoload.php, including Rector
+     * @return void
      */
-    public function autoloadProjectAutoloaderFile() : void
+    public function autoloadProjectAutoloaderFile()
     {
         $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../../autoload.php');
     }
-    public function autoloadFromCommandLine() : void
+    /**
+     * @return void
+     */
+    public function autoloadFromCommandLine()
     {
         $cliArgs = $_SERVER['argv'];
         $autoloadOptionPosition = \array_search('-a', $cliArgs, \true) ?: \array_search('--autoload-file', $cliArgs, \true);
@@ -79,7 +86,10 @@ final class AutoloadIncluder
         }
         $this->loadIfExistsAndNotLoadedYet($fileToAutoload);
     }
-    public function loadIfExistsAndNotLoadedYet(string $filePath) : void
+    /**
+     * @return void
+     */
+    public function loadIfExistsAndNotLoadedYet(string $filePath)
     {
         if (!\file_exists($filePath)) {
             return;

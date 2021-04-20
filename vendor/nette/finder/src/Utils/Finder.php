@@ -42,7 +42,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $masks
      * @return static
      */
-    public static function find(...$masks) : self
+    public static function find(...$masks)
     {
         $masks = $masks && \is_array($masks[0]) ? $masks[0] : $masks;
         return (new static())->select($masks, 'isDir')->select($masks, 'isFile');
@@ -52,7 +52,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $masks
      * @return static
      */
-    public static function findFiles(...$masks) : self
+    public static function findFiles(...$masks)
     {
         $masks = $masks && \is_array($masks[0]) ? $masks[0] : $masks;
         return (new static())->select($masks, 'isFile');
@@ -62,7 +62,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $masks
      * @return static
      */
-    public static function findDirectories(...$masks) : self
+    public static function findDirectories(...$masks)
     {
         $masks = $masks && \is_array($masks[0]) ? $masks[0] : $masks;
         return (new static())->select($masks, 'isDir');
@@ -71,7 +71,7 @@ class Finder implements \IteratorAggregate, \Countable
      * Creates filtering group by mask & type selector.
      * @return static
      */
-    private function select(array $masks, string $type) : self
+    private function select(array $masks, string $type)
     {
         $this->cursor =& $this->groups[];
         $pattern = self::buildPattern($masks);
@@ -85,7 +85,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $paths
      * @return static
      */
-    public function in(...$paths) : self
+    public function in(...$paths)
     {
         $this->maxDepth = 0;
         return $this->from(...$paths);
@@ -95,7 +95,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $paths
      * @return static
      */
-    public function from(...$paths) : self
+    public function from(...$paths)
     {
         if ($this->paths) {
             throw new \RectorPrefix20210420\Nette\InvalidStateException('Directory to search has already been specified.');
@@ -108,15 +108,16 @@ class Finder implements \IteratorAggregate, \Countable
      * Shows folder content prior to the folder.
      * @return static
      */
-    public function childFirst() : self
+    public function childFirst()
     {
         $this->order = \RecursiveIteratorIterator::CHILD_FIRST;
         return $this;
     }
     /**
      * Converts Finder pattern to regular expression.
+     * @return string|null
      */
-    private static function buildPattern(array $masks) : ?string
+    private static function buildPattern(array $masks)
     {
         $pattern = [];
         foreach ($masks as $mask) {
@@ -205,7 +206,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|string[]  $masks
      * @return static
      */
-    public function exclude(...$masks) : self
+    public function exclude(...$masks)
     {
         $masks = $masks && \is_array($masks[0]) ? $masks[0] : $masks;
         $pattern = self::buildPattern($masks);
@@ -221,7 +222,7 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  callable  $callback  function (RecursiveDirectoryIterator $file): bool
      * @return static
      */
-    public function filter(callable $callback) : self
+    public function filter(callable $callback)
     {
         $this->cursor[] = $callback;
         return $this;
@@ -230,7 +231,7 @@ class Finder implements \IteratorAggregate, \Countable
      * Limits recursion level.
      * @return static
      */
-    public function limitDepth(int $depth) : self
+    public function limitDepth(int $depth)
     {
         $this->maxDepth = $depth;
         return $this;
@@ -240,14 +241,14 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string  $operator  "[operator] [size] [unit]" example: >=10kB
      * @return static
      */
-    public function size(string $operator, int $size = null) : self
+    public function size(string $operator, int $size = null)
     {
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?((?:\\d*\\.)?\\d+)\\s*(K|M|G|)B?$#Di', $operator, $matches)) {
                 throw new \RectorPrefix20210420\Nette\InvalidArgumentException('Invalid size predicate format.');
             }
-            [, $operator, $size, $unit] = $matches;
+            list($operator, $size, $unit) = $matches;
             static $units = ['' => 1, 'k' => 1000.0, 'm' => 1000000.0, 'g' => 1000000000.0];
             $size *= $units[\strtolower($unit)];
             $operator = $operator ?: '=';
@@ -262,14 +263,14 @@ class Finder implements \IteratorAggregate, \Countable
      * @param  string|int|\DateTimeInterface  $date
      * @return static
      */
-    public function date(string $operator, $date = null) : self
+    public function date(string $operator, $date = null)
     {
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?(.+)$#Di', $operator, $matches)) {
                 throw new \RectorPrefix20210420\Nette\InvalidArgumentException('Invalid date predicate format.');
             }
-            [, $operator, $date] = $matches;
+            list($operator, $date) = $matches;
             $operator = $operator ?: '=';
         }
         $date = \RectorPrefix20210420\Nette\Utils\DateTime::from($date)->format('U');
@@ -307,7 +308,10 @@ class Finder implements \IteratorAggregate, \Countable
     {
         return isset(self::$extMethods[$name]) ? self::$extMethods[$name]($this, ...$args) : \RectorPrefix20210420\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name, \array_keys(self::$extMethods));
     }
-    public static function extensionMethod(string $name, callable $callback) : void
+    /**
+     * @return void
+     */
+    public static function extensionMethod(string $name, callable $callback)
     {
         self::$extMethods[$name] = $callback;
     }

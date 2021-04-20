@@ -15,7 +15,10 @@ class AssertStaticMethodTypeSpecifyingExtension implements \PHPStan\Type\StaticM
 {
     /** @var TypeSpecifier */
     private $typeSpecifier;
-    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
+    /**
+     * @return void
+     */
+    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier)
     {
         $this->typeSpecifier = $typeSpecifier;
     }

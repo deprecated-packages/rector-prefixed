@@ -15,7 +15,10 @@ class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeRes
 {
     /** @var TypeNodeResolver */
     private $typeNodeResolver;
-    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
+    /**
+     * @return void
+     */
+    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver)
     {
         $this->typeNodeResolver = $typeNodeResolver;
     }
@@ -23,7 +26,10 @@ class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeRes
     {
         return 'phpunit-v1';
     }
-    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : ?\PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope)
     {
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;

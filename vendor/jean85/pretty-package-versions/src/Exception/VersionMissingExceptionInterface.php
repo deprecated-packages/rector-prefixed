@@ -5,5 +5,8 @@ namespace RectorPrefix20210420\Jean85\Exception;
 
 interface VersionMissingExceptionInterface extends \Throwable
 {
-    public static function create(string $packageName) : self;
+    /**
+     * @return $this
+     */
+    public static function create(string $packageName);
 }

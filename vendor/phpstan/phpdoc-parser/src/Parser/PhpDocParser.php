@@ -8,7 +8,7 @@ use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 class PhpDocParser
 {
-    private const DISALLOWED_DESCRIPTION_START_TOKENS = [\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION];
+    const DISALLOWED_DESCRIPTION_START_TOKENS = [\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION];
     /** @var TypeParser */
     private $typeParser;
     /** @var ConstExprParser */

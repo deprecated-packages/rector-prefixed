@@ -10,8 +10,9 @@ trait NodeAttributes
     /**
      * @param string $key
      * @param mixed $value
+     * @return void
      */
-    public function setAttribute(string $key, $value) : void
+    public function setAttribute(string $key, $value)
     {
         $this->attributes[$key] = $value;
     }
