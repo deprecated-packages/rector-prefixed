@@ -925,7 +925,10 @@ EOTXT
         }
         return $publicServices . $privateServices;
     }
-    private function generateServiceFiles(array $services) : iterable
+    /**
+     * @return mixed[]
+     */
+    private function generateServiceFiles(array $services)
     {
         $definitions = $this->container->getDefinitions();
         \ksort($definitions);

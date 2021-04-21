@@ -20,6 +20,15 @@ final class GetSubscribedEventsClassMethodProvider
      */
     public function provide() : array
     {
-        return $this->nodeRepository->findClassMethodByTypeAndMethod('Kdyby\\Events\\Subscriber', 'getSubscribedEvents');
+        $subscriberClasses = $this->nodeRepository->findClassesAndInterfacesByType('Kdyby\\Events\\Subscriber');
+        $classMethods = [];
+        foreach ($subscriberClasses as $subscriberClass) {
+            $subscribedEventsClassMethod = $subscriberClass->getMethod('getSubscribedEvents');
+            if ($subscribedEventsClassMethod === null) {
+                continue;
+            }
+            $classMethods[] = $subscribedEventsClassMethod;
+        }
+        return $classMethods;
     }
 }

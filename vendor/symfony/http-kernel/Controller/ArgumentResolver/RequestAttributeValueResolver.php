@@ -29,8 +29,9 @@ final class RequestAttributeValueResolver implements \RectorPrefix20210421\Symfo
     }
     /**
      * {@inheritdoc}
+     * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
+    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         (yield $request->attributes->get($argument->getName()));
     }

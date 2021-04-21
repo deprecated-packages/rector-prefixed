@@ -197,7 +197,7 @@ class EventDispatcher implements \RectorPrefix20210421\Symfony\Component\EventDi
      * @param string     $eventName The name of the event to dispatch
      * @param object     $event     The event object to pass to the event handlers/listeners
      */
-    protected function callListeners(iterable $listeners, string $eventName, $event)
+    protected function callListeners($listeners, string $eventName, $event)
     {
         $stoppable = $event instanceof \RectorPrefix20210421\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {

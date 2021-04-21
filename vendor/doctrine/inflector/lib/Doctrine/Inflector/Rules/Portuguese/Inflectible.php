@@ -10,9 +10,9 @@ use RectorPrefix20210421\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getSingular() : iterable
+    public static function getSingular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/^(g|)ases$/i'), '\\1ás'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/(japon|escoc|ingl|dinamarqu|fregu|portugu)eses$/i'), '\\1ês'));
@@ -32,9 +32,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/([^ê])s$/i'), '\\1'));
     }
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getPlural() : iterable
+    public static function getPlural()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/^(alem|c|p)ao$/i'), '\\1aes'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/^(irm|m)ao$/i'), '\\1aos'));
@@ -55,9 +55,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/$/'), 's'));
     }
     /**
-     * @return Substitution[]
+     * @return mixed[]
      */
-    public static function getIrregular() : iterable
+    public static function getIrregular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('abdomen'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('abdomens')));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('alemão'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('alemães')));

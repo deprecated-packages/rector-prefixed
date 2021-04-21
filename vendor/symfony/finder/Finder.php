@@ -576,8 +576,9 @@ class Finder implements \IteratorAggregate, \Countable
      * @return $this
      *
      * @throws \InvalidArgumentException when the given argument is not iterable
+     * @param mixed[] $iterator
      */
-    public function append(iterable $iterator)
+    public function append($iterator)
     {
         if ($iterator instanceof \IteratorAggregate) {
             $this->iterators[] = $iterator->getIterator();

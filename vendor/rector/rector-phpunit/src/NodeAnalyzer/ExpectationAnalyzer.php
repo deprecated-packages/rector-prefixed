@@ -6,6 +6,7 @@ namespace Rector\PHPUnit\NodeAnalyzer;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\Expression;
@@ -60,7 +61,7 @@ final class ExpectationAnalyzer
             if (!$atValue instanceof \PhpParser\Node\Scalar\LNumber) {
                 continue;
             }
-            if (!$expects->var instanceof \PhpParser\Node\Expr\Variable) {
+            if (!($expects->var instanceof \PhpParser\Node\Expr\Variable || $expects->var instanceof \PhpParser\Node\Expr\PropertyFetch)) {
                 continue;
             }
             $expectationMockCollection->add(new \Rector\PHPUnit\ValueObject\ExpectationMock($expects->var, $method->args, $atValue->value, $this->getWill($expr), $this->getWithArgs($method->var), $stmt));
@@ -106,10 +107,10 @@ final class ExpectationAnalyzer
     }
     private function getExpects(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr
     {
-        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($expr, 'with')) {
-            return $methodCall->var;
-        }
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
+            return $methodCall;
+        }
+        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($expr, 'with')) {
             return $methodCall->var;
         }
         return $expr->var;

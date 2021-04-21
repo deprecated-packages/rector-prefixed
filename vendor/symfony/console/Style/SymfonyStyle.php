@@ -404,7 +404,10 @@ class SymfonyStyle extends \RectorPrefix20210421\Symfony\Component\Console\Style
         // We need to know if the last chars are PHP_EOL
         $this->bufferedOutput->write($message, $newLine, $type);
     }
-    private function createBlock(iterable $messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
+    /**
+     * @param mixed[] $messages
+     */
+    private function createBlock($messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
     {
         $indentLength = 0;
         $prefixLength = \RectorPrefix20210421\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);

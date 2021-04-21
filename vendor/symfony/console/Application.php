@@ -922,8 +922,9 @@ class Application implements \RectorPrefix20210421\Symfony\Contracts\Service\Res
      * if nothing is found in $collection, try in $abbrevs.
      *
      * @return string[] A sorted array of similar string
+     * @param mixed[] $collection
      */
-    private function findAlternatives(string $name, iterable $collection) : array
+    private function findAlternatives(string $name, $collection) : array
     {
         $threshold = 1000.0;
         $alternatives = [];

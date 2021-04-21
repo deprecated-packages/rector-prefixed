@@ -14,10 +14,10 @@ use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
 final class FinderSanitizer
 {
     /**
-     * @param NetteFinder|SymfonyFinder|SplFileInfo[]|SymfonySplFileInfo[]|string[] $files
+     * @param mixed[] $files
      * @return SmartFileInfo[]
      */
-    public function sanitize(iterable $files) : array
+    public function sanitize($files) : array
     {
         $smartFileInfos = [];
         foreach ($files as $file) {

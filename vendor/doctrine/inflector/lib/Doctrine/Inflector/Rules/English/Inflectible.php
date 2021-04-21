@@ -10,9 +10,9 @@ use RectorPrefix20210421\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getSingular() : iterable
+    public static function getSingular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('(s)tatuses$'), 'RectorPrefix20210421\\1\\2tatus'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('(s)tatus$'), 'RectorPrefix20210421\\1\\2tatus'));
@@ -57,9 +57,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('s$'), ''));
     }
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getPlural() : iterable
+    public static function getPlural()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('(s)tatus$'), 'RectorPrefix20210421\\1\\2tatuses'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('(quiz)$'), '\\1zes'));
@@ -88,9 +88,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('$'), 's'));
     }
     /**
-     * @return Substitution[]
+     * @return mixed[]
      */
-    public static function getIrregular() : iterable
+    public static function getIrregular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('atlas'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('atlases')));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('axe'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('axes')));

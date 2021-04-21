@@ -621,9 +621,9 @@ class ErrorHandler
     /**
      * Override this method if you want to define more error enhancers.
      *
-     * @return ErrorEnhancerInterface[]
+     * @return mixed[]
      */
-    protected function getErrorEnhancers() : iterable
+    protected function getErrorEnhancers()
     {
         return [new \RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer(), new \RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer(), new \RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer()];
     }

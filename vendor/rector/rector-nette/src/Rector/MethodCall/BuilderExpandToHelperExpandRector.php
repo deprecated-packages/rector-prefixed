@@ -60,7 +60,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('Nette\\DI\\ContainerBuilder'), 'expand')) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\DI\\ContainerBuilder'))) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'expand')) {
             return null;
         }
         $args = $node->args;

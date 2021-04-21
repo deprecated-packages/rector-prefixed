@@ -28,7 +28,7 @@ class LocaleAwareListener implements \RectorPrefix20210421\Symfony\Component\Eve
     /**
      * @param LocaleAwareInterface[] $localeAwareServices
      */
-    public function __construct(iterable $localeAwareServices, \RectorPrefix20210421\Symfony\Component\HttpFoundation\RequestStack $requestStack)
+    public function __construct($localeAwareServices, \RectorPrefix20210421\Symfony\Component\HttpFoundation\RequestStack $requestStack)
     {
         $this->localeAwareServices = $localeAwareServices;
         $this->requestStack = $requestStack;

@@ -127,7 +127,10 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
-        if (!$this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), 'getComponent')) {
+        if (!$this->isObjectType($expr->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'))) {
+            return $this->isArrayDimFetchStringOnControlVariable($expr);
+        }
+        if (!$this->isName($expr->name, 'getComponent')) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
         return \true;

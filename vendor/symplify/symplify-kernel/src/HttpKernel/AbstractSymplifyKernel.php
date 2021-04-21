@@ -25,9 +25,9 @@ abstract class AbstractSymplifyKernel extends \RectorPrefix20210421\Symfony\Comp
         return \sys_get_temp_dir() . '/' . $this->getUniqueKernelHash() . '_log';
     }
     /**
-     * @return BundleInterface[]
+     * @return mixed[]
      */
-    public function registerBundles() : iterable
+    public function registerBundles()
     {
         return [new \RectorPrefix20210421\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }

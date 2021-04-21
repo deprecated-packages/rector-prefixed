@@ -10,9 +10,9 @@ use RectorPrefix20210421\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getSingular() : iterable
+    public static function getSingular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/ereses$/'), 'erés'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/iones$/'), 'ión'));
@@ -21,9 +21,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/s$/'), ''));
     }
     /**
-     * @return Transformation[]
+     * @return mixed[]
      */
-    public static function getPlural() : iterable
+    public static function getPlural()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/ú([sn])$/i'), 'RectorPrefix20210421\\u\\1es'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/ó([sn])$/i'), 'RectorPrefix20210421\\o\\1es'));
@@ -36,9 +36,9 @@ class Inflectible
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('/$/'), 's'));
     }
     /**
-     * @return Substitution[]
+     * @return mixed[]
      */
-    public static function getIrregular() : iterable
+    public static function getIrregular()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('el'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('los')));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('papá'), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Word('papás')));

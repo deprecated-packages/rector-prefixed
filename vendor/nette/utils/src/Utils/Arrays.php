@@ -259,8 +259,9 @@ class Arrays
     /**
      * Tests whether at least one element in the array passes the test implemented by the
      * provided callback with signature `function ($value, $key, array $array): bool`.
+     * @param mixed[] $array
      */
-    public static function some(iterable $array, callable $callback) : bool
+    public static function some($array, callable $callback) : bool
     {
         foreach ($array as $k => $v) {
             if ($callback($v, $k, $array)) {
@@ -272,8 +273,9 @@ class Arrays
     /**
      * Tests whether all elements in the array pass the test implemented by the provided function,
      * which has the signature `function ($value, $key, array $array): bool`.
+     * @param mixed[] $array
      */
-    public static function every(iterable $array, callable $callback) : bool
+    public static function every($array, callable $callback) : bool
     {
         foreach ($array as $k => $v) {
             if (!$callback($v, $k, $array)) {
@@ -285,8 +287,9 @@ class Arrays
     /**
      * Calls $callback on all elements in the array and returns the array of return values.
      * The callback has the signature `function ($value, $key, array $array): bool`.
+     * @param mixed[] $array
      */
-    public static function map(iterable $array, callable $callback) : array
+    public static function map($array, callable $callback) : array
     {
         $res = [];
         foreach ($array as $k => $v) {
@@ -298,7 +301,7 @@ class Arrays
      * Invokes all callbacks and returns array of results.
      * @param  callable[]  $callbacks
      */
-    public static function invoke(iterable $callbacks, ...$args) : array
+    public static function invoke($callbacks, ...$args) : array
     {
         $res = [];
         foreach ($callbacks as $k => $cb) {
@@ -310,7 +313,7 @@ class Arrays
      * Invokes method on every object in an array and returns array of results.
      * @param  object[]  $objects
      */
-    public static function invokeMethod(iterable $objects, string $method, ...$args) : array
+    public static function invokeMethod($objects, string $method, ...$args) : array
     {
         $res = [];
         foreach ($objects as $k => $obj) {
@@ -322,8 +325,9 @@ class Arrays
      * Copies the elements of the $array array to the $object object and then returns it.
      * @param  object  $object
      * @return object
+     * @param mixed[] $array
      */
-    public static function toObject(iterable $array, $object)
+    public static function toObject($array, $object)
     {
         foreach ($array as $k => $v) {
             $object->{$k} = $v;

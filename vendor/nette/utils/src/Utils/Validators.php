@@ -152,7 +152,7 @@ class Validators
      * Finds whether all values are of expected types separated by pipe.
      * @param  mixed[]  $values
      */
-    public static function everyIs(iterable $values, string $expected) : bool
+    public static function everyIs($values, string $expected) : bool
     {
         foreach ($values as $value) {
             if (!static::is($value, $expected)) {

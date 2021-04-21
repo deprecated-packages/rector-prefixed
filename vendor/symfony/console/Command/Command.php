@@ -488,7 +488,7 @@ class Command
      *
      * @throws InvalidArgumentException When an alias is invalid
      */
-    public function setAliases(iterable $aliases)
+    public function setAliases($aliases)
     {
         foreach ($aliases as $alias) {
             $this->validateName($alias);

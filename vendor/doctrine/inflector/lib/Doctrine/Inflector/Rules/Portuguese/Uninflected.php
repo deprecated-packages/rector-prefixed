@@ -7,23 +7,23 @@ use RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    public static function getSingular() : iterable
+    public static function getSingular()
     {
         yield from self::getDefault();
     }
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    public static function getPlural() : iterable
+    public static function getPlural()
     {
         yield from self::getDefault();
     }
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    private static function getDefault() : iterable
+    private static function getDefault()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('tórax'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('tênis'));

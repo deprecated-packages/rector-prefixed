@@ -644,8 +644,9 @@ class Table
     }
     /**
      * Calculates columns widths.
+     * @param mixed[] $rows
      */
-    private function calculateColumnsWidth(iterable $rows)
+    private function calculateColumnsWidth($rows)
     {
         for ($column = 0; $column < $this->numberOfColumns; ++$column) {
             $lengths = [];

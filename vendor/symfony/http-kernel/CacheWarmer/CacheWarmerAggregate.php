@@ -24,7 +24,10 @@ class CacheWarmerAggregate implements \RectorPrefix20210421\Symfony\Component\Ht
     private $deprecationLogsFilepath;
     private $optionalsEnabled = \false;
     private $onlyOptionalsEnabled = \false;
-    public function __construct(iterable $warmers = [], bool $debug = \false, string $deprecationLogsFilepath = null)
+    /**
+     * @param mixed[] $warmers
+     */
+    public function __construct($warmers = [], bool $debug = \false, string $deprecationLogsFilepath = null)
     {
         $this->warmers = $warmers;
         $this->debug = $debug;

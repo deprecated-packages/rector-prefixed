@@ -41,8 +41,9 @@ final class TraceableValueResolver implements \RectorPrefix20210421\Symfony\Comp
     }
     /**
      * {@inheritdoc}
+     * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
+    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         $method = \get_class($this->inner) . '::' . __FUNCTION__;
         $this->stopwatch->start($method, 'controller.argument_value_resolver');

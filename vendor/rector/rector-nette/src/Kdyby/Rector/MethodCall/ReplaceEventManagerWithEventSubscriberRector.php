@@ -12,15 +12,12 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\Nette\Kdyby\Naming\EventClassNaming;
 use Rector\Nette\Kdyby\NodeFactory\EventValueObjectClassFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Nette\Tests\Kdyby\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\ReplaceEventManagerWithEventSubscriberRectorTest
  */
@@ -114,10 +111,7 @@ CODE_SAMPLE
         $node->args[] = new \PhpParser\Node\Arg($new);
         // 3. create new event class with args
         $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, $args);
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
+        $fileInfo = $this->file->getSmartFileInfo();
         $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromClassNameAndFileInfo($eventClassName, $fileInfo);
         $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($eventFileLocation, [$eventClassInNamespace]);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);

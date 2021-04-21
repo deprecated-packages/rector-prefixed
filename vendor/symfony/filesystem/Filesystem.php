@@ -596,7 +596,10 @@ class Filesystem
             throw new \RectorPrefix20210421\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s".', $filename), 0, null, $filename);
         }
     }
-    private function toIterable($files) : iterable
+    /**
+     * @return mixed[]
+     */
+    private function toIterable($files)
     {
         return \is_array($files) || $files instanceof \Traversable ? $files : [$files];
     }

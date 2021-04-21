@@ -65,7 +65,10 @@ CODE_SAMPLE
     {
         // 1. chain call
         if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
-            if (!$this->isOnClassMethodCall($node->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'), 'addDatePicker')) {
+            if (!$this->isObjectType($node->var->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'))) {
+                return null;
+            }
+            if (!$this->isName($node->var->name, 'addDatePicker')) {
                 return null;
             }
             $assign = $this->createAssign($node->var);
@@ -80,7 +83,10 @@ CODE_SAMPLE
             return $node;
         }
         // 2. assign call
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'), 'addDatePicker')) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'))) {
+            return null;
+        }
+        if (!$this->isName($node->name, 'addDatePicker')) {
             return null;
         }
         return $this->createAssign($node);

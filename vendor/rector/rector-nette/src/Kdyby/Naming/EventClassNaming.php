@@ -5,7 +5,9 @@ namespace Rector\Nette\Kdyby\Naming;
 
 use RectorPrefix20210421\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\Scope;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
@@ -41,9 +43,12 @@ final class EventClassNaming
     public function resolveEventFileLocationFromMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $shortEventClassName = $this->getShortEventClassName($methodCall);
-        /** @var SmartFileInfo $fileInfo */
-        $fileInfo = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        return $fileInfo->getPath() . \DIRECTORY_SEPARATOR . self::EVENT . \DIRECTORY_SEPARATOR . $shortEventClassName . '.php';
+        $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $directory = \dirname($scope->getFile());
+        return $directory . \DIRECTORY_SEPARATOR . self::EVENT . \DIRECTORY_SEPARATOR . $shortEventClassName . '.php';
     }
     public function resolveEventFileLocationFromClassNameAndFileInfo(string $className, \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {

@@ -48,8 +48,9 @@ final class ServiceValueResolver implements \RectorPrefix20210421\Symfony\Compon
     }
     /**
      * {@inheritdoc}
+     * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
+    public function resolve(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];

@@ -76,7 +76,10 @@ class DumpServer
     {
         return $this->host;
     }
-    private function getMessages() : iterable
+    /**
+     * @return mixed[]
+     */
+    private function getMessages()
     {
         $sockets = [(int) $this->socket => $this->socket];
         $write = [];

@@ -7,9 +7,9 @@ use RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    public static function getSingular() : iterable
+    public static function getSingular()
     {
         yield from self::getDefault();
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('.*ss'));
@@ -27,9 +27,9 @@ final class Uninflected
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('utopia'));
     }
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    public static function getPlural() : iterable
+    public static function getPlural()
     {
         yield from self::getDefault();
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('people'));
@@ -38,9 +38,9 @@ final class Uninflected
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('media'));
     }
     /**
-     * @return Pattern[]
+     * @return mixed[]
      */
-    private static function getDefault() : iterable
+    private static function getDefault()
     {
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('\\w+media'));
         (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('advice'));

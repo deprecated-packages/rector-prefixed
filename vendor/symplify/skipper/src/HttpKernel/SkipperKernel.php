@@ -19,9 +19,9 @@ final class SkipperKernel extends \RectorPrefix20210421\Symplify\SymplifyKernel\
         parent::registerContainerConfiguration($loader);
     }
     /**
-     * @return BundleInterface[]
+     * @return mixed[]
      */
-    public function registerBundles() : iterable
+    public function registerBundles()
     {
         return [new \RectorPrefix20210421\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210421\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
