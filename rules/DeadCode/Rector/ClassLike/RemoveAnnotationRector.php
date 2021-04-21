@@ -15,7 +15,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210420\Webmozart\Assert\Assert;
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\DeadCode\Rector\ClassLike\RemoveAnnotationRector\RemoveAnnotationRectorTest
  */
@@ -90,7 +90,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $annotationsToRemove = $configuration[self::ANNOTATIONS_TO_REMOVE] ?? [];
-        \RectorPrefix20210420\Webmozart\Assert\Assert::allString($annotationsToRemove);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allString($annotationsToRemove);
         $this->annotationsToRemove = $annotationsToRemove;
     }
 }

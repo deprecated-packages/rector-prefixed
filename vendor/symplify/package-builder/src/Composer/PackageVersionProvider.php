@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210420\Symplify\PackageBuilder\Composer;
+namespace RectorPrefix20210421\Symplify\PackageBuilder\Composer;
 
-use RectorPrefix20210420\Jean85\Exception\ReplacedPackageException;
-use RectorPrefix20210420\Jean85\PrettyVersions;
-use RectorPrefix20210420\Jean85\Version;
+use RectorPrefix20210421\Jean85\Exception\ReplacedPackageException;
+use RectorPrefix20210421\Jean85\PrettyVersions;
+use RectorPrefix20210421\Jean85\Version;
 use OutOfBoundsException;
-use RectorPrefix20210420\PharIo\Version\InvalidVersionException;
+use RectorPrefix20210421\PharIo\Version\InvalidVersionException;
 final class PackageVersionProvider
 {
     /**
@@ -20,7 +20,7 @@ final class PackageVersionProvider
             return $version->getPrettyVersion();
         } catch (\OutOfBoundsException $exceptoin) {
             return 'Unknown';
-        } catch (\RectorPrefix20210420\PharIo\Version\InvalidVersionException $exceptoin) {
+        } catch (\RectorPrefix20210421\PharIo\Version\InvalidVersionException $exceptoin) {
             return 'Unknown';
         }
     }
@@ -30,14 +30,14 @@ final class PackageVersionProvider
      * @see https://github.com/symplify/symplify/pull/2901#issuecomment-771536136
      * @see https://github.com/Jean85/pretty-package-versions/pull/16#issuecomment-620550459
      */
-    private function getVersion(string $packageName, string $replacingPackageName) : \RectorPrefix20210420\Jean85\Version
+    private function getVersion(string $packageName, string $replacingPackageName) : \RectorPrefix20210421\Jean85\Version
     {
         try {
-            return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($packageName);
+            return \RectorPrefix20210421\Jean85\PrettyVersions::getVersion($packageName);
         } catch (\OutOfBoundsException $exception) {
-            return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($replacingPackageName);
-        } catch (\RectorPrefix20210420\Jean85\Exception\ReplacedPackageException $exception) {
-            return \RectorPrefix20210420\Jean85\PrettyVersions::getVersion($replacingPackageName);
+            return \RectorPrefix20210421\Jean85\PrettyVersions::getVersion($replacingPackageName);
+        } catch (\RectorPrefix20210421\Jean85\Exception\ReplacedPackageException $exception) {
+            return \RectorPrefix20210421\Jean85\PrettyVersions::getVersion($replacingPackageName);
         }
     }
 }

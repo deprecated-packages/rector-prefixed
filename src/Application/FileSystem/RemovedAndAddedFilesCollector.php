@@ -6,7 +6,7 @@ namespace Rector\Core\Application\FileSystem;
 use Rector\FileSystemRector\Contract\AddedFileInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
-use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemovedAndAddedFilesCollector
 {
     /**
@@ -20,7 +20,7 @@ final class RemovedAndAddedFilesCollector
     /**
      * @return void
      */
-    public function removeFile(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function removeFile(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $this->removedFileInfos[] = $smartFileInfo;
     }
@@ -31,7 +31,7 @@ final class RemovedAndAddedFilesCollector
     {
         return $this->removedFileInfos;
     }
-    public function isFileRemoved(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function isFileRemoved(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->removedFileInfos as $removedFileInfo) {
             if ($removedFileInfo->getPathname() !== $smartFileInfo->getPathname()) {

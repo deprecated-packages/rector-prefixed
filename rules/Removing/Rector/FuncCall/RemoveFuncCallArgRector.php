@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Removing\ValueObject\RemoveFuncCallArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210420\Webmozart\Assert\Assert;
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Removing\Rector\FuncCall\RemoveFuncCallArgRector\RemoveFuncCallArgRectorTest
  */
@@ -70,7 +70,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $removedFunctionArguments = $configuration[self::REMOVED_FUNCTION_ARGUMENTS] ?? [];
-        \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Removing\ValueObject\RemoveFuncCallArg::class);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Removing\ValueObject\RemoveFuncCallArg::class);
         $this->removedFunctionArguments = $removedFunctionArguments;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210420\Symplify\EasyTesting\ValueObject;
+namespace RectorPrefix20210421\Symplify\EasyTesting\ValueObject;
 
-use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210420\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210421\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ExpectedAndOutputFileInfoPair
 {
     /**
@@ -18,7 +18,7 @@ final class ExpectedAndOutputFileInfoPair
     /**
      * @param \Symplify\SmartFileSystem\SmartFileInfo|null $outputFileInfo
      */
-    public function __construct(\RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, $outputFileInfo)
+    public function __construct(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, $outputFileInfo)
     {
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;
@@ -35,8 +35,8 @@ final class ExpectedAndOutputFileInfoPair
      */
     public function getOutputFileContent() : string
     {
-        if (!$this->outputFileInfo instanceof \RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \RectorPrefix20210420\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (!$this->outputFileInfo instanceof \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo) {
+            throw new \RectorPrefix20210421\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->outputFileInfo->getContents();
     }

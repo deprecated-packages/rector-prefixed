@@ -13,7 +13,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\MethodCallToReturn;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210420\Webmozart\Assert\Assert;
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\Expression\MethodCallToReturnRector\MethodCallToReturnRectorTest
  */
@@ -84,7 +84,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];
-        \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
         $this->methodCallWraps = $methodCallWraps;
     }
     /**

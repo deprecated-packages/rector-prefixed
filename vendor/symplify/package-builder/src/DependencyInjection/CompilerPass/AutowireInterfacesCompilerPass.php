@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210420\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace RectorPrefix20210421\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \RectorPrefix20210420\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]
@@ -21,7 +21,7 @@ final class AutowireInterfacesCompilerPass implements \RectorPrefix20210420\Symf
     /**
      * @return void
      */
-    public function process(\RectorPrefix20210420\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

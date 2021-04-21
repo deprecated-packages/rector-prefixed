@@ -18,7 +18,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\GetAndSetToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210420\Webmozart\Assert\Assert;
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\Assign\GetAndSetToMethodCallRector\GetAndSetToMethodCallRectorTest
  */
@@ -85,7 +85,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $getAndSetToMethodCalls = $configuration[self::TYPE_TO_METHOD_CALLS] ?? [];
-        \RectorPrefix20210420\Webmozart\Assert\Assert::allIsAOf($getAndSetToMethodCalls, \Rector\Transform\ValueObject\GetAndSetToMethodCall::class);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsAOf($getAndSetToMethodCalls, \Rector\Transform\ValueObject\GetAndSetToMethodCall::class);
         $this->getAndSetToMethodCalls = $getAndSetToMethodCalls;
     }
     /**

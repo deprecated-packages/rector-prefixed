@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210420\Symfony\Component\HttpKernel\Event;
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
-use RectorPrefix20210420\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of a controller callable.
  *
@@ -23,13 +23,13 @@ use RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ControllerEvent extends \RectorPrefix20210420\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
     /**
      * @param int|null $requestType
      */
-    public function __construct(\RectorPrefix20210420\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \RectorPrefix20210420\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setController($controller);

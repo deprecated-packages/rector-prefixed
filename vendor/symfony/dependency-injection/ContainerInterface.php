@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210420\Symfony\Component\DependencyInjection;
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection;
 
-use RectorPrefix20210420\Psr\Container\ContainerInterface as PsrContainerInterface;
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use RectorPrefix20210421\Psr\Container\ContainerInterface as PsrContainerInterface;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * ContainerInterface is the interface implemented by service container classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-interface ContainerInterface extends \RectorPrefix20210420\Psr\Container\ContainerInterface
+interface ContainerInterface extends \RectorPrefix20210421\Psr\Container\ContainerInterface
 {
     const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
     const EXCEPTION_ON_INVALID_REFERENCE = 1;

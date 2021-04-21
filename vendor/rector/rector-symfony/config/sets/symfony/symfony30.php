@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210420;
+namespace RectorPrefix20210421;
 
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
@@ -18,9 +18,9 @@ use Rector\Symfony\Rector\MethodCall\FormTypeInstanceToClassConstRector;
 use Rector\Symfony\Rector\MethodCall\OptionNameRector;
 use Rector\Symfony\Rector\MethodCall\ReadOnlyOptionToAttributeRector;
 use Rector\Symfony\Rector\MethodCall\StringFormTypeToClassRector;
-use RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210420\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     # resources:
     # - https://github.com/symfony/symfony/blob/3.4/UPGRADE-3.0.md

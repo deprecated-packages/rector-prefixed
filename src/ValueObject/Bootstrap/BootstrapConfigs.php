@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObject\Bootstrap;
 
-use RectorPrefix20210420\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**

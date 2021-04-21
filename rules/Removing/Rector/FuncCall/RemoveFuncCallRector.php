@@ -11,7 +11,7 @@ use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\Removing\ValueObject\RemoveFuncCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210420\Webmozart\Assert\Assert;
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Removing\Rector\FuncCall\RemoveFuncCallRector\RemoveFuncCallRectorTest
  */
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $removeFuncCalls = $configuration[self::REMOVE_FUNC_CALLS] ?? [];
-        \RectorPrefix20210420\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
         $this->removeFuncCalls = $removeFuncCalls;
     }
     /**

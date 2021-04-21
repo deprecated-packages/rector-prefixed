@@ -39,12 +39,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210420\\Jean85\\": "src\/"
+            "RectorPrefix20210421\\Jean85\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210420\\Tests\\": "tests"
+            "RectorPrefix20210421\\Tests\\": "tests"
         }
     }
 }
