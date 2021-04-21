@@ -1,53 +1,43 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Set;
 
 use Rector\Set\Contract\SetListInterface;
-
-final class DoctrineSetList implements SetListInterface
+final class DoctrineSetList implements \Rector\Set\Contract\SetListInterface
 {
     /**
      * @var string
      */
     const DOCTRINE_25 = __DIR__ . '/../../config/sets/doctrine25.php';
-
     /**
      * @var string
      */
     const DOCTRINE_BEHAVIORS_20 = __DIR__ . '/../../config/sets/doctrine-behaviors-20.php';
-
     /**
      * @var string
      */
     const DOCTRINE_CODE_QUALITY = __DIR__ . '/../../config/sets/doctrine-code-quality.php';
-
     /**
      * @var string
      */
     const DOCTRINE_COMMON_20 = __DIR__ . '/../../config/sets/doctrine-common-20.php';
-
     /**
      * @var string
      */
     const DOCTRINE_DBAL_210 = __DIR__ . '/../../config/sets/doctrine-dbal-210.php';
-
     /**
      * @var string
      */
     const DOCTRINE_DBAL_211 = __DIR__ . '/../../config/sets/doctrine-dbal-211.php';
-
     /**
      * @var string
      */
     const DOCTRINE_DBAL_30 = __DIR__ . '/../../config/sets/doctrine-dbal-30.php';
-
     /**
      * @var string
      */
     const DOCTRINE_GEDMO_TO_KNPLABS = __DIR__ . '/../../config/sets/doctrine-gedmo-to-knplabs.php';
-
     /**
      * @var string
      */

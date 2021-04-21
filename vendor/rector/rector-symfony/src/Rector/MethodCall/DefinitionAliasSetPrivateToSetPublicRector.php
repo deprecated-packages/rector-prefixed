@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -12,33 +11,23 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#dependencyinjection
  * @see \Rector\Symfony\Tests\Rector\MethodCall\DefinitionAliasSetPrivateToSetPublicRector\DefinitionAliasSetPrivateToSetPublicRectorTest
  */
-final class DefinitionAliasSetPrivateToSetPublicRector extends AbstractRector
+final class DefinitionAliasSetPrivateToSetPublicRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ObjectType[]
      */
     private $definitionObjectTypes = [];
-
     public function __construct()
     {
-        $this->definitionObjectTypes = [
-            new ObjectType('Symfony\Component\DependencyInjection\Alias'),
-            new ObjectType('Symfony\Component\DependencyInjection\Definition'),
-        ];
+        $this->definitionObjectTypes = [new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\Alias'), new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\Definition')];
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Migrates from deprecated Definition/Alias->setPrivate() to Definition/Alias->setPublic()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrates from deprecated Definition/Alias->setPrivate() to Definition/Alias->setPublic()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -54,8 +43,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -71,46 +59,36 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->nodeTypeResolver->isObjectTypes($node->var, $this->definitionObjectTypes)) {
+        if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->definitionObjectTypes)) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'setPrivate')) {
+        if (!$this->isName($node->name, 'setPrivate')) {
             return null;
         }
-
         $argValue = $node->args[0]->value;
-        $argValue = $argValue instanceof ConstFetch
-            ? $this->createNegationConsFetch($argValue)
-            : new BooleanNot($argValue);
-
+        $argValue = $argValue instanceof \PhpParser\Node\Expr\ConstFetch ? $this->createNegationConsFetch($argValue) : new \PhpParser\Node\Expr\BooleanNot($argValue);
         return $this->nodeFactory->createMethodCall($node->var, 'setPublic', [$argValue]);
     }
-
-    private function createNegationConsFetch(ConstFetch $constFetch): ConstFetch
+    private function createNegationConsFetch(\PhpParser\Node\Expr\ConstFetch $constFetch) : \PhpParser\Node\Expr\ConstFetch
     {
         if ($this->valueResolver->isFalse($constFetch)) {
             return $this->nodeFactory->createTrue();
         }
-
         return $this->nodeFactory->createFalse();
     }
 }

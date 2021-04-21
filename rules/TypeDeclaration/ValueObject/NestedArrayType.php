@@ -1,51 +1,43 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\TypeDeclaration\ValueObject;
 
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-
 final class NestedArrayType
 {
     /**
      * @var int
      */
     private $arrayNestingLevel;
-
     /**
      * @var Type
      */
     private $type;
-
     /**
      * @var Type|null
      */
     private $keyType;
-
     /**
      * @param \PHPStan\Type\Type|null $keyType
      */
-    public function __construct(Type $valueType, int $arrayNestingLevel, $keyType = null)
+    public function __construct(\PHPStan\Type\Type $valueType, int $arrayNestingLevel, $keyType = null)
     {
         $this->type = $valueType;
         $this->arrayNestingLevel = $arrayNestingLevel;
         $this->keyType = $keyType;
     }
-
-    public function getType(): Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
-
-    public function getArrayNestingLevel(): int
+    public function getArrayNestingLevel() : int
     {
         return $this->arrayNestingLevel;
     }
-
-    public function getKeyType(): Type
+    public function getKeyType() : \PHPStan\Type\Type
     {
-        return $this->keyType ?: new MixedType();
+        return $this->keyType ?: new \PHPStan\Type\MixedType();
     }
 }

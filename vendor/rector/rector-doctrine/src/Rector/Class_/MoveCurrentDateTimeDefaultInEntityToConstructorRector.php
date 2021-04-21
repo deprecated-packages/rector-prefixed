@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
 use PhpParser\Node;
@@ -16,46 +15,34 @@ use Rector\Doctrine\NodeFactory\ValueAssignFactory;
 use Rector\Doctrine\NodeManipulator\ConstructorManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://stackoverflow.com/a/7698687/1348344
  *
  * @see \Rector\Doctrine\Tests\Rector\Class_\MoveCurrentDateTimeDefaultInEntityToConstructorRector\MoveCurrentDateTimeDefaultInEntityToConstructorRectorTest
  */
-final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends AbstractRector
+final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ConstructorManipulator
      */
     private $constructorManipulator;
-
     /**
      * @var ValueAssignFactory
      */
     private $valueAssignFactory;
-
     /**
      * @var ConstructorAssignPropertyAnalyzer
      */
     private $constructorAssignPropertyAnalyzer;
-
-    public function __construct(
-        ConstructorManipulator $constructorManipulator,
-        ValueAssignFactory $valueAssignFactory,
-        ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer
-    ) {
+    public function __construct(\Rector\Doctrine\NodeManipulator\ConstructorManipulator $constructorManipulator, \Rector\Doctrine\NodeFactory\ValueAssignFactory $valueAssignFactory, \Rector\Doctrine\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
+    {
         $this->constructorManipulator = $constructorManipulator;
         $this->valueAssignFactory = $valueAssignFactory;
         $this->constructorAssignPropertyAnalyzer = $constructorAssignPropertyAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Move default value for entity property to constructor, the safest place',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move default value for entity property to constructor, the safest place', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,9 +58,7 @@ class User
     private $when = 'now()';
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -94,91 +79,73 @@ class User
     }
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($node->getProperties() as $property) {
             $this->refactorProperty($property, $node);
         }
-
         return $node;
     }
-
     /**
      * @return \PhpParser\Node\Stmt\Property|null
      */
-    private function refactorProperty(Property $property, Class_ $class)
+    private function refactorProperty(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\ORM\Mapping\Column');
-        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-
         $type = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
         if ($type !== 'datetime') {
             return null;
         }
-
         $constructorAssign = $this->constructorAssignPropertyAnalyzer->resolveConstructorAssign($property);
-
         // 0. already has default
         if ($constructorAssign !== null) {
             return null;
         }
-
         // 1. remove default options from database level
         $options = $doctrineAnnotationTagValueNode->getValue('options');
-        if ($options instanceof CurlyListNode) {
+        if ($options instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode) {
             $options->removeValue('default');
-
             // if empty, remove it completely
             if ($options->getValues() === []) {
                 $doctrineAnnotationTagValueNode->removeValue('options');
             }
         }
-
         $phpDocInfo->markAsChanged();
-
         $this->refactorClass($class, $property);
-
         // 3. remove default from property
         $onlyProperty = $property->props[0];
         $onlyProperty->default = null;
-
         return $property;
     }
-
     /**
      * @return void
      */
-    private function refactorClass(Class_ $class, Property $property)
+    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property)
     {
         /** @var string $propertyName */
         $propertyName = $this->getName($property);
         $onlyProperty = $property->props[0];
-
         $defaultExpr = $onlyProperty->default;
-        if (! $defaultExpr instanceof Expr) {
+        if (!$defaultExpr instanceof \PhpParser\Node\Expr) {
             return;
         }
-
         $expression = $this->valueAssignFactory->createDefaultDateTimeWithValueAssign($propertyName, $defaultExpr);
         $this->constructorManipulator->addStmtToConstructor($class, $expression);
     }

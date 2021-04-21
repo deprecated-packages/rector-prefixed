@@ -8,21 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpFoundation;
 
-namespace Symfony\Component\HttpFoundation;
-
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * FileBag is a container for uploaded files.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bulat Shakirzyanov <mallluhuct@gmail.com>
  */
-class FileBag extends ParameterBag
+class FileBag extends \RectorPrefix20210421\Symfony\Component\HttpFoundation\ParameterBag
 {
     const FILE_KEYS = ['error', 'name', 'size', 'tmp_name', 'type'];
-
     /**
      * @param array|UploadedFile[] $parameters An array of HTTP files
      */
@@ -30,7 +27,6 @@ class FileBag extends ParameterBag
     {
         $this->replace($parameters);
     }
-
     /**
      * {@inheritdoc}
      */
@@ -39,19 +35,16 @@ class FileBag extends ParameterBag
         $this->parameters = [];
         $this->add($files);
     }
-
     /**
      * {@inheritdoc}
      */
     public function set(string $key, $value)
     {
-        if (!\is_array($value) && !$value instanceof UploadedFile) {
+        if (!\is_array($value) && !$value instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile) {
             throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
         }
-
         parent::set($key, $this->convertFileInformation($value));
     }
-
     /**
      * {@inheritdoc}
      */
@@ -61,7 +54,6 @@ class FileBag extends ParameterBag
             $this->set($key, $file);
         }
     }
-
     /**
      * Converts uploaded files to UploadedFile instances.
      *
@@ -71,32 +63,28 @@ class FileBag extends ParameterBag
      */
     protected function convertFileInformation($file)
     {
-        if ($file instanceof UploadedFile) {
+        if ($file instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile) {
             return $file;
         }
-
         if (\is_array($file)) {
             $file = $this->fixPhpFilesArray($file);
-            $keys = array_keys($file);
-            sort($keys);
-
+            $keys = \array_keys($file);
+            \sort($keys);
             if (self::FILE_KEYS == $keys) {
                 if (\UPLOAD_ERR_NO_FILE == $file['error']) {
                     $file = null;
                 } else {
-                    $file = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], false);
+                    $file = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['error'], \false);
                 }
             } else {
-                $file = array_map([$this, 'convertFileInformation'], $file);
-                if (array_keys($keys) === $keys) {
-                    $file = array_filter($file);
+                $file = \array_map([$this, 'convertFileInformation'], $file);
+                if (\array_keys($keys) === $keys) {
+                    $file = \array_filter($file);
                 }
             }
         }
-
         return $file;
     }
-
     /**
      * Fixes a malformed PHP $_FILES array.
      *
@@ -115,28 +103,18 @@ class FileBag extends ParameterBag
      */
     protected function fixPhpFilesArray($data)
     {
-        $keys = array_keys($data);
-        sort($keys);
-
+        $keys = \array_keys($data);
+        \sort($keys);
         if (self::FILE_KEYS != $keys || !isset($data['name']) || !\is_array($data['name'])) {
             return $data;
         }
-
         $files = $data;
         foreach (self::FILE_KEYS as $k) {
             unset($files[$k]);
         }
-
         foreach ($data['name'] as $key => $name) {
-            $files[$key] = $this->fixPhpFilesArray([
-                'error' => $data['error'][$key],
-                'name' => $name,
-                'type' => $data['type'][$key],
-                'tmp_name' => $data['tmp_name'][$key],
-                'size' => $data['size'][$key],
-            ]);
+            $files[$key] = $this->fixPhpFilesArray(['error' => $data['error'][$key], 'name' => $name, 'type' => $data['type'][$key], 'tmp_name' => $data['tmp_name'][$key], 'size' => $data['size'][$key]]);
         }
-
         return $files;
     }
 }

@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection;
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection;
 
 /**
  * Represents a variable.
@@ -27,12 +26,10 @@ namespace Symfony\Component\DependencyInjection;
 class Variable
 {
     private $name;
-
     public function __construct(string $name)
     {
         $this->name = $name;
     }
-
     /**
      * @return string
      */

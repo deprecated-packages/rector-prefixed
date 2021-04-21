@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-namespace Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Definition;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition;
 /**
  * {@inheritdoc}
  *
@@ -21,12 +19,12 @@ use Symfony\Component\DependencyInjection\Definition;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class RealServiceInstantiator implements InstantiatorInterface
+class RealServiceInstantiator implements \RectorPrefix20210421\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function instantiateProxy(ContainerInterface $container, Definition $definition, string $id, callable $realInstantiator)
+    public function instantiateProxy(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface $container, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator)
     {
         return $realInstantiator();
     }

@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\SimplePhpDocParser\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\SimplePhpDocParser\ValueObject;
 
 final class PhpDocAttributeKey
 {
@@ -10,7 +9,6 @@ final class PhpDocAttributeKey
      * @var string
      */
     const PARENT = 'parent';
-
     /**
      * @var string
      */

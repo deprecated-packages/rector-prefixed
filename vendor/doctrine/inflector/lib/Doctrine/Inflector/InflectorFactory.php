@@ -1,45 +1,39 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Doctrine\Inflector;
 
-namespace Doctrine\Inflector;
-
-use Doctrine\Inflector\Rules\English;
-use Doctrine\Inflector\Rules\French;
-use Doctrine\Inflector\Rules\NorwegianBokmal;
-use Doctrine\Inflector\Rules\Portuguese;
-use Doctrine\Inflector\Rules\Spanish;
-use Doctrine\Inflector\Rules\Turkish;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\English;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\French;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Spanish;
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Turkish;
 use InvalidArgumentException;
 use function sprintf;
-
 final class InflectorFactory
 {
-    public static function create() : LanguageInflectorFactory
+    public static function create() : \RectorPrefix20210421\Doctrine\Inflector\LanguageInflectorFactory
     {
-        return self::createForLanguage(Language::ENGLISH);
+        return self::createForLanguage(\RectorPrefix20210421\Doctrine\Inflector\Language::ENGLISH);
     }
-
-    public static function createForLanguage(string $language) : LanguageInflectorFactory
+    public static function createForLanguage(string $language) : \RectorPrefix20210421\Doctrine\Inflector\LanguageInflectorFactory
     {
         switch ($language) {
-            case Language::ENGLISH:
-                return new English\InflectorFactory();
-            case Language::FRENCH:
-                return new French\InflectorFactory();
-            case Language::NORWEGIAN_BOKMAL:
-                return new NorwegianBokmal\InflectorFactory();
-            case Language::PORTUGUESE:
-                return new Portuguese\InflectorFactory();
-            case Language::SPANISH:
-                return new Spanish\InflectorFactory();
-            case Language::TURKISH:
-                return new Turkish\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::ENGLISH:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\English\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::FRENCH:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\French\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::NORWEGIAN_BOKMAL:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::PORTUGUESE:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::SPANISH:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\Spanish\InflectorFactory();
+            case \RectorPrefix20210421\Doctrine\Inflector\Language::TURKISH:
+                return new \RectorPrefix20210421\Doctrine\Inflector\Rules\Turkish\InflectorFactory();
             default:
-                throw new InvalidArgumentException(sprintf(
-                    'Language "%s" is not supported.',
-                    $language
-                ));
+                throw new \InvalidArgumentException(\sprintf('Language "%s" is not supported.', $language));
         }
     }
 }

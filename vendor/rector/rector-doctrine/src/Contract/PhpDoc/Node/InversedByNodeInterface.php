@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Contract\PhpDoc\Node;
 
 interface InversedByNodeInterface
@@ -10,7 +9,6 @@ interface InversedByNodeInterface
      * @return string|null
      */
     public function getInversedBy();
-
     /**
      * @return void
      */

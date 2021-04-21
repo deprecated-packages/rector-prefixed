@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\String\Inflector;
+namespace RectorPrefix20210421\Symfony\Component\String\Inflector;
 
 interface InflectorInterface
 {
@@ -20,8 +19,7 @@ interface InflectorInterface
      *
      * @return string[] An array of possible singular forms
      */
-    public function singularize(string $plural): array;
-
+    public function singularize(string $plural) : array;
     /**
      * Returns the plural forms of a string.
      *
@@ -29,5 +27,5 @@ interface InflectorInterface
      *
      * @return string[] An array of possible plural forms
      */
-    public function pluralize(string $singular): array;
+    public function pluralize(string $singular) : array;
 }

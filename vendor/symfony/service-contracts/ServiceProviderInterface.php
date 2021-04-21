@@ -8,18 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Contracts\Service;
 
-namespace Symfony\Contracts\Service;
-
-use Psr\Container\ContainerInterface;
-
+use RectorPrefix20210421\Psr\Container\ContainerInterface;
 /**
  * A ServiceProviderInterface exposes the identifiers and the types of services provided by a container.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Mateusz Sip <mateusz.sip@gmail.com>
  */
-interface ServiceProviderInterface extends ContainerInterface
+interface ServiceProviderInterface extends \RectorPrefix20210421\Psr\Container\ContainerInterface
 {
     /**
      * Returns an associative array of service types keyed by the identifiers provided by the current container.
@@ -32,5 +30,5 @@ interface ServiceProviderInterface extends ContainerInterface
      *
      * @return string[] The provided service types, keyed by service names
      */
-    public function getProvidedServices(): array;
+    public function getProvidedServices() : array;
 }

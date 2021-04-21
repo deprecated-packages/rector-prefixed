@@ -8,16 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector;
 
-namespace Symfony\Component\HttpKernel\DataCollector;
-
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Service\ResetInterface;
-
+use RectorPrefix20210421\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\RequestStack;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210421\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use RectorPrefix20210421\Symfony\Contracts\Service\ResetInterface;
 /**
  * EventDataCollector.
  *
@@ -25,52 +23,41 @@ use Symfony\Contracts\Service\ResetInterface;
  *
  * @final
  */
-class EventDataCollector extends DataCollector implements LateDataCollectorInterface
+class EventDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     protected $dispatcher;
     private $requestStack;
     private $currentRequest;
-
-    public function __construct(EventDispatcherInterface $dispatcher = null, RequestStack $requestStack = null)
+    public function __construct(\RectorPrefix20210421\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher = null, \RectorPrefix20210421\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         $this->dispatcher = $dispatcher;
         $this->requestStack = $requestStack;
     }
-
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function collect(Request $request, Response $response, $exception = null)
+    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
-        $this->data = [
-            'called_listeners' => [],
-            'not_called_listeners' => [],
-            'orphaned_events' => [],
-        ];
+        $this->data = ['called_listeners' => [], 'not_called_listeners' => [], 'orphaned_events' => []];
     }
-
     public function reset()
     {
         $this->data = [];
-
-        if ($this->dispatcher instanceof ResetInterface) {
+        if ($this->dispatcher instanceof \RectorPrefix20210421\Symfony\Contracts\Service\ResetInterface) {
             $this->dispatcher->reset();
         }
     }
-
     public function lateCollect()
     {
-        if ($this->dispatcher instanceof TraceableEventDispatcher) {
+        if ($this->dispatcher instanceof \RectorPrefix20210421\Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher) {
             $this->setCalledListeners($this->dispatcher->getCalledListeners($this->currentRequest));
             $this->setNotCalledListeners($this->dispatcher->getNotCalledListeners($this->currentRequest));
             $this->setOrphanedEvents($this->dispatcher->getOrphanedEvents($this->currentRequest));
         }
-
         $this->data = $this->cloneVar($this->data);
     }
-
     /**
      * Sets the called listeners.
      *
@@ -82,7 +69,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         $this->data['called_listeners'] = $listeners;
     }
-
     /**
      * Gets the called listeners.
      *
@@ -94,7 +80,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         return $this->data['called_listeners'];
     }
-
     /**
      * Sets the not called listeners.
      *
@@ -104,7 +89,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         $this->data['not_called_listeners'] = $listeners;
     }
-
     /**
      * Gets the not called listeners.
      *
@@ -116,7 +100,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         return $this->data['not_called_listeners'];
     }
-
     /**
      * Sets the orphaned events.
      *
@@ -128,7 +111,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         $this->data['orphaned_events'] = $events;
     }
-
     /**
      * Gets the orphaned events.
      *
@@ -140,7 +122,6 @@ class EventDataCollector extends DataCollector implements LateDataCollectorInter
     {
         return $this->data['orphaned_events'];
     }
-
     /**
      * {@inheritdoc}
      */

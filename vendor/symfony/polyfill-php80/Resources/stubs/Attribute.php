@@ -1,5 +1,7 @@
 <?php
 
+
+
 #[Attribute(Attribute::TARGET_CLASS)]
 final class Attribute
 {
@@ -11,12 +13,12 @@ final class Attribute
     const TARGET_PARAMETER = 32;
     const TARGET_ALL = 63;
     const IS_REPEATABLE = 64;
-
     /** @var int */
     public $flags;
-
     public function __construct(int $flags = self::TARGET_ALL)
     {
         $this->flags = $flags;
     }
 }
+#[Attribute(Attribute::TARGET_CLASS)]
+\class_alias('RectorPrefix20210421\\Attribute', 'Attribute', \false);

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php74\Rector\Closure;
 
 use PhpParser\Node;
@@ -14,19 +13,16 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @changelog https://wiki.php.net/rfc/arrow_functions_v2
  *
  * @see \Rector\Tests\Php74\Rector\Closure\ClosureToArrowFunctionRector\ClosureToArrowFunctionRectorTest
  */
-final class ClosureToArrowFunctionRector extends AbstractRector
+final class ClosureToArrowFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change closure to arrow function', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change closure to arrow function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($meetups)
@@ -37,8 +33,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($meetups)
@@ -47,98 +42,78 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Closure::class];
+        return [\PhpParser\Node\Expr\Closure::class];
     }
-
     /**
      * @param Closure $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::ARROW_FUNCTION)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION)) {
             return null;
         }
-
-        if (count($node->stmts) !== 1) {
+        if (\count($node->stmts) !== 1) {
             return null;
         }
-
-        if (! $node->stmts[0] instanceof Return_) {
+        if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
-
         /** @var Return_ $return */
         $return = $node->stmts[0];
         if ($return->expr === null) {
             return null;
         }
-
         if ($this->shouldSkipForUsedReferencedValue($node, $return)) {
             return null;
         }
-
-        $arrowFunction = new ArrowFunction();
+        $arrowFunction = new \PhpParser\Node\Expr\ArrowFunction();
         $arrowFunction->params = $node->params;
         $arrowFunction->returnType = $node->returnType;
         $arrowFunction->byRef = $node->byRef;
-
         $arrowFunction->expr = $return->expr;
-
         if ($node->static) {
-            $arrowFunction->static = true;
+            $arrowFunction->static = \true;
         }
-
         return $arrowFunction;
     }
-
-    private function shouldSkipForUsedReferencedValue(Closure $closure, Return_ $return): bool
+    private function shouldSkipForUsedReferencedValue(\PhpParser\Node\Expr\Closure $closure, \PhpParser\Node\Stmt\Return_ $return) : bool
     {
         if ($return->expr === null) {
-            return false;
+            return \false;
         }
-
         $referencedValues = $this->resolveReferencedUseVariablesFromClosure($closure);
         if ($referencedValues === []) {
-            return false;
+            return \false;
         }
-
-        return (bool) $this->betterNodeFinder->findFirst([$return->expr], function (Node $node) use (
-            $referencedValues
-        ): bool {
+        return (bool) $this->betterNodeFinder->findFirst([$return->expr], function (\PhpParser\Node $node) use($referencedValues) : bool {
             foreach ($referencedValues as $referencedValue) {
                 if ($this->nodeComparator->areNodesEqual($node, $referencedValue)) {
-                    return true;
+                    return \true;
                 }
             }
-
-            return false;
+            return \false;
         });
     }
-
     /**
      * @return Variable[]
      */
-    private function resolveReferencedUseVariablesFromClosure(Closure $closure): array
+    private function resolveReferencedUseVariablesFromClosure(\PhpParser\Node\Expr\Closure $closure) : array
     {
         $referencedValues = [];
-
         /** @var ClosureUse $use */
         foreach ($closure->uses as $use) {
             if ($use->byRef) {
                 $referencedValues[] = $use->var;
             }
         }
-
         return $referencedValues;
     }
 }

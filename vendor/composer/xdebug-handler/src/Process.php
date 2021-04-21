@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-
-namespace Composer\XdebugHandler;
+namespace RectorPrefix20210421\Composer\XdebugHandler;
 
 /**
  * Provides utility functions to prepare a child process command-line and set
@@ -32,39 +31,32 @@ class Process
      */
     public static function addColorOption(array $args, $colorOption)
     {
-        if (!$colorOption
-            || in_array($colorOption, $args)
-            || !preg_match('/^--([a-z]+$)|(^--[a-z]+=)/', $colorOption, $matches)) {
+        if (!$colorOption || \in_array($colorOption, $args) || !\preg_match('/^--([a-z]+$)|(^--[a-z]+=)/', $colorOption, $matches)) {
             return $args;
         }
-
         if (isset($matches[2])) {
             // Handle --color(s)= options
-            if (false !== ($index = array_search($matches[2].'auto', $args))) {
+            if (\false !== ($index = \array_search($matches[2] . 'auto', $args))) {
                 $args[$index] = $colorOption;
                 return $args;
-            } elseif (preg_grep('/^'.$matches[2].'/', $args)) {
+            } elseif (\preg_grep('/^' . $matches[2] . '/', $args)) {
                 return $args;
             }
-        } elseif (in_array('--no-'.$matches[1], $args)) {
+        } elseif (\in_array('--no-' . $matches[1], $args)) {
             return $args;
         }
-
         // Check for NO_COLOR variable (https://no-color.org/)
-        if (false !== getenv('NO_COLOR')) {
+        if (\false !== \getenv('NO_COLOR')) {
             return $args;
         }
-
-        if (false !== ($index = array_search('--', $args))) {
+        if (\false !== ($index = \array_search('--', $args))) {
             // Position option before double-dash delimiter
-            array_splice($args, $index, 0, $colorOption);
+            \array_splice($args, $index, 0, $colorOption);
         } else {
             $args[] = $colorOption;
         }
-
         return $args;
     }
-
     /**
      * Escapes a string to be used as a shell argument.
      *
@@ -77,37 +69,29 @@ class Process
      *
      * @return string The escaped argument
      */
-    public static function escape($arg, $meta = true, $module = false)
+    public static function escape($arg, $meta = \true, $module = \false)
     {
-        if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
-            return "'".str_replace("'", "'\\''", $arg)."'";
+        if (!\defined('PHP_WINDOWS_VERSION_BUILD')) {
+            return "'" . \str_replace("'", "'\\''", $arg) . "'";
         }
-
-        $quote = strpbrk($arg, " \t") !== false || $arg === '';
-
-        $arg = preg_replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
-
+        $quote = \strpbrk($arg, " \t") !== \false || $arg === '';
+        $arg = \preg_replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
         if ($meta) {
-            $meta = $dquotes || preg_match('/%[^%]+%/', $arg);
-
+            $meta = $dquotes || \preg_match('/%[^%]+%/', $arg);
             if (!$meta) {
-                $quote = $quote || strpbrk($arg, '^&|<>()') !== false;
+                $quote = $quote || \strpbrk($arg, '^&|<>()') !== \false;
             } elseif ($module && !$dquotes && $quote) {
-                $meta = false;
+                $meta = \false;
             }
         }
-
         if ($quote) {
-            $arg = '"'.preg_replace('/(\\\\*)$/', '$1$1', $arg).'"';
+            $arg = '"' . \preg_replace('/(\\\\*)$/', '$1$1', $arg) . '"';
         }
-
         if ($meta) {
-            $arg = preg_replace('/(["^&|<>()%])/', '^$1', $arg);
+            $arg = \preg_replace('/(["^&|<>()%])/', '^$1', $arg);
         }
-
         return $arg;
     }
-
     /**
      * Returns true if the output stream supports colors
      *
@@ -120,31 +104,22 @@ class Process
      */
     public static function supportsColor($output)
     {
-        if ('Hyper' === getenv('TERM_PROGRAM')) {
-            return true;
+        if ('Hyper' === \getenv('TERM_PROGRAM')) {
+            return \true;
         }
-
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-            return (function_exists('sapi_windows_vt100_support')
-                && sapi_windows_vt100_support($output))
-                || false !== getenv('ANSICON')
-                || 'ON' === getenv('ConEmuANSI')
-                || 'xterm' === getenv('TERM');
+        if (\defined('PHP_WINDOWS_VERSION_BUILD')) {
+            return \function_exists('sapi_windows_vt100_support') && \sapi_windows_vt100_support($output) || \false !== \getenv('ANSICON') || 'ON' === \getenv('ConEmuANSI') || 'xterm' === \getenv('TERM');
         }
-
-        if (function_exists('stream_isatty')) {
-            return stream_isatty($output);
+        if (\function_exists('stream_isatty')) {
+            return \stream_isatty($output);
         }
-
-        if (function_exists('posix_isatty')) {
-            return posix_isatty($output);
+        if (\function_exists('posix_isatty')) {
+            return \posix_isatty($output);
         }
-
-        $stat = fstat($output);
+        $stat = \fstat($output);
         // Check if formatted mode is S_IFCHR
-        return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
+        return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
     }
-
     /**
      * Makes putenv environment changes available in $_SERVER and $_ENV
      *
@@ -153,29 +128,25 @@ class Process
      *
      * @return bool Whether the environment variable was set
      */
-    public static function setEnv($name, $value = false)
+    public static function setEnv($name, $value = \false)
     {
-        $unset = false === $value;
-
-        if (!putenv($unset ? $name : $name.'='.$value)) {
-            return false;
+        $unset = \false === $value;
+        if (!\putenv($unset ? $name : $name . '=' . $value)) {
+            return \false;
         }
-
         if ($unset) {
             unset($_SERVER[$name]);
         } else {
             $_SERVER[$name] = $value;
         }
-
         // Update $_ENV if it is being used
-        if (false !== stripos((string) ini_get('variables_order'), 'E')) {
+        if (\false !== \stripos((string) \ini_get('variables_order'), 'E')) {
             if ($unset) {
                 unset($_ENV[$name]);
             } else {
                 $_ENV[$name] = $value;
             }
         }
-
-        return true;
+        return \true;
     }
 }

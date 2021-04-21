@@ -8,21 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection;
 
-namespace Symfony\Component\DependencyInjection;
-
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 /**
  * This definition extends another definition.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ChildDefinition extends Definition
+class ChildDefinition extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition
 {
     private $parent;
-
     /**
      * @param string $parent The id of Definition instance to decorate
      */
@@ -30,7 +27,6 @@ class ChildDefinition extends Definition
     {
         $this->parent = $parent;
     }
-
     /**
      * Returns the Definition to inherit from.
      *
@@ -40,7 +36,6 @@ class ChildDefinition extends Definition
     {
         return $this->parent;
     }
-
     /**
      * Sets the Definition to inherit from.
      *
@@ -51,10 +46,8 @@ class ChildDefinition extends Definition
     public function setParent($parent)
     {
         $this->parent = $parent;
-
         return $this;
     }
-
     /**
      * Gets an argument to pass to the service constructor/factory method.
      *
@@ -69,13 +62,11 @@ class ChildDefinition extends Definition
      */
     public function getArgument($index)
     {
-        if (\array_key_exists('index_'.$index, $this->arguments)) {
-            return $this->arguments['index_'.$index];
+        if (\array_key_exists('index_' . $index, $this->arguments)) {
+            return $this->arguments['index_' . $index];
         }
-
         return parent::getArgument($index);
     }
-
     /**
      * You should always use this method when overwriting existing arguments
      * of the parent definition.
@@ -94,13 +85,12 @@ class ChildDefinition extends Definition
     public function replaceArgument($index, $value)
     {
         if (\is_int($index)) {
-            $this->arguments['index_'.$index] = $value;
-        } elseif (0 === strpos($index, '$')) {
+            $this->arguments['index_' . $index] = $value;
+        } elseif (0 === \strpos($index, '$')) {
             $this->arguments[$index] = $value;
         } else {
-            throw new InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
+            throw new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
         }
-
         return $this;
     }
 }

@@ -1,49 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Symfony\ValueObject\ConstantNameAndValue;
-use Stringy\Stringy;
-
+use RectorPrefix20210421\Stringy\Stringy;
 final class ConstantNameAndValueMatcher
 {
     /**
      * @var ValueResolver
      */
     private $valueResolver;
-
-    public function __construct(ValueResolver $valueResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
     }
-
     /**
      * @return \Rector\Symfony\ValueObject\ConstantNameAndValue|null
      */
-    public function matchFromArg(Arg $arg, string $prefixForNumeric)
+    public function matchFromArg(\PhpParser\Node\Arg $arg, string $prefixForNumeric)
     {
-        if ($arg->value instanceof ClassConstFetch) {
+        if ($arg->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return null;
         }
-
         $argumentValue = $this->valueResolver->getValue($arg->value);
-        if (! is_string($argumentValue)) {
+        if (!\is_string($argumentValue)) {
             return null;
         }
-
-        $stringy = new Stringy($argumentValue);
-        $constantName = (string) $stringy->underscored()
-            ->toUpperCase();
-
-        if (! ctype_alpha($constantName[0])) {
+        $stringy = new \RectorPrefix20210421\Stringy\Stringy($argumentValue);
+        $constantName = (string) $stringy->underscored()->toUpperCase();
+        if (!\ctype_alpha($constantName[0])) {
             $constantName = $prefixForNumeric . $constantName;
         }
-
-        return new ConstantNameAndValue($constantName, $argumentValue);
+        return new \Rector\Symfony\ValueObject\ConstantNameAndValue($constantName, $argumentValue);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Restoration\Rector\Use_;
 
 use PhpParser\Node;
@@ -19,164 +18,126 @@ use Rector\Restoration\NameMatcher\FullyQualifiedNameMatcher;
 use Rector\Restoration\NameMatcher\PhpDocTypeNodeNameMatcher;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Tests\Restoration\Rector\Use_\RestoreFullyQualifiedNameRector\RestoreFullyQualifiedNameRectorTest
  */
-final class RestoreFullyQualifiedNameRector extends AbstractRector
+final class RestoreFullyQualifiedNameRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var FullyQualifiedNameMatcher
      */
     private $fullyQualifiedNameMatcher;
-
     /**
      * @var PhpDocTypeNodeNameMatcher
      */
     private $phpDocTypeNodeNameMatcher;
-
-    public function __construct(
-        FullyQualifiedNameMatcher $fullyQualifiedNameMatcher,
-        PhpDocTypeNodeNameMatcher $phpDocTypeNodeNameMatcher
-    ) {
+    public function __construct(\Rector\Restoration\NameMatcher\FullyQualifiedNameMatcher $fullyQualifiedNameMatcher, \Rector\Restoration\NameMatcher\PhpDocTypeNodeNameMatcher $phpDocTypeNodeNameMatcher)
+    {
         $this->fullyQualifiedNameMatcher = $fullyQualifiedNameMatcher;
         $this->phpDocTypeNodeNameMatcher = $phpDocTypeNodeNameMatcher;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Restore accidentally shortened class names to its fully qualified form.',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Restore accidentally shortened class names to its fully qualified form.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use ShortClassOnly;
 
 class AnotherClass
 {
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use App\Whatever\ShortClassOnly;
 
 class AnotherClass
 {
 }
 CODE_SAMPLE
-
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Use_::class, Param::class, ClassMethod::class];
+        return [\PhpParser\Node\Stmt\Use_::class, \PhpParser\Node\Param::class, \PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param Use_|Param|ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if ($node instanceof Use_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             return $this->refactoryUse($node);
         }
-
-        if ($node instanceof Param) {
+        if ($node instanceof \PhpParser\Node\Param) {
             return $this->refactorParam($node);
         }
-
         return $this->refactorClassMethod($node);
     }
-
-    private function refactoryUse(Use_ $use): Use_
+    private function refactoryUse(\PhpParser\Node\Stmt\Use_ $use) : \PhpParser\Node\Stmt\Use_
     {
         foreach ($use->uses as $useUse) {
             $name = $useUse->name;
-
             $fullyQualifiedName = $this->fullyQualifiedNameMatcher->matchFullyQualifiedName($name);
-            if (! $fullyQualifiedName instanceof FullyQualified) {
+            if (!$fullyQualifiedName instanceof \PhpParser\Node\Name\FullyQualified) {
                 continue;
             }
-
-            $useUse->name = new Name($fullyQualifiedName->toString());
+            $useUse->name = new \PhpParser\Node\Name($fullyQualifiedName->toString());
         }
-
         return $use;
     }
-
     /**
      * @return \PhpParser\Node\Param|null
      */
-    private function refactorParam(Param $param)
+    private function refactorParam(\PhpParser\Node\Param $param)
     {
         $name = $param->type;
-        if (! $name instanceof Name) {
+        if (!$name instanceof \PhpParser\Node\Name) {
             return null;
         }
-
         $fullyQualified = $this->fullyQualifiedNameMatcher->matchFullyQualifiedName($name);
         if ($fullyQualified === null) {
             return null;
         }
-
         $param->type = $fullyQualified;
         return $param;
     }
-
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorClassMethod(ClassMethod $classMethod)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->refactorReturnTagValueNode($classMethod);
-
         $returnType = $classMethod->returnType;
         if ($returnType === null) {
             return null;
         }
-
         $fullyQualified = $this->fullyQualifiedNameMatcher->matchFullyQualifiedName($returnType);
         if ($fullyQualified === null) {
             return null;
         }
-
         $classMethod->returnType = $fullyQualified;
-
         return $classMethod;
     }
-
     /**
      * @return void
      */
-    private function refactorReturnTagValueNode(ClassMethod $classMethod)
+    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-
         $returnTagValueNode = $phpDocInfo->getReturnTagValue();
-        if (! $returnTagValueNode instanceof ReturnTagValueNode) {
+        if (!$returnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode) {
             return;
         }
-
-        if (! $phpDocInfo->getReturnType() instanceof MixedType) {
+        if (!$phpDocInfo->getReturnType() instanceof \PHPStan\Type\MixedType) {
             return;
         }
-
-        if ($returnTagValueNode->type instanceof IdentifierTypeNode) {
-            $fullyQualifiedTypeNode = $this->phpDocTypeNodeNameMatcher->matchIdentifier(
-                $returnTagValueNode->type->name
-            );
-            if (! $fullyQualifiedTypeNode instanceof TypeNode) {
+        if ($returnTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+            $fullyQualifiedTypeNode = $this->phpDocTypeNodeNameMatcher->matchIdentifier($returnTagValueNode->type->name);
+            if (!$fullyQualifiedTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
                 return;
             }
-
             $returnTagValueNode->type = $fullyQualifiedTypeNode;
         }
     }

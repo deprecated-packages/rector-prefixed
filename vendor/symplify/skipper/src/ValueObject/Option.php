@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\Skipper\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\Skipper\ValueObject;
 
 final class Option
 {
@@ -11,7 +10,6 @@ final class Option
      * @var string
      */
     const SKIP = 'skip';
-
     /**
      * @api
      * @var string

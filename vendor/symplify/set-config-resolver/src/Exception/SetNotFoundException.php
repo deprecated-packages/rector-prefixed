@@ -1,23 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\SetConfigResolver\Exception;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\SetConfigResolver\Exception;
 
 use Exception;
-
-final class SetNotFoundException extends Exception
+final class SetNotFoundException extends \Exception
 {
     /**
      * @var string
      */
     private $setName;
-
     /**
      * @var string[]
      */
     private $availableSetNames = [];
-
     /**
      * @param string[] $availableSetNames
      */
@@ -25,19 +21,16 @@ final class SetNotFoundException extends Exception
     {
         $this->setName = $setName;
         $this->availableSetNames = $availableSetNames;
-
         parent::__construct($message);
     }
-
-    public function getSetName(): string
+    public function getSetName() : string
     {
         return $this->setName;
     }
-
     /**
      * @return string[]
      */
-    public function getAvailableSetNames(): array
+    public function getAvailableSetNames() : array
     {
         return $this->availableSetNames;
     }

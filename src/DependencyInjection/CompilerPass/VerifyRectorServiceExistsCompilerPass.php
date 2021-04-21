@@ -1,36 +1,30 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
-use Nette\Utils\Strings;
+use RectorPrefix20210421\Nette\Utils\Strings;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-final class VerifyRectorServiceExistsCompilerPass implements CompilerPassInterface
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class VerifyRectorServiceExistsCompilerPass implements \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             $class = $definition->getClass();
             if ($class === null) {
                 continue;
             }
-
-            if (! Strings::endsWith($class, 'Rector')) {
+            if (!\RectorPrefix20210421\Nette\Utils\Strings::endsWith($class, 'Rector')) {
                 continue;
             }
-
-            if (! is_a($class, RectorInterface::class, true)) {
-                throw new ShouldNotHappenException(
-                    sprintf('Rector rule "%s" not found, please verify that the rule exists', $class)
-                );
+            if (!\is_a($class, \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Rector rule "%s" not found, please verify that the rule exists', $class));
             }
         }
     }

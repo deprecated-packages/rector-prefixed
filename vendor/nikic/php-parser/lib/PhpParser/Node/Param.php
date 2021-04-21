@@ -1,10 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Node;
 
 use PhpParser\NodeAbstract;
-
-class Param extends NodeAbstract
+class Param extends \PhpParser\NodeAbstract
 {
     /** @var null|Identifier|Name|NullableType|UnionType Type declaration */
     public $type;
@@ -20,7 +20,6 @@ class Param extends NodeAbstract
     public $flags;
     /** @var AttributeGroup[] PHP attribute groups */
     public $attrGroups;
-
     /**
      * Constructs a parameter node.
      *
@@ -33,15 +32,10 @@ class Param extends NodeAbstract
      * @param int                                                $flags      Optional visibility flags
      * @param AttributeGroup[]                                   $attrGroups PHP attribute groups
      */
-    public function __construct(
-        $var, Expr $default = null, $type = null,
-        bool $byRef = false, bool $variadic = false,
-        array $attributes = [],
-        int $flags = 0,
-        array $attrGroups = []
-    ) {
+    public function __construct($var, \PhpParser\Node\Expr $default = null, $type = null, bool $byRef = \false, bool $variadic = \false, array $attributes = [], int $flags = 0, array $attrGroups = [])
+    {
         $this->attributes = $attributes;
-        $this->type = \is_string($type) ? new Identifier($type) : $type;
+        $this->type = \is_string($type) ? new \PhpParser\Node\Identifier($type) : $type;
         $this->byRef = $byRef;
         $this->variadic = $variadic;
         $this->var = $var;
@@ -49,12 +43,12 @@ class Param extends NodeAbstract
         $this->flags = $flags;
         $this->attrGroups = $attrGroups;
     }
-
-    public function getSubNodeNames() : array {
+    public function getSubNodeNames() : array
+    {
         return ['attrGroups', 'flags', 'type', 'byRef', 'variadic', 'var', 'default'];
     }
-
-    public function getType() : string {
+    public function getType() : string
+    {
         return 'Param';
     }
 }

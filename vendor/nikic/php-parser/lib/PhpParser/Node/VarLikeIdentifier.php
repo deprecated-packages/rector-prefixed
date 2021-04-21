@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Node;
 
 /**
@@ -9,9 +10,10 @@ namespace PhpParser\Node;
  * Examples: Names in property declarations are formatted as variables. Names in static property
  * lookups are also formatted as variables.
  */
-class VarLikeIdentifier extends Identifier
+class VarLikeIdentifier extends \PhpParser\Node\Identifier
 {
-    public function getType() : string {
+    public function getType() : string
+    {
         return 'VarLikeIdentifier';
     }
 }

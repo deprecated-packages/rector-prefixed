@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CakePHP\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -12,119 +11,90 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Webmozart\Assert\Assert;
-
+use RectorPrefix20210421\Webmozart\Assert\Assert;
 /**
  * @see https://book.cakephp.org/4.0/en/appendices/4-0-migration-guide.html
  * @see https://github.com/cakephp/cakephp/commit/77017145961bb697b4256040b947029259f66a9b
  *
  * @see \aRector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector\RenameMethodCallBasedOnParameterRectorTest
  */
-final class RenameMethodCallBasedOnParameterRector extends AbstractRector implements ConfigurableRectorInterface
+final class RenameMethodCallBasedOnParameterRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const CALLS_WITH_PARAM_RENAMES = 'calls_with_param_renames';
-
     /**
      * @var RenameMethodCallBasedOnParameter[]
      */
     private $callsWithParamRenames = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $configuration = [
-            self::CALLS_WITH_PARAM_RENAMES => [
-                new RenameMethodCallBasedOnParameter('ServerRequest', 'getParam', 'paging', 'getAttribute'),
-                new RenameMethodCallBasedOnParameter('ServerRequest', 'withParam', 'paging', 'withAttribute'),
-            ],
-        ];
-        return new RuleDefinition(
-            'Changes method calls based on matching the first parameter value.',
-            [
-                new ConfiguredCodeSample(
-                    <<<'CODE_SAMPLE'
+        $configuration = [self::CALLS_WITH_PARAM_RENAMES => [new \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'getParam', 'paging', 'getAttribute'), new \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'withParam', 'paging', 'withAttribute')]];
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes method calls based on matching the first parameter value.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $object = new ServerRequest();
 
 $config = $object->getParam('paging');
 $object = $object->withParam('paging', ['a value']);
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 $object = new ServerRequest();
 
 $config = $object->getAttribute('paging');
 $object = $object->withAttribute('paging', ['a value']);
 CODE_SAMPLE
-                    ,
-                    $configuration
-                ),
-            ]
-        );
+, $configuration)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         $callWithParamRename = $this->matchTypeAndMethodName($node);
-        if (! $callWithParamRename instanceof RenameMethodCallBasedOnParameter) {
+        if (!$callWithParamRename instanceof \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter) {
             return null;
         }
-
-        $node->name = new Identifier($callWithParamRename->getNewMethod());
-
+        $node->name = new \PhpParser\Node\Identifier($callWithParamRename->getNewMethod());
         return $node;
     }
-
     /**
      * @return void
      */
     public function configure(array $configuration)
     {
         $callsWithParamNames = $configuration[self::CALLS_WITH_PARAM_RENAMES] ?? [];
-        Assert::allIsInstanceOf($callsWithParamNames, RenameMethodCallBasedOnParameter::class);
+        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
         $this->callsWithParamRenames = $callsWithParamNames;
     }
-
     /**
      * @return \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter|null
      */
-    private function matchTypeAndMethodName(MethodCall $methodCall)
+    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
-        if (count($methodCall->args) < 1) {
+        if (\count($methodCall->args) < 1) {
             return null;
         }
-
         $firstArgValue = $methodCall->args[0]->value;
-
         foreach ($this->callsWithParamRenames as $callWithParamRename) {
-            if (! $this->isObjectType($methodCall->var, $callWithParamRename->getOldObjectType())) {
+            if (!$this->isObjectType($methodCall->var, $callWithParamRename->getOldObjectType())) {
                 continue;
             }
-
-            if (! $this->isName($methodCall->name, $callWithParamRename->getOldMethod())) {
+            if (!$this->isName($methodCall->name, $callWithParamRename->getOldMethod())) {
                 continue;
             }
-
-            if (! $this->valueResolver->isValue($firstArgValue, $callWithParamRename->getParameterName())) {
+            if (!$this->valueResolver->isValue($firstArgValue, $callWithParamRename->getParameterName())) {
                 continue;
             }
-
             return $callWithParamRename;
         }
-
         return null;
     }
 }

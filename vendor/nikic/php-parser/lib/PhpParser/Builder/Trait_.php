@@ -1,27 +1,26 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Builder;
 
-use PhpParser;
+use RectorPrefix20210421\PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Stmt;
-
-class Trait_ extends Declaration
+class Trait_ extends \PhpParser\Builder\Declaration
 {
     protected $name;
     protected $uses = [];
     protected $properties = [];
     protected $methods = [];
-
     /**
      * Creates an interface builder.
      *
      * @param string $name Name of the interface
      */
-    public function __construct(string $name) {
+    public function __construct(string $name)
+    {
         $this->name = $name;
     }
-
     /**
      * Adds a statement.
      *
@@ -29,32 +28,27 @@ class Trait_ extends Declaration
      *
      * @return $this The builder instance (for fluid interface)
      */
-    public function addStmt($stmt) {
-        $stmt = BuilderHelpers::normalizeNode($stmt);
-
-        if ($stmt instanceof Stmt\Property) {
+    public function addStmt($stmt)
+    {
+        $stmt = \PhpParser\BuilderHelpers::normalizeNode($stmt);
+        if ($stmt instanceof \PhpParser\Node\Stmt\Property) {
             $this->properties[] = $stmt;
-        } elseif ($stmt instanceof Stmt\ClassMethod) {
+        } elseif ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->methods[] = $stmt;
-        } elseif ($stmt instanceof Stmt\TraitUse) {
+        } elseif ($stmt instanceof \PhpParser\Node\Stmt\TraitUse) {
             $this->uses[] = $stmt;
         } else {
-            throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
+            throw new \LogicException(\sprintf('Unexpected node of type "%s"', $stmt->getType()));
         }
-
         return $this;
     }
-
     /**
      * Returns the built trait node.
      *
      * @return Stmt\Trait_ The built interface node
      */
-    public function getNode() : PhpParser\Node {
-        return new Stmt\Trait_(
-            $this->name, [
-                'stmts' => array_merge($this->uses, $this->properties, $this->methods)
-            ], $this->attributes
-        );
+    public function getNode() : \PhpParser\Node
+    {
+        return new \PhpParser\Node\Stmt\Trait_($this->name, ['stmts' => \array_merge($this->uses, $this->properties, $this->methods)], $this->attributes);
     }
 }

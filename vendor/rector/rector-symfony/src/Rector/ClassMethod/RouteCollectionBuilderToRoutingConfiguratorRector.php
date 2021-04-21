@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -16,19 +15,16 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/symfony/symfony/pull/32937/files
  *
  * @see \Rector\Symfony\Tests\Rector\ClassMethod\RouteCollectionBuilderToRoutingConfiguratorRector\RouteCollectionBuilderToRoutingConfiguratorRectorTest
  */
-final class RouteCollectionBuilderToRoutingConfiguratorRector extends AbstractRector
+final class RouteCollectionBuilderToRoutingConfiguratorRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change RouteCollectionBuilder to RoutingConfiguratorRector', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change RouteCollectionBuilder to RoutingConfiguratorRector', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -43,9 +39,7 @@ final class ConcreteMicroKernel extends Kernel
     }
 }
 CODE_SAMPLE
-
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -60,73 +54,56 @@ final class ConcreteMicroKernel extends Kernel
             ->controller('App\Controller\AdminController::dashboard')
     }}
 CODE_SAMPLE
-
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->isName($node, 'configureRoutes')) {
+        if (!$this->isName($node, 'configureRoutes')) {
             return null;
         }
-
         $firstParam = $node->params[0];
         if ($firstParam->type === null) {
             return null;
         }
-
-        if (! $this->isName($firstParam->type, 'Symfony\Component\Routing\RouteCollectionBuilder')) {
+        if (!$this->isName($firstParam->type, 'Symfony\\Component\\Routing\\RouteCollectionBuilder')) {
             return null;
         }
-
-        $firstParam->type = new FullyQualified('Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator');
-
-        $node->name = new Identifier('configureRouting');
-        $node->returnType = new Identifier('void');
-
-        $this->traverseNodesWithCallable((array) $node->stmts, function (Node $node): ?MethodCall {
-            if (! $node instanceof MethodCall) {
+        $firstParam->type = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Routing\\Loader\\Configurator\\RoutingConfigurator');
+        $node->name = new \PhpParser\Node\Identifier('configureRouting');
+        $node->returnType = new \PhpParser\Node\Identifier('void');
+        $this->traverseNodesWithCallable((array) $node->stmts, function (\PhpParser\Node $node) : ?MethodCall {
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-
-            if (! $this->isName($node->name, 'add')) {
+            if (!$this->isName($node->name, 'add')) {
                 return null;
             }
-
             // avoid nesting chain iteration infinity loop
-            $shouldSkip = (bool) $node->getAttribute(AttributeKey::DO_NOT_CHANGE);
+            $shouldSkip = (bool) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE);
             if ($shouldSkip) {
                 return null;
             }
-
-            $node->setAttribute(AttributeKey::DO_NOT_CHANGE, true);
-
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE, \true);
             $pathValue = $node->args[0]->value;
             $controllerValue = $node->args[1]->value;
             $nameValue = $node->args[2]->value ?? null;
-
-            if (! $nameValue instanceof Expr) {
-                throw new NotImplementedYetException();
+            if (!$nameValue instanceof \PhpParser\Node\Expr) {
+                throw new \Rector\Core\Exception\NotImplementedYetException();
             }
-
-            $node->args = [new Arg($nameValue), new Arg($pathValue)];
-
-            return new MethodCall($node, 'controller', [new Arg($controllerValue)]);
+            $node->args = [new \PhpParser\Node\Arg($nameValue), new \PhpParser\Node\Arg($pathValue)];
+            return new \PhpParser\Node\Expr\MethodCall($node, 'controller', [new \PhpParser\Node\Arg($controllerValue)]);
         });
-
         return $node;
     }
 }

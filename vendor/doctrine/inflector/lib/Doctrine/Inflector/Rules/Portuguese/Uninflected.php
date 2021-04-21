@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese;
 
-namespace Doctrine\Inflector\Rules\Portuguese;
-
-use Doctrine\Inflector\Rules\Pattern;
-
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -15,7 +13,6 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
@@ -23,16 +20,15 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
     private static function getDefault() : iterable
     {
-        yield new Pattern('tórax');
-        yield new Pattern('tênis');
-        yield new Pattern('ônibus');
-        yield new Pattern('lápis');
-        yield new Pattern('fênix');
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('tórax'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('tênis'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('ônibus'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('lápis'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('fênix'));
     }
 }

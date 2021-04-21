@@ -8,62 +8,47 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\Process\Exception;
 
-namespace Symfony\Component\Process\Exception;
-
-use Symfony\Component\Process\Process;
-
+use RectorPrefix20210421\Symfony\Component\Process\Process;
 /**
  * Exception that is thrown when a process times out.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ProcessTimedOutException extends RuntimeException
+class ProcessTimedOutException extends \RectorPrefix20210421\Symfony\Component\Process\Exception\RuntimeException
 {
     const TYPE_GENERAL = 1;
     const TYPE_IDLE = 2;
-
     private $process;
     private $timeoutType;
-
-    public function __construct(Process $process, int $timeoutType)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\Process\Process $process, int $timeoutType)
     {
         $this->process = $process;
         $this->timeoutType = $timeoutType;
-
-        parent::__construct(sprintf(
-            'The process "%s" exceeded the timeout of %s seconds.',
-            $process->getCommandLine(),
-            $this->getExceededTimeout()
-        ));
+        parent::__construct(\sprintf('The process "%s" exceeded the timeout of %s seconds.', $process->getCommandLine(), $this->getExceededTimeout()));
     }
-
     public function getProcess()
     {
         return $this->process;
     }
-
     public function isGeneralTimeout()
     {
         return self::TYPE_GENERAL === $this->timeoutType;
     }
-
     public function isIdleTimeout()
     {
         return self::TYPE_IDLE === $this->timeoutType;
     }
-
     public function getExceededTimeout()
     {
         switch ($this->timeoutType) {
             case self::TYPE_GENERAL:
                 return $this->process->getTimeout();
-
             case self::TYPE_IDLE:
                 return $this->process->getIdleTimeout();
-
             default:
-                throw new \LogicException(sprintf('Unknown timeout type "%d".', $this->timeoutType));
+                throw new \LogicException(\sprintf('Unknown timeout type "%d".', $this->timeoutType));
         }
     }
 }

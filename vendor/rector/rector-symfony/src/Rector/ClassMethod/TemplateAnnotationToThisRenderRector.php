@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -31,7 +30,6 @@ use Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer;
 use Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/symfony/symfony-docs/pull/12387#discussion_r329551967
  * @see https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html
@@ -39,52 +37,38 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Symfony\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\TemplateAnnotationToThisRenderRectorTest
  */
-final class TemplateAnnotationToThisRenderRector extends AbstractRector
+final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
-    const RESPONSE_CLASS = 'Symfony\Component\HttpFoundation\Response';
-
+    const RESPONSE_CLASS = 'Symfony\\Component\\HttpFoundation\\Response';
     /**
      * @var ReturnTypeDeclarationUpdater
      */
     private $returnTypeDeclarationUpdater;
-
     /**
      * @var ThisRenderFactory
      */
     private $thisRenderFactory;
-
     /**
      * @var ArrayUnionResponseTypeAnalyzer
      */
     private $arrayUnionResponseTypeAnalyzer;
-
     /**
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-
-    public function __construct(
-        ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer,
-        ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater,
-        ThisRenderFactory $thisRenderFactory,
-        PhpDocTagRemover $phpDocTagRemover
-    ) {
+    public function __construct(\Rector\Symfony\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer $arrayUnionResponseTypeAnalyzer, \Rector\Symfony\TypeDeclaration\ReturnTypeDeclarationUpdater $returnTypeDeclarationUpdater, \Rector\Symfony\NodeFactory\ThisRenderFactory $thisRenderFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    {
         $this->returnTypeDeclarationUpdater = $returnTypeDeclarationUpdater;
         $this->thisRenderFactory = $thisRenderFactory;
         $this->arrayUnionResponseTypeAnalyzer = $arrayUnionResponseTypeAnalyzer;
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns `@Template` annotation to explicit method call in Controller of FrameworkExtraBundle in Symfony',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `@Template` annotation to explicit method call in Controller of FrameworkExtraBundle in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @Template()
  */
@@ -92,313 +76,215 @@ public function indexAction()
 {
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 public function indexAction()
 {
     return $this->render('index.html.twig');
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class, Class_::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_|ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if ($node instanceof Class_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->addAbstractControllerParentClassIfMissing($node);
         }
-
         return $this->replaceTemplateAnnotation($node);
     }
-
     /**
      * @return \PhpParser\Node\Stmt\Class_|null
      */
-    private function addAbstractControllerParentClassIfMissing(Class_ $class)
+    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class)
     {
         if ($class->extends !== null) {
             return null;
         }
-
-        if (! $this->hasTemplateAnnotations($class)) {
+        if (!$this->hasTemplateAnnotations($class)) {
             return null;
         }
-
-        $class->extends = new FullyQualified('Symfony\Bundle\FrameworkBundle\Controller\AbstractController');
-
+        $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         return $class;
     }
-
     /**
      * @return \PhpParser\Node|null
      */
-    private function replaceTemplateAnnotation(ClassMethod $classMethod)
+    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
-        if (! $classMethod->isPublic()) {
+        if (!$classMethod->isPublic()) {
             return null;
         }
-
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass(
-            'Sensio\Bundle\FrameworkExtraBundle\Configuration\Template'
-        );
-        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-
         $this->refactorClassMethod($classMethod, $doctrineAnnotationTagValueNode);
-
         return $classMethod;
     }
-
-    private function hasTemplateAnnotations(Class_ $class): bool
+    private function hasTemplateAnnotations(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-            if ($phpDocInfo->hasByAnnotationClass('Sensio\Bundle\FrameworkExtraBundle\Configuration\Template')) {
-                return true;
+            if ($phpDocInfo->hasByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template')) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return void
      */
-    private function refactorClassMethod(
-        ClassMethod $classMethod,
-        DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode
-    ) {
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode)
+    {
         /** @var Return_[] $returns */
         $returns = $this->findReturnsInCurrentScope((array) $classMethod->stmts);
-
         $hasThisRenderOrReturnsResponse = $this->hasLastReturnResponse($classMethod);
-
         foreach ($returns as $return) {
-            $this->refactorReturn(
-                $return,
-                $classMethod,
-                $templateDoctrineAnnotationTagValueNode,
-                $hasThisRenderOrReturnsResponse
-            );
+            $this->refactorReturn($return, $classMethod, $templateDoctrineAnnotationTagValueNode, $hasThisRenderOrReturnsResponse);
         }
-
         if ($returns === []) {
-            $thisRenderMethodCall = $this->thisRenderFactory->create(
-                $classMethod,
-                null,
-                $templateDoctrineAnnotationTagValueNode
-            );
-
+            $thisRenderMethodCall = $this->thisRenderFactory->create($classMethod, null, $templateDoctrineAnnotationTagValueNode);
             $this->refactorNoReturn($classMethod, $thisRenderMethodCall);
         }
     }
-
     /**
      * This skips anonymous functions and functions, as their returns doesn't influence current code
      *
      * @param Node[] $stmts
      * @return Return_[]
      */
-    private function findReturnsInCurrentScope(array $stmts): array
+    private function findReturnsInCurrentScope(array $stmts) : array
     {
         $returns = [];
-        $this->traverseNodesWithCallable($stmts, function (Node $node) use (&$returns): ?int {
-            if ($node instanceof Closure) {
-                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+        $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$returns) : ?int {
+            if ($node instanceof \PhpParser\Node\Expr\Closure) {
+                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
-            if ($node instanceof Function_) {
-                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+            if ($node instanceof \PhpParser\Node\Stmt\Function_) {
+                return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
-            if (! $node instanceof Return_) {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
-
             $returns[] = $node;
-
             return null;
         });
-
         return $returns;
     }
-
-    private function hasLastReturnResponse(ClassMethod $classMethod): bool
+    private function hasLastReturnResponse(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $classMethod->stmts, Return_::class);
-        if (! $lastReturn instanceof Return_) {
-            return false;
+        $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Stmt\Return_::class);
+        if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
+            return \false;
         }
-
         if ($lastReturn->expr === null) {
-            return false;
+            return \false;
         }
-
-        $responseObjectType = new ObjectType(self::RESPONSE_CLASS);
-
+        $responseObjectType = new \PHPStan\Type\ObjectType(self::RESPONSE_CLASS);
         $returnType = $this->getStaticType($lastReturn->expr);
-        return $responseObjectType->isSuperTypeOf($returnType)
-            ->yes();
+        return $responseObjectType->isSuperTypeOf($returnType)->yes();
     }
-
     /**
      * @return void
      */
-    private function refactorReturn(
-        Return_ $return,
-        ClassMethod $classMethod,
-        DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode,
-        bool $hasThisRenderOrReturnsResponse
-    ) {
+    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode, bool $hasThisRenderOrReturnsResponse)
+    {
         // nothing we can do
         if ($return->expr === null) {
             return;
         }
-
         // create "$this->render('template.file.twig.html', ['key' => 'value']);" method call
-        $thisRenderMethodCall = $this->thisRenderFactory->create(
-            $classMethod,
-            $return,
-            $templateDoctrineAnnotationTagValueNode
-        );
-
-        $this->refactorReturnWithValue(
-            $return,
-            $hasThisRenderOrReturnsResponse,
-            $thisRenderMethodCall,
-            $classMethod
-        );
+        $thisRenderMethodCall = $this->thisRenderFactory->create($classMethod, $return, $templateDoctrineAnnotationTagValueNode);
+        $this->refactorReturnWithValue($return, $hasThisRenderOrReturnsResponse, $thisRenderMethodCall, $classMethod);
     }
-
     /**
      * @return void
      */
-    private function refactorNoReturn(ClassMethod $classMethod, MethodCall $thisRenderMethodCall)
+    private function refactorNoReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
     {
         $this->processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall);
-
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
-
         $this->removeDoctrineAnnotationTagValueNode($classMethod);
     }
-
     /**
      * @return void
      */
-    private function refactorReturnWithValue(
-        Return_ $return,
-        bool $hasThisRenderOrReturnsResponse,
-        MethodCall $thisRenderMethodCall,
-        ClassMethod $classMethod
-    ) {
+    private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    {
         /** @var Expr $lastReturnExpr */
         $lastReturnExpr = $return->expr;
-
         $returnStaticType = $this->getStaticType($lastReturnExpr);
-
-        if (! $return->expr instanceof MethodCall) {
-            if (! $hasThisRenderOrReturnsResponse || $returnStaticType instanceof ConstantArrayType) {
+        if (!$return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+            if (!$hasThisRenderOrReturnsResponse || $returnStaticType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
                 $return->expr = $thisRenderMethodCall;
             }
-        } elseif ($returnStaticType instanceof ArrayType) {
+        } elseif ($returnStaticType instanceof \PHPStan\Type\ArrayType) {
             $return->expr = $thisRenderMethodCall;
-        } elseif ($returnStaticType instanceof MixedType) {
+        } elseif ($returnStaticType instanceof \PHPStan\Type\MixedType) {
             // nothing we can do
             return;
         }
-
-        $isArrayOrResponseType = $this->arrayUnionResponseTypeAnalyzer->isArrayUnionResponseType(
-            $returnStaticType,
-            self::RESPONSE_CLASS
-        );
-
+        $isArrayOrResponseType = $this->arrayUnionResponseTypeAnalyzer->isArrayUnionResponseType($returnStaticType, self::RESPONSE_CLASS);
         if ($isArrayOrResponseType) {
             $this->processIsArrayOrResponseType($return, $lastReturnExpr, $thisRenderMethodCall);
         }
-
         // already response
         $this->removeAnnotationClass($classMethod);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
     }
-
     /**
      * @return void
      */
-    private function processClassMethodWithoutReturn(
-        ClassMethod $classMethod,
-        MethodCall $thisRenderMethodCall
-    ) {
-        $classMethod->stmts[] = new Return_($thisRenderMethodCall);
+    private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
+    {
+        $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($thisRenderMethodCall);
     }
-
     /**
      * @return void
      */
-    private function processIsArrayOrResponseType(
-        Return_ $return,
-        Expr $returnExpr,
-        MethodCall $thisRenderMethodCall
-    ) {
+    private function processIsArrayOrResponseType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Expr $returnExpr, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
+    {
         $this->removeNode($return);
-
         // create instance of Response → return response, or return $this->render
-        $responseVariable = new Variable('responseOrData');
-
-        $assign = new Assign($responseVariable, $returnExpr);
-
-        $if = new If_(new Instanceof_($responseVariable, new FullyQualified(self::RESPONSE_CLASS)));
-        $if->stmts[] = new Return_($responseVariable);
-
-        $thisRenderMethodCall->args[1] = new Arg($responseVariable);
-
-        $returnThisRender = new Return_($thisRenderMethodCall);
+        $responseVariable = new \PhpParser\Node\Expr\Variable('responseOrData');
+        $assign = new \PhpParser\Node\Expr\Assign($responseVariable, $returnExpr);
+        $if = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\Instanceof_($responseVariable, new \PhpParser\Node\Name\FullyQualified(self::RESPONSE_CLASS)));
+        $if->stmts[] = new \PhpParser\Node\Stmt\Return_($responseVariable);
+        $thisRenderMethodCall->args[1] = new \PhpParser\Node\Arg($responseVariable);
+        $returnThisRender = new \PhpParser\Node\Stmt\Return_($thisRenderMethodCall);
         $this->addNodesAfterNode([$assign, $if, $returnThisRender], $return);
     }
-
     /**
      * @return void
      */
-    private function removeDoctrineAnnotationTagValueNode(ClassMethod $classMethod)
+    private function removeDoctrineAnnotationTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass(
-            'Sensio\Bundle\FrameworkExtraBundle\Configuration\Template'
-        );
-
-        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return;
         }
-
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
     }
-
     /**
      * @return void
      */
-    private function removeAnnotationClass(ClassMethod $classMethod)
+    private function removeAnnotationClass(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass(
-            'Sensio\Bundle\FrameworkExtraBundle\Configuration\Template'
-        );
-
-        if ($doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template');
+        if ($doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
         }
     }

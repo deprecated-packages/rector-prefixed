@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\DowngradePhp72\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -18,47 +17,35 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @changelog https://www.php.net/manual/en/migration72.new-features.php#migration72.new-features.param-type-widening
  * @see https://3v4l.org/fOgSE
  *
  * @see \Rector\Tests\DowngradePhp72\Rector\ClassMethod\DowngradeParameterTypeWideningRector\DowngradeParameterTypeWideningRectorTest
  */
-final class DowngradeParameterTypeWideningRector extends AbstractRector
+final class DowngradeParameterTypeWideningRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-
     /**
      * @var NativeTypeClassTreeResolver
      */
     private $nativeTypeClassTreeResolver;
-
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-
-    public function __construct(
-        PhpDocTypeChanger $phpDocTypeChanger,
-        NativeTypeClassTreeResolver $nativeTypeClassTreeResolver,
-        TypeFactory $typeFactory
-    ) {
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp72\NodeAnalyzer\NativeTypeClassTreeResolver $nativeTypeClassTreeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->nativeTypeClassTreeResolver = $nativeTypeClassTreeResolver;
         $this->typeFactory = $typeFactory;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change param type to match the lowest type in whole family tree',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type to match the lowest type in whole family tree', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 interface A
 {
     public function test(array $input);
@@ -69,8 +56,7 @@ class C implements A
     public function test($input){}
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 interface A
 {
     public function test(array $input);
@@ -81,215 +67,158 @@ class C implements A
     public function test(array $input){}
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
-
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->isMagic()) {
             return null;
         }
-
         if ($node->params === []) {
             return null;
         }
-
-        foreach (array_keys($node->params) as $position) {
+        foreach (\array_keys($node->params) as $position) {
             $this->refactorParamForSelfAndSiblings($node, (int) $position);
         }
-
         return null;
     }
-
     /**
      * The topmost class is the source of truth, so we go only down to avoid up/down collission
      * @return void
      */
-    private function refactorParamForSelfAndSiblings(ClassMethod $classMethod, int $position)
+    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position)
     {
-        $scope = $classMethod->getAttribute(AttributeKey::SCOPE);
-        if (! $scope instanceof Scope) {
+        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
             return;
         }
-
         $classReflection = $scope->getClassReflection();
-        if (! $classReflection instanceof ClassReflection) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return;
         }
-
-        if (count($classReflection->getAncestors()) === 1) {
+        if (\count($classReflection->getAncestors()) === 1) {
             return;
         }
-
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
-
         // Remove the types in:
         // - all ancestors + their descendant classes
         // - all implemented interfaces + their implementing classes
-        $parameterTypesByParentClassLikes = $this->resolveParameterTypesByClassLike(
-            $classReflection,
-            $methodName,
-            $position
-        );
-
+        $parameterTypesByParentClassLikes = $this->resolveParameterTypesByClassLike($classReflection, $methodName, $position);
         // we need at least 2 methods to have a possible conflict
-        if (count($parameterTypesByParentClassLikes) < 2) {
+        if (\count($parameterTypesByParentClassLikes) < 2) {
             return;
         }
-
         $uniqueParameterTypes = $this->typeFactory->uniquateTypes($parameterTypesByParentClassLikes);
-
         // we need at least 2 unique types
-        if (count($uniqueParameterTypes) === 1) {
+        if (\count($uniqueParameterTypes) === 1) {
             return;
         }
-
         $this->refactorClassWithAncestorsAndChildren($classReflection, $methodName, $position);
     }
-
     /**
      * @return void
      */
-    private function removeParamTypeFromMethod(
-        ClassLike $classLike,
-        int $position,
-        ClassMethod $classMethod
-    ) {
+    private function removeParamTypeFromMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    {
         $classMethodName = $this->getName($classMethod);
-
         $currentClassMethod = $classLike->getMethod($classMethodName);
-        if (! $currentClassMethod instanceof ClassMethod) {
+        if (!$currentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
-
-        if (! isset($currentClassMethod->params[$position])) {
+        if (!isset($currentClassMethod->params[$position])) {
             return;
         }
-
         $param = $currentClassMethod->params[$position];
-
         // It already has no type => nothing to do
         if ($param->type === null) {
             return;
         }
-
         // Add the current type in the PHPDoc
         $this->addPHPDocParamTypeToMethod($classMethod, $param);
-
         // Remove the type
         $param->type = null;
     }
-
     /**
      * @return void
      */
-    private function removeParamTypeFromMethodForChildren(
-        string $parentClassName,
-        string $methodName,
-        int $position
-    ) {
+    private function removeParamTypeFromMethodForChildren(string $parentClassName, string $methodName, int $position)
+    {
         $childrenClassLikes = $this->nodeRepository->findClassesAndInterfacesByType($parentClassName);
         foreach ($childrenClassLikes as $childClassLike) {
-            $childClassName = $childClassLike->getAttribute(AttributeKey::CLASS_NAME);
+            $childClassName = $childClassLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($childClassName === null) {
                 continue;
             }
-
             $childClassMethod = $this->nodeRepository->findClassMethod($childClassName, $methodName);
-            if (! $childClassMethod instanceof ClassMethod) {
+            if (!$childClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
-
             $this->removeParamTypeFromMethod($childClassLike, $position, $childClassMethod);
         }
     }
-
     /**
      * Add the current param type in the PHPDoc
      * @return void
      */
-    private function addPHPDocParamTypeToMethod(ClassMethod $classMethod, Param $param)
+    private function addPHPDocParamTypeToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
     {
         if ($param->type === null) {
             return;
         }
-
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-
         $paramName = $this->getName($param);
         $mappedCurrentParamType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $mappedCurrentParamType, $param, $paramName);
     }
-
     /**
      * @return array<class-string, Type>
      */
-    private function resolveParameterTypesByClassLike(
-        ClassReflection $classReflection,
-        string $methodName,
-        int $position
-    ): array {
+    private function resolveParameterTypesByClassLike(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : array
+    {
         $parameterTypesByParentClassLikes = [];
-
         foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
             if ($ancestorClassReflection->isTrait()) {
                 continue;
             }
-
-            if (! $ancestorClassReflection->hasMethod($methodName)) {
+            if (!$ancestorClassReflection->hasMethod($methodName)) {
                 continue;
             }
-
-            $parameterType = $this->nativeTypeClassTreeResolver->resolveParameterReflectionType(
-                $ancestorClassReflection,
-                $methodName,
-                $position
-            );
+            $parameterType = $this->nativeTypeClassTreeResolver->resolveParameterReflectionType($ancestorClassReflection, $methodName, $position);
             $parameterTypesByParentClassLikes[$ancestorClassReflection->getName()] = $parameterType;
         }
-
         return $parameterTypesByParentClassLikes;
     }
-
     /**
      * @return void
      */
-    private function refactorClassWithAncestorsAndChildren(
-        ClassReflection $classReflection,
-        string $methodName,
-        int $position
-    ) {
+    private function refactorClassWithAncestorsAndChildren(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position)
+    {
         foreach ($classReflection->getAncestors() as $ancestorClassRelection) {
             $classLike = $this->nodeRepository->findClassLike($ancestorClassRelection->getName());
-            if (! $classLike instanceof ClassLike) {
+            if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
                 continue;
             }
-
             $currentClassMethod = $classLike->getMethod($methodName);
-            if (! $currentClassMethod instanceof ClassMethod) {
+            if (!$currentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
-
             $className = $this->getName($classLike);
             if ($className === null) {
                 continue;
             }
-
             /**
              * If it doesn't find the method, it's because the method
              * lives somewhere else.
@@ -301,7 +230,6 @@ CODE_SAMPLE
              * The interface is also retrieve though, so that method
              * will eventually be refactored.
              */
-
             $this->removeParamTypeFromMethod($classLike, $position, $currentClassMethod);
             $this->removeParamTypeFromMethodForChildren($className, $methodName, $position);
         }

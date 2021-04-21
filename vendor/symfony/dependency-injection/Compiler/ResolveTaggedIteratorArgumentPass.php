@@ -8,32 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 /**
  * Resolves all TaggedIteratorArgument arguments.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class ResolveTaggedIteratorArgumentPass extends AbstractRecursivePass
+class ResolveTaggedIteratorArgumentPass extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     use PriorityTaggedServiceTrait;
-
     /**
      * {@inheritdoc}
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
-        if (!$value instanceof TaggedIteratorArgument) {
+        if (!$value instanceof \RectorPrefix20210421\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             return parent::processValue($value, $isRoot);
         }
-
         $value->setValues($this->findAndSortTaggedServices($value, $this->container));
-
         return $value;
     }
 }

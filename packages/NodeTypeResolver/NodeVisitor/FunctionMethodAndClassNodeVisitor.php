@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NodeTypeResolver\NodeVisitor;
 
 use PhpParser\Node;
@@ -9,34 +8,28 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeVisitorAbstract;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-
-final class FunctionMethodAndClassNodeVisitor extends NodeVisitorAbstract
+final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
      * @var string|null
      */
     private $className;
-
     /**
      * @var ClassLike[]|null[]
      */
     private $classStack = [];
-
     /**
      * @var ClassMethod[]|null[]
      */
     private $methodStack = [];
-
     /**
      * @var ClassLike|null
      */
     private $classLike;
-
     /**
      * @var ClassMethod|null
      */
     private $classMethod;
-
     /**
      * @param Node[] $nodes
      * @return mixed[]|null
@@ -46,63 +39,51 @@ final class FunctionMethodAndClassNodeVisitor extends NodeVisitorAbstract
         $this->classLike = null;
         $this->className = null;
         $this->classMethod = null;
-
         return null;
     }
-
     /**
      * @return \PhpParser\Node|null
      */
-    public function enterNode(Node $node)
+    public function enterNode(\PhpParser\Node $node)
     {
         $this->processClass($node);
         $this->processMethod($node);
-
         return $node;
     }
-
-    public function leaveNode(Node $node)
+    public function leaveNode(\PhpParser\Node $node)
     {
-        if ($node instanceof ClassLike) {
-            $classLike = array_pop($this->classStack);
+        if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
+            $classLike = \array_pop($this->classStack);
             $this->setClassNodeAndName($classLike);
         }
-
-        if ($node instanceof ClassMethod) {
-            $this->classMethod = array_pop($this->methodStack);
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $this->classMethod = \array_pop($this->methodStack);
         }
-
         return null;
     }
-
     /**
      * @return void
      */
-    private function processClass(Node $node)
+    private function processClass(\PhpParser\Node $node)
     {
-        if ($node instanceof ClassLike) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
             $this->classStack[] = $this->classLike;
             $this->setClassNodeAndName($node);
         }
-
-        $node->setAttribute(AttributeKey::CLASS_NODE, $this->classLike);
-        $node->setAttribute(AttributeKey::CLASS_NAME, $this->className);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $this->classLike);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $this->className);
     }
-
     /**
      * @return void
      */
-    private function processMethod(Node $node)
+    private function processMethod(\PhpParser\Node $node)
     {
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->methodStack[] = $this->classMethod;
-
             $this->classMethod = $node;
         }
-
-        $node->setAttribute(AttributeKey::METHOD_NODE, $this->classMethod);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, $this->classMethod);
     }
-
     /**
      * @param \PhpParser\Node\Stmt\ClassLike|null $classLike
      * @return void
@@ -110,9 +91,9 @@ final class FunctionMethodAndClassNodeVisitor extends NodeVisitorAbstract
     private function setClassNodeAndName($classLike)
     {
         $this->classLike = $classLike;
-        if (! $classLike instanceof ClassLike || $classLike->name === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike || $classLike->name === null) {
             $this->className = null;
-        } elseif (property_exists($classLike, 'namespacedName')) {
+        } elseif (\property_exists($classLike, 'namespacedName')) {
             $this->className = $classLike->namespacedName->toString();
         } else {
             $this->className = (string) $classLike->name;

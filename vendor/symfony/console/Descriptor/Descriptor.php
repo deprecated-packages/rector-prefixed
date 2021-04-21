@@ -8,97 +8,87 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\Console\Descriptor;
 
-namespace Symfony\Component\Console\Descriptor;
-
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputDefinition;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
-
+use RectorPrefix20210421\Symfony\Component\Console\Application;
+use RectorPrefix20210421\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210421\Symfony\Component\Console\Exception\InvalidArgumentException;
+use RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument;
+use RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition;
+use RectorPrefix20210421\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
  * @internal
  */
-abstract class Descriptor implements DescriptorInterface
+abstract class Descriptor implements \RectorPrefix20210421\Symfony\Component\Console\Descriptor\DescriptorInterface
 {
     /**
      * @var OutputInterface
      */
     protected $output;
-
     /**
      * {@inheritdoc}
      */
-    public function describe(OutputInterface $output, $object, array $options = [])
+    public function describe(\RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output, $object, array $options = [])
     {
         $this->output = $output;
-
-        switch (true) {
-            case $object instanceof InputArgument:
+        switch (\true) {
+            case $object instanceof \RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument:
                 $this->describeInputArgument($object, $options);
                 break;
-            case $object instanceof InputOption:
+            case $object instanceof \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption:
                 $this->describeInputOption($object, $options);
                 break;
-            case $object instanceof InputDefinition:
+            case $object instanceof \RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition:
                 $this->describeInputDefinition($object, $options);
                 break;
-            case $object instanceof Command:
+            case $object instanceof \RectorPrefix20210421\Symfony\Component\Console\Command\Command:
                 $this->describeCommand($object, $options);
                 break;
-            case $object instanceof Application:
+            case $object instanceof \RectorPrefix20210421\Symfony\Component\Console\Application:
                 $this->describeApplication($object, $options);
                 break;
             default:
-                throw new InvalidArgumentException(sprintf('Object of type "%s" is not describable.', get_debug_type($object)));
+                throw new \RectorPrefix20210421\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', \get_debug_type($object)));
         }
     }
-
     /**
      * Writes content to output.
      */
-    protected function write(string $content, bool $decorated = false)
+    protected function write(string $content, bool $decorated = \false)
     {
-        $this->output->write($content, false, $decorated ? OutputInterface::OUTPUT_NORMAL : OutputInterface::OUTPUT_RAW);
+        $this->output->write($content, \false, $decorated ? \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL : \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
-
     /**
      * Describes an InputArgument instance.
      *
      * @return string|mixed
      */
-    abstract protected function describeInputArgument(InputArgument $argument, array $options = []);
-
+    protected abstract function describeInputArgument(\RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument $argument, array $options = []);
     /**
      * Describes an InputOption instance.
      *
      * @return string|mixed
      */
-    abstract protected function describeInputOption(InputOption $option, array $options = []);
-
+    protected abstract function describeInputOption(\RectorPrefix20210421\Symfony\Component\Console\Input\InputOption $option, array $options = []);
     /**
      * Describes an InputDefinition instance.
      *
      * @return string|mixed
      */
-    abstract protected function describeInputDefinition(InputDefinition $definition, array $options = []);
-
+    protected abstract function describeInputDefinition(\RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition $definition, array $options = []);
     /**
      * Describes a Command instance.
      *
      * @return string|mixed
      */
-    abstract protected function describeCommand(Command $command, array $options = []);
-
+    protected abstract function describeCommand(\RectorPrefix20210421\Symfony\Component\Console\Command\Command $command, array $options = []);
     /**
      * Describes an Application instance.
      *
      * @return string|mixed
      */
-    abstract protected function describeApplication(Application $application, array $options = []);
+    protected abstract function describeApplication(\RectorPrefix20210421\Symfony\Component\Console\Application $application, array $options = []);
 }

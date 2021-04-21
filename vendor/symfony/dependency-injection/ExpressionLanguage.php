@@ -8,16 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection;
 
-namespace Symfony\Component\DependencyInjection;
-
-use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
-
-if (!class_exists(BaseExpressionLanguage::class)) {
+use RectorPrefix20210421\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20210421\Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
+if (!\class_exists(\RectorPrefix20210421\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
     return;
 }
-
 /**
  * Adds some function to the default ExpressionLanguage.
  *
@@ -25,16 +22,15 @@ if (!class_exists(BaseExpressionLanguage::class)) {
  *
  * @see ExpressionLanguageProvider
  */
-class ExpressionLanguage extends BaseExpressionLanguage
+class ExpressionLanguage extends \RectorPrefix20210421\Symfony\Component\ExpressionLanguage\ExpressionLanguage
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(CacheItemPoolInterface $cache = null, array $providers = [], callable $serviceCompiler = null)
+    public function __construct(\RectorPrefix20210421\Psr\Cache\CacheItemPoolInterface $cache = null, array $providers = [], callable $serviceCompiler = null)
     {
         // prepend the default provider to let users override it easily
-        array_unshift($providers, new ExpressionLanguageProvider($serviceCompiler));
-
+        \array_unshift($providers, new \RectorPrefix20210421\Symfony\Component\DependencyInjection\ExpressionLanguageProvider($serviceCompiler));
         parent::__construct($cache, $providers);
     }
 }

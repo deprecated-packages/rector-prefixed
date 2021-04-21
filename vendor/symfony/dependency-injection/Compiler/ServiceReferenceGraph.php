@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * This is a directed graph of your services.
  *
@@ -29,36 +27,31 @@ class ServiceReferenceGraph
      * @var ServiceReferenceGraphNode[]
      */
     private $nodes = [];
-
-    public function hasNode(string $id): bool
+    public function hasNode(string $id) : bool
     {
         return isset($this->nodes[$id]);
     }
-
     /**
      * Gets a node by identifier.
      *
      * @throws InvalidArgumentException if no node matches the supplied identifier
      */
-    public function getNode(string $id): ServiceReferenceGraphNode
+    public function getNode(string $id) : \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         if (!isset($this->nodes[$id])) {
-            throw new InvalidArgumentException(sprintf('There is no node with id "%s".', $id));
+            throw new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
         }
-
         return $this->nodes[$id];
     }
-
     /**
      * Returns all nodes.
      *
      * @return ServiceReferenceGraphNode[]
      */
-    public function getNodes(): array
+    public function getNodes() : array
     {
         return $this->nodes;
     }
-
     /**
      * Clears all nodes.
      */
@@ -69,32 +62,27 @@ class ServiceReferenceGraph
         }
         $this->nodes = [];
     }
-
     /**
      * Connects 2 nodes together in the Graph.
      * @param string|null $sourceId
      * @param string|null $destId
      */
-    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, bool $lazy = false, bool $weak = false, bool $byConstructor = false)
+    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, bool $lazy = \false, bool $weak = \false, bool $byConstructor = \false)
     {
         if (null === $sourceId || null === $destId) {
             return;
         }
-
         $sourceNode = $this->createNode($sourceId, $sourceValue);
         $destNode = $this->createNode($destId, $destValue);
-        $edge = new ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
-
+        $edge = new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
         $sourceNode->addOutEdge($edge);
         $destNode->addInEdge($edge);
     }
-
-    private function createNode(string $id, $value): ServiceReferenceGraphNode
+    private function createNode(string $id, $value) : \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
         if (isset($this->nodes[$id]) && $this->nodes[$id]->getValue() === $value) {
             return $this->nodes[$id];
         }
-
-        return $this->nodes[$id] = new ServiceReferenceGraphNode($id, $value);
+        return $this->nodes[$id] = new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode($id, $value);
     }
 }

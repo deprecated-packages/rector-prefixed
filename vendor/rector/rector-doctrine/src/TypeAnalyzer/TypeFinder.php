@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\TypeAnalyzer;
 
 use PHPStan\Type\ArrayType;
@@ -10,47 +9,40 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-
 final class TypeFinder
 {
     /**
      * @template TType as Type
      * @param class-string<TType> $desiredTypeClass
      */
-    public function find(Type $type, string $desiredTypeClass): Type
+    public function find(\PHPStan\Type\Type $type, string $desiredTypeClass) : \PHPStan\Type\Type
     {
-        if (is_a($type, $desiredTypeClass, true)) {
+        if (\is_a($type, $desiredTypeClass, \true)) {
             return $type;
         }
-
-        if ($type instanceof ArrayType && is_a($type->getItemType(), $desiredTypeClass, true)) {
+        if ($type instanceof \PHPStan\Type\ArrayType && \is_a($type->getItemType(), $desiredTypeClass, \true)) {
             return $type->getItemType();
         }
-
-        if ($type instanceof UnionType) {
+        if ($type instanceof \PHPStan\Type\UnionType) {
             return $this->findInJoinedType($type, $desiredTypeClass);
         }
-
-        if ($type instanceof IntersectionType) {
+        if ($type instanceof \PHPStan\Type\IntersectionType) {
             return $this->findInJoinedType($type, $desiredTypeClass);
         }
-
-        return new MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-
     /**
      * @param UnionType|IntersectionType $compoundType
      * @param class-string<Type> $desiredTypeClass
      */
-    private function findInJoinedType(CompoundType $compoundType, string $desiredTypeClass): Type
+    private function findInJoinedType(\PHPStan\Type\CompoundType $compoundType, string $desiredTypeClass) : \PHPStan\Type\Type
     {
         foreach ($compoundType->getTypes() as $joinedType) {
             $foundType = $this->find($joinedType, $desiredTypeClass);
-            if (! $foundType instanceof MixedType) {
+            if (!$foundType instanceof \PHPStan\Type\MixedType) {
                 return $foundType;
             }
         }
-
-        return new MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

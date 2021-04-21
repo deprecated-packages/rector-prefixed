@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Doctrine\Inflector\Rules\Spanish;
 
-namespace Doctrine\Inflector\Rules\Spanish;
-
-use Doctrine\Inflector\Rules\Pattern;
-
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -15,7 +13,6 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
@@ -23,14 +20,13 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
     private static function getDefault() : iterable
     {
-        yield new Pattern('lunes');
-        yield new Pattern('rompecabezas');
-        yield new Pattern('crisis');
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('lunes'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('rompecabezas'));
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern('crisis'));
     }
 }

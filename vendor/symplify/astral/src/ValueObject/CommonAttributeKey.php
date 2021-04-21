@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\Astral\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\Astral\ValueObject;
 
 final class CommonAttributeKey
 {

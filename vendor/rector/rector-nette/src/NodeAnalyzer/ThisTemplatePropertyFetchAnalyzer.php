@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\NodeAnalyzer;
 
 use PhpParser\Node\Expr;
@@ -9,76 +8,63 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use Rector\NodeNameResolver\NodeNameResolver;
-
 final class ThisTemplatePropertyFetchAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
     /**
      * @return string|null
      */
-    public function resolveTemplateParameterNameFromAssign(Assign $assign)
+    public function resolveTemplateParameterNameFromAssign(\PhpParser\Node\Expr\Assign $assign)
     {
-        if (! $assign->var instanceof PropertyFetch) {
+        if (!$assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-
         $propertyFetch = $assign->var;
-        if (! $this->isTemplatePropertyFetch($propertyFetch->var)) {
+        if (!$this->isTemplatePropertyFetch($propertyFetch->var)) {
             return null;
         }
-
         return $this->nodeNameResolver->getName($propertyFetch);
     }
-
     /**
      * $this->template->someKey => "someKey"
      * @return string|null
      */
-    public function matchThisTemplateKey(Expr $expr)
+    public function matchThisTemplateKey(\PhpParser\Node\Expr $expr)
     {
-        if (! $expr instanceof PropertyFetch) {
+        if (!$expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-
-        if (! $expr->var instanceof PropertyFetch) {
+        if (!$expr->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-
-        if (! $this->nodeNameResolver->isName($expr->var, 'template')) {
+        if (!$this->nodeNameResolver->isName($expr->var, 'template')) {
             return null;
         }
-
         return $this->nodeNameResolver->getName($expr->name);
     }
-
     /**
      * Looks for: $this->template
      *
      * $template
      */
-    public function isTemplatePropertyFetch(Expr $expr): bool
+    public function isTemplatePropertyFetch(\PhpParser\Node\Expr $expr) : bool
     {
-        if (! $expr instanceof PropertyFetch) {
-            return false;
+        if (!$expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            return \false;
         }
-
-        if (! $expr->var instanceof Variable) {
-            return false;
+        if (!$expr->var instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
         }
-
-        if (! $this->nodeNameResolver->isName($expr->var, 'this')) {
-            return false;
+        if (!$this->nodeNameResolver->isName($expr->var, 'this')) {
+            return \false;
         }
-
         return $this->nodeNameResolver->isName($expr->name, 'template');
     }
 }

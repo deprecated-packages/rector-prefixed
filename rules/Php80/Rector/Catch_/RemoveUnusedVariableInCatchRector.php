@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Php80\Rector\Catch_;
 
 use PhpParser\Node;
@@ -10,19 +9,16 @@ use PhpParser\Node\Stmt\Catch_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @changelog https://wiki.php.net/rfc/non-capturing_catches
  *
  * @see \Rector\Tests\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector\RemoveUnusedVariableInCatchRectorTest
  */
-final class RemoveUnusedVariableInCatchRector extends AbstractRector
+final class RemoveUnusedVariableInCatchRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Remove unused variable in catch()', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused variable in catch()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -33,8 +29,7 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -45,48 +40,40 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Catch_::class];
+        return [\PhpParser\Node\Stmt\Catch_::class];
     }
-
     /**
      * @param Catch_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         $caughtVar = $node->var;
-        if (! $caughtVar instanceof Variable) {
+        if (!$caughtVar instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-
         if ($this->isVariableUsed($node->stmts, $caughtVar)) {
             return null;
         }
-
         $node->var = null;
-
         return $node;
     }
-
     /**
      * @param Node[] $nodes
      */
-    private function isVariableUsed(array $nodes, Variable $variable): bool
+    private function isVariableUsed(array $nodes, \PhpParser\Node\Expr\Variable $variable) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($nodes, function (Node $node) use ($variable): bool {
-            if (! $node instanceof Variable) {
-                return false;
+        return (bool) $this->betterNodeFinder->findFirst($nodes, function (\PhpParser\Node $node) use($variable) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
             }
-
             return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }

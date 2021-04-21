@@ -8,14 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation\File\Exception;
+namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an UPLOAD_ERR_PARTIAL error occurred with UploadedFile.
  *
  * @author Florent Mata <florentmata@gmail.com>
  */
-class PartialFileException extends FileException
+class PartialFileException extends \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
 }

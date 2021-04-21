@@ -1,20 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
-
-class Namespace_ extends Node\Stmt
+class Namespace_ extends \PhpParser\Node\Stmt
 {
     /* For use in the "kind" attribute */
     const KIND_SEMICOLON = 1;
     const KIND_BRACED = 2;
-
     /** @var null|Node\Name Name */
     public $name;
     /** @var Node\Stmt[] Statements */
     public $stmts;
-
     /**
      * Constructs a namespace node.
      *
@@ -22,17 +20,18 @@ class Namespace_ extends Node\Stmt
      * @param null|Node\Stmt[] $stmts      Statements
      * @param array            $attributes Additional attributes
      */
-    public function __construct(Node\Name $name = null, $stmts = [], array $attributes = []) {
+    public function __construct(\PhpParser\Node\Name $name = null, $stmts = [], array $attributes = [])
+    {
         $this->attributes = $attributes;
         $this->name = $name;
         $this->stmts = $stmts;
     }
-
-    public function getSubNodeNames() : array {
+    public function getSubNodeNames() : array
+    {
         return ['name', 'stmts'];
     }
-    
-    public function getType() : string {
+    public function getType() : string
+    {
         return 'Stmt_Namespace';
     }
 }

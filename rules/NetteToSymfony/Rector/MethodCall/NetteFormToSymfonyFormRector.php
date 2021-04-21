@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -18,45 +17,39 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @changelog https://doc.nette.org/en/2.4/forms https://symfony.com/doc/current/forms.html
  *
  * @see \Rector\Tests\NetteToSymfony\Rector\MethodCall\NetteFormToSymfonyFormRector\NetteFormToSymfonyFormRectorTest
  */
-final class NetteFormToSymfonyFormRector extends AbstractRector
+final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
     const ADD_METHOD_TO_FORM_TYPE = [
-        'addText' => 'Symfony\Component\Form\Extension\Core\Type\TextType',
-        'addPassword' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
-        'addTextArea' => 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
-        'addEmail' => 'Symfony\Component\Form\Extension\Core\Type\EmailType',
-        'addInteger' => 'Symfony\Component\Form\Extension\Core\Type\IntegerType',
-        'addHidden' => 'Symfony\Component\Form\Extension\Core\Type\HiddenType',
+        'addText' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+        'addPassword' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
+        'addTextArea' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+        'addEmail' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+        'addInteger' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
+        'addHidden' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
         // https://symfony.com/doc/current/reference/forms/types/checkbox.html
-        'addCheckbox' => 'Symfony\Component\Form\Extension\Core\Type\CheckboxType',
-        'addUpload' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
-        'addImage' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
-        'addMultiUpload' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
+        'addCheckbox' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+        'addUpload' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addImage' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addMultiUpload' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
         // https://symfony.com/doc/current/reference/forms/types/choice.html#select-tag-checkboxes-or-radio-buttons
-        'addSelect' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addRadioList' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addCheckboxList' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addMultiSelect' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addSubmit' => 'Symfony\Component\Form\Extension\Core\Type\SubmitType',
-        'addButton' => 'Symfony\Component\Form\Extension\Core\Type\ButtonType',
+        'addSelect' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addRadioList' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addCheckboxList' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addMultiSelect' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addSubmit' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
+        'addButton' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
     ];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Migrate Nette\Forms in Presenter to Symfony',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette\\Forms in Presenter to Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI;
 
 class SomePresenter extends UI\Presenter
@@ -69,8 +62,7 @@ class SomePresenter extends UI\Presenter
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Application\UI;
 
 class SomePresenter extends UI\Presenter
@@ -87,134 +79,106 @@ class SomePresenter extends UI\Presenter
     }
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [New_::class, MethodCall::class];
+        return [\PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param New_|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
-        if (! $classLike instanceof ClassLike) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
-
-        if (! $this->isObjectType($classLike, new ObjectType('Nette\Application\IPresenter'))) {
+        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Nette\\Application\\IPresenter'))) {
             return null;
         }
-
-        if ($node instanceof New_) {
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
             return $this->processNew($node);
         }
-
         /** @var MethodCall $node */
-        if (! $this->isObjectType($node->var, new ObjectType('Nette\Application\UI\Form'))) {
+        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Form'))) {
             return null;
         }
-
         foreach (self::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
-            if (! $this->isName($node->name, $method)) {
+            if (!$this->isName($node->name, $method)) {
                 continue;
             }
-
             $this->processAddMethod($node, $method, $classType);
         }
-
         return $node;
     }
-
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function processNew(New_ $new)
+    private function processNew(\PhpParser\Node\Expr\New_ $new)
     {
-        if (! $this->isName($new->class, 'Nette\Application\UI\Form')) {
+        if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
-
         return $this->nodeFactory->createMethodCall('this', 'createFormBuilder');
     }
-
     /**
      * @return void
      */
-    private function processAddMethod(MethodCall $methodCall, string $method, string $classType)
+    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType)
     {
-        $methodCall->name = new Identifier('add');
-
+        $methodCall->name = new \PhpParser\Node\Identifier('add');
         // remove unused params
         if ($method === 'addText') {
             unset($methodCall->args[3], $methodCall->args[4]);
         }
-
         // has label
-        $optionsArray = new Array_();
+        $optionsArray = new \PhpParser\Node\Expr\Array_();
         if (isset($methodCall->args[1])) {
-            $optionsArray->items[] = new ArrayItem($methodCall->args[1]->value, new String_('label'));
+            $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($methodCall->args[1]->value, new \PhpParser\Node\Scalar\String_('label'));
         }
-
         $this->addChoiceTypeOptions($method, $optionsArray);
         $this->addMultiFileTypeOptions($method, $optionsArray);
-
-        $methodCall->args[1] = new Arg($this->nodeFactory->createClassConstReference($classType));
-
+        $methodCall->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createClassConstReference($classType));
         if ($optionsArray->items !== []) {
-            $methodCall->args[2] = new Arg($optionsArray);
+            $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
     }
-
     /**
      * @return void
      */
-    private function addChoiceTypeOptions(string $method, Array_ $optionsArray)
+    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
     {
         if ($method === 'addSelect') {
-            $expanded = false;
-            $multiple = false;
+            $expanded = \false;
+            $multiple = \false;
         } elseif ($method === 'addRadioList') {
-            $expanded = true;
-            $multiple = false;
+            $expanded = \true;
+            $multiple = \false;
         } elseif ($method === 'addCheckboxList') {
-            $expanded = true;
-            $multiple = true;
+            $expanded = \true;
+            $multiple = \true;
         } elseif ($method === 'addMultiSelect') {
-            $expanded = false;
-            $multiple = true;
+            $expanded = \false;
+            $multiple = \true;
         } else {
             return;
         }
-
-        $optionsArray->items[] = new ArrayItem(
-            $expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(),
-            new String_('expanded')
-        );
-
-        $optionsArray->items[] = new ArrayItem(
-            $multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(),
-            new String_('multiple')
-        );
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
-
     /**
      * @return void
      */
-    private function addMultiFileTypeOptions(string $method, Array_ $optionsArray)
+    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
     {
         if ($method !== 'addMultiUpload') {
             return;
         }
-
-        $optionsArray->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_('multiple'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($this->nodeFactory->createTrue(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
 }

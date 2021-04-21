@@ -1,11 +1,10 @@
 <?php
 
-namespace Stringy;
+namespace RectorPrefix20210421\Stringy;
 
 use BadMethodCallException;
 use ReflectionClass;
 use ReflectionMethod;
-
 /**
  * Class StaticStringy
  *
@@ -100,7 +99,6 @@ class StaticStringy
      * @var string[]
      */
     protected static $methodArgs = null;
-
     /**
      * Creates an instance of Stringy and invokes the given method with the
      * rest of the passed arguments. The optional encoding is expected to be
@@ -120,42 +118,34 @@ class StaticStringy
     public static function __callStatic($name, $arguments)
     {
         if (!static::$methodArgs) {
-            $stringyClass = new ReflectionClass('Stringy\Stringy');
-            $methods = $stringyClass->getMethods(ReflectionMethod::IS_PUBLIC);
-
+            $stringyClass = new \ReflectionClass('RectorPrefix20210421\\Stringy\\Stringy');
+            $methods = $stringyClass->getMethods(\ReflectionMethod::IS_PUBLIC);
             foreach ($methods as $method) {
                 $params = $method->getNumberOfParameters() + 2;
                 static::$methodArgs[$method->name] = $params;
             }
         }
-
         if (!isset(static::$methodArgs[$name])) {
-            throw new BadMethodCallException($name . ' is not a valid method');
+            throw new \BadMethodCallException($name . ' is not a valid method');
         }
-
-        $numArgs = count($arguments);
-        $str = ($numArgs) ? $arguments[0] : '';
-
+        $numArgs = \count($arguments);
+        $str = $numArgs ? $arguments[0] : '';
         if ($numArgs === static::$methodArgs[$name]) {
-            $args = array_slice($arguments, 1, -1);
+            $args = \array_slice($arguments, 1, -1);
             $encoding = $arguments[$numArgs - 1];
         } else {
-            $args = array_slice($arguments, 1);
+            $args = \array_slice($arguments, 1);
             $encoding = null;
         }
-
-        $stringy = Stringy::create($str, $encoding);
-
-        $result = call_user_func_array([$stringy, $name], $args);
-
-        $cast = function($val) {
-            if (is_object($val) && $val instanceof Stringy) {
+        $stringy = \RectorPrefix20210421\Stringy\Stringy::create($str, $encoding);
+        $result = \call_user_func_array([$stringy, $name], $args);
+        $cast = function ($val) {
+            if (\is_object($val) && $val instanceof \RectorPrefix20210421\Stringy\Stringy) {
                 return (string) $val;
             } else {
                 return $val;
             }
         };
-
-        return is_array($result) ? array_map($cast, $result) : $cast($result);
+        return \is_array($result) ? \array_map($cast, $result) : $cast($result);
     }
 }

@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\PackageBuilder\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\PackageBuilder\ValueObject;
 
 final class Option
 {
@@ -11,7 +10,6 @@ final class Option
      * @var string
      */
     const CONFIG = 'config';
-
     /**
      * @api
      * @var string

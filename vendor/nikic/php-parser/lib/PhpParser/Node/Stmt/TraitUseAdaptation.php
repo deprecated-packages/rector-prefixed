@@ -1,10 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
-
-abstract class TraitUseAdaptation extends Node\Stmt
+abstract class TraitUseAdaptation extends \PhpParser\Node\Stmt
 {
     /** @var Node\Name|null Trait name */
     public $trait;

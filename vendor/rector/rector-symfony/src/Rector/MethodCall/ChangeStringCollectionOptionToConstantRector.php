@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,7 +14,6 @@ use Rector\Symfony\NodeAnalyzer\FormCollectionAnalyzer;
 use Rector\Symfony\NodeAnalyzer\FormOptionsArrayMatcher;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://symfony.com/doc/2.8/form/form_collections.html
  * @see https://symfony.com/doc/3.0/form/form_collections.html
@@ -23,47 +21,34 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Symfony\Tests\Rector\MethodCall\ChangeStringCollectionOptionToConstantRector\ChangeStringCollectionOptionToConstantRectorTest
  */
-final class ChangeStringCollectionOptionToConstantRector extends AbstractRector
+final class ChangeStringCollectionOptionToConstantRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var FormAddMethodCallAnalyzer
      */
     private $formAddMethodCallAnalyzer;
-
     /**
      * @var FormOptionsArrayMatcher
      */
     private $formOptionsArrayMatcher;
-
     /**
      * @var FormTypeStringToTypeProvider
      */
     private $formTypeStringToTypeProvider;
-
     /**
      * @var FormCollectionAnalyzer
      */
     private $formCollectionAnalyzer;
-
-    public function __construct(
-        FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer,
-        FormOptionsArrayMatcher $formOptionsArrayMatcher,
-        FormTypeStringToTypeProvider $formTypeStringToTypeProvider,
-        FormCollectionAnalyzer $formCollectionAnalyzer
-    ) {
+    public function __construct(\Rector\Symfony\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher, \Rector\Symfony\FormHelper\FormTypeStringToTypeProvider $formTypeStringToTypeProvider, \Rector\Symfony\NodeAnalyzer\FormCollectionAnalyzer $formCollectionAnalyzer)
+    {
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
         $this->formTypeStringToTypeProvider = $formTypeStringToTypeProvider;
         $this->formCollectionAnalyzer = $formCollectionAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change type in CollectionType from alias string to class reference',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change type in CollectionType from alias string to class reference', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -82,8 +67,7 @@ class TaskType extends AbstractType
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -102,44 +86,37 @@ class TaskType extends AbstractType
     }
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->formAddMethodCallAnalyzer->isMatching($node)) {
+        if (!$this->formAddMethodCallAnalyzer->isMatching($node)) {
             return null;
         }
-
-        if (! $this->formCollectionAnalyzer->isCollectionType($node)) {
+        if (!$this->formCollectionAnalyzer->isCollectionType($node)) {
             return null;
         }
-
         $optionsArray = $this->formOptionsArrayMatcher->match($node);
-        if (! $optionsArray instanceof Array_) {
+        if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }
-
         return $this->processChangeToConstant($optionsArray, $node);
     }
-
     /**
      * @return \PhpParser\Node|null
      */
-    private function processChangeToConstant(Array_ $optionsArray, MethodCall $methodCall)
+    private function processChangeToConstant(\PhpParser\Node\Expr\Array_ $optionsArray, \PhpParser\Node\Expr\MethodCall $methodCall)
     {
         foreach ($optionsArray->items as $optionsArrayItem) {
             if ($optionsArrayItem === null) {
@@ -148,24 +125,20 @@ CODE_SAMPLE
             if ($optionsArrayItem->key === null) {
                 continue;
             }
-            if (! $this->valueResolver->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
+            if (!$this->valueResolver->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
                 continue;
             }
-
             // already ::class reference
-            if (! $optionsArrayItem->value instanceof String_) {
+            if (!$optionsArrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-
             $stringValue = $optionsArrayItem->value->value;
             $formClass = $this->formTypeStringToTypeProvider->matchClassForNameWithPrefix($stringValue);
             if ($formClass === null) {
                 return null;
             }
-
             $optionsArrayItem->value = $this->nodeFactory->createClassConstReference($formClass);
         }
-
         return $methodCall;
     }
 }

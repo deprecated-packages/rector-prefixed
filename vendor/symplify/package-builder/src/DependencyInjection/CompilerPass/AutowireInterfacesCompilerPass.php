@@ -1,19 +1,16 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-namespace Symplify\PackageBuilder\DependencyInjection\CompilerPass;
-
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-final class AutowireInterfacesCompilerPass implements CompilerPassInterface
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]
      */
     private $typesToAutowire = [];
-
     /**
      * @param string[] $typesToAutowire
      */
@@ -21,20 +18,18 @@ final class AutowireInterfacesCompilerPass implements CompilerPassInterface
     {
         $this->typesToAutowire = $typesToAutowire;
     }
-
     /**
      * @return void
      */
-    public function process(ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {
             foreach ($this->typesToAutowire as $typeToAutowire) {
-                if (! is_a((string) $definition->getClass(), $typeToAutowire, true)) {
+                if (!\is_a((string) $definition->getClass(), $typeToAutowire, \true)) {
                     continue;
                 }
-
-                $definition->setAutowired(true);
+                $definition->setAutowired(\true);
                 continue 2;
             }
         }

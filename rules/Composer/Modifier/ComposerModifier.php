@@ -1,19 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Composer\Modifier;
 
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
-use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-
+use RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 final class ComposerModifier
 {
     /**
      * @var ComposerRectorInterface[]
      */
     private $composerRectors = [];
-
     /**
      * @param ComposerRectorInterface[] $composerRectors
      */
@@ -21,18 +18,16 @@ final class ComposerModifier
     {
         $this->composerRectors = $composerRectors;
     }
-
     /**
      * @return void
      */
-    public function modify(ComposerJson $composerJson)
+    public function modify(\RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->composerRectors as $composerRector) {
             $composerRector->refactor($composerJson);
         }
     }
-
-    public function enabled(): bool
+    public function enabled() : bool
     {
         return $this->composerRectors !== [];
     }

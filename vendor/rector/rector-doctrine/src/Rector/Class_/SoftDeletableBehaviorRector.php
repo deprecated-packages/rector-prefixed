@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
 use PhpParser\Node;
@@ -13,38 +12,30 @@ use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/softdeleteable.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/soft-deletable.md
  *
  * @see \Rector\Doctrine\Tests\Rector\Class_\SoftDeletableBehaviorRector\SoftDeletableBehaviorRectorTest
  */
-final class SoftDeletableBehaviorRector extends AbstractRector
+final class SoftDeletableBehaviorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-
     /**
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-
-    public function __construct(ClassInsertManipulator $classInsertManipulator, PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change SoftDeletable from gedmo/doctrine-extensions to knplabs/doctrine-behaviors',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change SoftDeletable from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -68,8 +59,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
 use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait;
 
@@ -78,73 +68,52 @@ class SomeClass implements SoftDeletableInterface
     use SoftDeletableTrait;
 }
 CODE_SAMPLE
-            ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass(
-            'Gedmo\Mapping\Annotation\SoftDeleteable'
-        );
-
-        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\SoftDeleteable');
+        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             return null;
         }
-
         $fieldName = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('fieldName');
         $this->removePropertyAndClassMethods($node, $fieldName);
-
-        $this->classInsertManipulator->addAsFirstTrait(
-            $node,
-            'Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait'
-        );
-
-        $node->implements[] = new FullyQualified('Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface');
-
+        $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
-
         return $node;
     }
-
     /**
      * @return void
      */
-    private function removePropertyAndClassMethods(Class_ $class, string $fieldName)
+    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName)
     {
         // remove property
         foreach ($class->getProperties() as $property) {
-            if (! $this->isName($property, $fieldName)) {
+            if (!$this->isName($property, $fieldName)) {
                 continue;
             }
-
             $this->removeNode($property);
         }
-
         // remove methods
-        $setMethodName = 'set' . ucfirst($fieldName);
-        $getMethodName = 'get' . ucfirst($fieldName);
-
+        $setMethodName = 'set' . \ucfirst($fieldName);
+        $getMethodName = 'get' . \ucfirst($fieldName);
         foreach ($class->getMethods() as $classMethod) {
-            if (! $this->isNames($classMethod, [$setMethodName, $getMethodName])) {
+            if (!$this->isNames($classMethod, [$setMethodName, $getMethodName])) {
                 continue;
             }
-
             $this->removeNode($classMethod);
         }
     }

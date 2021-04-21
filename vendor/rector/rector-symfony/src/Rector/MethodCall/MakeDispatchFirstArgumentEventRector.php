@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -14,31 +13,24 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://symfony.com/blog/new-in-symfony-4-3-simpler-event-dispatching
  *
  * @see \Rector\Symfony\Tests\Rector\MethodCall\MakeDispatchFirstArgumentEventRector\MakeDispatchFirstArgumentEventRectorTest
  */
-final class MakeDispatchFirstArgumentEventRector extends AbstractRector
+final class MakeDispatchFirstArgumentEventRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var StringTypeAnalyzer
      */
     private $stringTypeAnalyzer;
-
-    public function __construct(StringTypeAnalyzer $stringTypeAnalyzer)
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer)
     {
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Make event object a first argument of dispatch() method, event name as second',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make event object a first argument of dispatch() method, event name as second', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SomeClass
@@ -49,8 +41,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SomeClass
@@ -61,105 +52,84 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
-
         $firstArgumentValue = $node->args[0]->value;
         if ($this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($firstArgumentValue)) {
             $this->refactorStringArgument($node);
             return $node;
         }
-
         $secondArgumentValue = $node->args[1]->value;
-        if ($secondArgumentValue instanceof FuncCall) {
+        if ($secondArgumentValue instanceof \PhpParser\Node\Expr\FuncCall) {
             $this->refactorGetCallFuncCall($node, $secondArgumentValue, $firstArgumentValue);
             return $node;
         }
-
         return null;
     }
-
-    private function shouldSkip(MethodCall $methodCall): bool
+    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (! $this->isObjectType(
-            $methodCall->var,
-            new ObjectType('Symfony\Contracts\EventDispatcher\EventDispatcherInterface')
-        )) {
-            return true;
+        if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType('Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface'))) {
+            return \true;
         }
-
-        if (! $this->isName($methodCall->name, 'dispatch')) {
-            return true;
+        if (!$this->isName($methodCall->name, 'dispatch')) {
+            return \true;
         }
-
-        return ! isset($methodCall->args[1]);
+        return !isset($methodCall->args[1]);
     }
-
     /**
      * @return void
      */
-    private function refactorStringArgument(MethodCall $methodCall)
+    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         // swap arguments
         list($methodCall->args[0], $methodCall->args[1]) = [$methodCall->args[1], $methodCall->args[0]];
-
         if ($this->isEventNameSameAsEventObjectClass($methodCall)) {
             unset($methodCall->args[1]);
         }
     }
-
     /**
      * @return void
      */
-    private function refactorGetCallFuncCall(MethodCall $methodCall, FuncCall $funcCall, Expr $expr)
+    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
     {
-        if (! $this->isName($funcCall, 'get_class')) {
+        if (!$this->isName($funcCall, 'get_class')) {
             return;
         }
-
         $getClassArgumentValue = $funcCall->args[0]->value;
-        if (! $this->nodeComparator->areNodesEqual($expr, $getClassArgumentValue)) {
+        if (!$this->nodeComparator->areNodesEqual($expr, $getClassArgumentValue)) {
             return;
         }
-
         unset($methodCall->args[1]);
     }
-
     /**
      * Is the event name just `::class`? We can remove it
      */
-    private function isEventNameSameAsEventObjectClass(MethodCall $methodCall): bool
+    private function isEventNameSameAsEventObjectClass(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (! $methodCall->args[1]->value instanceof ClassConstFetch) {
-            return false;
+        if (!$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            return \false;
         }
-
         $classConst = $this->valueResolver->getValue($methodCall->args[1]->value);
         $eventStaticType = $this->getStaticType($methodCall->args[0]->value);
-
-        if (! $eventStaticType instanceof ObjectType) {
-            return false;
+        if (!$eventStaticType instanceof \PHPStan\Type\ObjectType) {
+            return \false;
         }
-
         return $classConst === $eventStaticType->getClassName();
     }
 }

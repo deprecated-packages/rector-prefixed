@@ -8,13 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector;
 
-namespace Symfony\Component\HttpKernel\DataCollector;
-
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
+use RectorPrefix20210421\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
 /**
  * ExceptionDataCollector.
  *
@@ -22,21 +20,18 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class ExceptionDataCollector extends DataCollector
+class ExceptionDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\DataCollector
 {
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function collect(Request $request, Response $response, $exception = null)
+    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if (null !== $exception) {
-            $this->data = [
-                'exception' => FlattenException::createFromThrowable($exception),
-            ];
+            $this->data = ['exception' => \RectorPrefix20210421\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];
         }
     }
-
     /**
      * {@inheritdoc}
      */
@@ -44,7 +39,6 @@ class ExceptionDataCollector extends DataCollector
     {
         $this->data = [];
     }
-
     /**
      * Checks if the exception is not null.
      *
@@ -54,7 +48,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return isset($this->data['exception']);
     }
-
     /**
      * Gets the exception.
      *
@@ -64,7 +57,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return $this->data['exception'];
     }
-
     /**
      * Gets the exception message.
      *
@@ -74,7 +66,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return $this->data['exception']->getMessage();
     }
-
     /**
      * Gets the exception code.
      *
@@ -84,7 +75,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return $this->data['exception']->getCode();
     }
-
     /**
      * Gets the status code.
      *
@@ -94,7 +84,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return $this->data['exception']->getStatusCode();
     }
-
     /**
      * Gets the exception trace.
      *
@@ -104,7 +93,6 @@ class ExceptionDataCollector extends DataCollector
     {
         return $this->data['exception']->getTrace();
     }
-
     /**
      * {@inheritdoc}
      */

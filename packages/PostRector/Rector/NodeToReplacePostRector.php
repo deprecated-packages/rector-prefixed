@@ -1,50 +1,41 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use Rector\PostRector\Collector\NodesToReplaceCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
-final class NodeToReplacePostRector extends AbstractPostRector
+final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var NodesToReplaceCollector
      */
     private $nodesToReplaceCollector;
-
-    public function __construct(NodesToReplaceCollector $nodesToReplaceCollector)
+    public function __construct(\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector)
     {
         $this->nodesToReplaceCollector = $nodesToReplaceCollector;
     }
-
-    public function getPriority(): int
+    public function getPriority() : int
     {
         return 1100;
     }
-
     /**
      * @return \PhpParser\Node|null
      */
-    public function leaveNode(Node $node)
+    public function leaveNode(\PhpParser\Node $node)
     {
         foreach ($this->nodesToReplaceCollector->getNodes() as list($nodeToFind, $replacement)) {
             if ($node === $nodeToFind) {
                 return $replacement;
             }
         }
-
         return null;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Replaces nodes on weird positions', [
-            new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces nodes on weird positions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -53,8 +44,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -63,7 +53,6 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ), ]
-        );
+)]);
     }
 }

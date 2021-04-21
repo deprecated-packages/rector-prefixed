@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Naming\ValueObjectFactory;
 
 use PhpParser\Node\Expr\ArrowFunction;
@@ -14,44 +13,38 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Naming\ValueObject\ParamRename;
 use Rector\NodeNameResolver\NodeNameResolver;
-
 final class ParamRenameFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-
-    public function __construct(NodeNameResolver $nodeNameResolver, BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-
     /**
      * @return \Rector\Naming\ValueObject\ParamRename|null
      */
-    public function createFromResolvedExpectedName(Param $param, string $expectedName)
+    public function createFromResolvedExpectedName(\PhpParser\Node\Param $param, string $expectedName)
     {
         /** @var ClassMethod|Function_|Closure|ArrowFunction|null $functionLike */
-        $functionLike = $this->betterNodeFinder->findParentType($param, FunctionLike::class);
+        $functionLike = $this->betterNodeFinder->findParentType($param, \PhpParser\Node\FunctionLike::class);
         if ($functionLike === null) {
-            throw new ShouldNotHappenException("There shouldn't be a param outside of FunctionLike");
+            throw new \Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a param outside of FunctionLike");
         }
-
-        if ($functionLike instanceof ArrowFunction) {
+        if ($functionLike instanceof \PhpParser\Node\Expr\ArrowFunction) {
             return null;
         }
-
         $currentName = $this->nodeNameResolver->getName($param->var);
         if ($currentName === null) {
             return null;
         }
-        return new ParamRename($currentName, $expectedName, $param, $param->var, $functionLike);
+        return new \Rector\Naming\ValueObject\ParamRename($currentName, $expectedName, $param, $param->var, $functionLike);
     }
 }

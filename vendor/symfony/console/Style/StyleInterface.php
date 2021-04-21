@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Style;
+namespace RectorPrefix20210421\Symfony\Component\Console\Style;
 
 /**
  * Output style helpers.
@@ -22,64 +21,54 @@ interface StyleInterface
      * Formats a command title.
      */
     public function title(string $message);
-
     /**
      * Formats a section title.
      */
     public function section(string $message);
-
     /**
      * Formats a list.
      */
     public function listing(array $elements);
-
     /**
      * Formats informational text.
      *
      * @param string|array $message
      */
     public function text($message);
-
     /**
      * Formats a success result bar.
      *
      * @param string|array $message
      */
     public function success($message);
-
     /**
      * Formats an error result bar.
      *
      * @param string|array $message
      */
     public function error($message);
-
     /**
      * Formats an warning result bar.
      *
      * @param string|array $message
      */
     public function warning($message);
-
     /**
      * Formats a note admonition.
      *
      * @param string|array $message
      */
     public function note($message);
-
     /**
      * Formats a caution admonition.
      *
      * @param string|array $message
      */
     public function caution($message);
-
     /**
      * Formats a table.
      */
     public function table(array $headers, array $rows);
-
     /**
      * Asks a question.
      *
@@ -88,7 +77,6 @@ interface StyleInterface
      * @param callable $validator
      */
     public function ask(string $question, $default = null, $validator = null);
-
     /**
      * Asks a question with the user input hidden.
      *
@@ -96,7 +84,6 @@ interface StyleInterface
      * @param callable $validator
      */
     public function askHidden(string $question, $validator = null);
-
     /**
      * Asks for confirmation.
      *
@@ -104,8 +91,7 @@ interface StyleInterface
      * @param string $question
      * @param bool $default
      */
-    public function confirm($question, $default = true);
-
+    public function confirm($question, $default = \true);
     /**
      * Asks a choice question.
      *
@@ -114,22 +100,18 @@ interface StyleInterface
      * @return mixed
      */
     public function choice(string $question, array $choices, $default = null);
-
     /**
      * Add newline(s).
      */
     public function newLine(int $count = 1);
-
     /**
      * Starts the progress output.
      */
     public function progressStart(int $max = 0);
-
     /**
      * Advances the progress output X steps.
      */
     public function progressAdvance(int $step = 1);
-
     /**
      * Finishes the progress output.
      */

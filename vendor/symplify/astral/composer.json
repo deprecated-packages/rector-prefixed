@@ -1,28 +1,28 @@
 {
-    "name": "symplify/astral",
+    "name": "symplify\/astral",
     "description": "Toolking for smart daily work with AST",
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette/utils": "^3.2",
-        "symfony/dependency-injection": "^5.2",
-        "symplify/autowire-array-parameter": "^9.2.18",
-        "symfony/http-kernel": "^4.4|^5.2",
-        "nikic/php-parser": "^4.10.4",
-        "symplify/package-builder": "^9.2.18"
+        "nette\/utils": "^3.2",
+        "symfony\/dependency-injection": "^5.2",
+        "symplify\/autowire-array-parameter": "^9.2.18",
+        "symfony\/http-kernel": "^4.4|^5.2",
+        "nikic\/php-parser": "^4.10.4",
+        "symplify\/package-builder": "^9.2.18"
     },
     "require-dev": {
-        "symplify/easy-testing": "^9.2.18",
-        "phpunit/phpunit": "^9.5"
+        "symplify\/easy-testing": "^9.2.18",
+        "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "Symplify\\Astral\\": "src"
+            "RectorPrefix20210421\\Symplify\\Astral\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Symplify\\Astral\\Tests\\": "tests"
+            "RectorPrefix20210421\\Symplify\\Astral\\Tests\\": "tests"
         }
     },
     "extra": {

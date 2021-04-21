@@ -8,18 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel;
 
-namespace Symfony\Component\HttpKernel;
-
-use Symfony\Component\BrowserKit\AbstractBrowser;
-use Symfony\Component\BrowserKit\CookieJar;
-use Symfony\Component\BrowserKit\History;
-use Symfony\Component\BrowserKit\Request as DomRequest;
-use Symfony\Component\BrowserKit\Response as DomResponse;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
+use RectorPrefix20210421\Symfony\Component\BrowserKit\AbstractBrowser;
+use RectorPrefix20210421\Symfony\Component\BrowserKit\CookieJar;
+use RectorPrefix20210421\Symfony\Component\BrowserKit\History;
+use RectorPrefix20210421\Symfony\Component\BrowserKit\Request as DomRequest;
+use RectorPrefix20210421\Symfony\Component\BrowserKit\Response as DomResponse;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
 /**
  * Simulates a browser and makes requests to an HttpKernel instance.
  *
@@ -28,23 +26,20 @@ use Symfony\Component\HttpFoundation\Response;
  * @method Request  getRequest()  A Request instance
  * @method Response getResponse() A Response instance
  */
-class HttpKernelBrowser extends AbstractBrowser
+class HttpKernelBrowser extends \RectorPrefix20210421\Symfony\Component\BrowserKit\AbstractBrowser
 {
     protected $kernel;
-    private $catchExceptions = true;
-
+    private $catchExceptions = \true;
     /**
      * @param array $server The server parameters (equivalent of $_SERVER)
      */
-    public function __construct(HttpKernelInterface $kernel, array $server = [], History $history = null, CookieJar $cookieJar = null)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, array $server = [], \RectorPrefix20210421\Symfony\Component\BrowserKit\History $history = null, \RectorPrefix20210421\Symfony\Component\BrowserKit\CookieJar $cookieJar = null)
     {
         // These class properties must be set before calling the parent constructor, as it may depend on it.
         $this->kernel = $kernel;
-        $this->followRedirects = false;
-
+        $this->followRedirects = \false;
         parent::__construct($server, $history, $cookieJar);
     }
-
     /**
      * Sets whether to catch exceptions when the kernel is handling a request.
      */
@@ -52,7 +47,6 @@ class HttpKernelBrowser extends AbstractBrowser
     {
         $this->catchExceptions = $catchExceptions;
     }
-
     /**
      * Makes a request.
      *
@@ -60,15 +54,12 @@ class HttpKernelBrowser extends AbstractBrowser
      */
     protected function doRequest($request)
     {
-        $response = $this->kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, $this->catchExceptions);
-
-        if ($this->kernel instanceof TerminableInterface) {
+        $response = $this->kernel->handle($request, \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $this->catchExceptions);
+        if ($this->kernel instanceof \RectorPrefix20210421\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->kernel->terminate($request, $response);
         }
-
         return $response;
     }
-
     /**
      * Returns the script to execute when the request must be insulated.
      *
@@ -76,40 +67,34 @@ class HttpKernelBrowser extends AbstractBrowser
      */
     protected function getScript($request)
     {
-        $kernel = var_export(serialize($this->kernel), true);
-        $request = var_export(serialize($request), true);
-
-        $errorReporting = error_reporting();
-
+        $kernel = \var_export(\serialize($this->kernel), \true);
+        $request = \var_export(\serialize($request), \true);
+        $errorReporting = \error_reporting();
         $requires = '';
-        foreach (get_declared_classes() as $class) {
-            if (0 === strpos($class, 'ComposerAutoloaderInit')) {
+        foreach (\get_declared_classes() as $class) {
+            if (0 === \strpos($class, 'ComposerAutoloaderInit')) {
                 $r = new \ReflectionClass($class);
-                $file = \dirname($r->getFileName(), 2).'/autoload.php';
-                if (file_exists($file)) {
-                    $requires .= 'require_once '.var_export($file, true).";\n";
+                $file = \dirname($r->getFileName(), 2) . '/autoload.php';
+                if (\file_exists($file)) {
+                    $requires .= 'require_once ' . \var_export($file, \true) . ";\n";
                 }
             }
         }
-
         if (!$requires) {
             throw new \RuntimeException('Composer autoloader not found.');
         }
-
         $code = <<<EOF
 <?php
 
-error_reporting($errorReporting);
+error_reporting({$errorReporting});
 
-$requires
+{$requires}
 
-\$kernel = unserialize($kernel);
-\$request = unserialize($request);
+\$kernel = unserialize({$kernel});
+\$request = unserialize({$request});
 EOF;
-
-        return $code.$this->getHandleScript();
+        return $code . $this->getHandleScript();
     }
-
     protected function getHandleScript()
     {
         return <<<'EOF'
@@ -122,26 +107,22 @@ if ($kernel instanceof Symfony\Component\HttpKernel\TerminableInterface) {
 echo serialize($response);
 EOF;
     }
-
     /**
      * Converts the BrowserKit request to a HttpKernel request.
      *
      * @return Request A Request instance
      */
-    protected function filterRequest(DomRequest $request)
+    protected function filterRequest(\RectorPrefix20210421\Symfony\Component\BrowserKit\Request $request)
     {
-        $httpRequest = Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
+        $httpRequest = \RectorPrefix20210421\Symfony\Component\HttpFoundation\Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
         if (!isset($server['HTTP_ACCEPT'])) {
             $httpRequest->headers->remove('Accept');
         }
-
         foreach ($this->filterFiles($httpRequest->files->all()) as $key => $value) {
             $httpRequest->files->set($key, $value);
         }
-
         return $httpRequest;
     }
-
     /**
      * Filters an array of files.
      *
@@ -161,30 +142,16 @@ EOF;
         foreach ($files as $key => $value) {
             if (\is_array($value)) {
                 $filtered[$key] = $this->filterFiles($value);
-            } elseif ($value instanceof UploadedFile) {
-                if ($value->isValid() && $value->getSize() > UploadedFile::getMaxFilesize()) {
-                    $filtered[$key] = new UploadedFile(
-                        '',
-                        $value->getClientOriginalName(),
-                        $value->getClientMimeType(),
-                        \UPLOAD_ERR_INI_SIZE,
-                        true
-                    );
+            } elseif ($value instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile) {
+                if ($value->isValid() && $value->getSize() > \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize()) {
+                    $filtered[$key] = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile('', $value->getClientOriginalName(), $value->getClientMimeType(), \UPLOAD_ERR_INI_SIZE, \true);
                 } else {
-                    $filtered[$key] = new UploadedFile(
-                        $value->getPathname(),
-                        $value->getClientOriginalName(),
-                        $value->getClientMimeType(),
-                        $value->getError(),
-                        true
-                    );
+                    $filtered[$key] = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\UploadedFile($value->getPathname(), $value->getClientOriginalName(), $value->getClientMimeType(), $value->getError(), \true);
                 }
             }
         }
-
         return $filtered;
     }
-
     /**
      * Converts the HttpKernel response to a BrowserKit response.
      *
@@ -193,10 +160,9 @@ EOF;
     protected function filterResponse($response)
     {
         // this is needed to support StreamedResponse
-        ob_start();
+        \ob_start();
         $response->sendContent();
-        $content = ob_get_clean();
-
-        return new DomResponse($content, $response->getStatusCode(), $response->headers->all());
+        $content = \ob_get_clean();
+        return new \RectorPrefix20210421\Symfony\Component\BrowserKit\Response($content, $response->getStatusCode(), $response->headers->all());
     }
 }

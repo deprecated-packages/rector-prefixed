@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\Assign;
 
 use PhpParser\Node;
@@ -23,29 +22,22 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Nette\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\MakeGetComponentAssignAnnotatedRectorTest
  */
-final class MakeGetComponentAssignAnnotatedRector extends AbstractRector
+final class MakeGetComponentAssignAnnotatedRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var VarAnnotationManipulator
      */
     private $varAnnotationManipulator;
-
-    public function __construct(VarAnnotationManipulator $varAnnotationManipulator)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator)
     {
         $this->varAnnotationManipulator = $varAnnotationManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Add doc type for magic $control->getComponent(...) assign',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add doc type for magic $control->getComponent(...) assign', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 final class SomeClass
@@ -69,8 +61,7 @@ final class AnotherControl extends Control
 {
 }
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 final class SomeClass
@@ -95,155 +86,120 @@ final class AnotherControl extends Control
 {
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
-
     /**
      * @param Assign $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->isGetComponentMethodCallOrArrayDimFetchOnControl($node->expr)) {
+        if (!$this->isGetComponentMethodCallOrArrayDimFetchOnControl($node->expr)) {
             return null;
         }
-
-        if (! $node->var instanceof Variable) {
+        if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-
         $variableName = $this->getName($node->var);
         if ($variableName === null) {
             return null;
         }
-
         $nodeVar = $this->getObjectType($node->var);
-        if (! $nodeVar instanceof MixedType) {
+        if (!$nodeVar instanceof \PHPStan\Type\MixedType) {
             return null;
         }
-
         $controlType = $this->resolveControlType($node);
-        if (! $controlType instanceof TypeWithClassName) {
+        if (!$controlType instanceof \PHPStan\Type\TypeWithClassName) {
             return null;
         }
-
         $this->varAnnotationManipulator->decorateNodeWithInlineVarType($node, $controlType, $variableName);
-
         return $node;
     }
-
-    private function isGetComponentMethodCallOrArrayDimFetchOnControl(Expr $expr): bool
+    private function isGetComponentMethodCallOrArrayDimFetchOnControl(\PhpParser\Node\Expr $expr) : bool
     {
-        if (! $expr instanceof MethodCall) {
+        if (!$expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
-
-        if (! $this->isOnClassMethodCall($expr, new ObjectType('Nette\Application\UI\Control'), 'getComponent')) {
+        if (!$this->isOnClassMethodCall($expr, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'), 'getComponent')) {
             return $this->isArrayDimFetchStringOnControlVariable($expr);
         }
-
-        return true;
+        return \true;
     }
-
-    private function resolveControlType(Assign $assign): Type
+    private function resolveControlType(\PhpParser\Node\Expr\Assign $assign) : \PHPStan\Type\Type
     {
-        if ($assign->expr instanceof MethodCall) {
+        if ($assign->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             /** @var MethodCall $methodCall */
             $methodCall = $assign->expr;
             return $this->resolveCreateComponentMethodCallReturnType($methodCall);
         }
-
-        if ($assign->expr instanceof ArrayDimFetch) {
+        if ($assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             /** @var ArrayDimFetch $arrayDimFetch */
             $arrayDimFetch = $assign->expr;
             return $this->resolveArrayDimFetchControlType($arrayDimFetch);
         }
-
-        return new MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-
-    private function isArrayDimFetchStringOnControlVariable(Expr $expr): bool
+    private function isArrayDimFetchStringOnControlVariable(\PhpParser\Node\Expr $expr) : bool
     {
-        if (! $expr instanceof ArrayDimFetch) {
-            return false;
+        if (!$expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            return \false;
         }
-
-        if (! $expr->dim instanceof String_) {
-            return false;
+        if (!$expr->dim instanceof \PhpParser\Node\Scalar\String_) {
+            return \false;
         }
-
         $varStaticType = $this->getStaticType($expr->var);
-        if (! $varStaticType instanceof TypeWithClassName) {
-            return false;
+        if (!$varStaticType instanceof \PHPStan\Type\TypeWithClassName) {
+            return \false;
         }
-
-        return is_a($varStaticType->getClassName(), 'Nette\Application\UI\Control', true);
+        return \is_a($varStaticType->getClassName(), 'Nette\\Application\\UI\\Control', \true);
     }
-
-    private function resolveCreateComponentMethodCallReturnType(MethodCall $methodCall): Type
+    private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {
-        $scope = $methodCall->getAttribute(AttributeKey::SCOPE);
-        if (! $scope instanceof Scope) {
-            return new MixedType();
+        $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return new \PHPStan\Type\MixedType();
         }
-
-        if (count($methodCall->args) !== 1) {
-            return new MixedType();
+        if (\count($methodCall->args) !== 1) {
+            return new \PHPStan\Type\MixedType();
         }
-
         $firstArgumentValue = $methodCall->args[0]->value;
-        if (! $firstArgumentValue instanceof String_) {
-            return new MixedType();
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Scalar\String_) {
+            return new \PHPStan\Type\MixedType();
         }
-
         return $this->resolveTypeFromShortControlNameAndVariable($firstArgumentValue, $scope, $methodCall->var);
     }
-
-    private function resolveArrayDimFetchControlType(ArrayDimFetch $arrayDimFetch): Type
+    private function resolveArrayDimFetchControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \PHPStan\Type\Type
     {
-        $scope = $arrayDimFetch->getAttribute(AttributeKey::SCOPE);
-        if (! $scope instanceof Scope) {
-            throw new ShouldNotHappenException();
+        $scope = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        if (! $arrayDimFetch->dim instanceof String_) {
-            return new MixedType();
+        if (!$arrayDimFetch->dim instanceof \PhpParser\Node\Scalar\String_) {
+            return new \PHPStan\Type\MixedType();
         }
-
         return $this->resolveTypeFromShortControlNameAndVariable($arrayDimFetch->dim, $scope, $arrayDimFetch->var);
     }
-
-    private function resolveTypeFromShortControlNameAndVariable(
-        String_ $shortControlString,
-        Scope $scope,
-        Expr $expr
-    ): Type {
+    private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
+    {
         $componentName = $this->valueResolver->getValue($shortControlString);
-        $componentName = ucfirst($componentName);
-
-        $methodName = sprintf('createComponent%s', $componentName);
-
+        $componentName = \ucfirst($componentName);
+        $methodName = \sprintf('createComponent%s', $componentName);
         $calledOnType = $scope->getType($expr);
-        if (! $calledOnType instanceof TypeWithClassName) {
-            return new MixedType();
+        if (!$calledOnType instanceof \PHPStan\Type\TypeWithClassName) {
+            return new \PHPStan\Type\MixedType();
         }
-
-        if (! $calledOnType->hasMethod($methodName)->yes()) {
-            return new MixedType();
+        if (!$calledOnType->hasMethod($methodName)->yes()) {
+            return new \PHPStan\Type\MixedType();
         }
-
         // has method
         $methodReflection = $calledOnType->getMethod($methodName, $scope);
-
-        return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+        return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
     }
 }

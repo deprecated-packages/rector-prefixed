@@ -8,19 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceConfigurator extends AbstractServiceConfigurator
+class ServiceConfigurator extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     const FACTORY = 'services';
-
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;
@@ -40,26 +37,21 @@ class ServiceConfigurator extends AbstractServiceConfigurator
     use Traits\ShareTrait;
     use Traits\SyntheticTrait;
     use Traits\TagTrait;
-
     private $container;
     private $instanceof;
     private $allowParent;
     private $path;
-
-    public function __construct(ContainerBuilder $container, array $instanceof, bool $allowParent, ServicesConfigurator $parent, Definition $definition, $id, array $defaultTags, string $path = null)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, bool $allowParent, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, string $path = null)
     {
         $this->container = $container;
         $this->instanceof = $instanceof;
         $this->allowParent = $allowParent;
         $this->path = $path;
-
         parent::__construct($parent, $definition, $id, $defaultTags);
     }
-
     public function __destruct()
     {
         parent::__destruct();
-
         $this->container->removeBindings($this->id);
         $this->container->setDefinition($this->id, $this->definition->setInstanceofConditionals($this->instanceof));
     }

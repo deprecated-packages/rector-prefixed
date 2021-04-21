@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of a controller callable.
  *
@@ -25,25 +23,21 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ControllerEvent extends KernelEvent
+final class ControllerEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
-
     /**
      * @param int|null $requestType
      */
-    public function __construct(HttpKernelInterface $kernel, callable $controller, Request $request, $requestType)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
-
         $this->setController($controller);
     }
-
-    public function getController(): callable
+    public function getController() : callable
     {
         return $this->controller;
     }
-
     /**
      * @return void
      */

@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Uid;
+namespace RectorPrefix20210421\Symfony\Component\Uid;
 
 /**
  * A v5 UUID contains a SHA1 hash of another UUID and a name.
@@ -20,7 +19,7 @@ namespace Symfony\Component\Uid;
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class UuidV5 extends Uuid
+class UuidV5 extends \RectorPrefix20210421\Symfony\Component\Uid\Uuid
 {
     const TYPE = 5;
 }

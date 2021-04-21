@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -13,43 +12,28 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/4160
  * @see https://github.com/symfony/symfony/pull/29685/files
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\UseSpecificWillMethodRector\UseSpecificWillMethodRectorTest
  */
-final class UseSpecificWillMethodRector extends AbstractRector
+final class UseSpecificWillMethodRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
-    const NESTED_METHOD_TO_RENAME_MAP = [
-        'returnArgument' => 'willReturnArgument',
-        'returnCallback' => 'willReturnCallback',
-        'returnSelf' => 'willReturnSelf',
-        'returnValue' => 'willReturn',
-        'returnValueMap' => 'willReturnMap',
-        'throwException' => 'willThrowException',
-    ];
-
+    const NESTED_METHOD_TO_RENAME_MAP = ['returnArgument' => 'willReturnArgument', 'returnCallback' => 'willReturnCallback', 'returnSelf' => 'willReturnSelf', 'returnValue' => 'willReturn', 'returnValueMap' => 'willReturnMap', 'throwException' => 'willThrowException'];
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-
-    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer)
+    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Changes ->will($this->xxx()) to one specific method',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ->will($this->xxx()) to one specific method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     public function test()
@@ -62,8 +46,7 @@ class SomeClass extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     public function test()
@@ -76,94 +59,73 @@ class SomeClass extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->testsNodeAnalyzer->isInTestClass($node)) {
+        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-
-        $callerNode = $node instanceof StaticCall ? $node->class : $node->var;
-        if (! $this->isObjectType(
-            $callerNode,
-            new ObjectType('PHPUnit\Framework\MockObject\Builder\InvocationMocker')
-        )) {
+        $callerNode = $node instanceof \PhpParser\Node\Expr\StaticCall ? $node->class : $node->var;
+        if (!$this->isObjectType($callerNode, new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker'))) {
             return null;
         }
-
         if ($this->isName($node->name, 'with')) {
             return $this->processWithCall($node);
         }
-
         if ($this->isName($node->name, 'will')) {
             return $this->processWillCall($node);
         }
-
         return null;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return MethodCall|StaticCall
      */
-    private function processWithCall(Node $node): Node
+    private function processWithCall(\PhpParser\Node $node) : \PhpParser\Node
     {
         foreach ($node->args as $i => $argNode) {
-            if (! $argNode->value instanceof MethodCall) {
+            if (!$argNode->value instanceof \PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
-
             $methodCall = $argNode->value;
-            if (! $this->isName($methodCall->name, 'equalTo')) {
+            if (!$this->isName($methodCall->name, 'equalTo')) {
                 continue;
             }
-
             $node->args[$i] = $methodCall->args[0];
         }
-
         return $node;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    private function processWillCall(Node $node)
+    private function processWillCall(\PhpParser\Node $node)
     {
-        if (! $node->args[0]->value instanceof MethodCall) {
+        if (!$node->args[0]->value instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-
         $nestedMethodCall = $node->args[0]->value;
-
         foreach (self::NESTED_METHOD_TO_RENAME_MAP as $oldMethodName => $newParentMethodName) {
-            if (! $this->isName($nestedMethodCall->name, $oldMethodName)) {
+            if (!$this->isName($nestedMethodCall->name, $oldMethodName)) {
                 continue;
             }
-
-            $node->name = new Identifier($newParentMethodName);
-
+            $node->name = new \PhpParser\Node\Identifier($newParentMethodName);
             // move args up
             $node->args = $nestedMethodCall->args;
-
             return $node;
         }
-
         return null;
     }
 }

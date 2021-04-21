@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\Identical;
 
-use Nette\Utils\Strings;
+use RectorPrefix20210421\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -17,90 +16,71 @@ use Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer;
 use Rector\Nette\ValueObject\FuncCallAndExpr;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Nette\Tests\Rector\Identical\SubstrMinusToStringEndsWithRector\SubstrMinusToStringEndsWithRectorTest
  */
-final class SubstrMinusToStringEndsWithRector extends AbstractRector
+final class SubstrMinusToStringEndsWithRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     const SUBSTR = 'substr';
-
     /**
      * @var BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
-
-    public function __construct(BinaryOpAnalyzer $binaryOpAnalyzer)
+    public function __construct(\Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)
     {
         $this->binaryOpAnalyzer = $binaryOpAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change substr function with minus to Strings::endsWith()',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change substr function with minus to Strings::endsWith()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 substr($var, -4) !== 'Test';
 substr($var, -4) === 'Test';
 CODE_SAMPLE
-,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 ! \Nette\Utils\Strings::endsWith($var, 'Test');
 \Nette\Utils\Strings::endsWith($var, 'Test');
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Identical::class, NotIdentical::class];
+        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
-
     /**
      * @param Identical|NotIdentical $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         $funcCallAndExpr = $this->binaryOpAnalyzer->matchFuncCallAndOtherExpr($node, self::SUBSTR);
-        if (! $funcCallAndExpr instanceof FuncCallAndExpr) {
+        if (!$funcCallAndExpr instanceof \Rector\Nette\ValueObject\FuncCallAndExpr) {
             return null;
         }
-
         $substrFuncCall = $funcCallAndExpr->getFuncCall();
-        if (! $substrFuncCall->args[1]->value instanceof UnaryMinus) {
+        if (!$substrFuncCall->args[1]->value instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
-
         /** @var UnaryMinus $unaryMinus */
         $unaryMinus = $substrFuncCall->args[1]->value;
-        if (! $unaryMinus->expr instanceof LNumber) {
+        if (!$unaryMinus->expr instanceof \PhpParser\Node\Scalar\LNumber) {
             return null;
         }
-
         $string = $funcCallAndExpr->getExpr();
-
         $wordLength = $unaryMinus->expr->value;
-        if ($string instanceof String_ && strlen($string->value) !== $wordLength) {
+        if ($string instanceof \PhpParser\Node\Scalar\String_ && \strlen($string->value) !== $wordLength) {
             return null;
         }
-
         $arguments = [$substrFuncCall->args[0]->value, $string];
-        $staticCall = $this->nodeFactory->createStaticCall(Strings::class, 'endsWith', $arguments);
-
-        if ($node instanceof Identical) {
+        $staticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210421\Nette\Utils\Strings::class, 'endsWith', $arguments);
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $staticCall;
         }
-
-        return new BooleanNot($staticCall);
+        return new \PhpParser\Node\Expr\BooleanNot($staticCall);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -22,64 +21,48 @@ use Rector\NodeCollector\Reflection\MethodReflectionProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/nette/component-model/commit/1fb769f4602cf82694941530bac1111b3c5cd11b
  * This only applied to child of \Nette\Application\UI\Control, not Forms! Forms still need to be attached to their parents
  *
  * @see \Rector\Nette\Tests\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector\RemoveParentAndNameFromComponentConstructorRectorTest
  */
-final class RemoveParentAndNameFromComponentConstructorRector extends AbstractRector
+final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      */
     const PARENT = 'parent';
-
     /**
      * @var string
      */
     const NAME = 'name';
-
     /**
      * @var StaticCallAnalyzer
      */
     private $staticCallAnalyzer;
-
     /**
      * @var MethodReflectionProvider
      */
     private $methodReflectionProvider;
-
     /**
      * @var ParamFinder
      */
     private $paramFinder;
-
     /**
      * @var ObjectType
      */
     private $controlObjectType;
-
-    public function __construct(
-        ParamFinder $paramFinder,
-        StaticCallAnalyzer $staticCallAnalyzer,
-        MethodReflectionProvider $methodReflectionProvider
-    ) {
+    public function __construct(\Rector\Nette\NodeFinder\ParamFinder $paramFinder, \Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
+    {
         $this->staticCallAnalyzer = $staticCallAnalyzer;
         $this->methodReflectionProvider = $methodReflectionProvider;
         $this->paramFinder = $paramFinder;
-
-        $this->controlObjectType = new ObjectType('Nette\Application\UI\Control');
+        $this->controlObjectType = new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control');
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Remove $parent and $name in control constructor',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove $parent and $name in control constructor', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -91,9 +74,7 @@ class SomeControl extends Control
     }
 }
 CODE_SAMPLE
-
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -104,166 +85,135 @@ class SomeControl extends Control
     }
 }
 CODE_SAMPLE
-
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [ClassMethod::class, StaticCall::class, New_::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\New_::class];
     }
-
     /**
      * @param ClassMethod|StaticCall|New_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if ($node instanceof ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
         }
-
-        if ($node instanceof StaticCall) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return $this->refactorStaticCall($node);
         }
-
-        if ($this->isObjectType($node->class, new ObjectType('Nette\Application\UI\Control'))) {
+        if ($this->isObjectType($node->class, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'))) {
             $this->refactorNew($node);
             return $node;
         }
-
         return null;
     }
-
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorClassMethod(ClassMethod $classMethod)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
-        if (! $this->isInsideNetteComponentClass($classMethod)) {
+        if (!$this->isInsideNetteComponentClass($classMethod)) {
             return null;
         }
-
-        if (! $this->isName($classMethod, MethodName::CONSTRUCT)) {
+        if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
-
         $this->removeClassMethodParams($classMethod);
         return $classMethod;
     }
-
     /**
      * @return \PhpParser\Node\Expr\StaticCall|null
      */
-    private function refactorStaticCall(StaticCall $staticCall)
+    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
-        if (! $this->isInsideNetteComponentClass($staticCall)) {
+        if (!$this->isInsideNetteComponentClass($staticCall)) {
             return null;
         }
-
-        if (! $this->staticCallAnalyzer->isParentCallNamed($staticCall, MethodName::CONSTRUCT)) {
+        if (!$this->staticCallAnalyzer->isParentCallNamed($staticCall, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
-
         foreach ($staticCall->args as $staticCallArg) {
-            if (! $staticCallArg->value instanceof Variable) {
+            if (!$staticCallArg->value instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }
-
             /** @var Variable $variable */
             $variable = $staticCallArg->value;
-            if (! $this->isNames($variable, [self::NAME, self::PARENT])) {
+            if (!$this->isNames($variable, [self::NAME, self::PARENT])) {
                 continue;
             }
-
             $this->removeNode($staticCallArg);
         }
-
         if ($this->shouldRemoveEmptyCall($staticCall)) {
             $this->removeNode($staticCall);
             return null;
         }
-
         return $staticCall;
     }
-
     /**
      * @return void
      */
-    private function refactorNew(New_ $new)
+    private function refactorNew(\PhpParser\Node\Expr\New_ $new)
     {
         $parameterNames = $this->methodReflectionProvider->provideParameterNamesByNew($new);
-
         foreach ($new->args as $position => $arg) {
             // is on position of $parent or $name?
-            if (! isset($parameterNames[$position])) {
+            if (!isset($parameterNames[$position])) {
                 continue;
             }
-
             $parameterName = $parameterNames[$position];
-            if (! in_array($parameterName, [self::PARENT, self::NAME], true)) {
+            if (!\in_array($parameterName, [self::PARENT, self::NAME], \true)) {
                 continue;
             }
-
             $this->removeNode($arg);
         }
     }
-
-    private function isInsideNetteComponentClass(Node $node): bool
+    private function isInsideNetteComponentClass(\PhpParser\Node $node) : bool
     {
-        $scope = $node->getAttribute(AttributeKey::SCOPE);
-        if (! $scope instanceof Scope) {
-            return false;
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return \false;
         }
-
         $classReflection = $scope->getClassReflection();
-        if (! $classReflection instanceof ClassReflection) {
-            throw new ShouldNotHappenException();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         // presenter is not a component
-        if ($classReflection->isSubclassOf('Nette\Application\UI\Presenter')) {
-            return false;
+        if ($classReflection->isSubclassOf('Nette\\Application\\UI\\Presenter')) {
+            return \false;
         }
-
         return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
     }
-
     /**
      * @return void
      */
-    private function removeClassMethodParams(ClassMethod $classMethod)
+    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         foreach ($classMethod->params as $param) {
             if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {
                 continue;
             }
-
-            if ($this->isObjectType($param, new ObjectType('Nette\ComponentModel\IContainer'))) {
+            if ($this->isObjectType($param, new \PHPStan\Type\ObjectType('Nette\\ComponentModel\\IContainer'))) {
                 $this->removeNode($param);
                 continue;
             }
-
             if ($this->isName($param, self::NAME)) {
                 $this->removeNode($param);
             }
         }
     }
-
-    private function shouldRemoveEmptyCall(StaticCall $staticCall): bool
+    private function shouldRemoveEmptyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         foreach ($staticCall->args as $arg) {
             if ($this->nodesToRemoveCollector->isNodeRemoved($arg)) {
                 continue;
             }
-
-            return false;
+            return \false;
         }
-
-        return true;
+        return \true;
     }
 }

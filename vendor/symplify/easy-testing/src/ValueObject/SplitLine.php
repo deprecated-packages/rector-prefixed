@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\EasyTesting\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\EasyTesting\ValueObject;
 
 final class SplitLine
 {
@@ -10,5 +9,5 @@ final class SplitLine
      * @see https://regex101.com/r/8fuULy/1
      * @var string
      */
-    const SPLIT_LINE_REGEX = "#\-\-\-\-\-\r?\n#";
+    const SPLIT_LINE_REGEX = "#\\-\\-\\-\\-\\-\r?\n#";
 }

@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\SymplifyKernel\Exception\HttpKernel;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\SymplifyKernel\Exception\HttpKernel;
 
 use Exception;
-
-final class TooGenericKernelClassException extends Exception
+final class TooGenericKernelClassException extends \Exception
 {
 }

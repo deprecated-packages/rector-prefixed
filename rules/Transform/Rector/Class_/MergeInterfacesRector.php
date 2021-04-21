@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Transform\Rector\Class_;
 
 use PhpParser\Node;
@@ -11,7 +10,6 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * Covers cases like
  * - https://github.com/FriendsOfPHP/PHP-CS-Fixer/commit/a1cdb4d2dd8f45d731244eed406e1d537218cc66
@@ -19,77 +17,58 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Tests\Transform\Rector\Class_\MergeInterfacesRector\MergeInterfacesRectorTest
  */
-final class MergeInterfacesRector extends AbstractRector implements ConfigurableRectorInterface
+final class MergeInterfacesRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     const OLD_TO_NEW_INTERFACES = 'old_to_new_interfaces';
-
     /**
      * @var string[]
      */
     private $oldToNewInterfaces = [];
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Merges old interface to a new one, that already has its methods', [
-            new ConfiguredCodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Merges old interface to a new one, that already has its methods', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass implements SomeInterface, SomeOldInterface
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass implements SomeInterface
 {
 }
 CODE_SAMPLE
-                ,
-                [
-                    self::OLD_TO_NEW_INTERFACES => [
-                        'SomeOldInterface' => 'SomeInterface',
-                    ],
-                ]
-            ),
-        ]);
+, [self::OLD_TO_NEW_INTERFACES => ['SomeOldInterface' => 'SomeInterface']])]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
-
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->implements === []) {
             return null;
         }
-
         foreach ($node->implements as $key => $implement) {
-            $oldInterfaces = array_keys($this->oldToNewInterfaces);
-            if (! $this->isNames($implement, $oldInterfaces)) {
+            $oldInterfaces = \array_keys($this->oldToNewInterfaces);
+            if (!$this->isNames($implement, $oldInterfaces)) {
                 continue;
             }
-
             $interface = $this->getName($implement);
-            $node->implements[$key] = new Name($this->oldToNewInterfaces[$interface]);
+            $node->implements[$key] = new \PhpParser\Node\Name($this->oldToNewInterfaces[$interface]);
         }
-
         $this->makeImplementsUnique($node);
-
         return $node;
     }
-
     /**
      * @return void
      */
@@ -97,20 +76,18 @@ CODE_SAMPLE
     {
         $this->oldToNewInterfaces = $configuration[self::OLD_TO_NEW_INTERFACES] ?? [];
     }
-
     /**
      * @return void
      */
-    private function makeImplementsUnique(Class_ $class)
+    private function makeImplementsUnique(\PhpParser\Node\Stmt\Class_ $class)
     {
         $alreadyAddedNames = [];
         foreach ($class->implements as $key => $name) {
             $fqnName = $this->getName($name);
-            if (in_array($fqnName, $alreadyAddedNames, true)) {
+            if (\in_array($fqnName, $alreadyAddedNames, \true)) {
                 $this->nodeRemover->removeImplements($class, $key);
                 continue;
             }
-
             $alreadyAddedNames[] = $fqnName;
         }
     }

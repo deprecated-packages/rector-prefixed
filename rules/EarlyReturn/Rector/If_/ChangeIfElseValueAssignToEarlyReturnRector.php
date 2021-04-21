@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
@@ -16,35 +15,29 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @changelog https://engineering.helpscout.com/reducing-complexity-with-guard-clauses-in-php-and-javascript-74600fd865c7
  *
  * @see \Rector\Tests\EarlyReturn\Rector\If_\ChangeIfElseValueAssignToEarlyReturnRector\ChangeIfElseValueAssignToEarlyReturnRectorTest
  */
-final class ChangeIfElseValueAssignToEarlyReturnRector extends AbstractRector
+final class ChangeIfElseValueAssignToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
-
     /**
      * @var StmtsManipulator
      */
     private $stmtsManipulator;
-
-    public function __construct(IfManipulator $ifManipulator, StmtsManipulator $stmtsManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change if/else value to early return', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change if/else value to early return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -59,8 +52,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -72,69 +64,53 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
-
     /**
      * @param If_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        $nextNode = $node->getAttribute(AttributeKey::NEXT_NODE);
-        if (! $nextNode instanceof Return_) {
+        $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
-
         if ($nextNode->expr === null) {
             return null;
         }
-
-        if (! $this->ifManipulator->isIfAndElseWithSameVariableAssignAsLastStmts($node, $nextNode->expr)) {
+        if (!$this->ifManipulator->isIfAndElseWithSameVariableAssignAsLastStmts($node, $nextNode->expr)) {
             return null;
         }
-        end($node->stmts);
-
-        $lastIfStmtKey = key($node->stmts);
-
+        \end($node->stmts);
+        $lastIfStmtKey = \key($node->stmts);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->stmts);
-
-        $return = new Return_($assign->expr);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $this->mirrorComments($return, $assign);
         $node->stmts[$lastIfStmtKey] = $return;
-
         $else = $node->else;
-        if (! $else instanceof Else_) {
-            throw new ShouldNotHappenException();
+        if (!$else instanceof \PhpParser\Node\Stmt\Else_) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
         $elseStmts = $else->stmts;
-
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($elseStmts);
-        end($elseStmts);
-
-        $lastElseStmtKey = key($elseStmts);
-
-        $return = new Return_($assign->expr);
+        \end($elseStmts);
+        $lastElseStmtKey = \key($elseStmts);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $this->mirrorComments($return, $assign);
         $elseStmts[$lastElseStmtKey] = $return;
-
         $node->else = null;
         $this->addNodesAfterNode($elseStmts, $node);
-
         $this->removeNode($nextNode);
-
         return $node;
     }
 }

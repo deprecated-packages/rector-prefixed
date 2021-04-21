@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\StaticCall;
 
 use PhpParser\Node;
@@ -11,18 +10,15 @@ use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#httpfoundation
  * @see \Rector\Symfony\Tests\Rector\StaticCall\BinaryFileResponseCreateToNewInstanceRector\BinaryFileResponseCreateToNewInstanceRectorTest
  */
-final class BinaryFileResponseCreateToNewInstanceRector extends AbstractRector
+final class BinaryFileResponseCreateToNewInstanceRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition('Change deprecated BinaryFileResponse::create() to use __construct() instead', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change deprecated BinaryFileResponse::create() to use __construct() instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\HttpFoundation;
 
 class SomeClass
@@ -33,8 +29,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\HttpFoundation;
 
 class SomeClass
@@ -45,41 +40,34 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $node->class instanceof Name) {
+        if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-
-        if (! $this->isName($node->class, 'Symfony\Component\HttpFoundation\BinaryFileResponse')) {
+        if (!$this->isName($node->class, 'Symfony\\Component\\HttpFoundation\\BinaryFileResponse')) {
             return null;
         }
-
-        if (! $this->isName($node->name, 'create')) {
+        if (!$this->isName($node->name, 'create')) {
             return null;
         }
-
         $args = $node->args;
         if ($args === []) {
             $args[] = $this->nodeFactory->createArg($this->nodeFactory->createNull());
         }
-
-        return new New_($node->class, $args);
+        return new \PhpParser\Node\Expr\New_($node->class, $args);
     }
 }

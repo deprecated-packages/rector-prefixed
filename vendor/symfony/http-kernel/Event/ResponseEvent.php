@@ -8,13 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to filter a Response object.
  *
@@ -24,26 +22,22 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ResponseEvent extends KernelEvent
+final class ResponseEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-
-    public function __construct(HttpKernelInterface $kernel, Request $request, int $requestType, Response $response)
+    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, int $requestType, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
     {
         parent::__construct($kernel, $request, $requestType);
-
         $this->setResponse($response);
     }
-
-    public function getResponse(): Response
+    public function getResponse() : \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response
     {
         return $this->response;
     }
-
     /**
      * @return void
      */
-    public function setResponse(Response $response)
+    public function setResponse(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
     }

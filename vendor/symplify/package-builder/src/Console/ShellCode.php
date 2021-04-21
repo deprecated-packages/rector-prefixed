@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\PackageBuilder\Console;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\PackageBuilder\Console;
 
 final class ShellCode
 {
@@ -10,7 +9,6 @@ final class ShellCode
      * @var int
      */
     const SUCCESS = 0;
-
     /**
      * @var int
      */

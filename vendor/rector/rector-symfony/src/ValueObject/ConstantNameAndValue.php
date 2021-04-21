@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\ValueObject;
 
 final class ConstantNameAndValue
@@ -10,12 +9,10 @@ final class ConstantNameAndValue
      * @var string
      */
     private $name;
-
     /**
      * @var mixed
      */
     private $value;
-
     /**
      * @param mixed $value
      */
@@ -24,12 +21,10 @@ final class ConstantNameAndValue
         $this->name = $name;
         $this->value = $value;
     }
-
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
-
     /**
      * @return mixed
      */

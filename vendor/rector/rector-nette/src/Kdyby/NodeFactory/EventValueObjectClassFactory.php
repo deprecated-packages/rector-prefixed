@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\Kdyby\NodeFactory;
 
-use Nette\Utils\Strings;
+use RectorPrefix20210421\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -19,10 +18,9 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\Kdyby\BlueprintFactory\VariableWithTypesFactory;
 use Rector\Nette\Kdyby\ValueObject\VariableWithType;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
-
+use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 /**
  * @todo decouple to generic object factory for better re-use, e.g. this is just value object pattern
  */
@@ -32,152 +30,106 @@ final class EventValueObjectClassFactory
      * @var ClassNaming
      */
     private $classNaming;
-
     /**
      * @var VariableWithTypesFactory
      */
     private $variableWithTypesFactory;
-
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
-    public function __construct(
-        ClassNaming $classNaming,
-        NodeFactory $nodeFactory,
-        NodeNameResolver $nodeNameResolver,
-        VariableWithTypesFactory $variableWithTypesFactory
-    ) {
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Nette\Kdyby\BlueprintFactory\VariableWithTypesFactory $variableWithTypesFactory)
+    {
         $this->classNaming = $classNaming;
         $this->variableWithTypesFactory = $variableWithTypesFactory;
         $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-
     /**
      * @param Arg[] $args
      */
-    public function create(string $className, array $args): Namespace_
+    public function create(string $className, array $args) : \PhpParser\Node\Stmt\Namespace_
     {
         $classBuilder = $this->createEventClassBuilder($className);
         $this->decorateWithConstructorIfHasArgs($classBuilder, $args);
-
         $class = $classBuilder->getNode();
-
         return $this->wrapClassToNamespace($className, $class);
     }
-
-    private function createEventClassBuilder(string $className): ClassBuilder
+    private function createEventClassBuilder(string $className) : \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder
     {
         $shortClassName = $this->classNaming->getShortName($className);
-
-        $classBuilder = new ClassBuilder($shortClassName);
+        $classBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
-        $classBuilder->extend(new FullyQualified('Symfony\Contracts\EventDispatcher\Event'));
-
+        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
     }
-
     /**
      * @param Arg[] $args
      * @return void
      */
-    private function decorateWithConstructorIfHasArgs(ClassBuilder $classBuilder, array $args)
+    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args)
     {
         if ($args === []) {
             return;
         }
-
         $variablesWithTypes = $this->variableWithTypesFactory->createVariablesWithTypesFromArgs($args);
-
         $this->ensureVariablesAreUnique($variablesWithTypes, $classBuilder);
-
         $classMethod = $this->createConstructClassMethod($variablesWithTypes);
         $classBuilder->addStmt($classMethod);
-
         // add properties
         foreach ($variablesWithTypes as $variableWithType) {
-            $property = $this->nodeFactory->createPrivatePropertyFromNameAndType(
-                $variableWithType->getName(),
-                $variableWithType->getType()
-            );
-
+            $property = $this->nodeFactory->createPrivatePropertyFromNameAndType($variableWithType->getName(), $variableWithType->getType());
             $classBuilder->addStmt($property);
         }
-
         // add getters
         foreach ($variablesWithTypes as $variableWithType) {
-            $getterClassMethod = $this->nodeFactory->createGetterClassMethodFromNameAndType(
-                $variableWithType->getName(),
-                $variableWithType->getPhpParserTypeNode()
-            );
-
+            $getterClassMethod = $this->nodeFactory->createGetterClassMethodFromNameAndType($variableWithType->getName(), $variableWithType->getPhpParserTypeNode());
             $classBuilder->addStmt($getterClassMethod);
         }
     }
-
-    private function wrapClassToNamespace(string $className, Class_ $class): Namespace_
+    private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
     {
-        $namespace = Strings::before($className, '\\', -1);
-
-        $namespaceBuilder = new NamespaceBuilder($namespace);
+        $namespace = \RectorPrefix20210421\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespaceBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
-
         return $namespaceBuilder->getNode();
     }
-
     /**
      * @param VariableWithType[] $variablesWithTypes
      * @return void
      */
-    private function ensureVariablesAreUnique(array $variablesWithTypes, ClassBuilder $classBuilder)
+    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder)
     {
         $usedVariableNames = [];
-
         foreach ($variablesWithTypes as $variablesWithType) {
-            if (in_array($variablesWithType->getName(), $usedVariableNames, true)) {
+            if (\in_array($variablesWithType->getName(), $usedVariableNames, \true)) {
                 $className = $this->nodeNameResolver->getName($classBuilder->getNode());
-
-                $message = sprintf(
-                    'Variable "$%s" is duplicated in to be created "%s" class',
-                    $variablesWithType->getName(),
-                    $className
-                );
-
-                throw new ShouldNotHappenException($message);
+                $message = \sprintf('Variable "$%s" is duplicated in to be created "%s" class', $variablesWithType->getName(), $className);
+                throw new \Rector\Core\Exception\ShouldNotHappenException($message);
             }
-
             $usedVariableNames[] = $variablesWithType->getName();
         }
     }
-
     /**
      * @param VariableWithType[] $variableWithTypes
      */
-    private function createConstructClassMethod(array $variableWithTypes): ClassMethod
+    private function createConstructClassMethod(array $variableWithTypes) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new MethodBuilder(MethodName::CONSTRUCT);
+        $methodBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
-
         foreach ($variableWithTypes as $variableWithType) {
-            $param = new Param(new Variable($variableWithType->getName()));
-
+            $param = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($variableWithType->getName()));
             if ($variableWithType->getPhpParserTypeNode() !== null) {
                 $param->type = $variableWithType->getPhpParserTypeNode();
             }
-
             $methodBuilder->addParam($param);
-
             $assign = $this->nodeFactory->createPropertyAssignment($variableWithType->getName());
             $methodBuilder->addStmt($assign);
         }
-
         return $methodBuilder->getNode();
     }
 }

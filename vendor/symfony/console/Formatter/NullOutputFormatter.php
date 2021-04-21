@@ -8,16 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Formatter;
+namespace RectorPrefix20210421\Symfony\Component\Console\Formatter;
 
 /**
  * @author Tien Xuan Vo <tien.xuan.vo@gmail.com>
  */
-final class NullOutputFormatter implements OutputFormatterInterface
+final class NullOutputFormatter implements \RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface
 {
     private $style;
-
     /**
      * {@inheritdoc}
      * @param string|null $message
@@ -27,35 +25,31 @@ final class NullOutputFormatter implements OutputFormatterInterface
     {
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      */
-    public function getStyle(string $name): OutputFormatterStyleInterface
+    public function getStyle(string $name) : \RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
         if ($this->style) {
             return $this->style;
         }
         // to comply with the interface we must return a OutputFormatterStyleInterface
-        return $this->style = new NullOutputFormatterStyle();
+        return $this->style = new \RectorPrefix20210421\Symfony\Component\Console\Formatter\NullOutputFormatterStyle();
     }
-
     /**
      * {@inheritdoc}
      */
-    public function hasStyle(string $name): bool
+    public function hasStyle(string $name) : bool
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      */
-    public function isDecorated(): bool
+    public function isDecorated() : bool
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -64,12 +58,11 @@ final class NullOutputFormatter implements OutputFormatterInterface
     {
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    public function setStyle(string $name, OutputFormatterStyleInterface $style)
+    public function setStyle(string $name, \RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         // do nothing
     }

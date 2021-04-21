@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Doctrine\Inflector\Rules\French;
 
-namespace Doctrine\Inflector\Rules\French;
-
-use Doctrine\Inflector\Rules\Pattern;
-
+use RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -15,7 +13,6 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
@@ -23,12 +20,11 @@ final class Uninflected
     {
         yield from self::getDefault();
     }
-
     /**
      * @return Pattern[]
      */
     private static function getDefault() : iterable
     {
-        yield new Pattern('');
+        (yield new \RectorPrefix20210421\Doctrine\Inflector\Rules\Pattern(''));
     }
 }

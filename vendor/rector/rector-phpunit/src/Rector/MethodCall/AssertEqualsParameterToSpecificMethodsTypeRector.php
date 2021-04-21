@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -12,38 +11,30 @@ use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\PHPUnit\NodeFactory\AssertCallFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/90e9e0379584bdf34220322e202617cd56d8ba65
  * @see https://github.com/sebastianbergmann/phpunit/commit/a4b60a5c625ff98a52bb3222301d223be7367483
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsParameterToSpecificMethodsTypeRector\AssertEqualsParameterToSpecificMethodsTypeRectorTest
  */
-final class AssertEqualsParameterToSpecificMethodsTypeRector extends AbstractRector
+final class AssertEqualsParameterToSpecificMethodsTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var AssertCallFactory
      */
     private $assertCallFactory;
-
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-
-    public function __construct(AssertCallFactory $assertCallFactory, TestsNodeAnalyzer $testsNodeAnalyzer)
+    public function __construct(\Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->assertCallFactory = $assertCallFactory;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change assertEquals()/assertNotEquals() method parameters to new specific alternatives',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertEquals()/assertNotEquals() method parameters to new specific alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -59,8 +50,7 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -76,32 +66,26 @@ final class SomeTest extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-                ),
-            ]
-        );
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertEquals', 'assertNotEquals'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertEquals', 'assertNotEquals'])) {
             return null;
         }
-
         // 1. refactor to "assertEqualsIgnoringCase()"
         $this->processAssertEqualsIgnoringCase($node);
-
         // 2. refactor to "assertEqualsCanonicalizing()"
         $this->processAssertEqualsCanonicalizing($node);
         if (isset($node->args[4])) {
@@ -109,15 +93,13 @@ CODE_SAMPLE
             unset($node->args[4]);
         }
         $this->processAssertEqualsWithDelta($node);
-
         return $node;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function processAssertEqualsIgnoringCase(Node $node)
+    private function processAssertEqualsIgnoringCase(\PhpParser\Node $node)
     {
         if (isset($node->args[6])) {
             if ($this->valueResolver->isTrue($node->args[6]->value)) {
@@ -127,16 +109,14 @@ CODE_SAMPLE
                 $newMethodCall->args[2] = $node->args[2];
                 $this->addNodeAfterNode($newMethodCall, $node);
             }
-
             unset($node->args[6]);
         }
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function processAssertEqualsCanonicalizing(Node $node)
+    private function processAssertEqualsCanonicalizing(\PhpParser\Node $node)
     {
         if (isset($node->args[5])) {
             // add new node only in case of non-default value
@@ -147,20 +127,18 @@ CODE_SAMPLE
                 $newMethodCall->args[2] = $node->args[2];
                 $this->addNodeAfterNode($newMethodCall, $node);
             }
-
             unset($node->args[5]);
         }
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function processAssertEqualsWithDelta(Node $node)
+    private function processAssertEqualsWithDelta(\PhpParser\Node $node)
     {
         if (isset($node->args[3])) {
             // add new node only in case of non-default value
-            if (! $this->valueResolver->isValue($node->args[3]->value, 0.0)) {
+            if (!$this->valueResolver->isValue($node->args[3]->value, 0.0)) {
                 $newMethodCall = $this->assertCallFactory->createCallWithName($node, 'assertEqualsWithDelta');
                 $newMethodCall->args[0] = $node->args[0];
                 $newMethodCall->args[1] = $node->args[1];
@@ -168,7 +146,6 @@ CODE_SAMPLE
                 $newMethodCall->args[3] = $node->args[2];
                 $this->addNodeAfterNode($newMethodCall, $node);
             }
-
             unset($node->args[3]);
         }
     }

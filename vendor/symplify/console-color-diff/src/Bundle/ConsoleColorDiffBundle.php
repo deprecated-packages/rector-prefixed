@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\ConsoleColorDiff\Bundle;
 
-namespace Symplify\ConsoleColorDiff\Bundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
-
-final class ConsoleColorDiffBundle extends Bundle
+use RectorPrefix20210421\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210421\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
+final class ConsoleColorDiffBundle extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {
-        return new ConsoleColorDiffExtension();
+        return new \RectorPrefix20210421\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension();
     }
 }

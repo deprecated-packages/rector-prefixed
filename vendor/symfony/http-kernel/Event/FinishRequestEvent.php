@@ -8,14 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpKernel\Event;
+namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
 /**
  * Triggered whenever a request is fully processed.
  *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
  */
-final class FinishRequestEvent extends KernelEvent
+final class FinishRequestEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
 {
 }

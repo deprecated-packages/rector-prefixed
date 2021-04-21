@@ -1,29 +1,26 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\Astral\Bundle;
 
-namespace Symplify\Astral\Bundle;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\Astral\DependencyInjection\Extension\AstralExtension;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-
-final class AstralBundle extends Bundle
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210421\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210421\Symplify\Astral\DependencyInjection\Extension\AstralExtension;
+use RectorPrefix20210421\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+final class AstralBundle extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return void
      */
-    public function build(ContainerBuilder $containerBuilder)
+    public function build(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \RectorPrefix20210421\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
-
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {
-        return new AstralExtension();
+        return new \RectorPrefix20210421\Symplify\Astral\DependencyInjection\Extension\AstralExtension();
     }
 }

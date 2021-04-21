@@ -1,25 +1,22 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\SetConfigResolver\Console;
 
-namespace Symplify\SetConfigResolver\Console;
-
-use Symfony\Component\Console\Input\InputInterface;
-
+use RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface;
 final class OptionValueResolver
 {
     /**
      * @param string[] $optionNames
      * @return string|null
      */
-    public function getOptionValue(InputInterface $input, array $optionNames)
+    public function getOptionValue(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
     {
         foreach ($optionNames as $optionName) {
-            if ($input->hasParameterOption($optionName, true)) {
-                return $input->getParameterOption($optionName, null, true);
+            if ($input->hasParameterOption($optionName, \true)) {
+                return $input->getParameterOption($optionName, null, \true);
             }
         }
-
         return null;
     }
 }

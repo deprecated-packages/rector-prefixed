@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\CakePHP\ValueObject;
 
 final class ArrayToFluentCall
@@ -10,12 +9,10 @@ final class ArrayToFluentCall
      * @var string
      */
     private $class;
-
     /**
      * @var array<string, string>
      */
     private $arrayKeysToFluentCalls = [];
-
     /**
      * @param array<string, string> $arrayKeysToFluentCalls
      */
@@ -24,16 +21,14 @@ final class ArrayToFluentCall
         $this->class = $class;
         $this->arrayKeysToFluentCalls = $arrayKeysToFluentCalls;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
     /**
      * @return array<string, string>
      */
-    public function getArrayKeysToFluentCalls(): array
+    public function getArrayKeysToFluentCalls() : array
     {
         return $this->arrayKeysToFluentCalls;
     }

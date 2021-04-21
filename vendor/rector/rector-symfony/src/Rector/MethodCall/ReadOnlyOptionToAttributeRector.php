@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,44 +14,32 @@ use Rector\Symfony\NodeAnalyzer\FormAddMethodCallAnalyzer;
 use Rector\Symfony\NodeAnalyzer\FormOptionsArrayMatcher;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\ReadOnlyOptionToAttributeRector\ReadOnlyOptionToAttributeRectorTest
  */
-final class ReadOnlyOptionToAttributeRector extends AbstractRector
+final class ReadOnlyOptionToAttributeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ArrayManipulator
      */
     private $arrayManipulator;
-
     /**
      * @var FormAddMethodCallAnalyzer
      */
     private $formAddMethodCallAnalyzer;
-
     /**
      * @var FormOptionsArrayMatcher
      */
     private $formOptionsArrayMatcher;
-
-    public function __construct(
-        ArrayManipulator $arrayManipulator,
-        FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer,
-        FormOptionsArrayMatcher $formOptionsArrayMatcher
-    ) {
+    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator, \Rector\Symfony\NodeAnalyzer\FormAddMethodCallAnalyzer $formAddMethodCallAnalyzer, \Rector\Symfony\NodeAnalyzer\FormOptionsArrayMatcher $formOptionsArrayMatcher)
+    {
         $this->arrayManipulator = $arrayManipulator;
         $this->formAddMethodCallAnalyzer = $formAddMethodCallAnalyzer;
         $this->formOptionsArrayMatcher = $formOptionsArrayMatcher;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Change "read_only" option in form to attribute',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change "read_only" option in form to attribute', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Form\FormBuilderInterface;
 
 function buildForm(FormBuilderInterface $builder, array $options)
@@ -60,8 +47,7 @@ function buildForm(FormBuilderInterface $builder, array $options)
     $builder->add('cuid', TextType::class, ['read_only' => true]);
 }
 CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 use Symfony\Component\Form\FormBuilderInterface;
 
 function buildForm(FormBuilderInterface $builder, array $options)
@@ -69,43 +55,35 @@ function buildForm(FormBuilderInterface $builder, array $options)
     $builder->add('cuid', TextType::class, ['attr' => ['read_only' => true]]);
 }
 CODE_SAMPLE
-            ),
-            ]);
+)]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
-
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        if (! $this->formAddMethodCallAnalyzer->isMatching($node)) {
+        if (!$this->formAddMethodCallAnalyzer->isMatching($node)) {
             return null;
         }
-
         $optionsArray = $this->formOptionsArrayMatcher->match($node);
-        if (! $optionsArray instanceof Array_) {
+        if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }
-
         $readOnlyArrayItem = $this->arrayManipulator->findItemInInArrayByKeyAndUnset($optionsArray, 'read_only');
-        if (! $readOnlyArrayItem instanceof ArrayItem) {
+        if (!$readOnlyArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
             return null;
         }
-
         // rename string
-        $readOnlyArrayItem->key = new String_('readonly');
-
+        $readOnlyArrayItem->key = new \PhpParser\Node\Scalar\String_('readonly');
         $this->arrayManipulator->addItemToArrayUnderKey($optionsArray, $readOnlyArrayItem, 'attr');
-
         return $node;
     }
 }

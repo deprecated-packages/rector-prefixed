@@ -8,30 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\DependencyInjection\Reference;
-
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference;
 /**
  * Replaces aliases with actual service definitions, effectively removing these
  * aliases.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
+class ReplaceAliasByActualDefinitionPass extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $replacements;
-
     /**
      * Process the Container to replace aliases with service definitions.
      *
      * @throws InvalidArgumentException if the service definition does not exist
      */
-    public function process(ContainerBuilder $container)
+    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         // First collect all alias targets that need to be replaced
         $seenAliasTargets = [];
@@ -51,14 +48,13 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
                 continue;
             }
             // Process new target
-            $seenAliasTargets[$targetId] = true;
+            $seenAliasTargets[$targetId] = \true;
             try {
                 $definition = $container->getDefinition($targetId);
-            } catch (ServiceNotFoundException $e) {
+            } catch (\RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
                 if ('' !== $e->getId() && '@' === $e->getId()[0]) {
-                    throw new ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [substr($e->getId(), 1)]);
+                    throw new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [\substr($e->getId(), 1)]);
                 }
-
                 throw $e;
             }
             if ($definition->isPublic()) {
@@ -71,24 +67,21 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
             $replacements[$targetId] = $definitionId;
         }
         $this->replacements = $replacements;
-
         parent::process($container);
         $this->replacements = [];
     }
-
     /**
      * {@inheritdoc}
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof Reference && isset($this->replacements[$referenceId = (string) $value])) {
+        if ($value instanceof \RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference && isset($this->replacements[$referenceId = (string) $value])) {
             // Perform the replacement
             $newId = $this->replacements[$referenceId];
-            $value = new Reference($newId, $value->getInvalidBehavior());
-            $this->container->log($this, sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', $this->currentId, $referenceId, $newId));
+            $value = new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference($newId, $value->getInvalidBehavior());
+            $this->container->log($this, \sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', $this->currentId, $referenceId, $newId));
         }
-
         return parent::processValue($value, $isRoot);
     }
 }

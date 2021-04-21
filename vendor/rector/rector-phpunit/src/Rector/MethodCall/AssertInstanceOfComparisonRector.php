@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,103 +14,72 @@ use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertInstanceOfComparisonRector\AssertInstanceOfComparisonRectorTest
  */
-final class AssertInstanceOfComparisonRector extends AbstractRector
+final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
-    const RENAME_METHODS_MAP = [
-        'assertTrue' => 'assertInstanceOf',
-        'assertFalse' => 'assertNotInstanceOf',
-    ];
-
+    const RENAME_METHODS_MAP = ['assertTrue' => 'assertInstanceOf', 'assertFalse' => 'assertNotInstanceOf'];
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-
-    public function __construct(IdentifierManipulator $identifierManipulator, TestsNodeAnalyzer $testsNodeAnalyzer)
+    public function __construct(\Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-
-    public function getRuleDefinition(): RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new RuleDefinition(
-            'Turns instanceof comparisons to their method name alternatives in PHPUnit TestCase',
-            [
-                new CodeSample(
-                    '$this->assertTrue($foo instanceof Foo, "message");',
-                    '$this->assertInstanceOf("Foo", $foo, "message");'
-                ),
-                new CodeSample(
-                    '$this->assertFalse($foo instanceof Foo, "message");',
-                    '$this->assertNotInstanceOf("Foo", $foo, "message");'
-                ),
-            ]
-        );
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns instanceof comparisons to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue($foo instanceof Foo, "message");', '$this->assertInstanceOf("Foo", $foo, "message");'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse($foo instanceof Foo, "message");', '$this->assertNotInstanceOf("Foo", $foo, "message");')]);
     }
-
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes(): array
+    public function getNodeTypes() : array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(Node $node)
+    public function refactor(\PhpParser\Node $node)
     {
-        $oldMethodNames = array_keys(self::RENAME_METHODS_MAP);
-        if (! $this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethodNames)) {
+        $oldMethodNames = \array_keys(self::RENAME_METHODS_MAP);
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, $oldMethodNames)) {
             return null;
         }
-
         $firstArgumentValue = $node->args[0]->value;
-        if (! $firstArgumentValue instanceof Instanceof_) {
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\Instanceof_) {
             return null;
         }
         $this->identifierManipulator->renameNodeWithMap($node, self::RENAME_METHODS_MAP);
         $this->changeArgumentsOrder($node);
-
         return $node;
     }
-
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function changeArgumentsOrder(Node $node)
+    private function changeArgumentsOrder(\PhpParser\Node $node)
     {
         $oldArguments = $node->args;
         /** @var Instanceof_ $comparison */
         $comparison = $oldArguments[0]->value;
-
         $argument = $comparison->expr;
         unset($oldArguments[0]);
-
         $className = $this->getName($comparison->class);
         if ($className === null) {
-            throw new ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-
-        $node->args = array_merge([
-            new Arg($this->nodeFactory->createClassConstReference($className)),
-            new Arg($argument),
-        ], $oldArguments);
+        $node->args = \array_merge([new \PhpParser\Node\Arg($this->nodeFactory->createClassConstReference($className)), new \PhpParser\Node\Arg($argument)], $oldArguments);
     }
 }

@@ -3,14 +3,12 @@
 /**
  * provides type inference and auto-completion for magic static methods of Assert.
  */
-
-namespace Webmozart\Assert;
+namespace RectorPrefix20210421\Webmozart\Assert;
 
 use ArrayAccess;
 use Closure;
 use Countable;
 use Throwable;
-
 /**
  * This trait aids static analysis tooling in introspecting assertion magic methods.
  * Do not use this trait directly: it will change, and is not designed for reuse.
@@ -32,7 +30,6 @@ trait Mixin
     {
         static::__callStatic('nullOrString', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<string> $value
@@ -48,7 +45,6 @@ trait Mixin
     {
         static::__callStatic('allString', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert non-empty-string|null $value
@@ -64,7 +60,6 @@ trait Mixin
     {
         static::__callStatic('nullOrStringNotEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<non-empty-string> $value
@@ -80,7 +75,6 @@ trait Mixin
     {
         static::__callStatic('allStringNotEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert int|null $value
@@ -96,7 +90,6 @@ trait Mixin
     {
         static::__callStatic('nullOrInteger', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<int> $value
@@ -112,7 +105,6 @@ trait Mixin
     {
         static::__callStatic('allInteger', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert numeric|null $value
@@ -128,7 +120,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIntegerish', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<numeric> $value
@@ -144,7 +135,6 @@ trait Mixin
     {
         static::__callStatic('allIntegerish', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert positive-int|null $value
@@ -160,7 +150,6 @@ trait Mixin
     {
         static::__callStatic('nullOrPositiveInteger', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<positive-int> $value
@@ -176,7 +165,6 @@ trait Mixin
     {
         static::__callStatic('allPositiveInteger', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert float|null $value
@@ -192,7 +180,6 @@ trait Mixin
     {
         static::__callStatic('nullOrFloat', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<float> $value
@@ -208,7 +195,6 @@ trait Mixin
     {
         static::__callStatic('allFloat', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert numeric|null $value
@@ -224,7 +210,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNumeric', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<numeric> $value
@@ -240,7 +225,6 @@ trait Mixin
     {
         static::__callStatic('allNumeric', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert positive-int|0|null $value
@@ -256,7 +240,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNatural', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<positive-int|0> $value
@@ -272,7 +255,6 @@ trait Mixin
     {
         static::__callStatic('allNatural', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert bool|null $value
@@ -288,7 +270,6 @@ trait Mixin
     {
         static::__callStatic('nullOrBoolean', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<bool> $value
@@ -304,7 +285,6 @@ trait Mixin
     {
         static::__callStatic('allBoolean', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert scalar|null $value
@@ -320,7 +300,6 @@ trait Mixin
     {
         static::__callStatic('nullOrScalar', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<scalar> $value
@@ -336,7 +315,6 @@ trait Mixin
     {
         static::__callStatic('allScalar', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert object|null $value
@@ -352,7 +330,6 @@ trait Mixin
     {
         static::__callStatic('nullOrObject', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<object> $value
@@ -368,7 +345,6 @@ trait Mixin
     {
         static::__callStatic('allObject', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert resource|null $value
@@ -385,7 +361,6 @@ trait Mixin
     {
         static::__callStatic('nullOrResource', array($value, $type, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<resource> $value
@@ -402,7 +377,6 @@ trait Mixin
     {
         static::__callStatic('allResource', array($value, $type, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert callable|null $value
@@ -418,7 +392,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsCallable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<callable> $value
@@ -434,7 +407,6 @@ trait Mixin
     {
         static::__callStatic('allIsCallable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert array|null $value
@@ -450,7 +422,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsArray', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<array> $value
@@ -466,7 +437,6 @@ trait Mixin
     {
         static::__callStatic('allIsArray', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable|null $value
@@ -484,7 +454,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsTraversable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<iterable> $value
@@ -502,7 +471,6 @@ trait Mixin
     {
         static::__callStatic('allIsTraversable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert array|ArrayAccess|null $value
@@ -518,7 +486,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsArrayAccessible', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<array|ArrayAccess> $value
@@ -534,7 +501,6 @@ trait Mixin
     {
         static::__callStatic('allIsArrayAccessible', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert countable|null $value
@@ -550,7 +516,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsCountable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<countable> $value
@@ -566,7 +531,6 @@ trait Mixin
     {
         static::__callStatic('allIsCountable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable|null $value
@@ -582,7 +546,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsIterable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<iterable> $value
@@ -598,7 +561,6 @@ trait Mixin
     {
         static::__callStatic('allIsIterable', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -617,7 +579,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsInstanceOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -636,7 +597,6 @@ trait Mixin
     {
         static::__callStatic('allIsInstanceOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -654,7 +614,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotInstanceOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -672,7 +631,6 @@ trait Mixin
     {
         static::__callStatic('allNotInstanceOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param array<class-string> $classes
@@ -689,7 +647,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsInstanceOfAny', array($value, $classes, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param array<class-string> $classes
@@ -706,7 +663,6 @@ trait Mixin
     {
         static::__callStatic('allIsInstanceOfAny', array($value, $classes, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -725,7 +681,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsAOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -744,7 +699,6 @@ trait Mixin
     {
         static::__callStatic('allIsAOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template UnexpectedType of object
@@ -762,7 +716,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsNotA', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template UnexpectedType of object
@@ -780,7 +733,6 @@ trait Mixin
     {
         static::__callStatic('allIsNotA', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param array<class-string> $classes
@@ -797,7 +749,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsAnyOf', array($value, $classes, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param array<class-string> $classes
@@ -814,7 +765,6 @@ trait Mixin
     {
         static::__callStatic('allIsAnyOf', array($value, $classes, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert empty $value
@@ -830,7 +780,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<empty> $value
@@ -846,7 +795,6 @@ trait Mixin
     {
         static::__callStatic('allIsEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -861,7 +809,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -876,7 +823,6 @@ trait Mixin
     {
         static::__callStatic('allNotEmpty', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<null> $value
@@ -892,7 +838,6 @@ trait Mixin
     {
         static::__callStatic('allNull', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -907,7 +852,6 @@ trait Mixin
     {
         static::__callStatic('allNotNull', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert true|null $value
@@ -923,7 +867,6 @@ trait Mixin
     {
         static::__callStatic('nullOrTrue', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<true> $value
@@ -939,7 +882,6 @@ trait Mixin
     {
         static::__callStatic('allTrue', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert false|null $value
@@ -955,7 +897,6 @@ trait Mixin
     {
         static::__callStatic('nullOrFalse', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<false> $value
@@ -971,7 +912,6 @@ trait Mixin
     {
         static::__callStatic('allFalse', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -986,7 +926,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotFalse', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1001,7 +940,6 @@ trait Mixin
     {
         static::__callStatic('allNotFalse', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1014,7 +952,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIp', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1027,7 +964,6 @@ trait Mixin
     {
         static::__callStatic('allIp', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1040,7 +976,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIpv4', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1053,7 +988,6 @@ trait Mixin
     {
         static::__callStatic('allIpv4', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1066,7 +1000,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIpv6', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1079,7 +1012,6 @@ trait Mixin
     {
         static::__callStatic('allIpv6', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1092,7 +1024,6 @@ trait Mixin
     {
         static::__callStatic('nullOrEmail', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -1105,7 +1036,6 @@ trait Mixin
     {
         static::__callStatic('allEmail', array($value, $message));
     }
-
     /**
      * @param array|null $values
      * @param string     $message
@@ -1118,7 +1048,6 @@ trait Mixin
     {
         static::__callStatic('nullOrUniqueValues', array($values, $message));
     }
-
     /**
      * @param iterable<array> $values
      * @param string          $message
@@ -1131,7 +1060,6 @@ trait Mixin
     {
         static::__callStatic('allUniqueValues', array($values, $message));
     }
-
     /**
      * @param mixed  $value
      * @param mixed  $expect
@@ -1145,7 +1073,6 @@ trait Mixin
     {
         static::__callStatic('nullOrEq', array($value, $expect, $message));
     }
-
     /**
      * @param mixed  $value
      * @param mixed  $expect
@@ -1159,7 +1086,6 @@ trait Mixin
     {
         static::__callStatic('allEq', array($value, $expect, $message));
     }
-
     /**
      * @param mixed  $value
      * @param mixed  $expect
@@ -1173,7 +1099,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotEq', array($value, $expect, $message));
     }
-
     /**
      * @param mixed  $value
      * @param mixed  $expect
@@ -1187,7 +1112,6 @@ trait Mixin
     {
         static::__callStatic('allNotEq', array($value, $expect, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1203,7 +1127,6 @@ trait Mixin
     {
         static::__callStatic('nullOrSame', array($value, $expect, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1219,7 +1142,6 @@ trait Mixin
     {
         static::__callStatic('allSame', array($value, $expect, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1235,7 +1157,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotSame', array($value, $expect, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1251,7 +1172,6 @@ trait Mixin
     {
         static::__callStatic('allNotSame', array($value, $expect, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1267,7 +1187,6 @@ trait Mixin
     {
         static::__callStatic('nullOrGreaterThan', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1283,7 +1202,6 @@ trait Mixin
     {
         static::__callStatic('allGreaterThan', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1299,7 +1217,6 @@ trait Mixin
     {
         static::__callStatic('nullOrGreaterThanEq', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1315,7 +1232,6 @@ trait Mixin
     {
         static::__callStatic('allGreaterThanEq', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1331,7 +1247,6 @@ trait Mixin
     {
         static::__callStatic('nullOrLessThan', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1347,7 +1262,6 @@ trait Mixin
     {
         static::__callStatic('allLessThan', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1363,7 +1277,6 @@ trait Mixin
     {
         static::__callStatic('nullOrLessThanEq', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1379,7 +1292,6 @@ trait Mixin
     {
         static::__callStatic('allLessThanEq', array($value, $limit, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1396,7 +1308,6 @@ trait Mixin
     {
         static::__callStatic('nullOrRange', array($value, $min, $max, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1413,7 +1324,6 @@ trait Mixin
     {
         static::__callStatic('allRange', array($value, $min, $max, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1429,7 +1339,6 @@ trait Mixin
     {
         static::__callStatic('nullOrOneOf', array($value, $values, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1445,7 +1354,6 @@ trait Mixin
     {
         static::__callStatic('allOneOf', array($value, $values, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1461,7 +1369,6 @@ trait Mixin
     {
         static::__callStatic('nullOrInArray', array($value, $values, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1477,7 +1384,6 @@ trait Mixin
     {
         static::__callStatic('allInArray', array($value, $values, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1493,7 +1399,6 @@ trait Mixin
     {
         static::__callStatic('nullOrContains', array($value, $subString, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1509,7 +1414,6 @@ trait Mixin
     {
         static::__callStatic('allContains', array($value, $subString, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1525,7 +1429,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotContains', array($value, $subString, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1541,7 +1444,6 @@ trait Mixin
     {
         static::__callStatic('allNotContains', array($value, $subString, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1556,7 +1458,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotWhitespaceOnly', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1571,7 +1472,6 @@ trait Mixin
     {
         static::__callStatic('allNotWhitespaceOnly', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1587,7 +1487,6 @@ trait Mixin
     {
         static::__callStatic('nullOrStartsWith', array($value, $prefix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1603,7 +1502,6 @@ trait Mixin
     {
         static::__callStatic('allStartsWith', array($value, $prefix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1619,7 +1517,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotStartsWith', array($value, $prefix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1635,7 +1532,6 @@ trait Mixin
     {
         static::__callStatic('allNotStartsWith', array($value, $prefix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1650,7 +1546,6 @@ trait Mixin
     {
         static::__callStatic('nullOrStartsWithLetter', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1665,7 +1560,6 @@ trait Mixin
     {
         static::__callStatic('allStartsWithLetter', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1681,7 +1575,6 @@ trait Mixin
     {
         static::__callStatic('nullOrEndsWith', array($value, $suffix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1697,7 +1590,6 @@ trait Mixin
     {
         static::__callStatic('allEndsWith', array($value, $suffix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1713,7 +1605,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotEndsWith', array($value, $suffix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1729,7 +1620,6 @@ trait Mixin
     {
         static::__callStatic('allNotEndsWith', array($value, $suffix, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1745,7 +1635,6 @@ trait Mixin
     {
         static::__callStatic('nullOrRegex', array($value, $pattern, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1761,7 +1650,6 @@ trait Mixin
     {
         static::__callStatic('allRegex', array($value, $pattern, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1777,7 +1665,6 @@ trait Mixin
     {
         static::__callStatic('nullOrNotRegex', array($value, $pattern, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1793,7 +1680,6 @@ trait Mixin
     {
         static::__callStatic('allNotRegex', array($value, $pattern, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1808,7 +1694,6 @@ trait Mixin
     {
         static::__callStatic('nullOrUnicodeLetters', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1823,7 +1708,6 @@ trait Mixin
     {
         static::__callStatic('allUnicodeLetters', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1838,7 +1722,6 @@ trait Mixin
     {
         static::__callStatic('nullOrAlpha', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1853,7 +1736,6 @@ trait Mixin
     {
         static::__callStatic('allAlpha', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1868,7 +1750,6 @@ trait Mixin
     {
         static::__callStatic('nullOrDigits', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1883,7 +1764,6 @@ trait Mixin
     {
         static::__callStatic('allDigits', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1898,7 +1778,6 @@ trait Mixin
     {
         static::__callStatic('nullOrAlnum', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1913,7 +1792,6 @@ trait Mixin
     {
         static::__callStatic('allAlnum', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert lowercase-string|null $value
@@ -1929,7 +1807,6 @@ trait Mixin
     {
         static::__callStatic('nullOrLower', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<lowercase-string> $value
@@ -1945,7 +1822,6 @@ trait Mixin
     {
         static::__callStatic('allLower', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1960,7 +1836,6 @@ trait Mixin
     {
         static::__callStatic('nullOrUpper', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1975,7 +1850,6 @@ trait Mixin
     {
         static::__callStatic('allUpper', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -1991,7 +1865,6 @@ trait Mixin
     {
         static::__callStatic('nullOrLength', array($value, $length, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2007,7 +1880,6 @@ trait Mixin
     {
         static::__callStatic('allLength', array($value, $length, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2023,7 +1895,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMinLength', array($value, $min, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2039,7 +1910,6 @@ trait Mixin
     {
         static::__callStatic('allMinLength', array($value, $min, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2055,7 +1925,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMaxLength', array($value, $max, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2071,7 +1940,6 @@ trait Mixin
     {
         static::__callStatic('allMaxLength', array($value, $max, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2088,7 +1956,6 @@ trait Mixin
     {
         static::__callStatic('nullOrLengthBetween', array($value, $min, $max, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2105,7 +1972,6 @@ trait Mixin
     {
         static::__callStatic('allLengthBetween', array($value, $min, $max, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2118,7 +1984,6 @@ trait Mixin
     {
         static::__callStatic('nullOrFileExists', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2131,7 +1996,6 @@ trait Mixin
     {
         static::__callStatic('allFileExists', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2144,7 +2008,6 @@ trait Mixin
     {
         static::__callStatic('nullOrFile', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2157,7 +2020,6 @@ trait Mixin
     {
         static::__callStatic('allFile', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2170,7 +2032,6 @@ trait Mixin
     {
         static::__callStatic('nullOrDirectory', array($value, $message));
     }
-
     /**
      * @param mixed  $value
      * @param string $message
@@ -2183,7 +2044,6 @@ trait Mixin
     {
         static::__callStatic('allDirectory', array($value, $message));
     }
-
     /**
      * @param string|null $value
      * @param string      $message
@@ -2196,7 +2056,6 @@ trait Mixin
     {
         static::__callStatic('nullOrReadable', array($value, $message));
     }
-
     /**
      * @param iterable<string> $value
      * @param string           $message
@@ -2209,7 +2068,6 @@ trait Mixin
     {
         static::__callStatic('allReadable', array($value, $message));
     }
-
     /**
      * @param string|null $value
      * @param string      $message
@@ -2222,7 +2080,6 @@ trait Mixin
     {
         static::__callStatic('nullOrWritable', array($value, $message));
     }
-
     /**
      * @param iterable<string> $value
      * @param string           $message
@@ -2235,7 +2092,6 @@ trait Mixin
     {
         static::__callStatic('allWritable', array($value, $message));
     }
-
     /**
      * @psalm-assert class-string|null $value
      *
@@ -2250,7 +2106,6 @@ trait Mixin
     {
         static::__callStatic('nullOrClassExists', array($value, $message));
     }
-
     /**
      * @psalm-assert iterable<class-string> $value
      *
@@ -2265,7 +2120,6 @@ trait Mixin
     {
         static::__callStatic('allClassExists', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -2284,7 +2138,6 @@ trait Mixin
     {
         static::__callStatic('nullOrSubclassOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -2303,7 +2156,6 @@ trait Mixin
     {
         static::__callStatic('allSubclassOf', array($value, $class, $message));
     }
-
     /**
      * @psalm-assert class-string|null $value
      *
@@ -2318,7 +2170,6 @@ trait Mixin
     {
         static::__callStatic('nullOrInterfaceExists', array($value, $message));
     }
-
     /**
      * @psalm-assert iterable<class-string> $value
      *
@@ -2333,7 +2184,6 @@ trait Mixin
     {
         static::__callStatic('allInterfaceExists', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -2352,7 +2202,6 @@ trait Mixin
     {
         static::__callStatic('nullOrImplementsInterface', array($value, $interface, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template ExpectedType of object
@@ -2371,7 +2220,6 @@ trait Mixin
     {
         static::__callStatic('allImplementsInterface', array($value, $interface, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param class-string|object|null $classOrObject
@@ -2388,7 +2236,6 @@ trait Mixin
     {
         static::__callStatic('nullOrPropertyExists', array($classOrObject, $property, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param iterable<class-string|object> $classOrObject
@@ -2405,7 +2252,6 @@ trait Mixin
     {
         static::__callStatic('allPropertyExists', array($classOrObject, $property, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param class-string|object|null $classOrObject
@@ -2422,7 +2268,6 @@ trait Mixin
     {
         static::__callStatic('nullOrPropertyNotExists', array($classOrObject, $property, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param iterable<class-string|object> $classOrObject
@@ -2439,7 +2284,6 @@ trait Mixin
     {
         static::__callStatic('allPropertyNotExists', array($classOrObject, $property, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param class-string|object|null $classOrObject
@@ -2456,7 +2300,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMethodExists', array($classOrObject, $method, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param iterable<class-string|object> $classOrObject
@@ -2473,7 +2316,6 @@ trait Mixin
     {
         static::__callStatic('allMethodExists', array($classOrObject, $method, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param class-string|object|null $classOrObject
@@ -2490,7 +2332,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMethodNotExists', array($classOrObject, $method, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-param iterable<class-string|object> $classOrObject
@@ -2507,7 +2348,6 @@ trait Mixin
     {
         static::__callStatic('allMethodNotExists', array($classOrObject, $method, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2523,7 +2363,6 @@ trait Mixin
     {
         static::__callStatic('nullOrKeyExists', array($array, $key, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2539,7 +2378,6 @@ trait Mixin
     {
         static::__callStatic('allKeyExists', array($array, $key, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2555,7 +2393,6 @@ trait Mixin
     {
         static::__callStatic('nullOrKeyNotExists', array($array, $key, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2571,7 +2408,6 @@ trait Mixin
     {
         static::__callStatic('allKeyNotExists', array($array, $key, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert array-key|null $value
@@ -2587,7 +2423,6 @@ trait Mixin
     {
         static::__callStatic('nullOrValidArrayKey', array($value, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<array-key> $value
@@ -2603,7 +2438,6 @@ trait Mixin
     {
         static::__callStatic('allValidArrayKey', array($value, $message));
     }
-
     /**
      * @param Countable|array|null $array
      * @param int                  $number
@@ -2617,7 +2451,6 @@ trait Mixin
     {
         static::__callStatic('nullOrCount', array($array, $number, $message));
     }
-
     /**
      * @param iterable<Countable|array> $array
      * @param int                       $number
@@ -2631,7 +2464,6 @@ trait Mixin
     {
         static::__callStatic('allCount', array($array, $number, $message));
     }
-
     /**
      * @param Countable|array|null $array
      * @param int|float            $min
@@ -2645,7 +2477,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMinCount', array($array, $min, $message));
     }
-
     /**
      * @param iterable<Countable|array> $array
      * @param int|float                 $min
@@ -2659,7 +2490,6 @@ trait Mixin
     {
         static::__callStatic('allMinCount', array($array, $min, $message));
     }
-
     /**
      * @param Countable|array|null $array
      * @param int|float            $max
@@ -2673,7 +2503,6 @@ trait Mixin
     {
         static::__callStatic('nullOrMaxCount', array($array, $max, $message));
     }
-
     /**
      * @param iterable<Countable|array> $array
      * @param int|float                 $max
@@ -2687,7 +2516,6 @@ trait Mixin
     {
         static::__callStatic('allMaxCount', array($array, $max, $message));
     }
-
     /**
      * @param Countable|array|null $array
      * @param int|float            $min
@@ -2702,7 +2530,6 @@ trait Mixin
     {
         static::__callStatic('nullOrCountBetween', array($array, $min, $max, $message));
     }
-
     /**
      * @param iterable<Countable|array> $array
      * @param int|float                 $min
@@ -2717,7 +2544,6 @@ trait Mixin
     {
         static::__callStatic('allCountBetween', array($array, $min, $max, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert list|null $array
@@ -2733,7 +2559,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsList', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<list> $array
@@ -2749,7 +2574,6 @@ trait Mixin
     {
         static::__callStatic('allIsList', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert non-empty-list|null $array
@@ -2765,7 +2589,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsNonEmptyList', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-assert iterable<non-empty-list> $array
@@ -2781,7 +2604,6 @@ trait Mixin
     {
         static::__callStatic('allIsNonEmptyList', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template T
@@ -2799,7 +2621,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsMap', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template T
@@ -2817,7 +2638,6 @@ trait Mixin
     {
         static::__callStatic('allIsMap', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template T
@@ -2834,7 +2654,6 @@ trait Mixin
     {
         static::__callStatic('nullOrIsNonEmptyMap', array($array, $message));
     }
-
     /**
      * @psalm-pure
      * @psalm-template T
@@ -2851,7 +2670,6 @@ trait Mixin
     {
         static::__callStatic('allIsNonEmptyMap', array($array, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2866,7 +2684,6 @@ trait Mixin
     {
         static::__callStatic('nullOrUuid', array($value, $message));
     }
-
     /**
      * @psalm-pure
      *
@@ -2881,7 +2698,6 @@ trait Mixin
     {
         static::__callStatic('allUuid', array($value, $message));
     }
-
     /**
      * @psalm-param class-string<Throwable> $class
      *
@@ -2897,7 +2713,6 @@ trait Mixin
     {
         static::__callStatic('nullOrThrows', array($expression, $class, $message));
     }
-
     /**
      * @psalm-param class-string<Throwable> $class
      *

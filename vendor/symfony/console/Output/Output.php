@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\Console\Output;
 
-namespace Symfony\Component\Console\Output;
-
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-
+use RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatter;
+use RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Base class for output classes.
  *
@@ -27,31 +25,28 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Output implements OutputInterface
+abstract class Output implements \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface
 {
     private $verbosity;
     private $formatter;
-
     /**
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
      * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct($verbosity = self::VERBOSITY_NORMAL, bool $decorated = false, OutputFormatterInterface $formatter = null)
+    public function __construct($verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
-        $this->formatter = $formatter ?: new OutputFormatter();
+        $this->formatter = $formatter ?: new \RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatter();
         $this->formatter->setDecorated($decorated);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(OutputFormatterInterface $formatter)
+    public function setFormatter(\RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->formatter = $formatter;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -59,7 +54,6 @@ abstract class Output implements OutputInterface
     {
         return $this->formatter;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -67,7 +61,6 @@ abstract class Output implements OutputInterface
     {
         $this->formatter->setDecorated($decorated);
     }
-
     /**
      * {@inheritdoc}
      */
@@ -75,7 +68,6 @@ abstract class Output implements OutputInterface
     {
         return $this->formatter->isDecorated();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -83,7 +75,6 @@ abstract class Output implements OutputInterface
     {
         $this->verbosity = $level;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -91,7 +82,6 @@ abstract class Output implements OutputInterface
     {
         return $this->verbosity;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -99,7 +89,6 @@ abstract class Output implements OutputInterface
     {
         return self::VERBOSITY_QUIET === $this->verbosity;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -107,7 +96,6 @@ abstract class Output implements OutputInterface
     {
         return self::VERBOSITY_VERBOSE <= $this->verbosity;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -115,7 +103,6 @@ abstract class Output implements OutputInterface
     {
         return self::VERBOSITY_VERY_VERBOSE <= $this->verbosity;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -123,54 +110,46 @@ abstract class Output implements OutputInterface
     {
         return self::VERBOSITY_DEBUG <= $this->verbosity;
     }
-
     /**
      * {@inheritdoc}
      */
     public function writeln($messages, int $options = self::OUTPUT_NORMAL)
     {
-        $this->write($messages, true, $options);
+        $this->write($messages, \true, $options);
     }
-
     /**
      * {@inheritdoc}
      */
-    public function write($messages, bool $newline = false, int $options = self::OUTPUT_NORMAL)
+    public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
     {
-        if (!is_iterable($messages)) {
+        if (!\is_iterable($messages)) {
             $messages = [$messages];
         }
-
         $types = self::OUTPUT_NORMAL | self::OUTPUT_RAW | self::OUTPUT_PLAIN;
         $type = $types & $options ?: self::OUTPUT_NORMAL;
-
         $verbosities = self::VERBOSITY_QUIET | self::VERBOSITY_NORMAL | self::VERBOSITY_VERBOSE | self::VERBOSITY_VERY_VERBOSE | self::VERBOSITY_DEBUG;
         $verbosity = $verbosities & $options ?: self::VERBOSITY_NORMAL;
-
         if ($verbosity > $this->getVerbosity()) {
             return;
         }
-
         foreach ($messages as $message) {
             switch ($type) {
-                case OutputInterface::OUTPUT_NORMAL:
+                case \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL:
                     $message = $this->formatter->format($message);
                     break;
-                case OutputInterface::OUTPUT_RAW:
+                case \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW:
                     break;
-                case OutputInterface::OUTPUT_PLAIN:
-                    $message = strip_tags($this->formatter->format($message));
+                case \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::OUTPUT_PLAIN:
+                    $message = \strip_tags($this->formatter->format($message));
                     break;
             }
-
             $this->doWrite($message, $newline);
         }
     }
-
     /**
      * Writes a message to the output.
      * @param string $message
      * @param bool $newline
      */
-    abstract protected function doWrite($message, $newline);
+    protected abstract function doWrite($message, $newline);
 }

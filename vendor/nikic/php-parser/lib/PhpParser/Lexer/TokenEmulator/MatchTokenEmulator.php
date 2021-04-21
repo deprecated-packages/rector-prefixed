@@ -1,22 +1,20 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser\Lexer\TokenEmulator;
 
 use PhpParser\Lexer\Emulative;
-
-final class MatchTokenEmulator extends KeywordEmulator
+final class MatchTokenEmulator extends \PhpParser\Lexer\TokenEmulator\KeywordEmulator
 {
-    public function getPhpVersion(): string
+    public function getPhpVersion() : string
     {
-        return Emulative::PHP_8_0;
+        return \PhpParser\Lexer\Emulative::PHP_8_0;
     }
-
-    public function getKeywordString(): string
+    public function getKeywordString() : string
     {
         return 'match';
     }
-
-    public function getKeywordToken(): int
+    public function getKeywordToken() : int
     {
         return \T_MATCH;
     }

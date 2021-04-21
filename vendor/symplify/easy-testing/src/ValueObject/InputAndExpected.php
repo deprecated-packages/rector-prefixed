@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\EasyTesting\ValueObject;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\EasyTesting\ValueObject;
 
 final class InputAndExpected
 {
@@ -10,12 +9,10 @@ final class InputAndExpected
      * @var string
      */
     private $input;
-
     /**
      * @var mixed
      */
     private $expected;
-
     /**
      * @param mixed $expected
      */
@@ -24,12 +21,10 @@ final class InputAndExpected
         $this->input = $original;
         $this->expected = $expected;
     }
-
-    public function getInput(): string
+    public function getInput() : string
     {
         return $this->input;
     }
-
     /**
      * @return mixed
      */

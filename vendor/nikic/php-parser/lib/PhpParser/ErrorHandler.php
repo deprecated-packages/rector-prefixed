@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare (strict_types=1);
 namespace PhpParser;
 
 interface ErrorHandler
@@ -9,5 +10,5 @@ interface ErrorHandler
      *
      * @param Error $error The error that needs to be handled
      */
-    public function handleError(Error $error);
+    public function handleError(\PhpParser\Error $error);
 }

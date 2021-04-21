@@ -1,33 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\ValueObject\Application;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorError
 {
     /**
      * @var string
      */
     private $message;
-
     /**
      * @var SmartFileInfo
      */
     private $fileInfo;
-
     /**
      * @var int|null
      */
     private $line;
-
     /**
      * @var string|null
      */
     private $rectorClass;
-
     /**
      * @param int|null $line
      * @param string|null $rectorClass
@@ -38,22 +32,18 @@ final class RectorError
         $this->line = $line;
         $this->rectorClass = $rectorClass;
     }
-
-    public function getRelativeFilePath(): string
+    public function getRelativeFilePath() : string
     {
         return $this->fileInfo->getRelativeFilePathFromCwd();
     }
-
-    public function getFileInfo(): SmartFileInfo
+    public function getFileInfo() : \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }
-
-    public function getMessage(): string
+    public function getMessage() : string
     {
         return $this->message;
     }
-
     /**
      * @return int|null
      */
@@ -61,7 +51,6 @@ final class RectorError
     {
         return $this->line;
     }
-
     /**
      * @return string|null
      */

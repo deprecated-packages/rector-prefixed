@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session;
 
-namespace Symfony\Component\HttpFoundation\Session;
-
-use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
-
+use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 /**
  * Interface for the session.
  *
@@ -28,31 +26,26 @@ interface SessionInterface
      * @throws \RuntimeException if session fails to start
      */
     public function start();
-
     /**
      * Returns the session ID.
      *
      * @return string
      */
     public function getId();
-
     /**
      * Sets the session ID.
      */
     public function setId(string $id);
-
     /**
      * Returns the session name.
      *
      * @return string
      */
     public function getName();
-
     /**
      * Sets the session name.
      */
     public function setName(string $name);
-
     /**
      * Invalidates the current session.
      *
@@ -67,7 +60,6 @@ interface SessionInterface
      * @return bool
      */
     public function invalidate(int $lifetime = null);
-
     /**
      * Migrates the current session to a new session id while maintaining all
      * session attributes.
@@ -80,8 +72,7 @@ interface SessionInterface
      *
      * @return bool
      */
-    public function migrate(bool $destroy = false, int $lifetime = null);
-
+    public function migrate(bool $destroy = \false, int $lifetime = null);
     /**
      * Force the session to be saved and closed.
      *
@@ -90,14 +81,12 @@ interface SessionInterface
      * code execution.
      */
     public function save();
-
     /**
      * Checks if an attribute is defined.
      *
      * @return bool
      */
     public function has(string $name);
-
     /**
      * Returns an attribute.
      *
@@ -106,57 +95,48 @@ interface SessionInterface
      * @return mixed
      */
     public function get(string $name, $default = null);
-
     /**
      * Sets an attribute.
      *
      * @param mixed $value
      */
     public function set(string $name, $value);
-
     /**
      * Returns attributes.
      *
      * @return array
      */
     public function all();
-
     /**
      * Sets attributes.
      */
     public function replace(array $attributes);
-
     /**
      * Removes an attribute.
      *
      * @return mixed The removed value or null when it does not exist
      */
     public function remove(string $name);
-
     /**
      * Clears all attributes.
      */
     public function clear();
-
     /**
      * Checks if the session was started.
      *
      * @return bool
      */
     public function isStarted();
-
     /**
      * Registers a SessionBagInterface with the session.
      */
-    public function registerBag(SessionBagInterface $bag);
-
+    public function registerBag(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
     /**
      * Gets a bag instance by name.
      *
      * @return SessionBagInterface
      */
     public function getBag(string $name);
-
     /**
      * Gets session meta.
      *

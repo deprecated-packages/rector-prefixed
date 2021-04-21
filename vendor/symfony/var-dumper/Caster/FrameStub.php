@@ -8,20 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\VarDumper\Caster;
+namespace RectorPrefix20210421\Symfony\Component\VarDumper\Caster;
 
 /**
  * Represents a single backtrace frame as returned by debug_backtrace() or Exception->getTrace().
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class FrameStub extends EnumStub
+class FrameStub extends \RectorPrefix20210421\Symfony\Component\VarDumper\Caster\EnumStub
 {
     public $keepArgs;
     public $inTraceStub;
-
-    public function __construct(array $frame, bool $keepArgs = true, bool $inTraceStub = false)
+    public function __construct(array $frame, bool $keepArgs = \true, bool $inTraceStub = \false)
     {
         $this->value = $frame;
         $this->keepArgs = $keepArgs;

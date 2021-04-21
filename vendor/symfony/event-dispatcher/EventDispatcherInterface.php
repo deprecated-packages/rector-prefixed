@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\EventDispatcher;
 
-namespace Symfony\Component\EventDispatcher;
-
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
-
+use RectorPrefix20210421\Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  * Listeners are registered on the manager and events are dispatched through the
@@ -20,7 +18,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEvent
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-interface EventDispatcherInterface extends ContractsEventDispatcherInterface
+interface EventDispatcherInterface extends \RectorPrefix20210421\Symfony\Contracts\EventDispatcher\EventDispatcherInterface
 {
     /**
      * Adds an event listener that listens on the specified events.
@@ -30,24 +28,20 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      *                           listener will be triggered in the chain (defaults to 0)
      */
     public function addListener(string $eventName, $listener, int $priority = 0);
-
     /**
      * Adds an event subscriber.
      *
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
      */
-    public function addSubscriber(EventSubscriberInterface $subscriber);
-
+    public function addSubscriber(\RectorPrefix20210421\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Removes an event listener from the specified events.
      *
      * @param callable $listener The listener to remove
      */
     public function removeListener(string $eventName, $listener);
-
-    public function removeSubscriber(EventSubscriberInterface $subscriber);
-
+    public function removeSubscriber(\RectorPrefix20210421\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber);
     /**
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
@@ -55,7 +49,6 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      * @param string $eventName
      */
     public function getListeners($eventName = null);
-
     /**
      * Gets the listener priority for a specific event.
      *
@@ -66,7 +59,6 @@ interface EventDispatcherInterface extends ContractsEventDispatcherInterface
      * @return int|null The event listener priority
      */
     public function getListenerPriority(string $eventName, $listener);
-
     /**
      * Checks whether an event has any registered listeners.
      *

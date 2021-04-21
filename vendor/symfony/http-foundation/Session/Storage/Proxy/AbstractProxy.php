@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation\Session\Storage\Proxy;
+namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy;
 
 /**
  * @author Drak <drak@zikula.org>
@@ -21,13 +20,11 @@ abstract class AbstractProxy
      *
      * @var bool
      */
-    protected $wrapper = false;
-
+    protected $wrapper = \false;
     /**
      * @var string
      */
     protected $saveHandlerName;
-
     /**
      * Gets the session.save_handler name.
      *
@@ -37,7 +34,6 @@ abstract class AbstractProxy
     {
         return $this->saveHandlerName;
     }
-
     /**
      * Is this proxy handler and instance of \SessionHandlerInterface.
      *
@@ -47,7 +43,6 @@ abstract class AbstractProxy
     {
         return $this instanceof \SessionHandlerInterface;
     }
-
     /**
      * Returns true if this handler wraps an internal PHP session save handler using \SessionHandler.
      *
@@ -57,7 +52,6 @@ abstract class AbstractProxy
     {
         return $this->wrapper;
     }
-
     /**
      * Has a session started?
      *
@@ -65,9 +59,8 @@ abstract class AbstractProxy
      */
     public function isActive()
     {
-        return \PHP_SESSION_ACTIVE === session_status();
+        return \PHP_SESSION_ACTIVE === \session_status();
     }
-
     /**
      * Gets the session ID.
      *
@@ -75,9 +68,8 @@ abstract class AbstractProxy
      */
     public function getId()
     {
-        return session_id();
+        return \session_id();
     }
-
     /**
      * Sets the session ID.
      *
@@ -88,10 +80,8 @@ abstract class AbstractProxy
         if ($this->isActive()) {
             throw new \LogicException('Cannot change the ID of an active session.');
         }
-
-        session_id($id);
+        \session_id($id);
     }
-
     /**
      * Gets the session name.
      *
@@ -99,9 +89,8 @@ abstract class AbstractProxy
      */
     public function getName()
     {
-        return session_name();
+        return \session_name();
     }
-
     /**
      * Sets the session name.
      *
@@ -112,7 +101,6 @@ abstract class AbstractProxy
         if ($this->isActive()) {
             throw new \LogicException('Cannot change the name of an active session.');
         }
-
-        session_name($name);
+        \session_name($name);
     }
 }

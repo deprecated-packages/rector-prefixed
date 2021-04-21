@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -18,165 +17,126 @@ use Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-
-final class MagicNetteFactoryInterfaceFormControlTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
+final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface, \Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
-
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-
     /**
      * @var FunctionLikeParser
      */
     private $functionLikeParser;
-
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-
-    public function __construct(
-        NodeRepository $nodeRepository,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver,
-        FunctionLikeParser $functionLikeParser,
-        ReflectionProvider $reflectionProvider
-    ) {
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
         $this->functionLikeParser = $functionLikeParser;
         $this->reflectionProvider = $reflectionProvider;
     }
-
     /**
      * @return array<string, string>
      */
-    public function resolve(Node $node): array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (! $node instanceof MethodCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
         }
-
         // skip constructor, handled elsewhere
-        if ($this->nodeNameResolver->isName($node->name, MethodName::CONSTRUCT)) {
+        if ($this->nodeNameResolver->isName($node->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return [];
         }
-
         $methodName = $this->nodeNameResolver->getName($node->name);
         if ($methodName === null) {
             return [];
         }
-
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
-        if (! $classMethod instanceof ClassMethod) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $classMethod = $this->resolveReflectionClassMethod($node, $methodName);
-            if (! $classMethod instanceof ClassMethod) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return [];
             }
         }
-
         $classReflection = $this->resolveClassReflectionByMethodCall($node);
-        if (! $classReflection instanceof ClassReflection) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return [];
         }
-
         $returnedType = $this->nodeTypeResolver->getStaticType($node);
-        if (! $returnedType instanceof TypeWithClassName) {
+        if (!$returnedType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-
-        $constructorClassMethod = $this->nodeRepository->findClassMethod(
-            $returnedType->getClassName(),
-            MethodName::CONSTRUCT
-        );
-
-        if (! $constructorClassMethod instanceof ClassMethod) {
-            $constructorClassMethod = $this->resolveReflectionClassMethodFromClassNameAndMethod(
-                $returnedType->getClassName(),
-                MethodName::CONSTRUCT
-            );
-            if (! $classMethod instanceof ClassMethod) {
+        $constructorClassMethod = $this->nodeRepository->findClassMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $constructorClassMethod = $this->resolveReflectionClassMethodFromClassNameAndMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return [];
             }
         }
-
-        if (! $constructorClassMethod instanceof ClassMethod) {
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
-
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-
     /**
      * @return void
      */
-    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function resolveReflectionClassMethod(MethodCall $methodCall, string $methodName)
+    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName)
     {
         $classReflection = $this->resolveClassReflectionByMethodCall($methodCall);
-        if (! $classReflection instanceof ClassReflection) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
-
         $methodReflection = $classReflection->getNativeMethod($methodName);
-
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function resolveReflectionClassMethodFromClassNameAndMethod(
-        string $className,
-        string $methodName
-    ) {
-        if (! $this->reflectionProvider->hasClass($className)) {
+    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName)
+    {
+        if (!$this->reflectionProvider->hasClass($className)) {
             return null;
         }
-
         $classReflection = $this->reflectionProvider->getClass($className);
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-
     /**
      * @return \PHPStan\Reflection\ClassReflection|null
      */
-    private function resolveClassReflectionByMethodCall(MethodCall $methodCall)
+    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $callerClassName = $this->nodeRepository->resolveCallerClassName($methodCall);
         if ($callerClassName === null) {
             return null;
         }
-
-        if (! $this->reflectionProvider->hasClass($callerClassName)) {
+        if (!$this->reflectionProvider->hasClass($callerClassName)) {
             return null;
         }
-
         return $this->reflectionProvider->getClass($callerClassName);
     }
 }

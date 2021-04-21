@@ -8,33 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorRenderer;
 
-namespace Symfony\Component\ErrorHandler\ErrorRenderer;
-
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
-
+use RectorPrefix20210421\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use RectorPrefix20210421\Symfony\Component\VarDumper\Cloner\VarCloner;
+use RectorPrefix20210421\Symfony\Component\VarDumper\Dumper\CliDumper;
 // Help opcache.preload discover always-needed symbols
-class_exists(CliDumper::class);
-
+\class_exists(\RectorPrefix20210421\Symfony\Component\VarDumper\Dumper\CliDumper::class);
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CliErrorRenderer implements ErrorRendererInterface
+class CliErrorRenderer implements \RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function render(\Throwable $exception): FlattenException
+    public function render(\Throwable $exception) : \RectorPrefix20210421\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
-        $cloner = new VarCloner();
-        $dumper = new class() extends CliDumper {
-            protected function supportsColors(): bool
+        $cloner = new \RectorPrefix20210421\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $dumper = new class extends \RectorPrefix20210421\Symfony\Component\VarDumper\Dumper\CliDumper
+        {
+            protected function supportsColors() : bool
             {
                 $outputStream = $this->outputStream;
-                $this->outputStream = fopen('php://stdout', 'w');
-
+                $this->outputStream = \fopen('php://stdout', 'w');
                 try {
                     return parent::supportsColors();
                 } finally {
@@ -42,8 +39,6 @@ class CliErrorRenderer implements ErrorRendererInterface
                 }
             }
         };
-
-        return FlattenException::createFromThrowable($exception)
-            ->setAsString($dumper->dump($cloner->cloneVar($exception), true));
+        return \RectorPrefix20210421\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
     }
 }

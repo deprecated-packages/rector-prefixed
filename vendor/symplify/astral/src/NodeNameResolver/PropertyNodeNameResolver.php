@@ -1,25 +1,22 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Symplify\Astral\NodeNameResolver;
+declare (strict_types=1);
+namespace RectorPrefix20210421\Symplify\Astral\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use Symplify\Astral\Contract\NodeNameResolverInterface;
-
-final class PropertyNodeNameResolver implements NodeNameResolverInterface
+use RectorPrefix20210421\Symplify\Astral\Contract\NodeNameResolverInterface;
+final class PropertyNodeNameResolver implements \RectorPrefix20210421\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    public function match(Node $node): bool
+    public function match(\PhpParser\Node $node) : bool
     {
-        return $node instanceof Property;
+        return $node instanceof \PhpParser\Node\Stmt\Property;
     }
-
     /**
      * @param Property $node
      * @return string|null
      */
-    public function resolve(Node $node)
+    public function resolve(\PhpParser\Node $node)
     {
         $propertyProperty = $node->props[0];
         return (string) $propertyProperty->name;

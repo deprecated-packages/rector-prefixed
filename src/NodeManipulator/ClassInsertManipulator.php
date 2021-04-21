@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Rector\Core\NodeManipulator;
 
 use PhpParser\Node\Name\FullyQualified;
@@ -15,35 +14,30 @@ use PHPStan\Type\Type;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
-
 final class ClassInsertManipulator
 {
     /**
      * @var array<class-string<Stmt>>
      */
-    const BEFORE_TRAIT_TYPES = [TraitUse::class, Property::class, ClassMethod::class];
-
+    const BEFORE_TRAIT_TYPES = [\PhpParser\Node\Stmt\TraitUse::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassMethod::class];
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory, NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeFactory = $nodeFactory;
     }
-
     /**
      * @param ClassMethod|Property|ClassConst|ClassMethod $stmt
      * @return void
      */
-    public function addAsFirstMethod(Class_ $class, Stmt $stmt)
+    public function addAsFirstMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt $stmt)
     {
         if ($this->isSuccessToInsertBeforeFirstMethod($class, $stmt)) {
             return;
@@ -51,145 +45,117 @@ final class ClassInsertManipulator
         if ($this->isSuccessToInsertAfterLastProperty($class, $stmt)) {
             return;
         }
-
         $class->stmts[] = $stmt;
     }
-
     /**
      * @return void
      */
-    public function addConstantToClass(Class_ $class, string $constantName, ClassConst $classConst)
+    public function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, string $constantName, \PhpParser\Node\Stmt\ClassConst $classConst)
     {
         if ($this->hasClassConstant($class, $constantName)) {
             return;
         }
-
         $this->addAsFirstMethod($class, $classConst);
     }
-
     /**
      * @param Property[] $properties
      * @return void
      */
-    public function addPropertiesToClass(Class_ $class, array $properties)
+    public function addPropertiesToClass(\PhpParser\Node\Stmt\Class_ $class, array $properties)
     {
         foreach ($properties as $property) {
             $this->addAsFirstMethod($class, $property);
         }
     }
-
     /**
      * @internal Use PropertyAdder service instead
      * @param \PHPStan\Type\Type|null $type
      * @return void
      */
-    public function addPropertyToClass(Class_ $class, string $name, $type)
+    public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $name, $type)
     {
         $existingProperty = $class->getProperty($name);
-        if ($existingProperty instanceof Property) {
+        if ($existingProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
-
         $property = $this->nodeFactory->createPrivatePropertyFromNameAndType($name, $type);
         $this->addAsFirstMethod($class, $property);
     }
-
     /**
      * @return void
      */
-    public function addInjectPropertyToClass(Class_ $class, PropertyMetadata $propertyMetadata)
+    public function addInjectPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata)
     {
         $existingProperty = $class->getProperty($propertyMetadata->getName());
-        if ($existingProperty instanceof Property) {
+        if ($existingProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
-
-        $property = $this->nodeFactory->createPublicInjectPropertyFromNameAndType(
-            $propertyMetadata->getName(),
-            $propertyMetadata->getType()
-        );
+        $property = $this->nodeFactory->createPublicInjectPropertyFromNameAndType($propertyMetadata->getName(), $propertyMetadata->getType());
         $this->addAsFirstMethod($class, $property);
     }
-
     /**
      * @return void
      */
-    public function addAsFirstTrait(Class_ $class, string $traitName)
+    public function addAsFirstTrait(\PhpParser\Node\Stmt\Class_ $class, string $traitName)
     {
-        $traitUse = new TraitUse([new FullyQualified($traitName)]);
+        $traitUse = new \PhpParser\Node\Stmt\TraitUse([new \PhpParser\Node\Name\FullyQualified($traitName)]);
         $this->addTraitUse($class, $traitUse);
     }
-
     /**
      * @param Stmt[] $nodes
      * @return Stmt[]
      */
-    public function insertBefore(array $nodes, Stmt $stmt, int $key): array
+    public function insertBefore(array $nodes, \PhpParser\Node\Stmt $stmt, int $key) : array
     {
-        array_splice($nodes, $key, 0, [$stmt]);
-
+        \array_splice($nodes, $key, 0, [$stmt]);
         return $nodes;
     }
-
-    private function isSuccessToInsertBeforeFirstMethod(Class_ $class, Stmt $stmt): bool
+    private function isSuccessToInsertBeforeFirstMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt $stmt) : bool
     {
         foreach ($class->stmts as $key => $classStmt) {
-            if (! $classStmt instanceof ClassMethod) {
+            if (!$classStmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
-
             $class->stmts = $this->insertBefore($class->stmts, $stmt, $key);
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
-    private function isSuccessToInsertAfterLastProperty(Class_ $class, Stmt $stmt): bool
+    private function isSuccessToInsertAfterLastProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt $stmt) : bool
     {
         $previousElement = null;
         foreach ($class->stmts as $key => $classStmt) {
-            if ($previousElement instanceof Property && ! $classStmt instanceof Property) {
+            if ($previousElement instanceof \PhpParser\Node\Stmt\Property && !$classStmt instanceof \PhpParser\Node\Stmt\Property) {
                 $class->stmts = $this->insertBefore($class->stmts, $stmt, $key);
-
-                return true;
+                return \true;
             }
-
             $previousElement = $classStmt;
         }
-
-        return false;
+        return \false;
     }
-
-    private function hasClassConstant(Class_ $class, string $constantName): bool
+    private function hasClassConstant(\PhpParser\Node\Stmt\Class_ $class, string $constantName) : bool
     {
         foreach ($class->getConstants() as $classConst) {
             if ($this->nodeNameResolver->isName($classConst, $constantName)) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return void
      */
-    private function addTraitUse(Class_ $class, TraitUse $traitUse)
+    private function addTraitUse(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\TraitUse $traitUse)
     {
         foreach (self::BEFORE_TRAIT_TYPES as $type) {
             foreach ($class->stmts as $key => $classStmt) {
-                if (! $classStmt instanceof $type) {
+                if (!$classStmt instanceof $type) {
                     continue;
                 }
-
                 $class->stmts = $this->insertBefore($class->stmts, $traitUse, $key);
-
                 return;
             }
         }
-
         $class->stmts[] = $traitUse;
     }
 }
