@@ -1,78 +1,99 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SymplifyKernel\Console;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210421\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use RectorPrefix20210421\Symplify\PackageBuilder\Composer\PackageVersionProvider;
-use RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem;
-use RectorPrefix20210421\Symplify\SymplifyKernel\Strings\StringsConverter;
+namespace Symplify\SymplifyKernel\Console;
+
+use Symfony\Component\Console\Command\Command;
+use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use Symplify\PackageBuilder\Composer\PackageVersionProvider;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileSystem;
+use Symplify\SymplifyKernel\Strings\StringsConverter;
+
 final class ConsoleApplicationFactory
 {
     /**
      * @var Command[]
      */
     private $commands = [];
+
     /**
      * @var StringsConverter
      */
     private $stringsConverter;
+
     /**
      * @var ParameterProvider
      */
     private $parameterProvider;
+
     /**
      * @var ComposerJsonFactory
      */
     private $composerJsonFactory;
+
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+
     /**
      * @param Command[] $commands
      */
-    public function __construct(array $commands, \RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210421\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
-    {
+    public function __construct(
+        array $commands,
+        ParameterProvider $parameterProvider,
+        ComposerJsonFactory $composerJsonFactory,
+        SmartFileSystem $smartFileSystem
+    ) {
         $this->commands = $commands;
-        $this->stringsConverter = new \RectorPrefix20210421\Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new StringsConverter();
         $this->parameterProvider = $parameterProvider;
         $this->composerJsonFactory = $composerJsonFactory;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : \RectorPrefix20210421\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication
+
+    public function create(): AutowiredConsoleApplication
     {
-        $autowiredConsoleApplication = new \RectorPrefix20210421\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication($this->commands);
+        $autowiredConsoleApplication = new AutowiredConsoleApplication($this->commands);
         $this->decorateApplicationWithNameAndVersion($autowiredConsoleApplication);
+
         return $autowiredConsoleApplication;
     }
+
     /**
      * @return void
      */
-    private function decorateApplicationWithNameAndVersion(\RectorPrefix20210421\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication)
-    {
+    private function decorateApplicationWithNameAndVersion(
+        AutowiredConsoleApplication $autowiredConsoleApplication
+    ) {
         $projectDir = $this->parameterProvider->provideStringParameter('kernel.project_dir');
-        $packageComposerJsonFilePath = $projectDir . \DIRECTORY_SEPARATOR . 'composer.json';
-        if (!$this->smartFileSystem->exists($packageComposerJsonFilePath)) {
+        $packageComposerJsonFilePath = $projectDir . DIRECTORY_SEPARATOR . 'composer.json';
+
+        if (! $this->smartFileSystem->exists($packageComposerJsonFilePath)) {
             return;
         }
+
         // name
         $composerJson = $this->composerJsonFactory->createFromFilePath($packageComposerJsonFilePath);
         $shortName = $composerJson->getShortName();
         if ($shortName === null) {
             return;
         }
+
         $projectName = $this->stringsConverter->dashedToCamelCaseWithGlue($shortName, ' ');
         $autowiredConsoleApplication->setName($projectName);
+
         // version
         $packageName = $composerJson->getName();
         if ($packageName === null) {
             return;
         }
-        $packageVersionProvider = new \RectorPrefix20210421\Symplify\PackageBuilder\Composer\PackageVersionProvider();
+
+        $packageVersionProvider = new PackageVersionProvider();
         $version = $packageVersionProvider->provide($packageName);
+
         $autowiredConsoleApplication->setVersion($version);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Autodiscovery\Configuration;
 
 /**
@@ -13,11 +14,24 @@ final class CategoryNamespaceProvider
     /**
      * @var string[]
      */
-    const CATEGORY_NAMESPACES = ['Command', 'Controller', 'Exception', 'Facade', 'EventSubscriber', 'EventListener', 'Entity', 'EntityFactory', 'Repository', 'Validator', 'Validation'];
+    const CATEGORY_NAMESPACES = [
+        'Command',
+        'Controller',
+        'Exception',
+        'Facade',
+        'EventSubscriber',
+        'EventListener',
+        'Entity',
+        'EntityFactory',
+        'Repository',
+        'Validator',
+        'Validation',
+    ];
+
     /**
      * @return string[]
      */
-    public function provide() : array
+    public function provide(): array
     {
         return self::CATEGORY_NAMESPACES;
     }

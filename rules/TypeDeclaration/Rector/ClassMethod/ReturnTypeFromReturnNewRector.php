@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -14,22 +15,27 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnNewRector\ReturnTypeFromReturnNewRectorTest
  */
-final class ReturnTypeFromReturnNewRector extends \Rector\Core\Rector\AbstractRector
+final class ReturnTypeFromReturnNewRector extends AbstractRector
 {
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+
+    public function __construct(TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add return type void to function like without any return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Add return type void to function like without any return', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function action()
@@ -38,7 +44,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function action(): Respose
@@ -47,47 +54,58 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
             return null;
         }
+
         if ($node->returnType !== null) {
             return null;
         }
+
         /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstanceOf((array) $node->stmts, \PhpParser\Node\Stmt\Return_::class);
+        $returns = $this->betterNodeFinder->findInstanceOf((array) $node->stmts, Return_::class);
         if ($returns === []) {
             return null;
         }
+
         $newTypes = [];
         foreach ($returns as $return) {
-            if (!$return->expr instanceof \PhpParser\Node\Expr\New_) {
+            if (! $return->expr instanceof New_) {
                 return null;
             }
+
             $new = $return->expr;
-            if (!$new->class instanceof \PhpParser\Node\Name) {
+            if (! $new->class instanceof Name) {
                 return null;
             }
+
             $className = $this->getName($new->class);
-            $newTypes[] = new \PHPStan\Type\ObjectType($className);
+            $newTypes[] = new ObjectType($className);
         }
+
         $returnType = $this->typeFactory->createMixedPassedOrUnionType($newTypes);
         $returnTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
         $node->returnType = $returnTypeNode;
+
         return $node;
     }
 }

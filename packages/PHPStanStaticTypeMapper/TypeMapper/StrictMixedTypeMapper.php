@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -10,33 +11,37 @@ use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\StrictMixedType;
 use PHPStan\Type\Type;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+
+final class StrictMixedTypeMapper implements TypeMapperInterface
 {
     /**
      * @var string
      */
     const MIXED = 'mixed';
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\StrictMixedType::class;
+        return StrictMixedType::class;
     }
+
     /**
      * @param StrictMixedType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
-        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode(self::MIXED);
+        return new IdentifierTypeNode(self::MIXED);
     }
+
     /**
      * @param StrictMixedType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
-        return new \PhpParser\Node\Name(self::MIXED);
+        return new Name(self::MIXED);
     }
 }

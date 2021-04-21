@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,23 +11,28 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\Transform\Rector\MethodCall\MethodCallToStaticCallRector\MethodCallToStaticCallRectorTest
  */
-final class MethodCallToStaticCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MethodCallToStaticCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const METHOD_CALLS_TO_STATIC_CALLS = 'method_calls_to_static_calls';
+
     /**
      * @var MethodCallToStaticCall[]
      */
     private $methodCallsToStaticCalls = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call to desired static call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change method call to desired static call', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $anotherDependency;
@@ -42,7 +48,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $anotherDependency;
@@ -58,39 +65,56 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::METHOD_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\MethodCallToStaticCall('AnotherDependency', 'process', 'StaticCaller', 'anotherMethod')]])]);
+,
+                [
+                    self::METHOD_CALLS_TO_STATIC_CALLS => [
+                        new MethodCallToStaticCall('AnotherDependency', 'process', 'StaticCaller', 'anotherMethod'),
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->methodCallsToStaticCalls as $methodCallToStaticCall) {
-            if (!$this->isObjectType($node->var, $methodCallToStaticCall->getOldObjectType())) {
+            if (! $this->isObjectType($node->var, $methodCallToStaticCall->getOldObjectType())) {
                 continue;
             }
-            if (!$this->isName($node->name, $methodCallToStaticCall->getOldMethod())) {
+
+            if (! $this->isName($node->name, $methodCallToStaticCall->getOldMethod())) {
                 continue;
             }
-            return $this->nodeFactory->createStaticCall($methodCallToStaticCall->getNewClass(), $methodCallToStaticCall->getNewMethod(), $node->args);
+
+            return $this->nodeFactory->createStaticCall(
+                $methodCallToStaticCall->getNewClass(),
+                $methodCallToStaticCall->getNewMethod(),
+                $node->args
+            );
         }
+
         return null;
     }
+
     /**
      * @return void
      */
     public function configure(array $configuration)
     {
         $methodCallsToStaticCalls = $configuration[self::METHOD_CALLS_TO_STATIC_CALLS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallsToStaticCalls, \Rector\Transform\ValueObject\MethodCallToStaticCall::class);
+        Assert::allIsInstanceOf($methodCallsToStaticCalls, MethodCallToStaticCall::class);
         $this->methodCallsToStaticCalls = $methodCallsToStaticCalls;
     }
 }

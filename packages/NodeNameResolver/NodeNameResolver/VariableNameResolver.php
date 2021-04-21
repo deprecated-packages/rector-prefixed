@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeNameResolver\NodeNameResolver;
 
 use PhpParser\Node;
@@ -10,33 +11,39 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class VariableNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+
+final class VariableNameResolver implements NodeNameResolverInterface
 {
     /**
      * @return class-string<Node>
      */
-    public function getNode() : string
+    public function getNode(): string
     {
-        return \PhpParser\Node\Expr\Variable::class;
+        return Variable::class;
     }
+
     /**
      * @param Variable $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(Node $node)
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+
         // skip $some->$dynamicMethodName()
-        if ($parentNode instanceof \PhpParser\Node\Expr\MethodCall && $node === $parentNode->name) {
+        if ($parentNode instanceof MethodCall && $node === $parentNode->name) {
             return null;
         }
+
         // skip $some->$dynamicPropertyName
-        if ($parentNode instanceof \PhpParser\Node\Expr\PropertyFetch && $node === $parentNode->name) {
+        if ($parentNode instanceof PropertyFetch && $node === $parentNode->name) {
             return null;
         }
-        if ($node->name instanceof \PhpParser\Node\Expr) {
+
+        if ($node->name instanceof Expr) {
             return null;
         }
+
         return $node->name;
     }
 }

@@ -8,18 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Command;
 
-use RectorPrefix20210421\Symfony\Component\Console\Application;
-use RectorPrefix20210421\Symfony\Component\Console\Exception\ExceptionInterface;
-use RectorPrefix20210421\Symfony\Component\Console\Exception\InvalidArgumentException;
-use RectorPrefix20210421\Symfony\Component\Console\Exception\LogicException;
-use RectorPrefix20210421\Symfony\Component\Console\Helper\HelperSet;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface;
+namespace Symfony\Component\Console\Command;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Exception\ExceptionInterface;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Exception\LogicException;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Base class for all commands.
  *
@@ -30,24 +32,27 @@ class Command
     // see https://tldp.org/LDP/abs/html/exitcodes.html
     const SUCCESS = 0;
     const FAILURE = 1;
+
     /**
      * @var string|null The default command name
      */
     protected static $defaultName;
+
     private $application;
     private $name;
     private $processTitle;
     private $aliases = [];
     private $definition;
-    private $hidden = \false;
+    private $hidden = false;
     private $help = '';
     private $description = '';
     private $fullDefinition;
-    private $ignoreValidationErrors = \false;
+    private $ignoreValidationErrors = false;
     private $code;
     private $synopsis = [];
     private $usages = [];
     private $helperSet;
+
     /**
      * @return string|null The default command name or null when no default name is set
      */
@@ -55,8 +60,10 @@ class Command
     {
         $class = static::class;
         $r = new \ReflectionProperty($class, 'defaultName');
+
         return $class === $r->class ? static::$defaultName : null;
     }
+
     /**
      * @param string|null $name The name of the command; passing null means it must be set in configure()
      *
@@ -64,12 +71,15 @@ class Command
      */
     public function __construct(string $name = null)
     {
-        $this->definition = new \RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition();
-        if (null !== $name || null !== ($name = static::getDefaultName())) {
+        $this->definition = new InputDefinition();
+
+        if (null !== $name || null !== $name = static::getDefaultName()) {
             $this->setName($name);
         }
+
         $this->configure();
     }
+
     /**
      * Ignores validation errors.
      *
@@ -77,9 +87,10 @@ class Command
      */
     public function ignoreValidationErrors()
     {
-        $this->ignoreValidationErrors = \true;
+        $this->ignoreValidationErrors = true;
     }
-    public function setApplication(\RectorPrefix20210421\Symfony\Component\Console\Application $application = null)
+
+    public function setApplication(Application $application = null)
     {
         $this->application = $application;
         if ($application) {
@@ -87,12 +98,15 @@ class Command
         } else {
             $this->helperSet = null;
         }
+
         $this->fullDefinition = null;
     }
-    public function setHelperSet(\RectorPrefix20210421\Symfony\Component\Console\Helper\HelperSet $helperSet)
+
+    public function setHelperSet(HelperSet $helperSet)
     {
         $this->helperSet = $helperSet;
     }
+
     /**
      * Gets the helper set.
      *
@@ -102,6 +116,7 @@ class Command
     {
         return $this->helperSet;
     }
+
     /**
      * Gets the application instance for this command.
      *
@@ -111,6 +126,7 @@ class Command
     {
         return $this->application;
     }
+
     /**
      * Checks whether the command is enabled or not in the current environment.
      *
@@ -121,14 +137,16 @@ class Command
      */
     public function isEnabled()
     {
-        return \true;
+        return true;
     }
+
     /**
      * Configures the current command.
      */
     protected function configure()
     {
     }
+
     /**
      * Executes the current command.
      *
@@ -143,10 +161,11 @@ class Command
      *
      * @see setCode()
      */
-    protected function execute(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        throw new \RectorPrefix20210421\Symfony\Component\Console\Exception\LogicException('You must override the execute() method in the concrete command class.');
+        throw new LogicException('You must override the execute() method in the concrete command class.');
     }
+
     /**
      * Interacts with the user.
      *
@@ -154,9 +173,10 @@ class Command
      * This means that this is the only place where the command can
      * interactively ask for values of missing required arguments.
      */
-    protected function interact(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
     }
+
     /**
      * Initializes the command after the input has been bound and before the input
      * is validated.
@@ -167,9 +187,10 @@ class Command
      * @see InputInterface::bind()
      * @see InputInterface::validate()
      */
-    protected function initialize(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
     }
+
     /**
      * Runs the command.
      *
@@ -184,54 +205,64 @@ class Command
      * @see setCode()
      * @see execute()
      */
-    public function run(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output)
+    public function run(InputInterface $input, OutputInterface $output)
     {
         // add the application arguments and options
         $this->mergeApplicationDefinition();
+
         // bind the input against the command specific arguments/options
         try {
             $input->bind($this->getDefinition());
-        } catch (\RectorPrefix20210421\Symfony\Component\Console\Exception\ExceptionInterface $e) {
+        } catch (ExceptionInterface $e) {
             if (!$this->ignoreValidationErrors) {
                 throw $e;
             }
         }
+
         $this->initialize($input, $output);
+
         if (null !== $this->processTitle) {
             if (\function_exists('cli_set_process_title')) {
-                if (!@\cli_set_process_title($this->processTitle)) {
+                if (!@cli_set_process_title($this->processTitle)) {
                     if ('Darwin' === \PHP_OS) {
-                        $output->writeln('<comment>Running "cli_set_process_title" as an unprivileged user is not supported on MacOS.</comment>', \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE);
+                        $output->writeln('<comment>Running "cli_set_process_title" as an unprivileged user is not supported on MacOS.</comment>', OutputInterface::VERBOSITY_VERY_VERBOSE);
                     } else {
-                        \cli_set_process_title($this->processTitle);
+                        cli_set_process_title($this->processTitle);
                     }
                 }
-            } elseif (\function_exists('RectorPrefix20210421\\setproctitle')) {
+            } elseif (\function_exists('setproctitle')) {
                 setproctitle($this->processTitle);
-            } elseif (\RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
+            } elseif (OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
                 $output->writeln('<comment>Install the proctitle PECL to be able to change the process title.</comment>');
             }
         }
+
         if ($input->isInteractive()) {
             $this->interact($input, $output);
         }
+
         // The command name argument is often omitted when a command is executed directly with its run() method.
         // It would fail the validation if we didn't make sure the command argument is present,
         // since it's required by the application.
         if ($input->hasArgument('command') && null === $input->getArgument('command')) {
             $input->setArgument('command', $this->getName());
         }
+
         $input->validate();
+
         if ($this->code) {
             $statusCode = ($this->code)($input, $output);
         } else {
             $statusCode = $this->execute($input, $output);
+
             if (!\is_int($statusCode)) {
-                throw new \TypeError(\sprintf('Return value of "%s::execute()" must be of the type int, "%s" returned.', static::class, \get_debug_type($statusCode)));
+                throw new \TypeError(sprintf('Return value of "%s::execute()" must be of the type int, "%s" returned.', static::class, get_debug_type($statusCode)));
             }
         }
-        return \is_numeric($statusCode) ? (int) $statusCode : 0;
+
+        return is_numeric($statusCode) ? (int) $statusCode : 0;
     }
+
     /**
      * Sets the code to execute when running this command.
      *
@@ -251,20 +282,22 @@ class Command
         if ($code instanceof \Closure) {
             $r = new \ReflectionFunction($code);
             if (null === $r->getClosureThis()) {
-                \set_error_handler(static function () {
-                });
+                set_error_handler(static function () {});
                 try {
                     if ($c = \Closure::bind($code, $this)) {
                         $code = $c;
                     }
                 } finally {
-                    \restore_error_handler();
+                    restore_error_handler();
                 }
             }
         }
+
         $this->code = $code;
+
         return $this;
     }
+
     /**
      * Merges the application definition with the command definition.
      *
@@ -272,14 +305,16 @@ class Command
      *
      * @param bool $mergeArgs Whether to merge or not the Application definition arguments to Command definition arguments
      */
-    public function mergeApplicationDefinition(bool $mergeArgs = \true)
+    public function mergeApplicationDefinition(bool $mergeArgs = true)
     {
         if (null === $this->application) {
             return;
         }
-        $this->fullDefinition = new \RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition();
+
+        $this->fullDefinition = new InputDefinition();
         $this->fullDefinition->setOptions($this->definition->getOptions());
         $this->fullDefinition->addOptions($this->application->getDefinition()->getOptions());
+
         if ($mergeArgs) {
             $this->fullDefinition->setArguments($this->application->getDefinition()->getArguments());
             $this->fullDefinition->addArguments($this->definition->getArguments());
@@ -287,6 +322,7 @@ class Command
             $this->fullDefinition->setArguments($this->definition->getArguments());
         }
     }
+
     /**
      * Sets an array of argument and option instances.
      *
@@ -296,14 +332,17 @@ class Command
      */
     public function setDefinition($definition)
     {
-        if ($definition instanceof \RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition) {
+        if ($definition instanceof InputDefinition) {
             $this->definition = $definition;
         } else {
             $this->definition->setDefinition($definition);
         }
+
         $this->fullDefinition = null;
+
         return $this;
     }
+
     /**
      * Gets the InputDefinition attached to this Command.
      *
@@ -313,6 +352,7 @@ class Command
     {
         return $this->fullDefinition ?? $this->getNativeDefinition();
     }
+
     /**
      * Gets the InputDefinition to be used to create representations of this Command.
      *
@@ -326,10 +366,12 @@ class Command
     public function getNativeDefinition()
     {
         if (null === $this->definition) {
-            throw new \RectorPrefix20210421\Symfony\Component\Console\Exception\LogicException(\sprintf('Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.', static::class));
+            throw new LogicException(sprintf('Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.', static::class));
         }
+
         return $this->definition;
     }
+
     /**
      * Adds an argument.
      *
@@ -342,12 +384,14 @@ class Command
      */
     public function addArgument(string $name, int $mode = null, string $description = '', $default = null)
     {
-        $this->definition->addArgument(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
+        $this->definition->addArgument(new InputArgument($name, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
-            $this->fullDefinition->addArgument(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
+            $this->fullDefinition->addArgument(new InputArgument($name, $mode, $description, $default));
         }
+
         return $this;
     }
+
     /**
      * Adds an option.
      *
@@ -361,12 +405,14 @@ class Command
      */
     public function addOption(string $name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
-        $this->definition->addOption(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
+        $this->definition->addOption(new InputOption($name, $shortcut, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
-            $this->fullDefinition->addOption(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
+            $this->fullDefinition->addOption(new InputOption($name, $shortcut, $mode, $description, $default));
         }
+
         return $this;
     }
+
     /**
      * Sets the name of the command.
      *
@@ -382,9 +428,12 @@ class Command
     public function setName(string $name)
     {
         $this->validateName($name);
+
         $this->name = $name;
+
         return $this;
     }
+
     /**
      * Sets the process title of the command.
      *
@@ -396,8 +445,10 @@ class Command
     public function setProcessTitle(string $title)
     {
         $this->processTitle = $title;
+
         return $this;
     }
+
     /**
      * Returns the command name.
      *
@@ -407,6 +458,7 @@ class Command
     {
         return $this->name;
     }
+
     /**
      * @param bool $hidden Whether or not the command should be hidden from the list of commands
      *                     The default value will be true in Symfony 6.0
@@ -415,11 +467,13 @@ class Command
      *
      * @final since Symfony 5.1
      */
-    public function setHidden(bool $hidden)
+    public function setHidden(bool $hidden /*= true*/)
     {
         $this->hidden = $hidden;
+
         return $this;
     }
+
     /**
      * @return bool whether the command should be publicly shown or not
      */
@@ -427,6 +481,7 @@ class Command
     {
         return $this->hidden;
     }
+
     /**
      * Sets the description for the command.
      *
@@ -435,8 +490,10 @@ class Command
     public function setDescription(string $description)
     {
         $this->description = $description;
+
         return $this;
     }
+
     /**
      * Returns the description for the command.
      *
@@ -446,6 +503,7 @@ class Command
     {
         return $this->description;
     }
+
     /**
      * Sets the help for the command.
      *
@@ -454,8 +512,10 @@ class Command
     public function setHelp(string $help)
     {
         $this->help = $help;
+
         return $this;
     }
+
     /**
      * Returns the help for the command.
      *
@@ -465,6 +525,7 @@ class Command
     {
         return $this->help;
     }
+
     /**
      * Returns the processed help for the command replacing the %command.name% and
      * %command.full_name% patterns with the real values dynamically.
@@ -475,10 +536,19 @@ class Command
     {
         $name = $this->name;
         $isSingleCommand = $this->application && $this->application->isSingleCommand();
-        $placeholders = ['%command.name%', '%command.full_name%'];
-        $replacements = [$name, $isSingleCommand ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . ' ' . $name];
-        return \str_replace($placeholders, $replacements, $this->getHelp() ?: $this->getDescription());
+
+        $placeholders = [
+            '%command.name%',
+            '%command.full_name%',
+        ];
+        $replacements = [
+            $name,
+            $isSingleCommand ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'].' '.$name,
+        ];
+
+        return str_replace($placeholders, $replacements, $this->getHelp() ?: $this->getDescription());
     }
+
     /**
      * Sets the aliases for the command.
      *
@@ -493,9 +563,12 @@ class Command
         foreach ($aliases as $alias) {
             $this->validateName($alias);
         }
+
         $this->aliases = $aliases;
+
         return $this;
     }
+
     /**
      * Returns the aliases for the command.
      *
@@ -505,6 +578,7 @@ class Command
     {
         return $this->aliases;
     }
+
     /**
      * Returns the synopsis for the command.
      *
@@ -512,14 +586,17 @@ class Command
      *
      * @return string The synopsis
      */
-    public function getSynopsis(bool $short = \false)
+    public function getSynopsis(bool $short = false)
     {
         $key = $short ? 'short' : 'long';
+
         if (!isset($this->synopsis[$key])) {
-            $this->synopsis[$key] = \trim(\sprintf('%s %s', $this->name, $this->definition->getSynopsis($short)));
+            $this->synopsis[$key] = trim(sprintf('%s %s', $this->name, $this->definition->getSynopsis($short)));
         }
+
         return $this->synopsis[$key];
     }
+
     /**
      * Add a command usage example, it'll be prefixed with the command name.
      *
@@ -527,12 +604,15 @@ class Command
      */
     public function addUsage(string $usage)
     {
-        if (0 !== \strpos($usage, $this->name)) {
-            $usage = \sprintf('%s %s', $this->name, $usage);
+        if (0 !== strpos($usage, $this->name)) {
+            $usage = sprintf('%s %s', $this->name, $usage);
         }
+
         $this->usages[] = $usage;
+
         return $this;
     }
+
     /**
      * Returns alternative usages of the command.
      *
@@ -542,6 +622,7 @@ class Command
     {
         return $this->usages;
     }
+
     /**
      * Gets a helper instance by name.
      *
@@ -553,10 +634,12 @@ class Command
     public function getHelper(string $name)
     {
         if (null === $this->helperSet) {
-            throw new \RectorPrefix20210421\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
+            throw new LogicException(sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
         }
+
         return $this->helperSet->get($name);
     }
+
     /**
      * Validates a command name.
      *
@@ -566,8 +649,8 @@ class Command
      */
     private function validateName(string $name)
     {
-        if (!\preg_match('/^[^\\:]++(\\:[^\\:]++)*$/', $name)) {
-            throw new \RectorPrefix20210421\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
+        if (!preg_match('/^[^\:]++(\:[^\:]++)*$/', $name)) {
+            throw new InvalidArgumentException(sprintf('Command name "%s" is invalid.', $name));
         }
     }
 }

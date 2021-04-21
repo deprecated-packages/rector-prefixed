@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp70\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -12,29 +13,37 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp70\Rector\FunctionLike\DowngradeTypeDeclarationRector\DowngradeTypeDeclarationRectorTest
  */
-final class DowngradeTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeTypeDeclarationRector extends AbstractRector
 {
     /**
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
+
+    public function __construct(PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [Function_::class, ClassMethod::class];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove the type params and return type, add @param and @return tags instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove the type params and return type, add @param and @return tags instead',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(string $input): string
@@ -42,7 +51,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -54,18 +64,27 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @param Function_|ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($node->params as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class]);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam(
+                $param,
+                $node,
+                [ArrayType::class, CallableType::class]
+            );
         }
+
         $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
+
         return $node;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp71\Rector\ClassConst;
 
 use PhpParser\Node;
@@ -8,14 +9,19 @@ use PhpParser\Node\Stmt\ClassConst;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp71\Rector\ClassConst\DowngradeClassConstantVisibilityRectorTest
  */
-final class DowngradeClassConstantVisibilityRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeClassConstantVisibilityRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade class constant visibility', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Downgrade class constant visibility',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
    public const PUBLIC_CONST_B = 2;
@@ -23,7 +29,8 @@ class SomeClass
    private const PRIVATE_CONST = 4;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
    const PUBLIC_CONST_B = 2;
@@ -31,22 +38,27 @@ class SomeClass
    const PRIVATE_CONST = 4;
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassConst::class];
+        return [ClassConst::class];
     }
+
     /**
      * @param ClassConst $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $this->visibilityManipulator->removeVisibility($node);
+
         return $node;
     }
 }

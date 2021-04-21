@@ -1,27 +1,33 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Removing\ValueObject;
 
 use PHPStan\Type\ObjectType;
+
 final class ArgumentRemover
 {
     /**
      * @var string
      */
     private $class;
+
     /**
      * @var string
      */
     private $method;
+
     /**
      * @var int
      */
     private $position;
+
     /**
      * @var mixed
      */
     private $value;
+
     /**
      * @param mixed $value
      */
@@ -32,18 +38,22 @@ final class ArgumentRemover
         $this->position = $position;
         $this->value = $value;
     }
-    public function getObjectType() : \PHPStan\Type\ObjectType
+
+    public function getObjectType(): ObjectType
     {
-        return new \PHPStan\Type\ObjectType($this->class);
+        return new ObjectType($this->class);
     }
-    public function getMethod() : string
+
+    public function getMethod(): string
     {
         return $this->method;
     }
-    public function getPosition() : int
+
+    public function getPosition(): int
     {
         return $this->position;
     }
+
     /**
      * @return mixed
      */

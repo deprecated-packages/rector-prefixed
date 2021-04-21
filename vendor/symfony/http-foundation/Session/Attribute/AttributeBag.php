@@ -8,16 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute;
+
+namespace Symfony\Component\HttpFoundation\Session\Attribute;
 
 /**
  * This class relates to session attribute storage.
  */
-class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface, \IteratorAggregate, \Countable
+class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Countable
 {
     private $name = 'attributes';
     private $storageKey;
+
     protected $attributes = [];
+
     /**
      * @param string $storageKey The key used to store attributes in the session
      */
@@ -25,6 +28,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         $this->storageKey = $storageKey;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -32,17 +36,20 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return $this->name;
     }
+
     public function setName(string $name)
     {
         $this->name = $name;
     }
+
     /**
      * {@inheritdoc}
      */
     public function initialize(array &$attributes)
     {
-        $this->attributes =& $attributes;
+        $this->attributes = &$attributes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -50,6 +57,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return $this->storageKey;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -57,6 +65,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return \array_key_exists($name, $this->attributes);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -64,6 +73,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -71,6 +81,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         $this->attributes[$name] = $value;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -78,6 +89,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return $this->attributes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -88,6 +100,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
             $this->set($key, $value);
         }
     }
+
     /**
      * {@inheritdoc}
      */
@@ -98,8 +111,10 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
             $retval = $this->attributes[$name];
             unset($this->attributes[$name]);
         }
+
         return $retval;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -107,8 +122,10 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         $return = $this->attributes;
         $this->attributes = [];
+
         return $return;
     }
+
     /**
      * Returns an iterator for attributes.
      *
@@ -118,6 +135,7 @@ class AttributeBag implements \RectorPrefix20210421\Symfony\Component\HttpFounda
     {
         return new \ArrayIterator($this->attributes);
     }
+
     /**
      * Returns the number of attributes.
      *

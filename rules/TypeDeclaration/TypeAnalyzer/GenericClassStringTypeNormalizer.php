@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\TypeAnalyzer;
 
 use PHPStan\Reflection\ReflectionProvider;
@@ -9,26 +10,31 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeTraverser;
+
 final class GenericClassStringTypeNormalizer
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function normalize(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+
+    public function normalize(Type $type): Type
     {
-        return \PHPStan\Type\TypeTraverser::map($type, function (\PHPStan\Type\Type $type, $callback) : Type {
-            if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType) {
+        return TypeTraverser::map($type, function (Type $type, $callback): Type {
+            if (! $type instanceof ConstantStringType) {
                 return $callback($type);
             }
-            if (!$this->reflectionProvider->hasClass($type->getValue())) {
+
+            if (! $this->reflectionProvider->hasClass($type->getValue())) {
                 return $callback($type);
             }
-            return new \PHPStan\Type\Generic\GenericClassStringType(new \PHPStan\Type\ObjectType($type->getValue()));
+
+            return new GenericClassStringType(new ObjectType($type->getValue()));
         });
     }
 }

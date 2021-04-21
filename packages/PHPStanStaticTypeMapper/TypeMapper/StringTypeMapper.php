@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -12,39 +13,45 @@ use PHPStan\Type\Type;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-final class StringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+
+final class StringTypeMapper implements TypeMapperInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+
+    public function __construct(PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\StringType::class;
+        return StringType::class;
     }
+
     /**
      * @param StringType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
-        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string');
+        return new IdentifierTypeNode('string');
     }
+
     /**
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
+        if (! $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::SCALAR_TYPES)) {
             return null;
         }
-        return new \PhpParser\Node\Name('string');
+
+        return new Name('string');
     }
 }

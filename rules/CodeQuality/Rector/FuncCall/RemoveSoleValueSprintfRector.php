@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -10,14 +11,17 @@ use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodeQuality\Rector\FuncCall\RemoveSoleValueSprintfRector\RemoveSoleValueSprintfRectorTest
  */
-final class RemoveSoleValueSprintfRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveSoleValueSprintfRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove sprintf() wrapper if not needed', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove sprintf() wrapper if not needed', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -29,7 +33,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -41,38 +46,46 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node, 'sprintf')) {
+        if (! $this->isName($node, 'sprintf')) {
             return null;
         }
-        if (\count($node->args) !== 2) {
+
+        if (count($node->args) !== 2) {
             return null;
         }
+
         $maskArgument = $node->args[0]->value;
-        if (!$maskArgument instanceof \PhpParser\Node\Scalar\String_) {
+        if (! $maskArgument instanceof String_) {
             return null;
         }
+
         if ($maskArgument->value !== '%s') {
             return null;
         }
+
         $valueArgument = $node->args[1]->value;
-        if (!$this->nodeTypeResolver->isStaticType($valueArgument, \PHPStan\Type\StringType::class)) {
+        if (! $this->nodeTypeResolver->isStaticType($valueArgument, StringType::class)) {
             return null;
         }
+
         return $valueArgument;
     }
 }

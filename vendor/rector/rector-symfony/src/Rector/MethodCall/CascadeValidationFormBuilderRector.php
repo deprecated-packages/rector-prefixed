@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -16,23 +17,30 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://gist.github.com/mickaelandrieu/5d27a2ffafcbdd64912f549aaf2a6df9#stuck-with-forms
  * @see \Rector\Symfony\Tests\Rector\MethodCall\CascadeValidationFormBuilderRector\CascadeValidationFormBuilderRectorTest
  */
-final class CascadeValidationFormBuilderRector extends \Rector\Core\Rector\AbstractRector
+final class CascadeValidationFormBuilderRector extends AbstractRector
 {
     /**
      * @var ArrayManipulator
      */
     private $arrayManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator)
+
+    public function __construct(ArrayManipulator $arrayManipulator)
     {
         $this->arrayManipulator = $arrayManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change "cascade_validation" option to specific node attribute', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change "cascade_validation" option to specific node attribute',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeController
 {
     public function someMethod()
@@ -48,7 +56,8 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeController
 {
     public function someMethod()
@@ -66,79 +75,101 @@ class SomeController
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         /** @var Array_ $formBuilderOptionsArrayNode */
         $formBuilderOptionsArrayNode = $node->args[1]->value;
-        if (!$this->isSuccessfulRemovalCascadeValidationOption($node, $formBuilderOptionsArrayNode)) {
+
+        if (! $this->isSuccessfulRemovalCascadeValidationOption($node, $formBuilderOptionsArrayNode)) {
             return null;
         }
+
         $this->addConstraintsOptionToFollowingAddMethodCalls($node);
+
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if (!$this->isName($methodCall->name, 'createFormBuilder')) {
-            return \true;
+        if (! $this->isName($methodCall->name, 'createFormBuilder')) {
+            return true;
         }
-        if (!isset($methodCall->args[1])) {
-            return \true;
+
+        if (! isset($methodCall->args[1])) {
+            return true;
         }
-        return !$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\Array_;
+
+        return ! $methodCall->args[1]->value instanceof Array_;
     }
-    private function isSuccessfulRemovalCascadeValidationOption(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Array_ $optionsArrayNode) : bool
+
+    private function isSuccessfulRemovalCascadeValidationOption(MethodCall $methodCall, Array_ $optionsArrayNode): bool
     {
         foreach ($optionsArrayNode->items as $key => $arrayItem) {
             if ($arrayItem === null) {
                 continue;
             }
-            if (!$this->arrayManipulator->hasKeyName($arrayItem, 'cascade_validation')) {
+
+            if (! $this->arrayManipulator->hasKeyName($arrayItem, 'cascade_validation')) {
                 continue;
             }
-            if (!$this->valueResolver->isTrue($arrayItem->value)) {
+
+            if (! $this->valueResolver->isTrue($arrayItem->value)) {
                 continue;
             }
+
             unset($optionsArrayNode->items[$key]);
+
             // remove empty array
             if ($optionsArrayNode->items === []) {
                 unset($methodCall->args[1]);
             }
-            return \true;
+
+            return true;
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @return void
      */
-    private function addConstraintsOptionToFollowingAddMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function addConstraintsOptionToFollowingAddMethodCalls(MethodCall $methodCall)
     {
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Validator\\Constraints\\Valid'));
-        $constraintsArrayItem = new \PhpParser\Node\Expr\ArrayItem($new, new \PhpParser\Node\Scalar\String_('constraints'));
-        $parentNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        while ($parentNode instanceof \PhpParser\Node\Expr\MethodCall) {
+        $new = new New_(new FullyQualified('Symfony\Component\Validator\Constraints\Valid'));
+        $constraintsArrayItem = new ArrayItem($new, new String_('constraints'));
+
+        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
+
+        while ($parentNode instanceof MethodCall) {
             if ($this->isName($parentNode->name, 'add')) {
                 /** @var Array_ $addOptionsArrayNode */
-                $addOptionsArrayNode = isset($parentNode->args[2]) ? $parentNode->args[2]->value : new \PhpParser\Node\Expr\Array_();
+                $addOptionsArrayNode = isset($parentNode->args[2]) ? $parentNode->args[2]->value : new Array_();
                 $addOptionsArrayNode->items[] = $constraintsArrayItem;
-                $parentNode->args[2] = new \PhpParser\Node\Arg($addOptionsArrayNode);
+
+                $parentNode->args[2] = new Arg($addOptionsArrayNode);
             }
-            $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+
+            $parentNode = $parentNode->getAttribute(AttributeKey::PARENT_NODE);
         }
     }
 }

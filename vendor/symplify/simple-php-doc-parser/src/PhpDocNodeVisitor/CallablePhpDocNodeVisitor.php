@@ -1,19 +1,23 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor;
+declare(strict_types=1);
+
+namespace Symplify\SimplePhpDocParser\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
-final class CallablePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor
+
+final class CallablePhpDocNodeVisitor extends AbstractPhpDocNodeVisitor
 {
     /**
      * @var callable
      */
     private $callable;
+
     /**
      * @var string|null
      */
     private $docContent;
+
     /**
      * @param string|null $docContent
      */
@@ -22,10 +26,11 @@ final class CallablePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\Sim
         $this->callable = $callable;
         $this->docContent = $docContent;
     }
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(Node $node)
     {
         $callable = $this->callable;
         return $callable($node, $this->docContent);

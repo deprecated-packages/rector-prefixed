@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -9,50 +10,67 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\ContainerBuilderCompileEnvArgumentRector\ContainerBuilderCompileEnvArgumentRectorTest
  */
-final class ContainerBuilderCompileEnvArgumentRector extends \Rector\Core\Rector\AbstractRector
+final class ContainerBuilderCompileEnvArgumentRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old default value to parameter in ContainerBuilder->build() method in DI in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Turns old default value to parameter in ContainerBuilder->build() method in DI in Symfony',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->compile();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->compile(true);
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\DependencyInjection\\ContainerBuilder'))) {
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('Symfony\Component\DependencyInjection\ContainerBuilder')
+        )) {
             return null;
         }
-        if (!$this->isName($node->name, 'compile')) {
+
+        if (! $this->isName($node->name, 'compile')) {
             return null;
         }
-        if (\count($node->args) === 1) {
+
+        if (count($node->args) === 1) {
             return null;
         }
+
         $node->args = $this->nodeFactory->createArgs([$this->nodeFactory->createTrue()]);
+
         return $node;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\Rector\Class_;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
@@ -13,28 +14,36 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://stackoverflow.com/a/46693675/1348344
  *
  * @see \Rector\PHPUnit\Tests\Rector\Class_\RemoveDataProviderTestPrefixRector\RemoveDataProviderTestPrefixRectorTest
  */
-final class RemoveDataProviderTestPrefixRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDataProviderTestPrefixRector extends AbstractRector
 {
     /**
      * @var array<string, string>
      */
     private $providerMethodNamesToNewNames = [];
+
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+
+    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Data provider methods cannot start with "test" prefix', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Data provider methods cannot start with "test" prefix',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     /**
@@ -51,7 +60,8 @@ class SomeClass extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     /**
@@ -68,76 +78,100 @@ class SomeClass extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
+        if (! $this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
+
         $this->providerMethodNamesToNewNames = [];
+
         $this->renameDataProviderAnnotationsAndCollectRenamedMethods($node);
         $this->renameProviderMethods($node);
+
         return $node;
     }
+
     /**
      * @return void
      */
-    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class)
+    private function renameDataProviderAnnotationsAndCollectRenamedMethods(Class_ $class)
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+
             $dataProviderTagValueNodes = $phpDocInfo->getTagsByName('dataProvider');
             if ($dataProviderTagValueNodes === []) {
                 continue;
             }
+
             foreach ($dataProviderTagValueNodes as $dataProviderTagValueNode) {
-                if (!$dataProviderTagValueNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                if (! $dataProviderTagValueNode->value instanceof GenericTagValueNode) {
                     continue;
                 }
+
                 $oldMethodName = $dataProviderTagValueNode->value->value;
-                if (!\RectorPrefix20210421\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
+
+                if (! Strings::startsWith($oldMethodName, 'test')) {
                     continue;
                 }
+
                 $newMethodName = $this->createNewMethodName($oldMethodName);
-                $dataProviderTagValueNode->value->value = \RectorPrefix20210421\Nette\Utils\Strings::replace($oldMethodName, '#' . \preg_quote($oldMethodName, '#') . '#', $newMethodName);
+
+                $dataProviderTagValueNode->value->value = Strings::replace(
+                    $oldMethodName,
+                    '#' . preg_quote($oldMethodName, '#') . '#',
+                    $newMethodName
+                );
+
                 // invoke reprint
-                $dataProviderTagValueNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, null);
+                $dataProviderTagValueNode->setAttribute(PhpDocAttributeKey::START_AND_END, null);
+
                 $phpDocInfo->markAsChanged();
-                $oldMethodNameWithoutBrackets = \rtrim($oldMethodName, '()');
+
+                $oldMethodNameWithoutBrackets = rtrim($oldMethodName, '()');
                 $newMethodWithoutBrackets = $this->createNewMethodName($oldMethodNameWithoutBrackets);
                 $this->providerMethodNamesToNewNames[$oldMethodNameWithoutBrackets] = $newMethodWithoutBrackets;
             }
         }
     }
+
     /**
      * @return void
      */
-    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class)
+    private function renameProviderMethods(Class_ $class)
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($this->providerMethodNamesToNewNames as $oldName => $newName) {
-                if (!$this->isName($classMethod, $oldName)) {
+                if (! $this->isName($classMethod, $oldName)) {
                     continue;
                 }
-                $classMethod->name = new \PhpParser\Node\Identifier($newName);
+
+                $classMethod->name = new Identifier($newName);
             }
         }
     }
-    private function createNewMethodName(string $oldMethodName) : string
+
+    private function createNewMethodName(string $oldMethodName): string
     {
-        $newMethodName = \RectorPrefix20210421\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
-        return \lcfirst($newMethodName);
+        $newMethodName = Strings::substring($oldMethodName, strlen('test'));
+
+        return lcfirst($newMethodName);
     }
 }

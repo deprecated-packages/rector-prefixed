@@ -1,15 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Node\Expr;
 
 use PhpParser\Node\Expr;
-abstract class BinaryOp extends \PhpParser\Node\Expr
+
+abstract class BinaryOp extends Expr
 {
     /** @var Expr The left hand side expression */
     public $left;
     /** @var Expr The right hand side expression */
     public $right;
+
     /**
      * Constructs a binary operator node.
      *
@@ -17,16 +18,16 @@ abstract class BinaryOp extends \PhpParser\Node\Expr
      * @param Expr  $right      The right hand side expression
      * @param array $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $left, \PhpParser\Node\Expr $right, array $attributes = [])
-    {
+    public function __construct(Expr $left, Expr $right, array $attributes = []) {
         $this->attributes = $attributes;
         $this->left = $left;
         $this->right = $right;
     }
-    public function getSubNodeNames() : array
-    {
+
+    public function getSubNodeNames() : array {
         return ['left', 'right'];
     }
+
     /**
      * Get the operator sigil for this binary operation.
      *
@@ -35,5 +36,5 @@ abstract class BinaryOp extends \PhpParser\Node\Expr
      *
      * @return string
      */
-    public abstract function getOperatorSigil() : string;
+    abstract public function getOperatorSigil() : string;
 }

@@ -1,21 +1,25 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\Application\FileDecorator;
 
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Application\FileDecoratorInterface;
 use Rector\Core\ValueObject\Application\File;
-final class FileDiffFileDecorator implements \Rector\Core\Contract\Application\FileDecoratorInterface
+
+final class FileDiffFileDecorator implements FileDecoratorInterface
 {
     /**
      * @var FileDiffFactory
      */
     private $fileDiffFactory;
-    public function __construct(\Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory $fileDiffFactory)
+
+    public function __construct(FileDiffFactory $fileDiffFactory)
     {
         $this->fileDiffFactory = $fileDiffFactory;
     }
+
     /**
      * @param File[] $files
      * @return void
@@ -23,10 +27,16 @@ final class FileDiffFileDecorator implements \Rector\Core\Contract\Application\F
     public function decorate(array $files)
     {
         foreach ($files as $file) {
-            if (!$file->hasChanged()) {
+            if (! $file->hasChanged()) {
                 continue;
             }
-            $fileDiff = $this->fileDiffFactory->createFileDiff($file, $file->getOriginalFileContent(), $file->getFileContent());
+
+            $fileDiff = $this->fileDiffFactory->createFileDiff(
+                $file,
+                $file->getOriginalFileContent(),
+                $file->getFileContent()
+            );
+
             $file->setFileDiff($fileDiff);
         }
     }

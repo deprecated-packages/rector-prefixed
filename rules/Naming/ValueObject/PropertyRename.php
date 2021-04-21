@@ -1,40 +1,54 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Naming\ValueObject;
 
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use Rector\Naming\Contract\RenamePropertyValueObjectInterface;
-final class PropertyRename implements \Rector\Naming\Contract\RenamePropertyValueObjectInterface
+
+final class PropertyRename implements RenamePropertyValueObjectInterface
 {
     /**
      * @var string
      */
     private $expectedName;
+
     /**
      * @var string
      */
     private $currentName;
+
     /**
      * @var string
      */
     private $classLikeName;
+
     /**
      * @var Property
      */
     private $property;
+
     /**
      * @var ClassLike
      */
     private $classLike;
+
     /**
      * @var PropertyProperty
      */
     private $propertyProperty;
-    public function __construct(\PhpParser\Node\Stmt\Property $property, string $expectedName, string $currentName, \PhpParser\Node\Stmt\ClassLike $classLike, string $classLikeName, \PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
-    {
+
+    public function __construct(
+        Property $property,
+        string $expectedName,
+        string $currentName,
+        ClassLike $classLike,
+        string $classLikeName,
+        PropertyProperty $propertyProperty
+    ) {
         $this->property = $property;
         $this->expectedName = $expectedName;
         $this->currentName = $currentName;
@@ -42,35 +56,43 @@ final class PropertyRename implements \Rector\Naming\Contract\RenamePropertyValu
         $this->classLikeName = $classLikeName;
         $this->propertyProperty = $propertyProperty;
     }
-    public function getProperty() : \PhpParser\Node\Stmt\Property
+
+    public function getProperty(): Property
     {
         return $this->property;
     }
-    public function isPrivateProperty() : bool
+
+    public function isPrivateProperty(): bool
     {
         return $this->property->isPrivate();
     }
-    public function getExpectedName() : string
+
+    public function getExpectedName(): string
     {
         return $this->expectedName;
     }
-    public function getCurrentName() : string
+
+    public function getCurrentName(): string
     {
         return $this->currentName;
     }
-    public function isAlreadyExpectedName() : bool
+
+    public function isAlreadyExpectedName(): bool
     {
         return $this->currentName === $this->expectedName;
     }
-    public function getClassLike() : \PhpParser\Node\Stmt\ClassLike
+
+    public function getClassLike(): ClassLike
     {
         return $this->classLike;
     }
-    public function getClassLikeName() : string
+
+    public function getClassLikeName(): string
     {
         return $this->classLikeName;
     }
-    public function getPropertyProperty() : \PhpParser\Node\Stmt\PropertyProperty
+
+    public function getPropertyProperty(): PropertyProperty
     {
         return $this->propertyProperty;
     }

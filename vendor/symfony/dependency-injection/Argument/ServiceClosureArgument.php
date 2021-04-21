@@ -8,22 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Argument;
 
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference;
+namespace Symfony\Component\DependencyInjection\Argument;
+
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Reference;
+
 /**
  * Represents a service wrapped in a memoizing closure.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceClosureArgument implements \RectorPrefix20210421\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+class ServiceClosureArgument implements ArgumentInterface
 {
     private $values;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference $reference)
+
+    public function __construct(Reference $reference)
     {
         $this->values = [$reference];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -31,14 +35,16 @@ class ServiceClosureArgument implements \RectorPrefix20210421\Symfony\Component\
     {
         return $this->values;
     }
+
     /**
      * {@inheritdoc}
      */
     public function setValues(array $values)
     {
-        if ([0] !== \array_keys($values) || !($values[0] instanceof \RectorPrefix20210421\Symfony\Component\DependencyInjection\Reference || null === $values[0])) {
-            throw new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
+        if ([0] !== array_keys($values) || !($values[0] instanceof Reference || null === $values[0])) {
+            throw new InvalidArgumentException('A ServiceClosureArgument must hold one and only one Reference.');
         }
+
         $this->values = $values;
     }
 }

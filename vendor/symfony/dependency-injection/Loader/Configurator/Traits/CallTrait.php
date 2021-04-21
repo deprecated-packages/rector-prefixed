@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+
 trait CallTrait
 {
     /**
@@ -24,9 +26,10 @@ trait CallTrait
      *
      * @throws InvalidArgumentException on empty $method param
      */
-    public final function call(string $method, array $arguments = [], bool $returnsClone = \false)
+    final public function call(string $method, array $arguments = [], bool $returnsClone = false)
     {
-        $this->definition->addMethodCall($method, static::processValue($arguments, \true), $returnsClone);
+        $this->definition->addMethodCall($method, static::processValue($arguments, true), $returnsClone);
+
         return $this;
     }
 }

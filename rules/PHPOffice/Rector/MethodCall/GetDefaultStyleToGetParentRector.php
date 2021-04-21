@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPOffice\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -9,16 +10,21 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#dedicated-class-to-manipulate-coordinates
  *
  * @see \Rector\Tests\PHPOffice\Rector\MethodCall\GetDefaultStyleToGetParentRector\GetDefaultStyleToGetParentRectorTest
  */
-final class GetDefaultStyleToGetParentRector extends \Rector\Core\Rector\AbstractRector
+final class GetDefaultStyleToGetParentRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Methods to (new Worksheet())->getDefaultStyle() to getParent()->getDefaultStyle()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Methods to (new Worksheet())->getDefaultStyle() to getParent()->getDefaultStyle()',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -28,7 +34,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -38,30 +45,38 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('PHPExcel_Worksheet'))) {
+        if (! $this->isObjectType($node->var, new ObjectType('PHPExcel_Worksheet'))) {
             return null;
         }
-        if (!$this->isName($node->name, 'getDefaultStyle')) {
+
+        if (! $this->isName($node->name, 'getDefaultStyle')) {
             return null;
         }
+
         $variable = clone $node->var;
-        $getParentMethodCall = new \PhpParser\Node\Expr\MethodCall($variable, 'getParent');
+
+        $getParentMethodCall = new MethodCall($variable, 'getParent');
         $node->var = $getParentMethodCall;
+
         return $node;
     }
 }

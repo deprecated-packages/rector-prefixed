@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp74\Rector\Identical;
 
 use PhpParser\Node;
@@ -11,69 +12,86 @@ use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector\DowngradeFreadFwriteFalsyToNegationRectorTest
  */
-final class DowngradeFreadFwriteFalsyToNegationRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeFreadFwriteFalsyToNegationRector extends AbstractRector
 {
     /**
      * @var string[]
      */
     const FUNC_FREAD_FWRITE = ['fread', 'fwrite'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes fread() or fwrite() compare to false to negation check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Changes fread() or fwrite() compare to false to negation check',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 fread($handle, $length) === false;
 fwrite($fp, '1') === false;
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 !fread($handle, $length);
 !fwrite($fp, '1');
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Identical::class];
+        return [Identical::class];
     }
+
     /**
      * @param Identical $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $compareValue = $this->getCompareValue($node);
-        if (!$compareValue instanceof \PhpParser\Node\Expr) {
+        if (! $compareValue instanceof Expr) {
             return null;
         }
-        if (!$this->valueResolver->isFalse($compareValue)) {
+
+        if (! $this->valueResolver->isFalse($compareValue)) {
             return null;
         }
-        return new \PhpParser\Node\Expr\BooleanNot($this->getFunction($node));
+
+        return new BooleanNot($this->getFunction($node));
     }
+
     /**
      * @return \PhpParser\Node\Expr|null
      */
-    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    private function getCompareValue(Identical $identical)
     {
-        if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isNames($identical->left, self::FUNC_FREAD_FWRITE)) {
+        if ($identical->left instanceof FuncCall && $this->isNames($identical->left, self::FUNC_FREAD_FWRITE)) {
             return $identical->right;
         }
-        if (!$identical->right instanceof \PhpParser\Node\Expr\FuncCall) {
+        if (! $identical->right instanceof FuncCall) {
             return null;
         }
-        if (!$this->isNames($identical->right, self::FUNC_FREAD_FWRITE)) {
+        if (! $this->isNames($identical->right, self::FUNC_FREAD_FWRITE)) {
             return null;
         }
         return $identical->left;
     }
-    private function getFunction(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : \PhpParser\Node\Expr\FuncCall
+
+    private function getFunction(Identical $identical): FuncCall
     {
         /** @var FuncCall $funcCall */
-        $funcCall = $identical->left instanceof \PhpParser\Node\Expr\FuncCall ? $identical->left : $identical->right;
+        $funcCall = $identical->left instanceof FuncCall
+            ? $identical->left
+            : $identical->right;
+
         return $funcCall;
     }
 }

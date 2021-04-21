@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -17,32 +18,44 @@ use Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector\AddArrayParamDocTypeRectorTest
  */
-final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRector
+final class AddArrayParamDocTypeRector extends AbstractRector
 {
     /**
      * @var ParamTypeInferer
      */
     private $paramTypeInferer;
+
     /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
+
     /**
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover)
-    {
+
+    public function __construct(
+        ParamTypeInferer $paramTypeInferer,
+        PhpDocTypeChanger $phpDocTypeChanger,
+        ParamTagRemover $paramTagRemover
+    ) {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->paramTagRemover = $paramTagRemover;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds @param annotation to array parameters inferred from the rest of the code', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Adds @param annotation to array parameters inferred from the rest of the code',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -56,7 +69,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -73,70 +87,90 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->getParams() === []) {
             return null;
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+
         foreach ($node->getParams() as $param) {
             if ($this->shouldSkipParam($param)) {
                 continue;
             }
+
             $paramType = $this->paramTypeInferer->inferParam($param);
-            if ($paramType instanceof \PHPStan\Type\MixedType) {
+            if ($paramType instanceof MixedType) {
                 continue;
             }
+
             $paramName = $this->getName($param);
+
             $this->phpDocTypeChanger->changeParamType($phpDocInfo, $paramType, $param, $paramName);
         }
+
         if ($phpDocInfo->hasChanged()) {
-            $this->file->addRectorClassWithLine(new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine()));
+            $this->file->addRectorClassWithLine(new RectorWithLineChange($this, $node->getLine()));
             $this->paramTagRemover->removeParamTagsIfUseless($phpDocInfo, $node);
             return $node;
         }
+
         return null;
     }
-    private function shouldSkipParam(\PhpParser\Node\Param $param) : bool
+
+    private function shouldSkipParam(Param $param): bool
     {
         // type missing at all
         if ($param->type === null) {
-            return \true;
+            return true;
         }
+
         // not an array type
         $paramType = $this->nodeTypeResolver->resolve($param->type);
+
         // weird case for maybe interface
-        if ($paramType->isIterable()->maybe() && $paramType instanceof \PHPStan\Type\ObjectType) {
-            return \true;
+        if ($paramType->isIterable()->maybe() && ($paramType instanceof ObjectType)) {
+            return true;
         }
-        $isArrayable = $paramType->isIterable()->yes() || $paramType->isArray()->yes() || ($paramType->isIterable()->maybe() || $paramType->isArray()->maybe());
-        if (!$isArrayable) {
-            return \true;
+
+        $isArrayable = $paramType->isIterable()
+            ->yes() || $paramType->isArray()
+            ->yes() || ($paramType->isIterable()->maybe() || $paramType->isArray()->maybe());
+        if (! $isArrayable) {
+            return true;
         }
+
         return $this->isArrayExplicitMixed($paramType);
     }
-    private function isArrayExplicitMixed(\PHPStan\Type\Type $type) : bool
+
+    private function isArrayExplicitMixed(Type $type): bool
     {
-        if (!$type instanceof \PHPStan\Type\ArrayType) {
-            return \false;
+        if (! $type instanceof ArrayType) {
+            return false;
         }
+
         $iterableValueType = $type->getIterableValueType();
-        if (!$iterableValueType instanceof \PHPStan\Type\MixedType) {
-            return \false;
+        if (! $iterableValueType instanceof MixedType) {
+            return false;
         }
+
         return $iterableValueType->isExplicitMixed();
     }
 }

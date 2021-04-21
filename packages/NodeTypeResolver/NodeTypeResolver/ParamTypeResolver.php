@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
 use PhpParser\Node;
@@ -20,112 +21,144 @@ use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210421\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+
 /**
  * @see \Rector\Tests\NodeTypeResolver\PerNodeTypeResolver\ParamTypeResolver\ParamTypeResolverTest
  */
-final class ParamTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+final class ParamTypeResolver implements NodeTypeResolverInterface
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
+
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\RectorPrefix20210421\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
-    {
+
+    public function __construct(
+        SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
+        NodeNameResolver $nodeNameResolver,
+        PhpDocInfoFactory $phpDocInfoFactory
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
+
     /**
      * @required
      * @return void
      */
-    public function autowireParamTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
-    {
+    public function autowireParamTypeResolver(
+        NodeTypeResolver $nodeTypeResolver,
+        StaticTypeMapper $staticTypeMapper
+    ) {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->staticTypeMapper = $staticTypeMapper;
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeClasses() : array
+    public function getNodeClasses(): array
     {
-        return [\PhpParser\Node\Param::class];
+        return [Param::class];
     }
+
     /**
      * @param Param $node
      */
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function resolve(Node $node): Type
     {
         $paramType = $this->resolveFromParamType($node);
-        if (!$paramType instanceof \PHPStan\Type\MixedType) {
+        if (! $paramType instanceof MixedType) {
             return $paramType;
         }
+
         $firstVariableUseType = $this->resolveFromFirstVariableUse($node);
-        if (!$firstVariableUseType instanceof \PHPStan\Type\MixedType) {
+        if (! $firstVariableUseType instanceof MixedType) {
             return $firstVariableUseType;
         }
+
         return $this->resolveFromFunctionDocBlock($node);
     }
-    private function resolveFromParamType(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+
+    private function resolveFromParamType(Param $param): Type
     {
         if ($param->type === null) {
-            return new \PHPStan\Type\MixedType();
+            return new MixedType();
         }
-        if ($param->type instanceof \PhpParser\Node\Identifier) {
-            return new \PHPStan\Type\MixedType();
+
+        if ($param->type instanceof Identifier) {
+            return new MixedType();
         }
+
         return $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
     }
-    private function resolveFromFirstVariableUse(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+
+    private function resolveFromFirstVariableUse(Param $param): Type
     {
-        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return new \PHPStan\Type\MixedType();
+        $classMethod = $param->getAttribute(AttributeKey::METHOD_NODE);
+        if (! $classMethod instanceof ClassMethod) {
+            return new MixedType();
         }
+
         $paramName = $this->nodeNameResolver->getName($param);
-        $paramStaticType = new \PHPStan\Type\MixedType();
+        $paramStaticType = new MixedType();
+
         // special case for param inside method/function
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($paramName, &$paramStaticType) : ?int {
-            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
-                return null;
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable(
+            (array) $classMethod->stmts,
+            function (Node $node) use ($paramName, &$paramStaticType): ?int {
+                if (! $node instanceof Variable) {
+                    return null;
+                }
+
+                if (! $this->nodeNameResolver->isName($node, $paramName)) {
+                    return null;
+                }
+
+                $paramStaticType = $this->nodeTypeResolver->resolve($node);
+
+                return NodeTraverser::STOP_TRAVERSAL;
             }
-            if (!$this->nodeNameResolver->isName($node, $paramName)) {
-                return null;
-            }
-            $paramStaticType = $this->nodeTypeResolver->resolve($node);
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
-        });
+        );
+
         return $paramStaticType;
     }
-    private function resolveFromFunctionDocBlock(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+
+    private function resolveFromFunctionDocBlock(Param $param): Type
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
         $paramName = $this->nodeNameResolver->getName($param);
         return $phpDocInfo->getParamType($paramName);
     }
-    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+
+    private function getFunctionLikePhpDocInfo(Param $param): PhpDocInfo
     {
-        $parentNode = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\FunctionLike) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        $parentNode = $param->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $parentNode instanceof FunctionLike) {
+            throw new ShouldNotHappenException();
         }
+
         return $this->phpDocInfoFactory->createFromNodeOrEmpty($parentNode);
     }
 }

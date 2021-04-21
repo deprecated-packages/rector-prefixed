@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+namespace Symfony\Component\HttpKernel\Event;
+
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Allows to create a response for a request.
  *
@@ -20,9 +22,10 @@ use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RequestEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
+class RequestEvent extends KernelEvent
 {
     private $response;
+
     /**
      * Returns the response object.
      *
@@ -32,14 +35,17 @@ class RequestEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Ev
     {
         return $this->response;
     }
+
     /**
      * Sets a response and stops event propagation.
      */
-    public function setResponse(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
+    public function setResponse(Response $response)
     {
         $this->response = $response;
+
         $this->stopPropagation();
     }
+
     /**
      * Returns whether a response was set.
      *

@@ -8,29 +8,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Event;
 
-use RectorPrefix20210421\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface;
+namespace Symfony\Component\Console\Event;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Allows to handle throwables thrown while running a command.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-final class ConsoleErrorEvent extends \RectorPrefix20210421\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleErrorEvent extends ConsoleEvent
 {
     private $error;
     private $exitCode;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output, \Throwable $error, \RectorPrefix20210421\Symfony\Component\Console\Command\Command $command = null)
+
+    public function __construct(InputInterface $input, OutputInterface $output, \Throwable $error, Command $command = null)
     {
         parent::__construct($command, $input, $output);
+
         $this->error = $error;
     }
-    public function getError() : \Throwable
+
+    public function getError(): \Throwable
     {
         return $this->error;
     }
+
     /**
      * @return void
      */
@@ -38,17 +44,20 @@ final class ConsoleErrorEvent extends \RectorPrefix20210421\Symfony\Component\Co
     {
         $this->error = $error;
     }
+
     /**
      * @return void
      */
     public function setExitCode(int $exitCode)
     {
         $this->exitCode = $exitCode;
+
         $r = new \ReflectionProperty($this->error, 'code');
-        $r->setAccessible(\true);
+        $r->setAccessible(true);
         $r->setValue($this->error, $this->exitCode);
     }
-    public function getExitCode() : int
+
+    public function getExitCode(): int
     {
         return null !== $this->exitCode ? $this->exitCode : (\is_int($this->error->getCode()) && 0 !== $this->error->getCode() ? $this->error->getCode() : 1);
     }

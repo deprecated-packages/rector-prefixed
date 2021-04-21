@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Naming\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -14,32 +15,42 @@ use Rector\Naming\Naming\ExpectedNameResolver;
 use Rector\Naming\VariableRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector\RenameVariableToMatchNewTypeRectorTest
  */
-final class RenameVariableToMatchNewTypeRector extends \Rector\Core\Rector\AbstractRector
+final class RenameVariableToMatchNewTypeRector extends AbstractRector
 {
     /**
      * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
+
     /**
      * @var BreakingVariableRenameGuard
      */
     private $breakingVariableRenameGuard;
+
     /**
      * @var VariableRenamer
      */
     private $variableRenamer;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\VariableRenamer $variableRenamer)
-    {
+
+    public function __construct(
+        BreakingVariableRenameGuard $breakingVariableRenameGuard,
+        ExpectedNameResolver $expectedNameResolver,
+        VariableRenamer $variableRenamer
+    ) {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->variableRenamer = $variableRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename variable to match new ClassType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Rename variable to match new ClassType', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -49,7 +60,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -59,25 +71,30 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $hasChanged = \false;
+        $hasChanged = false;
+
         $assignsOfNew = $this->getAssignsOfNew($node);
         foreach ($assignsOfNew as $assignOfNew) {
             $expectedName = $this->expectedNameResolver->resolveForAssignNew($assignOfNew);
+
             /** @var Variable $variable */
             $variable = $assignOfNew->var;
             if ($expectedName === null) {
@@ -86,33 +103,42 @@ CODE_SAMPLE
             if ($this->isName($variable, $expectedName)) {
                 continue;
             }
+
             $currentName = $this->getName($variable);
             if ($currentName === null) {
                 continue;
             }
+
             if ($this->breakingVariableRenameGuard->shouldSkipVariable($currentName, $expectedName, $node, $variable)) {
                 continue;
             }
-            $hasChanged = \true;
+
+            $hasChanged = true;
+
             // 1. rename assigned variable
-            $assignOfNew->var = new \PhpParser\Node\Expr\Variable($expectedName);
+            $assignOfNew->var = new Variable($expectedName);
+
             // 2. rename variable in the
             $this->variableRenamer->renameVariableInFunctionLike($node, $assignOfNew, $currentName, $expectedName);
         }
-        if (!$hasChanged) {
+
+        if (! $hasChanged) {
             return null;
         }
+
         return $node;
     }
+
     /**
      * @return Assign[]
      */
-    private function getAssignsOfNew(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function getAssignsOfNew(ClassMethod $classMethod): array
     {
         /** @var Assign[] $assigns */
-        $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\Assign::class);
-        return \array_filter($assigns, function (\PhpParser\Node\Expr\Assign $assign) : bool {
-            return $assign->expr instanceof \PhpParser\Node\Expr\New_;
+        $assigns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, Assign::class);
+
+        return array_filter($assigns, function (Assign $assign): bool {
+            return $assign->expr instanceof New_;
         });
     }
 }

@@ -8,26 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Config\Definition\Builder;
 
-use RectorPrefix20210421\Symfony\Component\Config\Definition\BooleanNode;
-use RectorPrefix20210421\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+namespace Symfony\Component\Config\Definition\Builder;
+
+use Symfony\Component\Config\Definition\BooleanNode;
+use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class BooleanNodeDefinition extends \RectorPrefix20210421\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+class BooleanNodeDefinition extends ScalarNodeDefinition
 {
     /**
      * {@inheritdoc}
      * @param string|null $name
      */
-    public function __construct($name, \RectorPrefix20210421\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct($name, NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
-        $this->nullEquivalent = \true;
+
+        $this->nullEquivalent = true;
     }
+
     /**
      * Instantiate a Node.
      *
@@ -35,8 +39,9 @@ class BooleanNodeDefinition extends \RectorPrefix20210421\Symfony\Component\Conf
      */
     protected function instantiateNode()
     {
-        return new \RectorPrefix20210421\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
+        return new BooleanNode($this->name, $this->parent, $this->pathSeparator);
     }
+
     /**
      * {@inheritdoc}
      *
@@ -44,6 +49,6 @@ class BooleanNodeDefinition extends \RectorPrefix20210421\Symfony\Component\Conf
      */
     public function cannotBeEmpty()
     {
-        throw new \RectorPrefix20210421\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
+        throw new InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
     }
 }

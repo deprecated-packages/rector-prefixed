@@ -8,12 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\RateLimiter;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\RateLimiter\LimiterInterface;
-use RectorPrefix20210421\Symfony\Component\RateLimiter\Policy\NoLimiter;
-use RectorPrefix20210421\Symfony\Component\RateLimiter\RateLimit;
+namespace Symfony\Component\HttpFoundation\RateLimiter;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\RateLimiter\LimiterInterface;
+use Symfony\Component\RateLimiter\Policy\NoLimiter;
+use Symfony\Component\RateLimiter\RateLimit;
+
 /**
  * An implementation of RequestRateLimiterInterface that
  * fits most use-cases.
@@ -22,34 +24,39 @@ use RectorPrefix20210421\Symfony\Component\RateLimiter\RateLimit;
  *
  * @experimental in 5.2
  */
-abstract class AbstractRequestRateLimiter implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface
+abstract class AbstractRequestRateLimiter implements RequestRateLimiterInterface
 {
-    public function consume(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request) : \RectorPrefix20210421\Symfony\Component\RateLimiter\RateLimit
+    public function consume(Request $request): RateLimit
     {
         $limiters = $this->getLimiters($request);
         if (0 === \count($limiters)) {
-            $limiters = [new \RectorPrefix20210421\Symfony\Component\RateLimiter\Policy\NoLimiter()];
+            $limiters = [new NoLimiter()];
         }
+
         $minimalRateLimit = null;
         foreach ($limiters as $limiter) {
             $rateLimit = $limiter->consume(1);
+
             if (null === $minimalRateLimit || $rateLimit->getRemainingTokens() < $minimalRateLimit->getRemainingTokens()) {
                 $minimalRateLimit = $rateLimit;
             }
         }
+
         return $minimalRateLimit;
     }
+
     /**
      * @return void
      */
-    public function reset(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    public function reset(Request $request)
     {
         foreach ($this->getLimiters($request) as $limiter) {
             $limiter->reset();
         }
     }
+
     /**
      * @return LimiterInterface[] a set of limiters using keys extracted from the request
      */
-    protected abstract function getLimiters(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request) : array;
+    abstract protected function getLimiters(Request $request): array;
 }

@@ -1,9 +1,11 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SimplePhpDocParser\Contract;
+declare(strict_types=1);
+
+namespace Symplify\SimplePhpDocParser\Contract;
 
 use PHPStan\PhpDocParser\Ast\Node;
+
 /**
  * Inspired by https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/NodeVisitor.php
  */
@@ -12,17 +14,20 @@ interface PhpDocNodeVisitorInterface
     /**
      * @return void
      */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node);
+    public function beforeTraverse(Node $node);
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node);
+    public function enterNode(Node $node);
+
     /**
      * @return void
      */
-    public function leaveNode(\PHPStan\PhpDocParser\Ast\Node $node);
+    public function leaveNode(Node $node);
+
     /**
      * @return void
      */
-    public function afterTraverse(\PHPStan\PhpDocParser\Ast\Node $node);
+    public function afterTraverse(Node $node);
 }

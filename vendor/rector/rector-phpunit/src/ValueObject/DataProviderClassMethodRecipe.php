@@ -1,19 +1,23 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\ValueObject;
 
 use PhpParser\Node\Arg;
+
 final class DataProviderClassMethodRecipe
 {
     /**
      * @var string
      */
     private $methodName;
+
     /**
      * @var Arg[]
      */
     private $args = [];
+
     /**
      * @param Arg[] $args
      */
@@ -22,14 +26,16 @@ final class DataProviderClassMethodRecipe
         $this->methodName = $methodName;
         $this->args = $args;
     }
-    public function getMethodName() : string
+
+    public function getMethodName(): string
     {
         return $this->methodName;
     }
+
     /**
      * @return Arg[]
      */
-    public function getArgs() : array
+    public function getArgs(): array
     {
         return $this->args;
     }

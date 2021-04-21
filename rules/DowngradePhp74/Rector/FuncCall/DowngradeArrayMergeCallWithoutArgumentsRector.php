@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp74\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -10,14 +11,19 @@ use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector\DowngradeArrayMergeCallWithoutArgumentsRectorTest
  */
-final class DowngradeArrayMergeCallWithoutArgumentsRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeArrayMergeCallWithoutArgumentsRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add missing param to `array_merge` and `array_merge_recursive`', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add missing param to `array_merge` and `array_merge_recursive`',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -27,7 +33,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -37,36 +44,44 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->shouldRefactor($node)) {
+        if (! $this->shouldRefactor($node)) {
             return null;
         }
-        $node->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_())];
+
+        $node->args = [new Arg(new Array_())];
+
         return $node;
     }
-    private function shouldRefactor(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+
+    private function shouldRefactor(FuncCall $funcCall): bool
     {
-        if (!$this->isNames($funcCall, ['array_merge', 'array_merge_recursive'])) {
-            return \false;
+        if (! $this->isNames($funcCall, ['array_merge', 'array_merge_recursive'])) {
+            return false;
         }
+
         // If param is provided, do nothing
         if ($funcCall->args !== []) {
-            return \false;
+            return false;
         }
-        return \true;
+
+        return true;
     }
 }

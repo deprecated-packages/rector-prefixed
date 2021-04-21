@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration;
 
 use PHPStan\Type\ArrayType;
@@ -15,6 +16,7 @@ use PHPStan\Type\UnionType;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 use Rector\TypeDeclaration\ValueObject\NestedArrayType;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\TypeNormalizerTest
  */
@@ -24,33 +26,38 @@ final class TypeNormalizer
      * @var NestedArrayType[]
      */
     private $collectedNestedArrayTypes = [];
+
     /**
      * @var TypeFactory
      */
     private $typeFactory;
+
     /**
      * @var UnionTypeFactory
      */
     private $unionTypeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory)
+
+    public function __construct(TypeFactory $typeFactory, UnionTypeFactory $unionTypeFactory)
     {
         $this->typeFactory = $typeFactory;
         $this->unionTypeFactory = $unionTypeFactory;
     }
+
     /**
      * @return \PHPStan\Type\ArrayType|null
      */
-    public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType)
+    public function convertConstantArrayTypeToArrayType(ConstantArrayType $constantArrayType)
     {
         $nonConstantValueTypes = [];
-        if ($constantArrayType->getItemType() instanceof \PHPStan\Type\UnionType) {
+
+        if ($constantArrayType->getItemType() instanceof UnionType) {
             /** @var UnionType $unionType */
             $unionType = $constantArrayType->getItemType();
             foreach ($unionType->getTypes() as $unionedType) {
-                if ($unionedType instanceof \PHPStan\Type\Constant\ConstantStringType) {
-                    $stringType = new \PHPStan\Type\StringType();
-                    $nonConstantValueTypes[\get_class($stringType)] = $stringType;
-                } elseif ($unionedType instanceof \PHPStan\Type\ObjectType) {
+                if ($unionedType instanceof ConstantStringType) {
+                    $stringType = new StringType();
+                    $nonConstantValueTypes[get_class($stringType)] = $stringType;
+                } elseif ($unionedType instanceof ObjectType) {
                     $nonConstantValueTypes[] = $unionedType;
                 } else {
                     return null;
@@ -59,97 +66,118 @@ final class TypeNormalizer
         } else {
             return null;
         }
+
         return $this->createArrayTypeFromNonConstantValueTypes($nonConstantValueTypes);
     }
+
     /**
      * Turn nested array union types to unique ones:
      * e.g. int[]|string[][]|bool[][]|string[][]
      * ↓
      * int[]|string[][]|bool[][]
      */
-    public function normalizeArrayOfUnionToUnionArray(\PHPStan\Type\Type $type, int $arrayNesting = 1) : \PHPStan\Type\Type
+    public function normalizeArrayOfUnionToUnionArray(Type $type, int $arrayNesting = 1): Type
     {
-        if (!$type instanceof \PHPStan\Type\ArrayType) {
+        if (! $type instanceof ArrayType) {
             return $type;
         }
+
         // first collection of types
         if ($arrayNesting === 1) {
             $this->collectedNestedArrayTypes = [];
         }
-        if ($type->getItemType() instanceof \PHPStan\Type\ArrayType) {
+
+        if ($type->getItemType() instanceof ArrayType) {
             ++$arrayNesting;
             $this->normalizeArrayOfUnionToUnionArray($type->getItemType(), $arrayNesting);
-        } elseif ($type->getItemType() instanceof \PHPStan\Type\UnionType) {
+        } elseif ($type->getItemType() instanceof UnionType) {
             $this->collectNestedArrayTypeFromUnionType($type->getItemType(), $arrayNesting);
         } else {
-            $this->collectedNestedArrayTypes[] = new \Rector\TypeDeclaration\ValueObject\NestedArrayType($type->getItemType(), $arrayNesting, $type->getKeyType());
+            $this->collectedNestedArrayTypes[] = new NestedArrayType(
+                $type->getItemType(),
+                $arrayNesting,
+                $type->getKeyType()
+            );
         }
+
         return $this->createUnionedTypesFromArrayTypes($this->collectedNestedArrayTypes);
     }
+
     /**
      * From "string[]|mixed[]" based on empty array to to "string[]"
      */
-    public function normalizeArrayTypeAndArrayNever(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+    public function normalizeArrayTypeAndArrayNever(Type $type): Type
     {
-        if (!$type instanceof \PHPStan\Type\UnionType) {
+        if (! $type instanceof UnionType) {
             return $type;
         }
+
         $nonNeverTypes = [];
         foreach ($type->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \PHPStan\Type\ArrayType) {
+            if (! $unionedType instanceof ArrayType) {
                 return $type;
             }
-            if ($unionedType->getItemType() instanceof \PHPStan\Type\NeverType) {
+
+            if ($unionedType->getItemType() instanceof NeverType) {
                 continue;
             }
+
             $nonNeverTypes[] = $unionedType;
         }
+
         return $this->typeFactory->createMixedPassedOrUnionType($nonNeverTypes);
     }
+
     /**
      * @param array<string|int, Type> $nonConstantValueTypes
      */
-    private function createArrayTypeFromNonConstantValueTypes(array $nonConstantValueTypes) : \PHPStan\Type\ArrayType
+    private function createArrayTypeFromNonConstantValueTypes(array $nonConstantValueTypes): ArrayType
     {
-        $nonConstantValueTypes = \array_values($nonConstantValueTypes);
-        if (\count($nonConstantValueTypes) > 1) {
+        $nonConstantValueTypes = array_values($nonConstantValueTypes);
+        if (count($nonConstantValueTypes) > 1) {
             $nonConstantValueType = $this->unionTypeFactory->createUnionObjectType($nonConstantValueTypes);
         } else {
             $nonConstantValueType = $nonConstantValueTypes[0];
         }
-        return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $nonConstantValueType);
+
+        return new ArrayType(new MixedType(), $nonConstantValueType);
     }
+
     /**
      * @return void
      */
-    private function collectNestedArrayTypeFromUnionType(\PHPStan\Type\UnionType $unionType, int $arrayNesting)
+    private function collectNestedArrayTypeFromUnionType(UnionType $unionType, int $arrayNesting)
     {
         foreach ($unionType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof ArrayType) {
                 ++$arrayNesting;
                 $this->normalizeArrayOfUnionToUnionArray($unionedType, $arrayNesting);
             } else {
-                $this->collectedNestedArrayTypes[] = new \Rector\TypeDeclaration\ValueObject\NestedArrayType($unionedType, $arrayNesting);
+                $this->collectedNestedArrayTypes[] = new NestedArrayType($unionedType, $arrayNesting);
             }
         }
     }
+
     /**
      * @param NestedArrayType[] $collectedNestedArrayTypes
      */
-    private function createUnionedTypesFromArrayTypes(array $collectedNestedArrayTypes) : \PHPStan\Type\Type
+    private function createUnionedTypesFromArrayTypes(array $collectedNestedArrayTypes): Type
     {
         $unionedTypes = [];
         foreach ($collectedNestedArrayTypes as $collectedNestedArrayType) {
             $arrayType = $collectedNestedArrayType->getType();
             for ($i = 0; $i < $collectedNestedArrayType->getArrayNestingLevel(); ++$i) {
-                $arrayType = new \PHPStan\Type\ArrayType($collectedNestedArrayType->getKeyType(), $arrayType);
+                $arrayType = new ArrayType($collectedNestedArrayType->getKeyType(), $arrayType);
             }
+
             /** @var ArrayType $arrayType */
             $unionedTypes[] = $arrayType;
         }
-        if (\count($unionedTypes) > 1) {
+
+        if (count($unionedTypes) > 1) {
             return $this->unionTypeFactory->createUnionObjectType($unionedTypes);
         }
+
         return $unionedTypes[0];
     }
 }

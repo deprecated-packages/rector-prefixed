@@ -1,33 +1,47 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Jean85;
+declare(strict_types=1);
+
+namespace Jean85;
 
 use Composer\InstalledVersions;
-use RectorPrefix20210421\Jean85\Exception\ProvidedPackageException;
-use RectorPrefix20210421\Jean85\Exception\ReplacedPackageException;
-use RectorPrefix20210421\Jean85\Exception\VersionMissingExceptionInterface;
+use Jean85\Exception\ProvidedPackageException;
+use Jean85\Exception\ReplacedPackageException;
+use Jean85\Exception\VersionMissingExceptionInterface;
+
 class PrettyVersions
 {
     /**
      * @throws VersionMissingExceptionInterface When a package is provided ({@see ProvidedPackageException}) or replaced ({@see ReplacedPackageException})
      */
-    public static function getVersion(string $packageName) : \RectorPrefix20210421\Jean85\Version
+    public static function getVersion(string $packageName): Version
     {
-        if (isset(\Composer\InstalledVersions::getRawData()['versions'][$packageName]['provided'])) {
-            throw \RectorPrefix20210421\Jean85\Exception\ProvidedPackageException::create($packageName);
+        if (isset(InstalledVersions::getRawData()['versions'][$packageName]['provided'])) {
+            throw ProvidedPackageException::create($packageName);
         }
-        if (isset(\Composer\InstalledVersions::getRawData()['versions'][$packageName]['replaced'])) {
-            throw \RectorPrefix20210421\Jean85\Exception\ReplacedPackageException::create($packageName);
+
+        if (isset(InstalledVersions::getRawData()['versions'][$packageName]['replaced'])) {
+            throw ReplacedPackageException::create($packageName);
         }
-        return new \RectorPrefix20210421\Jean85\Version($packageName, \Composer\InstalledVersions::getPrettyVersion($packageName), \Composer\InstalledVersions::getReference($packageName));
+
+        return new Version(
+            $packageName,
+            InstalledVersions::getPrettyVersion($packageName),
+            InstalledVersions::getReference($packageName)
+        );
     }
-    public static function getRootPackageName() : string
+
+    public static function getRootPackageName(): string
     {
-        return \Composer\InstalledVersions::getRootPackage()['name'];
+        return InstalledVersions::getRootPackage()['name'];
     }
-    public static function getRootPackageVersion() : \RectorPrefix20210421\Jean85\Version
+
+    public static function getRootPackageVersion(): Version
     {
-        return new \RectorPrefix20210421\Jean85\Version(self::getRootPackageName(), \Composer\InstalledVersions::getRootPackage()['pretty_version'], \Composer\InstalledVersions::getRootPackage()['reference']);
+        return new Version(
+            self::getRootPackageName(),
+            InstalledVersions::getRootPackage()['pretty_version'],
+            InstalledVersions::getRootPackage()['reference']
+        );
     }
 }

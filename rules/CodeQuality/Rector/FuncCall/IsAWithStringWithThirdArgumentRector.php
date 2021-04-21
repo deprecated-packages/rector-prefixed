@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -10,14 +11,19 @@ use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodeQuality\Rector\FuncCall\IsAWithStringWithThirdArgumentRector\IsAWithStringWithThirdArgumentRectorTest
  */
-final class IsAWithStringWithThirdArgumentRector extends \Rector\Core\Rector\AbstractRector
+final class IsAWithStringWithThirdArgumentRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing 3rd argument in case is_a() function in case of strings', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Complete missing 3rd argument in case is_a() function in case of strings',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(string $value)
@@ -26,7 +32,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(string $value)
@@ -35,32 +42,39 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node, 'is_a')) {
+        if (! $this->isName($node, 'is_a')) {
             return null;
         }
+
         if (isset($node->args[2])) {
             return null;
         }
+
         $firstArgumentStaticType = $this->getStaticType($node->args[0]->value);
-        if (!$firstArgumentStaticType instanceof \PHPStan\Type\StringType) {
+        if (! $firstArgumentStaticType instanceof StringType) {
             return null;
         }
-        $node->args[2] = new \PhpParser\Node\Arg($this->nodeFactory->createTrue());
+
+        $node->args[2] = new Arg($this->nodeFactory->createTrue());
+
         return $node;
     }
 }

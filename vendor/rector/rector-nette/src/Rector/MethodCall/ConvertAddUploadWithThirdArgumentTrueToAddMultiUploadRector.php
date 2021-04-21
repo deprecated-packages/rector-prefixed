@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,51 +11,66 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRectorTest
  */
-final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends \Rector\Core\Rector\AbstractRector
+final class ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('convert addUpload() with 3rd argument true to addMultiUpload()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'convert addUpload() with 3rd argument true to addMultiUpload()',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $form = new Nette\Forms\Form();
 $form->addUpload('...', '...', true);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                    ,
+                    <<<'CODE_SAMPLE'
 $form = new Nette\Forms\Form();
 $form->addMultiUpload('...', '...');
 CODE_SAMPLE
-)]);
+
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\Forms\\Form'))) {
+        if (! $this->isObjectType($node->var, new ObjectType('Nette\Forms\Form'))) {
             return null;
         }
-        if (!$this->isName($node->name, 'addUpload')) {
+
+        if (! $this->isName($node->name, 'addUpload')) {
             return null;
         }
+
         $args = $node->args;
-        if (!isset($args[2])) {
+        if (! isset($args[2])) {
             return null;
         }
+
         if ($this->valueResolver->isTrue($node->args[2]->value)) {
-            $node->name = new \PhpParser\Node\Identifier('addMultiUpload');
+            $node->name = new Identifier('addMultiUpload');
             unset($node->args[2]);
             return $node;
         }
+
         return null;
     }
 }

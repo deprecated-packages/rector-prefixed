@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Node\Expr;
 
 use PhpParser\Node\Expr;
-class ArrayItem extends \PhpParser\Node\Expr
+
+class ArrayItem extends Expr
 {
     /** @var null|Expr Key */
     public $key;
@@ -14,6 +14,7 @@ class ArrayItem extends \PhpParser\Node\Expr
     public $byRef;
     /** @var bool Whether to unpack the argument */
     public $unpack;
+
     /**
      * Constructs an array item node.
      *
@@ -22,20 +23,19 @@ class ArrayItem extends \PhpParser\Node\Expr
      * @param bool      $byRef      Whether to assign by reference
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $value, \PhpParser\Node\Expr $key = null, bool $byRef = \false, array $attributes = [], bool $unpack = \false)
-    {
+    public function __construct(Expr $value, Expr $key = null, bool $byRef = false, array $attributes = [], bool $unpack = false) {
         $this->attributes = $attributes;
         $this->key = $key;
         $this->value = $value;
         $this->byRef = $byRef;
         $this->unpack = $unpack;
     }
-    public function getSubNodeNames() : array
-    {
+
+    public function getSubNodeNames() : array {
         return ['key', 'value', 'byRef', 'unpack'];
     }
-    public function getType() : string
-    {
+
+    public function getType() : string {
         return 'Expr_ArrayItem';
     }
 }

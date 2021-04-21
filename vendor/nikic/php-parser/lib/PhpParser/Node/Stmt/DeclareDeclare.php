@@ -1,15 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
-class DeclareDeclare extends \PhpParser\Node\Stmt
+
+class DeclareDeclare extends Node\Stmt
 {
     /** @var Node\Identifier Key */
     public $key;
     /** @var Node\Expr Value */
     public $value;
+
     /**
      * Constructs a declare key=>value pair node.
      *
@@ -17,18 +18,17 @@ class DeclareDeclare extends \PhpParser\Node\Stmt
      * @param Node\Expr              $value      Value
      * @param array                  $attributes Additional attributes
      */
-    public function __construct($key, \PhpParser\Node\Expr $value, array $attributes = [])
-    {
+    public function __construct($key, Node\Expr $value, array $attributes = []) {
         $this->attributes = $attributes;
-        $this->key = \is_string($key) ? new \PhpParser\Node\Identifier($key) : $key;
+        $this->key = \is_string($key) ? new Node\Identifier($key) : $key;
         $this->value = $value;
     }
-    public function getSubNodeNames() : array
-    {
+
+    public function getSubNodeNames() : array {
         return ['key', 'value'];
     }
-    public function getType() : string
-    {
+    
+    public function getType() : string {
         return 'Stmt_DeclareDeclare';
     }
 }

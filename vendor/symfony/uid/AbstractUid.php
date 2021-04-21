@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Uid;
+
+namespace Symfony\Component\Uid;
 
 /**
  * @experimental in 5.2
@@ -21,10 +22,12 @@ abstract class AbstractUid implements \JsonSerializable
      * The identifier in its canonic representation.
      */
     protected $uid;
+
     /**
      * Whether the passed value is valid for the constructor of the current class.
      */
-    public static abstract function isValid(string $uid) : bool;
+    abstract public static function isValid(string $uid): bool;
+
     /**
      * Creates an AbstractUid from an identifier represented in any of the supported formats.
      *
@@ -32,61 +35,80 @@ abstract class AbstractUid implements \JsonSerializable
      *
      * @throws \InvalidArgumentException When the passed value is not valid
      */
-    public static abstract function fromString(string $uid);
+    abstract public static function fromString(string $uid);
+
     /**
      * Returns the identifier as a raw binary string.
      */
-    public abstract function toBinary() : string;
+    abstract public function toBinary(): string;
+
     /**
      * Returns the identifier as a base-58 case sensitive string.
      */
-    public function toBase58() : string
+    public function toBase58(): string
     {
-        return \strtr(\sprintf('%022s', \RectorPrefix20210421\Symfony\Component\Uid\BinaryUtil::toBase($this->toBinary(), \RectorPrefix20210421\Symfony\Component\Uid\BinaryUtil::BASE58)), '0', '1');
+        return strtr(sprintf('%022s', BinaryUtil::toBase($this->toBinary(), BinaryUtil::BASE58)), '0', '1');
     }
+
     /**
      * Returns the identifier as a base-32 case insensitive string.
      */
-    public function toBase32() : string
+    public function toBase32(): string
     {
-        $uid = \bin2hex($this->toBinary());
-        $uid = \sprintf('%02s%04s%04s%04s%04s%04s%04s', \base_convert(\substr($uid, 0, 2), 16, 32), \base_convert(\substr($uid, 2, 5), 16, 32), \base_convert(\substr($uid, 7, 5), 16, 32), \base_convert(\substr($uid, 12, 5), 16, 32), \base_convert(\substr($uid, 17, 5), 16, 32), \base_convert(\substr($uid, 22, 5), 16, 32), \base_convert(\substr($uid, 27, 5), 16, 32));
-        return \strtr($uid, 'abcdefghijklmnopqrstuv', 'ABCDEFGHJKMNPQRSTVWXYZ');
+        $uid = bin2hex($this->toBinary());
+        $uid = sprintf('%02s%04s%04s%04s%04s%04s%04s',
+            base_convert(substr($uid, 0, 2), 16, 32),
+            base_convert(substr($uid, 2, 5), 16, 32),
+            base_convert(substr($uid, 7, 5), 16, 32),
+            base_convert(substr($uid, 12, 5), 16, 32),
+            base_convert(substr($uid, 17, 5), 16, 32),
+            base_convert(substr($uid, 22, 5), 16, 32),
+            base_convert(substr($uid, 27, 5), 16, 32)
+        );
+
+        return strtr($uid, 'abcdefghijklmnopqrstuv', 'ABCDEFGHJKMNPQRSTVWXYZ');
     }
+
     /**
      * Returns the identifier as a RFC4122 case insensitive string.
      */
-    public function toRfc4122() : string
+    public function toRfc4122(): string
     {
         // don't use uuid_unparse(), it's slower
-        $uuid = \bin2hex($this->toBinary());
-        $uuid = \substr_replace($uuid, '-', 8, 0);
-        $uuid = \substr_replace($uuid, '-', 13, 0);
-        $uuid = \substr_replace($uuid, '-', 18, 0);
-        return \substr_replace($uuid, '-', 23, 0);
+        $uuid = bin2hex($this->toBinary());
+        $uuid = substr_replace($uuid, '-', 8, 0);
+        $uuid = substr_replace($uuid, '-', 13, 0);
+        $uuid = substr_replace($uuid, '-', 18, 0);
+
+        return substr_replace($uuid, '-', 23, 0);
     }
+
     /**
      * Returns whether the argument is an AbstractUid and contains the same value as the current instance.
      */
-    public function equals($other) : bool
+    public function equals($other): bool
     {
         if (!$other instanceof self) {
-            return \false;
+            return false;
         }
+
         return $this->uid === $other->uid;
     }
+
     /**
      * @param $this $other
      */
-    public function compare($other) : int
+    public function compare($other): int
     {
-        return \strlen($this->uid) - \strlen($other->uid) ?: $this->uid <=> $other->uid;
+        return (\strlen($this->uid) - \strlen($other->uid)) ?: ($this->uid <=> $other->uid);
     }
-    public function __toString() : string
+
+    public function __toString(): string
     {
         return $this->uid;
     }
-    public function jsonSerialize() : string
+
+    public function jsonSerialize(): string
     {
         return $this->uid;
     }

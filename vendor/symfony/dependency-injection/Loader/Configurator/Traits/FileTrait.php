@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+
+namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait FileTrait
 {
@@ -17,9 +18,10 @@ trait FileTrait
      *
      * @return $this
      */
-    public final function file(string $file)
+    final public function file(string $file)
     {
         $this->definition->setFile($file);
+
         return $this;
     }
 }

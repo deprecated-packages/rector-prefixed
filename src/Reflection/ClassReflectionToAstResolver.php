@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\Reflection;
 
 use PhpParser\Node;
@@ -10,66 +11,83 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem;
+use Symplify\SmartFileSystem\SmartFileSystem;
+
 final class ClassReflectionToAstResolver
 {
     /**
      * @var Parser
      */
     private $parser;
+
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
+
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
-    {
+
+    public function __construct(
+        Parser $parser,
+        SmartFileSystem $smartFileSystem,
+        BetterNodeFinder $betterNodeFinder,
+        ReflectionProvider $reflectionProvider
+    ) {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->reflectionProvider = $reflectionProvider;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Class_|null
      */
-    public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType)
+    public function getClassFromObjectType(ObjectType $objectType)
     {
-        if (!$this->reflectionProvider->hasClass($objectType->getClassName())) {
+        if (! $this->reflectionProvider->hasClass($objectType->getClassName())) {
             return null;
         }
+
         $classReflection = $this->reflectionProvider->getClass($objectType->getClassName());
         return $this->getClass($classReflection, $objectType->getClassName());
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Class_|null
      */
-    private function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className)
+    private function getClass(ClassReflection $classReflection, string $className)
     {
         if ($classReflection->isBuiltin()) {
             return null;
         }
+
         /** @var string $fileName */
         $fileName = $classReflection->getFileName();
+
         /** @var Node[] $contentNodes */
         $contentNodes = $this->parser->parse($this->smartFileSystem->readFile($fileName));
+
         /** @var Class_[] $classes */
-        $classes = $this->betterNodeFinder->findInstanceOf($contentNodes, \PhpParser\Node\Stmt\Class_::class);
+        $classes = $this->betterNodeFinder->findInstanceOf($contentNodes, Class_::class);
         if ($classes === []) {
             return null;
         }
+
         $reflectionClassName = $classReflection->getName();
         foreach ($classes as $class) {
             if ($reflectionClassName === $className) {
                 return $class;
             }
         }
+
         return null;
     }
 }

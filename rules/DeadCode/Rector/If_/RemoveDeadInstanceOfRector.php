@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
@@ -13,22 +14,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\If_\RemoveDeadInstanceOfRector\RemoveDeadInstanceOfRectorTest
  */
-final class RemoveDeadInstanceOfRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadInstanceOfRector extends AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+
+    public function __construct(IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead instanceof check on type hinted variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove dead instanceof check on type hinted variable', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function go(stdClass $stdClass)
@@ -41,7 +47,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function go(stdClass $stdClass)
@@ -50,53 +57,67 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [If_::class];
     }
+
     /**
      * @param If_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+
         // a trait
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (! $scope instanceof Scope) {
             return null;
         }
-        if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($node)) {
+
+        if (! $this->ifManipulator->isIfWithoutElseAndElseIfs($node)) {
             return null;
         }
-        if ($node->cond instanceof \PhpParser\Node\Expr\BooleanNot && $node->cond->expr instanceof \PhpParser\Node\Expr\Instanceof_) {
+
+        if ($node->cond instanceof BooleanNot && $node->cond->expr instanceof Instanceof_) {
             return $this->processMayDeadInstanceOf($node, $node->cond->expr);
         }
-        if ($node->cond instanceof \PhpParser\Node\Expr\Instanceof_) {
+
+        if ($node->cond instanceof Instanceof_) {
             return $this->processMayDeadInstanceOf($node, $node->cond);
         }
+
         return $node;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\If_|null
      */
-    private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof)
+    private function processMayDeadInstanceOf(If_ $if, Instanceof_ $instanceof)
     {
         $classType = $this->nodeTypeResolver->resolve($instanceof->class);
         $exprType = $this->nodeTypeResolver->resolve($instanceof->expr);
-        $isSameStaticTypeOrSubtype = $classType->equals($exprType) || $classType->isSuperTypeOf($exprType)->yes();
-        if (!$isSameStaticTypeOrSubtype) {
+
+        $isSameStaticTypeOrSubtype = $classType->equals($exprType) || $classType->isSuperTypeOf($exprType)
+            ->yes();
+        if (! $isSameStaticTypeOrSubtype) {
             return null;
         }
+
         if ($if->cond === $instanceof) {
             $this->unwrapStmts($if->stmts, $if);
             $this->removeNode($if);
+
             return null;
         }
+
         $this->removeNode($if);
         return $if;
     }

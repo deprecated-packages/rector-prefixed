@@ -1,9 +1,11 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset;
+namespace Doctrine\Inflector;
+
+use Doctrine\Inflector\Rules\Ruleset;
+
 interface LanguageInflectorFactory
 {
     /**
@@ -14,7 +16,8 @@ interface LanguageInflectorFactory
      * @return $this
      * @param \Doctrine\Inflector\Rules\Ruleset|null $singularRules
      */
-    public function withSingularRules($singularRules, bool $reset = \false);
+    public function withSingularRules($singularRules, bool $reset = false);
+
     /**
      * Applies custom rules for pluralisation
      *
@@ -23,9 +26,10 @@ interface LanguageInflectorFactory
      * @return $this
      * @param \Doctrine\Inflector\Rules\Ruleset|null $pluralRules
      */
-    public function withPluralRules($pluralRules, bool $reset = \false);
+    public function withPluralRules($pluralRules, bool $reset = false);
+
     /**
      * Builds the inflector instance with all applicable rules
      */
-    public function build() : \RectorPrefix20210421\Doctrine\Inflector\Inflector;
+    public function build() : Inflector;
 }

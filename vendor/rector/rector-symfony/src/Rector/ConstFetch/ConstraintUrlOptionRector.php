@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\ConstFetch;
 
 use PhpParser\Node;
@@ -10,44 +11,58 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * Ref: https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md#validator
  *
  * @see \Rector\Symfony\Tests\Rector\ConstFetch\ConstraintUrlOptionRector\ConstraintUrlOptionRectorTest
  */
-final class ConstraintUrlOptionRector extends \Rector\Core\Rector\AbstractRector
+final class ConstraintUrlOptionRector extends AbstractRector
 {
     /**
      * @var string
      */
-    const URL_CONSTRAINT_CLASS = 'Symfony\\Component\\Validator\\Constraints\\Url';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    const URL_CONSTRAINT_CLASS = 'Symfony\Component\Validator\Constraints\Url';
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns true value to `Url::CHECK_DNS_TYPE_ANY` in Validator in Symfony.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$constraint = new Url(["checkDNS" => true]);', '$constraint = new Url(["checkDNS" => Url::CHECK_DNS_TYPE_ANY]);')]);
+        return new RuleDefinition(
+            'Turns true value to `Url::CHECK_DNS_TYPE_ANY` in Validator in Symfony.',
+            [
+                new CodeSample(
+                    '$constraint = new Url(["checkDNS" => true]);',
+                    '$constraint = new Url(["checkDNS" => Url::CHECK_DNS_TYPE_ANY]);'
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\ConstFetch::class];
+        return [ConstFetch::class];
     }
+
     /**
      * @param ConstFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->valueResolver->isTrue($node)) {
+        if (! $this->valueResolver->isTrue($node)) {
             return null;
         }
-        $prevNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$prevNode instanceof \PhpParser\Node\Scalar\String_) {
+
+        $prevNode = $node->getAttribute(AttributeKey::PREVIOUS_NODE);
+        if (! $prevNode instanceof String_) {
             return null;
         }
+
         if ($prevNode->value !== 'checkDNS') {
             return null;
         }
+
         return $this->nodeFactory->createClassConstFetch(self::URL_CONSTRAINT_CLASS, 'CHECK_DNS_TYPE_ANY');
     }
 }

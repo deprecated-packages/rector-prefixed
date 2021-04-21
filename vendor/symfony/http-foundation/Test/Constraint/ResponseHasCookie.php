@@ -8,60 +8,70 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use RectorPrefix20210421\PHPUnit\Framework\Constraint\Constraint;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Cookie;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
-final class ResponseHasCookie extends \RectorPrefix20210421\PHPUnit\Framework\Constraint\Constraint
+namespace Symfony\Component\HttpFoundation\Test\Constraint;
+
+use PHPUnit\Framework\Constraint\Constraint;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ResponseHasCookie extends Constraint
 {
     private $name;
     private $path;
     private $domain;
+
     public function __construct(string $name, string $path = '/', string $domain = null)
     {
         $this->name = $name;
         $this->path = $path;
         $this->domain = $domain;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function toString() : string
+    public function toString(): string
     {
-        $str = \sprintf('has cookie "%s"', $this->name);
+        $str = sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
-            $str .= \sprintf(' with path "%s"', $this->path);
+            $str .= sprintf(' with path "%s"', $this->path);
         }
         if ($this->domain) {
-            $str .= \sprintf(' for domain "%s"', $this->domain);
+            $str .= sprintf(' for domain "%s"', $this->domain);
         }
+
         return $str;
     }
+
     /**
      * @param Response $response
      *
      * {@inheritdoc}
      */
-    protected function matches($response) : bool
+    protected function matches($response): bool
     {
         return null !== $this->getCookie($response);
     }
+
     /**
      * @param Response $response
      *
      * {@inheritdoc}
      */
-    protected function failureDescription($response) : string
+    protected function failureDescription($response): string
     {
-        return 'the Response ' . $this->toString();
+        return 'the Response '.$this->toString();
     }
-    private function getCookie(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response) : ?\RectorPrefix20210421\Symfony\Component\HttpFoundation\Cookie
+
+    private function getCookie(Response $response): ?Cookie
     {
         $cookies = $response->headers->getCookies();
-        $filteredCookies = \array_filter($cookies, function (\RectorPrefix20210421\Symfony\Component\HttpFoundation\Cookie $cookie) {
+
+        $filteredCookies = array_filter($cookies, function (Cookie $cookie) {
             return $cookie->getName() === $this->name && $cookie->getPath() === $this->path && $cookie->getDomain() === $this->domain;
         });
-        return \reset($filteredCookies) ?: null;
+
+        return reset($filteredCookies) ?: null;
     }
 }

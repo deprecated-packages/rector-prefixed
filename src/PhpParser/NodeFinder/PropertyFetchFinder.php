@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\PhpParser\NodeFinder;
 
 use PhpParser\Node;
@@ -12,51 +13,68 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+
 final class PropertyFetchFinder
 {
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
+
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
-    {
+
+    public function __construct(
+        NodeRepository $nodeRepository,
+        BetterNodeFinder $betterNodeFinder,
+        NodeNameResolver $nodeNameResolver
+    ) {
         $this->nodeRepository = $nodeRepository;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
+
     /**
      * @return PropertyFetch[]|StaticPropertyFetch[]
      */
-    public function findPrivatePropertyFetches(\PhpParser\Node\Stmt\Property $property) : array
+    public function findPrivatePropertyFetches(Property $property): array
     {
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             return [];
         }
+
         $classLikesToSearch = $this->nodeRepository->findUsedTraitsInClass($classLike);
         $classLikesToSearch[] = $classLike;
+
         $singleProperty = $property->props[0];
+
         /** @var PropertyFetch[]|StaticPropertyFetch[] $propertyFetches */
-        $propertyFetches = $this->betterNodeFinder->find($classLikesToSearch, function (\PhpParser\Node $node) use($singleProperty, $classLikesToSearch) : bool {
+        $propertyFetches = $this->betterNodeFinder->find($classLikesToSearch, function (Node $node) use (
+            $singleProperty,
+            $classLikesToSearch
+        ): bool {
             // property + static fetch
-            if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch && !$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-                return \false;
+            if (! $node instanceof PropertyFetch && ! $node instanceof StaticPropertyFetch) {
+                return false;
             }
+
             // is it the name match?
-            if (!$this->nodeNameResolver->areNamesEqual($node, $singleProperty)) {
-                return \false;
+            if (! $this->nodeNameResolver->areNamesEqual($node, $singleProperty)) {
+                return false;
             }
-            $currentClassLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            return \in_array($currentClassLike, $classLikesToSearch, \true);
+
+            $currentClassLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+            return in_array($currentClassLike, $classLikesToSearch, true);
         });
+
         return $propertyFetches;
     }
 }

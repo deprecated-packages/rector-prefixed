@@ -1,20 +1,23 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
 
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\NodeAttributes;
 use Rector\Core\Exception\ShouldNotHappenException;
+
 /**
  * @deprecated
  * Just for back compatibility
  */
-abstract class AbstractTagValueNode implements \PHPStan\PhpDocParser\Ast\Node
+abstract class AbstractTagValueNode implements Node
 {
     use NodeAttributes;
-    public function __toString() : string
+
+    public function __toString(): string
     {
-        throw new \Rector\Core\Exception\ShouldNotHappenException('Implement in child class');
+        throw new ShouldNotHappenException('Implement in child class');
     }
 }

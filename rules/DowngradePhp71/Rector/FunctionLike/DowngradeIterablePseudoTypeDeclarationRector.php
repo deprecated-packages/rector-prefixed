@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp71\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -12,29 +13,37 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp71\Rector\FunctionLike\DowngradeIterablePseudoTypeDeclarationRector\DowngradeIterablePseudoTypeDeclarationRectorTest
  */
-final class DowngradeIterablePseudoTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeIterablePseudoTypeDeclarationRector extends AbstractRector
 {
     /**
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
+
+    public function __construct(PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
+        return [Function_::class, ClassMethod::class];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove the iterable pseudo type params and returns, add @param and @return tags instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove the iterable pseudo type params and returns, add @param and @return tags instead',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(iterable $iterator): iterable
@@ -43,7 +52,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -56,19 +66,25 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @param Function_|ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $iterableType = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+        $iterableType = new IterableType(new MixedType(), new MixedType());
+
         foreach ($node->params as $param) {
             $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $iterableType);
         }
+
         $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $iterableType);
+
         return $node;
     }
 }

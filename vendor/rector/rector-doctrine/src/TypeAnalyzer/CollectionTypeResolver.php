@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Doctrine\TypeAnalyzer;
 
 use PhpParser\Node;
@@ -15,32 +16,40 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\StaticTypeMapper\Naming\NameScopeFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\TypeDeclaration\PhpDoc\ShortClassExpander;
+
 final class CollectionTypeResolver
 {
     /**
      * @var NameScopeFactory
      */
     private $nameScopeFactory;
+
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
+
     /**
      * @var ShortClassExpander
      */
     private $shortClassExpander;
-    public function __construct(\Rector\StaticTypeMapper\Naming\NameScopeFactory $nameScopeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\TypeDeclaration\PhpDoc\ShortClassExpander $shortClassExpander)
-    {
+
+    public function __construct(
+        NameScopeFactory $nameScopeFactory,
+        PhpDocInfoFactory $phpDocInfoFactory,
+        ShortClassExpander $shortClassExpander
+    ) {
         $this->nameScopeFactory = $nameScopeFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->shortClassExpander = $shortClassExpander;
     }
+
     /**
      * @return \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType|null
      */
-    public function resolveFromTypeNode(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node)
+    public function resolveFromTypeNode(TypeNode $typeNode, Node $node)
     {
-        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+        if ($typeNode instanceof UnionTypeNode) {
             foreach ($typeNode->types as $unionedTypeNode) {
                 $resolvedUnionedType = $this->resolveFromTypeNode($unionedTypeNode, $node);
                 if ($resolvedUnionedType !== null) {
@@ -48,28 +57,34 @@ final class CollectionTypeResolver
                 }
             }
         }
-        if ($typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode && $typeNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+
+        if ($typeNode instanceof ArrayTypeNode && $typeNode->type instanceof IdentifierTypeNode) {
             $nameScope = $this->nameScopeFactory->createNameScopeFromNode($node);
             $fullyQualifiedName = $nameScope->resolveStringName($typeNode->type->name);
-            return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($fullyQualifiedName);
+            return new FullyQualifiedObjectType($fullyQualifiedName);
         }
+
         return null;
     }
+
     /**
      * @return \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType|null
      */
-    public function resolveFromOneToManyProperty(\PhpParser\Node\Stmt\Property $property)
+    public function resolveFromOneToManyProperty(Property $property)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\OneToMany');
-        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\ORM\Mapping\OneToMany');
+        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
             return null;
         }
+
         $targetEntity = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('targetEntity');
         if ($targetEntity === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
+
         $fullyQualifiedTargetEntity = $this->shortClassExpander->resolveFqnTargetEntity($targetEntity, $property);
-        return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($fullyQualifiedTargetEntity);
+        return new FullyQualifiedObjectType($fullyQualifiedTargetEntity);
     }
 }

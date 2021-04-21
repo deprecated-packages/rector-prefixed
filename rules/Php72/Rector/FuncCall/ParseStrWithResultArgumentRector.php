@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php72\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -11,63 +12,80 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/gueff/blogimus/commit/04086a10320595470efe446c7ddd90e602aa7228 https://github.com/pxgamer/youtube-dl-php/commit/83cb32b8b36844f2e39f82a862a5ab73da77b608
  *
  * @see \Rector\Tests\Php72\Rector\FuncCall\ParseStrWithResultArgumentRector\ParseStrWithResultArgumentRectorTest
  */
-final class ParseStrWithResultArgumentRector extends \Rector\Core\Rector\AbstractRector
+final class ParseStrWithResultArgumentRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use $result argument in parse_str() function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Use $result argument in parse_str() function',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 parse_str($this->query);
 $data = get_defined_vars();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 parse_str($this->query, $result);
 $data = $result;
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node, 'parse_str')) {
+        if (! $this->isName($node, 'parse_str')) {
             return null;
         }
+
         if (isset($node->args[1])) {
             return null;
         }
-        $resultVariable = new \PhpParser\Node\Expr\Variable('result');
-        $node->args[1] = new \PhpParser\Node\Arg($resultVariable);
-        $expression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
+
+        $resultVariable = new Variable('result');
+        $node->args[1] = new Arg($resultVariable);
+
+        $expression = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
         if ($expression === null) {
             return null;
         }
-        $nextExpression = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+
+        $nextExpression = $expression->getAttribute(AttributeKey::NEXT_NODE);
         if ($nextExpression === null) {
             return null;
         }
-        $this->traverseNodesWithCallable($nextExpression, function (\PhpParser\Node $node) use($resultVariable) : ?Variable {
-            if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+
+        $this->traverseNodesWithCallable($nextExpression, function (Node $node) use ($resultVariable): ?Variable {
+            if (! $node instanceof FuncCall) {
                 return null;
             }
-            if (!$this->isName($node, 'get_defined_vars')) {
+
+            if (! $this->isName($node, 'get_defined_vars')) {
                 return null;
             }
+
             return $resultVariable;
         });
+
         return $node;
     }
 }

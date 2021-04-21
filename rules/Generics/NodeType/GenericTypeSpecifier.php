@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Generics\NodeType;
 
 use PhpParser\Node;
@@ -9,49 +10,70 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+
 final class GenericTypeSpecifier
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var ExtendsTemplateTypeMapFallbackFactory
      */
     private $extendsTemplateTypeMapFallbackFactory;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Generics\NodeType\ExtendsTemplateTypeMapFallbackFactory $extendsTemplateTypeMapFallbackFactory)
-    {
+
+    public function __construct(
+        StaticTypeMapper $staticTypeMapper,
+        ExtendsTemplateTypeMapFallbackFactory $extendsTemplateTypeMapFallbackFactory
+    ) {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->extendsTemplateTypeMapFallbackFactory = $extendsTemplateTypeMapFallbackFactory;
     }
+
     /**
      * @param MethodTagValueNode[] $methodTagValueNodes
      * @return void
      */
-    public function replaceGenericTypesWithSpecificTypes(array $methodTagValueNodes, \PhpParser\Node $node, \PHPStan\Reflection\ClassReflection $classReflection)
-    {
+    public function replaceGenericTypesWithSpecificTypes(
+        array $methodTagValueNodes,
+        Node $node,
+        ClassReflection $classReflection
+    ) {
         $templateTypeMap = $this->resolveAvailableTemplateTypeMap($classReflection);
         foreach ($methodTagValueNodes as $methodTagValueNode) {
             if ($methodTagValueNode->returnType === null) {
                 continue;
             }
-            $returnType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanTypeWithTemplateTypeMap($methodTagValueNode->returnType, $node, $templateTypeMap);
-            $resolvedType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($returnType, $templateTypeMap);
+
+            $returnType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanTypeWithTemplateTypeMap(
+                $methodTagValueNode->returnType,
+                $node,
+                $templateTypeMap
+            );
+
+            $resolvedType = TemplateTypeHelper::resolveTemplateTypes($returnType, $templateTypeMap);
             $resolvedTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($resolvedType);
             $methodTagValueNode->returnType = $resolvedTypeNode;
         }
     }
-    private function resolveAvailableTemplateTypeMap(\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\Generic\TemplateTypeMap
+
+    private function resolveAvailableTemplateTypeMap(ClassReflection $classReflection): TemplateTypeMap
     {
         $templateTypeMap = $classReflection->getTemplateTypeMap();
+
         // add template map from extends
         if ($templateTypeMap->getTypes() !== []) {
             return $templateTypeMap;
         }
-        $fallbackTemplateTypeMap = $this->extendsTemplateTypeMapFallbackFactory->createFromClassReflection($classReflection);
-        if ($fallbackTemplateTypeMap instanceof \PHPStan\Type\Generic\TemplateTypeMap) {
+        $fallbackTemplateTypeMap = $this->extendsTemplateTypeMapFallbackFactory->createFromClassReflection(
+            $classReflection
+        );
+
+        if ($fallbackTemplateTypeMap instanceof TemplateTypeMap) {
             return $fallbackTemplateTypeMap;
         }
+
         return $templateTypeMap;
     }
 }

@@ -1,39 +1,48 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Caching\Cache;
 
-use RectorPrefix20210421\Nette\Caching\Cache;
-use RectorPrefix20210421\Nette\Caching\Storages\FileStorage;
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Caching\Cache;
+use Nette\Caching\Storages\FileStorage;
+use Nette\Utils\Strings;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileSystem;
+
 final class NetteCacheFactory
 {
     /**
      * @var ParameterProvider
      */
     private $parameterProvider;
+
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+
+    public function __construct(ParameterProvider $parameterProvider, SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : \RectorPrefix20210421\Nette\Caching\Cache
+
+    public function create(): Cache
     {
-        $cacheDirectory = $this->parameterProvider->provideStringParameter(\Rector\Core\Configuration\Option::CACHE_DIR);
+        $cacheDirectory = $this->parameterProvider->provideStringParameter(Option::CACHE_DIR);
+
         // ensure cache directory exists
-        if (!$this->smartFileSystem->exists($cacheDirectory)) {
+        if (! $this->smartFileSystem->exists($cacheDirectory)) {
             $this->smartFileSystem->mkdir($cacheDirectory);
         }
-        $fileStorage = new \RectorPrefix20210421\Nette\Caching\Storages\FileStorage($cacheDirectory);
+
+        $fileStorage = new FileStorage($cacheDirectory);
+
         // namespace is unique per project
-        $namespace = \RectorPrefix20210421\Nette\Utils\Strings::webalize(\getcwd());
-        return new \RectorPrefix20210421\Nette\Caching\Cache($fileStorage, $namespace);
+        $namespace = Strings::webalize(getcwd());
+
+        return new Cache($fileStorage, $namespace);
     }
 }

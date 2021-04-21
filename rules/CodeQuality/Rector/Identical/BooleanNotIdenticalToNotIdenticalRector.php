@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\Identical;
 
 use PhpParser\Node;
@@ -11,15 +12,20 @@ use PHPStan\Type\BooleanType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://3v4l.org/GoEPq
  * @see \Rector\Tests\CodeQuality\Rector\Identical\BooleanNotIdenticalToNotIdenticalRector\BooleanNotIdenticalToNotIdenticalRectorTest
  */
-final class BooleanNotIdenticalToNotIdenticalRector extends \Rector\Core\Rector\AbstractRector
+final class BooleanNotIdenticalToNotIdenticalRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Negated identical boolean compare to not identical compare (does not apply to non-bool values)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Negated identical boolean compare to not identical compare (does not apply to non-bool values)',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -33,7 +39,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -47,50 +54,62 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BooleanNot::class];
+        return [Identical::class, BooleanNot::class];
     }
+
     /**
      * @param Identical|BooleanNot $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($node instanceof Identical) {
             return $this->processIdentical($node);
         }
-        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
+
+        if ($node->expr instanceof Identical) {
             $identical = $node->expr;
-            if (!$this->nodeTypeResolver->isStaticType($identical->left, \PHPStan\Type\BooleanType::class)) {
+            if (! $this->nodeTypeResolver->isStaticType($identical->left, BooleanType::class)) {
                 return null;
             }
-            if (!$this->nodeTypeResolver->isStaticType($identical->right, \PHPStan\Type\BooleanType::class)) {
+
+            if (! $this->nodeTypeResolver->isStaticType($identical->right, BooleanType::class)) {
                 return null;
             }
-            return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left, $identical->right);
+
+            return new NotIdentical($identical->left, $identical->right);
         }
+
         return null;
     }
+
     /**
      * @return \PhpParser\Node\Expr\BinaryOp\NotIdentical|null
      */
-    private function processIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    private function processIdentical(Identical $identical)
     {
-        if (!$this->nodeTypeResolver->isStaticType($identical->left, \PHPStan\Type\BooleanType::class)) {
+        if (! $this->nodeTypeResolver->isStaticType($identical->left, BooleanType::class)) {
             return null;
         }
-        if (!$this->nodeTypeResolver->isStaticType($identical->right, \PHPStan\Type\BooleanType::class)) {
+
+        if (! $this->nodeTypeResolver->isStaticType($identical->right, BooleanType::class)) {
             return null;
         }
-        if ($identical->left instanceof \PhpParser\Node\Expr\BooleanNot) {
-            return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($identical->left->expr, $identical->right);
+
+        if ($identical->left instanceof BooleanNot) {
+            return new NotIdentical($identical->left->expr, $identical->right);
         }
+
         return null;
     }
 }

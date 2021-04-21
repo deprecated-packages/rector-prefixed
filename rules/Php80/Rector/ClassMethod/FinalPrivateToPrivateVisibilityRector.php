@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php80\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -8,14 +9,17 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector\FinalPrivateToPrivateVisibilityRectorTest
  */
-final class FinalPrivateToPrivateVisibilityRector extends \Rector\Core\Rector\AbstractRector
+final class FinalPrivateToPrivateVisibilityRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes method visibility from final private to only private', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Changes method visibility from final private to only private', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     final private function getter() {
@@ -23,7 +27,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     private function getter() {
@@ -31,32 +36,38 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         $this->visibilityManipulator->makeNonFinal($node);
+
         return $node;
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function shouldSkip(ClassMethod $classMethod): bool
     {
-        if (!$classMethod->isFinal()) {
-            return \true;
+        if (! $classMethod->isFinal()) {
+            return true;
         }
-        return !$classMethod->isPrivate();
+        return ! $classMethod->isPrivate();
     }
 }

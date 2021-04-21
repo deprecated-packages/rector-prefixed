@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * AjaxDataCollector.
  *
@@ -19,19 +21,21 @@ use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class AjaxDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\DataCollector
+class AjaxDataCollector extends DataCollector
 {
     /**
      * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(Request $request, Response $response, $exception = null)
     {
         // all collecting is done client side
     }
+
     public function reset()
     {
         // all collecting is done client side
     }
+
     public function getName()
     {
         return 'ajax';

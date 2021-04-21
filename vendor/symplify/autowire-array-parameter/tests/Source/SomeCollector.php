@@ -1,20 +1,24 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\AutowireArrayParameter\Tests\Source;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-use RectorPrefix20210421\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
+namespace Symplify\AutowireArrayParameter\Tests\Source;
+
+use Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+use Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
+
 final class SomeCollector
 {
     /**
      * @var FirstCollectedInterface[]
      */
     private $firstCollected = [];
+
     /**
      * @var SecondCollectedInterface[]
      */
     private $secondCollected = [];
+
     /**
      * @param FirstCollectedInterface[] $firstCollected
      * @param SecondCollectedInterface[] $secondCollected
@@ -24,17 +28,19 @@ final class SomeCollector
         $this->firstCollected = $firstCollected;
         $this->secondCollected = $secondCollected;
     }
+
     /**
      * @return FirstCollectedInterface[]
      */
-    public function getFirstCollected() : array
+    public function getFirstCollected(): array
     {
         return $this->firstCollected;
     }
+
     /**
      * @return SecondCollectedInterface[]
      */
-    public function getSecondCollected() : array
+    public function getSecondCollected(): array
     {
         return $this->secondCollected;
     }

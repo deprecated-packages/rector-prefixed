@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Doctrine\Rector\Class_;
 
 use PhpParser\Node;
@@ -19,7 +20,8 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/translatable.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/translatable.md
@@ -28,34 +30,47 @@ use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
  *
  * @see \Rector\Doctrine\Tests\Rector\Class_\TranslationBehaviorRector\TranslationBehaviorRectorTest
  */
-final class TranslationBehaviorRector extends \Rector\Core\Rector\AbstractRector
+final class TranslationBehaviorRector extends AbstractRector
 {
     /**
      * @var ClassManipulator
      */
     private $classManipulator;
+
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
+
     /**
      * @var TranslationClassNodeFactory
      */
     private $translationClassNodeFactory;
+
     /**
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\Doctrine\NodeFactory\TranslationClassNodeFactory $translationClassNodeFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
-    {
+
+    public function __construct(
+        ClassInsertManipulator $classInsertManipulator,
+        ClassManipulator $classManipulator,
+        TranslationClassNodeFactory $translationClassNodeFactory,
+        PhpDocTagRemover $phpDocTagRemover
+    ) {
         $this->classManipulator = $classManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
         $this->translationClassNodeFactory = $translationClassNodeFactory;
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Translation from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change Translation from gedmo/doctrine-extensions to knplabs/doctrine-behaviors',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
@@ -108,7 +123,8 @@ class Article implements Translatable
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 
@@ -136,103 +152,135 @@ class SomeClassTranslation implements TranslationInterface
     private $content;
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $classType = $this->nodeTypeResolver->resolve($node);
-        $translatableObjectType = new \PHPStan\Type\ObjectType('Gedmo\\Translatable\\Translatable');
-        if (!$translatableObjectType->isSuperTypeOf($classType)->yes()) {
+
+        $translatableObjectType = new ObjectType('Gedmo\Translatable\Translatable');
+        if (! $translatableObjectType->isSuperTypeOf($classType)->yes()) {
             return null;
         }
-        $this->classManipulator->removeInterface($node, 'Gedmo\\Translatable\\Translatable');
-        $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface');
+
+        $this->classManipulator->removeInterface($node, 'Gedmo\Translatable\Translatable');
+        $this->classInsertManipulator->addAsFirstTrait(
+            $node,
+            'Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait'
+        );
+        $node->implements[] = new FullyQualified('Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface');
+
         $removedPropertyNameToPhpDocInfo = $this->collectAndRemoveTranslatableProperties($node);
-        $removePropertyNames = \array_keys($removedPropertyNameToPhpDocInfo);
+        $removePropertyNames = array_keys($removedPropertyNameToPhpDocInfo);
+
         $this->removeSetAndGetMethods($node, $removePropertyNames);
         $this->dumpEntityTranslation($node, $removedPropertyNameToPhpDocInfo);
+
         return $node;
     }
+
     /**
      * @return array<string, PhpDocInfo>
      */
-    private function collectAndRemoveTranslatableProperties(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectAndRemoveTranslatableProperties(Class_ $class): array
     {
         $removedPropertyNameToPhpDocInfo = [];
+
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if ($phpDocInfo->hasByAnnotationClass('Gedmo\\Mapping\\Annotation\\Locale')) {
+
+            if ($phpDocInfo->hasByAnnotationClass('Gedmo\Mapping\Annotation\Locale')) {
                 $this->removeNode($property);
                 continue;
             }
-            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Gedmo\\Mapping\\Annotation\\Translatable');
-            if (!$doctrineAnnotationTagValueNode) {
+
+            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass(
+                'Gedmo\Mapping\Annotation\Translatable'
+            );
+            if (! $doctrineAnnotationTagValueNode) {
                 continue;
             }
+
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
+
             $propertyName = $this->getName($property);
             $removedPropertyNameToPhpDocInfo[$propertyName] = $phpDocInfo;
+
             $this->removeNode($property);
         }
+
         return $removedPropertyNameToPhpDocInfo;
     }
+
     /**
      * @param string[] $removedPropertyNames
      * @return void
      */
-    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
+    private function removeSetAndGetMethods(Class_ $class, array $removedPropertyNames)
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {
-                if ($this->isName($classMethod, 'set' . \ucfirst($removedPropertyName))) {
+                if ($this->isName($classMethod, 'set' . ucfirst($removedPropertyName))) {
                     $this->removeNode($classMethod);
                 }
-                if ($this->isName($classMethod, 'get' . \ucfirst($removedPropertyName))) {
+
+                if ($this->isName($classMethod, 'get' . ucfirst($removedPropertyName))) {
                     $this->removeNode($classMethod);
                 }
+
                 if ($this->isName($classMethod, 'setTranslatableLocale')) {
                     $this->removeNode($classMethod);
                 }
             }
         }
     }
+
     /**
      * @param PhpDocInfo[] $translatedPropertyToPhpDocInfos
      * @return void
      */
-    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos)
+    private function dumpEntityTranslation(Class_ $class, array $translatedPropertyToPhpDocInfos)
     {
-        $fileInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        $fileInfo = $class->getAttribute(AttributeKey::FILE_INFO);
+        if (! $fileInfo instanceof SmartFileInfo) {
+            throw new ShouldNotHappenException();
         }
+
         $classShortName = $class->name . 'Translation';
-        $filePath = \dirname($fileInfo->getRealPath()) . \DIRECTORY_SEPARATOR . $classShortName . '.php';
-        $namespace = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        $filePath = dirname($fileInfo->getRealPath()) . DIRECTORY_SEPARATOR . $classShortName . '.php';
+
+        $namespace = $class->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $namespace instanceof Namespace_) {
+            throw new ShouldNotHappenException();
         }
-        $namespace = new \PhpParser\Node\Stmt\Namespace_($namespace->name);
+
+        $namespace = new Namespace_($namespace->name);
         $class = $this->translationClassNodeFactory->create($classShortName);
+
         foreach ($translatedPropertyToPhpDocInfos as $translatedPropertyName => $translatedPhpDocInfo) {
             $property = $this->nodeFactory->createPrivateProperty($translatedPropertyName);
-            $property->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $translatedPhpDocInfo);
+            $property->setAttribute(AttributeKey::PHP_DOC_INFO, $translatedPhpDocInfo);
+
             $class->stmts[] = $property;
         }
+
         $namespace->stmts[] = $class;
-        $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($filePath, [$namespace]);
+
+        $addedFileWithNodes = new AddedFileWithNodes($filePath, [$namespace]);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
     }
 }

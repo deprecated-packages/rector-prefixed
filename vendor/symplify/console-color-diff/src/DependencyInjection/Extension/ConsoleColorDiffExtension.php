@@ -1,21 +1,24 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\ConsoleColorDiff\DependencyInjection\Extension;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Extension\Extension;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class ConsoleColorDiffExtension extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Extension\Extension
+namespace Symplify\ConsoleColorDiff\DependencyInjection\Extension;
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
+final class ConsoleColorDiffExtension extends Extension
 {
     /**
      * @param string[] $configs
      * @return void
      */
-    public function load(array $configs, \RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function load(array $configs, ContainerBuilder $containerBuilder)
     {
-        $phpFileLoader = new \RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210421\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../../config'));
+
         $phpFileLoader->load('config.php');
     }
 }

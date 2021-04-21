@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Naming\ValueObject;
 
 use PhpParser\Node\Expr;
@@ -13,63 +14,79 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
+
 final class VariableAndCallAssign
 {
     /**
      * @var string
      */
     private $variableName;
+
     /**
      * @var Variable
      */
     private $variable;
+
     /**
      * @var Assign
      */
     private $assign;
+
     /**
      * @var FuncCall|MethodCall|StaticCall
      */
     private $call;
+
     /**
      * @var ClassMethod|Function_|Closure
      */
     private $functionLike;
+
     /**
      * @param FuncCall|StaticCall|MethodCall $expr
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function __construct(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Assign $assign, string $variableName, \PhpParser\Node\FunctionLike $functionLike)
-    {
+    public function __construct(
+        Variable $variable,
+        Expr $expr,
+        Assign $assign,
+        string $variableName,
+        FunctionLike $functionLike
+    ) {
         $this->variable = $variable;
         $this->call = $expr;
         $this->variableName = $variableName;
         $this->functionLike = $functionLike;
         $this->assign = $assign;
     }
-    public function getVariable() : \PhpParser\Node\Expr\Variable
+
+    public function getVariable(): Variable
     {
         return $this->variable;
     }
+
     /**
      * @return FuncCall|StaticCall|MethodCall
      */
-    public function getCall() : \PhpParser\Node\Expr
+    public function getCall(): Expr
     {
         return $this->call;
     }
-    public function getVariableName() : string
+
+    public function getVariableName(): string
     {
         return $this->variableName;
     }
+
     /**
      * @return ClassMethod|Function_|Closure
      */
-    public function getFunctionLike() : \PhpParser\Node\FunctionLike
+    public function getFunctionLike(): FunctionLike
     {
         return $this->functionLike;
     }
-    public function getAssign() : \PhpParser\Node\Expr\Assign
+
+    public function getAssign(): Assign
     {
         return $this->assign;
     }

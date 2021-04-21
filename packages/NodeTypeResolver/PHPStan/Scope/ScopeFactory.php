@@ -1,25 +1,29 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeTypeResolver\PHPStan\Scope;
 
 use PHPStan\Analyser\MutatingScope;
 use PHPStan\Analyser\ScopeContext;
 use PHPStan\Analyser\ScopeFactory as PHPStanScopeFactory;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class ScopeFactory
 {
     /**
      * @var PHPStanScopeFactory
      */
     private $phpStanScopeFactory;
-    public function __construct(\PHPStan\Analyser\ScopeFactory $phpStanScopeFactory)
+
+    public function __construct(PHPStanScopeFactory $phpStanScopeFactory)
     {
         $this->phpStanScopeFactory = $phpStanScopeFactory;
     }
-    public function createFromFile(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : \PHPStan\Analyser\MutatingScope
+
+    public function createFromFile(SmartFileInfo $fileInfo): MutatingScope
     {
-        $scopeContext = \PHPStan\Analyser\ScopeContext::create($fileInfo->getRealPath());
+        $scopeContext = ScopeContext::create($fileInfo->getRealPath());
         return $this->phpStanScopeFactory->create($scopeContext);
     }
 }

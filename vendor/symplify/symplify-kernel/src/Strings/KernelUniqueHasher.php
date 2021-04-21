@@ -1,36 +1,44 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SymplifyKernel\Strings;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Nette\Utils\Strings;
-use RectorPrefix20210421\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
-use RectorPrefix20210421\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+namespace Symplify\SymplifyKernel\Strings;
+
+use Nette\Utils\Strings;
+use Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
+use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+
 final class KernelUniqueHasher
 {
     /**
      * @var StringsConverter
      */
     private $stringsConverter;
+
     public function __construct()
     {
-        $this->stringsConverter = new \RectorPrefix20210421\Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new StringsConverter();
     }
-    public function hashKernelClass(string $kernelClass) : string
+
+    public function hashKernelClass(string $kernelClass): string
     {
         $this->ensureIsNotGenericKernelClass($kernelClass);
-        $shortClassName = (string) \RectorPrefix20210421\Nette\Utils\Strings::after($kernelClass, '\\', -1);
+
+        $shortClassName = (string) Strings::after($kernelClass, '\\', -1);
+
         return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
     }
+
     /**
      * @return void
      */
     private function ensureIsNotGenericKernelClass(string $kernelClass)
     {
-        if ($kernelClass !== \RectorPrefix20210421\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
+        if ($kernelClass !== AbstractSymplifyKernel::class) {
             return;
         }
-        $message = \sprintf('Instead of "%s", provide final Kernel class', \RectorPrefix20210421\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class);
-        throw new \RectorPrefix20210421\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException($message);
+
+        $message = sprintf('Instead of "%s", provide final Kernel class', AbstractSymplifyKernel::class);
+        throw new TooGenericKernelClassException($message);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\BetterPhpDocParser\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
@@ -8,30 +9,36 @@ use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use Rector\BetterPhpDocParser\Attributes\AttributeMirrorer;
 use Rector\BetterPhpDocParser\Contract\BasePhpDocNodeVisitorInterface;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
-final class ArrayTypePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor implements \Rector\BetterPhpDocParser\Contract\BasePhpDocNodeVisitorInterface
+use Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
+
+final class ArrayTypePhpDocNodeVisitor extends AbstractPhpDocNodeVisitor implements BasePhpDocNodeVisitorInterface
 {
     /**
      * @var AttributeMirrorer
      */
     private $attributeMirrorer;
-    public function __construct(\Rector\BetterPhpDocParser\Attributes\AttributeMirrorer $attributeMirrorer)
+
+    public function __construct(AttributeMirrorer $attributeMirrorer)
     {
         $this->attributeMirrorer = $attributeMirrorer;
     }
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(Node $node)
     {
-        if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
+        if (! $node instanceof ArrayTypeNode) {
             return null;
         }
-        if ($node instanceof \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode) {
+
+        if ($node instanceof SpacingAwareArrayTypeNode) {
             return null;
         }
-        $spacingAwareArrayTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode($node->type);
+
+        $spacingAwareArrayTypeNode = new SpacingAwareArrayTypeNode($node->type);
         $this->attributeMirrorer->mirror($node, $spacingAwareArrayTypeNode);
+
         return $spacingAwareArrayTypeNode;
     }
 }

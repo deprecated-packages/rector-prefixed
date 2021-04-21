@@ -1,9 +1,11 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeNameResolver\Regex;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
+
 final class RegexPatternDetector
 {
     /**
@@ -12,16 +14,19 @@ final class RegexPatternDetector
      * This prevents miss matching like "aMethoda"
      */
     const POSSIBLE_DELIMITERS = ['#', '~', '/'];
-    public function isRegexPattern(string $name) : bool
+
+    public function isRegexPattern(string $name): bool
     {
-        if (\RectorPrefix20210421\Nette\Utils\Strings::length($name) <= 2) {
-            return \false;
+        if (Strings::length($name) <= 2) {
+            return false;
         }
+
         $firstChar = $name[0];
-        $lastChar = $name[\strlen($name) - 1];
+        $lastChar = $name[strlen($name) - 1];
         if ($firstChar !== $lastChar) {
-            return \false;
+            return false;
         }
-        return \in_array($firstChar, self::POSSIBLE_DELIMITERS, \true);
+
+        return in_array($firstChar, self::POSSIBLE_DELIMITERS, true);
     }
 }

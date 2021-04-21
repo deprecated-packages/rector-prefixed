@@ -1,27 +1,28 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Builder;
 
 use PhpParser\Builder;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
-class TraitUse implements \PhpParser\Builder
+
+class TraitUse implements Builder
 {
     protected $traits = [];
     protected $adaptations = [];
+
     /**
      * Creates a trait use builder.
      *
      * @param Node\Name|string ...$traits Names of used traits
      */
-    public function __construct(...$traits)
-    {
+    public function __construct(...$traits) {
         foreach ($traits as $trait) {
             $this->and($trait);
         }
     }
+
     /**
      * Adds used trait.
      *
@@ -29,11 +30,11 @@ class TraitUse implements \PhpParser\Builder
      *
      * @return $this The builder instance (for fluid interface)
      */
-    public function and($trait)
-    {
-        $this->traits[] = \PhpParser\BuilderHelpers::normalizeName($trait);
+    public function and($trait) {
+        $this->traits[] = BuilderHelpers::normalizeName($trait);
         return $this;
     }
+
     /**
      * Adds trait adaptation.
      *
@@ -41,22 +42,23 @@ class TraitUse implements \PhpParser\Builder
      *
      * @return $this The builder instance (for fluid interface)
      */
-    public function with($adaptation)
-    {
-        $adaptation = \PhpParser\BuilderHelpers::normalizeNode($adaptation);
-        if (!$adaptation instanceof \PhpParser\Node\Stmt\TraitUseAdaptation) {
+    public function with($adaptation) {
+        $adaptation = BuilderHelpers::normalizeNode($adaptation);
+
+        if (!$adaptation instanceof Stmt\TraitUseAdaptation) {
             throw new \LogicException('Adaptation must have type TraitUseAdaptation');
         }
+
         $this->adaptations[] = $adaptation;
         return $this;
     }
+
     /**
      * Returns the built node.
      *
      * @return Node The built node
      */
-    public function getNode() : \PhpParser\Node
-    {
-        return new \PhpParser\Node\Stmt\TraitUse($this->traits, $this->adaptations);
+    public function getNode() : Node {
+        return new Stmt\TraitUse($this->traits, $this->adaptations);
     }
 }

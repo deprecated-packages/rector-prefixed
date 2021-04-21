@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Kdyby\Rector\ClassMethod;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
@@ -16,37 +17,51 @@ use Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Kdyby\Rector\ClassMethod\ReplaceMagicPropertyWithEventClassRector\ReplaceMagicPropertyWithEventClassRectorTest
  */
-final class ReplaceMagicPropertyWithEventClassRector extends \Rector\Core\Rector\AbstractRector
+final class ReplaceMagicPropertyWithEventClassRector extends AbstractRector
 {
     /**
      * @var EventClassNaming
      */
     private $eventClassNaming;
+
     /**
      * @var ListeningClassMethodArgumentManipulator
      */
     private $listeningClassMethodArgumentManipulator;
+
     /**
      * @var EventAndListenerTreeProvider
      */
     private $eventAndListenerTreeProvider;
+
     /**
      * @var GetSubscribedEventsClassMethodAnalyzer
      */
     private $getSubscribedEventsClassMethodAnalyzer;
-    public function __construct(\Rector\Nette\Kdyby\DataProvider\EventAndListenerTreeProvider $eventAndListenerTreeProvider, \Rector\Nette\Kdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Nette\Kdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\Nette\Kdyby\NodeAnalyzer\GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer)
-    {
+
+    public function __construct(
+        EventAndListenerTreeProvider $eventAndListenerTreeProvider,
+        EventClassNaming $eventClassNaming,
+        ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator,
+        GetSubscribedEventsClassMethodAnalyzer $getSubscribedEventsClassMethodAnalyzer
+    ) {
         $this->eventClassNaming = $eventClassNaming;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
         $this->eventAndListenerTreeProvider = $eventAndListenerTreeProvider;
         $this->getSubscribedEventsClassMethodAnalyzer = $getSubscribedEventsClassMethodAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change getSubscribedEvents() from on magic property, to Event class', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change getSubscribedEvents() from on magic property, to Event class',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Kdyby\Events\Subscriber;
 
 final class ActionLogEventSubscriber implements Subscriber
@@ -64,7 +79,8 @@ final class ActionLogEventSubscriber implements Subscriber
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 use Kdyby\Events\Subscriber;
 
 final class ActionLogEventSubscriber implements Subscriber
@@ -83,55 +99,74 @@ final class ActionLogEventSubscriber implements Subscriber
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
+        if (! $this->getSubscribedEventsClassMethodAnalyzer->detect($node)) {
             return null;
         }
+
         $this->replaceEventPropertyReferenceWithEventClassReference($node);
+
         $eventAndListenerTrees = $this->eventAndListenerTreeProvider->provide();
         if ($eventAndListenerTrees === []) {
             return null;
         }
+
         /** @var string $className */
-        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(AttributeKey::CLASS_NAME);
+
         foreach ($eventAndListenerTrees as $eventAndListenerTree) {
-            $this->listeningClassMethodArgumentManipulator->changeFromEventAndListenerTreeAndCurrentClassName($eventAndListenerTree, $className);
+            $this->listeningClassMethodArgumentManipulator->changeFromEventAndListenerTreeAndCurrentClassName(
+                $eventAndListenerTree,
+                $className
+            );
         }
+
         return $node;
     }
+
     /**
      * @return void
      */
-    private function replaceEventPropertyReferenceWithEventClassReference(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceEventPropertyReferenceWithEventClassReference(ClassMethod $classMethod)
     {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
-            if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (Node $node) {
+            if (! $node instanceof ArrayItem) {
                 return null;
             }
+
             $arrayKey = $node->key;
-            if (!$arrayKey instanceof \PhpParser\Node\Expr) {
+            if (! $arrayKey instanceof Expr) {
                 return null;
             }
+
             $eventPropertyReferenceName = $this->valueResolver->getValue($arrayKey);
+
             // is property?
-            if (!\RectorPrefix20210421\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
+            if (! Strings::contains($eventPropertyReferenceName, '::')) {
                 return null;
             }
-            $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($eventPropertyReferenceName);
+
+            $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference(
+                $eventPropertyReferenceName
+            );
+
             $node->key = $this->nodeFactory->createClassConstReference($eventClassName);
         });
     }

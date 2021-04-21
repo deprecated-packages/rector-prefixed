@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\NodeFactory;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -8,57 +9,76 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeNameResolver\NodeNameResolver;
+
 final class ExpectExceptionMessageRegExpFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var ArgumentShiftingFactory
      */
     private $argumentShiftingFactory;
+
     /**
      * @var NodeComparator
      */
     private $nodeComparator;
+
     /**
      * @var \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
-    {
+
+    public function __construct(
+        NodeNameResolver $nodeNameResolver,
+        ArgumentShiftingFactory $argumentShiftingFactory,
+        NodeComparator $nodeComparator,
+        \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->argumentShiftingFactory = $argumentShiftingFactory;
         $this->nodeComparator = $nodeComparator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
+
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable)
+    public function create(MethodCall $methodCall, Variable $exceptionVariable)
     {
-        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertContains')) {
+        if (! $this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertContains')) {
             return null;
         }
+
         $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $secondArgument instanceof MethodCall) {
             return null;
         }
+
         // looking for "$exception->getMessage()"
-        if (!$this->nodeComparator->areNodesEqual($secondArgument->var, $exceptionVariable)) {
+        if (! $this->nodeComparator->areNodesEqual($secondArgument->var, $exceptionVariable)) {
             return null;
         }
-        if (!$this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {
+
+        if (! $this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {
             return null;
         }
-        $this->argumentShiftingFactory->removeAllButFirstArgMethodCall($methodCall, 'expectExceptionMessageRegExp');
+
+        $this->argumentShiftingFactory->removeAllButFirstArgMethodCall(
+            $methodCall,
+            'expectExceptionMessageRegExp'
+        );
+
         // put regex between "#...#" to create match
-        if ($methodCall->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
+        if ($methodCall->args[0]->value instanceof String_) {
             /** @var String_ $oldString */
             $oldString = $methodCall->args[0]->value;
-            $methodCall->args[0]->value = new \PhpParser\Node\Scalar\String_('#' . \preg_quote($oldString->value, '#') . '#');
+            $methodCall->args[0]->value = new String_('#' . preg_quote($oldString->value, '#') . '#');
         }
+
         return $methodCall;
     }
 }

@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session;
+
+namespace Symfony\Component\HttpFoundation\Session;
 
 /**
  * Session utility functions.
@@ -24,19 +25,20 @@ final class SessionUtils
      * Finds the session header amongst the headers that are to be sent, removes it, and returns
      * it so the caller can process it further.
      */
-    public static function popSessionCookie(string $sessionName, string $sessionId) : ?string
+    public static function popSessionCookie(string $sessionName, string $sessionId): ?string
     {
         $sessionCookie = null;
-        $sessionCookiePrefix = \sprintf(' %s=', \urlencode($sessionName));
-        $sessionCookieWithId = \sprintf('%s%s;', $sessionCookiePrefix, \urlencode($sessionId));
+        $sessionCookiePrefix = sprintf(' %s=', urlencode($sessionName));
+        $sessionCookieWithId = sprintf('%s%s;', $sessionCookiePrefix, urlencode($sessionId));
         $otherCookies = [];
-        foreach (\headers_list() as $h) {
-            if (0 !== \stripos($h, 'Set-Cookie:')) {
+        foreach (headers_list() as $h) {
+            if (0 !== stripos($h, 'Set-Cookie:')) {
                 continue;
             }
-            if (11 === \strpos($h, $sessionCookiePrefix, 11)) {
+            if (11 === strpos($h, $sessionCookiePrefix, 11)) {
                 $sessionCookie = $h;
-                if (11 !== \strpos($h, $sessionCookieWithId, 11)) {
+
+                if (11 !== strpos($h, $sessionCookieWithId, 11)) {
                     $otherCookies[] = $h;
                 }
             } else {
@@ -46,10 +48,12 @@ final class SessionUtils
         if (null === $sessionCookie) {
             return null;
         }
-        \header_remove('Set-Cookie');
+
+        header_remove('Set-Cookie');
         foreach ($otherCookies as $h) {
-            \header($h, \false);
+            header($h, false);
         }
+
         return $sessionCookie;
     }
 }

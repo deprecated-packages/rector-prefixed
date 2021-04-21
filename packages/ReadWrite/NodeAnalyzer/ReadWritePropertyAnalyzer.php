@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\ReadWrite\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -19,84 +20,107 @@ use Rector\Core\NodeManipulator\AssignManipulator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\Guard\VariableToConstantGuard;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 final class ReadWritePropertyAnalyzer
 {
     /**
      * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
+
     /**
      * @var AssignManipulator
      */
     private $assignManipulator;
+
     /**
      * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
+
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
-    {
+
+    public function __construct(
+        VariableToConstantGuard $variableToConstantGuard,
+        AssignManipulator $assignManipulator,
+        ReadExprAnalyzer $readExprAnalyzer,
+        BetterNodeFinder $betterNodeFinder
+    ) {
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->assignManipulator = $assignManipulator;
         $this->readExprAnalyzer = $readExprAnalyzer;
         $this->betterNodeFinder = $betterNodeFinder;
     }
+
     /**
      * @param PropertyFetch|StaticPropertyFetch $node
      */
-    public function isRead(\PhpParser\Node $node) : bool
+    public function isRead(Node $node): bool
     {
-        \RectorPrefix20210421\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+        Assert::isAnyOf($node, [PropertyFetch::class, StaticPropertyFetch::class]);
+
+        $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $parent instanceof Node) {
+            throw new MissingParentNodeException();
         }
+
         $parent = $this->unwrapPostPreIncDec($parent);
-        if ($parent instanceof \PhpParser\Node\Arg) {
+
+        if ($parent instanceof Arg) {
             $readArg = $this->variableToConstantGuard->isReadArg($parent);
             if ($readArg) {
-                return \true;
+                return true;
             }
         }
-        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch && $parent->dim === $node && $this->isNotInsideIssetUnset($parent)) {
+
+        if ($parent instanceof ArrayDimFetch && $parent->dim === $node && $this->isNotInsideIssetUnset($parent)) {
             return $this->isArrayDimFetchRead($parent);
         }
-        return !$this->assignManipulator->isLeftPartOfAssign($node);
+
+        return ! $this->assignManipulator->isLeftPartOfAssign($node);
     }
-    private function unwrapPostPreIncDec(\PhpParser\Node $node) : \PhpParser\Node
+
+    private function unwrapPostPreIncDec(Node $node): Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
-            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$node instanceof \PhpParser\Node) {
-                throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+        if ($node instanceof PreInc || $node instanceof PreDec || $node instanceof PostInc || $node instanceof PostDec) {
+            $node = $node->getAttribute(AttributeKey::PARENT_NODE);
+            if (! $node instanceof Node) {
+                throw new MissingParentNodeException();
             }
         }
+
         return $node;
     }
-    private function isNotInsideIssetUnset(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+
+    private function isNotInsideIssetUnset(ArrayDimFetch $arrayDimFetch): bool
     {
-        return !(bool) $this->betterNodeFinder->findParentTypes($arrayDimFetch, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class]);
+        return ! (bool) $this->betterNodeFinder->findParentTypes($arrayDimFetch, [Isset_::class, Unset_::class]);
     }
-    private function isArrayDimFetchRead(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+
+    private function isArrayDimFetchRead(ArrayDimFetch $arrayDimFetch): bool
     {
-        $parentParent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentParent instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+        $parentParent = $arrayDimFetch->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $parentParent instanceof Node) {
+            throw new MissingParentNodeException();
         }
-        if (!$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
-            return \false;
+
+        if (! $this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
+            return false;
         }
-        if ($arrayDimFetch->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-            return \true;
+
+        if ($arrayDimFetch->var instanceof ArrayDimFetch) {
+            return true;
         }
+
         // the array dim fetch is assing here only; but the variable might be used later
         if ($this->readExprAnalyzer->isExprRead($arrayDimFetch->var)) {
-            return \true;
+            return true;
         }
-        return !$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch);
+
+        return ! $this->assignManipulator->isLeftPartOfAssign($arrayDimFetch);
     }
 }

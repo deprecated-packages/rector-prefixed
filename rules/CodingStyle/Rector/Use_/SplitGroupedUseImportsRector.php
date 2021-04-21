@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\Use_;
 
 use PhpParser\Node;
@@ -9,14 +10,19 @@ use PhpParser\Node\Stmt\Use_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector\SplitGroupedUseImportsRectorTest
  */
-final class SplitGroupedUseImportsRector extends \Rector\Core\Rector\AbstractRector
+final class SplitGroupedUseImportsRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split grouped use imports and trait statements to standalone lines', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Split grouped use imports and trait statements to standalone lines',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use A, B;
 
 class SomeClass
@@ -24,7 +30,8 @@ class SomeClass
     use SomeTrait, AnotherTrait;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 use A;
 use B;
 
@@ -34,55 +41,66 @@ class SomeClass
     use AnotherTrait;
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Use_::class, \PhpParser\Node\Stmt\TraitUse::class];
+        return [Use_::class, TraitUse::class];
     }
+
     /**
      * @param Use_|TraitUse $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Use_) {
+        if ($node instanceof Use_) {
             $this->refactorUseImport($node);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\TraitUse) {
+
+        if ($node instanceof TraitUse) {
             $this->refactorTraitUse($node);
         }
+
         return null;
     }
+
     /**
      * @return void
      */
-    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use)
+    private function refactorUseImport(Use_ $use)
     {
-        if (\count($use->uses) < 2) {
+        if (count($use->uses) < 2) {
             return;
         }
+
         foreach ($use->uses as $singleUse) {
-            $separatedUse = new \PhpParser\Node\Stmt\Use_([$singleUse]);
+            $separatedUse = new Use_([$singleUse]);
             $this->addNodeAfterNode($separatedUse, $use);
         }
+
         $this->removeNode($use);
     }
+
     /**
      * @return void
      */
-    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse)
+    private function refactorTraitUse(TraitUse $traitUse)
     {
-        if (\count($traitUse->traits) < 2) {
+        if (count($traitUse->traits) < 2) {
             return;
         }
+
         foreach ($traitUse->traits as $singleTraitUse) {
-            $separatedTraitUse = new \PhpParser\Node\Stmt\TraitUse([$singleTraitUse]);
+            $separatedTraitUse = new TraitUse([$singleTraitUse]);
             $this->addNodeAfterNode($separatedTraitUse, $traitUse);
         }
+
         $this->removeNode($traitUse);
     }
 }

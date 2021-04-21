@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Log;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
+namespace Symfony\Component\HttpKernel\Log;
+
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * DebugLoggerInterface.
  *
@@ -27,13 +29,15 @@ interface DebugLoggerInterface
      *
      * @return array An array of logs
      */
-    public function getLogs(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request = null);
+    public function getLogs(Request $request = null);
+
     /**
      * Returns the number of errors.
      *
      * @return int The number of errors
      */
-    public function countErrors(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request = null);
+    public function countErrors(Request $request = null);
+
     /**
      * Removes all log records.
      */

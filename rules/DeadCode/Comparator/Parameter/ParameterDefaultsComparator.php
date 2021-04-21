@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Comparator\Parameter;
 
 use PhpParser\Node\Expr;
@@ -15,52 +16,63 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\NullType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
+
 final class ParameterDefaultsComparator
 {
     /**
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+
+    public function __construct(ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
     }
-    public function areDefaultValuesDifferent(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+
+    public function areDefaultValuesDifferent(ParameterReflection $parameterReflection, Param $param): bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default === null) {
-            return \false;
+            return false;
         }
+
         if ($this->isMutuallyExclusiveNull($parameterReflection, $param)) {
-            return \true;
+            return true;
         }
+
         /** @var Expr $paramDefault */
         $paramDefault = $param->default;
+
         $firstParameterValue = $this->resolveParameterReflectionDefaultValue($parameterReflection);
         $secondParameterValue = $this->valueResolver->getValue($paramDefault);
+
         return $firstParameterValue !== $secondParameterValue;
     }
-    private function isMutuallyExclusiveNull(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+
+    private function isMutuallyExclusiveNull(ParameterReflection $parameterReflection, Param $param): bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default !== null) {
-            return \true;
+            return true;
         }
         if ($parameterReflection->getDefaultValue() === null) {
-            return \false;
+            return false;
         }
         return $param->default === null;
     }
+
     /**
      * @return bool|float|int|string|mixed[]|null
      */
-    private function resolveParameterReflectionDefaultValue(\PHPStan\Reflection\ParameterReflection $parameterReflection)
+    private function resolveParameterReflectionDefaultValue(ParameterReflection $parameterReflection)
     {
         $defaultValue = $parameterReflection->getDefaultValue();
-        if (!$defaultValue instanceof \PHPStan\Type\ConstantType) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (! $defaultValue instanceof ConstantType) {
+            throw new ShouldNotHappenException();
         }
-        if ($defaultValue instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+
+        if ($defaultValue instanceof ConstantArrayType) {
             return $defaultValue->getAllArrays();
         }
+
         /** @var ConstantStringType|ConstantIntegerType|ConstantFloatType|ConstantBooleanType|NullType $defaultValue */
         return $defaultValue->getValue();
     }

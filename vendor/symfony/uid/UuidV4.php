@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Uid;
+
+namespace Symfony\Component\Uid;
 
 /**
  * A v4 UUID contains a 122-bit random number.
@@ -17,17 +18,19 @@ namespace RectorPrefix20210421\Symfony\Component\Uid;
  *
  * @author Gr√©goire Pineau <lyrixx@lyrixx.info>
  */
-class UuidV4 extends \RectorPrefix20210421\Symfony\Component\Uid\Uuid
+class UuidV4 extends Uuid
 {
     const TYPE = 4;
+
     public function __construct(string $uuid = null)
     {
         if (null === $uuid) {
-            $uuid = \random_bytes(16);
-            $uuid[6] = $uuid[6] & "\17" | "O";
-            $uuid[8] = $uuid[8] & "?" | "Ä";
-            $uuid = \bin2hex($uuid);
-            $this->uid = \substr($uuid, 0, 8) . '-' . \substr($uuid, 8, 4) . '-' . \substr($uuid, 12, 4) . '-' . \substr($uuid, 16, 4) . '-' . \substr($uuid, 20, 12);
+            $uuid = random_bytes(16);
+            $uuid[6] = $uuid[6] & "\x0F" | "\x4F";
+            $uuid[8] = $uuid[8] & "\x3F" | "\x80";
+            $uuid = bin2hex($uuid);
+
+            $this->uid = substr($uuid, 0, 8).'-'.substr($uuid, 8, 4).'-'.substr($uuid, 12, 4).'-'.substr($uuid, 16, 4).'-'.substr($uuid, 20, 12);
         } else {
             parent::__construct($uuid);
         }

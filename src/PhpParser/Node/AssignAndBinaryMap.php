@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\PhpParser\Node;
 
 use PhpParser\Node;
@@ -44,62 +45,98 @@ use PhpParser\Node\Expr\Cast\Bool_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+
 final class AssignAndBinaryMap
 {
     /**
      * @var array<class-string<BinaryOp>, class-string<BinaryOp>>
      */
-    const BINARY_OP_TO_INVERSE_CLASSES = [\PhpParser\Node\Expr\BinaryOp\Identical::class => \PhpParser\Node\Expr\BinaryOp\NotIdentical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class => \PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\Equal::class => \PhpParser\Node\Expr\BinaryOp\NotEqual::class, \PhpParser\Node\Expr\BinaryOp\NotEqual::class => \PhpParser\Node\Expr\BinaryOp\Equal::class, \PhpParser\Node\Expr\BinaryOp\Greater::class => \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class, \PhpParser\Node\Expr\BinaryOp\Smaller::class => \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class => \PhpParser\Node\Expr\BinaryOp\Smaller::class, \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class => \PhpParser\Node\Expr\BinaryOp\Greater::class];
+    const BINARY_OP_TO_INVERSE_CLASSES = [
+        Identical::class => NotIdentical::class,
+        NotIdentical::class => Identical::class,
+        Equal::class => NotEqual::class,
+        NotEqual::class => Equal::class,
+        Greater::class => SmallerOrEqual::class,
+        Smaller::class => GreaterOrEqual::class,
+        GreaterOrEqual::class => Smaller::class,
+        SmallerOrEqual::class => Greater::class,
+    ];
+
     /**
      * @var array<class-string<AssignOp>, class-string<AssignOp>>
      */
-    const ASSIGN_OP_TO_BINARY_OP_CLASSES = [\PhpParser\Node\Expr\AssignOp\BitwiseOr::class => \PhpParser\Node\Expr\BinaryOp\BitwiseOr::class, \PhpParser\Node\Expr\AssignOp\BitwiseAnd::class => \PhpParser\Node\Expr\BinaryOp\BitwiseAnd::class, \PhpParser\Node\Expr\AssignOp\BitwiseXor::class => \PhpParser\Node\Expr\BinaryOp\BitwiseXor::class, \PhpParser\Node\Expr\AssignOp\Plus::class => \PhpParser\Node\Expr\BinaryOp\Plus::class, \PhpParser\Node\Expr\AssignOp\Div::class => \PhpParser\Node\Expr\BinaryOp\Div::class, \PhpParser\Node\Expr\AssignOp\Mul::class => \PhpParser\Node\Expr\BinaryOp\Mul::class, \PhpParser\Node\Expr\AssignOp\Minus::class => \PhpParser\Node\Expr\BinaryOp\Minus::class, \PhpParser\Node\Expr\AssignOp\Concat::class => \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\AssignOp\Pow::class => \PhpParser\Node\Expr\BinaryOp\Pow::class, \PhpParser\Node\Expr\AssignOp\Mod::class => \PhpParser\Node\Expr\BinaryOp\Mod::class, \PhpParser\Node\Expr\AssignOp\ShiftLeft::class => \PhpParser\Node\Expr\BinaryOp\ShiftLeft::class, \PhpParser\Node\Expr\AssignOp\ShiftRight::class => \PhpParser\Node\Expr\BinaryOp\ShiftRight::class];
+    const ASSIGN_OP_TO_BINARY_OP_CLASSES = [
+        AssignBitwiseOr::class => BitwiseOr::class,
+        AssignBitwiseAnd::class => BitwiseAnd::class,
+        AssignBitwiseXor::class => BitwiseXor::class,
+        AssignPlus::class => Plus::class,
+        AssignDiv::class => Div::class,
+        AssignMul::class => Mul::class,
+        AssignMinus::class => Minus::class,
+        AssignConcat::class => Concat::class,
+        AssignPow::class => Pow::class,
+        AssignMod::class => Mod::class,
+        AssignShiftLeft::class => ShiftLeft::class,
+        AssignShiftRight::class => ShiftRight::class,
+    ];
+
     /**
      * @var array<class-string<BinaryOp>, class-string<BinaryOp>>
      */
     private $binaryOpToAssignClasses = [];
+
     public function __construct()
     {
-        $this->binaryOpToAssignClasses = \array_flip(self::ASSIGN_OP_TO_BINARY_OP_CLASSES);
+        $this->binaryOpToAssignClasses = array_flip(self::ASSIGN_OP_TO_BINARY_OP_CLASSES);
     }
+
     /**
      * @return string|null
      */
-    public function getAlternative(\PhpParser\Node $node)
+    public function getAlternative(Node $node)
     {
-        $nodeClass = \get_class($node);
-        if ($node instanceof \PhpParser\Node\Expr\AssignOp) {
+        $nodeClass = get_class($node);
+
+        if ($node instanceof AssignOp) {
             return self::ASSIGN_OP_TO_BINARY_OP_CLASSES[$nodeClass] ?? null;
         }
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp) {
+
+        if ($node instanceof BinaryOp) {
             return $this->binaryOpToAssignClasses[$nodeClass] ?? null;
         }
+
         return null;
     }
+
     /**
      * @return string|null
      */
-    public function getInversed(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    public function getInversed(BinaryOp $binaryOp)
     {
-        $nodeClass = \get_class($binaryOp);
+        $nodeClass = get_class($binaryOp);
         return self::BINARY_OP_TO_INVERSE_CLASSES[$nodeClass] ?? null;
     }
-    public function getTruthyExpr(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+
+    public function getTruthyExpr(Expr $expr): Expr
     {
-        if ($expr instanceof \PhpParser\Node\Expr\Cast\Bool_) {
+        if ($expr instanceof Bool_) {
             return $expr;
         }
-        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
+
+        if ($expr instanceof BooleanNot) {
             return $expr;
         }
-        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+
+        $scope = $expr->getAttribute(AttributeKey::SCOPE);
+        if (! $scope instanceof Scope) {
+            return new Bool_($expr);
         }
+
         $type = $scope->getType($expr);
-        if ($type instanceof \PHPStan\Type\BooleanType) {
+        if ($type instanceof BooleanType) {
             return $expr;
         }
-        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+
+        return new Bool_($expr);
     }
 }

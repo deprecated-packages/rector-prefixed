@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Renaming\Rector\String_;
 
 use PhpParser\Node;
@@ -9,24 +10,29 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/symfony/symfony/pull/35858
  *
  * @see \Rector\Tests\Renaming\Rector\String_\RenameStringRector\RenameStringRectorTest
  */
-final class RenameStringRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameStringRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const STRING_CHANGES = 'string_changes';
+
     /**
      * @var mixed[]
      */
     private $stringChanges = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change string value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change string value', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -35,7 +41,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,29 +51,41 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::STRING_CHANGES => ['ROLE_PREVIOUS_ADMIN' => 'IS_IMPERSONATOR']])]);
+,
+                [
+                    self::STRING_CHANGES => [
+                        'ROLE_PREVIOUS_ADMIN' => 'IS_IMPERSONATOR',
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Scalar\String_::class];
+        return [String_::class];
     }
+
     /**
      * @param String_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->stringChanges as $oldValue => $newValue) {
-            if (!$this->valueResolver->isValue($node, $oldValue)) {
+            if (! $this->valueResolver->isValue($node, $oldValue)) {
                 continue;
             }
-            return new \PhpParser\Node\Scalar\String_($newValue);
+
+            return new String_($newValue);
         }
+
         return null;
     }
+
     /**
      * @param mixed[] $configuration
      * @return void

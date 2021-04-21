@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Doctrine\NodeAnalyzer;
 
 use PhpParser\Node\Arg;
@@ -21,133 +22,172 @@ use Rector\Doctrine\TypeAnalyzer\TypeFinder;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+
 final class EntityObjectTypeResolver
 {
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
+
     /**
      * @var TypeFinder
      */
     private $typeFinder;
+
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Doctrine\TypeAnalyzer\TypeFinder $typeFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
-    {
+
+    public function __construct(
+        PhpDocInfoFactory $phpDocInfoFactory,
+        TypeFinder $typeFinder,
+        NodeRepository $nodeRepository,
+        NodeNameResolver $nodeNameResolver
+    ) {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->typeFinder = $typeFinder;
         $this->nodeRepository = $nodeRepository;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolveFromRepositoryClass(\PhpParser\Node\Stmt\Class_ $repositoryClass) : \PHPStan\Type\SubtractableType
+
+    public function resolveFromRepositoryClass(Class_ $repositoryClass): SubtractableType
     {
         $entityType = $this->resolveFromParentConstruct($repositoryClass);
-        if (!$entityType instanceof \PHPStan\Type\MixedType) {
+        if (! $entityType instanceof MixedType) {
             return $entityType;
         }
+
         $getterReturnType = $this->resolveFromGetterReturnType($repositoryClass);
-        if (!$getterReturnType instanceof \PHPStan\Type\MixedType) {
+        if (! $getterReturnType instanceof MixedType) {
             return $getterReturnType;
         }
+
         $entityType = $this->resolveFromMatchingEntityAnnotation($repositoryClass);
-        if (!$entityType instanceof \PHPStan\Type\MixedType) {
+        if (! $entityType instanceof MixedType) {
             return $entityType;
         }
-        return new \PHPStan\Type\MixedType();
+
+        return new MixedType();
     }
-    private function resolveFromGetterReturnType(\PhpParser\Node\Stmt\Class_ $repositoryClass) : \PHPStan\Type\SubtractableType
+
+    private function resolveFromGetterReturnType(Class_ $repositoryClass): SubtractableType
     {
         foreach ($repositoryClass->getMethods() as $classMethod) {
-            if (!$classMethod->isPublic()) {
+            if (! $classMethod->isPublic()) {
                 continue;
             }
+
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+
             $returnType = $phpDocInfo->getReturnType();
-            $objectType = $this->typeFinder->find($returnType, \PHPStan\Type\ObjectType::class);
-            if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+            $objectType = $this->typeFinder->find($returnType, ObjectType::class);
+            if (! $objectType instanceof ObjectType) {
                 continue;
             }
+
             return $objectType;
         }
-        return new \PHPStan\Type\MixedType();
+
+        return new MixedType();
     }
-    private function resolveFromMatchingEntityAnnotation(\PhpParser\Node\Stmt\Class_ $repositoryClass) : \PHPStan\Type\SubtractableType
+
+    private function resolveFromMatchingEntityAnnotation(Class_ $repositoryClass): SubtractableType
     {
-        $repositoryClassName = $repositoryClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $repositoryClassName = $repositoryClass->getAttribute(AttributeKey::CLASS_NAME);
+
         foreach ($this->nodeRepository->getClasses() as $class) {
             if ($class->isFinal()) {
                 continue;
             }
+
             if ($class->isAbstract()) {
                 continue;
             }
+
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
-            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Entity');
-            if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+
+            $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\ORM\Mapping\Entity');
+            if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
                 continue;
             }
+
             $repositoryClass = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('repositoryClass');
             if ($repositoryClass !== $repositoryClassName) {
                 continue;
             }
+
             $className = $this->nodeNameResolver->getName($class);
-            if (!\is_string($className)) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            if (! is_string($className)) {
+                throw new ShouldNotHappenException();
             }
-            return new \PHPStan\Type\ObjectType($className);
+
+            return new ObjectType($className);
         }
-        return new \PHPStan\Type\MixedType();
+
+        return new MixedType();
     }
-    private function resolveFromParentConstruct(\PhpParser\Node\Stmt\Class_ $class) : \PHPStan\Type\SubtractableType
+
+    private function resolveFromParentConstruct(Class_ $class): SubtractableType
     {
-        $constructorClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return new \PHPStan\Type\MixedType();
+        $constructorClassMethod = $class->getMethod(MethodName::CONSTRUCT);
+        if (! $constructorClassMethod instanceof ClassMethod) {
+            return new MixedType();
         }
+
         foreach ((array) $constructorClassMethod->stmts as $stmt) {
-            if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if (! $stmt instanceof Expression) {
                 continue;
             }
+
             $argValue = $this->resolveParentConstructSecondArgument($stmt->expr);
-            if (!$argValue instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            if (! $argValue instanceof ClassConstFetch) {
                 continue;
             }
-            if (!$this->nodeNameResolver->isName($argValue->name, 'class')) {
+
+            if (! $this->nodeNameResolver->isName($argValue->name, 'class')) {
                 continue;
             }
+
             $className = $this->nodeNameResolver->getName($argValue->class);
             if ($className === null) {
                 continue;
             }
-            return new \PHPStan\Type\ObjectType($className);
+
+            return new ObjectType($className);
         }
-        return new \PHPStan\Type\MixedType();
+
+        return new MixedType();
     }
+
     /**
      * @return \PhpParser\Node\Expr|null
      */
-    private function resolveParentConstructSecondArgument(\PhpParser\Node\Expr $expr)
+    private function resolveParentConstructSecondArgument(Expr $expr)
     {
-        if (!$expr instanceof \PhpParser\Node\Expr\StaticCall) {
+        if (! $expr instanceof StaticCall) {
             return null;
         }
-        if (!$this->nodeNameResolver->isName($expr->class, 'parent')) {
+
+        if (! $this->nodeNameResolver->isName($expr->class, 'parent')) {
             return null;
         }
-        if (!$this->nodeNameResolver->isName($expr->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+
+        if (! $this->nodeNameResolver->isName($expr->name, MethodName::CONSTRUCT)) {
             return null;
         }
+
         $secondArg = $expr->args[1] ?? null;
-        if (!$secondArg instanceof \PhpParser\Node\Arg) {
+        if (! $secondArg instanceof Arg) {
             return null;
         }
+
         return $secondArg->value;
     }
 }

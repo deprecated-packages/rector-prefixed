@@ -1,25 +1,31 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://stackoverflow.com/questions/55419673/php7-adding-a-slash-to-all-standard-php-functions-php-cs-fixer-rule
  *
  * @see \Rector\Tests\CodingStyle\Rector\FuncCall\PreslashSimpleFunctionRector\PreslashSimpleFunctionRectorTest
  */
-final class PreslashSimpleFunctionRector extends \Rector\Core\Rector\AbstractRector
+final class PreslashSimpleFunctionRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add pre-slash to short named functions to improve performance', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add pre-slash to short named functions to improve performance',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function shorten($value)
@@ -28,7 +34,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function shorten($value)
@@ -37,32 +44,39 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node->name instanceof \PhpParser\Node\Name\FullyQualified) {
+        if ($node->name instanceof FullyQualified) {
             return null;
         }
+
         $functionName = $this->getName($node);
         if ($functionName === null) {
             return null;
         }
-        if (\RectorPrefix20210421\Nette\Utils\Strings::contains($functionName, '\\')) {
+
+        if (Strings::contains($functionName, '\\')) {
             return null;
         }
-        $node->name = new \PhpParser\Node\Name\FullyQualified($functionName);
+
+        $node->name = new FullyQualified($functionName);
+
         return $node;
     }
 }

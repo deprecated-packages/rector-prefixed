@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\ClassLike;
 
 use PhpParser\Node;
@@ -15,31 +16,38 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\ClassLike\RemoveAnnotationRector\RemoveAnnotationRectorTest
  */
-final class RemoveAnnotationRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RemoveAnnotationRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const ANNOTATIONS_TO_REMOVE = 'annotations_to_remove';
+
     /**
      * @var string[]|class-string[]
      */
     private $annotationsToRemove = [];
+
     /**
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover)
     {
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove annotation by names', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove annotation by names', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 /**
  * @method getName()
  */
@@ -47,42 +55,56 @@ final class SomeClass
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
 }
 CODE_SAMPLE
-, [self::ANNOTATIONS_TO_REMOVE => ['method']])]);
+,
+                [
+                    self::ANNOTATIONS_TO_REMOVE => ['method'],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassLike::class, \PhpParser\Node\FunctionLike::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassConst::class];
+        return [ClassLike::class, FunctionLike::class, Property::class, ClassConst::class];
     }
+
     /**
      * @param ClassLike|FunctionLike|Property|ClassConst $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->annotationsToRemove === []) {
             return null;
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+
         foreach ($this->annotationsToRemove as $annotationToRemove) {
             $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
-            if (\is_a($annotationToRemove, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \true)) {
+
+            if (is_a($annotationToRemove, PhpDocTagValueNode::class, true)) {
                 $phpDocInfo->removeByType($annotationToRemove);
             }
         }
+
         if ($phpDocInfo->hasChanged()) {
-            $this->file->addRectorClassWithLine(new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine()));
+            $this->file->addRectorClassWithLine(new RectorWithLineChange($this, $node->getLine()));
             return null;
         }
+
         return $node;
     }
+
     /**
      * @param array<string, string[]> $configuration
      * @return void
@@ -90,7 +112,8 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $annotationsToRemove = $configuration[self::ANNOTATIONS_TO_REMOVE] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allString($annotationsToRemove);
+        Assert::allString($annotationsToRemove);
+
         $this->annotationsToRemove = $annotationsToRemove;
     }
 }

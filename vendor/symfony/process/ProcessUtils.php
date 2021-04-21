@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Process;
 
-use RectorPrefix20210421\Symfony\Component\Process\Exception\InvalidArgumentException;
+namespace Symfony\Component\Process;
+
+use Symfony\Component\Process\Exception\InvalidArgumentException;
+
 /**
  * ProcessUtils is a bunch of utility methods.
  *
@@ -26,6 +28,7 @@ class ProcessUtils
     private function __construct()
     {
     }
+
     /**
      * Validates and normalizes a Process input.
      *
@@ -45,10 +48,10 @@ class ProcessUtils
             if (\is_string($input)) {
                 return $input;
             }
-            if (\is_scalar($input)) {
+            if (is_scalar($input)) {
                 return (string) $input;
             }
-            if ($input instanceof \RectorPrefix20210421\Symfony\Component\Process\Process) {
+            if ($input instanceof Process) {
                 return $input->getIterator($input::ITER_SKIP_ERR);
             }
             if ($input instanceof \Iterator) {
@@ -57,8 +60,10 @@ class ProcessUtils
             if ($input instanceof \Traversable) {
                 return new \IteratorIterator($input);
             }
-            throw new \RectorPrefix20210421\Symfony\Component\Process\Exception\InvalidArgumentException(\sprintf('"%s" only accepts strings, Traversable objects or stream resources.', $caller));
+
+            throw new InvalidArgumentException(sprintf('"%s" only accepts strings, Traversable objects or stream resources.', $caller));
         }
+
         return $input;
     }
 }

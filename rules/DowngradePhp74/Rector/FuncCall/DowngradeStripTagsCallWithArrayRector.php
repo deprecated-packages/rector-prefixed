@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp74\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -24,22 +25,29 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php70\NodeAnalyzer\VariableNaming;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector\DowngradeStripTagsCallWithArrayRectorTest
  */
-final class DowngradeStripTagsCallWithArrayRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeStripTagsCallWithArrayRector extends AbstractRector
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming)
+
+    public function __construct(VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert 2nd param to `strip_tags` from array to string', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Convert 2nd param to `strip_tags` from array to string',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($string)
@@ -56,7 +64,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($string)
@@ -74,83 +83,103 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->shouldRefactor($node)) {
+        if (! $this->shouldRefactor($node)) {
             return null;
         }
+
         $allowableTagsParam = $node->args[1]->value;
-        if ($allowableTagsParam instanceof \PhpParser\Node\Expr\Array_) {
+
+        if ($allowableTagsParam instanceof Array_) {
             // If it is an array, convert it to string
             $newExpr = $this->createArrayFromString($allowableTagsParam);
-        } elseif ($allowableTagsParam instanceof \PhpParser\Node\Expr\Variable || $allowableTagsParam instanceof \PhpParser\Node\Expr\PropertyFetch || $allowableTagsParam instanceof \PhpParser\Node\Expr\ConstFetch || $allowableTagsParam instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+        } elseif ($allowableTagsParam instanceof Variable || $allowableTagsParam instanceof PropertyFetch || $allowableTagsParam instanceof ConstFetch || $allowableTagsParam instanceof ClassConstFetch) {
             // If it is a variable or a const (other than null), add logic to maybe convert to string
             $newExpr = $this->createIsArrayTernaryFromExpression($allowableTagsParam);
         } else {
             // It is a function or method call, ternary or coalesce, or any other:
             // Assign the value to a variable
             // First obtain a variable name that does not exist in the node (to not override its value)
-            $variableName = $this->variableNaming->resolveFromFuncCallFirstArgumentWithSuffix($node, 'AllowableTags', 'allowableTags', $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE));
+            $variableName = $this->variableNaming->resolveFromFuncCallFirstArgumentWithSuffix(
+                $node,
+                'AllowableTags',
+                'allowableTags',
+                $node->getAttribute(AttributeKey::SCOPE)
+            );
             // Assign the value to the variable
-            $newVariable = new \PhpParser\Node\Expr\Variable($variableName);
-            $this->addNodeBeforeNode(new \PhpParser\Node\Expr\Assign($newVariable, $allowableTagsParam), $node);
+            $newVariable = new Variable($variableName);
+            $this->addNodeBeforeNode(new Assign($newVariable, $allowableTagsParam), $node);
+
             // Apply refactor on the variable
             $newExpr = $this->createIsArrayTernaryFromExpression($newVariable);
         }
+
         // Replace the arg with a new one
-        \array_splice($node->args, 1, 1, [new \PhpParser\Node\Arg($newExpr)]);
+        array_splice($node->args, 1, 1, [new Arg($newExpr)]);
         return $node;
     }
-    private function shouldRefactor(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+
+    private function shouldRefactor(FuncCall $funcCall): bool
     {
-        if (!$this->isName($funcCall, 'strip_tags')) {
-            return \false;
+        if (! $this->isName($funcCall, 'strip_tags')) {
+            return false;
         }
+
         // If param not provided, do nothing
-        if (\count($funcCall->args) < 2) {
-            return \false;
+        if (count($funcCall->args) < 2) {
+            return false;
         }
+
         // Process anything other than String and null (eg: variables, function calls)
         $allowableTagsParam = $funcCall->args[1]->value;
+
         // Skip for string
-        if ($allowableTagsParam instanceof \PhpParser\Node\Scalar\String_) {
-            return \false;
+        if ($allowableTagsParam instanceof String_) {
+            return false;
         }
         // Skip for null
         // Allow for everything else (Array_, Variable, PropertyFetch, ConstFetch, ClassConstFetch, FuncCall, MethodCall, Coalesce, Ternary, others?)
-        return !$this->valueResolver->isNull($allowableTagsParam);
+        return ! $this->valueResolver->isNull($allowableTagsParam);
     }
+
     /**
      * @param Array_|Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createArrayFromString(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp\Concat
+    private function createArrayFromString(Expr $expr): Concat
     {
-        $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('><')), new \PhpParser\Node\Arg($expr)];
-        $implodeFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('implode'), $args);
-        $concat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_('<'), $implodeFuncCall);
-        return new \PhpParser\Node\Expr\BinaryOp\Concat($concat, new \PhpParser\Node\Scalar\String_('>'));
+        $args = [new Arg(new String_('><')), new Arg($expr)];
+        $implodeFuncCall = new FuncCall(new Name('implode'), $args);
+
+        $concat = new Concat(new String_('<'), $implodeFuncCall);
+        return new Concat($concat, new String_('>'));
     }
+
     /**
      * @param Variable|PropertyFetch|ConstFetch|ClassConstFetch $expr
      */
-    private function createIsArrayTernaryFromExpression(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Ternary
+    private function createIsArrayTernaryFromExpression(Expr $expr): Ternary
     {
-        $isArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_array'), [new \PhpParser\Node\Arg($expr)]);
-        $nullNotIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());
-        $booleanAnd = new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($nullNotIdentical, $isArrayFuncCall);
-        return new \PhpParser\Node\Expr\Ternary($booleanAnd, $this->createArrayFromString($expr), $expr);
+        $isArrayFuncCall = new FuncCall(new Name('is_array'), [new Arg($expr)]);
+        $nullNotIdentical = new NotIdentical($expr, $this->nodeFactory->createNull());
+        $booleanAnd = new BooleanAnd($nullNotIdentical, $isArrayFuncCall);
+
+        return new Ternary($booleanAnd, $this->createArrayFromString($expr), $expr);
     }
 }

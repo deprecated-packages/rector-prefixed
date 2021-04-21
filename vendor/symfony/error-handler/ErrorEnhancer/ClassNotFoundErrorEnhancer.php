@@ -8,16 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-use RectorPrefix20210421\Composer\Autoload\ClassLoader;
-use RectorPrefix20210421\Symfony\Component\ErrorHandler\DebugClassLoader;
-use RectorPrefix20210421\Symfony\Component\ErrorHandler\Error\ClassNotFoundError;
-use RectorPrefix20210421\Symfony\Component\ErrorHandler\Error\FatalError;
+namespace Symfony\Component\ErrorHandler\ErrorEnhancer;
+
+use Composer\Autoload\ClassLoader;
+use Symfony\Component\ErrorHandler\DebugClassLoader;
+use Symfony\Component\ErrorHandler\Error\ClassNotFoundError;
+use Symfony\Component\ErrorHandler\Error\FatalError;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClassNotFoundErrorEnhancer implements \RectorPrefix20210421\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
+class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
 {
     /**
      * {@inheritdoc}
@@ -26,33 +28,37 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210421\Symfony\Compon
     public function enhance(\Throwable $error)
     {
         // Some specific versions of PHP produce a fatal error when extending a not found class.
-        $message = !$error instanceof \RectorPrefix20210421\Symfony\Component\ErrorHandler\Error\FatalError ? $error->getMessage() : $error->getError()['message'];
-        if (!\preg_match('/^(Class|Interface|Trait) [\'"]([^\'"]+)[\'"] not found$/', $message, $matches)) {
+        $message = !$error instanceof FatalError ? $error->getMessage() : $error->getError()['message'];
+        if (!preg_match('/^(Class|Interface|Trait) [\'"]([^\'"]+)[\'"] not found$/', $message, $matches)) {
             return null;
         }
-        $typeName = \strtolower($matches[1]);
+        $typeName = strtolower($matches[1]);
         $fullyQualifiedClassName = $matches[2];
-        if (\false !== ($namespaceSeparatorIndex = \strrpos($fullyQualifiedClassName, '\\'))) {
-            $className = \substr($fullyQualifiedClassName, $namespaceSeparatorIndex + 1);
-            $namespacePrefix = \substr($fullyQualifiedClassName, 0, $namespaceSeparatorIndex);
-            $message = \sprintf('Attempted to load %s "%s" from namespace "%s".', $typeName, $className, $namespacePrefix);
+
+        if (false !== $namespaceSeparatorIndex = strrpos($fullyQualifiedClassName, '\\')) {
+            $className = substr($fullyQualifiedClassName, $namespaceSeparatorIndex + 1);
+            $namespacePrefix = substr($fullyQualifiedClassName, 0, $namespaceSeparatorIndex);
+            $message = sprintf('Attempted to load %s "%s" from namespace "%s".', $typeName, $className, $namespacePrefix);
             $tail = ' for another namespace?';
         } else {
             $className = $fullyQualifiedClassName;
-            $message = \sprintf('Attempted to load %s "%s" from the global namespace.', $typeName, $className);
+            $message = sprintf('Attempted to load %s "%s" from the global namespace.', $typeName, $className);
             $tail = '?';
         }
+
         if ($candidates = $this->getClassCandidates($className)) {
-            $tail = \array_pop($candidates) . '"?';
+            $tail = array_pop($candidates).'"?';
             if ($candidates) {
-                $tail = ' for e.g. "' . \implode('", "', $candidates) . '" or "' . $tail;
+                $tail = ' for e.g. "'.implode('", "', $candidates).'" or "'.$tail;
             } else {
-                $tail = ' for "' . $tail;
+                $tail = ' for "'.$tail;
             }
         }
-        $message .= "\nDid you forget a \"use\" statement" . $tail;
-        return new \RectorPrefix20210421\Symfony\Component\ErrorHandler\Error\ClassNotFoundError($message, $error);
+        $message .= "\nDid you forget a \"use\" statement".$tail;
+
+        return new ClassNotFoundError($message, $error);
     }
+
     /**
      * Tries to guess the full namespace for a given class name.
      *
@@ -63,53 +69,63 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210421\Symfony\Compon
      *
      * Returns an array of possible fully qualified class names
      */
-    private function getClassCandidates(string $class) : array
+    private function getClassCandidates(string $class): array
     {
-        if (!\is_array($functions = \spl_autoload_functions())) {
+        if (!\is_array($functions = spl_autoload_functions())) {
             return [];
         }
+
         // find Symfony and Composer autoloaders
         $classes = [];
+
         foreach ($functions as $function) {
             if (!\is_array($function)) {
                 continue;
             }
             // get class loaders wrapped by DebugClassLoader
-            if ($function[0] instanceof \RectorPrefix20210421\Symfony\Component\ErrorHandler\DebugClassLoader) {
+            if ($function[0] instanceof DebugClassLoader) {
                 $function = $function[0]->getClassLoader();
+
                 if (!\is_array($function)) {
                     continue;
                 }
             }
-            if ($function[0] instanceof \RectorPrefix20210421\Composer\Autoload\ClassLoader) {
+
+            if ($function[0] instanceof ClassLoader) {
                 foreach ($function[0]->getPrefixes() as $prefix => $paths) {
                     foreach ($paths as $path) {
-                        $classes = \array_merge($classes, $this->findClassInPath($path, $class, $prefix));
+                        $classes = array_merge($classes, $this->findClassInPath($path, $class, $prefix));
                     }
                 }
+
                 foreach ($function[0]->getPrefixesPsr4() as $prefix => $paths) {
                     foreach ($paths as $path) {
-                        $classes = \array_merge($classes, $this->findClassInPath($path, $class, $prefix));
+                        $classes = array_merge($classes, $this->findClassInPath($path, $class, $prefix));
                     }
                 }
             }
         }
-        return \array_unique($classes);
+
+        return array_unique($classes);
     }
-    private function findClassInPath(string $path, string $class, string $prefix) : array
+
+    private function findClassInPath(string $path, string $class, string $prefix): array
     {
-        if (!($path = (\realpath($path . '/' . \strtr($prefix, '\\_', '//')) ?: \realpath($path . '/' . \dirname(\strtr($prefix, '\\_', '//')))) ?: \realpath($path))) {
+        if (!$path = realpath($path.'/'.strtr($prefix, '\\_', '//')) ?: realpath($path.'/'.\dirname(strtr($prefix, '\\_', '//'))) ?: realpath($path)) {
             return [];
         }
+
         $classes = [];
-        $filename = $class . '.php';
+        $filename = $class.'.php';
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
-            if ($filename == $file->getFileName() && ($class = $this->convertFileToClass($path, $file->getPathName(), $prefix))) {
+            if ($filename == $file->getFileName() && $class = $this->convertFileToClass($path, $file->getPathName(), $prefix)) {
                 $classes[] = $class;
             }
         }
+
         return $classes;
     }
+
     /**
      * @return string|null
      */
@@ -117,23 +133,23 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210421\Symfony\Compon
     {
         $candidates = [
             // namespaced class
-            $namespacedClass = \str_replace([$path . \DIRECTORY_SEPARATOR, '.php', '/'], ['', '', '\\'], $file),
+            $namespacedClass = str_replace([$path.\DIRECTORY_SEPARATOR, '.php', '/'], ['', '', '\\'], $file),
             // namespaced class (with target dir)
-            $prefix . $namespacedClass,
+            $prefix.$namespacedClass,
             // namespaced class (with target dir and separator)
-            $prefix . '\\' . $namespacedClass,
+            $prefix.'\\'.$namespacedClass,
             // PEAR class
-            \str_replace('\\', '_', $namespacedClass),
+            str_replace('\\', '_', $namespacedClass),
             // PEAR class (with target dir)
-            \str_replace('\\', '_', $prefix . $namespacedClass),
+            str_replace('\\', '_', $prefix.$namespacedClass),
             // PEAR class (with target dir and separator)
-            \str_replace('\\', '_', $prefix . '\\' . $namespacedClass),
+            str_replace('\\', '_', $prefix.'\\'.$namespacedClass),
         ];
+
         if ($prefix) {
-            $candidates = \array_filter($candidates, function ($candidate) use($prefix) {
-                return 0 === \strpos($candidate, $prefix);
-            });
+            $candidates = array_filter($candidates, function ($candidate) use ($prefix) { return 0 === strpos($candidate, $prefix); });
         }
+
         // We cannot use the autoloader here as most of them use require; but if the class
         // is not found, the new autoloader call will require the file again leading to a
         // "cannot redeclare class" error.
@@ -142,20 +158,24 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210421\Symfony\Compon
                 return $candidate;
             }
         }
+
         try {
             require_once $file;
         } catch (\Throwable $e) {
             return null;
         }
+
         foreach ($candidates as $candidate) {
             if ($this->classExists($candidate)) {
                 return $candidate;
             }
         }
+
         return null;
     }
-    private function classExists(string $class) : bool
+
+    private function classExists(string $class): bool
     {
-        return \class_exists($class, \false) || \interface_exists($class, \false) || \trait_exists($class, \false);
+        return class_exists($class, false) || interface_exists($class, false) || trait_exists($class, false);
     }
 }

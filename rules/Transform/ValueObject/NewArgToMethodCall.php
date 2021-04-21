@@ -1,23 +1,28 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\ValueObject;
 
 use PHPStan\Type\ObjectType;
+
 final class NewArgToMethodCall
 {
     /**
      * @var string
      */
     private $type;
+
     /**
      * @var mixed
      */
     private $value;
+
     /**
      * @var string
      */
     private $methodCall;
+
     /**
      * @param mixed $value
      */
@@ -27,10 +32,12 @@ final class NewArgToMethodCall
         $this->value = $value;
         $this->methodCall = $methodCall;
     }
-    public function getObjectType() : \PHPStan\Type\ObjectType
+
+    public function getObjectType(): ObjectType
     {
-        return new \PHPStan\Type\ObjectType($this->type);
+        return new ObjectType($this->type);
     }
+
     /**
      * @return mixed
      */
@@ -38,7 +45,8 @@ final class NewArgToMethodCall
     {
         return $this->value;
     }
-    public function getMethodCall() : string
+
+    public function getMethodCall(): string
     {
         return $this->methodCall;
     }

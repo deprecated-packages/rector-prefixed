@@ -1,27 +1,32 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\EasyTesting\Tests\PHPUnit\Behavior\DirectoryAssertableTrait;
+declare(strict_types=1);
 
-use RectorPrefix20210421\PHPUnit\Framework\ExpectationFailedException;
-use RectorPrefix20210421\PHPUnit\Framework\TestCase;
-use RectorPrefix20210421\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
+namespace Symplify\EasyTesting\Tests\PHPUnit\Behavior\DirectoryAssertableTrait;
+
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+use Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
 use Throwable;
-final class DirectoryAssertableTraitTest extends \RectorPrefix20210421\PHPUnit\Framework\TestCase
+
+final class DirectoryAssertableTraitTest extends TestCase
 {
     use DirectoryAssertableTrait;
-    public function testSuccess() : void
+
+    public function testSuccess(): void
     {
         $this->assertDirectoryEquals(__DIR__ . '/Fixture/first_directory', __DIR__ . '/Fixture/second_directory');
     }
-    public function testFail() : void
+
+    public function testFail(): void
     {
         $throwable = null;
+
         try {
             $this->assertDirectoryEquals(__DIR__ . '/Fixture/first_directory', __DIR__ . '/Fixture/third_directory');
-        } catch (\Throwable $throwable) {
+        } catch (Throwable $throwable) {
         } finally {
-            $this->assertInstanceOf(\RectorPrefix20210421\PHPUnit\Framework\ExpectationFailedException::class, $throwable);
+            $this->assertInstanceOf(ExpectationFailedException::class, $throwable);
         }
     }
 }

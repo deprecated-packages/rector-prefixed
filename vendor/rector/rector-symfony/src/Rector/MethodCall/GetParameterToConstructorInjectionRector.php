@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\MethodCall;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -16,27 +17,35 @@ use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\GetParameterToConstructorInjectionRector\GetParameterToConstructorInjectionRectorTest
  */
-final class GetParameterToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector
+final class GetParameterToConstructorInjectionRector extends AbstractRector
 {
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
+
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(PropertyNaming $propertyNaming, ReflectionProvider $reflectionProvider)
     {
         $this->propertyNaming = $propertyNaming;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of parameters via `getParameter()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Turns fetching of parameters via `getParameter()` in ContainerAware to constructor injection in Command and Controller in Symfony',
+            [
+                new CodeSample(
+<<<'CODE_SAMPLE'
 class MyCommand extends ContainerAwareCommand
 {
     public function someMethod()
@@ -45,7 +54,8 @@ class MyCommand extends ContainerAwareCommand
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+<<<'CODE_SAMPLE'
 class MyCommand extends Command
 {
     private $someParameter;
@@ -61,42 +71,54 @@ class MyCommand extends Command
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $varType = $this->nodeTypeResolver->resolve($node->var);
-        if (!$varType instanceof \PHPStan\Type\TypeWithClassName) {
+        if (! $varType instanceof TypeWithClassName) {
             return null;
         }
+
         $classReflection = $this->reflectionProvider->getClass($varType->getClassName());
-        if (!$classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller')) {
+        if (! $classReflection->isSubclassOf('Symfony\Bundle\FrameworkBundle\Controller\Controller')) {
             return null;
         }
-        if (!$this->isName($node->name, 'getParameter')) {
+
+        if (! $this->isName($node->name, 'getParameter')) {
             return null;
         }
+
         /** @var String_ $stringArgument */
         $stringArgument = $node->args[0]->value;
         $parameterName = $stringArgument->value;
-        $parameterName = \RectorPrefix20210421\Nette\Utils\Strings::replace($parameterName, '#\\.#', '_');
+
+        $parameterName = Strings::replace($parameterName, '#\.#', '_');
+
         $propertyName = $this->propertyNaming->underscoreToName($parameterName);
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             return null;
         }
-        $this->propertyAdder->addConstructorDependencyToClass($classLike, new \PHPStan\Type\StringType(), $propertyName, 0);
+
+        $this->propertyAdder->addConstructorDependencyToClass($classLike, new StringType(), $propertyName, 0);
+
         return $this->nodeFactory->createPropertyFetch('this', $propertyName);
     }
 }

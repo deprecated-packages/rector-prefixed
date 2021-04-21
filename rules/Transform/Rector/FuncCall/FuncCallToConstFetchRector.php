@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -11,22 +12,27 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Transform\Rector\FuncCall\FuncCallToConstFetchRector\FunctionCallToConstantRectorTest
  */
-final class FuncCallToConstFetchRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class FuncCallToConstFetchRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const FUNCTIONS_TO_CONSTANTS = 'functions_to_constants';
+
     /**
      * @var string[]
      */
     private $functionsToConstants = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes use of function calls to use constants', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Changes use of function calls to use constants', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -35,7 +41,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,30 +51,42 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI']])]);
+                ,
+                [
+                    self::FUNCTIONS_TO_CONSTANTS => [
+                        'php_sapi_name' => 'PHP_SAPI',
+                    ],
+                ]
+            ),
+
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $functionName = $this->getName($node);
-        if (!$functionName) {
+        if (! $functionName) {
             return null;
         }
-        if (!\array_key_exists($functionName, $this->functionsToConstants)) {
+        if (! array_key_exists($functionName, $this->functionsToConstants)) {
             return null;
         }
-        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($this->functionsToConstants[$functionName]));
+
+        return new ConstFetch(new Name($this->functionsToConstants[$functionName]));
     }
+
     /**
      * @return void
      */

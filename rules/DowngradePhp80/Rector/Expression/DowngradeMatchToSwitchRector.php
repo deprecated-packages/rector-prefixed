@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp80\Rector\Expression;
 
 use PhpParser\Node;
@@ -17,16 +18,19 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://wiki.php.net/rfc/match_expression_v2
  *
  * @see \Rector\Tests\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector\DowngradeMatchToSwitchRectorTest
  */
-final class DowngradeMatchToSwitchRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeMatchToSwitchRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade match() to switch()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Downgrade match() to switch()', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -39,7 +43,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -59,66 +65,81 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Expression::class];
+        return [Expression::class];
     }
+
     /**
      * @param Expression $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
+        if (! $node->expr instanceof Assign) {
             return null;
         }
+
         $assign = $node->expr;
-        if (!$assign->expr instanceof \PhpParser\Node\Expr\Match_) {
+        if (! $assign->expr instanceof Match_) {
             return null;
         }
+
         /** @var Match_ $match */
         $match = $assign->expr;
+
         $switchCases = $this->createSwitchCasesFromMatchArms($match->arms, $assign->var);
-        return new \PhpParser\Node\Stmt\Switch_($match->cond, $switchCases);
+        return new Switch_($match->cond, $switchCases);
     }
+
     /**
      * @param MatchArm[] $matchArms
      * @return Case_[]
      */
-    private function createSwitchCasesFromMatchArms(array $matchArms, \PhpParser\Node\Expr $assignVarExpr) : array
+    private function createSwitchCasesFromMatchArms(array $matchArms, Expr $assignVarExpr): array
     {
         $switchCases = [];
+
         foreach ($matchArms as $matchArm) {
-            if (\count((array) $matchArm->conds) > 1) {
+            if (count((array) $matchArm->conds) > 1) {
                 $lastCase = null;
+
                 foreach ((array) $matchArm->conds as $matchArmCond) {
-                    $lastCase = new \PhpParser\Node\Stmt\Case_($matchArmCond);
+                    $lastCase = new Case_($matchArmCond);
                     $switchCases[] = $lastCase;
                 }
-                if (!$lastCase instanceof \PhpParser\Node\Stmt\Case_) {
-                    throw new \Rector\Core\Exception\ShouldNotHappenException();
+
+                if (! $lastCase instanceof Case_) {
+                    throw new ShouldNotHappenException();
                 }
+
                 $lastCase->stmts = $this->createSwitchStmts($matchArm, $assignVarExpr);
             } else {
                 $stmts = $this->createSwitchStmts($matchArm, $assignVarExpr);
-                $switchCases[] = new \PhpParser\Node\Stmt\Case_($matchArm->conds[0] ?? null, $stmts);
+                $switchCases[] = new Case_($matchArm->conds[0] ?? null, $stmts);
             }
         }
         return $switchCases;
     }
+
     /**
      * @return Stmt[]
      */
-    private function createSwitchStmts(\PhpParser\Node\MatchArm $matchArm, \PhpParser\Node\Expr $assignVarExpr) : array
+    private function createSwitchStmts(MatchArm $matchArm, Expr $assignVarExpr): array
     {
         $stmts = [];
-        $stmts[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign($assignVarExpr, $matchArm->body));
-        $stmts[] = new \PhpParser\Node\Stmt\Break_();
+
+        $stmts[] = new Expression(new Assign($assignVarExpr, $matchArm->body));
+        $stmts[] = new Break_();
+
         return $stmts;
     }
 }

@@ -1,19 +1,23 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SetConfigResolver\ValueObject\Bootstrap;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+namespace Symplify\SetConfigResolver\ValueObject\Bootstrap;
+
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class BootstrapConfigs
 {
     /**
      * @var SmartFileInfo|null
      */
     private $mainConfigFileInfo;
+
     /**
      * @var SmartFileInfo[]
      */
     private $setConfigFileInfos = [];
+
     /**
      * @param SmartFileInfo[] $setConfigFileInfos
      * @param \Symplify\SmartFileSystem\SmartFileInfo|null $mainConfigFileInfo
@@ -23,6 +27,7 @@ final class BootstrapConfigs
         $this->mainConfigFileInfo = $mainConfigFileInfo;
         $this->setConfigFileInfos = $setConfigFileInfos;
     }
+
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
@@ -30,14 +35,16 @@ final class BootstrapConfigs
     {
         return $this->mainConfigFileInfo;
     }
+
     /**
      * @return SmartFileInfo[]
      */
-    public function getConfigFileInfos() : array
+    public function getConfigFileInfos(): array
     {
-        if (!$this->mainConfigFileInfo instanceof \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (! $this->mainConfigFileInfo instanceof SmartFileInfo) {
             return $this->setConfigFileInfos;
         }
-        return \array_merge($this->setConfigFileInfos, [$this->mainConfigFileInfo]);
+
+        return array_merge($this->setConfigFileInfos, [$this->mainConfigFileInfo]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\Class_;
 
 use PhpParser\Node;
@@ -13,67 +14,85 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Transform\Rector\Class_\AddInterfaceByTraitRector\AddInterfaceByTraitRectorTest
  */
-final class AddInterfaceByTraitRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class AddInterfaceByTraitRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const INTERFACE_BY_TRAIT = 'interface_by_trait';
+
     /**
      * @var array<string, string>
      */
     private $interfaceByTrait = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add interface by used trait', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Add interface by used trait', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     use SomeTrait;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass implements SomeInterface
 {
     use SomeTrait;
 }
 CODE_SAMPLE
-, [self::INTERFACE_BY_TRAIT => ['SomeTrait' => 'SomeInterface']])]);
+            , [
+                self::INTERFACE_BY_TRAIT => [
+                    'SomeTrait' => 'SomeInterface',
+                ],
+            ]),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         /** @var Scope $scope */
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
+
         foreach ($this->interfaceByTrait as $traitName => $interfaceName) {
-            if (!$classReflection->hasTraitUse($traitName)) {
+            if (! $classReflection->hasTraitUse($traitName)) {
                 continue;
             }
+
             foreach ($node->implements as $implement) {
                 if ($this->isName($implement, $interfaceName)) {
                     continue 2;
                 }
             }
-            $node->implements[] = new \PhpParser\Node\Name\FullyQualified($interfaceName);
+
+            $node->implements[] = new FullyQualified($interfaceName);
         }
+
         return $node;
     }
+
     /**
      * @param array<string, array<string, string>> $configuration
      * @return void

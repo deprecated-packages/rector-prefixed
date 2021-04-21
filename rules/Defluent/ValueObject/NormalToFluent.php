@@ -1,19 +1,23 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Defluent\ValueObject;
 
 use PHPStan\Type\ObjectType;
+
 final class NormalToFluent
 {
     /**
      * @var string
      */
     private $class;
+
     /**
      * @var string[]
      */
     private $methodNames = [];
+
     /**
      * @param string[] $methodNames
      */
@@ -22,14 +26,16 @@ final class NormalToFluent
         $this->class = $class;
         $this->methodNames = $methodNames;
     }
-    public function getObjectType() : \PHPStan\Type\ObjectType
+
+    public function getObjectType(): ObjectType
     {
-        return new \PHPStan\Type\ObjectType($this->class);
+        return new ObjectType($this->class);
     }
+
     /**
      * @return string[]
      */
-    public function getMethodNames() : array
+    public function getMethodNames(): array
     {
         return $this->methodNames;
     }

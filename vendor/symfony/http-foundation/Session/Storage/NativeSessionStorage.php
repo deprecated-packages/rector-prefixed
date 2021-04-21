@@ -8,48 +8,57 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionUtils;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
+namespace Symfony\Component\HttpFoundation\Session\Storage;
+
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use Symfony\Component\HttpFoundation\Session\SessionUtils;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler;
+use Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
+use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
+
 // Help opcache.preload discover always-needed symbols
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag::class);
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler::class);
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy::class);
+class_exists(MetadataBag::class);
+class_exists(StrictSessionHandler::class);
+class_exists(SessionHandlerProxy::class);
+
 /**
  * This provides a base class for session attribute storage.
  *
  * @author Drak <drak@zikula.org>
  */
-class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface
+class NativeSessionStorage implements SessionStorageInterface
 {
     /**
      * @var SessionBagInterface[]
      */
     protected $bags = [];
+
     /**
      * @var bool
      */
-    protected $started = \false;
+    protected $started = false;
+
     /**
      * @var bool
      */
-    protected $closed = \false;
+    protected $closed = false;
+
     /**
      * @var AbstractProxy|\SessionHandlerInterface
      */
     protected $saveHandler;
+
     /**
      * @var MetadataBag
      */
     protected $metadataBag;
+
     /**
      * @var string|null
      */
     private $emulateSameSite;
+
     /**
      * Depending on how you want the storage driver to behave you probably
      * want to override this constructor entirely.
@@ -95,17 +104,27 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
      *
      * @param AbstractProxy|\SessionHandlerInterface|null $handler
      */
-    public function __construct(array $options = [], $handler = null, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct(array $options = [], $handler = null, MetadataBag $metaBag = null)
     {
         if (!\extension_loaded('session')) {
             throw new \LogicException('PHP extension "session" is required.');
         }
-        $options += ['cache_limiter' => '', 'cache_expire' => 0, 'use_cookies' => 1, 'lazy_write' => 1, 'use_strict_mode' => 1];
-        \session_register_shutdown();
+
+        $options += [
+            'cache_limiter' => '',
+            'cache_expire' => 0,
+            'use_cookies' => 1,
+            'lazy_write' => 1,
+            'use_strict_mode' => 1,
+        ];
+
+        session_register_shutdown();
+
         $this->setMetadataBag($metaBag);
         $this->setOptions($options);
         $this->setSaveHandler($handler);
     }
+
     /**
      * Gets the save handler instance.
      *
@@ -115,33 +134,41 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         return $this->saveHandler;
     }
+
     /**
      * {@inheritdoc}
      */
     public function start()
     {
         if ($this->started) {
-            return \true;
+            return true;
         }
-        if (\PHP_SESSION_ACTIVE === \session_status()) {
+
+        if (\PHP_SESSION_ACTIVE === session_status()) {
             throw new \RuntimeException('Failed to start the session: already started by PHP.');
         }
-        if (\filter_var(\ini_get('session.use_cookies'), \FILTER_VALIDATE_BOOLEAN) && \headers_sent($file, $line)) {
-            throw new \RuntimeException(\sprintf('Failed to start the session because headers have already been sent by "%s" at line %d.', $file, $line));
+
+        if (filter_var(ini_get('session.use_cookies'), \FILTER_VALIDATE_BOOLEAN) && headers_sent($file, $line)) {
+            throw new \RuntimeException(sprintf('Failed to start the session because headers have already been sent by "%s" at line %d.', $file, $line));
         }
+
         // ok to try and start the session
-        if (!\session_start()) {
+        if (!session_start()) {
             throw new \RuntimeException('Failed to start the session.');
         }
+
         if (null !== $this->emulateSameSite) {
-            $originalCookie = \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionUtils::popSessionCookie(\session_name(), \session_id());
+            $originalCookie = SessionUtils::popSessionCookie(session_name(), session_id());
             if (null !== $originalCookie) {
-                \header(\sprintf('%s; SameSite=%s', $originalCookie, $this->emulateSameSite), \false);
+                header(sprintf('%s; SameSite=%s', $originalCookie, $this->emulateSameSite), false);
             }
         }
+
         $this->loadSession();
-        return \true;
+
+        return true;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -149,6 +176,7 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         return $this->saveHandler->getId();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -156,6 +184,7 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         $this->saveHandler->setId($id);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -163,6 +192,7 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         return $this->saveHandler->getName();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -170,35 +200,43 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         $this->saveHandler->setName($name);
     }
+
     /**
      * {@inheritdoc}
      */
-    public function regenerate(bool $destroy = \false, int $lifetime = null)
+    public function regenerate(bool $destroy = false, int $lifetime = null)
     {
         // Cannot regenerate the session ID for non-active sessions.
-        if (\PHP_SESSION_ACTIVE !== \session_status()) {
-            return \false;
+        if (\PHP_SESSION_ACTIVE !== session_status()) {
+            return false;
         }
-        if (\headers_sent()) {
-            return \false;
+
+        if (headers_sent()) {
+            return false;
         }
-        if (null !== $lifetime && $lifetime != \ini_get('session.cookie_lifetime')) {
+
+        if (null !== $lifetime && $lifetime != ini_get('session.cookie_lifetime')) {
             $this->save();
-            \ini_set('session.cookie_lifetime', $lifetime);
+            ini_set('session.cookie_lifetime', $lifetime);
             $this->start();
         }
+
         if ($destroy) {
             $this->metadataBag->stampNew();
         }
-        $isRegenerated = \session_regenerate_id($destroy);
+
+        $isRegenerated = session_regenerate_id($destroy);
+
         if (null !== $this->emulateSameSite) {
-            $originalCookie = \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionUtils::popSessionCookie(\session_name(), \session_id());
+            $originalCookie = SessionUtils::popSessionCookie(session_name(), session_id());
             if (null !== $originalCookie) {
-                \header(\sprintf('%s; SameSite=%s', $originalCookie, $this->emulateSameSite), \false);
+                header(sprintf('%s; SameSite=%s', $originalCookie, $this->emulateSameSite), false);
             }
         }
+
         return $isRegenerated;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -206,34 +244,41 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         // Store a copy so we can restore the bags in case the session was not left empty
         $session = $_SESSION;
+
         foreach ($this->bags as $bag) {
             if (empty($_SESSION[$key = $bag->getStorageKey()])) {
                 unset($_SESSION[$key]);
             }
         }
-        if ([$key = $this->metadataBag->getStorageKey()] === \array_keys($_SESSION)) {
+        if ([$key = $this->metadataBag->getStorageKey()] === array_keys($_SESSION)) {
             unset($_SESSION[$key]);
         }
+
         // Register error handler to add information about the current save handler
-        $previousHandler = \set_error_handler(function ($type, $msg, $file, $line) use(&$previousHandler) {
-            if (\E_WARNING === $type && 0 === \strpos($msg, 'session_write_close():')) {
-                $handler = $this->saveHandler instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy ? $this->saveHandler->getHandler() : $this->saveHandler;
-                $msg = \sprintf('session_write_close(): Failed to write session data with "%s" handler', \get_class($handler));
+        $previousHandler = set_error_handler(function ($type, $msg, $file, $line) use (&$previousHandler) {
+            if (\E_WARNING === $type && 0 === strpos($msg, 'session_write_close():')) {
+                $handler = $this->saveHandler instanceof SessionHandlerProxy ? $this->saveHandler->getHandler() : $this->saveHandler;
+                $msg = sprintf('session_write_close(): Failed to write session data with "%s" handler', \get_class($handler));
             }
-            return $previousHandler ? $previousHandler($type, $msg, $file, $line) : \false;
+
+            return $previousHandler ? $previousHandler($type, $msg, $file, $line) : false;
         });
+
         try {
-            \session_write_close();
+            session_write_close();
         } finally {
-            \restore_error_handler();
+            restore_error_handler();
+
             // Restore only if not empty
             if ($_SESSION) {
                 $_SESSION = $session;
             }
         }
-        $this->closed = \true;
-        $this->started = \false;
+
+        $this->closed = true;
+        $this->started = false;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -243,43 +288,53 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
         foreach ($this->bags as $bag) {
             $bag->clear();
         }
+
         // clear out the session
         $_SESSION = [];
+
         // reconnect the bags to the session
         $this->loadSession();
     }
+
     /**
      * {@inheritdoc}
      */
-    public function registerBag(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
+    public function registerBag(SessionBagInterface $bag)
     {
         if ($this->started) {
             throw new \LogicException('Cannot register a bag when the session is already started.');
         }
+
         $this->bags[$bag->getName()] = $bag;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getBag(string $name)
     {
         if (!isset($this->bags[$name])) {
-            throw new \InvalidArgumentException(\sprintf('The SessionBagInterface "%s" is not registered.', $name));
+            throw new \InvalidArgumentException(sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }
+
         if (!$this->started && $this->saveHandler->isActive()) {
             $this->loadSession();
         } elseif (!$this->started) {
             $this->start();
         }
+
         return $this->bags[$name];
     }
-    public function setMetadataBag(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+
+    public function setMetadataBag(MetadataBag $metaBag = null)
     {
         if (null === $metaBag) {
-            $metaBag = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag();
+            $metaBag = new MetadataBag();
         }
+
         $this->metadataBag = $metaBag;
     }
+
     /**
      * Gets the MetadataBag.
      *
@@ -289,6 +344,7 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         return $this->metadataBag;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -296,6 +352,7 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     {
         return $this->started;
     }
+
     /**
      * Sets session.* ini variables.
      *
@@ -308,10 +365,22 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
      */
     public function setOptions(array $options)
     {
-        if (\headers_sent() || \PHP_SESSION_ACTIVE === \session_status()) {
+        if (headers_sent() || \PHP_SESSION_ACTIVE === session_status()) {
             return;
         }
-        $validOptions = \array_flip(['cache_expire', 'cache_limiter', 'cookie_domain', 'cookie_httponly', 'cookie_lifetime', 'cookie_path', 'cookie_secure', 'cookie_samesite', 'gc_divisor', 'gc_maxlifetime', 'gc_probability', 'lazy_write', 'name', 'referer_check', 'serialize_handler', 'use_strict_mode', 'use_cookies', 'use_only_cookies', 'use_trans_sid', 'upload_progress.enabled', 'upload_progress.cleanup', 'upload_progress.prefix', 'upload_progress.name', 'upload_progress.freq', 'upload_progress.min_freq', 'url_rewriter.tags', 'sid_length', 'sid_bits_per_character', 'trans_sid_hosts', 'trans_sid_tags']);
+
+        $validOptions = array_flip([
+            'cache_expire', 'cache_limiter', 'cookie_domain', 'cookie_httponly',
+            'cookie_lifetime', 'cookie_path', 'cookie_secure', 'cookie_samesite',
+            'gc_divisor', 'gc_maxlifetime', 'gc_probability',
+            'lazy_write', 'name', 'referer_check',
+            'serialize_handler', 'use_strict_mode', 'use_cookies',
+            'use_only_cookies', 'use_trans_sid', 'upload_progress.enabled',
+            'upload_progress.cleanup', 'upload_progress.prefix', 'upload_progress.name',
+            'upload_progress.freq', 'upload_progress.min_freq', 'url_rewriter.tags',
+            'sid_length', 'sid_bits_per_character', 'trans_sid_hosts', 'trans_sid_tags',
+        ]);
+
         foreach ($options as $key => $value) {
             if (isset($validOptions[$key])) {
                 if ('cookie_samesite' === $key && \PHP_VERSION_ID < 70300) {
@@ -323,10 +392,11 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
                 if ('cookie_secure' === $key && 'auto' === $value) {
                     continue;
                 }
-                \ini_set('url_rewriter.tags' !== $key ? 'session.' . $key : $key, $value);
+                ini_set('url_rewriter.tags' !== $key ? 'session.'.$key : $key, $value);
             }
         }
     }
+
     /**
      * Registers session save handler as a PHP session handler.
      *
@@ -349,23 +419,29 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
      */
     public function setSaveHandler($saveHandler = null)
     {
-        if (!$saveHandler instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy && !$saveHandler instanceof \SessionHandlerInterface && null !== $saveHandler) {
-            throw new \InvalidArgumentException('Must be instance of AbstractProxy; implement \\SessionHandlerInterface; or be null.');
+        if (!$saveHandler instanceof AbstractProxy &&
+            !$saveHandler instanceof \SessionHandlerInterface &&
+            null !== $saveHandler) {
+            throw new \InvalidArgumentException('Must be instance of AbstractProxy; implement \SessionHandlerInterface; or be null.');
         }
+
         // Wrap $saveHandler in proxy and prevent double wrapping of proxy
-        if (!$saveHandler instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy && $saveHandler instanceof \SessionHandlerInterface) {
-            $saveHandler = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy($saveHandler);
-        } elseif (!$saveHandler instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy) {
-            $saveHandler = new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy(new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler(new \SessionHandler()));
+        if (!$saveHandler instanceof AbstractProxy && $saveHandler instanceof \SessionHandlerInterface) {
+            $saveHandler = new SessionHandlerProxy($saveHandler);
+        } elseif (!$saveHandler instanceof AbstractProxy) {
+            $saveHandler = new SessionHandlerProxy(new StrictSessionHandler(new \SessionHandler()));
         }
         $this->saveHandler = $saveHandler;
-        if (\headers_sent() || \PHP_SESSION_ACTIVE === \session_status()) {
+
+        if (headers_sent() || \PHP_SESSION_ACTIVE === session_status()) {
             return;
         }
-        if ($this->saveHandler instanceof \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy) {
-            \session_set_save_handler($this->saveHandler, \false);
+
+        if ($this->saveHandler instanceof SessionHandlerProxy) {
+            session_set_save_handler($this->saveHandler, false);
         }
     }
+
     /**
      * Load the session with attributes.
      *
@@ -377,15 +453,18 @@ class NativeSessionStorage implements \RectorPrefix20210421\Symfony\Component\Ht
     protected function loadSession(array &$session = null)
     {
         if (null === $session) {
-            $session =& $_SESSION;
+            $session = &$_SESSION;
         }
-        $bags = \array_merge($this->bags, [$this->metadataBag]);
+
+        $bags = array_merge($this->bags, [$this->metadataBag]);
+
         foreach ($bags as $bag) {
             $key = $bag->getStorageKey();
             $session[$key] = isset($session[$key]) && \is_array($session[$key]) ? $session[$key] : [];
             $bag->initialize($session[$key]);
         }
-        $this->started = \true;
-        $this->closed = \false;
+
+        $this->started = true;
+        $this->closed = false;
     }
 }

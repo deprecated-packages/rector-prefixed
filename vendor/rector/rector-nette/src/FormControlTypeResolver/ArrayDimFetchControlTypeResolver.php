@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -13,68 +14,99 @@ use Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
-final class ArrayDimFetchControlTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface
+
+final class ArrayDimFetchControlTypeResolver implements FormControlTypeResolverInterface
 {
     /**
      * @var ControlDimFetchAnalyzer
      */
     private $controlDimFetchAnalyzer;
+
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+
     /**
      * @var NetteControlNaming
      */
     private $netteControlNaming;
+
     /**
      * @var ReturnTypeInferer
      */
     private $returnTypeInferer;
+
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Nette\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\Nette\Naming\NetteControlNaming $netteControlNaming, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
-    {
+
+    public function __construct(
+        ControlDimFetchAnalyzer $controlDimFetchAnalyzer,
+        NetteControlNaming $netteControlNaming,
+        NodeTypeResolver $nodeTypeResolver,
+        ReturnTypeInferer $returnTypeInferer,
+        NodeRepository $nodeRepository
+    ) {
         $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->netteControlNaming = $netteControlNaming;
         $this->returnTypeInferer = $returnTypeInferer;
         $this->nodeRepository = $nodeRepository;
     }
+
     /**
      * @return array<string, string>
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(Node $node): array
     {
-        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if (! $node instanceof ArrayDimFetch) {
             return [];
         }
+
         $controlShortName = $this->controlDimFetchAnalyzer->matchName($node);
         if ($controlShortName === null) {
             return [];
         }
+
         $createComponentClassMethod = $this->matchCreateComponentClassMethod($node, $controlShortName);
-        if (!$createComponentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (! $createComponentClassMethod instanceof ClassMethod) {
             return [];
         }
-        $createComponentClassMethodReturnType = $this->returnTypeInferer->inferFunctionLike($createComponentClassMethod);
-        if (!$createComponentClassMethodReturnType instanceof \PHPStan\Type\TypeWithClassName) {
+
+        $createComponentClassMethodReturnType = $this->returnTypeInferer->inferFunctionLike(
+            $createComponentClassMethod
+        );
+
+        if (! $createComponentClassMethodReturnType instanceof TypeWithClassName) {
             return [];
         }
-        return [$controlShortName => $createComponentClassMethodReturnType->getClassName()];
+
+        return [
+            $controlShortName => $createComponentClassMethodReturnType->getClassName(),
+        ];
     }
+
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function matchCreateComponentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName)
-    {
+    private function matchCreateComponentClassMethod(
+        ArrayDimFetch $arrayDimFetch,
+        string $controlShortName
+    ) {
         $callerType = $this->nodeTypeResolver->getStaticType($arrayDimFetch->var);
-        if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {
+        if (! $callerType instanceof TypeWithClassName) {
             return null;
         }
-        $createComponentClassMethodName = $this->netteControlNaming->createCreateComponentClassMethodName($controlShortName);
-        return $this->nodeRepository->findClassMethod($callerType->getClassName(), $createComponentClassMethodName);
+
+        $createComponentClassMethodName = $this->netteControlNaming->createCreateComponentClassMethodName(
+            $controlShortName
+        );
+
+        return $this->nodeRepository->findClassMethod(
+            $callerType->getClassName(),
+            $createComponentClassMethodName
+        );
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\Rector\Property;
 
 use PhpParser\Node;
@@ -12,27 +13,35 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector\CompleteVarDocTypePropertyRectorTest
  */
-final class CompleteVarDocTypePropertyRector extends \Rector\Core\Rector\AbstractRector
+final class CompleteVarDocTypePropertyRector extends AbstractRector
 {
     /**
      * @var PropertyTypeInferer
      */
     private $propertyTypeInferer;
+
     /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+
+    public function __construct(PropertyTypeInferer $propertyTypeInferer, PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->propertyTypeInferer = $propertyTypeInferer;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete property `@var` annotations or correct the old ones', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Complete property `@var` annotations or correct the old ones',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $eventDispatcher;
@@ -43,7 +52,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     /**
@@ -57,30 +67,36 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [Property::class];
     }
+
     /**
      * @param Property $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $propertyType = $this->propertyTypeInferer->inferProperty($node);
-        if ($propertyType instanceof \PHPStan\Type\MixedType) {
+        if ($propertyType instanceof MixedType) {
             return null;
         }
-        if (!$node->isPrivate() && $propertyType instanceof \PHPStan\Type\NullType) {
+
+        if (! $node->isPrivate() && $propertyType instanceof NullType) {
             return null;
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
+
         return $node;
     }
 }

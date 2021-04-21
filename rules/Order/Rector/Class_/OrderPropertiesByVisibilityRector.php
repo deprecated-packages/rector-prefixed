@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Order\Rector\Class_;
 
 use PhpParser\Node;
@@ -13,32 +14,42 @@ use Rector\Order\StmtOrder;
 use Rector\Order\StmtVisibilitySorter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Order\Rector\Class_\OrderPropertiesByVisibilityRector\OrderPropertiesByVisibilityRectorTest
  */
-final class OrderPropertiesByVisibilityRector extends \Rector\Core\Rector\AbstractRector
+final class OrderPropertiesByVisibilityRector extends AbstractRector
 {
     /**
      * @var OrderChangeAnalyzer
      */
     private $orderChangeAnalyzer;
+
     /**
      * @var StmtOrder
      */
     private $stmtOrder;
+
     /**
      * @var StmtVisibilitySorter
      */
     private $stmtVisibilitySorter;
-    public function __construct(\Rector\Order\Order\OrderChangeAnalyzer $orderChangeAnalyzer, \Rector\Order\StmtOrder $stmtOrder, \Rector\Order\StmtVisibilitySorter $stmtVisibilitySorter)
-    {
+
+    public function __construct(
+        OrderChangeAnalyzer $orderChangeAnalyzer,
+        StmtOrder $stmtOrder,
+        StmtVisibilitySorter $stmtVisibilitySorter
+    ) {
         $this->orderChangeAnalyzer = $orderChangeAnalyzer;
         $this->stmtOrder = $stmtOrder;
         $this->stmtVisibilitySorter = $stmtVisibilitySorter;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders properties by visibility', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Orders properties by visibility', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     protected $protectedProperty;
@@ -46,7 +57,9 @@ final class SomeClass
     public $publicProperty;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public $publicProperty;
@@ -54,28 +67,35 @@ final class SomeClass
     private $privateProperty;
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Trait_::class];
+        return [Class_::class, Trait_::class];
     }
+
     /**
      * @param Class_|Trait_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $currentPropertiesOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\Property::class);
+        $currentPropertiesOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, Property::class);
         $propertiesInDesiredOrder = $this->stmtVisibilitySorter->sortProperties($node);
+
         $oldToNewKeys = $this->stmtOrder->createOldToNewKeys($propertiesInDesiredOrder, $currentPropertiesOrder);
+
         // nothing to re-order
-        if (!$this->orderChangeAnalyzer->hasOrderChanged($oldToNewKeys)) {
+        if (! $this->orderChangeAnalyzer->hasOrderChanged($oldToNewKeys)) {
             return null;
         }
+
         $this->stmtOrder->reorderClassStmtsByOldToNewKeys($node, $oldToNewKeys);
         return $node;
     }

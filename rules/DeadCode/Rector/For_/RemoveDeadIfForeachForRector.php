@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\For_;
 
 use PhpParser\Node;
@@ -13,14 +14,19 @@ use PhpParser\Node\Stmt\If_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\For_\RemoveDeadIfForeachForRector\RemoveDeadIfForeachForRectorTest
  */
-final class RemoveDeadIfForeachForRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadIfForeachForRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove if, foreach and for that does not do anything', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove if, foreach and for that does not do anything',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($someObject)
@@ -39,7 +45,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($someObject)
@@ -52,76 +59,93 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Foreach_::class];
+        return [For_::class, If_::class, Foreach_::class];
     }
+
     /**
      * @param For_|If_|Foreach_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Stmt\If_) {
+        if ($node instanceof If_) {
             $this->processIf($node);
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
+
+        if ($node instanceof Foreach_) {
             $this->processForeach($node);
             return null;
         }
+
         // For
         if ($node->stmts !== []) {
             return null;
         }
+
         $this->removeNode($node);
+
         return null;
     }
+
     /**
      * @return void
      */
-    private function processIf(\PhpParser\Node\Stmt\If_ $if)
+    private function processIf(If_ $if)
     {
         if ($if->stmts !== []) {
             return;
         }
+
         if ($if->else !== null) {
             return;
         }
+
         if ($if->elseifs !== []) {
             return;
         }
+
         if ($this->isNodeWithSideEffect($if->cond)) {
             return;
         }
+
         $this->removeNode($if);
     }
+
     /**
      * @return void
      */
-    private function processForeach(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function processForeach(Foreach_ $foreach)
     {
         if ($foreach->stmts !== []) {
             return;
         }
+
         if ($this->isNodeWithSideEffect($foreach->expr)) {
             return;
         }
+
         $this->removeNode($foreach);
     }
-    private function isNodeWithSideEffect(\PhpParser\Node\Expr $expr) : bool
+
+    private function isNodeWithSideEffect(Expr $expr): bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\Variable) {
-            return \false;
+        if ($expr instanceof Variable) {
+            return false;
         }
-        if ($expr instanceof \PhpParser\Node\Scalar) {
-            return \false;
+
+        if ($expr instanceof Scalar) {
+            return false;
         }
-        return !$this->valueResolver->isTrueOrFalse($expr);
+        return ! $this->valueResolver->isTrueOrFalse($expr);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\NodeTypeAnalyzer;
 
 use PhpParser\Node;
@@ -13,27 +14,32 @@ use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
+
 final class ChildTypeResolver
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+
+    public function __construct(StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }
+
     /**
      * @return \PhpParser\Node|null
      */
-    public function resolveChildTypeNode(\PHPStan\Type\Type $type)
+    public function resolveChildTypeNode(Type $type)
     {
-        if ($type instanceof \PHPStan\Type\MixedType) {
+        if ($type instanceof MixedType) {
             return null;
         }
-        if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType || $type instanceof \PHPStan\Type\StaticType) {
-            $type = new \PHPStan\Type\ObjectType($type->getClassName());
+
+        if ($type instanceof SelfObjectType || $type instanceof StaticType) {
+            $type = new ObjectType($type->getClassName());
         }
+
         return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
     }
 }

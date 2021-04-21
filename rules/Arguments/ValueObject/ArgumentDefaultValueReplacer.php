@@ -1,31 +1,38 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Arguments\ValueObject;
 
 use PHPStan\Type\ObjectType;
+
 final class ArgumentDefaultValueReplacer
 {
     /**
      * @var string
      */
     private $class;
+
     /**
      * @var string
      */
     private $method;
+
     /**
      * @var int
      */
     private $position;
+
     /**
      * @var mixed
      */
     private $valueBefore;
+
     /**
      * @var mixed
      */
     private $valueAfter;
+
     /**
      * @param mixed $valueBefore
      * @param mixed $valueAfter
@@ -38,18 +45,22 @@ final class ArgumentDefaultValueReplacer
         $this->valueBefore = $valueBefore;
         $this->valueAfter = $valueAfter;
     }
-    public function getObjectType() : \PHPStan\Type\ObjectType
+
+    public function getObjectType(): ObjectType
     {
-        return new \PHPStan\Type\ObjectType($this->class);
+        return new ObjectType($this->class);
     }
-    public function getMethod() : string
+
+    public function getMethod(): string
     {
         return $this->method;
     }
-    public function getPosition() : int
+
+    public function getPosition(): int
     {
         return $this->position;
     }
+
     /**
      * @return mixed
      */
@@ -57,6 +68,7 @@ final class ArgumentDefaultValueReplacer
     {
         return $this->valueBefore;
     }
+
     /**
      * @return mixed
      */

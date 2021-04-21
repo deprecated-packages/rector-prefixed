@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\Expression;
 
 use PhpParser\Node;
@@ -13,23 +14,28 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\MethodCallToReturn;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\Transform\Rector\Expression\MethodCallToReturnRector\MethodCallToReturnRectorTest
  */
-final class MethodCallToReturnRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MethodCallToReturnRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const METHOD_CALL_WRAPS = 'method_call_wraps';
+
     /**
      * @var MethodCallToReturn[]
      */
     private $methodCallWraps = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Wrap method call to return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Wrap method call to return', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -43,7 +49,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -57,55 +64,72 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::METHOD_CALL_WRAPS => ['SomeClass' => ['deny']]])]);
+
+            , [
+                self::METHOD_CALL_WRAPS => [
+                    'SomeClass' => ['deny'],
+                ],
+            ]),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Expression::class];
+        return [Expression::class];
     }
+
     /**
      * @param Expression $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $node->expr instanceof MethodCall) {
             return null;
         }
+
         $methodCall = $node->expr;
+
         return $this->refactorMethodCall($methodCall);
     }
+
     /**
      * @return void
      */
     public function configure(array $configuration)
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Transform\ValueObject\MethodCallToReturn::class);
+        Assert::allIsInstanceOf($methodCallWraps, MethodCallToReturn::class);
         $this->methodCallWraps = $methodCallWraps;
     }
+
     /**
      * @return \PhpParser\Node|null
      */
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function refactorMethodCall(MethodCall $methodCall)
     {
-        $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parent = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
+
         foreach ($this->methodCallWraps as $methodCallWrap) {
-            if (!$this->isObjectType($methodCall->var, $methodCallWrap->getObjectType())) {
+            if (! $this->isObjectType($methodCall->var, $methodCallWrap->getObjectType())) {
                 continue;
             }
-            if (!$this->isName($methodCall->name, $methodCallWrap->getMethod())) {
+
+            if (! $this->isName($methodCall->name, $methodCallWrap->getMethod())) {
                 continue;
             }
+
             // already wrapped
-            if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
+            if ($parent instanceof Return_) {
                 continue;
             }
-            return new \PhpParser\Node\Stmt\Return_($methodCall);
+
+            return new Return_($methodCall);
         }
+
         return null;
     }
 }

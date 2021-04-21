@@ -8,46 +8,57 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ReferenceConfigurator extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ReferenceConfigurator extends AbstractConfigurator
 {
     /** @internal */
     protected $id;
+
     /** @internal */
-    protected $invalidBehavior = \RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+    protected $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+
     public function __construct(string $id)
     {
         $this->id = $id;
     }
+
     /**
      * @return $this
      */
-    public final function ignoreOnInvalid()
+    final public function ignoreOnInvalid()
     {
-        $this->invalidBehavior = \RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
+        $this->invalidBehavior = ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
+
         return $this;
     }
+
     /**
      * @return $this
      */
-    public final function nullOnInvalid()
+    final public function nullOnInvalid()
     {
-        $this->invalidBehavior = \RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE;
+        $this->invalidBehavior = ContainerInterface::NULL_ON_INVALID_REFERENCE;
+
         return $this;
     }
+
     /**
      * @return $this
      */
-    public final function ignoreOnUninitialized()
+    final public function ignoreOnUninitialized()
     {
-        $this->invalidBehavior = \RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
+        $this->invalidBehavior = ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
+
         return $this;
     }
+
     /**
      * @return string
      */

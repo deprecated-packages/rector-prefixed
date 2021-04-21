@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -16,58 +17,68 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
+
+final class ObjectWithoutClassTypeMapper implements TypeMapperInterface, PHPStanStaticTypeMapperAwareInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
+
     /**
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+
+    public function __construct(PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\ObjectWithoutClassType::class;
+        return ObjectWithoutClassType::class;
     }
+
     /**
      * @param ObjectWithoutClassType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
-        if ($type instanceof \PHPStan\Type\Generic\TemplateObjectWithoutClassType) {
-            $attributeAwareIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getName());
-            return new \Rector\BetterPhpDocParser\ValueObject\Type\EmptyGenericTypeNode($attributeAwareIdentifierTypeNode);
+        if ($type instanceof TemplateObjectWithoutClassType) {
+            $attributeAwareIdentifierTypeNode = new IdentifierTypeNode($type->getName());
+            return new EmptyGenericTypeNode($attributeAwareIdentifierTypeNode);
         }
-        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('object');
+
+        return new IdentifierTypeNode('object');
     }
+
     /**
      * @param ObjectWithoutClassType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
         $subtractedType = $type->getSubtractedType();
         if ($subtractedType !== null) {
             return $this->phpStanStaticTypeMapper->mapToPhpParserNode($subtractedType);
         }
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::OBJECT_TYPE)) {
+
+        if (! $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::OBJECT_TYPE)) {
             return null;
         }
-        return new \PhpParser\Node\Name('object');
+
+        return new Name('object');
     }
+
     /**
      * @return void
      */
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper(PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

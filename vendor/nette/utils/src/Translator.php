@@ -4,19 +4,24 @@
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
-namespace RectorPrefix20210421\Nette\Localization;
+
+declare(strict_types=1);
+
+namespace Nette\Localization;
+
 
 /**
  * Translator adapter.
  */
 interface Translator
 {
-    /**
-     * Translates the given string.
-     * @param  mixed  $message
-     * @param  mixed  ...$parameters
-     */
-    function translate($message, ...$parameters) : string;
+	/**
+	 * Translates the given string.
+	 * @param  mixed  $message
+	 * @param  mixed  ...$parameters
+	 */
+	function translate($message, ...$parameters): string;
 }
-\interface_exists(\RectorPrefix20210421\Nette\Localization\Nette\Localization\ITranslator::class);
+
+
+interface_exists(Nette\Localization\ITranslator::class);

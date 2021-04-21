@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\String_;
 
 use PhpParser\Node;
@@ -12,22 +13,29 @@ use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\String_\SplitStringClassConstantToClassConstFetchRector\SplitStringClassConstantToClassConstFetchRectorTest
  */
-final class SplitStringClassConstantToClassConstFetchRector extends \Rector\Core\Rector\AbstractRector
+final class SplitStringClassConstantToClassConstFetchRector extends AbstractRector
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Separate class constant in a string to class constant fetch and string', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Separate class constant in a string to class constant fetch and string',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     const HI = true;
@@ -41,7 +49,8 @@ class AnotherClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     const HI = true;
@@ -55,30 +64,37 @@ class AnotherClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Scalar\String_::class];
+        return [String_::class];
     }
+
     /**
      * @param String_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (\substr_count($node->value, '::') !== 1) {
+        if (substr_count($node->value, '::') !== 1) {
             return null;
         }
+
         // a possible constant reference
-        list($possibleClass, $secondPart) = \explode('::', $node->value);
-        if (!$this->reflectionProvider->hasClass($possibleClass)) {
+        list($possibleClass, $secondPart) = explode('::', $node->value);
+
+        if (! $this->reflectionProvider->hasClass($possibleClass)) {
             return null;
         }
-        $classConstFetch = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified(\ltrim($possibleClass, '\\')), 'class');
-        return new \PhpParser\Node\Expr\BinaryOp\Concat($classConstFetch, new \PhpParser\Node\Scalar\String_('::' . $secondPart));
+
+        $classConstFetch = new ClassConstFetch(new FullyQualified(ltrim($possibleClass, '\\')), 'class');
+
+        return new Concat($classConstFetch, new String_('::' . $secondPart));
     }
 }

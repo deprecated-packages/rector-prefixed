@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -11,31 +12,44 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\GetToConstructorInjectionRector\GetToConstructorInjectionRectorTest
  */
-final class GetToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class GetToConstructorInjectionRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
+
     /**
      * @var ObjectType[]
      */
     private $getMethodAwareObjectTypes = [];
+
     /**
      * @var DependencyInjectionMethodCallAnalyzer
      */
     private $dependencyInjectionMethodCallAnalyzer;
-    public function __construct(\Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer $dependencyInjectionMethodCallAnalyzer)
+
+    public function __construct(DependencyInjectionMethodCallAnalyzer $dependencyInjectionMethodCallAnalyzer)
     {
-        $this->getMethodAwareObjectTypes = [new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'), new \PHPStan\Type\ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait')];
+        $this->getMethodAwareObjectTypes = [
+            new ObjectType('Symfony\Bundle\FrameworkBundle\Controller\Controller'),
+            new ObjectType('Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait'),
+        ];
+
         $this->dependencyInjectionMethodCallAnalyzer = $dependencyInjectionMethodCallAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony',
+            [
+                new ConfiguredCodeSample(
+                    <<<'CODE_SAMPLE'
 class MyCommand extends ContainerAwareCommand
 {
     public function someMethod()
@@ -45,7 +59,8 @@ class MyCommand extends ContainerAwareCommand
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class MyCommand extends Command
 {
     public function __construct(SomeService $someService)
@@ -59,29 +74,40 @@ class MyCommand extends Command
     }
 }
 CODE_SAMPLE
-, [self::GET_METHOD_AWARE_TYPES => ['SymfonyControllerClassName', 'GetTraitClassName']])]);
+                    ,
+                    [
+                        self::GET_METHOD_AWARE_TYPES => ['SymfonyControllerClassName', 'GetTraitClassName'],
+                    ]
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
+        if (! $this->nodeTypeResolver->isObjectTypes($node->var, $this->getMethodAwareObjectTypes)) {
             return null;
         }
-        if (!$this->isName($node->name, 'get')) {
+
+        if (! $this->isName($node->name, 'get')) {
             return null;
         }
+
         return $this->dependencyInjectionMethodCallAnalyzer->replaceMethodCallWithPropertyFetchAndDependency($node);
     }
+
     /**
      * @param array<string, mixed> $configuration
      * @return void
@@ -89,8 +115,9 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $getMethodAwareTypes = $configuration[self::GET_METHOD_AWARE_TYPES] ?? [];
+
         foreach ($getMethodAwareTypes as $getMethodAwareType) {
-            $this->getMethodAwareObjectTypes[] = new \PHPStan\Type\ObjectType($getMethodAwareType);
+            $this->getMethodAwareObjectTypes[] = new ObjectType($getMethodAwareType);
         }
     }
 }

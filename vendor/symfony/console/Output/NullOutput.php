@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Output;
 
-use RectorPrefix20210421\Symfony\Component\Console\Formatter\NullOutputFormatter;
-use RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+namespace Symfony\Component\Console\Output;
+
+use Symfony\Component\Console\Formatter\NullOutputFormatter;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+
 /**
  * NullOutput suppresses all output.
  *
@@ -20,16 +22,18 @@ use RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInte
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface
+class NullOutput implements OutputInterface
 {
     private $formatter;
+
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(OutputFormatterInterface $formatter)
     {
         // do nothing
     }
+
     /**
      * {@inheritdoc}
      */
@@ -39,8 +43,9 @@ class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Outp
             return $this->formatter;
         }
         // to comply with the interface we must return a OutputFormatterInterface
-        return $this->formatter = new \RectorPrefix20210421\Symfony\Component\Console\Formatter\NullOutputFormatter();
+        return $this->formatter = new NullOutputFormatter();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -48,13 +53,15 @@ class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Outp
     {
         // do nothing
     }
+
     /**
      * {@inheritdoc}
      */
     public function isDecorated()
     {
-        return \false;
+        return false;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -62,6 +69,7 @@ class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Outp
     {
         // do nothing
     }
+
     /**
      * {@inheritdoc}
      */
@@ -69,34 +77,39 @@ class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Outp
     {
         return self::VERBOSITY_QUIET;
     }
+
     /**
      * {@inheritdoc}
      */
     public function isQuiet()
     {
-        return \true;
+        return true;
     }
+
     /**
      * {@inheritdoc}
      */
     public function isVerbose()
     {
-        return \false;
+        return false;
     }
+
     /**
      * {@inheritdoc}
      */
     public function isVeryVerbose()
     {
-        return \false;
+        return false;
     }
+
     /**
      * {@inheritdoc}
      */
     public function isDebug()
     {
-        return \false;
+        return false;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -104,10 +117,11 @@ class NullOutput implements \RectorPrefix20210421\Symfony\Component\Console\Outp
     {
         // do nothing
     }
+
     /**
      * {@inheritdoc}
      */
-    public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
+    public function write($messages, bool $newline = false, int $options = self::OUTPUT_NORMAL)
     {
         // do nothing
     }

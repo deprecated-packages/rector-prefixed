@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\Class_;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
@@ -15,63 +16,82 @@ use Rector\Symfony\ValueObject\EventNameToClassAndConstant;
 use Rector\Symfony\ValueObject\ServiceDefinition;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Symfony\Tests\Rector\Class_\EventListenerToEventSubscriberRector\EventListenerToEventSubscriberRectorTest
  */
-final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\AbstractRector
+final class EventListenerToEventSubscriberRector extends AbstractRector
 {
     /**
      * @var string
      */
-    const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
+    const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
+
     /**
      * @var string
      */
-    const KERNEL_EVENTS_CLASS = 'Symfony\\Component\\HttpKernel\\KernelEvents';
+    const KERNEL_EVENTS_CLASS = 'Symfony\Component\HttpKernel\KernelEvents';
+
     /**
      * @var string
      */
-    const CONSOLE_EVENTS_CLASS = 'Symfony\\Component\\Console\\ConsoleEvents';
+    const CONSOLE_EVENTS_CLASS = 'Symfony\Component\Console\ConsoleEvents';
+
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
      */
     const LISTENER_MATCH_REGEX = '#^(.*?)(Listener)?$#';
+
     /**
      * @var EventNameToClassAndConstant[]
      */
     private $eventNamesToClassConstants = [];
+
     /**
      * @var ListenerServiceDefinitionProvider
      */
     private $listenerServiceDefinitionProvider;
+
     /**
      * @var GetSubscribedEventsClassMethodFactory
      */
     private $getSubscribedEventsClassMethodFactory;
-    public function __construct(\Rector\Symfony\ApplicationMetadata\ListenerServiceDefinitionProvider $listenerServiceDefinitionProvider, \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
-    {
+
+    public function __construct(
+        ListenerServiceDefinitionProvider $listenerServiceDefinitionProvider,
+        GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory
+    ) {
         $this->eventNamesToClassConstants = [
             // kernel events
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.request', self::KERNEL_EVENTS_CLASS, 'REQUEST'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.exception', self::KERNEL_EVENTS_CLASS, 'EXCEPTION'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.view', self::KERNEL_EVENTS_CLASS, 'VIEW'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.controller', self::KERNEL_EVENTS_CLASS, 'CONTROLLER'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.controller_arguments', self::KERNEL_EVENTS_CLASS, 'CONTROLLER_ARGUMENTS'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.response', self::KERNEL_EVENTS_CLASS, 'RESPONSE'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.terminate', self::KERNEL_EVENTS_CLASS, 'TERMINATE'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('kernel.finish_request', self::KERNEL_EVENTS_CLASS, 'FINISH_REQUEST'),
+            new EventNameToClassAndConstant('kernel.request', self::KERNEL_EVENTS_CLASS, 'REQUEST'),
+            new EventNameToClassAndConstant('kernel.exception', self::KERNEL_EVENTS_CLASS, 'EXCEPTION'),
+            new EventNameToClassAndConstant('kernel.view', self::KERNEL_EVENTS_CLASS, 'VIEW'),
+            new EventNameToClassAndConstant('kernel.controller', self::KERNEL_EVENTS_CLASS, 'CONTROLLER'),
+            new EventNameToClassAndConstant(
+                'kernel.controller_arguments',
+                self::KERNEL_EVENTS_CLASS,
+                'CONTROLLER_ARGUMENTS'
+            ),
+            new EventNameToClassAndConstant('kernel.response', self::KERNEL_EVENTS_CLASS, 'RESPONSE'),
+            new EventNameToClassAndConstant('kernel.terminate', self::KERNEL_EVENTS_CLASS, 'TERMINATE'),
+            new EventNameToClassAndConstant('kernel.finish_request', self::KERNEL_EVENTS_CLASS, 'FINISH_REQUEST'),
             // console events
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('console.command', self::CONSOLE_EVENTS_CLASS, 'COMMAND'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('console.terminate', self::CONSOLE_EVENTS_CLASS, 'TERMINATE'),
-            new \Rector\Symfony\ValueObject\EventNameToClassAndConstant('console.error', self::CONSOLE_EVENTS_CLASS, 'ERROR'),
+            new EventNameToClassAndConstant('console.command', self::CONSOLE_EVENTS_CLASS, 'COMMAND'),
+            new EventNameToClassAndConstant('console.terminate', self::CONSOLE_EVENTS_CLASS, 'TERMINATE'),
+            new EventNameToClassAndConstant('console.error', self::CONSOLE_EVENTS_CLASS, 'ERROR'),
         ];
         $this->listenerServiceDefinitionProvider = $listenerServiceDefinitionProvider;
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Symfony Event listener class to Event Subscriber based on configuration in service.yaml file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change Symfony Event listener class to Event Subscriber based on configuration in service.yaml file',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeListener
 {
      public function methodToBeCalled()
@@ -85,7 +105,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: 'some_event', method: 'methodToBeCalled' }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SomeEventSubscriber implements EventSubscriberInterface
@@ -103,62 +124,80 @@ class SomeEventSubscriber implements EventSubscriberInterface
      }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         // anonymous class
         if ($node->name === null) {
             return null;
         }
+
         // is already a subscriber
         if ($this->isAlreadyEventSubscriber($node)) {
             return null;
         }
+
         // there must be event dispatcher in the application
         $listenerClassesToEventsToMethods = $this->listenerServiceDefinitionProvider->extract();
         if ($listenerClassesToEventsToMethods === []) {
             return null;
         }
+
         $className = $this->getName($node);
-        if (!isset($listenerClassesToEventsToMethods[$className])) {
+        if (! isset($listenerClassesToEventsToMethods[$className])) {
             return null;
         }
+
         $this->changeListenerToSubscriberWithMethods($node, $listenerClassesToEventsToMethods[$className]);
         return $node;
     }
-    private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
+
+    private function isAlreadyEventSubscriber(Class_ $class): bool
     {
         foreach ($class->implements as $implement) {
-            if ($this->isName($implement, 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
-                return \true;
+            if ($this->isName($implement, 'Symfony\Component\EventDispatcher\EventSubscriberInterface')) {
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @param array<string, ServiceDefinition[]> $eventsToMethods
      * @return void
      */
-    private function changeListenerToSubscriberWithMethods(\PhpParser\Node\Stmt\Class_ $class, array $eventsToMethods)
+    private function changeListenerToSubscriberWithMethods(Class_ $class, array $eventsToMethods)
     {
-        $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
+        $class->implements[] = new FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
+
         $classShortName = $this->nodeNameResolver->getShortName($class);
+
         // remove suffix
-        $classShortName = \RectorPrefix20210421\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
-        $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
-        $classMethod = $this->getSubscribedEventsClassMethodFactory->createFromServiceDefinitionsAndEventsToMethods($eventsToMethods, $this->eventNamesToClassConstants);
+        $classShortName = Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+
+        $class->name = new Identifier($classShortName . 'EventSubscriber');
+
+        $classMethod = $this->getSubscribedEventsClassMethodFactory->createFromServiceDefinitionsAndEventsToMethods(
+            $eventsToMethods,
+            $this->eventNamesToClassConstants
+        );
         $class->stmts[] = $classMethod;
     }
 }

@@ -1,68 +1,96 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Generics\Reflection;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\Reflection\MethodReflection;
 use Rector\Generics\TagValueNodeFactory\MethodTagValueNodeFactory;
 use Rector\Generics\ValueObject\ChildParentClassReflections;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\SimplePhpDocParser;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+use Symplify\SimplePhpDocParser\SimplePhpDocParser;
+use Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+
 final class ClassGenericMethodResolver
 {
     /**
      * @var SimplePhpDocParser
      */
     private $simplePhpDocParser;
+
     /**
      * @var MethodTagValueNodeFactory
      */
     private $methodTagValueNodeFactory;
-    public function __construct(\RectorPrefix20210421\Symplify\SimplePhpDocParser\SimplePhpDocParser $simplePhpDocParser, \Rector\Generics\TagValueNodeFactory\MethodTagValueNodeFactory $methodTagValueNodeFactory)
-    {
+
+    public function __construct(
+        SimplePhpDocParser $simplePhpDocParser,
+        MethodTagValueNodeFactory $methodTagValueNodeFactory
+    ) {
         $this->simplePhpDocParser = $simplePhpDocParser;
         $this->methodTagValueNodeFactory = $methodTagValueNodeFactory;
     }
+
     /**
      * @return MethodTagValueNode[]
      */
-    public function resolveFromClass(\Rector\Generics\ValueObject\ChildParentClassReflections $genericChildParentClassReflections) : array
+    public function resolveFromClass(ChildParentClassReflections $genericChildParentClassReflections): array
     {
         $methodTagValueNodes = [];
+
         $classReflection = $genericChildParentClassReflections->getParentClassReflection();
-        $templateNames = \array_keys($classReflection->getTemplateTags());
+        $templateNames = array_keys($classReflection->getTemplateTags());
+
         foreach ($classReflection->getNativeMethods() as $methodReflection) {
             $parentMethodDocComment = $methodReflection->getDocComment();
             if ($parentMethodDocComment === null) {
                 continue;
             }
+
             // how to parse?
             $parentMethodSimplePhpDocNode = $this->simplePhpDocParser->parseDocBlock($parentMethodDocComment);
-            $methodTagValueNode = $this->resolveMethodTagValueNode($parentMethodSimplePhpDocNode, $templateNames, $methodReflection, $genericChildParentClassReflections);
-            if (!$methodTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode) {
+            $methodTagValueNode = $this->resolveMethodTagValueNode(
+                $parentMethodSimplePhpDocNode,
+                $templateNames,
+                $methodReflection,
+                $genericChildParentClassReflections
+            );
+            if (! $methodTagValueNode instanceof MethodTagValueNode) {
                 continue;
             }
+
             $methodTagValueNodes[] = $methodTagValueNode;
         }
+
         return $methodTagValueNodes;
     }
+
     /**
      * @param string[] $templateNames
      * @return \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode|null
      */
-    private function resolveMethodTagValueNode(\RectorPrefix20210421\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode $simplePhpDocNode, array $templateNames, \PHPStan\Reflection\MethodReflection $methodReflection, \Rector\Generics\ValueObject\ChildParentClassReflections $genericChildParentClassReflections)
-    {
+    private function resolveMethodTagValueNode(
+        SimplePhpDocNode $simplePhpDocNode,
+        array $templateNames,
+        MethodReflection $methodReflection,
+        ChildParentClassReflections $genericChildParentClassReflections
+    ) {
         foreach ($simplePhpDocNode->getReturnTagValues() as $returnTagValueNode) {
             foreach ($templateNames as $templateName) {
                 $typeAsString = (string) $returnTagValueNode->type;
-                if (!\RectorPrefix20210421\Nette\Utils\Strings::match($typeAsString, '#\\b' . \preg_quote($templateName, '#') . '\\b#')) {
+                if (! Strings::match($typeAsString, '#\b' . preg_quote($templateName, '#') . '\b#')) {
                     continue;
                 }
-                return $this->methodTagValueNodeFactory->createFromMethodReflectionAndReturnTagValueNode($methodReflection, $returnTagValueNode, $genericChildParentClassReflections);
+
+                return $this->methodTagValueNodeFactory->createFromMethodReflectionAndReturnTagValueNode(
+                    $methodReflection,
+                    $returnTagValueNode,
+                    $genericChildParentClassReflections
+                );
             }
         }
+
         return null;
     }
 }

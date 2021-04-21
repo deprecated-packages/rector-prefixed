@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -12,22 +13,27 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\ClassMethod\RemoveUnusedConstructorParamRector\RemoveUnusedConstructorParamRectorTest
  */
-final class RemoveUnusedConstructorParamRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnusedConstructorParamRector extends AbstractRector
 {
     /**
      * @var ParamAnalyzer
      */
     private $paramAnalyzer;
-    public function __construct(\Rector\Core\NodeAnalyzer\ParamAnalyzer $paramAnalyzer)
+
+    public function __construct(ParamAnalyzer $paramAnalyzer)
     {
         $this->paramAnalyzer = $paramAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused parameter in constructor', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove unused parameter in constructor', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $hey;
@@ -38,7 +44,9 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $hey;
@@ -49,43 +57,54 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (! $this->isName($node, MethodName::CONSTRUCT)) {
             return null;
         }
+
         if ($node->params === []) {
             return null;
         }
+
         if ($this->paramAnalyzer->hasPropertyPromotion($node->params)) {
             return null;
         }
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if ($classLike instanceof Interface_) {
             return null;
         }
+
         if ($node->isAbstract()) {
             return null;
         }
+
         foreach ($node->params as $param) {
             if ($this->paramAnalyzer->isParamUsedInClassMethod($node, $param)) {
                 continue;
             }
+
             $this->nodeRemover->removeParam($node, $param);
         }
+
         return null;
     }
 }

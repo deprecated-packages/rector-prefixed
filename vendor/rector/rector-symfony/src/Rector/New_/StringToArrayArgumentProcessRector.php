@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\New_;
 
 use PhpParser\Node;
@@ -17,145 +18,179 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210421\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20210421\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use Symfony\Component\Console\Input\StringInput;
+use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://github.com/symfony/symfony/pull/27821/files
  * @see \Rector\Symfony\Tests\Rector\New_\StringToArrayArgumentProcessRector\StringToArrayArgumentProcessRectorTest
  */
-final class StringToArrayArgumentProcessRector extends \Rector\Core\Rector\AbstractRector
+final class StringToArrayArgumentProcessRector extends AbstractRector
 {
     /**
      * @var NodeTransformer
      */
     private $nodeTransformer;
-    public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer)
+
+    public function __construct(NodeTransformer $nodeTransformer)
     {
         $this->nodeTransformer = $nodeTransformer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Process string argument to an array', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Changes Process string argument to an array',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Symfony\Component\Process\Process;
 $process = new Process('ls -l');
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use Symfony\Component\Process\Process;
 $process = new Process(['ls', '-l']);
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\MethodCall::class];
+        return [New_::class, MethodCall::class];
     }
+
     /**
      * @param New_|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
-        if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('Symfony\\Component\\Process\\Process'))) {
+        $expr = $node instanceof New_ ? $node->class : $node->var;
+
+        if ($this->isObjectType($expr, new ObjectType('Symfony\Component\Process\Process'))) {
             return $this->processArgumentPosition($node, 0);
         }
-        if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('Symfony\\Component\\Console\\Helper\\ProcessHelper'))) {
+
+        if ($this->isObjectType($expr, new ObjectType('Symfony\Component\Console\Helper\ProcessHelper'))) {
             return $this->processArgumentPosition($node, 1);
         }
+
         return null;
     }
+
     /**
      * @param New_|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition)
+    private function processArgumentPosition(Node $node, int $argumentPosition)
     {
-        if (!isset($node->args[$argumentPosition])) {
+        if (! isset($node->args[$argumentPosition])) {
             return null;
         }
+
         $firstArgument = $node->args[$argumentPosition]->value;
-        if ($firstArgument instanceof \PhpParser\Node\Expr\Array_) {
+        if ($firstArgument instanceof Array_) {
             return null;
         }
+
         // type analyzer
-        if ($this->nodeTypeResolver->isStaticType($firstArgument, \PHPStan\Type\StringType::class)) {
+        if ($this->nodeTypeResolver->isStaticType($firstArgument, StringType::class)) {
             $this->processStringType($node, $argumentPosition, $firstArgument);
         }
+
         return $node;
     }
+
     /**
      * @param New_|MethodCall $expr
      * @return void
      */
-    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processStringType(Expr $expr, int $argumentPosition, Expr $firstArgumentExpr)
     {
-        if ($firstArgumentExpr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($firstArgumentExpr instanceof Concat) {
             $arrayNode = $this->nodeTransformer->transformConcatToStringArray($firstArgumentExpr);
             if ($arrayNode !== null) {
-                $expr->args[$argumentPosition] = new \PhpParser\Node\Arg($arrayNode);
+                $expr->args[$argumentPosition] = new Arg($arrayNode);
             }
+
             return;
         }
-        if ($firstArgumentExpr instanceof \PhpParser\Node\Expr\FuncCall && $this->isName($firstArgumentExpr, 'sprintf')) {
+
+        if ($firstArgumentExpr instanceof FuncCall && $this->isName($firstArgumentExpr, 'sprintf')) {
             $arrayNode = $this->nodeTransformer->transformSprintfToArray($firstArgumentExpr);
             if ($arrayNode !== null) {
                 $expr->args[$argumentPosition]->value = $arrayNode;
             }
-        } elseif ($firstArgumentExpr instanceof \PhpParser\Node\Scalar\String_) {
+        } elseif ($firstArgumentExpr instanceof String_) {
             $parts = $this->splitProcessCommandToItems($firstArgumentExpr->value);
             $expr->args[$argumentPosition]->value = $this->nodeFactory->createArray($parts);
         }
+
         $this->processPreviousAssign($expr, $firstArgumentExpr);
     }
+
     /**
      * @return string[]
      */
-    private function splitProcessCommandToItems(string $process) : array
+    private function splitProcessCommandToItems(string $process): array
     {
-        $privatesCaller = new \RectorPrefix20210421\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210421\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
+        $privatesCaller = new PrivatesCaller();
+        return $privatesCaller->callPrivateMethod(new StringInput(''), 'tokenize', [$process]);
     }
+
     /**
      * @return void
      */
-    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processPreviousAssign(Node $node, Expr $firstArgumentExpr)
     {
         $assign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
-        if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
+        if (! $assign instanceof Assign) {
             return;
         }
-        if (!$assign->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+
+        if (! $assign->expr instanceof FuncCall) {
             return;
         }
+
         $funcCall = $assign->expr;
-        if (!$this->nodeNameResolver->isName($funcCall, 'sprintf')) {
+
+        if (! $this->nodeNameResolver->isName($funcCall, 'sprintf')) {
             return;
         }
+
         $arrayNode = $this->nodeTransformer->transformSprintfToArray($funcCall);
         if ($arrayNode !== null) {
             $assign->expr = $arrayNode;
         }
     }
+
     /**
      * @return \PhpParser\Node\Expr\Assign|null
      */
-    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function findPreviousNodeAssign(Node $node, Expr $firstArgumentExpr)
     {
         /** @var Assign|null $assign */
-        $assign = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $checkedNode) use($firstArgumentExpr) : ?Assign {
-            if (!$checkedNode instanceof \PhpParser\Node\Expr\Assign) {
+        $assign = $this->betterNodeFinder->findFirstPrevious($node, function (Node $checkedNode) use (
+            $firstArgumentExpr
+        ): ?Assign {
+            if (! $checkedNode instanceof Assign) {
                 return null;
             }
-            if (!$this->nodeComparator->areNodesEqual($checkedNode->var, $firstArgumentExpr)) {
+
+            if (! $this->nodeComparator->areNodesEqual($checkedNode->var, $firstArgumentExpr)) {
                 return null;
             }
+
             return $checkedNode;
         });
+
         return $assign;
     }
 }

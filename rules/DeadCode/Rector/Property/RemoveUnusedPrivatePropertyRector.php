@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\Property;
 
 use PhpParser\Node;
@@ -14,71 +15,87 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Removing\NodeManipulator\ComplexNodeRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector\RemoveUnusedPrivatePropertyRectorTest
  */
-final class RemoveUnusedPrivatePropertyRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUnusedPrivatePropertyRector extends AbstractRector
 {
     /**
      * @var PropertyManipulator
      */
     private $propertyManipulator;
+
     /**
      * @var ComplexNodeRemover
      */
     private $complexNodeRemover;
-    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover)
+
+    public function __construct(PropertyManipulator $propertyManipulator, ComplexNodeRemover $complexNodeRemover)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->complexNodeRemover = $complexNodeRemover;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unused private properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove unused private properties', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $property;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [Property::class];
     }
+
     /**
      * @param Property $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
         }
+
         if ($this->propertyManipulator->isPropertyUsedInReadContext($node)) {
             return null;
         }
+
         $this->complexNodeRemover->removePropertyAndUsages($node);
+
         return $node;
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+
+    private function shouldSkipProperty(Property $property): bool
     {
-        if (\count($property->props) !== 1) {
-            return \true;
+        if (count($property->props) !== 1) {
+            return true;
         }
-        if (!$property->isPrivate()) {
-            return \true;
+
+        if (! $property->isPrivate()) {
+            return true;
         }
+
         /** @var Class_|Interface_|Trait_|null $classLike */
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        return !$classLike instanceof \PhpParser\Node\Stmt\Class_;
+        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
+        return ! $classLike instanceof Class_;
     }
 }

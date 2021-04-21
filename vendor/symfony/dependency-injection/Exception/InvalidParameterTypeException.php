@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception;
+
+namespace Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Thrown when trying to inject a parameter into a constructor/method with an incompatible type.
@@ -16,15 +17,19 @@ namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception;
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Julien Maulny <jmaulny@darkmira.fr>
  */
-class InvalidParameterTypeException extends \RectorPrefix20210421\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+class InvalidParameterTypeException extends InvalidArgumentException
 {
     public function __construct(string $serviceId, string $type, \ReflectionParameter $parameter)
     {
         $acceptedType = $parameter->getType();
         $acceptedType = $acceptedType instanceof \ReflectionNamedType ? $acceptedType->getName() : (string) $acceptedType;
         $this->code = $type;
+
         $function = $parameter->getDeclaringFunction();
-        $functionName = $function instanceof \ReflectionMethod ? \sprintf('%s::%s', $function->getDeclaringClass()->getName(), $function->getName()) : $function->getName();
-        parent::__construct(\sprintf('Invalid definition for service "%s": argument %d of "%s()" accepts "%s", "%s" passed.', $serviceId, 1 + $parameter->getPosition(), $functionName, $acceptedType, $type));
+        $functionName = $function instanceof \ReflectionMethod
+            ? sprintf('%s::%s', $function->getDeclaringClass()->getName(), $function->getName())
+            : $function->getName();
+
+        parent::__construct(sprintf('Invalid definition for service "%s": argument %d of "%s()" accepts "%s", "%s" passed.', $serviceId, 1 + $parameter->getPosition(), $functionName, $acceptedType, $type));
     }
 }

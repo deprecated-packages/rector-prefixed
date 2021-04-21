@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -15,77 +16,109 @@ use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-final class GetComponentMethodCallFormControlTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface, \Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface
+
+final class GetComponentMethodCallFormControlTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var ValueResolver
      */
     private $valueResolver;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
+
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
-    {
+
+    public function __construct(
+        NodeNameResolver $nodeNameResolver,
+        NodeTypeResolver $nodeTypeResolver,
+        ValueResolver $valueResolver,
+        NodeRepository $nodeRepository
+    ) {
         $this->valueResolver = $valueResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeRepository = $nodeRepository;
     }
+
     /**
      * @return array<string, string>
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(Node $node): array
     {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $node instanceof MethodCall) {
             return [];
         }
-        if (!$this->nodeNameResolver->isName($node->name, 'getComponent')) {
+
+        if (! $this->nodeNameResolver->isName($node->name, 'getComponent')) {
             return [];
         }
+
         $createComponentClassMethodName = $this->createCreateComponentMethodName($node);
+
         $staticType = $this->nodeTypeResolver->getStaticType($node);
-        if (!$staticType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
+
+        if (! $staticType instanceof FullyQualifiedObjectType) {
             return [];
         }
+
         // combine constructor + method body name
         $constructorClassMethodData = [];
-        $constructorClassMethod = $this->nodeRepository->findClassMethod($staticType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $this->nodeRepository->findClassMethod(
+            $staticType->getClassName(),
+            MethodName::CONSTRUCT
+        );
+
         if ($constructorClassMethod !== null) {
             $constructorClassMethodData = $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
         }
+
         $callerType = $this->nodeTypeResolver->getStaticType($node->var);
+
         $createComponentClassMethodData = [];
-        if ($callerType instanceof \PHPStan\Type\TypeWithClassName) {
-            $createComponentClassMethod = $this->nodeRepository->findClassMethod($callerType->getClassName(), $createComponentClassMethodName);
+        if ($callerType instanceof TypeWithClassName) {
+            $createComponentClassMethod = $this->nodeRepository->findClassMethod(
+                $callerType->getClassName(),
+                $createComponentClassMethodName
+            );
+
             if ($createComponentClassMethod !== null) {
-                $createComponentClassMethodData = $this->methodNamesByInputNamesResolver->resolveExpr($createComponentClassMethod);
+                $createComponentClassMethodData = $this->methodNamesByInputNamesResolver->resolveExpr(
+                    $createComponentClassMethod
+                );
             }
         }
-        return \array_merge($constructorClassMethodData, $createComponentClassMethodData);
+
+        return array_merge($constructorClassMethodData, $createComponentClassMethodData);
     }
+
     /**
      * @return void
      */
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-    private function createCreateComponentMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+
+    private function createCreateComponentMethodName(MethodCall $methodCall): string
     {
         $firstArgumentValue = $methodCall->args[0]->value;
-        return 'createComponent' . \ucfirst($this->valueResolver->getValue($firstArgumentValue));
+
+        return 'createComponent' . ucfirst($this->valueResolver->getValue($firstArgumentValue));
     }
 }

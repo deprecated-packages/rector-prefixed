@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Privatization\Rector\Property;
 
 use PhpParser\Node;
@@ -12,82 +13,103 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector\PrivatizeFinalClassPropertyRectorTest
  */
-final class PrivatizeFinalClassPropertyRector extends \Rector\Core\Rector\AbstractRector
+final class PrivatizeFinalClassPropertyRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change property to private if possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change property to private if possible', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     protected $value;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $value;
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [Property::class];
     }
+
     /**
      * @param Property $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             return null;
         }
-        if (!$classLike->isFinal()) {
+
+        if (! $classLike->isFinal()) {
             return null;
         }
+
         if ($this->shouldSkipProperty($node)) {
             return null;
         }
+
         if ($classLike->extends === null) {
             $this->visibilityManipulator->makePrivate($node);
             return $node;
         }
+
         if ($this->isPropertyVisibilityGuardedByParent($node, $classLike)) {
             return null;
         }
+
         $this->visibilityManipulator->makePrivate($node);
+
         return $node;
     }
-    private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
+
+    private function shouldSkipProperty(Property $property): bool
     {
-        if (\count($property->props) !== 1) {
-            return \true;
+        if (count($property->props) !== 1) {
+            return true;
         }
-        return !$property->isProtected();
+
+        return ! $property->isProtected();
     }
-    private function isPropertyVisibilityGuardedByParent(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\Class_ $class) : bool
+
+    private function isPropertyVisibilityGuardedByParent(Property $property, Class_ $class): bool
     {
         if ($class->extends === null) {
-            return \false;
+            return false;
         }
+
         /** @var Scope $scope */
-        $scope = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $property->getAttribute(AttributeKey::SCOPE);
+
         /** @var ClassReflection $classReflection */
         $classReflection = $scope->getClassReflection();
+
         $propertyName = $this->getName($property);
+
         foreach ($classReflection->getParents() as $parentClassReflection) {
             if ($parentClassReflection->hasProperty($propertyName)) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
 }

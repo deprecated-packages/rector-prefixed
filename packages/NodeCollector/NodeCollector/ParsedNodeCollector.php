@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeCollector\NodeCollector;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -20,6 +21,7 @@ use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+
 /**
  * All parsed nodes grouped type
  * @see https://phpstan.org/blog/generics-in-php-using-phpdocs
@@ -32,70 +34,85 @@ final class ParsedNodeCollector
      * @var array<class-string<Node>>
      */
     const COLLECTABLE_NODE_TYPES = [
-        \PhpParser\Node\Stmt\Class_::class,
-        \PhpParser\Node\Stmt\Interface_::class,
-        \PhpParser\Node\Stmt\ClassConst::class,
-        \PhpParser\Node\Expr\ClassConstFetch::class,
-        \PhpParser\Node\Stmt\Trait_::class,
-        \PhpParser\Node\Stmt\ClassMethod::class,
+        Class_::class,
+        Interface_::class,
+        ClassConst::class,
+        ClassConstFetch::class,
+        Trait_::class,
+        ClassMethod::class,
         // simply collected
-        \PhpParser\Node\Expr\StaticCall::class,
-        \PhpParser\Node\Expr\MethodCall::class,
+        StaticCall::class,
+        MethodCall::class,
         // for array callable - [$this, 'someCall']
-        \PhpParser\Node\Expr\Array_::class,
+        Array_::class,
     ];
+
     /**
      * @var Class_[]
      */
     private $classes = [];
+
     /**
      * @var ClassConst[][]
      */
     private $constantsByType = [];
+
     /**
      * @var Interface_[]
      */
     private $interfaces = [];
+
     /**
      * @var Trait_[]
      */
     private $traits = [];
+
     /**
      * @var StaticCall[]
      */
     private $staticCalls = [];
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
+
     /**
      * @var ClassAnalyzer
      */
     private $classAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)
-    {
+
+    public function __construct(
+        NodeNameResolver $nodeNameResolver,
+        ParentClassScopeResolver $parentClassScopeResolver,
+        ClassAnalyzer $classAnalyzer
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->parentClassScopeResolver = $parentClassScopeResolver;
         $this->classAnalyzer = $classAnalyzer;
     }
+
     /**
      * @return Interface_[]
      */
-    public function getInterfaces() : array
+    public function getInterfaces(): array
     {
         return $this->interfaces;
     }
+
     /**
      * @return Class_[]
      */
-    public function getClasses() : array
+    public function getClasses(): array
     {
         return $this->classes;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Class_|null
      */
@@ -103,6 +120,7 @@ final class ParsedNodeCollector
     {
         return $this->classes[$name] ?? null;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Interface_|null
      */
@@ -110,6 +128,7 @@ final class ParsedNodeCollector
     {
         return $this->interfaces[$name] ?? null;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Trait_|null
      */
@@ -117,6 +136,7 @@ final class ParsedNodeCollector
     {
         return $this->traits[$name] ?? null;
     }
+
     /**
      * Guessing the nearest neighboor.
      * Used e.g. for "XController"
@@ -125,132 +145,157 @@ final class ParsedNodeCollector
     public function findByShortName(string $shortName)
     {
         foreach ($this->classes as $className => $classNode) {
-            if (\RectorPrefix20210421\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
+            if (Strings::endsWith($className, '\\' . $shortName)) {
                 return $classNode;
             }
         }
+
         return null;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\ClassConst|null
      */
     public function findClassConstant(string $className, string $constantName)
     {
-        if (\RectorPrefix20210421\Nette\Utils\Strings::contains($constantName, '\\')) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
+        if (Strings::contains($constantName, '\\')) {
+            throw new ShouldNotHappenException(sprintf('Switched arguments in "%s"', __METHOD__));
         }
+
         return $this->constantsByType[$className][$constantName] ?? null;
     }
-    public function isCollectableNode(\PhpParser\Node $node) : bool
+
+    public function isCollectableNode(Node $node): bool
     {
         foreach (self::COLLECTABLE_NODE_TYPES as $collectableNodeType) {
             /** @var class-string<Node> $collectableNodeType */
-            if (\is_a($node, $collectableNodeType, \true)) {
-                return \true;
+            if (is_a($node, $collectableNodeType, true)) {
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @return void
      */
-    public function collect(\PhpParser\Node $node)
+    public function collect(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
+        if ($node instanceof Class_) {
             $this->addClass($node);
             return;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\Interface_ || $node instanceof \PhpParser\Node\Stmt\Trait_) {
+
+        if ($node instanceof Interface_ || $node instanceof Trait_) {
             $this->collectInterfaceOrTrait($node);
             return;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
+
+        if ($node instanceof ClassConst) {
             $this->addClassConstant($node);
             return;
         }
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+
+        if ($node instanceof StaticCall) {
             $this->staticCalls[] = $node;
             return;
         }
     }
+
     /**
      * @return \PhpParser\Node\Stmt\ClassConst|null
      */
-    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
+    public function findClassConstByClassConstFetch(ClassConstFetch $classConstFetch)
     {
         $className = $this->nodeNameResolver->getName($classConstFetch->class);
         if ($className === null) {
             return null;
         }
+
         $class = $this->resolveClassConstant($classConstFetch, $className);
         if ($class === null) {
             return null;
         }
+
         /** @var string $constantName */
         $constantName = $this->nodeNameResolver->getName($classConstFetch->name);
+
         return $this->findClassConstant($class, $constantName);
     }
+
     /**
      * @return StaticCall[]
      */
-    public function getStaticCalls() : array
+    public function getStaticCalls(): array
     {
         return $this->staticCalls;
     }
+
     /**
      * @return void
      */
-    private function addClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function addClass(Class_ $class)
     {
         if ($this->classAnalyzer->isAnonymousClass($class)) {
             return;
         }
-        $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+
+        $className = $class->getAttribute(AttributeKey::CLASS_NAME);
         if ($className === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
+
         $this->classes[$className] = $class;
     }
+
     /**
      * @param Interface_|Trait_ $classLike
      * @return void
      */
-    private function collectInterfaceOrTrait(\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function collectInterfaceOrTrait(ClassLike $classLike)
     {
         $name = $this->nodeNameResolver->getName($classLike);
         if ($name === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
-        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+
+        if ($classLike instanceof Interface_) {
             $this->interfaces[$name] = $classLike;
-        } elseif ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
+        } elseif ($classLike instanceof Trait_) {
             $this->traits[$name] = $classLike;
         }
     }
+
     /**
      * @return void
      */
-    private function addClassConstant(\PhpParser\Node\Stmt\ClassConst $classConst)
+    private function addClassConstant(ClassConst $classConst)
     {
-        $className = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classConst->getAttribute(AttributeKey::CLASS_NAME);
         if ($className === null) {
             // anonymous class constant
             return;
         }
+
         $constantName = $this->nodeNameResolver->getName($classConst);
+
         $this->constantsByType[$className][$constantName] = $classConst;
     }
+
     /**
      * @return string|null
      */
-    private function resolveClassConstant(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $className)
+    private function resolveClassConstant(ClassConstFetch $classConstFetch, string $className)
     {
         if ($className === 'self') {
-            return $classConstFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            return $classConstFetch->getAttribute(AttributeKey::CLASS_NAME);
         }
+
         if ($className === 'parent') {
             return $this->parentClassScopeResolver->resolveParentClassName($classConstFetch);
         }
+
         return $className;
     }
 }

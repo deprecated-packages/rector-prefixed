@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\Return_;
 
 use PhpParser\Node;
@@ -20,20 +21,29 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * Covers https://twig.symfony.com/doc/1.x/deprecated.html#function
  *
  * @see \Rector\Symfony\Tests\Rector\Return_\SimpleFunctionAndFilterRector\SimpleFunctionAndFilterRectorTest
  */
-final class SimpleFunctionAndFilterRector extends \Rector\Core\Rector\AbstractRector
+final class SimpleFunctionAndFilterRector extends AbstractRector
 {
     /**
      * @var array<string, class-string>>
      */
-    const OLD_TO_NEW_CLASSES = ['Twig_Function_Method' => 'Twig_SimpleFunction', 'Twig_Filter_Method' => 'Twig_SimpleFilter'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    const OLD_TO_NEW_CLASSES = [
+        'Twig_Function_Method' => 'Twig_SimpleFunction',
+        'Twig_Filter_Method' => 'Twig_SimpleFilter',
+    ];
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Twig_Function_Method to Twig_SimpleFunction calls in Twig_Extension.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Changes Twig_Function_Method to Twig_SimpleFunction calls in Twig_Extension.',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeExtension extends Twig_Extension
 {
     public function getFunctions()
@@ -51,7 +61,8 @@ class SomeExtension extends Twig_Extension
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeExtension extends Twig_Extension
 {
     public function getFunctions()
@@ -69,95 +80,119 @@ class SomeExtension extends Twig_Extension
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Return_::class];
+        return [Return_::class];
     }
+
     /**
      * @param Return_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->expr === null) {
             return null;
         }
+
         /** @var Scope $scope */
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+
         /** @var ClassReflection $classReflection */
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection->isSubclassOf('Twig_Extension')) {
+
+        if (! $classReflection->isSubclassOf('Twig_Extension')) {
             return null;
         }
-        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+
+        $classMethod = $node->getAttribute(AttributeKey::METHOD_NODE);
+        if (! $classMethod instanceof ClassMethod) {
             return null;
         }
-        if (!$this->nodeNameResolver->isNames($classMethod, ['getFunctions', 'getFilters'])) {
+
+        if (! $this->nodeNameResolver->isNames($classMethod, ['getFunctions', 'getFilters'])) {
             return null;
         }
-        $this->traverseNodesWithCallable($node->expr, function (\PhpParser\Node $node) : ?Node {
-            if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {
+
+        $this->traverseNodesWithCallable($node->expr, function (Node $node): ?Node {
+            if (! $node instanceof ArrayItem) {
                 return null;
             }
-            if (!$node->value instanceof \PhpParser\Node\Expr\New_) {
+
+            if (! $node->value instanceof New_) {
                 return null;
             }
+
             $newObjectType = $this->nodeTypeResolver->resolve($node->value);
             $this->processArrayItem($node, $newObjectType);
             return $node;
         });
+
         return $node;
     }
+
     /**
      * @return void
      */
-    private function processArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $newNodeType)
+    private function processArrayItem(ArrayItem $arrayItem, Type $newNodeType)
     {
         foreach (self::OLD_TO_NEW_CLASSES as $oldClass => $newClass) {
-            $oldClassObjectType = new \PHPStan\Type\ObjectType($oldClass);
-            if (!$oldClassObjectType->equals($newNodeType)) {
+            $oldClassObjectType = new ObjectType($oldClass);
+            if (! $oldClassObjectType->equals($newNodeType)) {
                 continue;
             }
-            if (!$arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
+
+            if (! $arrayItem->key instanceof String_) {
                 continue;
             }
-            if (!$arrayItem->value instanceof \PhpParser\Node\Expr\New_) {
+
+            if (! $arrayItem->value instanceof New_) {
                 continue;
             }
+
             // match!
             $filterName = $this->valueResolver->getValue($arrayItem->key);
+
             $arrayItem->key = null;
-            $arrayItem->value->class = new \PhpParser\Node\Name\FullyQualified($newClass);
+            $arrayItem->value->class = new FullyQualified($newClass);
+
             $oldArguments = $arrayItem->value->args;
+
             $this->decorateArrayItem($arrayItem, $oldArguments, $filterName);
             break;
         }
     }
+
     /**
      * @param Arg[] $oldArguments
      * @return void
      */
-    private function decorateArrayItem(\PhpParser\Node\Expr\ArrayItem $arrayItem, array $oldArguments, string $filterName)
+    private function decorateArrayItem(ArrayItem $arrayItem, array $oldArguments, string $filterName)
     {
         /** @var New_ $new */
         $new = $arrayItem->value;
-        if ($oldArguments[0]->value instanceof \PhpParser\Node\Expr\Array_) {
+
+        if ($oldArguments[0]->value instanceof Array_) {
             // already array, just shift it
-            $new->args = \array_merge([new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($filterName))], $oldArguments);
+            $new->args = array_merge([new Arg(new String_($filterName))], $oldArguments);
             return;
         }
+
         // not array yet, wrap to one
         $arrayItems = [];
         foreach ($oldArguments as $oldArgument) {
-            $arrayItems[] = new \PhpParser\Node\Expr\ArrayItem($oldArgument->value);
+            $arrayItems[] = new ArrayItem($oldArgument->value);
         }
-        $new->args[0] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($filterName));
-        $new->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayItems));
+
+        $new->args[0] = new Arg(new String_($filterName));
+        $new->args[1] = new Arg(new Array_($arrayItems));
     }
 }

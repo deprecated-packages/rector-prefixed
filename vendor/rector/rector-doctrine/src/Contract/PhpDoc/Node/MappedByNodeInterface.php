@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Doctrine\Contract\PhpDoc\Node;
 
 interface MappedByNodeInterface
@@ -9,6 +10,7 @@ interface MappedByNodeInterface
      * @return string|null
      */
     public function getMappedBy();
+
     /**
      * @return void
      */

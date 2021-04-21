@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node\Stmt;
-class Use_ extends \PhpParser\Node\Stmt
+
+class Use_ extends Stmt
 {
     /**
      * Unknown type. Both Stmt\Use_ / Stmt\GroupUse and Stmt\UseUse have a $type property, one of them will always be
@@ -18,10 +18,12 @@ class Use_ extends \PhpParser\Node\Stmt
     const TYPE_FUNCTION = 2;
     /** Constant import */
     const TYPE_CONSTANT = 3;
+
     /** @var int Type of alias */
     public $type;
     /** @var UseUse[] Aliases */
     public $uses;
+
     /**
      * Constructs an alias (use) list node.
      *
@@ -29,18 +31,17 @@ class Use_ extends \PhpParser\Node\Stmt
      * @param int      $type       Type of alias
      * @param array    $attributes Additional attributes
      */
-    public function __construct(array $uses, int $type = self::TYPE_NORMAL, array $attributes = [])
-    {
+    public function __construct(array $uses, int $type = self::TYPE_NORMAL, array $attributes = []) {
         $this->attributes = $attributes;
         $this->type = $type;
         $this->uses = $uses;
     }
-    public function getSubNodeNames() : array
-    {
+
+    public function getSubNodeNames() : array {
         return ['type', 'uses'];
     }
-    public function getType() : string
-    {
+    
+    public function getType() : string {
         return 'Stmt_Use';
     }
 }

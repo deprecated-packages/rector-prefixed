@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp80\Rector\Catch_;
 
 use PhpParser\Node;
@@ -9,16 +10,19 @@ use PhpParser\Node\Stmt\Catch_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://wiki.php.net/rfc/non-capturing_catches
  *
  * @see \Rector\Tests\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector\DowngradeNonCapturingCatchesRectorTest
  */
-final class DowngradeNonCapturingCatchesRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeNonCapturingCatchesRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade catch () without variable to one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Downgrade catch () without variable to one', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -31,7 +35,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,25 +50,31 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Catch_::class];
+        return [Catch_::class];
     }
+
     /**
      * @param Catch_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->var !== null) {
             return null;
         }
-        $node->var = new \PhpParser\Node\Expr\Variable('exception');
+
+        $node->var = new Variable('exception');
+
         return $node;
     }
 }

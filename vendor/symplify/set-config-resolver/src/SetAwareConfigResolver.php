@@ -1,35 +1,41 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SetConfigResolver;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symplify\SetConfigResolver\Config\SetsParameterResolver;
-use RectorPrefix20210421\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+namespace Symplify\SetConfigResolver;
+
+use Symplify\SetConfigResolver\Config\SetsParameterResolver;
+use Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\SetAwareConfigResolverTest
  */
-final class SetAwareConfigResolver extends \RectorPrefix20210421\Symplify\SetConfigResolver\AbstractConfigResolver
+final class SetAwareConfigResolver extends AbstractConfigResolver
 {
     /**
      * @var SetsParameterResolver
      */
     private $setsParameterResolver;
+
     /**
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20210421\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+
+    public function __construct(SetProviderInterface $setProvider)
     {
-        $this->setResolver = new \RectorPrefix20210421\Symplify\SetConfigResolver\SetResolver($setProvider);
-        $this->setsParameterResolver = new \RectorPrefix20210421\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
+        $this->setResolver = new SetResolver($setProvider);
+        $this->setsParameterResolver = new SetsParameterResolver($this->setResolver);
+
         parent::__construct();
     }
+
     /**
      * @param SmartFileInfo[] $fileInfos
      * @return SmartFileInfo[]
      */
-    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos) : array
+    public function resolveFromParameterSetsFromConfigFiles(array $fileInfos): array
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }

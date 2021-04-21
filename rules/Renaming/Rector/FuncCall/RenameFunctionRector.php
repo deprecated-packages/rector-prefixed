@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Renaming\Rector\FuncCall;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -12,45 +13,63 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Renaming\Rector\FuncCall\RenameFunctionRector\RenameFunctionRectorTest
  */
-final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameFunctionRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
+
     /**
      * @var array<string, string>
      */
     private $oldFunctionToNewFunction = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function call new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('view("...", []);', 'Laravel\\Templating\\render("...", []);', [self::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => 'Laravel\\Templating\\render']])]);
+        return new RuleDefinition('Turns defined function call new one.', [
+            new ConfiguredCodeSample(
+                'view("...", []);',
+                'Laravel\Templating\render("...", []);',
+                [
+                    self::OLD_FUNCTION_TO_NEW_FUNCTION => [
+                        'view' => 'Laravel\Templating\render',
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->oldFunctionToNewFunction as $oldFunction => $newFunction) {
-            if (!$this->isName($node, $oldFunction)) {
+            if (! $this->isName($node, $oldFunction)) {
                 continue;
             }
+
             $node->name = $this->createName($newFunction);
             return $node;
         }
+
         return null;
     }
+
     /**
      * @param mixed[] $configuration
      * @return void
@@ -59,11 +78,13 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     {
         $this->oldFunctionToNewFunction = $configuration[self::OLD_FUNCTION_TO_NEW_FUNCTION] ?? [];
     }
-    private function createName(string $newFunction) : \PhpParser\Node\Name
+
+    private function createName(string $newFunction): Name
     {
-        if (\RectorPrefix20210421\Nette\Utils\Strings::contains($newFunction, '\\')) {
-            return new \PhpParser\Node\Name\FullyQualified($newFunction);
+        if (Strings::contains($newFunction, '\\')) {
+            return new FullyQualified($newFunction);
         }
-        return new \PhpParser\Node\Name($newFunction);
+
+        return new Name($newFunction);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php80\Rector\NotIdentical;
 
 use PhpParser\Node;
@@ -13,20 +14,26 @@ use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://externals.io/message/108562 https://github.com/php/php-src/pull/5179
  *
  * @see \Rector\Tests\Php80\Rector\NotIdentical\StrContainsRector\StrContainsRectorTest
  */
-final class StrContainsRector extends \Rector\Core\Rector\AbstractRector
+final class StrContainsRector extends AbstractRector
 {
     /**
      * @var string[]
      */
     const OLD_STR_NAMES = ['strpos', 'strstr'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Replace strpos() !== false and strstr()  with str_contains()',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -35,7 +42,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,59 +52,73 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+        return [Identical::class, NotIdentical::class];
     }
+
     /**
      * @param Identical|NotIdentical $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $funcCall = $this->matchIdenticalOrNotIdenticalToFalse($node);
-        if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
+
+        if (! $funcCall instanceof FuncCall) {
             return null;
         }
-        $funcCall->name = new \PhpParser\Node\Name('str_contains');
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            return new \PhpParser\Node\Expr\BooleanNot($funcCall);
+
+        $funcCall->name = new Name('str_contains');
+
+        if ($node instanceof Identical) {
+            return new BooleanNot($funcCall);
         }
+
         return $funcCall;
     }
+
     /**
      * @param Identical|NotIdentical $expr
      * @return \PhpParser\Node\Expr\FuncCall|null
      */
-    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr)
+    private function matchIdenticalOrNotIdenticalToFalse(Expr $expr)
     {
         if ($this->valueResolver->isFalse($expr->left)) {
-            if (!$expr->right instanceof \PhpParser\Node\Expr\FuncCall) {
+            if (! $expr->right instanceof FuncCall) {
                 return null;
             }
-            if (!$this->isNames($expr->right, self::OLD_STR_NAMES)) {
+
+            if (! $this->isNames($expr->right, self::OLD_STR_NAMES)) {
                 return null;
             }
+
             /** @var FuncCall $funcCall */
             $funcCall = $expr->right;
             return $funcCall;
         }
+
         if ($this->valueResolver->isFalse($expr->right)) {
-            if (!$expr->left instanceof \PhpParser\Node\Expr\FuncCall) {
+            if (! $expr->left instanceof FuncCall) {
                 return null;
             }
-            if (!$this->isNames($expr->left, self::OLD_STR_NAMES)) {
+
+            if (! $this->isNames($expr->left, self::OLD_STR_NAMES)) {
                 return null;
             }
+
             /** @var FuncCall $funcCall */
             $funcCall = $expr->left;
             return $funcCall;
         }
+
         return null;
     }
 }

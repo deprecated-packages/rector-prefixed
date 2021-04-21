@@ -11,32 +11,36 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCache;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+namespace Symfony\Component\HttpKernel\HttpCache;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Store implements all the logic for storing cache metadata (Request and Response headers).
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCache\StoreInterface
+class Store implements StoreInterface
 {
     protected $root;
     private $keyCache;
     private $locks;
+
     /**
      * @throws \RuntimeException
      */
     public function __construct(string $root)
     {
         $this->root = $root;
-        if (!\is_dir($this->root) && !@\mkdir($this->root, 0777, \true) && !\is_dir($this->root)) {
-            throw new \RuntimeException(\sprintf('Unable to create the store directory (%s).', $this->root));
+        if (!is_dir($this->root) && !@mkdir($this->root, 0777, true) && !is_dir($this->root)) {
+            throw new \RuntimeException(sprintf('Unable to create the store directory (%s).', $this->root));
         }
         $this->keyCache = new \SplObjectStorage();
         $this->locks = [];
     }
+
     /**
      * Cleanups storage.
      */
@@ -44,97 +48,118 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
     {
         // unlock everything
         foreach ($this->locks as $lock) {
-            \flock($lock, \LOCK_UN);
-            \fclose($lock);
+            flock($lock, \LOCK_UN);
+            fclose($lock);
         }
+
         $this->locks = [];
     }
+
     /**
      * Tries to lock the cache for a given Request, without blocking.
      *
      * @return bool|string true if the lock is acquired, the path to the current lock otherwise
      */
-    public function lock(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    public function lock(Request $request)
     {
         $key = $this->getCacheKey($request);
+
         if (!isset($this->locks[$key])) {
             $path = $this->getPath($key);
-            if (!\is_dir(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
+            if (!is_dir(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
                 return $path;
             }
-            $h = \fopen($path, 'c');
-            if (!\flock($h, \LOCK_EX | \LOCK_NB)) {
-                \fclose($h);
+            $h = fopen($path, 'c');
+            if (!flock($h, \LOCK_EX | \LOCK_NB)) {
+                fclose($h);
+
                 return $path;
             }
+
             $this->locks[$key] = $h;
         }
-        return \true;
+
+        return true;
     }
+
     /**
      * Releases the lock for the given Request.
      *
      * @return bool False if the lock file does not exist or cannot be unlocked, true otherwise
      */
-    public function unlock(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    public function unlock(Request $request)
     {
         $key = $this->getCacheKey($request);
+
         if (isset($this->locks[$key])) {
-            \flock($this->locks[$key], \LOCK_UN);
-            \fclose($this->locks[$key]);
+            flock($this->locks[$key], \LOCK_UN);
+            fclose($this->locks[$key]);
             unset($this->locks[$key]);
-            return \true;
+
+            return true;
         }
-        return \false;
+
+        return false;
     }
-    public function isLocked(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+
+    public function isLocked(Request $request)
     {
         $key = $this->getCacheKey($request);
+
         if (isset($this->locks[$key])) {
-            return \true;
-            // shortcut if lock held by this process
+            return true; // shortcut if lock held by this process
         }
-        if (!\is_file($path = $this->getPath($key))) {
-            return \false;
+
+        if (!is_file($path = $this->getPath($key))) {
+            return false;
         }
-        $h = \fopen($path, 'r');
-        \flock($h, \LOCK_EX | \LOCK_NB, $wouldBlock);
-        \flock($h, \LOCK_UN);
-        // release the lock we just acquired
-        \fclose($h);
+
+        $h = fopen($path, 'r');
+        flock($h, \LOCK_EX | \LOCK_NB, $wouldBlock);
+        flock($h, \LOCK_UN); // release the lock we just acquired
+        fclose($h);
+
         return (bool) $wouldBlock;
     }
+
     /**
      * Locates a cached Response for the Request provided.
      *
      * @return Response|null A Response instance, or null if no cache entry was found
      */
-    public function lookup(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    public function lookup(Request $request)
     {
         $key = $this->getCacheKey($request);
-        if (!($entries = $this->getMetadata($key))) {
+
+        if (!$entries = $this->getMetadata($key)) {
             return null;
         }
+
         // find a cached entry that matches the request.
         $match = null;
         foreach ($entries as $entry) {
-            if ($this->requestsMatch(isset($entry[1]['vary'][0]) ? \implode(', ', $entry[1]['vary']) : '', $request->headers->all(), $entry[0])) {
+            if ($this->requestsMatch(isset($entry[1]['vary'][0]) ? implode(', ', $entry[1]['vary']) : '', $request->headers->all(), $entry[0])) {
                 $match = $entry;
+
                 break;
             }
         }
+
         if (null === $match) {
             return null;
         }
+
         $headers = $match[1];
-        if (\file_exists($path = $this->getPath($headers['x-content-digest'][0]))) {
+        if (file_exists($path = $this->getPath($headers['x-content-digest'][0]))) {
             return $this->restoreResponse($headers, $path);
         }
+
         // TODO the metaStore referenced an entity that doesn't exist in
         // the entityStore. We definitely want to return nil but we should
         // also purge the entry from the meta-store when this is detected.
         return null;
     }
+
     /**
      * Writes a cache entry to the store for the given Request and Response.
      *
@@ -145,15 +170,17 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
      *
      * @throws \RuntimeException
      */
-    public function write(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
+    public function write(Request $request, Response $response)
     {
         $key = $this->getCacheKey($request);
         $storedEnv = $this->persistRequest($request);
+
         if ($response->headers->has('X-Body-File')) {
             // Assume the response came from disk, but at least perform some safeguard checks
             if (!$response->headers->has('X-Content-Digest')) {
                 throw new \RuntimeException('A restored response must have the X-Content-Digest header.');
             }
+
             $digest = $response->headers->get('X-Content-Digest');
             if ($this->getPath($digest) !== $response->headers->get('X-Body-File')) {
                 throw new \RuntimeException('X-Body-File and X-Content-Digest do not match.');
@@ -162,13 +189,16 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
         } else {
             $digest = $this->generateContentDigest($response);
             $response->headers->set('X-Content-Digest', $digest);
-            if (!$this->save($digest, $response->getContent(), \false)) {
+
+            if (!$this->save($digest, $response->getContent(), false)) {
                 throw new \RuntimeException('Unable to store the entity.');
             }
+
             if (!$response->headers->has('Transfer-Encoding')) {
                 $response->headers->set('Content-Length', \strlen($response->getContent()));
             }
         }
+
         // read existing cache entries, remove non-varying, and add this one to the list
         $entries = [];
         $vary = $response->headers->get('vary');
@@ -176,51 +206,61 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
             if (!isset($entry[1]['vary'][0])) {
                 $entry[1]['vary'] = [''];
             }
+
             if ($entry[1]['vary'][0] != $vary || !$this->requestsMatch($vary ?? '', $entry[0], $storedEnv)) {
                 $entries[] = $entry;
             }
         }
+
         $headers = $this->persistResponse($response);
         unset($headers['age']);
-        \array_unshift($entries, [$storedEnv, $headers]);
-        if (!$this->save($key, \serialize($entries))) {
+
+        array_unshift($entries, [$storedEnv, $headers]);
+
+        if (!$this->save($key, serialize($entries))) {
             throw new \RuntimeException('Unable to store the metadata.');
         }
+
         return $key;
     }
+
     /**
      * Returns content digest for $response.
      *
      * @return string
      */
-    protected function generateContentDigest(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
+    protected function generateContentDigest(Response $response)
     {
-        return 'en' . \hash('sha256', $response->getContent());
+        return 'en'.hash('sha256', $response->getContent());
     }
+
     /**
      * Invalidates all cache entries that match the request.
      *
      * @throws \RuntimeException
      */
-    public function invalidate(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    public function invalidate(Request $request)
     {
-        $modified = \false;
+        $modified = false;
         $key = $this->getCacheKey($request);
+
         $entries = [];
         foreach ($this->getMetadata($key) as $entry) {
             $response = $this->restoreResponse($entry[1]);
             if ($response->isFresh()) {
                 $response->expire();
-                $modified = \true;
+                $modified = true;
                 $entries[] = [$entry[0], $this->persistResponse($response)];
             } else {
                 $entries[] = $entry;
             }
         }
-        if ($modified && !$this->save($key, \serialize($entries))) {
+
+        if ($modified && !$this->save($key, serialize($entries))) {
             throw new \RuntimeException('Unable to store the metadata.');
         }
     }
+
     /**
      * Determines whether two Request HTTP header sets are non-varying based on
      * the vary response header value provided.
@@ -229,33 +269,38 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
      * @param array       $env1 A Request HTTP header array
      * @param array       $env2 A Request HTTP header array
      */
-    private function requestsMatch($vary, array $env1, array $env2) : bool
+    private function requestsMatch($vary, array $env1, array $env2): bool
     {
         if (empty($vary)) {
-            return \true;
+            return true;
         }
-        foreach (\preg_split('/[\\s,]+/', $vary) as $header) {
-            $key = \str_replace('_', '-', \strtolower($header));
+
+        foreach (preg_split('/[\s,]+/', $vary) as $header) {
+            $key = str_replace('_', '-', strtolower($header));
             $v1 = $env1[$key] ?? null;
             $v2 = $env2[$key] ?? null;
             if ($v1 !== $v2) {
-                return \false;
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
+
     /**
      * Gets all data associated with the given key.
      *
      * Use this method only if you know what you are doing.
      */
-    private function getMetadata(string $key) : array
+    private function getMetadata(string $key): array
     {
-        if (!($entries = $this->load($key))) {
+        if (!$entries = $this->load($key)) {
             return [];
         }
-        return \unserialize($entries);
+
+        return unserialize($entries);
     }
+
     /**
      * Purges data for the given URL.
      *
@@ -265,29 +310,36 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
      */
     public function purge(string $url)
     {
-        $http = \preg_replace('#^https:#', 'http:', $url);
-        $https = \preg_replace('#^http:#', 'https:', $url);
+        $http = preg_replace('#^https:#', 'http:', $url);
+        $https = preg_replace('#^http:#', 'https:', $url);
+
         $purgedHttp = $this->doPurge($http);
         $purgedHttps = $this->doPurge($https);
+
         return $purgedHttp || $purgedHttps;
     }
+
     /**
      * Purges data for the given URL.
      */
-    private function doPurge(string $url) : bool
+    private function doPurge(string $url): bool
     {
-        $key = $this->getCacheKey(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request::create($url));
+        $key = $this->getCacheKey(Request::create($url));
         if (isset($this->locks[$key])) {
-            \flock($this->locks[$key], \LOCK_UN);
-            \fclose($this->locks[$key]);
+            flock($this->locks[$key], \LOCK_UN);
+            fclose($this->locks[$key]);
             unset($this->locks[$key]);
         }
-        if (\is_file($path = $this->getPath($key))) {
-            \unlink($path);
-            return \true;
+
+        if (is_file($path = $this->getPath($key))) {
+            unlink($path);
+
+            return true;
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * Loads data for the given key.
      * @return string|null
@@ -295,53 +347,68 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
     private function load(string $key)
     {
         $path = $this->getPath($key);
-        return \is_file($path) && \false !== ($contents = \file_get_contents($path)) ? $contents : null;
+
+        return is_file($path) && false !== ($contents = file_get_contents($path)) ? $contents : null;
     }
+
     /**
      * Save data for the given key.
      */
-    private function save(string $key, string $data, bool $overwrite = \true) : bool
+    private function save(string $key, string $data, bool $overwrite = true): bool
     {
         $path = $this->getPath($key);
-        if (!$overwrite && \file_exists($path)) {
-            return \true;
+
+        if (!$overwrite && file_exists($path)) {
+            return true;
         }
+
         if (isset($this->locks[$key])) {
             $fp = $this->locks[$key];
-            @\ftruncate($fp, 0);
-            @\fseek($fp, 0);
-            $len = @\fwrite($fp, $data);
+            @ftruncate($fp, 0);
+            @fseek($fp, 0);
+            $len = @fwrite($fp, $data);
             if (\strlen($data) !== $len) {
-                @\ftruncate($fp, 0);
-                return \false;
+                @ftruncate($fp, 0);
+
+                return false;
             }
         } else {
-            if (!\is_dir(\dirname($path)) && \false === @\mkdir(\dirname($path), 0777, \true) && !\is_dir(\dirname($path))) {
-                return \false;
+            if (!is_dir(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
+                return false;
             }
-            $tmpFile = \tempnam(\dirname($path), \basename($path));
-            if (\false === ($fp = @\fopen($tmpFile, 'w'))) {
-                @\unlink($tmpFile);
-                return \false;
+
+            $tmpFile = tempnam(\dirname($path), basename($path));
+            if (false === $fp = @fopen($tmpFile, 'w')) {
+                @unlink($tmpFile);
+
+                return false;
             }
-            @\fwrite($fp, $data);
-            @\fclose($fp);
-            if ($data != \file_get_contents($tmpFile)) {
-                @\unlink($tmpFile);
-                return \false;
+            @fwrite($fp, $data);
+            @fclose($fp);
+
+            if ($data != file_get_contents($tmpFile)) {
+                @unlink($tmpFile);
+
+                return false;
             }
-            if (\false === @\rename($tmpFile, $path)) {
-                @\unlink($tmpFile);
-                return \false;
+
+            if (false === @rename($tmpFile, $path)) {
+                @unlink($tmpFile);
+
+                return false;
             }
         }
-        @\chmod($path, 0666 & ~\umask());
-        return \true;
+
+        @chmod($path, 0666 & ~umask());
+
+        return true;
     }
+
     public function getPath(string $key)
     {
-        return $this->root . \DIRECTORY_SEPARATOR . \substr($key, 0, 2) . \DIRECTORY_SEPARATOR . \substr($key, 2, 2) . \DIRECTORY_SEPARATOR . \substr($key, 4, 2) . \DIRECTORY_SEPARATOR . \substr($key, 6);
+        return $this->root.\DIRECTORY_SEPARATOR.substr($key, 0, 2).\DIRECTORY_SEPARATOR.substr($key, 2, 2).\DIRECTORY_SEPARATOR.substr($key, 4, 2).\DIRECTORY_SEPARATOR.substr($key, 6);
     }
+
     /**
      * Generates a cache key for the given Request.
      *
@@ -354,46 +421,54 @@ class Store implements \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpCa
      *
      * @return string A key for the given Request
      */
-    protected function generateCacheKey(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request)
+    protected function generateCacheKey(Request $request)
     {
-        return 'md' . \hash('sha256', $request->getUri());
+        return 'md'.hash('sha256', $request->getUri());
     }
+
     /**
      * Returns a cache key for the given Request.
      */
-    private function getCacheKey(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request) : string
+    private function getCacheKey(Request $request): string
     {
         if (isset($this->keyCache[$request])) {
             return $this->keyCache[$request];
         }
+
         return $this->keyCache[$request] = $this->generateCacheKey($request);
     }
+
     /**
      * Persists the Request HTTP headers.
      */
-    private function persistRequest(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request) : array
+    private function persistRequest(Request $request): array
     {
         return $request->headers->all();
     }
+
     /**
      * Persists the Response HTTP headers.
      */
-    private function persistResponse(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response) : array
+    private function persistResponse(Response $response): array
     {
         $headers = $response->headers->all();
         $headers['X-Status'] = [$response->getStatusCode()];
+
         return $headers;
     }
+
     /**
      * Restores a Response from the HTTP headers and body.
      */
-    private function restoreResponse(array $headers, string $path = null) : \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response
+    private function restoreResponse(array $headers, string $path = null): Response
     {
         $status = $headers['X-Status'][0];
         unset($headers['X-Status']);
+
         if (null !== $path) {
             $headers['X-Body-File'] = [$path];
         }
-        return new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response($path, $status, $headers);
+
+        return new Response($path, $status, $headers);
     }
 }

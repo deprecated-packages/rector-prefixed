@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp72\Contract\Rector;
 
 interface DowngradeTypeRectorInterface
@@ -8,5 +9,5 @@ interface DowngradeTypeRectorInterface
     /**
      * Name of the type to remove
      */
-    public function getTypeToRemove() : string;
+    public function getTypeToRemove(): string;
 }

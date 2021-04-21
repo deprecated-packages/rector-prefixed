@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -21,41 +22,56 @@ use Rector\Nette\NodeAnalyzer\TemplatePropertyParametersReplacer;
 use Rector\Nette\NodeFactory\RenderParameterArrayFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\ClassMethod\TemplateMagicAssignToExplicitVariableArrayRector\TemplateMagicAssignToExplicitVariableArrayRectorTest
  */
-final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Core\Rector\AbstractRector
+final class TemplateMagicAssignToExplicitVariableArrayRector extends AbstractRector
 {
     /**
      * @var TemplatePropertyAssignCollector
      */
     private $templatePropertyAssignCollector;
+
     /**
      * @var RenderMethodAnalyzer
      */
     private $renderMethodAnalyzer;
+
     /**
      * @var NetteClassAnalyzer
      */
     private $netteClassAnalyzer;
+
     /**
      * @var RenderParameterArrayFactory
      */
     private $renderParameterArrayFactory;
+
     /**
      * @var ConditionalTemplateAssignReplacer
      */
     private $conditionalTemplateAssignReplacer;
+
     /**
      * @var RightAssignTemplateRemover
      */
     private $rightAssignTemplateRemover;
+
     /**
      * @var TemplatePropertyParametersReplacer
      */
     private $templatePropertyParametersReplacer;
-    public function __construct(\Rector\Nette\NodeAnalyzer\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\Nette\NodeFactory\RenderParameterArrayFactory $renderParameterArrayFactory, \Rector\Nette\NodeAnalyzer\ConditionalTemplateAssignReplacer $conditionalTemplateAssignReplacer, \Rector\Nette\NodeAnalyzer\RightAssignTemplateRemover $rightAssignTemplateRemover, \Rector\Nette\NodeAnalyzer\TemplatePropertyParametersReplacer $templatePropertyParametersReplacer)
-    {
+
+    public function __construct(
+        TemplatePropertyAssignCollector $templatePropertyAssignCollector,
+        RenderMethodAnalyzer $renderMethodAnalyzer,
+        NetteClassAnalyzer $netteClassAnalyzer,
+        RenderParameterArrayFactory $renderParameterArrayFactory,
+        ConditionalTemplateAssignReplacer $conditionalTemplateAssignReplacer,
+        RightAssignTemplateRemover $rightAssignTemplateRemover,
+        TemplatePropertyParametersReplacer $templatePropertyParametersReplacer
+    ) {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->renderMethodAnalyzer = $renderMethodAnalyzer;
         $this->netteClassAnalyzer = $netteClassAnalyzer;
@@ -64,9 +80,14 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
         $this->rightAssignTemplateRemover = $rightAssignTemplateRemover;
         $this->templatePropertyParametersReplacer = $templatePropertyParametersReplacer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `$this->templates->{magic}` to `$this->template->render(..., $values)` in components', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change `$this->templates->{magic}` to `$this->template->render(..., $values)` in components',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -78,7 +99,8 @@ class SomeControl extends Control
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -89,92 +111,119 @@ class SomeControl extends Control
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         $renderMethodCalls = $this->renderMethodAnalyzer->machRenderMethodCalls($node);
         if ($renderMethodCalls === []) {
             return null;
         }
-        if (!$this->haveMethodCallsFirstArgument($renderMethodCalls)) {
+
+        if (! $this->haveMethodCallsFirstArgument($renderMethodCalls)) {
             return null;
         }
+
         // initialize $parameters variable for multiple renders
-        if (\count($renderMethodCalls) > 1) {
+        if (count($renderMethodCalls) > 1) {
             return $this->refactorForMultipleRenderMethodCalls($node, $renderMethodCalls);
         }
+
         return $this->refactorForSingleRenderMethodCall($node, $renderMethodCalls[0]);
     }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function shouldSkip(ClassMethod $classMethod): bool
     {
-        if (!$this->isNames($classMethod, ['render', 'render*'])) {
-            return \true;
+        if (! $this->isNames($classMethod, ['render', 'render*'])) {
+            return true;
         }
-        return !$this->netteClassAnalyzer->isInComponent($classMethod);
+
+        return ! $this->netteClassAnalyzer->isInComponent($classMethod);
     }
+
     /**
      * @param MethodCall[] $methodCalls
      */
-    private function haveMethodCallsFirstArgument(array $methodCalls) : bool
+    private function haveMethodCallsFirstArgument(array $methodCalls): bool
     {
         foreach ($methodCalls as $methodCall) {
-            if (!isset($methodCall->args[0])) {
-                return \false;
+            if (! isset($methodCall->args[0])) {
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorForSingleRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $renderMethodCall)
-    {
+    private function refactorForSingleRenderMethodCall(
+        ClassMethod $classMethod,
+        MethodCall $renderMethodCall
+    ) {
         $templateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
+
         $array = $this->renderParameterArrayFactory->createArray($templateParametersAssigns);
-        if (!$array instanceof \PhpParser\Node\Expr\Array_) {
+        if (! $array instanceof Array_) {
             return null;
         }
+
         $this->conditionalTemplateAssignReplacer->processClassMethod($templateParametersAssigns);
-        $renderMethodCall->args[1] = new \PhpParser\Node\Arg($array);
+        $renderMethodCall->args[1] = new Arg($array);
+
         foreach ($templateParametersAssigns->getTemplateParameterAssigns() as $alwaysTemplateParameterAssign) {
             $this->removeNode($alwaysTemplateParameterAssign->getAssign());
         }
+
         $this->rightAssignTemplateRemover->removeInClassMethod($classMethod);
+
         return $classMethod;
     }
+
     /**
      * @param MethodCall[] $renderMethodCalls
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorForMultipleRenderMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $renderMethodCalls)
-    {
+    private function refactorForMultipleRenderMethodCalls(
+        ClassMethod $classMethod,
+        array $renderMethodCalls
+    ) {
         $magicTemplateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
+
         if ($magicTemplateParametersAssigns->getTemplateParameterAssigns() === []) {
             return null;
         }
-        $parametersVariable = new \PhpParser\Node\Expr\Variable('parameters');
-        $parametersAssign = new \PhpParser\Node\Expr\Assign($parametersVariable, new \PhpParser\Node\Expr\Array_());
-        $assignExpression = new \PhpParser\Node\Stmt\Expression($parametersAssign);
-        $classMethod->stmts = \array_merge([$assignExpression], (array) $classMethod->stmts);
+
+        $parametersVariable = new Variable('parameters');
+        $parametersAssign = new Assign($parametersVariable, new Array_());
+        $assignExpression = new Expression($parametersAssign);
+        $classMethod->stmts = array_merge([$assignExpression], (array) $classMethod->stmts);
+
         $this->templatePropertyParametersReplacer->replace($magicTemplateParametersAssigns, $parametersVariable);
+
         foreach ($renderMethodCalls as $renderMethodCall) {
-            $renderMethodCall->args[1] = new \PhpParser\Node\Arg($parametersVariable);
+            $renderMethodCall->args[1] = new Arg($parametersVariable);
         }
+
         return $classMethod;
     }
 }

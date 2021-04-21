@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Defluent\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -16,42 +17,58 @@ use Rector\Defluent\NodeFactory\VariableFromNewFactory;
 use Rector\Defluent\Skipper\FluentMethodCallSkipper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Defluent\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector\MethodCallOnSetterMethodCallToStandaloneAssignRectorTest
  */
-final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \Rector\Core\Rector\AbstractRector
+final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends AbstractRector
 {
     /**
      * @var NewFluentChainMethodCallNodeAnalyzer
      */
     private $newFluentChainMethodCallNodeAnalyzer;
+
     /**
      * @var VariableFromNewFactory
      */
     private $variableFromNewFactory;
+
     /**
      * @var NonFluentChainMethodCallFactory
      */
     private $nonFluentChainMethodCallFactory;
+
     /**
      * @var FluentMethodCallSkipper
      */
     private $fluentMethodCallSkipper;
+
     /**
      * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory, \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer)
-    {
+
+    public function __construct(
+        NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer,
+        VariableFromNewFactory $variableFromNewFactory,
+        NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory,
+        FluentMethodCallSkipper $fluentMethodCallSkipper,
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer
+    ) {
         $this->newFluentChainMethodCallNodeAnalyzer = $newFluentChainMethodCallNodeAnalyzer;
         $this->variableFromNewFactory = $variableFromNewFactory;
         $this->nonFluentChainMethodCallFactory = $nonFluentChainMethodCallFactory;
         $this->fluentMethodCallSkipper = $fluentMethodCallSkipper;
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call on setter to standalone assign before the setter', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change method call on setter to standalone assign before the setter',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function some()
@@ -65,7 +82,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function some()
@@ -80,37 +98,45 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->fluentMethodCallSkipper->shouldSkipRootMethodCall($node)) {
             return null;
         }
+
         $rootMethodCall = $this->fluentChainMethodCallNodeAnalyzer->resolveRootMethodCall($node);
-        if (!$rootMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $rootMethodCall instanceof MethodCall) {
             return null;
         }
+
         $new = $this->newFluentChainMethodCallNodeAnalyzer->matchNewInFluentSetterMethodCall($rootMethodCall);
-        if (!$new instanceof \PhpParser\Node\Expr\New_) {
+        if (! $new instanceof New_) {
             return null;
         }
+
         $newStmts = $this->nonFluentChainMethodCallFactory->createFromNewAndRootMethodCall($new, $node);
         $this->addNodesBeforeNode($newStmts, $node);
+
         // change new arg to root variable
         $newVariable = $this->variableFromNewFactory->create($new);
-        $rootMethodCall->args = [new \PhpParser\Node\Arg($newVariable)];
+        $rootMethodCall->args = [new Arg($newVariable)];
+
         return $rootMethodCall;
     }
 }

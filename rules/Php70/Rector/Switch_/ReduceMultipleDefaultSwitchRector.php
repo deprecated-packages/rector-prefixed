@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php70\Rector\Switch_;
 
 use PhpParser\Node;
@@ -10,6 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://3v4l.org/iGDVW
  *
@@ -17,11 +19,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Tests\Php70\Rector\Switch_\ReduceMultipleDefaultSwitchRector\ReduceMultipleDefaultSwitchRectorTest
  */
-final class ReduceMultipleDefaultSwitchRector extends \Rector\Core\Rector\AbstractRector
+final class ReduceMultipleDefaultSwitchRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove first default switch, that is ignored', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove first default switch, that is ignored',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 switch ($expr) {
     default:
          echo "Hello World";
@@ -31,41 +37,50 @@ switch ($expr) {
          break;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 switch ($expr) {
     default:
          echo "Goodbye Moon!";
          break;
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Switch_::class];
+        return [Switch_::class];
     }
+
     /**
      * @param Switch_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $defaultCases = [];
         foreach ($node->cases as $case) {
             if ($case->cond !== null) {
                 continue;
             }
+
             $defaultCases[] = $case;
         }
-        if (\count($defaultCases) < 2) {
+
+        if (count($defaultCases) < 2) {
             return null;
         }
+
         $this->removeExtraDefaultCases($defaultCases);
+
         return $node;
     }
+
     /**
      * @param Case_[] $defaultCases
      * @return void
@@ -73,21 +88,23 @@ CODE_SAMPLE
     private function removeExtraDefaultCases(array $defaultCases)
     {
         // keep only last
-        \array_pop($defaultCases);
+        array_pop($defaultCases);
         foreach ($defaultCases as $defaultCase) {
             $this->keepStatementsToParentCase($defaultCase);
             $this->removeNode($defaultCase);
         }
     }
+
     /**
      * @return void
      */
-    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case)
+    private function keepStatementsToParentCase(Case_ $case)
     {
-        $previousNode = $case->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$previousNode instanceof \PhpParser\Node\Stmt\Case_) {
+        $previousNode = $case->getAttribute(AttributeKey::PREVIOUS_NODE);
+        if (! $previousNode instanceof Case_) {
             return;
         }
+
         if ($previousNode->stmts === []) {
             $previousNode->stmts = $case->stmts;
             $case->stmts = [];

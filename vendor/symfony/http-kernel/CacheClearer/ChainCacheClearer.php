@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\CacheClearer;
+
+namespace Symfony\Component\HttpKernel\CacheClearer;
 
 /**
  * ChainCacheClearer.
@@ -17,13 +18,15 @@ namespace RectorPrefix20210421\Symfony\Component\HttpKernel\CacheClearer;
  *
  * @final
  */
-class ChainCacheClearer implements \RectorPrefix20210421\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
+class ChainCacheClearer implements CacheClearerInterface
 {
     private $clearers;
+
     public function __construct(iterable $clearers = [])
     {
         $this->clearers = $clearers;
     }
+
     /**
      * {@inheritdoc}
      */

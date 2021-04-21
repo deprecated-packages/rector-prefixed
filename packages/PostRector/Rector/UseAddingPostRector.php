@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PostRector\Rector;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\CodingStyle\Application\UseImportsAdder;
@@ -16,34 +17,47 @@ use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+
+final class UseAddingPostRector extends AbstractPostRector
 {
     /**
      * @var UseImportsAdder
      */
     private $useImportsAdder;
+
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
+
     /**
      * @var UseImportsRemover
      */
     private $useImportsRemover;
+
     /**
      * @var TypeFactory
      */
     private $typeFactory;
+
     /**
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
+
     /**
      * @var CurrentFileProvider
      */
     private $currentFileProvider;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\CodingStyle\Application\UseImportsAdder $useImportsAdder, \Rector\CodingStyle\Application\UseImportsRemover $useImportsRemover, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
-    {
+
+    public function __construct(
+        BetterNodeFinder $betterNodeFinder,
+        TypeFactory $typeFactory,
+        UseImportsAdder $useImportsAdder,
+        UseImportsRemover $useImportsRemover,
+        UseNodesToAddCollector $useNodesToAddCollector,
+        CurrentFileProvider $currentFileProvider
+    ) {
         $this->useImportsAdder = $useImportsAdder;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->useImportsRemover = $useImportsRemover;
@@ -51,6 +65,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
         $this->useNodesToAddCollector = $useNodesToAddCollector;
         $this->currentFileProvider = $currentFileProvider;
     }
+
     /**
      * @param Stmt[] $nodes
      * @return mixed[]|null
@@ -61,46 +76,60 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
         if ($nodes === []) {
             return $nodes;
         }
+
         $file = $this->currentFileProvider->getFile();
         $smartFileInfo = $file->getSmartFileInfo();
+
         $useImportTypes = $this->useNodesToAddCollector->getObjectImportsByFileInfo($smartFileInfo);
         $functionUseImportTypes = $this->useNodesToAddCollector->getFunctionImportsByFileInfo($smartFileInfo);
         $removedShortUses = $this->useNodesToAddCollector->getShortUsesByFileInfo($smartFileInfo);
+
         // nothing to import or remove
         if ($useImportTypes === [] && $functionUseImportTypes === [] && $removedShortUses === []) {
             return $nodes;
         }
+
         /** @var FullyQualifiedObjectType[] $useImportTypes */
         $useImportTypes = $this->typeFactory->uniquateTypes($useImportTypes);
+
         $this->useNodesToAddCollector->clear($smartFileInfo);
+
         // A. has namespace? add under it
-        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
-        if ($namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
+        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, Namespace_::class);
+        if ($namespace instanceof Namespace_) {
             // first clean
             $this->useImportsRemover->removeImportsFromNamespace($namespace, $removedShortUses);
             // then add, to prevent adding + removing false positive of same short use
             $this->useImportsAdder->addImportsToNamespace($namespace, $useImportTypes, $functionUseImportTypes);
+
             return $nodes;
         }
+
         $firstNode = $nodes[0];
-        if ($firstNode instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        if ($firstNode instanceof FileWithoutNamespace) {
             $nodes = $firstNode->stmts;
         }
+
         // B. no namespace? add in the top
         // first clean
         $nodes = $this->useImportsRemover->removeImportsFromStmts($nodes, $removedShortUses);
         $useImportTypes = $this->filterOutNonNamespacedNames($useImportTypes);
         // then add, to prevent adding + removing false positive of same short use
+
         return $this->useImportsAdder->addImportsToStmts($nodes, $useImportTypes, $functionUseImportTypes);
     }
-    public function getPriority() : int
+
+    public function getPriority(): int
     {
         // must be after name importing
         return 500;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add unique use imports collected during Rector run', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Add unique use imports collected during Rector run', [
+            new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(AnotherClass $anotherClass)
@@ -108,7 +137,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use App\AnotherClass;
 
 class SomeClass
@@ -118,22 +148,27 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ), ]
+        );
     }
+
     /**
      * Prevents
      * @param FullyQualifiedObjectType[] $useImportTypes
      * @return FullyQualifiedObjectType[]
      */
-    private function filterOutNonNamespacedNames(array $useImportTypes) : array
+    private function filterOutNonNamespacedNames(array $useImportTypes): array
     {
         $namespacedUseImportTypes = [];
+
         foreach ($useImportTypes as $useImportType) {
-            if (!\RectorPrefix20210421\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
+            if (! Strings::contains($useImportType->getClassName(), '\\')) {
                 continue;
             }
+
             $namespacedUseImportTypes[] = $useImportType;
         }
+
         return $namespacedUseImportTypes;
     }
 }

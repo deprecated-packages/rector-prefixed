@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
@@ -14,27 +15,33 @@ use Rector\EarlyReturn\NodeTransformer\ConditionInverter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector\ChangeNestedIfsToEarlyReturnRectorTest
  */
-final class ChangeNestedIfsToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeNestedIfsToEarlyReturnRector extends AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
+
     /**
      * @var ConditionInverter
      */
     private $conditionInverter;
-    public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+
+    public function __construct(ConditionInverter $conditionInverter, IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->conditionInverter = $conditionInverter;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change nested ifs to early return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change nested ifs to early return', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -49,7 +56,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -66,42 +74,50 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [If_::class];
     }
+
     /**
      * @param If_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         // A. next node is return
-        $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
+        $nextNode = $node->getAttribute(AttributeKey::NEXT_NODE);
+        if (! $nextNode instanceof Return_) {
             return null;
         }
+
         $nestedIfsWithOnlyReturn = $this->ifManipulator->collectNestedIfsWithOnlyReturn($node);
         if ($nestedIfsWithOnlyReturn === []) {
             return null;
         }
+
         $this->processNestedIfsWithOnlyReturn($node, $nestedIfsWithOnlyReturn, $nextNode);
         $this->removeNode($node);
+
         return null;
     }
+
     /**
      * @param If_[] $nestedIfsWithOnlyReturn
      * @return void
      */
-    private function processNestedIfsWithOnlyReturn(\PhpParser\Node\Stmt\If_ $if, array $nestedIfsWithOnlyReturn, \PhpParser\Node\Stmt\Return_ $nextReturn)
+    private function processNestedIfsWithOnlyReturn(If_ $if, array $nestedIfsWithOnlyReturn, Return_ $nextReturn)
     {
         // add nested if openly after this
-        $nestedIfsWithOnlyReturnCount = \count($nestedIfsWithOnlyReturn);
+        $nestedIfsWithOnlyReturnCount = count($nestedIfsWithOnlyReturn);
+
         /** @var int $key */
         foreach ($nestedIfsWithOnlyReturn as $key => $nestedIfWithOnlyReturn) {
             // last item → the return node
@@ -112,25 +128,31 @@ CODE_SAMPLE
             }
         }
     }
+
     /**
      * @return void
      */
-    private function addStandaloneIfsWithReturn(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $return)
+    private function addStandaloneIfsWithReturn(If_ $nestedIfWithOnlyReturn, If_ $if, Return_ $return)
     {
         $return = clone $return;
+
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);
+
         // special case
-        if ($invertedCondition instanceof \PhpParser\Node\Expr\BooleanNot && $invertedCondition->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
-            $booleanNotPartIf = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BooleanNot($invertedCondition->expr->left));
+        if ($invertedCondition instanceof BooleanNot && $invertedCondition->expr instanceof BooleanAnd) {
+            $booleanNotPartIf = new If_(new BooleanNot($invertedCondition->expr->left));
             $booleanNotPartIf->stmts = [clone $return];
             $this->addNodeAfterNode($booleanNotPartIf, $if);
-            $booleanNotPartIf = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BooleanNot($invertedCondition->expr->right));
+
+            $booleanNotPartIf = new If_(new BooleanNot($invertedCondition->expr->right));
             $booleanNotPartIf->stmts = [clone $return];
             $this->addNodeAfterNode($booleanNotPartIf, $if);
             return;
         }
+
         $nestedIfWithOnlyReturn->cond = $invertedCondition;
         $nestedIfWithOnlyReturn->stmts = [clone $return];
+
         $this->addNodeAfterNode($nestedIfWithOnlyReturn, $if);
     }
 }

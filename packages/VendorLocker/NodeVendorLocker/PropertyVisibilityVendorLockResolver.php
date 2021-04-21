@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\VendorLocker\NodeVendorLocker;
 
 use PhpParser\Node;
@@ -10,21 +11,25 @@ use PHPStan\Reflection\ClassReflection;
 use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+
 final class PropertyVisibilityVendorLockResolver
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)
+
+    public function __construct(NodeNameResolver $nodeNameResolver, FamilyRelationsAnalyzer $familyRelationsAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
     }
+
     /**
      * Checks for:
      * - child classes required properties
@@ -32,47 +37,57 @@ final class PropertyVisibilityVendorLockResolver
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
+    public function isParentLockedProperty(Property $property): bool
     {
         $classReflection = $this->resolveClassReflection($property);
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return \false;
+        if (! $classReflection instanceof ClassReflection) {
+            return false;
         }
+
         $propertyName = $this->nodeNameResolver->getName($property);
+
         foreach ($classReflection->getParents() as $parentClassReflection) {
             if ($parentClassReflection->hasProperty($propertyName)) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
-    public function isChildLockedProperty(\PhpParser\Node\Stmt\Property $property) : bool
+
+    public function isChildLockedProperty(Property $property): bool
     {
         $classReflection = $this->resolveClassReflection($property);
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return \false;
+        if (! $classReflection instanceof ClassReflection) {
+            return false;
         }
+
         $propertyName = $this->nodeNameResolver->getName($property);
+
         $childrenClassReflections = $this->familyRelationsAnalyzer->getChildrenOfClassReflection($classReflection);
         foreach ($childrenClassReflections as $childClassReflection) {
             if ($childClassReflection === $classReflection) {
                 continue;
             }
+
             if ($childClassReflection->hasProperty($propertyName)) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @return \PHPStan\Reflection\ClassReflection|null
      */
-    private function resolveClassReflection(\PhpParser\Node $node)
+    private function resolveClassReflection(Node $node)
     {
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+        if (! $scope instanceof Scope) {
             return null;
         }
+
         return $scope->getClassReflection();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -11,43 +12,53 @@ use PHPStan\Type\TypeWithClassName;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Nette\Contract\FormControlTypeResolverInterface;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-final class AssignDimFetchFormTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface
+
+final class AssignDimFetchFormTypeResolver implements FormControlTypeResolverInterface
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
+
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+
+    public function __construct(BetterNodeFinder $betterNodeFinder, NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
+
     /**
      * @return array<string, string>
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(Node $node): array
     {
-        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if (! $node instanceof ArrayDimFetch) {
             return [];
         }
+
         // traverse up and find all $this['some_name'] = $type
         /** @var Assign|null $formVariableAssign */
         $formVariableAssign = $this->betterNodeFinder->findPreviousAssignToExpr($node);
-        if (!$formVariableAssign instanceof \PhpParser\Node\Expr\Assign) {
+        if (! $formVariableAssign instanceof Assign) {
             return [];
         }
-        if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {
+
+        if (! $node->dim instanceof String_) {
             return [];
         }
+
         $exprType = $this->nodeTypeResolver->getStaticType($formVariableAssign->expr);
-        if (!$exprType instanceof \PHPStan\Type\TypeWithClassName) {
+        if (! $exprType instanceof TypeWithClassName) {
             return [];
         }
+
         $name = $node->dim->value;
-        return [$name => $exprType->getClassName()];
+        return [
+            $name => $exprType->getClassName(),
+        ];
     }
 }

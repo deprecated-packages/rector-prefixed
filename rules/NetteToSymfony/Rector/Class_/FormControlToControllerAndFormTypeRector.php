@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NetteToSymfony\Rector\Class_;
 
 use PhpParser\Node;
@@ -19,39 +20,52 @@ use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
 use Rector\NetteToSymfony\NodeFactory\SymfonyMethodCallsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://symfony.com/doc/current/forms.html#creating-form-classes
  *
  * @see \Rector\Tests\NetteToSymfony\Rector\Class_\FormControlToControllerAndFormTypeRector\FormControlToControllerAndFormTypeRectorTest
  */
-final class FormControlToControllerAndFormTypeRector extends \Rector\Core\Rector\AbstractRector
+final class FormControlToControllerAndFormTypeRector extends AbstractRector
 {
     /**
      * @var OnFormVariableMethodCallsCollector
      */
     private $onFormVariableMethodCallsCollector;
+
     /**
      * @var SymfonyControllerFactory
      */
     private $symfonyControllerFactory;
+
     /**
      * @var BuildFormClassMethodFactory
      */
     private $buildFormClassMethodFactory;
+
     /**
      * @var SymfonyMethodCallsFactory
      */
     private $symfonyMethodCallsFactory;
-    public function __construct(\Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector, \Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory $symfonyControllerFactory, \Rector\NetteToSymfony\NodeFactory\BuildFormClassMethodFactory $buildFormClassMethodFactory, \Rector\NetteToSymfony\NodeFactory\SymfonyMethodCallsFactory $symfonyMethodCallsFactory)
-    {
+
+    public function __construct(
+        OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector,
+        SymfonyControllerFactory $symfonyControllerFactory,
+        BuildFormClassMethodFactory $buildFormClassMethodFactory,
+        SymfonyMethodCallsFactory $symfonyMethodCallsFactory
+
+    ) {
         $this->onFormVariableMethodCallsCollector = $onFormVariableMethodCallsCollector;
         $this->symfonyControllerFactory = $symfonyControllerFactory;
         $this->buildFormClassMethodFactory = $buildFormClassMethodFactory;
         $this->symfonyMethodCallsFactory = $symfonyMethodCallsFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Form that extends Control to Controller and decoupled FormType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change Form that extends Control to Controller and decoupled FormType', [
+            new ExtraFileCodeSample(
+                <<<'CODE_SAMPLE'
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 
@@ -71,7 +85,8 @@ class SomeForm extends Control
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeFormController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     /**
@@ -88,80 +103,107 @@ class SomeFormController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210421;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-use RectorPrefix20210421\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210421\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210421\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210421\Symfony\Component\Form\AbstractType
+class SomeFormType extends AbstractType
 {
-    public function buildForm(\RectorPrefix20210421\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210421\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', TextType::class, [
+            'label' => 'Your name'
+        ]);
     }
 }
-\class_alias('SomeFormType', 'SomeFormType', \false);
 CODE_SAMPLE
-)]);
+            ),
+
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control'))) {
+        if (! $this->isObjectType($node, new ObjectType('Nette\Application\UI\Control'))) {
             return null;
         }
+
         foreach ($node->getMethods() as $classMethod) {
-            if (!$this->isName($classMethod->name, 'createComponent*')) {
+            if (! $this->isName($classMethod->name, 'createComponent*')) {
                 continue;
             }
+
             $formTypeClass = $this->collectFormMethodCallsAndCreateFormTypeClass($classMethod);
-            if (!$formTypeClass instanceof \PhpParser\Node\Stmt\Class_) {
+            if (! $formTypeClass instanceof Class_) {
                 continue;
             }
+
             $symfonyControllerNamespace = $this->symfonyControllerFactory->createNamespace($node, $formTypeClass);
-            if (!$symfonyControllerNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
+            if (! $symfonyControllerNamespace instanceof Namespace_) {
                 continue;
             }
-            $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes('src/Controller/SomeFormController.php', [$symfonyControllerNamespace]);
+
+            $addedFileWithNodes = new AddedFileWithNodes('src/Controller/SomeFormController.php', [
+                $symfonyControllerNamespace,
+            ]);
             $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
+
             return $formTypeClass;
         }
+
         return $node;
     }
+
     /**
      * @return \PhpParser\Node\Stmt\Class_|null
      */
-    private function collectFormMethodCallsAndCreateFormTypeClass(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function collectFormMethodCallsAndCreateFormTypeClass(ClassMethod $classMethod)
     {
-        $onFormVariableMethodCalls = $this->onFormVariableMethodCallsCollector->collectFromClassMethod($classMethod);
+        $onFormVariableMethodCalls = $this->onFormVariableMethodCallsCollector->collectFromClassMethod(
+            $classMethod
+        );
+
         if ($onFormVariableMethodCalls === []) {
             return null;
         }
-        $formBuilderVariable = new \PhpParser\Node\Expr\Variable('formBuilder');
+
+        $formBuilderVariable = new Variable('formBuilder');
+
         // public function buildForm(\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
         $buildFormClassMethod = $this->buildFormClassMethodFactory->create($formBuilderVariable);
-        $symfonyMethodCalls = $this->symfonyMethodCallsFactory->create($onFormVariableMethodCalls, $formBuilderVariable);
+
+        $symfonyMethodCalls = $this->symfonyMethodCallsFactory->create(
+            $onFormVariableMethodCalls,
+            $formBuilderVariable
+        );
         $buildFormClassMethod->stmts = $symfonyMethodCalls;
+
         return $this->createFormTypeClassFromBuildFormClassMethod($buildFormClassMethod);
     }
-    private function createFormTypeClassFromBuildFormClassMethod(\PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
+
+    private function createFormTypeClassFromBuildFormClassMethod(ClassMethod $buildFormClassMethod): Class_
     {
-        $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
-        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\AbstractType');
+        $formTypeClass = new Class_('SomeFormType');
+        $formTypeClass->extends = new FullyQualified('Symfony\Component\Form\AbstractType');
+
         $formTypeClass->stmts[] = $buildFormClassMethod;
+
         return $formTypeClass;
     }
 }

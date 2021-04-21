@@ -1,43 +1,51 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\NodeFactory;
 
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+
 final class ExpectExceptionFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+
+    public function __construct(NodeNameResolver $nodeNameResolver, TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
+
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable)
+    public function create(MethodCall $methodCall, Variable $variable)
     {
-        if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertInstanceOf')) {
+        if (! $this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertInstanceOf')) {
             return null;
         }
+
         $argumentVariableName = $this->nodeNameResolver->getName($methodCall->args[1]->value);
         if ($argumentVariableName === null) {
             return null;
         }
+
         // is na exception variable
-        if (!$this->nodeNameResolver->isName($variable, $argumentVariableName)) {
+        if (! $this->nodeNameResolver->isName($variable, $argumentVariableName)) {
             return null;
         }
-        return new \PhpParser\Node\Expr\MethodCall($methodCall->var, 'expectException', [$methodCall->args[0]]);
+
+        return new MethodCall($methodCall->var, 'expectException', [$methodCall->args[0]]);
     }
 }

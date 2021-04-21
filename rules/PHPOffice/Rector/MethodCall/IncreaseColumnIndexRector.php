@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPOffice\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,24 +16,34 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#column-index-based-on-1
  *
  * @see \Rector\Tests\PHPOffice\Rector\MethodCall\IncreaseColumnIndexRector\IncreaseColumnIndexRectorTest
  */
-final class IncreaseColumnIndexRector extends \Rector\Core\Rector\AbstractRector
+final class IncreaseColumnIndexRector extends AbstractRector
 {
     /**
      * @var ObjectType[]
      */
     private $worksheetObjectTypes = [];
+
     public function __construct()
     {
-        $this->worksheetObjectTypes = [new \PHPStan\Type\ObjectType('PHPExcel_Worksheet'), new \PHPStan\Type\ObjectType('PHPExcel_Worksheet_PageSetup')];
+        $this->worksheetObjectTypes = [
+            new ObjectType('PHPExcel_Worksheet'),
+            new ObjectType('PHPExcel_Worksheet_PageSetup'),
+        ];
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Column index changed from 0 to 1 - run only ONCE! changes current value without memory', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Column index changed from 0 to 1 - run only ONCE! changes current value without memory',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -42,7 +53,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -52,96 +64,116 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->nodeTypeResolver->isObjectTypes($node->var, $this->worksheetObjectTypes)) {
+        if (! $this->nodeTypeResolver->isObjectTypes($node->var, $this->worksheetObjectTypes)) {
             return null;
         }
-        if (!$this->isName($node->name, '*ByColumnAndRow')) {
+
+        if (! $this->isName($node->name, '*ByColumnAndRow')) {
             return null;
         }
+
         // increase column value
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof \PhpParser\Node\Scalar\LNumber) {
+        if ($firstArgumentValue instanceof LNumber) {
             ++$firstArgumentValue->value;
         }
-        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\BinaryOp) {
+
+        if ($firstArgumentValue instanceof BinaryOp) {
             $this->refactorBinaryOp($firstArgumentValue);
         }
-        if ($firstArgumentValue instanceof \PhpParser\Node\Expr\Variable) {
+
+        if ($firstArgumentValue instanceof Variable) {
             // check if for() value, rather update that
             $lNumber = $this->findPreviousForWithVariable($firstArgumentValue);
-            if (!$lNumber instanceof \PhpParser\Node\Scalar\LNumber) {
-                $node->args[0]->value = new \PhpParser\Node\Expr\BinaryOp\Plus($firstArgumentValue, new \PhpParser\Node\Scalar\LNumber(1));
+            if (! $lNumber instanceof LNumber) {
+                $node->args[0]->value = new Plus($firstArgumentValue, new LNumber(1));
                 return null;
             }
+
             ++$lNumber->value;
         }
+
         return $node;
     }
+
     /**
      * @return void
      */
-    private function refactorBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    private function refactorBinaryOp(BinaryOp $binaryOp)
     {
-        if ($binaryOp->left instanceof \PhpParser\Node\Scalar\LNumber) {
+        if ($binaryOp->left instanceof LNumber) {
             ++$binaryOp->left->value;
             return;
         }
-        if ($binaryOp->right instanceof \PhpParser\Node\Scalar\LNumber) {
+
+        if ($binaryOp->right instanceof LNumber) {
             ++$binaryOp->right->value;
             return;
         }
     }
+
     /**
      * @return \PhpParser\Node\Scalar\LNumber|null
      */
-    private function findPreviousForWithVariable(\PhpParser\Node\Expr\Variable $variable)
+    private function findPreviousForWithVariable(Variable $variable)
     {
-        $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\For_::class]);
-        if (!$for instanceof \PhpParser\Node\Stmt\For_) {
+        $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [For_::class]);
+        if (! $for instanceof For_) {
             return null;
         }
+
         $variableName = $this->getName($variable);
         if ($variableName === null) {
             return null;
         }
+
         $assignVariable = $this->findVariableAssignName($for->init, $variableName);
-        if (!$assignVariable instanceof \PhpParser\Node\Expr\Assign) {
+        if (! $assignVariable instanceof Assign) {
             return null;
         }
+
         $assignedExpr = $assignVariable->expr;
-        if ($assignedExpr instanceof \PhpParser\Node\Scalar\LNumber) {
+        if ($assignedExpr instanceof LNumber) {
             return $assignedExpr;
         }
+
         return null;
     }
+
     /**
      * @param Node[] $node
      * @return \PhpParser\Node|null
      */
     private function findVariableAssignName(array $node, string $variableName)
     {
-        return $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return \false;
+        return $this->betterNodeFinder->findFirst($node, function (Node $node) use ($variableName): bool {
+            if (! $node instanceof Assign) {
+                return false;
             }
-            if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
-                return \false;
+
+            if (! $node->var instanceof Variable) {
+                return false;
             }
+
             return $this->nodeNameResolver->isName($node->var, $variableName);
         });
     }

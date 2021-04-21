@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
@@ -9,14 +10,17 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\If_\RemoveAlwaysTrueIfConditionRector\RemoveAlwaysTrueIfConditionRectorTest
  */
-final class RemoveAlwaysTrueIfConditionRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveAlwaysTrueIfConditionRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove if condition that is always true', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove if condition that is always true', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function go()
@@ -29,7 +33,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function go()
@@ -40,39 +45,47 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [If_::class];
     }
+
     /**
      * @param If_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->else !== null) {
             return null;
         }
+
         // just one if
-        if (\count($node->elseifs) !== 0) {
+        if (count($node->elseifs) !== 0) {
             return null;
         }
+
         $conditionStaticType = $this->getStaticType($node->cond);
-        if (!$conditionStaticType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+        if (! $conditionStaticType instanceof ConstantBooleanType) {
             return null;
         }
-        if (!$conditionStaticType->getValue()) {
+
+        if (! $conditionStaticType->getValue()) {
             return null;
         }
-        if (\count($node->stmts) !== 1) {
+
+        if (count($node->stmts) !== 1) {
             // unable to handle now
             return null;
         }
+
         return $node->stmts[0];
     }
 }

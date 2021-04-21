@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php80\Rector\Class_;
 
 use PhpParser\Node;
@@ -13,28 +14,36 @@ use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://wiki.php.net/rfc/stringable
  *
  * @see \Rector\Tests\Php80\Rector\Class_\StringableForToStringRector\StringableForToStringRectorTest
  */
-final class StringableForToStringRector extends \Rector\Core\Rector\AbstractRector
+final class StringableForToStringRector extends AbstractRector
 {
     /**
      * @var string
      */
     const STRINGABLE = 'Stringable';
+
     /**
      * @var ClassManipulator
      */
     private $classManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
+
+    public function __construct(ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add `Stringable` interface to classes with `__toString()` method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add `Stringable` interface to classes with `__toString()` method',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __toString()
@@ -43,7 +52,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass implements Stringable
 {
     public function __toString(): string
@@ -52,34 +62,42 @@ class SomeClass implements Stringable
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $toStringClassMethod = $node->getMethod('__toString');
-        if (!$toStringClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (! $toStringClassMethod instanceof ClassMethod) {
             return null;
         }
-        if ($this->classManipulator->hasInterface($node, new \PHPStan\Type\ObjectType(self::STRINGABLE))) {
+
+        if ($this->classManipulator->hasInterface($node, new ObjectType(self::STRINGABLE))) {
             return null;
         }
+
         // add interface
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified(self::STRINGABLE);
+        $node->implements[] = new FullyQualified(self::STRINGABLE);
+
         // add return type
+
         if ($toStringClassMethod->returnType === null) {
-            $toStringClassMethod->returnType = new \PhpParser\Node\Name('string');
+            $toStringClassMethod->returnType = new Name('string');
         }
+
         return $node;
     }
 }

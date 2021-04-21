@@ -1,25 +1,28 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeNameResolver\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Empty_;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-final class EmptyNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+
+final class EmptyNameResolver implements NodeNameResolverInterface
 {
     /**
      * @return class-string<Node>
      */
-    public function getNode() : string
+    public function getNode(): string
     {
-        return \PhpParser\Node\Expr\Empty_::class;
+        return Empty_::class;
     }
+
     /**
      * @param Empty_ $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(Node $node)
     {
         return 'empty';
     }

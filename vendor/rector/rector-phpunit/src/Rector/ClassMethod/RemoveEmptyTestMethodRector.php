@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -9,22 +10,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\RemoveEmptyTestMethodRector\RemoveEmptyTestMethodRectorTest
  */
-final class RemoveEmptyTestMethodRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveEmptyTestMethodRector extends AbstractRector
 {
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+
+    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty test methods', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove empty test methods', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -37,39 +43,48 @@ class SomeTest extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeTest extends \PHPUnit\Framework\TestCase
 {
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
+        if (! $this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$this->isName($node->name, 'test*')) {
+
+        if (! $this->isName($node->name, 'test*')) {
             return null;
         }
+
         if ($node->stmts === null) {
             return null;
         }
+
         if ($node->stmts !== []) {
             return null;
         }
+
         $this->removeNode($node);
+
         return null;
     }
 }

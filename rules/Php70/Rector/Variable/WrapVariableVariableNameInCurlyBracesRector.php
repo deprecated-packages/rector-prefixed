@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php70\Rector\Variable;
 
 use PhpParser\Node;
@@ -9,51 +10,64 @@ use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector\WrapVariableVariableNameInCurlyBracesRectorTest
  * @changelog https://www.php.net/manual/en/language.variables.variable.php
  */
-final class WrapVariableVariableNameInCurlyBracesRector extends \Rector\Core\Rector\AbstractRector
+final class WrapVariableVariableNameInCurlyBracesRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Ensure variable variables are wrapped in curly braces', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Ensure variable variables are wrapped in curly braces',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 function run($foo)
 {
     global $$foo->bar;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 function run($foo)
 {
     global ${$foo->bar};
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\Variable::class];
+        return [Variable::class];
     }
+
     /**
      * @param Variable $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $nodeName = $node->name;
-        if (!$nodeName instanceof \PhpParser\Node\Expr\PropertyFetch && !$nodeName instanceof \PhpParser\Node\Expr\Variable) {
+
+        if (! $nodeName instanceof PropertyFetch && ! $nodeName instanceof Variable) {
             return null;
         }
+
         if ($node->getEndTokenPos() !== $nodeName->getEndTokenPos()) {
             return null;
         }
-        if ($nodeName instanceof \PhpParser\Node\Expr\PropertyFetch) {
-            return new \PhpParser\Node\Expr\Variable(new \PhpParser\Node\Expr\PropertyFetch($nodeName->var, $nodeName->name));
+
+        if ($nodeName instanceof PropertyFetch) {
+            return new Variable(new PropertyFetch($nodeName->var, $nodeName->name));
         }
-        return new \PhpParser\Node\Expr\Variable(new \PhpParser\Node\Expr\Variable($nodeName->name));
+
+        return new Variable(new Variable($nodeName->name));
     }
 }

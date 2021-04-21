@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Autodiscovery\Rector\Class_;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
@@ -14,39 +15,49 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Symplify\SmartFileSystem\SmartFileInfo;
+use Webmozart\Assert\Assert;
+
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  *
  * @see \Rector\Tests\Autodiscovery\Rector\Class_\MoveServicesBySuffixToDirectoryRector\MoveServicesBySuffixToDirectoryRectorTest
  */
-final class MoveServicesBySuffixToDirectoryRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MoveServicesBySuffixToDirectoryRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const GROUP_NAMES_BY_SUFFIX = 'group_names_by_suffix';
+
     /**
      * @var string[]
      */
     private $groupNamesBySuffix = [];
+
     /**
      * @var ExpectedFileLocationResolver
      */
     private $expectedFileLocationResolver;
+
     /**
      * @var AddedFileWithNodesFactory
      */
     private $addedFileWithNodesFactory;
-    public function __construct(\Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver $expectedFileLocationResolver, \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory $addedFileWithNodesFactory)
-    {
+
+    public function __construct(
+        ExpectedFileLocationResolver $expectedFileLocationResolver,
+        AddedFileWithNodesFactory $addedFileWithNodesFactory
+    ) {
         $this->expectedFileLocationResolver = $expectedFileLocationResolver;
         $this->addedFileWithNodesFactory = $addedFileWithNodesFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move classes by their suffix to their own group/directory', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Move classes by their suffix to their own group/directory', [
+            new ConfiguredCodeSample(
+                        <<<'CODE_SAMPLE'
 // file: app/Entity/ProductRepository.php
 
 namespace App/Entity;
@@ -55,7 +66,8 @@ class ProductRepository
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                        ,
+                        <<<'CODE_SAMPLE'
 // file: app/Repository/ProductRepository.php
 
 namespace App/Repository;
@@ -64,24 +76,33 @@ class ProductRepository
 {
 }
 CODE_SAMPLE
-, [self::GROUP_NAMES_BY_SUFFIX => ['Repository']])]);
+                        ,
+                        [
+                            self::GROUP_NAMES_BY_SUFFIX => ['Repository'],
+                        ]
+                    ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $this->processGroupNamesBySuffix($this->file->getSmartFileInfo(), $this->file, $this->groupNamesBySuffix);
+
         return null;
     }
+
     /**
      * @param array<string, string[]> $configuration
      * @return void
@@ -89,9 +110,11 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $groupNamesBySuffix = $configuration[self::GROUP_NAMES_BY_SUFFIX] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
+        Assert::allString($groupNamesBySuffix);
+
         $this->groupNamesBySuffix = $groupNamesBySuffix;
     }
+
     /**
      * A. Match classes by suffix and move them to group namespace
      *
@@ -102,39 +125,57 @@ CODE_SAMPLE
      * @param string[] $groupNamesBySuffix
      * @return void
      */
-    private function processGroupNamesBySuffix(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix)
-    {
+    private function processGroupNamesBySuffix(
+        SmartFileInfo $smartFileInfo,
+        File $file,
+        array $groupNamesBySuffix
+    ) {
         foreach ($groupNamesBySuffix as $groupNames) {
             // has class suffix
-            $suffixPattern = '\\w+' . $groupNames . '(Test)?\\.php$';
-            if (!\RectorPrefix20210421\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
+            $suffixPattern = '\w+' . $groupNames . '(Test)?\.php$';
+            if (! Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
                 continue;
             }
+
             if ($this->isLocatedInExpectedLocation($groupNames, $suffixPattern, $smartFileInfo)) {
                 continue;
             }
+
             // file is already in the group
-            if (\RectorPrefix20210421\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupNames . '$#')) {
+            if (Strings::match($smartFileInfo->getPath(), '#' . $groupNames . '$#')) {
                 continue;
             }
+
             $this->moveFileToGroupName($smartFileInfo, $this->file, $groupNames);
             return;
         }
     }
-    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
-    {
+
+    private function isLocatedInExpectedLocation(
+        string $groupName,
+        string $suffixPattern,
+        SmartFileInfo $smartFileInfo
+    ): bool {
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
-        return (bool) \RectorPrefix20210421\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
+
+        return (bool) Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
+
     /**
      * @return void
      */
-    private function moveFileToGroupName(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName)
+    private function moveFileToGroupName(SmartFileInfo $fileInfo, File $file, string $desiredGroupName)
     {
-        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $this->file, $desiredGroupName);
-        if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {
+        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup(
+            $fileInfo,
+            $this->file,
+            $desiredGroupName
+        );
+
+        if (! $addedFileWithNodes instanceof AddedFileWithNodes) {
             return;
         }
+
         $this->removedAndAddedFilesCollector->removeFile($fileInfo);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
     }

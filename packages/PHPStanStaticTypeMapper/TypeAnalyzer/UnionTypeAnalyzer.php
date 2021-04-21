@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeAnalyzer;
 
 use PHPStan\Type\ArrayType;
@@ -11,44 +12,53 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
 use Traversable;
+
 final class UnionTypeAnalyzer
 {
     /**
      * @return \Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis|null
      */
-    public function analyseForNullableAndIterable(\PHPStan\Type\UnionType $unionType)
+    public function analyseForNullableAndIterable(UnionType $unionType)
     {
-        $isNullableType = \false;
-        $hasIterable = \false;
-        $hasArray = \false;
+        $isNullableType = false;
+        $hasIterable = false;
+        $hasArray = false;
+
         foreach ($unionType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \PHPStan\Type\IterableType) {
-                $hasIterable = \true;
+            if ($unionedType instanceof IterableType) {
+                $hasIterable = true;
                 continue;
             }
-            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
-                $hasArray = \true;
+
+            if ($unionedType instanceof ArrayType) {
+                $hasArray = true;
                 continue;
             }
-            if ($unionedType instanceof \PHPStan\Type\NullType) {
-                $isNullableType = \true;
+
+            if ($unionedType instanceof NullType) {
+                $isNullableType = true;
                 continue;
             }
-            if ($unionedType instanceof \PHPStan\Type\ObjectType && $unionedType->getClassName() === \Traversable::class) {
-                $hasIterable = \true;
+
+            if ($unionedType instanceof ObjectType && $unionedType->getClassName() === Traversable::class) {
+                $hasIterable = true;
                 continue;
             }
+
             return null;
         }
-        return new \Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis($isNullableType, $hasIterable, $hasArray);
+
+        return new UnionTypeAnalysis($isNullableType, $hasIterable, $hasArray);
     }
-    public function hasTypeClassNameOnly(\PHPStan\Type\UnionType $unionType) : bool
+
+    public function hasTypeClassNameOnly(UnionType $unionType): bool
     {
         foreach ($unionType->getTypes() as $unionedType) {
-            if (!$unionedType instanceof \PHPStan\Type\TypeWithClassName) {
-                return \false;
+            if (! $unionedType instanceof TypeWithClassName) {
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PhpSpecToPHPUnit\Rector\MethodCall;
 
 use PhpParser\Comment\Doc;
@@ -26,183 +27,239 @@ use Rector\Core\Php\TypeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpSpecToPHPUnit\PhpSpecMockCollector;
 use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+
 /**
  * @see \Rector\Tests\PhpSpecToPHPUnit\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class PhpSpecMocksToPHPUnitMocksRector extends AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @var PhpSpecMockCollector
      */
     private $phpSpecMockCollector;
+
     /**
      * @var TypeAnalyzer
      */
     private $typeAnalyzer;
-    public function __construct(\Rector\PhpSpecToPHPUnit\PhpSpecMockCollector $phpSpecMockCollector, \Rector\Core\Php\TypeAnalyzer $typeAnalyzer)
+
+    public function __construct(PhpSpecMockCollector $phpSpecMockCollector, TypeAnalyzer $typeAnalyzer)
     {
         $this->phpSpecMockCollector = $phpSpecMockCollector;
         $this->typeAnalyzer = $typeAnalyzer;
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\MethodCall::class];
+        return [ClassMethod::class, MethodCall::class];
     }
+
     /**
      * @param ClassMethod|MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isInPhpSpecBehavior($node)) {
+        if (! $this->isInPhpSpecBehavior($node)) {
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+
+        if ($node instanceof ClassMethod) {
             // public = tests, protected = internal, private = own (no framework magic)
             if ($node->isPrivate()) {
                 return null;
             }
+
             $this->processMethodParamsToMocks($node);
+
             return $node;
         }
+
         return $this->processMethodCall($node);
     }
+
     /**
      * @return void
      */
-    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function processMethodParamsToMocks(ClassMethod $classMethod)
     {
         // remove params and turn them to instances
         $assigns = [];
         foreach ($classMethod->params as $param) {
-            if (!$param->type instanceof \PhpParser\Node\Name) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            if (! $param->type instanceof Name) {
+                throw new ShouldNotHappenException();
             }
+
             $createMockCall = $this->createCreateMockCall($param, $param->type);
             if ($createMockCall !== null) {
                 $assigns[] = $createMockCall;
             }
         }
+
         // remove all params
         $classMethod->params = [];
-        $classMethod->stmts = \array_merge($assigns, (array) $classMethod->stmts);
+
+        $classMethod->stmts = array_merge($assigns, (array) $classMethod->stmts);
     }
+
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processMethodCall(MethodCall $methodCall)
     {
         if ($this->isName($methodCall->name, 'shouldBeCalled')) {
-            if (!$methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            if (! $methodCall->var instanceof MethodCall) {
+                throw new ShouldNotHappenException();
             }
+
             $mockMethodName = $this->getName($methodCall->var->name);
             if ($mockMethodName === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
+                throw new ShouldNotHappenException();
             }
+
             $expectedArg = $methodCall->var->args[0]->value ?? null;
-            $methodCall->var->name = new \PhpParser\Node\Identifier('expects');
+
+            $methodCall->var->name = new Identifier('expects');
             $thisOnceMethodCall = $this->nodeFactory->createLocalMethodCall('atLeastOnce');
-            $methodCall->var->args = [new \PhpParser\Node\Arg($thisOnceMethodCall)];
-            $methodCall->name = new \PhpParser\Node\Identifier('method');
-            $methodCall->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($mockMethodName))];
+            $methodCall->var->args = [new Arg($thisOnceMethodCall)];
+
+            $methodCall->name = new Identifier('method');
+            $methodCall->args = [new Arg(new String_($mockMethodName))];
+
             if ($expectedArg !== null) {
                 return $this->appendWithMethodCall($methodCall, $expectedArg);
             }
+
             return $methodCall;
         }
+
         return null;
     }
+
     /**
      * Variable or property fetch, based on number of present params in whole class
      * @return \PhpParser\Node\Stmt\Expression|null
      */
-    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name)
+    private function createCreateMockCall(Param $param, Name $name)
     {
         /** @var Class_ $classLike */
-        $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $param->getAttribute(AttributeKey::CLASS_NODE);
+
         $classMocks = $this->phpSpecMockCollector->resolveClassMocksFromParam($classLike);
+
         $variable = $this->getName($param->var);
-        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+
+        $classMethod = $param->getAttribute(AttributeKey::METHOD_NODE);
+        if (! $classMethod instanceof ClassMethod) {
+            throw new ShouldNotHappenException();
         }
+
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $methodsWithWThisMock = $classMocks[$variable];
-        if ($param->var instanceof \PhpParser\Node\Expr\Error) {
+
+        if ($param->var instanceof Error) {
             return null;
         }
+
         // single use: "$mock = $this->createMock()"
-        if (!$this->phpSpecMockCollector->isVariableMockInProperty($param->var)) {
+        if (! $this->phpSpecMockCollector->isVariableMockInProperty($param->var)) {
             return $this->createNewMockVariableAssign($param, $name);
         }
-        $reversedMethodsWithThisMock = \array_flip($methodsWithWThisMock);
+
+        $reversedMethodsWithThisMock = array_flip($methodsWithWThisMock);
+
         // first use of many: "$this->mock = $this->createMock()"
         if ($reversedMethodsWithThisMock[$methodName] === 0) {
             return $this->createPropertyFetchMockVariableAssign($param, $name);
         }
+
         return null;
     }
-    private function appendWithMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\MethodCall
+
+    private function appendWithMethodCall(MethodCall $methodCall, Expr $expr): MethodCall
     {
-        $withMethodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, 'with');
-        if ($expr instanceof \PhpParser\Node\Expr\StaticCall) {
+        $withMethodCall = new MethodCall($methodCall, 'with');
+
+        if ($expr instanceof StaticCall) {
             if ($this->isName($expr->class, '*Argument')) {
                 if ($this->isName($expr->name, 'any')) {
                     // no added value having this method
                     return $methodCall;
                 }
+
                 if ($this->isName($expr->name, 'type')) {
                     $expr = $this->createIsTypeOrIsInstanceOf($expr);
                 }
             }
         } else {
             $newExpr = $this->nodeFactory->createLocalMethodCall('equalTo');
-            $newExpr->args = [new \PhpParser\Node\Arg($expr)];
+            $newExpr->args = [new Arg($expr)];
             $expr = $newExpr;
         }
-        $withMethodCall->args = [new \PhpParser\Node\Arg($expr)];
+
+        $withMethodCall->args = [new Arg($expr)];
+
         return $withMethodCall;
     }
-    private function createNewMockVariableAssign(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : \PhpParser\Node\Stmt\Expression
+
+    private function createNewMockVariableAssign(Param $param, Name $name): Expression
     {
         $methodCall = $this->nodeFactory->createLocalMethodCall('createMock');
-        $methodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($name, 'class'));
-        $assign = new \PhpParser\Node\Expr\Assign($param->var, $methodCall);
-        $assignExpression = new \PhpParser\Node\Stmt\Expression($assign);
+        $methodCall->args[] = new Arg(new ClassConstFetch($name, 'class'));
+
+        $assign = new Assign($param->var, $methodCall);
+        $assignExpression = new Expression($assign);
+
         // add @var doc comment
         $varDoc = $this->createMockVarDoc($param, $name);
-        $assignExpression->setDocComment(new \PhpParser\Comment\Doc($varDoc));
+        $assignExpression->setDocComment(new Doc($varDoc));
+
         return $assignExpression;
     }
-    private function createPropertyFetchMockVariableAssign(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : \PhpParser\Node\Stmt\Expression
+
+    private function createPropertyFetchMockVariableAssign(Param $param, Name $name): Expression
     {
         $variable = $this->getName($param->var);
         if ($variable === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
-        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $variable);
+
+        $propertyFetch = new PropertyFetch(new Variable('this'), $variable);
+
         $methodCall = $this->nodeFactory->createLocalMethodCall('createMock');
-        $methodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($name, 'class'));
-        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $methodCall);
-        return new \PhpParser\Node\Stmt\Expression($assign);
+        $methodCall->args[] = new Arg(new ClassConstFetch($name, 'class'));
+
+        $assign = new Assign($propertyFetch, $methodCall);
+
+        return new Expression($assign);
     }
-    private function createIsTypeOrIsInstanceOf(\PhpParser\Node\Expr\StaticCall $staticCall) : \PhpParser\Node\Expr\MethodCall
+
+    private function createIsTypeOrIsInstanceOf(StaticCall $staticCall): MethodCall
     {
         $type = $this->valueResolver->getValue($staticCall->args[0]->value);
+
         $name = $this->typeAnalyzer->isPhpReservedType($type) ? 'isType' : 'isInstanceOf';
+
         return $this->nodeFactory->createLocalMethodCall($name, $staticCall->args);
     }
-    private function createMockVarDoc(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : string
+
+    private function createMockVarDoc(Param $param, Name $name): string
     {
-        $paramType = (string) ($name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME) ?: $name);
+        $paramType = (string) ($name->getAttribute(AttributeKey::ORIGINAL_NAME) ?: $name);
         $variableName = $this->getName($param->var);
+
         if ($variableName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
-        return \sprintf('/** @var %s|\\%s $%s */', $paramType, 'PHPUnit\\Framework\\MockObject\\MockObject', $variableName);
+
+        return sprintf(
+            '/** @var %s|\%s $%s */',
+            $paramType,
+            'PHPUnit\Framework\MockObject\MockObject',
+            $variableName
+        );
     }
 }

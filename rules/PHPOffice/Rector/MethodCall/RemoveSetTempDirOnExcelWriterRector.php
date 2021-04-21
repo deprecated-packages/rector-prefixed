@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPOffice\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -9,16 +10,21 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#writerxlssettempdir
  *
  * @see \Rector\Tests\PHPOffice\Rector\MethodCall\RemoveSetTempDirOnExcelWriterRector\RemoveSetTempDirOnExcelWriterRectorTest
  */
-final class RemoveSetTempDirOnExcelWriterRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveSetTempDirOnExcelWriterRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove setTempDir() on PHPExcel_Writer_Excel5', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove setTempDir() on PHPExcel_Writer_Excel5',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -28,7 +34,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -37,28 +44,34 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('PHPExcel_Writer_Excel5'))) {
+        if (! $this->isObjectType($node->var, new ObjectType('PHPExcel_Writer_Excel5'))) {
             return null;
         }
-        if (!$this->isName($node->name, 'setTempDir')) {
+
+        if (! $this->isName($node->name, 'setTempDir')) {
             return null;
         }
+
         $this->removeNode($node);
+
         return $node;
     }
 }

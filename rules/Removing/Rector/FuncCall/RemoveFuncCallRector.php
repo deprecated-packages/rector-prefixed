@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Removing\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -11,66 +12,89 @@ use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\Removing\ValueObject\RemoveFuncCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\Removing\Rector\FuncCall\RemoveFuncCallRector\RemoveFuncCallRectorTest
  */
-final class RemoveFuncCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RemoveFuncCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     const REMOVE_FUNC_CALLS = 'remove_func_calls';
+
     /**
      * @var RemoveFuncCall[]
      */
     private $removeFuncCalls = [];
+
     /**
      * @var BreakingRemovalGuard
      */
     private $breakingRemovalGuard;
-    public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
+
+    public function __construct(BreakingRemovalGuard $breakingRemovalGuard)
     {
         $this->breakingRemovalGuard = $breakingRemovalGuard;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        $configuration = [self::REMOVE_FUNC_CALLS => [new \Rector\Removing\ValueObject\RemoveFuncCall('ini_get', [1 => ['y2k_compliance']])]];
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove ini_get by configuration', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        $configuration = [
+            self::REMOVE_FUNC_CALLS => [
+                new RemoveFuncCall('ini_get', [
+                    1 => ['y2k_compliance'],
+                ]),
+            ],
+        ];
+        return new RuleDefinition('Remove ini_get by configuration', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 ini_get('y2k_compliance');
 ini_get('keep_me');
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 ini_get('keep_me');
 CODE_SAMPLE
-, $configuration)]);
+                ,
+                $configuration
+            ), ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->removeFuncCalls as $removeFuncCall) {
-            if (!$this->isName($node, $removeFuncCall->getFuncCall())) {
+            if (! $this->isName($node, $removeFuncCall->getFuncCall())) {
                 continue;
             }
+
             if ($removeFuncCall->getArgumentPositionAndValues() === []) {
                 $this->removeNode($node);
                 return null;
             }
+
             $this->refactorFuncCallsWithPositions($node, $removeFuncCall);
         }
+
         return null;
     }
+
     /**
      * @param array<string, RemoveFuncCall[]> $configuration
      * @return void
@@ -78,31 +102,35 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $removeFuncCalls = $configuration[self::REMOVE_FUNC_CALLS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
+        Assert::allIsInstanceOf($removeFuncCalls, RemoveFuncCall::class);
         $this->removeFuncCalls = $removeFuncCalls;
     }
+
     /**
      * @return void
      */
-    private function refactorFuncCallsWithPositions(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall)
+    private function refactorFuncCallsWithPositions(FuncCall $funcCall, RemoveFuncCall $removeFuncCall)
     {
         foreach ($removeFuncCall->getArgumentPositionAndValues() as $argumentPosition => $values) {
-            if (!$this->isArgumentPositionValueMatch($funcCall, $argumentPosition, $values)) {
+            if (! $this->isArgumentPositionValueMatch($funcCall, $argumentPosition, $values)) {
                 continue;
             }
+
             if ($this->breakingRemovalGuard->isLegalNodeRemoval($funcCall)) {
                 $this->removeNode($funcCall);
             }
         }
     }
+
     /**
      * @param mixed[] $values
      */
-    private function isArgumentPositionValueMatch(\PhpParser\Node\Expr\FuncCall $funcCall, int $argumentPosition, array $values) : bool
+    private function isArgumentPositionValueMatch(FuncCall $funcCall, int $argumentPosition, array $values): bool
     {
-        if (!isset($funcCall->args[$argumentPosition])) {
-            return \false;
+        if (! isset($funcCall->args[$argumentPosition])) {
+            return false;
         }
+
         return $this->valueResolver->isValues($funcCall->args[$argumentPosition]->value, $values);
     }
 }

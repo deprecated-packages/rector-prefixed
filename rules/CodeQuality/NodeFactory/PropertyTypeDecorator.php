@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\NodeFactory;
 
 use PhpParser\Node;
@@ -14,54 +15,67 @@ use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+
 final class PropertyTypeDecorator
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
+
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
+
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
-    {
+
+    public function __construct(
+        PhpVersionProvider $phpVersionProvider,
+        StaticTypeMapper $staticTypeMapper,
+        PhpDocTypeChanger $phpDocTypeChanger,
+        PhpDocInfoFactory $phpDocInfoFactory
+    ) {
         $this->phpVersionProvider = $phpVersionProvider;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
+
     /**
      * @return void
      */
-    public function decorateProperty(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
+    public function decorateProperty(Property $property, Type $propertyType)
     {
         $this->decoratePropertyWithVarDoc($property, $propertyType);
         $this->decoratePropertyWithType($property, $propertyType);
     }
+
     /**
      * @return void
      */
-    private function decoratePropertyWithVarDoc(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
+    private function decoratePropertyWithVarDoc(Property $property, Type $propertyType)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->makeMultiLined();
+
         if ($this->isNonMixedArrayType($propertyType)) {
             $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
-            $property->type = new \PhpParser\Node\Identifier('array');
+            $property->type = new Identifier('array');
             return;
         }
-        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
+
+        if ($this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::TYPED_PROPERTIES)) {
             $phpParserNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-            if (!$phpParserNode instanceof \PhpParser\Node) {
+            if (! $phpParserNode instanceof Node) {
                 // fallback to doc type in PHP 7.4
                 $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
             }
@@ -69,28 +83,34 @@ final class PropertyTypeDecorator
             $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
         }
     }
+
     /**
      * @return void
      */
-    private function decoratePropertyWithType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
+    private function decoratePropertyWithType(Property $property, Type $propertyType)
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
+        if (! $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::TYPED_PROPERTIES)) {
             return;
         }
+
         $phpParserNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-        if (!$phpParserNode instanceof \PhpParser\Node) {
+        if (! $phpParserNode instanceof Node) {
             return;
         }
+
         $property->type = $phpParserNode;
     }
-    private function isNonMixedArrayType(\PHPStan\Type\Type $type) : bool
+
+    private function isNonMixedArrayType(Type $type): bool
     {
-        if (!$type instanceof \PHPStan\Type\ArrayType) {
-            return \false;
+        if (! $type instanceof ArrayType) {
+            return false;
         }
-        if ($type->getKeyType() instanceof \PHPStan\Type\MixedType) {
-            return \false;
+
+        if ($type->getKeyType() instanceof MixedType) {
+            return false;
         }
-        return !$type->getItemType() instanceof \PHPStan\Type\MixedType;
+
+        return ! $type->getItemType() instanceof MixedType;
     }
 }

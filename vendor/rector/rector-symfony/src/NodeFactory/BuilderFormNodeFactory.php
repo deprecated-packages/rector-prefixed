@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\NodeFactory;
 
 use PhpParser\Node;
@@ -13,43 +14,55 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+
 final class BuilderFormNodeFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+
+    public function __construct(NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function create(\PhpParser\Node\Stmt\ClassMethod $constructorClassMethod) : \PhpParser\Node\Stmt\ClassMethod
+
+    public function create(ClassMethod $constructorClassMethod): ClassMethod
     {
         $formBuilderParam = $this->createBuilderParam();
+
         $optionsParam = $this->createOptionsParam();
-        $classMethodBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('buildForm');
+
+        $classMethodBuilder = new MethodBuilder('buildForm');
         $classMethodBuilder->makePublic();
         $classMethodBuilder->addParam($formBuilderParam);
         $classMethodBuilder->addParam($optionsParam);
+
         // raw copy stmts from ctor
         $options = $this->replaceParameterAssignWithOptionAssign((array) $constructorClassMethod->stmts, $optionsParam);
         $classMethodBuilder->addStmts($options);
+
         return $classMethodBuilder->getNode();
     }
-    private function createBuilderParam() : \PhpParser\Node\Param
+
+    private function createBuilderParam(): Param
     {
-        $builderParamBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder('builder');
-        $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\FormBuilderInterface'));
+        $builderParamBuilder = new ParamBuilder('builder');
+        $builderParamBuilder->setType(new FullyQualified('Symfony\Component\Form\FormBuilderInterface'));
+
         return $builderParamBuilder->getNode();
     }
-    private function createOptionsParam() : \PhpParser\Node\Param
+
+    private function createOptionsParam(): Param
     {
-        $optionsParamBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder('options');
+        $optionsParamBuilder = new ParamBuilder('options');
         $optionsParamBuilder->setType('array');
+
         return $optionsParamBuilder->getNode();
     }
+
     /**
      * @param Node[] $nodes
      * @return Node[]
@@ -58,24 +71,28 @@ final class BuilderFormNodeFactory
      * ↓
      * $this->value = $options['value']
      */
-    private function replaceParameterAssignWithOptionAssign(array $nodes, \PhpParser\Node\Param $param) : array
+    private function replaceParameterAssignWithOptionAssign(array $nodes, Param $param): array
     {
         foreach ($nodes as $expression) {
-            if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
+            if (! $expression instanceof Expression) {
                 continue;
             }
+
             $node = $expression->expr;
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+            if (! $node instanceof Assign) {
                 continue;
             }
+
             $variableName = $this->nodeNameResolver->getName($node->var);
             if ($variableName === null) {
                 continue;
             }
-            if ($node->expr instanceof \PhpParser\Node\Expr\Variable) {
-                $node->expr = new \PhpParser\Node\Expr\ArrayDimFetch($param->var, new \PhpParser\Node\Scalar\String_($variableName));
+
+            if ($node->expr instanceof Variable) {
+                $node->expr = new ArrayDimFetch($param->var, new String_($variableName));
             }
         }
+
         return $nodes;
     }
 }

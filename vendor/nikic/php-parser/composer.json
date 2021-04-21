@@ -1,5 +1,5 @@
 {
-    "name": "nikic\/php-parser",
+    "name": "nikic/php-parser",
     "type": "library",
     "description": "A PHP parser written in PHP",
     "keywords": [
@@ -17,8 +17,8 @@
         "ext-tokenizer": "*"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0",
-        "ircmaxell\/php-yacc": "^0.0.7"
+        "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0",
+        "ircmaxell/php-yacc": "^0.0.7"
     },
     "extra": {
         "branch-alias": {
@@ -27,15 +27,15 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpParser\\": "lib\/PhpParser"
+            "PhpParser\\": "lib/PhpParser"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpParser\\": "test\/PhpParser\/"
+            "PhpParser\\": "test/PhpParser/"
         }
     },
     "bin": [
-        "bin\/php-parse"
+        "bin/php-parse"
     ]
 }

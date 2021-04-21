@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp72\NodeAnalyzer;
 
 use PhpParser\Node;
@@ -11,50 +12,73 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210421\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+
 final class NativeTypeClassTreeResolver
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210421\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+
+    public function __construct(StaticTypeMapper $staticTypeMapper, PrivatesAccessor $privatesAccessor)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->privatesAccessor = $privatesAccessor;
     }
-    public function resolveParameterReflectionType(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : \PHPStan\Type\Type
-    {
+
+    public function resolveParameterReflectionType(
+        ClassReflection $classReflection,
+        string $methodName,
+        int $position
+    ): Type {
         $nativeReflectionClass = $classReflection->getNativeReflection();
+
         $reflectionMethod = $nativeReflectionClass->getMethod($methodName);
         $parameterReflection = $reflectionMethod->getParameters()[$position] ?? null;
-        if (!$parameterReflection instanceof \ReflectionParameter) {
-            return new \PHPStan\Type\MixedType();
+        if (! $parameterReflection instanceof \ReflectionParameter) {
+            return new MixedType();
         }
+
         // "native" reflection from PHPStan removes the type, so we need to check with both reflection and php-paser
         $nativeType = $this->resolveNativeType($parameterReflection);
-        if (!$nativeType instanceof \PHPStan\Type\MixedType) {
+        if (! $nativeType instanceof MixedType) {
             return $nativeType;
         }
-        return \PHPStan\Type\TypehintHelper::decideTypeFromReflection($parameterReflection->getType(), null, $classReflection->getName(), $parameterReflection->isVariadic());
+
+        return TypehintHelper::decideTypeFromReflection(
+            $parameterReflection->getType(),
+            null,
+            $classReflection->getName(),
+            $parameterReflection->isVariadic()
+        );
     }
-    private function resolveNativeType(\ReflectionParameter $reflectionParameter) : \PHPStan\Type\Type
+
+    private function resolveNativeType(\ReflectionParameter $reflectionParameter): Type
     {
-        if (!$reflectionParameter instanceof \PHPStan\BetterReflection\Reflection\Adapter\ReflectionParameter) {
-            return new \PHPStan\Type\MixedType();
+        if (! $reflectionParameter instanceof ReflectionParameter) {
+            return new MixedType();
         }
-        $betterReflectionParameter = $this->privatesAccessor->getPrivateProperty($reflectionParameter, 'betterReflectionParameter');
+
+        $betterReflectionParameter = $this->privatesAccessor->getPrivateProperty(
+            $reflectionParameter,
+            'betterReflectionParameter'
+        );
+
         $param = $this->privatesAccessor->getPrivateProperty($betterReflectionParameter, 'node');
-        if (!$param instanceof \PhpParser\Node\Param) {
-            return new \PHPStan\Type\MixedType();
+        if (! $param instanceof Param) {
+            return new MixedType();
         }
-        if (!$param->type instanceof \PhpParser\Node) {
-            return new \PHPStan\Type\MixedType();
+
+        if (! $param->type instanceof Node) {
+            return new MixedType();
         }
+
         return $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
     }
 }

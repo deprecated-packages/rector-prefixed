@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\Identical;
 
 use PhpParser\Node;
@@ -11,14 +12,19 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodeQuality\Rector\Identical\StrlenZeroToIdenticalEmptyStringRector\StrlenZeroToIdenticalEmptyStringRectorTest
  */
-final class StrlenZeroToIdenticalEmptyStringRector extends \Rector\Core\Rector\AbstractRector
+final class StrlenZeroToIdenticalEmptyStringRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes strlen comparison to 0 to direct empty string compare', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Changes strlen comparison to 0 to direct empty string compare',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -27,7 +33,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -36,42 +43,50 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Identical::class];
+        return [Identical::class];
     }
+
     /**
      * @param Identical $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $variable = null;
-        if ($node->left instanceof \PhpParser\Node\Expr\FuncCall) {
-            if (!$this->isName($node->left, 'strlen')) {
+        if ($node->left instanceof FuncCall) {
+            if (! $this->isName($node->left, 'strlen')) {
                 return null;
             }
-            if (!$this->valueResolver->isValue($node->right, 0)) {
+
+            if (! $this->valueResolver->isValue($node->right, 0)) {
                 return null;
             }
+
             $variable = $node->left->args[0]->value;
-        } elseif ($node->right instanceof \PhpParser\Node\Expr\FuncCall) {
-            if (!$this->isName($node->right, 'strlen')) {
+        } elseif ($node->right instanceof FuncCall) {
+            if (! $this->isName($node->right, 'strlen')) {
                 return null;
             }
-            if (!$this->valueResolver->isValue($node->left, 0)) {
+
+            if (! $this->valueResolver->isValue($node->left, 0)) {
                 return null;
             }
+
             $variable = $node->right->args[0]->value;
         } else {
             return null;
         }
+
         /** @var Expr $variable */
-        return new \PhpParser\Node\Expr\BinaryOp\Identical($variable, new \PhpParser\Node\Scalar\String_(''));
+        return new Identical($variable, new String_(''));
     }
 }

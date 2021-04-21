@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Renaming\Rector\Name;
 
 use PhpParser\Node;
@@ -17,35 +18,43 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Renaming\Rector\Name\RenameClassRector\RenameClassRectorTest
  */
-final class RenameClassRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameClassRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const OLD_TO_NEW_CLASSES = 'old_to_new_classes';
+
     /**
      * @var array<string, string>
      */
     private $oldToNewClasses = [];
+
     /**
      * @var ClassRenamer
      */
     private $classRenamer;
+
     /**
      * @var RenamedClassesDataCollector
      */
     private $renamedClassesDataCollector;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer)
+
+    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer)
     {
         $this->classRenamer = $classRenamer;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined classes by new ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Replaces defined classes by new ones.', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 namespace App;
 
 use SomeOldClass;
@@ -57,7 +66,8 @@ function someFunction(SomeOldClass $someOldClass): SomeOldClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 namespace App;
 
 use SomeNewClass;
@@ -69,23 +79,41 @@ function someFunction(SomeNewClass $someOldClass): SomeNewClass
     }
 }
 CODE_SAMPLE
-, [self::OLD_TO_NEW_CLASSES => ['App\\SomeOldClass' => 'App\\SomeNewClass']])]);
+                ,
+                [
+                    self::OLD_TO_NEW_CLASSES => [
+                        'App\SomeOldClass' => 'App\SomeNewClass',
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Name::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class, \PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt\ClassLike::class, \PhpParser\Node\Stmt\Namespace_::class, \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class];
+        return [
+            Name::class,
+            Property::class,
+            FunctionLike::class,
+            Expression::class,
+            ClassLike::class,
+            Namespace_::class,
+            FileWithoutNamespace::class,
+        ];
     }
+
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
+
     /**
      * @param array<string, array<string, string>> $configuration
      * @return void
@@ -93,6 +121,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
+
         $this->renamedClassesDataCollector->addOldToNewClasses($oldToNewClasses);
         $this->oldToNewClasses = $this->renamedClassesDataCollector->getOldToNewClasses();
     }

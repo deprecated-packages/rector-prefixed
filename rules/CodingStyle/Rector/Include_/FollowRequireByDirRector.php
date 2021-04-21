@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\Include_;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Include_;
@@ -12,14 +13,19 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\Include_\FollowRequireByDirRector\FollowRequireByDirRectorTest
  */
-final class FollowRequireByDirRector extends \Rector\Core\Rector\AbstractRector
+final class FollowRequireByDirRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('include/require should be followed by absolute path', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'include/require should be followed by absolute path',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -28,7 +34,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -37,61 +44,76 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\Include_::class];
+        return [Include_::class];
     }
+
     /**
      * @param Include_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat && $node->expr->left instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr->left)) {
+        if ($node->expr instanceof Concat && $node->expr->left instanceof String_ && $this->isRefactorableStringPath(
+            $node->expr->left
+        )) {
             $node->expr->left = $this->prefixWithDir($node->expr->left);
+
             return $node;
         }
-        if ($node->expr instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr)) {
+
+        if ($node->expr instanceof String_ && $this->isRefactorableStringPath($node->expr)) {
             $node->expr = $this->prefixWithDir($node->expr);
+
             return $node;
         }
         // nothing we can do
         return null;
     }
-    private function isRefactorableStringPath(\PhpParser\Node\Scalar\String_ $string) : bool
+
+    private function isRefactorableStringPath(String_ $string): bool
     {
-        return !\RectorPrefix20210421\Nette\Utils\Strings::startsWith($string->value, 'phar://');
+        return ! Strings::startsWith($string->value, 'phar://');
     }
-    private function prefixWithDir(\PhpParser\Node\Scalar\String_ $string) : \PhpParser\Node\Expr\BinaryOp\Concat
+
+    private function prefixWithDir(String_ $string): Concat
     {
         $this->removeExtraDotSlash($string);
         $this->prependSlashIfMissing($string);
-        return new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\MagicConst\Dir(), $string);
+
+        return new Concat(new Dir(), $string);
     }
+
     /**
      * Remove "./" which would break the path
      * @return void
      */
-    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string)
+    private function removeExtraDotSlash(String_ $string)
     {
-        if (!\RectorPrefix20210421\Nette\Utils\Strings::startsWith($string->value, './')) {
+        if (! Strings::startsWith($string->value, './')) {
             return;
         }
-        $string->value = \RectorPrefix20210421\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
+
+        $string->value = Strings::replace($string->value, '#^\.\/#', '/');
     }
+
     /**
      * @return void
      */
-    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string)
+    private function prependSlashIfMissing(String_ $string)
     {
-        if (\RectorPrefix20210421\Nette\Utils\Strings::startsWith($string->value, '/')) {
+        if (Strings::startsWith($string->value, '/')) {
             return;
         }
+
         $string->value = '/' . $string->value;
     }
 }

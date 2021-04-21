@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Formatter;
+
+namespace Symfony\Component\Console\Formatter;
 
 /**
  * Formatter style interface for defining styles.
@@ -22,23 +23,28 @@ interface OutputFormatterStyleInterface
      * @param string $color
      */
     public function setForeground($color = null);
+
     /**
      * Sets style background color.
      * @param string $color
      */
     public function setBackground($color = null);
+
     /**
      * Sets some specific style option.
      */
     public function setOption(string $option);
+
     /**
      * Unsets some specific style option.
      */
     public function unsetOption(string $option);
+
     /**
      * Sets multiple style options at once.
      */
     public function setOptions(array $options);
+
     /**
      * Applies the style to a given text.
      *

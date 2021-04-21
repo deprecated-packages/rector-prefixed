@@ -1,11 +1,12 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421;
+declare(strict_types=1);
 
 use Rector\NetteToSymfony\Rector\MethodCall\NetteFormToSymfonyFormRector;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\NetteToSymfony\Rector\MethodCall\NetteFormToSymfonyFormRector::class);
+
+    $services->set(NetteFormToSymfonyFormRector::class);
 };

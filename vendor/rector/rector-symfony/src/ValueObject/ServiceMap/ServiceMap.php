@@ -1,17 +1,20 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\ValueObject\ServiceMap;
 
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\Symfony\ValueObject\ServiceDefinition;
+
 final class ServiceMap
 {
     /**
      * @var ServiceDefinition[]
      */
     private $services = [];
+
     /**
      * @param ServiceDefinition[] $services
      */
@@ -19,47 +22,58 @@ final class ServiceMap
     {
         $this->services = $services;
     }
-    public function hasService(string $id) : bool
+
+    public function hasService(string $id): bool
     {
         return isset($this->services[$id]);
     }
+
     /**
      * @return \PHPStan\Type\Type|null
      */
     public function getServiceType(string $id)
     {
         $serviceDefinition = $this->getService($id);
-        if (!$serviceDefinition instanceof \Rector\Symfony\ValueObject\ServiceDefinition) {
+        if (! $serviceDefinition instanceof ServiceDefinition) {
             return null;
         }
+
         $class = $serviceDefinition->getClass();
         if ($class === null) {
             return null;
         }
+
         /** @var string[] $interfaces */
-        $interfaces = (array) \class_implements($class);
+        $interfaces = (array) class_implements($class);
+
         foreach ($interfaces as $interface) {
-            return new \PHPStan\Type\ObjectType($interface);
+            return new ObjectType($interface);
         }
-        return new \PHPStan\Type\ObjectType($class);
+
+        return new ObjectType($class);
     }
+
     /**
      * @return ServiceDefinition[]
      */
-    public function getServicesByTag(string $tagName) : array
+    public function getServicesByTag(string $tagName): array
     {
         $servicesWithTag = [];
+
         foreach ($this->services as $service) {
             foreach ($service->getTags() as $tag) {
                 if ($tag->getName() !== $tagName) {
                     continue;
                 }
+
                 $servicesWithTag[] = $service;
                 continue 2;
             }
         }
+
         return $servicesWithTag;
     }
+
     /**
      * @return \Rector\Symfony\ValueObject\ServiceDefinition|null
      */

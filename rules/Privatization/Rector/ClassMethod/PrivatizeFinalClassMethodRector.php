@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Privatization\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -12,22 +13,29 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector\PrivatizeFinalClassMethodRectorTest
  */
-final class PrivatizeFinalClassMethodRector extends \Rector\Core\Rector\AbstractRector
+final class PrivatizeFinalClassMethodRector extends AbstractRector
 {
     /**
      * @var ClassMethodVisibilityGuard
      */
     private $classMethodVisibilityGuard;
-    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+
+    public function __construct(ClassMethodVisibilityGuard $classMethodVisibilityGuard)
     {
         $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change protected class method to private if possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change protected class method to private if possible',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     protected function someMethod()
@@ -35,7 +43,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private function someMethod()
@@ -43,49 +52,61 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+        if (! $scope instanceof Scope) {
             return null;
         }
+
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
-        if (!$classReflection->isFinal()) {
+
+        if (! $classReflection->isFinal()) {
             return null;
         }
+
         if ($this->shouldSkipClassMethod($node)) {
             return null;
         }
+
         if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByParent($node, $classReflection)) {
             return null;
         }
+
         if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByTrait($node, $classReflection)) {
             return null;
         }
+
         $this->visibilityManipulator->makePrivate($node);
+
         return $node;
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function shouldSkipClassMethod(ClassMethod $classMethod): bool
     {
         if ($this->isName($classMethod, 'createComponent*')) {
-            return \true;
+            return true;
         }
-        return !$classMethod->isProtected();
+
+        return ! $classMethod->isProtected();
     }
 }

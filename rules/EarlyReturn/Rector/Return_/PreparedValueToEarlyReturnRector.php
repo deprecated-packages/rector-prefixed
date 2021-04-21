@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\EarlyReturn\Rector\Return_;
 
 use PhpParser\Node;
@@ -15,22 +16,27 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\EarlyReturn\Rector\Return_\PreparedValueToEarlyReturnRector\PreparedValueToEarlyReturnRectorTest
  */
-final class PreparedValueToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
+final class PreparedValueToEarlyReturnRector extends AbstractRector
 {
     /**
      * @var IfManipulator
      */
     private $ifManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+
+    public function __construct(IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Return early prepared value in ifs', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Return early prepared value in ifs', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -49,7 +55,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -66,96 +74,123 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Return_::class];
+        return [Return_::class];
     }
+
     /**
      * @param Return_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $ifsBefore = $this->getIfsBefore($node);
+
         if ($this->shouldSkip($ifsBefore, $node->expr)) {
             return null;
         }
+
         if ($this->isAssignVarUsedInIfCond($ifsBefore, $node->expr)) {
             return null;
         }
+
         /** @var Expr $returnExpr */
         $returnExpr = $node->expr;
+
         /** @var Expression $previousFirstExpression */
         $previousFirstExpression = $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
+
         /** @var Assign $previousAssign */
         $previousAssign = $previousFirstExpression->expr;
+
         if ($this->isPreviousVarUsedInAssignExpr($ifsBefore, $previousAssign->var)) {
             return null;
         }
+
         foreach ($ifsBefore as $ifBefore) {
             /** @var Expression $expressionIf */
             $expressionIf = $ifBefore->stmts[0];
             /** @var Assign $assignIf */
             $assignIf = $expressionIf->expr;
-            $ifBefore->stmts[0] = new \PhpParser\Node\Stmt\Return_($assignIf->expr);
+
+            $ifBefore->stmts[0] = new Return_($assignIf->expr);
         }
+
         /** @var Assign $assignPrevious */
         $assignPrevious = $previousFirstExpression->expr;
         $node->expr = $assignPrevious->expr;
         $this->removeNode($previousFirstExpression);
+
         return $node;
     }
+
     /**
      * @param If_[] $ifsBefore
      * @param \PhpParser\Node\Expr|null $expr
      */
-    private function isAssignVarUsedInIfCond(array $ifsBefore, $expr) : bool
+    private function isAssignVarUsedInIfCond(array $ifsBefore, $expr): bool
     {
         foreach ($ifsBefore as $ifBefore) {
-            $isUsedInIfCond = (bool) $this->betterNodeFinder->findFirst($ifBefore->cond, function (\PhpParser\Node $node) use($expr) : bool {
+            $isUsedInIfCond = (bool) $this->betterNodeFinder->findFirst($ifBefore->cond, function (Node $node) use (
+                $expr
+            ): bool {
                 return $this->nodeComparator->areNodesEqual($node, $expr);
             });
+
             if ($isUsedInIfCond) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @param If_[] $ifsBefore
      */
-    private function isPreviousVarUsedInAssignExpr(array $ifsBefore, \PhpParser\Node\Expr $expr) : bool
+    private function isPreviousVarUsedInAssignExpr(array $ifsBefore, Expr $expr): bool
     {
         foreach ($ifsBefore as $ifBefore) {
             /** @var Expression $expression */
             $expression = $ifBefore->stmts[0];
             /** @var Assign $assign */
             $assign = $expression->expr;
-            $isUsedInAssignExpr = (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\PhpParser\Node $node) use($expr) : bool {
+
+            $isUsedInAssignExpr = (bool) $this->betterNodeFinder->findFirst($assign->expr, function (Node $node) use (
+                $expr
+            ): bool {
                 return $this->nodeComparator->areNodesEqual($node, $expr);
             });
+
             if ($isUsedInAssignExpr) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @param If_[] $ifsBefore
      * @param \PhpParser\Node\Expr|null $returnExpr
      */
-    private function shouldSkip(array $ifsBefore, $returnExpr) : bool
+    private function shouldSkip(array $ifsBefore, $returnExpr): bool
     {
         if ($ifsBefore === []) {
-            return \true;
+            return true;
         }
-        return !(bool) $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
+
+        return ! (bool) $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
     }
+
     /**
      * @param \PhpParser\Node|null $node
      * @param \PhpParser\Node\Expr|null $expr
@@ -163,73 +198,89 @@ CODE_SAMPLE
      */
     private function getPreviousIfLinearEquals($node, $expr)
     {
-        if (!$node instanceof \PhpParser\Node) {
+        if (! $node instanceof Node) {
             return null;
         }
-        if (!$expr instanceof \PhpParser\Node\Expr) {
+
+        if (! $expr instanceof Expr) {
             return null;
         }
-        $previous = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if (!$previous instanceof \PhpParser\Node\Stmt\Expression) {
+
+        $previous = $node->getAttribute(AttributeKey::PREVIOUS_NODE);
+        if (! $previous instanceof Expression) {
             return $this->getPreviousIfLinearEquals($previous, $expr);
         }
-        if (!$previous->expr instanceof \PhpParser\Node\Expr\Assign) {
+
+        if (! $previous->expr instanceof Assign) {
             return null;
         }
+
         if ($this->nodeComparator->areNodesEqual($previous->expr->var, $expr)) {
             return $previous;
         }
+
         return null;
     }
+
     /**
      * @return If_[]
      */
-    private function getIfsBefore(\PhpParser\Node\Stmt\Return_ $return) : array
+    private function getIfsBefore(Return_ $return): array
     {
-        $parent = $return->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \PhpParser\Node\FunctionLike && !$parent instanceof \PhpParser\Node\Stmt\If_) {
+        $parent = $return->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $parent instanceof FunctionLike && ! $parent instanceof If_) {
             return [];
         }
+
         if ($parent->stmts === []) {
             return [];
         }
-        \end($parent->stmts);
-        $firstItemPosition = \key($parent->stmts);
+        end($parent->stmts);
+
+        $firstItemPosition = key($parent->stmts);
         if ($parent->stmts[$firstItemPosition] !== $return) {
             return [];
         }
+
         return $this->collectIfs($parent->stmts, $return);
     }
+
     /**
      * @param If_[] $stmts
      * @return If_[]
      */
-    private function collectIfs(array $stmts, \PhpParser\Node\Stmt\Return_ $return) : array
+    private function collectIfs(array $stmts, Return_ $return): array
     {
         /** @va If_[] $ifs */
-        $ifs = $this->betterNodeFinder->findInstanceOf($stmts, \PhpParser\Node\Stmt\If_::class);
+        $ifs = $this->betterNodeFinder->findInstanceOf($stmts, If_::class);
+
         /** Skip entirely if found skipped ifs */
         foreach ($ifs as $if) {
             /** @var If_ $if */
-            if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
+            if (! $this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
                 return [];
             }
+
             $stmts = $if->stmts;
-            if (\count($stmts) !== 1) {
+            if (count($stmts) !== 1) {
                 return [];
             }
+
             $expression = $stmts[0];
-            if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
+            if (! $expression instanceof Expression) {
                 return [];
             }
-            if (!$expression->expr instanceof \PhpParser\Node\Expr\Assign) {
+
+            if (! $expression->expr instanceof Assign) {
                 return [];
             }
+
             $assign = $expression->expr;
-            if (!$this->nodeComparator->areNodesEqual($assign->var, $return->expr)) {
+            if (! $this->nodeComparator->areNodesEqual($assign->var, $return->expr)) {
                 return [];
             }
         }
+
         return $ifs;
     }
 }

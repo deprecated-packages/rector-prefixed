@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -11,45 +12,67 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\VarDumperTestTraitMethodArgsRector\VarDumperTestTraitMethodArgsRectorTest
  */
-final class VarDumperTestTraitMethodArgsRector extends \Rector\Core\Rector\AbstractRector
+final class VarDumperTestTraitMethodArgsRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds a new `$filter` argument in `VarDumperTestTrait->assertDumpEquals()` and `VarDumperTestTrait->assertDumpMatchesFormat()` in Validator in Symfony.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$varDumperTestTrait->assertDumpEquals($dump, $data, $message = "");', '$varDumperTestTrait->assertDumpEquals($dump, $data, $filter = 0, $message = "");'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$varDumperTestTrait->assertDumpMatchesFormat($dump, $data, $message = "");', '$varDumperTestTrait->assertDumpMatchesFormat($dump, $data, $filter = 0, $message = "");')]);
+        return new RuleDefinition(
+            'Adds a new `$filter` argument in `VarDumperTestTrait->assertDumpEquals()` and `VarDumperTestTrait->assertDumpMatchesFormat()` in Validator in Symfony.',
+            [
+                new CodeSample(
+                    '$varDumperTestTrait->assertDumpEquals($dump, $data, $message = "");',
+                    '$varDumperTestTrait->assertDumpEquals($dump, $data, $filter = 0, $message = "");'
+                ),
+                new CodeSample(
+                    '$varDumperTestTrait->assertDumpMatchesFormat($dump, $data, $message = "");',
+                    '$varDumperTestTrait->assertDumpMatchesFormat($dump, $data, $filter = 0, $message = "");'
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait'))) {
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('Symfony\Component\VarDumper\Test\VarDumperTestTrait')
+        )) {
             return null;
         }
-        if (!$this->isNames($node->name, ['assertDumpEquals', 'assertDumpMatchesFormat'])) {
+
+        if (! $this->isNames($node->name, ['assertDumpEquals', 'assertDumpMatchesFormat'])) {
             return null;
         }
-        if (\count($node->args) <= 2) {
+        if (count($node->args) <= 2) {
             return null;
         }
-        if ($node->args[2]->value instanceof \PhpParser\Node\Expr\ConstFetch) {
+        if ($node->args[2]->value instanceof ConstFetch) {
             return null;
         }
-        if ($node->args[2]->value instanceof \PhpParser\Node\Scalar\String_) {
+
+        if ($node->args[2]->value instanceof String_) {
             $node->args[3] = $node->args[2];
             $node->args[2] = $this->nodeFactory->createArg(0);
+
             return $node;
         }
+
         return null;
     }
 }

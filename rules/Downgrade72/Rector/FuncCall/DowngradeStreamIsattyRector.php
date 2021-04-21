@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Downgrade72\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -14,24 +15,29 @@ use Rector\Core\PhpParser\Parser\InlineCodeParser;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/symfony/polyfill/commit/cc2bf55accd32b989348e2039e8c91cde46aebed
  *
  * @see \Rector\Tests\Downgrade72\Rector\FuncCall\DowngradeStreamIsattyRector\DowngradeStreamIsattyRectorTest
  */
-final class DowngradeStreamIsattyRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeStreamIsattyRector extends AbstractRector
 {
     /**
      * @var InlineCodeParser
      */
     private $inlineCodeParser;
-    public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)
+
+    public function __construct(InlineCodeParser $inlineCodeParser)
     {
         $this->inlineCodeParser = $inlineCodeParser;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade stream_isatty() function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Downgrade stream_isatty() function', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($stream)
@@ -40,7 +46,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($stream)
@@ -56,38 +64,48 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node, 'stream_isatty')) {
+        if (! $this->isName($node, 'stream_isatty')) {
             return null;
         }
+
         $function = $this->createClosure();
-        $assign = new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable('streamIsatty'), $function);
+        $assign = new Assign(new Variable('streamIsatty'), $function);
+
         $this->addNodeBeforeNode($assign, $node);
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Expr\Variable('streamIsatty'), $node->args);
+        return new FuncCall(new Variable('streamIsatty'), $node->args);
     }
-    private function createClosure() : \PhpParser\Node\Expr\Closure
+
+    private function createClosure(): Closure
     {
         $stmts = $this->inlineCodeParser->parse(__DIR__ . '/../../snippet/isatty_closure.php.inc');
+
         /** @var Expression $expression */
         $expression = $stmts[0];
+
         $expr = $expression->expr;
-        if (!$expr instanceof \PhpParser\Node\Expr\Closure) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (! $expr instanceof Closure) {
+            throw new ShouldNotHappenException();
         }
+
         return $expr;
     }
 }

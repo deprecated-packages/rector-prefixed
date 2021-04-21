@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Laravel\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -13,28 +14,36 @@ use Rector\Nette\NodeAnalyzer\StaticCallAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://laracasts.com/discuss/channels/laravel/laravel-57-upgrade-observer-problem
  *
  * @see \Rector\Laravel\Tests\Rector\ClassMethod\AddParentBootToModelClassMethodRector\AddParentBootToModelClassMethodRectorTest
  */
-final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\AbstractRector
+final class AddParentBootToModelClassMethodRector extends AbstractRector
 {
     /**
      * @var string
      */
     const BOOT = 'boot';
+
     /**
      * @var StaticCallAnalyzer
      */
     private $staticCallAnalyzer;
-    public function __construct(\Rector\Nette\NodeAnalyzer\StaticCallAnalyzer $staticCallAnalyzer)
+
+    public function __construct(StaticCallAnalyzer $staticCallAnalyzer)
     {
         $this->staticCallAnalyzer = $staticCallAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add parent::boot(); call to boot() class method in child of Illuminate\Database\Eloquent\Model',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -44,7 +53,9 @@ class Product extends Model
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                    ,
+                    <<<'CODE_SAMPLE'
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -55,50 +66,63 @@ class Product extends Model
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof ClassLike) {
             return null;
         }
-        if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType('Illuminate\\Database\\Eloquent\\Model'))) {
+
+        if (! $this->isObjectType($classLike, new ObjectType('Illuminate\Database\Eloquent\Model'))) {
             return null;
         }
-        if (!$this->isName($node->name, self::BOOT)) {
+
+        if (! $this->isName($node->name, self::BOOT)) {
             return null;
         }
+
         foreach ((array) $node->stmts as $key => $classMethodStmt) {
-            if ($classMethodStmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if ($classMethodStmt instanceof Expression) {
                 $classMethodStmt = $classMethodStmt->expr;
             }
+
             // is in the 1st position? → only correct place
             // @see https://laracasts.com/discuss/channels/laravel/laravel-57-upgrade-observer-problem?page=0#reply=454409
-            if (!$this->staticCallAnalyzer->isParentCallNamed($classMethodStmt, self::BOOT)) {
+            if (! $this->staticCallAnalyzer->isParentCallNamed($classMethodStmt, self::BOOT)) {
                 continue;
             }
+
             if ($key === 0) {
                 return null;
             }
+
             // wrong location → remove it
             unset($node->stmts[$key]);
         }
+
         // missing, we need to add one
         $staticCall = $this->nodeFactory->createStaticCall('parent', self::BOOT);
-        $parentStaticCallExpression = new \PhpParser\Node\Stmt\Expression($staticCall);
-        $node->stmts = \array_merge([$parentStaticCallExpression], (array) $node->stmts);
+        $parentStaticCallExpression = new Expression($staticCall);
+
+        $node->stmts = array_merge([$parentStaticCallExpression], (array) $node->stmts);
+
         return $node;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Visibility\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -12,31 +13,40 @@ use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector\ChangeMethodVisibilityRectorTest
  */
-final class ChangeMethodVisibilityRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ChangeMethodVisibilityRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const METHOD_VISIBILITIES = 'method_visibilities';
+
     /**
      * @var ChangeMethodVisibility[]
      */
     private $methodVisibilities = [];
+
     /**
      * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
-    public function __construct(\Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
+
+    public function __construct(ParentClassScopeResolver $parentClassScopeResolver)
     {
         $this->parentClassScopeResolver = $parentClassScopeResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change visibility of method from parent class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change visibility of method from parent class.',
+            [
+                new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class FrameworkClass
 {
     protected someMethod()
@@ -51,7 +61,8 @@ class MyClass extends FrameworkClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                                ,
+                <<<'CODE_SAMPLE'
 class FrameworkClass
 {
     protected someMethod()
@@ -66,37 +77,53 @@ class MyClass extends FrameworkClass
     }
 }
 CODE_SAMPLE
-, [self::METHOD_VISIBILITIES => [new \Rector\Visibility\ValueObject\ChangeMethodVisibility('FrameworkClass', 'someMethod', \Rector\Core\ValueObject\Visibility::PROTECTED)]])]);
+                    ,
+                    [
+                        self::METHOD_VISIBILITIES => [
+                            new ChangeMethodVisibility('FrameworkClass', 'someMethod', Visibility::PROTECTED),
+                        ],
+                    ]
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
         if ($parentClassName === null) {
             return null;
         }
+
         foreach ($this->methodVisibilities as $methodVisibility) {
             if ($methodVisibility->getClass() !== $parentClassName) {
                 continue;
             }
-            if (!$this->isName($node, $methodVisibility->getMethod())) {
+
+            if (! $this->isName($node, $methodVisibility->getMethod())) {
                 continue;
             }
+
             $this->visibilityManipulator->changeNodeVisibility($node, $methodVisibility->getVisibility());
+
             return $node;
         }
+
         return $node;
     }
+
     /**
      * @param array<string, ChangeMethodVisibility[]> $configuration
      * @return void
@@ -104,7 +131,8 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $methodVisibilities = $configuration[self::METHOD_VISIBILITIES] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodVisibilities, \Rector\Visibility\ValueObject\ChangeMethodVisibility::class);
+        Assert::allIsInstanceOf($methodVisibilities, ChangeMethodVisibility::class);
+
         $this->methodVisibilities = $methodVisibilities;
     }
 }

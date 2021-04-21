@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\Array_;
 
 use PhpParser\Node;
@@ -9,81 +10,97 @@ use PhpParser\Node\Expr\ArrayItem;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://3v4l.org/SG0Wu
  * @see \Rector\Tests\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector\RemoveDuplicatedArrayKeyRectorTest
  */
-final class RemoveDuplicatedArrayKeyRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedArrayKeyRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove duplicated key in defined arrays.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove duplicated key in defined arrays.', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $item = [
     1 => 'A',
     1 => 'B'
 ];
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $item = [
     1 => 'B'
 ];
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\Array_::class];
+        return [Array_::class];
     }
+
     /**
      * @param Array_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $arrayItemsWithDuplicatedKey = $this->getArrayItemsWithDuplicatedKey($node);
         if ($arrayItemsWithDuplicatedKey === []) {
             return null;
         }
+
         foreach ($arrayItemsWithDuplicatedKey as $arrayItemWithDuplicatedKey) {
             // keep last item
-            \array_pop($arrayItemWithDuplicatedKey);
+            array_pop($arrayItemWithDuplicatedKey);
             $this->removeNodes($arrayItemWithDuplicatedKey);
         }
+
         return $node;
     }
+
     /**
      * @return ArrayItem[][]
      */
-    private function getArrayItemsWithDuplicatedKey(\PhpParser\Node\Expr\Array_ $array) : array
+    private function getArrayItemsWithDuplicatedKey(Array_ $array): array
     {
         $arrayItemsByKeys = [];
+
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
+            if (! $arrayItem instanceof ArrayItem) {
                 continue;
             }
+
             if ($arrayItem->key === null) {
                 continue;
             }
+
             $keyValue = $this->print($arrayItem->key);
             $arrayItemsByKeys[$keyValue][] = $arrayItem;
         }
+
         return $this->filterItemsWithSameKey($arrayItemsByKeys);
     }
+
     /**
      * @param ArrayItem[][] $arrayItemsByKeys
      * @return ArrayItem[][]
      */
-    private function filterItemsWithSameKey(array $arrayItemsByKeys) : array
+    private function filterItemsWithSameKey(array $arrayItemsByKeys): array
     {
         /** @var ArrayItem[][] $arrayItemsByKeys */
-        $arrayItemsByKeys = \array_filter($arrayItemsByKeys, function (array $arrayItems) : bool {
-            return \count($arrayItems) > 1;
+        $arrayItemsByKeys = array_filter($arrayItemsByKeys, function (array $arrayItems): bool {
+            return count($arrayItems) > 1;
         });
-        return \array_filter($arrayItemsByKeys, function (array $arrayItems) : bool {
-            return \count($arrayItems) > 1;
+
+        return array_filter($arrayItemsByKeys, function (array $arrayItems): bool {
+            return count($arrayItems) > 1;
         });
     }
 }

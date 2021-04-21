@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -18,22 +19,27 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedPropertyRector\ReturnTypeFromStrictTypedPropertyRectorTest
  */
-final class ReturnTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\AbstractRector
+final class ReturnTypeFromStrictTypedPropertyRector extends AbstractRector
 {
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+
+    public function __construct(TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add return method return type based on strict typed property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Add return method return type based on strict typed property', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private int $age = 100;
@@ -44,7 +50,9 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     private int $age = 100;
@@ -55,71 +63,89 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
+        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
         }
+
         if ($node->returnType !== null) {
             return null;
         }
+
         $propertyTypeNodes = $this->resolveReturnPropertyTypeNodes($node);
         if ($propertyTypeNodes === []) {
             return null;
         }
+
         $propertyTypes = [];
         foreach ($propertyTypeNodes as $propertyTypeNode) {
             $propertyTypes[] = $this->staticTypeMapper->mapPhpParserNodePHPStanType($propertyTypeNode);
         }
+
         // add type to return type
         $propertyType = $this->typeFactory->createMixedPassedOrUnionType($propertyTypes);
-        if ($propertyType instanceof \PHPStan\Type\MixedType) {
+        if ($propertyType instanceof MixedType) {
             return null;
         }
+
         $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
-        if (!$propertyTypeNode instanceof \PhpParser\Node) {
+        if (! $propertyTypeNode instanceof Node) {
             return null;
         }
+
         $node->returnType = $propertyTypeNode;
+
         return $node;
     }
+
     /**
      * @return array<Identifier|Name|NullableType|UnionType>
      */
-    private function resolveReturnPropertyTypeNodes(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function resolveReturnPropertyTypeNodes(ClassMethod $classMethod): array
     {
         /** @var Return_[] $returns */
-        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);
+        $returns = $this->betterNodeFinder->findInstanceOf($classMethod, Return_::class);
+
         $propertyTypes = [];
         foreach ($returns as $return) {
             if ($return->expr === null) {
                 return [];
             }
-            if (!$return->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+
+            if (! $return->expr instanceof PropertyFetch) {
                 return [];
             }
+
             $property = $this->nodeRepository->findPropertyByPropertyFetch($return->expr);
-            if (!$property instanceof \PhpParser\Node\Stmt\Property) {
+            if (! $property instanceof Property) {
                 return [];
             }
+
             if ($property->type === null) {
                 return [];
             }
+
             $propertyTypes[] = $property->type;
         }
+
         return $propertyTypes;
     }
 }

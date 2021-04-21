@@ -1,11 +1,17 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20210421\Symplify\\ConsolePackageBuilder\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
+
+    $services->defaults()
+        ->public()
+        ->autowire()
+        ->autoconfigure();
+
+    $services->load('Symplify\ConsolePackageBuilder\\', __DIR__ . '/../src')
+        ->exclude([__DIR__ . '/../src/Bundle']);
 };

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -10,14 +11,19 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\FuncCall\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector\JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRectorTest
  */
-final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends \Rector\Core\Rector\AbstractRector
+final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Changes json_encode()/json_decode() to safer and more verbose Nette\Utils\Json::encode()/decode() calls',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -36,7 +42,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -55,53 +62,66 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->isName($node, 'json_encode')) {
             return $this->refactorJsonEncode($node);
         }
+
         if ($this->isName($node, 'json_decode')) {
             return $this->refactorJsonDecode($node);
         }
+
         return null;
     }
-    private function refactorJsonEncode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
+
+    private function refactorJsonEncode(FuncCall $funcCall): StaticCall
     {
         $args = $funcCall->args;
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
+
             if ($this->isName($secondArgumentValue, 'JSON_PRETTY_PRINT')) {
-                $classConstFetch = $this->nodeFactory->createClassConstFetch('Nette\\Utils\\Json', 'PRETTY');
-                $args[1] = new \PhpParser\Node\Arg($classConstFetch);
+                $classConstFetch = $this->nodeFactory->createClassConstFetch('Nette\Utils\Json', 'PRETTY');
+                $args[1] = new Arg($classConstFetch);
             }
         }
-        return $this->nodeFactory->createStaticCall('Nette\\Utils\\Json', 'encode', $args);
+
+        return $this->nodeFactory->createStaticCall('Nette\Utils\Json', 'encode', $args);
     }
-    private function refactorJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
+
+    private function refactorJsonDecode(FuncCall $funcCall): StaticCall
     {
         $args = $funcCall->args;
+
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
+
             if ($this->valueResolver->isFalse($secondArgumentValue)) {
                 unset($args[1]);
             } elseif ($this->valueResolver->isTrue($secondArgumentValue)) {
-                $classConstFetch = $this->nodeFactory->createClassConstFetch('Nette\\Utils\\Json', 'FORCE_ARRAY');
-                $args[1] = new \PhpParser\Node\Arg($classConstFetch);
+                $classConstFetch = $this->nodeFactory->createClassConstFetch('Nette\Utils\Json', 'FORCE_ARRAY');
+                $args[1] = new Arg($classConstFetch);
             }
         }
-        return $this->nodeFactory->createStaticCall('Nette\\Utils\\Json', 'decode', $args);
+
+        return $this->nodeFactory->createStaticCall('Nette\Utils\Json', 'decode', $args);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
@@ -14,14 +15,19 @@ use PhpParser\Node\Stmt\Throw_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\EarlyReturn\Rector\If_\RemoveAlwaysElseRector\RemoveAlwaysElseRectorTest
  */
-final class RemoveAlwaysElseRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveAlwaysElseRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Split if statement, when if condition always break execution flow', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Split if statement, when if condition always break execution flow',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -34,7 +40,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -47,45 +54,59 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\If_::class];
+        return [If_::class];
     }
+
     /**
      * @param If_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->doesLastStatementBreakFlow($node)) {
             return null;
         }
+
         if ($node->elseifs !== []) {
-            $if = new \PhpParser\Node\Stmt\If_($node->cond);
+            $if = new If_($node->cond);
             $if->stmts = $node->stmts;
+
             $this->addNodeBeforeNode($if, $node);
+
             /** @var ElseIf_ $firstElseIf */
-            $firstElseIf = \array_shift($node->elseifs);
+            $firstElseIf = array_shift($node->elseifs);
             $node->cond = $firstElseIf->cond;
             $node->stmts = $firstElseIf->stmts;
             $this->mirrorComments($node, $firstElseIf);
+
             return $node;
         }
+
         if ($node->else !== null) {
             $this->addNodesAfterNode($node->else->stmts, $node);
             $node->else = null;
             return $node;
         }
+
         return null;
     }
-    private function doesLastStatementBreakFlow(\PhpParser\Node\Stmt\If_ $if) : bool
+
+    private function doesLastStatementBreakFlow(If_ $if): bool
     {
-        $lastStmt = \end($if->stmts);
-        return !($lastStmt instanceof \PhpParser\Node\Stmt\Return_ || $lastStmt instanceof \PhpParser\Node\Stmt\Throw_ || $lastStmt instanceof \PhpParser\Node\Stmt\Continue_ || $lastStmt instanceof \PhpParser\Node\Stmt\Expression && $lastStmt->expr instanceof \PhpParser\Node\Expr\Exit_);
+        $lastStmt = end($if->stmts);
+
+        return ! ($lastStmt instanceof Return_
+            || $lastStmt instanceof Throw_
+            || $lastStmt instanceof Continue_
+            || ($lastStmt instanceof Expression && $lastStmt->expr instanceof Exit_));
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
 use PhpParser\Node;
@@ -17,65 +18,86 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-use RectorPrefix20210421\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
-final class SingleMethodAssignedNodePropertyTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
+use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+
+final class SingleMethodAssignedNodePropertyTypeInferer implements PropertyTypeInfererInterface
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210421\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
-    {
+
+    public function __construct(
+        NodeNameResolver $nodeNameResolver,
+        NodeTypeResolver $nodeTypeResolver,
+        SimpleCallableNodeTraverser $simpleCallableNodeTraverser
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
-    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
+
+    public function inferProperty(Property $property): Type
     {
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $property->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             // anonymous class
-            return new \PHPStan\Type\MixedType();
+            return new MixedType();
         }
-        $classMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return new \PHPStan\Type\MixedType();
+
+        $classMethod = $classLike->getMethod(MethodName::CONSTRUCT);
+        if (! $classMethod instanceof ClassMethod) {
+            return new MixedType();
         }
+
         $propertyName = $this->nodeNameResolver->getName($property);
+
         $assignedNode = $this->resolveAssignedNodeToProperty($classMethod, $propertyName);
-        if (!$assignedNode instanceof \PhpParser\Node\Expr) {
-            return new \PHPStan\Type\MixedType();
+        if (! $assignedNode instanceof Expr) {
+            return new MixedType();
         }
+
         return $this->nodeTypeResolver->getStaticType($assignedNode);
     }
-    public function getPriority() : int
+
+    public function getPriority(): int
     {
         return 750;
     }
+
     /**
      * @return \PhpParser\Node\Expr|null
      */
-    private function resolveAssignedNodeToProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName)
+    private function resolveAssignedNodeToProperty(ClassMethod $classMethod, string $propertyName)
     {
         $assignedNode = null;
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedNode) : ?int {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return null;
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable(
+            (array) $classMethod->stmts,
+            function (Node $node) use ($propertyName, &$assignedNode): ?int {
+                if (! $node instanceof Assign) {
+                    return null;
+                }
+
+                if (! $this->nodeNameResolver->isName($node->var, $propertyName)) {
+                    return null;
+                }
+
+                $assignedNode = $node->expr;
+
+                return NodeTraverser::STOP_TRAVERSAL;
             }
-            if (!$this->nodeNameResolver->isName($node->var, $propertyName)) {
-                return null;
-            }
-            $assignedNode = $node->expr;
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
-        });
+        );
+
         return $assignedNode;
     }
 }

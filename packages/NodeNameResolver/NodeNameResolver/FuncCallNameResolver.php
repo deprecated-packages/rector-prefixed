@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeNameResolver\NodeNameResolver;
 
 use PhpParser\Node;
@@ -10,23 +11,27 @@ use PhpParser\Node\Name\FullyQualified;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+
+final class FuncCallNameResolver implements NodeNameResolverInterface
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
+
     /**
      * @return class-string<Node>
      */
-    public function getNode() : string
+    public function getNode(): string
     {
-        return \PhpParser\Node\Expr\FuncCall::class;
+        return FuncCall::class;
     }
+
     /**
      * If some function is namespaced, it will be used over global one.
      * But only if it really exists.
@@ -34,19 +39,23 @@ final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\No
      * @param FuncCall $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(Node $node)
     {
-        if ($node->name instanceof \PhpParser\Node\Expr) {
+        if ($node->name instanceof Expr) {
             return null;
         }
+
         $functionName = $node->name;
-        $namespaceName = $functionName->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACED_NAME);
-        if ($namespaceName instanceof \PhpParser\Node\Name\FullyQualified) {
+
+        $namespaceName = $functionName->getAttribute(AttributeKey::NAMESPACED_NAME);
+        if ($namespaceName instanceof FullyQualified) {
             $functionFqnName = $namespaceName->toString();
+
             if ($this->reflectionProvider->hasFunction($namespaceName, null)) {
                 return $functionFqnName;
             }
         }
+
         return (string) $functionName;
     }
 }

@@ -8,11 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\Event;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
-use RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface;
+namespace Symfony\Component\HttpKernel\Event;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
 /**
  * Allows to execute logic after a response was sent.
  *
@@ -21,15 +23,18 @@ use RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  */
-final class TerminateEvent extends \RectorPrefix20210421\Symfony\Component\HttpKernel\Event\KernelEvent
+final class TerminateEvent extends KernelEvent
 {
     private $response;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response)
+
+    public function __construct(HttpKernelInterface $kernel, Request $request, Response $response)
     {
-        parent::__construct($kernel, $request, \RectorPrefix20210421\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST);
+        parent::__construct($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+
         $this->response = $response;
     }
-    public function getResponse() : \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response
+
+    public function getResponse(): Response
     {
         return $this->response;
     }

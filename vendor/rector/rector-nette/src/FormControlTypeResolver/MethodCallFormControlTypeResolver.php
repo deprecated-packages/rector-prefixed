@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -11,46 +12,55 @@ use Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface;
 use Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
-final class MethodCallFormControlTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface, \Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface
+
+final class MethodCallFormControlTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
+
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+
+    public function __construct(NodeNameResolver $nodeNameResolver, NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
+
     /**
      * @return array<string, string>
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(Node $node): array
     {
-        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $node instanceof MethodCall) {
             return [];
         }
+
         if ($this->nodeNameResolver->isName($node->name, 'getComponent')) {
             return [];
         }
+
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (! $classMethod instanceof ClassMethod) {
             return [];
         }
+
         return $this->methodNamesByInputNamesResolver->resolveExpr($classMethod);
     }
+
     /**
      * @return void
      */
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

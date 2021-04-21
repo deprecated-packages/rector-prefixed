@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Laravel\NodeFactory;
 
 use PhpParser\Node\Expr;
@@ -11,32 +12,51 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode;
 use Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
+
 final class AppAssignFactory
 {
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+
+    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function createAssignExpression(\Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\Expression
-    {
-        $variable = new \PhpParser\Node\Expr\Variable($serviceNameTypeAndVariableName->getVariableName());
-        $assign = new \PhpParser\Node\Expr\Assign($variable, $expr);
-        $expression = new \PhpParser\Node\Stmt\Expression($assign);
+
+    public function createAssignExpression(
+        ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName,
+        Expr $expr
+    ): Expression {
+        $variable = new Variable($serviceNameTypeAndVariableName->getVariableName());
+        $assign = new Assign($variable, $expr);
+        $expression = new Expression($assign);
+
         $this->decorateWithVarAnnotation($expression, $serviceNameTypeAndVariableName);
+
         return $expression;
     }
+
     /**
      * @return void
      */
-    private function decorateWithVarAnnotation(\PhpParser\Node\Stmt\Expression $expression, \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName)
-    {
+    private function decorateWithVarAnnotation(
+        Expression $expression,
+        ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName
+    ) {
         $phpDocInfo = $this->phpDocInfoFactory->createEmpty($expression);
-        $fullyQualifiedIdentifierTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode($serviceNameTypeAndVariableName->getType());
-        $varTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode($fullyQualifiedIdentifierTypeNode, '$' . $serviceNameTypeAndVariableName->getVariableName(), '');
+
+        $fullyQualifiedIdentifierTypeNode = new FullyQualifiedIdentifierTypeNode(
+            $serviceNameTypeAndVariableName->getType()
+        );
+
+        $varTagValueNode = new VarTagValueNode(
+            $fullyQualifiedIdentifierTypeNode,
+            '$' . $serviceNameTypeAndVariableName->getVariableName(),
+            ''
+        );
+
         $phpDocInfo->addTagValueNode($varTagValueNode);
         $phpDocInfo->makeSingleLined();
     }

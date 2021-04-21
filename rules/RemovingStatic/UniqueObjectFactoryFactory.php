@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\RemovingStatic;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -24,37 +25,50 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+
 final class UniqueObjectFactoryFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
+
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var NodeFactory
      */
     private $nodeFactory;
+
     /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
+
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
-    {
+
+    public function __construct(
+        NodeFactory $nodeFactory,
+        NodeNameResolver $nodeNameResolver,
+        PropertyNaming $propertyNaming,
+        StaticTypeMapper $staticTypeMapper,
+        PhpDocTypeChanger $phpDocTypeChanger,
+        PhpDocInfoFactory $phpDocInfoFactory
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->propertyNaming = $propertyNaming;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -62,106 +76,136 @@ final class UniqueObjectFactoryFactory
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function createFactoryClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Class_
+
+    public function createFactoryClass(Class_ $class, ObjectType $objectType): Class_
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+            throw new ShouldNotHappenException();
         }
+
         $name = $className . 'Factory';
+
         $shortName = $this->resolveClassShortName($name);
-        $factoryClassBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortName);
+
+        $factoryClassBuilder = new ClassBuilder($shortName);
         $factoryClassBuilder->makeFinal();
+
         $properties = $this->createPropertiesFromTypes($objectType);
         $factoryClassBuilder->addStmts($properties);
+
         // constructor
         $constructorClassMethod = $this->createConstructMethod($objectType);
         $factoryClassBuilder->addStmt($constructorClassMethod);
+
         // create
         $classMethod = $this->createCreateMethod($class, $className, $properties);
         $factoryClassBuilder->addStmt($classMethod);
+
         return $factoryClassBuilder->getNode();
     }
-    private function resolveClassShortName(string $name) : string
+
+    private function resolveClassShortName(string $name): string
     {
-        if (\RectorPrefix20210421\Nette\Utils\Strings::contains($name, '\\')) {
-            return (string) \RectorPrefix20210421\Nette\Utils\Strings::after($name, '\\', -1);
+        if (Strings::contains($name, '\\')) {
+            return (string) Strings::after($name, '\\', -1);
         }
+
         return $name;
     }
+
     /**
      * @return Property[]
      */
-    private function createPropertiesFromTypes(\PHPStan\Type\ObjectType $objectType) : array
+    private function createPropertiesFromTypes(ObjectType $objectType): array
     {
         $properties = [];
         $properties[] = $this->createPropertyFromObjectType($objectType);
+
         return $properties;
     }
-    private function createConstructMethod(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\ClassMethod
+
+    private function createConstructMethod(ObjectType $objectType): ClassMethod
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $paramBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
+        $paramBuilder = new ParamBuilder($propertyName);
+
         $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
         if ($typeNode !== null) {
             $paramBuilder->setType($typeNode);
         }
+
         $params = [$paramBuilder->getNode()];
+
         $assigns = $this->createAssignsFromParams($params);
-        $methodBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+
+        $methodBuilder = new MethodBuilder(MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
         $methodBuilder->addParams($params);
         $methodBuilder->addStmts($assigns);
+
         return $methodBuilder->getNode();
     }
+
     /**
      * @param Property[] $properties
      */
-    private function createCreateMethod(\PhpParser\Node\Stmt\Class_ $class, string $className, array $properties) : \PhpParser\Node\Stmt\ClassMethod
+    private function createCreateMethod(Class_ $class, string $className, array $properties): ClassMethod
     {
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($className));
-        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $new = new New_(new FullyQualified($className));
+
+        $constructClassMethod = $class->getMethod(MethodName::CONSTRUCT);
         $params = [];
         if ($constructClassMethod !== null) {
             foreach ($constructClassMethod->params as $param) {
                 $params[] = $param;
-                $new->args[] = new \PhpParser\Node\Arg($param->var);
+                $new->args[] = new Arg($param->var);
             }
         }
+
         foreach ($properties as $property) {
             $propertyName = $this->nodeNameResolver->getName($property);
-            $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-            $new->args[] = new \PhpParser\Node\Arg($propertyFetch);
+            $propertyFetch = new PropertyFetch(new Variable('this'), $propertyName);
+            $new->args[] = new Arg($propertyFetch);
         }
-        $return = new \PhpParser\Node\Stmt\Return_($new);
-        $methodBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('create');
-        $methodBuilder->setReturnType(new \PhpParser\Node\Name\FullyQualified($className));
+
+        $return = new Return_($new);
+
+        $methodBuilder = new MethodBuilder('create');
+        $methodBuilder->setReturnType(new FullyQualified($className));
         $methodBuilder->makePublic();
         $methodBuilder->addStmt($return);
         $methodBuilder->addParams($params);
+
         return $methodBuilder->getNode();
     }
-    private function createPropertyFromObjectType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
+
+    private function createPropertyFromObjectType(ObjectType $objectType): Property
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $property = $this->nodeFactory->createPrivateProperty($propertyName);
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
+
         return $property;
     }
+
     /**
      * @param Param[] $params
      *
      * @return Assign[]
      */
-    private function createAssignsFromParams(array $params) : array
+    private function createAssignsFromParams(array $params): array
     {
         $assigns = [];
+
         /** @var Param $param */
         foreach ($params as $param) {
-            $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $param->var->name);
-            $assigns[] = new \PhpParser\Node\Expr\Assign($propertyFetch, new \PhpParser\Node\Expr\Variable($param->var->name));
+            $propertyFetch = new PropertyFetch(new Variable('this'), $param->var->name);
+            $assigns[] = new Assign($propertyFetch, new Variable($param->var->name));
         }
+
         return $assigns;
     }
 }

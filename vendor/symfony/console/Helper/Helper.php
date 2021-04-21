@@ -8,18 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Helper;
 
-use RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use RectorPrefix20210421\Symfony\Component\String\UnicodeString;
+namespace Symfony\Component\Console\Helper;
+
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use Symfony\Component\String\UnicodeString;
+
 /**
  * Helper is the base class for all helper classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Helper implements \RectorPrefix20210421\Symfony\Component\Console\Helper\HelperInterface
+abstract class Helper implements HelperInterface
 {
     protected $helperSet = null;
+
     /**
      * {@inheritdoc}
      * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
@@ -28,6 +31,7 @@ abstract class Helper implements \RectorPrefix20210421\Symfony\Component\Console
     {
         $this->helperSet = $helperSet;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -35,6 +39,7 @@ abstract class Helper implements \RectorPrefix20210421\Symfony\Component\Console
     {
         return $this->helperSet;
     }
+
     /**
      * Returns the length of a string, using mb_strwidth if it is available.
      *
@@ -43,15 +48,19 @@ abstract class Helper implements \RectorPrefix20210421\Symfony\Component\Console
      */
     public static function strlen($string)
     {
-        $string ?? ($string = '');
-        if (\preg_match('//u', $string)) {
-            return (new \RectorPrefix20210421\Symfony\Component\String\UnicodeString($string))->width(\false);
+        $string ?? $string = '';
+
+        if (preg_match('//u', $string)) {
+            return (new UnicodeString($string))->width(false);
         }
-        if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
+
+        if (false === $encoding = mb_detect_encoding($string, null, true)) {
             return \strlen($string);
         }
-        return \mb_strwidth($string, $encoding);
+
+        return mb_strwidth($string, $encoding);
     }
+
     /**
      * Returns the subset of a string, using mb_substr if it is available.
      *
@@ -60,62 +69,88 @@ abstract class Helper implements \RectorPrefix20210421\Symfony\Component\Console
      */
     public static function substr($string, int $from, int $length = null)
     {
-        $string ?? ($string = '');
-        if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
-            return \substr($string, $from, $length);
+        $string ?? $string = '';
+
+        if (false === $encoding = mb_detect_encoding($string, null, true)) {
+            return substr($string, $from, $length);
         }
-        return \mb_substr($string, $from, $length, $encoding);
+
+        return mb_substr($string, $from, $length, $encoding);
     }
+
     public static function formatTime($secs)
     {
-        static $timeFormats = [[0, '< 1 sec'], [1, '1 sec'], [2, 'secs', 1], [60, '1 min'], [120, 'mins', 60], [3600, '1 hr'], [7200, 'hrs', 3600], [86400, '1 day'], [172800, 'days', 86400]];
+        static $timeFormats = [
+            [0, '< 1 sec'],
+            [1, '1 sec'],
+            [2, 'secs', 1],
+            [60, '1 min'],
+            [120, 'mins', 60],
+            [3600, '1 hr'],
+            [7200, 'hrs', 3600],
+            [86400, '1 day'],
+            [172800, 'days', 86400],
+        ];
+
         foreach ($timeFormats as $index => $format) {
             if ($secs >= $format[0]) {
-                if (isset($timeFormats[$index + 1]) && $secs < $timeFormats[$index + 1][0] || $index == \count($timeFormats) - 1) {
+                if ((isset($timeFormats[$index + 1]) && $secs < $timeFormats[$index + 1][0])
+                    || $index == \count($timeFormats) - 1
+                ) {
                     if (2 == \count($format)) {
                         return $format[1];
                     }
-                    return \floor($secs / $format[2]) . ' ' . $format[1];
+
+                    return floor($secs / $format[2]).' '.$format[1];
                 }
             }
         }
     }
+
     public static function formatMemory(int $memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
-            return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
+            return sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
         }
+
         if ($memory >= 1024 * 1024) {
-            return \sprintf('%.1f MiB', $memory / 1024 / 1024);
+            return sprintf('%.1f MiB', $memory / 1024 / 1024);
         }
+
         if ($memory >= 1024) {
-            return \sprintf('%d KiB', $memory / 1024);
+            return sprintf('%d KiB', $memory / 1024);
         }
-        return \sprintf('%d B', $memory);
+
+        return sprintf('%d B', $memory);
     }
+
     /**
      * @param string|null $string
      */
-    public static function strlenWithoutDecoration(\RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    public static function strlenWithoutDecoration(OutputFormatterInterface $formatter, $string)
     {
         $string = self::removeDecoration($formatter, $string);
-        if (\preg_match('//u', $string)) {
-            return (new \RectorPrefix20210421\Symfony\Component\String\UnicodeString($string))->width(\true);
+
+        if (preg_match('//u', $string)) {
+            return (new UnicodeString($string))->width(true);
         }
+
         return self::strlen($string);
     }
+
     /**
      * @param string|null $string
      */
-    public static function removeDecoration(\RectorPrefix20210421\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, $string)
+    public static function removeDecoration(OutputFormatterInterface $formatter, $string)
     {
         $isDecorated = $formatter->isDecorated();
-        $formatter->setDecorated(\false);
+        $formatter->setDecorated(false);
         // remove <...> formatting
         $string = $formatter->format($string ?? '');
         // remove already formatted characters
-        $string = \preg_replace("/\33\\[[^m]*m/", '', $string);
+        $string = preg_replace("/\033\[[^m]*m/", '', $string);
         $formatter->setDecorated($isDecorated);
+
         return $string;
     }
 }

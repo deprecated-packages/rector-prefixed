@@ -1,36 +1,42 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\Astral\NodeFinder;
+declare(strict_types=1);
+
+namespace Symplify\Astral\NodeFinder;
 
 use PhpParser\Node;
 use PhpParser\NodeFinder;
-use RectorPrefix20210421\Symplify\Astral\ValueObject\CommonAttributeKey;
-use RectorPrefix20210421\Symplify\PackageBuilder\Php\TypeChecker;
+use Symplify\Astral\ValueObject\CommonAttributeKey;
+use Symplify\PackageBuilder\Php\TypeChecker;
+
 final class SimpleNodeFinder
 {
     /**
      * @var TypeChecker
      */
     private $typeChecker;
+
     /**
      * @var NodeFinder
      */
     private $nodeFinder;
-    public function __construct(\RectorPrefix20210421\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \PhpParser\NodeFinder $nodeFinder)
+
+    public function __construct(TypeChecker $typeChecker, NodeFinder $nodeFinder)
     {
         $this->typeChecker = $typeChecker;
         $this->nodeFinder = $nodeFinder;
     }
+
     /**
      * @template T of Node
      * @param class-string<T> $nodeClass
      * @return T[]
      */
-    public function findByType(\PhpParser\Node $node, string $nodeClass) : array
+    public function findByType(Node $node, string $nodeClass): array
     {
         return $this->nodeFinder->findInstanceOf($node, $nodeClass);
     }
+
     /**
      * @see https://phpstan.org/blog/generics-in-php-using-phpdocs for template
      *
@@ -38,31 +44,36 @@ final class SimpleNodeFinder
      * @param class-string<T> $nodeClass
      * @return \PhpParser\Node|null
      */
-    public function findFirstParentByType(\PhpParser\Node $node, string $nodeClass)
+    public function findFirstParentByType(Node $node, string $nodeClass)
     {
-        $node = $node->getAttribute(\RectorPrefix20210421\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+        $node = $node->getAttribute(CommonAttributeKey::PARENT);
         while ($node) {
-            if (\is_a($node, $nodeClass, \true)) {
+            if (is_a($node, $nodeClass, true)) {
                 return $node;
             }
-            $node = $node->getAttribute(\RectorPrefix20210421\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+
+            $node = $node->getAttribute(CommonAttributeKey::PARENT);
         }
+
         return null;
     }
+
     /**
      * @template T of Node
      * @param class-string<T>[] $nodeTypes
      * @return \PhpParser\Node|null
      */
-    public function findFirstParentByTypes(\PhpParser\Node $node, array $nodeTypes)
+    public function findFirstParentByTypes(Node $node, array $nodeTypes)
     {
-        $node = $node->getAttribute(\RectorPrefix20210421\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+        $node = $node->getAttribute(CommonAttributeKey::PARENT);
         while ($node) {
             if ($this->typeChecker->isInstanceOf($node, $nodeTypes)) {
                 return $node;
             }
-            $node = $node->getAttribute(\RectorPrefix20210421\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+
+            $node = $node->getAttribute(CommonAttributeKey::PARENT);
         }
+
         return null;
     }
 }

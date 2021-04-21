@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -13,45 +14,52 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+
+final class CallableTypeMapper implements TypeMapperInterface
 {
     /**
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
+
     /**
      * @required
      * @return void
      */
-    public function autowireCallableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function autowireCallableTypeMapper(PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\CallableType::class;
+        return CallableType::class;
     }
+
     /**
      * @param CallableType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
         $returnTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType());
-        return new \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('callable'), [], $returnTypeNode);
+
+        return new SpacingAwareCallableTypeNode(new IdentifierTypeNode('callable'), [], $returnTypeNode);
     }
+
     /**
      * @param CallableType|ClosureType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
         if ($kind === 'property') {
             return null;
         }
-        return new \PhpParser\Node\Name('callable');
+
+        return new Name('callable');
     }
 }

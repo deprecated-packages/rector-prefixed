@@ -8,32 +8,38 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+
+namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Adds basic `SessionUpdateTimestampHandlerInterface` behaviors to another `SessionHandlerInterface`.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class StrictSessionHandler extends \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class StrictSessionHandler extends AbstractSessionHandler
 {
     private $handler;
     private $doDestroy;
+
     public function __construct(\SessionHandlerInterface $handler)
     {
         if ($handler instanceof \SessionUpdateTimestampHandlerInterface) {
-            throw new \LogicException(\sprintf('"%s" is already an instance of "SessionUpdateTimestampHandlerInterface", you cannot wrap it with "%s".', \get_debug_type($handler), self::class));
+            throw new \LogicException(sprintf('"%s" is already an instance of "SessionUpdateTimestampHandlerInterface", you cannot wrap it with "%s".', get_debug_type($handler), self::class));
         }
+
         $this->handler = $handler;
     }
+
     /**
      * @return bool
      */
     public function open($savePath, $sessionName)
     {
         parent::open($savePath, $sessionName);
+
         return $this->handler->open($savePath, $sessionName);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -41,6 +47,7 @@ class StrictSessionHandler extends \RectorPrefix20210421\Symfony\Component\HttpF
     {
         return $this->handler->read($sessionId);
     }
+
     /**
      * @return bool
      */
@@ -48,6 +55,7 @@ class StrictSessionHandler extends \RectorPrefix20210421\Symfony\Component\HttpF
     {
         return $this->write($sessionId, $data);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -55,23 +63,28 @@ class StrictSessionHandler extends \RectorPrefix20210421\Symfony\Component\HttpF
     {
         return $this->handler->write($sessionId, $data);
     }
+
     /**
      * @return bool
      */
     public function destroy($sessionId)
     {
-        $this->doDestroy = \true;
+        $this->doDestroy = true;
         $destroyed = parent::destroy($sessionId);
+
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
     }
+
     /**
      * {@inheritdoc}
      */
     protected function doDestroy(string $sessionId)
     {
-        $this->doDestroy = \false;
+        $this->doDestroy = false;
+
         return $this->handler->destroy($sessionId);
     }
+
     /**
      * @return bool
      */
@@ -79,6 +92,7 @@ class StrictSessionHandler extends \RectorPrefix20210421\Symfony\Component\HttpF
     {
         return $this->handler->close();
     }
+
     /**
      * @return bool
      */

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\FuncCall;
 
 use PhpParser\Node;
@@ -8,19 +9,27 @@ use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://github.com/nette/utils/blob/master/src/Utils/Strings.php
  * @see \Rector\Nette\Tests\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector\SubstrStrlenFunctionToNetteUtilsStringsRectorTest
  */
-final class SubstrStrlenFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\AbstractRector
+final class SubstrStrlenFunctionToNetteUtilsStringsRector extends AbstractRector
 {
     /**
      * @var array<string, string>
      */
-    const FUNCTION_TO_STATIC_METHOD = ['substr' => 'substring'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    const FUNCTION_TO_STATIC_METHOD = [
+        'substr' => 'substring',
+    ];
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare string-functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Use Nette\Utils\Strings over bare string-functions',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -29,7 +38,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -38,27 +48,32 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\FuncCall::class];
+        return [FuncCall::class];
     }
+
     /**
      * @param FuncCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach (self::FUNCTION_TO_STATIC_METHOD as $function => $staticMethod) {
-            if (!$this->isName($node, $function)) {
+            if (! $this->isName($node, $function)) {
                 continue;
             }
-            return $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', $staticMethod, $node->args);
+
+            return $this->nodeFactory->createStaticCall('Nette\Utils\Strings', $staticMethod, $node->args);
         }
+
         return null;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Removing\Rector\Class_;
 
 use PhpParser\Node;
@@ -10,69 +11,88 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Removing\Rector\Class_\RemoveParentRector\RemoveParentRectorTest
  */
-final class RemoveParentRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RemoveParentRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     const PARENT_TYPES_TO_REMOVE = 'parents_types_to_remove';
+
     /**
      * @var string[]
      */
     private $parentClassesToRemove = [];
+
     /**
      * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
-    public function __construct(\Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
+
+    public function __construct(ParentClassScopeResolver $parentClassScopeResolver)
     {
         $this->parentClassScopeResolver = $parentClassScopeResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes extends class by name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Removes extends class by name', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass extends SomeParentClass
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
 }
 CODE_SAMPLE
-, [self::PARENT_TYPES_TO_REMOVE => ['SomeParentClass']])]);
+                , [
+                    self::PARENT_TYPES_TO_REMOVE => ['SomeParentClass'],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $parentClassName = $this->parentClassScopeResolver->resolveParentClassName($node);
         if ($parentClassName === null) {
             return null;
         }
+
         foreach ($this->parentClassesToRemove as $parentClassToRemove) {
             if ($parentClassName !== $parentClassToRemove) {
                 continue;
             }
+
             // remove parent class
             $node->extends = null;
+
             return $node;
         }
+
         return null;
     }
+
     /**
      * @param array<string, class-string[]> $configuration
      * @return void

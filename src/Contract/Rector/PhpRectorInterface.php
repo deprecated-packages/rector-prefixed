@@ -1,11 +1,13 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\Contract\Rector;
 
 use PhpParser\Node;
 use PhpParser\NodeVisitor;
-interface PhpRectorInterface extends \PhpParser\NodeVisitor, \Rector\Core\Contract\Rector\RectorInterface
+
+interface PhpRectorInterface extends NodeVisitor, RectorInterface
 {
     /**
      * List of nodes this class checks, classes that implements \PhpParser\Node
@@ -13,10 +15,11 @@ interface PhpRectorInterface extends \PhpParser\NodeVisitor, \Rector\Core\Contra
      *
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array;
+    public function getNodeTypes(): array;
+
     /**
      * Process Node of matched type
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node);
+    public function refactor(Node $node);
 }

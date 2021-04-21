@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\NodeAnalyzer;
 
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -12,41 +13,50 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\Symfony\DataProvider\ServiceMapProvider;
+
 final class ServiceTypeMethodCallResolver
 {
     /**
      * @var ServiceMapProvider
      */
     private $serviceMapProvider;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Symfony\DataProvider\ServiceMapProvider $serviceMapProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+
+    public function __construct(ServiceMapProvider $serviceMapProvider, NodeNameResolver $nodeNameResolver)
     {
         $this->serviceMapProvider = $serviceMapProvider;
         $this->nodeNameResolver = $nodeNameResolver;
     }
+
     /**
      * @return \PHPStan\Type\Type|null
      */
-    public function resolve(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function resolve(MethodCall $methodCall)
     {
-        if (!isset($methodCall->args[0])) {
-            return new \PHPStan\Type\MixedType();
+        if (! isset($methodCall->args[0])) {
+            return new MixedType();
         }
+
         $argument = $methodCall->args[0]->value;
         $serviceMap = $this->serviceMapProvider->provide();
-        if ($argument instanceof \PhpParser\Node\Scalar\String_) {
+
+        if ($argument instanceof String_) {
             return $serviceMap->getServiceType($argument->value);
         }
-        if ($argument instanceof \PhpParser\Node\Expr\ClassConstFetch && $argument->class instanceof \PhpParser\Node\Name) {
+
+        if ($argument instanceof ClassConstFetch && $argument->class instanceof Name) {
             $className = $this->nodeNameResolver->getName($argument->class);
             if ($className === null) {
-                return new \PHPStan\Type\MixedType();
+                return new MixedType();
             }
-            return new \PHPStan\Type\ObjectType($className);
+
+            return new ObjectType($className);
         }
-        return new \PHPStan\Type\MixedType();
+
+        return new MixedType();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PhpSpecToPHPUnit\Rector;
 
 use PhpParser\Node;
@@ -10,15 +11,18 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://gnugat.github.io/2015/09/23/phpunit-with-phpspec.html
  * @changelog http://www.phpspec.net/en/stable/cookbook/construction.html
  */
-abstract class AbstractPhpSpecToPHPUnitRector extends \Rector\Core\Rector\AbstractRector
+abstract class AbstractPhpSpecToPHPUnitRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate PhpSpec behavior to PHPUnit test', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Migrate PhpSpec behavior to PHPUnit test', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 
 namespace spec\SomeNamespaceForThisTest;
 
@@ -32,7 +36,8 @@ class OrderSpec extends ObjectBehavior
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 namespace spec\SomeNamespaceForThisTest;
 
 class OrderSpec extends ObjectBehavior
@@ -53,14 +58,17 @@ class OrderSpec extends ObjectBehavior
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
-    public function isInPhpSpecBehavior(\PhpParser\Node $node) : bool
+
+    public function isInPhpSpecBehavior(Node $node): bool
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return \false;
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof ClassLike) {
+            return false;
         }
-        return $this->isObjectType($classLike, new \PHPStan\Type\ObjectType('PhpSpec\\ObjectBehavior'));
+
+        return $this->isObjectType($classLike, new ObjectType('PhpSpec\ObjectBehavior'));
     }
 }

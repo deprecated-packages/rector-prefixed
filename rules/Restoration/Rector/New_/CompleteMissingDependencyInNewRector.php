@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Restoration\Rector\New_;
 
 use PhpParser\Node;
@@ -15,31 +16,38 @@ use ReflectionParameter;
 use ReflectionType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Restoration\Rector\New_\CompleteMissingDependencyInNewRector\CompleteMissingDependencyInNewRectorTest
  */
-final class CompleteMissingDependencyInNewRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class CompleteMissingDependencyInNewRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @api
      * @var string
      */
     const CLASS_TO_INSTANTIATE_BY_TYPE = 'class_to_instantiate_by_type';
+
     /**
      * @var array<class-string, class-string>
      */
     private $classToInstantiateByType = [];
+
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing constructor dependency instance by type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Complete missing constructor dependency instance by type', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -55,7 +63,8 @@ class RandomValueObject
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -71,40 +80,54 @@ class RandomValueObject
     }
 }
 CODE_SAMPLE
-, [self::CLASS_TO_INSTANTIATE_BY_TYPE => ['RandomDependency' => 'RandomDependency']])]);
+                , [
+                    self::CLASS_TO_INSTANTIATE_BY_TYPE => [
+                        'RandomDependency' => 'RandomDependency',
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\New_::class];
+        return [New_::class];
     }
+
     /**
      * @param New_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->shouldSkipNew($node)) {
             return null;
         }
+
         /** @var ReflectionMethod $constructorMethodReflection */
         $constructorMethodReflection = $this->getNewNodeClassConstructorMethodReflection($node);
+
         foreach ($constructorMethodReflection->getParameters() as $position => $reflectionParameter) {
             // argument is already set
             if (isset($node->args[$position])) {
                 continue;
             }
+
             $classToInstantiate = $this->resolveClassToInstantiateByParameterReflection($reflectionParameter);
             if ($classToInstantiate === null) {
                 continue;
             }
-            $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($classToInstantiate));
-            $node->args[$position] = new \PhpParser\Node\Arg($new);
+
+            $new = new New_(new FullyQualified($classToInstantiate));
+            $node->args[$position] = new Arg($new);
         }
+
         return $node;
     }
+
     /**
      * @return void
      */
@@ -112,40 +135,48 @@ CODE_SAMPLE
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }
-    private function shouldSkipNew(\PhpParser\Node\Expr\New_ $new) : bool
+
+    private function shouldSkipNew(New_ $new): bool
     {
         $constructorMethodReflection = $this->getNewNodeClassConstructorMethodReflection($new);
-        if (!$constructorMethodReflection instanceof \ReflectionMethod) {
-            return \true;
+        if (! $constructorMethodReflection instanceof ReflectionMethod) {
+            return true;
         }
-        return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
+
+        return $constructorMethodReflection->getNumberOfRequiredParameters() <= count($new->args);
     }
+
     /**
      * @return \ReflectionMethod|null
      */
-    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new)
+    private function getNewNodeClassConstructorMethodReflection(New_ $new)
     {
         $className = $this->getName($new->class);
         if ($className === null) {
             return null;
         }
-        if (!$this->reflectionProvider->hasClass($className)) {
+
+        if (! $this->reflectionProvider->hasClass($className)) {
             return null;
         }
+
         $classReflection = $this->reflectionProvider->getClass($className);
         $reflectionClass = $classReflection->getNativeReflection();
         return $reflectionClass->getConstructor();
     }
+
     /**
      * @return string|null
      */
-    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter)
+    private function resolveClassToInstantiateByParameterReflection(ReflectionParameter $reflectionParameter)
     {
         $reflectionType = $reflectionParameter->getType();
-        if (!$reflectionType instanceof \ReflectionType) {
+        if (! $reflectionType instanceof ReflectionType) {
             return null;
         }
+
         $requiredType = (string) $reflectionType;
+
         return $this->classToInstantiateByType[$requiredType] ?? null;
     }
 }

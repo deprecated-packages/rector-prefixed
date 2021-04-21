@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
-declare (strict_types=1);
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node;
-class If_ extends \PhpParser\Node\Stmt
+
+class If_ extends Node\Stmt
 {
     /** @var Node\Expr Condition expression */
     public $cond;
@@ -14,6 +14,7 @@ class If_ extends \PhpParser\Node\Stmt
     public $elseifs;
     /** @var null|Else_ Else clause */
     public $else;
+
     /**
      * Constructs an if node.
      *
@@ -24,20 +25,19 @@ class If_ extends \PhpParser\Node\Stmt
      *                              'else'    => null   : Else clause
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\PhpParser\Node\Expr $cond, array $subNodes = [], array $attributes = [])
-    {
+    public function __construct(Node\Expr $cond, array $subNodes = [], array $attributes = []) {
         $this->attributes = $attributes;
         $this->cond = $cond;
         $this->stmts = $subNodes['stmts'] ?? [];
         $this->elseifs = $subNodes['elseifs'] ?? [];
         $this->else = $subNodes['else'] ?? null;
     }
-    public function getSubNodeNames() : array
-    {
+
+    public function getSubNodeNames() : array {
         return ['cond', 'stmts', 'elseifs', 'else'];
     }
-    public function getType() : string
-    {
+    
+    public function getType() : string {
         return 'Stmt_If';
     }
 }

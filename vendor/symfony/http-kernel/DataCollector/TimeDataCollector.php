@@ -8,50 +8,63 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
-use RectorPrefix20210421\Symfony\Component\HttpKernel\KernelInterface;
-use RectorPrefix20210421\Symfony\Component\Stopwatch\Stopwatch;
-use RectorPrefix20210421\Symfony\Component\Stopwatch\StopwatchEvent;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @final
  */
-class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class TimeDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     protected $kernel;
     protected $stopwatch;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpKernel\KernelInterface $kernel = null, \RectorPrefix20210421\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null)
+
+    public function __construct(KernelInterface $kernel = null, Stopwatch $stopwatch = null)
     {
         $this->kernel = $kernel;
         $this->stopwatch = $stopwatch;
     }
+
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(Request $request, Response $response, $exception = null)
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();
         } else {
             $startTime = $request->server->get('REQUEST_TIME_FLOAT');
         }
-        $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'start_time' => $startTime * 1000, 'events' => [], 'stopwatch_installed' => \class_exists(\RectorPrefix20210421\Symfony\Component\Stopwatch\Stopwatch::class, \false)];
+
+        $this->data = [
+            'token' => $response->headers->get('X-Debug-Token'),
+            'start_time' => $startTime * 1000,
+            'events' => [],
+            'stopwatch_installed' => class_exists(Stopwatch::class, false),
+        ];
     }
+
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
         $this->data = [];
+
         if (null !== $this->stopwatch) {
             $this->stopwatch->reset();
         }
     }
+
     /**
      * {@inheritdoc}
      */
@@ -62,6 +75,7 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
         }
         unset($this->data['token']);
     }
+
     /**
      * Sets the request events.
      *
@@ -72,8 +86,10 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
         foreach ($events as $event) {
             $event->ensureStopped();
         }
+
         $this->data['events'] = $events;
     }
+
     /**
      * Gets the request events.
      *
@@ -83,6 +99,7 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
     {
         return $this->data['events'];
     }
+
     /**
      * Gets the request elapsed time.
      *
@@ -93,9 +110,12 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
         if (!isset($this->data['events']['__section__'])) {
             return 0;
         }
+
         $lastEvent = $this->data['events']['__section__'];
+
         return $lastEvent->getOrigin() + $lastEvent->getDuration() - $this->getStartTime();
     }
+
     /**
      * Gets the initialization time.
      *
@@ -108,8 +128,10 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
         if (!isset($this->data['events']['__section__'])) {
             return 0;
         }
+
         return $this->data['events']['__section__']->getOrigin() - $this->getStartTime();
     }
+
     /**
      * Gets the request time.
      *
@@ -119,6 +141,7 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
     {
         return $this->data['start_time'];
     }
+
     /**
      * @return bool whether or not the stopwatch component is installed
      */
@@ -126,6 +149,7 @@ class TimeDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKern
     {
         return $this->data['stopwatch_installed'];
     }
+
     /**
      * {@inheritdoc}
      */

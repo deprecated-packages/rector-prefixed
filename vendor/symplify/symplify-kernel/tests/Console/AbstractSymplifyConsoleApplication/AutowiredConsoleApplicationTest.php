@@ -1,20 +1,23 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SymplifyKernel\Tests\Console\AbstractSymplifyConsoleApplication;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Symfony\Component\Console\Application;
-use RectorPrefix20210421\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210421\Symplify\SymplifyKernel\Tests\HttpKernel\OnlyForTestsKernel;
-final class AutowiredConsoleApplicationTest extends \RectorPrefix20210421\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+namespace Symplify\SymplifyKernel\Tests\Console\AbstractSymplifyConsoleApplication;
+
+use Symfony\Component\Console\Application;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\SymplifyKernel\Tests\HttpKernel\OnlyForTestsKernel;
+
+final class AutowiredConsoleApplicationTest extends AbstractKernelTestCase
 {
-    protected function setUp() : void
+    protected function setUp(): void
     {
-        $this->bootKernel(\RectorPrefix20210421\Symplify\SymplifyKernel\Tests\HttpKernel\OnlyForTestsKernel::class);
+        $this->bootKernel(OnlyForTestsKernel::class);
     }
-    public function test() : void
+
+    public function test(): void
     {
-        $application = $this->getService(\RectorPrefix20210421\Symfony\Component\Console\Application::class);
-        $this->assertInstanceOf(\RectorPrefix20210421\Symfony\Component\Console\Application::class, $application);
+        $application = $this->getService(Application::class);
+        $this->assertInstanceOf(Application::class, $application);
     }
 }

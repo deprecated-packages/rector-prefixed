@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\NodeFactory;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -9,54 +10,70 @@ use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+
 final class ExpectExceptionMessageFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
+
     /**
      * @var NodeComparator
      */
     private $nodeComparator;
+
     /**
      * @var ArgumentShiftingFactory
      */
     private $argumentShiftingFactory;
+
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
+
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
-    {
+
+    public function __construct(
+        NodeNameResolver $nodeNameResolver,
+        ArgumentShiftingFactory $argumentShiftingFactory,
+        NodeComparator $nodeComparator,
+        NodeTypeResolver $nodeTypeResolver,
+        TestsNodeAnalyzer $testsNodeAnalyzer
+    ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->argumentShiftingFactory = $argumentShiftingFactory;
         $this->nodeComparator = $nodeComparator;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
+
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable)
+    public function create(MethodCall $methodCall, Variable $exceptionVariable)
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, ['assertSame', 'assertEquals'])) {
+        if (! $this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, ['assertSame', 'assertEquals'])) {
             return null;
         }
+
         $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\MethodCall) {
+        if (! $secondArgument instanceof MethodCall) {
             return null;
         }
-        if (!$this->nodeComparator->areNodesEqual($secondArgument->var, $exceptionVariable)) {
+
+        if (! $this->nodeComparator->areNodesEqual($secondArgument->var, $exceptionVariable)) {
             return null;
         }
-        if (!$this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {
+
+        if (! $this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {
             return null;
         }
+
         $this->argumentShiftingFactory->removeAllButFirstArgMethodCall($methodCall, 'expectExceptionMessage');
         return $methodCall;
     }

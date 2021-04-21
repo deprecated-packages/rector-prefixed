@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -11,14 +12,19 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector\RemoveDeadReturnRectorTest
  */
-final class RemoveDeadReturnRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveDeadReturnRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove last return in the functions, since does not do anything', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove last return in the functions, since does not do anything',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -33,7 +39,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -46,20 +53,23 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class];
+        return [ClassMethod::class, Function_::class, Closure::class];
     }
+
     /**
      * @param ClassMethod|Function_|Closure $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->stmts === []) {
             return null;
@@ -67,15 +77,20 @@ CODE_SAMPLE
         if ($node->stmts === null) {
             return null;
         }
-        $stmtValues = \array_values($node->stmts);
-        $lastStmt = \end($stmtValues);
-        if (!$lastStmt instanceof \PhpParser\Node\Stmt\Return_) {
+
+        $stmtValues = array_values($node->stmts);
+        $lastStmt = end($stmtValues);
+
+        if (! $lastStmt instanceof Return_) {
             return null;
         }
+
         if ($lastStmt->expr !== null) {
             return null;
         }
+
         $this->removeNode($lastStmt);
+
         return $node;
     }
 }

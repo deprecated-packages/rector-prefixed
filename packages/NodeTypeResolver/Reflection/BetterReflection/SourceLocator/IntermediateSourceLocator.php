@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator;
 
 use PHPStan\BetterReflection\Identifier\Identifier;
@@ -9,12 +10,14 @@ use PHPStan\BetterReflection\Reflection\Reflection;
 use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
 use Rector\NodeTypeResolver\Contract\SourceLocatorProviderInterface;
-final class IntermediateSourceLocator implements \PHPStan\BetterReflection\SourceLocator\Type\SourceLocator
+
+final class IntermediateSourceLocator implements SourceLocator
 {
     /**
      * @var SourceLocatorProviderInterface[]
      */
     private $sourceLocatorProviders = [];
+
     /**
      * @param SourceLocatorProviderInterface[] $sourceLocatorProviders
      */
@@ -22,33 +25,39 @@ final class IntermediateSourceLocator implements \PHPStan\BetterReflection\Sourc
     {
         $this->sourceLocatorProviders = $sourceLocatorProviders;
     }
+
     /**
      * @return \PHPStan\BetterReflection\Reflection\Reflection|null
      */
-    public function locateIdentifier(\PHPStan\BetterReflection\Reflector\Reflector $reflector, \PHPStan\BetterReflection\Identifier\Identifier $identifier)
+    public function locateIdentifier(Reflector $reflector, Identifier $identifier)
     {
         foreach ($this->sourceLocatorProviders as $sourceLocatorProvider) {
             $sourceLocator = $sourceLocatorProvider->provide();
+
             $reflection = $sourceLocator->locateIdentifier($reflector, $identifier);
-            if ($reflection instanceof \PHPStan\BetterReflection\Reflection\Reflection) {
+            if ($reflection instanceof Reflection) {
                 return $reflection;
             }
         }
+
         return null;
     }
+
     /**
      * Find all identifiers of a type
      * @return Reflection[]
      */
-    public function locateIdentifiersByType(\PHPStan\BetterReflection\Reflector\Reflector $reflector, \PHPStan\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
     {
         foreach ($this->sourceLocatorProviders as $sourceLocatorProvider) {
             $sourceLocator = $sourceLocatorProvider->provide();
+
             $reflections = $sourceLocator->locateIdentifiersByType($reflector, $identifierType);
             if ($reflections !== []) {
                 return $reflections;
             }
         }
+
         return [];
     }
 }

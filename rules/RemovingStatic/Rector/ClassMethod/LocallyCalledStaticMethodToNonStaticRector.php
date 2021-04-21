@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\RemovingStatic\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -14,22 +15,29 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\RemovingStatic\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRector\LocallyCalledStaticMethodToNonStaticRectorTest
  */
-final class LocallyCalledStaticMethodToNonStaticRector extends \Rector\Core\Rector\AbstractRector
+final class LocallyCalledStaticMethodToNonStaticRector extends AbstractRector
 {
     /**
      * @var ClassMethodVisibilityGuard
      */
     private $classMethodVisibilityGuard;
-    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+
+    public function __construct(ClassMethodVisibilityGuard $classMethodVisibilityGuard)
     {
         $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change static method and local-only calls to non-static', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change static method and local-only calls to non-static',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -42,7 +50,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -55,94 +65,116 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [ClassMethod::class, StaticCall::class];
     }
+
     /**
      * @param ClassMethod|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof ClassMethod) {
             return $this->refactorClassMethod($node);
         }
+
         return $this->refactorStaticCall($node);
     }
+
     /**
      * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorClassMethod(ClassMethod $classMethod)
     {
-        if (!$classMethod->isStatic()) {
+        if (! $classMethod->isStatic()) {
             return null;
         }
-        if (!$this->isClassMethodWithOnlyLocalStaticCalls($classMethod)) {
+
+        if (! $this->isClassMethodWithOnlyLocalStaticCalls($classMethod)) {
             return null;
         }
-        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+
+        $scope = $classMethod->getAttribute(AttributeKey::SCOPE);
+
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
+
         if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByParent($classMethod, $classReflection)) {
             return null;
         }
+
         // change static calls to non-static ones, but only if in non-static method!!!
         $this->visibilityManipulator->makeNonStatic($classMethod);
+
         return $classMethod;
     }
+
     /**
      * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function refactorStaticCall(StaticCall $staticCall)
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (! $classMethod instanceof ClassMethod) {
             return null;
         }
+
         // is static call in the same as class method
-        if (!$this->haveSharedClass($classMethod, [$staticCall])) {
+        if (! $this->haveSharedClass($classMethod, [$staticCall])) {
             return null;
         }
+
         if ($this->isInStaticClassMethod($staticCall)) {
             return null;
         }
-        $thisVariable = new \PhpParser\Node\Expr\Variable('this');
-        return new \PhpParser\Node\Expr\MethodCall($thisVariable, $staticCall->name, $staticCall->args);
+
+        $thisVariable = new Variable('this');
+        return new MethodCall($thisVariable, $staticCall->name, $staticCall->args);
     }
-    private function isClassMethodWithOnlyLocalStaticCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function isClassMethodWithOnlyLocalStaticCalls(ClassMethod $classMethod): bool
     {
         $staticCalls = $this->nodeRepository->findStaticCallsByClassMethod($classMethod);
+
         // get static staticCalls
         return $this->haveSharedClass($classMethod, $staticCalls);
     }
+
     /**
      * @param Node[] $nodes
      */
-    private function haveSharedClass(\PhpParser\Node $mainNode, array $nodes) : bool
+    private function haveSharedClass(Node $mainNode, array $nodes): bool
     {
-        $mainNodeClass = $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $mainNodeClass = $mainNode->getAttribute(AttributeKey::CLASS_NAME);
         foreach ($nodes as $node) {
-            $nodeClass = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $nodeClass = $node->getAttribute(AttributeKey::CLASS_NAME);
             if ($mainNodeClass !== $nodeClass) {
-                return \false;
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
-    private function isInStaticClassMethod(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+
+    private function isInStaticClassMethod(StaticCall $staticCall): bool
     {
-        $locationClassMethod = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$locationClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return \false;
+        $locationClassMethod = $staticCall->getAttribute(AttributeKey::METHOD_NODE);
+        if (! $locationClassMethod instanceof ClassMethod) {
+            return false;
         }
+
         return $locationClassMethod->isStatic();
     }
 }

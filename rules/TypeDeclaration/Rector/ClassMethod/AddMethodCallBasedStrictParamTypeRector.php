@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -10,27 +11,35 @@ use Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver;
 use Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector\AddMethodCallBasedStrictParamTypeRectorTest
  */
-final class AddMethodCallBasedStrictParamTypeRector extends \Rector\Core\Rector\AbstractRector
+final class AddMethodCallBasedStrictParamTypeRector extends AbstractRector
 {
     /**
      * @var CallTypesResolver
      */
     private $callTypesResolver;
+
     /**
      * @var ClassMethodParamTypeCompleter
      */
     private $classMethodParamTypeCompleter;
-    public function __construct(\Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver $callTypesResolver, \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter $classMethodParamTypeCompleter)
-    {
+
+    public function __construct(
+        CallTypesResolver $callTypesResolver,
+        ClassMethodParamTypeCompleter $classMethodParamTypeCompleter
+    ) {
         $this->callTypesResolver = $callTypesResolver;
         $this->classMethodParamTypeCompleter = $classMethodParamTypeCompleter;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type to strict type of passed expression', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change param type to strict type of passed expression', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getById($id)
@@ -51,7 +60,8 @@ class CallerClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getById(int $id)
@@ -72,26 +82,31 @@ class CallerClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->params === []) {
             return null;
         }
+
         $classMethodCalls = $this->nodeRepository->findCallsByClassMethod($node);
         $classMethodParameterTypes = $this->callTypesResolver->resolveStrictTypesFromCalls($classMethodCalls);
+
         return $this->classMethodParamTypeCompleter->complete($node, $classMethodParameterTypes);
     }
 }

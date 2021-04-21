@@ -1,16 +1,13 @@
 {
-    "name": "symfony\/uid",
+    "name": "symfony/uid",
     "type": "library",
     "description": "Provides an object-oriented API to generate and represent UIDs",
-    "keywords": [
-        "uid",
-        "uuid"
-    ],
-    "homepage": "https:\/\/symfony.com",
+    "keywords": ["uid", "uuid"],
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
-            "name": "Gr\u00e9goire Pineau",
+            "name": "Grégoire Pineau",
             "email": "lyrixx@lyrixx.info"
         },
         {
@@ -19,19 +16,17 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony\/polyfill-uuid": "^1.15"
+        "symfony/polyfill-uuid": "^1.15"
     },
     "autoload": {
-        "psr-4": {
-            "RectorPrefix20210421\\Symfony\\Component\\Uid\\": ""
-        },
+        "psr-4": { "Symfony\\Component\\Uid\\": "" },
         "exclude-from-classmap": [
-            "\/Tests\/"
+            "/Tests/"
         ]
     },
     "minimum-stability": "dev"

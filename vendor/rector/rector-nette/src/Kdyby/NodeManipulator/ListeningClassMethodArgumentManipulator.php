@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Kdyby\NodeManipulator;
 
 use PhpParser\Node\Expr\Assign;
@@ -15,45 +16,59 @@ use Rector\Core\NodeAnalyzer\ParamAnalyzer;
 use Rector\Nette\Kdyby\ContributeEventClassResolver;
 use Rector\Nette\Kdyby\ValueObject\EventAndListenerTree;
 use Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod;
+
 final class ListeningClassMethodArgumentManipulator
 {
     /**
      * @var string
      */
     const EVENT_PARAMETER_REPLACED = 'event_parameter_replaced';
+
     /**
      * @var ClassNaming
      */
     private $classNaming;
+
     /**
      * @var ContributeEventClassResolver
      */
     private $contributeEventClassResolver;
+
     /**
      * @var ParamAnalyzer
      */
     private $paramAnalyzer;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Nette\Kdyby\ContributeEventClassResolver $contributeEventClassResolver, \Rector\Core\NodeAnalyzer\ParamAnalyzer $paramAnalyzer)
-    {
+
+    public function __construct(
+        ClassNaming $classNaming,
+        ContributeEventClassResolver $contributeEventClassResolver,
+        ParamAnalyzer $paramAnalyzer
+    ) {
         $this->classNaming = $classNaming;
         $this->contributeEventClassResolver = $contributeEventClassResolver;
         $this->paramAnalyzer = $paramAnalyzer;
     }
+
     /**
      * @return void
      */
-    public function changeFromEventAndListenerTreeAndCurrentClassName(\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, string $className)
-    {
+    public function changeFromEventAndListenerTreeAndCurrentClassName(
+        EventAndListenerTree $eventAndListenerTree,
+        string $className
+    ) {
         $listenerClassMethods = $eventAndListenerTree->getListenerClassMethodsByClass($className);
         if ($listenerClassMethods === []) {
             return;
         }
+
         $classMethodsByEventClass = [];
         foreach ($listenerClassMethods as $listenerClassMethod) {
-            $classMethodsByEventClass[] = new \Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod($className, $listenerClassMethod);
+            $classMethodsByEventClass[] = new EventClassAndClassMethod($className, $listenerClassMethod);
         }
+
         $this->change($classMethodsByEventClass, $eventAndListenerTree);
     }
+
     /**
      * @param EventClassAndClassMethod[] $classMethodsByEventClass
      * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
@@ -68,40 +83,65 @@ final class ListeningClassMethodArgumentManipulator
             if ($eventParameterReplaced) {
                 continue;
             }
+
             $oldParams = $classMethod->params;
+
             $eventClass = $eventAndListenerTree !== null ? $eventAndListenerTree->getEventClassName() : $classMethods->getEventClass();
+
             $this->changeClassParamToEventClass($eventClass, $classMethod);
+
             // move params to getter on event
             foreach ($oldParams as $oldParam) {
-                if (!$this->paramAnalyzer->isParamUsedInClassMethod($classMethod, $oldParam)) {
+                if (! $this->paramAnalyzer->isParamUsedInClassMethod($classMethod, $oldParam)) {
                     continue;
                 }
-                $eventGetterToVariableAssign = $this->createEventGetterToVariableMethodCall($eventClass, $oldParam, $eventAndListenerTree);
-                $expression = new \PhpParser\Node\Stmt\Expression($eventGetterToVariableAssign);
-                $classMethod->stmts = \array_merge([$expression], (array) $classMethod->stmts);
+
+                $eventGetterToVariableAssign = $this->createEventGetterToVariableMethodCall(
+                    $eventClass,
+                    $oldParam,
+                    $eventAndListenerTree
+                );
+
+                $expression = new Expression($eventGetterToVariableAssign);
+
+                $classMethod->stmts = array_merge([$expression], (array) $classMethod->stmts);
             }
-            $classMethod->setAttribute(self::EVENT_PARAMETER_REPLACED, \true);
+
+            $classMethod->setAttribute(self::EVENT_PARAMETER_REPLACED, true);
         }
     }
+
     /**
      * @return void
      */
-    private function changeClassParamToEventClass(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function changeClassParamToEventClass(string $eventClass, ClassMethod $classMethod)
     {
         $paramName = $this->classNaming->getVariableName($eventClass);
-        $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);
-        $param = new \PhpParser\Node\Param($eventVariable, null, new \PhpParser\Node\Name\FullyQualified($eventClass));
+        $eventVariable = new Variable($paramName);
+
+        $param = new Param($eventVariable, null, new FullyQualified($eventClass));
         $classMethod->params = [$param];
     }
+
     /**
      * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
      */
-    private function createEventGetterToVariableMethodCall(string $eventClass, \PhpParser\Node\Param $param, $eventAndListenerTree) : \PhpParser\Node\Expr\Assign
-    {
+    private function createEventGetterToVariableMethodCall(
+        string $eventClass,
+        Param $param,
+        $eventAndListenerTree
+    ): Assign {
         $paramName = $this->classNaming->getVariableName($eventClass);
-        $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);
-        $getterMethod = $this->contributeEventClassResolver->resolveGetterMethodByEventClassAndParam($eventClass, $param, $eventAndListenerTree);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($eventVariable, $getterMethod);
-        return new \PhpParser\Node\Expr\Assign($param->var, $methodCall);
+        $eventVariable = new Variable($paramName);
+
+        $getterMethod = $this->contributeEventClassResolver->resolveGetterMethodByEventClassAndParam(
+            $eventClass,
+            $param,
+            $eventAndListenerTree
+        );
+
+        $methodCall = new MethodCall($eventVariable, $getterMethod);
+
+        return new Assign($param->var, $methodCall);
     }
 }

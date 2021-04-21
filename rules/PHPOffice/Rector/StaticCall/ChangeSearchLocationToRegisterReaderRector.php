@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPOffice\Rector\StaticCall;
 
 use PhpParser\Node;
@@ -11,16 +12,21 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#simplified-iofactory
  *
  * @see \Rector\Tests\PHPOffice\Rector\StaticCall\ChangeSearchLocationToRegisterReaderRector\ChangeSearchLocationToRegisterReaderRectorTest
  */
-final class ChangeSearchLocationToRegisterReaderRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeSearchLocationToRegisterReaderRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change argument addSearchLocation() to registerReader()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change argument addSearchLocation() to registerReader()',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -29,7 +35,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -38,34 +45,42 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
+
     /**
      * @param StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $callerType = $this->nodeTypeResolver->resolve($node->class);
-        if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_IOFactory'))->yes()) {
+        if (! $callerType->isSuperTypeOf(new ObjectType('PHPExcel_IOFactory'))->yes()) {
             return null;
         }
-        if (!$this->isName($node->name, 'addSearchLocation')) {
+
+        if (! $this->isName($node->name, 'addSearchLocation')) {
             return null;
         }
-        $node->class = new \PhpParser\Node\Name\FullyQualified('PhpOffice\\PhpSpreadsheet\\IOFactory');
-        $node->name = new \PhpParser\Node\Identifier('registerReader');
+
+        $node->class = new FullyQualified('PhpOffice\PhpSpreadsheet\IOFactory');
+        $node->name = new Identifier('registerReader');
+
         // remove middle argument
         $args = $node->args;
         unset($args[1]);
-        $node->args = \array_values($args);
+
+        $node->args = array_values($args);
+
         return $node;
     }
 }

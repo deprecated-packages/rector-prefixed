@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,14 +11,19 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\RequestGetCookieDefaultArgumentToCoalesceRector\RequestGetCookieDefaultArgumentToCoalesceRectorTest
  */
-final class RequestGetCookieDefaultArgumentToCoalesceRector extends \Rector\Core\Rector\AbstractRector
+final class RequestGetCookieDefaultArgumentToCoalesceRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add removed Nette\\Http\\Request::getCookies() default value as coalesce', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Add removed Nette\Http\Request::getCookies() default value as coalesce',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Nette\Http\Request;
 
 class SomeClass
@@ -28,7 +34,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                    ,
+                    <<<'CODE_SAMPLE'
 use Nette\Http\Request;
 
 class SomeClass
@@ -39,33 +47,41 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('Nette\\Http\\Request'))) {
+        if (! $this->isObjectType($node->var, new ObjectType('Nette\Http\Request'))) {
             return null;
         }
-        if (!$this->isName($node->name, 'getCookie')) {
+
+        if (! $this->isName($node->name, 'getCookie')) {
             return null;
         }
+
         // no default value
-        if (!isset($node->args[1])) {
+        if (! isset($node->args[1])) {
             return null;
         }
+
         $defaultValue = $node->args[1]->value;
         unset($node->args[1]);
-        return new \PhpParser\Node\Expr\BinaryOp\Coalesce($node, $defaultValue);
+
+        return new Coalesce($node, $defaultValue);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Defluent\Skipper;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -12,6 +13,7 @@ use Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer;
 use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FirstAssignFluentCall;
+
 final class FluentMethodCallSkipper
 {
     /**
@@ -22,89 +24,114 @@ final class FluentMethodCallSkipper
      */
     const ALLOWED_FLUENT_TYPES = [
         // symfony
-        'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator',
-        'Symfony\\Component\\Finder\\Finder',
+        'Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator',
+        'Symfony\Component\Finder\Finder',
         // doctrine
-        'Doctrine\\ORM\\QueryBuilder',
+        'Doctrine\ORM\QueryBuilder',
         // nette
-        'Nette\\Utils\\Finder',
-        'Nette\\Forms\\Controls\\BaseControl',
-        'Nette\\DI\\ContainerBuilder',
-        'Nette\\DI\\Definitions\\Definition',
-        'Nette\\DI\\Definitions\\ServiceDefinition',
-        'PHPStan\\Analyser\\Scope',
+        'Nette\Utils\Finder',
+        'Nette\Forms\Controls\BaseControl',
+        'Nette\DI\ContainerBuilder',
+        'Nette\DI\Definitions\Definition',
+        'Nette\DI\Definitions\ServiceDefinition',
+        'PHPStan\Analyser\Scope',
         'DateTimeInterface',
     ];
+
     /**
      * @var FluentCallStaticTypeResolver
      */
     private $fluentCallStaticTypeResolver;
+
     /**
      * @var SameClassMethodCallAnalyzer
      */
     private $sameClassMethodCallAnalyzer;
+
     /**
      * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
+
     /**
      * @var GetterMethodCallAnalyzer
      */
     private $getterMethodCallAnalyzer;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentCallStaticTypeResolver $fluentCallStaticTypeResolver, \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeAnalyzer\GetterMethodCallAnalyzer $getterMethodCallAnalyzer)
-    {
+
+    public function __construct(
+        FluentCallStaticTypeResolver $fluentCallStaticTypeResolver,
+        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer,
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        GetterMethodCallAnalyzer $getterMethodCallAnalyzer
+    ) {
         $this->fluentCallStaticTypeResolver = $fluentCallStaticTypeResolver;
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->getterMethodCallAnalyzer = $getterMethodCallAnalyzer;
     }
-    public function shouldSkipRootMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+
+    public function shouldSkipRootMethodCall(MethodCall $methodCall): bool
     {
-        if (!$this->fluentChainMethodCallNodeAnalyzer->isLastChainMethodCall($methodCall)) {
-            return \true;
+        if (! $this->fluentChainMethodCallNodeAnalyzer->isLastChainMethodCall($methodCall)) {
+            return true;
         }
+
         return $this->getterMethodCallAnalyzer->isGetterMethodCall($methodCall);
     }
-    public function shouldSkipFirstAssignFluentCall(\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall) : bool
+
+    public function shouldSkipFirstAssignFluentCall(FirstAssignFluentCall $firstAssignFluentCall): bool
     {
-        $calleeUniqueTypes = $this->fluentCallStaticTypeResolver->resolveCalleeUniqueTypes($firstAssignFluentCall->getFluentMethodCalls());
-        if (!$this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $firstAssignFluentCall)) {
-            return \true;
+        $calleeUniqueTypes = $this->fluentCallStaticTypeResolver->resolveCalleeUniqueTypes(
+            $firstAssignFluentCall->getFluentMethodCalls()
+        );
+
+        if (! $this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $firstAssignFluentCall)) {
+            return true;
         }
+
         $calleeUniqueType = $this->resolveCalleeUniqueType($firstAssignFluentCall, $calleeUniqueTypes);
         return $this->isAllowedType($calleeUniqueType);
     }
+
     /**
      * @param MethodCall[] $fluentMethodCalls
      */
-    public function shouldSkipMethodCalls(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $fluentMethodCalls) : bool
+    public function shouldSkipMethodCalls(AssignAndRootExpr $assignAndRootExpr, array $fluentMethodCalls): bool
     {
         $calleeUniqueTypes = $this->fluentCallStaticTypeResolver->resolveCalleeUniqueTypes($fluentMethodCalls);
-        if (!$this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $assignAndRootExpr)) {
-            return \true;
+        if (! $this->sameClassMethodCallAnalyzer->isCorrectTypeCount($calleeUniqueTypes, $assignAndRootExpr)) {
+            return true;
         }
+
         $calleeUniqueType = $this->resolveCalleeUniqueType($assignAndRootExpr, $calleeUniqueTypes);
         return $this->isAllowedType($calleeUniqueType);
     }
+
     /**
      * @param string[] $calleeUniqueTypes
      */
-    private function resolveCalleeUniqueType(\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware, array $calleeUniqueTypes) : string
-    {
-        if (!$firstCallFactoryAware->isFirstCallFactory()) {
+    private function resolveCalleeUniqueType(
+        FirstCallFactoryAwareInterface $firstCallFactoryAware,
+        array $calleeUniqueTypes
+    ): string {
+        if (! $firstCallFactoryAware->isFirstCallFactory()) {
             return $calleeUniqueTypes[0];
         }
+
         return $calleeUniqueTypes[1] ?? $calleeUniqueTypes[0];
     }
-    private function isAllowedType(string $class) : bool
+
+    private function isAllowedType(string $class): bool
     {
-        $objectType = new \PHPStan\Type\ObjectType($class);
+        $objectType = new ObjectType($class);
+
         foreach (self::ALLOWED_FLUENT_TYPES as $allowedFluentType) {
-            $allowedObjectType = new \PHPStan\Type\ObjectType($allowedFluentType);
+            $allowedObjectType = new ObjectType($allowedFluentType);
             if ($allowedObjectType->isSuperTypeOf($objectType)->yes()) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
 }

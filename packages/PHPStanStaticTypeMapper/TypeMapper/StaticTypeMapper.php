@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -13,47 +14,54 @@ use PHPStan\Type\Type;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+
 /**
  * @see \Rector\Tests\NodeTypeResolver\StaticTypeMapper\StaticTypeMapperTest
  */
-final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+final class StaticTypeMapper implements TypeMapperInterface
 {
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+
+    public function __construct(PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\StaticType::class;
+        return StaticType::class;
     }
+
     /**
      * @param StaticType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
-        return new \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
+        return new ThisTypeNode();
     }
+
     /**
      * @param StaticType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
-        if ($type instanceof \PHPStan\Type\ThisType) {
+        if ($type instanceof ThisType) {
             // @todo wait for PHPStan to differentiate between self/static
-            if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::STATIC_RETURN_TYPE)) {
-                return new \PhpParser\Node\Name('static');
+            if ($this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::STATIC_RETURN_TYPE)) {
+                return new Name('static');
             }
-            return new \PhpParser\Node\Name('self');
+
+            return new Name('self');
         }
+
         return null;
     }
 }

@@ -1,20 +1,31 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Patterns;
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset;
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Substitutions;
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Transformations;
+namespace Doctrine\Inflector\Rules\NorwegianBokmal;
+
+use Doctrine\Inflector\Rules\Patterns;
+use Doctrine\Inflector\Rules\Ruleset;
+use Doctrine\Inflector\Rules\Substitutions;
+use Doctrine\Inflector\Rules\Transformations;
+
 final class Rules
 {
-    public static function getSingularRuleset() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset
+    public static function getSingularRuleset() : Ruleset
     {
-        return new \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformations(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getSingular()), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Patterns(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getSingular()), (new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitutions(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()))->getFlippedSubstitutions());
+        return new Ruleset(
+            new Transformations(...Inflectible::getSingular()),
+            new Patterns(...Uninflected::getSingular()),
+            (new Substitutions(...Inflectible::getIrregular()))->getFlippedSubstitutions()
+        );
     }
-    public static function getPluralRuleset() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset
+
+    public static function getPluralRuleset() : Ruleset
     {
-        return new \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset(new \RectorPrefix20210421\Doctrine\Inflector\Rules\Transformations(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getPlural()), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Patterns(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getPlural()), new \RectorPrefix20210421\Doctrine\Inflector\Rules\Substitutions(...\RectorPrefix20210421\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()));
+        return new Ruleset(
+            new Transformations(...Inflectible::getPlural()),
+            new Patterns(...Uninflected::getPlural()),
+            new Substitutions(...Inflectible::getIrregular())
+        );
     }
 }

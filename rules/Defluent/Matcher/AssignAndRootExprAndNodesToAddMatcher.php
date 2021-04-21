@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Defluent\Matcher;
 
 use PhpParser\Node\Expr\MethodCall;
@@ -11,53 +12,77 @@ use Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory;
 use Rector\Defluent\Skipper\FluentMethodCallSkipper;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
+
 final class AssignAndRootExprAndNodesToAddMatcher
 {
     /**
      * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
+
     /**
      * @var NonFluentChainMethodCallFactory
      */
     private $nonFluentChainMethodCallFactory;
+
     /**
      * @var FluentMethodCallSkipper
      */
     private $fluentMethodCallSkipper;
+
     /**
      * @var FluentChainMethodCallRootExtractor
      */
     private $fluentChainMethodCallRootExtractor;
+
     /**
      * @var SameClassMethodCallAnalyzer
      */
     private $sameClassMethodCallAnalyzer;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory, \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper)
-    {
+
+    public function __construct(
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor,
+        NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory,
+        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer,
+        FluentMethodCallSkipper $fluentMethodCallSkipper
+    ) {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->fluentChainMethodCallRootExtractor = $fluentChainMethodCallRootExtractor;
         $this->nonFluentChainMethodCallFactory = $nonFluentChainMethodCallFactory;
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
         $this->fluentMethodCallSkipper = $fluentMethodCallSkipper;
     }
+
     /**
      * @return \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd|null
      */
-    public function match(\PhpParser\Node\Expr\MethodCall $methodCall, string $kind)
+    public function match(MethodCall $methodCall, string $kind)
     {
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
-        if (!$this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
+        if (! $this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
             return null;
         }
-        $assignAndRootExpr = $this->fluentChainMethodCallRootExtractor->extractFromMethodCalls($chainMethodCalls, $kind);
-        if (!$assignAndRootExpr instanceof \Rector\Defluent\ValueObject\AssignAndRootExpr) {
+
+        $assignAndRootExpr = $this->fluentChainMethodCallRootExtractor->extractFromMethodCalls(
+            $chainMethodCalls,
+            $kind
+        );
+
+        if (! $assignAndRootExpr instanceof AssignAndRootExpr) {
             return null;
         }
+
         if ($this->fluentMethodCallSkipper->shouldSkipMethodCalls($assignAndRootExpr, $chainMethodCalls)) {
             return null;
         }
-        $nodesToAdd = $this->nonFluentChainMethodCallFactory->createFromAssignObjectAndMethodCalls($assignAndRootExpr, $chainMethodCalls, $kind);
-        return new \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd($assignAndRootExpr, $nodesToAdd);
+
+        $nodesToAdd = $this->nonFluentChainMethodCallFactory->createFromAssignObjectAndMethodCalls(
+            $assignAndRootExpr,
+            $chainMethodCalls,
+            $kind
+        );
+
+        return new AssignAndRootExprAndNodesToAdd($assignAndRootExpr, $nodesToAdd);
     }
 }

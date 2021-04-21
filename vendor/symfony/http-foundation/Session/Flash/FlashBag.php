@@ -8,18 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash;
+
+namespace Symfony\Component\HttpFoundation\Session\Flash;
 
 /**
  * FlashBag flash message container.
  *
  * @author Drak <drak@zikula.org>
  */
-class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface
+class FlashBag implements FlashBagInterface
 {
     private $name = 'flashes';
     private $flashes = [];
     private $storageKey;
+
     /**
      * @param string $storageKey The key used to store flashes in the session
      */
@@ -27,6 +29,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         $this->storageKey = $storageKey;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -34,17 +37,20 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         return $this->name;
     }
+
     public function setName(string $name)
     {
         $this->name = $name;
     }
+
     /**
      * {@inheritdoc}
      */
     public function initialize(array &$flashes)
     {
-        $this->flashes =& $flashes;
+        $this->flashes = &$flashes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -52,6 +58,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         $this->flashes[$type][] = $message;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -59,6 +66,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -66,6 +74,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         return $this->flashes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -74,10 +83,14 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
         if (!$this->has($type)) {
             return $default;
         }
+
         $return = $this->flashes[$type];
+
         unset($this->flashes[$type]);
+
         return $return;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -85,8 +98,10 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         $return = $this->peekAll();
         $this->flashes = [];
+
         return $return;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -94,6 +109,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         $this->flashes[$type] = (array) $messages;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -101,6 +117,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         $this->flashes = $messages;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -108,13 +125,15 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
     }
+
     /**
      * {@inheritdoc}
      */
     public function keys()
     {
-        return \array_keys($this->flashes);
+        return array_keys($this->flashes);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -122,6 +141,7 @@ class FlashBag implements \RectorPrefix20210421\Symfony\Component\HttpFoundation
     {
         return $this->storageKey;
     }
+
     /**
      * {@inheritdoc}
      */

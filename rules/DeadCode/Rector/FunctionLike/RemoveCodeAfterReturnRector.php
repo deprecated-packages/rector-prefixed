@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\FunctionLike;
 
 use PhpParser\Node;
@@ -13,14 +14,17 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\FunctionLike\RemoveCodeAfterReturnRector\RemoveCodeAfterReturnRectorTest
  */
-final class RemoveCodeAfterReturnRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveCodeAfterReturnRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead code after return statement', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove dead code after return statement', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(int $a)
@@ -30,7 +34,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(int $a)
@@ -39,41 +44,49 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class];
+        return [Closure::class, ClassMethod::class, Function_::class];
     }
+
     /**
      * @param Closure|ClassMethod|Function_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->stmts === null) {
             return null;
         }
-        $isDeadAfterReturn = \false;
+
+        $isDeadAfterReturn = false;
         foreach ($node->stmts as $key => $stmt) {
             if ($isDeadAfterReturn) {
-                if (!isset($node->stmts[$key])) {
-                    throw new \Rector\Core\Exception\ShouldNotHappenException();
+                if (! isset($node->stmts[$key])) {
+                    throw new ShouldNotHappenException();
                 }
+
                 // keep comment
                 /** @var int $key */
-                if ($node->stmts[$key] instanceof \PhpParser\Node\Stmt\Nop) {
+                if ($node->stmts[$key] instanceof Nop) {
                     continue;
                 }
+
                 $this->nodeRemover->removeStmt($node, $key);
             }
-            if ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
-                $isDeadAfterReturn = \true;
+
+            if ($stmt instanceof Return_) {
+                $isDeadAfterReturn = true;
             }
         }
+
         return null;
     }
 }

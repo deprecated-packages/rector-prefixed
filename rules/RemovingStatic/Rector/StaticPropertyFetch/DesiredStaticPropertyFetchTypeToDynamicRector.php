@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\RemovingStatic\Rector\StaticPropertyFetch;
 
 use PhpParser\Node;
@@ -15,33 +16,40 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\RemovingStatic\Rector\StaticPropertyFetch\DesiredStaticPropertyFetchTypeToDynamicRector\DesiredStaticPropertyFetchTypeToDynamicRectorTest
  */
-final class DesiredStaticPropertyFetchTypeToDynamicRector extends \Rector\Core\Rector\AbstractRector
+final class DesiredStaticPropertyFetchTypeToDynamicRector extends AbstractRector
 {
     /**
      * @var ObjectType[]
      */
     private $staticObjectTypes = [];
+
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \RectorPrefix20210421\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+
+    public function __construct(PropertyNaming $propertyNaming, ParameterProvider $parameterProvider)
     {
-        $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
+        $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {
-            $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($typeToRemoveStaticFrom);
+            $this->staticObjectTypes[] = new ObjectType($typeToRemoveStaticFrom);
         }
+
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change defined static service to dynamic one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change defined static service to dynamic one', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -50,7 +58,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -59,47 +68,59 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\StaticPropertyFetch::class];
+        return [StaticPropertyFetch::class];
     }
+
     /**
      * @param StaticPropertyFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         /** @var Scope $scope */
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
-        $classObjectType = new \PHPStan\Type\ObjectType($classReflection->getName());
+
+        $classObjectType = new ObjectType($classReflection->getName());
+
         // A. remove local fetch
         foreach ($this->staticObjectTypes as $staticObjectType) {
-            if (!$staticObjectType->isSuperTypeOf($classObjectType)->yes()) {
+            if (! $staticObjectType->isSuperTypeOf($classObjectType)->yes()) {
                 continue;
             }
-            return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $node->name);
+
+            return new PropertyFetch(new Variable('this'), $node->name);
         }
+
         // B. external property fetch
         foreach ($this->staticObjectTypes as $staticObjectType) {
-            if (!$this->isObjectType($node->class, $staticObjectType)) {
+            if (! $this->isObjectType($node->class, $staticObjectType)) {
                 continue;
             }
+
             $propertyName = $this->propertyNaming->fqnToVariableName($staticObjectType);
+
             /** @var Class_ $class */
-            $class = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            $class = $node->getAttribute(AttributeKey::CLASS_NODE);
             $this->addConstructorDependencyToClass($class, $staticObjectType, $propertyName);
-            $objectPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-            return new \PhpParser\Node\Expr\PropertyFetch($objectPropertyFetch, $node->name);
+
+            $objectPropertyFetch = new PropertyFetch(new Variable('this'), $propertyName);
+            return new PropertyFetch($objectPropertyFetch, $node->name);
         }
+
         return null;
     }
 }

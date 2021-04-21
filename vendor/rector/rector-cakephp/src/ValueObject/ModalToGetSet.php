@@ -1,69 +1,89 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CakePHP\ValueObject;
 
 use PHPStan\Type\ObjectType;
+
 final class ModalToGetSet
 {
     /**
      * @var string
      */
     private $type;
+
     /**
      * @var string
      */
     private $unprefixedMethod;
+
     /**
      * @var string
      */
     private $getMethod;
+
     /**
      * @var string
      */
     private $setMethod;
+
     /**
      * @var int
      */
     private $minimalSetterArgumentCount;
+
     /**
      * @var string|null
      */
     private $firstArgumentType;
+
     /**
      * @param string|null $getMethod
      * @param string|null $setMethod
      * @param string|null $firstArgumentType
      */
-    public function __construct(string $type, string $unprefixedMethod, $getMethod = null, $setMethod = null, int $minimalSetterArgumentCount = 1, $firstArgumentType = null)
-    {
+    public function __construct(
+        string $type,
+        string $unprefixedMethod,
+        $getMethod = null,
+        $setMethod = null,
+        int $minimalSetterArgumentCount = 1,
+        $firstArgumentType = null
+    ) {
         $this->type = $type;
         $this->unprefixedMethod = $unprefixedMethod;
-        $this->getMethod = $getMethod ?? 'get' . \ucfirst($unprefixedMethod);
-        $this->setMethod = $setMethod ?? 'set' . \ucfirst($unprefixedMethod);
+        $this->getMethod = $getMethod ?? 'get' . ucfirst($unprefixedMethod);
+        $this->setMethod = $setMethod ?? 'set' . ucfirst($unprefixedMethod);
         $this->minimalSetterArgumentCount = $minimalSetterArgumentCount;
         $this->firstArgumentType = $firstArgumentType;
     }
-    public function getObjectType() : \PHPStan\Type\ObjectType
+
+    public function getObjectType(): ObjectType
     {
-        return new \PHPStan\Type\ObjectType($this->type);
+        return new ObjectType($this->type);
     }
-    public function getUnprefixedMethod() : string
+
+    public function getUnprefixedMethod(): string
     {
         return $this->unprefixedMethod;
     }
-    public function getGetMethod() : string
+
+    public function getGetMethod(): string
     {
         return $this->getMethod;
     }
-    public function getSetMethod() : string
+
+    public function getSetMethod(): string
     {
         return $this->setMethod;
     }
-    public function getMinimalSetterArgumentCount() : int
+
+    public function getMinimalSetterArgumentCount(): int
     {
         return $this->minimalSetterArgumentCount;
     }
+
     /**
      * @return string|null
      */

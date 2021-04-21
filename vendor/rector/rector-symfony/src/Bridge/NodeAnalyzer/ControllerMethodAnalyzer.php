@@ -1,37 +1,44 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\Bridge\NodeAnalyzer;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver;
+
 final class ControllerMethodAnalyzer
 {
     /**
      * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
-    public function __construct(\Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)
+
+    public function __construct(ParentClassScopeResolver $parentClassScopeResolver)
     {
         $this->parentClassScopeResolver = $parentClassScopeResolver;
     }
+
     /**
      * Detect if is <some>Action() in Controller
      */
-    public function isAction(\PhpParser\Node $node) : bool
+    public function isAction(Node $node): bool
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return \false;
+        if (! $node instanceof ClassMethod) {
+            return false;
         }
+
         $parentClassName = (string) $this->parentClassScopeResolver->resolveParentClassName($node);
-        if (\RectorPrefix20210421\Nette\Utils\Strings::endsWith($parentClassName, 'Controller')) {
-            return \true;
+        if (Strings::endsWith($parentClassName, 'Controller')) {
+            return true;
         }
-        if (\RectorPrefix20210421\Nette\Utils\Strings::endsWith((string) $node->name, 'Action')) {
-            return \true;
+
+        if (Strings::endsWith((string) $node->name, 'Action')) {
+            return true;
         }
+
         return $node->isPublic();
     }
 }

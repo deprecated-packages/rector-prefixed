@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+
+namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait SyntheticTrait
 {
@@ -18,9 +19,10 @@ trait SyntheticTrait
      *
      * @return $this
      */
-    public final function synthetic(bool $synthetic = \true)
+    final public function synthetic(bool $synthetic = true)
     {
         $this->definition->setSynthetic($synthetic);
+
         return $this;
     }
 }

@@ -1,16 +1,24 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421;
+declare(strict_types=1);
 
 use Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector;
 use Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector;
 use Rector\Renaming\ValueObject\RenameAnnotation;
-use RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210421\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+
+return static function (ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/phpunit-exception.php');
+
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameAnnotation('PHPUnit\\Framework\\TestCase', 'scenario', 'test')])]]);
-    $services->set(\Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector::class);
+
+    $services->set(RenameAnnotationRector::class)
+        ->call('configure', [[
+            RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => ValueObjectInliner::inline([
+                new RenameAnnotation('PHPUnit\Framework\TestCase', 'scenario', 'test'),
+            ]),
+        ]]);
+
+    $services->set(RemoveDataProviderTestPrefixRector::class);
 };

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -11,27 +12,37 @@ use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\ContextGetByTypeToConstructorInjectionRectorTest
  */
-final class ContextGetByTypeToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector
+final class ContextGetByTypeToConstructorInjectionRector extends AbstractRector
 {
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
+
     /**
      * @var DependencyInjectionMethodCallAnalyzer
      */
     private $dependencyInjectionMethodCallAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer, \Rector\Symfony\NodeAnalyzer\DependencyInjectionMethodCallAnalyzer $dependencyInjectionMethodCallAnalyzer)
-    {
+
+    public function __construct(
+        TestsNodeAnalyzer $testsNodeAnalyzer,
+        DependencyInjectionMethodCallAnalyzer $dependencyInjectionMethodCallAnalyzer
+    ) {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
         $this->dependencyInjectionMethodCallAnalyzer = $dependencyInjectionMethodCallAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move dependency get via $context->getByType() to constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Move dependency get via $context->getByType() to constructor injection',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -45,7 +56,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -63,32 +75,40 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
+
         $callerType = $this->nodeTypeResolver->resolve($node->var);
-        $containerObjectType = new \PHPStan\Type\ObjectType('Nette\\DI\\Container');
-        if (!$containerObjectType->isSuperTypeOf($callerType)->yes()) {
+        $containerObjectType = new ObjectType('Nette\DI\Container');
+
+        if (! $containerObjectType->isSuperTypeOf($callerType)->yes()) {
             return null;
         }
-        if (!$this->isName($node->name, 'getByType')) {
+
+        if (! $this->isName($node->name, 'getByType')) {
             return null;
         }
+
         return $this->dependencyInjectionMethodCallAnalyzer->replaceMethodCallWithPropertyFetchAndDependency($node);
     }
 }

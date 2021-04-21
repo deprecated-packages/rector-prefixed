@@ -8,18 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\File;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\CannotWriteFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\NoFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\NoTmpDirFileException;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\PartialFileException;
-use RectorPrefix20210421\Symfony\Component\Mime\MimeTypes;
+namespace Symfony\Component\HttpFoundation\File;
+
+use Symfony\Component\HttpFoundation\File\Exception\CannotWriteFileException;
+use Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
+use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
+use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
+use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
+use Symfony\Component\HttpFoundation\File\Exception\NoTmpDirFileException;
+use Symfony\Component\HttpFoundation\File\Exception\PartialFileException;
+use Symfony\Component\Mime\MimeTypes;
+
 /**
  * A file uploaded through a form.
  *
@@ -27,12 +29,13 @@ use RectorPrefix20210421\Symfony\Component\Mime\MimeTypes;
  * @author Florian Eckerstorfer <florian@eckerstorfer.org>
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\File
+class UploadedFile extends File
 {
     private $test;
     private $originalName;
     private $mimeType;
     private $error;
+
     /**
      * Accepts the information of the uploaded file as provided by the PHP global $_FILES.
      *
@@ -57,14 +60,16 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
      * @throws FileException         If file_uploads is disabled
      * @throws FileNotFoundException If the file does not exist
      */
-    public function __construct(string $path, string $originalName, string $mimeType = null, int $error = null, bool $test = \false)
+    public function __construct(string $path, string $originalName, string $mimeType = null, int $error = null, bool $test = false)
     {
         $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
         $this->error = $error ?: \UPLOAD_ERR_OK;
         $this->test = $test;
+
         parent::__construct($path, \UPLOAD_ERR_OK === $this->error);
     }
+
     /**
      * Returns the original file name.
      *
@@ -77,6 +82,7 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
     {
         return $this->originalName;
     }
+
     /**
      * Returns the original file extension.
      *
@@ -87,8 +93,9 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
      */
     public function getClientOriginalExtension()
     {
-        return \pathinfo($this->originalName, \PATHINFO_EXTENSION);
+        return pathinfo($this->originalName, \PATHINFO_EXTENSION);
     }
+
     /**
      * Returns the file mime type.
      *
@@ -106,6 +113,7 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
     {
         return $this->mimeType;
     }
+
     /**
      * Returns the extension based on the client mime type.
      *
@@ -125,11 +133,13 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
      */
     public function guessClientExtension()
     {
-        if (!\class_exists(\RectorPrefix20210421\Symfony\Component\Mime\MimeTypes::class)) {
+        if (!class_exists(MimeTypes::class)) {
             throw new \LogicException('You cannot guess the extension as the Mime component is not installed. Try running "composer require symfony/mime".');
         }
-        return \RectorPrefix20210421\Symfony\Component\Mime\MimeTypes::getDefault()->getExtensions($this->getClientMimeType())[0] ?? null;
+
+        return MimeTypes::getDefault()->getExtensions($this->getClientMimeType())[0] ?? null;
     }
+
     /**
      * Returns the upload error.
      *
@@ -142,6 +152,7 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
     {
         return $this->error;
     }
+
     /**
      * Returns whether the file was uploaded successfully.
      *
@@ -150,8 +161,10 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
     public function isValid()
     {
         $isOk = \UPLOAD_ERR_OK === $this->error;
-        return $this->test ? $isOk : $isOk && \is_uploaded_file($this->getPathname());
+
+        return $this->test ? $isOk : $isOk && is_uploaded_file($this->getPathname());
     }
+
     /**
      * Moves the file to a new location.
      *
@@ -165,36 +178,41 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
             if ($this->test) {
                 return parent::move($directory, $name);
             }
+
             $target = $this->getTargetFile($directory, $name);
-            \set_error_handler(function ($type, $msg) use(&$error) {
-                $error = $msg;
-            });
-            $moved = \move_uploaded_file($this->getPathname(), $target);
-            \restore_error_handler();
+
+            set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
+            $moved = move_uploaded_file($this->getPathname(), $target);
+            restore_error_handler();
             if (!$moved) {
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, \strip_tags($error)));
+                throw new FileException(sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, strip_tags($error)));
             }
-            @\chmod($target, 0666 & ~\umask());
+
+            @chmod($target, 0666 & ~umask());
+
             return $target;
         }
+
         switch ($this->error) {
             case \UPLOAD_ERR_INI_SIZE:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException($this->getErrorMessage());
+                throw new IniSizeFileException($this->getErrorMessage());
             case \UPLOAD_ERR_FORM_SIZE:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException($this->getErrorMessage());
+                throw new FormSizeFileException($this->getErrorMessage());
             case \UPLOAD_ERR_PARTIAL:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\PartialFileException($this->getErrorMessage());
+                throw new PartialFileException($this->getErrorMessage());
             case \UPLOAD_ERR_NO_FILE:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\NoFileException($this->getErrorMessage());
+                throw new NoFileException($this->getErrorMessage());
             case \UPLOAD_ERR_CANT_WRITE:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\CannotWriteFileException($this->getErrorMessage());
+                throw new CannotWriteFileException($this->getErrorMessage());
             case \UPLOAD_ERR_NO_TMP_DIR:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\NoTmpDirFileException($this->getErrorMessage());
+                throw new NoTmpDirFileException($this->getErrorMessage());
             case \UPLOAD_ERR_EXTENSION:
-                throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException($this->getErrorMessage());
+                throw new ExtensionFileException($this->getErrorMessage());
         }
-        throw new \RectorPrefix20210421\Symfony\Component\HttpFoundation\File\Exception\FileException($this->getErrorMessage());
+
+        throw new FileException($this->getErrorMessage());
     }
+
     /**
      * Returns the maximum size of an uploaded file as configured in php.ini.
      *
@@ -202,10 +220,12 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
      */
     public static function getMaxFilesize()
     {
-        $sizePostMax = self::parseFilesize(\ini_get('post_max_size'));
-        $sizeUploadMax = self::parseFilesize(\ini_get('upload_max_filesize'));
-        return \min($sizePostMax ?: \PHP_INT_MAX, $sizeUploadMax ?: \PHP_INT_MAX);
+        $sizePostMax = self::parseFilesize(ini_get('post_max_size'));
+        $sizeUploadMax = self::parseFilesize(ini_get('upload_max_filesize'));
+
+        return min($sizePostMax ?: \PHP_INT_MAX, $sizeUploadMax ?: \PHP_INT_MAX);
     }
+
     /**
      * Returns the given size from an ini value in bytes.
      *
@@ -216,30 +236,31 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
         if ('' === $size) {
             return 0;
         }
-        $size = \strtolower($size);
-        $max = \ltrim($size, '+');
-        if (0 === \strpos($max, '0x')) {
+
+        $size = strtolower($size);
+
+        $max = ltrim($size, '+');
+        if (0 === strpos($max, '0x')) {
             $max = \intval($max, 16);
-        } elseif (0 === \strpos($max, '0')) {
+        } elseif (0 === strpos($max, '0')) {
             $max = \intval($max, 8);
         } else {
             $max = (int) $max;
         }
-        switch (\substr($size, -1)) {
-            case 't':
-                $max *= 1024;
+
+        switch (substr($size, -1)) {
+            case 't': $max *= 1024;
             // no break
-            case 'g':
-                $max *= 1024;
+            case 'g': $max *= 1024;
             // no break
-            case 'm':
-                $max *= 1024;
+            case 'm': $max *= 1024;
             // no break
-            case 'k':
-                $max *= 1024;
+            case 'k': $max *= 1024;
         }
+
         return $max;
     }
+
     /**
      * Returns an informative upload error message.
      *
@@ -247,10 +268,20 @@ class UploadedFile extends \RectorPrefix20210421\Symfony\Component\HttpFoundatio
      */
     public function getErrorMessage()
     {
-        static $errors = [\UPLOAD_ERR_INI_SIZE => 'The file "%s" exceeds your upload_max_filesize ini directive (limit is %d KiB).', \UPLOAD_ERR_FORM_SIZE => 'The file "%s" exceeds the upload limit defined in your form.', \UPLOAD_ERR_PARTIAL => 'The file "%s" was only partially uploaded.', \UPLOAD_ERR_NO_FILE => 'No file was uploaded.', \UPLOAD_ERR_CANT_WRITE => 'The file "%s" could not be written on disk.', \UPLOAD_ERR_NO_TMP_DIR => 'File could not be uploaded: missing temporary directory.', \UPLOAD_ERR_EXTENSION => 'File upload was stopped by a PHP extension.'];
+        static $errors = [
+            \UPLOAD_ERR_INI_SIZE => 'The file "%s" exceeds your upload_max_filesize ini directive (limit is %d KiB).',
+            \UPLOAD_ERR_FORM_SIZE => 'The file "%s" exceeds the upload limit defined in your form.',
+            \UPLOAD_ERR_PARTIAL => 'The file "%s" was only partially uploaded.',
+            \UPLOAD_ERR_NO_FILE => 'No file was uploaded.',
+            \UPLOAD_ERR_CANT_WRITE => 'The file "%s" could not be written on disk.',
+            \UPLOAD_ERR_NO_TMP_DIR => 'File could not be uploaded: missing temporary directory.',
+            \UPLOAD_ERR_EXTENSION => 'File upload was stopped by a PHP extension.',
+        ];
+
         $errorCode = $this->error;
         $maxFilesize = \UPLOAD_ERR_INI_SIZE === $errorCode ? self::getMaxFilesize() / 1024 : 0;
         $message = $errors[$errorCode] ?? 'The file "%s" was not uploaded due to an unknown error.';
-        return \sprintf($message, $this->getClientOriginalName(), $maxFilesize);
+
+        return sprintf($message, $this->getClientOriginalName(), $maxFilesize);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -17,30 +18,37 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\VariableMethodCallToServiceCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Transform\Rector\MethodCall\VariableMethodCallToServiceCallRector\VariableMethodCallToServiceCallRectorTest
  */
-final class VariableMethodCallToServiceCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class VariableMethodCallToServiceCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS = 'variable_method_calls_to_service_calls';
+
     /**
      * @var VariableMethodCallToServiceCall[]
      */
     private $variableMethodCallsToServiceCalls = [];
+
     /**
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming)
+
+    public function __construct(PropertyNaming $propertyNaming)
     {
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace variable method call to a service one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Replace variable method call to a service one', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 use PhpParser\Node;
 
 class SomeClass
@@ -51,7 +59,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use PhpParser\Node;
 
@@ -67,45 +76,75 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS => [new \Rector\Transform\ValueObject\VariableMethodCallToServiceCall('PhpParser\\Node', 'getAttribute', 'php_doc_info', 'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfoFactory', 'createFromNodeOrEmpty')]])]);
+                ,
+                [
+                    self::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS => [
+                        new VariableMethodCallToServiceCall(
+                            'PhpParser\Node',
+                            'getAttribute',
+                            'php_doc_info',
+                            'Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory',
+                            'createFromNodeOrEmpty'
+                        ),
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->variableMethodCallsToServiceCalls as $variableMethodCallToServiceCall) {
-            if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
+            if (! $node->var instanceof Variable) {
                 continue;
             }
-            if (!$this->isObjectType($node->var, $variableMethodCallToServiceCall->getVariableObjectType())) {
+
+            if (! $this->isObjectType($node->var, $variableMethodCallToServiceCall->getVariableObjectType())) {
                 continue;
             }
-            if (!$this->isName($node->name, $variableMethodCallToServiceCall->getMethodName())) {
+
+            if (! $this->isName($node->name, $variableMethodCallToServiceCall->getMethodName())) {
                 continue;
             }
+
             $firstArgValue = $node->args[0]->value;
-            if (!$this->valueResolver->isValue($firstArgValue, $variableMethodCallToServiceCall->getArgumentValue())) {
+            if (! $this->valueResolver->isValue(
+                $firstArgValue,
+                $variableMethodCallToServiceCall->getArgumentValue()
+            )) {
                 continue;
             }
-            $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+
+            $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+            if (! $classLike instanceof Class_) {
                 continue;
             }
-            $serviceObjectType = new \PHPStan\Type\ObjectType($variableMethodCallToServiceCall->getServiceType());
+
+            $serviceObjectType = new ObjectType($variableMethodCallToServiceCall->getServiceType());
+
             $this->addConstructorDependency($serviceObjectType, $classLike);
-            return $this->createServiceMethodCall($serviceObjectType, $variableMethodCallToServiceCall->getServiceMethodName(), $node);
+            return $this->createServiceMethodCall(
+                $serviceObjectType,
+                $variableMethodCallToServiceCall->getServiceMethodName(),
+                $node
+            );
         }
+
         return null;
     }
+
     /**
      * @param mixed[] $configuration
      * @return void
@@ -114,20 +153,23 @@ CODE_SAMPLE
     {
         $this->variableMethodCallsToServiceCalls = $configuration[self::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS] ?? [];
     }
+
     /**
      * @return void
      */
-    private function addConstructorDependency(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\Class_ $class)
+    private function addConstructorDependency(ObjectType $objectType, Class_ $class)
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $this->addConstructorDependencyToClass($class, $objectType, $propertyName);
     }
-    private function createServiceMethodCall(\PHPStan\Type\ObjectType $objectType, string $methodName, \PhpParser\Node\Expr\MethodCall $node) : \PhpParser\Node\Expr\MethodCall
+
+    private function createServiceMethodCall(ObjectType $objectType, string $methodName, MethodCall $node): MethodCall
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($propertyFetch, $methodName);
-        $methodCall->args[] = new \PhpParser\Node\Arg($node->var);
+        $propertyFetch = new PropertyFetch(new Variable('this'), $propertyName);
+        $methodCall = new MethodCall($propertyFetch, $methodName);
+        $methodCall->args[] = new Arg($node->var);
+
         return $methodCall;
     }
 }

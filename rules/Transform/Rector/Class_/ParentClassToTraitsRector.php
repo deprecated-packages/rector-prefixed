@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\Class_;
 
 use PhpParser\Node;
@@ -11,7 +12,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\ParentClassToTraits;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * Can handle cases like:
  * - https://doc.nette.org/en/2.4/migration-2-4#toc-nette-smartobject
@@ -19,70 +21,93 @@ use RectorPrefix20210421\Webmozart\Assert\Assert;
  *
  * @see \Rector\Tests\Transform\Rector\Class_\ParentClassToTraitsRector\ParentClassToTraitsRectorTest
  */
-final class ParentClassToTraitsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ParentClassToTraitsRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const PARENT_CLASS_TO_TRAITS = 'parent_class_to_traits';
+
     /**
      * @var ParentClassToTraits[]
      */
     private $parentClassToTraits = [];
+
     /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
+
+    public function __construct(ClassInsertManipulator $classInsertManipulator)
     {
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces parent class to specific traits', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Replaces parent class to specific traits', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass extends Nette\Object
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     use Nette\SmartObject;
 }
 CODE_SAMPLE
-, [self::PARENT_CLASS_TO_TRAITS => ['Nette\\Object' => ['Nette\\SmartObject']]])]);
+                ,
+                [
+                    self::PARENT_CLASS_TO_TRAITS => [
+                        'Nette\Object' => ['Nette\SmartObject'],
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($node->extends === null) {
             return null;
         }
+
         if ($this->classAnalyzer->isAnonymousClass($node)) {
             return null;
         }
+
         foreach ($this->parentClassToTraits as $parentClassToTrait) {
-            if (!$this->isObjectType($node, $parentClassToTrait->getParentObjectType())) {
+            if (! $this->isObjectType($node, $parentClassToTrait->getParentObjectType())) {
                 continue;
             }
+
             foreach ($parentClassToTrait->getTraitNames() as $traitName) {
                 $this->classInsertManipulator->addAsFirstTrait($node, $traitName);
             }
+
             $this->removeParentClass($node);
+
             return $node;
         }
+
         return null;
     }
+
     /**
      * @param array<string, ParentClassToTraits[]> $configuration
      * @return void
@@ -90,13 +115,14 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
+        Assert::allIsInstanceOf($parentClassToTraits, ParentClassToTraits::class);
         $this->parentClassToTraits = $parentClassToTraits;
     }
+
     /**
      * @return void
      */
-    private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function removeParentClass(Class_ $class)
     {
         $class->extends = null;
     }

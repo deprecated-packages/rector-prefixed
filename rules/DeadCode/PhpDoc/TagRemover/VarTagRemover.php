@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\PhpDoc\TagRemover;
 
 use PhpParser\Node;
@@ -20,113 +21,148 @@ use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\DeadCode\PhpDoc\DeadVarTagValueNodeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210421\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+
 final class VarTagRemover
 {
     /**
      * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
+
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
+
     /**
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
+
     /**
      * @var DeadVarTagValueNodeAnalyzer
      */
     private $deadVarTagValueNodeAnalyzer;
-    public function __construct(\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210421\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \Rector\DeadCode\PhpDoc\DeadVarTagValueNodeAnalyzer $deadVarTagValueNodeAnalyzer)
-    {
+
+    public function __construct(
+        DoctrineTypeAnalyzer $doctrineTypeAnalyzer,
+        StaticTypeMapper $staticTypeMapper,
+        PhpDocInfoFactory $phpDocInfoFactory,
+        ClassLikeExistenceChecker $classLikeExistenceChecker,
+        DeadVarTagValueNodeAnalyzer $deadVarTagValueNodeAnalyzer
+    ) {
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
         $this->deadVarTagValueNodeAnalyzer = $deadVarTagValueNodeAnalyzer;
     }
+
     /**
      * @return void
      */
-    public function removeVarTagIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property)
+    public function removeVarTagIfUseless(PhpDocInfo $phpDocInfo, Property $property)
     {
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        if (! $varTagValueNode instanceof VarTagValueNode) {
             return;
         }
+
         $isVarTagValueDead = $this->deadVarTagValueNodeAnalyzer->isDead($varTagValueNode, $property);
-        if (!$isVarTagValueDead) {
+        if (! $isVarTagValueDead) {
             return;
         }
-        $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+
+        $phpDocInfo->removeByType(VarTagValueNode::class);
     }
+
     /**
      * @param Expression|Property|Param $node
      * @return void
      */
-    public function removeVarPhpTagValueNodeIfNotComment(\PhpParser\Node $node, \PHPStan\Type\Type $type)
+    public function removeVarPhpTagValueNodeIfNotComment(Node $node, Type $type)
     {
         // keep doctrine collection narrow type
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type)) {
             return;
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        if (! $varTagValueNode instanceof VarTagValueNode) {
             return;
         }
+
         // has description? keep it
         if ($varTagValueNode->description !== '') {
             return;
         }
+
         // keep generic types
-        if ($varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
+        if ($varTagValueNode->type instanceof GenericTypeNode) {
             return;
         }
+
         // keep string[] etc.
         if ($this->isNonBasicArrayType($node, $varTagValueNode)) {
             return;
         }
-        $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
+
+        $phpDocInfo->removeByType(VarTagValueNode::class);
     }
+
     /**
      * @param Expression|Param|Property $node
      */
-    private function isNonBasicArrayType(\PhpParser\Node $node, \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
+    private function isNonBasicArrayType(Node $node, VarTagValueNode $varTagValueNode): bool
     {
-        if ($varTagValueNode->type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode) {
+        if ($varTagValueNode->type instanceof BracketsAwareUnionTypeNode) {
             foreach ($varTagValueNode->type->types as $type) {
-                if ($type instanceof \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode && $this->isArrayOfExistingClassNode($node, $type)) {
-                    return \true;
+                if ($type instanceof SpacingAwareArrayTypeNode && $this->isArrayOfExistingClassNode($node, $type)) {
+                    return true;
                 }
             }
         }
-        if (!$this->isArrayTypeNode($varTagValueNode)) {
-            return \false;
+
+        if (! $this->isArrayTypeNode($varTagValueNode)) {
+            return false;
         }
+
         return (string) $varTagValueNode->type !== 'array';
     }
-    private function isArrayTypeNode(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
+
+    private function isArrayTypeNode(VarTagValueNode $varTagValueNode): bool
     {
-        return $varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+        return $varTagValueNode->type instanceof ArrayTypeNode;
     }
-    private function isArrayOfExistingClassNode(\PhpParser\Node $node, \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode $spacingAwareArrayTypeNode) : bool
-    {
-        $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($spacingAwareArrayTypeNode, $node);
-        if (!$staticType instanceof \PHPStan\Type\ArrayType) {
-            return \false;
+
+    private function isArrayOfExistingClassNode(
+        Node $node,
+        SpacingAwareArrayTypeNode $spacingAwareArrayTypeNode
+    ): bool {
+        $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType(
+            $spacingAwareArrayTypeNode,
+            $node
+        );
+
+        if (! $staticType instanceof ArrayType) {
+            return false;
         }
+
         $itemType = $staticType->getItemType();
-        if (!$itemType instanceof \PHPStan\Type\ObjectType) {
-            return \false;
+        if (! $itemType instanceof ObjectType) {
+            return false;
         }
+
         $className = $itemType->getClassName();
+
         return $this->classLikeExistenceChecker->doesClassLikeExist($className);
     }
 }

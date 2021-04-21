@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Uid;
+
+namespace Symfony\Component\Uid;
 
 /**
  * A v1 UUID contains a 60-bit timestamp and 62 extra unique bits.
@@ -17,27 +18,31 @@ namespace RectorPrefix20210421\Symfony\Component\Uid;
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class UuidV1 extends \RectorPrefix20210421\Symfony\Component\Uid\Uuid
+class UuidV1 extends Uuid
 {
     const TYPE = 1;
+
     public function __construct(string $uuid = null)
     {
         if (null === $uuid) {
-            $this->uid = \uuid_create(static::TYPE);
+            $this->uid = uuid_create(static::TYPE);
         } else {
             parent::__construct($uuid);
         }
     }
+
     /**
      * @return float Seconds since the Unix epoch 1970-01-01 00:00:00
      */
-    public function getTime() : float
+    public function getTime(): float
     {
-        $time = '0' . \substr($this->uid, 15, 3) . \substr($this->uid, 9, 4) . \substr($this->uid, 0, 8);
-        return \RectorPrefix20210421\Symfony\Component\Uid\BinaryUtil::timeToFloat($time);
+        $time = '0'.substr($this->uid, 15, 3).substr($this->uid, 9, 4).substr($this->uid, 0, 8);
+
+        return BinaryUtil::timeToFloat($time);
     }
-    public function getNode() : string
+
+    public function getNode(): string
     {
-        return \uuid_mac($this->uid);
+        return uuid_mac($this->uid);
     }
 }

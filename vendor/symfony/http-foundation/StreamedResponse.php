@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation;
+
+namespace Symfony\Component\HttpFoundation;
 
 /**
  * StreamedResponse represents a streamed HTTP response.
@@ -23,20 +24,23 @@ namespace RectorPrefix20210421\Symfony\Component\HttpFoundation;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response
+class StreamedResponse extends Response
 {
     protected $callback;
     protected $streamed;
     private $headersSent;
+
     public function __construct(callable $callback = null, int $status = 200, array $headers = [])
     {
         parent::__construct(null, $status, $headers);
+
         if (null !== $callback) {
             $this->setCallback($callback);
         }
-        $this->streamed = \false;
-        $this->headersSent = \false;
+        $this->streamed = false;
+        $this->headersSent = false;
     }
+
     /**
      * Factory method for chainability.
      *
@@ -49,8 +53,10 @@ class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFound
     public static function create($callback = null, int $status = 200, array $headers = [])
     {
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
+
         return new static($callback, $status, $headers);
     }
+
     /**
      * Sets the PHP callback associated with this Response.
      *
@@ -59,8 +65,10 @@ class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFound
     public function setCallback(callable $callback)
     {
         $this->callback = $callback;
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      *
@@ -73,9 +81,12 @@ class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFound
         if ($this->headersSent) {
             return $this;
         }
-        $this->headersSent = \true;
+
+        $this->headersSent = true;
+
         return parent::sendHeaders();
     }
+
     /**
      * {@inheritdoc}
      *
@@ -88,13 +99,18 @@ class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFound
         if ($this->streamed) {
             return $this;
         }
-        $this->streamed = \true;
+
+        $this->streamed = true;
+
         if (null === $this->callback) {
             throw new \LogicException('The Response callback must not be null.');
         }
+
         ($this->callback)();
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      *
@@ -108,14 +124,17 @@ class StreamedResponse extends \RectorPrefix20210421\Symfony\Component\HttpFound
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a StreamedResponse instance.');
         }
-        $this->streamed = \true;
+
+        $this->streamed = true;
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getContent()
     {
-        return \false;
+        return false;
     }
 }

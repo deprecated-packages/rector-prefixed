@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Renaming\NodeManipulator;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -12,7 +13,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * This class renames node identifier, e.g. ClassMethod rename:
  *
@@ -25,47 +27,66 @@ final class IdentifierManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+
+    public function __construct(NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      * @param string[] $renameMethodMap
      * @return void
      */
-    public function renameNodeWithMap(\PhpParser\Node $node, array $renameMethodMap)
+    public function renameNodeWithMap(Node $node, array $renameMethodMap)
     {
-        \RectorPrefix20210421\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
+        Assert::isAnyOf($node, [
+            ClassConstFetch::class, MethodCall::class, PropertyFetch::class, StaticCall::class, ClassMethod::class,
+        ]);
+
         $oldNodeMethodName = $this->resolveOldMethodName($node);
         if ($oldNodeMethodName === null) {
             return;
         }
-        $node->name = new \PhpParser\Node\Identifier($renameMethodMap[$oldNodeMethodName]);
+
+        $node->name = new Identifier($renameMethodMap[$oldNodeMethodName]);
     }
+
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      * @return void
      */
-    public function removeSuffix(\PhpParser\Node $node, string $suffixToRemove)
+    public function removeSuffix(Node $node, string $suffixToRemove)
     {
-        \RectorPrefix20210421\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class]);
+        Assert::isAnyOf(
+            $node,
+            [ClassConstFetch::class,
+                MethodCall::class,
+                PropertyFetch::class,
+                StaticCall::class,
+                ClassMethod::class,
+            ]);
+
         $name = $this->nodeNameResolver->getName($node);
         if ($name === null) {
             return;
         }
-        $newName = \RectorPrefix20210421\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
-        $node->name = new \PhpParser\Node\Identifier($newName);
+
+        $newName = Strings::replace($name, sprintf('#%s$#', $suffixToRemove), '');
+
+        $node->name = new Identifier($newName);
     }
+
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      * @return string|null
      */
-    private function resolveOldMethodName(\PhpParser\Node $node)
+    private function resolveOldMethodName(Node $node)
     {
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof StaticCall || $node instanceof MethodCall) {
             return $this->nodeNameResolver->getName($node->name);
         }
+
         return $this->nodeNameResolver->getName($node);
     }
 }

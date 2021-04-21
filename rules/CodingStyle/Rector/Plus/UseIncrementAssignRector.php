@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\Plus;
 
 use PhpParser\Node;
@@ -12,14 +13,19 @@ use PhpParser\Node\Scalar\LNumber;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\Plus\UseIncrementAssignRector\UseIncrementAssignRectorTest
  */
-final class UseIncrementAssignRector extends \Rector\Core\Rector\AbstractRector
+final class UseIncrementAssignRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use ++ increment instead of `$var += 1`', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Use ++ increment instead of `$var += 1`',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -28,7 +34,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -37,30 +44,37 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+                ),
+            ]
+        );
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\AssignOp\Plus::class, \PhpParser\Node\Expr\AssignOp\Minus::class];
+        return [Plus::class, Minus::class];
     }
+
     /**
      * @param Plus|Minus $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$node->expr instanceof \PhpParser\Node\Scalar\LNumber) {
+        if (! $node->expr instanceof LNumber) {
             return null;
         }
+
         if ($node->expr->value !== 1) {
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Expr\AssignOp\Plus) {
-            return new \PhpParser\Node\Expr\PreInc($node->var);
+
+        if ($node instanceof Plus) {
+            return new PreInc($node->var);
         }
-        return new \PhpParser\Node\Expr\PreDec($node->var);
+
+        return new PreDec($node->var);
     }
 }

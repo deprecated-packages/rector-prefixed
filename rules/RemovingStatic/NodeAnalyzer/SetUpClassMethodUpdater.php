@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\RemovingStatic\NodeAnalyzer;
 
 use PhpParser\Node\Expr\StaticCall;
@@ -9,52 +10,65 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
+
 final class SetUpClassMethodUpdater
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+
+    public function __construct(NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
+
     /**
      * @return void
      */
-    public function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign)
-    {
+    public function updateSetUpMethod(
+        ClassMethod $setupClassMethod,
+        Expression $parentSetupStaticCall,
+        Expression $assign
+    ) {
         $parentSetUpStaticCallPosition = $this->getParentSetUpStaticCallPosition($setupClassMethod);
         if ($parentSetUpStaticCallPosition === null) {
-            $setupClassMethod->stmts = \array_merge([$parentSetupStaticCall, $assign], (array) $setupClassMethod->stmts);
+            $setupClassMethod->stmts = array_merge([$parentSetupStaticCall, $assign], (array) $setupClassMethod->stmts);
         } else {
-            \assert($setupClassMethod->stmts !== null);
-            \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
+            assert($setupClassMethod->stmts !== null);
+            array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
         }
     }
+
     /**
      * @return int|null
      */
-    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod)
+    private function getParentSetUpStaticCallPosition(ClassMethod $setupClassMethod)
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
-            if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
+            if ($methodStmt instanceof Expression) {
                 $methodStmt = $methodStmt->expr;
             }
-            if (!$methodStmt instanceof \PhpParser\Node\Expr\StaticCall) {
+
+            if (! $methodStmt instanceof StaticCall) {
                 continue;
             }
-            if (!$methodStmt->class instanceof \PhpParser\Node\Name) {
+
+            if (! $methodStmt->class instanceof Name) {
                 continue;
             }
-            if (!$this->nodeNameResolver->isName($methodStmt->class, 'parent')) {
+
+            if (! $this->nodeNameResolver->isName($methodStmt->class, 'parent')) {
                 continue;
             }
-            if (!$this->nodeNameResolver->isName($methodStmt->name, \Rector\Core\ValueObject\MethodName::SET_UP)) {
+
+            if (! $this->nodeNameResolver->isName($methodStmt->name, MethodName::SET_UP)) {
                 continue;
             }
+
             return $position;
         }
+
         return null;
     }
 }

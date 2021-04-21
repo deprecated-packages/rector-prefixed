@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -10,22 +11,29 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector\RemoveUselessReturnTagRectorTest
  */
-final class RemoveUselessReturnTagRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveUselessReturnTagRector extends AbstractRector
 {
     /**
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
-    public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover)
+
+    public function __construct(ReturnTagRemover $returnTagRemover)
     {
         $this->returnTagRemover = $returnTagRemover;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove @return docblock with same type as defined in PHP', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove @return docblock with same type as defined in PHP',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use stdClass;
 
 class SomeClass
@@ -38,7 +46,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use stdClass;
 
 class SomeClass
@@ -48,27 +57,32 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);
+
         if ($phpDocInfo->hasChanged()) {
-            $this->file->addRectorClassWithLine(new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine()));
+            $this->file->addRectorClassWithLine(new RectorWithLineChange($this, $node->getLine()));
             return $node;
         }
+
         return null;
     }
 }

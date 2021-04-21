@@ -1,6 +1,4 @@
-<?php
-
-declare (strict_types=1);
+<?php declare(strict_types=1);
 /*
  * This file is part of sebastian/diff.
  *
@@ -9,7 +7,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\SebastianBergmann\Diff;
+namespace SebastianBergmann\Diff;
 
 final class Chunk
 {
@@ -17,53 +15,64 @@ final class Chunk
      * @var int
      */
     private $start;
+
     /**
      * @var int
      */
     private $startRange;
+
     /**
      * @var int
      */
     private $end;
+
     /**
      * @var int
      */
     private $endRange;
+
     /**
      * @var Line[]
      */
     private $lines;
+
     public function __construct(int $start = 0, int $startRange = 1, int $end = 0, int $endRange = 1, array $lines = [])
     {
-        $this->start = $start;
+        $this->start      = $start;
         $this->startRange = $startRange;
-        $this->end = $end;
-        $this->endRange = $endRange;
-        $this->lines = $lines;
+        $this->end        = $end;
+        $this->endRange   = $endRange;
+        $this->lines      = $lines;
     }
-    public function getStart() : int
+
+    public function getStart(): int
     {
         return $this->start;
     }
-    public function getStartRange() : int
+
+    public function getStartRange(): int
     {
         return $this->startRange;
     }
-    public function getEnd() : int
+
+    public function getEnd(): int
     {
         return $this->end;
     }
-    public function getEndRange() : int
+
+    public function getEndRange(): int
     {
         return $this->endRange;
     }
+
     /**
      * @return Line[]
      */
-    public function getLines() : array
+    public function getLines(): array
     {
         return $this->lines;
     }
+
     /**
      * @param Line[] $lines
      * @return void
@@ -71,10 +80,11 @@ final class Chunk
     public function setLines(array $lines)
     {
         foreach ($lines as $line) {
-            if (!$line instanceof \RectorPrefix20210421\SebastianBergmann\Diff\Line) {
-                throw new \RectorPrefix20210421\SebastianBergmann\Diff\InvalidArgumentException();
+            if (!$line instanceof Line) {
+                throw new InvalidArgumentException;
             }
         }
+
         $this->lines = $lines;
     }
 }

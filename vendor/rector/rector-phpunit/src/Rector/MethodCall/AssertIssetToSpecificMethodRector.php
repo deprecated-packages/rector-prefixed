@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -15,96 +16,133 @@ use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\Renaming\NodeManipulator\IdentifierManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertIssetToSpecificMethodRector\AssertIssetToSpecificMethodRectorTest
  */
-final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\AbstractRector
+final class AssertIssetToSpecificMethodRector extends AbstractRector
 {
     /**
      * @var string
      */
     const ASSERT_TRUE = 'assertTrue';
+
     /**
      * @var string
      */
     const ASSERT_FALSE = 'assertFalse';
+
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
+
     /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\Renaming\NodeManipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+
+    public function __construct(IdentifierManipulator $identifierManipulator, TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns isset comparisons to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue(isset($anything->foo));', '$this->assertObjectHasAttribute("foo", $anything);'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse(isset($anything["foo"]), "message");', '$this->assertArrayNotHasKey("foo", $anything, "message");')]);
+        return new RuleDefinition(
+            'Turns isset comparisons to their method name alternatives in PHPUnit TestCase',
+            [
+                new CodeSample(
+                    '$this->assertTrue(isset($anything->foo));',
+                    '$this->assertObjectHasAttribute("foo", $anything);'
+                ),
+                new CodeSample(
+                    '$this->assertFalse(isset($anything["foo"]), "message");',
+                    '$this->assertArrayNotHasKey("foo", $anything, "message");'
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+        return [MethodCall::class, StaticCall::class];
     }
+
     /**
      * @param MethodCall|StaticCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, [self::ASSERT_TRUE, self::ASSERT_FALSE])) {
+        if (! $this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, [self::ASSERT_TRUE, self::ASSERT_FALSE])) {
             return null;
         }
+
         $firstArgumentValue = $node->args[0]->value;
         // is property access
-        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\Isset_) {
+        if (! $firstArgumentValue instanceof Isset_) {
             return null;
         }
-        $variableNodeClass = \get_class($firstArgumentValue->vars[0]);
-        if (!\in_array($variableNodeClass, [\PhpParser\Node\Expr\ArrayDimFetch::class, \PhpParser\Node\Expr\PropertyFetch::class], \true)) {
+        $variableNodeClass = get_class($firstArgumentValue->vars[0]);
+        if (! in_array($variableNodeClass, [ArrayDimFetch::class, PropertyFetch::class], true)) {
             return null;
         }
         /** @var Isset_ $issetNode */
         $issetNode = $node->args[0]->value;
+
         $issetNodeArg = $issetNode->vars[0];
-        if ($issetNodeArg instanceof \PhpParser\Node\Expr\PropertyFetch) {
+
+        if ($issetNodeArg instanceof PropertyFetch) {
             $this->refactorPropertyFetchNode($node, $issetNodeArg);
-        } elseif ($issetNodeArg instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        } elseif ($issetNodeArg instanceof ArrayDimFetch) {
             $this->refactorArrayDimFetchNode($node, $issetNodeArg);
         }
+
         return $node;
     }
+
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function refactorPropertyFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\PropertyFetch $propertyFetch)
+    private function refactorPropertyFetchNode(Node $node, PropertyFetch $propertyFetch)
     {
         $name = $this->getName($propertyFetch);
         if ($name === null) {
             return;
         }
-        $this->identifierManipulator->renameNodeWithMap($node, [self::ASSERT_TRUE => 'assertObjectHasAttribute', self::ASSERT_FALSE => 'assertObjectNotHasAttribute']);
+
+        $this->identifierManipulator->renameNodeWithMap($node, [
+            self::ASSERT_TRUE => 'assertObjectHasAttribute',
+            self::ASSERT_FALSE => 'assertObjectNotHasAttribute',
+        ]);
+
         $oldArgs = $node->args;
         unset($oldArgs[0]);
-        $newArgs = $this->nodeFactory->createArgs([new \PhpParser\Node\Scalar\String_($name), $propertyFetch->var]);
+
+        $newArgs = $this->nodeFactory->createArgs([new String_($name), $propertyFetch->var]);
         $node->args = $this->appendArgs($newArgs, $oldArgs);
     }
+
     /**
      * @param MethodCall|StaticCall $node
      * @return void
      */
-    private function refactorArrayDimFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch)
+    private function refactorArrayDimFetchNode(Node $node, ArrayDimFetch $arrayDimFetch)
     {
-        $this->identifierManipulator->renameNodeWithMap($node, [self::ASSERT_TRUE => 'assertArrayHasKey', self::ASSERT_FALSE => 'assertArrayNotHasKey']);
+        $this->identifierManipulator->renameNodeWithMap($node, [
+            self::ASSERT_TRUE => 'assertArrayHasKey',
+            self::ASSERT_FALSE => 'assertArrayNotHasKey',
+        ]);
+
         $oldArgs = $node->args;
+
         unset($oldArgs[0]);
-        $node->args = \array_merge($this->nodeFactory->createArgs([$arrayDimFetch->dim, $arrayDimFetch->var]), $oldArgs);
+
+        $node->args = array_merge($this->nodeFactory->createArgs([$arrayDimFetch->dim, $arrayDimFetch->var]), $oldArgs);
     }
 }

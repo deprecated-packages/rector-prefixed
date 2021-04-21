@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Laravel\Rector\New_;
 
 use PhpParser\Node;
@@ -14,16 +15,19 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://laravel.com/docs/5.8/upgrade#container-generators
  *
  * @see \Rector\Laravel\Tests\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector\MakeTaggedPassedToParameterIterableTypeRectorTest
  */
-final class MakeTaggedPassedToParameterIterableTypeRector extends \Rector\Core\Rector\AbstractRector
+final class MakeTaggedPassedToParameterIterableTypeRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type to iterable, if passed one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change param type to iterable, if passed one', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class AnotherClass
 {
     /**
@@ -45,7 +49,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class AnotherClass
 {
     /**
@@ -67,49 +73,61 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\New_::class];
+        return [New_::class];
     }
+
     /**
      * @param New_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $className = $this->getName($node->class);
         if ($className === null) {
             return null;
         }
+
         $class = $this->nodeRepository->findClass($className);
-        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
+        if (! $class instanceof Class_) {
             return null;
         }
+
         foreach ($node->args as $arg) {
             $this->refactorClassWithArgType($class, $arg);
         }
+
         return null;
     }
+
     /**
      * @return void
      */
-    private function refactorClassWithArgType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Arg $arg)
+    private function refactorClassWithArgType(Class_ $class, Arg $arg)
     {
         $argValueType = $this->getStaticType($arg->value);
-        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        $argumentPosition = (int) $arg->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
-        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+
+        $constructClassMethod = $class->getMethod(MethodName::CONSTRUCT);
+        $argumentPosition = (int) $arg->getAttribute(AttributeKey::ARGUMENT_POSITION);
+
+        if (! $constructClassMethod instanceof ClassMethod) {
             return;
         }
+
         $param = $constructClassMethod->params[$argumentPosition] ?? null;
-        if (!$param instanceof \PhpParser\Node\Param) {
+        if (! $param instanceof Param) {
             return;
         }
+
         $argTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($argValueType);
         $param->type = $argTypeNode;
     }

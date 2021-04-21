@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Naming\Rector\Foreach_;
 
 use PhpParser\Node;
@@ -14,27 +15,33 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\ExpectedNameResolver\InflectorSingularResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector\RenameForeachValueVariableToMatchExprVariableRectorTest
  */
-final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\Core\Rector\AbstractRector
+final class RenameForeachValueVariableToMatchExprVariableRector extends AbstractRector
 {
     /**
      * @var InflectorSingularResolver
      */
     private $inflectorSingularResolver;
+
     /**
      * @var ForeachAnalyzer
      */
     private $foreachAnalyzer;
-    public function __construct(\Rector\Naming\ExpectedNameResolver\InflectorSingularResolver $inflectorSingularResolver, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
+
+    public function __construct(InflectorSingularResolver $inflectorSingularResolver, ForeachAnalyzer $foreachAnalyzer)
     {
         $this->inflectorSingularResolver = $inflectorSingularResolver;
         $this->foreachAnalyzer = $foreachAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Renames value variable name in foreach loop to match expression variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Renames value variable name in foreach loop to match expression variable', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
 public function run()
@@ -46,7 +53,9 @@ public function run()
 }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
 public function run()
@@ -58,38 +67,46 @@ public function run()
 }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Foreach_::class];
+        return [Foreach_::class];
     }
+
     /**
      * @param Foreach_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\Variable && !$node->expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+        if (! $node->expr instanceof Variable && ! $node->expr instanceof PropertyFetch) {
             return null;
         }
+
         if ($this->isNotThisTypePropertyFetch($node->expr)) {
             return null;
         }
+
         $exprName = $this->getName($node->expr);
         if ($exprName === null) {
             return null;
         }
-        if ($node->keyVar instanceof \PhpParser\Node) {
+
+        if ($node->keyVar instanceof Node) {
             return null;
         }
+
         $valueVarName = $this->getName($node->valueVar);
         if ($valueVarName === null) {
             return null;
         }
+
         $singularValueVarName = $this->inflectorSingularResolver->resolve($exprName);
         if ($singularValueVarName === $exprName) {
             return null;
@@ -97,31 +114,41 @@ CODE_SAMPLE
         if ($singularValueVarName === $valueVarName) {
             return null;
         }
+
         if ($this->foreachAnalyzer->isValueVarUsed($node, $singularValueVarName)) {
             return null;
         }
+
         return $this->processRename($node, $valueVarName, $singularValueVarName);
     }
-    private function isNotThisTypePropertyFetch(\PhpParser\Node\Expr $expr) : bool
+
+    private function isNotThisTypePropertyFetch(Expr $expr): bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\PropertyFetch) {
+        if ($expr instanceof PropertyFetch) {
             $variableType = $this->getStaticType($expr->var);
-            return !$variableType instanceof \PHPStan\Type\ThisType;
+            return ! $variableType instanceof ThisType;
         }
-        return \false;
+
+        return false;
     }
-    private function processRename(\PhpParser\Node\Stmt\Foreach_ $foreach, string $valueVarName, string $singularValueVarName) : \PhpParser\Node\Stmt\Foreach_
+
+    private function processRename(Foreach_ $foreach, string $valueVarName, string $singularValueVarName): Foreach_
     {
-        $foreach->valueVar = new \PhpParser\Node\Expr\Variable($singularValueVarName);
-        $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) use($singularValueVarName, $valueVarName) : ?Variable {
-            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+        $foreach->valueVar = new Variable($singularValueVarName);
+        $this->traverseNodesWithCallable($foreach->stmts, function (Node $node) use (
+            $singularValueVarName,
+            $valueVarName
+        ): ?Variable {
+            if (! $node instanceof Variable) {
                 return null;
             }
-            if (!$this->isName($node, $valueVarName)) {
+
+            if (! $this->isName($node, $valueVarName)) {
                 return null;
             }
-            return new \PhpParser\Node\Expr\Variable($singularValueVarName);
+            return new Variable($singularValueVarName);
         });
+
         return $foreach;
     }
 }

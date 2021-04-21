@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\Rector\MethodCall;
 
 use PhpParser\Node;
@@ -10,14 +11,19 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Nette\Tests\Rector\MethodCall\MergeDefaultsInGetConfigCompilerExtensionRector\MergeDefaultsInGetConfigCompilerExtensionRectorTest
  */
-final class MergeDefaultsInGetConfigCompilerExtensionRector extends \Rector\Core\Rector\AbstractRector
+final class MergeDefaultsInGetConfigCompilerExtensionRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $this->getConfig($defaults) to array_merge', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change $this->getConfig($defaults) to array_merge',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Nette\DI\CompilerExtension;
 
 final class SomeExtension extends CompilerExtension
@@ -32,7 +38,8 @@ final class SomeExtension extends CompilerExtension
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 use Nette\DI\CompilerExtension;
 
 final class SomeExtension extends CompilerExtension
@@ -47,29 +54,35 @@ final class SomeExtension extends CompilerExtension
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
+
     /**
      * @param MethodCall $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isOnClassMethodCall($node, new \PHPStan\Type\ObjectType('Nette\\DI\\CompilerExtension'), 'getConfig')) {
+        if (! $this->isOnClassMethodCall($node, new ObjectType('Nette\DI\CompilerExtension'), 'getConfig')) {
             return null;
         }
-        if (\count($node->args) !== 1) {
+
+        if (count($node->args) !== 1) {
             return null;
         }
-        $getConfigMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getConfig');
+
+        $getConfigMethodCall = new MethodCall(new Variable('this'), 'getConfig');
         $firstArgValue = $node->args[0]->value;
+
         return $this->nodeFactory->createFuncCall('array_merge', [$firstArgValue, $getConfigMethodCall]);
     }
 }

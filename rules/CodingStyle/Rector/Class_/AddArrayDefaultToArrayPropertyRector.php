@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\Class_;
 
 use PhpParser\Node;
@@ -21,28 +22,38 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector\AddArrayDefaultToArrayPropertyRectorTest
  * @see https://3v4l.org/dPlUg
  */
-final class AddArrayDefaultToArrayPropertyRector extends \Rector\Core\Rector\AbstractRector
+final class AddArrayDefaultToArrayPropertyRector extends AbstractRector
 {
     /**
      * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
+
     /**
      * @var IterableTypeAnalyzer
      */
     private $iterableTypeAnalyzer;
-    public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)
-    {
+
+    public function __construct(
+        PropertyFetchAnalyzer $propertyFetchAnalyzer,
+        IterableTypeAnalyzer $iterableTypeAnalyzer
+    ) {
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->iterableTypeAnalyzer = $iterableTypeAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds array default value to property to prevent foreach over null error', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Adds array default value to property to prevent foreach over null error',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -56,7 +67,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -70,147 +82,195 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [Class_::class];
     }
+
     /**
      * @param Class_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $changedProperties = $this->collectPropertyNamesWithMissingDefaultArray($node);
         if ($changedProperties === []) {
             return null;
         }
+
         $this->completeDefaultArrayToPropertyNames($node, $changedProperties);
+
         // $this->variable !== null && count($this->variable) > 0 → count($this->variable) > 0
         $this->clearNotNullBeforeCount($node, $changedProperties);
+
         // $this->variable === null → $this->variable === []
         $this->replaceNullComparisonOfArrayPropertiesWithArrayComparison($node, $changedProperties);
+
         return $node;
     }
+
     /**
      * @return string[]
      */
-    private function collectPropertyNamesWithMissingDefaultArray(\PhpParser\Node\Stmt\Class_ $class) : array
+    private function collectPropertyNamesWithMissingDefaultArray(Class_ $class): array
     {
         $propertyNames = [];
-        $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use(&$propertyNames) {
-            if (!$node instanceof \PhpParser\Node\Stmt\PropertyProperty) {
+        $this->traverseNodesWithCallable($class, function (Node $node) use (&$propertyNames) {
+            if (! $node instanceof PropertyProperty) {
                 return null;
             }
+
             if ($node->default !== null) {
                 return null;
             }
+
             $varType = $this->resolveVarType($node);
-            if (!$this->iterableTypeAnalyzer->detect($varType)) {
+            if (! $this->iterableTypeAnalyzer->detect($varType)) {
                 return null;
             }
+
             $propertyNames[] = $this->getName($node);
+
             return null;
         });
+
         return $propertyNames;
     }
+
     /**
      * @param string[] $propertyNames
      * @return void
      */
-    private function completeDefaultArrayToPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
+    private function completeDefaultArrayToPropertyNames(Class_ $class, array $propertyNames)
     {
-        $this->traverseNodesWithCallable($class, function (\PhpParser\Node $class) use($propertyNames) : ?PropertyProperty {
-            if (!$class instanceof \PhpParser\Node\Stmt\PropertyProperty) {
+        $this->traverseNodesWithCallable($class, function (Node $class) use ($propertyNames): ?PropertyProperty {
+            if (! $class instanceof PropertyProperty) {
                 return null;
             }
-            if (!$this->isNames($class, $propertyNames)) {
+
+            if (! $this->isNames($class, $propertyNames)) {
                 return null;
             }
-            $class->default = new \PhpParser\Node\Expr\Array_();
+
+            $class->default = new Array_();
+
             return $class;
         });
     }
+
     /**
      * @param string[] $propertyNames
      * @return void
      */
-    private function clearNotNullBeforeCount(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
+    private function clearNotNullBeforeCount(Class_ $class, array $propertyNames)
     {
-        $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?Expr {
-            if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        $this->traverseNodesWithCallable($class, function (Node $node) use ($propertyNames): ?Expr {
+            if (! $node instanceof BooleanAnd) {
                 return null;
             }
-            if (!$this->isLocalPropertyOfNamesNotIdenticalToNull($node->left, $propertyNames)) {
+            if (! $this->isLocalPropertyOfNamesNotIdenticalToNull($node->left, $propertyNames)) {
                 return null;
             }
-            $isNextNodeCountingProperty = (bool) $this->betterNodeFinder->findFirst($node->right, function (\PhpParser\Node $node) use($propertyNames) : ?bool {
-                if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+
+            $isNextNodeCountingProperty = (bool) $this->betterNodeFinder->findFirst($node->right, function (Node $node) use (
+                $propertyNames
+            ): ?bool {
+                if (! $node instanceof FuncCall) {
                     return null;
                 }
-                if (!$this->isName($node, 'count')) {
+
+                if (! $this->isName($node, 'count')) {
                     return null;
                 }
-                if (!isset($node->args[0])) {
+
+                if (! isset($node->args[0])) {
                     return null;
                 }
+
                 $countedArgument = $node->args[0]->value;
-                if (!$countedArgument instanceof \PhpParser\Node\Expr\PropertyFetch) {
+                if (! $countedArgument instanceof PropertyFetch) {
                     return null;
                 }
+
                 return $this->isNames($countedArgument, $propertyNames);
             });
-            if (!$isNextNodeCountingProperty) {
+
+            if (! $isNextNodeCountingProperty) {
                 return null;
             }
+
             return $node->right;
         });
     }
+
     /**
      * @param string[] $propertyNames
      * @return void
      */
-    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
-    {
+    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison(
+        Class_ $class,
+        array $propertyNames
+    ) {
         // replace comparison to "null" with "[]"
-        $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?BinaryOp {
-            if (!$node instanceof \PhpParser\Node\Expr\BinaryOp) {
+        $this->traverseNodesWithCallable($class, function (Node $node) use ($propertyNames): ?BinaryOp {
+            if (! $node instanceof BinaryOp) {
                 return null;
             }
-            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($node->left, $propertyNames) && $this->valueResolver->isNull($node->right)) {
-                $node->right = new \PhpParser\Node\Expr\Array_();
+
+            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames(
+                $node->left,
+                $propertyNames
+            ) && $this->valueResolver->isNull($node->right)) {
+                $node->right = new Array_();
             }
-            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($node->right, $propertyNames) && $this->valueResolver->isNull($node->left)) {
-                $node->left = new \PhpParser\Node\Expr\Array_();
+
+            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames(
+                $node->right,
+                $propertyNames
+            ) && $this->valueResolver->isNull($node->left)) {
+                $node->left = new Array_();
             }
+
             return $node;
         });
     }
-    private function resolveVarType(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : \PHPStan\Type\Type
+
+    private function resolveVarType(PropertyProperty $propertyProperty): Type
     {
         /** @var Property $property */
-        $property = $propertyProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $property = $propertyProperty->getAttribute(AttributeKey::PARENT_NODE);
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         return $phpDocInfo->getVarType();
     }
+
     /**
      * @param string[] $propertyNames
      */
-    private function isLocalPropertyOfNamesNotIdenticalToNull(\PhpParser\Node\Expr $expr, array $propertyNames) : bool
+    private function isLocalPropertyOfNamesNotIdenticalToNull(Expr $expr, array $propertyNames): bool
     {
-        if (!$expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
-            return \false;
+        if (! $expr instanceof NotIdentical) {
+            return false;
         }
-        if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($expr->left, $propertyNames) && $this->valueResolver->isNull($expr->right)) {
-            return \true;
+
+        if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames(
+            $expr->left,
+            $propertyNames
+        ) && $this->valueResolver->isNull($expr->right)) {
+            return true;
         }
-        if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($expr->right, $propertyNames)) {
-            return \false;
+
+        if (! $this->propertyFetchAnalyzer->isLocalPropertyOfNames($expr->right, $propertyNames)) {
+            return false;
         }
+
         return $this->valueResolver->isNull($expr->left);
     }
 }

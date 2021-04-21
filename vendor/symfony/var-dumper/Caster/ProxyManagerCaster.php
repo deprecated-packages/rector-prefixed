@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\VarDumper\Caster;
 
-use RectorPrefix20210421\ProxyManager\Proxy\ProxyInterface;
-use RectorPrefix20210421\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use ProxyManager\Proxy\ProxyInterface;
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -19,12 +21,13 @@ use RectorPrefix20210421\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ProxyManagerCaster
 {
-    public static function castProxy(\RectorPrefix20210421\ProxyManager\Proxy\ProxyInterface $c, array $a, \RectorPrefix20210421\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
+    public static function castProxy(ProxyInterface $c, array $a, Stub $stub, bool $isNested)
     {
-        if ($parent = \get_parent_class($c)) {
-            $stub->class .= ' - ' . $parent;
+        if ($parent = get_parent_class($c)) {
+            $stub->class .= ' - '.$parent;
         }
         $stub->class .= '@proxy';
+
         return $a;
     }
 }

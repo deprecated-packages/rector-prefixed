@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\Equal;
 
 use PhpParser\Node;
@@ -13,14 +14,19 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodeQuality\Rector\Equal\UseIdenticalOverEqualWithSameTypeRector\UseIdenticalOverEqualWithSameTypeRectorTest
  */
-final class UseIdenticalOverEqualWithSameTypeRector extends \Rector\Core\Rector\AbstractRector
+final class UseIdenticalOverEqualWithSameTypeRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use ===/!== over ==/!=, it values have the same type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Use ===/!== over ==/!=, it values have the same type',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(int $firstValue, int $secondValue)
@@ -30,7 +36,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run(int $firstValue, int $secondValue)
@@ -40,40 +47,47 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\BinaryOp\Equal::class, \PhpParser\Node\Expr\BinaryOp\NotEqual::class];
+        return [Equal::class, NotEqual::class];
     }
+
     /**
      * @param Equal|NotEqual $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $leftStaticType = $this->getStaticType($node->left);
         $rightStaticType = $this->getStaticType($node->right);
+
         // objects can be different by content
-        if ($leftStaticType instanceof \PHPStan\Type\ObjectType) {
+        if ($leftStaticType instanceof ObjectType) {
             return null;
         }
-        if ($leftStaticType instanceof \PHPStan\Type\MixedType) {
+        if ($leftStaticType instanceof MixedType) {
             return null;
         }
-        if ($rightStaticType instanceof \PHPStan\Type\MixedType) {
+        if ($rightStaticType instanceof MixedType) {
             return null;
         }
+
         // different types
-        if (!$leftStaticType->equals($rightStaticType)) {
+        if (! $leftStaticType->equals($rightStaticType)) {
             return null;
         }
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Equal) {
-            return new \PhpParser\Node\Expr\BinaryOp\Identical($node->left, $node->right);
+
+        if ($node instanceof Equal) {
+            return new Identical($node->left, $node->right);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($node->left, $node->right);
+
+        return new NotIdentical($node->left, $node->right);
     }
 }

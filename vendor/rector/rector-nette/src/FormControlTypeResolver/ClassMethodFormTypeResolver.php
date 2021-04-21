@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Nette\FormControlTypeResolver;
 
 use PhpParser\Node;
@@ -13,49 +14,59 @@ use Rector\Nette\Contract\FormControlTypeResolverInterface;
 use Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface;
 use Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
-final class ClassMethodFormTypeResolver implements \Rector\Nette\Contract\FormControlTypeResolverInterface, \Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface
+
+final class ClassMethodFormTypeResolver implements FormControlTypeResolverInterface, MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
+
     /**
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
+
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+
+    public function __construct(BetterNodeFinder $betterNodeFinder, NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
+
     /**
      * @return array<string, string>
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve(Node $node): array
     {
-        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
+        if (! $node instanceof ClassMethod) {
             return [];
         }
-        if ($this->nodeNameResolver->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+
+        if ($this->nodeNameResolver->isName($node, MethodName::CONSTRUCT)) {
             return [];
         }
-        $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $node->stmts, \PhpParser\Node\Stmt\Return_::class);
-        if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
+
+        $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $node->stmts, Return_::class);
+        if (! $lastReturn instanceof Return_) {
             return [];
         }
-        if (!$lastReturn->expr instanceof \PhpParser\Node\Expr\Variable) {
+
+        if (! $lastReturn->expr instanceof Variable) {
             return [];
         }
+
         return $this->methodNamesByInputNamesResolver->resolveExpr($lastReturn->expr);
     }
+
     /**
      * @return void
      */
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver(MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

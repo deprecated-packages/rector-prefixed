@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
@@ -12,6 +13,7 @@ use Rector\BetterPhpDocParser\ValueObject\AroundSpaces;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
+
 abstract class AbstractPhpDocNodeFactory
 {
     /**
@@ -19,67 +21,86 @@ abstract class AbstractPhpDocNodeFactory
      * @see https://regex101.com/r/548EJJ/1
      */
     const CLASS_CONST_REGEX = '#::class#';
+
     /**
      * @var string
      * @see https://regex101.com/r/CsmMaz/1
      */
-    const OPENING_SPACE_REGEX = '#^\\{(?<opening_space>\\s+)#';
+    const OPENING_SPACE_REGEX = '#^\{(?<opening_space>\s+)#';
+
     /**
      * @var string
      * @see https://regex101.com/r/Rrbi3V/1
      */
-    const CLOSING_SPACE_REGEX = '#(?<closing_space>\\s+)\\}$#';
+    const CLOSING_SPACE_REGEX = '#(?<closing_space>\s+)\}$#';
+
     /**
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
+
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
+
     /**
      * @required
      * @return void
      */
-    public function autowireAbstractPhpDocNodeFactory(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
-    {
+    public function autowireAbstractPhpDocNodeFactory(
+        ObjectTypeSpecifier $objectTypeSpecifier,
+        ReflectionProvider $reflectionProvider
+    ) {
         $this->objectTypeSpecifier = $objectTypeSpecifier;
         $this->reflectionProvider = $reflectionProvider;
     }
-    protected function resolveFqnTargetEntity(string $targetEntity, \PhpParser\Node $node) : string
+
+    protected function resolveFqnTargetEntity(string $targetEntity, Node $node): string
     {
         $targetEntity = $this->getCleanedUpTargetEntity($targetEntity);
         if ($this->reflectionProvider->hasClass($targetEntity)) {
             return $targetEntity;
         }
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+
+        $scope = $node->getAttribute(AttributeKey::SCOPE);
+        if (! $scope instanceof Scope) {
             return $targetEntity;
         }
+
         $namespacedTargetEntity = $scope->getNamespace() . '\\' . $targetEntity;
         if ($this->reflectionProvider->hasClass($namespacedTargetEntity)) {
             return $namespacedTargetEntity;
         }
-        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, new \PHPStan\Type\ObjectType($targetEntity));
-        if ($resolvedType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
+
+        $resolvedType = $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType(
+            $node,
+            new ObjectType($targetEntity)
+        );
+        if ($resolvedType instanceof ShortenedObjectType) {
             return $resolvedType->getFullyQualifiedName();
         }
+
         // probably tested class
         return $targetEntity;
     }
+
     /**
      * Covers spaces like https://github.com/rectorphp/rector/issues/2110
      */
-    protected function matchCurlyBracketAroundSpaces(string $annotationContent) : \Rector\BetterPhpDocParser\ValueObject\AroundSpaces
+    protected function matchCurlyBracketAroundSpaces(string $annotationContent): AroundSpaces
     {
-        $match = \RectorPrefix20210421\Nette\Utils\Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
+        $match = Strings::match($annotationContent, self::OPENING_SPACE_REGEX);
         $openingSpace = $match['opening_space'] ?? '';
-        $match = \RectorPrefix20210421\Nette\Utils\Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
+
+        $match = Strings::match($annotationContent, self::CLOSING_SPACE_REGEX);
         $closingSpace = $match['closing_space'] ?? '';
-        return new \Rector\BetterPhpDocParser\ValueObject\AroundSpaces($openingSpace, $closingSpace);
+
+        return new AroundSpaces($openingSpace, $closingSpace);
     }
-    private function getCleanedUpTargetEntity(string $targetEntity) : string
+
+    private function getCleanedUpTargetEntity(string $targetEntity): string
     {
-        return \RectorPrefix20210421\Nette\Utils\Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
+        return Strings::replace($targetEntity, self::CLASS_CONST_REGEX, '');
     }
 }

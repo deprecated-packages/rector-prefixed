@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -12,27 +13,37 @@ use Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DeadCode\Rector\ClassMethod\RemoveEmptyClassMethodRector\RemoveEmptyClassMethodRectorTest
  */
-final class RemoveEmptyClassMethodRector extends \Rector\Core\Rector\AbstractRector
+final class RemoveEmptyClassMethodRector extends AbstractRector
 {
     /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
+
     /**
      * @var ControllerClassMethodManipulator
      */
     private $controllerClassMethodManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\DeadCode\NodeManipulator\ControllerClassMethodManipulator $controllerClassMethodManipulator)
-    {
+
+    public function __construct(
+        ClassMethodManipulator $classMethodManipulator,
+        ControllerClassMethodManipulator $controllerClassMethodManipulator
+    ) {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->controllerClassMethodManipulator = $controllerClassMethodManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty class methods not required by parents', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove empty class methods not required by parents',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class OrphanClass
 {
     public function __construct()
@@ -40,72 +51,91 @@ class OrphanClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class OrphanClass
 {
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             return null;
         }
+
         if ($node->stmts !== null && $node->stmts !== []) {
             return null;
         }
+
         if ($node->isAbstract()) {
             return null;
         }
-        if ($node->isFinal() && !$classLike->isFinal()) {
+
+        if ($node->isFinal() && ! $classLike->isFinal()) {
             return null;
         }
+
         if ($this->shouldSkipNonFinalNonPrivateClassMethod($classLike, $node)) {
             return null;
         }
+
         if ($this->shouldSkipClassMethod($node)) {
             return null;
         }
+
         $this->removeNode($node);
+
         return $node;
     }
-    private function shouldSkipNonFinalNonPrivateClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function shouldSkipNonFinalNonPrivateClassMethod(Class_ $class, ClassMethod $classMethod): bool
     {
         if ($class->isFinal()) {
-            return \false;
+            return false;
         }
+
         if ($classMethod->isMagic()) {
-            return \false;
+            return false;
         }
+
         if ($classMethod->isProtected()) {
-            return \true;
+            return true;
         }
+
         return $classMethod->isPublic();
     }
-    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+
+    private function shouldSkipClassMethod(ClassMethod $classMethod): bool
     {
         if ($this->classMethodManipulator->isNamedConstructor($classMethod)) {
-            return \true;
+            return true;
         }
+
         if ($this->classMethodManipulator->hasParentMethodOrInterfaceMethod($classMethod)) {
-            return \true;
+            return true;
         }
+
         if ($this->classMethodManipulator->isPropertyPromotion($classMethod)) {
-            return \true;
+            return true;
         }
+
         return $this->controllerClassMethodManipulator->isControllerClassMethodWithBehaviorAnnotation($classMethod);
     }
 }

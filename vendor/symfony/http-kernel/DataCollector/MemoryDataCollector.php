@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * MemoryDataCollector.
  *
@@ -19,27 +21,33 @@ use RectorPrefix20210421\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \RectorPrefix20210421\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class MemoryDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     public function __construct()
     {
         $this->reset();
     }
+
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(Request $request, Response $response, $exception = null)
     {
         $this->updateMemoryUsage();
     }
+
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        $this->data = ['memory' => 0, 'memory_limit' => $this->convertToBytes(\ini_get('memory_limit'))];
+        $this->data = [
+            'memory' => 0,
+            'memory_limit' => $this->convertToBytes(ini_get('memory_limit')),
+        ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -47,6 +55,7 @@ class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     {
         $this->updateMemoryUsage();
     }
+
     /**
      * Gets the memory.
      *
@@ -56,6 +65,7 @@ class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     {
         return $this->data['memory'];
     }
+
     /**
      * Gets the PHP memory limit.
      *
@@ -65,13 +75,15 @@ class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     {
         return $this->data['memory_limit'];
     }
+
     /**
      * Updates the memory usage data.
      */
     public function updateMemoryUsage()
     {
-        $this->data['memory'] = \memory_get_peak_usage(\true);
+        $this->data['memory'] = memory_get_peak_usage(true);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -79,6 +91,7 @@ class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     {
         return 'memory';
     }
+
     /**
      * @return int|float
      */
@@ -87,28 +100,27 @@ class MemoryDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
         if ('-1' === $memoryLimit) {
             return -1;
         }
-        $memoryLimit = \strtolower($memoryLimit);
-        $max = \strtolower(\ltrim($memoryLimit, '+'));
-        if (0 === \strpos($max, '0x')) {
+
+        $memoryLimit = strtolower($memoryLimit);
+        $max = strtolower(ltrim($memoryLimit, '+'));
+        if (0 === strpos($max, '0x')) {
             $max = \intval($max, 16);
-        } elseif (0 === \strpos($max, '0')) {
+        } elseif (0 === strpos($max, '0')) {
             $max = \intval($max, 8);
         } else {
             $max = (int) $max;
         }
-        switch (\substr($memoryLimit, -1)) {
-            case 't':
-                $max *= 1024;
+
+        switch (substr($memoryLimit, -1)) {
+            case 't': $max *= 1024;
             // no break
-            case 'g':
-                $max *= 1024;
+            case 'g': $max *= 1024;
             // no break
-            case 'm':
-                $max *= 1024;
+            case 'm': $max *= 1024;
             // no break
-            case 'k':
-                $max *= 1024;
+            case 'k': $max *= 1024;
         }
+
         return $max;
     }
 }

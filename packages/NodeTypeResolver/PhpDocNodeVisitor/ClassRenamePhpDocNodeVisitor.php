@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\NodeTypeResolver\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
@@ -13,66 +14,81 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\ValueObject\OldToNewType;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
-final class ClassRenamePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor
+use Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
+
+final class ClassRenamePhpDocNodeVisitor extends AbstractPhpDocNodeVisitor
 {
     /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+
     /**
      * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
+
     /**
      * @var OldToNewType[]
      */
     private $oldToNewTypes = [];
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
+
+    public function __construct(StaticTypeMapper $staticTypeMapper, CurrentNodeProvider $currentNodeProvider)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->currentNodeProvider = $currentNodeProvider;
     }
+
     /**
      * @return void
      */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse(Node $node)
     {
         if ($this->oldToNewTypes === []) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException('Configure "$oldToNewClasses" first');
+            throw new ShouldNotHappenException('Configure "$oldToNewClasses" first');
         }
     }
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(Node $node)
     {
-        if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+        if (! $node instanceof IdentifierTypeNode) {
             return null;
         }
+
         $phpParserNode = $this->currentNodeProvider->getNode();
-        if (!$phpParserNode instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (! $phpParserNode instanceof \PhpParser\Node) {
+            throw new ShouldNotHappenException();
         }
+
         $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
+
         // make sure to compare FQNs
-        if ($staticType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            $staticType = new \PHPStan\Type\ObjectType($staticType->getFullyQualifiedName());
+        if ($staticType instanceof ShortenedObjectType) {
+            $staticType = new ObjectType($staticType->getFullyQualifiedName());
         }
+
         foreach ($this->oldToNewTypes as $oldToNewType) {
-            if (!$staticType->equals($oldToNewType->getOldType())) {
+            if (! $staticType->equals($oldToNewType->getOldType())) {
                 continue;
             }
+
             $newTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($oldToNewType->getNewType());
-            $parentType = $node->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT);
-            if ($parentType instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
+
+            $parentType = $node->getAttribute(PhpDocAttributeKey::PARENT);
+            if ($parentType instanceof TypeNode) {
                 // mirror attributes
-                $newTypeNode->setAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, $parentType);
+                $newTypeNode->setAttribute(PhpDocAttributeKey::PARENT, $parentType);
             }
+
             return $newTypeNode;
         }
+
         return null;
     }
+
     /**
      * @param OldToNewType[] $oldToNewTypes
      * @return void

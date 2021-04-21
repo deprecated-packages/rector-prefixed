@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -14,60 +15,71 @@ use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+
+final class IterableTypeMapper implements TypeMapperInterface
 {
     /**
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
+
     /**
      * @required
      * @return void
      */
-    public function autowireIterableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function autowireIterableTypeMapper(PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\IterableType::class;
+        return IterableType::class;
     }
+
     /**
      * @param IterableType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getItemType());
-        if ($itemTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+        if ($itemTypeNode instanceof UnionTypeNode) {
             return $this->convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes($itemTypeNode);
         }
-        return new \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode($itemTypeNode);
+
+        return new SpacingAwareArrayTypeNode($itemTypeNode);
     }
+
     /**
      * @param IterableType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
-        return new \PhpParser\Node\Name('iterable');
+        return new Name('iterable');
     }
-    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $unionTypeNode) : \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode
-    {
+
+    private function convertUnionArrayTypeNodesToArrayTypeOfUnionTypeNodes(
+        UnionTypeNode $unionTypeNode
+    ): BracketsAwareUnionTypeNode {
         $unionedArrayType = [];
         foreach ($unionTypeNode->types as $unionedType) {
-            if ($unionedType instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+            if ($unionedType instanceof UnionTypeNode) {
                 foreach ($unionedType->types as $key => $subUnionedType) {
-                    $unionedType->types[$key] = new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($subUnionedType);
+                    $unionedType->types[$key] = new ArrayTypeNode($subUnionedType);
                 }
+
                 $unionedArrayType[] = $unionedType;
                 continue;
             }
-            $unionedArrayType[] = new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($unionedType);
+
+            $unionedArrayType[] = new ArrayTypeNode($unionedType);
         }
-        return new \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode($unionedArrayType);
+
+        return new BracketsAwareUnionTypeNode($unionedArrayType);
     }
 }

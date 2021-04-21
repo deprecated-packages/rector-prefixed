@@ -8,24 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\Console\Event;
 
-use RectorPrefix20210421\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface;
+namespace Symfony\Component\Console\Event;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Allows to manipulate the exit code of a command after its execution.
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-final class ConsoleTerminateEvent extends \RectorPrefix20210421\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleTerminateEvent extends ConsoleEvent
 {
     private $exitCode;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\Console\Command\Command $command, \RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output, int $exitCode)
+
+    public function __construct(Command $command, InputInterface $input, OutputInterface $output, int $exitCode)
     {
         parent::__construct($command, $input, $output);
+
         $this->setExitCode($exitCode);
     }
+
     /**
      * @return void
      */
@@ -33,7 +38,8 @@ final class ConsoleTerminateEvent extends \RectorPrefix20210421\Symfony\Componen
     {
         $this->exitCode = $exitCode;
     }
-    public function getExitCode() : int
+
+    public function getExitCode(): int
     {
         return $this->exitCode;
     }

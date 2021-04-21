@@ -1,9 +1,10 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\Encapsed;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use const PHP_EOL;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -20,22 +21,29 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector\EncapsedStringsToSprintfRectorTest
  */
-final class EncapsedStringsToSprintfRector extends \Rector\Core\Rector\AbstractRector
+final class EncapsedStringsToSprintfRector extends AbstractRector
 {
     /**
      * @var string
      */
     private $sprintfFormat;
+
     /**
      * @var Expr[]
      */
     private $argumentVariables = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert enscaped {$string} to more readable sprintf', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Convert enscaped {$string} to more readable sprintf',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(string $format)
@@ -44,7 +52,8 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(string $format)
@@ -53,57 +62,68 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Scalar\Encapsed::class];
+        return [Encapsed::class];
     }
+
     /**
      * @param Encapsed $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $this->sprintfFormat = '';
         $this->argumentVariables = [];
+
         foreach ($node->parts as $part) {
-            if ($part instanceof \PhpParser\Node\Scalar\EncapsedStringPart) {
+            if ($part instanceof EncapsedStringPart) {
                 $this->collectEncapsedStringPart($part);
-            } elseif ($part instanceof \PhpParser\Node\Expr) {
+            } elseif ($part instanceof Expr) {
                 $this->collectExpr($part);
             }
         }
+
         return $this->createSprintfFuncCallOrConcat($this->sprintfFormat, $this->argumentVariables);
     }
+
     /**
      * @return void
      */
-    private function collectEncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart)
+    private function collectEncapsedStringPart(EncapsedStringPart $encapsedStringPart)
     {
         $stringValue = $encapsedStringPart->value;
         if ($stringValue === "\n") {
-            $this->argumentVariables[] = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PHP_EOL'));
+            $this->argumentVariables[] = new ConstFetch(new Name('PHP_EOL'));
             $this->sprintfFormat .= '%s';
             return;
         }
+
         $this->sprintfFormat .= $stringValue;
     }
+
     /**
      * @return void
      */
-    private function collectExpr(\PhpParser\Node\Expr $expr)
+    private function collectExpr(Expr $expr)
     {
         $this->sprintfFormat .= '%s';
+
         // remove: ${wrap} → $wrap
-        if ($expr instanceof \PhpParser\Node\Expr\Variable) {
-            $expr->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        if ($expr instanceof Variable) {
+            $expr->setAttribute(AttributeKey::ORIGINAL_NODE, null);
         }
+
         $this->argumentVariables[] = $expr;
     }
+
     /**
      * @param Expr[] $argumentVariables
      * @return \PhpParser\Node|null
@@ -111,31 +131,37 @@ CODE_SAMPLE
     private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables)
     {
         // special case for variable with PHP_EOL
-        if ($string === '%s%s' && \count($argumentVariables) === 2 && $this->hasEndOfLine($argumentVariables)) {
-            return new \PhpParser\Node\Expr\BinaryOp\Concat($argumentVariables[0], $argumentVariables[1]);
+        if ($string === '%s%s' && count($argumentVariables) === 2 && $this->hasEndOfLine($argumentVariables)) {
+            return new Concat($argumentVariables[0], $argumentVariables[1]);
         }
-        if (\RectorPrefix20210421\Nette\Utils\Strings::contains($string, \PHP_EOL)) {
+
+        if (Strings::contains($string, PHP_EOL)) {
             return null;
         }
-        $arguments = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($string))];
+
+        $arguments = [new Arg(new String_($string))];
         foreach ($argumentVariables as $argumentVariable) {
-            $arguments[] = new \PhpParser\Node\Arg($argumentVariable);
+            $arguments[] = new Arg($argumentVariable);
         }
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('sprintf'), $arguments);
+
+        return new FuncCall(new Name('sprintf'), $arguments);
     }
+
     /**
      * @param Expr[] $argumentVariables
      */
-    private function hasEndOfLine(array $argumentVariables) : bool
+    private function hasEndOfLine(array $argumentVariables): bool
     {
         foreach ($argumentVariables as $argumentVariable) {
-            if (!$argumentVariable instanceof \PhpParser\Node\Expr\ConstFetch) {
+            if (! $argumentVariable instanceof ConstFetch) {
                 continue;
             }
+
             if ($this->isName($argumentVariable, 'PHP_EOL')) {
-                return \true;
+                return true;
             }
         }
-        return \false;
+
+        return false;
     }
 }

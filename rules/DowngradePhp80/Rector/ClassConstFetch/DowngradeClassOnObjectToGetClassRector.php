@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\DowngradePhp80\Rector\ClassConstFetch;
 
 use PhpParser\Node;
@@ -13,14 +14,17 @@ use PhpParser\Node\Param;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\DowngradePhp80\Rector\ClassConstFetch\DowngradeClassOnObjectToGetClassRector\DowngradeClassOnObjectToGetClassRectorTest
  */
-final class DowngradeClassOnObjectToGetClassRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeClassOnObjectToGetClassRector extends AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $object::class to get_class($object)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change $object::class to get_class($object)', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($object)
@@ -29,7 +33,9 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($object)
@@ -38,27 +44,33 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\ClassConstFetch::class];
+        return [ClassConstFetch::class];
     }
+
     /**
      * @param ClassConstFetch $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        if (!$this->isName($node->name, 'class')) {
+        if (! $this->isName($node->name, 'class')) {
             return null;
         }
-        if (!$node->class instanceof \PhpParser\Node\Expr\Variable) {
+
+        if (! $node->class instanceof Variable) {
             return null;
         }
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('get_class'), [new \PhpParser\Node\Arg($node->class)]);
+
+        return new FuncCall(new Name('get_class'), [new Arg($node->class)]);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\PackageBuilder\Configuration;
+declare(strict_types=1);
+
+namespace Symplify\PackageBuilder\Configuration;
 
 final class StaticEolConfiguration
 {
-    public static function getEolChar() : string
+    public static function getEolChar(): string
     {
         return "\n";
     }

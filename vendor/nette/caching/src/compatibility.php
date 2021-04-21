@@ -4,32 +4,36 @@
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-declare (strict_types=1);
-namespace RectorPrefix20210421\Nette\Caching;
 
-if (\false) {
-    /** @deprecated use Nette\Caching\BulkReader */
-    interface IBulkReader extends \RectorPrefix20210421\Nette\Caching\BulkReader
-    {
-    }
-} elseif (!\interface_exists(\RectorPrefix20210421\Nette\Caching\IBulkReader::class)) {
-    \class_alias(\RectorPrefix20210421\Nette\Caching\BulkReader::class, \RectorPrefix20210421\Nette\Caching\IBulkReader::class);
-}
-if (\false) {
-    /** @deprecated use Nette\Caching\Storage */
-    interface IStorage extends \RectorPrefix20210421\Nette\Caching\Storage
-    {
-    }
-} elseif (!\interface_exists(\RectorPrefix20210421\Nette\Caching\IStorage::class)) {
-    \class_alias(\RectorPrefix20210421\Nette\Caching\Storage::class, \RectorPrefix20210421\Nette\Caching\IStorage::class);
-}
-namespace RectorPrefix20210421\Nette\Caching\Storages;
+declare(strict_types=1);
 
-if (\false) {
-    /** @deprecated use Nette\Caching\Storages\Journal */
-    interface IJournal extends \RectorPrefix20210421\Nette\Caching\Storages\Journal
-    {
-    }
-} elseif (!\interface_exists(\RectorPrefix20210421\Nette\Caching\Storages\IJournal::class)) {
-    \class_alias(\RectorPrefix20210421\Nette\Caching\Storages\Journal::class, \RectorPrefix20210421\Nette\Caching\Storages\IJournal::class);
+namespace Nette\Caching;
+
+if (false) {
+	/** @deprecated use Nette\Caching\BulkReader */
+	interface IBulkReader extends BulkReader
+	{
+	}
+} elseif (!interface_exists(IBulkReader::class)) {
+	class_alias(BulkReader::class, IBulkReader::class);
+}
+
+if (false) {
+	/** @deprecated use Nette\Caching\Storage */
+	interface IStorage extends Storage
+	{
+	}
+} elseif (!interface_exists(IStorage::class)) {
+	class_alias(Storage::class, IStorage::class);
+}
+
+namespace Nette\Caching\Storages;
+
+if (false) {
+	/** @deprecated use Nette\Caching\Storages\Journal */
+	interface IJournal extends Journal
+	{
+	}
+} elseif (!interface_exists(IJournal::class)) {
+	class_alias(Journal::class, IJournal::class);
 }

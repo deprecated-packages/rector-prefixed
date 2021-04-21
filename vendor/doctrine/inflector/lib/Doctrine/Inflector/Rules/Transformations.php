@@ -1,17 +1,21 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector\Rules;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Doctrine\Inflector\WordInflector;
-class Transformations implements \RectorPrefix20210421\Doctrine\Inflector\WordInflector
+namespace Doctrine\Inflector\Rules;
+
+use Doctrine\Inflector\WordInflector;
+
+class Transformations implements WordInflector
 {
     /** @var Transformation[] */
     private $transformations;
-    public function __construct(\RectorPrefix20210421\Doctrine\Inflector\Rules\Transformation ...$transformations)
+
+    public function __construct(Transformation ...$transformations)
     {
         $this->transformations = $transformations;
     }
+
     public function inflect(string $word) : string
     {
         foreach ($this->transformations as $transformation) {
@@ -19,6 +23,7 @@ class Transformations implements \RectorPrefix20210421\Doctrine\Inflector\WordIn
                 return $transformation->inflect($word);
             }
         }
+
         return $word;
     }
 }

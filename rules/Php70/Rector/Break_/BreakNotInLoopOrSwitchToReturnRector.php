@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Php70\Rector\Break_;
 
 use PhpParser\Node;
@@ -10,25 +11,32 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeNestingScope\ContextAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://stackoverflow.com/questions/3618030/php-fatal-error-cannot-break-continue https://stackoverflow.com/questions/11988281/why-does-cannot-break-continue-1-level-comes-in-php
  *
  * @see https://3v4l.org/Qtelt
  * @see \Rector\Tests\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector\BreakNotInLoopOrSwitchToReturnRectorTest
  */
-final class BreakNotInLoopOrSwitchToReturnRector extends \Rector\Core\Rector\AbstractRector
+final class BreakNotInLoopOrSwitchToReturnRector extends AbstractRector
 {
     /**
      * @var ContextAnalyzer
      */
     private $contextAnalyzer;
-    public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer)
+
+    public function __construct(ContextAnalyzer $contextAnalyzer)
     {
         $this->contextAnalyzer = $contextAnalyzer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert break outside for/foreach/switch context to return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Convert break outside for/foreach/switch context to return',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -41,7 +49,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -54,28 +63,34 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Break_::class];
+        return [Break_::class];
     }
+
     /**
      * @param Break_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->contextAnalyzer->isInLoop($node)) {
             return null;
         }
+
         if ($this->contextAnalyzer->isInIf($node)) {
-            return new \PhpParser\Node\Stmt\Return_();
+            return new Return_();
         }
+
         $this->removeNode($node);
+
         return $node;
     }
 }

@@ -1,36 +1,42 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\BetterPhpDocParser\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
-final class ChangedPhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor
+use Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
+
+final class ChangedPhpDocNodeVisitor extends AbstractPhpDocNodeVisitor
 {
     /**
      * @var bool
      */
-    private $hasChanged = \false;
+    private $hasChanged = false;
+
     /**
      * @return void
      */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse(Node $node)
     {
-        $this->hasChanged = \false;
+        $this->hasChanged = false;
     }
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(Node $node)
     {
-        $origNode = $node->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE);
+        $origNode = $node->getAttribute(PhpDocAttributeKey::ORIG_NODE);
         if ($origNode === null) {
-            $this->hasChanged = \true;
+            $this->hasChanged = true;
         }
+
         return null;
     }
-    public function hasChanged() : bool
+
+    public function hasChanged(): bool
     {
         return $this->hasChanged;
     }

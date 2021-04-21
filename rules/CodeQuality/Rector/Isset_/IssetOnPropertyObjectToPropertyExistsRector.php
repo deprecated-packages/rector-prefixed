@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodeQuality\Rector\Isset_;
 
 use PhpParser\Node;
@@ -17,23 +18,28 @@ use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Rector\Tests\CodeQuality\Rector\Isset_\IssetOnPropertyObjectToPropertyExistsRector\IssetOnPropertyObjectToPropertyExistsRectorTest
  * @see https://3v4l.org/TI8XL Change isset on property object to property_exists() with not null check
  */
-final class IssetOnPropertyObjectToPropertyExistsRector extends \Rector\Core\Rector\AbstractRector
+final class IssetOnPropertyObjectToPropertyExistsRector extends AbstractRector
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+
+    public function __construct(ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change isset on property object to property_exists() and not null check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change isset on property object to property_exists() and not null check', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $x;
@@ -44,7 +50,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $x;
@@ -55,59 +62,84 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\Isset_::class];
+        return [Isset_::class];
     }
+
     /**
      * @param Isset_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $newNodes = [];
+
         foreach ($node->vars as $issetVar) {
-            if (!$issetVar instanceof \PhpParser\Node\Expr\PropertyFetch) {
+            if (! $issetVar instanceof PropertyFetch) {
                 continue;
             }
+
             $property = $this->nodeRepository->findPropertyByPropertyFetch($issetVar);
-            if ($property instanceof \PhpParser\Node\Stmt\Property && $property->type) {
+            if ($property instanceof Property && $property->type) {
                 continue;
             }
+
             $propertyFetchName = $this->getName($issetVar->name);
             if ($propertyFetchName === null) {
                 continue;
             }
+
             $propertyFetchVarType = $this->getObjectType($issetVar->var);
-            if ($propertyFetchVarType instanceof \PHPStan\Type\TypeWithClassName) {
-                if (!$this->reflectionProvider->hasClass($propertyFetchVarType->getClassName())) {
+
+            if ($propertyFetchVarType instanceof TypeWithClassName) {
+                if (! $this->reflectionProvider->hasClass($propertyFetchVarType->getClassName())) {
                     continue;
                 }
+
                 $classReflection = $this->reflectionProvider->getClass($propertyFetchVarType->getClassName());
-                if (!$classReflection->hasProperty($propertyFetchName)) {
-                    $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($issetVar->var, $propertyFetchName, $issetVar);
+
+                if (! $classReflection->hasProperty($propertyFetchName)) {
+                    $newNodes[] = $this->replaceToPropertyExistsWithNullCheck(
+                        $issetVar->var,
+                        $propertyFetchName,
+                        $issetVar
+                    );
                 } else {
                     $newNodes[] = $this->createNotIdenticalToNull($issetVar);
                 }
             } else {
-                $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($issetVar->var, $propertyFetchName, $issetVar);
+                $newNodes[] = $this->replaceToPropertyExistsWithNullCheck(
+                    $issetVar->var,
+                    $propertyFetchName,
+                    $issetVar
+                );
             }
         }
+
         return $this->nodeFactory->createReturnBooleanAnd($newNodes);
     }
-    private function replaceToPropertyExistsWithNullCheck(\PhpParser\Node\Expr $expr, string $property, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
-    {
-        $args = [new \PhpParser\Node\Arg($expr), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($property))];
+
+    private function replaceToPropertyExistsWithNullCheck(
+        Expr $expr,
+        string $property,
+        PropertyFetch $propertyFetch
+    ): BooleanAnd {
+        $args = [new Arg($expr), new Arg(new String_($property))];
         $propertyExistsFuncCall = $this->nodeFactory->createFuncCall('property_exists', $args);
-        return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, $this->createNotIdenticalToNull($propertyFetch));
+
+        return new BooleanAnd($propertyExistsFuncCall, $this->createNotIdenticalToNull($propertyFetch));
     }
-    private function createNotIdenticalToNull(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp\NotIdentical
+
+    private function createNotIdenticalToNull(Expr $expr): NotIdentical
     {
-        return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());
+        return new NotIdentical($expr, $this->nodeFactory->createNull());
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Doctrine\Rector\Property;
 
 use PhpParser\Node;
@@ -16,24 +17,31 @@ use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
 use Rector\NodeTypeResolver\ValueObject\OldToNewType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://www.doctrine-project.org/projects/doctrine-dbal/en/2.10/reference/types.html#bigint
  *
  * @see \Rector\Doctrine\Tests\Rector\Property\ChangeBigIntEntityPropertyToIntTypeRector\ChangeBigIntEntityPropertyToIntTypeRectorTest
  */
-final class ChangeBigIntEntityPropertyToIntTypeRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeBigIntEntityPropertyToIntTypeRector extends AbstractRector
 {
     /**
      * @var DocBlockClassRenamer
      */
     private $docBlockClassRenamer;
-    public function __construct(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer)
+
+    public function __construct(DocBlockClassRenamer $docBlockClassRenamer)
     {
         $this->docBlockClassRenamer = $docBlockClassRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change database type "bigint" for @var/type declaration to string', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change database type "bigint" for @var/type declaration to string',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +56,8 @@ class SomeEntity
     private $bigNumber;
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,36 +72,48 @@ class SomeEntity
     private $bigNumber;
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Property::class];
+        return [Property::class];
     }
+
     /**
      * @param Property $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Column');
-        if (!$doctrineAnnotationTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
+
+        $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\ORM\Mapping\Column');
+        if (! $doctrineAnnotationTagValueNode instanceof DoctrineAnnotationTagValueNode) {
             return null;
         }
+
         $type = $doctrineAnnotationTagValueNode->getValueWithoutQuotes('type');
         if ($type !== 'bigint') {
             return null;
         }
+
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        if (! $varTagValueNode instanceof VarTagValueNode) {
             return null;
         }
-        $oldToNewTypes = [new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\IntegerType(), new \PHPStan\Type\StringType()), new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\FloatType(), new \PHPStan\Type\StringType()), new \Rector\NodeTypeResolver\ValueObject\OldToNewType(new \PHPStan\Type\BooleanType(), new \PHPStan\Type\StringType())];
+
+        $oldToNewTypes = [
+            new OldToNewType(new IntegerType(), new StringType()),
+            new OldToNewType(new FloatType(), new StringType()),
+            new OldToNewType(new BooleanType(), new StringType()),
+        ];
         $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldToNewTypes);
+
         return $node;
     }
 }

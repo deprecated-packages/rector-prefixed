@@ -1,35 +1,43 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Symfony\ValueObject;
 
 use Rector\Symfony\Contract\Tag\TagInterface;
+
 final class ServiceDefinition
 {
     /**
      * @var string
      */
     private $id;
+
     /**
      * @var bool
      */
-    private $isPublic = \false;
+    private $isPublic = false;
+
     /**
      * @var bool
      */
-    private $isSynthetic = \false;
+    private $isSynthetic = false;
+
     /**
      * @var TagInterface[]
      */
     private $tags = [];
+
     /**
      * @var string|null
      */
     private $class;
+
     /**
      * @var string|null
      */
     private $alias;
+
     /**
      * @param TagInterface[] $tags
      * @param string|null $class
@@ -44,10 +52,12 @@ final class ServiceDefinition
         $this->alias = $alias;
         $this->tags = $tags;
     }
-    public function getId() : string
+
+    public function getId(): string
     {
         return $this->id;
     }
+
     /**
      * @return string|null
      */
@@ -55,14 +65,17 @@ final class ServiceDefinition
     {
         return $this->class;
     }
-    public function isPublic() : bool
+
+    public function isPublic(): bool
     {
         return $this->isPublic;
     }
-    public function isSynthetic() : bool
+
+    public function isSynthetic(): bool
     {
         return $this->isSynthetic;
     }
+
     /**
      * @return string|null
      */
@@ -70,13 +83,15 @@ final class ServiceDefinition
     {
         return $this->alias;
     }
+
     /**
      * @return TagInterface[]
      */
-    public function getTags() : array
+    public function getTags(): array
     {
         return $this->tags;
     }
+
     /**
      * @return \Rector\Symfony\Contract\Tag\TagInterface|null
      */
@@ -86,8 +101,10 @@ final class ServiceDefinition
             if ($tag->getName() !== $name) {
                 continue;
             }
+
             return $tag;
         }
+
         return null;
     }
 }

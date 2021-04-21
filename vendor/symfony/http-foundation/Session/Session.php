@@ -8,41 +8,49 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Component\HttpFoundation\Session;
 
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+namespace Symfony\Component\HttpFoundation\Session;
+
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+
 // Help opcache.preload discover always-needed symbols
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag::class);
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBag::class);
-\class_exists(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagProxy::class);
+class_exists(AttributeBag::class);
+class_exists(FlashBag::class);
+class_exists(SessionBagProxy::class);
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Drak <drak@zikula.org>
  */
-class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionInterface, \IteratorAggregate, \Countable
+class Session implements SessionInterface, \IteratorAggregate, \Countable
 {
     protected $storage;
+
     private $flashName;
     private $attributeName;
     private $data = [];
     private $usageIndex = 0;
     private $usageReporter;
-    public function __construct(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
+
+    public function __construct(SessionStorageInterface $storage = null, AttributeBagInterface $attributes = null, FlashBagInterface $flashes = null, callable $usageReporter = null)
     {
-        $this->storage = $storage ?: new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
+        $this->storage = $storage ?: new NativeSessionStorage();
         $this->usageReporter = $usageReporter;
-        $attributes = $attributes ?: new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
+
+        $attributes = $attributes ?: new AttributeBag();
         $this->attributeName = $attributes->getName();
         $this->registerBag($attributes);
-        $flashes = $flashes ?: new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
+
+        $flashes = $flashes ?: new FlashBag();
         $this->flashName = $flashes->getName();
         $this->registerBag($flashes);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -50,6 +58,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->storage->start();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -57,6 +66,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->getAttributeBag()->has($name);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -64,6 +74,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->getAttributeBag()->get($name, $default);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -71,6 +82,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         $this->getAttributeBag()->set($name, $value);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -78,6 +90,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->getAttributeBag()->all();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -85,6 +98,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         $this->getAttributeBag()->replace($attributes);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -92,6 +106,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->getAttributeBag()->remove($name);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -99,6 +114,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         $this->getAttributeBag()->clear();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -106,6 +122,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->storage->isStarted();
     }
+
     /**
      * Returns an iterator for attributes.
      *
@@ -115,6 +132,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return new \ArrayIterator($this->getAttributeBag()->all());
     }
+
     /**
      * Returns the number of attributes.
      *
@@ -124,14 +142,16 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return \count($this->getAttributeBag()->all());
     }
-    public function &getUsageIndex() : int
+
+    public function &getUsageIndex(): int
     {
         return $this->usageIndex;
     }
+
     /**
      * @internal
      */
-    public function isEmpty() : bool
+    public function isEmpty(): bool
     {
         if ($this->isStarted()) {
             ++$this->usageIndex;
@@ -141,26 +161,31 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
         }
         foreach ($this->data as &$data) {
             if (!empty($data)) {
-                return \false;
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
+
     /**
      * {@inheritdoc}
      */
     public function invalidate(int $lifetime = null)
     {
         $this->storage->clear();
-        return $this->migrate(\true, $lifetime);
+
+        return $this->migrate(true, $lifetime);
     }
+
     /**
      * {@inheritdoc}
      */
-    public function migrate(bool $destroy = \false, int $lifetime = null)
+    public function migrate(bool $destroy = false, int $lifetime = null)
     {
         return $this->storage->regenerate($destroy, $lifetime);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -168,6 +193,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         $this->storage->save();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -175,6 +201,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->storage->getId();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -184,6 +211,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
             $this->storage->setId($id);
         }
     }
+
     /**
      * {@inheritdoc}
      */
@@ -191,6 +219,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->storage->getName();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -198,6 +227,7 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         $this->storage->setName($name);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -207,23 +237,28 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
         if ($this->usageReporter && 0 <= $this->usageIndex) {
             ($this->usageReporter)();
         }
+
         return $this->storage->getMetadataBag();
     }
+
     /**
      * {@inheritdoc}
      */
-    public function registerBag(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
+    public function registerBag(SessionBagInterface $bag)
     {
-        $this->storage->registerBag(new \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
+        $this->storage->registerBag(new SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
     }
+
     /**
      * {@inheritdoc}
      */
     public function getBag(string $name)
     {
         $bag = $this->storage->getBag($name);
-        return \method_exists($bag, 'getBag') ? $bag->getBag() : $bag;
+
+        return method_exists($bag, 'getBag') ? $bag->getBag() : $bag;
     }
+
     /**
      * Gets the flashbag interface.
      *
@@ -233,12 +268,13 @@ class Session implements \RectorPrefix20210421\Symfony\Component\HttpFoundation\
     {
         return $this->getBag($this->flashName);
     }
+
     /**
      * Gets the attributebag interface.
      *
      * Note that this method was added to help with IDE autocompletion.
      */
-    private function getAttributeBag() : \RectorPrefix20210421\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
+    private function getAttributeBag(): AttributeBagInterface
     {
         return $this->getBag($this->attributeName);
     }

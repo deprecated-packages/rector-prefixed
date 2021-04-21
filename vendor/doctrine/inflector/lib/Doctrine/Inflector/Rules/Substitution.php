@@ -1,24 +1,29 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector\Rules;
+declare(strict_types=1);
+
+namespace Doctrine\Inflector\Rules;
 
 final class Substitution
 {
     /** @var Word */
     private $from;
+
     /** @var Word */
     private $to;
-    public function __construct(\RectorPrefix20210421\Doctrine\Inflector\Rules\Word $from, \RectorPrefix20210421\Doctrine\Inflector\Rules\Word $to)
+
+    public function __construct(Word $from, Word $to)
     {
         $this->from = $from;
-        $this->to = $to;
+        $this->to   = $to;
     }
-    public function getFrom() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Word
+
+    public function getFrom() : Word
     {
         return $this->from;
     }
-    public function getTo() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Word
+
+    public function getTo() : Word
     {
         return $this->to;
     }

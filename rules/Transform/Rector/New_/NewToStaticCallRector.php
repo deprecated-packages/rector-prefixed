@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Transform\Rector\New_;
 
 use PhpParser\Node;
@@ -10,23 +11,28 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\NewToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
+
 /**
  * @see \Rector\Tests\Transform\Rector\New_\NewToStaticCallRector\NewToStaticCallRectorTest
  */
-final class NewToStaticCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class NewToStaticCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const TYPE_TO_STATIC_CALLS = 'type_to_static_calls';
+
     /**
      * @var NewToStaticCall[]
      */
     private $typeToStaticCalls = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change new Object to static call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Change new Object to static call', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -35,7 +41,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,36 +51,50 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::TYPE_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\NewToStaticCall('Cookie', 'Cookie', 'create')]])]);
+                ,
+                [
+                    self::TYPE_TO_STATIC_CALLS => [new NewToStaticCall('Cookie', 'Cookie', 'create')],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Expr\New_::class];
+        return [New_::class];
     }
+
     /**
      * @param New_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->typeToStaticCalls as $typeToStaticCall) {
-            if (!$this->isObjectType($node->class, $typeToStaticCall->getObjectType())) {
+            if (! $this->isObjectType($node->class, $typeToStaticCall->getObjectType())) {
                 continue;
             }
-            return $this->nodeFactory->createStaticCall($typeToStaticCall->getStaticCallClass(), $typeToStaticCall->getStaticCallMethod(), $node->args);
+
+            return $this->nodeFactory->createStaticCall(
+                $typeToStaticCall->getStaticCallClass(),
+                $typeToStaticCall->getStaticCallMethod(),
+                $node->args
+            );
         }
+
         return null;
     }
+
     /**
      * @return void
      */
     public function configure(array $configuration)
     {
         $typeToStaticCalls = $configuration[self::TYPE_TO_STATIC_CALLS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($typeToStaticCalls, \Rector\Transform\ValueObject\NewToStaticCall::class);
+        Assert::allIsInstanceOf($typeToStaticCalls, NewToStaticCall::class);
         $this->typeToStaticCalls = $typeToStaticCalls;
     }
 }

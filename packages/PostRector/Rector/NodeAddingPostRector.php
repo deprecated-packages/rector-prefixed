@@ -1,12 +1,14 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * This class collects all to-be-added expresssions (= 1 line in code)
  * and then adds new expressions to list of $nodes
@@ -18,44 +20,54 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * - $this->someCall();
  * - $value = this->someNewCall(); // added expression
  */
-final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+final class NodeAddingPostRector extends AbstractPostRector
 {
     /**
      * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector)
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
     {
         $this->nodesToAddCollector = $nodesToAddCollector;
     }
-    public function getPriority() : int
+
+    public function getPriority(): int
     {
         return 1000;
     }
+
     /**
      * @return array<int|string, Node>|Node
      */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode(Node $node)
     {
         $newNodes = [$node];
+
         $nodesToAddAfter = $this->nodesToAddCollector->getNodesToAddAfterNode($node);
         if ($nodesToAddAfter !== []) {
             $this->nodesToAddCollector->clearNodesToAddAfter($node);
-            $newNodes = \array_merge($newNodes, $nodesToAddAfter);
+            $newNodes = array_merge($newNodes, $nodesToAddAfter);
         }
+
         $nodesToAddBefore = $this->nodesToAddCollector->getNodesToAddBeforeNode($node);
         if ($nodesToAddBefore !== []) {
             $this->nodesToAddCollector->clearNodesToAddBefore($node);
-            $newNodes = \array_merge($nodesToAddBefore, $newNodes);
+            $newNodes = array_merge($nodesToAddBefore, $newNodes);
         }
+
         if ($newNodes === [$node]) {
             return $node;
         }
+
         return $newNodes;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add nodes on weird positions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Add nodes on weird positions', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -64,7 +76,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)
@@ -75,6 +88,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ), ]
+        );
     }
 }

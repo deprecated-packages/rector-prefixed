@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Autodiscovery\Rector\Interface_;
 
 use PhpParser\Node;
@@ -11,29 +12,37 @@ use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
 use Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
  *
  * @see \Rector\Tests\Autodiscovery\Rector\Interface_\MoveInterfacesToContractNamespaceDirectoryRector\MoveInterfacesToContractNamespaceDirectoryRectorTest
  */
-final class MoveInterfacesToContractNamespaceDirectoryRector extends \Rector\Core\Rector\AbstractRector
+final class MoveInterfacesToContractNamespaceDirectoryRector extends AbstractRector
 {
     /**
      * @var NetteControlFactoryInterfaceAnalyzer
      */
     private $netteControlFactoryInterfaceAnalyzer;
+
     /**
      * @var AddedFileWithNodesFactory
      */
     private $addedFileWithNodesFactory;
-    public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory $addedFileWithNodesFactory)
-    {
+
+    public function __construct(
+        NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer,
+        AddedFileWithNodesFactory $addedFileWithNodesFactory
+    ) {
         $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
         $this->addedFileWithNodesFactory = $addedFileWithNodesFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move interface to "Contract" namespace', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Move interface to "Contract" namespace', [
+            new CodeSample(
+<<<'CODE_SAMPLE'
 // file: app/Exception/Rule.php
 
 namespace App\Exception;
@@ -42,7 +51,8 @@ interface Rule
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+            ,
+            <<<'CODE_SAMPLE'
 // file: app/Contract/Rule.php
 
 namespace App\Contract;
@@ -51,30 +61,41 @@ interface Rule
 {
 }
 CODE_SAMPLE
-)]);
+        ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\Interface_::class];
+        return [Interface_::class];
     }
+
     /**
      * @param Interface_ $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         if ($this->netteControlFactoryInterfaceAnalyzer->isComponentFactoryInterface($node)) {
             return null;
         }
-        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($this->file->getSmartFileInfo(), $this->file, 'Contract');
-        if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {
+
+        $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup(
+            $this->file->getSmartFileInfo(),
+            $this->file,
+            'Contract'
+        );
+
+        if (! $addedFileWithNodes instanceof AddedFileWithNodes) {
             return null;
         }
+
         $this->removedAndAddedFilesCollector->removeFile($this->file->getSmartFileInfo());
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
+
         return null;
     }
 }

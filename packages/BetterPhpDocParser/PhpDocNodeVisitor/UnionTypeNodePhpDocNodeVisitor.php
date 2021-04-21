@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\BetterPhpDocParser\PhpDocNodeVisitor;
 
 use PHPStan\PhpDocParser\Ast\Node;
@@ -14,51 +15,66 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
-final class UnionTypeNodePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor implements \Rector\BetterPhpDocParser\Contract\BasePhpDocNodeVisitorInterface
+use Symplify\SimplePhpDocParser\PhpDocNodeVisitor\AbstractPhpDocNodeVisitor;
+
+final class UnionTypeNodePhpDocNodeVisitor extends AbstractPhpDocNodeVisitor implements BasePhpDocNodeVisitorInterface
 {
     /**
      * @var CurrentTokenIteratorProvider
      */
     private $currentTokenIteratorProvider;
+
     /**
      * @var AttributeMirrorer
      */
     private $attributeMirrorer;
-    public function __construct(\Rector\BetterPhpDocParser\DataProvider\CurrentTokenIteratorProvider $currentTokenIteratorProvider, \Rector\BetterPhpDocParser\Attributes\AttributeMirrorer $attributeMirrorer)
-    {
+
+    public function __construct(
+        CurrentTokenIteratorProvider $currentTokenIteratorProvider,
+        AttributeMirrorer $attributeMirrorer
+    ) {
         $this->currentTokenIteratorProvider = $currentTokenIteratorProvider;
         $this->attributeMirrorer = $attributeMirrorer;
     }
+
     /**
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(Node $node)
     {
-        if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+        if (! $node instanceof UnionTypeNode) {
             return null;
         }
-        if ($node instanceof \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode) {
+
+        if ($node instanceof BracketsAwareUnionTypeNode) {
             return null;
         }
+
         // unwrap with parent array type...
-        $startAndEnd = $node->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END);
-        if (!$startAndEnd instanceof \Rector\BetterPhpDocParser\ValueObject\StartAndEnd) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        $startAndEnd = $node->getAttribute(PhpDocAttributeKey::START_AND_END);
+        if (! $startAndEnd instanceof StartAndEnd) {
+            throw new ShouldNotHappenException();
         }
+
         $betterTokenProvider = $this->currentTokenIteratorProvider->provide();
+
         $isWrappedInCurlyBrackets = $this->isWrappedInCurlyBrackets($betterTokenProvider, $startAndEnd);
-        $bracketsAwareUnionTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\BracketsAwareUnionTypeNode($node->types, $isWrappedInCurlyBrackets);
+        $bracketsAwareUnionTypeNode = new BracketsAwareUnionTypeNode($node->types, $isWrappedInCurlyBrackets);
+
         $this->attributeMirrorer->mirror($node, $bracketsAwareUnionTypeNode);
+
         return $bracketsAwareUnionTypeNode;
     }
-    private function isWrappedInCurlyBrackets(\Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenProvider, \Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd) : bool
+
+    private function isWrappedInCurlyBrackets(BetterTokenIterator $betterTokenProvider, StartAndEnd $startAndEnd): bool
     {
         $previousPosition = $startAndEnd->getStart() - 1;
-        if ($betterTokenProvider->isTokenTypeOnPosition(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES, $previousPosition)) {
-            return \true;
+
+        if ($betterTokenProvider->isTokenTypeOnPosition(Lexer::TOKEN_OPEN_PARENTHESES, $previousPosition)) {
+            return true;
         }
+
         // there is no + 1, as end is right at the next token
-        return $betterTokenProvider->isTokenTypeOnPosition(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES, $startAndEnd->getEnd());
+        return $betterTokenProvider->isTokenTypeOnPosition(Lexer::TOKEN_CLOSE_PARENTHESES, $startAndEnd->getEnd());
     }
 }

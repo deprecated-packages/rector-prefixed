@@ -1,18 +1,21 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Doctrine\Inflector\GenericLanguageInflectorFactory;
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset;
-final class InflectorFactory extends \RectorPrefix20210421\Doctrine\Inflector\GenericLanguageInflectorFactory
+namespace Doctrine\Inflector\Rules\Portuguese;
+
+use Doctrine\Inflector\GenericLanguageInflectorFactory;
+use Doctrine\Inflector\Rules\Ruleset;
+
+final class InflectorFactory extends GenericLanguageInflectorFactory
 {
-    protected function getSingularRuleset() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset
+    protected function getSingularRuleset() : Ruleset
     {
-        return \RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese\Rules::getSingularRuleset();
+        return Rules::getSingularRuleset();
     }
-    protected function getPluralRuleset() : \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset
+
+    protected function getPluralRuleset() : Ruleset
     {
-        return \RectorPrefix20210421\Doctrine\Inflector\Rules\Portuguese\Rules::getPluralRuleset();
+        return Rules::getPluralRuleset();
     }
 }

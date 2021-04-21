@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Privatization\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -14,29 +15,37 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\PropertyToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see https://3v4l.org/DWC4P
  *
  * @changelog https://stackoverflow.com/a/12446305/1348344
  * @see \Rector\Tests\Privatization\Rector\ClassMethod\ChangeGlobalVariablesToPropertiesRector\ChangeGlobalVariablesToPropertiesRectorTest
  */
-final class ChangeGlobalVariablesToPropertiesRector extends \Rector\Core\Rector\AbstractRector
+final class ChangeGlobalVariablesToPropertiesRector extends AbstractRector
 {
     /**
      * @var string[]
      */
     private $globalVariableNames = [];
+
     /**
      * @var PropertyToAddCollector
      */
     private $propertyToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+
+    public function __construct(PropertyToAddCollector $propertyToAddCollector)
     {
         $this->propertyToAddCollector = $propertyToAddCollector;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change global $variables to private properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Change global $variables to private properties',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function go()
@@ -52,7 +61,8 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class SomeClass
 {
     private $variable;
@@ -67,78 +77,95 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+            ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(AttributeKey::CLASS_NODE);
+        if (! $classLike instanceof Class_) {
             return null;
         }
+
         $this->collectGlobalVariableNamesAndRefactorToPropertyFetch($node);
+
         if ($this->globalVariableNames === []) {
             return null;
         }
+
         foreach ($this->globalVariableNames as $globalVariableName) {
             $this->propertyToAddCollector->addPropertyWithoutConstructorToClass($globalVariableName, null, $classLike);
         }
+
         return $node;
     }
+
     /**
      * @return void
      */
-    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(ClassMethod $classMethod)
     {
         $this->globalVariableNames = [];
-        $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?PropertyFetch {
-            if ($node instanceof \PhpParser\Node\Stmt\Global_) {
+
+        $this->traverseNodesWithCallable($classMethod, function (Node $node): ?PropertyFetch {
+            if ($node instanceof Global_) {
                 $this->refactorGlobal($node);
                 return null;
             }
-            if ($node instanceof \PhpParser\Node\Expr\Variable) {
+
+            if ($node instanceof Variable) {
                 return $this->refactorGlobalVariable($node);
             }
+
             return null;
         });
     }
+
     /**
      * @return void
      */
-    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global)
+    private function refactorGlobal(Global_ $global)
     {
         foreach ($global->vars as $var) {
             $varName = $this->getName($var);
             if ($varName === null) {
                 return;
             }
+
             $this->globalVariableNames[] = $varName;
         }
+
         $this->removeNode($global);
     }
+
     /**
      * @return \PhpParser\Node\Expr\PropertyFetch|null
      */
-    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable)
+    private function refactorGlobalVariable(Variable $variable)
     {
-        if (!$this->isNames($variable, $this->globalVariableNames)) {
+        if (! $this->isNames($variable, $this->globalVariableNames)) {
             return null;
         }
+
         // replace with property fetch
         $variableName = $this->getName($variable);
         if ($variableName === null) {
             return null;
         }
+
         return $this->nodeFactory->createPropertyFetch('this', $variableName);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
@@ -12,47 +13,55 @@ use PHPStan\Type\VoidType;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+
+final class VoidTypeMapper implements TypeMapperInterface
 {
     /**
      * @var string
      */
     const VOID = 'void';
+
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+
+    public function __construct(PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
+
     /**
      * @return class-string<Type>
      */
-    public function getNodeClass() : string
+    public function getNodeClass(): string
     {
-        return \PHPStan\Type\VoidType::class;
+        return VoidType::class;
     }
+
     /**
      * @param VoidType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(Type $type): TypeNode
     {
-        return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode(self::VOID);
+        return new IdentifierTypeNode(self::VOID);
     }
+
     /**
      * @param VoidType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(Type $type, $kind = null)
     {
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
+        if (! $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::VOID_TYPE)) {
             return null;
         }
-        if (\in_array($kind, ['param', 'property'], \true)) {
+
+        if (in_array($kind, ['param', 'property'], true)) {
             return null;
         }
-        return new \PhpParser\Node\Name(self::VOID);
+
+        return new Name(self::VOID);
     }
 }

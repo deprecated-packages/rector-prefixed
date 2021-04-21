@@ -1,7 +1,8 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Psr\Container;
+declare(strict_types=1);
+
+namespace Psr\Container;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.
@@ -19,6 +20,7 @@ interface ContainerInterface
      * @return mixed Entry.
      */
     public function get($id);
+
     /**
      * Returns true if the container can return an entry for the given identifier.
      * Returns false otherwise.

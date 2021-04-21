@@ -1,10 +1,12 @@
 <?php
 
-declare (strict_types=1);
-namespace RectorPrefix20210421\Doctrine\Inflector;
+declare(strict_types=1);
 
-use RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset;
+namespace Doctrine\Inflector;
+
+use Doctrine\Inflector\Rules\Ruleset;
 use function array_merge;
+
 /**
  * Inflects based on multiple rulesets.
  *
@@ -14,32 +16,40 @@ use function array_merge;
  * - The first ruleset that returns a different value for a regular word wins
  * - If none of the above match, the word is left as-is
  */
-class RulesetInflector implements \RectorPrefix20210421\Doctrine\Inflector\WordInflector
+class RulesetInflector implements WordInflector
 {
     /** @var Ruleset[] */
     private $rulesets;
-    public function __construct(\RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset $ruleset, \RectorPrefix20210421\Doctrine\Inflector\Rules\Ruleset ...$rulesets)
+
+    public function __construct(Ruleset $ruleset, Ruleset ...$rulesets)
     {
-        $this->rulesets = \array_merge([$ruleset], $rulesets);
+        $this->rulesets = array_merge([$ruleset], $rulesets);
     }
+
     public function inflect(string $word) : string
     {
         if ($word === '') {
             return '';
         }
+
         foreach ($this->rulesets as $ruleset) {
             if ($ruleset->getUninflected()->matches($word)) {
                 return $word;
             }
+
             $inflected = $ruleset->getIrregular()->inflect($word);
+
             if ($inflected !== $word) {
                 return $inflected;
             }
+
             $inflected = $ruleset->getRegular()->inflect($word);
+
             if ($inflected !== $word) {
                 return $inflected;
             }
         }
+
         return $word;
     }
 }

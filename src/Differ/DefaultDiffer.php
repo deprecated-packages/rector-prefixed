@@ -1,22 +1,29 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\Core\Differ;
 
-use RectorPrefix20210421\SebastianBergmann\Diff\Differ;
-use RectorPrefix20210421\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
+
 final class DefaultDiffer
 {
     /**
      * @var Differ
      */
     private $differ;
+
     public function __construct()
     {
-        $strictUnifiedDiffOutputBuilder = new \RectorPrefix20210421\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder(['fromFile' => 'Original', 'toFile' => 'New']);
-        $this->differ = new \RectorPrefix20210421\SebastianBergmann\Diff\Differ($strictUnifiedDiffOutputBuilder);
+        $strictUnifiedDiffOutputBuilder = new StrictUnifiedDiffOutputBuilder([
+            'fromFile' => 'Original',
+            'toFile' => 'New',
+        ]);
+        $this->differ = new Differ($strictUnifiedDiffOutputBuilder);
     }
-    public function diff(string $old, string $new) : string
+
+    public function diff(string $old, string $new): string
     {
         if ($old === $new) {
             return '';

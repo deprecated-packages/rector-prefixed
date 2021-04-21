@@ -1,6 +1,7 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Rector\CodingStyle\Rector\ClassMethod;
 
 use PhpParser\Node;
@@ -15,37 +16,44 @@ use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://medium.com/tech-tajawal/use-memory-gently-with-yield-in-php-7e62e2480b8d
  * @see https://3v4l.org/5PJid
  *
  * @see \Rector\Tests\CodingStyle\Rector\ClassMethod\YieldClassMethodToArrayClassMethodRector\YieldClassMethodToArrayClassMethodRectorTest
  */
-final class YieldClassMethodToArrayClassMethodRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class YieldClassMethodToArrayClassMethodRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     const METHODS_BY_TYPE = 'methods_by_type';
+
     /**
      * @var array<class-string, string[]>
      */
     private $methodsByType = [];
+
     /**
      * @var NodeTransformer
      */
     private $nodeTransformer;
+
     /**
      * @param array<class-string, string[]> $methodsByType
      */
-    public function __construct(\Rector\Core\PhpParser\NodeTransformer $nodeTransformer, array $methodsByType = [])
+    public function __construct(NodeTransformer $nodeTransformer, array $methodsByType = [])
     {
         $this->methodsByType = $methodsByType;
         $this->nodeTransformer = $nodeTransformer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns yield return to array return in specific type and method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Turns yield return to array return in specific type and method', [
+            new ConfiguredCodeSample(
+                <<<'CODE_SAMPLE'
 class SomeEventSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
@@ -54,7 +62,8 @@ class SomeEventSubscriber implements EventSubscriberInterface
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class SomeEventSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
@@ -63,42 +72,58 @@ class SomeEventSubscriber implements EventSubscriberInterface
     }
 }
 CODE_SAMPLE
-, [self::METHODS_BY_TYPE => ['EventSubscriberInterface' => ['getSubscribedEvents']]])]);
+                ,
+                [
+                    self::METHODS_BY_TYPE => [
+                        'EventSubscriberInterface' => ['getSubscribedEvents'],
+                    ],
+                ]
+            ),
+        ]);
     }
+
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [ClassMethod::class];
     }
+
     /**
      * @param ClassMethod $node
      * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(Node $node)
     {
         foreach ($this->methodsByType as $type => $methods) {
-            if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType($type))) {
+            if (! $this->isObjectType($node, new ObjectType($type))) {
                 continue;
             }
+
             foreach ($methods as $method) {
-                if (!$this->isName($node, $method)) {
+                if (! $this->isName($node, $method)) {
                     continue;
                 }
+
                 $yieldNodes = $this->collectYieldNodesFromClassMethod($node);
                 if ($yieldNodes === []) {
                     continue;
                 }
+
                 $arrayNode = $this->nodeTransformer->transformYieldsToArray($yieldNodes);
                 $this->removeNodes($yieldNodes);
-                $node->returnType = new \PhpParser\Node\Identifier('array');
-                $returnExpression = new \PhpParser\Node\Stmt\Return_($arrayNode);
-                $node->stmts = \array_merge((array) $node->stmts, [$returnExpression]);
+
+                $node->returnType = new Identifier('array');
+
+                $returnExpression = new Return_($arrayNode);
+                $node->stmts = array_merge((array) $node->stmts, [$returnExpression]);
             }
         }
+
         return $node;
     }
+
     /**
      * @return void
      */
@@ -106,23 +131,28 @@ CODE_SAMPLE
     {
         $this->methodsByType = $configuration[self::METHODS_BY_TYPE] ?? [];
     }
+
     /**
      * @return Yield_[]
      */
-    private function collectYieldNodesFromClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
+    private function collectYieldNodesFromClassMethod(ClassMethod $classMethod): array
     {
         $yieldNodes = [];
+
         if ($classMethod->stmts === null) {
             return [];
         }
+
         foreach ($classMethod->stmts as $statement) {
-            if (!$statement instanceof \PhpParser\Node\Stmt\Expression) {
+            if (! $statement instanceof Expression) {
                 continue;
             }
-            if ($statement->expr instanceof \PhpParser\Node\Expr\Yield_) {
+
+            if ($statement->expr instanceof Yield_) {
                 $yieldNodes[] = $statement->expr;
             }
         }
+
         return $yieldNodes;
     }
 }
