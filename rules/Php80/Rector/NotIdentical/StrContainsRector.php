@@ -23,7 +23,7 @@ final class StrContainsRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string[]
      */
-    private const OLD_STR_NAMES = ['strpos', 'strstr'];
+    const OLD_STR_NAMES = ['strpos', 'strstr'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -55,8 +55,9 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $funcCall = $this->matchIdenticalOrNotIdenticalToFalse($node);
         if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -70,8 +71,9 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $expr
+     * @return \PhpParser\Node\Expr\FuncCall|null
      */
-    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\FuncCall
+    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr)
     {
         if ($this->valueResolver->isFalse($expr->left)) {
             if (!$expr->right instanceof \PhpParser\Node\Expr\FuncCall) {

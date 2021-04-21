@@ -17,7 +17,7 @@ final class AddPackageToRequireDevComposerRector implements \Rector\Composer\Con
     /**
      * @var string
      */
-    public const PACKAGES_AND_VERSIONS = 'packages_and_version';
+    const PACKAGES_AND_VERSIONS = 'packages_and_version';
     /**
      * @var PackageAndVersion[]
      */
@@ -30,7 +30,10 @@ final class AddPackageToRequireDevComposerRector implements \Rector\Composer\Con
     {
         $this->versionGuard = $versionGuard;
     }
-    public function refactor(\RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
+    /**
+     * @return void
+     */
+    public function refactor(\RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->packageAndVersions as $packageAndVersion) {
             $composerJson->addRequiredDevPackage($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());
@@ -53,8 +56,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, PackageAndVersion[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $packagesAndVersions = $configuration[self::PACKAGES_AND_VERSIONS] ?? [];
         $this->versionGuard->validate($packagesAndVersions);

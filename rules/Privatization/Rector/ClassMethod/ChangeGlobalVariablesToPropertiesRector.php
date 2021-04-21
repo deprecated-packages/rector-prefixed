@@ -78,8 +78,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -94,7 +95,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->globalVariableNames = [];
         $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?PropertyFetch {
@@ -108,7 +112,10 @@ CODE_SAMPLE
             return null;
         });
     }
-    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global) : void
+    /**
+     * @return void
+     */
+    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global)
     {
         foreach ($global->vars as $var) {
             $varName = $this->getName($var);
@@ -119,7 +126,10 @@ CODE_SAMPLE
         }
         $this->removeNode($global);
     }
-    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\PropertyFetch
+    /**
+     * @return \PhpParser\Node\Expr\PropertyFetch|null
+     */
+    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable)
     {
         if (!$this->isNames($variable, $this->globalVariableNames)) {
             return null;

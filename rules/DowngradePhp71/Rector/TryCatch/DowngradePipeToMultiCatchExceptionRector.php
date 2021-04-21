@@ -43,8 +43,9 @@ CODE_SAMPLE
     }
     /**
      * @param TryCatch $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $originalCatches = $node->catches;
         foreach ($node->catches as $key => $catch) {

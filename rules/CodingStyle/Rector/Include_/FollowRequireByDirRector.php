@@ -48,8 +48,9 @@ CODE_SAMPLE
     }
     /**
      * @param Include_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat && $node->expr->left instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr->left)) {
             $node->expr->left = $this->prefixWithDir($node->expr->left);
@@ -74,15 +75,19 @@ CODE_SAMPLE
     }
     /**
      * Remove "./" which would break the path
+     * @return void
      */
-    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
+    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string)
     {
         if (!\RectorPrefix20210421\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
         $string->value = \RectorPrefix20210421\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
-    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
+    /**
+     * @return void
+     */
+    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string)
     {
         if (\RectorPrefix20210421\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;

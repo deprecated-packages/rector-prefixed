@@ -26,7 +26,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const COUNT = 'count';
+    const COUNT = 'count';
     /**
      * @var Inflector
      */
@@ -105,8 +105,9 @@ CODE_SAMPLE
     }
     /**
      * @param For_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $this->reset();
         $this->matchInit($node->init);
@@ -141,7 +142,10 @@ CODE_SAMPLE
         }
         return $this->processForToForeach($node, $iteratedVariable);
     }
-    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
+    /**
+     * @return \PhpParser\Node\Stmt\Foreach_|null
+     */
+    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable)
     {
         $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
         $iteratedVariableSingle = $originalVariableSingle;
@@ -169,7 +173,10 @@ CODE_SAMPLE
         $this->foreachAnalyzer->useForeachVariableInStmts($foreach->expr, $foreach->valueVar, $foreach->stmts, $this->keyValueName);
         return $foreach;
     }
-    private function reset() : void
+    /**
+     * @return void
+     */
+    private function reset()
     {
         $this->keyValueName = null;
         $this->countValueVariableExpr = null;
@@ -178,8 +185,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $initExprs
+     * @return void
      */
-    private function matchInit(array $initExprs) : void
+    private function matchInit(array $initExprs)
     {
         foreach ($initExprs as $initExpr) {
             if (!$initExpr instanceof \PhpParser\Node\Expr\Assign) {

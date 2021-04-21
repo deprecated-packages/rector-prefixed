@@ -33,14 +33,18 @@ final class DynamicSourceLocatorProvider implements \Rector\NodeTypeResolver\Con
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
     }
-    public function setFileInfo(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    /**
+     * @return void
+     */
+    public function setFileInfo(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->files = [$fileInfo->getRealPath()];
     }
     /**
      * @param string[] $files
+     * @return void
      */
-    public function addFiles(array $files) : void
+    public function addFiles(array $files)
     {
         $this->files = \array_merge($this->files, $files);
     }
@@ -63,8 +67,9 @@ final class DynamicSourceLocatorProvider implements \Rector\NodeTypeResolver\Con
     }
     /**
      * @param string[] $files
+     * @return void
      */
-    public function addFilesByDirectory(string $directory, array $files) : void
+    public function addFilesByDirectory(string $directory, array $files)
     {
         $this->filesByDirectory[$directory] = $files;
     }

@@ -40,7 +40,10 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
     {
         return $this->nodesToAddAfter !== [] || $this->nodesToAddBefore !== [];
     }
-    public function addNodeBeforeNode(\PhpParser\Node $addedNode, \PhpParser\Node $positionNode) : void
+    /**
+     * @return void
+     */
+    public function addNodeBeforeNode(\PhpParser\Node $addedNode, \PhpParser\Node $positionNode)
     {
         if ($positionNode->getAttributes() === []) {
             $message = \sprintf('Switch arguments in "%s()" method', __METHOD__);
@@ -52,8 +55,9 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
     }
     /**
      * @param Node[] $addedNodes
+     * @return void
      */
-    public function addNodesAfterNode(array $addedNodes, \PhpParser\Node $positionNode) : void
+    public function addNodesAfterNode(array $addedNodes, \PhpParser\Node $positionNode)
     {
         $position = $this->resolveNearestExpressionPosition($positionNode);
         foreach ($addedNodes as $addedNode) {
@@ -63,7 +67,10 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         }
         $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
-    public function addNodeAfterNode(\PhpParser\Node $addedNode, \PhpParser\Node $positionNode) : void
+    /**
+     * @return void
+     */
+    public function addNodeAfterNode(\PhpParser\Node $addedNode, \PhpParser\Node $positionNode)
     {
         $position = $this->resolveNearestExpressionPosition($positionNode);
         $this->nodesToAddAfter[$position][] = $this->wrapToExpression($addedNode);
@@ -85,20 +92,27 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         $position = \spl_object_hash($node);
         return $this->nodesToAddBefore[$position] ?? [];
     }
-    public function clearNodesToAddAfter(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function clearNodesToAddAfter(\PhpParser\Node $node)
     {
         $objectHash = \spl_object_hash($node);
         unset($this->nodesToAddAfter[$objectHash]);
     }
-    public function clearNodesToAddBefore(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function clearNodesToAddBefore(\PhpParser\Node $node)
     {
         $objectHash = \spl_object_hash($node);
         unset($this->nodesToAddBefore[$objectHash]);
     }
     /**
      * @param Node[] $newNodes
+     * @return void
      */
-    public function addNodesBeforeNode(array $newNodes, \PhpParser\Node $positionNode) : void
+    public function addNodesBeforeNode(array $newNodes, \PhpParser\Node $positionNode)
     {
         foreach ($newNodes as $newNode) {
             $this->addNodeBeforeNode($newNode, $positionNode);

@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expression $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return $this->processExplicitIf($node);
@@ -79,7 +80,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processExplicitIf(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function processExplicitIf(\PhpParser\Node\Stmt\Expression $expression)
     {
         /** @var BooleanAnd|BooleanOr $booleanExpr */
         $booleanExpr = $expression->expr;

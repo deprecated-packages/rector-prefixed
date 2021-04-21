@@ -27,7 +27,7 @@ final class ServiceGetterToConstructorInjectionRector extends \Rector\Core\Recto
     /**
      * @var string
      */
-    public const METHOD_CALL_TO_SERVICES = 'method_call_to_services';
+    const METHOD_CALL_TO_SERVICES = 'method_call_to_services';
     /**
      * @var ServiceGetterToConstructorInjection[]
      */
@@ -117,8 +117,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -142,7 +143,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $methodCallToServices = $configuration[self::METHOD_CALL_TO_SERVICES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);

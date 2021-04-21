@@ -39,8 +39,9 @@ CODE_SAMPLE
     }
     /**
      * @param Unset_|Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\Assign) {
             if ($node->expr instanceof \PhpParser\Node\Expr\Cast\Unset_) {

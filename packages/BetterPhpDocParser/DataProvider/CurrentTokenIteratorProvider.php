@@ -10,7 +10,10 @@ final class CurrentTokenIteratorProvider
      * @var BetterTokenIterator
      */
     private $betterTokenIterator;
-    public function setBetterTokenIterator(\Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator) : void
+    /**
+     * @return void
+     */
+    public function setBetterTokenIterator(\Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator)
     {
         $this->betterTokenIterator = $betterTokenIterator;
     }

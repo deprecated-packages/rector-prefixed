@@ -18,7 +18,7 @@ final class MethodCallToPropertyFetchRector extends \Rector\Core\Rector\Abstract
      * @api
      * @var string
      */
-    public const METHOD_CALL_TO_PROPERTY_FETCHES = 'method_call_to_property_fetch_collection';
+    const METHOD_CALL_TO_PROPERTY_FETCHES = 'method_call_to_property_fetch_collection';
     /**
      * @var array<string, string>
      */
@@ -54,8 +54,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->methodCallToPropertyFetchCollection as $methodName => $propertyName) {
             if (!$this->isName($node->name, $methodName)) {
@@ -65,7 +66,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->methodCallToPropertyFetchCollection = $configuration[self::METHOD_CALL_TO_PROPERTY_FETCHES] ?? [];
     }

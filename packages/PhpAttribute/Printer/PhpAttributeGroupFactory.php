@@ -34,8 +34,9 @@ final class PhpAttributeGroupFactory
     /**
      * @param mixed[] $items
      * @return Arg[]
+     * @param string|null $silentKey
      */
-    private function createArgsFromItems(array $items, ?string $silentKey = null) : array
+    private function createArgsFromItems(array $items, $silentKey = null) : array
     {
         $args = [];
         if ($silentKey !== null && isset($items[$silentKey])) {

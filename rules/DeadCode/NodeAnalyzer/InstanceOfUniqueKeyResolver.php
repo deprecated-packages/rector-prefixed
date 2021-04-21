@@ -16,7 +16,10 @@ final class InstanceOfUniqueKeyResolver
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolve(\PhpParser\Node\Expr\Instanceof_ $instanceof) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolve(\PhpParser\Node\Expr\Instanceof_ $instanceof)
     {
         if (!$instanceof->expr instanceof \PhpParser\Node\Expr\Variable) {
             return null;

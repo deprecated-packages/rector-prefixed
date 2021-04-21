@@ -21,7 +21,7 @@ final class UseClassKeywordForClassNameResolutionRector extends \Rector\Core\Rec
      * @var string
      * @see https://regex101.com/r/Vv41Qr/1/
      */
-    private const CLASS_BEFORE_STATIC_ACCESS_REGEX = '#(?<class_name>[\\\\a-zA-Z0-9_\\x80-\\xff]*)::#';
+    const CLASS_BEFORE_STATIC_ACCESS_REGEX = '#(?<class_name>[\\\\a-zA-Z0-9_\\x80-\\xff]*)::#';
     /**
      * @var ReflectionProvider
      */
@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classNames = $this->getExistingClasses($node);
         if ($classNames === []) {

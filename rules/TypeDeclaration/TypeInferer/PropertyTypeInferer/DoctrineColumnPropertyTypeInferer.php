@@ -22,7 +22,7 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
     /**
      * @var string
      */
-    private const DATE_TIME_INTERFACE = 'DateTimeInterface';
+    const DATE_TIME_INTERFACE = 'DateTimeInterface';
     /**
      * @var Type[]
      *

@@ -29,7 +29,7 @@ final class AssignManipulator
     /**
      * @var array<class-string<Expr>>
      */
-    private const MODIFYING_NODE_TYPES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
+    const MODIFYING_NODE_TYPES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
     /**
      * @var NodeNameResolver
      */

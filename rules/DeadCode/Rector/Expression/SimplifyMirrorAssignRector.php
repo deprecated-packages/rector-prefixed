@@ -27,8 +27,9 @@ final class SimplifyMirrorAssignRector extends \Rector\Core\Rector\AbstractRecto
     }
     /**
      * @param Expression $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;

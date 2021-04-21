@@ -90,8 +90,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
             return null;
@@ -123,7 +124,10 @@ CODE_SAMPLE
         $spaceship = new \PhpParser\Node\Expr\BinaryOp\Spaceship($this->secondValue, $this->firstValue);
         return new \PhpParser\Node\Stmt\Return_($spaceship);
     }
-    private function reset() : void
+    /**
+     * @return void
+     */
+    private function reset()
     {
         $this->onEqual = null;
         $this->onSmaller = null;
@@ -131,7 +135,10 @@ CODE_SAMPLE
         $this->firstValue = null;
         $this->secondValue = null;
     }
-    private function matchOnEqualFirstValueAndSecondValue(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @return void
+     */
+    private function matchOnEqualFirstValueAndSecondValue(\PhpParser\Node\Stmt\If_ $if)
     {
         $this->matchOnEqual($if);
         if ($if->else !== null) {
@@ -155,7 +162,10 @@ CODE_SAMPLE
         }
         return $this->nodeComparator->areNodesEqual($binaryOp->left, $secondValue);
     }
-    private function matchOnEqual(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @return void
+     */
+    private function matchOnEqual(\PhpParser\Node\Stmt\If_ $if)
     {
         if (\count($if->stmts) !== 1) {
             return;
@@ -168,7 +178,10 @@ CODE_SAMPLE
             $this->onEqual = $this->valueResolver->getValue($onlyIfStmt->expr);
         }
     }
-    private function processElse(\PhpParser\Node\Stmt\Else_ $else) : void
+    /**
+     * @return void
+     */
+    private function processElse(\PhpParser\Node\Stmt\Else_ $else)
     {
         if (\count($else->stmts) !== 1) {
             return;
@@ -182,7 +195,10 @@ CODE_SAMPLE
             $this->processTernary($returnNode->expr);
         }
     }
-    private function processTernary(\PhpParser\Node\Expr\Ternary $ternary) : void
+    /**
+     * @return void
+     */
+    private function processTernary(\PhpParser\Node\Expr\Ternary $ternary)
     {
         if ($ternary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
             $this->firstValue = $ternary->cond->left;

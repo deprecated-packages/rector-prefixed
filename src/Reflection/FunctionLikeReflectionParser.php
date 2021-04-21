@@ -36,7 +36,10 @@ class FunctionLikeReflectionParser
         $this->nodeFinder = $nodeFinder;
         $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
     }
-    public function parseMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    public function parseMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection)
     {
         $classReflection = $methodReflection->getDeclaringClass();
         $fileName = $classReflection->getFileName();

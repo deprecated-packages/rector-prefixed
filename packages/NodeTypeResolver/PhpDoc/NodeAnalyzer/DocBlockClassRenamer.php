@@ -19,8 +19,9 @@ final class DocBlockClassRenamer
     }
     /**
      * @param OldToNewType[] $oldToNewTypes
+     * @return void
      */
-    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewTypes) : void
+    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewTypes)
     {
         if ($oldToNewTypes === []) {
             return;

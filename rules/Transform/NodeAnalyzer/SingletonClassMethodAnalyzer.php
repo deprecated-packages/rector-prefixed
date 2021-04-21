@@ -45,8 +45,9 @@ final class SingletonClassMethodAnalyzer
      * return static::$instance;
      *
      * Matches "static::$instance" on success
+     * @return \PhpParser\Node\Expr\StaticPropertyFetch|null
      */
-    public function matchStaticPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\StaticPropertyFetch
+    public function matchStaticPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $stmts = (array) $classMethod->stmts;
         if (\count($stmts) !== 2) {
@@ -83,7 +84,10 @@ final class SingletonClassMethodAnalyzer
         /** @var StaticPropertyFetch $staticPropertyFetch */
         return $staticPropertyFetch;
     }
-    private function matchStaticPropertyFetchInIfCond(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\StaticPropertyFetch
+    /**
+     * @return \PhpParser\Node\Expr\StaticPropertyFetch|null
+     */
+    private function matchStaticPropertyFetchInIfCond(\PhpParser\Node\Expr $expr)
     {
         // matching: "self::$static === null"
         if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {

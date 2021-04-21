@@ -63,8 +63,9 @@ CODE_SAMPLE
     }
     /**
      * @param For_|If_|Foreach_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\If_) {
             $this->processIf($node);
@@ -81,7 +82,10 @@ CODE_SAMPLE
         $this->removeNode($node);
         return null;
     }
-    private function processIf(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @return void
+     */
+    private function processIf(\PhpParser\Node\Stmt\If_ $if)
     {
         if ($if->stmts !== []) {
             return;
@@ -97,7 +101,10 @@ CODE_SAMPLE
         }
         $this->removeNode($if);
     }
-    private function processForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
+    /**
+     * @return void
+     */
+    private function processForeach(\PhpParser\Node\Stmt\Foreach_ $foreach)
     {
         if ($foreach->stmts !== []) {
             return;

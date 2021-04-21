@@ -22,7 +22,10 @@ final class MethodReflectionClassMethodResolver
         $this->reflectionProvider = $reflectionProvider;
         $this->methodReflectionToAstResolver = $methodReflectionToAstResolver;
     }
-    public function resolve(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    public function resolve(string $className, string $methodName)
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;

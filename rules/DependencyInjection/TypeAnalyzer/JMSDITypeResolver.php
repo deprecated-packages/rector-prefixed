@@ -67,7 +67,11 @@ final class JMSDITypeResolver
         $this->reportServiceNotFound($serviceName, $property);
         return new \PHPStan\Type\MixedType();
     }
-    private function reportServiceNotFound(?string $serviceName, \PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @param string|null $serviceName
+     * @return void
+     */
+    private function reportServiceNotFound($serviceName, \PhpParser\Node\Stmt\Property $property)
     {
         if ($serviceName !== null) {
             return;

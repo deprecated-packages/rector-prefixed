@@ -62,8 +62,9 @@ CODE_SAMPLE
     }
     /**
      * @param Interface_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->netteControlFactoryInterfaceAnalyzer->isComponentFactoryInterface($node)) {
             return null;

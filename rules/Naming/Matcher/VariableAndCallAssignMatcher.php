@@ -33,7 +33,10 @@ final class VariableAndCallAssignMatcher
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    public function match(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Naming\ValueObject\VariableAndCallAssign
+    /**
+     * @return \Rector\Naming\ValueObject\VariableAndCallAssign|null
+     */
+    public function match(\PhpParser\Node\Expr\Assign $assign)
     {
         $call = $this->callMatcher->matchCall($assign);
         if ($call === null) {
@@ -53,9 +56,9 @@ final class VariableAndCallAssignMatcher
         return new \Rector\Naming\ValueObject\VariableAndCallAssign($assign->var, $call, $assign, $variableName, $functionLike);
     }
     /**
-     * @return ClassMethod|Function_|Closure|null
+     * @return \PhpParser\Node|null
      */
-    private function getFunctionLike(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
+    private function getFunctionLike(\PhpParser\Node\Expr\Assign $assign)
     {
         return $this->betterNodeFinder->findParentTypes($assign, [\PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
     }

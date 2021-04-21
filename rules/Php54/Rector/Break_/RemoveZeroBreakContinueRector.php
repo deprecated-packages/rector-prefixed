@@ -64,8 +64,9 @@ CODE_SAMPLE
     }
     /**
      * @param Break_|Continue_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->num === null) {
             return null;
@@ -88,8 +89,9 @@ CODE_SAMPLE
     }
     /**
      * @param Break_|Continue_ $stmt
+     * @return \PhpParser\Node|null
      */
-    private function processVariableNum(\PhpParser\Node\Stmt $stmt, \PhpParser\Node\Expr\Variable $numVariable) : ?\PhpParser\Node
+    private function processVariableNum(\PhpParser\Node\Stmt $stmt, \PhpParser\Node\Expr\Variable $numVariable)
     {
         $staticType = $this->getStaticType($numVariable);
         if ($staticType instanceof \PHPStan\Type\ConstantType) {

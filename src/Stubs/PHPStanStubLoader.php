@@ -8,11 +8,11 @@ final class PHPStanStubLoader
     /**
      * @var string[]
      */
-    private const STUBS = ['ReflectionUnionType.php', 'Attribute.php'];
+    const STUBS = ['ReflectionUnionType.php', 'Attribute.php'];
     /**
      * @var string[]
      */
-    private const VENDOR_PATHS = [
+    const VENDOR_PATHS = [
         // 1. relative path with composer require rector/rector and run vendor/bin/rector
         'vendor',
         // 2. relative path with composer require rector/rector with symlink run vendor/bin/rector
@@ -29,8 +29,9 @@ final class PHPStanStubLoader
      *
      * Point possible vendor locations by use the __DIR__ as start to locate
      * @see https://github.com/rectorphp/rector/pull/5581 that may not detected in https://getrector.org/ which uses docker to run
+     * @return void
      */
-    public function loadStubs() : void
+    public function loadStubs()
     {
         if ($this->areStubsLoaded) {
             return;

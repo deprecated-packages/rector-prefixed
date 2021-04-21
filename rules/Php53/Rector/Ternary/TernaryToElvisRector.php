@@ -42,8 +42,9 @@ CODE_SAMPLE
     }
     /**
      * @param Ternary $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ELVIS_OPERATOR)) {
             return null;

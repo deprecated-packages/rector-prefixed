@@ -34,28 +34,28 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @var string
      * @see https://regex101.com/r/jUFizd/1
      */
-    private const NEWLINE_END_REGEX = "#\n\$#";
+    const NEWLINE_END_REGEX = "#\n\$#";
     /**
      * @var string
      * @see https://regex101.com/r/F5x783/1
      */
-    private const USE_REGEX = '#( use)\\(#';
+    const USE_REGEX = '#( use)\\(#';
     /**
      * @var string
      * @see https://regex101.com/r/DrsMY4/1
      */
-    private const QUOTED_SLASH_REGEX = "#'|\\\\(?=[\\\\']|\$)#";
+    const QUOTED_SLASH_REGEX = "#'|\\\\(?=[\\\\']|\$)#";
     /**
      * Remove extra spaces before new Nop_ nodes
      * @see https://regex101.com/r/iSvroO/1
      * @var string
      */
-    private const EXTRA_SPACE_BEFORE_NOP_REGEX = '#^[ \\t]+$#m';
+    const EXTRA_SPACE_BEFORE_NOP_REGEX = '#^[ \\t]+$#m';
     /**
      * @see https://regex101.com/r/qZiqGo/4
      * @var string
      */
-    private const REPLACE_COLON_WITH_SPACE_REGEX = '#(function .*?\\(.*?\\)) : #';
+    const REPLACE_COLON_WITH_SPACE_REGEX = '#(function .*?\\(.*?\\)) : #';
     /**
      * Use space by default
      * @var string
@@ -129,8 +129,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * This allows to use both spaces and tabs vs. original space-only
+     * @return void
      */
-    protected function setIndentLevel(int $level) : void
+    protected function setIndentLevel(int $level)
     {
         $level = \max($level, 0);
         $this->indentLevel = $level;
@@ -138,8 +139,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * This allows to use both spaces and tabs vs. original space-only
+     * @return void
      */
-    protected function indent() : void
+    protected function indent()
     {
         $multiplier = $this->tabOrSpaceIndentCharacter === ' ' ? 4 : 1;
         $this->indentLevel += $multiplier;
@@ -147,8 +149,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * This allows to use both spaces and tabs vs. original space-only
+     * @return void
      */
-    protected function outdent() : void
+    protected function outdent()
     {
         if ($this->tabOrSpaceIndentCharacter === ' ') {
             // - 4 spaces
@@ -165,8 +168,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param mixed[] $nodes
      * @param mixed[] $origNodes
      * @param int|null $fixup
+     * @return string|null
      */
-    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup) : ?string
+    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup)
     {
         // reindex positions for printer
         $nodes = \array_values($nodes);
@@ -347,8 +351,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * @param array<Node|null> $nodes
+     * @return void
      */
-    private function moveCommentsFromAttributeObjectToCommentsAttribute(array $nodes) : void
+    private function moveCommentsFromAttributeObjectToCommentsAttribute(array $nodes)
     {
         // move phpdoc from node to "comment" attribute
         foreach ($nodes as $node) {

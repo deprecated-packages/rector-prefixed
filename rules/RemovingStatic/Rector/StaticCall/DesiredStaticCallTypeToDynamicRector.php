@@ -69,8 +69,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             if (!$this->isObjectType($node->class, $staticObjectType)) {

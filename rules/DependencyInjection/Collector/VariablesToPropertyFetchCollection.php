@@ -10,7 +10,10 @@ final class VariablesToPropertyFetchCollection
      * @var Type[]
      */
     private $variableNameAndType = [];
-    public function addVariableNameAndType(string $name, \PHPStan\Type\Type $type) : void
+    /**
+     * @return void
+     */
+    public function addVariableNameAndType(string $name, \PHPStan\Type\Type $type)
     {
         $this->variableNameAndType[$name] = $type;
     }

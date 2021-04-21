@@ -32,8 +32,9 @@ final class DynamicSourceLocatorDecorator
     }
     /**
      * @param string[] $paths
+     * @return void
      */
-    public function addPaths(array $paths) : void
+    public function addPaths(array $paths)
     {
         $files = $this->fileSystemFilter->filterFiles($paths);
         $this->dynamicSourceLocatorProvider->addFiles($files);

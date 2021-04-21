@@ -18,8 +18,9 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     private $phpStanStaticTypeMapper;
     /**
      * @required
+     * @return void
      */
-    public function autowireIntersectionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function autowireIntersectionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -44,8 +45,10 @@ final class IntersectionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     }
     /**
      * @param IntersectionType $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         // intersection types in PHP are not yet supported
         return null;

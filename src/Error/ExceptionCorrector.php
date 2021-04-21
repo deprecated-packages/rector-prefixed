@@ -8,7 +8,10 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Throwable;
 final class ExceptionCorrector
 {
-    public function matchRectorClass(\Throwable $throwable) : ?string
+    /**
+     * @return string|null
+     */
+    public function matchRectorClass(\Throwable $throwable)
     {
         if (!isset($throwable->getTrace()[0])) {
             return null;

@@ -41,8 +41,9 @@ final class SubstrMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
     }
     /**
      * @param Identical|NotIdentical $binaryOp
+     * @return \Rector\Php80\ValueObject\StrStartsWith|null
      */
-    public function match(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\Rector\Php80\ValueObject\StrStartsWith
+    public function match(\PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         $isPositive = $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical;
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($binaryOp->left, 'substr')) {
@@ -59,7 +60,10 @@ final class SubstrMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
         }
         return null;
     }
-    public function refactorStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function refactorStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith)
     {
         $substrFuncCall = $strStartsWith->getFuncCall();
         if (!$this->valueResolver->isValue($substrFuncCall->args[1]->value, 0)) {

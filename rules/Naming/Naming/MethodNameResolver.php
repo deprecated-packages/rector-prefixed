@@ -15,7 +15,10 @@ final class MethodNameResolver
     {
         $this->variableNaming = $variableNaming;
     }
-    public function resolveGetterFromReturnedExpr(\PhpParser\Node\Expr $expr) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveGetterFromReturnedExpr(\PhpParser\Node\Expr $expr)
     {
         $variableName = $this->variableNaming->resolveFromNode($expr);
         if ($variableName === null) {
@@ -23,7 +26,10 @@ final class MethodNameResolver
         }
         return 'get' . \ucfirst($variableName);
     }
-    public function resolveIsserFromReturnedExpr(\PhpParser\Node\Expr $expr) : ?string
+    /**
+     * @return string|null
+     */
+    public function resolveIsserFromReturnedExpr(\PhpParser\Node\Expr $expr)
     {
         $variableName = $this->variableNaming->resolveFromNode($expr);
         if ($variableName === null) {

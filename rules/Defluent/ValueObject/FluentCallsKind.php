@@ -8,9 +8,9 @@ final class FluentCallsKind
     /**
      * @var string
      */
-    public const NORMAL = 'normal';
+    const NORMAL = 'normal';
     /**
      * @var string
      */
-    public const IN_ARGS = 'in_args';
+    const IN_ARGS = 'in_args';
 }

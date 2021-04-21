@@ -32,7 +32,7 @@ final class DateTimeToDateTimeInterfaceRector extends \Rector\Core\Rector\Abstra
     /**
      * @var string[]
      */
-    private const METHODS_RETURNING_CLASS_INSTANCE_MAP = ['add', 'modify', \Rector\Core\ValueObject\MethodName::SET_STATE, 'setDate', 'setISODate', 'setTime', 'setTimestamp', 'setTimezone', 'sub'];
+    const METHODS_RETURNING_CLASS_INSTANCE_MAP = ['add', 'modify', \Rector\Core\ValueObject\MethodName::SET_STATE, 'setDate', 'setISODate', 'setTime', 'setTimestamp', 'setTimezone', 'sub'];
     /**
      * @var PhpDocTypeChanger
      */
@@ -73,8 +73,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::DATE_TIME_INTERFACE)) {
             return null;
@@ -94,7 +95,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorParamTypeHint(\PhpParser\Node\Param $param) : void
+    /**
+     * @return void
+     */
+    private function refactorParamTypeHint(\PhpParser\Node\Param $param)
     {
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified('DateTimeInterface');
         if ($param->type instanceof \PhpParser\Node\NullableType) {
@@ -103,7 +107,10 @@ CODE_SAMPLE
         }
         $param->type = $fullyQualified;
     }
-    private function refactorParamDocBlock(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function refactorParamDocBlock(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $types = [new \PHPStan\Type\ObjectType('DateTime'), new \PHPStan\Type\ObjectType('DateTimeImmutable')];
         if ($param->type instanceof \PhpParser\Node\NullableType) {
@@ -116,19 +123,25 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, new \PHPStan\Type\UnionType($types), $param, $paramName);
     }
-    private function refactorMethodCalls(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function refactorMethodCalls(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($classMethod->stmts === null) {
             return;
         }
-        $this->traverseNodesWithCallable($classMethod->stmts, function (\PhpParser\Node $node) use($param) : void {
+        $this->traverseNodesWithCallable($classMethod->stmts, function (\PhpParser\Node $node) use($param) {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return;
             }
             $this->refactorMethodCall($param, $node);
         });
     }
-    private function refactorMethodCall(\PhpParser\Node\Param $param, \PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @return void
+     */
+    private function refactorMethodCall(\PhpParser\Node\Param $param, \PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $paramName = $this->getName($param->var);
         if ($paramName === null) {

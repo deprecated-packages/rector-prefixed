@@ -37,7 +37,10 @@ final class ArrayManipulator
         }
         return \true;
     }
-    public function addItemToArrayUnderKey(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key) : void
+    /**
+     * @return void
+     */
+    public function addItemToArrayUnderKey(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key)
     {
         foreach ($array->items as $item) {
             if ($item === null) {
@@ -53,7 +56,10 @@ final class ArrayManipulator
         }
         $array->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Array_([$newArrayItem]), new \PhpParser\Node\Scalar\String_($key));
     }
-    public function findItemInInArrayByKeyAndUnset(\PhpParser\Node\Expr\Array_ $array, string $keyName) : ?\PhpParser\Node\Expr\ArrayItem
+    /**
+     * @return \PhpParser\Node\Expr\ArrayItem|null
+     */
+    public function findItemInInArrayByKeyAndUnset(\PhpParser\Node\Expr\Array_ $array, string $keyName)
     {
         foreach ($array->items as $i => $item) {
             if ($item === null) {

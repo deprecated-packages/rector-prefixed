@@ -33,8 +33,9 @@ final class ChildReturnPopulator
     }
     /**
      * Add typehint to all children class methods
+     * @return void
      */
-    public function populateChildren(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $returnType) : void
+    public function populateChildren(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $returnType)
     {
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
@@ -53,7 +54,10 @@ final class ChildReturnPopulator
             $this->addReturnTypeToChildMethod($childClassLike, $classMethod, $returnType);
         }
     }
-    private function addReturnTypeToChildMethod(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $returnType) : void
+    /**
+     * @return void
+     */
+    private function addReturnTypeToChildMethod(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $returnType)
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($methodName);

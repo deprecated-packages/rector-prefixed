@@ -23,7 +23,7 @@ final class RenameAnnotationRector extends \Rector\Core\Rector\AbstractRector im
     /**
      * @var string
      */
-    public const RENAMED_ANNOTATIONS_IN_TYPES = 'renamed_annotations_in_types';
+    const RENAMED_ANNOTATIONS_IN_TYPES = 'renamed_annotations_in_types';
     /**
      * @var RenameAnnotation[]
      */
@@ -71,8 +71,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Property $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -87,7 +88,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);

@@ -96,7 +96,8 @@ final class NonFluentChainMethodCallFactory
     private function createNonFluentMethodCalls(array $chainMethodCalls, \Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, bool $isNewNodeNeeded) : array
     {
         $decoupledMethodCalls = [];
-        $lastKey = \array_key_last($chainMethodCalls);
+        \end($chainMethodCalls);
+        $lastKey = \key($chainMethodCalls);
         foreach ($chainMethodCalls as $key => $chainMethodCall) {
             // skip first, already handled
             if ($key === $lastKey && $assignAndRootExpr->isFirstCallFactory() && $isNewNodeNeeded) {

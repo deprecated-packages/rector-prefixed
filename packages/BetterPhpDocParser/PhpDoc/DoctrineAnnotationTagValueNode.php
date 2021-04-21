@@ -12,13 +12,15 @@ final class DoctrineAnnotationTagValueNode extends \Rector\BetterPhpDocParser\Va
     private $annotationClass;
     /**
      * @param array<mixed, mixed> $values
+     * @param string|null $originalContent
+     * @param string|null $silentKey
      */
     public function __construct(
         // values
         string $annotationClass,
-        ?string $originalContent = null,
+        $originalContent = null,
         array $values = [],
-        ?string $silentKey = null
+        $silentKey = null
     )
     {
         $this->hasChanged = \true;

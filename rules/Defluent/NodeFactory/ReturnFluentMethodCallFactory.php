@@ -32,7 +32,10 @@ final class ReturnFluentMethodCallFactory
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->propertyNaming = $propertyNaming;
     }
-    public function createFromFluentMethodCalls(\Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls) : ?\Rector\Defluent\ValueObject\FirstAssignFluentCall
+    /**
+     * @return \Rector\Defluent\ValueObject\FirstAssignFluentCall|null
+     */
+    public function createFromFluentMethodCalls(\Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls)
     {
         $rootMethodCall = $fluentMethodCalls->getRootMethodCall();
         // this means the 1st method creates different object then it runs on

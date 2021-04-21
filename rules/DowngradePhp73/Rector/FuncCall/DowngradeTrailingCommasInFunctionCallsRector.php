@@ -62,11 +62,13 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->args) {
-            $lastArgumentPosition = \array_key_last($node->args);
+            \end($node->args);
+            $lastArgumentPosition = \key($node->args);
             $last = $node->args[$lastArgumentPosition];
             if (!$this->followedByCommaAnalyzer->isFollowed($this->file, $last)) {
                 return null;

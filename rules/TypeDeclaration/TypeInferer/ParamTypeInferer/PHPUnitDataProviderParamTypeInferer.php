@@ -31,7 +31,7 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
      * @see https://regex101.com/r/hW09Vt/1
      * @var string
      */
-    private const METHOD_NAME_REGEX = '#^(?<method_name>\\w+)(\\(\\))?#';
+    const METHOD_NAME_REGEX = '#^(?<method_name>\\w+)(\\(\\))?#';
     /**
      * @var BetterNodeFinder
      */
@@ -57,8 +57,9 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     /**
      * Prevents circular reference
      * @required
+     * @return void
      */
-    public function autowirePHPUnitDataProviderParamTypeInferer(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowirePHPUnitDataProviderParamTypeInferer(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -81,7 +82,10 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         $yields = $this->betterNodeFinder->findInstanceOf((array) $dataProviderClassMethod->stmts, \PhpParser\Node\Expr\Yield_::class);
         return $this->resolveYieldStaticArrayTypeByParameterPosition($yields, $parameterPosition);
     }
-    private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param)
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
         $phpDocTagNode = $phpDocInfo->getByName('@dataProvider');

@@ -67,14 +67,18 @@ final class ComplexNodeRemover
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->nodeComparator = $nodeComparator;
     }
-    public function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    public function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->classMethodRemover->removeClassMethodAndUsages($classMethod);
     }
     /**
      * @param string[] $classMethodNamesToSkip
+     * @return void
      */
-    public function removePropertyAndUsages(\PhpParser\Node\Stmt\Property $property, array $classMethodNamesToSkip = []) : void
+    public function removePropertyAndUsages(\PhpParser\Node\Stmt\Property $property, array $classMethodNamesToSkip = [])
     {
         $shouldKeepProperty = \false;
         $propertyFetches = $this->propertyFetchFinder->findPrivatePropertyFetches($property);
@@ -129,7 +133,10 @@ final class ComplexNodeRemover
         }
         return $assign;
     }
-    private function removeConstructorDependency(\PhpParser\Node\Expr\Assign $assign) : void
+    /**
+     * @return void
+     */
+    private function removeConstructorDependency(\PhpParser\Node\Expr\Assign $assign)
     {
         $classMethod = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

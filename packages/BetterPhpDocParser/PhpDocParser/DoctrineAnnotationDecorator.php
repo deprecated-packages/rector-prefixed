@@ -48,7 +48,10 @@ final class DoctrineAnnotationDecorator
         $this->tokenIteratorFactory = $tokenIteratorFactory;
         $this->attributeMirrorer = $attributeMirrorer;
     }
-    public function decorate(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
+    /**
+     * @return void
+     */
+    public function decorate(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode)
     {
         $currentPhpNode = $this->currentNodeProvider->getNode();
         if (!$currentPhpNode instanceof \PhpParser\Node) {
@@ -60,8 +63,9 @@ final class DoctrineAnnotationDecorator
     }
     /**
      * Join token iterator with all the following nodes if nested
+     * @return void
      */
-    private function mergeNestedDoctrineAnnotations(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
+    private function mergeNestedDoctrineAnnotations(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode)
     {
         $removedKeys = [];
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {
@@ -117,7 +121,10 @@ final class DoctrineAnnotationDecorator
             unset($phpDocNode->children[$key]);
         }
     }
-    private function transformGenericTagValueNodesToDoctrineAnnotationTagValueNodes(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $currentPhpNode) : void
+    /**
+     * @return void
+     */
+    private function transformGenericTagValueNodesToDoctrineAnnotationTagValueNodes(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $currentPhpNode)
     {
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {

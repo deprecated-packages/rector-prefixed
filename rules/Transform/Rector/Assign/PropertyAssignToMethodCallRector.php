@@ -21,7 +21,7 @@ final class PropertyAssignToMethodCallRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var string
      */
-    public const PROPERTY_ASSIGNS_TO_METHODS_CALLS = 'property_assigns_to_methods_calls';
+    const PROPERTY_ASSIGNS_TO_METHODS_CALLS = 'property_assigns_to_methods_calls';
     /**
      * @var PropertyAssignToMethodCall[]
      */
@@ -47,8 +47,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
@@ -67,7 +68,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $propertyAssignsToMethodCalls = $configuration[self::PROPERTY_ASSIGNS_TO_METHODS_CALLS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($propertyAssignsToMethodCalls, \Rector\Transform\ValueObject\PropertyAssignToMethodCall::class);

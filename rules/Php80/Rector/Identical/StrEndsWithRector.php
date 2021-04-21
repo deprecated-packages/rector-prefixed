@@ -61,16 +61,18 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         return $this->refactorSubstr($node) ?? $this->refactorSubstrCompare($node);
     }
     /**
      * Covers:
      * $isMatch = substr($haystack, -strlen($needle)) === $needle;
+     * @return \PhpParser\Node\Expr\FuncCall|null
      */
-    private function refactorSubstr(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
+    private function refactorSubstr(\PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isName($binaryOp->left, 'substr')) {
             $substrFuncCall = $binaryOp->left;
@@ -88,7 +90,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function refactorSubstrCompare(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
+    /**
+     * @return \PhpParser\Node\Expr\FuncCall|null
+     */
+    private function refactorSubstrCompare(\PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         $funcCallAndExpr = $this->binaryOpAnalyzer->matchFuncCallAndOtherExpr($binaryOp, 'substr_compare');
         if (!$funcCallAndExpr instanceof \Rector\Nette\ValueObject\FuncCallAndExpr) {
@@ -107,7 +112,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);
     }
-    private function matchUnaryMinusStrlenFuncCallArgValue(\PhpParser\Node $node) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchUnaryMinusStrlenFuncCallArgValue(\PhpParser\Node $node)
     {
         if (!$node instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;

@@ -10,19 +10,28 @@ final class AffectedFilesCollector
      * @var File[]
      */
     private $affectedFiles = [];
-    public function addFile(\Rector\Core\ValueObject\Application\File $file) : void
+    /**
+     * @return void
+     */
+    public function addFile(\Rector\Core\ValueObject\Application\File $file)
     {
         $smartFileInfo = $file->getSmartFileInfo();
         $this->affectedFiles[$smartFileInfo->getRealPath()] = $file;
     }
-    public function getNext() : ?\Rector\Core\ValueObject\Application\File
+    /**
+     * @return \Rector\Core\ValueObject\Application\File|null
+     */
+    public function getNext()
     {
         if ($this->affectedFiles !== []) {
             return \current($this->affectedFiles);
         }
         return null;
     }
-    public function removeFromList(\Rector\Core\ValueObject\Application\File $file) : void
+    /**
+     * @return void
+     */
+    public function removeFromList(\Rector\Core\ValueObject\Application\File $file)
     {
         $smartFileInfo = $file->getSmartFileInfo();
         unset($this->affectedFiles[$smartFileInfo->getRealPath()]);

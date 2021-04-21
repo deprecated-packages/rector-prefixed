@@ -18,7 +18,10 @@ final class ClassMethodReflectionFactory
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function createFromPHPStanTypeAndMethodName(\PHPStan\Type\Type $type, string $methodName) : ?\ReflectionMethod
+    /**
+     * @return \ReflectionMethod|null
+     */
+    public function createFromPHPStanTypeAndMethodName(\PHPStan\Type\Type $type, string $methodName)
     {
         if ($type instanceof \PHPStan\Type\ThisType) {
             $type = $type->getStaticObjectType();
@@ -28,7 +31,10 @@ final class ClassMethodReflectionFactory
         }
         return $this->createReflectionMethodIfExists($type, $methodName);
     }
-    public function createReflectionMethodIfExists(\PHPStan\Type\TypeWithClassName $typeWithClassName, string $method) : ?\ReflectionMethod
+    /**
+     * @return \ReflectionMethod|null
+     */
+    public function createReflectionMethodIfExists(\PHPStan\Type\TypeWithClassName $typeWithClassName, string $method)
     {
         if (!$this->reflectionProvider->hasClass($typeWithClassName->getClassName())) {
             return null;

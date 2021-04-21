@@ -43,7 +43,10 @@ final class UseManipulator
         $this->resolveTraitUseNames($node);
         return $this->resolvedNodeNames;
     }
-    private function resolveUsedNames(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    private function resolveUsedNames(\PhpParser\Node $node)
     {
         /** @var Name[] $namedNodes */
         $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Name::class);
@@ -60,7 +63,10 @@ final class UseManipulator
             $this->resolvedNodeNames[$originalName->toString()][] = new \Rector\CodingStyle\ValueObject\NameAndParent($namedNode, $parentNode);
         }
     }
-    private function resolveUsedClassNames(\PhpParser\Node $searchNode) : void
+    /**
+     * @return void
+     */
+    private function resolveUsedClassNames(\PhpParser\Node $searchNode)
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes([$searchNode]);
@@ -76,7 +82,10 @@ final class UseManipulator
             $this->resolvedNodeNames[$name][] = new \Rector\CodingStyle\ValueObject\NameAndParent($classLikeName, $classLike);
         }
     }
-    private function resolveTraitUseNames(\PhpParser\Node $searchNode) : void
+    /**
+     * @return void
+     */
+    private function resolveTraitUseNames(\PhpParser\Node $searchNode)
     {
         /** @var Identifier[] $identifiers */
         $identifiers = $this->betterNodeFinder->findInstanceOf($searchNode, \PhpParser\Node\Identifier::class);

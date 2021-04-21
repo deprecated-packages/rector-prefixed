@@ -23,9 +23,9 @@ final class CommentRemover
     }
     /**
      * @param Node[]|Node|null $node
-     * @return Node[]|null
+     * @return mixed[]|null
      */
-    public function removeFromNode($node) : ?array
+    public function removeFromNode($node)
     {
         if ($node === null) {
             return null;
@@ -34,7 +34,10 @@ final class CommentRemover
         $nodes = \is_array($copiedNodes) ? $copiedNodes : [$copiedNodes];
         return $this->commentRemovingNodeTraverser->traverse($nodes);
     }
-    public function rollbackComments(\PhpParser\Node $node, \PhpParser\Comment $comment) : void
+    /**
+     * @return void
+     */
+    public function rollbackComments(\PhpParser\Node $node, \PhpParser\Comment $comment)
     {
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         $node->setDocComment(new \PhpParser\Comment\Doc($comment->getText()));

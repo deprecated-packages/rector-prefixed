@@ -19,7 +19,7 @@ final class SideEffectNodeDetector
     /**
      * @var array<class-string<Expr>>
      */
-    private const SIDE_EFFECT_NODE_TYPES = [\PhpParser\Node\Scalar\Encapsed::class, \PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\PropertyFetch::class];
+    const SIDE_EFFECT_NODE_TYPES = [\PhpParser\Node\Scalar\Encapsed::class, \PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\PropertyFetch::class];
     /**
      * @var PureFunctionDetector
      */
@@ -57,7 +57,10 @@ final class SideEffectNodeDetector
         }
         return \true;
     }
-    private function resolveVariable(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @return \PhpParser\Node\Expr\Variable|null
+     */
+    private function resolveVariable(\PhpParser\Node\Expr $expr)
     {
         while ($expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             $expr = $expr->var;

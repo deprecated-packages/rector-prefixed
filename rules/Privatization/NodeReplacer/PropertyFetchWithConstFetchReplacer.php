@@ -44,7 +44,10 @@ final class PropertyFetchWithConstFetchReplacer
         $this->constantNaming = $constantNaming;
         $this->nodeFactory = $nodeFactory;
     }
-    public function replace(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : void
+    /**
+     * @return void
+     */
+    public function replace(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property)
     {
         $propertyProperty = $property->props[0];
         $propertyName = $this->nodeNameResolver->getName($property);

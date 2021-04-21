@@ -48,8 +48,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node, 'array_key_exists')) {
             return null;

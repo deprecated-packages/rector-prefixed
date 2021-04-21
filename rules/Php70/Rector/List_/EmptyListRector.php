@@ -35,8 +35,9 @@ CODE_SAMPLE
     }
     /**
      * @param List_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($node->items as $item) {
             if ($item !== null) {

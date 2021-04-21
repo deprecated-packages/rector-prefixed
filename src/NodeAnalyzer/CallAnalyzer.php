@@ -14,7 +14,7 @@ final class CallAnalyzer
     /**
      * @var array<class-string<Expr>>
      */
-    private const OBJECT_CALL_TYPES = [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
+    const OBJECT_CALL_TYPES = [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     public function isObjectCall(\PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {

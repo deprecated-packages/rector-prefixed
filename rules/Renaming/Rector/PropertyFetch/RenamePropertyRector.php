@@ -20,7 +20,7 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const RENAMED_PROPERTIES = 'old_to_new_property_by_types';
+    const RENAMED_PROPERTIES = 'old_to_new_property_by_types';
     /**
      * @var RenameProperty[]
      */
@@ -38,8 +38,9 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
     }
     /**
      * @param PropertyFetch $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->renamedProperties as $renamedProperty) {
             if (!$this->isObjectType($node->var, $renamedProperty->getObjectType())) {
@@ -53,7 +54,10 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \Rector\Renaming\ValueObject\RenameProperty::class);

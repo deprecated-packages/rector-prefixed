@@ -21,7 +21,7 @@ final class RemoveTraitRector extends \Rector\Core\Rector\AbstractRector impleme
     /**
      * @var string
      */
-    public const TRAITS_TO_REMOVE = 'traits_to_remove';
+    const TRAITS_TO_REMOVE = 'traits_to_remove';
     /**
      * @var bool
      */
@@ -62,8 +62,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Trait_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $usedTraits = $this->classManipulator->getUsedTraits($node);
         if ($usedTraits === []) {
@@ -78,14 +79,18 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->traitsToRemove = $configuration[self::TRAITS_TO_REMOVE] ?? [];
     }
     /**
      * @param Name[] $usedTraits
+     * @return void
      */
-    private function removeTraits(array $usedTraits) : void
+    private function removeTraits(array $usedTraits)
     {
         foreach ($usedTraits as $usedTrait) {
             foreach ($this->traitsToRemove as $traitToRemove) {

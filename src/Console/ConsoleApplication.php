@@ -22,7 +22,7 @@ final class ConsoleApplication extends \RectorPrefix20210421\Symfony\Component\C
     /**
      * @var string
      */
-    private const NAME = 'Rector';
+    const NAME = 'Rector';
     /**
      * @param Command[] $commands
      */
@@ -100,13 +100,19 @@ final class ConsoleApplication extends \RectorPrefix20210421\Symfony\Component\C
         $outputFormat = $input->getParameterOption(['-o', '--output-format']);
         return $outputFormat === \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
-    private function removeUnusedOptions(\RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
+    /**
+     * @return void
+     */
+    private function removeUnusedOptions(\RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition $inputDefinition)
     {
         $options = $inputDefinition->getOptions();
         unset($options['quiet'], $options['no-interaction']);
         $inputDefinition->setOptions($options);
     }
-    private function addCustomOptions(\RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
+    /**
+     * @return void
+     */
+    private function addCustomOptions(\RectorPrefix20210421\Symfony\Component\Console\Input\InputDefinition $inputDefinition)
     {
         $inputDefinition->addOption(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_CONFIG, 'c', \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file', $this->getDefaultConfigPath()));
         $inputDefinition->addOption(new \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_DEBUG, null, \RectorPrefix20210421\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Enable debug verbosity (-vvv)'));

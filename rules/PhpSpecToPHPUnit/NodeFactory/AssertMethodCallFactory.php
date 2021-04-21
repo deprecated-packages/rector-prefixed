@@ -35,7 +35,10 @@ final class AssertMethodCallFactory
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
     }
-    public function createAssertMethod(string $name, \PhpParser\Node\Expr $value, ?\PhpParser\Node\Expr $expected, \PhpParser\Node\Expr\PropertyFetch $testedObjectPropertyFetch) : \PhpParser\Node\Expr\MethodCall
+    /**
+     * @param \PhpParser\Node\Expr|null $expected
+     */
+    public function createAssertMethod(string $name, \PhpParser\Node\Expr $value, $expected, \PhpParser\Node\Expr\PropertyFetch $testedObjectPropertyFetch) : \PhpParser\Node\Expr\MethodCall
     {
         $this->isBoolAssert = \false;
         // special case with bool!

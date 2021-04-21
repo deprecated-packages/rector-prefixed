@@ -35,7 +35,7 @@ final class CountOnNullRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const ALREADY_CHANGED_ON_COUNT = 'already_changed_on_count';
+    const ALREADY_CHANGED_ON_COUNT = 'already_changed_on_count';
     /**
      * @var CountableTypeAnalyzer
      */
@@ -70,8 +70,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;

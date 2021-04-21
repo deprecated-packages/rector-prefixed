@@ -92,8 +92,9 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
     }
     /**
      * @param Yield_|YieldFrom $yieldExpr
+     * @return \PhpParser\Node\Expr|null
      */
-    private function resolveYieldValue(\PhpParser\Node\Expr $yieldExpr) : ?\PhpParser\Node\Expr
+    private function resolveYieldValue(\PhpParser\Node\Expr $yieldExpr)
     {
         if ($yieldExpr instanceof \PhpParser\Node\Expr\Yield_) {
             return $yieldExpr->value;

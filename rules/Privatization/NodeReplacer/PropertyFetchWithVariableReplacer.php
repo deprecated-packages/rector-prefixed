@@ -27,8 +27,9 @@ final class PropertyFetchWithVariableReplacer
     }
     /**
      * @param array<string, string[]> $methodsByPropertyName
+     * @return void
      */
-    public function replacePropertyFetchesByVariable(\PhpParser\Node\Stmt\Class_ $class, array $methodsByPropertyName) : void
+    public function replacePropertyFetchesByVariable(\PhpParser\Node\Stmt\Class_ $class, array $methodsByPropertyName)
     {
         foreach ($methodsByPropertyName as $propertyName => $methodNames) {
             $methodName = $methodNames[0];

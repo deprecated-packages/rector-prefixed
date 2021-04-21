@@ -27,8 +27,10 @@ final class ResourceTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param ResourceType $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return null;
     }

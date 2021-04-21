@@ -22,7 +22,11 @@ final class RectorError
      * @var string|null
      */
     private $rectorClass;
-    public function __construct(string $message, ?int $line = null, ?string $rectorClass = null)
+    /**
+     * @param int|null $line
+     * @param string|null $rectorClass
+     */
+    public function __construct(string $message, $line = null, $rectorClass = null)
     {
         $this->message = $message;
         $this->line = $line;
@@ -40,11 +44,17 @@ final class RectorError
     {
         return $this->message;
     }
-    public function getLine() : ?int
+    /**
+     * @return int|null
+     */
+    public function getLine()
     {
         return $this->line;
     }
-    public function getRectorClass() : ?string
+    /**
+     * @return string|null
+     */
+    public function getRectorClass()
     {
         return $this->rectorClass;
     }

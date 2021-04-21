@@ -28,36 +28,36 @@ final class PhpDocInfoPrinter
      * @var string
      * @see https://regex101.com/r/Ab0Vey/1
      */
-    public const CLOSING_DOCBLOCK_REGEX = '#\\*\\/(\\s+)?$#';
+    const CLOSING_DOCBLOCK_REGEX = '#\\*\\/(\\s+)?$#';
     /**
      * @var string
      * @see https://regex101.com/r/Jzqzpw/1
      */
-    private const MISSING_NEWLINE_REGEX = '#([^\\s])\\*/$#';
+    const MISSING_NEWLINE_REGEX = '#([^\\s])\\*/$#';
     /**
      * @var string
      * @see https://regex101.com/r/mVmOCY/2
      */
-    private const OPENING_DOCBLOCK_REGEX = '#^(/\\*\\*)#';
+    const OPENING_DOCBLOCK_REGEX = '#^(/\\*\\*)#';
     /**
      * @var string
      * @see https://regex101.com/r/5fJyws/1
      */
-    private const CALLABLE_REGEX = '#callable(\\s+)\\(#';
+    const CALLABLE_REGEX = '#callable(\\s+)\\(#';
     /**
      * @var string
      * @see https://regex101.com/r/LLWiPl/1
      */
-    private const DOCBLOCK_START_REGEX = '#^(\\/\\/|\\/\\*\\*|\\/\\*|\\#)#';
+    const DOCBLOCK_START_REGEX = '#^(\\/\\/|\\/\\*\\*|\\/\\*|\\#)#';
     /**
      * @var string
      */
-    private const NEWLINE_WITH_ASTERISK = \PHP_EOL . ' * ';
+    const NEWLINE_WITH_ASTERISK = \PHP_EOL . ' * ';
     /**
      * @see https://regex101.com/r/WR3goY/1/
      * @var string
      */
-    private const TAG_AND_SPACE_REGEX = '#(@.*?) \\(#';
+    const TAG_AND_SPACE_REGEX = '#(@.*?) \\(#';
     /**
      * @var int
      */
@@ -245,7 +245,10 @@ final class PhpDocInfoPrinter
         }
         return $output;
     }
-    private function correctPreviouslyReprintedFirstNode(int $key, \Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd) : void
+    /**
+     * @return void
+     */
+    private function correctPreviouslyReprintedFirstNode(int $key, \Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd)
     {
         if ($this->currentTokenPosition !== 0) {
             return;

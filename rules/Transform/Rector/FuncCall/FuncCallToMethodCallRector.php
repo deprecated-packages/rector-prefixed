@@ -23,7 +23,7 @@ final class FuncCallToMethodCallRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    public const FUNC_CALL_TO_CLASS_METHOD_CALL = 'function_to_class_to_method_call';
+    const FUNC_CALL_TO_CLASS_METHOD_CALL = 'function_to_class_to_method_call';
     /**
      * @var FuncCallToMethodCall[]
      */
@@ -77,8 +77,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -102,8 +103,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncCallToMethodCall::class);

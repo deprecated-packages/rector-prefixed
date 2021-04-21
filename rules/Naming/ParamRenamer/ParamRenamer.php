@@ -22,7 +22,10 @@ final class ParamRenamer
         $this->variableRenamer = $variableRenamer;
         $this->propertyDocBlockManipulator = $propertyDocBlockManipulator;
     }
-    public function rename(\Rector\Naming\ValueObject\ParamRename $paramRename) : void
+    /**
+     * @return void
+     */
+    public function rename(\Rector\Naming\ValueObject\ParamRename $paramRename)
     {
         // 1. rename param
         $paramRename->getVariable()->name = $paramRename->getExpectedName();

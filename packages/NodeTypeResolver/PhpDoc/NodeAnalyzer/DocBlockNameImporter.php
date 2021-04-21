@@ -17,7 +17,10 @@ final class DocBlockNameImporter
     {
         $this->nameImportingPhpDocNodeVisitor = $nameImportingPhpDocNodeVisitor;
     }
-    public function importNames(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function importNames(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \PhpParser\Node $node)
     {
         if ($phpDocNode->children === []) {
             return;

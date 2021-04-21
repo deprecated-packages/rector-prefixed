@@ -21,7 +21,7 @@ final class ReplaceStringWithClassConstantRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    public const REPLACE_STRING_WITH_CLASS_CONSTANT = 'replace_string_with_class_constant';
+    const REPLACE_STRING_WITH_CLASS_CONSTANT = 'replace_string_with_class_constant';
     /**
      * @var ReplaceStringWithClassConstant[]
      */
@@ -65,8 +65,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->args === []) {
             return null;
@@ -91,12 +92,16 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->replaceStringWithClassConstants = $configuration[self::REPLACE_STRING_WITH_CLASS_CONSTANT] ?? [];
     }
-    private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant) : ?\PhpParser\Node\Arg
+    /**
+     * @return \PhpParser\Node\Arg|null
+     */
+    private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant $replaceStringWithClassConstant)
     {
         if (!$this->isObjectType($methodCall->var, $replaceStringWithClassConstant->getObjectType())) {
             return null;

@@ -83,8 +83,9 @@ CODE_SAMPLE
     }
     /**
      * @param Array_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->shouldRefactor($node)) {
             return null;

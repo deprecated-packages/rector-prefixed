@@ -27,20 +27,20 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
     /**
      * @var string
      */
-    public const TYPES = 'types';
+    const TYPES = 'types';
     /**
      * @var string
      */
-    public const SUFFIXES = 'suffixes';
+    const SUFFIXES = 'suffixes';
     /**
      * @api
      * @var string
      */
-    public const ENABLE_VALUE_OBJECT_GUESSING = 'enable_value_object_guessing';
+    const ENABLE_VALUE_OBJECT_GUESSING = 'enable_value_object_guessing';
     /**
      * @var string[]|class-string<Controller>[]
      */
-    private const COMMON_SERVICE_SUFFIXES = ['Repository', 'Command', 'Mapper', 'Controller', 'Presenter', 'Factory', 'Test', 'TestCase', 'Service'];
+    const COMMON_SERVICE_SUFFIXES = ['Repository', 'Command', 'Mapper', 'Controller', 'Presenter', 'Factory', 'Test', 'TestCase', 'Service'];
     /**
      * @var bool
      */
@@ -113,8 +113,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isValueObjectMatch($node)) {
             return null;
@@ -130,8 +131,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->types = $configuration[self::TYPES] ?? [];
         $this->suffixes = $configuration[self::SUFFIXES] ?? [];

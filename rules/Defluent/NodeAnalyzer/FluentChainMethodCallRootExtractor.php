@@ -61,8 +61,9 @@ final class FluentChainMethodCallRootExtractor
     }
     /**
      * @param MethodCall[] $methodCalls
+     * @return \Rector\Defluent\ValueObject\AssignAndRootExpr|null
      */
-    public function extractFromMethodCalls(array $methodCalls, string $kind) : ?\Rector\Defluent\ValueObject\AssignAndRootExpr
+    public function extractFromMethodCalls(array $methodCalls, string $kind)
     {
         // we need at least 2 method call for fluent
         if (\count($methodCalls) < 2) {
@@ -130,7 +131,10 @@ final class FluentChainMethodCallRootExtractor
         $silentVariable = new \PhpParser\Node\Expr\Variable($variableName);
         return new \Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $silentVariable);
     }
-    private function matchMethodCallOnNew(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\Defluent\ValueObject\AssignAndRootExpr
+    /**
+     * @return \Rector\Defluent\ValueObject\AssignAndRootExpr|null
+     */
+    private function matchMethodCallOnNew(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         // we need assigned left variable here
         $previousAssignOrReturn = $this->betterNodeFinder->findFirstPreviousOfTypes($methodCall->var, [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Stmt\Return_::class]);

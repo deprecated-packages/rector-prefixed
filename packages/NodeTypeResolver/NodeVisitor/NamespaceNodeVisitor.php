@@ -25,9 +25,9 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
     }
     /**
      * @param Node[] $nodes
-     * @return Node[]|null
+     * @return mixed[]|null
      */
-    public function beforeTraverse(array $nodes) : ?array
+    public function beforeTraverse(array $nodes)
     {
         // init basic use nodes for non-namespaced code
         /** @var Use_[] $uses */
@@ -35,7 +35,10 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
         $this->useNodes = $uses;
         return null;
     }
-    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function enterNode(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             /** @var Use_[] $uses */

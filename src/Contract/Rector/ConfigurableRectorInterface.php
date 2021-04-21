@@ -8,6 +8,7 @@ interface ConfigurableRectorInterface extends \Symplify\RuleDocGenerator\Contrac
 {
     /**
      * @param array<string, mixed> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void;
+    public function configure(array $configuration);
 }

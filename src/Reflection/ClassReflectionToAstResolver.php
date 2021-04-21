@@ -36,7 +36,10 @@ final class ClassReflectionToAstResolver
         $this->betterNodeFinder = $betterNodeFinder;
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Stmt\Class_
+    /**
+     * @return \PhpParser\Node\Stmt\Class_|null
+     */
+    public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType)
     {
         if (!$this->reflectionProvider->hasClass($objectType->getClassName())) {
             return null;
@@ -44,7 +47,10 @@ final class ClassReflectionToAstResolver
         $classReflection = $this->reflectionProvider->getClass($objectType->getClassName());
         return $this->getClass($classReflection, $objectType->getClassName());
     }
-    private function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
+    /**
+     * @return \PhpParser\Node\Stmt\Class_|null
+     */
+    private function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className)
     {
         if ($classReflection->isBuiltin()) {
             return null;

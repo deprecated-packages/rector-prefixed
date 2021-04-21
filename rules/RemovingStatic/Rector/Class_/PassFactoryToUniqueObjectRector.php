@@ -28,7 +28,7 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
      * @api
      * @var string
      */
-    public const TYPES_TO_SERVICES = 'types_to_services';
+    const TYPES_TO_SERVICES = 'types_to_services';
     /**
      * @var ObjectType[]
      */
@@ -141,8 +141,9 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->refactorClass($node);
@@ -160,8 +161,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
         foreach ($typesToServices as $typeToService) {

@@ -21,7 +21,7 @@ final class AddInterfaceByParentRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    public const INTERFACE_BY_PARENT = 'interface_by_parent';
+    const INTERFACE_BY_PARENT = 'interface_by_parent';
     /**
      * @var array<string, string>
      */
@@ -51,8 +51,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         /** @var Scope $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -79,8 +80,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $this->interfaceByParent = $configuration[self::INTERFACE_BY_PARENT] ?? [];
     }

@@ -90,8 +90,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
@@ -106,7 +107,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->processGetPresenterGetSessionMethodCall($classMethod);
         $classMethod->name = new \PhpParser\Node\Identifier('action');
@@ -120,7 +124,10 @@ CODE_SAMPLE
         }
         $this->removeNodes($classMethodRender->getNodesToRemove());
     }
-    private function processGetPresenterGetSessionMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function processGetPresenterGetSessionMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) : ?MethodCall {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {

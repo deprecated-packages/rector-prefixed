@@ -19,11 +19,17 @@ final class ConcatExpressionJoinData
      * @var Expr[]
      */
     private $placeholdersToNodes = [];
-    public function addString(string $value) : void
+    /**
+     * @return void
+     */
+    public function addString(string $value)
     {
         $this->values[] = $value;
     }
-    public function addNodeToRemove(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function addNodeToRemove(\PhpParser\Node $node)
     {
         $this->nodesToRemove[] = $node;
     }
@@ -38,7 +44,10 @@ final class ConcatExpressionJoinData
     {
         return $this->nodesToRemove;
     }
-    public function addPlaceholderToNode(string $objectHash, \PhpParser\Node\Expr $expr) : void
+    /**
+     * @return void
+     */
+    public function addPlaceholderToNode(string $objectHash, \PhpParser\Node\Expr $expr)
     {
         $this->placeholdersToNodes[$objectHash] = $expr;
     }

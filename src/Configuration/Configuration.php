@@ -70,8 +70,9 @@ final class Configuration
     }
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
+     * @return void
      */
-    public function resolveFromInput(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function resolveFromInput(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input)
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -96,8 +97,9 @@ final class Configuration
     }
     /**
      * @forTests
+     * @return void
      */
-    public function setIsDryRun(bool $isDryRun) : void
+    public function setIsDryRun(bool $isDryRun)
     {
         $this->isDryRun = $isDryRun;
     }
@@ -112,7 +114,10 @@ final class Configuration
         }
         return $this->showProgressBar;
     }
-    public function getOutputFile() : ?string
+    /**
+     * @return string|null
+     */
+    public function getOutputFile()
     {
         return $this->outputFile;
     }
@@ -146,7 +151,10 @@ final class Configuration
     {
         return $this->outputFormat;
     }
-    public function validateConfigParameters() : void
+    /**
+     * @return void
+     */
+    public function validateConfigParameters()
     {
         $symfonyContainerXmlPath = (string) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER);
         if ($symfonyContainerXmlPath === '') {
@@ -166,11 +174,17 @@ final class Configuration
     {
         return $this->showDiffs;
     }
-    public function setBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : void
+    /**
+     * @return void
+     */
+    public function setBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
     {
         $this->bootstrapConfigs = $bootstrapConfigs;
     }
-    public function getMainConfigFilePath() : ?string
+    /**
+     * @return string|null
+     */
+    public function getMainConfigFilePath()
     {
         if ($this->bootstrapConfigs === null) {
             return null;
@@ -190,7 +204,11 @@ final class Configuration
         $optionOutputFormat = $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
         return $optionOutputFormat === \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
-    private function sanitizeOutputFileValue(?string $outputFileOption) : ?string
+    /**
+     * @param string|null $outputFileOption
+     * @return string|null
+     */
+    private function sanitizeOutputFileValue($outputFileOption)
     {
         if ($outputFileOption === '') {
             return null;

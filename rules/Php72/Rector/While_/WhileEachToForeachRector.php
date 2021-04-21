@@ -62,8 +62,9 @@ CODE_SAMPLE
     }
     /**
      * @param While_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\Assign) {
             return null;

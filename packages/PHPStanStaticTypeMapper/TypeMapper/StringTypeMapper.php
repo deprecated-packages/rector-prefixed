@@ -36,7 +36,11 @@ final class StringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     {
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string');
     }
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    /**
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
+     */
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;

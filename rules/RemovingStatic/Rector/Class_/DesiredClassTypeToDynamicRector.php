@@ -109,8 +109,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->staticObjectTypes as $staticObjectType) {
             // do not any dependencies to class itself
@@ -126,7 +127,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : void
+    /**
+     * @return void
+     */
+    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType)
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

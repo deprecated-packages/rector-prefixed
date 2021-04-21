@@ -52,8 +52,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isObjectType($node->var, new \PHPStan\Type\ObjectType('PHPExcel_Style_Conditional'))) {
             return null;
@@ -65,7 +66,10 @@ CODE_SAMPLE
         $this->castArgumentToArrayIfNotArrayType($node);
         return $node;
     }
-    private function castArgumentToArrayIfNotArrayType(\PhpParser\Node\Expr\MethodCall $methodCall) : void
+    /**
+     * @return void
+     */
+    private function castArgumentToArrayIfNotArrayType(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $firstArgumentValue = $methodCall->args[0]->value;
         $firstArgumentStaticType = $this->getStaticType($firstArgumentValue);

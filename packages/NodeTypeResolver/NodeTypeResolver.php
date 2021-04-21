@@ -100,8 +100,9 @@ final class NodeTypeResolver
      * Prevents circular dependency
      *
      * @required
+     * @return void
      */
-    public function autowireNodeTypeResolver(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer) : void
+    public function autowireNodeTypeResolver(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
     }
@@ -312,7 +313,10 @@ final class NodeTypeResolver
         }
         return $this->isObjectType($classLike, $objectType);
     }
-    public function resolveObjectTypeFromScope(\PHPStan\Analyser\Scope $scope) : ?\PHPStan\Type\ObjectType
+    /**
+     * @return \PHPStan\Type\ObjectType|null
+     */
+    public function resolveObjectTypeFromScope(\PHPStan\Analyser\Scope $scope)
     {
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
@@ -324,7 +328,10 @@ final class NodeTypeResolver
         }
         return new \PHPStan\Type\ObjectType($className, null, $classReflection);
     }
-    private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver) : void
+    /**
+     * @return void
+     */
+    private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver)
     {
         foreach ($nodeTypeResolver->getNodeClasses() as $nodeClass) {
             $this->nodeTypeResolvers[$nodeClass] = $nodeTypeResolver;
@@ -351,7 +358,10 @@ final class NodeTypeResolver
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
     }
-    private function resolveByNodeTypeResolvers(\PhpParser\Node $node) : ?\PHPStan\Type\Type
+    /**
+     * @return \PHPStan\Type\Type|null
+     */
+    private function resolveByNodeTypeResolvers(\PhpParser\Node $node)
     {
         foreach ($this->nodeTypeResolvers as $nodeClass => $nodeTypeResolver) {
             if (!\is_a($node, $nodeClass)) {

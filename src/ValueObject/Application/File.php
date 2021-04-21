@@ -67,7 +67,10 @@ final class File
     {
         return $this->fileContent;
     }
-    public function changeFileContent(string $newFileContent) : void
+    /**
+     * @return void
+     */
+    public function changeFileContent(string $newFileContent)
     {
         if ($this->fileContent === $newFileContent) {
             return;
@@ -83,11 +86,17 @@ final class File
     {
         return $this->hasChanged;
     }
-    public function setFileDiff(\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff) : void
+    /**
+     * @return void
+     */
+    public function setFileDiff(\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff)
     {
         $this->fileDiff = $fileDiff;
     }
-    public function getFileDiff() : ?\Rector\Core\ValueObject\Reporting\FileDiff
+    /**
+     * @return \Rector\Core\ValueObject\Reporting\FileDiff|null
+     */
+    public function getFileDiff()
     {
         return $this->fileDiff;
     }
@@ -95,8 +104,9 @@ final class File
      * @param Stmt[] $newStmts
      * @param Stmt[] $oldStmts
      * @param mixed[] $oldTokens
+     * @return void
      */
-    public function hydrateStmtsAndTokens(array $newStmts, array $oldStmts, array $oldTokens) : void
+    public function hydrateStmtsAndTokens(array $newStmts, array $oldStmts, array $oldTokens)
     {
         if ($this->oldStmts !== []) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Double stmts override');
@@ -128,12 +138,16 @@ final class File
     }
     /**
      * @param Stmt[] $newStmts
+     * @return void
      */
-    public function changeNewStmts(array $newStmts) : void
+    public function changeNewStmts(array $newStmts)
     {
         $this->newStmts = $newStmts;
     }
-    public function addRectorClassWithLine(\Rector\ChangesReporting\ValueObject\RectorWithLineChange $rectorWithLineChange) : void
+    /**
+     * @return void
+     */
+    public function addRectorClassWithLine(\Rector\ChangesReporting\ValueObject\RectorWithLineChange $rectorWithLineChange)
     {
         $this->rectorWithLineChanges[] = $rectorWithLineChange;
     }
@@ -144,7 +158,10 @@ final class File
     {
         return $this->rectorWithLineChanges;
     }
-    public function addRectorError(\Rector\Core\ValueObject\Application\RectorError $rectorError) : void
+    /**
+     * @return void
+     */
+    public function addRectorError(\Rector\Core\ValueObject\Application\RectorError $rectorError)
     {
         $this->rectorErrors[] = $rectorError;
     }

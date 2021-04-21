@@ -18,7 +18,10 @@ final class RenamedClassesCollector
     {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
-    public function addClassRename(string $oldClass, string $newClass) : void
+    /**
+     * @return void
+     */
+    public function addClassRename(string $oldClass, string $newClass)
     {
         $this->oldToNewClass[$oldClass] = $newClass;
     }

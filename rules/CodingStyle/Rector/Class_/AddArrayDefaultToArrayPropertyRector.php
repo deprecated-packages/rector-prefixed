@@ -81,8 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $changedProperties = $this->collectPropertyNamesWithMissingDefaultArray($node);
         if ($changedProperties === []) {
@@ -119,8 +120,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
+     * @return void
      */
-    private function completeDefaultArrayToPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
+    private function completeDefaultArrayToPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $class) use($propertyNames) : ?PropertyProperty {
             if (!$class instanceof \PhpParser\Node\Stmt\PropertyProperty) {
@@ -135,8 +137,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
+     * @return void
      */
-    private function clearNotNullBeforeCount(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
+    private function clearNotNullBeforeCount(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?Expr {
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
@@ -169,8 +172,9 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $propertyNames
+     * @return void
      */
-    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames) : void
+    private function replaceNullComparisonOfArrayPropertiesWithArrayComparison(\PhpParser\Node\Stmt\Class_ $class, array $propertyNames)
     {
         // replace comparison to "null" with "[]"
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($propertyNames) : ?BinaryOp {

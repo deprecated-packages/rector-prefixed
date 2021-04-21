@@ -51,8 +51,9 @@ CODE_SAMPLE
     }
     /**
      * @param TryCatch $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (\count($node->catches) !== 1) {
             return null;

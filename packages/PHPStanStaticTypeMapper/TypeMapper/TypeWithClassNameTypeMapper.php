@@ -35,8 +35,10 @@ final class TypeWithClassNameTypeMapper implements \Rector\PHPStanStaticTypeMapp
     }
     /**
      * @param TypeWithClassName $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return $this->stringTypeMapper->mapToPhpParserNode($type, $kind);
     }

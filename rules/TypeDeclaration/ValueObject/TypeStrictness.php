@@ -11,9 +11,9 @@ final class TypeStrictness
     /**
      * @var string
      */
-    public const STRICTNESS_TYPE_DECLARATION = 'type_declaration';
+    const STRICTNESS_TYPE_DECLARATION = 'type_declaration';
     /**
      * @var string
      */
-    public const STRICTNESS_DOCBLOCK = 'docblock';
+    const STRICTNESS_DOCBLOCK = 'docblock';
 }

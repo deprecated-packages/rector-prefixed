@@ -18,7 +18,7 @@ final class DowngradeFlexibleHeredocSyntaxRector extends \Rector\Core\Rector\Abs
     /**
      * @var int[]
      */
-    private const HERENOW_DOC_KINDS = [\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \PhpParser\Node\Scalar\String_::KIND_NOWDOC];
+    const HERENOW_DOC_KINDS = [\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \PhpParser\Node\Scalar\String_::KIND_NOWDOC];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes heredoc/nowdoc that contains closing word to safe wrapper name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -46,8 +46,9 @@ CODE_SAMPLE
     }
     /**
      * @param Encapsed|String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $stringKind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if (!\in_array($stringKind, self::HERENOW_DOC_KINDS, \true)) {

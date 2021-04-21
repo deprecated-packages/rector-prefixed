@@ -29,7 +29,10 @@ final class ProjectComposerJsonPhpVersionResolver
         $this->versionParser = $versionParser;
         $this->phpVersionFactory = $phpVersionFactory;
     }
-    public function resolve(string $composerJson) : ?int
+    /**
+     * @return int|null
+     */
+    public function resolve(string $composerJson)
     {
         $projectComposerJson = $this->composerJsonFactory->createFromFilePath($composerJson);
         // see https://getcomposer.org/doc/06-config.md#platform

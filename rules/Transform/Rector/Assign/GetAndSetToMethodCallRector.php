@@ -27,7 +27,7 @@ final class GetAndSetToMethodCallRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    public const TYPE_TO_METHOD_CALLS = 'type_to_method_calls';
+    const TYPE_TO_METHOD_CALLS = 'type_to_method_calls';
     /**
      * @var GetAndSetToMethodCall[]
      */
@@ -66,8 +66,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign|PropertyFetch $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\Assign) {
             if ($node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
@@ -79,14 +80,18 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, GetAndSetToMethodCall[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $getAndSetToMethodCalls = $configuration[self::TYPE_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsAOf($getAndSetToMethodCalls, \Rector\Transform\ValueObject\GetAndSetToMethodCall::class);
         $this->getAndSetToMethodCalls = $getAndSetToMethodCalls;
     }
-    private function processMagicSet(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    private function processMagicSet(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\PropertyFetch $propertyFetch)
     {
         foreach ($this->getAndSetToMethodCalls as $getAndSetToMethodCall) {
             $objectType = $getAndSetToMethodCall->getObjectType();
@@ -97,7 +102,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function processPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch)
     {
         $parentNode = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         foreach ($this->getAndSetToMethodCalls as $getAndSetToMethodCall) {

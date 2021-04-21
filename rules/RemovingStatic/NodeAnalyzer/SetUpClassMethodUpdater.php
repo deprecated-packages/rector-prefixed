@@ -19,7 +19,10 @@ final class SetUpClassMethodUpdater
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign) : void
+    /**
+     * @return void
+     */
+    public function updateSetUpMethod(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod, \PhpParser\Node\Stmt\Expression $parentSetupStaticCall, \PhpParser\Node\Stmt\Expression $assign)
     {
         $parentSetUpStaticCallPosition = $this->getParentSetUpStaticCallPosition($setupClassMethod);
         if ($parentSetUpStaticCallPosition === null) {
@@ -29,7 +32,10 @@ final class SetUpClassMethodUpdater
             \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
         }
     }
-    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
+    /**
+     * @return int|null
+     */
+    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod)
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
             if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {

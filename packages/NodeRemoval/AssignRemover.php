@@ -34,7 +34,10 @@ final class AssignRemover
         $this->nodeRemover = $nodeRemover;
         $this->livingCodeManipulator = $livingCodeManipulator;
     }
-    public function removeAssignNode(\PhpParser\Node\Expr\Assign $assign) : void
+    /**
+     * @return void
+     */
+    public function removeAssignNode(\PhpParser\Node\Expr\Assign $assign)
     {
         $currentStatement = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         $this->livingCodeManipulator->addLivingCodeBeforeNode($assign->var, $currentStatement);

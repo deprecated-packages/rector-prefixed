@@ -22,7 +22,7 @@ final class AddPregQuoteDelimiterRector extends \Rector\Core\Rector\AbstractRect
      * @var string
      * @see https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
      */
-    private const ALL_MODIFIERS = 'imsxeADSUXJu';
+    const ALL_MODIFIERS = 'imsxeADSUXJu';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add preg_quote delimiter when missing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -42,8 +42,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isName($node, 'preg_quote')) {
             return null;
@@ -59,7 +60,10 @@ CODE_SAMPLE
         $node->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($delimiter));
         return $node;
     }
-    private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall) : ?string
+    /**
+     * @return string|null
+     */
+    private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $concat = $this->getUppermostConcat($funcCall);
         if (!$concat instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
@@ -86,7 +90,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getUppermostConcat(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\BinaryOp\Concat
+    /**
+     * @return \PhpParser\Node\Expr\BinaryOp\Concat|null
+     */
+    private function getUppermostConcat(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $upperMostConcat = null;
         $parent = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

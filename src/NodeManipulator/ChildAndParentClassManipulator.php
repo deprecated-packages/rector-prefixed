@@ -50,8 +50,9 @@ final class ChildAndParentClassManipulator
     }
     /**
      * Add "parent::__construct()" where needed
+     * @return void
      */
-    public function completeParentConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    public function completeParentConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -77,7 +78,10 @@ final class ChildAndParentClassManipulator
             $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($staticCall);
         }
     }
-    public function completeChildConstructors(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $constructorClassMethod) : void
+    /**
+     * @return void
+     */
+    public function completeChildConstructors(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $constructorClassMethod)
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -95,7 +99,10 @@ final class ChildAndParentClassManipulator
             $childConstructorClassMethod->stmts = \array_merge([new \PhpParser\Node\Stmt\Expression($parentConstructCallNode)], (array) $childConstructorClassMethod->stmts);
         }
     }
-    private function completeParentConstructorBasedOnParentNode(\PhpParser\Node\Stmt\Class_ $parentClassNode, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function completeParentConstructorBasedOnParentNode(\PhpParser\Node\Stmt\Class_ $parentClassNode, \PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $firstParentConstructMethodNode = $this->findFirstParentConstructor($parentClassNode);
         if (!$firstParentConstructMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -107,7 +114,10 @@ final class ChildAndParentClassManipulator
         $staticCall = $this->nodeFactory->createParentConstructWithParams($firstParentConstructMethodNode->params);
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($staticCall);
     }
-    private function findFirstParentConstructor(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    private function findFirstParentConstructor(\PhpParser\Node\Stmt\Class_ $class)
     {
         while ($class !== null) {
             $constructMethodNode = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);

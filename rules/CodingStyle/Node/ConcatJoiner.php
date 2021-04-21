@@ -32,12 +32,18 @@ final class ConcatJoiner
         $this->processConcatSide($concat->right);
         return new \Rector\CodingStyle\ValueObject\ConcatStringAndPlaceholders($this->content, $this->placeholderNodes);
     }
-    private function reset() : void
+    /**
+     * @return void
+     */
+    private function reset()
     {
         $this->content = '';
         $this->placeholderNodes = [];
     }
-    private function processConcatSide(\PhpParser\Node\Expr $expr) : void
+    /**
+     * @return void
+     */
+    private function processConcatSide(\PhpParser\Node\Expr $expr)
     {
         if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             $this->content .= $expr->value;

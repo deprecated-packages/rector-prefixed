@@ -26,8 +26,9 @@ final class GenericTypeSpecifier
     }
     /**
      * @param MethodTagValueNode[] $methodTagValueNodes
+     * @return void
      */
-    public function replaceGenericTypesWithSpecificTypes(array $methodTagValueNodes, \PhpParser\Node $node, \PHPStan\Reflection\ClassReflection $classReflection) : void
+    public function replaceGenericTypesWithSpecificTypes(array $methodTagValueNodes, \PhpParser\Node $node, \PHPStan\Reflection\ClassReflection $classReflection)
     {
         $templateTypeMap = $this->resolveAvailableTemplateTypeMap($classReflection);
         foreach ($methodTagValueNodes as $methodTagValueNode) {

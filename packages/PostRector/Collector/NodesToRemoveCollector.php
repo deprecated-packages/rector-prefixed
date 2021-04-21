@@ -55,7 +55,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
         $this->nodeComparator = $nodeComparator;
         $this->currentFileProvider = $currentFileProvider;
     }
-    public function addNodeToRemove(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    public function addNodeToRemove(\PhpParser\Node $node)
     {
         /** Node|null $parentNode */
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -97,7 +100,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
     {
         return $this->nodesToRemove;
     }
-    public function unset(int $key) : void
+    /**
+     * @return void
+     */
+    public function unset(int $key)
     {
         unset($this->nodesToRemove[$key]);
     }
@@ -124,7 +130,10 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
         }
         return \false;
     }
-    private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node) : void
+    /**
+     * @return void
+     */
+    private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node)
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return;

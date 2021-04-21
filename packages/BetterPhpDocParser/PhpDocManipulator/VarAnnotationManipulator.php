@@ -28,7 +28,10 @@ final class VarAnnotationManipulator
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
-    public function decorateNodeWithInlineVarType(\PhpParser\Node $node, \PHPStan\Type\TypeWithClassName $typeWithClassName, string $variableName) : void
+    /**
+     * @return void
+     */
+    public function decorateNodeWithInlineVarType(\PhpParser\Node $node, \PHPStan\Type\TypeWithClassName $typeWithClassName, string $variableName)
     {
         $phpDocInfo = $this->resolvePhpDocInfo($node);
         // already done
@@ -40,7 +43,10 @@ final class VarAnnotationManipulator
         $phpDocInfo->addTagValueNode($varTagValueNode);
         $phpDocInfo->makeSingleLined();
     }
-    public function decorateNodeWithType(\PhpParser\Node $node, \PHPStan\Type\Type $staticType) : void
+    /**
+     * @return void
+     */
+    public function decorateNodeWithType(\PhpParser\Node $node, \PHPStan\Type\Type $staticType)
     {
         if ($staticType instanceof \PHPStan\Type\MixedType) {
             return;

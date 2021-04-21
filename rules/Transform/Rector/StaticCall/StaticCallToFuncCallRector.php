@@ -21,7 +21,7 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    public const STATIC_CALLS_TO_FUNCTIONS = 'static_calls_to_functions';
+    const STATIC_CALLS_TO_FUNCTIONS = 'static_calls_to_functions';
     /**
      * @var StaticCallToFuncCall[]
      */
@@ -46,8 +46,9 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
     }
     /**
      * @param StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->staticCallsToFunctions as $staticCallToFunction) {
             if (!$this->isObjectType($node->class, $staticCallToFunction->getObjectType())) {
@@ -60,7 +61,10 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $staticCallsToFunctions = $configuration[self::STATIC_CALLS_TO_FUNCTIONS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \Rector\Transform\ValueObject\StaticCallToFuncCall::class);

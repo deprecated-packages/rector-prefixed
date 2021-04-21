@@ -33,23 +33,23 @@ final class AssertManipulator
      *
      * @var array<string, string>
      */
-    private const ASSERT_METHODS_REMAP = ['same' => 'assertSame', 'notSame' => 'assertNotSame', 'equal' => 'assertEqual', 'notEqual' => 'assertNotEqual', 'true' => 'assertTrue', 'false' => 'assertFalse', 'null' => 'assertNull', 'notNull' => 'assertNotNull', 'count' => 'assertCount', 'match' => 'assertStringMatchesFormat', 'matchFile' => 'assertStringMatchesFormatFile', 'nan' => 'assertIsNumeric'];
+    const ASSERT_METHODS_REMAP = ['same' => 'assertSame', 'notSame' => 'assertNotSame', 'equal' => 'assertEqual', 'notEqual' => 'assertNotEqual', 'true' => 'assertTrue', 'false' => 'assertFalse', 'null' => 'assertNull', 'notNull' => 'assertNotNull', 'count' => 'assertCount', 'match' => 'assertStringMatchesFormat', 'matchFile' => 'assertStringMatchesFormatFile', 'nan' => 'assertIsNumeric'];
     /**
      * @var string[]
      */
-    private const TYPE_TO_METHOD = ['list' => 'assertIsArray', 'array' => 'assertIsArray', 'bool' => 'assertIsBool', 'callable' => 'assertIsCallable', 'float' => 'assertIsFloat', 'int' => 'assertIsInt', 'integer' => 'assertIsInt', 'object' => 'assertIsObject', 'resource' => 'assertIsResource', 'string' => 'assertIsString', 'scalar' => 'assertIsScalar'];
+    const TYPE_TO_METHOD = ['list' => 'assertIsArray', 'array' => 'assertIsArray', 'bool' => 'assertIsBool', 'callable' => 'assertIsCallable', 'float' => 'assertIsFloat', 'int' => 'assertIsInt', 'integer' => 'assertIsInt', 'object' => 'assertIsObject', 'resource' => 'assertIsResource', 'string' => 'assertIsString', 'scalar' => 'assertIsScalar'];
     /**
      * @var string
      */
-    private const CONTAINS = 'contains';
+    const CONTAINS = 'contains';
     /**
      * @var string
      */
-    private const THIS = 'this';
+    const THIS = 'this';
     /**
      * @var string
      */
-    private const SELF = 'self';
+    const SELF = 'self';
     /**
      * @var NodeNameResolver
      */
@@ -139,7 +139,10 @@ final class AssertManipulator
         }
         return $call;
     }
-    private function processContainsCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function processContainsCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         if ($this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($staticCall->args[1]->value)) {
             $name = $this->nodeNameResolver->isName($staticCall->name, self::CONTAINS) ? 'assertStringContainsString' : 'assertStringNotContainsString';
@@ -148,7 +151,10 @@ final class AssertManipulator
         }
         $staticCall->name = new \PhpParser\Node\Identifier($name);
     }
-    private function processExceptionCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function processExceptionCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         $method = 'expectException';
         // expect exception
@@ -172,7 +178,10 @@ final class AssertManipulator
         $this->nodesToAddCollector->addNodesAfterNode($closure->stmts, $staticCall);
         $this->nodesToRemoveCollector->addNodeToRemove($staticCall);
     }
-    private function processTypeCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function processTypeCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         $value = $this->valueResolver->getValue($staticCall->args[0]->value);
         if (isset(self::TYPE_TO_METHOD[$value])) {
@@ -187,7 +196,10 @@ final class AssertManipulator
             $staticCall->name = new \PhpParser\Node\Identifier('assertInstanceOf');
         }
     }
-    private function processNoErrorCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function processNoErrorCall(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         /** @var Closure $closure */
         $closure = $staticCall->args[0]->value;
@@ -200,7 +212,10 @@ final class AssertManipulator
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@doesNotPerformAssertions', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
     }
-    private function renameAssertMethod(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function renameAssertMethod(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         foreach (self::ASSERT_METHODS_REMAP as $oldMethod => $newMethod) {
             if (!$this->nodeNameResolver->isName($staticCall->name, $oldMethod)) {
@@ -225,7 +240,10 @@ final class AssertManipulator
         $this->nodesToAddCollector->addNodeAfterNode($expectExceptionMessage, $staticCall);
         return $method;
     }
-    private function refactorExpectExceptionCode(\PhpParser\Node\Expr\StaticCall $staticCall) : void
+    /**
+     * @return void
+     */
+    private function refactorExpectExceptionCode(\PhpParser\Node\Expr\StaticCall $staticCall)
     {
         if ($this->sholdBeStaticCall($staticCall)) {
             $expectExceptionCode = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::SELF), 'expectExceptionCode');

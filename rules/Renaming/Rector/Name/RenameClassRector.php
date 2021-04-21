@@ -25,7 +25,7 @@ final class RenameClassRector extends \Rector\Core\Rector\AbstractRector impleme
     /**
      * @var string
      */
-    public const OLD_TO_NEW_CLASSES = 'old_to_new_classes';
+    const OLD_TO_NEW_CLASSES = 'old_to_new_classes';
     /**
      * @var array<string, string>
      */
@@ -80,15 +80,17 @@ CODE_SAMPLE
     }
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
     /**
      * @param array<string, array<string, string>> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $oldToNewClasses = $configuration[self::OLD_TO_NEW_CLASSES] ?? [];
         $this->renamedClassesDataCollector->addOldToNewClasses($oldToNewClasses);

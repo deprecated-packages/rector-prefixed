@@ -22,7 +22,7 @@ final class ArgumentRemoverRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    public const REMOVED_ARGUMENTS = 'removed_arguments';
+    const REMOVED_ARGUMENTS = 'removed_arguments';
     /**
      * @var ArgumentRemover[]
      */
@@ -48,8 +48,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->removedArguments as $removedArgument) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $removedArgument->getObjectType())) {
@@ -62,7 +63,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Removing\ValueObject\ArgumentRemover::class);
@@ -70,8 +74,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|MethodCall $node
+     * @return void
      */
-    private function processPosition(\PhpParser\Node $node, \Rector\Removing\ValueObject\ArgumentRemover $argumentRemover) : void
+    private function processPosition(\PhpParser\Node $node, \Rector\Removing\ValueObject\ArgumentRemover $argumentRemover)
     {
         if ($argumentRemover->getValue() === null) {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -99,8 +104,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|MethodCall $node
+     * @return void
      */
-    private function removeByName(\PhpParser\Node $node, int $position, string $name) : void
+    private function removeByName(\PhpParser\Node $node, int $position, string $name)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
             if (isset($node->args[$position]) && $this->isName($node->args[$position], $name)) {

@@ -38,8 +38,9 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         // explicitly public
         if ($node->flags !== 0) {

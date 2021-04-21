@@ -19,11 +19,11 @@ final class SensitiveHereNowDocRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const WRAP_SUFFIX = '_WRAP';
+    const WRAP_SUFFIX = '_WRAP';
     /**
      * @var string
      */
-    private const ATTRIBUTE_DOC_LABEL = 'docLabel';
+    const ATTRIBUTE_DOC_LABEL = 'docLabel';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes heredoc/nowdoc that contains closing word to safe wrapper name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -47,8 +47,9 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if (!\in_array($kind, [\PhpParser\Node\Scalar\String_::KIND_HEREDOC, \PhpParser\Node\Scalar\String_::KIND_NOWDOC], \true)) {

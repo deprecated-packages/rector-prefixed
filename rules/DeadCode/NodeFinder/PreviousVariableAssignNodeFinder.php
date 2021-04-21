@@ -28,7 +28,10 @@ final class PreviousVariableAssignNodeFinder
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeComparator = $nodeComparator;
     }
-    public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function find(\PhpParser\Node\Expr\Assign $assign)
     {
         $currentAssign = $assign;
         $variableName = $this->nodeNameResolver->getName($assign->var);

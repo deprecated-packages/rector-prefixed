@@ -66,8 +66,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($node->params as $param) {
             $this->refactorParamType($param, $node);
@@ -91,8 +92,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
+     * @return void
      */
-    private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : void
+    private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike)
     {
         if (!$this->isNullableParam($param)) {
             return;
@@ -102,8 +104,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
+     * @return void
      */
-    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
+    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param)
     {
         if ($param->type === null) {
             return;

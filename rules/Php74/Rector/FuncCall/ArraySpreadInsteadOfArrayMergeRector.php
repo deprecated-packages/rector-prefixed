@@ -75,8 +75,9 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARRAY_SPREAD)) {
             return null;
@@ -86,7 +87,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorArray(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\Array_
+    /**
+     * @return \PhpParser\Node\Expr\Array_|null
+     */
+    private function refactorArray(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
         $array = new \PhpParser\Node\Expr\Array_();
         foreach ($funcCall->args as $arg) {

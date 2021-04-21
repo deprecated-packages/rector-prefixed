@@ -21,7 +21,7 @@ final class ChangePropertyVisibilityRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    public const PROPERTY_TO_VISIBILITY_BY_CLASS = 'property_to_visibility_by_class';
+    const PROPERTY_TO_VISIBILITY_BY_CLASS = 'property_to_visibility_by_class';
     /**
      * @var array<string, array<string, int>>
      */
@@ -61,8 +61,9 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -82,7 +83,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->propertyToVisibilityByClass = $configuration[self::PROPERTY_TO_VISIBILITY_BY_CLASS] ?? [];
     }

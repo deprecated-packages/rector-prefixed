@@ -32,8 +32,9 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
     }
     /**
      * @param Ternary $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -67,7 +68,10 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         }
         return null;
     }
-    private function processTernaryWithIsset(\PhpParser\Node\Expr\Ternary $ternary) : ?\PhpParser\Node\Expr\BinaryOp\Coalesce
+    /**
+     * @return \PhpParser\Node\Expr\BinaryOp\Coalesce|null
+     */
+    private function processTernaryWithIsset(\PhpParser\Node\Expr\Ternary $ternary)
     {
         if ($ternary->if === null) {
             return null;

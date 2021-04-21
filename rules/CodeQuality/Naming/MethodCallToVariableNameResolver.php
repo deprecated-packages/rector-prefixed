@@ -18,22 +18,22 @@ final class MethodCallToVariableNameResolver
      * @var string
      * @see https://regex101.com/r/LTykey/1
      */
-    private const START_ALPHA_REGEX = '#^[a-zA-Z]#';
+    const START_ALPHA_REGEX = '#^[a-zA-Z]#';
     /**
      * @var string
      * @see https://regex101.com/r/sYIKpj/1
      */
-    private const CONSTANT_REGEX = '#(_)([a-z])#';
+    const CONSTANT_REGEX = '#(_)([a-z])#';
     /**
      * @var string
      * @see https://regex101.com/r/dhAgLI/1
      */
-    private const SPACE_REGEX = '#\\s+#';
+    const SPACE_REGEX = '#\\s+#';
     /**
      * @var string
      * @see https://regex101.com/r/TOPfAQ/1
      */
-    private const VALID_STRING_VARIABLE_REGEX = '#^[a-z_]\\w*$#';
+    const VALID_STRING_VARIABLE_REGEX = '#^[a-z_]\\w*$#';
     /**
      * @var NodeNameResolver
      */
@@ -49,8 +49,9 @@ final class MethodCallToVariableNameResolver
     }
     /**
      * @todo decouple to collector by arg type
+     * @return string|null
      */
-    public function resolveVariableName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    public function resolveVariableName(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         $methodCallVarName = $this->nodeNameResolver->getName($methodCall->var);
         $methodCallName = $this->nodeNameResolver->getName($methodCall->name);

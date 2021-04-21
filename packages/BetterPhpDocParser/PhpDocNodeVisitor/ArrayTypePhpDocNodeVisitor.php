@@ -19,7 +19,10 @@ final class ArrayTypePhpDocNodeVisitor extends \RectorPrefix20210421\Symplify\Si
     {
         $this->attributeMirrorer = $attributeMirrorer;
     }
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
+    /**
+     * @return \PHPStan\PhpDocParser\Ast\Node|null
+     */
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
             return null;

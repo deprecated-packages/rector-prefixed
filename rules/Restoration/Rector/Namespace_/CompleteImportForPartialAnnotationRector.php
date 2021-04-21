@@ -24,7 +24,7 @@ final class CompleteImportForPartialAnnotationRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    public const USE_IMPORTS_TO_RESTORE = '$useImportsToRestore';
+    const USE_IMPORTS_TO_RESTORE = '$useImportsToRestore';
     /**
      * @var CompleteImportForPartialAnnotation[]
      */
@@ -62,8 +62,9 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $class = $this->betterNodeFinder->findFirstInstanceOf($node->stmts, \PhpParser\Node\Stmt\Class_::class);
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
@@ -80,8 +81,9 @@ CODE_SAMPLE
     }
     /**
      * @param CompleteImportForPartialAnnotation[][] $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $default = [new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);

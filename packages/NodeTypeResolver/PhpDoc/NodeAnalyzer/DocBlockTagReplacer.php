@@ -17,7 +17,10 @@ final class DocBlockTagReplacer
     {
         $this->annotationNaming = $annotationNaming;
     }
-    public function replaceTagByAnother(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $oldTag, string $newTag) : void
+    /**
+     * @return void
+     */
+    public function replaceTagByAnother(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $oldTag, string $newTag)
     {
         $oldTag = $this->annotationNaming->normalizeName($oldTag);
         $newTag = $this->annotationNaming->normalizeName($newTag);

@@ -33,8 +33,9 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     }
     /**
      * @param ConstantArrayType $type
+     * @return \PHPStan\Reflection\MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : ?\PHPStan\Reflection\MethodReflection
+    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
     {
         $constantArrayTypeAndMethod = $this->findTypeAndMethodName($type);
         if (!$constantArrayTypeAndMethod instanceof \PHPStan\Type\Constant\ConstantArrayTypeAndMethod) {
@@ -55,8 +56,9 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     }
     /**
      * @see https://github.com/phpstan/phpstan-src/blob/b1fd47bda2a7a7d25091197b125c0adf82af6757/src/Type/Constant/ConstantArrayType.php#L209
+     * @return \PHPStan\Type\Constant\ConstantArrayTypeAndMethod|null
      */
-    private function findTypeAndMethodName(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\PHPStan\Type\Constant\ConstantArrayTypeAndMethod
+    private function findTypeAndMethodName(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType)
     {
         if (!$this->areKeyTypesValid($constantArrayType)) {
             return null;

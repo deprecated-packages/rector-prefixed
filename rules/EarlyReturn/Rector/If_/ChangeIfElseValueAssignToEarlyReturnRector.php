@@ -75,8 +75,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
@@ -88,7 +89,8 @@ CODE_SAMPLE
         if (!$this->ifManipulator->isIfAndElseWithSameVariableAssignAsLastStmts($node, $nextNode->expr)) {
             return null;
         }
-        $lastIfStmtKey = \array_key_last($node->stmts);
+        \end($node->stmts);
+        $lastIfStmtKey = \key($node->stmts);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->stmts);
         $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
@@ -101,7 +103,8 @@ CODE_SAMPLE
         $elseStmts = $else->stmts;
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($elseStmts);
-        $lastElseStmtKey = \array_key_last($elseStmts);
+        \end($elseStmts);
+        $lastElseStmtKey = \key($elseStmts);
         $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $this->mirrorComments($return, $assign);
         $elseStmts[$lastElseStmtKey] = $return;

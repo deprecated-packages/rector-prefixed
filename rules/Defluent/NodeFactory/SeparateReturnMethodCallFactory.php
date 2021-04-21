@@ -42,7 +42,8 @@ final class SeparateReturnMethodCallFactory
     private function createNonFluentMethodCalls(array $chainMethodCalls, \Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, bool $isNewNodeNeeded) : array
     {
         $decoupledMethodCalls = [];
-        $lastKey = \array_key_last($chainMethodCalls);
+        \end($chainMethodCalls);
+        $lastKey = \key($chainMethodCalls);
         foreach ($chainMethodCalls as $key => $chainMethodCall) {
             // skip first, already handled
             if ($key === $lastKey && $firstAssignFluentCall->isFirstCallFactory() && $isNewNodeNeeded) {

@@ -24,7 +24,7 @@ final class ReplaceEachAssignmentWithKeyCurrentRector extends \Rector\Core\Recto
     /**
      * @var string
      */
-    private const KEY = 'key';
+    const KEY = 'key';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace each() assign outside loop', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -50,8 +50,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;

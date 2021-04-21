@@ -23,8 +23,9 @@ final class ArrayCallableMethodReferenceAnalyzer
     }
     /**
      * Matches array like: "[$this, 'methodName']" → ['ClassName', 'methodName']
+     * @return \Rector\NodeCollector\ValueObject\ArrayCallable|null
      */
-    public function match(\PhpParser\Node\Expr\Array_ $array) : ?\Rector\NodeCollector\ValueObject\ArrayCallable
+    public function match(\PhpParser\Node\Expr\Array_ $array)
     {
         $arrayItems = $array->items;
         if (\count($arrayItems) !== 2) {

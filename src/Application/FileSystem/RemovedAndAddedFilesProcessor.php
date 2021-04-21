@@ -40,13 +40,19 @@ final class RemovedAndAddedFilesProcessor
         $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function run() : void
+    /**
+     * @return void
+     */
+    public function run()
     {
         $this->processAddedFilesWithContent();
         $this->processAddedFilesWithNodes();
         $this->processDeletedFiles();
     }
-    private function processDeletedFiles() : void
+    /**
+     * @return void
+     */
+    private function processDeletedFiles()
     {
         foreach ($this->removedAndAddedFilesCollector->getRemovedFiles() as $removedFile) {
             $relativePath = $removedFile->getRelativeFilePathFromDirectory(\getcwd());
@@ -60,7 +66,10 @@ final class RemovedAndAddedFilesProcessor
             }
         }
     }
-    private function processAddedFilesWithContent() : void
+    /**
+     * @return void
+     */
+    private function processAddedFilesWithContent()
     {
         foreach ($this->removedAndAddedFilesCollector->getAddedFilesWithContent() as $addedFileWithContent) {
             if ($this->configuration->isDryRun()) {
@@ -73,7 +82,10 @@ final class RemovedAndAddedFilesProcessor
             }
         }
     }
-    private function processAddedFilesWithNodes() : void
+    /**
+     * @return void
+     */
+    private function processAddedFilesWithNodes()
     {
         foreach ($this->removedAndAddedFilesCollector->getAddedFilesWithNodes() as $addedFileWithNode) {
             $fileContent = $this->nodesWithFileDestinationPrinter->printNodesWithFileDestination($addedFileWithNode);

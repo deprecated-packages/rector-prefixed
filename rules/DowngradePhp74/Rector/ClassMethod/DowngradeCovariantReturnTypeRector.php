@@ -97,8 +97,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->returnType === null) {
             return null;
@@ -169,7 +170,10 @@ CODE_SAMPLE
         }
         return new \PHPStan\Type\MixedType();
     }
-    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         // keep return type if already set one

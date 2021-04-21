@@ -28,8 +28,10 @@ final class ParentStaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
     }
     /**
      * @param ParentStaticType $type
+     * @param string|null $kind
+     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return new \PhpParser\Node\Name('parent');
     }

@@ -49,8 +49,9 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $defaultCases = [];
         foreach ($node->cases as $case) {
@@ -67,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param Case_[] $defaultCases
+     * @return void
      */
-    private function removeExtraDefaultCases(array $defaultCases) : void
+    private function removeExtraDefaultCases(array $defaultCases)
     {
         // keep only last
         \array_pop($defaultCases);
@@ -77,7 +79,10 @@ CODE_SAMPLE
             $this->removeNode($defaultCase);
         }
     }
-    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case) : void
+    /**
+     * @return void
+     */
+    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case)
     {
         $previousNode = $case->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$previousNode instanceof \PhpParser\Node\Stmt\Case_) {

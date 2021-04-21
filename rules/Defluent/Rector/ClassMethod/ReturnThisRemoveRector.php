@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $returnThis = $this->matchSingleReturnThis($node);
         if (!$returnThis instanceof \PhpParser\Node\Stmt\Return_) {
@@ -92,8 +93,9 @@ CODE_SAMPLE
     }
     /**
      * Matches only 1st level "return $this;"
+     * @return \PhpParser\Node\Stmt\Return_|null
      */
-    private function matchSingleReturnThis(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Return_
+    private function matchSingleReturnThis(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         /** @var Return_[] $returns */
         $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);

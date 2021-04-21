@@ -47,8 +47,9 @@ final class MockeryCreateMockToProphizeRector extends \Rector\Core\Rector\Abstra
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -72,7 +73,10 @@ $service->injectDependency($mock->reveal());
 CODE_SAMPLE
 )]);
     }
-    private function replaceMockCreationsAndCollectVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function replaceMockCreationsAndCollectVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($classMethod->stmts === null) {
             return;
@@ -98,7 +102,10 @@ CODE_SAMPLE
             return $this->createProphesizeMethodCall($node);
         });
     }
-    private function revealMockArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    private function revealMockArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($classMethod->stmts === null) {
             return;

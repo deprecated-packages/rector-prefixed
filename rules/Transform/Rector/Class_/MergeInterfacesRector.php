@@ -23,7 +23,7 @@ final class MergeInterfacesRector extends \Rector\Core\Rector\AbstractRector imp
      * @api
      * @var string
      */
-    public const OLD_TO_NEW_INTERFACES = 'old_to_new_interfaces';
+    const OLD_TO_NEW_INTERFACES = 'old_to_new_interfaces';
     /**
      * @var string[]
      */
@@ -51,8 +51,9 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node->implements === []) {
             return null;
@@ -68,11 +69,17 @@ CODE_SAMPLE
         $this->makeImplementsUnique($node);
         return $node;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $this->oldToNewInterfaces = $configuration[self::OLD_TO_NEW_INTERFACES] ?? [];
     }
-    private function makeImplementsUnique(\PhpParser\Node\Stmt\Class_ $class) : void
+    /**
+     * @return void
+     */
+    private function makeImplementsUnique(\PhpParser\Node\Stmt\Class_ $class)
     {
         $alreadyAddedNames = [];
         foreach ($class->implements as $key => $name) {

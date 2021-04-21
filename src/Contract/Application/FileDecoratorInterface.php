@@ -8,6 +8,7 @@ interface FileDecoratorInterface
 {
     /**
      * @param File[] $files
+     * @return void
      */
-    public function decorate(array $files) : void;
+    public function decorate(array $files);
 }

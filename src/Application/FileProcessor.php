@@ -39,7 +39,10 @@ final class FileProcessor
         $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
         $this->affectedFilesCollector = $affectedFilesCollector;
     }
-    public function parseFileInfoToLocalCache(\Rector\Core\ValueObject\Application\File $file) : void
+    /**
+     * @return void
+     */
+    public function parseFileInfoToLocalCache(\Rector\Core\ValueObject\Application\File $file)
     {
         // store tokens by absolute path, so we don't have to print them right now
         $smartFileInfo = $file->getSmartFileInfo();
@@ -48,7 +51,10 @@ final class FileProcessor
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $smartFileInfo);
         $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
     }
-    public function refactor(\Rector\Core\ValueObject\Application\File $file) : void
+    /**
+     * @return void
+     */
+    public function refactor(\Rector\Core\ValueObject\Application\File $file)
     {
         $newStmts = $this->rectorNodeTraverser->traverse($file->getNewStmts());
         $file->changeNewStmts($newStmts);

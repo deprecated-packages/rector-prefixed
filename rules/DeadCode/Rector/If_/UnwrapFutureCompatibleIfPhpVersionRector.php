@@ -56,8 +56,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ((bool) $node->elseifs) {
             return null;
@@ -78,7 +79,10 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorIsMatch(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @return void
+     */
+    private function refactorIsMatch(\PhpParser\Node\Stmt\If_ $if)
     {
         if ((bool) $if->elseifs) {
             return;
@@ -86,7 +90,10 @@ CODE_SAMPLE
         $this->unwrapStmts($if->stmts, $if);
         $this->removeNode($if);
     }
-    private function refactorIsNotMatch(\PhpParser\Node\Stmt\If_ $if) : void
+    /**
+     * @return void
+     */
+    private function refactorIsNotMatch(\PhpParser\Node\Stmt\If_ $if)
     {
         // no else → just remove the node
         if ($if->else === null) {

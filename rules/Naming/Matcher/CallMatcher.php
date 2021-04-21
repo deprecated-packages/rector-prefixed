@@ -13,9 +13,9 @@ final class CallMatcher
 {
     /**
      * @param Assign|Foreach_ $node
-     * @return FuncCall|StaticCall|MethodCall|null
+     * @return \PhpParser\Node|null
      */
-    public function matchCall(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function matchCall(\PhpParser\Node $node)
     {
         if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return $node->expr;

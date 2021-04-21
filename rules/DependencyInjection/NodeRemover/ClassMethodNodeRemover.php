@@ -34,7 +34,10 @@ final class ClassMethodNodeRemover
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
-    public function removeClassMethodIfUseless(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    /**
+     * @return void
+     */
+    public function removeClassMethodIfUseless(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         if ($classMethod->params !== []) {
             return;
@@ -44,7 +47,10 @@ final class ClassMethodNodeRemover
         }
         $this->nodesToRemoveCollector->addNodeToRemove($classMethod);
     }
-    public function removeParamFromMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
+    /**
+     * @return void
+     */
+    public function removeParamFromMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
     {
         /** @var string $paramName */
         $paramName = $this->nodeNameResolver->getName($param->var);
@@ -78,7 +84,10 @@ final class ClassMethodNodeRemover
     {
         return $this->isStaticCallNamed($node, 'parent', \Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
-    private function removeParamFromArgs(\PhpParser\Node\Expr\StaticCall $staticCall, string $paramName) : void
+    /**
+     * @return void
+     */
+    private function removeParamFromArgs(\PhpParser\Node\Expr\StaticCall $staticCall, string $paramName)
     {
         foreach ($staticCall->args as $key => $arg) {
             if (!$this->nodeNameResolver->isName($arg->value, $paramName)) {
@@ -87,7 +96,10 @@ final class ClassMethodNodeRemover
             unset($staticCall->args[$key]);
         }
     }
-    private function removeParamFromAssign(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
+    /**
+     * @return void
+     */
+    private function removeParamFromAssign(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName)
     {
         foreach ((array) $classMethod->stmts as $key => $stmt) {
             if ($stmt instanceof \PhpParser\Node\Stmt\Expression) {

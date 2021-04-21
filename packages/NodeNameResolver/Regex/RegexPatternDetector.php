@@ -11,7 +11,7 @@ final class RegexPatternDetector
      *
      * This prevents miss matching like "aMethoda"
      */
-    private const POSSIBLE_DELIMITERS = ['#', '~', '/'];
+    const POSSIBLE_DELIMITERS = ['#', '~', '/'];
     public function isRegexPattern(string $name) : bool
     {
         if (\RectorPrefix20210421\Nette\Utils\Strings::length($name) <= 2) {

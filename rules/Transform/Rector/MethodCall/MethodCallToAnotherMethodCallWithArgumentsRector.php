@@ -21,7 +21,7 @@ final class MethodCallToAnotherMethodCallWithArgumentsRector extends \Rector\Cor
     /**
      * @var string
      */
-    public const METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS = 'method_call_renames_with_added_arguments';
+    const METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS = 'method_call_renames_with_added_arguments';
     /**
      * @var MethodCallToAnotherMethodCallWithArguments[]
      */
@@ -47,8 +47,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->methodCallRenamesWithAddedArguments as $methodCallRenameWithAddedArgument) {
             if (!$this->isObjectType($node->var, $methodCallRenameWithAddedArgument->getObjectType())) {
@@ -63,7 +64,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    public function configure(array $configuration) : void
+    /**
+     * @return void
+     */
+    public function configure(array $configuration)
     {
         $methodCallRenamesWithAddedArguments = $configuration[self::METHOD_CALL_RENAMES_WITH_ADDED_ARGUMENTS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenamesWithAddedArguments, \Rector\Transform\ValueObject\MethodCallToAnotherMethodCallWithArguments::class);

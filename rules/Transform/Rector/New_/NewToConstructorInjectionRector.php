@@ -26,7 +26,7 @@ final class NewToConstructorInjectionRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    public const TYPES_TO_CONSTRUCTOR_INJECTION = 'types_to_constructor_injection';
+    const TYPES_TO_CONSTRUCTOR_INJECTION = 'types_to_constructor_injection';
     /**
      * @var ObjectType[]
      */
@@ -86,8 +86,9 @@ CODE_SAMPLE
     }
     /**
      * @param New_|Assign|MethodCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->refactorMethodCall($node);
@@ -102,15 +103,19 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed[]> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $typesToConstructorInjections = $configuration[self::TYPES_TO_CONSTRUCTOR_INJECTION] ?? [];
         foreach ($typesToConstructorInjections as $typeToConstructorInjection) {
             $this->constructorInjectionObjectTypes[] = new \PHPStan\Type\ObjectType($typeToConstructorInjection);
         }
     }
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return \PhpParser\Node\Expr\MethodCall|null
+     */
+    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
     {
         foreach ($this->constructorInjectionObjectTypes as $constructorInjectionObjectType) {
             if (!$methodCall->var instanceof \PhpParser\Node\Expr\Variable) {
@@ -127,7 +132,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorAssign(\PhpParser\Node\Expr\Assign $assign) : void
+    /**
+     * @return void
+     */
+    private function refactorAssign(\PhpParser\Node\Expr\Assign $assign)
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\New_) {
             return;
@@ -139,7 +147,10 @@ CODE_SAMPLE
             $this->removeNode($assign);
         }
     }
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : void
+    /**
+     * @return void
+     */
+    private function refactorNew(\PhpParser\Node\Expr\New_ $new)
     {
         foreach ($this->constructorInjectionObjectTypes as $constructorInjectionObjectType) {
             if (!$this->isObjectType($new->class, $constructorInjectionObjectType)) {

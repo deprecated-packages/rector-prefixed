@@ -23,11 +23,11 @@ final class PreferThisOrSelfMethodCallRector extends \Rector\Core\Rector\Abstrac
      * @api
      * @var string
      */
-    public const TYPE_TO_PREFERENCE = 'type_to_preference';
+    const TYPE_TO_PREFERENCE = 'type_to_preference';
     /**
      * @var string
      */
-    private const SELF = 'self';
+    const SELF = 'self';
     /**
      * @var array<class-string, string>
      */
@@ -63,8 +63,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->typeToPreference as $type => $preference) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -79,8 +80,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<class-string, string>> $configuration
+     * @return void
      */
-    public function configure(array $configuration) : void
+    public function configure(array $configuration)
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allString($typeToPreference);
@@ -91,8 +93,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node\Expr\StaticCall|null
      */
-    private function processToSelf(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
+    private function processToSelf(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall && !$this->isNames($node->class, [self::SELF, 'static'])) {
             return null;
@@ -108,8 +111,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
+     * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function processToThis(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\MethodCall
+    private function processToThis(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
@@ -123,7 +127,10 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall('this', $name, $node->args);
     }
-    private function ensurePreferenceIsValid(string $preference) : void
+    /**
+     * @return void
+     */
+    private function ensurePreferenceIsValid(string $preference)
     {
         if (\in_array($preference, \Rector\CodingStyle\ValueObject\PreferenceSelfThis::ALLOWED_VALUES, \true)) {
             return;

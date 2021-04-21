@@ -111,8 +111,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return null;
@@ -134,8 +135,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
+     * @return \PhpParser\Node|null
      */
-    private function processType(\PhpParser\Node $node, \PHPStan\Type\Type $inferedType) : ?\PhpParser\Node
+    private function processType(\PhpParser\Node $node, \PHPStan\Type\Type $inferedType)
     {
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_RETURN);
         // nothing to change in PHP code
@@ -195,8 +197,9 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      * @param Name|NullableType|PhpParserUnionType $inferredReturnNode
+     * @return void
      */
-    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
+    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode)
     {
         if ($functionLike->returnType === null) {
             $functionLike->returnType = $inferredReturnNode;
