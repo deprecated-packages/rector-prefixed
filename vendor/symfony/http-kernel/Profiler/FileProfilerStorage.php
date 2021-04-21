@@ -42,15 +42,13 @@ class FileProfilerStorage implements \RectorPrefix20210421\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param int $start
-     * @param int $end
      * @param string $statusCode
      * @param string|null $ip
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
      */
-    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null) : array
+    public function find($ip, $url, $limit, $method, int $start = null, int $end = null, $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {

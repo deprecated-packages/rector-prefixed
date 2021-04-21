@@ -27,9 +27,8 @@ class GlobFileLoader extends \RectorPrefix20210421\Symfony\Component\Config\Load
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         return 'glob' === $type;
     }

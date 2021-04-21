@@ -83,9 +83,8 @@ class TraceableEventDispatcher implements \RectorPrefix20210421\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         return $this->dispatcher->getListeners($eventName);
     }
@@ -107,9 +106,8 @@ class TraceableEventDispatcher implements \RectorPrefix20210421\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         return $this->dispatcher->hasListeners($eventName);
     }

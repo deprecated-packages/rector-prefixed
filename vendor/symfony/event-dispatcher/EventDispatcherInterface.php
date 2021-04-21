@@ -46,9 +46,8 @@ interface EventDispatcherInterface extends \RectorPrefix20210421\Symfony\Contrac
      * Gets the listeners of a specific event or all listeners sorted by descending priority.
      *
      * @return array The event listeners for the specified event, or all event listeners by event name
-     * @param string $eventName
      */
-    public function getListeners($eventName = null);
+    public function getListeners(string $eventName = null);
     /**
      * Gets the listener priority for a specific event.
      *
@@ -63,7 +62,6 @@ interface EventDispatcherInterface extends \RectorPrefix20210421\Symfony\Contrac
      * Checks whether an event has any registered listeners.
      *
      * @return bool true if the specified event has any listeners, false otherwise
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null);
+    public function hasListeners(string $eventName = null);
 }

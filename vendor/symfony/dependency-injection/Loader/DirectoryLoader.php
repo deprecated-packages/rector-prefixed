@@ -39,9 +39,8 @@ class DirectoryLoader extends \RectorPrefix20210421\Symfony\Component\Dependency
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if ('directory' === $type) {
             return \true;

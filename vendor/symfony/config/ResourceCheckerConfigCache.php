@@ -103,7 +103,7 @@ class ResourceCheckerConfigCache implements \RectorPrefix20210421\Symfony\Compon
      *
      * @throws \RuntimeException When cache file can't be written
      */
-    public function write(string $content, $metadata = null)
+    public function write(string $content, array $metadata = null)
     {
         $mode = 0666;
         $umask = \umask();

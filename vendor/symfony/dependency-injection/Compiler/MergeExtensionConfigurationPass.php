@@ -172,9 +172,8 @@ class MergeExtensionConfigurationContainerBuilder extends \RectorPrefix20210421\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $usedEnvs
      */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (\true !== $format || !\is_string($value)) {
             return parent::resolveEnvPlaceholders($value, $format, $usedEnvs);

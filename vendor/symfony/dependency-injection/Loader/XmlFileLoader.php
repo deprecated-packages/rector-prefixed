@@ -63,9 +63,8 @@ class XmlFileLoader extends \RectorPrefix20210421\Symfony\Component\DependencyIn
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;

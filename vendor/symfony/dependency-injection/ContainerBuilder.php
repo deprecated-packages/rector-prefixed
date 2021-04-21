@@ -1153,7 +1153,7 @@ class ContainerBuilder extends \RectorPrefix20210421\Symfony\Component\Dependenc
      *
      * @return mixed The value with env parameters resolved if a string or an array is passed
      */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (null === $format) {
             $format = '%%env(%s)%%';

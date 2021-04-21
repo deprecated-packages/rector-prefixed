@@ -38,7 +38,11 @@ class SingleCommandApplication extends \RectorPrefix20210421\Symfony\Component\C
         $this->autoExit = $autoExit;
         return $this;
     }
-    public function run(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input = null, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output = null) : int
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    public function run($input = null, $output = null) : int
     {
         if ($this->running) {
             return parent::run($input, $output);

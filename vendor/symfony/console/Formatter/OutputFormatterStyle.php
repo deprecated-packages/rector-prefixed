@@ -36,17 +36,15 @@ class OutputFormatterStyle implements \RectorPrefix20210421\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setForeground($color = null)
+    public function setForeground(string $color = null)
     {
         $this->color = new \RectorPrefix20210421\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setBackground($color = null)
+    public function setBackground(string $color = null)
     {
         $this->color = new \RectorPrefix20210421\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }

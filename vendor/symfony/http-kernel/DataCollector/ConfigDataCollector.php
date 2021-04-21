@@ -35,9 +35,8 @@ class ConfigDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $eom = \DateTime::createFromFormat('d/m/Y', '01/' . \RectorPrefix20210421\Symfony\Component\HttpKernel\Kernel::END_OF_MAINTENANCE);
         $eol = \DateTime::createFromFormat('d/m/Y', '01/' . \RectorPrefix20210421\Symfony\Component\HttpKernel\Kernel::END_OF_LIFE);

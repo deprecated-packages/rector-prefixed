@@ -1,10 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DowngradePhp72\Rector\ClassMethod;
+namespace Rector\DowngradePhp72\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
@@ -12,6 +13,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DowngradePhp72\NodeAnalyzer\ClassLikeWithTraitsClassMethodResolver;
 use Rector\DowngradePhp72\NodeAnalyzer\NativeTypeClassTreeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
@@ -21,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://www.php.net/manual/en/migration72.new-features.php#migration72.new-features.param-type-widening
  * @see https://3v4l.org/fOgSE
  *
- * @see \Rector\Tests\DowngradePhp72\Rector\ClassMethod\DowngradeParameterTypeWideningRector\DowngradeParameterTypeWideningRectorTest
+ * @see \Rector\Tests\DowngradePhp72\Rector\Class_\DowngradeParameterTypeWideningRector\DowngradeParameterTypeWideningRectorTest
  */
 final class DowngradeParameterTypeWideningRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -37,11 +39,16 @@ final class DowngradeParameterTypeWideningRector extends \Rector\Core\Rector\Abs
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp72\NodeAnalyzer\NativeTypeClassTreeResolver $nativeTypeClassTreeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @var ClassLikeWithTraitsClassMethodResolver
+     */
+    private $classLikeWithTraitsClassMethodResolver;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp72\NodeAnalyzer\NativeTypeClassTreeResolver $nativeTypeClassTreeResolver, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\DowngradePhp72\NodeAnalyzer\ClassLikeWithTraitsClassMethodResolver $classLikeWithTraitsClassMethodResolver)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->nativeTypeClassTreeResolver = $nativeTypeClassTreeResolver;
         $this->typeFactory = $typeFactory;
+        $this->classLikeWithTraitsClassMethodResolver = $classLikeWithTraitsClassMethodResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -74,37 +81,28 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param Class_ $node
      * @return \PhpParser\Node|null
      */
     public function refactor(\PhpParser\Node $node)
     {
-        if ($node->isMagic()) {
-            return null;
+        $classMethods = $this->classLikeWithTraitsClassMethodResolver->resolve($node);
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        foreach ($classMethods as $classMethod) {
+            $this->refactorClassMethod($classMethod, $scope);
         }
-        if ($node->params === []) {
-            return null;
-        }
-        foreach (\array_keys($node->params) as $position) {
-            $this->refactorParamForSelfAndSiblings($node, (int) $position);
-        }
-        return null;
+        return $node;
     }
     /**
      * The topmost class is the source of truth, so we go only down to avoid up/down collission
      * @return void
      */
-    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position)
+    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position, \PHPStan\Analyser\Scope $classScope)
     {
-        $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            // possibly trait
-            return;
-        }
-        $classReflection = $scope->getClassReflection();
+        $classReflection = $classScope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return;
         }
@@ -232,6 +230,21 @@ CODE_SAMPLE
              */
             $this->removeParamTypeFromMethod($classLike, $position, $currentClassMethod);
             $this->removeParamTypeFromMethodForChildren($className, $methodName, $position);
+        }
+    }
+    /**
+     * @return void
+     */
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Analyser\Scope $classScope)
+    {
+        if ($classMethod->isMagic()) {
+            return;
+        }
+        if ($classMethod->params === []) {
+            return;
+        }
+        foreach (\array_keys($classMethod->params) as $position) {
+            $this->refactorParamForSelfAndSiblings($classMethod, (int) $position, $classScope);
         }
     }
 }

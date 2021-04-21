@@ -38,9 +38,8 @@ class LoggerDataCollector extends \RectorPrefix20210421\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
     }

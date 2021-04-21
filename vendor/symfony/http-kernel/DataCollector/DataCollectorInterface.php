@@ -22,9 +22,8 @@ interface DataCollectorInterface extends \RectorPrefix20210421\Symfony\Contracts
 {
     /**
      * Collects data for the given Request and Response.
-     * @param \Throwable $exception
      */
-    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, $exception = null);
+    public function collect(\RectorPrefix20210421\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210421\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null);
     /**
      * Returns the name of the collector.
      *

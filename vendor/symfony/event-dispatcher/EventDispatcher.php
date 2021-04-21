@@ -59,9 +59,8 @@ class EventDispatcher implements \RectorPrefix20210421\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             if (empty($this->listeners[$eventName])) {
@@ -106,9 +105,8 @@ class EventDispatcher implements \RectorPrefix20210421\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             return !empty($this->listeners[$eventName]);

@@ -447,7 +447,7 @@ final class NodeRepository
      */
     public function findClassLike(string $classLikeName)
     {
-        return $this->findClass($classLikeName) ?? $this->findInterface($classLikeName);
+        return $this->findClass($classLikeName) ?? $this->findInterface($classLikeName) ?? $this->findTrait($classLikeName);
     }
     /**
      * @return void
