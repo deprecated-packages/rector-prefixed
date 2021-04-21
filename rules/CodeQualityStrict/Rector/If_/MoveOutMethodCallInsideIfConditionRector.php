@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var MethodCall[] $methodCalls */
         $methodCalls = $this->betterNodeFinder->findInstanceOf($node->cond, \PhpParser\Node\Expr\MethodCall::class);
@@ -90,10 +89,7 @@ CODE_SAMPLE
         // Inside Method calls args has Method Call again → skip
         return $this->isInsideMethodCallHasMethodCall($methodCall);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\If_|null
-     */
-    private function moveOutMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Stmt\If_ $if)
+    private function moveOutMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\If_
     {
         $hasParentAssign = (bool) $this->betterNodeFinder->findParentType($methodCall, \PhpParser\Node\Expr\Assign::class);
         if ($hasParentAssign) {

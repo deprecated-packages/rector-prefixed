@@ -46,9 +46,8 @@ CODE_SAMPLE
     }
     /**
      * @param Concat $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->left instanceof \PhpParser\Node\Expr\Cast\String_ && !$node->right instanceof \PhpParser\Node\Expr\Cast\String_) {
             return null;

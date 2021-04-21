@@ -65,9 +65,8 @@ CODE_SAMPLE
     }
     /**
      * @param Foreach_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipForeach($node)) {
             return null;
@@ -148,10 +147,7 @@ CODE_SAMPLE
         }
         return !$ifCondition instanceof \PhpParser\Node\Expr\BinaryOp\Equal;
     }
-    /**
-     * @return \Rector\Php71\ValueObject\TwoNodeMatch|null
-     */
-    private function matchNodes(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $expr)
+    private function matchNodes(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $expr) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {
         return $this->binaryOpManipulator->matchFirstAndSecondConditionNode($binaryOp, \PhpParser\Node\Expr\Variable::class, function (\PhpParser\Node $node, \PhpParser\Node $otherNode) use($expr) : bool {
             return $this->nodeComparator->areNodesEqual($otherNode, $expr);

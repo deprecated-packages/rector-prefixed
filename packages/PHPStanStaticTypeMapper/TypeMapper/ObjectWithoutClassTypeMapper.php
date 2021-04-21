@@ -50,10 +50,8 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
     }
     /**
      * @param ObjectWithoutClassType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         $subtractedType = $type->getSubtractedType();
         if ($subtractedType !== null) {
@@ -64,10 +62,7 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         }
         return new \PhpParser\Node\Name('object');
     }
-    /**
-     * @return void
-     */
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

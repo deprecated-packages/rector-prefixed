@@ -36,7 +36,7 @@ final class AnnotatedPropertyInjectToConstructorInjectionRector extends \Rector\
     /**
      * @var string[]
      */
-    const INJECT_ANNOTATION_CLASSES = ['JMS\\DiExtraBundle\\Annotation\\Inject', 'DI\\Annotation\\Inject'];
+    private const INJECT_ANNOTATION_CLASSES = ['JMS\\DiExtraBundle\\Annotation\\Inject', 'DI\\Annotation\\Inject'];
     /**
      * @var PropertyUsageAnalyzer
      */
@@ -96,9 +96,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
@@ -135,10 +134,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode)
+    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode) : void
     {
         $propertyName = $this->getName($property);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
@@ -150,10 +146,7 @@ CODE_SAMPLE
         }
         $this->addConstructorDependencyToClass($classLike, $type, $propertyName, $property->flags);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Property|null
-     */
-    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property)
+    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $injectTagNode = $phpDocInfo->getByName('inject');
         if ($injectTagNode instanceof \PHPStan\PhpDocParser\Ast\Node) {

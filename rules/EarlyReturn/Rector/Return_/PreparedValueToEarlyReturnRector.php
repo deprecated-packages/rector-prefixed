@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $ifsBefore = $this->getIfsBefore($node);
         if ($this->shouldSkip($ifsBefore, $node->expr)) {
@@ -112,9 +111,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_[] $ifsBefore
-     * @param \PhpParser\Node\Expr|null $expr
      */
-    private function isAssignVarUsedInIfCond(array $ifsBefore, $expr) : bool
+    private function isAssignVarUsedInIfCond(array $ifsBefore, ?\PhpParser\Node\Expr $expr) : bool
     {
         foreach ($ifsBefore as $ifBefore) {
             $isUsedInIfCond = (bool) $this->betterNodeFinder->findFirst($ifBefore->cond, function (\PhpParser\Node $node) use($expr) : bool {
@@ -147,21 +145,15 @@ CODE_SAMPLE
     }
     /**
      * @param If_[] $ifsBefore
-     * @param \PhpParser\Node\Expr|null $returnExpr
      */
-    private function shouldSkip(array $ifsBefore, $returnExpr) : bool
+    private function shouldSkip(array $ifsBefore, ?\PhpParser\Node\Expr $returnExpr) : bool
     {
         if ($ifsBefore === []) {
             return \true;
         }
         return !(bool) $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
     }
-    /**
-     * @param \PhpParser\Node|null $node
-     * @param \PhpParser\Node\Expr|null $expr
-     * @return \PhpParser\Node\Stmt\Expression|null
-     */
-    private function getPreviousIfLinearEquals($node, $expr)
+    private function getPreviousIfLinearEquals(?\PhpParser\Node $node, ?\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Expression
     {
         if (!$node instanceof \PhpParser\Node) {
             return null;
@@ -193,8 +185,7 @@ CODE_SAMPLE
         if ($parent->stmts === []) {
             return [];
         }
-        \end($parent->stmts);
-        $firstItemPosition = \key($parent->stmts);
+        $firstItemPosition = \array_key_last($parent->stmts);
         if ($parent->stmts[$firstItemPosition] !== $return) {
             return [];
         }

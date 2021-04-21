@@ -85,10 +85,7 @@ final class ClassMethodManipulator
         }
         return $classMethod->isProtected();
     }
-    /**
-     * @param string|null $methodName
-     */
-    public function hasParentMethodOrInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, $methodName = null) : bool
+    public function hasParentMethodOrInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?string $methodName = null) : bool
     {
         $methodName = $methodName ?? $this->nodeNameResolver->getName($classMethod->name);
         if ($methodName === null) {

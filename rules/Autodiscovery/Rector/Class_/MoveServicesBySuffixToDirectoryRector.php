@@ -26,7 +26,7 @@ final class MoveServicesBySuffixToDirectoryRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    const GROUP_NAMES_BY_SUFFIX = 'group_names_by_suffix';
+    public const GROUP_NAMES_BY_SUFFIX = 'group_names_by_suffix';
     /**
      * @var string[]
      */
@@ -75,18 +75,16 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->processGroupNamesBySuffix($this->file->getSmartFileInfo(), $this->file, $this->groupNamesBySuffix);
         return null;
     }
     /**
      * @param array<string, string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $groupNamesBySuffix = $configuration[self::GROUP_NAMES_BY_SUFFIX] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
@@ -100,9 +98,8 @@ CODE_SAMPLE
      * "App\Exception\SomeException"
      *
      * @param string[] $groupNamesBySuffix
-     * @return void
      */
-    private function processGroupNamesBySuffix(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix)
+    private function processGroupNamesBySuffix(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix) : void
     {
         foreach ($groupNamesBySuffix as $groupNames) {
             // has class suffix
@@ -126,10 +123,7 @@ CODE_SAMPLE
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
         return (bool) \RectorPrefix20210421\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
-    /**
-     * @return void
-     */
-    private function moveFileToGroupName(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName)
+    private function moveFileToGroupName(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : void
     {
         $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $this->file, $desiredGroupName);
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {

@@ -16,10 +16,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
 final class ExtendsTemplateTypeMapFallbackFactory
 {
-    /**
-     * @return \PHPStan\Type\Generic\TemplateTypeMap|null
-     */
-    public function createFromClassReflection(\PHPStan\Reflection\ClassReflection $classReflection)
+    public function createFromClassReflection(\PHPStan\Reflection\ClassReflection $classReflection) : ?\PHPStan\Type\Generic\TemplateTypeMap
     {
         $extendsTags = $this->resolveExtendsTags($classReflection);
         if ($extendsTags === []) {

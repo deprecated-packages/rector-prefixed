@@ -18,10 +18,7 @@ final class PropertyMetadata
      * @var int
      */
     private $flags;
-    /**
-     * @param \PHPStan\Type\Type|null $type
-     */
-    public function __construct(string $name, $type, int $flags)
+    public function __construct(string $name, ?\PHPStan\Type\Type $type, int $flags)
     {
         $this->name = $name;
         $this->type = $type;
@@ -31,10 +28,7 @@ final class PropertyMetadata
     {
         return $this->name;
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    public function getType()
+    public function getType() : ?\PHPStan\Type\Type
     {
         return $this->type;
     }

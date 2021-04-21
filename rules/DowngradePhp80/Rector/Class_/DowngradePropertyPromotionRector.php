@@ -61,9 +61,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $promotedParams = $this->resolvePromotedParams($node);
         if ($promotedParams === []) {
@@ -106,9 +105,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property[] $properties
-     * @return void
      */
-    private function addPropertyAssignsToConstructorClassMethod(array $properties, \PhpParser\Node\Stmt\Class_ $class)
+    private function addPropertyAssignsToConstructorClassMethod(array $properties, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $assigns = [];
         foreach ($properties as $property) {

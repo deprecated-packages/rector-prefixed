@@ -68,23 +68,23 @@ final class NodeFactory
     /**
      * @var string
      */
-    const THIS = 'this';
+    private const THIS = 'this';
     /**
      * @var string
      */
-    const REFERENCE_PARENT = 'parent';
+    private const REFERENCE_PARENT = 'parent';
     /**
      * @var string
      */
-    const REFERENCE_SELF = 'self';
+    private const REFERENCE_SELF = 'self';
     /**
      * @var string
      */
-    const REFERENCE_STATIC = 'static';
+    private const REFERENCE_STATIC = 'static';
     /**
      * @var string[]
      */
-    const REFERENCES = [self::REFERENCE_STATIC, self::REFERENCE_PARENT, self::REFERENCE_SELF];
+    private const REFERENCES = [self::REFERENCE_STATIC, self::REFERENCE_PARENT, self::REFERENCE_SELF];
     /**
      * @var BuilderFactory
      */
@@ -202,10 +202,7 @@ final class NodeFactory
         $methodBuilder->makePublic();
         return $methodBuilder->getNode();
     }
-    /**
-     * @param \PHPStan\Type\Type|null $type
-     */
-    public function createParamFromNameAndType(string $name, $type) : \PhpParser\Node\Param
+    public function createParamFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Param
     {
         $paramBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($name);
         if ($type !== null) {
@@ -216,10 +213,7 @@ final class NodeFactory
         }
         return $paramBuilder->getNode();
     }
-    /**
-     * @param \PHPStan\Type\Type|null $type
-     */
-    public function createPublicInjectPropertyFromNameAndType(string $name, $type) : \PhpParser\Node\Stmt\Property
+    public function createPublicInjectPropertyFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\Property
     {
         $propertyBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePublic();
@@ -230,10 +224,7 @@ final class NodeFactory
         $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@inject', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));
         return $property;
     }
-    /**
-     * @param \PHPStan\Type\Type|null $type
-     */
-    public function createPrivatePropertyFromNameAndType(string $name, $type) : \PhpParser\Node\Stmt\Property
+    public function createPrivatePropertyFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\Property
     {
         $propertyBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder($name);
         $propertyBuilder->makePrivate();
@@ -334,7 +325,7 @@ final class NodeFactory
     /**
      * @param Identifier|Name|NullableType|UnionType|null $typeNode
      */
-    public function createGetterClassMethodFromNameAndType(string $propertyName, $typeNode) : \PhpParser\Node\Stmt\ClassMethod
+    public function createGetterClassMethodFromNameAndType(string $propertyName, ?\PhpParser\Node $typeNode) : \PhpParser\Node\Stmt\ClassMethod
     {
         $getterMethod = 'get' . \ucfirst($propertyName);
         $methodBuilder = new \RectorPrefix20210421\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
@@ -350,9 +341,8 @@ final class NodeFactory
     /**
      * @todo decouple to StackNodeFactory
      * @param Expr[] $exprs
-     * @return \PhpParser\Node\Expr\BinaryOp\Concat|null
      */
-    public function createConcat(array $exprs)
+    public function createConcat(array $exprs) : ?\PhpParser\Node\Expr\BinaryOp\Concat
     {
         if (\count($exprs) < 2) {
             return null;
@@ -477,9 +467,8 @@ final class NodeFactory
     }
     /**
      * @param array<NotIdentical|BooleanAnd> $newNodes
-     * @return \PhpParser\Node\Expr|null
      */
-    public function createReturnBooleanAnd(array $newNodes)
+    public function createReturnBooleanAnd(array $newNodes) : ?\PhpParser\Node\Expr
     {
         if ($newNodes === []) {
             return null;
@@ -531,11 +520,7 @@ final class NodeFactory
         }
         return $value;
     }
-    /**
-     * @param \PHPStan\Type\Type|null $type
-     * @return void
-     */
-    private function addPropertyType(\PhpParser\Node\Stmt\Property $property, $type)
+    private function addPropertyType(\PhpParser\Node\Stmt\Property $property, ?\PHPStan\Type\Type $type) : void
     {
         if ($type === null) {
             return;
@@ -579,9 +564,8 @@ final class NodeFactory
     }
     /**
      * @param int|string|null $key
-     * @return void
      */
-    private function decoreateArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem)
+    private function decoreateArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem) : void
     {
         if ($key !== null) {
             $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);

@@ -64,19 +64,15 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->processUnspreadOperatorClassMethodParams($node);
         }
         return $this->processUnspreadOperatorMethodCallArgs($node);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function processUnspreadOperatorClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function processUnspreadOperatorClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $spreadParams = $this->spreadVariablesCollector->resolveFromClassMethod($classMethod);
         if ($spreadParams === []) {
@@ -88,10 +84,7 @@ CODE_SAMPLE
         }
         return $classMethod;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processUnspreadOperatorMethodCallArgs(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processUnspreadOperatorMethodCallArgs(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -101,8 +94,7 @@ CODE_SAMPLE
         if ($spreadParams === []) {
             return null;
         }
-        \reset($spreadParams);
-        $firstSpreadParamPosition = \key($spreadParams);
+        $firstSpreadParamPosition = \array_key_first($spreadParams);
         $variadicArgs = $this->resolveVariadicArgsByVariadicParams($methodCall, $firstSpreadParamPosition);
         $hasUnpacked = \false;
         foreach ($variadicArgs as $position => $variadicArg) {

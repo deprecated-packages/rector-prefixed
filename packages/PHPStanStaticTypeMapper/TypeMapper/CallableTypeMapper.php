@@ -21,9 +21,8 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     private $phpStanStaticTypeMapper;
     /**
      * @required
-     * @return void
      */
-    public function autowireCallableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function autowireCallableTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -44,10 +43,8 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param CallableType|ClosureType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         if ($kind === 'property') {
             return null;

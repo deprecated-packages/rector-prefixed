@@ -26,7 +26,7 @@ final class NewToMethodCallRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    const NEWS_TO_METHOD_CALLS = 'news_to_method_calls';
+    public const NEWS_TO_METHOD_CALLS = 'news_to_method_calls';
     /**
      * @var NewToMethodCall[]
      */
@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->newsToMethodCalls as $newsToMethodCall) {
             if (!$this->isObjectType($node, $newsToMethodCall->getNewObjectType())) {
@@ -102,18 +101,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, NewToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $newsToMethodCalls = $configuration[self::NEWS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
         $this->newsToMethodCalls = $newsToMethodCalls;
     }
-    /**
-     * @return string|null
-     */
-    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType)
+    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType) : ?string
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isObjectType($property, $factoryObjectType)) {

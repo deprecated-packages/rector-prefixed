@@ -8,13 +8,13 @@ final class TypeKind
     /**
      * @var string
      */
-    const KIND_PROPERTY = 'property';
+    public const KIND_PROPERTY = 'property';
     /**
      * @var string
      */
-    const KIND_RETURN = 'return';
+    public const KIND_RETURN = 'return';
     /**
      * @var string
      */
-    const KIND_PARAM = 'param';
+    public const KIND_PARAM = 'param';
 }

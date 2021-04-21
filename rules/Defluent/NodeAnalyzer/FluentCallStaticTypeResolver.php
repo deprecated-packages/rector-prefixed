@@ -27,16 +27,14 @@ final class FluentCallStaticTypeResolver
     public function resolveCalleeUniqueTypes(array $chainMethodCalls) : array
     {
         $callerClassTypes = [];
-        \end($chainMethodCalls);
-        $lastMethodCallKey = \key($chainMethodCalls);
+        $lastMethodCallKey = \array_key_last($chainMethodCalls);
         $lastMethodCall = $chainMethodCalls[$lastMethodCallKey];
         $rootType = $this->exprStringTypeResolver->resolve($lastMethodCall->var);
         if ($rootType !== null) {
             $callerClassTypes[] = $rootType;
         }
-        \reset($chainMethodCalls);
         // chain method calls are inversed
-        $lastChainMethodCallKey = \key($chainMethodCalls);
+        $lastChainMethodCallKey = \array_key_first($chainMethodCalls);
         foreach ($chainMethodCalls as $key => $chainMethodCall) {
             $chainMethodCallType = $this->exprStringTypeResolver->resolve($chainMethodCall);
             if ($chainMethodCallType === null) {

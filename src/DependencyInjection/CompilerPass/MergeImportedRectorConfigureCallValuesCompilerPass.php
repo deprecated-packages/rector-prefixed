@@ -12,7 +12,7 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \Recto
     /**
      * @var string
      */
-    const CONFIGURE_METHOD_NAME = 'configure';
+    private const CONFIGURE_METHOD_NAME = 'configure';
     /**
      * @var ConfigureCallValuesCollector
      */
@@ -21,19 +21,13 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \Recto
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
     }
-    /**
-     * @return void
-     */
-    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210421\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $id => $definition) {
             $this->completeCollectedArguments($id, $definition);
         }
     }
-    /**
-     * @return void
-     */
-    private function completeCollectedArguments(string $serviceClass, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition)
+    private function completeCollectedArguments(string $serviceClass, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $configureCallValues = $this->configureCallValuesCollector->getConfigureCallValues($serviceClass);
         if ($configureCallValues === []) {

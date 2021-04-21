@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -97,9 +96,8 @@ CODE_SAMPLE
     }
     /**
      * @param Param[] $unusedParameters
-     * @return void
      */
-    private function clearPhpDocInfo(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $unusedParameters)
+    private function clearPhpDocInfo(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $unusedParameters) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         foreach ($unusedParameters as $unusedParameter) {

@@ -19,7 +19,7 @@ final class StringifyStrNeedlesRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string[]
      */
-    const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
+    private const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
     /**
      * @var NodeTypeAnalyzer
      */
@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isNames($node, self::NEEDLE_STRING_SENSITIVE_FUNCTIONS)) {
             return null;

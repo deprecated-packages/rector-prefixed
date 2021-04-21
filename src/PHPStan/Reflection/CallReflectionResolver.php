@@ -49,10 +49,7 @@ final class CallReflectionResolver
         $this->nodeNameResolver = $nodeNameResolver;
         $this->typeToCallReflectionResolverRegistry = $typeToCallReflectionResolverRegistry;
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    public function resolveConstructor(\PhpParser\Node\Expr\New_ $new)
+    public function resolveConstructor(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection
     {
         $scope = $new->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -81,19 +78,15 @@ final class CallReflectionResolver
     /**
      * @param FunctionReflection|MethodReflection|null $reflection
      * @param FuncCall|MethodCall|StaticCall|New_ $node
-     * @return \PHPStan\Reflection\ParametersAcceptor|null
      */
-    public function resolveParametersAcceptor($reflection, \PhpParser\Node $node)
+    public function resolveParametersAcceptor($reflection, \PhpParser\Node $node) : ?\PHPStan\Reflection\ParametersAcceptor
     {
         if ($reflection === null) {
             return null;
         }
         return $reflection->getVariants()[0];
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    private function matchConstructorMethodInUnionType(\PHPStan\Type\UnionType $unionType, \PHPStan\Analyser\Scope $scope)
+    private function matchConstructorMethodInUnionType(\PHPStan\Type\UnionType $unionType, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Reflection\MethodReflection
     {
         foreach ($unionType->getTypes() as $unionedType) {
             if (!$unionedType instanceof \PHPStan\Type\TypeWithClassName) {
@@ -127,9 +120,8 @@ final class CallReflectionResolver
     }
     /**
      * @param MethodCall|StaticCall $expr
-     * @return \PHPStan\Reflection\MethodReflection|null
      */
-    private function resolveMethodCall(\PhpParser\Node\Expr $expr)
+    private function resolveMethodCall(\PhpParser\Node\Expr $expr) : ?\PHPStan\Reflection\MethodReflection
     {
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

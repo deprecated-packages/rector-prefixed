@@ -98,10 +98,7 @@ final class ProcessCommand extends \RectorPrefix20210421\Symfony\Component\Conso
         $this->nodeScopeResolver = $nodeScopeResolver;
         $this->dynamicSourceLocatorDecorator = $dynamicSourceLocatorDecorator;
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Upgrade or refactor source code with provided rectors');
         $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20210421\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
@@ -145,10 +142,7 @@ final class ProcessCommand extends \RectorPrefix20210421\Symfony\Component\Conso
         $this->invalidateCacheChangedFiles($processResult);
         return $this->resolveReturnCode($processResult);
     }
-    /**
-     * @return void
-     */
-    protected function initialize(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function initialize(\RectorPrefix20210421\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210421\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $application = $this->getApplication();
         if (!$application instanceof \RectorPrefix20210421\Symfony\Component\Console\Application) {
@@ -167,10 +161,7 @@ final class ProcessCommand extends \RectorPrefix20210421\Symfony\Component\Conso
             $this->changedFilesDetector->clear();
         }
     }
-    /**
-     * @return void
-     */
-    private function invalidateCacheChangedFiles(\Rector\Core\ValueObject\ProcessResult $processResult)
+    private function invalidateCacheChangedFiles(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
         if (!$this->configuration->isCacheEnabled()) {
             return;
@@ -193,9 +184,8 @@ final class ProcessCommand extends \RectorPrefix20210421\Symfony\Component\Conso
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return void
      */
-    private function configurePHPStanNodeScopeResolver(array $fileInfos)
+    private function configurePHPStanNodeScopeResolver(array $fileInfos) : void
     {
         $filePaths = [];
         foreach ($fileInfos as $fileInfo) {

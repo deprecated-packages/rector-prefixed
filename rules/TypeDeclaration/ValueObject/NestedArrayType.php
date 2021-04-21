@@ -19,10 +19,7 @@ final class NestedArrayType
      * @var Type|null
      */
     private $keyType;
-    /**
-     * @param \PHPStan\Type\Type|null $keyType
-     */
-    public function __construct(\PHPStan\Type\Type $valueType, int $arrayNestingLevel, $keyType = null)
+    public function __construct(\PHPStan\Type\Type $valueType, int $arrayNestingLevel, ?\PHPStan\Type\Type $keyType = null)
     {
         $this->type = $valueType;
         $this->arrayNestingLevel = $arrayNestingLevel;

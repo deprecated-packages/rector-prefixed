@@ -23,10 +23,7 @@ final class ExprStringTypeResolver
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeUnwrapper = $typeUnwrapper;
     }
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node\Expr $expr)
+    public function resolve(\PhpParser\Node\Expr $expr) : ?string
     {
         $exprStaticType = $this->nodeTypeResolver->getStaticType($expr);
         $exprStaticType = $this->typeUnwrapper->unwrapNullableType($exprStaticType);

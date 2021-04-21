@@ -47,9 +47,8 @@ CODE_SAMPLE
     }
     /**
      * @param Ternary $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeTypeResolver->isStaticType($node->cond, \PHPStan\Type\BooleanType::class)) {
             return null;

@@ -25,14 +25,14 @@ final class ControlStructure
     /**
      * @var array<class-string<FunctionLike>>
      */
-    const RETURN_ISOLATING_SCOPE_NODE_TYPES = [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Expr\ArrowFunction::class];
+    public const RETURN_ISOLATING_SCOPE_NODE_TYPES = [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Expr\ArrowFunction::class];
     /**
      * @var array<class-string<Node>>
      */
-    const BREAKING_SCOPE_NODE_TYPES = [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Do_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class, \PhpParser\Node\Stmt\Catch_::class, \PhpParser\Node\Stmt\Case_::class, \PhpParser\Node\FunctionLike::class];
+    public const BREAKING_SCOPE_NODE_TYPES = [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Do_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class, \PhpParser\Node\Stmt\Catch_::class, \PhpParser\Node\Stmt\Case_::class, \PhpParser\Node\FunctionLike::class];
     /**
      * These situations happens only if condition is met
      * @var array<class-string<Node>>
      */
-    const CONDITIONAL_NODE_SCOPE_TYPES = [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Do_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class, \PhpParser\Node\Stmt\Catch_::class, \PhpParser\Node\Stmt\Case_::class, \PhpParser\Node\Expr\Match_::class, \PhpParser\Node\Stmt\Switch_::class, \PhpParser\Node\Stmt\Foreach_::class];
+    public const CONDITIONAL_NODE_SCOPE_TYPES = [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Do_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class, \PhpParser\Node\Stmt\Catch_::class, \PhpParser\Node\Stmt\Case_::class, \PhpParser\Node\Expr\Match_::class, \PhpParser\Node\Stmt\Switch_::class, \PhpParser\Node\Stmt\Foreach_::class];
 }

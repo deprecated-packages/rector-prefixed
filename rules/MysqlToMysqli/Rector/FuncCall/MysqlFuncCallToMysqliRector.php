@@ -23,7 +23,7 @@ final class MysqlFuncCallToMysqliRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const MYSQLI_QUERY = 'mysqli_query';
+    private const MYSQLI_QUERY = 'mysqli_query';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Converts more complex mysql functions to mysqli', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -43,9 +43,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isName($node, 'mysql_create_db')) {
             return $this->processMysqlCreateDb($node);

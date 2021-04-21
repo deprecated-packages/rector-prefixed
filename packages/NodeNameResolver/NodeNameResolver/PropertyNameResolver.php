@@ -15,9 +15,8 @@ final class PropertyNameResolver implements \Rector\NodeNameResolver\Contract\No
     private $nodeNameResolver;
     /**
      * @required
-     * @return void
      */
-    public function autowirePropertyNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function autowirePropertyNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -30,9 +29,8 @@ final class PropertyNameResolver implements \Rector\NodeNameResolver\Contract\No
     }
     /**
      * @param Property $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if ($node->props === []) {
             return null;

@@ -40,10 +40,7 @@ final class LivingCodeManipulator
     {
         $this->nodesToAddCollector = $nodesToAddCollector;
     }
-    /**
-     * @return void
-     */
-    public function addLivingCodeBeforeNode(\PhpParser\Node\Expr $expr, \PhpParser\Node $addBeforeThisNode)
+    public function addLivingCodeBeforeNode(\PhpParser\Node\Expr $expr, \PhpParser\Node $addBeforeThisNode) : void
     {
         $livinExprs = $this->keepLivingCodeFromExpr($expr);
         foreach ($livinExprs as $livinExpr) {

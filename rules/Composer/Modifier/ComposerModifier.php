@@ -18,10 +18,7 @@ final class ComposerModifier
     {
         $this->composerRectors = $composerRectors;
     }
-    /**
-     * @return void
-     */
-    public function modify(\RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function modify(\RectorPrefix20210421\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->composerRectors as $composerRector) {
             $composerRector->refactor($composerJson);

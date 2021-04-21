@@ -76,9 +76,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
@@ -90,9 +89,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
-     * @return void
      */
-    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param)
+    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type !== null) {
             return;
@@ -116,10 +114,7 @@ CODE_SAMPLE
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function matchPropertySingleTypeNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch)
+    private function matchPropertySingleTypeNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
     {
         $property = $this->nodeRepository->findPropertyByPropertyFetch($propertyFetch);
         if (!$property instanceof \PhpParser\Node\Stmt\Property) {

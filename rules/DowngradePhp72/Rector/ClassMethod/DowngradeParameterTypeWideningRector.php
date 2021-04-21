@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->isMagic()) {
             return null;
@@ -95,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * The topmost class is the source of truth, so we go only down to avoid up/down collission
-     * @return void
      */
-    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position)
+    private function refactorParamForSelfAndSiblings(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $position) : void
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -128,10 +126,7 @@ CODE_SAMPLE
         }
         $this->refactorClassWithAncestorsAndChildren($classReflection, $methodName, $position);
     }
-    /**
-     * @return void
-     */
-    private function removeParamTypeFromMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function removeParamTypeFromMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $classMethodName = $this->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($classMethodName);
@@ -151,10 +146,7 @@ CODE_SAMPLE
         // Remove the type
         $param->type = null;
     }
-    /**
-     * @return void
-     */
-    private function removeParamTypeFromMethodForChildren(string $parentClassName, string $methodName, int $position)
+    private function removeParamTypeFromMethodForChildren(string $parentClassName, string $methodName, int $position) : void
     {
         $childrenClassLikes = $this->nodeRepository->findClassesAndInterfacesByType($parentClassName);
         foreach ($childrenClassLikes as $childClassLike) {
@@ -171,9 +163,8 @@ CODE_SAMPLE
     }
     /**
      * Add the current param type in the PHPDoc
-     * @return void
      */
-    private function addPHPDocParamTypeToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
+    private function addPHPDocParamTypeToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;
@@ -201,10 +192,7 @@ CODE_SAMPLE
         }
         return $parameterTypesByParentClassLikes;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassWithAncestorsAndChildren(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position)
+    private function refactorClassWithAncestorsAndChildren(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, int $position) : void
     {
         foreach ($classReflection->getAncestors() as $ancestorClassRelection) {
             $classLike = $this->nodeRepository->findClassLike($ancestorClassRelection->getName());

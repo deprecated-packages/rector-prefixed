@@ -53,9 +53,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach (\Rector\PHPOffice\ValueObject\PHPExcelMethodDefaultValues::METHOD_NAMES_BY_TYPE_WITH_VALUE as $type => $defaultValuesByMethodName) {
             if (!$this->isCallerObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -73,9 +72,8 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      * @param array<int, mixed> $defaultValuesByPosition
-     * @return void
      */
-    private function refactorArgs(\PhpParser\Node $node, array $defaultValuesByPosition)
+    private function refactorArgs(\PhpParser\Node $node, array $defaultValuesByPosition) : void
     {
         foreach ($defaultValuesByPosition as $position => $defaultValue) {
             // value is already set
@@ -83,7 +81,7 @@ CODE_SAMPLE
                 continue;
             }
             if (\is_string($defaultValue) && \RectorPrefix20210421\Nette\Utils\Strings::contains($defaultValue, '::')) {
-                list($className, $constant) = \explode('::', $defaultValue);
+                [$className, $constant] = \explode('::', $defaultValue);
                 $classConstant = $this->nodeFactory->createClassConstFetch($className, $constant);
                 $arg = new \PhpParser\Node\Arg($classConstant);
             } else {

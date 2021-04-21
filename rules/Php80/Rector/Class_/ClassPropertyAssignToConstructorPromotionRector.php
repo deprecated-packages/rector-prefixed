@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $promotionCandidates = $this->promotedPropertyResolver->resolveFromClass($node);
         if ($promotionCandidates === []) {
@@ -115,20 +114,14 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function processNullableType(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param)
+    private function processNullableType(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
     {
         if ($this->nodeTypeResolver->isNullableType($property)) {
             $objectType = $this->getObjectType($property);
             $param->type = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
         }
     }
-    /**
-     * @return void
-     */
-    private function decorateParamWithPropertyPhpDocInfo(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param)
+    private function decorateParamWithPropertyPhpDocInfo(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
     {
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $propertyPhpDocInfo->markAsChanged();
@@ -140,10 +133,7 @@ CODE_SAMPLE
         $paramType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
         $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($param, $paramType);
     }
-    /**
-     * @return void
-     */
-    private function removeClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName)
+    private function removeClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $paramTagValueByName = $phpDocInfo->getParamTagValueByName($paramName);

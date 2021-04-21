@@ -57,10 +57,7 @@ final class MethodReflectionProvider
         }
         return $parameterTypes;
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    public function provideByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function provideByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\MethodReflection
     {
         $className = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($className)) {
@@ -90,10 +87,7 @@ final class MethodReflectionProvider
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    public function provideByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    public function provideByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Reflection\MethodReflection
     {
         $objectType = $this->nodeTypeResolver->resolve($staticCall->class);
         $classes = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
@@ -114,10 +108,7 @@ final class MethodReflectionProvider
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    public function provideByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function provideByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Reflection\MethodReflection
     {
         $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($class)) {
@@ -171,9 +162,8 @@ final class MethodReflectionProvider
     }
     /**
      * @param string[] $classes
-     * @return \PHPStan\Reflection\MethodReflection|null
      */
-    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node\Expr\StaticCall $staticCall)
+    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
         $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);

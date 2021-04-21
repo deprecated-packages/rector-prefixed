@@ -44,18 +44,12 @@ final class VariableNaming
         $this->valueResolver = $valueResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveFromNode(\PhpParser\Node $node)
+    public function resolveFromNode(\PhpParser\Node $node) : ?string
     {
         $nodeType = $this->nodeTypeResolver->getStaticType($node);
         return $this->resolveFromNodeAndType($node, $nodeType);
     }
-    /**
-     * @return string|null
-     */
-    public function resolveFromNodeAndType(\PhpParser\Node $node, \PHPStan\Type\Type $type)
+    public function resolveFromNodeAndType(\PhpParser\Node $node, \PHPStan\Type\Type $type) : ?string
     {
         $variableName = $this->resolveBareFromNode($node);
         if ($variableName === null) {
@@ -69,10 +63,7 @@ final class VariableNaming
         $stringy = new \RectorPrefix20210421\Stringy\Stringy($variableName);
         return (string) $stringy->camelize();
     }
-    /**
-     * @return string|null
-     */
-    private function resolveBareFromNode(\PhpParser\Node $node)
+    private function resolveBareFromNode(\PhpParser\Node $node) : ?string
     {
         $node = $this->unwrapNode($node);
         if ($node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -102,10 +93,7 @@ final class VariableNaming
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function unwrapNode(\PhpParser\Node $node)
+    private function unwrapNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Arg) {
             return $node->value;
@@ -118,10 +106,7 @@ final class VariableNaming
         }
         return $node;
     }
-    /**
-     * @return string|null
-     */
-    private function resolveParamNameFromArrayDimFetch(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch)
+    private function resolveParamNameFromArrayDimFetch(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : ?string
     {
         while ($arrayDimFetch instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             if ($arrayDimFetch->dim instanceof \PhpParser\Node\Scalar) {
@@ -152,9 +137,8 @@ final class VariableNaming
     }
     /**
      * @param MethodCall|NullsafeMethodCall|StaticCall $node
-     * @return string|null
      */
-    private function resolveFromMethodCall(\PhpParser\Node $node)
+    private function resolveFromMethodCall(\PhpParser\Node $node) : ?string
     {
         if ($node->name instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->resolveFromMethodCall($node->name);

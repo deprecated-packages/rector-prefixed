@@ -26,7 +26,7 @@ final class ForAnalyzer
     /**
      * @var string
      */
-    const COUNT = 'count';
+    private const COUNT = 'count';
     /**
      * @var NodeNameResolver
      */
@@ -74,9 +74,8 @@ final class ForAnalyzer
     /**
      * @param Expr[] $loopExprs
      * $param
-     * @param string|null $keyValueName
      */
-    public function isLoopMatch(array $loopExprs, $keyValueName) : bool
+    public function isLoopMatch(array $loopExprs, ?string $keyValueName) : bool
     {
         if (\count($loopExprs) !== 1) {
             return \false;
@@ -90,10 +89,7 @@ final class ForAnalyzer
         }
         return \false;
     }
-    /**
-     * @param \PhpParser\Node\Expr|null $expr
-     */
-    public function isCountValueVariableUsedInsideForStatements(\PhpParser\Node\Stmt\For_ $for, $expr) : bool
+    public function isCountValueVariableUsedInsideForStatements(\PhpParser\Node\Stmt\For_ $for, ?\PhpParser\Node\Expr $expr) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($for->stmts, function (\PhpParser\Node $node) use($expr) : bool {
             return $this->nodeComparator->areNodesEqual($node, $expr);
@@ -140,9 +136,8 @@ final class ForAnalyzer
     }
     /**
      * @param Expr[] $condExprs
-     * @param string|null $keyValueName
      */
-    public function isCondExprOneOrKeyValueNameNotNull(array $condExprs, $keyValueName) : bool
+    public function isCondExprOneOrKeyValueNameNotNull(array $condExprs, ?string $keyValueName) : bool
     {
         if (\count($condExprs) !== 1) {
             return \true;

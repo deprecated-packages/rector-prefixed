@@ -24,7 +24,7 @@ final class CompleteMissingDependencyInNewRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    const CLASS_TO_INSTANTIATE_BY_TYPE = 'class_to_instantiate_by_type';
+    public const CLASS_TO_INSTANTIATE_BY_TYPE = 'class_to_instantiate_by_type';
     /**
      * @var array<class-string, class-string>
      */
@@ -82,9 +82,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipNew($node)) {
             return null;
@@ -105,10 +104,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }
@@ -120,10 +116,7 @@ CODE_SAMPLE
         }
         return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
     }
-    /**
-     * @return \ReflectionMethod|null
-     */
-    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new)
+    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
     {
         $className = $this->getName($new->class);
         if ($className === null) {
@@ -136,10 +129,7 @@ CODE_SAMPLE
         $reflectionClass = $classReflection->getNativeReflection();
         return $reflectionClass->getConstructor();
     }
-    /**
-     * @return string|null
-     */
-    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter)
+    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter) : ?string
     {
         $reflectionType = $reflectionParameter->getType();
         if (!$reflectionType instanceof \ReflectionType) {

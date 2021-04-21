@@ -17,12 +17,12 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     /**
      * @var string
      */
-    const NAME = 'console';
+    public const NAME = 'console';
     /**
      * @var string
      * @see https://regex101.com/r/q8I66g/1
      */
-    const ON_LINE_REGEX = '# on line #';
+    private const ON_LINE_REGEX = '# on line #';
     /**
      * @var SymfonyStyle
      */
@@ -41,10 +41,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $this->configuration = $configuration;
         $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
-    /**
-     * @return void
-     */
-    public function report(\Rector\Core\ValueObject\ProcessResult $processResult)
+    public function report(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
         if ($this->configuration->getOutputFile()) {
             $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');
@@ -67,9 +64,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     /**
      * @param FileDiff[] $fileDiffs
-     * @return void
      */
-    private function reportFileDiffs(array $fileDiffs)
+    private function reportFileDiffs(array $fileDiffs) : void
     {
         if (\count($fileDiffs) <= 0) {
             return;
@@ -97,9 +93,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     /**
      * @param RectorError[] $errors
-     * @return void
      */
-    private function reportErrors(array $errors)
+    private function reportErrors(array $errors) : void
     {
         foreach ($errors as $error) {
             $errorMessage = $error->getMessage();
@@ -111,10 +106,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $this->symfonyStyle->error($message);
         }
     }
-    /**
-     * @return void
-     */
-    private function reportRemovedFilesAndNodes(\Rector\Core\ValueObject\ProcessResult $processResult)
+    private function reportRemovedFilesAndNodes(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
         if ($processResult->getAddedFilesCount() !== 0) {
             $message = \sprintf('%d files were added', $processResult->getAddedFilesCount());
@@ -132,10 +124,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $errorMessage = \RectorPrefix20210421\Nette\Utils\Strings::replace($errorMessage, $regex, '');
         return \RectorPrefix20210421\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
-    /**
-     * @return void
-     */
-    private function reportRemovedNodes(\Rector\Core\ValueObject\ProcessResult $processResult)
+    private function reportRemovedNodes(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
         if ($processResult->getRemovedNodeCount() === 0) {
             return;

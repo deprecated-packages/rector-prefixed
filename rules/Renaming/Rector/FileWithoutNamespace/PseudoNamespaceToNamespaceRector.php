@@ -30,12 +30,12 @@ final class PseudoNamespaceToNamespaceRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var string
      */
-    const NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES = 'namespace_prefixed_with_excluded_classes';
+    public const NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES = 'namespace_prefixed_with_excluded_classes';
     /**
      * @see https://regex101.com/r/chvLgs/1/
      * @var string
      */
-    const SPLIT_BY_UNDERSCORE_REGEX = '#([a-zA-Z])(_)?(_)([a-zA-Z])#';
+    private const SPLIT_BY_UNDERSCORE_REGEX = '#([a-zA-Z])(_)?(_)([a-zA-Z])#';
     /**
      * @var PseudoNamespaceToNamespace[]
      */
@@ -76,9 +76,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->newNamespace = null;
         if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
@@ -97,10 +96,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $namespacePrefixesWithExcludedClasses = $configuration[self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace::class);
@@ -131,9 +127,9 @@ CODE_SAMPLE
     }
     /**
      * @param Name|Identifier $node
-     * @return \PhpParser\Node|null
+     * @return Name|Identifier
      */
-    private function processNameOrIdentifier(\PhpParser\Node $node)
+    private function processNameOrIdentifier(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // no name → skip
         if ($node->toString() === '') {
@@ -162,10 +158,7 @@ CODE_SAMPLE
         }
         return $name;
     }
-    /**
-     * @return \PhpParser\Node\Identifier|null
-     */
-    private function processIdentifier(\PhpParser\Node\Identifier $identifier)
+    private function processIdentifier(\PhpParser\Node\Identifier $identifier) : ?\PhpParser\Node\Identifier
     {
         $parentNode = $identifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Stmt\Class_) {

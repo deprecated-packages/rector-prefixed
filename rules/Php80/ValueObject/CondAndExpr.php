@@ -9,15 +9,15 @@ final class CondAndExpr
     /**
      * @var string
      */
-    const TYPE_NORMAL = 'normal';
+    public const TYPE_NORMAL = 'normal';
     /**
      * @var string
      */
-    const TYPE_ASSIGN = 'assign';
+    public const TYPE_ASSIGN = 'assign';
     /**
      * @var string
      */
-    const TYPE_RETURN = 'return';
+    public const TYPE_RETURN = 'return';
     /**
      * @var string
      */
@@ -30,10 +30,7 @@ final class CondAndExpr
      * @var Expr|null
      */
     private $condExpr;
-    /**
-     * @param \PhpParser\Node\Expr|null $condExpr
-     */
-    public function __construct($condExpr, \PhpParser\Node\Expr $expr, string $kind)
+    public function __construct(?\PhpParser\Node\Expr $condExpr, \PhpParser\Node\Expr $expr, string $kind)
     {
         $this->condExpr = $condExpr;
         $this->expr = $expr;
@@ -43,10 +40,7 @@ final class CondAndExpr
     {
         return $this->expr;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    public function getCondExpr()
+    public function getCondExpr() : ?\PhpParser\Node\Expr
     {
         return $this->condExpr;
     }

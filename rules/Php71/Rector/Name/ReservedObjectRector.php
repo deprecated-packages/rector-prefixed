@@ -22,7 +22,7 @@ final class ReservedObjectRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    const RESERVED_KEYWORDS_TO_REPLACEMENTS = 'reserved_keywords_to_replacements';
+    public const RESERVED_KEYWORDS_TO_REPLACEMENTS = 'reserved_keywords_to_replacements';
     /**
      * @var string[]
      */
@@ -50,19 +50,15 @@ CODE_SAMPLE
     }
     /**
      * @param Identifier|Name $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Identifier) {
             return $this->processIdentifier($node);
         }
         return $this->processName($node);
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->reservedKeywordsToReplacements = $configuration[self::RESERVED_KEYWORDS_TO_REPLACEMENTS] ?? [];
     }

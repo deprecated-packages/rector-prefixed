@@ -84,9 +84,8 @@ CODE_SAMPLE
     }
     /**
      * @param Foreach_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $variableAndCallForeach = $this->varValueAndCallForeachMatcher->match($node);
         if (!$variableAndCallForeach instanceof \Rector\Naming\ValueObject\VariableAndCallForeach) {
@@ -112,10 +111,7 @@ CODE_SAMPLE
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallForeach->getVariableName(), $expectedName, $variableAndCallForeach->getFunctionLike(), $variableAndCallForeach->getVariable());
     }
-    /**
-     * @return void
-     */
-    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName)
+    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallForeach $variableAndCallForeach, string $expectedName) : void
     {
         $this->variableRenamer->renameVariableInFunctionLike($variableAndCallForeach->getFunctionLike(), null, $variableAndCallForeach->getVariableName(), $expectedName);
     }

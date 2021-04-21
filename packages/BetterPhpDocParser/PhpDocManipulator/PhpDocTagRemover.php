@@ -9,10 +9,7 @@ use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 final class PhpDocTagRemover
 {
-    /**
-     * @return void
-     */
-    public function removeByName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $name)
+    public function removeByName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $name) : void
     {
         $phpDocNode = $phpDocInfo->getPhpDocNode();
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {
@@ -32,10 +29,7 @@ final class PhpDocTagRemover
             }
         }
     }
-    /**
-     * @return void
-     */
-    public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\Node $desiredNode)
+    public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\Node $desiredNode) : void
     {
         $phpDocNode = $phpDocInfo->getPhpDocNode();
         foreach ($phpDocNode->children as $key => $phpDocChildNode) {

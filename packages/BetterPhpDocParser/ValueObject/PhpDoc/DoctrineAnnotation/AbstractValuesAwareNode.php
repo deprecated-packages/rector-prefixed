@@ -15,7 +15,7 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
      * @var string
      * @see https://regex101.com/r/H6JjOG/1
      */
-    const UNQUOTED_VALUE_REGEX = '#"(?<content>.*?)"#';
+    private const UNQUOTED_VALUE_REGEX = '#"(?<content>.*?)"#';
     /**
      * @var mixed[]
      */
@@ -34,19 +34,14 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     protected $originalContent;
     /**
      * @param mixed[] $values
-     * @param string|null $originalContent
-     * @param string|null $silentKey
      */
-    public function __construct(array $values = [], $originalContent = null, $silentKey = null)
+    public function __construct(array $values = [], ?string $originalContent = null, ?string $silentKey = null)
     {
         $this->values = $values;
         $this->originalContent = $originalContent;
         $this->silentKey = $silentKey;
     }
-    /**
-     * @return void
-     */
-    public function removeValue(string $key)
+    public function removeValue(string $key) : void
     {
         $quotedKey = '"' . $key . '"';
         // isset?
@@ -79,9 +74,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     }
     /**
      * @param mixed $value
-     * @return void
      */
-    public function changeValue(string $key, $value)
+    public function changeValue(string $key, $value) : void
     {
         // is quoted?
         if (isset($this->values[$key])) {
@@ -108,9 +102,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     }
     /**
      * @param mixed $value
-     * @return void
      */
-    public function changeSilentValue($value)
+    public function changeSilentValue($value) : void
     {
         // is quoted?
         $isQuoted = (bool) \RectorPrefix20210421\Nette\Utils\Strings::match($this->values[0], self::UNQUOTED_VALUE_REGEX);
@@ -171,8 +164,7 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     protected function printValuesContent(array $values) : string
     {
         $itemContents = '';
-        \end($values);
-        $lastItemKey = \key($values);
+        $lastItemKey = \array_key_last($values);
         foreach ($values as $key => $value) {
             if (\is_int($key)) {
                 $itemContents .= $this->stringifyValue($value);

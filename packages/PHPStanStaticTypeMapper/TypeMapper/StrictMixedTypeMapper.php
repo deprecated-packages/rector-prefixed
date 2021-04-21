@@ -15,7 +15,7 @@ final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     /**
      * @var string
      */
-    const MIXED = 'mixed';
+    private const MIXED = 'mixed';
     /**
      * @return class-string<Type>
      */
@@ -32,10 +32,8 @@ final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     }
     /**
      * @param StrictMixedType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name(self::MIXED);
     }

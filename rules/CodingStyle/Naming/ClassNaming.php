@@ -17,7 +17,7 @@ final class ClassNaming
      * @see https://regex101.com/r/8BdrI3/1
      * @var string
      */
-    const INPUT_HASH_NAMING_REGEX = '#input_(.*?)_#';
+    private const INPUT_HASH_NAMING_REGEX = '#input_(.*?)_#';
     /**
      * @param string|Name|Identifier $name
      */
@@ -43,10 +43,7 @@ final class ClassNaming
         $name = \trim($name, '\\');
         return \RectorPrefix20210421\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
     }
-    /**
-     * @return string|null
-     */
-    public function getNamespace(string $fullyQualifiedName)
+    public function getNamespace(string $fullyQualifiedName) : ?string
     {
         $fullyQualifiedName = \trim($fullyQualifiedName, '\\');
         return \RectorPrefix20210421\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;

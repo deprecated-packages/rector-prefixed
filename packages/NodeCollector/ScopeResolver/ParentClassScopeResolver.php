@@ -9,10 +9,7 @@ use PHPStan\Reflection\ClassReflection;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParentClassScopeResolver
 {
-    /**
-     * @return string|null
-     */
-    public function resolveParentClassName(\PhpParser\Node $node)
+    public function resolveParentClassName(\PhpParser\Node $node) : ?string
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

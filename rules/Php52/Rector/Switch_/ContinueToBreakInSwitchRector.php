@@ -60,9 +60,8 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->cases as $case) {
             foreach ($case->stmts as $key => $caseStmt) {

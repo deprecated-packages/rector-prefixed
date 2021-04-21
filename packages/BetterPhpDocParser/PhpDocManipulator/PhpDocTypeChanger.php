@@ -34,10 +34,7 @@ final class PhpDocTypeChanger
         $this->staticTypeMapper = $staticTypeMapper;
         $this->paramPhpDocNodeFactory = $paramPhpDocNodeFactory;
     }
-    /**
-     * @return void
-     */
-    public function changeVarType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType)
+    public function changeVarType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
     {
         // better skip, could crash hard
         if ($phpDocInfo->hasInvalidTag('@var')) {
@@ -63,10 +60,7 @@ final class PhpDocTypeChanger
             $phpDocInfo->addTagValueNode($varTagValueNode);
         }
     }
-    /**
-     * @return void
-     */
-    public function changeReturnType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType)
+    public function changeReturnType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
     {
         // better not touch this, can crash
         if ($phpDocInfo->hasInvalidTag('@return')) {
@@ -88,10 +82,7 @@ final class PhpDocTypeChanger
             $phpDocInfo->addTagValueNode($returnTagValueNode);
         }
     }
-    /**
-     * @return void
-     */
-    public function changeParamType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType, \PhpParser\Node\Param $param, string $paramName)
+    public function changeParamType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType, \PhpParser\Node\Param $param, string $paramName) : void
     {
         // better skip, could crash hard
         if ($phpDocInfo->hasInvalidTag('@param')) {

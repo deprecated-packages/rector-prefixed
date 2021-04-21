@@ -37,10 +37,7 @@ final class TypeNormalizer
         $this->typeFactory = $typeFactory;
         $this->unionTypeFactory = $unionTypeFactory;
     }
-    /**
-     * @return \PHPStan\Type\ArrayType|null
-     */
-    public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType)
+    public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\PHPStan\Type\ArrayType
     {
         $nonConstantValueTypes = [];
         if ($constantArrayType->getItemType() instanceof \PHPStan\Type\UnionType) {
@@ -119,10 +116,7 @@ final class TypeNormalizer
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $nonConstantValueType);
     }
-    /**
-     * @return void
-     */
-    private function collectNestedArrayTypeFromUnionType(\PHPStan\Type\UnionType $unionType, int $arrayNesting)
+    private function collectNestedArrayTypeFromUnionType(\PHPStan\Type\UnionType $unionType, int $arrayNesting) : void
     {
         foreach ($unionType->getTypes() as $unionedType) {
             if ($unionedType instanceof \PHPStan\Type\ArrayType) {

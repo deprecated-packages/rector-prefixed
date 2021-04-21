@@ -12,11 +12,11 @@ final class VariableNodeUse
     /**
      * @var string
      */
-    const TYPE_USE = 'use';
+    public const TYPE_USE = 'use';
     /**
      * @var string
      */
-    const TYPE_ASSIGN = 'assign';
+    public const TYPE_ASSIGN = 'assign';
     /**
      * @var int
      */
@@ -37,10 +37,7 @@ final class VariableNodeUse
      * @var string|null
      */
     private $nestingHash;
-    /**
-     * @param string|null $nestingHash
-     */
-    public function __construct(int $startTokenPosition, string $variableName, string $type, \PhpParser\Node\Expr\Variable $variable, $nestingHash = null)
+    public function __construct(int $startTokenPosition, string $variableName, string $type, \PhpParser\Node\Expr\Variable $variable, ?string $nestingHash = null)
     {
         $this->startTokenPosition = $startTokenPosition;
         $this->variableName = $variableName;
@@ -72,10 +69,7 @@ final class VariableNodeUse
         }
         return $parentNode;
     }
-    /**
-     * @return string|null
-     */
-    public function getNestingHash()
+    public function getNestingHash() : ?string
     {
         return $this->nestingHash;
     }

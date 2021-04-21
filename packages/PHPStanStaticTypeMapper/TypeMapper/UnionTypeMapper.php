@@ -67,9 +67,8 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     }
     /**
      * @required
-     * @return void
      */
-    public function autowireUnionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function autowireUnionTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
@@ -98,10 +97,8 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     }
     /**
      * @param UnionType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         $arrayNode = $this->matchArrayTypes($type);
         if ($arrayNode !== null) {
@@ -148,9 +145,9 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         return $unionTypeAnalysis->hasArray();
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Name|NullableType|null
      */
-    private function matchArrayTypes(\PHPStan\Type\UnionType $unionType)
+    private function matchArrayTypes(\PHPStan\Type\UnionType $unionType) : ?\PhpParser\Node
     {
         $unionTypeAnalysis = $this->unionTypeAnalyzer->analyseForNullableAndIterable($unionType);
         if (!$unionTypeAnalysis instanceof \Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis) {
@@ -162,10 +159,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         return new \PhpParser\Node\Name($type);
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function matchTypeForNullableUnionType(\PHPStan\Type\UnionType $unionType)
+    private function matchTypeForNullableUnionType(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\Type
     {
         if (\count($unionType->getTypes()) !== 2) {
             return null;
@@ -181,9 +175,9 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         return null;
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Name|FullyQualified|PhpParserUnionType|null
      */
-    private function matchTypeForUnionedObjectTypes(\PHPStan\Type\UnionType $unionType)
+    private function matchTypeForUnionedObjectTypes(\PHPStan\Type\UnionType $unionType) : ?\PhpParser\Node
     {
         $phpParserUnionType = $this->matchPhpParserUnionType($unionType);
         if ($phpParserUnionType !== null) {
@@ -206,10 +200,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         return new \PhpParser\Node\Name\FullyQualified($compatibleObjectType->getClassName());
     }
-    /**
-     * @return PhpParserUnionType|null
-     */
-    private function matchPhpParserUnionType(\PHPStan\Type\UnionType $unionType)
+    private function matchPhpParserUnionType(\PHPStan\Type\UnionType $unionType) : ?\PhpParser\Node\UnionType
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES)) {
             return null;
@@ -229,10 +220,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         return new \PhpParser\Node\UnionType($phpParserUnionedTypes);
     }
-    /**
-     * @return \PHPStan\Type\TypeWithClassName|null
-     */
-    private function resolveCompatibleObjectCandidate(\PHPStan\Type\UnionType $unionType)
+    private function resolveCompatibleObjectCandidate(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
     {
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($unionType)) {
             return new \PHPStan\Type\ObjectType('Doctrine\\Common\\Collections\\Collection');
@@ -247,10 +235,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         // find least common denominator
         return $this->unionTypeCommonTypeNarrower->narrowToSharedObjectType($unionType);
     }
-    /**
-     * @return \PHPStan\Type\TypeWithClassName|null
-     */
-    private function matchTwoObjectTypes(\PHPStan\Type\UnionType $unionType)
+    private function matchTwoObjectTypes(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
     {
         /** @var TypeWithClassName $unionedType */
         foreach ($unionType->getTypes() as $unionedType) {

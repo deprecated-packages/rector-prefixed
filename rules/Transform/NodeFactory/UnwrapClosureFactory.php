@@ -20,8 +20,7 @@ final class UnwrapClosureFactory
         $argValue = $arg->value;
         if ($argValue instanceof \PhpParser\Node\Expr\Closure) {
             $unwrappedNodes = $argValue->getStmts();
-            \end($argValue->stmts);
-            $lastStmtKey = \key($argValue->stmts);
+            $lastStmtKey = \array_key_last($argValue->stmts);
             $lastStmt = $argValue->stmts[$lastStmtKey];
             if ($lastStmt instanceof \PhpParser\Node\Stmt\Return_ && $lastStmt->expr !== null) {
                 unset($unwrappedNodes[$lastStmtKey]);

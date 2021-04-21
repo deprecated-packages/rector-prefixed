@@ -26,7 +26,7 @@ final class YieldClassMethodToArrayClassMethodRector extends \Rector\Core\Rector
     /**
      * @var string
      */
-    const METHODS_BY_TYPE = 'methods_by_type';
+    public const METHODS_BY_TYPE = 'methods_by_type';
     /**
      * @var array<class-string, string[]>
      */
@@ -74,9 +74,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodsByType as $type => $methods) {
             if (!$this->isObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -99,10 +98,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->methodsByType = $configuration[self::METHODS_BY_TYPE] ?? [];
     }

@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodeNameResolver->isName($node, 'token_get_all')) {
             return null;
@@ -87,10 +86,7 @@ CODE_SAMPLE
         $this->refactorTokensVariable($node);
         return $this->nodeFactory->createStaticCall('PhpToken', 'getAll', $node->args);
     }
-    /**
-     * @return void
-     */
-    private function refactorTokensVariable(\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function refactorTokensVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : void
     {
         $assign = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
@@ -106,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @return void
      */
-    private function replaceGetNameOrGetValue(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr $assignedExpr)
+    private function replaceGetNameOrGetValue(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr $assignedExpr) : void
     {
         $tokensForeaches = $this->findForeachesOverTokenVariable($functionLike, $assignedExpr);
         foreach ($tokensForeaches as $tokenForeach) {
@@ -128,10 +123,7 @@ CODE_SAMPLE
             return $this->nodeComparator->areNodesEqual($node->expr, $assignedExpr);
         });
     }
-    /**
-     * @return void
-     */
-    private function refactorTokenInForeach(\PhpParser\Node\Stmt\Foreach_ $tokensForeach)
+    private function refactorTokenInForeach(\PhpParser\Node\Stmt\Foreach_ $tokensForeach) : void
     {
         $singleToken = $tokensForeach->valueVar;
         if (!$singleToken instanceof \PhpParser\Node\Expr\Variable) {

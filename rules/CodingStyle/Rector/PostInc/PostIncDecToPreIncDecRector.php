@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param PostInc|PostDec $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($this->isAnExpression($parentNode)) {
@@ -76,10 +75,7 @@ CODE_SAMPLE
         }
         return $this->processPreFor($node, $parentNode);
     }
-    /**
-     * @param \PhpParser\Node|null $node
-     */
-    private function isAnExpression($node = null) : bool
+    private function isAnExpression(?\PhpParser\Node $node = null) : bool
     {
         if (!$node instanceof \PhpParser\Node) {
             return \false;
@@ -98,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * @param PostInc|PostDec $node
-     * @return \PhpParser\Node\Expr|null
      */
-    private function processPreArray(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch)
+    private function processPreArray(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : ?\PhpParser\Node\Expr
     {
         $parentOfArrayDimFetch = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$this->isAnExpression($parentOfArrayDimFetch)) {

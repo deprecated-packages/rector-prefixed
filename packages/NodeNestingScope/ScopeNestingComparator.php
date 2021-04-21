@@ -83,10 +83,7 @@ final class ScopeNestingComparator
         }
         return \false;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function findParentControlStructure(\PhpParser\Node $node)
+    private function findParentControlStructure(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findParentTypes($node, \Rector\NodeNestingScope\ValueObject\ControlStructure::BREAKING_SCOPE_NODE_TYPES);
     }

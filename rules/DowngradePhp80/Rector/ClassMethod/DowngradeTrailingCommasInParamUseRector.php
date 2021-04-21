@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|FuncCall|MethodCall|StaticCall|New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\FuncCall || $node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\New_) {
             /** @var MethodCall|FuncCall|StaticCall|New_ $node */
@@ -95,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|MethodCall|StaticCall|New_ $node
-     * @return \PhpParser\Node|null
      */
-    private function processArgs(\PhpParser\Node $node)
+    private function processArgs(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
@@ -113,9 +111,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
-     * @return \PhpParser\Node|null
      */
-    private function processParams(\PhpParser\Node $node)
+    private function processParams(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->params === []) {
             return null;
@@ -127,8 +124,7 @@ CODE_SAMPLE
      */
     private function cleanTrailingComma(\PhpParser\Node $node, array $array) : \PhpParser\Node
     {
-        \end($array);
-        $lastPosition = \key($array);
+        $lastPosition = \array_key_last($array);
         $last = $array[$lastPosition];
         if (!$this->followedByCommaAnalyzer->isFollowed($this->file, $last)) {
             return $node;

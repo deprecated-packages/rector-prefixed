@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param Foreach_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $assignVariable = $this->foreachAnalyzer->matchAssignItemsOnlyForeachArrayVariable($node);
         if (!$assignVariable instanceof \PhpParser\Node\Expr) {

@@ -19,7 +19,7 @@ final class RenameStringRector extends \Rector\Core\Rector\AbstractRector implem
     /**
      * @var string
      */
-    const STRING_CHANGES = 'string_changes';
+    public const STRING_CHANGES = 'string_changes';
     /**
      * @var mixed[]
      */
@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->stringChanges as $oldValue => $newValue) {
             if (!$this->valueResolver->isValue($node, $oldValue)) {
@@ -69,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->stringChanges = $configuration[self::STRING_CHANGES] ?? [];
     }

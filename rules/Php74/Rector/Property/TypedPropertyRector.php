@@ -37,7 +37,7 @@ final class TypedPropertyRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    const CLASS_LIKE_TYPE_ONLY = 'class_like_type_only';
+    public const CLASS_LIKE_TYPE_ONLY = 'class_like_type_only';
     /**
      * Useful for refactoring of huge applications. Taking types first narrows scope
      * @var bool
@@ -99,9 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
@@ -139,10 +138,7 @@ CODE_SAMPLE
         $node->type = $propertyTypeNode;
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->classLikeTypeOnly = $configuration[self::CLASS_LIKE_TYPE_ONLY] ?? \false;
     }
@@ -170,10 +166,7 @@ CODE_SAMPLE
         }
         return !$this->reflectionProvider->hasClass($typeName);
     }
-    /**
-     * @return void
-     */
-    private function removeDefaultValueForDoctrineCollection(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
+    private function removeDefaultValueForDoctrineCollection(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
     {
         if (!$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($propertyType)) {
             return;
@@ -181,10 +174,7 @@ CODE_SAMPLE
         $onlyProperty = $property->props[0];
         $onlyProperty->default = null;
     }
-    /**
-     * @return void
-     */
-    private function addDefaultValueNullForNullableType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType)
+    private function addDefaultValueNullForNullableType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
     {
         if (!$propertyType instanceof \PHPStan\Type\UnionType) {
             return;

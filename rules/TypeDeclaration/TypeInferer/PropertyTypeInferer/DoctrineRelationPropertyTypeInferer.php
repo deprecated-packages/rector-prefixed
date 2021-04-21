@@ -22,7 +22,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     /**
      * @var string
      */
-    const COLLECTION_TYPE = 'Doctrine\\Common\\Collections\\Collection';
+    private const COLLECTION_TYPE = 'Doctrine\\Common\\Collections\\Collection';
     /**
      * @var TypeFactory
      */
@@ -75,10 +75,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
         $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(self::COLLECTION_TYPE);
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode|null $joinDoctrineAnnotationTagValueNode
-     */
-    private function processToOneRelation(\PhpParser\Node\Stmt\Property $property, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $toOneDoctrineAnnotationTagValueNode, $joinDoctrineAnnotationTagValueNode) : \PHPStan\Type\Type
+    private function processToOneRelation(\PhpParser\Node\Stmt\Property $property, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $toOneDoctrineAnnotationTagValueNode, ?\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $joinDoctrineAnnotationTagValueNode) : \PHPStan\Type\Type
     {
         $targetEntity = $toOneDoctrineAnnotationTagValueNode->getValueWithoutQuotes('targetEntity');
         if ($targetEntity === null) {
@@ -96,10 +93,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
-    /**
-     * @param \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode|null $doctrineAnnotationTagValueNode
-     */
-    private function shouldAddNullType($doctrineAnnotationTagValueNode) : bool
+    private function shouldAddNullType(?\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode) : bool
     {
         if ($doctrineAnnotationTagValueNode === null) {
             return \true;

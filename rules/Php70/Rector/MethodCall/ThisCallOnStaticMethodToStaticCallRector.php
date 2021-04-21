@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;

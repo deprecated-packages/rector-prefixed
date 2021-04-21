@@ -22,7 +22,7 @@ final class StaticCallToNewRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    const STATIC_CALLS_TO_NEWS = 'static_calls_to_news';
+    public const STATIC_CALLS_TO_NEWS = 'static_calls_to_news';
     /**
      * @var StaticCallToNew[]
      */
@@ -58,9 +58,8 @@ CODE_SAMPLE
     }
     /**
      * @param Node\Expr\StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->staticCallsToNews as $staticCallToNews) {
             if (!$this->isName($node->class, $staticCallToNews->getClass())) {
@@ -79,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, StaticCallToNew[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $staticCallsToNews = $configuration[self::STATIC_CALLS_TO_NEWS] ?? [];
         $this->staticCallsToNews = $staticCallsToNews;

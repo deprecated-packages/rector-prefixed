@@ -37,10 +37,7 @@ final class ParentClassMethodTypeOverrideGuard
         // if null, we're unable to override → skip it
         return $parentClassMethod !== null;
     }
-    /**
-     * @return \PHPStan\Reflection\MethodReflection|null
-     */
-    private function getParentClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function getParentClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Reflection\MethodReflection
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

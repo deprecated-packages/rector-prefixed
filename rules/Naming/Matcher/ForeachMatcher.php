@@ -32,10 +32,7 @@ final class ForeachMatcher
         $this->callMatcher = $callMatcher;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    /**
-     * @return \Rector\Naming\ValueObject\VariableAndCallForeach|null
-     */
-    public function match(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    public function match(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\Rector\Naming\ValueObject\VariableAndCallForeach
     {
         $call = $this->callMatcher->matchCall($foreach);
         if ($call === null) {
@@ -55,9 +52,9 @@ final class ForeachMatcher
         return new \Rector\Naming\ValueObject\VariableAndCallForeach($foreach->valueVar, $call, $variableName, $functionLike);
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return ClassMethod|Function_|Closure|null
      */
-    private function getFunctionLike(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function getFunctionLike(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findParentTypes($foreach, [\PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
     }

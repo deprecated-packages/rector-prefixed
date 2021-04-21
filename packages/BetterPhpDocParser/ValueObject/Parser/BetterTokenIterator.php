@@ -11,11 +11,11 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     /**
      * @var string
      */
-    const TOKENS = 'tokens';
+    private const TOKENS = 'tokens';
     /**
      * @var string
      */
-    const INDEX = 'index';
+    private const INDEX = 'index';
     /**
      * @var PrivatesAccessor
      */
@@ -99,10 +99,7 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
         }
         return $content;
     }
-    /**
-     * @return int|null
-     */
-    public function nextTokenType()
+    public function nextTokenType() : ?int
     {
         $tokens = $this->getTokens();
         // does next token exist?

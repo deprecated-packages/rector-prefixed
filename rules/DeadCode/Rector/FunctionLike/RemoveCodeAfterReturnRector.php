@@ -50,9 +50,8 @@ CODE_SAMPLE
     }
     /**
      * @param Closure|ClassMethod|Function_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->stmts === null) {
             return null;

@@ -8,8 +8,7 @@ final class CurlyListNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDoc\
     public function __toString() : string
     {
         $itemContents = '';
-        \end($this->values);
-        $lastItemKey = \key($this->values);
+        $lastItemKey = \array_key_last($this->values);
         foreach ($this->values as $key => $value) {
             if (\is_int($key)) {
                 $itemContents .= $this->stringifyValue($value);

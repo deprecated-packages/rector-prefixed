@@ -8,7 +8,7 @@ final class StaticNonPhpFileSuffixes
     /**
      * @var string[]
      */
-    const SUFFIXES = ['neon', 'yaml', 'xml', 'yml', 'twig', 'latte', 'blade.php'];
+    public const SUFFIXES = ['neon', 'yaml', 'xml', 'yml', 'twig', 'latte', 'blade.php'];
     public static function getSuffixRegexPattern() : string
     {
         $quotedSuffixes = [];

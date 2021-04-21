@@ -30,7 +30,7 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
      * @api
      * @var string
      */
-    const INFER_PARAMS_FROM_CLASS_METHOD_RETURNS = 'infer_param_from_class_method_returns';
+    public const INFER_PARAMS_FROM_CLASS_METHOD_RETURNS = 'infer_param_from_class_method_returns';
     /**
      * @var InferParamFromClassMethodReturn[]
      */
@@ -95,9 +95,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // must be exactly 1 param
         if (\count($node->params) !== 1) {
@@ -126,18 +125,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, InferParamFromClassMethodReturn[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn)
+    private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

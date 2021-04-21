@@ -17,28 +17,25 @@ final class VisibilityManipulator
     /**
      * @var array<class-string<Stmt>>
      */
-    const ALLOWED_NODE_TYPES = [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassConst::class, \PhpParser\Node\Stmt\Class_::class];
+    private const ALLOWED_NODE_TYPES = [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassConst::class, \PhpParser\Node\Stmt\Class_::class];
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function makeStatic(\PhpParser\Node $node)
+    public function makeStatic(\PhpParser\Node $node) : void
     {
         $this->addVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::STATIC);
     }
     /**
      * @param ClassMethod|Class_ $node
-     * @return void
      */
-    public function makeAbstract(\PhpParser\Node $node)
+    public function makeAbstract(\PhpParser\Node $node) : void
     {
         $this->addVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::ABSTRACT);
     }
     /**
      * @param ClassMethod|Property $node
-     * @return void
      */
-    public function makeNonStatic(\PhpParser\Node $node)
+    public function makeNonStatic(\PhpParser\Node $node) : void
     {
         if (!$node->isStatic()) {
             return;
@@ -47,17 +44,15 @@ final class VisibilityManipulator
     }
     /**
      * @param Class_|ClassMethod $node
-     * @return void
      */
-    public function makeFinal(\PhpParser\Node $node)
+    public function makeFinal(\PhpParser\Node $node) : void
     {
         $this->addVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::FINAL);
     }
     /**
      * @param Class_|ClassMethod $node
-     * @return void
      */
-    public function makeNonFinal(\PhpParser\Node $node)
+    public function makeNonFinal(\PhpParser\Node $node) : void
     {
         if (!$node->isFinal()) {
             return;
@@ -68,9 +63,8 @@ final class VisibilityManipulator
      * This way "abstract", "static", "final" are kept
      *
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function removeVisibility(\PhpParser\Node $node)
+    public function removeVisibility(\PhpParser\Node $node) : void
     {
         $this->ensureIsClassMethodOrProperty($node, __METHOD__);
         // no modifier
@@ -89,57 +83,46 @@ final class VisibilityManipulator
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function changeNodeVisibility(\PhpParser\Node $node, int $visibility)
+    public function changeNodeVisibility(\PhpParser\Node $node, int $visibility) : void
     {
         \RectorPrefix20210421\Webmozart\Assert\Assert::oneOf($visibility, [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC, \Rector\Core\ValueObject\Visibility::ABSTRACT, \Rector\Core\ValueObject\Visibility::FINAL]);
         $this->replaceVisibilityFlag($node, $visibility);
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function makePublic(\PhpParser\Node $node)
+    public function makePublic(\PhpParser\Node $node) : void
     {
         $this->replaceVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::PUBLIC);
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function makeProtected(\PhpParser\Node $node)
+    public function makeProtected(\PhpParser\Node $node) : void
     {
         $this->replaceVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::PROTECTED);
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    public function makePrivate(\PhpParser\Node $node)
+    public function makePrivate(\PhpParser\Node $node) : void
     {
         $this->replaceVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::PRIVATE);
     }
-    /**
-     * @return void
-     */
-    public function removeFinal(\PhpParser\Node\Stmt\Class_ $class)
+    public function removeFinal(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->flags -= \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
     }
     /**
      * @param Class_|ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    private function addVisibilityFlag(\PhpParser\Node $node, int $visibility)
+    private function addVisibilityFlag(\PhpParser\Node $node, int $visibility) : void
     {
         $this->ensureIsClassMethodOrProperty($node, __METHOD__);
         $node->flags |= $visibility;
     }
-    /**
-     * @return void
-     */
-    private function ensureIsClassMethodOrProperty(\PhpParser\Node $node, string $location)
+    private function ensureIsClassMethodOrProperty(\PhpParser\Node $node, string $location) : void
     {
         foreach (self::ALLOWED_NODE_TYPES as $allowedNodeType) {
             if (\is_a($node, $allowedNodeType, \true)) {
@@ -150,9 +133,8 @@ final class VisibilityManipulator
     }
     /**
      * @param ClassMethod|Property|ClassConst $node
-     * @return void
      */
-    private function replaceVisibilityFlag(\PhpParser\Node $node, int $visibility)
+    private function replaceVisibilityFlag(\PhpParser\Node $node, int $visibility) : void
     {
         $isStatic = $node instanceof \PhpParser\Node\Stmt\ClassMethod && $node->isStatic();
         if ($isStatic) {

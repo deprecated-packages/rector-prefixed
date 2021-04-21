@@ -43,9 +43,8 @@ CODE_SAMPLE
     }
     /**
      * @param PropertyProperty $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $defaultValueNode = $node->default;
         if (!$defaultValueNode instanceof \PhpParser\Node\Expr) {

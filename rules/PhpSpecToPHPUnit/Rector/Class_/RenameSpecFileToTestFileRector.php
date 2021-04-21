@@ -21,12 +21,12 @@ final class RenameSpecFileToTestFileRector extends \Rector\Core\Rector\AbstractR
      * @var string
      * @see https://regex101.com/r/r1VkPt/1
      */
-    const SPEC_REGEX = '#\\/spec\\/#';
+    private const SPEC_REGEX = '#\\/spec\\/#';
     /**
      * @var string
      * @see https://regex101.com/r/WD4U43/1
      */
-    const SPEC_SUFFIX_REGEX = '#Spec\\.php$#';
+    private const SPEC_SUFFIX_REGEX = '#Spec\\.php$#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*Spec.php" file to "*Test.php" file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -46,9 +46,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $smartFileInfo = $this->file->getSmartFileInfo();
         $oldPathname = $smartFileInfo->getPathname();

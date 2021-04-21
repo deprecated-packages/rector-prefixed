@@ -17,7 +17,7 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
     /**
      * @var string
      */
-    const VOID = 'void';
+    private const VOID = 'void';
     /**
      * @var PhpVersionProvider
      */
@@ -42,10 +42,8 @@ final class VoidTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
     }
     /**
      * @param VoidType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
             return null;

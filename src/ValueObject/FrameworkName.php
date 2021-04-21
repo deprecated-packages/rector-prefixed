@@ -11,9 +11,9 @@ final class FrameworkName
     /**
      * @var string
      */
-    const NETTE = 'nette';
+    public const NETTE = 'nette';
     /**
      * @var string
      */
-    const SYMFONY = 'symfony';
+    public const SYMFONY = 'symfony';
 }

@@ -41,10 +41,7 @@ final class AssignAndRootExprAndNodesToAddMatcher
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
         $this->fluentMethodCallSkipper = $fluentMethodCallSkipper;
     }
-    /**
-     * @return \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd|null
-     */
-    public function match(\PhpParser\Node\Expr\MethodCall $methodCall, string $kind)
+    public function match(\PhpParser\Node\Expr\MethodCall $methodCall, string $kind) : ?\Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd
     {
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
         if (!$this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {

@@ -87,9 +87,8 @@ CODE_SAMPLE
     }
     /**
      * @param Foreach_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $nestedIfsWithOnlyNonReturn = $this->ifManipulator->collectNestedIfsWithNonBreaking($node);
         if (\count($nestedIfsWithOnlyNonReturn) < 2) {
@@ -122,10 +121,7 @@ CODE_SAMPLE
         }
         return $foreach;
     }
-    /**
-     * @return void
-     */
-    private function addInvertedIfStmtWithContinue(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function addInvertedIfStmtWithContinue(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);
         // special case

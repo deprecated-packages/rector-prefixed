@@ -50,9 +50,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->type === null) {
             return null;
@@ -61,10 +60,7 @@ CODE_SAMPLE
         $node->type = null;
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function decoratePropertyWithDocBlock(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node $typeNode)
+    private function decoratePropertyWithDocBlock(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node $typeNode) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if ($phpDocInfo->getVarTagValueNode() !== null) {

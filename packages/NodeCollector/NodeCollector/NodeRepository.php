@@ -107,10 +107,7 @@ final class NodeRepository
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    /**
-     * @return void
-     */
-    public function collect(\PhpParser\Node $node)
+    public function collect(\PhpParser\Node $node) : void
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->addMethod($node);
@@ -133,10 +130,7 @@ final class NodeRepository
             $this->attributes[$attributeClass][] = $node;
         }
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Function_|null
-     */
-    public function findFunction(string $name)
+    public function findFunction(string $name) : ?\PhpParser\Node\Stmt\Function_
     {
         return $this->functionsByName[$name] ?? null;
     }
@@ -157,10 +151,7 @@ final class NodeRepository
             return $node instanceof \PhpParser\Node\Expr\StaticCall;
         });
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    public function findClassMethodByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    public function findClassMethodByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $method = $this->nodeNameResolver->getName($staticCall->name);
         if ($method === null) {
@@ -176,10 +167,7 @@ final class NodeRepository
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    public function findClassMethod(string $className, string $methodName)
+    public function findClassMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (\RectorPrefix20210421\Nette\Utils\Strings::contains($methodName, '\\')) {
             $message = \sprintf('Class and method arguments are switched in "%s"', __METHOD__);
@@ -211,9 +199,8 @@ final class NodeRepository
     }
     /**
      * @param MethodReflection|ReflectionMethod $methodReflection
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    public function findClassMethodByMethodReflection($methodReflection)
+    public function findClassMethodByMethodReflection(object $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $methodReflection->getName();
         $declaringClass = $methodReflection->getDeclaringClass();
@@ -330,24 +317,15 @@ final class NodeRepository
         }
         return $childrenClasses;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Interface_|null
-     */
-    public function findInterface(string $class)
+    public function findInterface(string $class) : ?\PhpParser\Node\Stmt\Interface_
     {
         return $this->parsedNodeCollector->findInterface($class);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    public function findClass(string $name)
+    public function findClass(string $name) : ?\PhpParser\Node\Stmt\Class_
     {
         return $this->parsedNodeCollector->findClass($name);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    public function findClassMethodByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function findClassMethodByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $className = $this->resolveCallerClassName($methodCall);
         if ($className === null) {
@@ -359,10 +337,7 @@ final class NodeRepository
         }
         return $this->findClassMethod($className, $methodName);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassConst|null
-     */
-    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
+    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\PhpParser\Node\Stmt\ClassConst
     {
         return $this->parsedNodeCollector->findClassConstByClassConstFetch($classConstFetch);
     }
@@ -375,9 +350,8 @@ final class NodeRepository
     }
     /**
      * @param PropertyFetch|StaticPropertyFetch $expr
-     * @return \PhpParser\Node\Stmt\Property|null
      */
-    public function findPropertyByPropertyFetch(\PhpParser\Node\Expr $expr)
+    public function findPropertyByPropertyFetch(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Property
     {
         $propertyCaller = $expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch ? $expr->class : $expr->var;
         $propertyCallerType = $this->nodeTypeResolver->getStaticType($propertyCaller);
@@ -402,24 +376,15 @@ final class NodeRepository
     {
         return $this->parsedNodeCollector->getClasses();
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassConst|null
-     */
-    public function findClassConstant(string $className, string $constantName)
+    public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
         return $this->parsedNodeCollector->findClassConstant($className, $constantName);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Trait_|null
-     */
-    public function findTrait(string $name)
+    public function findTrait(string $name) : ?\PhpParser\Node\Stmt\Trait_
     {
         return $this->parsedNodeCollector->findTrait($name);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    public function findByShortName(string $shortName)
+    public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         return $this->parsedNodeCollector->findByShortName($shortName);
     }
@@ -430,10 +395,7 @@ final class NodeRepository
     {
         return $this->parsedNodeCollector->getStaticCalls();
     }
-    /**
-     * @return string|null
-     */
-    public function resolveCallerClassName(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function resolveCallerClassName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         $callerType = $this->nodeTypeResolver->getStaticType($methodCall->var);
         $callerObjectType = $this->typeUnwrapper->unwrapFirstObjectTypeFromUnionType($callerType);
@@ -442,17 +404,11 @@ final class NodeRepository
         }
         return $callerObjectType->getClassName();
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassLike|null
-     */
-    public function findClassLike(string $classLikeName)
+    public function findClassLike(string $classLikeName) : ?\PhpParser\Node\Stmt\ClassLike
     {
         return $this->findClass($classLikeName) ?? $this->findInterface($classLikeName);
     }
-    /**
-     * @return void
-     */
-    private function collectArray(\PhpParser\Node\Expr\Array_ $array)
+    private function collectArray(\PhpParser\Node\Expr\Array_ $array) : void
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($array);
         if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
@@ -470,10 +426,7 @@ final class NodeRepository
         }
         $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][$arrayCallable->getMethod()][] = $arrayCallable;
     }
-    /**
-     * @return void
-     */
-    private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // anonymous
@@ -485,9 +438,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addCall(\PhpParser\Node $node)
+    private function addCall(\PhpParser\Node $node) : void
     {
         // one node can be of multiple-class types
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -513,10 +465,7 @@ final class NodeRepository
     {
         return $this->callsByTypeAndMethod[$className][$methodName] ?? $this->arrayCallablesByTypeAndMethod[$className][$methodName] ?? [];
     }
-    /**
-     * @param string|null $currentClassName
-     */
-    private function isChildOrEqualClassLike(string $desiredClass, $currentClassName) : bool
+    private function isChildOrEqualClassLike(string $desiredClass, ?string $currentClassName) : bool
     {
         if ($currentClassName === null) {
             return \false;
@@ -566,9 +515,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addCallByType(\PhpParser\Node $node, \PHPStan\Type\Type $classType, string $methodName)
+    private function addCallByType(\PhpParser\Node $node, \PHPStan\Type\Type $classType, string $methodName) : void
     {
         if ($classType instanceof \PHPStan\Type\TypeWithClassName) {
             if ($classType instanceof \PHPStan\Type\ThisType) {
@@ -588,9 +536,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addParentTypeWithClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName, \PhpParser\Node $node, string $methodName)
+    private function addParentTypeWithClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName, \PhpParser\Node $node, string $methodName) : void
     {
         // include also parent types
         if (!$typeWithClassName instanceof \PHPStan\Type\ObjectType) {

@@ -20,16 +20,15 @@ final class NodeTransformer
      * @var string
      * @see https://regex101.com/r/XFc3qA/1
      */
-    const PERCENT_TEXT_REGEX = '#^%\\w$#';
+    private const PERCENT_TEXT_REGEX = '#^%\\w$#';
     /**
      * From:
      * - sprintf("Hi %s", $name);
      *
      * to:
      * - ["Hi %s", $name]
-     * @return \PhpParser\Node\Expr\Array_|null
      */
-    public function transformSprintfToArray(\PhpParser\Node\Expr\FuncCall $sprintfFuncCall)
+    public function transformSprintfToArray(\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\PhpParser\Node\Expr\Array_
     {
         $sprintfStringAndArgs = $this->splitMessageAndArgs($sprintfFuncCall);
         if (!$sprintfStringAndArgs instanceof \Rector\Core\ValueObject\SprintfStringAndArgs) {
@@ -94,10 +93,7 @@ final class NodeTransformer
         $arrayItems = $this->transformConcatToItems($concat);
         return new \PhpParser\Node\Expr\Array_($arrayItems);
     }
-    /**
-     * @return \Rector\Core\ValueObject\SprintfStringAndArgs|null
-     */
-    private function splitMessageAndArgs(\PhpParser\Node\Expr\FuncCall $sprintfFuncCall)
+    private function splitMessageAndArgs(\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\Rector\Core\ValueObject\SprintfStringAndArgs
     {
         $stringArgument = null;
         $arrayItems = [];

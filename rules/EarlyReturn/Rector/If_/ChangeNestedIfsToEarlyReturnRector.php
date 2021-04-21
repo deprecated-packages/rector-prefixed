@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // A. next node is return
         $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
@@ -96,9 +95,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_[] $nestedIfsWithOnlyReturn
-     * @return void
      */
-    private function processNestedIfsWithOnlyReturn(\PhpParser\Node\Stmt\If_ $if, array $nestedIfsWithOnlyReturn, \PhpParser\Node\Stmt\Return_ $nextReturn)
+    private function processNestedIfsWithOnlyReturn(\PhpParser\Node\Stmt\If_ $if, array $nestedIfsWithOnlyReturn, \PhpParser\Node\Stmt\Return_ $nextReturn) : void
     {
         // add nested if openly after this
         $nestedIfsWithOnlyReturnCount = \count($nestedIfsWithOnlyReturn);
@@ -112,10 +110,7 @@ CODE_SAMPLE
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function addStandaloneIfsWithReturn(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $return)
+    private function addStandaloneIfsWithReturn(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Stmt\Return_ $return) : void
     {
         $return = clone $return;
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);

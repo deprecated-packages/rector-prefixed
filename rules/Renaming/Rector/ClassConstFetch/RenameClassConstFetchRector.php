@@ -23,7 +23,7 @@ final class RenameClassConstFetchRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const CLASS_CONSTANT_RENAME = 'constant_rename';
+    public const CLASS_CONSTANT_RENAME = 'constant_rename';
     /**
      * @var RenameClassConstFetchInterface[]
      */
@@ -50,9 +50,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConstFetch $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->renameClassConstFetches as $renameClassConstFetch) {
             if (!$this->isObjectType($node->class, $renameClassConstFetch->getOldObjectType())) {
@@ -71,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, RenameClassConstFetchInterface[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $renameClassConstFetches = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($renameClassConstFetches, \Rector\Renaming\Contract\RenameClassConstFetchInterface::class);

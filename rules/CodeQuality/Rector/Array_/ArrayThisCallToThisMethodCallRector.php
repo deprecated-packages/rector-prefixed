@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param Array_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
         if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
@@ -139,10 +138,7 @@ CODE_SAMPLE
         $parentProperty = $this->betterNodeFinder->findParentType($array, \PhpParser\Node\Stmt\Property::class);
         return $parentProperty !== null;
     }
-    /**
-     * @return void
-     */
-    private function privatizeClassMethod(\ReflectionMethod $reflectionMethod)
+    private function privatizeClassMethod(\ReflectionMethod $reflectionMethod) : void
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodReflection($reflectionMethod);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

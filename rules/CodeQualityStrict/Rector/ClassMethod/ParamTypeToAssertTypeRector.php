@@ -71,9 +71,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         /** @var Type[] $docParamTypes */
@@ -118,9 +117,9 @@ CODE_SAMPLE
     /**
      * @param Param[] $params
      * @param ObjectType|UnionType $type
-     * @return \PHPStan\Type\Type|null
+     * @return ObjectType|UnionType
      */
-    private function getToBeProcessedTypes(array $params, string $key, \PHPStan\Type\Type $type)
+    private function getToBeProcessedTypes(array $params, string $key, \PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
     {
         foreach ($params as $param) {
             $paramName = \ltrim($key, '$');

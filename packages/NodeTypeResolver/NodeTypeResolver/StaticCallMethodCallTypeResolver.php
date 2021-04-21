@@ -36,9 +36,8 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
     }
     /**
      * @required
-     * @return void
      */
-    public function autowireStaticCallMethodCallTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function autowireStaticCallMethodCallTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }

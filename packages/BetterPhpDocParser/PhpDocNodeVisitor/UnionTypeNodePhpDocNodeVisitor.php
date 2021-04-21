@@ -30,10 +30,7 @@ final class UnionTypeNodePhpDocNodeVisitor extends \RectorPrefix20210421\Symplif
         $this->currentTokenIteratorProvider = $currentTokenIteratorProvider;
         $this->attributeMirrorer = $attributeMirrorer;
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\Node|null
-     */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;

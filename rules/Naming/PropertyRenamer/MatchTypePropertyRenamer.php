@@ -21,10 +21,7 @@ final class MatchTypePropertyRenamer
         $this->matchPropertyTypeConflictingNameGuard = $matchPropertyTypeConflictingNameGuard;
         $this->propertyRenamer = $propertyRenamer;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Property|null
-     */
-    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename)
+    public function rename(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : ?\PhpParser\Node\Stmt\Property
     {
         if ($this->matchPropertyTypeConflictingNameGuard->isConflicting($propertyRename)) {
             return null;

@@ -33,7 +33,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      * @changelog https://phpunit.readthedocs.io/en/8.0/assertions.html
      * @var array<string, string[]>
      */
-    const NEW_METHOD_TO_OLD_METHODS = [
+    private const NEW_METHOD_TO_OLD_METHODS = [
         'assertInstanceOf' => ['shouldBeAnInstanceOf', 'shouldHaveType', 'shouldReturnAnInstanceOf'],
         'assertSame' => ['shouldBe', 'shouldReturn'],
         'assertNotSame' => ['shouldNotBe', 'shouldNotReturn'],
@@ -72,7 +72,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     /**
      * @var string
      */
-    const THIS = 'this';
+    private const THIS = 'this';
     /**
      * @var string
      */
@@ -126,9 +126,8 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->isPrepared = \false;
         $this->matchersKeys = [];
@@ -185,10 +184,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $parentMethodCall->name = new \PhpParser\Node\Identifier('expectException');
         return $parentMethodCall;
     }
-    /**
-     * @return void
-     */
-    private function prepareMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function prepareMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if ($this->isPrepared) {
             return;
@@ -202,9 +198,8 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     }
     /**
      * @changelog https://johannespichler.com/writing-custom-phpspec-matchers/
-     * @return void
      */
-    private function processMatchersKeys(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processMatchersKeys(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         foreach ($this->matchersKeys as $matcherKey) {
             if (!$this->isName($methodCall->name, 'should' . \ucfirst($matcherKey))) {

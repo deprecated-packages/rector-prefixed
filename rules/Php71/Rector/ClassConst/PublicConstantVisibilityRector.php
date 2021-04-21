@@ -41,9 +41,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConst $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CONSTANT_VISIBILITY)) {
             return null;

@@ -162,10 +162,7 @@ final class ConstructorPropertyTypeInferer implements \Rector\TypeDeclaration\Co
         }
         return \false;
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function resolveFullyQualifiedOrAliasedObjectType(\PhpParser\Node\Param $param)
+    private function resolveFullyQualifiedOrAliasedObjectType(\PhpParser\Node\Param $param) : ?\PHPStan\Type\Type
     {
         if ($param->type === null) {
             return null;

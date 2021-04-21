@@ -111,7 +111,14 @@ class Process
             return \function_exists('sapi_windows_vt100_support') && \sapi_windows_vt100_support($output) || \false !== \getenv('ANSICON') || 'ON' === \getenv('ConEmuANSI') || 'xterm' === \getenv('TERM');
         }
         if (\function_exists('stream_isatty')) {
-            return \stream_isatty($output);
+            $streamIsatty = function ($stream) {
+                if ('\\' === \DIRECTORY_SEPARATOR) {
+                    $stat = @\fstat($stream);
+                    return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
+                }
+                return @\posix_isatty($stream);
+            };
+            return $streamIsatty($output);
         }
         if (\function_exists('posix_isatty')) {
             return \posix_isatty($output);

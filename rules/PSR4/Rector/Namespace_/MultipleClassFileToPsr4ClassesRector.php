@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->hasAtLeastTwoClassLikes($node)) {
             return null;
@@ -106,10 +105,7 @@ CODE_SAMPLE
         $classes = $this->betterNodeFinder->findClassLikes($node);
         return \count($classes) > 1;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Namespace_|null
-     */
-    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace)
+    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace) : ?\PhpParser\Node\Stmt\Namespace_
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($namespace->stmts);
@@ -128,10 +124,7 @@ CODE_SAMPLE
         }
         return $nodeToReturn;
     }
-    /**
-     * @return \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace|null
-     */
-    private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace)
+    private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($fileWithoutNamespace->stmts);
@@ -149,9 +142,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $mainNode
-     * @return void
      */
-    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode)
+    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode) : void
     {
         $smartFileInfo = $this->file->getSmartFileInfo();
         $declares = [];

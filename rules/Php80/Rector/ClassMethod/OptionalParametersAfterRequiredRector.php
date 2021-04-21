@@ -70,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
@@ -82,10 +81,7 @@ CODE_SAMPLE
         }
         return $this->refactorMethodCall($node);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if ($classMethod->params === []) {
             return null;
@@ -97,10 +93,7 @@ CODE_SAMPLE
         $classMethod->params = $expectedOrderParams;
         return $classMethod;
     }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new)
+    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\New_
     {
         if ($new->args === []) {
             return null;
@@ -127,10 +120,7 @@ CODE_SAMPLE
         $new->args = $newArgs;
         return $new;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

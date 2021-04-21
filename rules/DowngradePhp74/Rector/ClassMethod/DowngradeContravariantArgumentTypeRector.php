@@ -87,9 +87,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->params === []) {
             return null;
@@ -118,10 +117,7 @@ CODE_SAMPLE
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
     }
-    /**
-     * @return string|null
-     */
-    private function getDifferentParamTypeFromAncestorClass(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike)
+    private function getDifferentParamTypeFromAncestorClass(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : ?string
     {
         $scope = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -165,10 +161,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return string|null
-     */
-    private function getDifferentParamTypeFromReflectionMethod(\ReflectionMethod $reflectionMethod, string $paramName, string $paramTypeName)
+    private function getDifferentParamTypeFromReflectionMethod(\ReflectionMethod $reflectionMethod, string $paramName, string $paramTypeName) : ?string
     {
         /** @var ReflectionParameter[] $parentReflectionMethodParams */
         $parentReflectionMethodParams = $reflectionMethod->getParameters();
@@ -196,9 +189,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @return void
      */
-    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike)
+    private function refactorParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : void
     {
         if (!$this->isNullableParam($param, $functionLike)) {
             return;
@@ -208,9 +200,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @return void
      */
-    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param)
+    private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;

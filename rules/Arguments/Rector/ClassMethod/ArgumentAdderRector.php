@@ -33,7 +33,7 @@ final class ArgumentAdderRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    const ADDED_ARGUMENTS = 'added_arguments';
+    public const ADDED_ARGUMENTS = 'added_arguments';
     /**
      * @var ArgumentAdder[]
      */
@@ -84,9 +84,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->addedArguments as $addedArgument) {
             if (!$this->isObjectTypeMatch($node, $addedArgument->getObjectType())) {
@@ -101,9 +100,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ArgumentAdder[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Arguments\ValueObject\ArgumentAdder::class);
@@ -131,9 +129,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall|StaticCall $node
-     * @return void
      */
-    private function processPositionWithDefaultValues(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder)
+    private function processPositionWithDefaultValues(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder) : void
     {
         if ($this->shouldSkipParameter($node, $argumentAdder)) {
             return;
@@ -183,10 +180,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed $defaultValue
-     * @param string|null $type
-     * @return void
      */
-    private function addClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder, $defaultValue, $type, int $position)
+    private function addClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder, $defaultValue, ?string $type, int $position) : void
     {
         $argumentName = $argumentAdder->getArgumentName();
         if ($argumentName === null) {
@@ -198,10 +193,7 @@ CODE_SAMPLE
         }
         $classMethod->params[$position] = $param;
     }
-    /**
-     * @return void
-     */
-    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall, int $position, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder)
+    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall, int $position, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder) : void
     {
         $argumentName = $argumentAdder->getArgumentName();
         if ($argumentName === null) {

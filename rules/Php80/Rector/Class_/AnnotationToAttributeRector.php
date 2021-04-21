@@ -31,7 +31,7 @@ final class AnnotationToAttributeRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const ANNOTATION_TO_ATTRIBUTE = 'annotation_to_attribute';
+    public const ANNOTATION_TO_ATTRIBUTE = 'annotation_to_attribute';
     /**
      * @var AnnotationToAttribute[]
      */
@@ -86,9 +86,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Property|ClassMethod|Function_|Closure|ArrowFunction $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ATTRIBUTES)) {
             return null;
@@ -125,9 +124,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, AnnotationToAttribute[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $annotationsToAttributes = $configuration[self::ANNOTATION_TO_ATTRIBUTE] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($annotationsToAttributes, \Rector\Php80\ValueObject\AnnotationToAttribute::class);

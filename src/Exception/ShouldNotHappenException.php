@@ -10,9 +10,8 @@ final class ShouldNotHappenException extends \Exception
     /**
      * @param string $message
      * @param int $code
-     * @param \Throwable|null $throwable
      */
-    public function __construct($message = '', $code = 0, $throwable = null)
+    public function __construct($message = '', $code = 0, ?\Throwable $throwable = null)
     {
         if ($message === '') {
             $message = $this->createDefaultMessageWithLocation();

@@ -66,19 +66,15 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
         }
         return $this->refactorStaticCall($node);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$classMethod->isStatic()) {
             return null;
@@ -98,10 +94,7 @@ CODE_SAMPLE
         $this->visibilityManipulator->makeNonStatic($classMethod);
         return $classMethod;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

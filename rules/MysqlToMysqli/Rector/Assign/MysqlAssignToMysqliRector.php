@@ -25,11 +25,11 @@ final class MysqlAssignToMysqliRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    const FIELD_TO_FIELD_DIRECT = ['mysql_field_len' => 'length', 'mysql_field_name' => 'name', 'mysql_field_table' => 'table'];
+    private const FIELD_TO_FIELD_DIRECT = ['mysql_field_len' => 'length', 'mysql_field_name' => 'name', 'mysql_field_table' => 'table'];
     /**
      * @var string
      */
-    const MYSQLI_DATA_SEEK = 'mysqli_data_seek';
+    private const MYSQLI_DATA_SEEK = 'mysqli_data_seek';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Converts more complex mysql functions to mysqli', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -51,9 +51,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
@@ -129,10 +128,7 @@ CODE_SAMPLE
         $this->addNodeAfterNode($newAssignNode, $assign);
         return $funcCall;
     }
-    /**
-     * @return \PhpParser\Node\Expr\Assign|null
-     */
-    private function processFieldToFieldDirect(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall)
+    private function processFieldToFieldDirect(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\Assign
     {
         foreach (self::FIELD_TO_FIELD_DIRECT as $funcName => $property) {
             if ($this->isName($funcCall, $funcName)) {

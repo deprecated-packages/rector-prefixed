@@ -85,9 +85,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_|ElseIf_|Ternary $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip short ternary
         if ($node instanceof \PhpParser\Node\Expr\Ternary && $node->if === null) {
@@ -114,10 +113,7 @@ CODE_SAMPLE
         $node->cond = $newConditionNode;
         return $node;
     }
-    /**
-     * @return \PhpParser\Node\Expr\BinaryOp|null
-     */
-    private function resolveNewConditionNode(\PhpParser\Node\Expr $expr, bool $isNegated)
+    private function resolveNewConditionNode(\PhpParser\Node\Expr $expr, bool $isNegated) : ?\PhpParser\Node\Expr\BinaryOp
     {
         if ($expr instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($expr, 'count')) {
             return $this->resolveCount($isNegated, $expr);
@@ -152,9 +148,9 @@ CODE_SAMPLE
         return new \PhpParser\Node\Expr\BinaryOp\Greater($funcCall, $lNumber);
     }
     /**
-     * @return \PhpParser\Node\Expr\BinaryOp|null
+     * @return Identical|NotIdentical
      */
-    private function resolveArray(bool $isNegated, \PhpParser\Node\Expr $expr)
+    private function resolveArray(bool $isNegated, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\BinaryOp
     {
         if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
             return null;

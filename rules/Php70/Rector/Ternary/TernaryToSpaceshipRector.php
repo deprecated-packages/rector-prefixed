@@ -42,9 +42,8 @@ CODE_SAMPLE
     }
     /**
      * @param Ternary $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
             return null;
@@ -81,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * Matches "$a < $b ? -1 : ($a > $b ? 1 : 0)"
-     * @return \PhpParser\Node\Expr\BinaryOp\Spaceship|null
      */
-    private function processSmallerThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary)
+    private function processSmallerThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
             return null;
@@ -98,9 +96,8 @@ CODE_SAMPLE
     }
     /**
      * Matches "$a > $b ? -1 : ($a < $b ? 1 : 0)"
-     * @return \PhpParser\Node\Expr\BinaryOp\Spaceship|null
      */
-    private function processGreaterThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary)
+    private function processGreaterThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
             return null;

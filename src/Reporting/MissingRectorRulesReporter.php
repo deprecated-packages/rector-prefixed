@@ -25,10 +25,7 @@ final class MissingRectorRulesReporter
         $this->symfonyStyle = $symfonyStyle;
         $this->rectors = $rectors;
     }
-    /**
-     * @return int|null
-     */
-    public function reportIfMissing()
+    public function reportIfMissing() : ?int
     {
         $activeRectors = \array_filter($this->rectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) : bool {
             return !$rector instanceof \Rector\PostRector\Contract\Rector\PostRectorInterface;
@@ -39,10 +36,7 @@ final class MissingRectorRulesReporter
         $this->report();
         return \RectorPrefix20210421\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
-    /**
-     * @return void
-     */
-    public function report()
+    public function report() : void
     {
         $this->symfonyStyle->warning('We could not find any Rector rules to run. You have 2 options to add them:');
         $this->symfonyStyle->title('1. Add single rule to "rector.php"');

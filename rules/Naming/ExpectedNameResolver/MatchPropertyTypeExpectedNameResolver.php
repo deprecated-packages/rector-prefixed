@@ -28,10 +28,7 @@ final class MatchPropertyTypeExpectedNameResolver
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node\Stmt\Property $property)
+    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($phpDocInfo->getVarType());

@@ -84,9 +84,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -151,9 +150,8 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $types
-     * @return \PhpParser\Node\Stmt\Return_|null
      */
-    private function processSimplifyNullableReturn(\PHPStan\Type\UnionType $unionType, array $types, string $className, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr)
+    private function processSimplifyNullableReturn(\PHPStan\Type\UnionType $unionType, array $types, string $className, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Return_
     {
         if (\count($types) > 2) {
             return null;

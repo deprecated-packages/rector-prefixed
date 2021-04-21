@@ -10,17 +10,11 @@ final class CurrentFileProvider
      * @var File|null
      */
     private $file;
-    /**
-     * @return void
-     */
-    public function setFile(\Rector\Core\ValueObject\Application\File $file)
+    public function setFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
         $this->file = $file;
     }
-    /**
-     * @return \Rector\Core\ValueObject\Application\File|null
-     */
-    public function getFile()
+    public function getFile() : ?\Rector\Core\ValueObject\Application\File
     {
         return $this->file;
     }

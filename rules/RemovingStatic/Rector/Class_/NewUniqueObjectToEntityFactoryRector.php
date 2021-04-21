@@ -29,11 +29,11 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    const TYPES_TO_SERVICES = 'types_to_services';
+    public const TYPES_TO_SERVICES = 'types_to_services';
     /**
      * @var string
      */
-    const FACTORY = 'Factory';
+    private const FACTORY = 'Factory';
     /**
      * @var ObjectType[]
      */
@@ -116,9 +116,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->matchedObjectTypes = [];
         // collect classes with new to factory in all classes
@@ -149,9 +148,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
         foreach ($typesToServices as $typeToService) {

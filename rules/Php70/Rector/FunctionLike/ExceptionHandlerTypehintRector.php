@@ -24,7 +24,7 @@ final class ExceptionHandlerTypehintRector extends \Rector\Core\Rector\AbstractR
      * @var string
      * @see https://regex101.com/r/VBFXCR/1
      */
-    const HANDLE_INSENSITIVE_REGEX = '#handle#i';
+    private const HANDLE_INSENSITIVE_REGEX = '#handle#i';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes property `@var` annotations from annotation to type.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -46,9 +46,8 @@ CODE_SAMPLE
     }
     /**
      * @param Function_|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::THROWABLE_TYPE)) {
             return null;

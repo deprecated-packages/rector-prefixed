@@ -38,9 +38,8 @@ final class ApplicationFileProcessor
     }
     /**
      * @param File[] $files
-     * @return void
      */
-    public function run(array $files)
+    public function run(array $files) : void
     {
         $this->processFiles($files);
         $this->fileDiffFileDecorator->decorate($files);
@@ -48,9 +47,8 @@ final class ApplicationFileProcessor
     }
     /**
      * @param File[] $files
-     * @return void
      */
-    private function processFiles(array $files)
+    private function processFiles(array $files) : void
     {
         foreach ($this->fileProcessors as $fileProcessor) {
             $supportedFiles = \array_filter($files, function (\Rector\Core\ValueObject\Application\File $file) use($fileProcessor) : bool {
@@ -61,9 +59,8 @@ final class ApplicationFileProcessor
     }
     /**
      * @param File[] $files
-     * @return void
      */
-    private function printFiles(array $files)
+    private function printFiles(array $files) : void
     {
         if ($this->configuration->isDryRun()) {
             return;
@@ -75,10 +72,7 @@ final class ApplicationFileProcessor
             $this->printFile($file);
         }
     }
-    /**
-     * @return void
-     */
-    private function printFile(\Rector\Core\ValueObject\Application\File $file)
+    private function printFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
         $smartFileInfo = $file->getSmartFileInfo();
         $this->smartFileSystem->dumpFile($smartFileInfo->getPathname(), $file->getFileContent());

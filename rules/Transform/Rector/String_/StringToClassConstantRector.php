@@ -19,7 +19,7 @@ final class StringToClassConstantRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const STRINGS_TO_CLASS_CONSTANTS = 'strings_to_class_constants';
+    public const STRINGS_TO_CLASS_CONSTANTS = 'strings_to_class_constants';
     /**
      * @var StringToClassConstant[]
      */
@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->stringsToClassConstants as $stringToClassConstant) {
             if (!$this->valueResolver->isValue($node, $stringToClassConstant->getString())) {
@@ -67,10 +66,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Transform\ValueObject\StringToClassConstant::class);

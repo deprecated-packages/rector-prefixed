@@ -22,7 +22,7 @@ final class WrapReturnRector extends \Rector\Core\Rector\AbstractRector implemen
     /**
      * @var string
      */
-    const TYPE_METHOD_WRAPS = 'type_method_wraps';
+    public const TYPE_METHOD_WRAPS = 'type_method_wraps';
     /**
      * @var WrapReturn[]
      */
@@ -58,9 +58,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeMethodWraps as $typeMethodWrap) {
             if (!$this->isObjectType($node, $typeMethodWrap->getObjectType())) {
@@ -76,19 +75,13 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $typeMethodWraps = $configuration[self::TYPE_METHOD_WRAPS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \Rector\Transform\ValueObject\WrapReturn::class);
         $this->typeMethodWraps = $typeMethodWraps;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap)
+    private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!\is_iterable($classMethod->stmts)) {
             return null;

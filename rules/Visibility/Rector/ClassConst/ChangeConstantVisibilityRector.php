@@ -20,7 +20,7 @@ final class ChangeConstantVisibilityRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
+    public const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
     /**
      * @var ChangeConstantVisibility[]
      */
@@ -60,9 +60,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConst $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->classConstantVisibilityChanges as $classConstantVisibilityChange) {
             if (!$this->isObjectType($node, $classConstantVisibilityChange->getObjectType())) {
@@ -76,10 +75,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Visibility\ValueObject\ChangeConstantVisibility::class);

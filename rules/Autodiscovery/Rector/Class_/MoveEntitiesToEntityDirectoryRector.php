@@ -23,7 +23,7 @@ final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\Abst
      * @var string
      * @see https://regex101.com/r/auSMk3/1
      */
-    const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
+    private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
     /**
      * @var DoctrineDocBlockResolver
      */
@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
             return null;

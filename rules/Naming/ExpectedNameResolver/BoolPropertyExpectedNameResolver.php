@@ -27,10 +27,7 @@ final class BoolPropertyExpectedNameResolver
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node\Stmt\Property $property)
+    public function resolve(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         if (!$this->nodeTypeResolver->isPropertyBoolean($property)) {
             return null;

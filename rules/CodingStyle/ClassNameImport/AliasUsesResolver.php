@@ -41,7 +41,7 @@ final class AliasUsesResolver
     private function resolveForNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $aliasedUses = [];
-        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) {
+        $this->useImportsTraverser->traverserStmts($namespace->stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$aliasedUses) : void {
             if ($useUse->alias === null) {
                 return;
             }

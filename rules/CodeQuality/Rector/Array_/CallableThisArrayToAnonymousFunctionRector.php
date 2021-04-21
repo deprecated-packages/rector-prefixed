@@ -89,9 +89,8 @@ CODE_SAMPLE
     }
     /**
      * @param Array_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipArray($node)) {
             return null;

@@ -83,9 +83,8 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $methodCall = $this->matchReturnMethodCall($node);
         if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -121,10 +120,7 @@ CODE_SAMPLE
         }
         return $this->separateReturnMethodCallFactory->createReturnFromFirstAssignFluentCallAndFluentMethodCalls($firstAssignFluentCall, $fluentMethodCalls);
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return)
+    private function matchReturnMethodCall(\PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr\MethodCall
     {
         $returnExpr = $return->expr;
         if (!$returnExpr instanceof \PhpParser\Node\Expr\MethodCall) {

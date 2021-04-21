@@ -21,7 +21,7 @@ final class OrderFirstLevelClassStatementsRector extends \Rector\Core\Rector\Abs
     /**
      * @var array<string, int>
      */
-    const TYPE_TO_RANK = [\PhpParser\Node\Stmt\ClassMethod::class => 3, \PhpParser\Node\Stmt\Property::class => 2, \PhpParser\Node\Stmt\ClassConst::class => 1];
+    private const TYPE_TO_RANK = [\PhpParser\Node\Stmt\ClassMethod::class => 3, \PhpParser\Node\Stmt\Property::class => 2, \PhpParser\Node\Stmt\ClassConst::class => 1];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders first level Class statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -53,9 +53,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Trait_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $node->stmts = $this->getStmtsInDesiredPosition($node->stmts);
         return $node;

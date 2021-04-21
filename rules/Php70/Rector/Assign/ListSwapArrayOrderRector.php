@@ -31,9 +31,8 @@ final class ListSwapArrayOrderRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::LIST_SWAP_ORDER)) {
             return null;

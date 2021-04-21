@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param Ternary $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->cond instanceof \PhpParser\Node\Expr\BooleanNot) {
             return null;
@@ -60,7 +59,7 @@ CODE_SAMPLE
             return null;
         }
         $node->cond = $node->cond->expr;
-        list($node->if, $node->else) = [$node->else, $node->if];
+        [$node->if, $node->else] = [$node->else, $node->if];
         return $node;
     }
 }

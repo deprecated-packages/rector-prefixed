@@ -34,9 +34,8 @@ final class MockVariableToPropertyFetchRector extends \Rector\PhpSpecToPHPUnit\R
     }
     /**
      * @param Variable $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;

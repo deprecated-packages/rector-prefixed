@@ -21,7 +21,7 @@ final class SimplifyRegexPatternRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var array<string, string>
      */
-    const COMPLEX_PATTERN_TO_SIMPLE = ['[0-9]' => '\\d', '[a-zA-Z0-9_]' => '\\w', '[A-Za-z0-9_]' => '\\w', '[0-9a-zA-Z_]' => '\\w', '[0-9A-Za-z_]' => '\\w', '[\\r\\n\\t\\f\\v ]' => '\\s'];
+    private const COMPLEX_PATTERN_TO_SIMPLE = ['[0-9]' => '\\d', '[a-zA-Z0-9_]' => '\\w', '[A-Za-z0-9_]' => '\\w', '[0-9a-zA-Z_]' => '\\w', '[0-9A-Za-z_]' => '\\w', '[\\r\\n\\t\\f\\v ]' => '\\s'];
     /**
      * @var RegexPatternArgumentManipulator
      */
@@ -61,9 +61,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $patterns = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($patterns === []) {

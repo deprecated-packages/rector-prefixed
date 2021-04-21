@@ -23,7 +23,7 @@ final class StringableForToStringRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const STRINGABLE = 'Stringable';
+    private const STRINGABLE = 'Stringable';
     /**
      * @var ClassManipulator
      */
@@ -63,9 +63,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $toStringClassMethod = $node->getMethod('__toString');
         if (!$toStringClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

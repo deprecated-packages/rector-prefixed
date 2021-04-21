@@ -26,10 +26,7 @@ final class ConfigureCallValuesCollector
     {
         return $this->configureCallValuesByRectorClass[$rectorClass] ?? [];
     }
-    /**
-     * @return void
-     */
-    public function collectFromServiceAndClassName(string $className, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition)
+    public function collectFromServiceAndClassName(string $className, \RectorPrefix20210421\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         foreach ($definition->getMethodCalls() as $methodCall) {
             if ($methodCall[0] !== 'configure') {
@@ -40,9 +37,8 @@ final class ConfigureCallValuesCollector
     }
     /**
      * @param mixed[] $configureValues
-     * @return void
      */
-    private function addConfigureCallValues(string $rectorClass, array $configureValues)
+    private function addConfigureCallValues(string $rectorClass, array $configureValues) : void
     {
         foreach ($configureValues as $configureValue) {
             if (!isset($this->configureCallValuesByRectorClass[$rectorClass])) {

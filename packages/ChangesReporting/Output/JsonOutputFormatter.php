@@ -14,7 +14,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
     /**
      * @var string
      */
-    const NAME = 'json';
+    public const NAME = 'json';
     /**
      * @var Configuration
      */
@@ -37,10 +37,7 @@ final class JsonOutputFormatter implements \Rector\ChangesReporting\Contract\Out
     {
         return self::NAME;
     }
-    /**
-     * @return void
-     */
-    public function report(\Rector\Core\ValueObject\ProcessResult $processResult)
+    public function report(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
         $errorsArray = ['meta' => ['version' => $this->configuration->getPrettyVersion(), 'config' => $this->configuration->getMainConfigFilePath()], 'totals' => ['changed_files' => \count($processResult->getFileDiffs()), 'removed_and_added_files_count' => $processResult->getRemovedAndAddedFilesCount(), 'removed_node_count' => $processResult->getRemovedNodeCount()]];
         $fileDiffs = $processResult->getFileDiffs();

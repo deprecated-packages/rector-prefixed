@@ -37,10 +37,7 @@ final class FactoryClassPrinter
         $this->smartFileSystem = $smartFileSystem;
         $this->currentFileProvider = $currentFileProvider;
     }
-    /**
-     * @return void
-     */
-    public function printFactoryForClass(\PhpParser\Node\Stmt\Class_ $factoryClass, \PhpParser\Node\Stmt\Class_ $oldClass)
+    public function printFactoryForClass(\PhpParser\Node\Stmt\Class_ $factoryClass, \PhpParser\Node\Stmt\Class_ $oldClass) : void
     {
         $parentNode = $oldClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode instanceof \PhpParser\Node\Stmt\Namespace_) {

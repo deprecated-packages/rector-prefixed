@@ -71,9 +71,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
@@ -93,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $methodParameterTypes
-     * @return void
      */
-    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key)
+    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key) : void
     {
         if (!isset($methodParameterTypes[$key])) {
             return;

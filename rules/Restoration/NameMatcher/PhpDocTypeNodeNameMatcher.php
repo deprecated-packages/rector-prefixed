@@ -15,10 +15,7 @@ final class PhpDocTypeNodeNameMatcher
     {
         $this->nameMatcher = $nameMatcher;
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\Type\TypeNode|null
-     */
-    public function matchIdentifier(string $name)
+    public function matchIdentifier(string $name) : ?\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $name = \ltrim($name, '\\');
         $fullyQualified = $this->nameMatcher->makeNameFullyQualified($name);

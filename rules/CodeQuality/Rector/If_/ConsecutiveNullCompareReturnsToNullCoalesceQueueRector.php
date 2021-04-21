@@ -74,9 +74,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::NULL_COALESCE)) {
             return null;
@@ -107,10 +106,7 @@ CODE_SAMPLE
         $this->removeNodes($this->nodesToRemove);
         return $this->createReturnCoalesceNode($this->coalescingNodes);
     }
-    /**
-     * @return void
-     */
-    private function reset()
+    private function reset() : void
     {
         $this->coalescingNodes = [];
         $this->nodesToRemove = [];

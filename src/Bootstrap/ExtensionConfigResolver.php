@@ -35,9 +35,8 @@ final class ExtensionConfigResolver
     }
     /**
      * @param array<string, mixed> $extensionConfig
-     * @return string|null
      */
-    private function resolveIncludeFilePath(array $extensionConfig, string $generatedConfigDirectory, string $includedFile)
+    private function resolveIncludeFilePath(array $extensionConfig, string $generatedConfigDirectory, string $includedFile) : ?string
     {
         if (!isset($extensionConfig['relative_install_path'])) {
             return null;

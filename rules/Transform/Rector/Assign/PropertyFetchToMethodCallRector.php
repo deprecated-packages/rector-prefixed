@@ -22,7 +22,7 @@ final class PropertyFetchToMethodCallRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    const PROPERTIES_TO_METHOD_CALLS = 'properties_to_method_calls';
+    public const PROPERTIES_TO_METHOD_CALLS = 'properties_to_method_calls';
     /**
      * @var PropertyFetchToMethodCall[]
      */
@@ -56,9 +56,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return $this->processSetter($node);
@@ -70,18 +69,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, PropertyFetchToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $propertiesToMethodCalls = $configuration[self::PROPERTIES_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($propertiesToMethodCalls, \Rector\Transform\ValueObject\PropertyFetchToMethodCall::class);
         $this->propertiesToMethodCalls = $propertiesToMethodCalls;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processSetter(\PhpParser\Node\Expr\Assign $assign)
+    private function processSetter(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         /** @var PropertyFetch $propertyFetchNode */
         $propertyFetchNode = $assign->var;
@@ -97,10 +92,7 @@ CODE_SAMPLE
         $variable = $propertyFetchNode->var;
         return $this->nodeFactory->createMethodCall($variable, $propertyToMethodCall->getNewSetMethod(), $args);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processGetter(\PhpParser\Node\Expr\Assign $assign)
+    private function processGetter(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         /** @var PropertyFetch $propertyFetchNode */
         $propertyFetchNode = $assign->expr;
@@ -119,10 +111,7 @@ CODE_SAMPLE
         }
         return $assign;
     }
-    /**
-     * @return \Rector\Transform\ValueObject\PropertyFetchToMethodCall|null
-     */
-    private function matchPropertyFetchCandidate(\PhpParser\Node\Expr\PropertyFetch $propertyFetch)
+    private function matchPropertyFetchCandidate(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\Rector\Transform\ValueObject\PropertyFetchToMethodCall
     {
         foreach ($this->propertiesToMethodCalls as $propertyToMethodCall) {
             if (!$this->isObjectType($propertyFetch->var, $propertyToMethodCall->getOldObjectType())) {

@@ -21,10 +21,7 @@ final class TraitNodeScopeCollector
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    /**
-     * @return void
-     */
-    public function addForTraitAndNode(string $traitName, \PhpParser\Node $node, \PHPStan\Analyser\Scope $scope)
+    public function addForTraitAndNode(string $traitName, \PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
     {
         if ($node instanceof \PHPStan\Node\VirtualNode) {
             return;
@@ -36,10 +33,7 @@ final class TraitNodeScopeCollector
         }
         $this->scopeByTraitNodeHash[$traitNodeHash] = $scope;
     }
-    /**
-     * @return \PHPStan\Analyser\Scope|null
-     */
-    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node)
+    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node) : ?\PHPStan\Analyser\Scope
     {
         $traitNodeHash = $this->createHash($traitName, $node);
         return $this->scopeByTraitNodeHash[$traitNodeHash] ?? null;

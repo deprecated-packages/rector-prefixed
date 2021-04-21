@@ -10,21 +10,21 @@ final class InflectorSingularResolver
     /**
      * @var array<string, string>
      */
-    const SINGULAR_VERB = ['news' => 'new'];
+    private const SINGULAR_VERB = ['news' => 'new'];
     /**
      * @var string
      * @see https://regex101.com/r/lbQaGC/1
      */
-    const CAMELCASE_REGEX = '#(?<camelcase>([a-z]+|[A-Z]{1,}[a-z]+))#';
+    private const CAMELCASE_REGEX = '#(?<camelcase>([a-z]+|[A-Z]{1,}[a-z]+))#';
     /**
      * @var string
      * @see https://regex101.com/r/2aGdkZ/2
      */
-    const BY_MIDDLE_REGEX = '#(?<by>By[A-Z][a-zA-Z]+)#';
+    private const BY_MIDDLE_REGEX = '#(?<by>By[A-Z][a-zA-Z]+)#';
     /**
      * @var string
      */
-    const SINGLE = 'single';
+    private const SINGLE = 'single';
     /**
      * @var Inflector
      */

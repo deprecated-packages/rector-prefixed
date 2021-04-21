@@ -32,9 +32,8 @@ final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\No
      * But only if it really exists.
      *
      * @param FuncCall $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;

@@ -47,9 +47,8 @@ final class OnFormVariableMethodCallsCollector
     /**
      * Matches:
      * $form = new Form;
-     * @return \PhpParser\Node\Expr|null
      */
-    private function resolveNewFormVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function resolveNewFormVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
     {
         $newFormVariable = null;
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$newFormVariable) : ?int {

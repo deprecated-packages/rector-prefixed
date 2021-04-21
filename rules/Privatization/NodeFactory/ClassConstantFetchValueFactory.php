@@ -30,9 +30,8 @@ final class ClassConstantFetchValueFactory
     }
     /**
      * @param class-string $classWithConstants
-     * @return \PhpParser\Node\Expr\ClassConstFetch|null
      */
-    public function create(\PhpParser\Node\Expr $expr, string $classWithConstants)
+    public function create(\PhpParser\Node\Expr $expr, string $classWithConstants) : ?\PhpParser\Node\Expr\ClassConstFetch
     {
         $value = $this->valueResolver->getValue($expr);
         if ($value === null) {

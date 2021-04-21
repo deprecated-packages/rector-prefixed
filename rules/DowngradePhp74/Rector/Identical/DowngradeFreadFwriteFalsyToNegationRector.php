@@ -19,7 +19,7 @@ final class DowngradeFreadFwriteFalsyToNegationRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    const FUNC_FREAD_FWRITE = ['fread', 'fwrite'];
+    private const FUNC_FREAD_FWRITE = ['fread', 'fwrite'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes fread() or fwrite() compare to false to negation check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -41,9 +41,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $compareValue = $this->getCompareValue($node);
         if (!$compareValue instanceof \PhpParser\Node\Expr) {
@@ -54,10 +53,7 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\BooleanNot($this->getFunction($node));
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr
     {
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isNames($identical->left, self::FUNC_FREAD_FWRITE)) {
             return $identical->right;

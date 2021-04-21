@@ -66,15 +66,14 @@ CODE_SAMPLE
     }
     /**
      * @param String_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\substr_count($node->value, '::') !== 1) {
             return null;
         }
         // a possible constant reference
-        list($possibleClass, $secondPart) = \explode('::', $node->value);
+        [$possibleClass, $secondPart] = \explode('::', $node->value);
         if (!$this->reflectionProvider->hasClass($possibleClass)) {
             return null;
         }

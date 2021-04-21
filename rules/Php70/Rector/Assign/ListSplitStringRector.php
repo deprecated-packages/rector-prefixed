@@ -31,9 +31,8 @@ final class ListSplitStringRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\List_) {
             return null;

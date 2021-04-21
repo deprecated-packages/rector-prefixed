@@ -17,7 +17,7 @@ final class InvalidNameNodeReporter
     /**
      * @var string
      */
-    const FILE = 'file';
+    private const FILE = 'file';
     /**
      * @var CurrentFileProvider
      */
@@ -33,9 +33,8 @@ final class InvalidNameNodeReporter
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    public function reportInvalidNodeForName(\PhpParser\Node $node)
+    public function reportInvalidNodeForName(\PhpParser\Node $node) : void
     {
         $message = \sprintf('Pick more specific node than "%s", e.g. "$node->name"', \get_class($node));
         $file = $this->currentFileProvider->getFile();
@@ -61,9 +60,9 @@ final class InvalidNameNodeReporter
     }
     /**
      * @param mixed[] $backtrace
-     * @return mixed[]|null
+     * @return string[]|null
      */
-    private function matchRectorBacktraceCall(array $backtrace)
+    private function matchRectorBacktraceCall(array $backtrace) : ?array
     {
         foreach ($backtrace as $singleBacktrace) {
             if (!isset($singleBacktrace['object'])) {

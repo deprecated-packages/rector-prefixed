@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param Catch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->var !== null) {
             return null;

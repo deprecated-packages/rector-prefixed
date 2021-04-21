@@ -20,12 +20,12 @@ final class RenameTesterTestToPHPUnitToTestFileRector extends \Rector\Core\Recto
      * @var string
      * @see https://regex101.com/r/ioamnE/1
      */
-    const PHP_SUFFIX_REGEX = '#\\.php$#';
+    private const PHP_SUFFIX_REGEX = '#\\.php$#';
     /**
      * @var string
      * @see https://regex101.com/r/cOMZIj/1
      */
-    const PHPT_SUFFIX_REGEX = '#\\.phpt$#';
+    private const PHPT_SUFFIX_REGEX = '#\\.phpt$#';
     /**
      * @var FileInfoDeletionAnalyzer
      */
@@ -53,9 +53,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $smartFileInfo = $this->file->getSmartFileInfo();
         $oldRealPath = $smartFileInfo->getRealPath();

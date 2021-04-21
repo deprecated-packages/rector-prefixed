@@ -49,10 +49,7 @@ final class ExpectedNameResolver
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveForParamIfNotYet(\PhpParser\Node\Param $param)
+    public function resolveForParamIfNotYet(\PhpParser\Node\Param $param) : ?string
     {
         if ($param->type instanceof \PhpParser\Node\UnionType) {
             return null;
@@ -71,10 +68,7 @@ final class ExpectedNameResolver
         }
         return $expectedName;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveForAssignNonNew(\PhpParser\Node\Expr\Assign $assign)
+    public function resolveForAssignNonNew(\PhpParser\Node\Expr\Assign $assign) : ?string
     {
         if ($assign->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
@@ -86,10 +80,7 @@ final class ExpectedNameResolver
         $variable = $assign->var;
         return $this->nodeNameResolver->getName($variable);
     }
-    /**
-     * @return string|null
-     */
-    public function resolveForAssignNew(\PhpParser\Node\Expr\Assign $assign)
+    public function resolveForAssignNew(\PhpParser\Node\Expr\Assign $assign) : ?string
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
@@ -112,9 +103,8 @@ final class ExpectedNameResolver
     }
     /**
      * @param MethodCall|StaticCall|FuncCall $expr
-     * @return string|null
      */
-    public function resolveForCall(\PhpParser\Node\Expr $expr)
+    public function resolveForCall(\PhpParser\Node\Expr $expr) : ?string
     {
         if ($this->isDynamicNameCall($expr)) {
             return null;
@@ -146,9 +136,8 @@ final class ExpectedNameResolver
     }
     /**
      * @param MethodCall|StaticCall|FuncCall $expr
-     * @return string|null
      */
-    public function resolveForForeach(\PhpParser\Node\Expr $expr)
+    public function resolveForForeach(\PhpParser\Node\Expr $expr) : ?string
     {
         if ($this->isDynamicNameCall($expr)) {
             return null;
@@ -193,10 +182,7 @@ final class ExpectedNameResolver
         }
         return $expr->name instanceof \PhpParser\Node\Expr\FuncCall;
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function resolveReturnTypeFromArrayType(\PhpParser\Node\Expr $expr, \PHPStan\Type\ArrayType $arrayType)
+    private function resolveReturnTypeFromArrayType(\PhpParser\Node\Expr $expr, \PHPStan\Type\ArrayType $arrayType) : ?\PHPStan\Type\Type
     {
         $parentNode = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Stmt\Foreach_) {

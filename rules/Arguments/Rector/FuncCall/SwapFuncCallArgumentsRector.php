@@ -19,7 +19,7 @@ final class SwapFuncCallArgumentsRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const FUNCTION_ARGUMENT_SWAPS = 'new_argument_positions_by_function_name';
+    public const FUNCTION_ARGUMENT_SWAPS = 'new_argument_positions_by_function_name';
     /**
      * @var SwapFuncCallArguments[]
      */
@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->functionArgumentSwaps as $functionArgumentSwap) {
             if (!$this->isName($node, $functionArgumentSwap->getFunction())) {
@@ -79,10 +78,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $functionArgumentSwaps = $configuration[self::FUNCTION_ARGUMENT_SWAPS] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Arguments\ValueObject\SwapFuncCallArguments::class);

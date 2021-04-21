@@ -53,10 +53,8 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
     }
     /**
      * @param ObjectType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType) {
             return new \PhpParser\Node\Name('self');
@@ -84,10 +82,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         }
         return new \PhpParser\Node\Name('object');
     }
-    /**
-     * @return void
-     */
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

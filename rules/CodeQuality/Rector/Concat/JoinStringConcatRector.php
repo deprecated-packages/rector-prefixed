@@ -20,7 +20,7 @@ final class JoinStringConcatRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var int
      */
-    const LINE_BREAK_POINT = 100;
+    private const LINE_BREAK_POINT = 100;
     /**
      * @var bool
      */
@@ -56,9 +56,8 @@ CODE_SAMPLE
     }
     /**
      * @param Concat $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->nodeReplacementIsRestricted = \false;
         if (!$this->isTopMostConcatNode($node)) {

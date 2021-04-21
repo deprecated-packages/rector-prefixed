@@ -17,7 +17,7 @@ final class ShortClassExpander
      * @var string
      * @see https://regex101.com/r/548EJJ/1
      */
-    const CLASS_CONST_REGEX = '#::class#';
+    private const CLASS_CONST_REGEX = '#::class#';
     /**
      * @var ReflectionProvider
      */

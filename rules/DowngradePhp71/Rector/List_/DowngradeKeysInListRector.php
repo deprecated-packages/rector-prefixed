@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @param List_|Array_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node) {
@@ -147,10 +146,7 @@ CODE_SAMPLE
         $assign = new \PhpParser\Node\Expr\Assign($arrayItem->value, new \PhpParser\Node\Expr\ArrayDimFetch(new \PhpParser\Node\Expr\Variable($newValueVar), $arrayItem->key));
         return new \PhpParser\Node\Stmt\Expression($assign);
     }
-    /**
-     * @param string|null $newValueVar
-     */
-    private function getNewValueVar(\PhpParser\Node\Stmt\Foreach_ $foreach, $newValueVar = null) : string
+    private function getNewValueVar(\PhpParser\Node\Stmt\Foreach_ $foreach, ?string $newValueVar = null) : string
     {
         if ($newValueVar === null) {
             $newValueVar = $this->inflectorSingularResolver->resolve((string) $this->getName($foreach->expr));

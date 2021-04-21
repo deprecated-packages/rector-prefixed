@@ -36,10 +36,7 @@ final class ParsedPropertyFetchNodeCollector
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    /**
-     * @return void
-     */
-    public function collect(\PhpParser\Node $node)
+    public function collect(\PhpParser\Node $node) : void
     {
         if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch && !$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return;
@@ -77,9 +74,8 @@ final class ParsedPropertyFetchNodeCollector
     }
     /**
      * @param PropertyFetch|StaticPropertyFetch $propertyFetchNode
-     * @return void
      */
-    private function addPropertyFetchWithTypeAndName(\PHPStan\Type\Type $propertyType, \PhpParser\Node $propertyFetchNode, string $propertyName)
+    private function addPropertyFetchWithTypeAndName(\PHPStan\Type\Type $propertyType, \PhpParser\Node $propertyFetchNode, string $propertyName) : void
     {
         if ($propertyType instanceof \PHPStan\Type\TypeWithClassName) {
             $this->propertyFetchesByTypeAndName[$propertyType->getClassName()][$propertyName][] = $propertyFetchNode;

@@ -12,7 +12,7 @@ final class ExplicitRouteAnnotationDecorator
     /**
      * @var string
      */
-    const HAS_ROUTE_ANNOTATION = 'has_route_annotation';
+    public const HAS_ROUTE_ANNOTATION = 'has_route_annotation';
     /**
      * @var PhpDocInfoFactory
      */
@@ -21,10 +21,7 @@ final class ExplicitRouteAnnotationDecorator
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    /**
-     * @return void
-     */
-    public function decorateClassMethodWithRouteAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode)
+    public function decorateClassMethodWithRouteAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode('@\\Symfony\\Component\\Routing\\Annotation\\Route', $doctrineAnnotationTagValueNode);

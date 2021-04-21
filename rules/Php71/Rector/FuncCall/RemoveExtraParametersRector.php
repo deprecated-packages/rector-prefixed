@@ -45,9 +45,8 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
     }
     /**
      * @param FuncCall|MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -98,7 +97,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @param MethodReflection|FunctionReflection $reflection
      */
-    private function resolveMaximumAllowedParameterCount($reflection) : int
+    private function resolveMaximumAllowedParameterCount(object $reflection) : int
     {
         $parameterCounts = [0];
         foreach ($reflection->getVariants() as $parametersAcceptor) {

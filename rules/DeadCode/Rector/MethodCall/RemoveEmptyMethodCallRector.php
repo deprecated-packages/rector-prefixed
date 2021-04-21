@@ -67,9 +67,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $scope = $node->var->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
@@ -100,10 +99,7 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_|null $class
-     */
-    private function shouldSkipClassMethod($class, \PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkipClassMethod(?\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;

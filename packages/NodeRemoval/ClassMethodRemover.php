@@ -31,10 +31,7 @@ final class ClassMethodRemover
         $this->nodeRemover = $nodeRemover;
         $this->livingCodeManipulator = $livingCodeManipulator;
     }
-    /**
-     * @return void
-     */
-    public function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->nodeRemover->removeNode($classMethod);
         $calls = $this->nodeRepository->findCallsByClassMethod($classMethod);
@@ -47,9 +44,8 @@ final class ClassMethodRemover
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function removeMethodCall(\PhpParser\Node $node)
+    private function removeMethodCall(\PhpParser\Node $node) : void
     {
         $currentStatement = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         foreach ($node->args as $arg) {

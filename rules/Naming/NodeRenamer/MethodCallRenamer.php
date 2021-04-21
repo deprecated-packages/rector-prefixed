@@ -17,10 +17,7 @@ final class MethodCallRenamer
     {
         $this->nodeRepository = $nodeRepository;
     }
-    /**
-     * @return void
-     */
-    public function updateClassMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $desiredMethodName)
+    public function updateClassMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $desiredMethodName) : void
     {
         /** @var MethodCall[] $methodCalls */
         $methodCalls = $this->nodeRepository->findCallsByClassMethod($classMethod);

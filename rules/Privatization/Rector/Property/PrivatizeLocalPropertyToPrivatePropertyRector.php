@@ -21,7 +21,7 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
     /**
      * @var string[]
      */
-    const TAGS_REQUIRING_PUBLIC_PROPERTY = [
+    private const TAGS_REQUIRING_PUBLIC_PROPERTY = [
         'api',
         // Symfony DI
         'required',
@@ -76,9 +76,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;

@@ -31,7 +31,7 @@ final class RenameMethodRector extends \Rector\Core\Rector\AbstractRector implem
     /**
      * @var string
      */
-    const METHOD_CALL_RENAMES = 'method_call_renames';
+    public const METHOD_CALL_RENAMES = 'method_call_renames';
     /**
      * @var MethodCallRenameInterface[]
      */
@@ -70,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodCallRenames as $methodCallRename) {
             $implementsInterface = $this->classManipulator->hasParentMethodOrInterface($methodCallRename->getOldObjectType(), $methodCallRename->getOldMethod());
@@ -98,9 +97,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, MethodCallRenameInterface[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $methodCallRenames = $configuration[self::METHOD_CALL_RENAMES] ?? [];
         \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($methodCallRenames, \Rector\Renaming\Contract\MethodCallRenameInterface::class);

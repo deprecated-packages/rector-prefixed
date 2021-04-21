@@ -26,7 +26,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string[]
      */
-    const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
+    private const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
     /**
      * @var BinaryOpManipulator
      */
@@ -48,9 +48,8 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
     }
     /**
      * @param Identical|NotIdentical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\PhpParser\Node $node) : bool {
             return $this->isClassReference($node);

@@ -49,10 +49,7 @@ final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractP
     {
         return 900;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
@@ -88,20 +85,14 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    /**
-     * @return void
-     */
-    private function addConstants(\PhpParser\Node\Stmt\Class_ $class)
+    private function addConstants(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $constants = $this->propertyToAddCollector->getConstantsByClass($class);
         foreach ($constants as $constantName => $nodeConst) {
             $this->classInsertManipulator->addConstantToClass($class, $constantName, $nodeConst);
         }
     }
-    /**
-     * @return void
-     */
-    private function addProperties(\PhpParser\Node\Stmt\Class_ $class)
+    private function addProperties(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $propertiesMetadatas = $this->propertyToAddCollector->getPropertiesByClass($class);
         $isNetteInjectPreferred = $this->netteInjectDetector->isNetteInjectPreferred($class);
@@ -113,10 +104,7 @@ CODE_SAMPLE
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function addPropertiesWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class)
+    private function addPropertiesWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $propertiesWithoutConstructor = $this->propertyToAddCollector->getPropertiesWithoutConstructorByClass($class);
         foreach ($propertiesWithoutConstructor as $propertyName => $propertyType) {

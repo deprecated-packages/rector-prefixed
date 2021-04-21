@@ -21,7 +21,7 @@ final class AddInterfaceByTraitRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const INTERFACE_BY_TRAIT = 'interface_by_trait';
+    public const INTERFACE_BY_TRAIT = 'interface_by_trait';
     /**
      * @var array<string, string>
      */
@@ -51,9 +51,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Scope $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -76,9 +75,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->interfaceByTrait = $configuration[self::INTERFACE_BY_TRAIT] ?? [];
     }

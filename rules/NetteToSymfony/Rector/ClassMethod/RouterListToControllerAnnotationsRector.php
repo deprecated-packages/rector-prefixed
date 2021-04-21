@@ -33,7 +33,7 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
      * @var string
      * @see https://regex101.com/r/qVlXk2/2
      */
-    const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
+    private const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
     /**
      * @var RouteInfoFactory
      */
@@ -126,9 +126,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->stmts === []) {
             return null;
@@ -198,10 +197,7 @@ CODE_SAMPLE
         }
         return $routeInfos;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function resolveControllerClassMethod(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo)
+    private function resolveControllerClassMethod(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classNode = $this->nodeRepository->findClass($routeInfo->getClass());
         if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
@@ -221,10 +217,7 @@ CODE_SAMPLE
         }
         return $this->symfonyRouteTagValueNodeFactory->createFromItems($values);
     }
-    /**
-     * @return void
-     */
-    private function completeImplicitRoutes()
+    private function completeImplicitRoutes() : void
     {
         $presenterClasses = $this->nodeRepository->findClassesBySuffix('Presenter');
         foreach ($presenterClasses as $presenterClass) {

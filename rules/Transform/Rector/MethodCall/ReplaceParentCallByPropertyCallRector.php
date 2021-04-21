@@ -18,7 +18,7 @@ final class ReplaceParentCallByPropertyCallRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    const PARENT_CALLS_TO_PROPERTIES = 'parent_calls_to_properties';
+    public const PARENT_CALLS_TO_PROPERTIES = 'parent_calls_to_properties';
     /**
      * @var ReplaceParentCallByPropertyCall[]
      */
@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->parentCallToProperties as $parentCallToProperty) {
             if (!$this->isObjectType($node->var, $parentCallToProperty->getObjectType())) {
@@ -70,10 +69,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->parentCallToProperties = $configuration[self::PARENT_CALLS_TO_PROPERTIES] ?? [];
     }

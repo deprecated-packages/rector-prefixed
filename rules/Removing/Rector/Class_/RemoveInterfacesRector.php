@@ -17,7 +17,7 @@ final class RemoveInterfacesRector extends \Rector\Core\Rector\AbstractRector im
     /**
      * @var string
      */
-    const INTERFACES_TO_REMOVE = 'interfaces_to_remove';
+    public const INTERFACES_TO_REMOVE = 'interfaces_to_remove';
     /**
      * @var string[]
      */
@@ -45,9 +45,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->implements === []) {
             return null;
@@ -59,10 +58,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->interfacesToRemove = $configuration[self::INTERFACES_TO_REMOVE] ?? [];
     }

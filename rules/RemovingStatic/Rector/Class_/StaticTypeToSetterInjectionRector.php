@@ -31,7 +31,7 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
      * @api
      * @var string
      */
-    const STATIC_TYPES = 'static_types';
+    public const STATIC_TYPES = 'static_types';
     /**
      * @var string[]
      */
@@ -99,9 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->processClass($node);
@@ -117,10 +116,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->staticTypes = $configuration[self::STATIC_TYPES] ?? [];
     }

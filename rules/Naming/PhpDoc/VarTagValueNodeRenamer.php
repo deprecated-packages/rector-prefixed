@@ -8,10 +8,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey;
 final class VarTagValueNodeRenamer
 {
-    /**
-     * @return void
-     */
-    public function renameAssignVarTagVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $originalName, string $expectedName)
+    public function renameAssignVarTagVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $originalName, string $expectedName) : void
     {
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
         if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {

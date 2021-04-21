@@ -43,9 +43,8 @@ final class ChildParamPopulator
     /**
      * Add typehint to all children
      * @param ClassMethod|Function_ $functionLike
-     * @return void
      */
-    public function populateChildClassMethod(\PhpParser\Node\FunctionLike $functionLike, int $position, \PHPStan\Type\Type $paramType)
+    public function populateChildClassMethod(\PhpParser\Node\FunctionLike $functionLike, int $position, \PHPStan\Type\Type $paramType) : void
     {
         if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
@@ -68,10 +67,7 @@ final class ChildParamPopulator
             $this->addParamTypeToMethod($childClassLike, $position, $functionLike, $paramType);
         }
     }
-    /**
-     * @return void
-     */
-    private function addParamTypeToMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $paramType)
+    private function addParamTypeToMethod(\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $paramType) : void
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($methodName);

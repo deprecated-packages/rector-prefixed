@@ -37,11 +37,7 @@ final class ArrayItemsAnalyzer
         }
         return \true;
     }
-    /**
-     * @param \PhpParser\Node\Expr\ArrayItem|null $arrayItem
-     * @return string|null
-     */
-    private function resolveStringValue($arrayItem)
+    private function resolveStringValue(?\PhpParser\Node\Expr\ArrayItem $arrayItem) : ?string
     {
         if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
             return null;

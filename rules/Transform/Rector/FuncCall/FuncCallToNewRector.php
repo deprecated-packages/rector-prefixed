@@ -19,7 +19,7 @@ final class FuncCallToNewRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    const FUNCTIONS_TO_NEWS = 'functions_to_news';
+    public const FUNCTIONS_TO_NEWS = 'functions_to_news';
     /**
      * @var string[]
      */
@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->functionToNew as $function => $new) {
             if (!$this->isName($node, $function)) {
@@ -69,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->functionToNew = $configuration[self::FUNCTIONS_TO_NEWS] ?? [];
     }

@@ -31,7 +31,7 @@ final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var int
      */
-    const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
+    private const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
     /**
      * @var ReflectionProvider
      */
@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param Catch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
         if (!$caughtThrowableVariable instanceof \PhpParser\Node\Expr\Variable) {
@@ -95,10 +94,7 @@ CODE_SAMPLE
         });
         return $node;
     }
-    /**
-     * @return int|null
-     */
-    private function refactorThrow(\PhpParser\Node\Stmt\Throw_ $throw, \PhpParser\Node\Expr\Variable $catchedThrowableVariable)
+    private function refactorThrow(\PhpParser\Node\Stmt\Throw_ $throw, \PhpParser\Node\Expr\Variable $catchedThrowableVariable) : ?int
     {
         if (!$throw->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;
@@ -135,10 +131,7 @@ CODE_SAMPLE
         // nothing more to add
         return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
     }
-    /**
-     * @return int|null
-     */
-    private function resolveExceptionArgumentPosition(\PhpParser\Node\Name $exceptionName)
+    private function resolveExceptionArgumentPosition(\PhpParser\Node\Name $exceptionName) : ?int
     {
         $className = $this->getName($exceptionName);
         // is native exception?

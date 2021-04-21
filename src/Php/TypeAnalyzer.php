@@ -10,17 +10,17 @@ final class TypeAnalyzer
     /**
      * @var string[]
      */
-    const EXTRA_TYPES = ['object'];
+    private const EXTRA_TYPES = ['object'];
     /**
      * @var string
      * @see https://regex101.com/r/fKFtfL/1
      */
-    const ARRAY_TYPE_REGEX = '#array<(.*?)>#';
+    private const ARRAY_TYPE_REGEX = '#array<(.*?)>#';
     /**
      * @var string
      * @see https://regex101.com/r/57HGpC/1
      */
-    const SQUARE_BRACKET_REGEX = '#(\\[\\])+$#';
+    private const SQUARE_BRACKET_REGEX = '#(\\[\\])+$#';
     /**
      * @var string[]
      */

@@ -53,9 +53,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->cond instanceof \PhpParser\Node\Expr\BooleanNot && $this->isNullableNonScalarType($node->cond->expr)) {
             $node->cond = new \PhpParser\Node\Expr\BinaryOp\Identical($node->cond->expr, $this->nodeFactory->createNull());

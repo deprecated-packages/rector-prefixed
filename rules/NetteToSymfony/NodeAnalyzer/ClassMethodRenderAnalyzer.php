@@ -83,7 +83,7 @@ final class ClassMethodRenderAnalyzer
         $this->nodesToRemove = [];
         $this->conditionalAssigns = [];
         $this->lastReturn = $this->returnAnalyzer->findLastClassMethodReturn($classMethod);
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) : void {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
                 $this->collectTemplateFileExpr($node);
             }
@@ -93,10 +93,7 @@ final class ClassMethodRenderAnalyzer
         });
         return new \Rector\NetteToSymfony\ValueObject\ClassMethodRender($this->templateFileExprs, $this->templateVariables, $this->nodesToRemove, $this->conditionalAssigns);
     }
-    /**
-     * @return void
-     */
-    private function collectTemplateFileExpr(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function collectTemplateFileExpr(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if (!$this->nodeNameResolver->isNames($methodCall->name, ['render', 'setFile'])) {
             return;
@@ -107,10 +104,7 @@ final class ClassMethodRenderAnalyzer
         }
         $this->templateFileExprs[] = $methodCall->args[0]->value;
     }
-    /**
-     * @return void
-     */
-    private function collectVariableFromAssign(\PhpParser\Node\Expr\Assign $assign)
+    private function collectVariableFromAssign(\PhpParser\Node\Expr\Assign $assign) : void
     {
         // $this->template = x
         if ($assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {

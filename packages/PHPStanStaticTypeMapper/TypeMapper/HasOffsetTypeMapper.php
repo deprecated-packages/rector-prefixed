@@ -29,10 +29,8 @@ final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contr
     }
     /**
      * @param HasOffsetType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
