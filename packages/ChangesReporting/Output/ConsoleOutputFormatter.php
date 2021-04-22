@@ -89,7 +89,6 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $rectorsChangelogsLines = $this->createRectorChangelogLines($fileDiff);
             if ($fileDiff->getRectorChanges() !== []) {
                 $this->symfonyStyle->writeln('<options=underscore>Applied rules:</>');
-                $this->symfonyStyle->newLine();
                 $this->symfonyStyle->listing($rectorsChangelogsLines);
                 $this->symfonyStyle->newLine();
             }
