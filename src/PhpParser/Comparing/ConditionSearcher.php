@@ -40,8 +40,10 @@ final class ConditionSearcher
     }
     private function searchElseForVariableRedeclaration(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Else_ $else) : bool
     {
-        /** @var Expression $statementElse */
         foreach ($else->stmts as $statementElse) {
+            if (!$statementElse instanceof \PhpParser\Node\Stmt\Expression) {
+                continue;
+            }
             if (!$statementElse->expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
