@@ -70,7 +70,8 @@ class ChildType extends ParentType {}
 class A
 {
     public function contraVariantArguments(ChildType $type)
-    { }
+    {
+    }
 }
 
 class B extends A
