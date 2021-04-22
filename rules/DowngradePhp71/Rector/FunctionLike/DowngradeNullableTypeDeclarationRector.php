@@ -70,16 +70,19 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node)
     {
+        $hasChanged = \false;
         foreach ($node->params as $param) {
-            $this->refactorParamType($param, $node);
+            if ($this->refactorParamType($param, $node)) {
+                $hasChanged = \true;
+            }
         }
-        if (!$node->returnType instanceof \PhpParser\Node\NullableType) {
-            return null;
+        if ($node->returnType instanceof \PhpParser\Node\NullableType && $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+            $hasChanged = \true;
         }
-        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
-            return null;
+        if ($hasChanged) {
+            return $node;
         }
-        return $node;
+        return null;
     }
     private function isNullableParam(\PhpParser\Node\Param $param) : bool
     {
@@ -94,15 +97,15 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_ $functionLike
-     * @return void
      */
-    private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike)
+    private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if (!$this->isNullableParam($param)) {
-            return;
+            return \false;
         }
         $this->decorateWithDocBlock($functionLike, $param);
         $param->type = null;
+        return \true;
     }
     /**
      * @param ClassMethod|Function_ $functionLike

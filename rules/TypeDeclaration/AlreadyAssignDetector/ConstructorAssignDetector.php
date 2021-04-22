@@ -18,7 +18,7 @@ final class ConstructorAssignDetector
     /**
      * @var string
      */
-    private const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
+    const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
     /**
      * @var PropertyAssignMatcher
      */
@@ -62,7 +62,10 @@ final class ConstructorAssignDetector
         });
         return $isAssignedInConstructor;
     }
-    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName) : ?\PhpParser\Node\Expr
+    /**
+     * @return \PhpParser\Node\Expr|null
+     */
+    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName)
     {
         if (!$node instanceof \PhpParser\Node\Expr\Assign) {
             return null;

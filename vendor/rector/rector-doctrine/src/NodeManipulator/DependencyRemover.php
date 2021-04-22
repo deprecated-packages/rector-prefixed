@@ -34,7 +34,10 @@ final class DependencyRemover
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeRemover = $nodeRemover;
     }
-    public function removeByType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam, string $type) : void
+    /**
+     * @return void
+     */
+    public function removeByType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam, string $type)
     {
         // remove constructor param: $managerRegistry
         foreach ($classMethod->params as $key => $param) {
@@ -48,7 +51,10 @@ final class DependencyRemover
         }
         $this->removeRegistryDependencyAssign($class, $classMethod, $registryParam);
     }
-    private function removeRegistryDependencyAssign(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam) : void
+    /**
+     * @return void
+     */
+    private function removeRegistryDependencyAssign(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam)
     {
         foreach ((array) $classMethod->stmts as $constructorMethodStmt) {
             if (!$constructorMethodStmt instanceof \PhpParser\Node\Stmt\Expression) {
@@ -68,7 +74,10 @@ final class DependencyRemover
             break;
         }
     }
-    private function removeManagerRegistryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\Assign $assign) : void
+    /**
+     * @return void
+     */
+    private function removeManagerRegistryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\Assign $assign)
     {
         $removedPropertyName = $this->nodeNameResolver->getName($assign->var);
         if ($removedPropertyName === null) {

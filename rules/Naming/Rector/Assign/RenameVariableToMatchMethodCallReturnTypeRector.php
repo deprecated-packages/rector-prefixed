@@ -119,8 +119,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $variableAndCallAssign = $this->variableAndCallAssignMatcher->match($node);
         if (!$variableAndCallAssign instanceof \Rector\Naming\ValueObject\VariableAndCallAssign) {
@@ -183,7 +184,10 @@ CODE_SAMPLE
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallAssign->getVariableName(), $expectedName, $variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getVariable());
     }
-    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
+    /**
+     * @return void
+     */
+    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName)
     {
         $assign = $variableAndCallAssign->getAssign();
         $assignPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($assign);

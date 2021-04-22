@@ -74,8 +74,9 @@ CODE_SAMPLE
     }
     /**
      * @param Variable $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!($parent instanceof \PhpParser\Node\Expr\Assign && $parent->var === $node)) {
@@ -131,7 +132,10 @@ CODE_SAMPLE
         }
         return $this->hasReAssign($expression, $assign->expr);
     }
-    private function getUsageInNextStmts(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @return \PhpParser\Node\Expr\Variable|null
+     */
+    private function getUsageInNextStmts(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable)
     {
         /** @var Node|null $next */
         $next = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
@@ -159,7 +163,10 @@ CODE_SAMPLE
         $loopNode = $this->betterNodeFinder->findParentTypes($node, [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Do_::class]);
         return (bool) $loopNode;
     }
-    private function isUsedAsArrayKey(?\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : bool
+    /**
+     * @param \PhpParser\Node|null $node
+     */
+    private function isUsedAsArrayKey($node, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         if (!$node instanceof \PhpParser\Node) {
             return \false;
@@ -260,8 +267,9 @@ CODE_SAMPLE
     }
     /**
      * @param array<int, Node|null> $multiNodes
+     * @return \PhpParser\Node\Expr\Variable|null
      */
-    private function getSameVarName(array $multiNodes, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
+    private function getSameVarName(array $multiNodes, \PhpParser\Node\Expr\Variable $variable)
     {
         foreach ($multiNodes as $multiNode) {
             if ($multiNode === null) {
@@ -281,7 +289,10 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function getSameVarNameInNexts(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
+    /**
+     * @return \PhpParser\Node\Expr\Variable|null
+     */
+    private function getSameVarNameInNexts(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable)
     {
         while ($node) {
             $found = $this->getSameVarName([$node], $variable);

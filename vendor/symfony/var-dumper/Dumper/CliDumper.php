@@ -467,8 +467,9 @@ class CliDumper extends \RectorPrefix20210422\Symfony\Component\VarDumper\Dumper
     }
     /**
      * {@inheritdoc}
+     * @param bool $endOfValue
      */
-    protected function dumpLine(int $depth, bool $endOfValue = \false)
+    protected function dumpLine(int $depth, $endOfValue = \false)
     {
         if ($this->colors) {
             $this->line = \sprintf("\33[%sm%s\33[m", $this->styles['default'], $this->line);
@@ -512,7 +513,14 @@ class CliDumper extends \RectorPrefix20210422\Symfony\Component\VarDumper\Dumper
         if (\DIRECTORY_SEPARATOR === '\\') {
             return \function_exists('sapi_windows_vt100_support') && @\sapi_windows_vt100_support($stream) || \false !== \getenv('ANSICON') || 'ON' === \getenv('ConEmuANSI') || 'xterm' === \getenv('TERM');
         }
-        return \stream_isatty($stream);
+        $streamIsatty = function ($stream) {
+            if ('\\' === \DIRECTORY_SEPARATOR) {
+                $stat = @\fstat($stream);
+                return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
+            }
+            return @\posix_isatty($stream);
+        };
+        return $streamIsatty($stream);
     }
     /**
      * Returns true if the Windows terminal supports true color.

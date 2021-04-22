@@ -35,11 +35,11 @@ final class DowngradePregUnmatchedAsNullConstantRector extends \Rector\Core\Rect
     /**
      * @var string[]
      */
-    private const REGEX_FUNCTION_NAMES = ['preg_match', 'preg_match_all'];
+    const REGEX_FUNCTION_NAMES = ['preg_match', 'preg_match_all'];
     /**
      * @var string
      */
-    private const FLAG = 'PREG_UNMATCHED_AS_NULL';
+    const FLAG = 'PREG_UNMATCHED_AS_NULL';
     /**
      * @var IfManipulator
      */
@@ -57,8 +57,9 @@ final class DowngradePregUnmatchedAsNullConstantRector extends \Rector\Core\Rect
     }
     /**
      * @param FuncCall|ClassConst $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             return $this->processsClassConst($node);
@@ -162,7 +163,11 @@ CODE_SAMPLE
         }
         return \in_array($expr->if->value, self::REGEX_FUNCTION_NAMES, \true) && \in_array($expr->else->value, self::REGEX_FUNCTION_NAMES, \true);
     }
-    private function cleanBitWiseOrFlags(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr, ?\PhpParser\Node\Expr $expr = null) : void
+    /**
+     * @param \PhpParser\Node\Expr|null $expr
+     * @return void
+     */
+    private function cleanBitWiseOrFlags(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr, $expr = null)
     {
         if ($bitwiseOr->left instanceof \PhpParser\Node\Expr\BinaryOp\BitwiseOr) {
             /** @var BitwiseOr $leftLeft */
@@ -185,7 +190,10 @@ CODE_SAMPLE
         }
         $this->assignThirdArgsValue($funcCall, $bitwiseOr);
     }
-    private function assignThirdArgsValue(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr) : void
+    /**
+     * @return void
+     */
+    private function assignThirdArgsValue(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr)
     {
         if ($bitwiseOr instanceof \PhpParser\Node\Expr\BinaryOp\BitwiseOr && $bitwiseOr->right instanceof \PhpParser\Node\Expr\ConstFetch && $this->isName($bitwiseOr->right, self::FLAG)) {
             $bitwiseOr = $bitwiseOr->left;
@@ -251,7 +259,10 @@ CODE_SAMPLE
         }
         return $funcCall;
     }
-    private function handleNotInIdenticalAndBooleanNot(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\FuncCall $funcCall) : void
+    /**
+     * @return void
+     */
+    private function handleNotInIdenticalAndBooleanNot(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\FuncCall $funcCall)
     {
         if ($if->stmts !== []) {
             $firstStmt = $if->stmts[0];

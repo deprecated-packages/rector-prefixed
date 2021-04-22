@@ -36,7 +36,7 @@ use RectorPrefix20210422\Symfony\Component\HttpKernel\KernelEvents;
  */
 abstract class AbstractSessionListener implements \RectorPrefix20210422\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
-    public const NO_AUTO_CACHE_CONTROL_HEADER = 'Symfony-Session-NoAutoCacheControl';
+    const NO_AUTO_CACHE_CONTROL_HEADER = 'Symfony-Session-NoAutoCacheControl';
     protected $container;
     private $sessionUsageStack = [];
     private $debug;
@@ -123,7 +123,10 @@ abstract class AbstractSessionListener implements \RectorPrefix20210422\Symfony\
             \array_pop($this->sessionUsageStack);
         }
     }
-    public function onSessionUsage() : void
+    /**
+     * @return void
+     */
+    public function onSessionUsage()
     {
         if (!$this->debug) {
             return;

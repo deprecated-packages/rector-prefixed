@@ -15,9 +15,9 @@ class Cache
 {
     use Nette\SmartObject;
     /** dependency */
-    public const PRIORITY = 'priority', EXPIRATION = 'expire', EXPIRE = 'expire', SLIDING = 'sliding', TAGS = 'tags', FILES = 'files', ITEMS = 'items', CONSTS = 'consts', CALLBACKS = 'callbacks', NAMESPACES = 'namespaces', ALL = 'all';
+    const PRIORITY = 'priority', EXPIRATION = 'expire', EXPIRE = 'expire', SLIDING = 'sliding', TAGS = 'tags', FILES = 'files', ITEMS = 'items', CONSTS = 'consts', CALLBACKS = 'callbacks', NAMESPACES = 'namespaces', ALL = 'all';
     /** @internal */
-    public const NAMESPACE_SEPARATOR = "\0";
+    const NAMESPACE_SEPARATOR = "\0";
     /** @var Storage */
     private $storage;
     /** @var string */
@@ -148,7 +148,10 @@ class Cache
             return $data;
         }
     }
-    private function completeDependencies(?array $dp) : array
+    /**
+     * @param mixed[]|null $dp
+     */
+    private function completeDependencies($dp) : array
     {
         // convert expire into relative amount of seconds
         if (isset($dp[self::EXPIRATION])) {
@@ -189,8 +192,9 @@ class Cache
     /**
      * Removes item from the cache.
      * @param  mixed  $key
+     * @return void
      */
-    public function remove($key) : void
+    public function remove($key)
     {
         $this->save($key, null);
     }
@@ -200,8 +204,9 @@ class Cache
      * - Cache::PRIORITY => (int) priority
      * - Cache::TAGS => (array) tags
      * - Cache::ALL => true
+     * @return void
      */
-    public function clean(array $conditions = null) : void
+    public function clean(array $conditions = null)
     {
         $conditions = (array) $conditions;
         if (isset($conditions[self::TAGS])) {
@@ -242,8 +247,9 @@ class Cache
     /**
      * Starts the output cache.
      * @param  mixed  $key
+     * @return \Nette\Caching\OutputHelper|null
      */
-    public function capture($key) : ?\RectorPrefix20210422\Nette\Caching\OutputHelper
+    public function capture($key)
     {
         $data = $this->load($key);
         if ($data === null) {
@@ -254,8 +260,9 @@ class Cache
     }
     /**
      * @deprecated  use capture()
+     * @return \Nette\Caching\OutputHelper|null
      */
-    public function start($key) : ?\RectorPrefix20210422\Nette\Caching\OutputHelper
+    public function start($key)
     {
         return $this->capture($key);
     }
@@ -288,8 +295,9 @@ class Cache
     }
     /**
      * Checks FILES dependency.
+     * @param int|null $time
      */
-    private static function checkFile(string $file, ?int $time) : bool
+    private static function checkFile(string $file, $time) : bool
     {
         return @\filemtime($file) == $time;
         // @ - stat may fail

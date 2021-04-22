@@ -35,7 +35,10 @@ final class MethodReflectionToAstResolver
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function resolveProjectClassMethod(\PHPStan\Reflection\Php\PhpMethodReflection $phpMethodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @return \PhpParser\Node\Stmt\ClassMethod|null
+     */
+    public function resolveProjectClassMethod(\PHPStan\Reflection\Php\PhpMethodReflection $phpMethodReflection)
     {
         $classReflection = $phpMethodReflection->getDeclaringClass();
         $fileName = $classReflection->getFileName();

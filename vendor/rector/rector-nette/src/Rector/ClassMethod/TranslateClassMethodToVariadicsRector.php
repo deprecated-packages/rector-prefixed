@@ -31,7 +31,7 @@ final class TranslateClassMethodToVariadicsRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    private const PARAMETERS = 'parameters';
+    const PARAMETERS = 'parameters';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change translate() method call 2nd arg to variadic', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -68,8 +68,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('Nette\\Localization\\ITranslator'))) {
             return null;
@@ -96,7 +97,10 @@ CODE_SAMPLE
         $secondParam->var->name = self::PARAMETERS;
         return $node;
     }
-    private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
+    /**
+     * @return void
+     */
+    private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
     {
         $paramName = $this->getName($param->var);
         if ($paramName === null) {

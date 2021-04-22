@@ -43,7 +43,10 @@ final class NextVariableUsageNodeFinder
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeComparator = $nodeComparator;
     }
-    public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
+    /**
+     * @return \PhpParser\Node|null
+     */
+    public function find(\PhpParser\Node\Expr\Assign $assign)
     {
         $scopeNode = $this->parentScopeFinder->find($assign);
         if ($scopeNode === null) {

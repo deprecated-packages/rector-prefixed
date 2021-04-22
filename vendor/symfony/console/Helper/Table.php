@@ -27,12 +27,12 @@ use RectorPrefix20210422\Symfony\Component\Console\Output\OutputInterface;
  */
 class Table
 {
-    private const SEPARATOR_TOP = 0;
-    private const SEPARATOR_TOP_BOTTOM = 1;
-    private const SEPARATOR_MID = 2;
-    private const SEPARATOR_BOTTOM = 3;
-    private const BORDER_OUTSIDE = 0;
-    private const BORDER_INSIDE = 1;
+    const SEPARATOR_TOP = 0;
+    const SEPARATOR_TOP_BOTTOM = 1;
+    const SEPARATOR_MID = 2;
+    const SEPARATOR_BOTTOM = 3;
+    const BORDER_OUTSIDE = 0;
+    const BORDER_INSIDE = 1;
     private $headerTitle;
     private $footerTitle;
     /**
@@ -183,7 +183,7 @@ class Table
      *
      * @return $this
      */
-    public function setColumnMaxWidth(int $columnIndex, int $width) : self
+    public function setColumnMaxWidth(int $columnIndex, int $width)
     {
         if (!$this->output->getFormatter() instanceof \RectorPrefix20210422\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface) {
             throw new \LogicException(\sprintf('Setting a maximum column width is only supported when using a "%s" formatter, got "%s".', \RectorPrefix20210422\Symfony\Component\Console\Formatter\WrappableOutputFormatterInterface::class, \get_debug_type($this->output->getFormatter())));
@@ -226,8 +226,9 @@ class Table
     }
     /**
      * Adds a row to the table, and re-renders the table.
+     * @return $this
      */
-    public function appendRow($row) : self
+    public function appendRow($row)
     {
         if (!$this->output instanceof \RectorPrefix20210422\Symfony\Component\Console\Output\ConsoleSectionOutput) {
             throw new \RectorPrefix20210422\Symfony\Component\Console\Exception\RuntimeException(\sprintf('Output should be an instance of "%s" when calling "%s".', \RectorPrefix20210422\Symfony\Component\Console\Output\ConsoleSectionOutput::class, __METHOD__));
@@ -244,17 +245,28 @@ class Table
         $this->rows[$column] = $row;
         return $this;
     }
-    public function setHeaderTitle(?string $title) : self
+    /**
+     * @return $this
+     * @param string|null $title
+     */
+    public function setHeaderTitle($title)
     {
         $this->headerTitle = $title;
         return $this;
     }
-    public function setFooterTitle(?string $title) : self
+    /**
+     * @return $this
+     * @param string|null $title
+     */
+    public function setFooterTitle($title)
     {
         $this->footerTitle = $title;
         return $this;
     }
-    public function setHorizontal(bool $horizontal = \true) : self
+    /**
+     * @return $this
+     */
+    public function setHorizontal(bool $horizontal = \true)
     {
         $this->horizontal = $horizontal;
         return $this;
@@ -349,13 +361,13 @@ class Table
         }
         $crossings = $this->style->getCrossingChars();
         if (self::SEPARATOR_MID === $type) {
-            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
+            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[2], $crossings[8], $crossings[0], $crossings[4]];
         } elseif (self::SEPARATOR_TOP === $type) {
-            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
+            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[1], $crossings[2], $crossings[3]];
         } elseif (self::SEPARATOR_TOP_BOTTOM === $type) {
-            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
+            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[9], $crossings[10], $crossings[11]];
         } else {
-            [$horizontal, $leftChar, $midChar, $rightChar] = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
+            list($horizontal, $leftChar, $midChar, $rightChar) = [$borders[0], $crossings[7], $crossings[6], $crossings[5]];
         }
         $markup = $leftChar;
         for ($column = 0; $column < $count; ++$column) {
@@ -632,8 +644,9 @@ class Table
     }
     /**
      * Calculates columns widths.
+     * @param mixed[] $rows
      */
-    private function calculateColumnsWidth(iterable $rows)
+    private function calculateColumnsWidth($rows)
     {
         for ($column = 0; $column < $this->numberOfColumns; ++$column) {
             $lengths = [];

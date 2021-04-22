@@ -88,7 +88,7 @@ CODE_SAMPLE
             return $this->processArgs($node);
         }
         if ($node instanceof \PhpParser\Node\Expr\Closure) {
-            $node = $this->processUses($node);
+            $this->processUses($node);
         }
         /** @var ClassMethod|Function_ $node */
         return $this->processParams($node);
@@ -104,12 +104,15 @@ CODE_SAMPLE
         }
         return $this->cleanTrailingComma($node, $node->args);
     }
-    private function processUses(\PhpParser\Node\Expr\Closure $node) : \PhpParser\Node\Expr\Closure
+    /**
+     * @return void
+     */
+    private function processUses(\PhpParser\Node\Expr\Closure $node)
     {
         if ($node->uses === []) {
-            return $node;
+            return;
         }
-        return $this->cleanTrailingComma($node, $node->uses);
+        $this->cleanTrailingComma($node, $node->uses);
     }
     /**
      * @param ClassMethod|Function_|Closure $node

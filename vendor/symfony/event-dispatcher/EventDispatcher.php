@@ -40,8 +40,11 @@ class EventDispatcher implements \RectorPrefix20210422\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
+     * @param object $event
+     * @return object
      */
-    public function dispatch(object $event, string $eventName = null) : object
+    public function dispatch($event, $eventName = null)
     {
         $eventName = $eventName ?? \get_class($event);
         if (null !== $this->optimized) {
@@ -192,7 +195,7 @@ class EventDispatcher implements \RectorPrefix20210422\Symfony\Component\EventDi
      * @param string     $eventName The name of the event to dispatch
      * @param object     $event     The event object to pass to the event handlers/listeners
      */
-    protected function callListeners(iterable $listeners, string $eventName, object $event)
+    protected function callListeners($listeners, string $eventName, $event)
     {
         $stoppable = $event instanceof \RectorPrefix20210422\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {

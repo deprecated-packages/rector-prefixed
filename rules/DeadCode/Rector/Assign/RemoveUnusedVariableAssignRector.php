@@ -82,8 +82,9 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -178,7 +179,10 @@ CODE_SAMPLE
     {
         return $expr instanceof \PhpParser\Node\Expr\FuncCall || $expr instanceof \PhpParser\Node\Expr\MethodCall || $expr instanceof \PhpParser\Node\Expr\New_ || $expr instanceof \PhpParser\Node\Expr\NullsafeMethodCall || $expr instanceof \PhpParser\Node\Expr\StaticCall;
     }
-    private function refactorUsedVariable(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
+    /**
+     * @return \PhpParser\Node\Expr\Assign|null
+     */
+    private function refactorUsedVariable(\PhpParser\Node\Expr\Assign $assign)
     {
         $parentNode = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $if = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);

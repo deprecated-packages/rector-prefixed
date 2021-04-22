@@ -107,7 +107,7 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
     private $autoconfiguredInstanceof = [];
     private $removedIds = [];
     private $removedBindingIds = [];
-    private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
+    const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
     public function __construct(\RectorPrefix20210422\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
@@ -270,8 +270,10 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      * @throws \ReflectionException when a parent class/interface/trait is not found and $throw is true
      *
      * @final
+     * @param string|null $class
+     * @return \ReflectionClass|null
      */
-    public function getReflectionClass(?string $class, bool $throw = \true) : ?\ReflectionClass
+    public function getReflectionClass($class, bool $throw = \true)
     {
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
@@ -399,8 +401,9 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      * Sets a service.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
+     * @param object|null $service
      */
-    public function set(string $id, ?object $service)
+    public function set(string $id, $service)
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
@@ -446,7 +449,7 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = \RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get($id, $invalidBehavior = \RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if ($this->isCompiled() && isset($this->removedIds[$id = (string) $id]) && \RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
@@ -523,8 +526,9 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      * constructor.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
+     * @param $this $container
      */
-    public function merge(self $container)
+    public function merge($container)
     {
         if ($this->isCompiled()) {
             throw new \RectorPrefix20210422\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot merge on a compiled container.');
@@ -607,7 +611,7 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      *                                     Set to "true" when you want to use the current ContainerBuilder
      *                                     directly, keep to "false" when the container is dumped instead.
      */
-    public function compile(bool $resolveEnvPlaceholders = \false)
+    public function compile($resolveEnvPlaceholders = \false)
     {
         $compiler = $this->getCompiler();
         if ($this->trackResources) {
@@ -1052,8 +1056,9 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      *     }
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
+     * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds(string $name, bool $throwOnAbstract = \false)
+    public function findTaggedServiceIds(string $name, $throwOnAbstract = \false)
     {
         $this->usedTags[] = $name;
         $tags = [];
@@ -1240,7 +1245,7 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
-                [, $bindingId] = $binding->getValues();
+                list($bindingId) = $binding->getValues();
                 $this->removedBindingIds[(int) $bindingId] = \true;
             }
         }
@@ -1341,8 +1346,9 @@ class ContainerBuilder extends \RectorPrefix20210422\Symfony\Component\Dependenc
      * Shares a given service in the container.
      *
      * @param mixed $service
+     * @param string|null $id
      */
-    private function shareService(\RectorPrefix20210422\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
+    private function shareService(\RectorPrefix20210422\Symfony\Component\DependencyInjection\Definition $definition, $service, $id, array &$inlineServices)
     {
         $inlineServices[null !== $id ? $id : \spl_object_hash($definition)] = $service;
         if (null !== $id && $definition->isShared()) {

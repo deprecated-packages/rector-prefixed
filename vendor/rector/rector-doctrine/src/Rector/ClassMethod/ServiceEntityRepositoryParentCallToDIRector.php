@@ -103,8 +103,9 @@ CODE_SAMPLE
      * For reference, possible manager registry param types:
      * - Doctrine\Common\Persistence\ManagerRegistry
      * - Doctrine\Persistence\ManagerRegistry
+     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkipClassMethod($node)) {
             return null;
@@ -161,7 +162,10 @@ CODE_SAMPLE
         }
         return $entityReferenceExpr;
     }
-    private function addRepositoryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $entityReferenceExpr) : void
+    /**
+     * @return void
+     */
+    private function addRepositoryProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $entityReferenceExpr)
     {
         $genericObjectType = $this->repositoryTypeFactory->createRepositoryPropertyType($entityReferenceExpr);
         $this->propertyToAddCollector->addPropertyWithoutConstructorToClass('repository', $genericObjectType, $class);
