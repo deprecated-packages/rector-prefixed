@@ -1975,6 +1975,7 @@ return array(
     'Rector\\DowngradePhp70\\Rector\\New_\\DowngradeAnonymousClassRector' => $baseDir . '/rules/DowngradePhp70/Rector/New_/DowngradeAnonymousClassRector.php',
     'Rector\\DowngradePhp71\\Rector\\Array_\\SymmetricArrayDestructuringToListRector' => $baseDir . '/rules/DowngradePhp71/Rector/Array_/SymmetricArrayDestructuringToListRector.php',
     'Rector\\DowngradePhp71\\Rector\\ClassConst\\DowngradeClassConstantVisibilityRector' => $baseDir . '/rules/DowngradePhp71/Rector/ClassConst/DowngradeClassConstantVisibilityRector.php',
+    'Rector\\DowngradePhp71\\Rector\\FuncCall\\DowngradeIsIterableRector' => $baseDir . '/rules/DowngradePhp71/Rector/FuncCall/DowngradeIsIterableRector.php',
     'Rector\\DowngradePhp71\\Rector\\FunctionLike\\DowngradeIterablePseudoTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp71/Rector/FunctionLike/DowngradeIterablePseudoTypeDeclarationRector.php',
     'Rector\\DowngradePhp71\\Rector\\FunctionLike\\DowngradeNullableTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp71/Rector/FunctionLike/DowngradeNullableTypeDeclarationRector.php',
     'Rector\\DowngradePhp71\\Rector\\FunctionLike\\DowngradeVoidTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp71/Rector/FunctionLike/DowngradeVoidTypeDeclarationRector.php',

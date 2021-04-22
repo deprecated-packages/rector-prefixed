@@ -106,7 +106,7 @@ CODE_SAMPLE
      */
     private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
-        if (!\is_iterable($classMethod->stmts)) {
+        if (!(\is_array($classMethod->stmts) || $classMethod->stmts instanceof \Traversable)) {
             return;
         }
         foreach ($classMethod->stmts as $methodStmt) {

@@ -90,7 +90,7 @@ CODE_SAMPLE
      */
     private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap)
     {
-        if (!\is_iterable($classMethod->stmts)) {
+        if (!(\is_array($classMethod->stmts) || $classMethod->stmts instanceof \Traversable)) {
             return null;
         }
         foreach ($classMethod->stmts as $key => $stmt) {

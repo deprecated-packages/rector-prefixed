@@ -122,7 +122,7 @@ abstract class Output implements \RectorPrefix20210422\Symfony\Component\Console
      */
     public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
     {
-        if (!\is_iterable($messages)) {
+        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
         $types = self::OUTPUT_NORMAL | self::OUTPUT_RAW | self::OUTPUT_PLAIN;

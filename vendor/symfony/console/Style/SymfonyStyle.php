@@ -326,7 +326,7 @@ class SymfonyStyle extends \RectorPrefix20210422\Symfony\Component\Console\Style
      */
     public function writeln($messages, int $type = self::OUTPUT_NORMAL)
     {
-        if (!\is_iterable($messages)) {
+        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
@@ -339,7 +339,7 @@ class SymfonyStyle extends \RectorPrefix20210422\Symfony\Component\Console\Style
      */
     public function write($messages, bool $newline = \false, int $type = self::OUTPUT_NORMAL)
     {
-        if (!\is_iterable($messages)) {
+        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
