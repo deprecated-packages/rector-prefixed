@@ -80,8 +80,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         $hasSilentVoid = $this->silentVoidResolver->hasSilentVoid($functionLike);
         foreach ($localReturnNodes as $localReturnNode) {
             $returnedExprType = $this->nodeTypeResolver->getStaticType($localReturnNode);
-            $returnedExprType = $this->splArrayFixedTypeNarrower->narrow($returnedExprType);
-            $this->types[] = $returnedExprType;
+            $this->types[] = $this->splArrayFixedTypeNarrower->narrow($returnedExprType);
         }
         if ($hasSilentVoid) {
             $this->types[] = new \PHPStan\Type\VoidType();

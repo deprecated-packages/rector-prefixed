@@ -2872,6 +2872,7 @@ return array(
     'Rector\\Testing\\Contract\\NodeTraversableInterface' => $baseDir . '/packages/Testing/Contract/NodeTraversableInterface.php',
     'Rector\\Testing\\Contract\\RectorTestInterface' => $baseDir . '/packages/Testing/Contract/RectorTestInterface.php',
     'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase' => $baseDir . '/packages/Testing/PHPUnit/AbstractRectorTestCase.php',
+    'Rector\\Testing\\PHPUnit\\AbstractTestCase' => $baseDir . '/packages/Testing/PHPUnit/AbstractTestCase.php',
     'Rector\\Testing\\PHPUnit\\Behavior\\MovingFilesTrait' => $baseDir . '/packages/Testing/PHPUnit/Behavior/MovingFilesTrait.php',
     'Rector\\Testing\\PHPUnit\\StaticPHPUnitEnvironment' => $baseDir . '/packages/Testing/PHPUnit/StaticPHPUnitEnvironment.php',
     'Rector\\Testing\\TestingParser\\TestingParser' => $baseDir . '/packages/Testing/TestingParser/TestingParser.php',

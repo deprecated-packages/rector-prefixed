@@ -54,11 +54,6 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
      */
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            $callerType = $this->nodeTypeResolver->resolve($node->var);
-        } else {
-            $callerType = $this->nodeTypeResolver->resolve($node->class);
-        }
         $methodName = $this->nodeNameResolver->getName($node->name);
         // no specific method found, return class types, e.g. <ClassType>::$method()
         if (!\is_string($methodName)) {
@@ -71,6 +66,11 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
         $nodeReturnType = $scope->getType($node);
         if (!$nodeReturnType instanceof \PHPStan\Type\MixedType) {
             return $nodeReturnType;
+        }
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            $callerType = $this->nodeTypeResolver->resolve($node->var);
+        } else {
+            $callerType = $this->nodeTypeResolver->resolve($node->class);
         }
         foreach ($callerType->getReferencedClasses() as $referencedClass) {
             $classMethodReturnType = $this->resolveClassMethodReturnType($referencedClass, $methodName, $scope);

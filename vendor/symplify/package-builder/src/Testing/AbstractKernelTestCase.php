@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210422\Symplify\PackageBuilder\Testing;
 
-use PHPUnit\Framework\TestCase;
+use RectorPrefix20210422\PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use RectorPrefix20210422\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210422\Symfony\Component\Console\Style\SymfonyStyle;
@@ -20,7 +20,7 @@ use RectorPrefix20210422\Symplify\SymplifyKernel\Exception\ShouldNotHappenExcept
  *
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
  */
-abstract class AbstractKernelTestCase extends \PHPUnit\Framework\TestCase
+abstract class AbstractKernelTestCase extends \RectorPrefix20210422\PHPUnit\Framework\TestCase
 {
     /**
      * @var KernelInterface
@@ -173,9 +173,3 @@ abstract class AbstractKernelTestCase extends \PHPUnit\Framework\TestCase
         return $this->bootAndReturnKernel($kernel);
     }
 }
-/**
- * Inspiration
- *
- * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
- */
-\class_alias('RectorPrefix20210422\\Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase', 'Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase', \false);

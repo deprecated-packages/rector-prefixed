@@ -13,7 +13,6 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
-use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider;
 use Rector\Testing\Contract\RectorTestInterface;
@@ -22,9 +21,8 @@ use RectorPrefix20210422\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210422\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210422\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210422\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
+abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
     /**
@@ -58,7 +56,7 @@ abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\A
         $configFileInfo = new \RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
         $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         $configFileInfos = $rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
-        $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
+        $this->bootFromConfigFileInfos($configFileInfos);
         $this->applicationFileProcessor = $this->getService(\Rector\Core\Application\ApplicationFileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210422\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);

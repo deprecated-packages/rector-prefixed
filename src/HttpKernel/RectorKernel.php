@@ -21,26 +21,30 @@ use RectorPrefix20210422\Symfony\Component\HttpKernel\Kernel;
 use RectorPrefix20210422\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use RectorPrefix20210422\Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle;
 use RectorPrefix20210422\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
-use RectorPrefix20210422\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use RectorPrefix20210422\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use RectorPrefix20210422\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
 use RectorPrefix20210422\Symplify\Skipper\Bundle\SkipperBundle;
+use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @todo possibly remove symfony/http-kernel and use the container build only
  */
-final class RectorKernel extends \RectorPrefix20210422\Symfony\Component\HttpKernel\Kernel implements \RectorPrefix20210422\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+final class RectorKernel extends \RectorPrefix20210422\Symfony\Component\HttpKernel\Kernel
 {
     /**
-     * @var string[]
+     * @var SmartFileInfo[]
      */
-    private $configs = [];
+    private $configFileInfos = [];
     /**
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    public function __construct(string $environment, bool $debug)
+    /**
+     * @param SmartFileInfo[] $configFileInfos
+     */
+    public function __construct(string $environment, bool $debug, array $configFileInfos)
     {
         $this->configureCallValuesCollector = new \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector();
+        $this->configFileInfos = $configFileInfos;
         parent::__construct($environment, $debug);
     }
     public function getCacheDir() : string
@@ -63,17 +67,9 @@ final class RectorKernel extends \RectorPrefix20210422\Symfony\Component\HttpKer
     public function registerContainerConfiguration(\RectorPrefix20210422\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../../config/config.php');
-        foreach ($this->configs as $config) {
-            $loader->load($config);
+        foreach ($this->configFileInfos as $configFileInfo) {
+            $loader->load($configFileInfo->getRealPath());
         }
-    }
-    /**
-     * @param string[] $configs
-     * @return void
-     */
-    public function setConfigs(array $configs)
-    {
-        $this->configs = $configs;
     }
     /**
      * @return mixed[]

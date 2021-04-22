@@ -188,10 +188,6 @@ final class NodeTypeResolver
         }
         return $scope->getNativeType($expr);
     }
-    /**
-     * @deprecated
-     * Use @see NodeTypeResolver::resolve() instead
-     */
     public function getStaticType(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         if ($node instanceof \PhpParser\Node\Param) {
