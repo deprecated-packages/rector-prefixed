@@ -20,7 +20,7 @@ use Rector\Restoration\ValueObject\InferParamFromClassMethodReturn;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use RectorPrefix20210422\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Restoration\Rector\ClassMethod\InferParamFromClassMethodReturnRector\InferParamFromClassMethodReturnRectorTest
  */
@@ -131,7 +131,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
+        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
     /**

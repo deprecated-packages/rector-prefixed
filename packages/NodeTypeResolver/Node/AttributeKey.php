@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Node;
 
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -92,7 +92,7 @@ final class AttributeKey
      * @deprecated Use File object instead, e.g. via CurrentFileProvider
      * @var string
      */
-    const FILE_INFO = \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo::class;
+    const FILE_INFO = \RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!

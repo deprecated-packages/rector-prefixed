@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\ParentClassToTraits;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210421\Webmozart\Assert\Assert;
+use RectorPrefix20210422\Webmozart\Assert\Assert;
 /**
  * Can handle cases like:
  * - https://doc.nette.org/en/2.4/migration-2-4#toc-nette-smartobject
@@ -90,7 +90,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
-        \RectorPrefix20210421\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
+        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
         $this->parentClassToTraits = $parentClassToTraits;
     }
     /**

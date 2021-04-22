@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210421\Symfony\Contracts\Service;
+namespace RectorPrefix20210422\Symfony\Contracts\Service;
 
-use RectorPrefix20210421\Psr\Container\ContainerExceptionInterface;
-use RectorPrefix20210421\Psr\Container\NotFoundExceptionInterface;
+use RectorPrefix20210422\Psr\Container\ContainerExceptionInterface;
+use RectorPrefix20210422\Psr\Container\NotFoundExceptionInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\RectorPrefix20210421\Psr\Container\ContainerExceptionInterface::class);
-\class_exists(\RectorPrefix20210421\Psr\Container\NotFoundExceptionInterface::class);
+\class_exists(\RectorPrefix20210422\Psr\Container\ContainerExceptionInterface::class);
+\class_exists(\RectorPrefix20210422\Psr\Container\NotFoundExceptionInterface::class);
 /**
  * A trait to help implement ServiceProviderInterface.
  *
@@ -84,7 +84,7 @@ trait ServiceLocatorTrait
         }
         return $this->providedTypes;
     }
-    private function createNotFoundException(string $id) : \RectorPrefix20210421\Psr\Container\NotFoundExceptionInterface
+    private function createNotFoundException(string $id) : \RectorPrefix20210422\Psr\Container\NotFoundExceptionInterface
     {
         if (!($alternatives = \array_keys($this->factories))) {
             $message = 'is empty...';
@@ -101,13 +101,13 @@ trait ServiceLocatorTrait
         } else {
             $message = \sprintf('Service "%s" not found: the current service locator %s', $id, $message);
         }
-        return new class($message) extends \InvalidArgumentException implements \RectorPrefix20210421\Psr\Container\NotFoundExceptionInterface
+        return new class($message) extends \InvalidArgumentException implements \RectorPrefix20210422\Psr\Container\NotFoundExceptionInterface
         {
         };
     }
-    private function createCircularReferenceException(string $id, array $path) : \RectorPrefix20210421\Psr\Container\ContainerExceptionInterface
+    private function createCircularReferenceException(string $id, array $path) : \RectorPrefix20210422\Psr\Container\ContainerExceptionInterface
     {
-        return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path))) extends \RuntimeException implements \RectorPrefix20210421\Psr\Container\ContainerExceptionInterface
+        return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path))) extends \RuntimeException implements \RectorPrefix20210422\Psr\Container\ContainerExceptionInterface
         {
         };
     }

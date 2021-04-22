@@ -6,7 +6,7 @@ namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\NodeTypeResolver\PhpDocNodeVisitor\ClassRenamePhpDocNodeVisitor;
 use Rector\NodeTypeResolver\ValueObject\OldToNewType;
-use RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210422\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
     /**
@@ -26,7 +26,7 @@ final class DocBlockClassRenamer
         if ($oldToNewTypes === []) {
             return;
         }
-        $phpDocNodeTraverser = new \RectorPrefix20210421\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $phpDocNodeTraverser = new \RectorPrefix20210422\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
         $this->classRenamePhpDocNodeVisitor->setOldToNewTypes($oldToNewTypes);
         $phpDocNodeTraverser->addPhpDocNodeVisitor($this->classRenamePhpDocNodeVisitor);
         $phpDocNodeTraverser->traverse($phpDocInfo->getPhpDocNode());

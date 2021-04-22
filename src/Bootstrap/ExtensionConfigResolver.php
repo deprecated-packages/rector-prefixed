@@ -5,15 +5,15 @@ namespace Rector\Core\Bootstrap;
 
 use Rector\RectorInstaller\GeneratedConfig;
 use ReflectionClass;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
 final class ExtensionConfigResolver
 {
     /**
-     * @param SmartFileInfo[] $configFileInfos
      * @return SmartFileInfo[]
      */
-    public function appendExtensionsConfig(array $configFileInfos) : array
+    public function provide() : array
     {
+        $configFileInfos = [];
         if (!\class_exists('Rector\\RectorInstaller\\GeneratedConfig')) {
             return $configFileInfos;
         }
@@ -28,7 +28,7 @@ final class ExtensionConfigResolver
                 if ($includedFilePath === null) {
                     $includedFilePath = \sprintf('%s/%s', $extensionConfig['install_path'], $includedFile);
                 }
-                $configFileInfos[] = new \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo($includedFilePath);
+                $configFileInfos[] = new \RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo($includedFilePath);
             }
         }
         return $configFileInfos;

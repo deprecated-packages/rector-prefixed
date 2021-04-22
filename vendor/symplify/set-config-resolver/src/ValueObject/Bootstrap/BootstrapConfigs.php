@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210421\Symplify\SetConfigResolver\ValueObject\Bootstrap;
+namespace RectorPrefix20210422\Symplify\SetConfigResolver\ValueObject\Bootstrap;
 
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**
@@ -35,7 +35,7 @@ final class BootstrapConfigs
      */
     public function getConfigFileInfos() : array
     {
-        if (!$this->mainConfigFileInfo instanceof \RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$this->mainConfigFileInfo instanceof \RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo) {
             return $this->setConfigFileInfos;
         }
         return \array_merge($this->setConfigFileInfos, [$this->mainConfigFileInfo]);

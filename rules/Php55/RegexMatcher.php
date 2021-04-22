@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php55;
 
-use RectorPrefix20210421\Nette\Utils\Strings;
+use RectorPrefix20210422\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Scalar\String_;
@@ -44,8 +44,8 @@ final class RegexMatcher
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             /** @var string $modifiers */
-            $modifiers = \RectorPrefix20210421\Nette\Utils\Strings::after($pattern, $delimiter, -1);
-            if (!\RectorPrefix20210421\Nette\Utils\Strings::contains($modifiers, 'e')) {
+            $modifiers = \RectorPrefix20210422\Nette\Utils\Strings::after($pattern, $delimiter, -1);
+            if (!\RectorPrefix20210422\Nette\Utils\Strings::contains($modifiers, 'e')) {
                 return null;
             }
             $patternWithoutE = $this->createPatternWithoutE($pattern, $delimiter, $modifiers);
@@ -58,8 +58,8 @@ final class RegexMatcher
     }
     private function createPatternWithoutE(string $pattern, string $delimiter, string $modifiers) : string
     {
-        $modifiersWithoutE = \RectorPrefix20210421\Nette\Utils\Strings::replace($modifiers, '#e#', '');
-        return \RectorPrefix20210421\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
+        $modifiersWithoutE = \RectorPrefix20210422\Nette\Utils\Strings::replace($modifiers, '#e#', '');
+        return \RectorPrefix20210422\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
     }
     /**
      * @return \PhpParser\Node\Expr|null
@@ -70,15 +70,15 @@ final class RegexMatcher
         if (!$lastItem instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        $matches = \RectorPrefix20210421\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
+        $matches = \RectorPrefix20210422\Nette\Utils\Strings::match($lastItem->value, self::LETTER_SUFFIX_REGEX);
         if (!isset($matches['modifiers'])) {
             return null;
         }
-        if (!\RectorPrefix20210421\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
+        if (!\RectorPrefix20210422\Nette\Utils\Strings::contains($matches['modifiers'], 'e')) {
             return null;
         }
         // replace last "e" in the code
-        $lastItem->value = \RectorPrefix20210421\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
+        $lastItem->value = \RectorPrefix20210422\Nette\Utils\Strings::replace($lastItem->value, self::LAST_E_REGEX, '$1$2');
         return $concat;
     }
 }

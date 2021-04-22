@@ -1,0 +1,3 @@
+imports:
+  - { resource: 'vendor/symplify/easy-coding-standard/config/set/clean-code.yaml' }
+  - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }

@@ -12,7 +12,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
@@ -73,7 +73,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     /**
      * @return void
      */
-    public function clear(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function clear(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         // clear applied imports, so isActive() doesn't return any false positives
         unset($this->useImportTypesInFilePath[$smartFileInfo->getRealPath()], $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()]);
@@ -146,21 +146,21 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     /**
      * @return AliasedObjectType[]|FullyQualifiedObjectType[]
      */
-    public function getObjectImportsByFileInfo(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getObjectImportsByFileInfo(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->useImportTypesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
     /**
      * @return FullyQualifiedObjectType[]
      */
-    public function getFunctionImportsByFileInfo(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getFunctionImportsByFileInfo(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
     /**
      * @return string[]
      */
-    public function getShortUsesByFileInfo(\RectorPrefix20210421\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getShortUsesByFileInfo(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->removedShortUsesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
