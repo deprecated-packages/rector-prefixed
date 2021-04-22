@@ -19,6 +19,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Configuration\Option;
@@ -250,7 +251,8 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         // changed!
         if ($this->hasNodeChanged($originalNode, $node)) {
             $this->updateAttributes($node);
-            $this->rectorChangeCollector->notifyFileChange($this->file, $node, $this);
+            $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine());
+            $this->file->addRectorClassWithLine($rectorWithLineChange);
             // update parents relations
             $this->connectParentNodes($node);
             $this->mirrorAttributes($originalAttributes, $node);
