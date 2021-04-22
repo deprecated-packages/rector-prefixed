@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8
+class ComposerStaticInit8572a211d0ad191fc304b859bff9bc3c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1638,7 +1638,6 @@ class ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\Reflection\\PrivatesAccessor' => __DIR__ . '/..' . '/symplify/package-builder/src/Reflection/PrivatesAccessor.php',
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\Reflection\\PrivatesCaller' => __DIR__ . '/..' . '/symplify/package-builder/src/Reflection/PrivatesCaller.php',
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\Strings\\StringFormatConverter' => __DIR__ . '/..' . '/symplify/package-builder/src/Strings/StringFormatConverter.php',
-        'RectorPrefix20210422\\Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase' => __DIR__ . '/..' . '/symplify/package-builder/src/Testing/AbstractKernelTestCase.php',
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\ValueObject\\MethodName' => __DIR__ . '/..' . '/symplify/package-builder/src/ValueObject/MethodName.php',
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/package-builder/src/ValueObject/Option.php',
         'RectorPrefix20210422\\Symplify\\PackageBuilder\\Yaml\\ParametersMerger' => __DIR__ . '/..' . '/symplify/package-builder/src/Yaml/ParametersMerger.php',
@@ -3395,9 +3394,9 @@ class ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0a553fcd29fb36a515db7f96c6ac7da8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8572a211d0ad191fc304b859bff9bc3c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8572a211d0ad191fc304b859bff9bc3c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8572a211d0ad191fc304b859bff9bc3c::$classMap;
 
         }, null, ClassLoader::class);
     }
