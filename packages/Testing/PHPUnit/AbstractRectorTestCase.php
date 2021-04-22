@@ -22,9 +22,9 @@ use RectorPrefix20210422\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210422\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210422\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210422\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210422\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractRectorTestCase extends \RectorPrefix20210422\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
+abstract class AbstractRectorTestCase extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
     /**
