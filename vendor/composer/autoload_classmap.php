@@ -1311,6 +1311,7 @@ return array(
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\Reflection\\PrivatesAccessor' => $vendorDir . '/symplify/package-builder/src/Reflection/PrivatesAccessor.php',
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\Reflection\\PrivatesCaller' => $vendorDir . '/symplify/package-builder/src/Reflection/PrivatesCaller.php',
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\Strings\\StringFormatConverter' => $vendorDir . '/symplify/package-builder/src/Strings/StringFormatConverter.php',
+    'RectorPrefix20210422\\Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase' => $vendorDir . '/symplify/package-builder/src/Testing/AbstractKernelTestCase.php',
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\ValueObject\\MethodName' => $vendorDir . '/symplify/package-builder/src/ValueObject/MethodName.php',
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\ValueObject\\Option' => $vendorDir . '/symplify/package-builder/src/ValueObject/Option.php',
     'RectorPrefix20210422\\Symplify\\PackageBuilder\\Yaml\\ParametersMerger' => $vendorDir . '/symplify/package-builder/src/Yaml/ParametersMerger.php',
