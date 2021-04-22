@@ -7,6 +7,7 @@ use PhpParser\Node;
 use Rector\Core\Configuration\Option;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Parser\Parser;
+use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use RectorPrefix20210422\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
@@ -45,7 +46,8 @@ final class TestingParser
         $smartFileInfo = new \RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo($file);
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$file]);
         $nodes = $this->parser->parseFileInfo($smartFileInfo);
-        return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($nodes, $smartFileInfo);
+        $file = new \Rector\Core\ValueObject\Application\File($smartFileInfo, $smartFileInfo->getContents());
+        return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $nodes, $smartFileInfo);
     }
     /**
      * @template T of Node

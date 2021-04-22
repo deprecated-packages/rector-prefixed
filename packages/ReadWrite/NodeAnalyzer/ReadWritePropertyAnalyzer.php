@@ -14,7 +14,7 @@ use PhpParser\Node\Expr\PreInc;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Stmt\Unset_;
-use Rector\Core\Exception\Node\MissingParentNodeException;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeManipulator\AssignManipulator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -53,7 +53,7 @@ final class ReadWritePropertyAnalyzer
         \RectorPrefix20210422\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $parent = $this->unwrapPostPreIncDec($parent);
         if ($parent instanceof \PhpParser\Node\Arg) {
@@ -72,7 +72,7 @@ final class ReadWritePropertyAnalyzer
         if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
             $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if (!$node instanceof \PhpParser\Node) {
-                throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
         }
         return $node;
@@ -85,7 +85,7 @@ final class ReadWritePropertyAnalyzer
     {
         $parentParent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentParent instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\Node\MissingParentNodeException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if (!$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {
             return \false;

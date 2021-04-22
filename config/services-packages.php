@@ -12,6 +12,7 @@ return static function (\RectorPrefix20210422\Symfony\Component\DependencyInject
         __DIR__ . '/../packages/BetterPhpDocParser/PhpDocInfo/PhpDocInfo.php',
         __DIR__ . '/../packages/Testing/PHPUnit',
         __DIR__ . '/../packages/BetterPhpDocParser/PhpDoc',
+        __DIR__ . '/../packages/NodeTypeResolver/NodeVisitor/FileNodeVisitor.php',
         // used in PHPStan
         __DIR__ . '/../packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php',
         __DIR__ . '/../packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php',

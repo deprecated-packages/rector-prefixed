@@ -48,7 +48,7 @@ final class FileProcessor
         $smartFileInfo = $file->getSmartFileInfo();
         $oldStmts = $this->parser->parseFileInfo($smartFileInfo);
         $oldTokens = $this->lexer->getTokens();
-        $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $smartFileInfo);
+        $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $oldStmts, $smartFileInfo);
         $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
     }
     /**
