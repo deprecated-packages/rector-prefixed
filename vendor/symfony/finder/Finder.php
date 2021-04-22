@@ -37,9 +37,9 @@ use RectorPrefix20210422\Symfony\Component\Finder\Iterator\SortableIterator;
  */
 class Finder implements \IteratorAggregate, \Countable
 {
-    const IGNORE_VCS_FILES = 1;
-    const IGNORE_DOT_FILES = 2;
-    const IGNORE_VCS_IGNORED_FILES = 4;
+    public const IGNORE_VCS_FILES = 1;
+    public const IGNORE_DOT_FILES = 2;
+    public const IGNORE_VCS_IGNORED_FILES = 4;
     private $mode = 0;
     private $names = [];
     private $notNames = [];
@@ -576,9 +576,8 @@ class Finder implements \IteratorAggregate, \Countable
      * @return $this
      *
      * @throws \InvalidArgumentException when the given argument is not iterable
-     * @param mixed[] $iterator
      */
-    public function append($iterator)
+    public function append(iterable $iterator)
     {
         if ($iterator instanceof \IteratorAggregate) {
             $this->iterators[] = $iterator->getIterator();

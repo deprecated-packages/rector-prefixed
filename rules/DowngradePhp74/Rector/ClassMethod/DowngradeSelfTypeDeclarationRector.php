@@ -78,7 +78,9 @@ CODE_SAMPLE
             return null;
         }
         $thisType = new \PHPStan\Type\ThisType($classReflection);
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $thisType);
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $thisType)) {
+            return null;
+        }
         return $node;
     }
 }

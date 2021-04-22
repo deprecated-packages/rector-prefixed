@@ -92,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $readOnlyVariableAssigns = $this->collectReadOnlyVariableAssigns($node);
         $readOnlyVariableAssigns = $this->filterOutUniqueNames($readOnlyVariableAssigns);
@@ -163,9 +162,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign[] $readOnlyVariableAssigns
-     * @return void
      */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class, array $readOnlyVariableAssigns) : void
     {
         foreach ($readOnlyVariableAssigns as $readOnlyVariableAssign) {
             $this->removeNode($readOnlyVariableAssign);
@@ -206,10 +204,7 @@ CODE_SAMPLE
         $this->varAnnotationManipulator->decorateNodeWithType($classConst, $constantType);
         return $classConst;
     }
-    /**
-     * @return void
-     */
-    private function replaceVariableWithClassConstFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \PhpParser\Node\Stmt\ClassConst $classConst)
+    private function replaceVariableWithClassConstFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $variableName, \PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $constantName = $this->getName($classConst);
         if ($constantName === null) {

@@ -64,9 +64,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->emptyStringProperties = $this->emptyStringDefaultPropertyFinder->find($node);
         // only array with no explicit key assign, e.g. "$value[] = 5";

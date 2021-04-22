@@ -72,10 +72,8 @@ class ErrorHandler
     private static $exitCode = 0;
     /**
      * Registers the error handler.
-     * @param $this $handler
-     * @return $this
      */
-    public static function register($handler = null, bool $replace = \true)
+    public static function register(self $handler = null, bool $replace = \true) : self
     {
         if (null === self::$reservedMemory) {
             self::$reservedMemory = \str_repeat('x', 10240);
@@ -162,9 +160,8 @@ class ErrorHandler
      * @param LoggerInterface $logger  A PSR-3 logger to put as default for the given levels
      * @param array|int       $levels  An array map of E_* to LogLevel::* or an integer bit field of E_* constants
      * @param bool            $replace Whether to replace or not any existing logger
-     * @return void
      */
-    public function setDefaultLogger(\RectorPrefix20210422\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, bool $replace = \false)
+    public function setDefaultLogger(\RectorPrefix20210422\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, bool $replace = \false) : void
     {
         $loggers = [];
         if (\is_array($levels)) {
@@ -241,7 +238,7 @@ class ErrorHandler
      *
      * @return callable|null The previous exception handler
      */
-    public function setExceptionHandler($handler)
+    public function setExceptionHandler(?callable $handler) : ?callable
     {
         $prev = $this->exceptionHandler;
         $this->exceptionHandler = $handler;
@@ -318,9 +315,8 @@ class ErrorHandler
     }
     /**
      * Re-registers as a PHP error handler if levels changed.
-     * @return void
      */
-    private function reRegister(int $prev)
+    private function reRegister(int $prev) : void
     {
         if ($prev !== $this->thrownErrors | $this->loggedErrors) {
             $handler = \set_error_handler('var_dump');
@@ -532,9 +528,8 @@ class ErrorHandler
      * @param array|null $error An array as returned by error_get_last()
      *
      * @internal
-     * @return void
      */
-    public static function handleFatalError(array $error = null)
+    public static function handleFatalError(array $error = null) : void
     {
         if (null === self::$reservedMemory) {
             return;
@@ -604,9 +599,8 @@ class ErrorHandler
      *
      * As this method is mainly called during boot where nothing is yet available,
      * the output is always either HTML or CLI depending where PHP runs.
-     * @return void
      */
-    private function renderException(\Throwable $exception)
+    private function renderException(\Throwable $exception) : void
     {
         $renderer = \in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) ? new \RectorPrefix20210422\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer() : new \RectorPrefix20210422\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer($this->debug);
         $exception = $renderer->render($exception);
@@ -621,9 +615,9 @@ class ErrorHandler
     /**
      * Override this method if you want to define more error enhancers.
      *
-     * @return mixed[]
+     * @return ErrorEnhancerInterface[]
      */
-    protected function getErrorEnhancers()
+    protected function getErrorEnhancers() : iterable
     {
         return [new \RectorPrefix20210422\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer(), new \RectorPrefix20210422\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer(), new \RectorPrefix20210422\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer()];
     }

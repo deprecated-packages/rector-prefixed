@@ -51,9 +51,8 @@ CODE_SAMPLE
     }
     /**
      * @param Catch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtVar = $node->var;
         if (!$caughtVar instanceof \PhpParser\Node\Expr\Variable) {

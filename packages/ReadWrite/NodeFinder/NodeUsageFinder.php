@@ -75,10 +75,7 @@ final class NodeUsageFinder
         }
         return $propertyFetchesWithoutPropertyFetch;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function findPreviousForeachNodeUsage(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr $expr)
+    public function findPreviousForeachNodeUsage(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
         return $this->scopeAwareNodeFinder->findParent($foreach, function (\PhpParser\Node $node) use($expr) : bool {
             // skip itself

@@ -68,7 +68,7 @@ class Question
      *
      * @return $this
      */
-    public function setMultiline(bool $multiline)
+    public function setMultiline(bool $multiline) : self
     {
         $this->multiline = $multiline;
         return $this;
@@ -136,9 +136,8 @@ class Question
      * @return $this
      *
      * @throws LogicException
-     * @param mixed[]|null $values
      */
-    public function setAutocompleterValues($values)
+    public function setAutocompleterValues(?iterable $values)
     {
         if (\is_array($values)) {
             $values = $this->isAssoc($values) ? \array_merge(\array_keys($values), \array_values($values)) : \array_values($values);
@@ -157,9 +156,8 @@ class Question
     }
     /**
      * Gets the callback function used for the autocompleter.
-     * @return callable|null
      */
-    public function getAutocompleterCallback()
+    public function getAutocompleterCallback() : ?callable
     {
         return $this->autocompleterCallback;
     }
@@ -170,7 +168,7 @@ class Question
      *
      * @return $this
      */
-    public function setAutocompleterCallback(callable $callback = null)
+    public function setAutocompleterCallback(callable $callback = null) : self
     {
         if ($this->hidden && null !== $callback) {
             throw new \RectorPrefix20210422\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
@@ -205,9 +203,8 @@ class Question
      * @return $this
      *
      * @throws InvalidArgumentException in case the number of attempts is invalid
-     * @param int|null $attempts
      */
-    public function setMaxAttempts($attempts)
+    public function setMaxAttempts(?int $attempts)
     {
         if (null !== $attempts) {
             $attempts = (int) $attempts;
@@ -263,7 +260,7 @@ class Question
     /**
      * @return $this
      */
-    public function setTrimmable(bool $trimmable)
+    public function setTrimmable(bool $trimmable) : self
     {
         $this->trimmable = $trimmable;
         return $this;

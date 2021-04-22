@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param FileWithoutNamespace|Namespace_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Function_[] $functions */
         $functions = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Function_::class);
@@ -137,9 +136,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
-     * @return void
      */
-    private function printStaticMethodClass(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class)
+    private function printStaticMethodClass(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];

@@ -23,7 +23,7 @@ final class AddMethodParentCallRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const METHODS_BY_PARENT_TYPES = 'methods_by_parent_type';
+    public const METHODS_BY_PARENT_TYPES = 'methods_by_parent_type';
     /**
      * @var array<string, string>
      */
@@ -61,9 +61,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -87,10 +86,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->methodsByParentTypes = $configuration[self::METHODS_BY_PARENT_TYPES] ?? [];
     }

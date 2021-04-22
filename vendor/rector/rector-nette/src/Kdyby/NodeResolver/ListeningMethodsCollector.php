@@ -21,11 +21,11 @@ final class ListeningMethodsCollector
     /**
      * @var string
      */
-    const EVENT_TYPE_CONTRIBUTTE = 'contributte';
+    public const EVENT_TYPE_CONTRIBUTTE = 'contributte';
     /**
      * @var string
      */
-    const EVENT_TYPE_CUSTOM = 'custom';
+    public const EVENT_TYPE_CUSTOM = 'custom';
     /**
      * @var EventClassAndClassMethod[]
      */
@@ -100,10 +100,7 @@ final class ListeningMethodsCollector
         }
         return $classMethods;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function matchClassMethodByArrayItem(\PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class)
+    private function matchClassMethodByArrayItem(\PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {
             return null;
@@ -113,10 +110,7 @@ final class ListeningMethodsCollector
         }
         return $this->matchClassMethodByNodeValue($class, $node->value);
     }
-    /**
-     * @return void
-     */
-    private function resolveContributeEventClassAndSubscribedClassMethod(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function resolveContributeEventClassAndSubscribedClassMethod(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $contributeEventClasses = \Rector\Nette\Kdyby\ValueObject\NetteEventToContributeEventClass::PROPERTY_TO_EVENT_CLASS;
         if (!\in_array($eventClass, $contributeEventClasses, \true)) {
@@ -124,16 +118,13 @@ final class ListeningMethodsCollector
         }
         $this->eventClassesAndClassMethods[] = new \Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod($eventClass, $classMethod);
     }
-    /**
-     * @return \Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod|null
-     */
-    private function resolveCustomClassMethodAndEventClass(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PhpParser\Node\Stmt\Class_ $class, string $eventClass)
+    private function resolveCustomClassMethodAndEventClass(\PhpParser\Node\Expr\ArrayItem $arrayItem, \PhpParser\Node\Stmt\Class_ $class, string $eventClass) : ?\Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod
     {
         // custom method name
         $classMethodName = $this->valueResolver->getValue($arrayItem->value);
         $classMethod = $class->getMethod($classMethodName);
         if (\RectorPrefix20210422\Nette\Utils\Strings::contains($eventClass, '::')) {
-            list($dispatchingClass, $property) = \explode('::', $eventClass);
+            [$dispatchingClass, $property] = \explode('::', $eventClass);
             $eventClass = $this->eventClassNaming->createEventClassNameFromClassAndProperty($dispatchingClass, $property);
         }
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
@@ -141,10 +132,7 @@ final class ListeningMethodsCollector
         }
         return new \Rector\Nette\Kdyby\ValueObject\EventClassAndClassMethod($eventClass, $classMethod);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function matchClassMethodByNodeValue(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $expr)
+    private function matchClassMethodByNodeValue(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $possibleMethodName = $this->valueResolver->getValue($expr);
         if (!\is_string($possibleMethodName)) {

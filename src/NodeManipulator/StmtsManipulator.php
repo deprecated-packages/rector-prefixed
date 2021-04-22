@@ -26,12 +26,10 @@ final class StmtsManipulator
     }
     /**
      * @param Stmt[] $stmts
-     * @return \PhpParser\Node|null
      */
-    public function getUnwrappedLastStmt(array $stmts)
+    public function getUnwrappedLastStmt(array $stmts) : ?\PhpParser\Node
     {
-        \end($stmts);
-        $lastStmtKey = \key($stmts);
+        $lastStmtKey = \array_key_last($stmts);
         $lastStmt = $stmts[$lastStmtKey];
         if ($lastStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return $lastStmt->expr;

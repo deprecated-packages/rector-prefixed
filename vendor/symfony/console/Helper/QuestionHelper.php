@@ -398,7 +398,7 @@ class QuestionHelper extends \RectorPrefix20210422\Symfony\Component\Console\Hel
             return self::$stdinIsInteractive;
         }
         if (\function_exists('stream_isatty')) {
-            return self::$stdinIsInteractive = $streamIsatty(\fopen('php://stdin', 'r'));
+            return self::$stdinIsInteractive = \stream_isatty(\fopen('php://stdin', 'r'));
         }
         if (\function_exists('posix_isatty')) {
             return self::$stdinIsInteractive = \posix_isatty(\fopen('php://stdin', 'r'));

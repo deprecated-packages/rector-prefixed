@@ -58,10 +58,7 @@ final class PromotedPropertyResolver
         }
         return $propertyPromotionCandidates;
     }
-    /**
-     * @return \Rector\Php80\ValueObject\PropertyPromotionCandidate|null
-     */
-    private function matchPropertyPromotionCandidate(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\ClassMethod $constructClassMethod)
+    private function matchPropertyPromotionCandidate(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : ?\Rector\Php80\ValueObject\PropertyPromotionCandidate
     {
         $onlyProperty = $property->props[0];
         $propertyName = $this->nodeNameResolver->getName($onlyProperty);
@@ -117,10 +114,7 @@ final class PromotedPropertyResolver
         }
         return $paramByFirstUsage;
     }
-    /**
-     * @return \PhpParser\Node\Param|null
-     */
-    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable)
+    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Param
     {
         foreach ($classMethod->params as $param) {
             if (!$this->nodeComparator->areNodesEqual($variable, $param->var)) {

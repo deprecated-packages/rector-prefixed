@@ -62,9 +62,8 @@ CODE_SAMPLE
     }
     /**
      * @param For_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $countInCond = null;
         $variableName = null;

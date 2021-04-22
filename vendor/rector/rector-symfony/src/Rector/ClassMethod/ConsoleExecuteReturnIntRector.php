@@ -58,9 +58,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'execute')) {
             return null;
@@ -76,10 +75,7 @@ CODE_SAMPLE
         $this->addReturn0ToMethod($node);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorReturnTypeDeclaration(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorReturnTypeDeclaration(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // already set
         if ($classMethod->returnType !== null && $this->isName($classMethod->returnType, 'int')) {
@@ -87,10 +83,7 @@ CODE_SAMPLE
         }
         $classMethod->returnType = new \PhpParser\Node\Identifier('int');
     }
-    /**
-     * @return void
-     */
-    private function addReturn0ToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addReturn0ToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $hasReturn = \false;
         $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($classMethod, &$hasReturn) : ?int {
@@ -134,10 +127,7 @@ CODE_SAMPLE
         $elseType = $this->getStaticType($else);
         return $ifType instanceof \PHPStan\Type\IntegerType && $elseType instanceof \PHPStan\Type\IntegerType;
     }
-    /**
-     * @return void
-     */
-    private function processReturn0ToMethod(bool $hasReturn, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function processReturn0ToMethod(bool $hasReturn, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ($hasReturn) {
             return;
@@ -154,10 +144,7 @@ CODE_SAMPLE
         }
         return $node instanceof \PhpParser\Node\Expr\Cast\Int_;
     }
-    /**
-     * @return void
-     */
-    private function setReturnTo0InsteadOfNull(\PhpParser\Node\Stmt\Return_ $return)
+    private function setReturnTo0InsteadOfNull(\PhpParser\Node\Stmt\Return_ $return) : void
     {
         if ($return->expr === null) {
             $return->expr = new \PhpParser\Node\Scalar\LNumber(0);

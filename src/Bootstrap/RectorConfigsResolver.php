@@ -21,15 +21,10 @@ final class RectorConfigsResolver
      * @var SetConfigResolver
      */
     private $setConfigResolver;
-    /**
-     * @var ExtensionConfigResolver
-     */
-    private $extensionConfigResolver;
     public function __construct()
     {
         $this->setConfigResolver = new \Rector\Core\Bootstrap\SetConfigResolver();
         $this->configResolver = new \RectorPrefix20210422\Symplify\SetConfigResolver\ConfigResolver();
-        $this->extensionConfigResolver = new \Rector\Core\Bootstrap\ExtensionConfigResolver();
     }
     /**
      * @return SmartFileInfo[]

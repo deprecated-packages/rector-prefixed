@@ -65,7 +65,9 @@ CODE_SAMPLE
         foreach ($node->params as $param) {
             $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class]);
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+            return null;
+        }
         return $node;
     }
 }

@@ -23,7 +23,7 @@ use SplFileInfo;
 class RobotLoader
 {
     use Nette\SmartObject;
-    const RETRY_LIMIT = 3;
+    private const RETRY_LIMIT = 3;
     /** @var string[] */
     public $ignoreDirs = ['.*', '*.old', '*.bak', '*.tmp', 'temp'];
     /** @var string[] */
@@ -64,34 +64,32 @@ class RobotLoader
     }
     /**
      * Register autoloader.
-     * @return $this
      */
-    public function register(bool $prepend = \false)
+    public function register(bool $prepend = \false) : self
     {
         \spl_autoload_register([$this, 'tryLoad'], \true, $prepend);
         return $this;
     }
     /**
      * Handles autoloading of classes, interfaces or traits.
-     * @return void
      */
-    public function tryLoad(string $type)
+    public function tryLoad(string $type) : void
     {
         $this->loadCache();
         $missing = $this->missingClasses[$type] ?? null;
         if ($missing >= self::RETRY_LIMIT) {
             return;
         }
-        list($file, $mtime) = $this->classes[$type] ?? null;
+        [$file, $mtime] = $this->classes[$type] ?? null;
         if ($this->autoRebuild) {
             if (!$this->refreshed) {
                 if (!$file || !\is_file($file)) {
                     $this->refreshClasses();
-                    list($file) = $this->classes[$type] ?? null;
+                    [$file] = $this->classes[$type] ?? null;
                     $this->needSave = \true;
                 } elseif (\filemtime($file) !== $mtime) {
                     $this->updateFile($file);
-                    list($file) = $this->classes[$type] ?? null;
+                    [$file] = $this->classes[$type] ?? null;
                     $this->needSave = \true;
                 }
             }
@@ -111,9 +109,8 @@ class RobotLoader
     /**
      * Add path or paths to list.
      * @param  string  ...$paths  absolute path
-     * @return $this
      */
-    public function addDirectory(...$paths)
+    public function addDirectory(...$paths) : self
     {
         if (\is_array($paths[0] ?? null)) {
             \trigger_error(__METHOD__ . '() use variadics ...$paths to add an array of paths.', \E_USER_WARNING);
@@ -122,10 +119,7 @@ class RobotLoader
         $this->scanPaths = \array_merge($this->scanPaths, $paths);
         return $this;
     }
-    /**
-     * @return $this
-     */
-    public function reportParseErrors(bool $on = \true)
+    public function reportParseErrors(bool $on = \true) : self
     {
         $this->reportParseErrors = $on;
         return $this;
@@ -133,9 +127,8 @@ class RobotLoader
     /**
      * Excludes path or paths from list.
      * @param  string  ...$paths  absolute path
-     * @return $this
      */
-    public function excludeDirectory(...$paths)
+    public function excludeDirectory(...$paths) : self
     {
         if (\is_array($paths[0] ?? null)) {
             \trigger_error(__METHOD__ . '() use variadics ...$paths to add an array of paths.', \E_USER_WARNING);
@@ -151,16 +144,15 @@ class RobotLoader
     {
         $this->loadCache();
         $res = [];
-        foreach ($this->classes as $class => list($file)) {
+        foreach ($this->classes as $class => [$file]) {
             $res[$class] = $file;
         }
         return $res;
     }
     /**
      * Rebuilds class list cache.
-     * @return void
      */
-    public function rebuild()
+    public function rebuild() : void
     {
         $this->cacheLoaded = \true;
         $this->classes = $this->missingClasses = $this->emptyFiles = [];
@@ -171,9 +163,8 @@ class RobotLoader
     }
     /**
      * Refreshes class list cache.
-     * @return void
      */
-    public function refresh()
+    public function refresh() : void
     {
         $this->loadCache();
         if (!$this->refreshed) {
@@ -183,15 +174,14 @@ class RobotLoader
     }
     /**
      * Refreshes $this->classes & $this->emptyFiles.
-     * @return void
      */
-    private function refreshClasses()
+    private function refreshClasses() : void
     {
         $this->refreshed = \true;
         // prevents calling refreshClasses() or updateFile() in tryLoad()
         $files = $this->emptyFiles;
         $classes = [];
-        foreach ($this->classes as $class => list($file, $mtime)) {
+        foreach ($this->classes as $class => [$file, $mtime]) {
             $files[$file] = $mtime;
             $classes[$file][] = $class;
         }
@@ -262,23 +252,20 @@ class RobotLoader
         $filter(new \SplFileInfo($dir));
         return $iterator;
     }
-    /**
-     * @return void
-     */
-    private function updateFile(string $file)
+    private function updateFile(string $file) : void
     {
-        foreach ($this->classes as $class => list($prevFile)) {
+        foreach ($this->classes as $class => [$prevFile]) {
             if ($file === $prevFile) {
                 unset($this->classes[$class]);
             }
         }
         $foundClasses = \is_file($file) ? $this->scanPhp($file) : [];
         foreach ($foundClasses as $class) {
-            list($prevFile, $prevMtime) = $this->classes[$class] ?? null;
+            [$prevFile, $prevMtime] = $this->classes[$class] ?? null;
             if (isset($prevFile) && @\filemtime($prevFile) !== $prevMtime) {
                 // @ file may not exists
                 $this->updateFile($prevFile);
-                list($prevFile) = $this->classes[$class] ?? null;
+                [$prevFile] = $this->classes[$class] ?? null;
             }
             if (isset($prevFile)) {
                 throw new \RectorPrefix20210422\Nette\InvalidStateException("Ambiguous class {$class} resolution; defined in {$prevFile} and in {$file}.");
@@ -359,18 +346,16 @@ class RobotLoader
     /********************* caching ****************d*g**/
     /**
      * Sets auto-refresh mode.
-     * @return $this
      */
-    public function setAutoRefresh(bool $on = \true)
+    public function setAutoRefresh(bool $on = \true) : self
     {
         $this->autoRebuild = $on;
         return $this;
     }
     /**
      * Sets path to temporary directory.
-     * @return $this
      */
-    public function setTempDirectory(string $dir)
+    public function setTempDirectory(string $dir) : self
     {
         \RectorPrefix20210422\Nette\Utils\FileSystem::createDir($dir);
         $this->tempDirectory = $dir;
@@ -378,9 +363,8 @@ class RobotLoader
     }
     /**
      * Loads class list from cache.
-     * @return void
      */
-    private function loadCache()
+    private function loadCache() : void
     {
         if ($this->cacheLoaded) {
             return;
@@ -395,7 +379,7 @@ class RobotLoader
         $data = @(include $file);
         // @ file may not exist
         if (\is_array($data)) {
-            list($this->classes, $this->missingClasses, $this->emptyFiles) = $data;
+            [$this->classes, $this->missingClasses, $this->emptyFiles] = $data;
             return;
         }
         if ($lock) {
@@ -407,7 +391,7 @@ class RobotLoader
         $data = @(include $file);
         // @ file may not exist
         if (\is_array($data)) {
-            list($this->classes, $this->missingClasses, $this->emptyFiles) = $data;
+            [$this->classes, $this->missingClasses, $this->emptyFiles] = $data;
             return;
         }
         $this->classes = $this->missingClasses = $this->emptyFiles = [];
@@ -419,9 +403,8 @@ class RobotLoader
     /**
      * Writes class list to cache.
      * @param  resource  $lock
-     * @return void
      */
-    private function saveCache($lock = null)
+    private function saveCache($lock = null) : void
     {
         // we have to acquire a lock to be able safely rename file
         // on Linux: that another thread does not rename the same named file earlier

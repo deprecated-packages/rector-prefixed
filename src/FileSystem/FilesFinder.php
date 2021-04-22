@@ -19,12 +19,12 @@ final class FilesFinder
      * @var string
      * @see https://regex101.com/r/e1jm7v/1
      */
-    const STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
+    private const STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
     /**
      * @var string
      * @see https://regex101.com/r/EgJQyZ/1
      */
-    const ENDS_WITH_ASTERISK_REGEX = '#^[^*](.*?)\\*$#';
+    private const ENDS_WITH_ASTERISK_REGEX = '#^[^*](.*?)\\*$#';
     /**
      * @var SmartFileInfo[][]
      */
@@ -99,10 +99,7 @@ final class FilesFinder
         $suffixesPattern = \implode('|', $suffixes);
         return '#\\.(' . $suffixesPattern . ')$#';
     }
-    /**
-     * @return void
-     */
-    private function addFilterWithExcludedPaths(\RectorPrefix20210422\Symfony\Component\Finder\Finder $finder)
+    private function addFilterWithExcludedPaths(\RectorPrefix20210422\Symfony\Component\Finder\Finder $finder) : void
     {
         $excludePaths = $this->skippedPathsResolver->resolve();
         if ($excludePaths === []) {

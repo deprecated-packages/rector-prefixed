@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param FunctionLike $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $ifWithOnlyReturnsByHash = $this->collectDuplicatedIfWithOnlyReturnByHash($node);
         if ($ifWithOnlyReturnsByHash === []) {

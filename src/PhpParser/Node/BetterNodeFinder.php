@@ -56,9 +56,9 @@ final class BetterNodeFinder
     /**
      * @template T of Node
      * @param class-string<T> $type
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    public function findParentType(\PhpParser\Node $node, string $type)
+    public function findParentType(\PhpParser\Node $node, string $type) : ?\PhpParser\Node
     {
         \RectorPrefix20210422\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -78,9 +78,9 @@ final class BetterNodeFinder
     /**
      * @template T of \PhpParser\Node
      * @param array<class-string<T>> $types
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    public function findParentTypes(\PhpParser\Node $node, array $types)
+    public function findParentTypes(\PhpParser\Node $node, array $types) : ?\PhpParser\Node
     {
         \RectorPrefix20210422\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -114,9 +114,9 @@ final class BetterNodeFinder
      * @template T of Node
      * @param class-string<T> $type
      * @param Node|Node[] $nodes
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    public function findFirstInstanceOf($nodes, string $type)
+    public function findFirstInstanceOf($nodes, string $type) : ?\PhpParser\Node
     {
         \RectorPrefix20210422\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         return $this->nodeFinder->findFirstInstanceOf($nodes, $type);
@@ -139,9 +139,9 @@ final class BetterNodeFinder
     }
     /**
      * @param Node|Node[] $nodes
-     * @return \PhpParser\Node|null
+     * @return Variable|null
      */
-    public function findVariableOfName($nodes, string $name)
+    public function findVariableOfName($nodes, string $name) : ?\PhpParser\Node
     {
         return $this->findInstanceOfName($nodes, \PhpParser\Node\Expr\Variable::class, $name);
     }
@@ -165,17 +165,16 @@ final class BetterNodeFinder
      * @template T of Node
      * @param class-string<T> $type
      * @param Node|Node[] $nodes
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    public function findLastInstanceOf($nodes, string $type)
+    public function findLastInstanceOf($nodes, string $type) : ?\PhpParser\Node
     {
         \RectorPrefix20210422\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         $foundInstances = $this->nodeFinder->findInstanceOf($nodes, $type);
         if ($foundInstances === []) {
             return null;
         }
-        \end($foundInstances);
-        $lastItemKey = \key($foundInstances);
+        $lastItemKey = \array_key_last($foundInstances);
         return $foundInstances[$lastItemKey];
     }
     /**
@@ -204,9 +203,9 @@ final class BetterNodeFinder
     }
     /**
      * @param Node[] $nodes
-     * @return \PhpParser\Node|null
+     * @return ClassLike|null
      */
-    public function findFirstNonAnonymousClass(array $nodes)
+    public function findFirstNonAnonymousClass(array $nodes) : ?\PhpParser\Node
     {
         return $this->findFirst($nodes, function (\PhpParser\Node $node) : bool {
             if (!$node instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -218,16 +217,15 @@ final class BetterNodeFinder
     }
     /**
      * @param Node|Node[] $nodes
-     * @return \PhpParser\Node|null
      */
-    public function findFirst($nodes, callable $filter)
+    public function findFirst($nodes, callable $filter) : ?\PhpParser\Node
     {
         return $this->nodeFinder->findFirst($nodes, $filter);
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Assign|null
      */
-    public function findPreviousAssignToExpr(\PhpParser\Node\Expr $expr)
+    public function findPreviousAssignToExpr(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
         return $this->findFirstPrevious($expr, function (\PhpParser\Node $node) use($expr) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -236,10 +234,7 @@ final class BetterNodeFinder
             return $this->nodeComparator->areNodesEqual($node->var, $expr);
         });
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function findFirstPreviousOfNode(\PhpParser\Node $node, callable $filter)
+    public function findFirstPreviousOfNode(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node
     {
         // move to previous expression
         $previousStatement = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
@@ -260,10 +255,7 @@ final class BetterNodeFinder
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function findFirstPrevious(\PhpParser\Node $node, callable $filter)
+    public function findFirstPrevious(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node
     {
         $node = $node instanceof \PhpParser\Node\Stmt\Expression ? $node : $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if ($node === null) {
@@ -288,18 +280,15 @@ final class BetterNodeFinder
     /**
      * @template T of Node
      * @param array<class-string<T>> $types
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    public function findFirstPreviousOfTypes(\PhpParser\Node $mainNode, array $types)
+    public function findFirstPreviousOfTypes(\PhpParser\Node $mainNode, array $types) : ?\PhpParser\Node
     {
         return $this->findFirstPrevious($mainNode, function (\PhpParser\Node $node) use($types) : bool {
             return $this->typeChecker->isInstanceOf($node, $types);
         });
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function findFirstNext(\PhpParser\Node $node, callable $filter)
+    public function findFirstNext(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node
     {
         $next = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if ($next instanceof \PhpParser\Node) {
@@ -325,9 +314,9 @@ final class BetterNodeFinder
      * @template T of Node
      * @param Node|Node[] $nodes
      * @param class-string<T> $type
-     * @return \PhpParser\Node|null
+     * @return T|null
      */
-    private function findInstanceOfName($nodes, string $type, string $name)
+    private function findInstanceOfName($nodes, string $type, string $name) : ?\PhpParser\Node
     {
         \RectorPrefix20210422\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         $foundInstances = $this->nodeFinder->findInstanceOf($nodes, $type);

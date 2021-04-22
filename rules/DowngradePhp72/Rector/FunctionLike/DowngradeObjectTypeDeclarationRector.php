@@ -37,10 +37,13 @@ final class DowngradeObjectTypeDeclarationRector extends \Rector\Core\Rector\Abs
      */
     public function refactor(\PhpParser\Node $node)
     {
+        $objectWithoutClassType = new \PHPStan\Type\ObjectWithoutClassType();
         foreach ($node->params as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, new \PHPStan\Type\ObjectWithoutClassType());
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $objectWithoutClassType);
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, new \PHPStan\Type\ObjectWithoutClassType());
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $objectWithoutClassType)) {
+            return null;
+        }
         return $node;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition

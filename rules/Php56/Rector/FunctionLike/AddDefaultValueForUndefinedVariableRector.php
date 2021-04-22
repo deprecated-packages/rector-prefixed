@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->definedVariables = [];
         $undefinedVariables = $this->collectUndefinedVariableScope($node);
@@ -147,12 +146,9 @@ CODE_SAMPLE
             return $this->isName($node->var, $undefinedVariable);
         });
     }
-    /**
-     * @return void
-     */
-    private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
-        $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) {
+        $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) : void {
             if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\AssignRef) {
                 if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
                     return;

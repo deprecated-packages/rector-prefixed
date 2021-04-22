@@ -56,9 +56,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
         if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('Symfony\\Component\\Process\\Process'))) {
@@ -71,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition)
+    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition) : ?\PhpParser\Node
     {
         if (!isset($node->args[$argumentPosition])) {
             return null;
@@ -90,9 +88,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $expr
-     * @return void
      */
-    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
         if ($firstArgumentExpr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             $arrayNode = $this->nodeTransformer->transformConcatToStringArray($firstArgumentExpr);
@@ -120,10 +117,7 @@ CODE_SAMPLE
         $privatesCaller = new \RectorPrefix20210422\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         return $privatesCaller->callPrivateMethod(new \RectorPrefix20210422\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
-    /**
-     * @return void
-     */
-    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
         $assign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
@@ -141,10 +135,7 @@ CODE_SAMPLE
             $assign->expr = $arrayNode;
         }
     }
-    /**
-     * @return \PhpParser\Node\Expr\Assign|null
-     */
-    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : ?\PhpParser\Node\Expr\Assign
     {
         /** @var Assign|null $assign */
         $assign = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $checkedNode) use($firstArgumentExpr) : ?Assign {

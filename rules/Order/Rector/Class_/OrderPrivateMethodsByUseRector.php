@@ -23,7 +23,7 @@ final class OrderPrivateMethodsByUseRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var int
      */
-    const MAX_ATTEMPTS = 5;
+    private const MAX_ATTEMPTS = 5;
     /**
      * @var StmtOrder
      */
@@ -81,9 +81,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Trait_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $sortedAndOriginalClassMethods = $this->getSortedAndOriginalClassMethods($node);
         // order is correct, nothing to change

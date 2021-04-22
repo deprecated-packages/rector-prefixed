@@ -50,9 +50,8 @@ final class ForeachAnalyzer
      * foreach ($values as $value) {
      *      <$assigns[]> = $value;
      * }
-     * @return \PhpParser\Node\Expr|null
      */
-    public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node\Expr
     {
         if (\count($foreach->stmts) !== 1) {
             return null;
@@ -77,9 +76,8 @@ final class ForeachAnalyzer
     }
     /**
      * @param Stmt[] $stmts
-     * @return void
      */
-    public function useForeachVariableInStmts(\PhpParser\Node\Expr $foreachedValue, \PhpParser\Node\Expr $singleValue, array $stmts, string $keyValueName)
+    public function useForeachVariableInStmts(\PhpParser\Node\Expr $foreachedValue, \PhpParser\Node\Expr $singleValue, array $stmts, string $keyValueName) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($foreachedValue, $singleValue, $keyValueName) : ?Expr {
             if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {

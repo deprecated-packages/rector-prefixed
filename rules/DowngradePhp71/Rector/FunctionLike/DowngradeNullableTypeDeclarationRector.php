@@ -76,7 +76,9 @@ CODE_SAMPLE
         if (!$node->returnType instanceof \PhpParser\Node\NullableType) {
             return null;
         }
-        $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node);
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+            return null;
+        }
         return $node;
     }
     private function isNullableParam(\PhpParser\Node\Param $param) : bool

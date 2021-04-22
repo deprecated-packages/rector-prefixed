@@ -42,7 +42,7 @@ final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    const RESPONSE_CLASS = 'Symfony\\Component\\HttpFoundation\\Response';
+    private const RESPONSE_CLASS = 'Symfony\\Component\\HttpFoundation\\Response';
     /**
      * @var ReturnTypeDeclarationUpdater
      */
@@ -93,19 +93,15 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->addAbstractControllerParentClassIfMissing($node);
         }
         return $this->replaceTemplateAnnotation($node);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class)
+    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($class->extends !== null) {
             return null;
@@ -116,10 +112,7 @@ CODE_SAMPLE
         $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         return $class;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node
     {
         if (!$classMethod->isPublic()) {
             return null;
@@ -142,10 +135,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode) : void
     {
         /** @var Return_[] $returns */
         $returns = $this->findReturnsInCurrentScope((array) $classMethod->stmts);
@@ -195,10 +185,7 @@ CODE_SAMPLE
         $returnType = $this->getStaticType($lastReturn->expr);
         return $responseObjectType->isSuperTypeOf($returnType)->yes();
     }
-    /**
-     * @return void
-     */
-    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode, bool $hasThisRenderOrReturnsResponse)
+    private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $templateDoctrineAnnotationTagValueNode, bool $hasThisRenderOrReturnsResponse) : void
     {
         // nothing we can do
         if ($return->expr === null) {
@@ -208,19 +195,13 @@ CODE_SAMPLE
         $thisRenderMethodCall = $this->thisRenderFactory->create($classMethod, $return, $templateDoctrineAnnotationTagValueNode);
         $this->refactorReturnWithValue($return, $hasThisRenderOrReturnsResponse, $thisRenderMethodCall, $classMethod);
     }
-    /**
-     * @return void
-     */
-    private function refactorNoReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
+    private function refactorNoReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $this->processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
         $this->removeDoctrineAnnotationTagValueNode($classMethod);
     }
-    /**
-     * @return void
-     */
-    private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         /** @var Expr $lastReturnExpr */
         $lastReturnExpr = $return->expr;
@@ -243,17 +224,11 @@ CODE_SAMPLE
         $this->removeAnnotationClass($classMethod);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
     }
-    /**
-     * @return void
-     */
-    private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
+    private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($thisRenderMethodCall);
     }
-    /**
-     * @return void
-     */
-    private function processIsArrayOrResponseType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Expr $returnExpr, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall)
+    private function processIsArrayOrResponseType(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Expr $returnExpr, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {
         $this->removeNode($return);
         // create instance of Response → return response, or return $this->render
@@ -265,10 +240,7 @@ CODE_SAMPLE
         $returnThisRender = new \PhpParser\Node\Stmt\Return_($thisRenderMethodCall);
         $this->addNodesAfterNode([$assign, $if, $returnThisRender], $return);
     }
-    /**
-     * @return void
-     */
-    private function removeDoctrineAnnotationTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function removeDoctrineAnnotationTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template');
@@ -277,10 +249,7 @@ CODE_SAMPLE
         }
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
     }
-    /**
-     * @return void
-     */
-    private function removeAnnotationClass(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function removeAnnotationClass(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClass('Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Template');

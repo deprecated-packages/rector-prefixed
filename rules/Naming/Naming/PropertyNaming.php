@@ -33,26 +33,26 @@ final class PropertyNaming
     /**
      * @var string[]
      */
-    const EXCLUDED_CLASSES = ['#Closure#', '#^Spl#', '#FileInfo#', '#^std#', '#Iterator#', '#SimpleXML#'];
+    private const EXCLUDED_CLASSES = ['#Closure#', '#^Spl#', '#FileInfo#', '#^std#', '#Iterator#', '#SimpleXML#'];
     /**
      * @var string
      */
-    const INTERFACE = 'Interface';
+    private const INTERFACE = 'Interface';
     /**
      * @see https://regex101.com/r/RDhBNR/1
      * @var string
      */
-    const PREFIXED_CLASS_METHODS_REGEX = '#^(is|are|was|were|has|have|had|can)[A-Z].+#';
+    private const PREFIXED_CLASS_METHODS_REGEX = '#^(is|are|was|were|has|have|had|can)[A-Z].+#';
     /**
      * @var string
      * @see https://regex101.com/r/U78rUF/1
      */
-    const I_PREFIX_REGEX = '#^I[A-Z]#';
+    private const I_PREFIX_REGEX = '#^I[A-Z]#';
     /**
      * @see https://regex101.com/r/hnU5pm/2/
      * @var string
      */
-    const GET_PREFIX_REGEX = '#^get(?<root_name>[A-Z].+)#';
+    private const GET_PREFIX_REGEX = '#^get(?<root_name>[A-Z].+)#';
     /**
      * @var TypeUnwrapper
      */
@@ -86,10 +86,7 @@ final class PropertyNaming
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @return \Rector\Naming\ValueObject\ExpectedName|null
-     */
-    public function getExpectedNameFromMethodName(string $methodName)
+    public function getExpectedNameFromMethodName(string $methodName) : ?\Rector\Naming\ValueObject\ExpectedName
     {
         $matches = \RectorPrefix20210422\Nette\Utils\Strings::match($methodName, self::GET_PREFIX_REGEX);
         if ($matches === null) {
@@ -98,10 +95,7 @@ final class PropertyNaming
         $originalName = \lcfirst($matches['root_name']);
         return new \Rector\Naming\ValueObject\ExpectedName($originalName, $this->rectorNamingInflector->singularize($originalName));
     }
-    /**
-     * @return \Rector\Naming\ValueObject\ExpectedName|null
-     */
-    public function getExpectedNameFromType(\PHPStan\Type\Type $type)
+    public function getExpectedNameFromType(\PHPStan\Type\Type $type) : ?\Rector\Naming\ValueObject\ExpectedName
     {
         $type = $this->typeUnwrapper->unwrapNullableType($type);
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
@@ -152,10 +146,7 @@ final class PropertyNaming
         $pascalCaseName = \str_replace('_', '', $uppercaseWords);
         return \lcfirst($pascalCaseName);
     }
-    /**
-     * @return string|null
-     */
-    public function getExpectedNameFromBooleanPropertyType(\PhpParser\Node\Stmt\Property $property)
+    public function getExpectedNameFromBooleanPropertyType(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $prefixedClassMethods = $this->getPrefixedClassMethods($property);
         if ($prefixedClassMethods === []) {

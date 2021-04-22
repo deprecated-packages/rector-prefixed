@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param Foreach_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->keyVar === null) {
             return null;
@@ -103,10 +102,7 @@ CODE_SAMPLE
             return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
-    /**
-     * @return void
-     */
-    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         // remove key value
         $foreach->valueVar = $foreach->keyVar;

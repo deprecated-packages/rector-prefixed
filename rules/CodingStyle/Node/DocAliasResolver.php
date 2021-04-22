@@ -18,7 +18,7 @@ final class DocAliasResolver
      * @var string
      * @see https://regex101.com/r/cWpliJ/1
      */
-    const DOC_ALIAS_REGEX = '#\\@(?<possible_alias>\\w+)(\\\\)?#s';
+    private const DOC_ALIAS_REGEX = '#\\@(?<possible_alias>\\w+)(\\\\)?#s';
     /**
      * @var SimpleCallableNodeTraverser
      */
@@ -38,7 +38,7 @@ final class DocAliasResolver
     public function resolve(\PhpParser\Node $node) : array
     {
         $possibleDocAliases = [];
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$possibleDocAliases) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$possibleDocAliases) : void {
             $docComment = $node->getDocComment();
             if (!$docComment instanceof \PhpParser\Comment\Doc) {
                 return;

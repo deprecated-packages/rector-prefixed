@@ -62,7 +62,7 @@ final class UsedImportsResolver
                 $usedImports[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);
             }
         }
-        $this->useImportsTraverser->traverserStmts($stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$usedImports) {
+        $this->useImportsTraverser->traverserStmts($stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$usedImports) : void {
             $usedImports[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($name);
         });
         return $usedImports;
@@ -74,7 +74,7 @@ final class UsedImportsResolver
     public function resolveFunctionImportsForStmts(array $stmts) : array
     {
         $usedFunctionImports = [];
-        $this->useImportsTraverser->traverserStmtsForFunctions($stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$usedFunctionImports) {
+        $this->useImportsTraverser->traverserStmtsForFunctions($stmts, function (\PhpParser\Node\Stmt\UseUse $useUse, string $name) use(&$usedFunctionImports) : void {
             $usedFunctionImports[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($name);
         });
         return $usedFunctionImports;
