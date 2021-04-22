@@ -27,8 +27,8 @@ if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('Checkout
 if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
     spl_autoload_call('RectorPrefix20210422\Composer\InstalledVersions');
 }
-if (!class_exists('ComposerAutoloaderInit682b8af554e5a26bd7d78cbcb89efc69', false) && !interface_exists('ComposerAutoloaderInit682b8af554e5a26bd7d78cbcb89efc69', false) && !trait_exists('ComposerAutoloaderInit682b8af554e5a26bd7d78cbcb89efc69', false)) {
-    spl_autoload_call('RectorPrefix20210422\ComposerAutoloaderInit682b8af554e5a26bd7d78cbcb89efc69');
+if (!class_exists('ComposerAutoloaderInit2cc271edb059bfb390c4df920b130391', false) && !interface_exists('ComposerAutoloaderInit2cc271edb059bfb390c4df920b130391', false) && !trait_exists('ComposerAutoloaderInit2cc271edb059bfb390c4df920b130391', false)) {
+    spl_autoload_call('RectorPrefix20210422\ComposerAutoloaderInit2cc271edb059bfb390c4df920b130391');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210422\Doctrine\Inflector\Inflector');
@@ -57,15 +57,18 @@ if (!class_exists('UnhandledMatchError', false) && !interface_exists('UnhandledM
 if (!class_exists('ValueError', false) && !interface_exists('ValueError', false) && !trait_exists('ValueError', false)) {
     spl_autoload_call('RectorPrefix20210422\ValueError');
 }
+if (!class_exists('Symplify\PackageBuilder\Testing\AbstractKernelTestCase', false) && !interface_exists('Symplify\PackageBuilder\Testing\AbstractKernelTestCase', false) && !trait_exists('Symplify\PackageBuilder\Testing\AbstractKernelTestCase', false)) {
+    spl_autoload_call('RectorPrefix20210422\Symplify\PackageBuilder\Testing\AbstractKernelTestCase');
+}
 if (!class_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !interface_exists('Symplify\SmartFileSystem\SmartFileInfo', false) && !trait_exists('Symplify\SmartFileSystem\SmartFileInfo', false)) {
     spl_autoload_call('RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo');
 }
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire682b8af554e5a26bd7d78cbcb89efc69')) {
-    function composerRequire682b8af554e5a26bd7d78cbcb89efc69() {
-        return \RectorPrefix20210422\composerRequire682b8af554e5a26bd7d78cbcb89efc69(...func_get_args());
+if (!function_exists('composerRequire2cc271edb059bfb390c4df920b130391')) {
+    function composerRequire2cc271edb059bfb390c4df920b130391() {
+        return \RectorPrefix20210422\composerRequire2cc271edb059bfb390c4df920b130391(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

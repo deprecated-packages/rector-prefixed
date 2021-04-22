@@ -173,3 +173,9 @@ abstract class AbstractKernelTestCase extends \PHPUnit\Framework\TestCase
         return $this->bootAndReturnKernel($kernel);
     }
 }
+/**
+ * Inspiration
+ *
+ * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
+ */
+\class_alias('RectorPrefix20210422\\Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase', 'Symplify\\PackageBuilder\\Testing\\AbstractKernelTestCase', \false);
