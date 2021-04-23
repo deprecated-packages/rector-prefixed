@@ -126,10 +126,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType)
+    private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

@@ -23,7 +23,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
     /**
      * @var string[]
      */
-    const PARENT_NODE_ATTRIBUTES = [\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE];
+    private const PARENT_NODE_ATTRIBUTES = [\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE];
     /**
      * @var NodeNameResolver
      */

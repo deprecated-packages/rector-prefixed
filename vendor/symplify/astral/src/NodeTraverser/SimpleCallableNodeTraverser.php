@@ -14,9 +14,8 @@ final class SimpleCallableNodeTraverser
 {
     /**
      * @param Node|Node[]|null $nodes
-     * @return void
      */
-    public function traverseNodesWithCallable($nodes, callable $callable)
+    public function traverseNodesWithCallable($nodes, callable $callable) : void
     {
         if ($nodes === null) {
             return;

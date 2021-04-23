@@ -11,11 +11,11 @@ final class BetterTokenIterator extends \PHPStan\PhpDocParser\Parser\TokenIterat
     /**
      * @var string
      */
-    const TOKENS = 'tokens';
+    private const TOKENS = 'tokens';
     /**
      * @var string
      */
-    const INDEX = 'index';
+    private const INDEX = 'index';
     /**
      * @var PrivatesAccessor
      */

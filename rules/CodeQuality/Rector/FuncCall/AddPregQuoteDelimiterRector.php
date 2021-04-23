@@ -22,7 +22,7 @@ final class AddPregQuoteDelimiterRector extends \Rector\Core\Rector\AbstractRect
      * @var string
      * @see https://www.php.net/manual/en/reference.pcre.pattern.modifiers.php
      */
-    const ALL_MODIFIERS = 'imsxeADSUXJu';
+    private const ALL_MODIFIERS = 'imsxeADSUXJu';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add preg_quote delimiter when missing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

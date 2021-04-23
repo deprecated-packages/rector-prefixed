@@ -14,15 +14,15 @@ final class ArgumentAddingScope
     /**
      * @var string
      */
-    const SCOPE_PARENT_CALL = 'parent_call';
+    public const SCOPE_PARENT_CALL = 'parent_call';
     /**
      * @var string
      */
-    const SCOPE_METHOD_CALL = 'method_call';
+    public const SCOPE_METHOD_CALL = 'method_call';
     /**
      * @var string
      */
-    const SCOPE_CLASS_METHOD = 'class_method';
+    public const SCOPE_CLASS_METHOD = 'class_method';
     /**
      * @var NodeNameResolver
      */

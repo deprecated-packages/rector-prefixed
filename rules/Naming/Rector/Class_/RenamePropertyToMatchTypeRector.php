@@ -108,10 +108,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassProperties(\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function refactorClassProperties(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         foreach ($classLike->getProperties() as $property) {
             $expectedPropertyName = $this->matchPropertyTypeExpectedNameResolver->resolve($property);
@@ -129,10 +126,7 @@ CODE_SAMPLE
             $this->hasChanged = \true;
         }
     }
-    /**
-     * @return void
-     */
-    private function renamePropertyPromotion(\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function renamePropertyPromotion(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
             return;

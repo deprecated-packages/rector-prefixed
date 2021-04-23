@@ -72,10 +72,7 @@ $service->injectDependency($mock->reveal());
 CODE_SAMPLE
 )]);
     }
-    /**
-     * @return void
-     */
-    private function replaceMockCreationsAndCollectVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceMockCreationsAndCollectVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;
@@ -101,10 +98,7 @@ CODE_SAMPLE
             return $this->createProphesizeMethodCall($node);
         });
     }
-    /**
-     * @return void
-     */
-    private function revealMockArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function revealMockArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         if ($classMethod->stmts === null) {
             return;

@@ -23,11 +23,11 @@ final class PreferThisOrSelfMethodCallRector extends \Rector\Core\Rector\Abstrac
      * @api
      * @var string
      */
-    const TYPE_TO_PREFERENCE = 'type_to_preference';
+    public const TYPE_TO_PREFERENCE = 'type_to_preference';
     /**
      * @var string
      */
-    const SELF = 'self';
+    private const SELF = 'self';
     /**
      * @var array<class-string, string>
      */
@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<class-string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allString($typeToPreference);
@@ -124,10 +123,7 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall('this', $name, $node->args);
     }
-    /**
-     * @return void
-     */
-    private function ensurePreferenceIsValid(string $preference)
+    private function ensurePreferenceIsValid(string $preference) : void
     {
         if (\in_array($preference, \Rector\CodingStyle\ValueObject\PreferenceSelfThis::ALLOWED_VALUES, \true)) {
             return;

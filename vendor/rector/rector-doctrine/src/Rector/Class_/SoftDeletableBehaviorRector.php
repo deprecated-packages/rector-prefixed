@@ -94,10 +94,7 @@ CODE_SAMPLE
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineAnnotationTagValueNode);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName)
+    private function removePropertyAndClassMethods(\PhpParser\Node\Stmt\Class_ $class, string $fieldName) : void
     {
         // remove property
         foreach ($class->getProperties() as $property) {

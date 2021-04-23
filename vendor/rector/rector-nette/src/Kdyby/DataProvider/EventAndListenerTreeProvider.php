@@ -82,10 +82,7 @@ final class EventAndListenerTreeProvider
         $this->initializeEventAndListenerTrees();
         return $this->eventAndListenerTrees;
     }
-    /**
-     * @return void
-     */
-    private function initializeEventAndListenerTrees()
+    private function initializeEventAndListenerTrees() : void
     {
         if ($this->eventAndListenerTrees !== [] && !\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;

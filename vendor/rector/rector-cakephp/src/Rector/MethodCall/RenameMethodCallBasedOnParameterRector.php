@@ -23,7 +23,7 @@ final class RenameMethodCallBasedOnParameterRector extends \Rector\Core\Rector\A
     /**
      * @var string
      */
-    const CALLS_WITH_PARAM_RENAMES = 'calls_with_param_renames';
+    public const CALLS_WITH_PARAM_RENAMES = 'calls_with_param_renames';
     /**
      * @var RenameMethodCallBasedOnParameter[]
      */
@@ -64,10 +64,7 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($callWithParamRename->getNewMethod());
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $callsWithParamNames = $configuration[self::CALLS_WITH_PARAM_RENAMES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);

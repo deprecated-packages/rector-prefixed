@@ -25,7 +25,7 @@ final class DowngradeAnonymousClassRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    const CLASS_NAME = 'AnonymousFor_';
+    private const CLASS_NAME = 'AnonymousFor_';
     /**
      * @var ClassAnalyzer
      */

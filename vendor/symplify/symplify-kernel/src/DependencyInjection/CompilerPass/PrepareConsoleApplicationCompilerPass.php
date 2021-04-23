@@ -11,10 +11,7 @@ use RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplica
 use RectorPrefix20210423\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory;
 final class PrepareConsoleApplicationCompilerPass implements \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    /**
-     * @return void
-     */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $consoleApplicationClass = $this->resolveConsoleApplicationClass($containerBuilder);
         if ($consoleApplicationClass === null) {
@@ -42,9 +39,8 @@ final class PrepareConsoleApplicationCompilerPass implements \RectorPrefix202104
     }
     /**
      * Missing console application? add basic one
-     * @return void
      */
-    private function registerAutowiredSymfonyConsole(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    private function registerAutowiredSymfonyConsole(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $containerBuilder->autowire(\RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class, \RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class)->setFactory([new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference(\RectorPrefix20210423\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory::class), 'create']);
         $containerBuilder->setAlias(\RectorPrefix20210423\Symfony\Component\Console\Application::class, \RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication::class)->setPublic(\true);

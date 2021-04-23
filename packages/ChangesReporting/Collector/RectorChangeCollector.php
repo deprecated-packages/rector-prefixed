@@ -25,10 +25,7 @@ final class RectorChangeCollector
         $this->currentRectorProvider = $currentRectorProvider;
         $this->currentFileProvider = $currentFileProvider;
     }
-    /**
-     * @return void
-     */
-    public function notifyNodeFileInfo(\PhpParser\Node $node)
+    public function notifyNodeFileInfo(\PhpParser\Node $node) : void
     {
         $file = $this->currentFileProvider->getFile();
         if (!$file instanceof \Rector\Core\ValueObject\Application\File) {

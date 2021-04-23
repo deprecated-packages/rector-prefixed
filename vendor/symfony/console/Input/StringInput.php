@@ -22,8 +22,8 @@ use RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentExce
  */
 class StringInput extends \RectorPrefix20210423\Symfony\Component\Console\Input\ArgvInput
 {
-    const REGEX_STRING = '([^\\s]+?)(?:\\s|(?<!\\\\)"|(?<!\\\\)\'|$)';
-    const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\')';
+    public const REGEX_STRING = '([^\\s]+?)(?:\\s|(?<!\\\\)"|(?<!\\\\)\'|$)';
+    public const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\')';
     /**
      * @param string $input A string representing the parameters from the CLI
      */

@@ -48,10 +48,7 @@ final class ConsoleApplicationFactory
         $this->decorateApplicationWithNameAndVersion($autowiredConsoleApplication);
         return $autowiredConsoleApplication;
     }
-    /**
-     * @return void
-     */
-    private function decorateApplicationWithNameAndVersion(\RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication)
+    private function decorateApplicationWithNameAndVersion(\RectorPrefix20210423\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication) : void
     {
         $projectDir = $this->parameterProvider->provideStringParameter('kernel.project_dir');
         $packageComposerJsonFilePath = $projectDir . \DIRECTORY_SEPARATOR . 'composer.json';

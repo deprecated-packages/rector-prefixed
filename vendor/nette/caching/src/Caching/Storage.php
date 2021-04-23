@@ -19,23 +19,19 @@ interface Storage
     function read(string $key);
     /**
      * Prevents item reading and writing. Lock is released by write() or remove().
-     * @return void
      */
-    function lock(string $key);
+    function lock(string $key) : void;
     /**
      * Writes item into the cache.
-     * @return void
      */
-    function write(string $key, $data, array $dependencies);
+    function write(string $key, $data, array $dependencies) : void;
     /**
      * Removes item from the cache.
-     * @return void
      */
-    function remove(string $key);
+    function remove(string $key) : void;
     /**
      * Removes items from the cache by conditions.
-     * @return void
      */
-    function clean(array $conditions);
+    function clean(array $conditions) : void;
 }
 \class_exists(\RectorPrefix20210423\Nette\Caching\IStorage::class);

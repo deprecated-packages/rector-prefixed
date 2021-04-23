@@ -72,9 +72,8 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $node
      * @param array<int, mixed> $defaultValuesByPosition
-     * @return void
      */
-    private function refactorArgs(\PhpParser\Node $node, array $defaultValuesByPosition)
+    private function refactorArgs(\PhpParser\Node $node, array $defaultValuesByPosition) : void
     {
         foreach ($defaultValuesByPosition as $position => $defaultValue) {
             // value is already set
@@ -82,7 +81,7 @@ CODE_SAMPLE
                 continue;
             }
             if (\is_string($defaultValue) && \RectorPrefix20210423\Nette\Utils\Strings::contains($defaultValue, '::')) {
-                list($className, $constant) = \explode('::', $defaultValue);
+                [$className, $constant] = \explode('::', $defaultValue);
                 $classConstant = $this->nodeFactory->createClassConstFetch($className, $constant);
                 $arg = new \PhpParser\Node\Arg($classConstant);
             } else {

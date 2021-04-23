@@ -20,9 +20,8 @@ final class BootstrapFilesIncluder
     /**
      * Inspired by
      * @see https://github.com/phpstan/phpstan-src/commit/aad1bf888ab7b5808898ee5fe2228bb8bb4e4cf1
-     * @return void
      */
-    public function includeBootstrapFiles()
+    public function includeBootstrapFiles() : void
     {
         $bootstrapFiles = $this->parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::BOOTSTRAP_FILES);
         foreach ($bootstrapFiles as $bootstrapFile) {

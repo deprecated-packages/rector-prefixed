@@ -16,7 +16,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition;
  */
 class InlineServiceConfigurator extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    const FACTORY = 'service';
+    public const FACTORY = 'service';
     use Traits\ArgumentTrait;
     use Traits\AutowireTrait;
     use Traits\BindTrait;

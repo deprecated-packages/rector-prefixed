@@ -24,19 +24,19 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const ASSERT_SAME = 'assertSame';
+    private const ASSERT_SAME = 'assertSame';
     /**
      * @var string
      */
-    const ASSERT_EQUALS = 'assertEquals';
+    private const ASSERT_EQUALS = 'assertEquals';
     /**
      * @var string
      */
-    const ASSERT_NOT_SAME = 'assertNotSame';
+    private const ASSERT_NOT_SAME = 'assertNotSame';
     /**
      * @var string
      */
-    const ASSERT_NOT_EQUALS = 'assertNotEquals';
+    private const ASSERT_NOT_EQUALS = 'assertNotEquals';
     /**
      * @var TestsNodeAnalyzer
      */
@@ -94,9 +94,8 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function renameMethod(\PhpParser\Node $node, string $oldMethodName, int $oldCondition)
+    private function renameMethod(\PhpParser\Node $node, string $oldMethodName, int $oldCondition) : void
     {
         if (\in_array($oldMethodName, [self::ASSERT_SAME, self::ASSERT_EQUALS], \true) && $oldCondition === 1 || \in_array($oldMethodName, [self::ASSERT_NOT_SAME, self::ASSERT_NOT_EQUALS], \true) && $oldCondition === 0) {
             $node->name = new \PhpParser\Node\Identifier('assertRegExp');
@@ -107,9 +106,8 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node)
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
         /** @var FuncCall $pregMatchFunction */

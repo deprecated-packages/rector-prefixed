@@ -102,10 +102,7 @@ CODE_SAMPLE
             return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
-    /**
-     * @return void
-     */
-    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         // remove key value
         $foreach->valueVar = $foreach->keyVar;

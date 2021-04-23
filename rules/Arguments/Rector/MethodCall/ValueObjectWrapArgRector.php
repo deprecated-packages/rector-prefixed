@@ -26,7 +26,7 @@ final class ValueObjectWrapArgRector extends \Rector\Core\Rector\AbstractRector 
     /**
      * @var string
      */
-    const VALUE_OBJECT_WRAP_ARGS = 'value_object_wrap_args';
+    public const VALUE_OBJECT_WRAP_ARGS = 'value_object_wrap_args';
     /**
      * @var ValueObjectWrapArg[]
      */
@@ -87,9 +87,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ValueObjectWrapArg[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->valueObjectWrapArgs = $configuration[self::VALUE_OBJECT_WRAP_ARGS] ?? [];
     }

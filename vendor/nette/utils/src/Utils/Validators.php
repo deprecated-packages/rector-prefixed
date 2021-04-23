@@ -65,9 +65,8 @@ class Validators
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
      * @throws AssertionException
-     * @return void
      */
-    public static function assert($value, string $expected, string $label = 'variable')
+    public static function assert($value, string $expected, string $label = 'variable') : void
     {
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
@@ -86,9 +85,8 @@ class Validators
      * @param  mixed[]  $array
      * @param  int|string  $key
      * @throws AssertionException
-     * @return void
      */
-    public static function assertField(array $array, $key, string $expected = null, string $label = "item '%' in array")
+    public static function assertField(array $array, $key, string $expected = null, string $label = "item '%' in array") : void
     {
         if (!\array_key_exists($key, $array)) {
             throw new \RectorPrefix20210423\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
@@ -104,7 +102,7 @@ class Validators
     {
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
-                if ((\is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
+                if (\is_iterable($value) && self::everyIs($value, \substr($item, 0, -2))) {
                     return \true;
                 }
                 continue;
@@ -114,7 +112,7 @@ class Validators
                     return \true;
                 }
             }
-            list($type) = $item = \explode(':', $item, 2);
+            [$type] = $item = \explode(':', $item, 2);
             if (isset(static::$validators[$type])) {
                 try {
                     if (!static::$validators[$type]($value)) {
@@ -152,7 +150,7 @@ class Validators
      * Finds whether all values are of expected types separated by pipe.
      * @param  mixed[]  $values
      */
-    public static function everyIs($values, string $expected) : bool
+    public static function everyIs(iterable $values, string $expected) : bool
     {
         foreach ($values as $value) {
             if (!static::is($value, $expected)) {

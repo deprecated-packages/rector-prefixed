@@ -24,7 +24,7 @@ final class SubstrMinusToStringEndsWithRector extends \Rector\Core\Rector\Abstra
     /**
      * @var string
      */
-    const SUBSTR = 'substr';
+    private const SUBSTR = 'substr';
     /**
      * @var BinaryOpAnalyzer
      */

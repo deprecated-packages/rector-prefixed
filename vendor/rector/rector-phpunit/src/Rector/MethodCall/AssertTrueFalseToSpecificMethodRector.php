@@ -75,9 +75,8 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods)
+    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
     {
         /** @var Identifier $identifierNode */
         $identifierNode = $node->name;
@@ -101,9 +100,8 @@ final class AssertTrueFalseToSpecificMethodRector extends \Rector\Core\Rector\Ab
      * - $this->assertArrayHasKey('...', ['...'], 'second argument');
      *
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node)
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node) : void
     {
         $funcCallOrEmptyNode = $node->args[0]->value;
         if ($funcCallOrEmptyNode instanceof \PhpParser\Node\Expr\FuncCall) {

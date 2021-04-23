@@ -5,12 +5,12 @@ namespace RectorPrefix20210423\Doctrine\Inflector;
 
 final class Language
 {
-    const ENGLISH = 'english';
-    const FRENCH = 'french';
-    const NORWEGIAN_BOKMAL = 'norwegian-bokmal';
-    const PORTUGUESE = 'portuguese';
-    const SPANISH = 'spanish';
-    const TURKISH = 'turkish';
+    public const ENGLISH = 'english';
+    public const FRENCH = 'french';
+    public const NORWEGIAN_BOKMAL = 'norwegian-bokmal';
+    public const PORTUGUESE = 'portuguese';
+    public const SPANISH = 'spanish';
+    public const TURKISH = 'turkish';
     private function __construct()
     {
     }

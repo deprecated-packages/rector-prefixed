@@ -7,7 +7,7 @@ use RectorPrefix20210423\PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use RectorPrefix20210423\Symplify\EasyCodingStandard\ValueObject\Option;
 use RectorPrefix20210423\Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\RectorPrefix20210423\PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer::class)->call('configure', [['annotations' => ['throws', 'author', 'package', 'group', 'required', 'phpstan-ignore-line', 'phpstan-ignore-next-line']]]);
     $services->set(\RectorPrefix20210423\PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer::class)->call('configure', [['allow_mixed' => \true]]);

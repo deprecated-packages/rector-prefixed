@@ -31,7 +31,7 @@ final class TranslateClassMethodToVariadicsRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    const PARAMETERS = 'parameters';
+    private const PARAMETERS = 'parameters';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change translate() method call 2nd arg to variadic', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -96,10 +96,7 @@ CODE_SAMPLE
         $secondParam->var->name = self::PARAMETERS;
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
+    private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
     {
         $paramName = $this->getName($param->var);
         if ($paramName === null) {

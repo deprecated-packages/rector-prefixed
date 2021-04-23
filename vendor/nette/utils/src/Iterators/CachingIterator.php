@@ -98,9 +98,8 @@ class CachingIterator extends \CachingIterator implements \Countable
     }
     /**
      * Forwards to the next element.
-     * @return void
      */
-    public function next()
+    public function next() : void
     {
         parent::next();
         if (parent::valid()) {
@@ -109,9 +108,8 @@ class CachingIterator extends \CachingIterator implements \Countable
     }
     /**
      * Rewinds the Iterator.
-     * @return void
      */
-    public function rewind()
+    public function rewind() : void
     {
         parent::rewind();
         $this->counter = parent::valid() ? 1 : 0;

@@ -28,7 +28,7 @@ final class ServiceGetterToConstructorInjectionRector extends \Rector\Core\Recto
     /**
      * @var string
      */
-    const METHOD_CALL_TO_SERVICES = 'method_call_to_services';
+    public const METHOD_CALL_TO_SERVICES = 'method_call_to_services';
     /**
      * @var ServiceGetterToConstructorInjection[]
      */
@@ -148,10 +148,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $methodCallToServices = $configuration[self::METHOD_CALL_TO_SERVICES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);

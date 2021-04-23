@@ -35,7 +35,7 @@ final class CountOnNullRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const ALREADY_CHANGED_ON_COUNT = 'already_changed_on_count';
+    private const ALREADY_CHANGED_ON_COUNT = 'already_changed_on_count';
     /**
      * @var CountableTypeAnalyzer
      */

@@ -22,7 +22,7 @@ final class PropertyFetchToMethodCallRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    const PROPERTIES_TO_METHOD_CALLS = 'properties_to_method_calls';
+    public const PROPERTIES_TO_METHOD_CALLS = 'properties_to_method_calls';
     /**
      * @var PropertyFetchToMethodCall[]
      */
@@ -69,9 +69,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, PropertyFetchToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $propertiesToMethodCalls = $configuration[self::PROPERTIES_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($propertiesToMethodCalls, \Rector\Transform\ValueObject\PropertyFetchToMethodCall::class);

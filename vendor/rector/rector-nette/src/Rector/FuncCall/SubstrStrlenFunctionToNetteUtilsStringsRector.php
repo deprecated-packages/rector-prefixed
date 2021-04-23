@@ -17,7 +17,7 @@ final class SubstrStrlenFunctionToNetteUtilsStringsRector extends \Rector\Core\R
     /**
      * @var array<string, string>
      */
-    const FUNCTION_TO_STATIC_METHOD = ['substr' => 'substring'];
+    private const FUNCTION_TO_STATIC_METHOD = ['substr' => 'substring'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare string-functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

@@ -195,9 +195,8 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      * @param Name|NullableType|PhpParserUnionType $inferredReturnNode
-     * @return void
      */
-    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode)
+    private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
     {
         if ($functionLike->returnType === null) {
             $functionLike->returnType = $inferredReturnNode;

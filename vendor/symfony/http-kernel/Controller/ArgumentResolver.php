@@ -30,10 +30,7 @@ final class ArgumentResolver implements \RectorPrefix20210423\Symfony\Component\
      * @var iterable|ArgumentValueResolverInterface[]
      */
     private $argumentValueResolvers;
-    /**
-     * @param mixed[] $argumentValueResolvers
-     */
-    public function __construct(\RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, $argumentValueResolvers = [])
+    public function __construct(\RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
     {
         $this->argumentMetadataFactory = $argumentMetadataFactory ?: new \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
@@ -71,10 +68,7 @@ final class ArgumentResolver implements \RectorPrefix20210423\Symfony\Component\
         }
         return $arguments;
     }
-    /**
-     * @return mixed[]
-     */
-    public static function getDefaultArgumentValueResolvers()
+    public static function getDefaultArgumentValueResolvers() : iterable
     {
         return [new \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
     }

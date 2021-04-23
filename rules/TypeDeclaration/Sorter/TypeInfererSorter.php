@@ -23,9 +23,8 @@ final class TypeInfererSorter
     }
     /**
      * @param PriorityAwareTypeInfererInterface[] $sortedTypeInferers
-     * @return void
      */
-    private function ensurePriorityIsUnique(array $sortedTypeInferers, \Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface $priorityAwareTypeInferer)
+    private function ensurePriorityIsUnique(array $sortedTypeInferers, \Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface $priorityAwareTypeInferer) : void
     {
         if (!isset($sortedTypeInferers[$priorityAwareTypeInferer->getPriority()])) {
             return;

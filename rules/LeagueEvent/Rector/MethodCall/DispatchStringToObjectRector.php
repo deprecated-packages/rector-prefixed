@@ -31,11 +31,11 @@ final class DispatchStringToObjectRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var string
      */
-    const STMTS = 'stmts';
+    private const STMTS = 'stmts';
     /**
      * @var string
      */
-    const NAME = 'name';
+    private const NAME = 'name';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change string events to anonymous class which implement \\League\\Event\\HasEventName', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

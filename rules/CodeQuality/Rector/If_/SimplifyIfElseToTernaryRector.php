@@ -21,7 +21,7 @@ final class SimplifyIfElseToTernaryRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var int
      */
-    const LINE_LENGTH_LIMIT = 120;
+    private const LINE_LENGTH_LIMIT = 120;
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else for same value as assign to ternary', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

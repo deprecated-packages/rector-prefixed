@@ -104,10 +104,7 @@ class ReflectionClassResource implements \RectorPrefix20210423\Symfony\Component
         }
         return \hash_final($hash);
     }
-    /**
-     * @return mixed[]
-     */
-    private function generateSignature(\ReflectionClass $class)
+    private function generateSignature(\ReflectionClass $class) : iterable
     {
         (yield $class->getDocComment());
         (yield (int) $class->isFinal());

@@ -58,10 +58,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function processClass(\PhpParser\Node $node)
+    private function processClass(\PhpParser\Node $node) : void
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
             $this->classStack[] = $this->classLike;
@@ -70,10 +67,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $this->classLike);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $this->className);
     }
-    /**
-     * @return void
-     */
-    private function processMethod(\PhpParser\Node $node)
+    private function processMethod(\PhpParser\Node $node) : void
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->methodStack[] = $this->classMethod;
@@ -81,10 +75,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         }
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, $this->classMethod);
     }
-    /**
-     * @return void
-     */
-    private function setClassNodeAndName(?\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function setClassNodeAndName(?\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $this->classLike = $classLike;
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike || $classLike->name === null) {

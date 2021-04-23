@@ -19,7 +19,7 @@ final class GetToConstructorInjectionRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
+    public const GET_METHOD_AWARE_TYPES = 'get_method_aware_types';
     /**
      * @var ObjectType[]
      */
@@ -83,9 +83,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $getMethodAwareTypes = $configuration[self::GET_METHOD_AWARE_TYPES] ?? [];
         foreach ($getMethodAwareTypes as $getMethodAwareType) {

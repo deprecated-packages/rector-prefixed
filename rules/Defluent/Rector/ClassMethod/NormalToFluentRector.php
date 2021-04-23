@@ -23,7 +23,7 @@ final class NormalToFluentRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    const CALLS_TO_FLUENT = 'calls_to_fluent';
+    public const CALLS_TO_FLUENT = 'calls_to_fluent';
     /**
      * @var NormalToFluent[]
      */
@@ -94,10 +94,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $callsToFluent = $configuration[self::CALLS_TO_FLUENT] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($callsToFluent, \Rector\Defluent\ValueObject\NormalToFluent::class);
@@ -131,10 +128,7 @@ CODE_SAMPLE
         // is the same type
         return $firstMethodCallMatchObjectType->equals($secondMethodCallMatchObjectType);
     }
-    /**
-     * @return void
-     */
-    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function fluentizeCollectedMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $i = 0;
         $fluentMethodCallIndex = null;

@@ -41,27 +41,20 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     }
     /**
      * @param FullyQualifiedObjectType|AliasedObjectType $objectType
-     * @return void
      */
-    public function addUseImport(\PhpParser\Node $positionNode, \PHPStan\Type\ObjectType $objectType)
+    public function addUseImport(\PhpParser\Node $positionNode, \PHPStan\Type\ObjectType $objectType) : void
     {
         $file = $this->currentFileProvider->getFile();
         $smartFileInfo = $file->getSmartFileInfo();
         $this->useImportTypesInFilePath[$smartFileInfo->getRealPath()][] = $objectType;
     }
-    /**
-     * @return void
-     */
-    public function addFunctionUseImport(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
+    public function addFunctionUseImport(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
     {
         $file = $this->currentFileProvider->getFile();
         $smartFileInfo = $file->getSmartFileInfo();
         $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()][] = $fullyQualifiedObjectType;
     }
-    /**
-     * @return void
-     */
-    public function removeShortUse(\PhpParser\Node $node, string $shortUse)
+    public function removeShortUse(\PhpParser\Node $node, string $shortUse) : void
     {
         $file = $this->currentFileProvider->getFile();
         if (!$file instanceof \Rector\Core\ValueObject\Application\File) {
@@ -70,10 +63,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
         $smartFileInfo = $file->getSmartFileInfo();
         $this->removedShortUsesInFilePath[$smartFileInfo->getRealPath()][] = $shortUse;
     }
-    /**
-     * @return void
-     */
-    public function clear(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function clear(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         // clear applied imports, so isActive() doesn't return any false positives
         unset($this->useImportTypesInFilePath[$smartFileInfo->getRealPath()], $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()]);

@@ -23,7 +23,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    const RENAME_METHODS_MAP = ['assertEquals' => 'assertSame'];
+    private const RENAME_METHODS_MAP = ['assertEquals' => 'assertSame'];
     /**
      * We exclude
      * - bool because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
@@ -31,7 +31,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
      *
      * @var array<class-string<Type>>
      */
-    const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
+    private const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
     /**
      * @var IdentifierManipulator
      */

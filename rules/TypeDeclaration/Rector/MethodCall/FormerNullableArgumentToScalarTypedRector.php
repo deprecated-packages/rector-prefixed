@@ -92,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $methodParameterTypes
-     * @return void
      */
-    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key)
+    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key) : void
     {
         if (!isset($methodParameterTypes[$key])) {
             return;

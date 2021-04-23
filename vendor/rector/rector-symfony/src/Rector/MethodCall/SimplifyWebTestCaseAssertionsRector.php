@@ -28,7 +28,7 @@ final class SimplifyWebTestCaseAssertionsRector extends \Rector\Core\Rector\Abst
     /**
      * @var string
      */
-    const ASSERT_SAME = 'assertSame';
+    private const ASSERT_SAME = 'assertSame';
     /**
      * @var MethodCall
      */

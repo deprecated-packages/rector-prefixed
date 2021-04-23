@@ -24,7 +24,7 @@ final class CompleteImportForPartialAnnotationRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    const USE_IMPORTS_TO_RESTORE = '$useImportsToRestore';
+    public const USE_IMPORTS_TO_RESTORE = '$useImportsToRestore';
     /**
      * @var CompleteImportForPartialAnnotation[]
      */
@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param CompleteImportForPartialAnnotation[][] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $default = [new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);

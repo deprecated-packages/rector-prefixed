@@ -136,9 +136,8 @@ class Question
      * @return $this
      *
      * @throws LogicException
-     * @param mixed[]|null $values
      */
-    public function setAutocompleterValues($values)
+    public function setAutocompleterValues(?iterable $values)
     {
         if (\is_array($values)) {
             $values = $this->isAssoc($values) ? \array_merge(\array_keys($values), \array_values($values)) : \array_values($values);

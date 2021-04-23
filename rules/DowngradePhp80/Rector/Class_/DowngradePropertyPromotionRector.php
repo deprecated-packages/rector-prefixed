@@ -105,9 +105,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property[] $properties
-     * @return void
      */
-    private function addPropertyAssignsToConstructorClassMethod(array $properties, \PhpParser\Node\Stmt\Class_ $class)
+    private function addPropertyAssignsToConstructorClassMethod(array $properties, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $assigns = [];
         foreach ($properties as $property) {

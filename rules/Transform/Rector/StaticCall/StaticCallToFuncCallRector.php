@@ -21,7 +21,7 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    const STATIC_CALLS_TO_FUNCTIONS = 'static_calls_to_functions';
+    public const STATIC_CALLS_TO_FUNCTIONS = 'static_calls_to_functions';
     /**
      * @var StaticCallToFuncCall[]
      */
@@ -60,10 +60,7 @@ final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRecto
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $staticCallsToFunctions = $configuration[self::STATIC_CALLS_TO_FUNCTIONS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \Rector\Transform\ValueObject\StaticCallToFuncCall::class);

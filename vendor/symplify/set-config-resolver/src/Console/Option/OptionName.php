@@ -8,9 +8,9 @@ final class OptionName
     /**
      * @var string[]
      */
-    const CONFIG = ['--config', '-c'];
+    public const CONFIG = ['--config', '-c'];
     /**
      * @var string[]
      */
-    const SET = ['--set', '-s'];
+    public const SET = ['--set', '-s'];
 }

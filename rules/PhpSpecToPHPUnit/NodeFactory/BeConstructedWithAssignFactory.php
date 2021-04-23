@@ -50,10 +50,7 @@ final class BeConstructedWithAssignFactory
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function moveConstructorArguments(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\StaticCall $staticCall)
+    private function moveConstructorArguments(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         if (!isset($methodCall->args[1])) {
             return;

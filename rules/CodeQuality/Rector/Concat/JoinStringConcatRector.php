@@ -20,7 +20,7 @@ final class JoinStringConcatRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var int
      */
-    const LINE_BREAK_POINT = 100;
+    private const LINE_BREAK_POINT = 100;
     /**
      * @var bool
      */

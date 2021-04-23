@@ -34,10 +34,7 @@ final class NativeParamToPhpDocDecorator
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
-    /**
-     * @return void
-     */
-    public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param)
+    public function decorate(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;

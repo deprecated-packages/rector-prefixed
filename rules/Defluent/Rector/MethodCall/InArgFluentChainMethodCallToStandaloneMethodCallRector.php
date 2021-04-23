@@ -125,10 +125,7 @@ CODE_SAMPLE
         $this->addNodesBeforeNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);
         return $assignAndRootExprAndNodesToAdd->getRootCallerExpr();
     }
-    /**
-     * @return void
-     */
-    private function refactorNew(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\New_ $new)
+    private function refactorNew(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\New_ $new) : void
     {
         if (!$this->newFluentChainMethodCallNodeAnalyzer->isNewMethodCallReturningSelf($methodCall)) {
             return;
@@ -139,10 +136,7 @@ CODE_SAMPLE
         $this->addNodesBeforeNode($nodesToAdd, $methodCall);
         $this->removeParentParent($methodCall);
     }
-    /**
-     * @return void
-     */
-    private function removeParentParent(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function removeParentParent(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         /** @var Arg $parent */
         $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

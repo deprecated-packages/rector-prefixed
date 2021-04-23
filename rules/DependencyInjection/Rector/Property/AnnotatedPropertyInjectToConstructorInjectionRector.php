@@ -36,7 +36,7 @@ final class AnnotatedPropertyInjectToConstructorInjectionRector extends \Rector\
     /**
      * @var string[]
      */
-    const INJECT_ANNOTATION_CLASSES = ['JMS\\DiExtraBundle\\Annotation\\Inject', 'DI\\Annotation\\Inject'];
+    private const INJECT_ANNOTATION_CLASSES = ['JMS\\DiExtraBundle\\Annotation\\Inject', 'DI\\Annotation\\Inject'];
     /**
      * @var PropertyUsageAnalyzer
      */
@@ -134,10 +134,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode)
+    private function refactorPropertyWithAnnotation(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type, \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode $doctrineAnnotationTagValueNode) : void
     {
         $propertyName = $this->getName($property);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);

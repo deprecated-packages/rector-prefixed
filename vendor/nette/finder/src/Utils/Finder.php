@@ -247,7 +247,7 @@ class Finder implements \IteratorAggregate, \Countable
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?((?:\\d*\\.)?\\d+)\\s*(K|M|G|)B?$#Di', $operator, $matches)) {
                 throw new \RectorPrefix20210423\Nette\InvalidArgumentException('Invalid size predicate format.');
             }
-            list(, $operator, $size, $unit) = $matches;
+            [, $operator, $size, $unit] = $matches;
             static $units = ['' => 1, 'k' => 1000.0, 'm' => 1000000.0, 'g' => 1000000000.0];
             $size *= $units[\strtolower($unit)];
             $operator = $operator ?: '=';
@@ -269,7 +269,7 @@ class Finder implements \IteratorAggregate, \Countable
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?(.+)$#Di', $operator, $matches)) {
                 throw new \RectorPrefix20210423\Nette\InvalidArgumentException('Invalid date predicate format.');
             }
-            list(, $operator, $date) = $matches;
+            [, $operator, $date] = $matches;
             $operator = $operator ?: '=';
         }
         $date = \RectorPrefix20210423\Nette\Utils\DateTime::from($date)->format('U');
@@ -307,10 +307,7 @@ class Finder implements \IteratorAggregate, \Countable
     {
         return isset(self::$extMethods[$name]) ? self::$extMethods[$name]($this, ...$args) : \RectorPrefix20210423\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name, \array_keys(self::$extMethods));
     }
-    /**
-     * @return void
-     */
-    public static function extensionMethod(string $name, callable $callback)
+    public static function extensionMethod(string $name, callable $callback) : void
     {
         self::$extMethods[$name] = $callback;
     }

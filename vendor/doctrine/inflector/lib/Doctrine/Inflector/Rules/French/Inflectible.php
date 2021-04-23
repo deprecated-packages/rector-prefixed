@@ -10,9 +10,9 @@ use RectorPrefix20210423\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getSingular()
+    public static function getSingular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/(b|cor|ém|gemm|soupir|trav|vant|vitr)aux$/'), '\\1ail'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/ails$/'), 'ail'));
@@ -21,9 +21,9 @@ class Inflectible
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/s$/'), ''));
     }
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getPlural()
+    public static function getPlural() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/(s|x|z)$/'), '\\1'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/(b|cor|ém|gemm|soupir|trav|vant|vitr)ail$/'), '\\1aux'));
@@ -34,9 +34,9 @@ class Inflectible
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/$/'), 's'));
     }
     /**
-     * @return mixed[]
+     * @return Substitution[]
      */
-    public static function getIrregular()
+    public static function getIrregular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('monsieur'), new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('messieurs')));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('madame'), new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('mesdames')));

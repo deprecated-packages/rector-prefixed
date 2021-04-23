@@ -9,15 +9,15 @@ final class CondAndExpr
     /**
      * @var string
      */
-    const TYPE_NORMAL = 'normal';
+    public const TYPE_NORMAL = 'normal';
     /**
      * @var string
      */
-    const TYPE_ASSIGN = 'assign';
+    public const TYPE_ASSIGN = 'assign';
     /**
      * @var string
      */
-    const TYPE_RETURN = 'return';
+    public const TYPE_RETURN = 'return';
     /**
      * @var string
      */

@@ -33,7 +33,7 @@ use RectorPrefix20210423\Symfony\Component\ExpressionLanguage\Expression;
  */
 class XmlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
-    const NS = 'http://symfony.com/schema/dic/services';
+    public const NS = 'http://symfony.com/schema/dic/services';
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
@@ -350,7 +350,7 @@ class XmlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyIn
         }
         // resolve definitions
         \uksort($definitions, 'strnatcmp');
-        foreach (\array_reverse($definitions) as $id => list($domElement, $file)) {
+        foreach (\array_reverse($definitions) as $id => [$domElement, $file]) {
             if (null !== ($definition = $this->parseDefinition($domElement, $file, new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition()))) {
                 $this->setDefinition($id, $definition);
             }

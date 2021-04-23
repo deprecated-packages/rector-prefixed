@@ -22,7 +22,7 @@ final class WrapReturnRector extends \Rector\Core\Rector\AbstractRector implemen
     /**
      * @var string
      */
-    const TYPE_METHOD_WRAPS = 'type_method_wraps';
+    public const TYPE_METHOD_WRAPS = 'type_method_wraps';
     /**
      * @var WrapReturn[]
      */
@@ -75,10 +75,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $typeMethodWraps = $configuration[self::TYPE_METHOD_WRAPS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \Rector\Transform\ValueObject\WrapReturn::class);
@@ -86,7 +83,7 @@ CODE_SAMPLE
     }
     private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!(\is_array($classMethod->stmts) || $classMethod->stmts instanceof \Traversable)) {
+        if (!\is_iterable($classMethod->stmts)) {
             return null;
         }
         foreach ($classMethod->stmts as $key => $stmt) {

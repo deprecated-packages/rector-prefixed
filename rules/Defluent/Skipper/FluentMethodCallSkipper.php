@@ -20,7 +20,7 @@ final class FluentMethodCallSkipper
      *
      * @var class-string[]
      */
-    const ALLOWED_FLUENT_TYPES = [
+    private const ALLOWED_FLUENT_TYPES = [
         // symfony
         'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator',
         'Symfony\\Component\\Finder\\Finder',

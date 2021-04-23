@@ -20,7 +20,7 @@ final class DelegateExceptionArgumentsRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var array<string, string>
      */
-    const OLD_TO_NEW_METHOD = ['setExpectedException' => 'expectExceptionMessage', 'setExpectedExceptionRegExp' => 'expectExceptionMessageRegExp'];
+    private const OLD_TO_NEW_METHOD = ['setExpectedException' => 'expectExceptionMessage', 'setExpectedExceptionRegExp' => 'expectExceptionMessageRegExp'];
     /**
      * @var AssertCallFactory
      */

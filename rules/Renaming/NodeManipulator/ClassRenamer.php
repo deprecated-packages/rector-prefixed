@@ -114,9 +114,8 @@ final class ClassRenamer
     /**
      * @param OldToNewType[] $oldToNewTypes
      * @param array<string, string> $oldToNewClasses
-     * @return void
      */
-    private function refactorPhpDoc(\PhpParser\Node $node, array $oldToNewTypes, array $oldToNewClasses)
+    private function refactorPhpDoc(\PhpParser\Node $node, array $oldToNewTypes, array $oldToNewClasses) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if (!$phpDocInfo->hasByTypes(\Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_NODES) && !$phpDocInfo->hasByAnnotationClasses(\Rector\BetterPhpDocParser\ValueObject\NodeTypes::TYPE_AWARE_DOCTRINE_ANNOTATION_CLASSES)) {
@@ -154,10 +153,7 @@ final class ClassRenamer
         }
         return new \PhpParser\Node\Name\FullyQualified($newName);
     }
-    /**
-     * @return void
-     */
-    private function removeUseName(\PhpParser\Node\Name $oldName)
+    private function removeUseName(\PhpParser\Node\Name $oldName) : void
     {
         $uses = $this->betterNodeFinder->findFirstPreviousOfNode($oldName, function (\PhpParser\Node $node) use($oldName) : bool {
             return $node instanceof \PhpParser\Node\Stmt\UseUse && $this->nodeNameResolver->areNamesEqual($node, $oldName);
@@ -287,9 +283,8 @@ final class ClassRenamer
     }
     /**
      * @param string[] $oldToNewClasses
-     * @return void
      */
-    private function renameClassImplements(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewClasses)
+    private function renameClassImplements(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewClasses) : void
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return;
@@ -315,10 +310,7 @@ final class ClassRenamer
     {
         return $this->reflectionProvider->hasClass($newName);
     }
-    /**
-     * @return void
-     */
-    private function changeNameToFullyQualifiedName(\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function changeNameToFullyQualifiedName(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Name\FullyQualified) {

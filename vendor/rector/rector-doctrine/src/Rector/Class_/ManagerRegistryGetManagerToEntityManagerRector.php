@@ -29,11 +29,11 @@ final class ManagerRegistryGetManagerToEntityManagerRector extends \Rector\Core\
     /**
      * @var string
      */
-    const GET_MANAGER = 'getManager';
+    private const GET_MANAGER = 'getManager';
     /**
      * @var string
      */
-    const ENTITY_MANAGER = 'entityManager';
+    private const ENTITY_MANAGER = 'entityManager';
     /**
      * @var MethodCallNameOnTypeResolver
      */
@@ -143,10 +143,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function removeManagerRegistryDependency(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam)
+    private function removeManagerRegistryDependency(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam) : void
     {
         // remove constructor param: $managerRegistry
         foreach ($classMethod->params as $key => $param) {
@@ -164,9 +161,8 @@ CODE_SAMPLE
      * Before: $entityRegistry->
      *
      * After: $this->entityManager->
-     * @return void
      */
-    private function replaceEntityRegistryVariableWithEntityManagerProperty(\PhpParser\Node\Stmt\Class_ $class)
+    private function replaceEntityRegistryVariableWithEntityManagerProperty(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $class) : ?PropertyFetch {
             if (!$class instanceof \PhpParser\Node\Expr\Variable) {
@@ -178,10 +174,7 @@ CODE_SAMPLE
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), self::ENTITY_MANAGER);
         });
     }
-    /**
-     * @return void
-     */
-    private function removeAssignGetRepositoryCalls(\PhpParser\Node\Stmt\Class_ $class)
+    private function removeAssignGetRepositoryCalls(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -193,10 +186,7 @@ CODE_SAMPLE
             $this->removeNode($node);
         });
     }
-    /**
-     * @return void
-     */
-    private function addConstructorDependencyWithProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
+    private function addConstructorDependencyWithProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
             $assign = $this->nodeFactory->createPropertyAssignment($name);

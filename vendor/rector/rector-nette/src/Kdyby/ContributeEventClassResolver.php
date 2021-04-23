@@ -20,7 +20,7 @@ final class ContributeEventClassResolver
     /**
      * @var array<string, array<string, string>>
      */
-    const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
+    private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
         'Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
         'Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['Nette\\Application\\Application' => 'getApplication'],

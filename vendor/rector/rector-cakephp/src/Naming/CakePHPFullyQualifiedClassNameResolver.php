@@ -15,17 +15,17 @@ final class CakePHPFullyQualifiedClassNameResolver
      * @var string
      * @see https://regex101.com/r/mbvKJp/1
      */
-    const LIB_NAMESPACE_PART_REGEX = '#\\\\Lib\\\\#';
+    public const LIB_NAMESPACE_PART_REGEX = '#\\\\Lib\\\\#';
     /**
      * @var string
      * @see https://regex101.com/r/XvoZIP/1
      */
-    const SLASH_REGEX = '#(/|\\.)#';
+    private const SLASH_REGEX = '#(/|\\.)#';
     /**
      * @var string
      * @see https://regex101.com/r/lq0lQ9/1
      */
-    const PLUGIN_OR_LIB_REGEX = '#(Plugin|Lib)#';
+    private const PLUGIN_OR_LIB_REGEX = '#(Plugin|Lib)#';
     /**
      * @var ImplicitNameResolver
      */

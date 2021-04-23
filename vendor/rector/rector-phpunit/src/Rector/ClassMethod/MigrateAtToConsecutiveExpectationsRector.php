@@ -81,10 +81,7 @@ CODE_SAMPLE
         $this->fillMissingAtIndexes($expectationMockCollection);
         return $this->consecutiveAssertionFactory->createAssertionFromExpectationMockCollection($expectationMockCollection);
     }
-    /**
-     * @return void
-     */
-    private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection)
+    private function fillMissingAtIndexes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : void
     {
         $variable = $expectationMockCollection->getExpectationMocks()[0]->getExpectationVariable();
         // OR
@@ -102,10 +99,7 @@ CODE_SAMPLE
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function replaceExpectationNodes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection)
+    private function replaceExpectationNodes(\Rector\PHPUnit\ValueObject\ExpectationMockCollection $expectationMockCollection) : void
     {
         if ($this->shouldSkipReplacement($expectationMockCollection)) {
             return;

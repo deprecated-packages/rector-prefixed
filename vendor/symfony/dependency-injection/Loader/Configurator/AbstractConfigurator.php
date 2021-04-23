@@ -19,7 +19,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference;
 use RectorPrefix20210423\Symfony\Component\ExpressionLanguage\Expression;
 abstract class AbstractConfigurator
 {
-    const FACTORY = 'unknown';
+    public const FACTORY = 'unknown';
     /**
      * @var callable(mixed, bool $allowService)|null
      */

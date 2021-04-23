@@ -17,28 +17,16 @@ class DevNullStorage implements \RectorPrefix20210423\Nette\Caching\Storage
     public function read(string $key)
     {
     }
-    /**
-     * @return void
-     */
-    public function lock(string $key)
+    public function lock(string $key) : void
     {
     }
-    /**
-     * @return void
-     */
-    public function write(string $key, $data, array $dependencies)
+    public function write(string $key, $data, array $dependencies) : void
     {
     }
-    /**
-     * @return void
-     */
-    public function remove(string $key)
+    public function remove(string $key) : void
     {
     }
-    /**
-     * @return void
-     */
-    public function clean(array $conditions)
+    public function clean(array $conditions) : void
     {
     }
 }

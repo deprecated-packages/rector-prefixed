@@ -23,7 +23,7 @@ final class StrContainsRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string[]
      */
-    const OLD_STR_NAMES = ['strpos', 'strstr'];
+    private const OLD_STR_NAMES = ['strpos', 'strstr'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

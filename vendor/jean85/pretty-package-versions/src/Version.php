@@ -5,7 +5,7 @@ namespace RectorPrefix20210423\Jean85;
 
 class Version
 {
-    const SHORT_COMMIT_LENGTH = 7;
+    private const SHORT_COMMIT_LENGTH = 7;
     /** @var string */
     private $packageName;
     /** @var string */
@@ -14,7 +14,7 @@ class Version
     private $reference;
     /** @var bool */
     private $versionIsTagged;
-    const NO_REFERENCE_TEXT = '{no reference}';
+    public const NO_REFERENCE_TEXT = '{no reference}';
     public function __construct(string $packageName, string $prettyVersion, ?string $reference = null)
     {
         $this->packageName = $packageName;

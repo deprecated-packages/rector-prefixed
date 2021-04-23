@@ -37,10 +37,7 @@ final class ArrayManipulator
         }
         return \true;
     }
-    /**
-     * @return void
-     */
-    public function addItemToArrayUnderKey(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key)
+    public function addItemToArrayUnderKey(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $newArrayItem, string $key) : void
     {
         foreach ($array->items as $item) {
             if ($item === null) {

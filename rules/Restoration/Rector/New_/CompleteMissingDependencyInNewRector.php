@@ -24,7 +24,7 @@ final class CompleteMissingDependencyInNewRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    const CLASS_TO_INSTANTIATE_BY_TYPE = 'class_to_instantiate_by_type';
+    public const CLASS_TO_INSTANTIATE_BY_TYPE = 'class_to_instantiate_by_type';
     /**
      * @var array<class-string, class-string>
      */
@@ -104,10 +104,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->classToInstantiateByType = $configuration[self::CLASS_TO_INSTANTIATE_BY_TYPE] ?? [];
     }

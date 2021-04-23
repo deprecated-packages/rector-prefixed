@@ -26,10 +26,7 @@ final class PropertyFetchRenamer
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @return void
-     */
-    public function renamePropertyFetchesInClass(\PhpParser\Node\Stmt\ClassLike $classLike, string $currentName, string $expectedName)
+    public function renamePropertyFetchesInClass(\PhpParser\Node\Stmt\ClassLike $classLike, string $currentName, string $expectedName) : void
     {
         // 1. replace property fetch rename in whole class
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($currentName, $expectedName) : ?Node {

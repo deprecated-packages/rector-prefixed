@@ -39,18 +39,12 @@ final class ReturnTypeDeclarationUpdater
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    /**
-     * @return void
-     */
-    public function updateClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className)
+    public function updateClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
         $this->updatePhpDoc($classMethod, $className);
         $this->updatePhp($classMethod, $className);
     }
-    /**
-     * @return void
-     */
-    private function updatePhpDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className)
+    private function updatePhpDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $returnTagValue = $phpDocInfo->getReturnTagValue();
@@ -62,10 +56,7 @@ final class ReturnTypeDeclarationUpdater
             $returnTagValue->type = new \Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode($className);
         }
     }
-    /**
-     * @return void
-     */
-    private function updatePhp(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className)
+    private function updatePhp(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return;

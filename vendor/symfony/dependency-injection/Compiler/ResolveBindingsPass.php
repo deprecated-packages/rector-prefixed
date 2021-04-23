@@ -36,10 +36,10 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
         $this->usedBindings = $container->getRemovedBindingIds();
         try {
             parent::process($container);
-            foreach ($this->unusedBindings as list($key, $serviceId, $bindingType, $file)) {
+            foreach ($this->unusedBindings as [$key, $serviceId, $bindingType, $file]) {
                 $argumentType = $argumentName = $message = null;
                 if (\false !== \strpos($key, ' ')) {
-                    list($argumentType, $argumentName) = \explode(' ', $key, 2);
+                    [$argumentType, $argumentName] = \explode(' ', $key, 2);
                 } elseif ('$' === $key[0]) {
                     $argumentName = $key;
                 } else {
@@ -98,7 +98,7 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
         }
         $bindingNames = [];
         foreach ($bindings as $key => $binding) {
-            list($bindingValue, $bindingId, $used, $bindingType, $file) = $binding->getValues();
+            [$bindingValue, $bindingId, $used, $bindingType, $file] = $binding->getValues();
             if ($used) {
                 $this->usedBindings[$bindingId] = \true;
                 unset($this->unusedBindings[$bindingId]);
@@ -129,7 +129,7 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
             return parent::processValue($value, $isRoot);
         }
         foreach ($calls as $i => $call) {
-            list($method, $arguments) = $call;
+            [$method, $arguments] = $call;
             if ($method instanceof \ReflectionFunctionAbstract) {
                 $reflectionMethod = $method;
             } else {
@@ -171,7 +171,7 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
             }
         }
         if ($constructor) {
-            list(, $arguments) = \array_pop($calls);
+            [, $arguments] = \array_pop($calls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }
@@ -186,7 +186,7 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
      */
     private function getBindingValue(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Argument\BoundArgument $binding)
     {
-        list($bindingValue, $bindingId) = $binding->getValues();
+        [$bindingValue, $bindingId] = $binding->getValues();
         $this->usedBindings[$bindingId] = \true;
         unset($this->unusedBindings[$bindingId]);
         return $bindingValue;

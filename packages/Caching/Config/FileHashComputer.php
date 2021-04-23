@@ -26,10 +26,7 @@ final class FileHashComputer
         $parameterBag = $containerBuilder->getParameterBag();
         return $this->arrayToHash($containerBuilder->getDefinitions()) . $this->arrayToHash($parameterBag->all());
     }
-    /**
-     * @return void
-     */
-    private function ensureIsPhp(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    private function ensureIsPhp(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         if ($fileInfo->hasSuffixes(['php'])) {
             return;

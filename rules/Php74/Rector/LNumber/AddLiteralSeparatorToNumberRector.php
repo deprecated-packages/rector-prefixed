@@ -29,20 +29,19 @@ final class AddLiteralSeparatorToNumberRector extends \Rector\Core\Rector\Abstra
      * @api
      * @var string
      */
-    const LIMIT_VALUE = 'limit_value';
+    public const LIMIT_VALUE = 'limit_value';
     /**
      * @var int
      */
-    const GROUP_SIZE = 3;
+    private const GROUP_SIZE = 3;
     /**
      * @var int
      */
     private $limitValue = 1000000;
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $limitValue = $configuration[self::LIMIT_VALUE] ?? 1000000;
         \RectorPrefix20210423\Webmozart\Assert\Assert::integer($limitValue);
@@ -92,7 +91,7 @@ CODE_SAMPLE
             return null;
         }
         if (\RectorPrefix20210423\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
-            list($mainPart, $decimalPart) = \explode('.', $numericValueAsString);
+            [$mainPart, $decimalPart] = \explode('.', $numericValueAsString);
             $chunks = $this->strSplitNegative($mainPart, self::GROUP_SIZE);
             $literalSeparatedNumber = \implode('_', $chunks) . '.' . $decimalPart;
         } else {

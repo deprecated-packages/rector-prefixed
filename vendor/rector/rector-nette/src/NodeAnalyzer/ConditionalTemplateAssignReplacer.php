@@ -16,10 +16,7 @@ use Rector\Nette\ValueObject\TemplateParametersAssigns;
  */
 final class ConditionalTemplateAssignReplacer
 {
-    /**
-     * @return void
-     */
-    public function processClassMethod(\Rector\Nette\ValueObject\TemplateParametersAssigns $templateParametersAssigns)
+    public function processClassMethod(\Rector\Nette\ValueObject\TemplateParametersAssigns $templateParametersAssigns) : void
     {
         foreach ($templateParametersAssigns->getConditionalTemplateParameterAssign() as $conditionalTemplateParameterAssign) {
             $assign = $conditionalTemplateParameterAssign->getAssign();

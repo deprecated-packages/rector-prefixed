@@ -100,12 +100,9 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function processClassMethodStatementsForParentConstructorCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        if (!(\is_array($classMethod->stmts) || $classMethod->stmts instanceof \Traversable)) {
+        if (!\is_iterable($classMethod->stmts)) {
             return;
         }
         foreach ($classMethod->stmts as $methodStmt) {
@@ -119,10 +116,7 @@ CODE_SAMPLE
             $this->processParentPhp4ConstructCall($methodStmt);
         }
     }
-    /**
-     * @return void
-     */
-    private function processParentPhp4ConstructCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function processParentPhp4ConstructCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $parentClassName = $this->resolveParentClassName($staticCall);
         // no parent class

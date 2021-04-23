@@ -13,7 +13,7 @@ final class CategoryNamespaceProvider
     /**
      * @var string[]
      */
-    const CATEGORY_NAMESPACES = ['Command', 'Controller', 'Exception', 'Facade', 'EventSubscriber', 'EventListener', 'Entity', 'EntityFactory', 'Repository', 'Validator', 'Validation'];
+    private const CATEGORY_NAMESPACES = ['Command', 'Controller', 'Exception', 'Facade', 'EventSubscriber', 'EventListener', 'Entity', 'EntityFactory', 'Repository', 'Validator', 'Validation'];
     /**
      * @return string[]
      */

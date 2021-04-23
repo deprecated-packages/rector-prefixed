@@ -67,9 +67,8 @@ CODE_SAMPLE
     }
     /**
      * @param Case_[] $defaultCases
-     * @return void
      */
-    private function removeExtraDefaultCases(array $defaultCases)
+    private function removeExtraDefaultCases(array $defaultCases) : void
     {
         // keep only last
         \array_pop($defaultCases);
@@ -78,10 +77,7 @@ CODE_SAMPLE
             $this->removeNode($defaultCase);
         }
     }
-    /**
-     * @return void
-     */
-    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case)
+    private function keepStatementsToParentCase(\PhpParser\Node\Stmt\Case_ $case) : void
     {
         $previousNode = $case->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$previousNode instanceof \PhpParser\Node\Stmt\Case_) {

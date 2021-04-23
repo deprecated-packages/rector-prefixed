@@ -48,9 +48,8 @@ final class NotTaggedControllerValueResolver implements \RectorPrefix20210423\Sy
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
             $controller = $controller[0] . '::' . $controller[1];

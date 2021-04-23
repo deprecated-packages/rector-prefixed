@@ -89,9 +89,8 @@ final class WrappedListener
     }
     /**
      * @param object $event
-     * @return void
      */
-    public function __invoke($event, string $eventName, \RectorPrefix20210423\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
+    public function __invoke($event, string $eventName, \RectorPrefix20210423\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher) : void
     {
         $dispatcher = $this->dispatcher ?: $dispatcher;
         $this->called = \true;

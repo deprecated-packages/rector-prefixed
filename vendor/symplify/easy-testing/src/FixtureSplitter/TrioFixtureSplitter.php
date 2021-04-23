@@ -18,9 +18,8 @@ final class TrioFixtureSplitter
     }
     /**
      * @param mixed[] $parts
-     * @return void
      */
-    private function ensureHasThreeParts(array $parts, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    private function ensureHasThreeParts(array $parts, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if (\count($parts) === 3) {
             return;

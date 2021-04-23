@@ -20,7 +20,7 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    const RENAMED_PROPERTIES = 'old_to_new_property_by_types';
+    public const RENAMED_PROPERTIES = 'old_to_new_property_by_types';
     /**
      * @var RenameProperty[]
      */
@@ -53,10 +53,7 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \Rector\Renaming\ValueObject\RenameProperty::class);

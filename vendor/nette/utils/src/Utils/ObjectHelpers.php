@@ -15,9 +15,8 @@ use RectorPrefix20210423\Nette\MemberAccessException;
 final class ObjectHelpers
 {
     use Nette\StaticClass;
-    /** @throws MemberAccessException
-     * @return void */
-    public static function strictGet(string $class, string $name)
+    /** @throws MemberAccessException */
+    public static function strictGet(string $class, string $name) : void
     {
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
@@ -25,9 +24,8 @@ final class ObjectHelpers
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-read)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
         throw new \RectorPrefix20210423\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
-    /** @throws MemberAccessException
-     * @return void */
-    public static function strictSet(string $class, string $name)
+    /** @throws MemberAccessException */
+    public static function strictSet(string $class, string $name) : void
     {
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
@@ -35,9 +33,8 @@ final class ObjectHelpers
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-write)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
         throw new \RectorPrefix20210423\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
-    /** @throws MemberAccessException
-     * @return void */
-    public static function strictCall(string $class, string $method, array $additionalMethods = [])
+    /** @throws MemberAccessException */
+    public static function strictCall(string $class, string $method, array $additionalMethods = []) : void
     {
         $hint = self::getSuggestion(\array_merge(\get_class_methods($class), self::parseFullDoc(new \ReflectionClass($class), '~^[ \\t*]*@method[ \\t]+(?:\\S+[ \\t]+)??(\\w+)\\(~m'), $additionalMethods), $method);
         if (\method_exists($class, $method)) {
@@ -46,9 +43,8 @@ final class ObjectHelpers
         }
         throw new \RectorPrefix20210423\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
-    /** @throws MemberAccessException
-     * @return void */
-    public static function strictStaticCall(string $class, string $method)
+    /** @throws MemberAccessException */
+    public static function strictStaticCall(string $class, string $method) : void
     {
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
@@ -70,7 +66,7 @@ final class ObjectHelpers
         $rc = new \ReflectionClass($class);
         \preg_match_all('~^  [ \\t*]*  @property(|-read|-write)  [ \\t]+  [^\\s$]+  [ \\t]+  \\$  (\\w+)  ()~mx', (string) $rc->getDocComment(), $matches, \PREG_SET_ORDER);
         $props = [];
-        foreach ($matches as list(, $type, $name)) {
+        foreach ($matches as [, $type, $name]) {
             $uname = \ucfirst($name);
             $write = $type !== '-read' && $rc->hasMethod($nm = 'set' . $uname) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();
             $read = $type !== '-write' && ($rc->hasMethod($nm = 'get' . $uname) || $rc->hasMethod($nm = 'is' . $uname)) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();

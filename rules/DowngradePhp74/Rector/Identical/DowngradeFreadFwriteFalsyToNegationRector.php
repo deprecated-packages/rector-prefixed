@@ -19,7 +19,7 @@ final class DowngradeFreadFwriteFalsyToNegationRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    const FUNC_FREAD_FWRITE = ['fread', 'fwrite'];
+    private const FUNC_FREAD_FWRITE = ['fread', 'fwrite'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes fread() or fwrite() compare to false to negation check', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

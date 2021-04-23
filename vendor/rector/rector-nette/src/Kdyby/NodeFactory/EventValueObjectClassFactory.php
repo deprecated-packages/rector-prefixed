@@ -69,9 +69,8 @@ final class EventValueObjectClassFactory
     }
     /**
      * @param Arg[] $args
-     * @return void
      */
-    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args)
+    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args) : void
     {
         if ($args === []) {
             return;
@@ -100,9 +99,8 @@ final class EventValueObjectClassFactory
     }
     /**
      * @param VariableWithType[] $variablesWithTypes
-     * @return void
      */
-    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder)
+    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder) : void
     {
         $usedVariableNames = [];
         foreach ($variablesWithTypes as $variablesWithType) {

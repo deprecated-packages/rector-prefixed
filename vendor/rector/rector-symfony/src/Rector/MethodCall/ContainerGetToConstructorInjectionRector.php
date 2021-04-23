@@ -23,7 +23,7 @@ final class ContainerGetToConstructorInjectionRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    const CONTAINER_AWARE_PARENT_TYPES = 'container_aware_parent_types';
+    public const CONTAINER_AWARE_PARENT_TYPES = 'container_aware_parent_types';
     /**
      * @var string[]
      */
@@ -99,10 +99,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->containerAwareParentTypes = $configuration[self::CONTAINER_AWARE_PARENT_TYPES] ?? [];
     }

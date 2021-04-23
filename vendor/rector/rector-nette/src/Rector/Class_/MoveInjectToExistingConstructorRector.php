@@ -115,10 +115,7 @@ CODE_SAMPLE
             return $this->isInjectProperty($property);
         });
     }
-    /**
-     * @return void
-     */
-    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property)
+    private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $injectTagValueNode = $phpDocInfo->getByName('inject');
@@ -126,10 +123,7 @@ CODE_SAMPLE
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $injectTagValueNode);
         }
     }
-    /**
-     * @return void
-     */
-    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty)
+    private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
             $this->visibilityManipulator->makeProtected($injectProperty);

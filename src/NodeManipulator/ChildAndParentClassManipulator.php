@@ -50,9 +50,8 @@ final class ChildAndParentClassManipulator
     }
     /**
      * Add "parent::__construct()" where needed
-     * @return void
      */
-    public function completeParentConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function completeParentConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -78,10 +77,7 @@ final class ChildAndParentClassManipulator
             $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($staticCall);
         }
     }
-    /**
-     * @return void
-     */
-    public function completeChildConstructors(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $constructorClassMethod)
+    public function completeChildConstructors(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $constructorClassMethod) : void
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -99,10 +95,7 @@ final class ChildAndParentClassManipulator
             $childConstructorClassMethod->stmts = \array_merge([new \PhpParser\Node\Stmt\Expression($parentConstructCallNode)], (array) $childConstructorClassMethod->stmts);
         }
     }
-    /**
-     * @return void
-     */
-    private function completeParentConstructorBasedOnParentNode(\PhpParser\Node\Stmt\Class_ $parentClassNode, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function completeParentConstructorBasedOnParentNode(\PhpParser\Node\Stmt\Class_ $parentClassNode, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $firstParentConstructMethodNode = $this->findFirstParentConstructor($parentClassNode);
         if (!$firstParentConstructMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {

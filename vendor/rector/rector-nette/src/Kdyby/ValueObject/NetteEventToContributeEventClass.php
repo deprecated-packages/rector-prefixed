@@ -9,7 +9,7 @@ final class NetteEventToContributeEventClass
      * @var array<string, class-string>
      * @see https://github.com/contributte/event-dispatcher-extra/tree/master/src/Event
      */
-    const PROPERTY_TO_EVENT_CLASS = [
+    public const PROPERTY_TO_EVENT_CLASS = [
         // application
         'Nette\\Application\\Application::onShutdown' => 'Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent',
         'Nette\\Application\\Application::onStartup' => 'Contributte\\Events\\Extra\\Event\\Application\\StartupEvent',

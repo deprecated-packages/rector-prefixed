@@ -22,7 +22,7 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
     /**
      * @var string[]
      */
-    const TAGS_REQUIRING_PUBLIC_PROPERTY = [
+    private const TAGS_REQUIRING_PUBLIC_PROPERTY = [
         'api',
         // Symfony DI
         'required',

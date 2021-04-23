@@ -25,17 +25,16 @@ abstract class AbstractSymplifyKernel extends \RectorPrefix20210423\Symfony\Comp
         return \sys_get_temp_dir() . '/' . $this->getUniqueKernelHash() . '_log';
     }
     /**
-     * @return mixed[]
+     * @return BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles() : iterable
     {
         return [new \RectorPrefix20210423\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
     /**
      * @param string[]|SmartFileInfo[] $configs
-     * @return void
      */
-    public function setConfigs(array $configs)
+    public function setConfigs(array $configs) : void
     {
         foreach ($configs as $config) {
             if ($config instanceof \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo) {
@@ -44,10 +43,7 @@ abstract class AbstractSymplifyKernel extends \RectorPrefix20210423\Symfony\Comp
             $this->configs[] = $config;
         }
     }
-    /**
-     * @return void
-     */
-    public function registerContainerConfiguration(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         foreach ($this->configs as $config) {
             $loader->load($config);

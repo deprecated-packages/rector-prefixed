@@ -19,7 +19,7 @@ final class StrncmpMatchAndRefactor implements \Rector\Php80\Contract\StrStartWi
     /**
      * @var string
      */
-    const FUNCTION_NAME = 'strncmp';
+    private const FUNCTION_NAME = 'strncmp';
     /**
      * @var StrStartsWithFactory
      */

@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
-     * @return void
      */
-    private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo)
+    private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         foreach ($functionLike->getParams() as $param) {
             if ($param->type !== null) {
@@ -103,9 +102,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
-     * @return void
      */
-    private function refactorReturnType(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo)
+    private function refactorReturnType(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         // do not override existing return type
         if ($functionLike->getReturnType() !== null) {

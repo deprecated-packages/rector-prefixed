@@ -29,10 +29,7 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210423\Symp
     {
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    /**
-     * @return void
-     */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
     {
         if ($this->pseudoNamespaceToNamespace === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set PseudoNamespaceToNamespace first');
@@ -58,17 +55,11 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210423\Symp
         $slashedName = '\\' . \RectorPrefix20210423\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($slashedName);
     }
-    /**
-     * @return void
-     */
-    public function setPseudoNamespaceToNamespace(\Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace)
+    public function setPseudoNamespaceToNamespace(\Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
     {
         $this->pseudoNamespaceToNamespace = $pseudoNamespaceToNamespace;
     }
-    /**
-     * @return void
-     */
-    public function setCurrentPhpParserNode(\PhpParser\Node $node)
+    public function setCurrentPhpParserNode(\PhpParser\Node $node) : void
     {
         $this->currentPhpParserNode = $node;
     }

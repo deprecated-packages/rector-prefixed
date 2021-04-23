@@ -18,17 +18,11 @@ final class PhpDocNodeTraverser
      * @var PhpDocNodeVisitorInterface[]
      */
     private $phpDocNodeVisitors = [];
-    /**
-     * @return void
-     */
-    public function addPhpDocNodeVisitor(\RectorPrefix20210423\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface $phpDocNodeVisitor)
+    public function addPhpDocNodeVisitor(\RectorPrefix20210423\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface $phpDocNodeVisitor) : void
     {
         $this->phpDocNodeVisitors[] = $phpDocNodeVisitor;
     }
-    /**
-     * @return void
-     */
-    public function traverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function traverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
     {
         foreach ($this->phpDocNodeVisitors as $phpDocNodeVisitor) {
             $phpDocNodeVisitor->beforeTraverse($node);

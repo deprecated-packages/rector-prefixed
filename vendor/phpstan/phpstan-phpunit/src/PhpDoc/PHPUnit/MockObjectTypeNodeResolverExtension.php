@@ -15,10 +15,7 @@ class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeRes
 {
     /** @var TypeNodeResolver */
     private $typeNodeResolver;
-    /**
-     * @return void
-     */
-    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver)
+    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
     {
         $this->typeNodeResolver = $typeNodeResolver;
     }

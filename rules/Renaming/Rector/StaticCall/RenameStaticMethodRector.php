@@ -20,11 +20,11 @@ final class RenameStaticMethodRector extends \Rector\Core\Rector\AbstractRector 
     /**
      * @var string
      */
-    const OLD_TO_NEW_METHODS_BY_CLASSES = 'old_to_new_method_by_classes';
+    public const OLD_TO_NEW_METHODS_BY_CLASSES = 'old_to_new_method_by_classes';
     /**
      * @var string
      */
-    const SOME_CLASS = 'SomeClass';
+    private const SOME_CLASS = 'SomeClass';
     /**
      * @var RenameStaticMethod[]
      */
@@ -58,10 +58,7 @@ final class RenameStaticMethodRector extends \Rector\Core\Rector\AbstractRector 
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->staticMethodRenames = $configuration[self::OLD_TO_NEW_METHODS_BY_CLASSES] ?? [];
     }

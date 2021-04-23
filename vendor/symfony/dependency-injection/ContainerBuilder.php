@@ -107,7 +107,7 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
     private $autoconfiguredInstanceof = [];
     private $removedIds = [];
     private $removedBindingIds = [];
-    const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
+    private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
     public function __construct(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
@@ -1242,7 +1242,7 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
-                list(, $bindingId) = $binding->getValues();
+                [, $bindingId] = $binding->getValues();
                 $this->removedBindingIds[(int) $bindingId] = \true;
             }
         }

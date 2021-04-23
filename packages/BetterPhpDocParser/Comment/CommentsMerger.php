@@ -19,9 +19,8 @@ final class CommentsMerger
     }
     /**
      * @param Node[] $mergedNodes
-     * @return void
      */
-    public function keepComments(\PhpParser\Node $newNode, array $mergedNodes)
+    public function keepComments(\PhpParser\Node $newNode, array $mergedNodes) : void
     {
         $comments = $newNode->getComments();
         foreach ($mergedNodes as $mergedNode) {
@@ -34,10 +33,7 @@ final class CommentsMerger
         // remove so comments "win"
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, null);
     }
-    /**
-     * @return void
-     */
-    public function keepParent(\PhpParser\Node $newNode, \PhpParser\Node $oldNode)
+    public function keepParent(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {
         $parent = $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node) {
@@ -51,10 +47,7 @@ final class CommentsMerger
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $comments);
     }
-    /**
-     * @return void
-     */
-    public function keepChildren(\PhpParser\Node $newNode, \PhpParser\Node $oldNode)
+    public function keepChildren(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {
         $childrenComments = $this->collectChildrenComments($oldNode);
         if ($childrenComments === []) {
@@ -72,7 +65,7 @@ final class CommentsMerger
     private function collectChildrenComments(\PhpParser\Node $node) : array
     {
         $childrenComments = [];
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$childrenComments) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$childrenComments) : void {
             $comments = $node->getComments();
             if ($comments !== []) {
                 $childrenComments = \array_merge($childrenComments, $comments);

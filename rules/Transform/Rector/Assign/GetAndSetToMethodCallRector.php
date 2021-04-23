@@ -27,7 +27,7 @@ final class GetAndSetToMethodCallRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const TYPE_TO_METHOD_CALLS = 'type_to_method_calls';
+    public const TYPE_TO_METHOD_CALLS = 'type_to_method_calls';
     /**
      * @var GetAndSetToMethodCall[]
      */
@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, GetAndSetToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $getAndSetToMethodCalls = $configuration[self::TYPE_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsAOf($getAndSetToMethodCalls, \Rector\Transform\ValueObject\GetAndSetToMethodCall::class);

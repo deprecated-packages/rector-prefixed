@@ -25,7 +25,7 @@ final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector
     /**
      * @var string
      */
-    const ROUTE_NAME_FILE_LOCATION = 'src/ValueObject/Routing/RouteName.php';
+    private const ROUTE_NAME_FILE_LOCATION = 'src/ValueObject/Routing/RouteName.php';
     /**
      * @var RouteNameClassFactory
      */
@@ -116,10 +116,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function createRouteNameValueObject()
+    private function createRouteNameValueObject() : void
     {
         if ($this->isRouteNameValueObjectCreated) {
             return;

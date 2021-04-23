@@ -8,13 +8,13 @@ final class ClassName
     /**
      * @var string
      */
-    const ROUTE_NAME_NAMESPACE = 'App\\ValueObject\\Routing';
+    public const ROUTE_NAME_NAMESPACE = 'App\\ValueObject\\Routing';
     /**
      * @var string
      */
-    const ROUTE_CLASS_SHORT_NAME = 'RouteName';
+    public const ROUTE_CLASS_SHORT_NAME = 'RouteName';
     /**
      * @var string
      */
-    const ROUTE_CLASS_NAME = self::ROUTE_NAME_NAMESPACE . '\\' . self::ROUTE_CLASS_SHORT_NAME;
+    public const ROUTE_CLASS_NAME = self::ROUTE_NAME_NAMESPACE . '\\' . self::ROUTE_CLASS_SHORT_NAME;
 }

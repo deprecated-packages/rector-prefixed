@@ -47,10 +47,7 @@ class VarDumper
         self::$handler = $callable;
         return $prevHandler;
     }
-    /**
-     * @return void
-     */
-    private static function register()
+    private static function register() : void
     {
         $cloner = new \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\VarCloner();
         $cloner->addCasters(\RectorPrefix20210423\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);

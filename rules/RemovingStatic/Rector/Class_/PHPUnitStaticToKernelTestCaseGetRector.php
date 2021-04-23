@@ -35,7 +35,7 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
      * @api
      * @var string
      */
-    const STATIC_CLASS_TYPES = 'static_class_types';
+    public const STATIC_CLASS_TYPES = 'static_class_types';
     /**
      * @var ObjectType[]
      */
@@ -142,9 +142,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $staticClassTypes = $configuration[self::STATIC_CLASS_TYPES] ?? [];
         foreach ($staticClassTypes as $staticClassType) {
@@ -216,7 +215,7 @@ CODE_SAMPLE
     private function collectNewPropertyObjectTypes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $this->newPropertyObjectTypes = [];
-        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : void {
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return;
             }

@@ -26,7 +26,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string[]
      */
-    const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
+    private const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
     /**
      * @var BinaryOpManipulator
      */

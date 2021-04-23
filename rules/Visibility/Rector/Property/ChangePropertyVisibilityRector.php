@@ -21,7 +21,7 @@ final class ChangePropertyVisibilityRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    const PROPERTY_TO_VISIBILITY_BY_CLASS = 'property_to_visibility_by_class';
+    public const PROPERTY_TO_VISIBILITY_BY_CLASS = 'property_to_visibility_by_class';
     /**
      * @var array<string, array<string, int>>
      */
@@ -82,10 +82,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->propertyToVisibilityByClass = $configuration[self::PROPERTY_TO_VISIBILITY_BY_CLASS] ?? [];
     }

@@ -19,7 +19,7 @@ final class StringToClassConstantRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const STRINGS_TO_CLASS_CONSTANTS = 'strings_to_class_constants';
+    public const STRINGS_TO_CLASS_CONSTANTS = 'strings_to_class_constants';
     /**
      * @var StringToClassConstant[]
      */
@@ -66,10 +66,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $stringToClassConstants = $configuration[self::STRINGS_TO_CLASS_CONSTANTS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($stringToClassConstants, \Rector\Transform\ValueObject\StringToClassConstant::class);

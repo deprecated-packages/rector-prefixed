@@ -28,7 +28,7 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
      * @api
      * @var string
      */
-    const TYPES_TO_SERVICES = 'types_to_services';
+    public const TYPES_TO_SERVICES = 'types_to_services';
     /**
      * @var ObjectType[]
      */
@@ -160,9 +160,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $typesToServices = $configuration[self::TYPES_TO_SERVICES] ?? [];
         foreach ($typesToServices as $typeToService) {

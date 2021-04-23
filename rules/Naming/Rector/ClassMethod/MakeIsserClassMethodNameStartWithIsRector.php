@@ -24,7 +24,7 @@ final class MakeIsserClassMethodNameStartWithIsRector extends \Rector\Core\Recto
      * @see https://regex101.com/r/Hc73ar/1
      * @var string
      */
-    const ISSER_NAME_REGEX = '#^(is|has|was|must|does|have|should|__)#';
+    private const ISSER_NAME_REGEX = '#^(is|has|was|must|does|have|should|__)#';
     /**
      * @var MethodNameResolver
      */

@@ -35,10 +35,7 @@ final class PropertyRenamer
         $this->renamePropertyFetchesInClass($propertyRename);
         return $propertyRename->getProperty();
     }
-    /**
-     * @return void
-     */
-    private function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename)
+    private function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
     {
         $this->propertyFetchRenamer->renamePropertyFetchesInClass($propertyRename->getClassLike(), $propertyRename->getCurrentName(), $propertyRename->getExpectedName());
     }

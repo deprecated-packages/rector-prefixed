@@ -26,7 +26,7 @@ final class NewToMethodCallRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    const NEWS_TO_METHOD_CALLS = 'news_to_method_calls';
+    public const NEWS_TO_METHOD_CALLS = 'news_to_method_calls';
     /**
      * @var NewToMethodCall[]
      */
@@ -101,9 +101,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, NewToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $newsToMethodCalls = $configuration[self::NEWS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);

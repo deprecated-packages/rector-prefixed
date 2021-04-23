@@ -12,11 +12,11 @@ final class VariableNodeUse
     /**
      * @var string
      */
-    const TYPE_USE = 'use';
+    public const TYPE_USE = 'use';
     /**
      * @var string
      */
-    const TYPE_ASSIGN = 'assign';
+    public const TYPE_ASSIGN = 'assign';
     /**
      * @var int
      */

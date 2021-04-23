@@ -17,7 +17,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\PhpFileLoa
  */
 class PrototypeConfigurator extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
-    const FACTORY = 'load';
+    public const FACTORY = 'load';
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;

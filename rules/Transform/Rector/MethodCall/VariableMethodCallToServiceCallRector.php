@@ -25,7 +25,7 @@ final class VariableMethodCallToServiceCallRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    const VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS = 'variable_method_calls_to_service_calls';
+    public const VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS = 'variable_method_calls_to_service_calls';
     /**
      * @var VariableMethodCallToServiceCall[]
      */
@@ -107,16 +107,12 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->variableMethodCallsToServiceCalls = $configuration[self::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS] ?? [];
     }
-    /**
-     * @return void
-     */
-    private function addConstructorDependency(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\Class_ $class)
+    private function addConstructorDependency(\PHPStan\Type\ObjectType $objectType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
         $this->addConstructorDependencyToClass($class, $objectType, $propertyName);

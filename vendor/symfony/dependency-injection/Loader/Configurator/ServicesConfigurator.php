@@ -22,7 +22,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\PhpFileLoa
  */
 class ServicesConfigurator extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    const FACTORY = 'services';
+    public const FACTORY = 'services';
     private $defaults;
     private $container;
     private $loader;

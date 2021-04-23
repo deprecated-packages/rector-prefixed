@@ -169,10 +169,7 @@ CODE_SAMPLE
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @return void
-     */
-    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         // keep return type if already set one

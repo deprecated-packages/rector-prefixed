@@ -70,9 +70,8 @@ final class Configuration
     }
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
-     * @return void
      */
-    public function resolveFromInput(\RectorPrefix20210423\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\RectorPrefix20210423\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -97,9 +96,8 @@ final class Configuration
     }
     /**
      * @forTests
-     * @return void
      */
-    public function setIsDryRun(bool $isDryRun)
+    public function setIsDryRun(bool $isDryRun) : void
     {
         $this->isDryRun = $isDryRun;
     }
@@ -148,10 +146,7 @@ final class Configuration
     {
         return $this->outputFormat;
     }
-    /**
-     * @return void
-     */
-    public function validateConfigParameters()
+    public function validateConfigParameters() : void
     {
         $symfonyContainerXmlPath = (string) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER);
         if ($symfonyContainerXmlPath === '') {
@@ -171,10 +166,7 @@ final class Configuration
     {
         return $this->showDiffs;
     }
-    /**
-     * @return void
-     */
-    public function setBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
+    public function setBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : void
     {
         $this->bootstrapConfigs = $bootstrapConfigs;
     }

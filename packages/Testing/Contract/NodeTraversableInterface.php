@@ -8,7 +8,6 @@ interface NodeTraversableInterface
 {
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    public function traverseNodes(array $nodes);
+    public function traverseNodes(array $nodes) : void;
 }

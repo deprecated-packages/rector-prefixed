@@ -20,7 +20,7 @@ final class ChangeConstantVisibilityRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
+    public const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
     /**
      * @var ChangeConstantVisibility[]
      */
@@ -75,10 +75,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Visibility\ValueObject\ChangeConstantVisibility::class);

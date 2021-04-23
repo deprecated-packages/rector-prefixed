@@ -20,7 +20,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
+    public const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
     /**
      * @var array<string, string>
      */
@@ -52,9 +52,8 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->oldFunctionToNewFunction = $configuration[self::OLD_FUNCTION_TO_NEW_FUNCTION] ?? [];
     }

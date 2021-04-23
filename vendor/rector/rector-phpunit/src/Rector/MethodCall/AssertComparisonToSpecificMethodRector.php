@@ -91,9 +91,8 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function changeArgumentsOrder(\PhpParser\Node $node)
+    private function changeArgumentsOrder(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
         /** @var BinaryOp $expression */

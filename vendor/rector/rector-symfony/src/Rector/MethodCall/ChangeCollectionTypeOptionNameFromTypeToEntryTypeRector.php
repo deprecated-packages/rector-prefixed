@@ -23,7 +23,7 @@ final class ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector extends \Rec
     /**
      * @var array<string, string>
      */
-    const OLD_TO_NEW_OPTION_NAME = ['type' => 'entry_type', 'options' => 'entry_options'];
+    private const OLD_TO_NEW_OPTION_NAME = ['type' => 'entry_type', 'options' => 'entry_options'];
     /**
      * @var FormAddMethodCallAnalyzer
      */
@@ -105,10 +105,7 @@ CODE_SAMPLE
         $this->refactorOptionsArray($optionsArray);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorOptionsArray(\PhpParser\Node\Expr\Array_ $optionsArray)
+    private function refactorOptionsArray(\PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         foreach ($optionsArray->items as $arrayItem) {
             if ($arrayItem === null) {

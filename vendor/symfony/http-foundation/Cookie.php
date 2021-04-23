@@ -17,9 +17,9 @@ namespace RectorPrefix20210423\Symfony\Component\HttpFoundation;
  */
 class Cookie
 {
-    const SAMESITE_NONE = 'none';
-    const SAMESITE_LAX = 'lax';
-    const SAMESITE_STRICT = 'strict';
+    public const SAMESITE_NONE = 'none';
+    public const SAMESITE_LAX = 'lax';
+    public const SAMESITE_STRICT = 'strict';
     protected $name;
     protected $value;
     protected $domain;
@@ -31,8 +31,8 @@ class Cookie
     private $sameSite;
     private $secureDefault = \false;
     private static $reservedCharsList = "=,; \t\r\n\v\f";
-    const RESERVED_CHARS_FROM = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
-    const RESERVED_CHARS_TO = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
+    private const RESERVED_CHARS_FROM = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
+    private const RESERVED_CHARS_TO = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
     /**
      * Creates cookie from raw header string.
      *
@@ -352,9 +352,8 @@ class Cookie
     }
     /**
      * @param bool $default The default value of the "secure" flag when it is set to null
-     * @return void
      */
-    public function setSecureDefault(bool $default)
+    public function setSecureDefault(bool $default) : void
     {
         $this->secureDefault = $default;
     }

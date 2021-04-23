@@ -78,7 +78,7 @@ trait PriorityTaggedServiceTrait
             return $b[0] <=> $a[0] ?: $a[1] <=> $b[1];
         });
         $refs = [];
-        foreach ($services as list(, , $index, $serviceId, $class)) {
+        foreach ($services as [, , $index, $serviceId, $class]) {
             if (!$class) {
                 $reference = new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference($serviceId);
             } elseif ($index === $serviceId) {

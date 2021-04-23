@@ -67,9 +67,8 @@ final class TokenManipulator
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    public function refactorArrayToken(array $nodes, \PhpParser\Node\Expr $singleTokenExpr)
+    public function refactorArrayToken(array $nodes, \PhpParser\Node\Expr $singleTokenExpr) : void
     {
         $this->replaceTokenDimFetchZeroWithGetTokenName($nodes, $singleTokenExpr);
         // replace "$token[1]"; with "$token->value"
@@ -89,9 +88,8 @@ final class TokenManipulator
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    public function refactorNonArrayToken(array $nodes, \PhpParser\Node\Expr $singleTokenExpr)
+    public function refactorNonArrayToken(array $nodes, \PhpParser\Node\Expr $singleTokenExpr) : void
     {
         // replace "$content = $token;" → "$content = $token->text;"
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (\PhpParser\Node $node) use($singleTokenExpr) {
@@ -131,9 +129,8 @@ final class TokenManipulator
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    public function refactorTokenIsKind(array $nodes, \PhpParser\Node\Expr $singleTokenExpr)
+    public function refactorTokenIsKind(array $nodes, \PhpParser\Node\Expr $singleTokenExpr) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (\PhpParser\Node $node) use($singleTokenExpr) : ?MethodCall {
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
@@ -163,9 +160,8 @@ final class TokenManipulator
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    public function removeIsArray(array $nodes, \PhpParser\Node\Expr\Variable $singleTokenVariable)
+    public function removeIsArray(array $nodes, \PhpParser\Node\Expr\Variable $singleTokenVariable) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (\PhpParser\Node $node) use($singleTokenVariable) {
             if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -189,9 +185,8 @@ final class TokenManipulator
      * Replace $token[0] with $token->getTokenName() call
      *
      * @param Node[] $nodes
-     * @return void
      */
-    private function replaceTokenDimFetchZeroWithGetTokenName(array $nodes, \PhpParser\Node\Expr $singleTokenExpr)
+    private function replaceTokenDimFetchZeroWithGetTokenName(array $nodes, \PhpParser\Node\Expr $singleTokenExpr) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (\PhpParser\Node $node) use($singleTokenExpr) : ?MethodCall {
             if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {

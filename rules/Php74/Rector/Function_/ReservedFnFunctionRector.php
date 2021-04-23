@@ -22,7 +22,7 @@ final class ReservedFnFunctionRector extends \Rector\Core\Rector\AbstractRector 
      * @api
      * @var string
      */
-    const RESERVED_NAMES_TO_NEW_ONES = '$reservedNamesToNewOnes';
+    public const RESERVED_NAMES_TO_NEW_ONES = '$reservedNamesToNewOnes';
     /**
      * @var string[]
      */
@@ -84,10 +84,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->reservedNamesToNewOnes = $configuration[self::RESERVED_NAMES_TO_NEW_ONES] ?? [];
     }

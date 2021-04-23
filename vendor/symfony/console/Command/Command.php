@@ -28,8 +28,8 @@ use RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface;
 class Command
 {
     // see https://tldp.org/LDP/abs/html/exitcodes.html
-    const SUCCESS = 0;
-    const FAILURE = 1;
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
     /**
      * @var string|null The default command name
      */
@@ -490,7 +490,7 @@ class Command
      *
      * @throws InvalidArgumentException When an alias is invalid
      */
-    public function setAliases($aliases)
+    public function setAliases(iterable $aliases)
     {
         foreach ($aliases as $alias) {
             $this->validateName($alias);

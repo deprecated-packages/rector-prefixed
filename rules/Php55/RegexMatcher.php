@@ -15,12 +15,12 @@ final class RegexMatcher
      * @var string
      * @see https://regex101.com/r/Ok4wuE/1
      */
-    const LAST_E_REGEX = '#(\\w+)?e(\\w+)?$#';
+    private const LAST_E_REGEX = '#(\\w+)?e(\\w+)?$#';
     /**
      * @var string
      * @see https://regex101.com/r/2NWVwT/1
      */
-    const LETTER_SUFFIX_REGEX = '#(?<modifiers>\\w+)$#';
+    private const LETTER_SUFFIX_REGEX = '#(?<modifiers>\\w+)$#';
     /**
      * @var ValueResolver
      */

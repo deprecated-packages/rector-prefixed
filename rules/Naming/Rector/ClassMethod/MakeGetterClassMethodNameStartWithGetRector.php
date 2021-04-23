@@ -23,7 +23,7 @@ final class MakeGetterClassMethodNameStartWithGetRector extends \Rector\Core\Rec
     /**
      * @var string
      */
-    const GETTER_NAME_PATTERN = '#^(is|should|has|was|must|get|provide|__)#';
+    private const GETTER_NAME_PATTERN = '#^(is|should|has|was|must|get|provide|__)#';
     /**
      * @var MethodNameResolver
      */

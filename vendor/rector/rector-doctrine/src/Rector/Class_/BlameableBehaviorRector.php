@@ -113,10 +113,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    private function removeBlameablePropertiesAndMethods(\PhpParser\Node\Stmt\Class_ $class)
+    private function removeBlameablePropertiesAndMethods(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $removedPropertyNames = [];
         foreach ($class->getProperties() as $property) {
@@ -133,9 +130,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
-     * @return void
      */
-    private function removeSetterAndGetterByPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
+    private function removeSetterAndGetterByPropertyNames(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($removedPropertyNames as $removedPropertyName) {

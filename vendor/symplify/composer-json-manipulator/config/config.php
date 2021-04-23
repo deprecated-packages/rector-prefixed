@@ -12,7 +12,7 @@ use RectorPrefix20210423\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210423\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileSystem;
 use function RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
     $services = $containerConfigurator->services();

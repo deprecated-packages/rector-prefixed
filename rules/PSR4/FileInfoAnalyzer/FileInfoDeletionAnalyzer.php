@@ -14,7 +14,7 @@ final class FileInfoDeletionAnalyzer
      * @see https://regex101.com/r/8BdrI3/1
      * @var string
      */
-    const TESTING_PREFIX_REGEX = '#input_(.*?)_#';
+    private const TESTING_PREFIX_REGEX = '#input_(.*?)_#';
     /**
      * @var NodeNameResolver
      */

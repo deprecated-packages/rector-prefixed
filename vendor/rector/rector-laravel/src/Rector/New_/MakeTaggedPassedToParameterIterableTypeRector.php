@@ -94,10 +94,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassWithArgType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Arg $arg)
+    private function refactorClassWithArgType(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Arg $arg) : void
     {
         $argValueType = $this->getStaticType($arg->value);
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);

@@ -93,10 +93,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function renameArrayKeys(\PhpParser\Node\Stmt\Return_ $return)
+    private function renameArrayKeys(\PhpParser\Node\Stmt\Return_ $return) : void
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -146,10 +143,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo)
+    private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : void
     {
         $classMethodNode = $this->nodeRepository->findClassMethod($class, $method);
         if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {

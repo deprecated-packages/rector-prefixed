@@ -78,10 +78,7 @@ CODE_SAMPLE
         }
         return $this->createSprintfFuncCallOrConcat($this->sprintfFormat, $this->argumentVariables);
     }
-    /**
-     * @return void
-     */
-    private function collectEncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart)
+    private function collectEncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : void
     {
         $stringValue = $encapsedStringPart->value;
         if ($stringValue === "\n") {
@@ -91,10 +88,7 @@ CODE_SAMPLE
         }
         $this->sprintfFormat .= $stringValue;
     }
-    /**
-     * @return void
-     */
-    private function collectExpr(\PhpParser\Node\Expr $expr)
+    private function collectExpr(\PhpParser\Node\Expr $expr) : void
     {
         $this->sprintfFormat .= '%s';
         // remove: ${wrap} → $wrap

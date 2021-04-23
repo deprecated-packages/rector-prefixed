@@ -27,7 +27,7 @@ final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var array<string, string>
      */
-    const ADD_METHOD_TO_FORM_TYPE = [
+    private const ADD_METHOD_TO_FORM_TYPE = [
         'addText' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
         'addPassword' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
         'addTextArea' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
@@ -122,10 +122,7 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall('this', 'createFormBuilder');
     }
-    /**
-     * @return void
-     */
-    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType)
+    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
     {
         $methodCall->name = new \PhpParser\Node\Identifier('add');
         // remove unused params
@@ -144,10 +141,7 @@ CODE_SAMPLE
             $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
     }
-    /**
-     * @return void
-     */
-    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
+    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method === 'addSelect') {
             $expanded = \false;
@@ -167,10 +161,7 @@ CODE_SAMPLE
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
         $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
-    /**
-     * @return void
-     */
-    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray)
+    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method !== 'addMultiUpload') {
             return;

@@ -50,9 +50,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * otherwise we get default false positives.
      *
      * This hack should be removed after https://github.com/rectorphp/rector/issues/5584 is resolved
-     * @return void
      */
-    private function prepareNodeVisitors()
+    private function prepareNodeVisitors() : void
     {
         if ($this->areNodeVisitorsPrepared) {
             return;

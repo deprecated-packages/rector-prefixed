@@ -17,8 +17,5 @@ use RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data;
  */
 interface DumpDescriptorInterface
 {
-    /**
-     * @return void
-     */
-    public function describe(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId);
+    public function describe(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId) : void;
 }

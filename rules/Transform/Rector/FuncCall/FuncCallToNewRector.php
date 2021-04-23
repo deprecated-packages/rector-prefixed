@@ -19,7 +19,7 @@ final class FuncCallToNewRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    const FUNCTIONS_TO_NEWS = 'functions_to_news';
+    public const FUNCTIONS_TO_NEWS = 'functions_to_news';
     /**
      * @var string[]
      */
@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->functionToNew = $configuration[self::FUNCTIONS_TO_NEWS] ?? [];
     }

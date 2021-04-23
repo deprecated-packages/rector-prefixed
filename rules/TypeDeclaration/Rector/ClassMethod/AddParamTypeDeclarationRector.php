@@ -28,7 +28,7 @@ final class AddParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    const PARAMETER_TYPEHINTS = 'parameter_typehints';
+    public const PARAMETER_TYPEHINTS = 'parameter_typehints';
     /**
      * @var AddParamTypeDeclaration[]
      */
@@ -92,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $parameterTypehints = $configuration[self::PARAMETER_TYPEHINTS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($parameterTypehints, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration::class);
@@ -128,10 +127,7 @@ CODE_SAMPLE
         /** @var Interface_ $classLike */
         return !(bool) $classLike->extends;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassMethodWithTypehintByParameterPosition(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration)
+    private function refactorClassMethodWithTypehintByParameterPosition(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
     {
         $parameter = $classMethod->params[$addParamTypeDeclaration->getPosition()] ?? null;
         if (!$parameter instanceof \PhpParser\Node\Param) {
@@ -139,10 +135,7 @@ CODE_SAMPLE
         }
         $this->refactorParameter($parameter, $addParamTypeDeclaration);
     }
-    /**
-     * @return void
-     */
-    private function refactorParameter(\PhpParser\Node\Param $param, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration)
+    private function refactorParameter(\PhpParser\Node\Param $param, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
     {
         // already set → no change
         if ($param->type !== null) {

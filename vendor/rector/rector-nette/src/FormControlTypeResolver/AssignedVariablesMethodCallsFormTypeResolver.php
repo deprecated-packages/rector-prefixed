@@ -38,10 +38,7 @@ final class AssignedVariablesMethodCallsFormTypeResolver implements \Rector\Nett
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($formVariableAssign->expr);
     }
-    /**
-     * @return void
-     */
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

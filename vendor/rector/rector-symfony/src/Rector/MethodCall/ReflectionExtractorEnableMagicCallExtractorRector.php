@@ -22,15 +22,15 @@ final class ReflectionExtractorEnableMagicCallExtractorRector extends \Rector\Co
     /**
      * @var string
      */
-    const OLD_OPTION_NAME = 'enable_magic_call_extraction';
+    private const OLD_OPTION_NAME = 'enable_magic_call_extraction';
     /**
      * @var string
      */
-    const NEW_OPTION_NAME = 'enable_magic_methods_extraction';
+    private const NEW_OPTION_NAME = 'enable_magic_methods_extraction';
     /**
      * @var string[]
      */
-    const METHODS_WITH_OPTION = ['getWriteInfo', 'getReadInfo'];
+    private const METHODS_WITH_OPTION = ['getWriteInfo', 'getReadInfo'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrates from deprecated enable_magic_call_extraction context option in ReflectionExtractor', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

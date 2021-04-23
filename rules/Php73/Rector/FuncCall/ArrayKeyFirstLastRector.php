@@ -26,15 +26,15 @@ final class ArrayKeyFirstLastRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const ARRAY_KEY_FIRST = 'array_key_first';
+    private const ARRAY_KEY_FIRST = 'array_key_first';
     /**
      * @var string
      */
-    const ARRAY_KEY_LAST = 'array_key_last';
+    private const ARRAY_KEY_LAST = 'array_key_last';
     /**
      * @var array<string, string>
      */
-    const PREVIOUS_TO_NEW_FUNCTIONS = ['reset' => self::ARRAY_KEY_FIRST, 'end' => self::ARRAY_KEY_LAST];
+    private const PREVIOUS_TO_NEW_FUNCTIONS = ['reset' => self::ARRAY_KEY_FIRST, 'end' => self::ARRAY_KEY_LAST];
     /**
      * @var ReflectionProvider
      */

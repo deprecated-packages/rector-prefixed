@@ -28,7 +28,7 @@ final class NullsafeOperatorRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const NAME = 'name';
+    private const NAME = 'name';
     /**
      * @var IfManipulator
      */

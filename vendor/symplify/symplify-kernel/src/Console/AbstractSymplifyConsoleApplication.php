@@ -25,9 +25,8 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210423\
      * Add names to all commands by class-name convention
      *
      * @param Command[] $commands
-     * @return void
      */
-    public function addCommands(array $commands)
+    public function addCommands(array $commands) : void
     {
         foreach ($commands as $command) {
             $commandName = $this->commandNaming->resolveFromCommand($command);

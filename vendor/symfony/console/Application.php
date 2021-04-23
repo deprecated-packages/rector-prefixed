@@ -665,10 +665,7 @@ class Application implements \RectorPrefix20210423\Symfony\Contracts\Service\Res
         }
         return $abbrevs;
     }
-    /**
-     * @return void
-     */
-    public function renderThrowable(\Throwable $e, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output)
+    public function renderThrowable(\Throwable $e, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $output->writeln('', \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         $this->doRenderThrowable($e, $output);
@@ -677,10 +674,7 @@ class Application implements \RectorPrefix20210423\Symfony\Contracts\Service\Res
             $output->writeln('', \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
     }
-    /**
-     * @return void
-     */
-    protected function doRenderThrowable(\Throwable $e, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function doRenderThrowable(\Throwable $e, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         do {
             $message = \trim($e->getMessage());
@@ -922,9 +916,8 @@ class Application implements \RectorPrefix20210423\Symfony\Contracts\Service\Res
      * if nothing is found in $collection, try in $abbrevs.
      *
      * @return string[] A sorted array of similar string
-     * @param mixed[] $collection
      */
-    private function findAlternatives(string $name, $collection) : array
+    private function findAlternatives(string $name, iterable $collection) : array
     {
         $threshold = 1000.0;
         $alternatives = [];

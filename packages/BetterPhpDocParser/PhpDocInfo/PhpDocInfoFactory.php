@@ -116,9 +116,8 @@ final class PhpDocInfoFactory
     }
     /**
      * Needed for printing
-     * @return void
      */
-    private function setPositionOfLastToken(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode)
+    private function setPositionOfLastToken(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode) : void
     {
         if ($phpDocNode->children === []) {
             return;

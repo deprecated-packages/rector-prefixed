@@ -13,7 +13,7 @@ final class ImplicitNameResolver
      *
      * @var string[]
      */
-    const IMPLICIT_MAP = [
+    private const IMPLICIT_MAP = [
         'App' => 'Cake\\Core\\App',
         'AppController' => 'App\\Controller\\AppController',
         'AppHelper' => 'App\\View\\Helper\\AppHelper',

@@ -25,7 +25,7 @@ final class ArgumentDefaultValueReplacerRector extends \Rector\Core\Rector\Abstr
     /**
      * @var string
      */
-    const REPLACED_ARGUMENTS = 'replaced_arguments';
+    public const REPLACED_ARGUMENTS = 'replaced_arguments';
     /**
      * @var ArgumentDefaultValueReplacer[]
      */
@@ -65,10 +65,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $replacedArguments = $configuration[self::REPLACED_ARGUMENTS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer::class);
@@ -90,9 +87,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $expr
-     * @return void
      */
-    private function processArgs(\PhpParser\Node\Expr $expr, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
+    private function processArgs(\PhpParser\Node\Expr $expr, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
     {
         $position = $argumentDefaultValueReplacer->getPosition();
         $argValue = $this->valueResolver->getValue($expr->args[$position]->value);
@@ -112,7 +108,7 @@ CODE_SAMPLE
     {
         // class constants → turn string to composite
         if (\is_string($value) && \RectorPrefix20210423\Nette\Utils\Strings::contains($value, '::')) {
-            list($class, $constant) = \explode('::', $value);
+            [$class, $constant] = \explode('::', $value);
             $classConstFetch = $this->nodeFactory->createClassConstFetch($class, $constant);
             return new \PhpParser\Node\Arg($classConstFetch);
         }

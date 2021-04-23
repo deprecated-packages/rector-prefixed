@@ -20,7 +20,7 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var string
      */
-    const DETECTED_TRAITS = 'detected_traits';
+    public const DETECTED_TRAITS = 'detected_traits';
     /**
      * @var string[]
      */
@@ -94,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->detectedTraits = $configuration[self::DETECTED_TRAITS] ?? [];
     }

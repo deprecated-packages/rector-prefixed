@@ -12,10 +12,7 @@ final class ChangedPhpDocNodeVisitor extends \RectorPrefix20210423\Symplify\Simp
      * @var bool
      */
     private $hasChanged = \false;
-    /**
-     * @return void
-     */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
     {
         $this->hasChanged = \false;
     }

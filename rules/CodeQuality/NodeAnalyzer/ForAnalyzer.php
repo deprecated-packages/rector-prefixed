@@ -26,7 +26,7 @@ final class ForAnalyzer
     /**
      * @var string
      */
-    const COUNT = 'count';
+    private const COUNT = 'count';
     /**
      * @var NodeNameResolver
      */

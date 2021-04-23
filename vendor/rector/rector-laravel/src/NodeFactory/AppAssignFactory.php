@@ -29,10 +29,7 @@ final class AppAssignFactory
         $this->decorateWithVarAnnotation($expression, $serviceNameTypeAndVariableName);
         return $expression;
     }
-    /**
-     * @return void
-     */
-    private function decorateWithVarAnnotation(\PhpParser\Node\Stmt\Expression $expression, \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName)
+    private function decorateWithVarAnnotation(\PhpParser\Node\Stmt\Expression $expression, \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName $serviceNameTypeAndVariableName) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createEmpty($expression);
         $fullyQualifiedIdentifierTypeNode = new \Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode($serviceNameTypeAndVariableName->getType());

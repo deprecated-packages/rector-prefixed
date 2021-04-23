@@ -24,7 +24,7 @@ use Rector\Transform\ValueObject\StaticCallToMethodCall;
 use Rector\TypeDeclaration\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
 use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/nette-30/nette-30-composer.php');
     $containerConfigurator->import(__DIR__ . '/nette-30/nette-30-dependency-injection.php');
     $containerConfigurator->import(__DIR__ . '/nette-30/nette-30-return-types.php');

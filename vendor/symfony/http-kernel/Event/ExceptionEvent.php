@@ -45,17 +45,15 @@ final class ExceptionEvent extends \RectorPrefix20210423\Symfony\Component\HttpK
      * Replaces the thrown exception.
      *
      * This exception will be thrown if no response is set in the event.
-     * @return void
      */
-    public function setThrowable(\Throwable $exception)
+    public function setThrowable(\Throwable $exception) : void
     {
         $this->throwable = $exception;
     }
     /**
      * Mark the event as allowing a custom response code.
-     * @return void
      */
-    public function allowCustomResponseCode()
+    public function allowCustomResponseCode() : void
     {
         $this->allowCustomResponseCode = \true;
     }

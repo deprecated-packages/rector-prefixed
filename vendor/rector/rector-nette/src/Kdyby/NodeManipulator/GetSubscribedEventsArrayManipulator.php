@@ -26,10 +26,7 @@ final class GetSubscribedEventsArrayManipulator
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->valueResolver = $valueResolver;
     }
-    /**
-     * @return void
-     */
-    public function change(\PhpParser\Node\Expr\Array_ $array)
+    public function change(\PhpParser\Node\Expr\Array_ $array) : void
     {
         $arrayItems = \array_filter($array->items, function (\PhpParser\Node\Expr\ArrayItem $arrayItem) : bool {
             return $arrayItem !== null;

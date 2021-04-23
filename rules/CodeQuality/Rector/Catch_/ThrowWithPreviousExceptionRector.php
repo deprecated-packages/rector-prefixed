@@ -31,7 +31,7 @@ final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\Abstrac
     /**
      * @var int
      */
-    const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
+    private const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
     /**
      * @var ReflectionProvider
      */

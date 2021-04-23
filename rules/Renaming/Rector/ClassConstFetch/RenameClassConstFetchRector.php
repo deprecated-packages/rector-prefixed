@@ -23,7 +23,7 @@ final class RenameClassConstFetchRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const CLASS_CONSTANT_RENAME = 'constant_rename';
+    public const CLASS_CONSTANT_RENAME = 'constant_rename';
     /**
      * @var RenameClassConstFetchInterface[]
      */
@@ -70,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, RenameClassConstFetchInterface[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $renameClassConstFetches = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($renameClassConstFetches, \Rector\Renaming\Contract\RenameClassConstFetchInterface::class);

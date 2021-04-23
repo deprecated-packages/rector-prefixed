@@ -90,9 +90,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
-     * @return void
      */
-    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param)
+    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type !== null) {
             return;

@@ -20,7 +20,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
     /**
      * @var array<string, string>
      */
-    const RENAME_METHODS_MAP = ['assertFalse' => 'assertNotContains', 'assertNotFalse' => 'assertContains'];
+    private const RENAME_METHODS_MAP = ['assertFalse' => 'assertNotContains', 'assertNotFalse' => 'assertContains'];
     /**
      * @var IdentifierManipulator
      */

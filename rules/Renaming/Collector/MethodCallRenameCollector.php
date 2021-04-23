@@ -9,10 +9,7 @@ final class MethodCallRenameCollector
      * @var MethodCallRenameInterface[]
      */
     private $methodCallRenames = [];
-    /**
-     * @return void
-     */
-    public function addMethodCallRename(\Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename)
+    public function addMethodCallRename(\Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename) : void
     {
         $this->methodCallRenames[] = $methodCallRename;
     }

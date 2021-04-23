@@ -10,26 +10,26 @@ use RectorPrefix20210423\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getSingular()
+    public static function getSingular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/re$/i'), 'r'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/er$/i'), ''));
     }
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getPlural()
+    public static function getPlural() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/e$/i'), 'er'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/r$/i'), 're'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/$/'), 'er'));
     }
     /**
-     * @return mixed[]
+     * @return Substitution[]
      */
-    public static function getIrregular()
+    public static function getIrregular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('konto'), new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('konti')));
     }

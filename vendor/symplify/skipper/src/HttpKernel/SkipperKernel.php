@@ -10,18 +10,15 @@ use RectorPrefix20210423\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use RectorPrefix20210423\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class SkipperKernel extends \RectorPrefix20210423\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    /**
-     * @return void
-     */
-    public function registerContainerConfiguration(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
     }
     /**
-     * @return mixed[]
+     * @return BundleInterface[]
      */
-    public function registerBundles()
+    public function registerBundles() : iterable
     {
         return [new \RectorPrefix20210423\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20210423\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }

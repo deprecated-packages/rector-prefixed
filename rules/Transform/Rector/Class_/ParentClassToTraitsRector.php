@@ -25,7 +25,7 @@ final class ParentClassToTraitsRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const PARENT_CLASS_TO_TRAITS = 'parent_class_to_traits';
+    public const PARENT_CLASS_TO_TRAITS = 'parent_class_to_traits';
     /**
      * @var ParentClassToTraits[]
      */
@@ -90,18 +90,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ParentClassToTraits[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Transform\ValueObject\ParentClassToTraits::class);
         $this->parentClassToTraits = $parentClassToTraits;
     }
-    /**
-     * @return void
-     */
-    private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->extends = null;
     }

@@ -35,10 +35,7 @@ final class ControllerEvent extends \RectorPrefix20210423\Symfony\Component\Http
     {
         return $this->controller;
     }
-    /**
-     * @return void
-     */
-    public function setController(callable $controller)
+    public function setController(callable $controller) : void
     {
         $this->controller = $controller;
     }

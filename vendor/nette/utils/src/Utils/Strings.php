@@ -15,7 +15,7 @@ use function is_array, is_object, strlen;
 class Strings
 {
     use Nette\StaticClass;
-    const TRIM_CHARACTERS = " \t\n\r\0\v ";
+    public const TRIM_CHARACTERS = " \t\n\r\0\v ";
     /**
      * Checks if the string is valid in UTF-8 encoding.
      */
@@ -440,7 +440,7 @@ class Strings
     /** @internal */
     public static function pcre(string $func, array $args)
     {
-        $res = \RectorPrefix20210423\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
+        $res = \RectorPrefix20210423\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) : void {
             // compile-time error, not detectable by preg_last_error
             throw new \RectorPrefix20210423\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));
         });

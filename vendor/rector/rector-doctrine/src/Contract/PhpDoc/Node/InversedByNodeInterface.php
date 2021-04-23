@@ -6,8 +6,5 @@ namespace Rector\Doctrine\Contract\PhpDoc\Node;
 interface InversedByNodeInterface
 {
     public function getInversedBy() : ?string;
-    /**
-     * @return void
-     */
-    public function removeInversedBy();
+    public function removeInversedBy() : void;
 }

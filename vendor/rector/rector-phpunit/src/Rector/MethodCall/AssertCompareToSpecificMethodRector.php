@@ -22,11 +22,11 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     /**
      * @var string
      */
-    const ASSERT_COUNT = 'assertCount';
+    private const ASSERT_COUNT = 'assertCount';
     /**
      * @var string
      */
-    const ASSERT_NOT_COUNT = 'assertNotCount';
+    private const ASSERT_NOT_COUNT = 'assertNotCount';
     /**
      * @var FunctionNameWithAssertMethods[]
      */
@@ -93,9 +93,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods)
+    private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\FunctionNameWithAssertMethods $functionNameWithAssertMethods) : void
     {
         if ($this->isNames($node->name, ['assertSame', 'assertEquals'])) {
             $node->name = new \PhpParser\Node\Identifier($functionNameWithAssertMethods->getAssetMethodName());
@@ -107,9 +106,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
      * Handles custom error messages to not be overwrite by function with multiple args.
      *
      * @param StaticCall|MethodCall $node
-     * @return void
      */
-    private function moveFunctionArgumentsUp(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg)
+    private function moveFunctionArgumentsUp(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg) : void
     {
         $node->args[1] = $funcCall->args[0];
         $node->args[0] = $requiredArg;

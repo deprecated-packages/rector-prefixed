@@ -10,24 +10,24 @@ use RectorPrefix20210423\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getSingular()
+    public static function getSingular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/l[ae]r$/i'), ''));
     }
     /**
-     * @return mixed[]
+     * @return Transformation[]
      */
-    public static function getPlural()
+    public static function getPlural() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/([eöiü][^aoıueöiü]{0,6})$/u'), '\\1ler'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('/([aoıu][^aoıueöiü]{0,6})$/u'), '\\1lar'));
     }
     /**
-     * @return mixed[]
+     * @return Substitution[]
      */
-    public static function getIrregular()
+    public static function getIrregular() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('ben'), new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('biz')));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('sen'), new \RectorPrefix20210423\Doctrine\Inflector\Rules\Word('siz')));

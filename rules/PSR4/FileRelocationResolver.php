@@ -16,7 +16,7 @@ final class FileRelocationResolver
     /**
      * @var string
      */
-    const NAMESPACE_SEPARATOR = '\\';
+    private const NAMESPACE_SEPARATOR = '\\';
     /**
      * @var FileInfoDeletionAnalyzer
      */

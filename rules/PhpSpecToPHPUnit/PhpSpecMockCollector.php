@@ -48,7 +48,7 @@ final class PhpSpecMockCollector
         if (isset($this->mocks[$className]) && $this->mocks[$className] !== []) {
             return $this->mocks[$className];
         }
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($class, function (\PhpParser\Node $node) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($class, function (\PhpParser\Node $node) : void {
             if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return;
             }
@@ -79,17 +79,11 @@ final class PhpSpecMockCollector
         }
         return $this->mocksWithsTypes[$className][$variable];
     }
-    /**
-     * @return void
-     */
-    public function addPropertyMock(string $class, string $property)
+    public function addPropertyMock(string $class, string $property) : void
     {
         $this->propertyMocksByClass[$class][] = $property;
     }
-    /**
-     * @return void
-     */
-    private function addMockFromParam(\PhpParser\Node\Param $param)
+    private function addMockFromParam(\PhpParser\Node\Param $param) : void
     {
         $variable = $this->nodeNameResolver->getName($param->var);
         /** @var string $class */

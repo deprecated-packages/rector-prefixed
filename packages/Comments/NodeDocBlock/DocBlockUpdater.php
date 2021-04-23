@@ -14,7 +14,7 @@ final class DocBlockUpdater
      * @var string
      * @see https://regex101.com/r/VdaVGL/1
      */
-    const SPACE_OR_ASTERISK_REGEX = '#(\\s|\\*)+#';
+    public const SPACE_OR_ASTERISK_REGEX = '#(\\s|\\*)+#';
     /**
      * @var PhpDocInfoPrinter
      */
@@ -23,10 +23,7 @@ final class DocBlockUpdater
     {
         $this->phpDocInfoPrinter = $phpDocInfoPrinter;
     }
-    /**
-     * @return void
-     */
-    public function updateNodeWithPhpDocInfo(\PhpParser\Node $node)
+    public function updateNodeWithPhpDocInfo(\PhpParser\Node $node) : void
     {
         // nothing to change? don't save it
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);

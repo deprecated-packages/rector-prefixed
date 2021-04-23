@@ -17,9 +17,8 @@ final class FileSystem
     /**
      * Creates a directory if it doesn't exist.
      * @throws Nette\IOException  on error occurred
-     * @return void
      */
-    public static function createDir(string $dir, int $mode = 0777)
+    public static function createDir(string $dir, int $mode = 0777) : void
     {
         if (!\is_dir($dir) && !@\mkdir($dir, $mode, \true) && !\is_dir($dir)) {
             // @ - dir may already exist
@@ -30,9 +29,8 @@ final class FileSystem
      * Copies a file or a directory. Overwrites existing files and directories by default.
      * @throws Nette\IOException  on error occurred
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
-     * @return void
      */
-    public static function copy(string $origin, string $target, bool $overwrite = \true)
+    public static function copy(string $origin, string $target, bool $overwrite = \true) : void
     {
         if (\stream_is_local($origin) && !\file_exists($origin)) {
             throw new \RectorPrefix20210423\Nette\IOException("File or directory '{$origin}' not found.");
@@ -61,9 +59,8 @@ final class FileSystem
     /**
      * Deletes a file or directory if exists.
      * @throws Nette\IOException  on error occurred
-     * @return void
      */
-    public static function delete(string $path)
+    public static function delete(string $path) : void
     {
         if (\is_file($path) || \is_link($path)) {
             $func = \DIRECTORY_SEPARATOR === '\\' && \is_dir($path) ? 'rmdir' : 'unlink';
@@ -85,9 +82,8 @@ final class FileSystem
      * Renames or moves a file or a directory. Overwrites existing files and directories by default.
      * @throws Nette\IOException  on error occurred
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
-     * @return void
      */
-    public static function rename(string $origin, string $target, bool $overwrite = \true)
+    public static function rename(string $origin, string $target, bool $overwrite = \true) : void
     {
         if (!$overwrite && \file_exists($target)) {
             throw new \RectorPrefix20210423\Nette\InvalidStateException("File or directory '{$target}' already exists.");
@@ -120,9 +116,8 @@ final class FileSystem
     /**
      * Writes the string to a file.
      * @throws Nette\IOException  on error occurred
-     * @return void
      */
-    public static function write(string $file, string $content, ?int $mode = 0666)
+    public static function write(string $file, string $content, ?int $mode = 0666) : void
     {
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {

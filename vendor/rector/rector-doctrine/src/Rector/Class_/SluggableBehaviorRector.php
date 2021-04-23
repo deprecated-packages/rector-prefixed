@@ -127,9 +127,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $slugFields
-     * @return void
      */
-    private function addGetSluggableFieldsClassMethod(\PhpParser\Node\Stmt\Class_ $class, array $slugFields)
+    private function addGetSluggableFieldsClassMethod(\PhpParser\Node\Stmt\Class_ $class, array $slugFields) : void
     {
         $classMethod = $this->nodeFactory->createPublicMethod('getSluggableFields');
         $classMethod->returnType = new \PhpParser\Node\Identifier('array');

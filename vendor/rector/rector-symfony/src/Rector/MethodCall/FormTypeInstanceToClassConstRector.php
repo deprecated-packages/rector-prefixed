@@ -145,10 +145,7 @@ CODE_SAMPLE
         $methodCall->args[$position]->value = $this->nodeFactory->createClassConstReference($argValue->class->toString());
         return $methodCall;
     }
-    /**
-     * @return void
-     */
-    private function refactorCollectionOptions(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function refactorCollectionOptions(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         $optionsArray = $this->formOptionsArrayMatcher->match($methodCall);
         if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
@@ -228,10 +225,7 @@ CODE_SAMPLE
         }
         return $namesToArgs;
     }
-    /**
-     * @return void
-     */
-    private function addBuildFormMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addBuildFormMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $buildFormClassMethod = $class->getMethod('buildForm');
         if ($buildFormClassMethod !== null) {
@@ -241,9 +235,8 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $namesToArgs
-     * @return void
      */
-    private function addConfigureOptionsMethod(\PhpParser\Node\Stmt\Class_ $class, array $namesToArgs)
+    private function addConfigureOptionsMethod(\PhpParser\Node\Stmt\Class_ $class, array $namesToArgs) : void
     {
         $configureOptionsClassMethod = $class->getMethod('configureOptions');
         if ($configureOptionsClassMethod !== null) {

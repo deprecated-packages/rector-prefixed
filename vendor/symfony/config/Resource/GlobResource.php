@@ -84,9 +84,8 @@ class GlobResource implements \IteratorAggregate, \RectorPrefix20210423\Symfony\
     }
     /**
      * @internal
-     * @return void
      */
-    public function __wakeup()
+    public function __wakeup() : void
     {
         $this->globBrace = \defined('GLOB_BRACE') ? \GLOB_BRACE : 0;
     }

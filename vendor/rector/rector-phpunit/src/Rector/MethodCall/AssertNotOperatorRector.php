@@ -21,7 +21,7 @@ final class AssertNotOperatorRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    const RENAME_METHODS_MAP = ['assertTrue' => 'assertFalse', 'assertFalse' => 'assertTrue'];
+    private const RENAME_METHODS_MAP = ['assertTrue' => 'assertFalse', 'assertFalse' => 'assertTrue'];
     /**
      * @var IdentifierManipulator
      */

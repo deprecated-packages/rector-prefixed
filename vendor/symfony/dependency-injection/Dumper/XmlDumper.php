@@ -105,7 +105,7 @@ class XmlDumper extends \RectorPrefix20210423\Symfony\Component\DependencyInject
             $service->setAttribute('lazy', 'true');
         }
         if (null !== ($decoratedService = $definition->getDecoratedService())) {
-            list($decorated, $renamedId, $priority) = $decoratedService;
+            [$decorated, $renamedId, $priority] = $decoratedService;
             $service->setAttribute('decorates', $decorated);
             $decorationOnInvalid = $decoratedService[3] ?? \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if (\in_array($decorationOnInvalid, [\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE], \true)) {

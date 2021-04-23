@@ -116,10 +116,7 @@ final class TypeNormalizer
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $nonConstantValueType);
     }
-    /**
-     * @return void
-     */
-    private function collectNestedArrayTypeFromUnionType(\PHPStan\Type\UnionType $unionType, int $arrayNesting)
+    private function collectNestedArrayTypeFromUnionType(\PHPStan\Type\UnionType $unionType, int $arrayNesting) : void
     {
         foreach ($unionType->getTypes() as $unionedType) {
             if ($unionedType instanceof \PHPStan\Type\ArrayType) {

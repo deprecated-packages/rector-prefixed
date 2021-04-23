@@ -91,21 +91,15 @@ CODE_SAMPLE
         }
         return !isset($methodCall->args[1]);
     }
-    /**
-     * @return void
-     */
-    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function refactorStringArgument(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         // swap arguments
-        list($methodCall->args[0], $methodCall->args[1]) = [$methodCall->args[1], $methodCall->args[0]];
+        [$methodCall->args[0], $methodCall->args[1]] = [$methodCall->args[1], $methodCall->args[0]];
         if ($this->isEventNameSameAsEventObjectClass($methodCall)) {
             unset($methodCall->args[1]);
         }
     }
-    /**
-     * @return void
-     */
-    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
+    private function refactorGetCallFuncCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : void
     {
         if (!$this->isName($funcCall, 'get_class')) {
             return;

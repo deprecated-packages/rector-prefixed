@@ -188,9 +188,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
-     * @return void
      */
-    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
+    private function removeSetAndGetMethods(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {
@@ -208,9 +207,8 @@ CODE_SAMPLE
     }
     /**
      * @param PhpDocInfo[] $translatedPropertyToPhpDocInfos
-     * @return void
      */
-    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos)
+    private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos) : void
     {
         $fileInfo = $this->file->getSmartFileInfo();
         $classShortName = $class->name . 'Translation';

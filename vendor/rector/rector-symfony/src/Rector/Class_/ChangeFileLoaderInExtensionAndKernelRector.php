@@ -30,15 +30,15 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var string
      */
-    const FROM = 'from';
+    public const FROM = 'from';
     /**
      * @var string
      */
-    const TO = 'to';
+    public const TO = 'to';
     /**
      * @var array<string, class-string<PhpFileLoader>|class-string<XmlFileLoader>|class-string<YamlFileLoader>>
      */
-    const FILE_LOADERS_BY_TYPE = ['xml' => 'Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => 'Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -113,10 +113,7 @@ CODE_SAMPLE
         });
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->from = $configuration[self::FROM];
         $this->to = $configuration[self::TO];
@@ -128,10 +125,7 @@ CODE_SAMPLE
         }
         return $this->isObjectType($class, new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpKernel\\Kernel'));
     }
-    /**
-     * @return void
-     */
-    private function validateConfiguration(string $from, string $to)
+    private function validateConfiguration(string $from, string $to) : void
     {
         if (!isset(self::FILE_LOADERS_BY_TYPE[$from])) {
             $message = \sprintf('File loader "%s" format is not supported', $from);
@@ -159,10 +153,7 @@ CODE_SAMPLE
         $this->replaceSuffix($node, $this->from, $this->to);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function replaceSuffix(\PhpParser\Node\Expr\MethodCall $methodCall, string $from, string $to)
+    private function replaceSuffix(\PhpParser\Node\Expr\MethodCall $methodCall, string $from, string $to) : void
     {
         // replace XML to YAML suffix in string parts
         $fileArgument = $methodCall->args[0]->value;

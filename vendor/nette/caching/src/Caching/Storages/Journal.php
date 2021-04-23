@@ -14,9 +14,8 @@ interface Journal
 {
     /**
      * Writes entry information into the journal.
-     * @return void
      */
-    function write(string $key, array $dependencies);
+    function write(string $key, array $dependencies) : void;
     /**
      * Cleans entries from journal.
      * @return array|null of removed items or null when performing a full cleanup

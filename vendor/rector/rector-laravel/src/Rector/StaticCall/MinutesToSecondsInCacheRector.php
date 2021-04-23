@@ -27,19 +27,19 @@ final class MinutesToSecondsInCacheRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    const ATTRIBUTE_KEY_ALREADY_MULTIPLIED = 'already_multiplied';
+    private const ATTRIBUTE_KEY_ALREADY_MULTIPLIED = 'already_multiplied';
     /**
      * @var string
      */
-    const PUT = 'put';
+    private const PUT = 'put';
     /**
      * @var string
      */
-    const ADD = 'add';
+    private const ADD = 'add';
     /**
      * @var string
      */
-    const REMEMBER = 'remember';
+    private const REMEMBER = 'remember';
     /**
      * @var TypeToTimeMethodAndPosition[]
      */
@@ -114,10 +114,7 @@ CODE_SAMPLE
         $node->args[$argumentPosition] = new \PhpParser\Node\Arg($mul);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
+    private function refactorClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : void
     {
         $classConst = $this->nodeRepository->findClassConstByClassConstFetch($classConstFetch);
         if (!$classConst instanceof \PhpParser\Node\Stmt\ClassConst) {

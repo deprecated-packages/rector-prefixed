@@ -115,10 +115,7 @@ CODE_SAMPLE
         }
         return $argValue;
     }
-    /**
-     * @return void
-     */
-    private function changeCompareSignExpr(\PhpParser\Node\Arg $arg)
+    private function changeCompareSignExpr(\PhpParser\Node\Arg $arg) : void
     {
         if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;

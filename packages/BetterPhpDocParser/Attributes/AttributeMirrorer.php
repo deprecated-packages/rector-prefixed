@@ -10,11 +10,8 @@ final class AttributeMirrorer
     /**
      * @var string[]
      */
-    const ATTRIBUTES_TO_MIRROR = [\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, \Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, \Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE];
-    /**
-     * @return void
-     */
-    public function mirror(\PHPStan\PhpDocParser\Ast\Node $oldNode, \PHPStan\PhpDocParser\Ast\Node $newNode)
+    private const ATTRIBUTES_TO_MIRROR = [\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::PARENT, \Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::START_AND_END, \Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE];
+    public function mirror(\PHPStan\PhpDocParser\Ast\Node $oldNode, \PHPStan\PhpDocParser\Ast\Node $newNode) : void
     {
         foreach (self::ATTRIBUTES_TO_MIRROR as $attributeToMirror) {
             if (!$oldNode->hasAttribute($attributeToMirror)) {

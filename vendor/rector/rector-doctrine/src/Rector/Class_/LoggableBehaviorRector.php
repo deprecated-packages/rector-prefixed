@@ -97,10 +97,7 @@ CODE_SAMPLE
         $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\LoggableInterface');
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function removeVersionedTagFromProperties(\PhpParser\Node\Stmt\Class_ $class)
+    private function removeVersionedTagFromProperties(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($class->getProperties() as $property) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);

@@ -8,9 +8,9 @@ final class ProjectType
     /**
      * @var string
      */
-    const OPEN_SOURCE = 'open-source';
+    public const OPEN_SOURCE = 'open-source';
     /**
      * @var string
      */
-    const PROPRIETARY = 'proprietary';
+    public const PROPRIETARY = 'proprietary';
 }

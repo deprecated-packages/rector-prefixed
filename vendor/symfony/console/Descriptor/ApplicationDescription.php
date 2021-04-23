@@ -20,7 +20,7 @@ use RectorPrefix20210423\Symfony\Component\Console\Exception\CommandNotFoundExce
  */
 class ApplicationDescription
 {
-    const GLOBAL_NAMESPACE = '_global';
+    public const GLOBAL_NAMESPACE = '_global';
     private $application;
     private $namespace;
     private $showHidden;

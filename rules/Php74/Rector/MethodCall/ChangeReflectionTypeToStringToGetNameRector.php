@@ -28,7 +28,7 @@ final class ChangeReflectionTypeToStringToGetNameRector extends \Rector\Core\Rec
     /**
      * @var string
      */
-    const GET_NAME = 'getName';
+    private const GET_NAME = 'getName';
     /**
      * Possibly extract node decorator with scope breakers (Function_, If_) to respect node flow
      * @var string[][]
@@ -123,10 +123,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function collectCallByVariable(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function collectCallByVariable(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         // bit workaround for now
         if ($methodCall->var instanceof \PhpParser\Node\Expr\Variable) {

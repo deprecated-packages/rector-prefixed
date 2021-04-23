@@ -108,7 +108,7 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
         }
         $this->methodCalls = $this->autowireCalls($reflectionClass, $isRoot);
         if ($constructor) {
-            list(, $arguments) = \array_shift($this->methodCalls);
+            [, $arguments] = \array_shift($this->methodCalls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }
@@ -128,7 +128,7 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
         }
         foreach ($this->methodCalls as $i => $call) {
             $this->decoratedMethodIndex = $i;
-            list($method, $arguments) = $call;
+            [$method, $arguments] = $call;
             if ($method instanceof \ReflectionFunctionAbstract) {
                 $reflectionMethod = $method;
             } else {

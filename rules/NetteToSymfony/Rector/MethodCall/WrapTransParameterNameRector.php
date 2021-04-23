@@ -24,7 +24,7 @@ final class WrapTransParameterNameRector extends \Rector\Core\Rector\AbstractRec
      * @var string
      * @see https://regex101.com/r/b8boED/1
      */
-    const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
+    private const BETWEEN_PERCENT_CHARS_REGEX = '#%(.*?)%#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds %% to placeholder name of trans() method if missing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

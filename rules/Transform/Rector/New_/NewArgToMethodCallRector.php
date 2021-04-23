@@ -22,7 +22,7 @@ final class NewArgToMethodCallRector extends \Rector\Core\Rector\AbstractRector 
     /**
      * @var string
      */
-    const NEW_ARGS_TO_METHOD_CALLS = 'new_args_to_method_calls';
+    public const NEW_ARGS_TO_METHOD_CALLS = 'new_args_to_method_calls';
     /**
      * @var NewArgToMethodCall[]
      */
@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, NewArgToMethodCall[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $newArgsToMethodCalls = $configuration[self::NEW_ARGS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($newArgsToMethodCalls, \Rector\Transform\ValueObject\NewArgToMethodCall::class);

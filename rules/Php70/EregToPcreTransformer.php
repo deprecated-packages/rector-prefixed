@@ -15,7 +15,7 @@ final class EregToPcreTransformer
     /**
      * @var string[]
      */
-    const CHARACTER_CLASS_MAP = [
+    private const CHARACTER_CLASS_MAP = [
         ':alnum:' => '[:alnum:]',
         ':alpha:' => '[:alpha:]',
         ':blank:' => '[:blank:]',
@@ -34,18 +34,18 @@ final class EregToPcreTransformer
      * @var string
      * @see https://regex101.com/r/htpXFg/1
      */
-    const BOUND_REGEX = '/^(?<' . self::MINIMAL_NUMBER_PART . '>\\d|[1-9]\\d|1\\d\\d|
+    private const BOUND_REGEX = '/^(?<' . self::MINIMAL_NUMBER_PART . '>\\d|[1-9]\\d|1\\d\\d|
                                 2[0-4]\\d|25[0-5])
                                (?<comma>,(?<' . self::MAXIMAL_NUMBER_PART . '>\\d|[1-9]\\d|1\\d\\d|
                                   2[0-4]\\d|25[0-5])?)?$/x';
     /**
      * @var string
      */
-    const MINIMAL_NUMBER_PART = 'minimal_number';
+    private const MINIMAL_NUMBER_PART = 'minimal_number';
     /**
      * @var string
      */
-    const MAXIMAL_NUMBER_PART = 'maximal_number';
+    private const MAXIMAL_NUMBER_PART = 'maximal_number';
     /**
      * @var string
      */
@@ -85,7 +85,7 @@ final class EregToPcreTransformer
         } elseif (isset($this->cache[$content])) {
             return $this->cache[$content];
         }
-        list($r, $i) = $this->_ere2pcre($content, 0);
+        [$r, $i] = $this->_ere2pcre($content, 0);
         if ($i !== \strlen($content)) {
             throw new \Rector\Php70\Exception\InvalidEregException('unescaped metacharacter ")"');
         }
@@ -122,7 +122,7 @@ final class EregToPcreTransformer
                 }
                 $start = \true;
                 $i = (int) $i;
-                list($cls, $i) = $this->processSquareBracket($content, $i, $l, $cls, $start);
+                [$cls, $i] = $this->processSquareBracket($content, $i, $l, $cls, $start);
                 if ($i >= $l) {
                     throw new \Rector\Php70\Exception\InvalidEregException('"[" does not have a matching "]"');
                 }
@@ -190,7 +190,7 @@ final class EregToPcreTransformer
             ++$i;
         } else {
             $position = $i + 1;
-            list($t, $ii) = $this->_ere2pcre($content, $position);
+            [$t, $ii] = $this->_ere2pcre($content, $position);
             if ($ii >= $l || $content[$ii] !== ')') {
                 throw new \Rector\Php70\Exception\InvalidEregException('"(" does not have a matching ")"');
             }
@@ -207,7 +207,7 @@ final class EregToPcreTransformer
         do {
             if ($s[$i] === '[' && $i + 1 < $l && \RectorPrefix20210423\Nette\Utils\Strings::contains('.=:', $s[$i + 1])) {
                 /** @var string $cls */
-                list($cls, $i) = $this->processCharacterClass($s, $i, $cls);
+                [$cls, $i] = $this->processCharacterClass($s, $i, $cls);
             } else {
                 $a = $s[$i];
                 ++$i;

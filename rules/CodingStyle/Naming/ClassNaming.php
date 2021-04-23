@@ -17,7 +17,7 @@ final class ClassNaming
      * @see https://regex101.com/r/8BdrI3/1
      * @var string
      */
-    const INPUT_HASH_NAMING_REGEX = '#input_(.*?)_#';
+    private const INPUT_HASH_NAMING_REGEX = '#input_(.*?)_#';
     /**
      * @param string|Name|Identifier $name
      */

@@ -21,7 +21,7 @@ final class ToStringToMethodCallRector extends \Rector\Core\Rector\AbstractRecto
      * @api
      * @var string
      */
-    const METHOD_NAMES_BY_TYPE = 'method_names_by_type';
+    public const METHOD_NAMES_BY_TYPE = 'method_names_by_type';
     /**
      * @var array<string, string>
      */
@@ -59,9 +59,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->methodNamesByType = $configuration[self::METHOD_NAMES_BY_TYPE] ?? [];
     }

@@ -90,10 +90,7 @@ CODE_SAMPLE
         $this->renameProviderMethods($node);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class)
+    private function renameDataProviderAnnotationsAndCollectRenamedMethods(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -120,10 +117,7 @@ CODE_SAMPLE
             }
         }
     }
-    /**
-     * @return void
-     */
-    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class)
+    private function renameProviderMethods(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($class->getMethods() as $classMethod) {
             foreach ($this->providerMethodNamesToNewNames as $oldName => $newName) {

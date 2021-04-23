@@ -28,7 +28,7 @@ final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\C
     /**
      * @var int
      */
-    const MAX_LOOKING_FOR_ASSERT_METHOD_CALL_NESTING_LEVEL = 3;
+    private const MAX_LOOKING_FOR_ASSERT_METHOD_CALL_NESTING_LEVEL = 3;
     /**
      * This should prevent segfaults while going too deep into to parsed code. Without it, it might end-up with segfault
      *
@@ -123,10 +123,7 @@ CODE_SAMPLE
         }
         return $this->containsAssertCall($classMethod);
     }
-    /**
-     * @return void
-     */
-    private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addPhpDocTagNode(new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode('@doesNotPerformAssertions', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode('')));

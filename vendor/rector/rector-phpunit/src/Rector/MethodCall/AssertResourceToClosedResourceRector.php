@@ -21,7 +21,7 @@ final class AssertResourceToClosedResourceRector extends \Rector\Core\Rector\Abs
     /**
      * @var array<string, string>
      */
-    const RENAME_METHODS_MAP = ['assertIsNotResource' => 'assertIsClosedResource'];
+    private const RENAME_METHODS_MAP = ['assertIsNotResource' => 'assertIsClosedResource'];
     /**
      * @var IdentifierManipulator
      */

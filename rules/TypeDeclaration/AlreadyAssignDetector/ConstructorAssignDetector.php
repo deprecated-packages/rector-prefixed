@@ -18,7 +18,7 @@ final class ConstructorAssignDetector
     /**
      * @var string
      */
-    const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
+    private const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
     /**
      * @var PropertyAssignMatcher
      */

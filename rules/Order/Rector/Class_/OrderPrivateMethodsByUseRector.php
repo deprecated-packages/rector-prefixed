@@ -23,7 +23,7 @@ final class OrderPrivateMethodsByUseRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var int
      */
-    const MAX_ATTEMPTS = 5;
+    private const MAX_ATTEMPTS = 5;
     /**
      * @var StmtOrder
      */

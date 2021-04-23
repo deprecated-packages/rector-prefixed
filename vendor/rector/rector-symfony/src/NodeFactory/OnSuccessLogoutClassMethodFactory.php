@@ -19,7 +19,7 @@ final class OnSuccessLogoutClassMethodFactory
     /**
      * @var string
      */
-    const LOGOUT_EVENT = 'logoutEvent';
+    private const LOGOUT_EVENT = 'logoutEvent';
     /**
      * @var NodeFactory
      */
@@ -58,10 +58,7 @@ final class OnSuccessLogoutClassMethodFactory
         $classMethod->stmts = $classStmts;
         return $classMethod;
     }
-    /**
-     * @return void
-     */
-    private function replaceReturnResponseWithSetResponse(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceReturnResponseWithSetResponse(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?Expression {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
@@ -75,10 +72,7 @@ final class OnSuccessLogoutClassMethodFactory
             return new \PhpParser\Node\Stmt\Expression($methodCall);
         });
     }
-    /**
-     * @return void
-     */
-    private function replaceRequestWithGetRequest(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceRequestWithGetRequest(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?MethodCall {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {

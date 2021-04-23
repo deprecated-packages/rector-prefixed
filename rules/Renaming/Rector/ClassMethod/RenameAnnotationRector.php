@@ -23,7 +23,7 @@ final class RenameAnnotationRector extends \Rector\Core\Rector\AbstractRector im
     /**
      * @var string
      */
-    const RENAMED_ANNOTATIONS_IN_TYPES = 'renamed_annotations_in_types';
+    public const RENAMED_ANNOTATIONS_IN_TYPES = 'renamed_annotations_in_types';
     /**
      * @var RenameAnnotation[]
      */
@@ -87,10 +87,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);

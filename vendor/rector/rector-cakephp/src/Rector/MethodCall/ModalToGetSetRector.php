@@ -24,7 +24,7 @@ final class ModalToGetSetRector extends \Rector\Core\Rector\AbstractRector imple
     /**
      * @var string
      */
-    const UNPREFIXED_METHODS_TO_GET_SET = 'unprefixed_methods_to_get_set';
+    public const UNPREFIXED_METHODS_TO_GET_SET = 'unprefixed_methods_to_get_set';
     /**
      * @var ModalToGetSet[]
      */
@@ -71,10 +71,7 @@ CODE_SAMPLE
         $node->name = new \PhpParser\Node\Identifier($newName);
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $unprefixedMethodsToGetSet = $configuration[self::UNPREFIXED_METHODS_TO_GET_SET] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($unprefixedMethodsToGetSet, \Rector\CakePHP\ValueObject\ModalToGetSet::class);

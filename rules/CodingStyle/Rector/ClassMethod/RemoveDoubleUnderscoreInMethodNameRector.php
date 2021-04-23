@@ -22,7 +22,7 @@ final class RemoveDoubleUnderscoreInMethodNameRector extends \Rector\Core\Rector
      * @var string
      * @see https://regex101.com/r/oRrhDJ/3
      */
-    const DOUBLE_UNDERSCORE_START_REGEX = '#^__(.+)#';
+    private const DOUBLE_UNDERSCORE_START_REGEX = '#^__(.+)#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Non-magic PHP object methods cannot start with "__"', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

@@ -45,10 +45,7 @@ final class NameImportingPhpDocNodeVisitor extends \RectorPrefix20210423\Symplif
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->useNodesToAddCollector = $useNodesToAddCollector;
     }
-    /**
-     * @return void
-     */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node) : void
     {
         if ($this->currentPhpParserNode === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set "$currentPhpParserNode" first');
@@ -69,10 +66,7 @@ final class NameImportingPhpDocNodeVisitor extends \RectorPrefix20210423\Symplif
         }
         return $this->processFqnNameImport($this->currentPhpParserNode, $node, $staticType);
     }
-    /**
-     * @return void
-     */
-    public function setCurrentNode(\PhpParser\Node $phpParserNode)
+    public function setCurrentNode(\PhpParser\Node $phpParserNode) : void
     {
         $this->currentPhpParserNode = $phpParserNode;
     }

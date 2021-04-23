@@ -113,10 +113,7 @@ CODE_SAMPLE
         $classMethod->returnType = $fullyQualified;
         return $classMethod;
     }
-    /**
-     * @return void
-     */
-    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorReturnTagValueNode(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $returnTagValueNode = $phpDocInfo->getReturnTagValue();

@@ -12,7 +12,7 @@ use Rector\Doctrine\Rector\Class_\TranslationBehaviorRector;
 use Rector\Doctrine\Rector\Class_\TreeBehaviorRector;
 use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 # version gedmo/doctrine-extensions 2.x to knplabs/doctrine-behaviors 2.0
-return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Doctrine\Rector\Class_\TimestampableBehaviorRector::class);
     $services->set(\Rector\Doctrine\Rector\Class_\SluggableBehaviorRector::class);

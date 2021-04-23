@@ -23,7 +23,7 @@ final class AddReturnTypeDeclarationRector extends \Rector\Core\Rector\AbstractR
     /**
      * @var string
      */
-    const METHOD_RETURN_TYPES = 'method_return_types';
+    public const METHOD_RETURN_TYPES = 'method_return_types';
     /**
      * @var AddReturnTypeDeclaration[]
      */
@@ -82,19 +82,13 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $methodReturnTypes = $configuration[self::METHOD_RETURN_TYPES] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($methodReturnTypes, \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration::class);
         $this->methodReturnTypes = $methodReturnTypes;
     }
-    /**
-     * @return void
-     */
-    private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType)
+    private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType) : void
     {
         // remove it
         if ($newType instanceof \PHPStan\Type\MixedType) {

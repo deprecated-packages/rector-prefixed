@@ -25,7 +25,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    const OLD_TO_NEW_NAMESPACES = '$oldToNewNamespaces';
+    public const OLD_TO_NEW_NAMESPACES = '$oldToNewNamespaces';
     /**
      * @var string[]
      */
@@ -80,9 +80,8 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->oldToNewNamespaces = $configuration[self::OLD_TO_NEW_NAMESPACES] ?? [];
     }

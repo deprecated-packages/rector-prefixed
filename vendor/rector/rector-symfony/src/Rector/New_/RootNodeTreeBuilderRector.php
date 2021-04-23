@@ -63,7 +63,7 @@ CODE_SAMPLE
         if (!$rootNameNode instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        list($node->args, $rootMethodCallNode->args) = [$rootMethodCallNode->args, $node->args];
+        [$node->args, $rootMethodCallNode->args] = [$rootMethodCallNode->args, $node->args];
         $rootMethodCallNode->name = new \PhpParser\Node\Identifier('getRootNode');
         return $node;
     }

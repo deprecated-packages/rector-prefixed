@@ -22,10 +22,7 @@ final class KernelUniqueHasher
         $shortClassName = (string) \RectorPrefix20210423\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
     }
-    /**
-     * @return void
-     */
-    private function ensureIsNotGenericKernelClass(string $kernelClass)
+    private function ensureIsNotGenericKernelClass(string $kernelClass) : void
     {
         if ($kernelClass !== \RectorPrefix20210423\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;

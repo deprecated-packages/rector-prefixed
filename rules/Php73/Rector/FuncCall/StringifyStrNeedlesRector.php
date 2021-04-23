@@ -19,7 +19,7 @@ final class StringifyStrNeedlesRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string[]
      */
-    const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
+    private const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
     /**
      * @var NodeTypeAnalyzer
      */

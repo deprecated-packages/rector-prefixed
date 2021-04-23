@@ -14,7 +14,7 @@ use RectorPrefix20210423\Nette;
 final class Reflection
 {
     use Nette\StaticClass;
-    const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
+    private const BUILTIN_TYPES = ['string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1, 'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1, 'mixed' => 1, 'false' => 1];
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
      */
@@ -324,7 +324,7 @@ final class Reflection
     {
         $res = null;
         while ($token = \current($tokens)) {
-            list($token, $s) = \is_array($token) ? $token : [$token, $token];
+            [$token, $s] = \is_array($token) ? $token : [$token, $token];
             if (\in_array($token, (array) $take, \true)) {
                 $res .= $s;
             } elseif (!\in_array($token, [\T_DOC_COMMENT, \T_WHITESPACE, \T_COMMENT], \true)) {

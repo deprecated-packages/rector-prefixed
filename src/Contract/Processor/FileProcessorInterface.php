@@ -9,9 +9,8 @@ interface FileProcessorInterface
     public function supports(\Rector\Core\ValueObject\Application\File $file) : bool;
     /**
      * @param File[] $files
-     * @return void
      */
-    public function process(array $files);
+    public function process(array $files) : void;
     /**
      * @return string[]
      */

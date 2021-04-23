@@ -66,23 +66,23 @@ final class NodeFactory
     /**
      * @var string
      */
-    const THIS = 'this';
+    private const THIS = 'this';
     /**
      * @var string
      */
-    const REFERENCE_PARENT = 'parent';
+    private const REFERENCE_PARENT = 'parent';
     /**
      * @var string
      */
-    const REFERENCE_SELF = 'self';
+    private const REFERENCE_SELF = 'self';
     /**
      * @var string
      */
-    const REFERENCE_STATIC = 'static';
+    private const REFERENCE_STATIC = 'static';
     /**
      * @var string[]
      */
-    const REFERENCES = [self::REFERENCE_STATIC, self::REFERENCE_PARENT, self::REFERENCE_SELF];
+    private const REFERENCES = [self::REFERENCE_STATIC, self::REFERENCE_PARENT, self::REFERENCE_SELF];
     /**
      * @var BuilderFactory
      */
@@ -531,10 +531,7 @@ final class NodeFactory
         }
         return $value;
     }
-    /**
-     * @return void
-     */
-    private function addPropertyType(\PhpParser\Node\Stmt\Property $property, ?\PHPStan\Type\Type $type)
+    private function addPropertyType(\PhpParser\Node\Stmt\Property $property, ?\PHPStan\Type\Type $type) : void
     {
         if ($type === null) {
             return;
@@ -578,9 +575,8 @@ final class NodeFactory
     }
     /**
      * @param int|string|null $key
-     * @return void
      */
-    private function decoreateArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem)
+    private function decoreateArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem) : void
     {
         if ($key !== null) {
             $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);

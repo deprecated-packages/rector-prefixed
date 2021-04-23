@@ -74,19 +74,15 @@ CODE_SAMPLE
     }
     /**
      * Remove "./" which would break the path
-     * @return void
      */
-    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string)
+    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
     {
         if (!\RectorPrefix20210423\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
         $string->value = \RectorPrefix20210423\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
-    /**
-     * @return void
-     */
-    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string)
+    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
     {
         if (\RectorPrefix20210423\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;

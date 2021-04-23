@@ -21,7 +21,7 @@ final class UnsetAndIssetToMethodCallRector extends \Rector\Core\Rector\Abstract
     /**
      * @var string
      */
-    const ISSET_UNSET_TO_METHOD_CALL = 'isset_unset_to_method_call';
+    public const ISSET_UNSET_TO_METHOD_CALL = 'isset_unset_to_method_call';
     /**
      * @var UnsetAndIssetToMethodCall[]
      */
@@ -69,10 +69,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $issetUnsetToMethodCalls = $configuration[self::ISSET_UNSET_TO_METHOD_CALL] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall::class);

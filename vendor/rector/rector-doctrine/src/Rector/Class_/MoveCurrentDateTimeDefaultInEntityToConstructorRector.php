@@ -130,10 +130,7 @@ CODE_SAMPLE
         $onlyProperty->default = null;
         return $property;
     }
-    /**
-     * @return void
-     */
-    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property)
+    private function refactorClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var string $propertyName */
         $propertyName = $this->getName($property);

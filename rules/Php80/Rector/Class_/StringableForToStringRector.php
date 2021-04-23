@@ -23,7 +23,7 @@ final class StringableForToStringRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    const STRINGABLE = 'Stringable';
+    private const STRINGABLE = 'Stringable';
     /**
      * @var ClassManipulator
      */

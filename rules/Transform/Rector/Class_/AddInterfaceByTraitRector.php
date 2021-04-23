@@ -21,7 +21,7 @@ final class AddInterfaceByTraitRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const INTERFACE_BY_TRAIT = 'interface_by_trait';
+    public const INTERFACE_BY_TRAIT = 'interface_by_trait';
     /**
      * @var array<string, string>
      */
@@ -75,9 +75,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->interfaceByTrait = $configuration[self::INTERFACE_BY_TRAIT] ?? [];
     }

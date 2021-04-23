@@ -33,26 +33,26 @@ final class PropertyNaming
     /**
      * @var string[]
      */
-    const EXCLUDED_CLASSES = ['#Closure#', '#^Spl#', '#FileInfo#', '#^std#', '#Iterator#', '#SimpleXML#'];
+    private const EXCLUDED_CLASSES = ['#Closure#', '#^Spl#', '#FileInfo#', '#^std#', '#Iterator#', '#SimpleXML#'];
     /**
      * @var string
      */
-    const INTERFACE = 'Interface';
+    private const INTERFACE = 'Interface';
     /**
      * @see https://regex101.com/r/RDhBNR/1
      * @var string
      */
-    const PREFIXED_CLASS_METHODS_REGEX = '#^(is|are|was|were|has|have|had|can)[A-Z].+#';
+    private const PREFIXED_CLASS_METHODS_REGEX = '#^(is|are|was|were|has|have|had|can)[A-Z].+#';
     /**
      * @var string
      * @see https://regex101.com/r/U78rUF/1
      */
-    const I_PREFIX_REGEX = '#^I[A-Z]#';
+    private const I_PREFIX_REGEX = '#^I[A-Z]#';
     /**
      * @see https://regex101.com/r/hnU5pm/2/
      * @var string
      */
-    const GET_PREFIX_REGEX = '#^get(?<root_name>[A-Z].+)#';
+    private const GET_PREFIX_REGEX = '#^get(?<root_name>[A-Z].+)#';
     /**
      * @var TypeUnwrapper
      */

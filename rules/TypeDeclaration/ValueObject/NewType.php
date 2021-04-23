@@ -8,5 +8,5 @@ final class NewType
     /**
      * @var string
      */
-    const HAS_NEW_INHERITED_TYPE = 'has_new_inherited_type';
+    public const HAS_NEW_INHERITED_TYPE = 'has_new_inherited_type';
 }

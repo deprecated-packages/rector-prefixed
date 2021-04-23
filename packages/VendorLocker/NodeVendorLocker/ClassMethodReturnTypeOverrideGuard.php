@@ -26,7 +26,7 @@ final class ClassMethodReturnTypeOverrideGuard
     /**
      * @var array<class-string, array<string>>
      */
-    const CHAOTIC_CLASS_METHOD_NAMES = ['PhpParser\\NodeVisitor' => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
+    private const CHAOTIC_CLASS_METHOD_NAMES = ['PhpParser\\NodeVisitor' => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
     /**
      * @var NodeNameResolver
      */

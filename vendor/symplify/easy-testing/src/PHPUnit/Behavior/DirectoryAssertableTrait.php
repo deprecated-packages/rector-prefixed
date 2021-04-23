@@ -16,10 +16,7 @@ use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo;
  */
 trait DirectoryAssertableTrait
 {
-    /**
-     * @return void
-     */
-    protected function assertDirectoryEquals(string $expectedDirectory, string $outputDirectory)
+    protected function assertDirectoryEquals(string $expectedDirectory, string $outputDirectory) : void
     {
         $expectedFileInfos = $this->findFileInfosInDirectory($expectedDirectory);
         $outputFileInfos = $this->findFileInfosInDirectory($outputDirectory);

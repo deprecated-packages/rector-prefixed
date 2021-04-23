@@ -19,7 +19,7 @@ final class RemoveParentRector extends \Rector\Core\Rector\AbstractRector implem
      * @api
      * @var string
      */
-    const PARENT_TYPES_TO_REMOVE = 'parents_types_to_remove';
+    public const PARENT_TYPES_TO_REMOVE = 'parents_types_to_remove';
     /**
      * @var string[]
      */
@@ -74,9 +74,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, class-string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->parentClassesToRemove = $configuration[self::PARENT_TYPES_TO_REMOVE] ?? [];
     }

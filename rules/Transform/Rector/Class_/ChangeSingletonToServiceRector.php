@@ -127,10 +127,7 @@ CODE_SAMPLE
         $this->removePropertyByName($class, $propertyAndClassMethodName->getPropertyName());
         return $class;
     }
-    /**
-     * @return void
-     */
-    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName)
+    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $propertyName)) {

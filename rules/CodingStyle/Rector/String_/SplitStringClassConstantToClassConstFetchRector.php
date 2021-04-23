@@ -73,7 +73,7 @@ CODE_SAMPLE
             return null;
         }
         // a possible constant reference
-        list($possibleClass, $secondPart) = \explode('::', $node->value);
+        [$possibleClass, $secondPart] = \explode('::', $node->value);
         if (!$this->reflectionProvider->hasClass($possibleClass)) {
             return null;
         }

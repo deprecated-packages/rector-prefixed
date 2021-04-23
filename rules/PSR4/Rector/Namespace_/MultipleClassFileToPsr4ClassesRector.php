@@ -142,9 +142,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $mainNode
-     * @return void
      */
-    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode)
+    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode) : void
     {
         $smartFileInfo = $this->file->getSmartFileInfo();
         $declares = [];

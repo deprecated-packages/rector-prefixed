@@ -50,9 +50,8 @@ final class JsonArrayFactory
     }
     /**
      * @param Expr[] $placeholderNodes
-     * @return void
      */
-    private function replaceNodeObjectHashPlaceholdersWithNodes(\PhpParser\Node\Expr\Array_ $array, array $placeholderNodes)
+    private function replaceNodeObjectHashPlaceholdersWithNodes(\PhpParser\Node\Expr\Array_ $array, array $placeholderNodes) : void
     {
         // traverse and replace placeholder by original nodes
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($array, function (\PhpParser\Node $node) use($placeholderNodes) : ?Expr {

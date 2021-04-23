@@ -77,9 +77,8 @@ final class BundleClassResolver
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    private function addFullyQualifiedNamesToNodes(array $nodes)
+    private function addFullyQualifiedNamesToNodes(array $nodes) : void
     {
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nameResolver = new \PhpParser\NodeVisitor\NameResolver();

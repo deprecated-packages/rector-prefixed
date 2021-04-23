@@ -121,10 +121,7 @@ CODE_SAMPLE
         }
         return $foreach;
     }
-    /**
-     * @return void
-     */
-    private function addInvertedIfStmtWithContinue(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\Foreach_ $foreach)
+    private function addInvertedIfStmtWithContinue(\PhpParser\Node\Stmt\If_ $nestedIfWithOnlyReturn, \PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
         $invertedCondition = $this->conditionInverter->createInvertedCondition($nestedIfWithOnlyReturn->cond);
         // special case

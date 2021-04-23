@@ -301,10 +301,7 @@ class RequestDataCollector extends \RectorPrefix20210423\Symfony\Component\HttpK
     {
         return 'request';
     }
-    /**
-     * @return void
-     */
-    public function collectSessionUsage()
+    public function collectSessionUsage() : void
     {
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $traceEndIndex = \count($trace) - 1;

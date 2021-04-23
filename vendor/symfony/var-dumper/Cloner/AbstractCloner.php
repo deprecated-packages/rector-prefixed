@@ -134,7 +134,7 @@ abstract class AbstractCloner implements \RectorPrefix20210423\Symfony\Component
             $stub->class = \get_debug_type($obj);
         }
         if (isset($this->classInfo[$class])) {
-            list($i, $parents, $hasDebugInfo, $fileInfo) = $this->classInfo[$class];
+            [$i, $parents, $hasDebugInfo, $fileInfo] = $this->classInfo[$class];
         } else {
             $i = 2;
             $parents = [$class];

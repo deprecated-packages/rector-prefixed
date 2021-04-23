@@ -9,29 +9,29 @@ final class TwigSetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    const TWIG_112 = __DIR__ . '/../../config/sets/twig/twig112.php';
+    public const TWIG_112 = __DIR__ . '/../../config/sets/twig/twig112.php';
     /**
      * @var string
      */
-    const TWIG_127 = __DIR__ . '/../../config/sets/twig/twig127.php';
+    public const TWIG_127 = __DIR__ . '/../../config/sets/twig/twig127.php';
     /**
      * @var string
      */
-    const TWIG_134 = __DIR__ . '/../../config/sets/twig/twig134.php';
+    public const TWIG_134 = __DIR__ . '/../../config/sets/twig/twig134.php';
     /**
      * @var string
      */
-    const TWIG_140 = __DIR__ . '/../../config/sets/twig/twig140.php';
+    public const TWIG_140 = __DIR__ . '/../../config/sets/twig/twig140.php';
     /**
      * @var string
      */
-    const TWIG_20 = __DIR__ . '/../../config/sets/twig/twig20.php';
+    public const TWIG_20 = __DIR__ . '/../../config/sets/twig/twig20.php';
     /**
      * @var string
      */
-    const TWIG_240 = __DIR__ . '/../../config/sets/twig/twig240.php';
+    public const TWIG_240 = __DIR__ . '/../../config/sets/twig/twig240.php';
     /**
      * @var string
      */
-    const TWIG_UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/sets/twig/twig-underscore-to-namespace.php';
+    public const TWIG_UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/sets/twig/twig-underscore-to-namespace.php';
 }

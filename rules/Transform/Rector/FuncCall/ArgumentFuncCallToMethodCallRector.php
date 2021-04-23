@@ -31,11 +31,11 @@ final class ArgumentFuncCallToMethodCallRector extends \Rector\Core\Rector\Abstr
     /**
      * @var string
      */
-    const FUNCTIONS_TO_METHOD_CALLS = 'functions_to_method_calls';
+    public const FUNCTIONS_TO_METHOD_CALLS = 'functions_to_method_calls';
     /**
      * @var string
      */
-    const ARRAY_FUNCTIONS_TO_METHOD_CALLS = 'array_functions_to_method_calls';
+    public const ARRAY_FUNCTIONS_TO_METHOD_CALLS = 'array_functions_to_method_calls';
     /**
      * @var ArgumentFuncCallToMethodCall[]
      */
@@ -124,9 +124,8 @@ CODE_SAMPLE
     }
     /**
      * @param mixed[] $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $functionToMethodCalls = $configuration[self::FUNCTIONS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($functionToMethodCalls, \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall::class);

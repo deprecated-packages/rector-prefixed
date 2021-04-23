@@ -15,7 +15,7 @@ final class TestClassResolver
     /**
      * @var string
      */
-    const TEST = 'Test';
+    private const TEST = 'Test';
     /**
      * @var NodeNameResolver
      */

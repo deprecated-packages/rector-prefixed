@@ -31,10 +31,7 @@ final class EntityIdNodeFactory
         $this->decoratePropertyWithIdAnnotations($idProperty);
         return $idProperty;
     }
-    /**
-     * @return void
-     */
-    private function decoratePropertyWithIdAnnotations(\PhpParser\Node\Stmt\Property $property)
+    private function decoratePropertyWithIdAnnotations(\PhpParser\Node\Stmt\Property $property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         // add @var int

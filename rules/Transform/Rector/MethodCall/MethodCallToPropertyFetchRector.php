@@ -18,7 +18,7 @@ final class MethodCallToPropertyFetchRector extends \Rector\Core\Rector\Abstract
      * @api
      * @var string
      */
-    const METHOD_CALL_TO_PROPERTY_FETCHES = 'method_call_to_property_fetch_collection';
+    public const METHOD_CALL_TO_PROPERTY_FETCHES = 'method_call_to_property_fetch_collection';
     /**
      * @var array<string, string>
      */
@@ -65,10 +65,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->methodCallToPropertyFetchCollection = $configuration[self::METHOD_CALL_TO_PROPERTY_FETCHES] ?? [];
     }

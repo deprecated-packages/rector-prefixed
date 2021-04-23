@@ -25,10 +25,7 @@ final class ConstructorManipulator
         $this->nodeFactory = $nodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    /**
-     * @return void
-     */
-    public function addStmtToConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Expression $newExpression)
+    public function addStmtToConstructor(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Expression $newExpression) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

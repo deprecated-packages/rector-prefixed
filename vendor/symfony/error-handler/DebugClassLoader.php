@@ -47,10 +47,10 @@ use RectorPrefix20210423\ProxyManager\Proxy\ProxyInterface;
  */
 class DebugClassLoader
 {
-    const SPECIAL_RETURN_TYPES = ['void' => 'void', 'null' => 'null', 'resource' => 'resource', 'boolean' => 'bool', 'true' => 'bool', 'false' => 'bool', 'integer' => 'int', 'array' => 'array', 'bool' => 'bool', 'callable' => 'callable', 'float' => 'float', 'int' => 'int', 'iterable' => 'iterable', 'object' => 'object', 'string' => 'string', 'self' => 'self', 'parent' => 'parent', 'mixed' => 'mixed'] + (\PHP_VERSION_ID >= 80000 ? ['static' => 'static', '$this' => 'static'] : ['static' => 'object', '$this' => 'object']);
-    const BUILTIN_RETURN_TYPES = ['void' => \true, 'array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true, 'self' => \true, 'parent' => \true] + (\PHP_VERSION_ID >= 80000 ? ['mixed' => \true, 'static' => \true] : []);
-    const MAGIC_METHODS = ['__set' => 'void', '__isset' => 'bool', '__unset' => 'void', '__sleep' => 'array', '__wakeup' => 'void', '__toString' => 'string', '__clone' => 'void', '__debugInfo' => 'array', '__serialize' => 'array', '__unserialize' => 'void'];
-    const INTERNAL_TYPES = ['ArrayAccess' => ['offsetExists' => 'bool', 'offsetSet' => 'void', 'offsetUnset' => 'void'], 'Countable' => ['count' => 'int'], 'Iterator' => ['next' => 'void', 'valid' => 'bool', 'rewind' => 'void'], 'IteratorAggregate' => ['getIterator' => '\\Traversable'], 'OuterIterator' => ['getInnerIterator' => '\\Iterator'], 'RecursiveIterator' => ['hasChildren' => 'bool'], 'SeekableIterator' => ['seek' => 'void'], 'Serializable' => ['serialize' => 'string', 'unserialize' => 'void'], 'SessionHandlerInterface' => ['open' => 'bool', 'close' => 'bool', 'read' => 'string', 'write' => 'bool', 'destroy' => 'bool', 'gc' => 'bool'], 'SessionIdInterface' => ['create_sid' => 'string'], 'SessionUpdateTimestampHandlerInterface' => ['validateId' => 'bool', 'updateTimestamp' => 'bool'], 'Throwable' => ['getMessage' => 'string', 'getCode' => 'int', 'getFile' => 'string', 'getLine' => 'int', 'getTrace' => 'array', 'getPrevious' => '?\\Throwable', 'getTraceAsString' => 'string']];
+    private const SPECIAL_RETURN_TYPES = ['void' => 'void', 'null' => 'null', 'resource' => 'resource', 'boolean' => 'bool', 'true' => 'bool', 'false' => 'bool', 'integer' => 'int', 'array' => 'array', 'bool' => 'bool', 'callable' => 'callable', 'float' => 'float', 'int' => 'int', 'iterable' => 'iterable', 'object' => 'object', 'string' => 'string', 'self' => 'self', 'parent' => 'parent', 'mixed' => 'mixed'] + (\PHP_VERSION_ID >= 80000 ? ['static' => 'static', '$this' => 'static'] : ['static' => 'object', '$this' => 'object']);
+    private const BUILTIN_RETURN_TYPES = ['void' => \true, 'array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true, 'self' => \true, 'parent' => \true] + (\PHP_VERSION_ID >= 80000 ? ['mixed' => \true, 'static' => \true] : []);
+    private const MAGIC_METHODS = ['__set' => 'void', '__isset' => 'bool', '__unset' => 'void', '__sleep' => 'array', '__wakeup' => 'void', '__toString' => 'string', '__clone' => 'void', '__debugInfo' => 'array', '__serialize' => 'array', '__unserialize' => 'void'];
+    private const INTERNAL_TYPES = ['ArrayAccess' => ['offsetExists' => 'bool', 'offsetSet' => 'void', 'offsetUnset' => 'void'], 'Countable' => ['count' => 'int'], 'Iterator' => ['next' => 'void', 'valid' => 'bool', 'rewind' => 'void'], 'IteratorAggregate' => ['getIterator' => '\\Traversable'], 'OuterIterator' => ['getInnerIterator' => '\\Iterator'], 'RecursiveIterator' => ['hasChildren' => 'bool'], 'SeekableIterator' => ['seek' => 'void'], 'Serializable' => ['serialize' => 'string', 'unserialize' => 'void'], 'SessionHandlerInterface' => ['open' => 'bool', 'close' => 'bool', 'read' => 'string', 'write' => 'bool', 'destroy' => 'bool', 'gc' => 'bool'], 'SessionIdInterface' => ['create_sid' => 'string'], 'SessionUpdateTimestampHandlerInterface' => ['validateId' => 'bool', 'updateTimestamp' => 'bool'], 'Throwable' => ['getMessage' => 'string', 'getCode' => 'int', 'getFile' => 'string', 'getLine' => 'int', 'getTrace' => 'array', 'getPrevious' => '?\\Throwable', 'getTraceAsString' => 'string']];
     private $classLoader;
     private $isFinder;
     private $loaded = [];
@@ -107,9 +107,8 @@ class DebugClassLoader
     }
     /**
      * Wraps all autoloaders.
-     * @return void
      */
-    public static function enable()
+    public static function enable() : void
     {
         // Ensures we don't hit https://bugs.php.net/42098
         \class_exists(\RectorPrefix20210423\Symfony\Component\ErrorHandler\ErrorHandler::class);
@@ -129,9 +128,8 @@ class DebugClassLoader
     }
     /**
      * Disables the wrapping.
-     * @return void
      */
-    public static function disable()
+    public static function disable() : void
     {
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
@@ -181,9 +179,8 @@ class DebugClassLoader
      * Loads the given class or interface.
      *
      * @throws \RuntimeException
-     * @return void
      */
-    public function loadClass(string $class)
+    public function loadClass(string $class) : void
     {
         $e = \error_reporting(\error_reporting() | \E_PARSE | \E_ERROR | \E_CORE_ERROR | \E_COMPILE_ERROR);
         try {
@@ -206,10 +203,7 @@ class DebugClassLoader
         }
         $this->checkClass($class, $file);
     }
-    /**
-     * @return void
-     */
-    private function checkClass(string $class, string $file = null)
+    private function checkClass(string $class, string $file = null) : void
     {
         $exists = null === $file || \class_exists($class, \false) || \interface_exists($class, \false) || \trait_exists($class, \false);
         if (null !== $file && $class && '\\' === $class[0]) {
@@ -323,7 +317,7 @@ class DebugClassLoader
                     $hasCall = $refl->hasMethod('__call');
                     $hasStaticCall = $refl->hasMethod('__callStatic');
                     foreach (self::$method[$use] as $method) {
-                        list($interface, $name, $static, $description) = $method;
+                        [$interface, $name, $static, $description] = $method;
                         if ($static ? $hasStaticCall : $hasCall) {
                             continue;
                         }
@@ -377,11 +371,11 @@ class DebugClassLoader
                 $ns = \str_replace('_', '\\', \substr($ns, 0, $len));
             }
             if ($parent && isset(self::$finalMethods[$parent][$method->name])) {
-                list($declaringClass, $message) = self::$finalMethods[$parent][$method->name];
+                [$declaringClass, $message] = self::$finalMethods[$parent][$method->name];
                 $deprecations[] = \sprintf('The "%s::%s()" method is considered final%s. It may change without further notice as of its next major version. You should not extend it from "%s".', $declaringClass, $method->name, $message, $className);
             }
             if (isset(self::$internalMethods[$class][$method->name])) {
-                list($declaringClass, $message) = self::$internalMethods[$class][$method->name];
+                [$declaringClass, $message] = self::$internalMethods[$class][$method->name];
                 if (\strncmp($ns, $declaringClass, $len)) {
                     $deprecations[] = \sprintf('The "%s::%s()" method is considered internal%s. It may change without further notice. You should not extend it from "%s".', $declaringClass, $method->name, $message, $className);
                 }
@@ -407,7 +401,7 @@ class DebugClassLoader
                 $canAddReturnType = \false !== \strpos($refl->getFileName(), \DIRECTORY_SEPARATOR . 'Tests' . \DIRECTORY_SEPARATOR) || $refl->isFinal() || $method->isFinal() || $method->isPrivate() || '' === (self::$internal[$class] ?? null) && !$refl->isAbstract() || '' === (self::$final[$class] ?? null) || \preg_match('/@(final|internal)$/m', $doc);
             }
             if (null !== ($returnType = self::$returnTypes[$class][$method->name] ?? self::MAGIC_METHODS[$method->name] ?? null) && !$method->hasReturnType() && !($doc && \preg_match('/\\n\\s+\\* @return +(\\S+)/', $doc))) {
-                list($normalizedType, $returnType, $declaringClass, $declaringFile) = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
+                [$normalizedType, $returnType, $declaringClass, $declaringFile] = \is_string($returnType) ? [$returnType, $returnType, '', ''] : $returnType;
                 if ('void' === $normalizedType) {
                     $canAddReturnType = \false;
                 }
@@ -461,7 +455,7 @@ class DebugClassLoader
                     $definedParameters[$parameter->name] = \true;
                 }
             }
-            foreach ($matches as list(, $parameterType, $parameterName)) {
+            foreach ($matches as [, $parameterType, $parameterName]) {
                 if (!isset($definedParameters[$parameterName])) {
                     $parameterType = \trim($parameterType);
                     self::$annotatedParameters[$class][$method->name][$parameterName] = \sprintf('The "%%s::%s()" method will require a new "%s$%s" argument in the next major version of its %s "%s", not defining it is deprecated.', $method->name, $parameterType ? $parameterType . ' ' : '', $parameterName, \interface_exists($className) ? 'interface' : 'parent class', $className);
@@ -573,10 +567,7 @@ class DebugClassLoader
         }
         return $ownInterfaces;
     }
-    /**
-     * @return void
-     */
-    private function setReturnType(string $types, \ReflectionMethod $method, ?string $parent)
+    private function setReturnType(string $types, \ReflectionMethod $method, ?string $parent) : void
     {
         $nullable = \false;
         $typesMap = [];
@@ -685,9 +676,9 @@ class DebugClassLoader
             if (isset(self::SPECIAL_RETURN_TYPES[$type]) || '\\' === $type[0] && !($p = \strrpos($type, '\\', 1))) {
                 continue;
             }
-            list($namespace, $useOffset, $useMap) = $useStatements[$file] ?? ($useStatements[$file] = self::getUseStatements($file));
+            [$namespace, $useOffset, $useMap] = $useStatements[$file] ?? ($useStatements[$file] = self::getUseStatements($file));
             if ('\\' !== $type[0]) {
-                list($declaringNamespace, , $declaringUseMap) = $useStatements[$declaringFile] ?? ($useStatements[$declaringFile] = self::getUseStatements($declaringFile));
+                [$declaringNamespace, , $declaringUseMap] = $useStatements[$declaringFile] ?? ($useStatements[$declaringFile] = self::getUseStatements($declaringFile));
                 $p = \strpos($type, '\\', 1);
                 $alias = $p ? \substr($type, 0, $p) : $type;
                 if (isset($declaringUseMap[$alias])) {

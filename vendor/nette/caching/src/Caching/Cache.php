@@ -15,9 +15,9 @@ class Cache
 {
     use Nette\SmartObject;
     /** dependency */
-    const PRIORITY = 'priority', EXPIRATION = 'expire', EXPIRE = 'expire', SLIDING = 'sliding', TAGS = 'tags', FILES = 'files', ITEMS = 'items', CONSTS = 'consts', CALLBACKS = 'callbacks', NAMESPACES = 'namespaces', ALL = 'all';
+    public const PRIORITY = 'priority', EXPIRATION = 'expire', EXPIRE = 'expire', SLIDING = 'sliding', TAGS = 'tags', FILES = 'files', ITEMS = 'items', CONSTS = 'consts', CALLBACKS = 'callbacks', NAMESPACES = 'namespaces', ALL = 'all';
     /** @internal */
-    const NAMESPACE_SEPARATOR = "\0";
+    public const NAMESPACE_SEPARATOR = "\0";
     /** @var Storage */
     private $storage;
     /** @var string */
@@ -189,9 +189,8 @@ class Cache
     /**
      * Removes item from the cache.
      * @param  mixed  $key
-     * @return void
      */
-    public function remove($key)
+    public function remove($key) : void
     {
         $this->save($key, null);
     }
@@ -201,9 +200,8 @@ class Cache
      * - Cache::PRIORITY => (int) priority
      * - Cache::TAGS => (array) tags
      * - Cache::ALL => true
-     * @return void
      */
-    public function clean(array $conditions = null)
+    public function clean(array $conditions = null) : void
     {
         $conditions = (array) $conditions;
         if (isset($conditions[self::TAGS])) {

@@ -32,12 +32,12 @@ final class PregFunctionToNetteUtilsStringsRector extends \Rector\Core\Rector\Ab
     /**
      * @var array<string, string>
      */
-    const FUNCTION_NAME_TO_METHOD_NAME = ['preg_split' => 'split', 'preg_replace' => 'replace', 'preg_replace_callback' => 'replace'];
+    private const FUNCTION_NAME_TO_METHOD_NAME = ['preg_split' => 'split', 'preg_replace' => 'replace', 'preg_replace_callback' => 'replace'];
     /**
      * @see https://regex101.com/r/05MPWa/1/
      * @var string
      */
-    const SLASH_REGEX = '#[^\\\\]\\(#';
+    private const SLASH_REGEX = '#[^\\\\]\\(#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use Nette\\Utils\\Strings over bare preg_split() and preg_replace() functions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -168,9 +168,8 @@ CODE_SAMPLE
     }
     /**
      * Handles https://github.com/rectorphp/rector/issues/2348
-     * @return void
      */
-    private function compensateNetteUtilsSplitDelimCapture(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function compensateNetteUtilsSplitDelimCapture(\PhpParser\Node\Expr\StaticCall $staticCall) : void
     {
         $patternValue = $this->valueResolver->getValue($staticCall->args[1]->value);
         if (!\is_string($patternValue)) {

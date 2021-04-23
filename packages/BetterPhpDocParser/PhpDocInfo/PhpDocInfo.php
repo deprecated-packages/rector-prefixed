@@ -38,7 +38,7 @@ final class PhpDocInfo
     /**
      * @var array<class-string<PhpDocTagValueNode>, string>
      */
-    const TAGS_TYPES_TO_NAMES = [\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class => '@return', \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class => '@param', \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => '@var', \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode::class => '@method', \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode::class => '@property'];
+    private const TAGS_TYPES_TO_NAMES = [\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class => '@return', \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class => '@param', \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => '@var', \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode::class => '@method', \PHPStan\PhpDocParser\Ast\PhpDoc\PropertyTagValueNode::class => '@property'];
     /**
      * @var bool
      */
@@ -93,10 +93,7 @@ final class PhpDocInfo
         $this->currentNodeProvider = $currentNodeProvider;
         $this->rectorChangeCollector = $rectorChangeCollector;
     }
-    /**
-     * @return void
-     */
-    public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode)
+    public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : void
     {
         $this->phpDocNode->children[] = $phpDocChildNode;
         // to give node more space
@@ -276,9 +273,8 @@ final class PhpDocInfo
      * @deprecated, should accept only strings, to make it useful for developer who don't know internal logics of tag nodes; also not each tag requires node class
      * @template T of \PHPStan\PhpDocParser\Ast\Node
      * @param class-string<T> $type
-     * @return void
      */
-    public function removeByType(string $type)
+    public function removeByType(string $type) : void
     {
         foreach ($this->phpDocNode->children as $key => $phpDocChildNode) {
             if (\is_a($phpDocChildNode, $type, \true)) {
@@ -307,10 +303,7 @@ final class PhpDocInfo
         }
         return $paramTypesByName;
     }
-    /**
-     * @return void
-     */
-    public function addTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode)
+    public function addTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
     {
         if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode) {
             $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\PhpDoc\SpacelessPhpDocTagNode('@\\' . $phpDocTagValueNode->getAnnotationClass(), $phpDocTagValueNode);
@@ -328,10 +321,7 @@ final class PhpDocInfo
         }
         return $this->betterTokenIterator->count() === 0;
     }
-    /**
-     * @return void
-     */
-    public function makeSingleLined()
+    public function makeSingleLined() : void
     {
         $this->isSingleLine = \true;
     }
@@ -387,9 +377,8 @@ final class PhpDocInfo
      * @deprecated
      * Should be handled by attributes of phpdoc node - if stard_and_end is missing in one of nodes, it has been changed
      * Similar to missing original node in php-aprser
-     * @return void
      */
-    public function markAsChanged()
+    public function markAsChanged() : void
     {
         $this->hasChanged = \true;
         $node = $this->currentNodeProvider->getNode();
@@ -423,10 +412,7 @@ final class PhpDocInfo
         }
         return $methodTagNames;
     }
-    /**
-     * @return void
-     */
-    public function makeMultiLined()
+    public function makeMultiLined() : void
     {
         $this->isSingleLine = \false;
     }

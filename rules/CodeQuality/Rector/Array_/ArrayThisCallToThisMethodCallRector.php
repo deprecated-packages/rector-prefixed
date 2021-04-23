@@ -138,10 +138,7 @@ CODE_SAMPLE
         $parentProperty = $this->betterNodeFinder->findParentType($array, \PhpParser\Node\Stmt\Property::class);
         return $parentProperty !== null;
     }
-    /**
-     * @return void
-     */
-    private function privatizeClassMethod(\ReflectionMethod $reflectionMethod)
+    private function privatizeClassMethod(\ReflectionMethod $reflectionMethod) : void
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodReflection($reflectionMethod);
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {

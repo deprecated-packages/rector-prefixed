@@ -56,10 +56,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use)
+    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use) : void
     {
         if (\count($use->uses) < 2) {
             return;
@@ -70,10 +67,7 @@ CODE_SAMPLE
         }
         $this->removeNode($use);
     }
-    /**
-     * @return void
-     */
-    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse)
+    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse) : void
     {
         if (\count($traitUse->traits) < 2) {
             return;

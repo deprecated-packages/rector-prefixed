@@ -15,7 +15,7 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
      * @var string
      * @see https://regex101.com/r/H6JjOG/1
      */
-    const UNQUOTED_VALUE_REGEX = '#"(?<content>.*?)"#';
+    private const UNQUOTED_VALUE_REGEX = '#"(?<content>.*?)"#';
     /**
      * @var mixed[]
      */
@@ -41,10 +41,7 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
         $this->originalContent = $originalContent;
         $this->silentKey = $silentKey;
     }
-    /**
-     * @return void
-     */
-    public function removeValue(string $key)
+    public function removeValue(string $key) : void
     {
         $quotedKey = '"' . $key . '"';
         // isset?
@@ -77,9 +74,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     }
     /**
      * @param mixed $value
-     * @return void
      */
-    public function changeValue(string $key, $value)
+    public function changeValue(string $key, $value) : void
     {
         // is quoted?
         if (isset($this->values[$key])) {
@@ -106,9 +102,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     }
     /**
      * @param mixed $value
-     * @return void
      */
-    public function changeSilentValue($value)
+    public function changeSilentValue($value) : void
     {
         // is quoted?
         $isQuoted = (bool) \RectorPrefix20210423\Nette\Utils\Strings::match($this->values[0], self::UNQUOTED_VALUE_REGEX);

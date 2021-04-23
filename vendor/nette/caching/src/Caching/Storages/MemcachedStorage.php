@@ -16,7 +16,7 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
 {
     use Nette\SmartObject;
     /** @internal cache structure */
-    const META_CALLBACKS = 'callbacks', META_DATA = 'data', META_DELTA = 'delta';
+    private const META_CALLBACKS = 'callbacks', META_DATA = 'data', META_DELTA = 'delta';
     /** @var \Memcached */
     private $memcached;
     /** @var string */
@@ -42,10 +42,7 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
             $this->addServer($host, $port);
         }
     }
-    /**
-     * @return void
-     */
-    public function addServer(string $host = 'localhost', int $port = 11211)
+    public function addServer(string $host = 'localhost', int $port = 11211) : void
     {
         if (@$this->memcached->addServer($host, $port, 1) === \false) {
             // @ is escalated to exception
@@ -104,16 +101,10 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
         }
         return $result;
     }
-    /**
-     * @return void
-     */
-    public function lock(string $key)
+    public function lock(string $key) : void
     {
     }
-    /**
-     * @return void
-     */
-    public function write(string $key, $data, array $dp)
+    public function write(string $key, $data, array $dp) : void
     {
         if (isset($dp[\RectorPrefix20210423\Nette\Caching\Cache::ITEMS])) {
             throw new \RectorPrefix20210423\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
@@ -139,17 +130,11 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
         }
         $this->memcached->set($key, $meta, $expire);
     }
-    /**
-     * @return void
-     */
-    public function remove(string $key)
+    public function remove(string $key) : void
     {
         $this->memcached->delete(\urlencode($this->prefix . $key), 0);
     }
-    /**
-     * @return void
-     */
-    public function clean(array $conditions)
+    public function clean(array $conditions) : void
     {
         if (!empty($conditions[\RectorPrefix20210423\Nette\Caching\Cache::ALL])) {
             $this->memcached->flush();

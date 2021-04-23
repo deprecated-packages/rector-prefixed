@@ -86,10 +86,7 @@ CODE_SAMPLE
         }
         return $hasChanged ? $node : null;
     }
-    /**
-     * @return void
-     */
-    private function reset()
+    private function reset() : void
     {
         $this->previousStmtVariableName = null;
         $this->previousPreviousStmtVariableName = null;

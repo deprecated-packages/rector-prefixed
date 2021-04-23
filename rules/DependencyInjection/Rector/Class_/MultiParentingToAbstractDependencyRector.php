@@ -29,7 +29,7 @@ final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector
      * @api
      * @var string
      */
-    const FRAMEWORK = 'framework';
+    public const FRAMEWORK = 'framework';
     /**
      * @var string
      */
@@ -153,9 +153,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->framework = $configuration[self::FRAMEWORK];
     }
@@ -181,9 +180,8 @@ CODE_SAMPLE
     }
     /**
      * @param ObjectType[] $abstractClassConstructorParamTypes
-     * @return void
      */
-    private function refactorChildConstructorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes)
+    private function refactorChildConstructorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             $paramType = $this->getStaticType($param);
@@ -199,10 +197,7 @@ CODE_SAMPLE
             $this->injectObjectTypes[] = $paramType;
         }
     }
-    /**
-     * @return void
-     */
-    private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function clearAbstractClassConstructor(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             if (!$this->nodeTypeResolver->isObjectTypes($param, $this->injectObjectTypes)) {
@@ -213,10 +208,7 @@ CODE_SAMPLE
         }
         $this->classMethodNodeRemover->removeClassMethodIfUseless($classMethod);
     }
-    /**
-     * @return void
-     */
-    private function addInjectOrRequiredClassMethod(\PhpParser\Node\Stmt\Class_ $class)
+    private function addInjectOrRequiredClassMethod(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         /** @var string $className */
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

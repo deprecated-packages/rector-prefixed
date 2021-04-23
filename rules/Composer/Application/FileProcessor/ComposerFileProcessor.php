@@ -32,9 +32,8 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
     }
     /**
      * @param File[] $files
-     * @return void
      */
-    public function process(array $files)
+    public function process(array $files) : void
     {
         foreach ($files as $file) {
             $this->processFile($file);
@@ -55,10 +54,7 @@ final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\Fil
     {
         return ['json'];
     }
-    /**
-     * @return void
-     */
-    private function processFile(\Rector\Core\ValueObject\Application\File $file)
+    private function processFile(\Rector\Core\ValueObject\Application\File $file) : void
     {
         // to avoid modification of file
         if (!$this->composerModifier->enabled()) {

@@ -106,10 +106,7 @@ CODE_SAMPLE
         $this->removeNodes($this->nodesToRemove);
         return $this->createReturnCoalesceNode($this->coalescingNodes);
     }
-    /**
-     * @return void
-     */
-    private function reset()
+    private function reset() : void
     {
         $this->coalescingNodes = [];
         $this->nodesToRemove = [];

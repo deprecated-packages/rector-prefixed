@@ -65,10 +65,7 @@ final class TemplatePropertyAssignCollector
         }
         return new \Rector\Nette\ValueObject\TemplateParametersAssigns($this->alwaysTemplateParameterAssigns, $this->conditionalTemplateParameterAssigns);
     }
-    /**
-     * @return void
-     */
-    private function collectVariableFromAssign(\PhpParser\Node\Expr\Assign $assign)
+    private function collectVariableFromAssign(\PhpParser\Node\Expr\Assign $assign) : void
     {
         if (!$assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return;

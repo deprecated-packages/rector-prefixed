@@ -18,7 +18,7 @@ final class RenameConstantRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    const OLD_TO_NEW_CONSTANTS = 'old_to_new_constants';
+    public const OLD_TO_NEW_CONSTANTS = 'old_to_new_constants';
     /**
      * @var array<string, string>
      */
@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->oldToNewConstants = $configuration[self::OLD_TO_NEW_CONSTANTS] ?? [];
     }

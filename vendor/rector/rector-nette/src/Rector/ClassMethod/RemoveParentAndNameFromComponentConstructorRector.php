@@ -32,11 +32,11 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
     /**
      * @var string
      */
-    const PARENT = 'parent';
+    private const PARENT = 'parent';
     /**
      * @var string
      */
-    const NAME = 'name';
+    private const NAME = 'name';
     /**
      * @var StaticCallAnalyzer
      */
@@ -147,10 +147,7 @@ CODE_SAMPLE
         }
         return $staticCall;
     }
-    /**
-     * @return void
-     */
-    private function refactorNew(\PhpParser\Node\Expr\New_ $new)
+    private function refactorNew(\PhpParser\Node\Expr\New_ $new) : void
     {
         $parameterNames = $this->methodReflectionProvider->provideParameterNamesByNew($new);
         foreach ($new->args as $position => $arg) {
@@ -181,10 +178,7 @@ CODE_SAMPLE
         }
         return $classReflection->isSubclassOf($this->controlObjectType->getClassName());
     }
-    /**
-     * @return void
-     */
-    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->params as $param) {
             if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {

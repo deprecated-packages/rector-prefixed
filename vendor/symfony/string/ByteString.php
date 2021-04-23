@@ -23,7 +23,7 @@ use RectorPrefix20210423\Symfony\Component\String\Exception\RuntimeException;
  */
 class ByteString extends \RectorPrefix20210423\Symfony\Component\String\AbstractString
 {
-    const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    private const ALPHABET_ALPHANUMERIC = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     public function __construct(string $string = '')
     {
         $this->string = $string;

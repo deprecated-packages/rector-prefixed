@@ -88,9 +88,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $expr
-     * @return void
      */
-    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processStringType(\PhpParser\Node\Expr $expr, int $argumentPosition, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
         if ($firstArgumentExpr instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             $arrayNode = $this->nodeTransformer->transformConcatToStringArray($firstArgumentExpr);
@@ -118,10 +117,7 @@ CODE_SAMPLE
         $privatesCaller = new \RectorPrefix20210423\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         return $privatesCaller->callPrivateMethod(new \RectorPrefix20210423\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
-    /**
-     * @return void
-     */
-    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
         $assign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {

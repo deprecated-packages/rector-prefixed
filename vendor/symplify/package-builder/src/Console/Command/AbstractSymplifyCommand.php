@@ -35,9 +35,8 @@ abstract class AbstractSymplifyCommand extends \RectorPrefix20210423\Symfony\Com
     }
     /**
      * @required
-     * @return void
      */
-    public function autowireAbstractSymplifyCommand(\RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210423\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \RectorPrefix20210423\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function autowireAbstractSymplifyCommand(\RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210423\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \RectorPrefix20210423\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->smartFileSystem = $smartFileSystem;

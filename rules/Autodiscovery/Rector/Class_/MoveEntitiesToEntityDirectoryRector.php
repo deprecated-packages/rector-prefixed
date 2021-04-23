@@ -23,7 +23,7 @@ final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\Abst
      * @var string
      * @see https://regex101.com/r/auSMk3/1
      */
-    const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
+    private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
     /**
      * @var DoctrineDocBlockResolver
      */

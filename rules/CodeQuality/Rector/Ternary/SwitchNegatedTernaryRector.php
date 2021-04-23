@@ -59,7 +59,7 @@ CODE_SAMPLE
             return null;
         }
         $node->cond = $node->cond->expr;
-        list($node->if, $node->else) = [$node->else, $node->if];
+        [$node->if, $node->else] = [$node->else, $node->if];
         return $node;
     }
 }

@@ -24,24 +24,24 @@ final class RepeatedLiteralToClassConstantRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    const VALUE = 'value';
+    private const VALUE = 'value';
     /**
      * @var string
      */
-    const NUMBERS = 'numbers';
+    private const NUMBERS = 'numbers';
     /**
      * @var string
      */
-    const UNDERSCORE = '_';
+    private const UNDERSCORE = '_';
     /**
      * @var int
      */
-    const MINIMAL_VALUE_OCCURRENCE = 3;
+    private const MINIMAL_VALUE_OCCURRENCE = 3;
     /**
      * @var string
      * @see https://regex101.com/r/osJLMF/1
      */
-    const SLASH_AND_DASH_REGEX = '#[-\\\\/]#';
+    private const SLASH_AND_DASH_REGEX = '#[-\\\\/]#';
     /**
      * @var ClassInsertManipulator
      */
@@ -140,9 +140,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
-     * @return void
      */
-    private function replaceStringsWithClassConstReferences(\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace)
+    private function replaceStringsWithClassConstReferences(\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
     {
         $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
@@ -157,9 +156,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $stringsToReplace
-     * @return void
      */
-    private function addClassConsts(array $stringsToReplace, \PhpParser\Node\Stmt\Class_ $class)
+    private function addClassConsts(array $stringsToReplace, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($stringsToReplace as $stringToReplace) {
             $constantName = $this->createConstName($stringToReplace);

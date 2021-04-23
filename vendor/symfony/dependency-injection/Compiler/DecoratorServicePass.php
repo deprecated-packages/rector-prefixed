@@ -40,9 +40,9 @@ class DecoratorServicePass extends \RectorPrefix20210423\Symfony\Component\Depen
             $definitions->insert([$id, $definition], [$decorated[2], --$order]);
         }
         $decoratingDefinitions = [];
-        foreach ($definitions as list($id, $definition)) {
+        foreach ($definitions as [$id, $definition]) {
             $decoratedService = $definition->getDecoratedService();
-            list($inner, $renamedId) = $decoratedService;
+            [$inner, $renamedId] = $decoratedService;
             $invalidBehavior = $decoratedService[3] ?? \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             $definition->setDecoratedService(null);
             if (!$renamedId) {

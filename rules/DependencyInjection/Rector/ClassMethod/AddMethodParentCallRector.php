@@ -23,7 +23,7 @@ final class AddMethodParentCallRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const METHODS_BY_PARENT_TYPES = 'methods_by_parent_type';
+    public const METHODS_BY_PARENT_TYPES = 'methods_by_parent_type';
     /**
      * @var array<string, string>
      */
@@ -86,10 +86,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->methodsByParentTypes = $configuration[self::METHODS_BY_PARENT_TYPES] ?? [];
     }

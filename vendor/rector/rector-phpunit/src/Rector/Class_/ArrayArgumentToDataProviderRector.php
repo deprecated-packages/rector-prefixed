@@ -41,7 +41,7 @@ final class ArrayArgumentToDataProviderRector extends \Rector\Core\Rector\Abstra
      * @api
      * @var string
      */
-    const ARRAY_ARGUMENTS_TO_DATA_PROVIDERS = 'array_arguments_to_data_providers';
+    public const ARRAY_ARGUMENTS_TO_DATA_PROVIDERS = 'array_arguments_to_data_providers';
     /**
      * @var ArrayArgumentToDataProvider[]
      */
@@ -138,18 +138,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, ArrayArgumentToDataProvider[]> $arrayArgumentsToDataProviders
-     * @return void
      */
-    public function configure(array $arrayArgumentsToDataProviders)
+    public function configure(array $arrayArgumentsToDataProviders) : void
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
         $this->arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders;
     }
-    /**
-     * @return void
-     */
-    private function refactorMethodCallWithConfiguration(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider)
+    private function refactorMethodCallWithConfiguration(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : void
     {
         if (!$this->isMethodCallMatch($methodCall, $arrayArgumentToDataProvider)) {
             return;
@@ -216,9 +212,8 @@ CODE_SAMPLE
     }
     /**
      * @param ParamAndArg[] $paramAndArgs
-     * @return void
      */
-    private function refactorTestClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs)
+    private function refactorTestClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs) : void
     {
         $classMethod->params = $this->createParams($paramAndArgs);
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -257,10 +252,7 @@ CODE_SAMPLE
     {
         return new \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode($typeNode, \false, '$' . $name, '');
     }
-    /**
-     * @return void
-     */
-    private function setTypeIfNotNull(\Rector\PHPUnit\ValueObject\ParamAndArg $paramAndArg, \PhpParser\Node\Param $param)
+    private function setTypeIfNotNull(\Rector\PHPUnit\ValueObject\ParamAndArg $paramAndArg, \PhpParser\Node\Param $param) : void
     {
         $staticType = $paramAndArg->getType();
         if (!$staticType instanceof \PHPStan\Type\Type) {

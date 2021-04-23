@@ -183,10 +183,7 @@ CODE_SAMPLE
         }
         return $this->breakingVariableRenameGuard->shouldSkipVariable($variableAndCallAssign->getVariableName(), $expectedName, $variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getVariable());
     }
-    /**
-     * @return void
-     */
-    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName)
+    private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
     {
         $assign = $variableAndCallAssign->getAssign();
         $assignPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($assign);

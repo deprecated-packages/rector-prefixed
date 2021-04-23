@@ -33,7 +33,7 @@ final class VarInlineAnnotationToAssertRector extends \Rector\Core\Rector\Abstra
     /**
      * @var string
      */
-    const ASSERT = 'assert';
+    private const ASSERT = 'assert';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @var inline checks above code to assert() of the type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

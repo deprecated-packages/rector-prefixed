@@ -8,9 +8,9 @@ final class PhpDocAttributeKey
     /**
      * @var string
      */
-    const PARENT = 'parent';
+    public const PARENT = 'parent';
     /**
      * @var string
      */
-    const ORIG_NODE = 'orig_node';
+    public const ORIG_NODE = 'orig_node';
 }

@@ -20,7 +20,7 @@ final class ListeningClassMethodArgumentManipulator
     /**
      * @var string
      */
-    const EVENT_PARAMETER_REPLACED = 'event_parameter_replaced';
+    private const EVENT_PARAMETER_REPLACED = 'event_parameter_replaced';
     /**
      * @var ClassNaming
      */
@@ -39,10 +39,7 @@ final class ListeningClassMethodArgumentManipulator
         $this->contributeEventClassResolver = $contributeEventClassResolver;
         $this->paramAnalyzer = $paramAnalyzer;
     }
-    /**
-     * @return void
-     */
-    public function changeFromEventAndListenerTreeAndCurrentClassName(\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, string $className)
+    public function changeFromEventAndListenerTreeAndCurrentClassName(\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, string $className) : void
     {
         $listenerClassMethods = $eventAndListenerTree->getListenerClassMethodsByClass($className);
         if ($listenerClassMethods === []) {
@@ -56,9 +53,8 @@ final class ListeningClassMethodArgumentManipulator
     }
     /**
      * @param EventClassAndClassMethod[] $classMethodsByEventClass
-     * @return void
      */
-    public function change(array $classMethodsByEventClass, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null)
+    public function change(array $classMethodsByEventClass, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : void
     {
         foreach ($classMethodsByEventClass as $classMethods) {
             // are attributes already replaced
@@ -82,10 +78,7 @@ final class ListeningClassMethodArgumentManipulator
             $classMethod->setAttribute(self::EVENT_PARAMETER_REPLACED, \true);
         }
     }
-    /**
-     * @return void
-     */
-    private function changeClassParamToEventClass(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function changeClassParamToEventClass(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $paramName = $this->classNaming->getVariableName($eventClass);
         $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);

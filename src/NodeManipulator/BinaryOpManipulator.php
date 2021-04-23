@@ -93,9 +93,8 @@ final class BinaryOpManipulator
     }
     /**
      * @param callable|class-string<Node> $firstCondition
-     * @return void
      */
-    private function validateCondition($firstCondition)
+    private function validateCondition($firstCondition) : void
     {
         if (\is_callable($firstCondition)) {
             return;

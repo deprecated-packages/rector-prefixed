@@ -29,7 +29,7 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    const CLASSES_TO_SKIP = 'classes_to_skip';
+    public const CLASSES_TO_SKIP = 'classes_to_skip';
     /**
      * @var string[]
      */
@@ -105,9 +105,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         if (!isset($configuration[self::CLASSES_TO_SKIP])) {
             return;

@@ -24,7 +24,7 @@ final class SpecificAssertContainsRector extends \Rector\Core\Rector\AbstractRec
     /**
      * @var array<string, string>
      */
-    const OLD_TO_NEW_METHOD_NAMES = ['assertContains' => 'assertStringContainsString', 'assertNotContains' => 'assertStringNotContainsString'];
+    private const OLD_TO_NEW_METHOD_NAMES = ['assertContains' => 'assertStringContainsString', 'assertNotContains' => 'assertStringNotContainsString'];
     /**
      * @var TestsNodeAnalyzer
      */

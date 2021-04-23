@@ -31,7 +31,7 @@ final class ParsedNodeCollector
     /**
      * @var array<class-string<Node>>
      */
-    const COLLECTABLE_NODE_TYPES = [
+    private const COLLECTABLE_NODE_TYPES = [
         \PhpParser\Node\Stmt\Class_::class,
         \PhpParser\Node\Stmt\Interface_::class,
         \PhpParser\Node\Stmt\ClassConst::class,
@@ -138,10 +138,7 @@ final class ParsedNodeCollector
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    public function collect(\PhpParser\Node $node)
+    public function collect(\PhpParser\Node $node) : void
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             $this->addClass($node);
@@ -181,10 +178,7 @@ final class ParsedNodeCollector
     {
         return $this->staticCalls;
     }
-    /**
-     * @return void
-     */
-    private function addClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function addClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         if ($this->classAnalyzer->isAnonymousClass($class)) {
             return;
@@ -197,9 +191,8 @@ final class ParsedNodeCollector
     }
     /**
      * @param Interface_|Trait_ $classLike
-     * @return void
      */
-    private function collectInterfaceOrTrait(\PhpParser\Node\Stmt\ClassLike $classLike)
+    private function collectInterfaceOrTrait(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $name = $this->nodeNameResolver->getName($classLike);
         if ($name === null) {
@@ -211,10 +204,7 @@ final class ParsedNodeCollector
             $this->traits[$name] = $classLike;
         }
     }
-    /**
-     * @return void
-     */
-    private function addClassConstant(\PhpParser\Node\Stmt\ClassConst $classConst)
+    private function addClassConstant(\PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $className = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {

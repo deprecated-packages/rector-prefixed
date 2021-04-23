@@ -36,10 +36,7 @@ final class MissingRectorRulesReporter
         $this->report();
         return \RectorPrefix20210423\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
-    /**
-     * @return void
-     */
-    public function report()
+    public function report() : void
     {
         $this->symfonyStyle->warning('We could not find any Rector rules to run. You have 2 options to add them:');
         $this->symfonyStyle->title('1. Add single rule to "rector.php"');

@@ -21,7 +21,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
      * @api
      * @var string
      */
-    const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
+    public const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
     /**
      * @var ObjectType[]
      */
@@ -78,10 +78,7 @@ CODE_SAMPLE
         $node->args[0]->value = $this->nodeFactory->createClassConstReference($this->convertAliasToFqn($node->args[0]->value->value));
         return $node;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->aliasesToNamespaces = $configuration[self::ALIASES_TO_NAMESPACES] ?? [];
     }
@@ -94,7 +91,7 @@ CODE_SAMPLE
     }
     private function convertAliasToFqn(string $name) : string
     {
-        list($namespaceAlias, $simpleClassName) = \explode(':', $name, 2);
+        [$namespaceAlias, $simpleClassName] = \explode(':', $name, 2);
         return \sprintf('%s\\%s', $this->aliasesToNamespaces[$namespaceAlias], $simpleClassName);
     }
     private function isAlias(string $name) : bool

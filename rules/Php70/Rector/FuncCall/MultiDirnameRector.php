@@ -19,7 +19,7 @@ final class MultiDirnameRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const DIRNAME = 'dirname';
+    private const DIRNAME = 'dirname';
     /**
      * @var int
      */

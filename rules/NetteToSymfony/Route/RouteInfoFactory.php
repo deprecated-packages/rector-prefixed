@@ -136,7 +136,7 @@ final class RouteInfoFactory
         if (!\RectorPrefix20210423\Nette\Utils\Strings::contains($targetValue, ':')) {
             return null;
         }
-        list($controller, $method) = \explode(':', $targetValue);
+        [$controller, $method] = \explode(':', $targetValue);
         // detect class by controller name?
         // foreach all instance and try to match a name $controller . 'Presenter/Controller'
         $class = $this->nodeRepository->findByShortName($controller . 'Presenter');

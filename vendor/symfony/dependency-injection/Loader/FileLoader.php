@@ -27,7 +27,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\Invalid
  */
 abstract class FileLoader extends \RectorPrefix20210423\Symfony\Component\Config\Loader\FileLoader
 {
-    const ANONYMOUS_ID_REGEXP = '/^\\.\\d+_[^~]*+~[._a-zA-Z\\d]{7}$/';
+    public const ANONYMOUS_ID_REGEXP = '/^\\.\\d+_[^~]*+~[._a-zA-Z\\d]{7}$/';
     protected $container;
     protected $isLoadingInstanceof = \false;
     protected $instanceof = [];

@@ -102,10 +102,7 @@ CODE_SAMPLE
         }
         return $this->cleanTrailingComma($node, $node->args);
     }
-    /**
-     * @return void
-     */
-    private function processUses(\PhpParser\Node\Expr\Closure $node)
+    private function processUses(\PhpParser\Node\Expr\Closure $node) : void
     {
         if ($node->uses === []) {
             return;

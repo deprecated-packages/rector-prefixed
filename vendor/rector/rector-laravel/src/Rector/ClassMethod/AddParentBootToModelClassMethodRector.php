@@ -23,7 +23,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    const BOOT = 'boot';
+    private const BOOT = 'boot';
     /**
      * @var StaticCallAnalyzer
      */

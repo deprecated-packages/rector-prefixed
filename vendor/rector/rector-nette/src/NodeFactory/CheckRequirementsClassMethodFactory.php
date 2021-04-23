@@ -17,7 +17,7 @@ final class CheckRequirementsClassMethodFactory
     /**
      * @var string
      */
-    const CHECK_REQUIREMENTS_METHOD_NAME = 'checkRequirements';
+    private const CHECK_REQUIREMENTS_METHOD_NAME = 'checkRequirements';
     /**
      * @var ParentGetterStmtsToExternalStmtsFactory
      */

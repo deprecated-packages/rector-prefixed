@@ -23,7 +23,6 @@ interface SignalableCommandInterface
     public function getSubscribedSignals() : array;
     /**
      * The method will be called when the application is signaled.
-     * @return void
      */
-    public function handleSignal(int $signal);
+    public function handleSignal(int $signal) : void;
 }

@@ -130,10 +130,7 @@ CODE_SAMPLE
         $this->removeNode($onLogoutSuccessClassMethod);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class)
+    private function refactorImplements(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
         foreach ($class->implements as $key => $implement) {

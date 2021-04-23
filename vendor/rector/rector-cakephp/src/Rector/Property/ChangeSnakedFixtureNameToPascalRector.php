@@ -68,10 +68,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorPropertyWithArrayDefault(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty)
+    private function refactorPropertyWithArrayDefault(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : void
     {
         if (!$propertyProperty->default instanceof \PhpParser\Node\Expr\Array_) {
             return;
@@ -88,12 +85,9 @@ CODE_SAMPLE
             $this->renameFixtureName($itemValue);
         }
     }
-    /**
-     * @return void
-     */
-    private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string)
+    private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        list($prefix, $table) = \explode('.', $string->value);
+        [$prefix, $table] = \explode('.', $string->value);
         $tableParts = \explode('/', $table);
         $pascalCaseTableParts = \array_map(function (string $token) : string {
             $stringy = new \RectorPrefix20210423\Stringy\Stringy($token);

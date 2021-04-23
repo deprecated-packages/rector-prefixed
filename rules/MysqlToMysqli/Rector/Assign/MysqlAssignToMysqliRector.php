@@ -25,11 +25,11 @@ final class MysqlAssignToMysqliRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    const FIELD_TO_FIELD_DIRECT = ['mysql_field_len' => 'length', 'mysql_field_name' => 'name', 'mysql_field_table' => 'table'];
+    private const FIELD_TO_FIELD_DIRECT = ['mysql_field_len' => 'length', 'mysql_field_name' => 'name', 'mysql_field_table' => 'table'];
     /**
      * @var string
      */
-    const MYSQLI_DATA_SEEK = 'mysqli_data_seek';
+    private const MYSQLI_DATA_SEEK = 'mysqli_data_seek';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Converts more complex mysql functions to mysqli', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

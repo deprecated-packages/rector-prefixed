@@ -30,7 +30,7 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
      * @api
      * @var string
      */
-    const INFER_PARAMS_FROM_CLASS_METHOD_RETURNS = 'infer_param_from_class_method_returns';
+    public const INFER_PARAMS_FROM_CLASS_METHOD_RETURNS = 'infer_param_from_class_method_returns';
     /**
      * @var InferParamFromClassMethodReturn[]
      */
@@ -125,9 +125,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, InferParamFromClassMethodReturn[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);

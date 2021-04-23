@@ -27,7 +27,7 @@ final class SingleToManyMethodRector extends \Rector\Core\Rector\AbstractRector 
      * @api
      * @var string
      */
-    const SINGLES_TO_MANY_METHODS = 'singles_to_many_methods';
+    public const SINGLES_TO_MANY_METHODS = 'singles_to_many_methods';
     /**
      * @var SingleToManyMethod[]
      */
@@ -98,18 +98,14 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, SingleToManyMethod[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $singleToManyMethods = $configuration[self::SINGLES_TO_MANY_METHODS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($singleToManyMethods, \Rector\Transform\ValueObject\SingleToManyMethod::class);
         $this->singleToManyMethods = $singleToManyMethods;
     }
-    /**
-     * @return void
-     */
-    private function keepOldReturnTypeInDocBlock(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function keepOldReturnTypeInDocBlock(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // keep old return type in the docblock
         $oldReturnType = $classMethod->returnType;
@@ -121,10 +117,7 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $arrayType);
     }
-    /**
-     * @return void
-     */
-    private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {

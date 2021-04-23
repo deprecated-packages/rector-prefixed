@@ -127,9 +127,8 @@ class AcceptHeader
     }
     /**
      * Sorts items by descending quality.
-     * @return void
      */
-    private function sort()
+    private function sort() : void
     {
         if (!$this->sorted) {
             \uasort($this->items, function (\RectorPrefix20210423\Symfony\Component\HttpFoundation\AcceptHeaderItem $a, \RectorPrefix20210423\Symfony\Component\HttpFoundation\AcceptHeaderItem $b) {

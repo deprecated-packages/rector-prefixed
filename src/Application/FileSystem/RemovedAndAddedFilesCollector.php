@@ -17,10 +17,7 @@ final class RemovedAndAddedFilesCollector
      * @var AddedFileInterface[]
      */
     private $addedFiles = [];
-    /**
-     * @return void
-     */
-    public function removeFile(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function removeFile(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->removedFileInfos[] = $smartFileInfo;
     }
@@ -41,10 +38,7 @@ final class RemovedAndAddedFilesCollector
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    public function addAddedFile(\Rector\FileSystemRector\Contract\AddedFileInterface $addedFile)
+    public function addAddedFile(\Rector\FileSystemRector\Contract\AddedFileInterface $addedFile) : void
     {
         $this->addedFiles[] = $addedFile;
     }
@@ -80,9 +74,8 @@ final class RemovedAndAddedFilesCollector
     }
     /**
      * For testing
-     * @return void
      */
-    public function reset()
+    public function reset() : void
     {
         $this->addedFiles = [];
         $this->removedFileInfos = [];

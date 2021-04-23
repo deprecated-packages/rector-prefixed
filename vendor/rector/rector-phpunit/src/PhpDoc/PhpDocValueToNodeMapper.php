@@ -27,7 +27,7 @@ final class PhpDocValueToNodeMapper
     public function mapGenericTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode $genericTagValueNode) : \PhpParser\Node\Expr
     {
         if (\RectorPrefix20210423\Nette\Utils\Strings::contains($genericTagValueNode->value, '::')) {
-            list($class, $constant) = \explode('::', $genericTagValueNode->value);
+            [$class, $constant] = \explode('::', $genericTagValueNode->value);
             return $this->nodeFactory->createShortClassConstFetch($class, $constant);
         }
         $reference = \ltrim($genericTagValueNode->value, '\\');

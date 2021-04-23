@@ -91,10 +91,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    private function refactorBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : void
     {
         if ($binaryOp->left instanceof \PhpParser\Node\Scalar\LNumber) {
             ++$binaryOp->left->value;

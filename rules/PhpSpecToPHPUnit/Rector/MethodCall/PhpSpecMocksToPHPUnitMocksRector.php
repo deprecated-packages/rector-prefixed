@@ -69,10 +69,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         }
         return $this->processMethodCall($node);
     }
-    /**
-     * @return void
-     */
-    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function processMethodParamsToMocks(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         // remove params and turn them to instances
         $assigns = [];

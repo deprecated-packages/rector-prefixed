@@ -94,19 +94,19 @@ class Image
 {
     use Nette\SmartObject;
     /** {@link resize()} only shrinks images */
-    const SHRINK_ONLY = 0b1;
+    public const SHRINK_ONLY = 0b1;
     /** {@link resize()} will ignore aspect ratio */
-    const STRETCH = 0b10;
+    public const STRETCH = 0b10;
     /** {@link resize()} fits in given area so its dimensions are less than or equal to the required dimensions */
-    const FIT = 0b0;
+    public const FIT = 0b0;
     /** {@link resize()} fills given area so its dimensions are greater than or equal to the required dimensions */
-    const FILL = 0b100;
+    public const FILL = 0b100;
     /** {@link resize()} fills given area exactly */
-    const EXACT = 0b1000;
+    public const EXACT = 0b1000;
     /** image types */
-    const JPEG = \IMAGETYPE_JPEG, PNG = \IMAGETYPE_PNG, GIF = \IMAGETYPE_GIF, WEBP = \IMAGETYPE_WEBP, BMP = \IMAGETYPE_BMP;
-    const EMPTY_GIF = "GIF89a\1\0\1\0€\0\0\0\0\0\0\0\0!ù\4\1\0\0\0\0,\0\0\0\0\1\0\1\0\0\2\2D\1\0;";
-    const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
+    public const JPEG = \IMAGETYPE_JPEG, PNG = \IMAGETYPE_PNG, GIF = \IMAGETYPE_GIF, WEBP = \IMAGETYPE_WEBP, BMP = \IMAGETYPE_BMP;
+    public const EMPTY_GIF = "GIF89a\1\0\1\0€\0\0\0\0\0\0\0\0!ù\4\1\0\0\0\0,\0\0\0\0\1\0\1\0\0\2\2D\1\0;";
+    private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
     /** @var resource|\GdImage */
     private $image;
     /**
@@ -132,7 +132,7 @@ class Image
             throw new \RectorPrefix20210423\Nette\Utils\UnknownImageFileException(\is_file($file) ? "Unknown type of file '{$file}'." : "File '{$file}' not found.");
         }
         $method = 'imagecreatefrom' . self::FORMATS[$type];
-        return new static(\RectorPrefix20210423\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) {
+        return new static(\RectorPrefix20210423\Nette\Utils\Callback::invokeSafe($method, [$file], function (string $message) : void {
             throw new \RectorPrefix20210423\Nette\Utils\ImageException($message);
         }));
     }
@@ -151,7 +151,7 @@ class Image
         if (!$type) {
             throw new \RectorPrefix20210423\Nette\Utils\UnknownImageFileException('Unknown type of image.');
         }
-        return new static(\RectorPrefix20210423\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) {
+        return new static(\RectorPrefix20210423\Nette\Utils\Callback::invokeSafe('imagecreatefromstring', [$s], function (string $message) : void {
             throw new \RectorPrefix20210423\Nette\Utils\ImageException($message);
         }));
     }
@@ -268,7 +268,7 @@ class Image
         if ($flags & self::EXACT) {
             return $this->resize($width, $height, self::FILL)->crop('50%', '50%', $width, $height);
         }
-        list($newWidth, $newHeight) = static::calculateSize($this->getWidth(), $this->getHeight(), $width, $height, $flags);
+        [$newWidth, $newHeight] = static::calculateSize($this->getWidth(), $this->getHeight(), $width, $height, $flags);
         if ($newWidth !== $this->getWidth() || $newHeight !== $this->getHeight()) {
             // resize
             $newImage = static::fromBlank($newWidth, $newHeight, self::rgb(0, 0, 0, 127))->getImageResource();
@@ -346,7 +346,7 @@ class Image
      */
     public function crop($left, $top, $width, $height)
     {
-        list($r['x'], $r['y'], $r['width'], $r['height']) = static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
+        [$r['x'], $r['y'], $r['width'], $r['height']] = static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
         if (\gd_info()['GD Version'] === 'bundled (2.1.0 compatible)') {
             $this->image = \imagecrop($this->image, $r);
             \imagesavealpha($this->image, \true);
@@ -454,9 +454,8 @@ class Image
     /**
      * Saves image to the file. Quality is in the range 0..100 for JPEG (default 85) and WEBP (default 80) and 0..9 for PNG (default 9).
      * @throws ImageException
-     * @return void
      */
-    public function save(string $file, int $quality = null, int $type = null)
+    public function save(string $file, int $quality = null, int $type = null) : void
     {
         if ($type === null) {
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
@@ -495,9 +494,8 @@ class Image
     /**
      * Outputs image to browser. Quality is in the range 0..100 for JPEG (default 85) and WEBP (default 80) and 0..9 for PNG (default 9).
      * @throws ImageException
-     * @return void
      */
-    public function send(int $type = self::JPEG, int $quality = null)
+    public function send(int $type = self::JPEG, int $quality = null) : void
     {
         \header('Content-Type: ' . self::typeToMimeType($type));
         $this->output($type, $quality);
@@ -505,9 +503,8 @@ class Image
     /**
      * Outputs image to browser or file.
      * @throws ImageException
-     * @return void
      */
-    private function output(int $type, ?int $quality, string $file = null)
+    private function output(int $type, ?int $quality, string $file = null) : void
     {
         switch ($type) {
             case self::JPEG:

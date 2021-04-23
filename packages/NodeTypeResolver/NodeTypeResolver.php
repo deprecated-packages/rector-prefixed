@@ -100,9 +100,8 @@ final class NodeTypeResolver
      * Prevents circular dependency
      *
      * @required
-     * @return void
      */
-    public function autowireNodeTypeResolver(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    public function autowireNodeTypeResolver(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer) : void
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
     }
@@ -321,10 +320,7 @@ final class NodeTypeResolver
         }
         return new \PHPStan\Type\ObjectType($className, null, $classReflection);
     }
-    /**
-     * @return void
-     */
-    private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver)
+    private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver) : void
     {
         foreach ($nodeTypeResolver->getNodeClasses() as $nodeClass) {
             $this->nodeTypeResolvers[$nodeClass] = $nodeTypeResolver;

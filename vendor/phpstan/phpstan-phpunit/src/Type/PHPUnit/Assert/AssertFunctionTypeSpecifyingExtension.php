@@ -15,10 +15,7 @@ class AssertFunctionTypeSpecifyingExtension implements \PHPStan\Type\FunctionTyp
 {
     /** @var TypeSpecifier */
     private $typeSpecifier;
-    /**
-     * @return void
-     */
-    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier)
+    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
     {
         $this->typeSpecifier = $typeSpecifier;
     }

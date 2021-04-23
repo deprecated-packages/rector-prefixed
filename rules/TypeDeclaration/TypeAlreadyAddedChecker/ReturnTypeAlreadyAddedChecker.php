@@ -30,7 +30,7 @@ final class ReturnTypeAlreadyAddedChecker
     /**
      * @var string[]|class-string<Traversable>[]
      */
-    const FOREACHABLE_TYPES = ['iterable', 'Iterator', 'Traversable', 'array'];
+    private const FOREACHABLE_TYPES = ['iterable', 'Iterator', 'Traversable', 'array'];
     /**
      * @var StaticTypeMapper
      */

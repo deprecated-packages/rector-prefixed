@@ -19,7 +19,7 @@ use RectorPrefix20210423\Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class FileBag extends \RectorPrefix20210423\Symfony\Component\HttpFoundation\ParameterBag
 {
-    const FILE_KEYS = ['error', 'name', 'size', 'tmp_name', 'type'];
+    private const FILE_KEYS = ['error', 'name', 'size', 'tmp_name', 'type'];
     /**
      * @param array|UploadedFile[] $parameters An array of HTTP files
      */

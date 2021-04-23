@@ -13,11 +13,11 @@ final class PluginInstaller
     /**
      * @var string
      */
-    const RECTOR_EXTENSION_TYPE = 'rector-extension';
+    public const RECTOR_EXTENSION_TYPE = 'rector-extension';
     /**
      * @var string
      */
-    const RECTOR_EXTRA_KEY = 'rector';
+    public const RECTOR_EXTRA_KEY = 'rector';
     /**
      * @var string
      */

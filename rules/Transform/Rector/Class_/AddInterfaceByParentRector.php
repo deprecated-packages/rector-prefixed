@@ -21,7 +21,7 @@ final class AddInterfaceByParentRector extends \Rector\Core\Rector\AbstractRecto
     /**
      * @var string
      */
-    const INTERFACE_BY_PARENT = 'interface_by_parent';
+    public const INTERFACE_BY_PARENT = 'interface_by_parent';
     /**
      * @var array<string, string>
      */
@@ -79,9 +79,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, array<string, string>> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->interfaceByParent = $configuration[self::INTERFACE_BY_PARENT] ?? [];
     }

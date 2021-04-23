@@ -157,10 +157,7 @@ final class NameImporter
         }
         return \false;
     }
-    /**
-     * @return void
-     */
-    private function addUseImport(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType)
+    private function addUseImport(\PhpParser\Node\Name $name, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
     {
         if ($this->useNodesToAddCollector->hasImport($name, $fullyQualifiedObjectType)) {
             return;

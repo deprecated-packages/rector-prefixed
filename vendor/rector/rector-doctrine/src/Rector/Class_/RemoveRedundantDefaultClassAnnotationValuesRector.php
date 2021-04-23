@@ -62,17 +62,11 @@ CODE_SAMPLE
         $this->refactorClassAnnotations($node);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class)
+    private function refactorClassAnnotations(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->refactorEntityAnnotation($class);
     }
-    /**
-     * @return void
-     */
-    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class)
+    private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         $doctrineTagValueNode = $phpDocInfo->getByAnnotationClass('Doctrine\\ORM\\Mapping\\Entity');

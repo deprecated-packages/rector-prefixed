@@ -25,7 +25,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210423\
      *
      * @var string[]
      */
-    const EXCLUDED_NAMESPACES = ['Doctrine', 'JMS', 'Symfony', 'Sensio', 'Knp', 'EasyCorp', 'Sonata', 'Twig'];
+    private const EXCLUDED_NAMESPACES = ['Doctrine', 'JMS', 'Symfony', 'Sensio', 'Knp', 'EasyCorp', 'Sonata', 'Twig'];
     /**
      * Classes that create circular dependencies
      *
@@ -55,10 +55,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210423\
         $this->parameterTypeResolver = new \RectorPrefix20210423\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
         $this->parameterSkipper = new \RectorPrefix20210423\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
     }
-    /**
-     * @return void
-     */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $definition) {
@@ -108,10 +105,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210423\
         $constructorReflectionMethod = $reflectionClass->getConstructor();
         return !$constructorReflectionMethod->getParameters();
     }
-    /**
-     * @return void
-     */
-    private function processParameters(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition)
+    private function processParameters(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ReflectionMethod $reflectionMethod, \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $reflectionParameters = $reflectionMethod->getParameters();
         foreach ($reflectionParameters as $reflectionParameter) {

@@ -18,10 +18,7 @@ final class LocalFilesystem implements \Rector\RectorInstaller\Filesystem
         }
         return $fileHash;
     }
-    /**
-     * @return void
-     */
-    public function writeFile(string $pathToFile, string $contents)
+    public function writeFile(string $pathToFile, string $contents) : void
     {
         $bytes = \file_put_contents($pathToFile, $contents);
         if ($bytes === \false) {

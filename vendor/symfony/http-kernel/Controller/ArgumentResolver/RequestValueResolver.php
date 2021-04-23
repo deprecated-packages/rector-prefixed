@@ -29,9 +29,8 @@ final class RequestValueResolver implements \RectorPrefix20210423\Symfony\Compon
     }
     /**
      * {@inheritdoc}
-     * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : iterable
     {
         (yield $request);
     }

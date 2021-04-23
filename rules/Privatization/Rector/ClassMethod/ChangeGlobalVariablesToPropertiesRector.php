@@ -94,10 +94,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function collectGlobalVariableNamesAndRefactorToPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $this->globalVariableNames = [];
         $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?PropertyFetch {
@@ -111,10 +108,7 @@ CODE_SAMPLE
             return null;
         });
     }
-    /**
-     * @return void
-     */
-    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global)
+    private function refactorGlobal(\PhpParser\Node\Stmt\Global_ $global) : void
     {
         foreach ($global->vars as $var) {
             $varName = $this->getName($var);

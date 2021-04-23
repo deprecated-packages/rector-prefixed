@@ -25,10 +25,7 @@ final class PropertyTypeManipulator
         $this->docBlockClassRenamer = $docBlockClassRenamer;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    /**
-     * @return void
-     */
-    public function changePropertyType(\PhpParser\Node\Stmt\Property $property, string $oldClass, string $newClass)
+    public function changePropertyType(\PhpParser\Node\Stmt\Property $property, string $oldClass, string $newClass) : void
     {
         if ($property->type !== null) {
             // fix later

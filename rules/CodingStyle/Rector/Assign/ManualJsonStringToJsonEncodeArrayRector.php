@@ -33,12 +33,12 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      * @var string
      * @see https://regex101.com/r/85PZHm/1
      */
-    const UNQUOTED_OBJECT_HASH_REGEX = '#(?<start>[^\\"])(?<hash>____\\w+____)#';
+    private const UNQUOTED_OBJECT_HASH_REGEX = '#(?<start>[^\\"])(?<hash>____\\w+____)#';
     /**
      * @var string
      * @see https://regex101.com/r/jdJ6n9/1
      */
-    const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
+    private const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
     /**
      * @var ConcatJoiner
      */

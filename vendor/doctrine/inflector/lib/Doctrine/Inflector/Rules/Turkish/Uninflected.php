@@ -7,23 +7,23 @@ use RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
-     * @return mixed[]
+     * @return Pattern[]
      */
-    public static function getSingular()
+    public static function getSingular() : iterable
     {
         yield from self::getDefault();
     }
     /**
-     * @return mixed[]
+     * @return Pattern[]
      */
-    public static function getPlural()
+    public static function getPlural() : iterable
     {
         yield from self::getDefault();
     }
     /**
-     * @return mixed[]
+     * @return Pattern[]
      */
-    private static function getDefault()
+    private static function getDefault() : iterable
     {
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('lunes'));
         (yield new \RectorPrefix20210423\Doctrine\Inflector\Rules\Pattern('rompecabezas'));

@@ -50,9 +50,8 @@ final class VariableRenamer
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike
-     * @return void
      */
-    public function renameVariableInFunctionLike(\PhpParser\Node\FunctionLike $functionLike, ?\PhpParser\Node\Expr\Assign $assign = null, string $oldName, string $expectedName)
+    public function renameVariableInFunctionLike(\PhpParser\Node\FunctionLike $functionLike, ?\PhpParser\Node\Expr\Assign $assign = null, string $oldName, string $expectedName) : void
     {
         $isRenamingActive = \false;
         if ($assign === null) {

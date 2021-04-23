@@ -24,11 +24,11 @@ final class ArrayToFluentCallRector extends \Rector\Core\Rector\AbstractRector i
     /**
      * @var string
      */
-    const ARRAYS_TO_FLUENT_CALLS = 'arrays_to_fluent_calls';
+    public const ARRAYS_TO_FLUENT_CALLS = 'arrays_to_fluent_calls';
     /**
      * @var string
      */
-    const FACTORY_METHODS = 'factory_methods';
+    public const FACTORY_METHODS = 'factory_methods';
     /**
      * @var ArrayToFluentCall[]
      */
@@ -92,10 +92,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $arraysToFluentCalls = $configuration[self::ARRAYS_TO_FLUENT_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \Rector\CakePHP\ValueObject\ArrayToFluentCall::class);

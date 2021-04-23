@@ -33,7 +33,7 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
      * @var string
      * @see https://regex101.com/r/qVlXk2/2
      */
-    const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
+    private const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
     /**
      * @var RouteInfoFactory
      */
@@ -217,10 +217,7 @@ CODE_SAMPLE
         }
         return $this->symfonyRouteTagValueNodeFactory->createFromItems($values);
     }
-    /**
-     * @return void
-     */
-    private function completeImplicitRoutes()
+    private function completeImplicitRoutes() : void
     {
         $presenterClasses = $this->nodeRepository->findClassesBySuffix('Presenter');
         foreach ($presenterClasses as $presenterClass) {

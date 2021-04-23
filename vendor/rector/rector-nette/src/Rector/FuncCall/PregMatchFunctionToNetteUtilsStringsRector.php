@@ -28,7 +28,7 @@ final class PregMatchFunctionToNetteUtilsStringsRector extends \Rector\Core\Rect
     /**
      * @var array<string, string>
      */
-    const FUNCTION_NAME_TO_METHOD_NAME = ['preg_match' => 'match', 'preg_match_all' => 'matchAll'];
+    private const FUNCTION_NAME_TO_METHOD_NAME = ['preg_match' => 'match', 'preg_match_all' => 'matchAll'];
     /**
      * @var PregMatchAllAnalyzer
      */

@@ -17,7 +17,7 @@ namespace RectorPrefix20210423\Symfony\Component\Uid;
  */
 class Uuid extends \RectorPrefix20210423\Symfony\Component\Uid\AbstractUid
 {
-    const TYPE = 0;
+    protected const TYPE = 0;
     public function __construct(string $uuid)
     {
         $type = \uuid_is_valid($uuid) ? \uuid_type($uuid) : \false;

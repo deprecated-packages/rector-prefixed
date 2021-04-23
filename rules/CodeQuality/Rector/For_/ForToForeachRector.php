@@ -26,7 +26,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    const COUNT = 'count';
+    private const COUNT = 'count';
     /**
      * @var Inflector
      */
@@ -169,10 +169,7 @@ CODE_SAMPLE
         $this->foreachAnalyzer->useForeachVariableInStmts($foreach->expr, $foreach->valueVar, $foreach->stmts, $this->keyValueName);
         return $foreach;
     }
-    /**
-     * @return void
-     */
-    private function reset()
+    private function reset() : void
     {
         $this->keyValueName = null;
         $this->countValueVariableExpr = null;
@@ -181,9 +178,8 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $initExprs
-     * @return void
      */
-    private function matchInit(array $initExprs)
+    private function matchInit(array $initExprs) : void
     {
         foreach ($initExprs as $initExpr) {
             if (!$initExpr instanceof \PhpParser\Node\Expr\Assign) {

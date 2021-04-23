@@ -100,9 +100,8 @@ final class AddedFileWithNodesFactory
     }
     /**
      * @param Node[] $nodes
-     * @return void
      */
-    private function renameNamespace(array $nodes, string $newNamespaceName)
+    private function renameNamespace(array $nodes, string $newNamespaceName) : void
     {
         foreach ($nodes as $node) {
             if (!$node instanceof \PhpParser\Node\Stmt\Namespace_) {

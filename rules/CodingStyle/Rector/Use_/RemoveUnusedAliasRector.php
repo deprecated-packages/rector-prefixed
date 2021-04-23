@@ -172,10 +172,7 @@ CODE_SAMPLE
             return $node->class->toString() === $name->toString();
         });
     }
-    /**
-     * @return void
-     */
-    private function refactorAliasName(string $aliasName, string $lastName, \PhpParser\Node\Stmt\UseUse $useUse)
+    private function refactorAliasName(string $aliasName, string $lastName, \PhpParser\Node\Stmt\UseUse $useUse) : void
     {
         // only alias name is used → use last name directly
         $lowerAliasName = \strtolower($aliasName);

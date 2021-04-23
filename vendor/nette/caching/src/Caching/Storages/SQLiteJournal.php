@@ -26,10 +26,7 @@ class SQLiteJournal implements \RectorPrefix20210423\Nette\Caching\Storages\Jour
         }
         $this->path = $path;
     }
-    /**
-     * @return void
-     */
-    private function open()
+    private function open() : void
     {
         if ($this->path !== ':memory:' && !\is_file($this->path)) {
             \touch($this->path);
@@ -54,10 +51,7 @@ class SQLiteJournal implements \RectorPrefix20210423\Nette\Caching\Storages\Jour
 			CREATE INDEX IF NOT EXISTS idx_priorities_priority ON priorities(priority);
 		');
     }
-    /**
-     * @return void
-     */
-    public function write(string $key, array $dependencies)
+    public function write(string $key, array $dependencies) : void
     {
         if (!$this->pdo) {
             $this->open();

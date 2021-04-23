@@ -9,5 +9,5 @@ final class SwiftmailerSetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    const SWIFTMAILER_60 = __DIR__ . '/../../config/sets/swiftmailer/swiftmailer60.php';
+    public const SWIFTMAILER_60 = __DIR__ . '/../../config/sets/swiftmailer/swiftmailer60.php';
 }

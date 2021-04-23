@@ -38,10 +38,7 @@ final class ActionRenderFactory
         $this->addArguments($classMethodRender, $methodCall);
         return $methodCall;
     }
-    /**
-     * @return void
-     */
-    private function addArguments(\Rector\NetteToSymfony\ValueObject\ClassMethodRender $classMethodRender, \PhpParser\Node\Expr\MethodCall $methodCall)
+    private function addArguments(\Rector\NetteToSymfony\ValueObject\ClassMethodRender $classMethodRender, \PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         if ($classMethodRender->getFirstTemplateFileExpr() !== null) {
             $methodCall->args[0] = new \PhpParser\Node\Arg($classMethodRender->getFirstTemplateFileExpr());

@@ -15,7 +15,7 @@ final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
     /**
      * @var string
      */
-    const MIXED = 'mixed';
+    private const MIXED = 'mixed';
     /**
      * @return class-string<Type>
      */

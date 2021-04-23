@@ -25,7 +25,7 @@ use RectorPrefix20210423\Symfony\Component\ExpressionLanguage\Expression;
  */
 class ContainerConfigurator extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
-    const FACTORY = 'container';
+    public const FACTORY = 'container';
     private $container;
     private $loader;
     private $instanceof;

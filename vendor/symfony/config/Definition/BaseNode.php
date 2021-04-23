@@ -22,7 +22,7 @@ use RectorPrefix20210423\Symfony\Component\Config\Definition\Exception\UnsetKeyE
  */
 abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface
 {
-    const DEFAULT_PATH_SEPARATOR = '.';
+    public const DEFAULT_PATH_SEPARATOR = '.';
     private static $placeholderUniquePrefixes = [];
     private static $placeholders = [];
     protected $name;
@@ -55,9 +55,8 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
      * successfully processed the configuration value is returned as is, thus preserving the placeholder.
      *
      * @internal
-     * @return void
      */
-    public static function setPlaceholder(string $placeholder, array $values)
+    public static function setPlaceholder(string $placeholder, array $values) : void
     {
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
@@ -71,9 +70,8 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
      * placeholder. An exact match provided by {@see setPlaceholder()} might take precedence.
      *
      * @internal
-     * @return void
      */
-    public static function setPlaceholderUniquePrefix(string $prefix)
+    public static function setPlaceholderUniquePrefix(string $prefix) : void
     {
         self::$placeholderUniquePrefixes[] = $prefix;
     }
@@ -81,9 +79,8 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
      * Resets all current placeholders available.
      *
      * @internal
-     * @return void
      */
-    public static function resetPlaceholders()
+    public static function resetPlaceholders() : void
     {
         self::$placeholderUniquePrefixes = [];
         self::$placeholders = [];
@@ -473,10 +470,7 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
         }
         return $value;
     }
-    /**
-     * @return void
-     */
-    private function doValidateType($value)
+    private function doValidateType($value) : void
     {
         if (null !== $this->handlingPlaceholder && !$this->allowPlaceholders()) {
             $e = new \RectorPrefix20210423\Symfony\Component\Config\Definition\Exception\InvalidTypeException(\sprintf('A dynamic value is not compatible with a "%s" node type at path "%s".', static::class, $this->getPath()));

@@ -86,10 +86,7 @@ final class ClassMethodAssignManipulator
         $readOnlyVariableAssigns = $this->filterOutForeachVariables($readOnlyVariableAssigns);
         return $this->variableManipulator->filterOutChangedVariables($readOnlyVariableAssigns, $classMethod);
     }
-    /**
-     * @return void
-     */
-    public function addParameterAndAssignToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign)
+    public function addParameterAndAssignToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign) : void
     {
         if ($this->hasMethodParameter($classMethod, $name)) {
             return;

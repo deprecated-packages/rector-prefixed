@@ -21,7 +21,7 @@ final class DoctrineDocBlockResolver
      * @var string
      * @see https://regex101.com/r/doLRPw/1
      */
-    const ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX = '#@ORM\\\\(Entity|Embeddable)#';
+    private const ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX = '#@ORM\\\\(Entity|Embeddable)#';
     /**
      * @var PhpDocInfoFactory
      */

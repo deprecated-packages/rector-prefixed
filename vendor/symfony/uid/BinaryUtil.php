@@ -17,15 +17,15 @@ namespace RectorPrefix20210423\Symfony\Component\Uid;
  */
 class BinaryUtil
 {
-    const BASE10 = ['' => '0123456789', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const BASE58 = ['' => '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz', 1 => 0, 1, 2, 3, 4, 5, 6, 7, 8, 'A' => 9, 'B' => 10, 'C' => 11, 'D' => 12, 'E' => 13, 'F' => 14, 'G' => 15, 'H' => 16, 'J' => 17, 'K' => 18, 'L' => 19, 'M' => 20, 'N' => 21, 'P' => 22, 'Q' => 23, 'R' => 24, 'S' => 25, 'T' => 26, 'U' => 27, 'V' => 28, 'W' => 29, 'X' => 30, 'Y' => 31, 'Z' => 32, 'a' => 33, 'b' => 34, 'c' => 35, 'd' => 36, 'e' => 37, 'f' => 38, 'g' => 39, 'h' => 40, 'i' => 41, 'j' => 42, 'k' => 43, 'm' => 44, 'n' => 45, 'o' => 46, 'p' => 47, 'q' => 48, 'r' => 49, 's' => 50, 't' => 51, 'u' => 52, 'v' => 53, 'w' => 54, 'x' => 55, 'y' => 56, 'z' => 57];
+    public const BASE10 = ['' => '0123456789', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    public const BASE58 = ['' => '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz', 1 => 0, 1, 2, 3, 4, 5, 6, 7, 8, 'A' => 9, 'B' => 10, 'C' => 11, 'D' => 12, 'E' => 13, 'F' => 14, 'G' => 15, 'H' => 16, 'J' => 17, 'K' => 18, 'L' => 19, 'M' => 20, 'N' => 21, 'P' => 22, 'Q' => 23, 'R' => 24, 'S' => 25, 'T' => 26, 'U' => 27, 'V' => 28, 'W' => 29, 'X' => 30, 'Y' => 31, 'Z' => 32, 'a' => 33, 'b' => 34, 'c' => 35, 'd' => 36, 'e' => 37, 'f' => 38, 'g' => 39, 'h' => 40, 'i' => 41, 'j' => 42, 'k' => 43, 'm' => 44, 'n' => 45, 'o' => 46, 'p' => 47, 'q' => 48, 'r' => 49, 's' => 50, 't' => 51, 'u' => 52, 'v' => 53, 'w' => 54, 'x' => 55, 'y' => 56, 'z' => 57];
     // https://tools.ietf.org/html/rfc4122#section-4.1.4
     // 0x01b21dd213814000 is the number of 100-ns intervals between the
     // UUID epoch 1582-10-15 00:00:00 and the Unix epoch 1970-01-01 00:00:00.
-    const TIME_OFFSET_INT = 0x1b21dd213814000;
-    const TIME_OFFSET_BIN = "\1≤\35“\23Å@\0";
-    const TIME_OFFSET_COM1 = "˛M‚-Ï~øˇ";
-    const TIME_OFFSET_COM2 = "˛M‚-Ï~¿\0";
+    private const TIME_OFFSET_INT = 0x1b21dd213814000;
+    private const TIME_OFFSET_BIN = "\1≤\35“\23Å@\0";
+    private const TIME_OFFSET_COM1 = "˛M‚-Ï~øˇ";
+    private const TIME_OFFSET_COM2 = "˛M‚-Ï~¿\0";
     public static function toBase(string $bytes, array $map) : string
     {
         $base = \strlen($alphabet = $map['']);

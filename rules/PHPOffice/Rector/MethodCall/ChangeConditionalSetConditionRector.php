@@ -65,10 +65,7 @@ CODE_SAMPLE
         $this->castArgumentToArrayIfNotArrayType($node);
         return $node;
     }
-    /**
-     * @return void
-     */
-    private function castArgumentToArrayIfNotArrayType(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function castArgumentToArrayIfNotArrayType(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
         $firstArgumentValue = $methodCall->args[0]->value;
         $firstArgumentStaticType = $this->getStaticType($firstArgumentValue);

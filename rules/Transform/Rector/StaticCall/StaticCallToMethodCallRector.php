@@ -28,7 +28,7 @@ final class StaticCallToMethodCallRector extends \Rector\Core\Rector\AbstractRec
      * @api
      * @var string
      */
-    const STATIC_CALLS_TO_METHOD_CALLS = 'static_calls_to_method_calls';
+    public const STATIC_CALLS_TO_METHOD_CALLS = 'static_calls_to_method_calls';
     /**
      * @var StaticCallToMethodCall[]
      */
@@ -119,9 +119,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, mixed> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $staticCallsToMethodCalls = $configuration[self::STATIC_CALLS_TO_METHOD_CALLS] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToMethodCalls, \Rector\Transform\ValueObject\StaticCallToMethodCall::class);

@@ -67,10 +67,7 @@ final class File
     {
         return $this->fileContent;
     }
-    /**
-     * @return void
-     */
-    public function changeFileContent(string $newFileContent)
+    public function changeFileContent(string $newFileContent) : void
     {
         if ($this->fileContent === $newFileContent) {
             return;
@@ -86,10 +83,7 @@ final class File
     {
         return $this->hasChanged;
     }
-    /**
-     * @return void
-     */
-    public function setFileDiff(\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff)
+    public function setFileDiff(\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff) : void
     {
         $this->fileDiff = $fileDiff;
     }
@@ -101,9 +95,8 @@ final class File
      * @param Stmt[] $newStmts
      * @param Stmt[] $oldStmts
      * @param mixed[] $oldTokens
-     * @return void
      */
-    public function hydrateStmtsAndTokens(array $newStmts, array $oldStmts, array $oldTokens)
+    public function hydrateStmtsAndTokens(array $newStmts, array $oldStmts, array $oldTokens) : void
     {
         if ($this->oldStmts !== []) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Double stmts override');
@@ -135,16 +128,12 @@ final class File
     }
     /**
      * @param Stmt[] $newStmts
-     * @return void
      */
-    public function changeNewStmts(array $newStmts)
+    public function changeNewStmts(array $newStmts) : void
     {
         $this->newStmts = $newStmts;
     }
-    /**
-     * @return void
-     */
-    public function addRectorClassWithLine(\Rector\ChangesReporting\ValueObject\RectorWithLineChange $rectorWithLineChange)
+    public function addRectorClassWithLine(\Rector\ChangesReporting\ValueObject\RectorWithLineChange $rectorWithLineChange) : void
     {
         $this->rectorWithLineChanges[] = $rectorWithLineChange;
     }
@@ -155,10 +144,7 @@ final class File
     {
         return $this->rectorWithLineChanges;
     }
-    /**
-     * @return void
-     */
-    public function addRectorError(\Rector\Core\ValueObject\Application\RectorError $rectorError)
+    public function addRectorError(\Rector\Core\ValueObject\Application\RectorError $rectorError) : void
     {
         $this->rectorErrors[] = $rectorError;
     }

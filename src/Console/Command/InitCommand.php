@@ -31,10 +31,7 @@ final class InitCommand extends \RectorPrefix20210423\Symfony\Component\Console\
         $this->symfonyStyle = $symfonyStyle;
         parent::__construct();
     }
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setDescription('Generate rector.php configuration file');
     }

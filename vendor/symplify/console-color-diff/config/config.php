@@ -9,7 +9,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurat
 use RectorPrefix20210423\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use RectorPrefix20210423\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use function RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (\RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('RectorPrefix20210423\Symplify\\ConsoleColorDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);

@@ -24,7 +24,7 @@ final class RemoveAnnotationRector extends \Rector\Core\Rector\AbstractRector im
     /**
      * @var string
      */
-    const ANNOTATIONS_TO_REMOVE = 'annotations_to_remove';
+    public const ANNOTATIONS_TO_REMOVE = 'annotations_to_remove';
     /**
      * @var string[]|class-string[]
      */
@@ -84,9 +84,8 @@ CODE_SAMPLE
     }
     /**
      * @param array<string, string[]> $configuration
-     * @return void
      */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $annotationsToRemove = $configuration[self::ANNOTATIONS_TO_REMOVE] ?? [];
         \RectorPrefix20210423\Webmozart\Assert\Assert::allString($annotationsToRemove);

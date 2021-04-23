@@ -22,11 +22,11 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\Service
  */
 interface ContainerInterface extends \RectorPrefix20210423\Psr\Container\ContainerInterface
 {
-    const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
-    const EXCEPTION_ON_INVALID_REFERENCE = 1;
-    const NULL_ON_INVALID_REFERENCE = 2;
-    const IGNORE_ON_INVALID_REFERENCE = 3;
-    const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
+    public const RUNTIME_EXCEPTION_ON_INVALID_REFERENCE = 0;
+    public const EXCEPTION_ON_INVALID_REFERENCE = 1;
+    public const NULL_ON_INVALID_REFERENCE = 2;
+    public const IGNORE_ON_INVALID_REFERENCE = 3;
+    public const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * Sets a service.
      * @param object|null $service

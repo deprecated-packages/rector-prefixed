@@ -31,7 +31,7 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
      * @api
      * @var string
      */
-    const STATIC_TYPES = 'static_types';
+    public const STATIC_TYPES = 'static_types';
     /**
      * @var string[]
      */
@@ -116,10 +116,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return void
-     */
-    public function configure(array $configuration)
+    public function configure(array $configuration) : void
     {
         $this->staticTypes = $configuration[self::STATIC_TYPES] ?? [];
     }

@@ -52,9 +52,8 @@ class TokenIterator
     /**
      * @param  int $tokenType
      * @throws \PHPStan\PhpDocParser\Parser\ParserException
-     * @return void
      */
-    public function consumeTokenType(int $tokenType)
+    public function consumeTokenType(int $tokenType) : void
     {
         if ($this->tokens[$this->index][\PHPStan\PhpDocParser\Lexer\Lexer::TYPE_OFFSET] !== $tokenType) {
             $this->throwError($tokenType);
@@ -105,10 +104,7 @@ class TokenIterator
         }
         return $s;
     }
-    /**
-     * @return void
-     */
-    public function next()
+    public function next() : void
     {
         $this->index++;
         if ($this->tokens[$this->index][\PHPStan\PhpDocParser\Lexer\Lexer::TYPE_OFFSET] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
@@ -116,31 +112,21 @@ class TokenIterator
         }
         $this->index++;
     }
-    /** @phpstan-impure
-     * @return void */
-    public function forwardToTheEnd()
+    /** @phpstan-impure */
+    public function forwardToTheEnd() : void
     {
         $lastToken = \count($this->tokens) - 1;
         $this->index = $lastToken;
     }
-    /**
-     * @return void
-     */
-    public function pushSavePoint()
+    public function pushSavePoint() : void
     {
         $this->savePoints[] = $this->index;
     }
-    /**
-     * @return void
-     */
-    public function dropSavePoint()
+    public function dropSavePoint() : void
     {
         \array_pop($this->savePoints);
     }
-    /**
-     * @return void
-     */
-    public function rollback()
+    public function rollback() : void
     {
         $index = \array_pop($this->savePoints);
         \assert($index !== null);
@@ -149,9 +135,8 @@ class TokenIterator
     /**
      * @param  int $expectedTokenType
      * @throws \PHPStan\PhpDocParser\Parser\ParserException
-     * @return void
      */
-    private function throwError(int $expectedTokenType)
+    private function throwError(int $expectedTokenType) : void
     {
         throw new \PHPStan\PhpDocParser\Parser\ParserException($this->currentTokenValue(), $this->currentTokenType(), $this->currentTokenOffset(), $expectedTokenType);
     }

@@ -107,10 +107,7 @@ final class NodeRepository
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    /**
-     * @return void
-     */
-    public function collect(\PhpParser\Node $node)
+    public function collect(\PhpParser\Node $node) : void
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->addMethod($node);
@@ -411,10 +408,7 @@ final class NodeRepository
     {
         return $this->findClass($classLikeName) ?? $this->findInterface($classLikeName) ?? $this->findTrait($classLikeName);
     }
-    /**
-     * @return void
-     */
-    private function collectArray(\PhpParser\Node\Expr\Array_ $array)
+    private function collectArray(\PhpParser\Node\Expr\Array_ $array) : void
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($array);
         if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
@@ -432,10 +426,7 @@ final class NodeRepository
         }
         $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][$arrayCallable->getMethod()][] = $arrayCallable;
     }
-    /**
-     * @return void
-     */
-    private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // anonymous
@@ -447,9 +438,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addCall(\PhpParser\Node $node)
+    private function addCall(\PhpParser\Node $node) : void
     {
         // one node can be of multiple-class types
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -525,9 +515,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addCallByType(\PhpParser\Node $node, \PHPStan\Type\Type $classType, string $methodName)
+    private function addCallByType(\PhpParser\Node $node, \PHPStan\Type\Type $classType, string $methodName) : void
     {
         if ($classType instanceof \PHPStan\Type\TypeWithClassName) {
             if ($classType instanceof \PHPStan\Type\ThisType) {
@@ -547,9 +536,8 @@ final class NodeRepository
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return void
      */
-    private function addParentTypeWithClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName, \PhpParser\Node $node, string $methodName)
+    private function addParentTypeWithClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName, \PhpParser\Node $node, string $methodName) : void
     {
         // include also parent types
         if (!$typeWithClassName instanceof \PHPStan\Type\ObjectType) {

@@ -112,9 +112,8 @@ class Arrays
      * Inserts the contents of the $inserted array into the $array immediately after the $key.
      * If $key is null (or does not exist), it is inserted at the beginning.
      * @param  string|int|null  $key
-     * @return void
      */
-    public static function insertBefore(array &$array, $key, array $inserted)
+    public static function insertBefore(array &$array, $key, array $inserted) : void
     {
         $offset = $key === null ? 0 : (int) self::getKeyOffset($array, $key);
         $array = \array_slice($array, 0, $offset, \true) + $inserted + \array_slice($array, $offset, \count($array), \true);
@@ -123,9 +122,8 @@ class Arrays
      * Inserts the contents of the $inserted array into the $array before the $key.
      * If $key is null (or does not exist), it is inserted at the end.
      * @param  string|int|null  $key
-     * @return void
      */
-    public static function insertAfter(array &$array, $key, array $inserted)
+    public static function insertAfter(array &$array, $key, array $inserted) : void
     {
         if ($key === null || ($offset = self::getKeyOffset($array, $key)) === null) {
             $offset = \count($array) - 1;
@@ -164,9 +162,9 @@ class Arrays
     public static function flatten(array $array, bool $preserveKeys = \false) : array
     {
         $res = [];
-        $cb = $preserveKeys ? function ($v, $k) use(&$res) {
+        $cb = $preserveKeys ? function ($v, $k) use(&$res) : void {
             $res[$k] = $v;
-        } : function ($v) use(&$res) {
+        } : function ($v) use(&$res) : void {
             $res[] = $v;
         };
         \array_walk_recursive($array, $cb);
@@ -258,9 +256,8 @@ class Arrays
     /**
      * Tests whether at least one element in the array passes the test implemented by the
      * provided callback with signature `function ($value, $key, array $array): bool`.
-     * @param mixed[] $array
      */
-    public static function some($array, callable $callback) : bool
+    public static function some(iterable $array, callable $callback) : bool
     {
         foreach ($array as $k => $v) {
             if ($callback($v, $k, $array)) {
@@ -272,9 +269,8 @@ class Arrays
     /**
      * Tests whether all elements in the array pass the test implemented by the provided function,
      * which has the signature `function ($value, $key, array $array): bool`.
-     * @param mixed[] $array
      */
-    public static function every($array, callable $callback) : bool
+    public static function every(iterable $array, callable $callback) : bool
     {
         foreach ($array as $k => $v) {
             if (!$callback($v, $k, $array)) {
@@ -286,9 +282,8 @@ class Arrays
     /**
      * Calls $callback on all elements in the array and returns the array of return values.
      * The callback has the signature `function ($value, $key, array $array): bool`.
-     * @param mixed[] $array
      */
-    public static function map($array, callable $callback) : array
+    public static function map(iterable $array, callable $callback) : array
     {
         $res = [];
         foreach ($array as $k => $v) {
@@ -300,7 +295,7 @@ class Arrays
      * Invokes all callbacks and returns array of results.
      * @param  callable[]  $callbacks
      */
-    public static function invoke($callbacks, ...$args) : array
+    public static function invoke(iterable $callbacks, ...$args) : array
     {
         $res = [];
         foreach ($callbacks as $k => $cb) {
@@ -312,7 +307,7 @@ class Arrays
      * Invokes method on every object in an array and returns array of results.
      * @param  object[]  $objects
      */
-    public static function invokeMethod($objects, string $method, ...$args) : array
+    public static function invokeMethod(iterable $objects, string $method, ...$args) : array
     {
         $res = [];
         foreach ($objects as $k => $obj) {
@@ -324,9 +319,8 @@ class Arrays
      * Copies the elements of the $array array to the $object object and then returns it.
      * @param  object  $object
      * @return object
-     * @param mixed[] $array
      */
-    public static function toObject($array, $object)
+    public static function toObject(iterable $array, $object)
     {
         foreach ($array as $k => $v) {
             $object->{$k} = $v;

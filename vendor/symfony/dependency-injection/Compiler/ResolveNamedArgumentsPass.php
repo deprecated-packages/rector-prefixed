@@ -36,7 +36,7 @@ class ResolveNamedArgumentsPass extends \RectorPrefix20210423\Symfony\Component\
         $calls = $value->getMethodCalls();
         $calls[] = ['__construct', $value->getArguments()];
         foreach ($calls as $i => $call) {
-            list($method, $arguments) = $call;
+            [$method, $arguments] = $call;
             $parameters = null;
             $resolvedArguments = [];
             foreach ($arguments as $key => $argument) {
@@ -90,7 +90,7 @@ class ResolveNamedArgumentsPass extends \RectorPrefix20210423\Symfony\Component\
                 $calls[$i][1] = $resolvedArguments;
             }
         }
-        list(, $arguments) = \array_pop($calls);
+        [, $arguments] = \array_pop($calls);
         if ($arguments !== $value->getArguments()) {
             $value->setArguments($arguments);
         }

@@ -157,9 +157,8 @@ CODE_SAMPLE
     }
     /**
      * @param string[] $removedPropertyNames
-     * @return void
      */
-    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames)
+    private function removeClassMethodsForProperties(\PhpParser\Node\Stmt\Class_ $class, array $removedPropertyNames) : void
     {
         foreach ($removedPropertyNames as $removedPropertyName) {
             foreach ($class->getMethods() as $classMethod) {

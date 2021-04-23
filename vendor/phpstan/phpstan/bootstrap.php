@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210423;
 
-\spl_autoload_register(function (string $class) {
+\spl_autoload_register(function (string $class) : void {
     static $composerAutoloader;
     if (!\extension_loaded('phar') || \defined('__PHPSTAN_RUNNING__')) {
         return;

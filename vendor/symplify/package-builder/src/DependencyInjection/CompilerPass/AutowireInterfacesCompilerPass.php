@@ -18,10 +18,7 @@ final class AutowireInterfacesCompilerPass implements \RectorPrefix20210423\Symf
     {
         $this->typesToAutowire = $typesToAutowire;
     }
-    /**
-     * @return void
-     */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

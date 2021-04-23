@@ -9,10 +9,7 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Nette\ValueObject\TemplateParametersAssigns;
 final class TemplatePropertyParametersReplacer
 {
-    /**
-     * @return void
-     */
-    public function replace(\Rector\Nette\ValueObject\TemplateParametersAssigns $magicTemplateParametersAssigns, \PhpParser\Node\Expr\Variable $variable)
+    public function replace(\Rector\Nette\ValueObject\TemplateParametersAssigns $magicTemplateParametersAssigns, \PhpParser\Node\Expr\Variable $variable) : void
     {
         foreach ($magicTemplateParametersAssigns->getTemplateParameterAssigns() as $alwaysTemplateParameterAssign) {
             $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($variable, new \PhpParser\Node\Scalar\String_($alwaysTemplateParameterAssign->getParameterName()));
