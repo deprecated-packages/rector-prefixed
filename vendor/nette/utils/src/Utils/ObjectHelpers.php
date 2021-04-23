@@ -70,7 +70,7 @@ final class ObjectHelpers
         $rc = new \ReflectionClass($class);
         \preg_match_all('~^  [ \\t*]*  @property(|-read|-write)  [ \\t]+  [^\\s$]+  [ \\t]+  \\$  (\\w+)  ()~mx', (string) $rc->getDocComment(), $matches, \PREG_SET_ORDER);
         $props = [];
-        foreach ($matches as list($type, $name)) {
+        foreach ($matches as list(, $type, $name)) {
             $uname = \ucfirst($name);
             $write = $type !== '-read' && $rc->hasMethod($nm = 'set' . $uname) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();
             $read = $type !== '-write' && ($rc->hasMethod($nm = 'get' . $uname) || $rc->hasMethod($nm = 'is' . $uname)) && ($rm = $rc->getMethod($nm))->name === $nm && !$rm->isPrivate() && !$rm->isStatic();

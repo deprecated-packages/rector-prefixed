@@ -22,7 +22,13 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade Symmetric array destructuring to list() function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('[$id1, $name1] = $data;', 'list($id1, $name1) = $data;')]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade Symmetric array destructuring to list() function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+[$id1, $name1] = $data;
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
+list($id1, $name1) = $data;
+CODE_SAMPLE
+)]);
     }
     /**
      * @return array<class-string<Node>>
@@ -52,10 +58,7 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
     {
         $args = [];
         foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                continue;
-            }
-            $args[] = new \PhpParser\Node\Arg($arrayItem->value);
+            $args[] = $arrayItem instanceof \PhpParser\Node\Expr\ArrayItem ? new \PhpParser\Node\Arg($arrayItem->value) : null;
         }
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('list'), $args);
     }

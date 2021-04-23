@@ -108,7 +108,7 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
         }
         $this->methodCalls = $this->autowireCalls($reflectionClass, $isRoot);
         if ($constructor) {
-            list($arguments) = \array_shift($this->methodCalls);
+            list(, $arguments) = \array_shift($this->methodCalls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }

@@ -129,7 +129,7 @@ class RegisterControllerArgumentLocatorsPass implements \RectorPrefix20210423\Sy
                         }
                     } elseif (isset($bindings[$bindingName = $type . ' $' . $p->name]) || isset($bindings[$bindingName = '$' . $p->name]) || isset($bindings[$bindingName = $type])) {
                         $binding = $bindings[$bindingName];
-                        list($bindingValue, $bindingId, $bindingType, $bindingFile) = $binding->getValues();
+                        list($bindingValue, $bindingId, , $bindingType, $bindingFile) = $binding->getValues();
                         $binding->setValues([$bindingValue, $bindingId, \true, $bindingType, $bindingFile]);
                         if (!$bindingValue instanceof \RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference) {
                             $args[$p->name] = new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference('.value.' . $container->hash($bindingValue));

@@ -31,7 +31,7 @@ final class PathNormalizer
     {
         $matches = \RectorPrefix20210423\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
-            list($scheme, $path) = $matches;
+            list(, $scheme, $path) = $matches;
         } else {
             $scheme = self::SCHEME_UNDEFINED;
             $path = $originalPath;

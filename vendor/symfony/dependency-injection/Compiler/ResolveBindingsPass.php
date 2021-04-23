@@ -171,7 +171,7 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
             }
         }
         if ($constructor) {
-            list($arguments) = \array_pop($calls);
+            list(, $arguments) = \array_pop($calls);
             if ($arguments !== $value->getArguments()) {
                 $value->setArguments($arguments);
             }

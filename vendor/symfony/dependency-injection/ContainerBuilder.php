@@ -1242,7 +1242,7 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
-                list($bindingId) = $binding->getValues();
+                list(, $bindingId) = $binding->getValues();
                 $this->removedBindingIds[(int) $bindingId] = \true;
             }
         }

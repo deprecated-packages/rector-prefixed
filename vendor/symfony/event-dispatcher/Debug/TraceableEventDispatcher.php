@@ -183,7 +183,7 @@ class TraceableEventDispatcher implements \RectorPrefix20210423\Symfony\Componen
         $calledListeners = [];
         if (null !== $this->callStack) {
             foreach ($this->callStack as $calledListener) {
-                list($requestHash) = $this->callStack->getInfo();
+                list(, $requestHash) = $this->callStack->getInfo();
                 if (null === $hash || $hash === $requestHash) {
                     $calledListeners[] = $calledListener->getWrappedListener();
                 }
