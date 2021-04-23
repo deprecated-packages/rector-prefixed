@@ -5,8 +5,8 @@ namespace Rector\Core\ValueObject;
 
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210422\Webmozart\Assert\Assert;
+use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210423\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Core\ValueObjectFactory\ProcessResultFactory
  */
@@ -38,8 +38,8 @@ final class ProcessResult
      */
     public function __construct(array $fileDiffs, array $errors, int $addedFilesCount, int $removedFilesCount, int $removedNodeCount)
     {
-        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsAOf($fileDiffs, \Rector\Core\ValueObject\Reporting\FileDiff::class);
-        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsAOf($errors, \Rector\Core\ValueObject\Application\RectorError::class);
+        \RectorPrefix20210423\Webmozart\Assert\Assert::allIsAOf($fileDiffs, \Rector\Core\ValueObject\Reporting\FileDiff::class);
+        \RectorPrefix20210423\Webmozart\Assert\Assert::allIsAOf($errors, \Rector\Core\ValueObject\Application\RectorError::class);
         $this->fileDiffs = $fileDiffs;
         $this->errors = $errors;
         $this->addedFilesCount = $addedFilesCount;

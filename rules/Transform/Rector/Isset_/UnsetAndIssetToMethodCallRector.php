@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\UnsetAndIssetToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210422\Webmozart\Assert\Assert;
+use RectorPrefix20210423\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\Isset_\UnsetAndIssetToMethodCallRector\UnsetAndIssetToMethodCallRectorTest
  */
@@ -76,7 +76,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $issetUnsetToMethodCalls = $configuration[self::ISSET_UNSET_TO_METHOD_CALL] ?? [];
-        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall::class);
+        \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\Transform\ValueObject\UnsetAndIssetToMethodCall::class);
         $this->issetUnsetToMethodCalls = $issetUnsetToMethodCalls;
     }
     /**

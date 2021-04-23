@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210422\Symfony\Component\Config\Definition\Builder;
+namespace RectorPrefix20210423\Symfony\Component\Config\Definition\Builder;
 
-use RectorPrefix20210422\Symfony\Component\Config\Definition\BooleanNode;
-use RectorPrefix20210422\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use RectorPrefix20210423\Symfony\Component\Config\Definition\BooleanNode;
+use RectorPrefix20210423\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 /**
  * This class provides a fluent interface for defining a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class BooleanNodeDefinition extends \RectorPrefix20210422\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+class BooleanNodeDefinition extends \RectorPrefix20210423\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
 {
     /**
      * {@inheritdoc}
      * @param string|null $name
      */
-    public function __construct($name, \RectorPrefix20210422\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
+    public function __construct($name, \RectorPrefix20210423\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent = null)
     {
         parent::__construct($name, $parent);
         $this->nullEquivalent = \true;
@@ -35,7 +35,7 @@ class BooleanNodeDefinition extends \RectorPrefix20210422\Symfony\Component\Conf
      */
     protected function instantiateNode()
     {
-        return new \RectorPrefix20210422\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
+        return new \RectorPrefix20210423\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
     }
     /**
      * {@inheritdoc}
@@ -44,6 +44,6 @@ class BooleanNodeDefinition extends \RectorPrefix20210422\Symfony\Component\Conf
      */
     public function cannotBeEmpty()
     {
-        throw new \RectorPrefix20210422\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
+        throw new \RectorPrefix20210423\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
     }
 }

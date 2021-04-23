@@ -17,7 +17,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\SingleToManyMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210422\Webmozart\Assert\Assert;
+use RectorPrefix20210423\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Tests\Transform\Rector\ClassMethod\SingleToManyMethodRector\SingleToManyMethodRectorTest
  */
@@ -104,7 +104,7 @@ CODE_SAMPLE
     public function configure(array $configuration)
     {
         $singleToManyMethods = $configuration[self::SINGLES_TO_MANY_METHODS] ?? [];
-        \RectorPrefix20210422\Webmozart\Assert\Assert::allIsInstanceOf($singleToManyMethods, \Rector\Transform\ValueObject\SingleToManyMethod::class);
+        \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($singleToManyMethods, \Rector\Transform\ValueObject\SingleToManyMethod::class);
         $this->singleToManyMethods = $singleToManyMethods;
     }
     /**

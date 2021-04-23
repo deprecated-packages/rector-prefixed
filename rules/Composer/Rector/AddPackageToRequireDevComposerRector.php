@@ -6,7 +6,7 @@ namespace Rector\Composer\Rector;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Rector\Composer\Guard\VersionGuard;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -33,7 +33,7 @@ final class AddPackageToRequireDevComposerRector implements \Rector\Composer\Con
     /**
      * @return void
      */
-    public function refactor(\RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function refactor(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->packageAndVersions as $packageAndVersion) {
             $composerJson->addRequiredDevPackage($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());

@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210422\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix20210423\Symfony\Component\HttpKernel\EventListener;
 
-use RectorPrefix20210422\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use RectorPrefix20210422\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use RectorPrefix20210422\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix20210423\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix20210423\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use RectorPrefix20210423\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Ensures that the application is not indexed by search engines.
  *
  * @author Gary PEGEOT <garypegeot@gmail.com>
  */
-class DisallowRobotsIndexingListener implements \RectorPrefix20210422\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class DisallowRobotsIndexingListener implements \RectorPrefix20210423\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     const HEADER_NAME = 'X-Robots-Tag';
     /**
      * @return void
      */
-    public function onResponse(\RectorPrefix20210422\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onResponse(\RectorPrefix20210423\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->getResponse()->headers->has(static::HEADER_NAME)) {
             $event->getResponse()->headers->set(static::HEADER_NAME, 'noindex');
@@ -35,6 +35,6 @@ class DisallowRobotsIndexingListener implements \RectorPrefix20210422\Symfony\Co
      */
     public static function getSubscribedEvents()
     {
-        return [\RectorPrefix20210422\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onResponse', -255]];
+        return [\RectorPrefix20210423\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onResponse', -255]];
     }
 }

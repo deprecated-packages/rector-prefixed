@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210422\Symplify\Astral\Naming;
+namespace RectorPrefix20210423\Symplify\Astral\Naming;
 
-use RectorPrefix20210422\Nette\Utils\Strings;
+use RectorPrefix20210423\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Variable;
@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use RectorPrefix20210422\Symplify\Astral\Contract\NodeNameResolverInterface;
+use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 /**
  * @see \Symplify\Astral\Tests\Naming\SimpleNameResolverTest
  */
@@ -81,7 +81,7 @@ final class SimpleNameResolver
         if ($name === null) {
             return \false;
         }
-        if (\RectorPrefix20210422\Nette\Utils\Strings::contains($desiredName, '*')) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::contains($desiredName, '*')) {
             return \fnmatch($desiredName, $name);
         }
         return $name === $desiredName;
@@ -104,7 +104,7 @@ final class SimpleNameResolver
             return null;
         }
         // anonymous class return null name
-        if (\RectorPrefix20210422\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX)) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX)) {
             return null;
         }
         return $this->resolveShortName($className);
@@ -144,13 +144,13 @@ final class SimpleNameResolver
         if ($name === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210422\Nette\Utils\Strings::match($name, $desiredNameRegex);
+        return (bool) \RectorPrefix20210423\Nette\Utils\Strings::match($name, $desiredNameRegex);
     }
     public function resolveShortName(string $className) : string
     {
-        if (!\RectorPrefix20210422\Nette\Utils\Strings::contains($className, '\\')) {
+        if (!\RectorPrefix20210423\Nette\Utils\Strings::contains($className, '\\')) {
             return $className;
         }
-        return (string) \RectorPrefix20210422\Nette\Utils\Strings::after($className, '\\', -1);
+        return (string) \RectorPrefix20210423\Nette\Utils\Strings::after($className, '\\', -1);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
-use RectorPrefix20210422\Nette\Utils\Strings;
+use RectorPrefix20210423\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 final class MethodNameResolver
 {
@@ -35,7 +35,7 @@ final class MethodNameResolver
         if ($variableName === null) {
             return null;
         }
-        if (\RectorPrefix20210422\Nette\Utils\Strings::match($variableName, '#^(is)#')) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::match($variableName, '#^(is)#')) {
             return $variableName;
         }
         return 'is' . \ucfirst($variableName);

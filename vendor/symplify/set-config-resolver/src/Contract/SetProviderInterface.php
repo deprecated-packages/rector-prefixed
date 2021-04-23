@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210422\Symplify\SetConfigResolver\Contract;
+namespace RectorPrefix20210423\Symplify\SetConfigResolver\Contract;
 
-use RectorPrefix20210422\Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20210423\Symplify\SetConfigResolver\ValueObject\Set;
 interface SetProviderInterface
 {
     /**

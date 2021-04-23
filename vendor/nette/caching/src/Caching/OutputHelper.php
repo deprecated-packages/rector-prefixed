@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210422\Nette\Caching;
+namespace RectorPrefix20210423\Nette\Caching;
 
-use RectorPrefix20210422\Nette;
+use RectorPrefix20210423\Nette;
 /**
  * Output caching helper.
  */
@@ -20,7 +20,7 @@ class OutputHelper
     private $cache;
     /** @var string */
     private $key;
-    public function __construct(\RectorPrefix20210422\Nette\Caching\Cache $cache, $key)
+    public function __construct(\RectorPrefix20210423\Nette\Caching\Cache $cache, $key)
     {
         $this->cache = $cache;
         $this->key = $key;
@@ -33,7 +33,7 @@ class OutputHelper
     public function end(array $dependencies = [])
     {
         if ($this->cache === null) {
-            throw new \RectorPrefix20210422\Nette\InvalidStateException('Output cache has already been saved.');
+            throw new \RectorPrefix20210423\Nette\InvalidStateException('Output cache has already been saved.');
         }
         $this->cache->save($this->key, \ob_get_flush(), $dependencies + $this->dependencies);
         $this->cache = null;

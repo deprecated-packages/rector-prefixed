@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Kdyby\NodeFactory;
 
-use RectorPrefix20210422\Nette\Utils\Strings;
+use RectorPrefix20210423\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -18,9 +18,9 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\Kdyby\BlueprintFactory\VariableWithTypesFactory;
 use Rector\Nette\Kdyby\ValueObject\VariableWithType;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
+use RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 /**
  * @todo decouple to generic object factory for better re-use, e.g. this is just value object pattern
  */
@@ -59,10 +59,10 @@ final class EventValueObjectClassFactory
         $class = $classBuilder->getNode();
         return $this->wrapClassToNamespace($className, $class);
     }
-    private function createEventClassBuilder(string $className) : \RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder
+    private function createEventClassBuilder(string $className) : \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder
     {
         $shortClassName = $this->classNaming->getShortName($className);
-        $classBuilder = new \RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortClassName);
+        $classBuilder = new \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
         $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
@@ -71,7 +71,7 @@ final class EventValueObjectClassFactory
      * @param Arg[] $args
      * @return void
      */
-    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args)
+    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args)
     {
         if ($args === []) {
             return;
@@ -93,8 +93,8 @@ final class EventValueObjectClassFactory
     }
     private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
     {
-        $namespace = \RectorPrefix20210422\Nette\Utils\Strings::before($className, '\\', -1);
-        $namespaceBuilder = new \RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespace);
+        $namespace = \RectorPrefix20210423\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespaceBuilder = new \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
         return $namespaceBuilder->getNode();
     }
@@ -102,7 +102,7 @@ final class EventValueObjectClassFactory
      * @param VariableWithType[] $variablesWithTypes
      * @return void
      */
-    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder)
+    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder)
     {
         $usedVariableNames = [];
         foreach ($variablesWithTypes as $variablesWithType) {
@@ -119,7 +119,7 @@ final class EventValueObjectClassFactory
      */
     private function createConstructClassMethod(array $variableWithTypes) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \RectorPrefix20210422\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $methodBuilder = new \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
         foreach ($variableWithTypes as $variableWithType) {
             $param = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($variableWithType->getName()));

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php55\NodeFactory;
 
-use RectorPrefix20210422\Nette\Utils\Strings;
+use RectorPrefix20210423\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Parser;
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210422\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210423\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class AnonymousFunctionNodeFactory
 {
     /**
@@ -32,7 +32,7 @@ final class AnonymousFunctionNodeFactory
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\RectorPrefix20210422\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \PhpParser\Parser $parser)
+    public function __construct(\RectorPrefix20210423\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \PhpParser\Parser $parser)
     {
         $this->parser = $parser;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
@@ -58,7 +58,7 @@ final class AnonymousFunctionNodeFactory
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return $node;
             }
-            $match = \RectorPrefix20210422\Nette\Utils\Strings::match($node->value, self::DIM_FETCH_REGEX);
+            $match = \RectorPrefix20210423\Nette\Utils\Strings::match($node->value, self::DIM_FETCH_REGEX);
             if (!$match) {
                 return $node;
             }

@@ -4,23 +4,23 @@ declare (strict_types=1);
 namespace Rector\Caching\Config;
 
 use Rector\Core\Exception\ShouldNotHappenException;
-use RectorPrefix20210422\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210422\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210422\Symfony\Component\Config\Loader\LoaderResolver;
-use RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210422\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use RectorPrefix20210422\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210423\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderResolver;
+use RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/easy-coding-standard/blob/e598ab54686e416788f28fcfe007fd08e0f371d9/packages/changed-files-detector/src/FileHashComputer.php
  * @see \Rector\Caching\Tests\Config\FileHashComputerTest
  */
 final class FileHashComputer
 {
-    public function compute(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
+    public function compute(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
         $this->ensureIsPhp($fileInfo);
-        $containerBuilder = new \RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $containerBuilder = new \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder();
         $fileLoader = $this->createFileLoader($fileInfo, $containerBuilder);
         $fileLoader->load($fileInfo->getRealPath());
         $parameterBag = $containerBuilder->getParameterBag();
@@ -29,7 +29,7 @@ final class FileHashComputer
     /**
      * @return void
      */
-    private function ensureIsPhp(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    private function ensureIsPhp(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         if ($fileInfo->hasSuffixes(['php'])) {
             return;
@@ -40,11 +40,11 @@ final class FileHashComputer
             $fileInfo->getRelativeFilePath()
         ));
     }
-    private function createFileLoader(\RectorPrefix20210422\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \RectorPrefix20210422\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \RectorPrefix20210422\Symfony\Component\Config\Loader\LoaderInterface
+    private function createFileLoader(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderInterface
     {
-        $fileLocator = new \RectorPrefix20210422\Symfony\Component\Config\FileLocator([$fileInfo->getPath()]);
-        $fileLoaders = [new \RectorPrefix20210422\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \RectorPrefix20210422\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, $fileLocator)];
-        $loaderResolver = new \RectorPrefix20210422\Symfony\Component\Config\Loader\LoaderResolver($fileLoaders);
+        $fileLocator = new \RectorPrefix20210423\Symfony\Component\Config\FileLocator([$fileInfo->getPath()]);
+        $fileLoaders = [new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, $fileLocator)];
+        $loaderResolver = new \RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderResolver($fileLoaders);
         $loader = $loaderResolver->resolve($fileInfo->getRealPath());
         if (!$loader) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

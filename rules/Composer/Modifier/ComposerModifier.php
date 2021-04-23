@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Composer\Modifier;
 
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
-use RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 final class ComposerModifier
 {
     /**
@@ -21,7 +21,7 @@ final class ComposerModifier
     /**
      * @return void
      */
-    public function modify(\RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function modify(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->composerRectors as $composerRector) {
             $composerRector->refactor($composerJson);

@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210422\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+namespace RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use RectorPrefix20210422\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210422\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use RectorPrefix20210422\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use RectorPrefix20210423\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields the default value defined in the action signature when no value has been given.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class DefaultValueResolver implements \RectorPrefix20210422\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class DefaultValueResolver implements \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function supports(\RectorPrefix20210422\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210422\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
+    public function supports(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
     {
         return $argument->hasDefaultValue() || null !== $argument->getType() && $argument->isNullable() && !$argument->isVariadic();
     }
@@ -31,7 +31,7 @@ final class DefaultValueResolver implements \RectorPrefix20210422\Symfony\Compon
      * {@inheritdoc}
      * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210422\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210422\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         (yield $argument->hasDefaultValue() ? $argument->getDefaultValue() : null);
     }

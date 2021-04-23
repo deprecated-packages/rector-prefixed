@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Composer\Rector;
 
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
-use RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -23,7 +23,7 @@ final class RemovePackageComposerRector implements \Rector\Composer\Contract\Rec
     /**
      * @return void
      */
-    public function refactor(\RectorPrefix20210422\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function refactor(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->packageNames as $packageName) {
             $composerJson->removePackage($packageName);

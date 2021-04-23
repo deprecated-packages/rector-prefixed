@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php74\Rector\LNumber;
 
-use RectorPrefix20210422\Nette\Utils\Strings;
+use RectorPrefix20210423\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
@@ -13,7 +13,7 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210422\Webmozart\Assert\Assert;
+use RectorPrefix20210423\Webmozart\Assert\Assert;
 /**
  * @changelog https://wiki.php.net/rfc/numeric_literal_separator
  * @changelog https://github.com/nikic/PHP-Parser/pull/615
@@ -45,7 +45,7 @@ final class AddLiteralSeparatorToNumberRector extends \Rector\Core\Rector\Abstra
     public function configure(array $configuration)
     {
         $limitValue = $configuration[self::LIMIT_VALUE] ?? 1000000;
-        \RectorPrefix20210422\Webmozart\Assert\Assert::integer($limitValue);
+        \RectorPrefix20210423\Webmozart\Assert\Assert::integer($limitValue);
         $this->limitValue = $limitValue;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -92,7 +92,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node, $numericValueAsString)) {
             return null;
         }
-        if (\RectorPrefix20210422\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
             list($mainPart, $decimalPart) = \explode('.', $numericValueAsString);
             $chunks = $this->strSplitNegative($mainPart, self::GROUP_SIZE);
             $literalSeparatedNumber = \implode('_', $chunks) . '.' . $decimalPart;
@@ -116,7 +116,7 @@ CODE_SAMPLE
             return \true;
         }
         // already separated
-        if (\RectorPrefix20210422\Nette\Utils\Strings::contains($numericValueAsString, '_')) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::contains($numericValueAsString, '_')) {
             return \true;
         }
         $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
@@ -124,11 +124,11 @@ CODE_SAMPLE
             return \true;
         }
         // e+/e-
-        if (\RectorPrefix20210422\Nette\Utils\Strings::match($numericValueAsString, '#e#i')) {
+        if (\RectorPrefix20210423\Nette\Utils\Strings::match($numericValueAsString, '#e#i')) {
             return \true;
         }
         // too short
-        return \RectorPrefix20210422\Nette\Utils\Strings::length($numericValueAsString) <= self::GROUP_SIZE;
+        return \RectorPrefix20210423\Nette\Utils\Strings::length($numericValueAsString) <= self::GROUP_SIZE;
     }
     /**
      * @return string[]

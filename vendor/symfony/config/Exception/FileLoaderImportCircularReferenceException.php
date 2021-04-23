@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210422\Symfony\Component\Config\Exception;
+namespace RectorPrefix20210423\Symfony\Component\Config\Exception;
 
 /**
  * Exception class for when a circular reference is detected when importing resources.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLoaderImportCircularReferenceException extends \RectorPrefix20210422\Symfony\Component\Config\Exception\LoaderLoadException
+class FileLoaderImportCircularReferenceException extends \RectorPrefix20210423\Symfony\Component\Config\Exception\LoaderLoadException
 {
     /**
      * @param int|null $code
