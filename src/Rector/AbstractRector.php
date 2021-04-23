@@ -27,7 +27,7 @@ use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Exclusion\ExclusionManager;
 use Rector\Core\Logging\CurrentRectorProvider;
-use Rector\Core\NodeAnalyzer\ClassAnalyzer;
+use Rector\Core\NodeAnalyzer\ChangedNodeAnalyzer;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -59,7 +59,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     /**
      * @var string[]
      */
-    const ATTRIBUTES_TO_MIRROR = [\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, \Rector\NodeTypeResolver\Node\AttributeKey::SCOPE, \Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME];
+    const ATTRIBUTES_TO_MIRROR = [\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, \Rector\NodeTypeResolver\Node\AttributeKey::SCOPE, \Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME];
     /**
      * @var NodeNameResolver
      */
@@ -112,10 +112,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      * @var BetterNodeFinder
      */
     protected $betterNodeFinder;
-    /**
-     * @var ClassAnalyzer
-     */
-    protected $classAnalyzer;
     /**
      * @var NodeRemover
      */
@@ -177,10 +173,14 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     private $currentFileProvider;
     /**
+     * @var ChangedNodeAnalyzer
+     */
+    private $changedNodeAnalyzer;
+    /**
      * @required
      * @return void
      */
-    public function autowireAbstractRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210423\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210423\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210423\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)
+    public function autowireAbstractRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210423\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210423\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210423\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\NodeAnalyzer\ChangedNodeAnalyzer $changedNodeAnalyzer)
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->nodesToAddCollector = $nodesToAddCollector;
@@ -201,7 +201,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $this->staticTypeMapper = $staticTypeMapper;
         $this->parameterProvider = $parameterProvider;
         $this->currentRectorProvider = $currentRectorProvider;
-        $this->classAnalyzer = $classAnalyzer;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->skipper = $skipper;
         $this->valueResolver = $valueResolver;
@@ -209,6 +208,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeComparator = $nodeComparator;
         $this->currentFileProvider = $currentFileProvider;
+        $this->changedNodeAnalyzer = $changedNodeAnalyzer;
     }
     /**
      * @return mixed[]|null
@@ -249,8 +249,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             return null;
         }
         // changed!
-        if ($this->hasNodeChanged($originalNode, $node)) {
-            $this->updateAttributes($node);
+        if ($this->changedNodeAnalyzer->hasNodeChanged($originalNode, $node)) {
             $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine());
             $this->file->addRectorClassWithLine($rectorWithLineChange);
             // update parents relations
@@ -347,16 +346,16 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         return $projectType === \Rector\Core\ValueObject\ProjectType::OPEN_SOURCE;
     }
     /**
-     * @param Arg[] $newArgs
+     * @param Arg[] $currentArgs
      * @param Arg[] $appendingArgs
      * @return Arg[]
      */
-    protected function appendArgs(array $newArgs, array $appendingArgs) : array
+    protected function appendArgs(array $currentArgs, array $appendingArgs) : array
     {
         foreach ($appendingArgs as $appendingArg) {
-            $newArgs[] = new \PhpParser\Node\Arg($appendingArg->value);
+            $currentArgs[] = new \PhpParser\Node\Arg($appendingArg->value);
         }
-        return $newArgs;
+        return $currentArgs;
     }
     protected function unwrapExpression(\PhpParser\Node\Stmt $stmt) : \PhpParser\Node
     {
@@ -464,43 +463,21 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $this->symfonyStyle->writeln('    [applying] ' . static::class);
         $this->previousAppliedClass = static::class;
     }
-    private function hasNodeChanged(\PhpParser\Node $originalNode, \PhpParser\Node $node) : bool
-    {
-        if ($this->isNameIdentical($node, $originalNode)) {
-            return \false;
-        }
-        return !$this->nodeComparator->areNodesEqual($originalNode, $node);
-    }
     /**
      * @param array<string, mixed> $originalAttributes
      * @return void
      */
     private function mirrorAttributes(array $originalAttributes, \PhpParser\Node $newNode)
     {
+        if ($newNode instanceof \PhpParser\Node\Name) {
+            $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME, $newNode->toString());
+        }
         foreach ($originalAttributes as $attributeName => $oldAttributeValue) {
             if (!\in_array($attributeName, self::ATTRIBUTES_TO_MIRROR, \true)) {
                 continue;
             }
             $newNode->setAttribute($attributeName, $oldAttributeValue);
         }
-    }
-    /**
-     * @return void
-     */
-    private function updateAttributes(\PhpParser\Node $node)
-    {
-        // update Resolved name attribute if name is changed
-        if ($node instanceof \PhpParser\Node\Name) {
-            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME, $node->toString());
-        }
-    }
-    private function isNameIdentical(\PhpParser\Node $node, \PhpParser\Node $originalNode) : bool
-    {
-        if (!$originalNode instanceof \PhpParser\Node\Name) {
-            return \false;
-        }
-        // names are the same
-        return $this->nodeComparator->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
     }
     /**
      * @return void

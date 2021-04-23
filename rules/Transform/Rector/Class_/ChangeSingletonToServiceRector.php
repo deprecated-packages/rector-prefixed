@@ -6,6 +6,7 @@ namespace Rector\Transform\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Stmt\Class_;
+use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Transform\NodeAnalyzer\SingletonClassMethodAnalyzer;
@@ -24,9 +25,14 @@ final class ChangeSingletonToServiceRector extends \Rector\Core\Rector\AbstractR
      * @var SingletonClassMethodAnalyzer
      */
     private $singletonClassMethodAnalyzer;
-    public function __construct(\Rector\Transform\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer)
+    /**
+     * @var ClassAnalyzer
+     */
+    private $classAnalyzer;
+    public function __construct(\Rector\Transform\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)
     {
         $this->singletonClassMethodAnalyzer = $singletonClassMethodAnalyzer;
+        $this->classAnalyzer = $classAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

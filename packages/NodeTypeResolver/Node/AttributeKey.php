@@ -15,6 +15,7 @@ final class AttributeKey
      */
     const SCOPE = 'scope';
     /**
+     * @deprecated
      * @var string
      */
     const USE_NODES = 'useNodes';
