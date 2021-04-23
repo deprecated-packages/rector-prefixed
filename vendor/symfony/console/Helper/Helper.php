@@ -22,9 +22,8 @@ abstract class Helper implements \RectorPrefix20210423\Symfony\Component\Console
     protected $helperSet = null;
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
-    public function setHelperSet($helperSet = null)
+    public function setHelperSet(\RectorPrefix20210423\Symfony\Component\Console\Helper\HelperSet $helperSet = null)
     {
         $this->helperSet = $helperSet;
     }

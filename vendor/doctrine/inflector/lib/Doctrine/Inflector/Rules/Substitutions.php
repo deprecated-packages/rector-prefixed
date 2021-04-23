@@ -25,10 +25,7 @@ class Substitutions implements \RectorPrefix20210423\Doctrine\Inflector\WordInfl
         }
         return new \RectorPrefix20210423\Doctrine\Inflector\Rules\Substitutions(...$substitutions);
     }
-    /**
-     * @param string $word
-     */
-    public function inflect($word) : string
+    public function inflect(string $word) : string
     {
         $lowerWord = \strtolower($word);
         if (isset($this->substitutions[$lowerWord])) {

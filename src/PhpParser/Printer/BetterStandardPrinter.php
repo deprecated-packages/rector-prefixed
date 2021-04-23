@@ -88,7 +88,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param Node[] $origStmts
      * @param mixed[] $origTokens
      */
-    public function printFormatPreserving($stmts, $origStmts, $origTokens) : string
+    public function printFormatPreserving(array $stmts, array $origStmts, array $origTokens) : string
     {
         $newStmts = $this->resolveNewStmts($stmts);
         // detect per print
@@ -116,7 +116,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * @param Node[] $stmts
      */
-    public function prettyPrintFile($stmts) : string
+    public function prettyPrintFile(array $stmts) : string
     {
         // to keep indexes from 0
         $stmts = \array_values($stmts);
@@ -129,10 +129,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * This allows to use both spaces and tabs vs. original space-only
-     * @param int $level
      * @return void
      */
-    protected function setIndentLevel($level)
+    protected function setIndentLevel(int $level)
     {
         $level = \max($level, 0);
         $this->indentLevel = $level;
@@ -169,13 +168,9 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param mixed[] $nodes
      * @param mixed[] $origNodes
      * @param int|null $fixup
-     * @param int $pos
-     * @param int $indentAdjustment
-     * @param string $parentNodeType
-     * @param string $subNodeName
      * @return string|null
      */
-    protected function pArray($nodes, $origNodes, &$pos, $indentAdjustment, $parentNodeType, $subNodeName, $fixup)
+    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup)
     {
         // reindex positions for printer
         $nodes = \array_values($nodes);
@@ -197,17 +192,15 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * - or the end of the string
      *
      * Prevents `Vendor\Class` => `Vendor\\Class`.
-     * @param string $string
      */
-    protected function pSingleQuotedString($string) : string
+    protected function pSingleQuotedString(string $string) : string
     {
         return "'" . \RectorPrefix20210423\Nette\Utils\Strings::replace($string, self::QUOTED_SLASH_REGEX, '\\\\$0') . "'";
     }
     /**
      * Emulates 1_000 in PHP 7.3- version
-     * @param \PhpParser\Node\Scalar\DNumber $dNumber
      */
-    protected function pScalar_DNumber($dNumber) : string
+    protected function pScalar_DNumber(\PhpParser\Node\Scalar\DNumber $dNumber) : string
     {
         if (\is_string($dNumber->value)) {
             return $dNumber->value;
@@ -219,9 +212,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * "use("
      * ↓
      * "use ("
-     * @param \PhpParser\Node\Expr\Closure $closure
      */
-    protected function pExpr_Closure($closure) : string
+    protected function pExpr_Closure(\PhpParser\Node\Expr\Closure $closure) : string
     {
         $closureContent = parent::pExpr_Closure($closure);
         return \RectorPrefix20210423\Nette\Utils\Strings::replace($closureContent, self::USE_REGEX, '$1 (');
@@ -229,9 +221,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * Do not add "()" on Expressions
      * @see https://github.com/rectorphp/rector/pull/401#discussion_r181487199
-     * @param \PhpParser\Node\Expr\Yield_ $yield
      */
-    protected function pExpr_Yield($yield) : string
+    protected function pExpr_Yield(\PhpParser\Node\Expr\Yield_ $yield) : string
     {
         if ($yield->value === null) {
             return 'yield';
@@ -243,9 +234,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     /**
      * Print arrays in short [] by default,
      * to prevent manual explicit array shortening.
-     * @param \PhpParser\Node\Expr\Array_ $array
      */
-    protected function pExpr_Array($array) : string
+    protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $array) : string
     {
         if (!$array->hasAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND)) {
             $array->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \PhpParser\Node\Expr\Array_::KIND_SHORT);
@@ -254,9 +244,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * Fixes escaping of regular patterns
-     * @param \PhpParser\Node\Scalar\String_ $string
      */
-    protected function pScalar_String($string) : string
+    protected function pScalar_String(\PhpParser\Node\Scalar\String_ $string) : string
     {
         $isRegularPattern = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN);
         if (!$isRegularPattern) {
@@ -273,9 +262,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * @param Node[] $nodes
-     * @param bool $indent
      */
-    protected function pStmts($nodes, $indent = \true) : string
+    protected function pStmts(array $nodes, bool $indent = \true) : string
     {
         $this->moveCommentsFromAttributeObjectToCommentsAttribute($nodes);
         return parent::pStmts($nodes, $indent);
@@ -284,9 +272,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * "...$params) : ReturnType"
      * ↓
      * "...$params): ReturnType"
-     * @param \PhpParser\Node\Stmt\ClassMethod $classMethod
      */
-    protected function pStmt_ClassMethod($classMethod) : string
+    protected function pStmt_ClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : string
     {
         $content = parent::pStmt_ClassMethod($classMethod);
         // this approach is chosen, to keep changes in parent pStmt_ClassMethod() updated
@@ -294,9 +281,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * Clean class and trait from empty "use x;" for traits causing invalid code
-     * @param \PhpParser\Node\Stmt\Class_ $class
      */
-    protected function pStmt_Class($class) : string
+    protected function pStmt_Class(\PhpParser\Node\Stmt\Class_ $class) : string
     {
         $shouldReindex = \false;
         foreach ($class->stmts as $key => $stmt) {
@@ -313,18 +299,16 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     /**
      * It remove all spaces extra to parent
-     * @param \PhpParser\Node\Stmt\Declare_ $declare
      */
-    protected function pStmt_Declare($declare) : string
+    protected function pStmt_Declare(\PhpParser\Node\Stmt\Declare_ $declare) : string
     {
         $declareString = parent::pStmt_Declare($declare);
         return \RectorPrefix20210423\Nette\Utils\Strings::replace($declareString, '#\\s+#', '');
     }
     /**
      * Remove extra \\ from FQN use imports, for easier use in the code
-     * @param \PhpParser\Node\Stmt\Use_ $use
      */
-    protected function pStmt_Use($use) : string
+    protected function pStmt_Use(\PhpParser\Node\Stmt\Use_ $use) : string
     {
         if ($use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
             return parent::pStmt_Use($use);
@@ -337,18 +321,12 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         }
         return parent::pStmt_Use($use);
     }
-    /**
-     * @param \PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart
-     */
-    protected function pScalar_EncapsedStringPart($encapsedStringPart) : string
+    protected function pScalar_EncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $encapsedStringPart) : string
     {
         // parent throws exception, but we need to compare string
         return '`' . $encapsedStringPart->value . '`';
     }
-    /**
-     * @param mixed[] $nodes
-     */
-    protected function pCommaSeparated($nodes) : string
+    protected function pCommaSeparated(array $nodes) : string
     {
         $result = parent::pCommaSeparated($nodes);
         $last = \end($nodes);

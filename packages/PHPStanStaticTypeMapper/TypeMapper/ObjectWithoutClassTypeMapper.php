@@ -38,9 +38,9 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         return \PHPStan\Type\ObjectWithoutClassType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ObjectWithoutClassType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if ($type instanceof \PHPStan\Type\Generic\TemplateObjectWithoutClassType) {
             $attributeAwareIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getName());
@@ -49,11 +49,11 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('object');
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ObjectWithoutClassType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         $subtractedType = $type->getSubtractedType();
         if ($subtractedType !== null) {
@@ -65,10 +65,9 @@ final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMap
         return new \PhpParser\Node\Name('object');
     }
     /**
-     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      * @return void
      */
-    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

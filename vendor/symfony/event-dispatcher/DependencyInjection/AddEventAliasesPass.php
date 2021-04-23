@@ -27,10 +27,9 @@ class AddEventAliasesPass implements \RectorPrefix20210423\Symfony\Component\Dep
         $this->eventAliasesParameter = $eventAliasesParameter;
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return void
      */
-    public function process($container)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $eventAliases = $container->hasParameter($this->eventAliasesParameter) ? $container->getParameter($this->eventAliasesParameter) : [];
         $container->setParameter($this->eventAliasesParameter, \array_merge($eventAliases, $this->eventAliases));

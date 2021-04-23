@@ -38,10 +38,8 @@ class InlineFragmentRenderer extends \RectorPrefix20210423\Symfony\Component\Htt
      * Additional available options:
      *
      *  * alt: an alternative URI to render in case of an error
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed[] $options
      */
-    public function render($uri, $request, $options = [])
+    public function render($uri, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, array $options = [])
     {
         $reference = null;
         if ($uri instanceof \RectorPrefix20210423\Symfony\Component\HttpKernel\Controller\ControllerReference) {

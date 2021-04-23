@@ -101,7 +101,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
      * @param File[] $files
      * @return void
      */
-    public function process($files)
+    public function process(array $files)
     {
         $fileCount = \count($files);
         if ($fileCount === 0) {
@@ -142,10 +142,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
         // 4. remove and add files
         $this->removedAndAddedFilesProcessor->run();
     }
-    /**
-     * @param \Rector\Core\ValueObject\Application\File $file
-     */
-    public function supports($file) : bool
+    public function supports(\Rector\Core\ValueObject\Application\File $file) : bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
         return $smartFileInfo->hasSuffixes($this->getSupportedFileExtensions());

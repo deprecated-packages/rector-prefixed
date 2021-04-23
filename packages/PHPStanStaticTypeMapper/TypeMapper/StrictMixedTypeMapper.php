@@ -24,18 +24,18 @@ final class StrictMixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
         return \PHPStan\Type\StrictMixedType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param StrictMixedType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode(self::MIXED);
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param StrictMixedType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return new \PhpParser\Node\Name(self::MIXED);
     }

@@ -20,7 +20,6 @@ interface WrappableOutputFormatterInterface extends \RectorPrefix20210423\Symfon
     /**
      * Formats a message according to the given styles, wrapping at `$width` (0 means no wrapping).
      * @param string|null $message
-     * @param int $width
      */
-    public function formatAndWrap($message, $width);
+    public function formatAndWrap($message, int $width);
 }

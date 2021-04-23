@@ -48,10 +48,8 @@ EOF
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function execute($input, $output)
+    protected function execute(\RectorPrefix20210423\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (null === $this->command) {
             $this->command = $this->getApplication()->find($input->getArgument('command_name'));

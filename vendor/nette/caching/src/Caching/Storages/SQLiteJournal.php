@@ -55,11 +55,9 @@ class SQLiteJournal implements \RectorPrefix20210423\Nette\Caching\Storages\Jour
 		');
     }
     /**
-     * @param string $key
-     * @param mixed[] $dependencies
      * @return void
      */
-    public function write($key, $dependencies)
+    public function write(string $key, array $dependencies)
     {
         if (!$this->pdo) {
             $this->open();
@@ -79,10 +77,9 @@ class SQLiteJournal implements \RectorPrefix20210423\Nette\Caching\Storages\Jour
         $this->pdo->exec('COMMIT');
     }
     /**
-     * @param mixed[] $conditions
      * @return mixed[]|null
      */
-    public function clean($conditions)
+    public function clean(array $conditions)
     {
         if (!$this->pdo) {
             $this->open();

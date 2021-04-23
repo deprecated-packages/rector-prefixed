@@ -7,18 +7,11 @@ abstract class KeywordEmulator extends \PhpParser\Lexer\TokenEmulator\TokenEmula
 {
     abstract function getKeywordString() : string;
     abstract function getKeywordToken() : int;
-    /**
-     * @param string $code
-     */
-    public function isEmulationNeeded($code) : bool
+    public function isEmulationNeeded(string $code) : bool
     {
         return \strpos(\strtolower($code), $this->getKeywordString()) !== \false;
     }
-    /**
-     * @param string $code
-     * @param mixed[] $tokens
-     */
-    public function emulate($code, $tokens) : array
+    public function emulate(string $code, array $tokens) : array
     {
         $keywordString = $this->getKeywordString();
         foreach ($tokens as $i => $token) {
@@ -46,11 +39,7 @@ abstract class KeywordEmulator extends \PhpParser\Lexer\TokenEmulator\TokenEmula
         }
         return null;
     }
-    /**
-     * @param string $code
-     * @param mixed[] $tokens
-     */
-    public function reverseEmulate($code, $tokens) : array
+    public function reverseEmulate(string $code, array $tokens) : array
     {
         $keywordToken = $this->getKeywordToken();
         foreach ($tokens as $i => $token) {

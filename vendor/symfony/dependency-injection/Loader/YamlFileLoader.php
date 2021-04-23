@@ -47,9 +47,8 @@ class YamlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyI
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, string $type = null)
     {
         $path = $this->locator->locate($resource);
         $content = $this->loadFile($path);
@@ -84,9 +83,8 @@ class YamlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyI
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function supports($resource, $type = null)
+    public function supports($resource, string $type = null)
     {
         if (!\is_string($resource)) {
             return \false;

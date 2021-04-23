@@ -36,9 +36,9 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return \PHPStan\Type\IterableType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param IterableType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $itemTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getItemType());
         if ($itemTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
@@ -47,11 +47,11 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return new \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode($itemTypeNode);
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param IterableType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return new \PhpParser\Node\Name('iterable');
     }

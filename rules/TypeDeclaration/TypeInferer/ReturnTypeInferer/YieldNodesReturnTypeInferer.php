@@ -43,7 +43,7 @@ final class YieldNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contr
     /**
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
         $yieldNodes = $this->findCurrentScopeYieldNodes($functionLike);
         if ($yieldNodes === []) {

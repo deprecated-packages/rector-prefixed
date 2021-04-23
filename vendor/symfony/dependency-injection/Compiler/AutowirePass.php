@@ -42,9 +42,8 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         try {
             $this->typesClone = clone $this;
@@ -61,9 +60,8 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         try {
             return $this->doProcessValue($value, $isRoot);

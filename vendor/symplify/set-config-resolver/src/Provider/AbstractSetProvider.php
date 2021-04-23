@@ -23,10 +23,9 @@ abstract class AbstractSetProvider implements \RectorPrefix20210423\Symplify\Set
         return $setNames;
     }
     /**
-     * @param string $desiredSetName
      * @return \Symplify\SetConfigResolver\ValueObject\Set|null
      */
-    public function provideByName($desiredSetName)
+    public function provideByName(string $desiredSetName)
     {
         // 1. name-based approach
         $sets = $this->provide();

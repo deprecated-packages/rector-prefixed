@@ -34,18 +34,18 @@ final class StaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return \PHPStan\Type\StaticType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param StaticType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param StaticType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         if ($type instanceof \PHPStan\Type\ThisType) {
             // @todo wait for PHPStan to differentiate between self/static

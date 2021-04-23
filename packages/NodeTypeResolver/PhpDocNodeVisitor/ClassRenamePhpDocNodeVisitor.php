@@ -34,20 +34,18 @@ final class ClassRenamePhpDocNodeVisitor extends \RectorPrefix20210423\Symplify\
         $this->currentNodeProvider = $currentNodeProvider;
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return void
      */
-    public function beforeTraverse($node)
+    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if ($this->oldToNewTypes === []) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Configure "$oldToNewClasses" first');
         }
     }
     /**
-     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode($node)
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;

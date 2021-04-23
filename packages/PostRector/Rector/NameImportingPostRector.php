@@ -56,10 +56,9 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
         $this->reflectionProvider = $reflectionProvider;
     }
     /**
-     * @param \PhpParser\Node $node
      * @return \PhpParser\Node|null
      */
-    public function enterNode($node)
+    public function enterNode(\PhpParser\Node $node)
     {
         $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
         if (!$autoImportNames) {

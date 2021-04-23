@@ -28,17 +28,14 @@ final class VariableReadNodeAnalyzer implements \Rector\ReadWrite\Contract\ReadN
         $this->nodeUsageFinder = $nodeUsageFinder;
         $this->readExprAnalyzer = $readExprAnalyzer;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function supports($node) : bool
+    public function supports(\PhpParser\Node $node) : bool
     {
         return $node instanceof \PhpParser\Node\Expr\Variable;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Variable $node
      */
-    public function isRead($node) : bool
+    public function isRead(\PhpParser\Node $node) : bool
     {
         $parentScope = $this->parentScopeFinder->find($node);
         if ($parentScope === null) {

@@ -10,5 +10,5 @@ interface FileDecoratorInterface
      * @param File[] $files
      * @return void
      */
-    public function decorate($files);
+    public function decorate(array $files);
 }

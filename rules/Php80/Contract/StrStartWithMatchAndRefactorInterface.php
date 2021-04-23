@@ -12,12 +12,10 @@ interface StrStartWithMatchAndRefactorInterface
 {
     /**
      * @return \Rector\Php80\ValueObject\StrStartsWith|null
-     * @param \PhpParser\Node\Expr\BinaryOp $binaryOp
      */
-    public function match($binaryOp);
+    public function match(\PhpParser\Node\Expr\BinaryOp $binaryOp);
     /**
      * @return \PhpParser\Node|null
-     * @param \Rector\Php80\ValueObject\StrStartsWith $strStartsWith
      */
-    public function refactorStrStartsWith($strStartsWith);
+    public function refactorStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith);
 }

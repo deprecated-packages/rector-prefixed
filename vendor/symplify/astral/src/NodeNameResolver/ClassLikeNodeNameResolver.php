@@ -8,18 +8,15 @@ use PhpParser\Node\Stmt\ClassLike;
 use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 final class ClassLikeNodeNameResolver implements \RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function match($node) : bool
+    public function match(\PhpParser\Node $node) : bool
     {
         return $node instanceof \PhpParser\Node\Stmt\ClassLike;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassLike $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         if (\property_exists($node, 'namespacedName')) {
             return (string) $node->namespacedName;

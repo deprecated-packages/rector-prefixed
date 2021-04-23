@@ -8,18 +8,15 @@ use PhpParser\Node\Stmt\Namespace_;
 use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 final class NamespaceNodeNameResolver implements \RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function match($node) : bool
+    public function match(\PhpParser\Node $node) : bool
     {
         return $node instanceof \PhpParser\Node\Stmt\Namespace_;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Namespace_ $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         if ($node->name === null) {
             return null;

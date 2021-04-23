@@ -34,7 +34,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
      * @param Node[] $nodes
      * @return mixed[]|null
      */
-    public function beforeTraverse($nodes)
+    public function beforeTraverse(array $nodes)
     {
         $this->classLike = null;
         $this->className = null;
@@ -42,19 +42,15 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         return null;
     }
     /**
-     * @param \PhpParser\Node $node
      * @return \PhpParser\Node|null
      */
-    public function enterNode($node)
+    public function enterNode(\PhpParser\Node $node)
     {
         $this->processClass($node);
         $this->processMethod($node);
         return $node;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function leaveNode($node)
+    public function leaveNode(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
             $classLike = \array_pop($this->classStack);

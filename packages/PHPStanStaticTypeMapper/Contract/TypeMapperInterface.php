@@ -15,14 +15,10 @@ interface TypeMapperInterface
      * @return class-string<Type>
      */
     public function getNodeClass() : string;
-    /**
-     * @param \PHPStan\Type\Type $type
-     */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode;
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode;
     /**
      * @return \PhpParser\Node|null
      * @param string|null $kind
-     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPhpParserNode($type, $kind = null);
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null);
 }

@@ -46,9 +46,8 @@ class SerializerErrorRenderer implements \RectorPrefix20210423\Symfony\Component
     }
     /**
      * {@inheritdoc}
-     * @param \Throwable $exception
      */
-    public function render($exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
+    public function render(\Throwable $exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
         $headers = [];
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);

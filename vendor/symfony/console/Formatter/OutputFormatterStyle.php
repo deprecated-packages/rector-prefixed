@@ -36,17 +36,15 @@ class OutputFormatterStyle implements \RectorPrefix20210423\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setForeground($color = null)
+    public function setForeground(string $color = null)
     {
         $this->color = new \RectorPrefix20210423\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
-     * @param string $color
      */
-    public function setBackground($color = null)
+    public function setBackground(string $color = null)
     {
         $this->color = new \RectorPrefix20210423\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
@@ -59,18 +57,16 @@ class OutputFormatterStyle implements \RectorPrefix20210423\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param string $option
      */
-    public function setOption($option)
+    public function setOption(string $option)
     {
         $this->options[] = $option;
         $this->color = new \RectorPrefix20210423\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
-     * @param string $option
      */
-    public function unsetOption($option)
+    public function unsetOption(string $option)
     {
         $pos = \array_search($option, $this->options);
         if (\false !== $pos) {
@@ -80,17 +76,15 @@ class OutputFormatterStyle implements \RectorPrefix20210423\Symfony\Component\Co
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $options
      */
-    public function setOptions($options)
+    public function setOptions(array $options)
     {
         $this->color = new \RectorPrefix20210423\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
     }
     /**
      * {@inheritdoc}
-     * @param string $text
      */
-    public function apply($text)
+    public function apply(string $text)
     {
         if (null === $this->handlesHrefGracefully) {
             $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== \getenv('TERMINAL_EMULATOR') && (!\getenv('KONSOLE_VERSION') || (int) \getenv('KONSOLE_VERSION') > 201100);

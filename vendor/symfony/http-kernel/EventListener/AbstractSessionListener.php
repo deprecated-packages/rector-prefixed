@@ -45,10 +45,7 @@ abstract class AbstractSessionListener implements \RectorPrefix20210423\Symfony\
         $this->container = $container;
         $this->debug = $debug;
     }
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event)
+    public function onKernelRequest(\RectorPrefix20210423\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -5,23 +5,11 @@ namespace Rector\RectorInstaller;
 
 interface Filesystem
 {
-    /**
-     * @param string $pathToFile
-     */
-    public function isFile($pathToFile) : bool;
-    /**
-     * @param string $pathToFile
-     */
-    public function hashFile($pathToFile) : string;
-    /**
-     * @param string $hash
-     * @param string $content
-     */
-    public function hashEquals($hash, $content) : bool;
+    public function isFile(string $pathToFile) : bool;
+    public function hashFile(string $pathToFile) : string;
+    public function hashEquals(string $hash, string $content) : bool;
     /**
      * @return void
-     * @param string $pathToFile
-     * @param string $contents
      */
-    public function writeFile($pathToFile, $contents);
+    public function writeFile(string $pathToFile, string $contents);
 }

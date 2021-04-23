@@ -22,9 +22,8 @@ class CliErrorRenderer implements \RectorPrefix20210423\Symfony\Component\ErrorH
 {
     /**
      * {@inheritdoc}
-     * @param \Throwable $exception
      */
-    public function render($exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
+    public function render(\Throwable $exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
         $cloner = new \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\VarCloner();
         $dumper = new class extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper\CliDumper

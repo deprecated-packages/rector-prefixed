@@ -53,9 +53,8 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
@@ -96,10 +95,9 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
     /**
-     * @param \Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
      * @return void
      */
-    public function setResolver($methodNamesByInputNamesResolver)
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

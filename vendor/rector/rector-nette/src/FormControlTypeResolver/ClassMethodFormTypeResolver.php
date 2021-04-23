@@ -34,9 +34,8 @@ final class ClassMethodFormTypeResolver implements \Rector\Nette\Contract\FormCo
     }
     /**
      * @return array<string, string>
-     * @param \PhpParser\Node $node
      */
-    public function resolve($node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
         if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
@@ -54,10 +53,9 @@ final class ClassMethodFormTypeResolver implements \Rector\Nette\Contract\FormCo
         return $this->methodNamesByInputNamesResolver->resolveExpr($lastReturn->expr);
     }
     /**
-     * @param \Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
      * @return void
      */
-    public function setResolver($methodNamesByInputNamesResolver)
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

@@ -29,9 +29,8 @@ class MergeExtensionConfigurationPass implements \RectorPrefix20210423\Symfony\C
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $parameters = $container->getParameterBag()->all();
         $definitions = $container->getDefinitions();
@@ -150,20 +149,16 @@ class MergeExtensionConfigurationContainerBuilder extends \RectorPrefix20210423\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
-     * @param string $type
-     * @param int $priority
      * @return $this
      */
-    public function addCompilerPass($pass, $type = \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         throw new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
      */
-    public function registerExtension($extension)
+    public function registerExtension(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension)
     {
         throw new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot register extension "%s" from "%s". Extensions must be registered before the container is compiled.', \get_debug_type($extension), $this->extensionClass));
     }
@@ -177,9 +172,8 @@ class MergeExtensionConfigurationContainerBuilder extends \RectorPrefix20210423\
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $usedEnvs
      */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (\true !== $format || !\is_string($value)) {
             return parent::resolveEnvPlaceholders($value, $format, $usedEnvs);

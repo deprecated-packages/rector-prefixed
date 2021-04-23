@@ -47,18 +47,12 @@ class NameResolver extends \PhpParser\NodeVisitorAbstract
     {
         return $this->nameContext;
     }
-    /**
-     * @param mixed[] $nodes
-     */
-    public function beforeTraverse($nodes)
+    public function beforeTraverse(array $nodes)
     {
         $this->nameContext->startNamespace();
         return null;
     }
-    /**
-     * @param \PhpParser\Node $node
-     */
-    public function enterNode($node)
+    public function enterNode(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $this->nameContext->startNamespace($node->name);

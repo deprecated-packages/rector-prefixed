@@ -120,9 +120,8 @@ class PhpDumper extends \RectorPrefix20210423\Symfony\Component\DependencyInject
      * @return string|array A PHP class representing the service container or an array of PHP files if the "as_files" option is set
      *
      * @throws EnvParameterException When an env var exists but has not been dumped
-     * @param mixed[] $options
      */
-    public function dump($options = [])
+    public function dump(array $options = [])
     {
         $this->locatedIds = [];
         $this->targetDirRegex = null;

@@ -38,9 +38,8 @@ class ServerDumper implements \RectorPrefix20210423\Symfony\Component\VarDumper\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
-    public function dump($data)
+    public function dump(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         if (!$this->connection->write($data) && $this->wrappedDumper) {
             $this->wrappedDumper->dump($data);

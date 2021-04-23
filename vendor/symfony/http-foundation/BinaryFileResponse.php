@@ -155,9 +155,8 @@ class BinaryFileResponse extends \RectorPrefix20210423\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare($request)
+    public function prepare(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
     {
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');

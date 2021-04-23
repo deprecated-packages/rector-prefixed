@@ -102,7 +102,7 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter($name)
+    public function getParameter(string $name)
     {
         return $this->parameterBag->get($name);
     }
@@ -113,7 +113,7 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter($name)
+    public function hasParameter(string $name)
     {
         return $this->parameterBag->has($name);
     }
@@ -123,7 +123,7 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value)
     {
         $this->parameterBag->set($name, $value);
     }
@@ -132,10 +132,9 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      *
      * Setting a synthetic service to null resets it: has() returns false and get()
      * behaves in the same way as if the service was never created.
-     * @param string $id
      * @param object|null $service
      */
-    public function set($id, $service)
+    public function set(string $id, $service)
     {
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
@@ -258,7 +257,7 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      *
      * @return bool true if service has already been initialized, false otherwise
      */
-    public function initialized($id)
+    public function initialized(string $id)
     {
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];

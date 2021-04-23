@@ -102,9 +102,8 @@ abstract class AbstractDumper implements \RectorPrefix20210423\Symfony\Component
      * @param callable|resource|string|true|null $output A line dumper callable, an opened stream, an output path or true to return the dump
      *
      * @return string|null The dump as string when $output is true
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
-    public function dump($data, $output = null)
+    public function dump(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data, $output = null)
     {
         $this->decimalPoint = \localeconv();
         $this->decimalPoint = $this->decimalPoint['decimal_point'];
@@ -141,7 +140,7 @@ abstract class AbstractDumper implements \RectorPrefix20210423\Symfony\Component
      * @param int $depth The recursive depth in the dumped structure for the line being dumped,
      *                   or -1 to signal the end-of-dump to the line dumper callable
      */
-    protected function dumpLine($depth)
+    protected function dumpLine(int $depth)
     {
         ($this->lineDumper)($this->line, $depth, $this->indentPad);
         $this->line = '';

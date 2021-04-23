@@ -28,9 +28,8 @@ abstract class Loader implements \RectorPrefix20210423\Symfony\Component\Config\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
-    public function setResolver($resolver)
+    public function setResolver(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;
     }
@@ -38,11 +37,11 @@ abstract class Loader implements \RectorPrefix20210423\Symfony\Component\Config\
      * Imports a resource.
      *
      * @param mixed       $resource A resource
-     * @param string $type The resource type or null if unknown
+     * @param string|null $type     The resource type or null if unknown
      *
      * @return mixed
      */
-    public function import($resource, $type = null)
+    public function import($resource, string $type = null)
     {
         return $this->resolve($resource, $type)->load($resource, $type);
     }

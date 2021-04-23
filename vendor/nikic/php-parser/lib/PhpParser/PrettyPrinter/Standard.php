@@ -99,10 +99,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
         return '__TRAIT__';
     }
     // Scalars
-    /**
-     * @param \PhpParser\Node\Scalar\String_ $node
-     */
-    protected function pScalar_String($node)
+    protected function pScalar_String(\PhpParser\Node\Scalar\String_ $node)
     {
         $kind = $node->getAttribute('kind', \PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED);
         switch ($kind) {
@@ -173,10 +170,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
         }
         throw new \Exception('Invalid number kind');
     }
-    /**
-     * @param \PhpParser\Node\Scalar\DNumber $node
-     */
-    protected function pScalar_DNumber($node)
+    protected function pScalar_DNumber(\PhpParser\Node\Scalar\DNumber $node)
     {
         if (!\is_finite($node->value)) {
             if ($node->value === \INF) {
@@ -199,10 +193,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
         // ensure that number is really printed as float
         return \preg_match('/^-?[0-9]+$/', $stringValue) ? $stringValue . '.0' : $stringValue;
     }
-    /**
-     * @param \PhpParser\Node\Scalar\EncapsedStringPart $node
-     */
-    protected function pScalar_EncapsedStringPart($node)
+    protected function pScalar_EncapsedStringPart(\PhpParser\Node\Scalar\EncapsedStringPart $node)
     {
         throw new \LogicException('Cannot directly print EncapsedStringPart');
     }
@@ -522,10 +513,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
             return '$' . $node->name;
         }
     }
-    /**
-     * @param \PhpParser\Node\Expr\Array_ $node
-     */
-    protected function pExpr_Array($node)
+    protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $node)
     {
         $syntax = $node->getAttribute('kind', $this->options['shortArraySyntax'] ? \PhpParser\Node\Expr\Array_::KIND_SHORT : \PhpParser\Node\Expr\Array_::KIND_LONG);
         if ($syntax === \PhpParser\Node\Expr\Array_::KIND_SHORT) {
@@ -566,10 +554,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
     {
         return '`' . $this->pEncapsList($node->parts, '`') . '`';
     }
-    /**
-     * @param \PhpParser\Node\Expr\Closure $node
-     */
-    protected function pExpr_Closure($node)
+    protected function pExpr_Closure(\PhpParser\Node\Expr\Closure $node)
     {
         return $this->pAttrGroups($node->attrGroups, \true) . ($node->static ? 'static ' : '') . 'function ' . ($node->byRef ? '&' : '') . '(' . $this->pCommaSeparated($node->params) . ')' . (!empty($node->uses) ? ' use(' . $this->pCommaSeparated($node->uses) . ')' : '') . (null !== $node->returnType ? ' : ' . $this->p($node->returnType) : '') . ' {' . $this->pStmts($node->stmts) . $this->nl . '}';
     }
@@ -616,10 +601,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
     {
         return 'throw ' . $this->p($node->expr);
     }
-    /**
-     * @param \PhpParser\Node\Expr\Yield_ $node
-     */
-    protected function pExpr_Yield($node)
+    protected function pExpr_Yield(\PhpParser\Node\Expr\Yield_ $node)
     {
         if ($node->value === null) {
             return 'yield';
@@ -637,10 +619,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
             return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ' {' . $this->pStmts($node->stmts) . $this->nl . '}';
         }
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Use_ $node
-     */
-    protected function pStmt_Use($node)
+    protected function pStmt_Use(\PhpParser\Node\Stmt\Use_ $node)
     {
         return 'use ' . $this->pUseType($node->type) . $this->pCommaSeparated($node->uses) . ';';
     }
@@ -660,10 +639,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
     {
         return $this->pAttrGroups($node->attrGroups) . 'interface ' . $node->name . (!empty($node->extends) ? ' extends ' . $this->pCommaSeparated($node->extends) : '') . $this->nl . '{' . $this->pStmts($node->stmts) . $this->nl . '}';
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Class_ $node
-     */
-    protected function pStmt_Class($node)
+    protected function pStmt_Class(\PhpParser\Node\Stmt\Class_ $node)
     {
         return $this->pClassCommon($node, ' ' . $node->name);
     }
@@ -691,10 +667,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
     {
         return '$' . $node->name . (null !== $node->default ? ' = ' . $this->p($node->default) : '');
     }
-    /**
-     * @param \PhpParser\Node\Stmt\ClassMethod $node
-     */
-    protected function pStmt_ClassMethod($node)
+    protected function pStmt_ClassMethod(\PhpParser\Node\Stmt\ClassMethod $node)
     {
         return $this->pAttrGroups($node->attrGroups) . $this->pModifiers($node->flags) . 'function ' . ($node->byRef ? '&' : '') . $node->name . '(' . $this->pMaybeMultiline($node->params) . ')' . (null !== $node->returnType ? ' : ' . $this->p($node->returnType) : '') . (null !== $node->stmts ? $this->nl . '{' . $this->pStmts($node->stmts) . $this->nl . '}' : ';');
     }
@@ -710,10 +683,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
     {
         return 'const ' . $this->pCommaSeparated($node->consts) . ';';
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Declare_ $node
-     */
-    protected function pStmt_Declare($node)
+    protected function pStmt_Declare(\PhpParser\Node\Stmt\Declare_ $node)
     {
         return 'declare (' . $this->pCommaSeparated($node->declares) . ')' . (null !== $node->stmts ? ' {' . $this->pStmts($node->stmts) . $this->nl . '}' : ';');
     }
@@ -857,10 +827,7 @@ class Standard extends \PhpParser\PrettyPrinterAbstract
         }
         return $return;
     }
-    /**
-     * @param string $string
-     */
-    protected function pSingleQuotedString($string)
+    protected function pSingleQuotedString(string $string)
     {
         return '\'' . \addcslashes($string, '\'\\') . '\'';
     }

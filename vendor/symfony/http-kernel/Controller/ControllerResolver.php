@@ -28,9 +28,8 @@ class ControllerResolver implements \RectorPrefix20210423\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getController($request)
+    public function getController(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
     {
         if (!($controller = $request->attributes->get('_controller'))) {
             if (null !== $this->logger) {
@@ -98,9 +97,8 @@ class ControllerResolver implements \RectorPrefix20210423\Symfony\Component\Http
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
-     * @param string $controller
      */
-    protected function createController($controller)
+    protected function createController(string $controller)
     {
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
@@ -140,9 +138,8 @@ class ControllerResolver implements \RectorPrefix20210423\Symfony\Component\Http
      * Returns an instantiated controller.
      *
      * @return object
-     * @param string $class
      */
-    protected function instantiateController($class)
+    protected function instantiateController(string $class)
     {
         return new $class();
     }

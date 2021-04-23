@@ -26,11 +26,7 @@ final class ClassLikeNameClassNameImportSkipVoter implements \Rector\CodingStyle
     {
         $this->shortNameResolver = $shortNameResolver;
     }
-    /**
-     * @param \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType
-     * @param \PhpParser\Node $node
-     */
-    public function shouldSkip($fullyQualifiedObjectType, $node) : bool
+    public function shouldSkip(\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
     {
         $classLikeNames = $this->shortNameResolver->resolveShortClassLikeNamesForNode($node);
         foreach ($classLikeNames as $classLikeName) {

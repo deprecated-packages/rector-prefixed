@@ -79,10 +79,8 @@ class File extends \SplFileInfo
      * @return self A File object representing the new file
      *
      * @throws FileException if the target file could not be created
-     * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move(string $directory, string $name = null)
     {
         $target = $this->getTargetFile($directory, $name);
         \set_error_handler(function ($type, $msg) use(&$error) {

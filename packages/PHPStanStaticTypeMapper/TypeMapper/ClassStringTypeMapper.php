@@ -29,9 +29,9 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
         return \PHPStan\Type\ClassStringType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ClassStringType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $attributeAwareIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('class-string');
         if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType) {
@@ -47,19 +47,18 @@ final class ClassStringTypeMapper implements \Rector\PHPStanStaticTypeMapper\Con
         return $attributeAwareIdentifierTypeNode;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ClassStringType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return null;
     }
     /**
-     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      * @return void
      */
-    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

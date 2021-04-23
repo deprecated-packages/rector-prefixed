@@ -21,7 +21,6 @@ interface RequestMatcherInterface
      * Decides whether the rule(s) implemented by the strategy matches the supplied request.
      *
      * @return bool true if the request matches, false otherwise
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function matches($request);
+    public function matches(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request);
 }

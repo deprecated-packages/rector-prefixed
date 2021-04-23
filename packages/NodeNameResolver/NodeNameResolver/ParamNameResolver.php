@@ -29,10 +29,10 @@ final class ParamNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
         return \PhpParser\Node\Param::class;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Param $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         return $this->nodeNameResolver->getName($node->var);
     }

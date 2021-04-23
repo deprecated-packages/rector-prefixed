@@ -85,10 +85,7 @@ trait ServiceLocatorTrait
         }
         return $this->providedTypes;
     }
-    /**
-     * @param string $id
-     */
-    private function createNotFoundException($id) : \RectorPrefix20210423\Psr\Container\NotFoundExceptionInterface
+    private function createNotFoundException(string $id) : \RectorPrefix20210423\Psr\Container\NotFoundExceptionInterface
     {
         if (!($alternatives = \array_keys($this->factories))) {
             $message = 'is empty...';
@@ -109,11 +106,7 @@ trait ServiceLocatorTrait
         {
         };
     }
-    /**
-     * @param string $id
-     * @param mixed[] $path
-     */
-    private function createCircularReferenceException($id, $path) : \RectorPrefix20210423\Psr\Container\ContainerExceptionInterface
+    private function createCircularReferenceException(string $id, array $path) : \RectorPrefix20210423\Psr\Container\ContainerExceptionInterface
     {
         return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path))) extends \RuntimeException implements \RectorPrefix20210423\Psr\Container\ContainerExceptionInterface
         {

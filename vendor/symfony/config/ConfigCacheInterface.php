@@ -37,9 +37,9 @@ interface ConfigCacheInterface
      * independently and can be used to check cache freshness at a later time.
      *
      * @param string                   $content  The content to write into the cache
-     * @param mixed[] $metadata An array of ResourceInterface instances
+     * @param ResourceInterface[]|null $metadata An array of ResourceInterface instances
      *
      * @throws \RuntimeException When the cache file cannot be written
      */
-    public function write($content, $metadata = null);
+    public function write(string $content, array $metadata = null);
 }

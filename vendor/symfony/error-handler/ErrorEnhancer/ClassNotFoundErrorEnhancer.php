@@ -21,10 +21,9 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210423\Symfony\Compon
 {
     /**
      * {@inheritdoc}
-     * @param \Throwable $error
      * @return \Throwable|null
      */
-    public function enhance($error)
+    public function enhance(\Throwable $error)
     {
         // Some specific versions of PHP produce a fatal error when extending a not found class.
         $message = !$error instanceof \RectorPrefix20210423\Symfony\Component\ErrorHandler\Error\FatalError ? $error->getMessage() : $error->getError()['message'];

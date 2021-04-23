@@ -27,9 +27,8 @@ final class NullOutputFormatter implements \RectorPrefix20210423\Symfony\Compone
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getStyle($name) : \RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    public function getStyle(string $name) : \RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
     {
         if ($this->style) {
             return $this->style;
@@ -39,9 +38,8 @@ final class NullOutputFormatter implements \RectorPrefix20210423\Symfony\Compone
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function hasStyle($name) : bool
+    public function hasStyle(string $name) : bool
     {
         return \false;
     }
@@ -54,20 +52,17 @@ final class NullOutputFormatter implements \RectorPrefix20210423\Symfony\Compone
     }
     /**
      * {@inheritdoc}
-     * @param bool $decorated
      * @return void
      */
-    public function setDecorated($decorated)
+    public function setDecorated(bool $decorated)
     {
         // do nothing
     }
     /**
      * {@inheritdoc}
-     * @param string $name
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      * @return void
      */
-    public function setStyle($name, $style)
+    public function setStyle(string $name, \RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         // do nothing
     }

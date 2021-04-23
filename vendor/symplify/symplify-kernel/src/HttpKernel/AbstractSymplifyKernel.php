@@ -35,7 +35,7 @@ abstract class AbstractSymplifyKernel extends \RectorPrefix20210423\Symfony\Comp
      * @param string[]|SmartFileInfo[] $configs
      * @return void
      */
-    public function setConfigs($configs)
+    public function setConfigs(array $configs)
     {
         foreach ($configs as $config) {
             if ($config instanceof \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo) {

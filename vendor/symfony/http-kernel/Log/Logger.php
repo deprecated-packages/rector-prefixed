@@ -58,9 +58,8 @@ class Logger extends \RectorPrefix20210423\Psr\Log\AbstractLogger
      * {@inheritdoc}
      *
      * @return void
-     * @param mixed[] $context
      */
-    public function log($level, $message, $context = [])
+    public function log($level, $message, array $context = [])
     {
         if (!isset(self::LEVELS[$level])) {
             throw new \RectorPrefix20210423\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));

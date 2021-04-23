@@ -27,10 +27,8 @@ abstract class ConfigurableExtension extends \RectorPrefix20210423\Symfony\Compo
 {
     /**
      * {@inheritdoc}
-     * @param mixed[] $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public final function load($configs, $container)
+    public final function load(array $configs, \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->loadInternal($this->processConfiguration($this->getConfiguration($configs, $container), $configs), $container);
     }

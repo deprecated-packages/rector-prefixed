@@ -56,9 +56,8 @@ class ClassExistenceResource implements \RectorPrefix20210423\Symfony\Component\
      * {@inheritdoc}
      *
      * @throws \ReflectionException when a parent class/interface/trait is not found
-     * @param int $timestamp
      */
-    public function isFresh($timestamp) : bool
+    public function isFresh(int $timestamp) : bool
     {
         $loaded = \class_exists($this->resource, \false) || \interface_exists($this->resource, \false) || \trait_exists($this->resource, \false);
         if (null !== ($exists =& self::$existsCache[$this->resource])) {

@@ -75,7 +75,7 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
      *
      * @param array $styles A map of style names to style definitions
      */
-    public function setStyles($styles)
+    public function setStyles(array $styles)
     {
         $this->styles = $styles + $this->styles;
     }
@@ -84,16 +84,14 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
      *
      * @param array $displayOptions A map of display options to customize the behavior
      */
-    public function setDisplayOptions($displayOptions)
+    public function setDisplayOptions(array $displayOptions)
     {
         $this->displayOptions = $displayOptions + $this->displayOptions;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param string $type
      */
-    public function dumpScalar($cursor, $type, $value)
+    public function dumpScalar(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Cursor $cursor, string $type, $value)
     {
         $this->dumpKey($cursor);
         $style = 'const';
@@ -141,12 +139,8 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param string $str
-     * @param bool $bin
-     * @param int $cut
      */
-    public function dumpString($cursor, $str, $bin, $cut)
+    public function dumpString(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Cursor $cursor, string $str, bool $bin, int $cut)
     {
         $this->dumpKey($cursor);
         $attr = $cursor->attr;
@@ -224,11 +218,8 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param int $type
-     * @param bool $hasChild
      */
-    public function enterHash($cursor, $type, $class, $hasChild)
+    public function enterHash(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild)
     {
         if (null === $this->colors) {
             $this->colors = $this->supportsColors();
@@ -261,12 +252,8 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
-     * @param int $type
-     * @param bool $hasChild
-     * @param int $cut
      */
-    public function leaveHash($cursor, $type, $class, $hasChild, $cut)
+    public function leaveHash(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Cursor $cursor, int $type, $class, bool $hasChild, int $cut)
     {
         if (empty($cursor->attr['cut_hash'])) {
             $this->dumpEllipsis($cursor, $hasChild, $cut);
@@ -480,10 +467,8 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
     }
     /**
      * {@inheritdoc}
-     * @param int $depth
-     * @param bool $endOfValue
      */
-    protected function dumpLine($depth, $endOfValue = \false)
+    protected function dumpLine(int $depth, bool $endOfValue = \false)
     {
         if ($this->colors) {
             $this->line = \sprintf("\33[%sm%s\33[m", $this->styles['default'], $this->line);
@@ -552,11 +537,7 @@ class CliDumper extends \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper
         }
         return $result;
     }
-    /**
-     * @param string $file
-     * @param int $line
-     */
-    private function getSourceLink($file, $line)
+    private function getSourceLink(string $file, int $line)
     {
         if ($fmt = $this->displayOptions['fileLinkFormat']) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : ($fmt->format($file, $line) ?: 'file://' . $file . '#L' . $line);

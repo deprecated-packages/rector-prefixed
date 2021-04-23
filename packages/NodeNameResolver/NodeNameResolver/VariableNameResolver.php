@@ -20,10 +20,10 @@ final class VariableNameResolver implements \Rector\NodeNameResolver\Contract\No
         return \PhpParser\Node\Expr\Variable::class;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Variable $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // skip $some->$dynamicMethodName()

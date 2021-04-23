@@ -59,10 +59,7 @@ class DumpDataCollector extends \RectorPrefix20210423\Symfony\Component\HttpKern
     {
         $this->clonesIndex = ++$this->clonesCount;
     }
-    /**
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
-     */
-    public function dump($data)
+    public function dump(\RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         if ($this->stopwatch) {
             $this->stopwatch->start('dump');
@@ -86,12 +83,7 @@ class DumpDataCollector extends \RectorPrefix20210423\Symfony\Component\HttpKern
             $this->stopwatch->stop('dump');
         }
     }
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
-     */
-    public function collect($request, $response, $exception = null)
+    public function collect(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];

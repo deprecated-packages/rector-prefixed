@@ -29,10 +29,10 @@ final class ClassConstNameResolver implements \Rector\NodeNameResolver\Contract\
         return \PhpParser\Node\Stmt\ClassConst::class;
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param ClassConst $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         if ($node->consts === []) {
             return null;

@@ -212,9 +212,8 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     }
     /**
      * @return mixed[]|null
-     * @param mixed[] $nodes
      */
-    public function beforeTraverse($nodes)
+    public function beforeTraverse(array $nodes)
     {
         $this->previousAppliedClass = null;
         // workaround for file around refactor()
@@ -227,9 +226,8 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     }
     /**
      * @return Expression|Node|null
-     * @param \PhpParser\Node $node
      */
-    public final function enterNode($node)
+    public final function enterNode(\PhpParser\Node $node)
     {
         $nodeClass = \get_class($node);
         if (!$this->isMatchingNodeType($nodeClass)) {

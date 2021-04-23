@@ -20,18 +20,18 @@ final class ParentStaticTypeMapper implements \Rector\PHPStanStaticTypeMapper\Co
         return \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ParentStaticType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('parent');
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ParentStaticType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return new \PhpParser\Node\Name('parent');
     }

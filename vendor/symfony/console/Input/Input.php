@@ -41,9 +41,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
-    public function bind($definition)
+    public function bind(\RectorPrefix20210423\Symfony\Component\Console\Input\InputDefinition $definition)
     {
         $this->arguments = [];
         $this->options = [];
@@ -77,9 +76,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param bool $interactive
      */
-    public function setInteractive($interactive)
+    public function setInteractive(bool $interactive)
     {
         $this->interactive = $interactive;
     }
@@ -92,9 +90,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getArgument($name)
+    public function getArgument(string $name)
     {
         if (!$this->definition->hasArgument($name)) {
             throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
@@ -103,9 +100,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setArgument($name, $value)
+    public function setArgument(string $name, $value)
     {
         if (!$this->definition->hasArgument($name)) {
             throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
@@ -128,9 +124,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getOption($name)
+    public function getOption(string $name)
     {
         if (!$this->definition->hasOption($name)) {
             throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
@@ -139,9 +134,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setOption($name, $value)
+    public function setOption(string $name, $value)
     {
         if (!$this->definition->hasOption($name)) {
             throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
@@ -150,9 +144,8 @@ abstract class Input implements \RectorPrefix20210423\Symfony\Component\Console\
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
         return $this->definition->hasOption($name);
     }

@@ -34,9 +34,9 @@ final class NameTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTy
         return [\PhpParser\Node\Name::class, \PhpParser\Node\Name\FullyQualified::class];
     }
     /**
-     * @param \PhpParser\Node $node
+     * @param Name $node
      */
-    public function resolve($node) : \PHPStan\Type\Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         if ($node->toString() === 'parent') {
             return $this->resolveParent($node);

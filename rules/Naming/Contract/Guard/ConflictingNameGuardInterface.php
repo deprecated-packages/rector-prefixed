@@ -6,8 +6,5 @@ namespace Rector\Naming\Contract\Guard;
 use Rector\Naming\Contract\RenameValueObjectInterface;
 interface ConflictingNameGuardInterface
 {
-    /**
-     * @param \Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject
-     */
-    public function isConflicting($renameValueObject) : bool;
+    public function isConflicting(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool;
 }

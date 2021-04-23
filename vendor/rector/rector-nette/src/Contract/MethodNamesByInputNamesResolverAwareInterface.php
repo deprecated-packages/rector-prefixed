@@ -8,7 +8,6 @@ interface MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @return void
-     * @param \Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
      */
-    public function setResolver($methodNamesByInputNamesResolver);
+    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver);
 }

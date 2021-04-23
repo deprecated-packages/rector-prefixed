@@ -55,17 +55,15 @@ class ParameterBag implements \IteratorAggregate, \Countable
     }
     /**
      * Replaces the current parameters by a new set.
-     * @param mixed[] $parameters
      */
-    public function replace($parameters = [])
+    public function replace(array $parameters = [])
     {
         $this->parameters = $parameters;
     }
     /**
      * Adds parameters.
-     * @param mixed[] $parameters
      */
-    public function add($parameters = [])
+    public function add(array $parameters = [])
     {
         $this->parameters = \array_replace($this->parameters, $parameters);
     }
@@ -75,9 +73,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * @param mixed $default The default value if the parameter key does not exist
      *
      * @return mixed
-     * @param string $key
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
         return \array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
@@ -85,9 +82,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * Sets a parameter by name.
      *
      * @param mixed $value The value
-     * @param string $key
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         $this->parameters[$key] = $value;
     }
@@ -163,9 +159,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * @see https://php.net/filter-var
      *
      * @return mixed
-     * @param string $key
      */
-    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
+    public function filter(string $key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
     {
         $value = $this->get($key, $default);
         // Always turn $options into an array - this allows filter_var option shortcuts.

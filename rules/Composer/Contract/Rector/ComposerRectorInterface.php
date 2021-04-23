@@ -10,7 +10,6 @@ interface ComposerRectorInterface extends \Rector\Core\Contract\Rector\RectorInt
 {
     /**
      * @return void
-     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
      */
-    public function refactor($composerJson);
+    public function refactor(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson);
 }

@@ -39,7 +39,7 @@ final class StrposMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
      * @param Identical|NotIdentical $binaryOp
      * @return \Rector\Php80\ValueObject\StrStartsWith|null
      */
-    public function match($binaryOp)
+    public function match(\PhpParser\Node\Expr\BinaryOp $binaryOp)
     {
         $isPositive = $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical;
         if ($binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($binaryOp->left, 'strpos')) {
@@ -66,9 +66,8 @@ final class StrposMatchAndRefactor implements \Rector\Php80\Contract\StrStartWit
     }
     /**
      * @return FuncCall|BooleanNot
-     * @param \Rector\Php80\ValueObject\StrStartsWith $strStartsWith
      */
-    public function refactorStrStartsWith($strStartsWith) : \PhpParser\Node
+    public function refactorStrStartsWith(\Rector\Php80\ValueObject\StrStartsWith $strStartsWith) : \PhpParser\Node
     {
         $strposFuncCall = $strStartsWith->getFuncCall();
         $strposFuncCall->name = new \PhpParser\Node\Name('str_starts_with');

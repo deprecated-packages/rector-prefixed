@@ -146,10 +146,7 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
     {
         $this->proxyInstantiator = $proxyInstantiator;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
-     */
-    public function registerExtension($extension)
+    public function registerExtension(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension)
     {
         $this->extensions[$extension->getAlias()] = $extension;
         if (\false !== $extension->getNamespace()) {
@@ -372,9 +369,8 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      * @param int    $priority Used to sort the passes
      *
      * @return $this
-     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      */
-    public function addCompilerPass($pass, $type = \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
+    public function addCompilerPass(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, string $type = \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
     {
         $this->getCompiler()->addPass($pass, $type, $priority);
         $this->addObjectResource($pass);
@@ -405,10 +401,9 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      * Sets a service.
      *
      * @throws BadMethodCallException When this ContainerBuilder is compiled
-     * @param string $id
      * @param object|null $service
      */
-    public function set($id, $service)
+    public function set(string $id, $service)
     {
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
@@ -1061,10 +1056,8 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      *     }
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
-     * @param string $name
-     * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds($name, $throwOnAbstract = \false)
+    public function findTaggedServiceIds(string $name, bool $throwOnAbstract = \false)
     {
         $this->usedTags[] = $name;
         $tags = [];
@@ -1159,7 +1152,7 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      *
      * @return mixed The value with env parameters resolved if a string or an array is passed
      */
-    public function resolveEnvPlaceholders($value, $format = null, &$usedEnvs = null)
+    public function resolveEnvPlaceholders($value, $format = null, array &$usedEnvs = null)
     {
         if (null === $format) {
             $format = '%%env(%s)%%';

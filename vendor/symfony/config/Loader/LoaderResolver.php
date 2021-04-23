@@ -35,9 +35,8 @@ class LoaderResolver implements \RectorPrefix20210423\Symfony\Component\Config\L
     }
     /**
      * {@inheritdoc}
-     * @param string $type
      */
-    public function resolve($resource, $type = null)
+    public function resolve($resource, string $type = null)
     {
         foreach ($this->loaders as $loader) {
             if ($loader->supports($resource, $type)) {

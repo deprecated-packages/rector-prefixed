@@ -41,10 +41,9 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     /**
      * {@inheritdoc}
      * @param object $event
-     * @param string $eventName
      * @return object
      */
-    public function dispatch($event, $eventName = null)
+    public function dispatch($event, string $eventName = null)
     {
         $eventName = $eventName ?? \get_class($event);
         if (null !== $this->optimized) {
@@ -59,9 +58,8 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             if (empty($this->listeners[$eventName])) {
@@ -81,9 +79,8 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority(string $eventName, $listener)
     {
         if (empty($this->listeners[$eventName])) {
             return null;
@@ -107,9 +104,8 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners(string $eventName = null)
     {
         if (null !== $eventName) {
             return !empty($this->listeners[$eventName]);
@@ -123,19 +119,16 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->listeners[$eventName][$priority][] = $listener;
         unset($this->sorted[$eventName], $this->optimized[$eventName]);
     }
     /**
      * {@inheritdoc}
-     * @param string $eventName
      */
-    public function removeListener($eventName, $listener)
+    public function removeListener(string $eventName, $listener)
     {
         if (empty($this->listeners[$eventName])) {
             return;
@@ -161,9 +154,8 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function addSubscriber($subscriber)
+    public function addSubscriber(\RectorPrefix20210423\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_string($params)) {
@@ -179,9 +171,8 @@ class EventDispatcher implements \RectorPrefix20210423\Symfony\Component\EventDi
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
-    public function removeSubscriber($subscriber)
+    public function removeSubscriber(\RectorPrefix20210423\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_array($params) && \is_array($params[0])) {

@@ -19,18 +19,18 @@ final class ResourceTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return \PHPStan\Type\ResourceType::class;
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ResourceType $type
      */
-    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('resource');
     }
     /**
-     * @param \PHPStan\Type\Type $type
+     * @param ResourceType $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode($type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
     {
         return null;
     }

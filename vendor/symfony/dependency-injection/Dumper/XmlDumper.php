@@ -38,9 +38,8 @@ class XmlDumper extends \RectorPrefix20210423\Symfony\Component\DependencyInject
      * Dumps the service container as an XML string.
      *
      * @return string An xml string representing of the service container
-     * @param mixed[] $options
      */
-    public function dump($options = [])
+    public function dump(array $options = [])
     {
         $this->document = new \DOMDocument('1.0', 'utf-8');
         $this->document->formatOutput = \true;

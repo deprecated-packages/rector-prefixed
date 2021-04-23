@@ -287,9 +287,8 @@ class Response
      * the Request that is "associated" with this Response.
      *
      * @return $this
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare($request)
+    public function prepare(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
     {
         $headers = $this->headers;
         if ($this->isInformational() || $this->isEmpty()) {

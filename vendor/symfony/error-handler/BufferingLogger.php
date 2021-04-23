@@ -20,10 +20,9 @@ class BufferingLogger extends \RectorPrefix20210423\Psr\Log\AbstractLogger
 {
     private $logs = [];
     /**
-     * @param mixed[] $context
      * @return void
      */
-    public function log($level, $message, $context = [])
+    public function log($level, $message, array $context = [])
     {
         $this->logs[] = [$level, $message, $context];
     }

@@ -167,7 +167,7 @@ abstract class PrettyPrinterAbstract
      *
      * @param int $level Level in number of spaces
      */
-    protected function setIndentLevel($level)
+    protected function setIndentLevel(int $level)
     {
         $this->indentLevel = $level;
         $this->nl = "\n" . \str_repeat(' ', $level);
@@ -221,7 +221,7 @@ abstract class PrettyPrinterAbstract
      *
      * @return string Pretty printed statements
      */
-    public function prettyPrintFile($stmts) : string
+    public function prettyPrintFile(array $stmts) : string
     {
         if (!$stmts) {
             return "<?php\n\n";
@@ -272,7 +272,7 @@ abstract class PrettyPrinterAbstract
      *
      * @return string Pretty printed statements
      */
-    protected function pStmts($nodes, $indent = \true) : string
+    protected function pStmts(array $nodes, bool $indent = \true) : string
     {
         if ($indent) {
             $this->indent();
@@ -386,7 +386,7 @@ abstract class PrettyPrinterAbstract
      *
      * @return string Comma separated pretty printed nodes
      */
-    protected function pCommaSeparated($nodes) : string
+    protected function pCommaSeparated(array $nodes) : string
     {
         return $this->pImplode($nodes, ', ');
     }
@@ -454,7 +454,7 @@ abstract class PrettyPrinterAbstract
      *
      * @return string
      */
-    public function printFormatPreserving($stmts, $origStmts, $origTokens) : string
+    public function printFormatPreserving(array $stmts, array $origStmts, array $origTokens) : string
     {
         $this->initializeNodeListDiffer();
         $this->initializeLabelCharMap();
@@ -637,7 +637,7 @@ abstract class PrettyPrinterAbstract
      *
      * @return null|string Result of pretty print or null if cannot preserve formatting
      */
-    protected function pArray($nodes, $origNodes, &$pos, $indentAdjustment, $parentNodeType, $subNodeName, $fixup)
+    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup)
     {
         $diff = $this->nodeListDiffer->diffWithReplacements($origNodes, $nodes);
         $mapKey = $parentNodeType . '->' . $subNodeName;

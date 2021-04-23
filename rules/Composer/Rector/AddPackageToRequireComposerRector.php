@@ -31,10 +31,9 @@ final class AddPackageToRequireComposerRector implements \Rector\Composer\Contra
         $this->versionGuard = $versionGuard;
     }
     /**
-     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
      * @return void
      */
-    public function refactor($composerJson)
+    public function refactor(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
     {
         foreach ($this->packagesAndVersions as $packageAndVersion) {
             $composerJson->addRequiredPackage($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());

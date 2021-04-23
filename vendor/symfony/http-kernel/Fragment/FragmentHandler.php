@@ -62,10 +62,8 @@ class FragmentHandler
      *
      * @throws \InvalidArgumentException when the renderer does not exist
      * @throws \LogicException           when no master request is being handled
-     * @param string $renderer
-     * @param mixed[] $options
      */
-    public function render($uri, $renderer = 'inline', $options = [])
+    public function render($uri, string $renderer = 'inline', array $options = [])
     {
         if (!isset($options['ignore_errors'])) {
             $options['ignore_errors'] = !$this->debug;

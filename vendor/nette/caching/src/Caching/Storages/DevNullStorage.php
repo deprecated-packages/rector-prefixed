@@ -14,39 +14,31 @@ use RectorPrefix20210423\Nette;
 class DevNullStorage implements \RectorPrefix20210423\Nette\Caching\Storage
 {
     use Nette\SmartObject;
-    /**
-     * @param string $key
-     */
-    public function read($key)
+    public function read(string $key)
     {
     }
     /**
-     * @param string $key
      * @return void
      */
-    public function lock($key)
+    public function lock(string $key)
     {
     }
     /**
-     * @param string $key
-     * @param mixed[] $dependencies
      * @return void
      */
-    public function write($key, $data, $dependencies)
+    public function write(string $key, $data, array $dependencies)
     {
     }
     /**
-     * @param string $key
      * @return void
      */
-    public function remove($key)
+    public function remove(string $key)
     {
     }
     /**
-     * @param mixed[] $conditions
      * @return void
      */
-    public function clean($conditions)
+    public function clean(array $conditions)
     {
     }
 }

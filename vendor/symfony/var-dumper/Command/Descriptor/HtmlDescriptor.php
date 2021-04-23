@@ -29,13 +29,9 @@ class HtmlDescriptor implements \RectorPrefix20210423\Symfony\Component\VarDumpe
         $this->dumper = $dumper;
     }
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
-     * @param mixed[] $context
-     * @param int $clientId
      * @return void
      */
-    public function describe($output, $data, $context, $clientId)
+    public function describe(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
     {
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');

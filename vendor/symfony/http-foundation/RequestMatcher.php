@@ -135,9 +135,8 @@ class RequestMatcher implements \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function matches($request)
+    public function matches(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
     {
         if ($this->schemes && !\in_array($request->getScheme(), $this->schemes, \true)) {
             return \false;

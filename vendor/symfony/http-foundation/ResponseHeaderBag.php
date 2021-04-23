@@ -58,9 +58,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $headers
      */
-    public function replace($headers = [])
+    public function replace(array $headers = [])
     {
         $this->headerNames = [];
         parent::replace($headers);
@@ -73,9 +72,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function all($key = null)
+    public function all(string $key = null)
     {
         $headers = parent::all();
         if (null !== $key) {
@@ -89,10 +87,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $key
-     * @param bool $replace
      */
-    public function set($key, $values, $replace = \true)
+    public function set(string $key, $values, bool $replace = \true)
     {
         $uniqueKey = \strtr($key, self::UPPER, self::LOWER);
         if ('set-cookie' === $uniqueKey) {
@@ -116,9 +112,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function remove($key)
+    public function remove(string $key)
     {
         $uniqueKey = \strtr($key, self::UPPER, self::LOWER);
         unset($this->headerNames[$uniqueKey]);
@@ -136,17 +131,15 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function hasCacheControlDirective($key)
+    public function hasCacheControlDirective(string $key)
     {
         return \array_key_exists($key, $this->computedCacheControl);
     }
     /**
      * {@inheritdoc}
-     * @param string $key
      */
-    public function getCacheControlDirective($key)
+    public function getCacheControlDirective(string $key)
     {
         return \array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }

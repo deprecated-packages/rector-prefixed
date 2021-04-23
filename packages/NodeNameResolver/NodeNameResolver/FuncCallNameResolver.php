@@ -31,10 +31,10 @@ final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\No
      * If some function is namespaced, it will be used over global one.
      * But only if it really exists.
      *
-     * @param \PhpParser\Node $node
+     * @param FuncCall $node
      * @return string|null
      */
-    public function resolve($node)
+    public function resolve(\PhpParser\Node $node)
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;

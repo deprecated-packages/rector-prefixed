@@ -56,10 +56,7 @@ class RegisterListenersPass implements \RectorPrefix20210423\Symfony\Component\D
         $this->noPreloadTagName = $tagName;
         return $this;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;
@@ -165,11 +162,7 @@ class ExtractingEventDispatcher extends \RectorPrefix20210423\Symfony\Component\
     public $listeners = [];
     public static $aliases = [];
     public static $subscriber;
-    /**
-     * @param string $eventName
-     * @param int $priority
-     */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener(string $eventName, $listener, int $priority = 0)
     {
         $this->listeners[] = [$eventName, $listener[1], $priority];
     }

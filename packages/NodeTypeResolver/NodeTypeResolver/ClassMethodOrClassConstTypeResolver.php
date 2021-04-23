@@ -37,7 +37,7 @@ final class ClassMethodOrClassConstTypeResolver implements \Rector\NodeTypeResol
     /**
      * @param ClassMethod|ClassConst $node
      */
-    public function resolve($node) : \PHPStan\Type\Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {

@@ -29,10 +29,9 @@ interface ContainerInterface extends \RectorPrefix20210423\Psr\Container\Contain
     const IGNORE_ON_UNINITIALIZED_REFERENCE = 4;
     /**
      * Sets a service.
-     * @param string $id
      * @param object|null $service
      */
-    public function set($id, $service);
+    public function set(string $id, $service);
     /**
      * Gets a service.
      *
@@ -59,9 +58,8 @@ interface ContainerInterface extends \RectorPrefix20210423\Psr\Container\Contain
      * Check for whether or not a service has been initialized.
      *
      * @return bool true if the service has been initialized, false otherwise
-     * @param string $id
      */
-    public function initialized($id);
+    public function initialized(string $id);
     /**
      * Gets a parameter.
      *
@@ -71,7 +69,7 @@ interface ContainerInterface extends \RectorPrefix20210423\Psr\Container\Contain
      *
      * @throws InvalidArgumentException if the parameter is not defined
      */
-    public function getParameter($name);
+    public function getParameter(string $name);
     /**
      * Checks if a parameter exists.
      *
@@ -79,12 +77,12 @@ interface ContainerInterface extends \RectorPrefix20210423\Psr\Container\Contain
      *
      * @return bool The presence of parameter in container
      */
-    public function hasParameter($name);
+    public function hasParameter(string $name);
     /**
      * Sets a parameter.
      *
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function setParameter($name, $value);
+    public function setParameter(string $name, $value);
 }

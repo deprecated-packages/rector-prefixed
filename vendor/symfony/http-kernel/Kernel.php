@@ -125,10 +125,8 @@ abstract class Kernel implements \RectorPrefix20210423\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate($request, $response)
+    public function terminate(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false === $this->booted) {
             return;
@@ -156,11 +154,8 @@ abstract class Kernel implements \RectorPrefix20210423\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $type
-     * @param bool $catch
      */
-    public function handle($request, $type = \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
     {
         if (!$this->booted) {
             $container = $this->container ?? $this->preBoot();
@@ -195,9 +190,8 @@ abstract class Kernel implements \RectorPrefix20210423\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function getBundle($name)
+    public function getBundle(string $name)
     {
         if (!isset($this->bundles[$name])) {
             throw new \InvalidArgumentException(\sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, \get_debug_type($this)));
@@ -206,9 +200,8 @@ abstract class Kernel implements \RectorPrefix20210423\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function locateResource($name)
+    public function locateResource(string $name)
     {
         if ('@' !== $name[0]) {
             throw new \InvalidArgumentException(\sprintf('A resource name must start with @ ("%s" given).', $name));

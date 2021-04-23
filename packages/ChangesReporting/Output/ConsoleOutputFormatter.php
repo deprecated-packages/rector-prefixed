@@ -42,10 +42,9 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
     /**
-     * @param \Rector\Core\ValueObject\ProcessResult $processResult
      * @return void
      */
-    public function report($processResult)
+    public function report(\Rector\Core\ValueObject\ProcessResult $processResult)
     {
         if ($this->configuration->getOutputFile()) {
             $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');

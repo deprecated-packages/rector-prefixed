@@ -55,9 +55,8 @@ class VariableNode extends \RectorPrefix20210423\Symfony\Component\Config\Defini
     }
     /**
      * {@inheritdoc}
-     * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }

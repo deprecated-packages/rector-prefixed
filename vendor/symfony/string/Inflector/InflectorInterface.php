@@ -18,16 +18,14 @@ interface InflectorInterface
      * If the method can't determine the form with certainty, several possible singulars are returned.
      *
      * @return string[] An array of possible singular forms
-     * @param string $plural
      */
-    public function singularize($plural) : array;
+    public function singularize(string $plural) : array;
     /**
      * Returns the plural forms of a string.
      *
      * If the method can't determine the form with certainty, several possible plurals are returned.
      *
      * @return string[] An array of possible plural forms
-     * @param string $singular
      */
-    public function pluralize($singular) : array;
+    public function pluralize(string $singular) : array;
 }
