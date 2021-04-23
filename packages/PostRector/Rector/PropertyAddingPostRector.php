@@ -50,9 +50,10 @@ final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractP
         return 900;
     }
     /**
+     * @param \PhpParser\Node $node
      * @return \PhpParser\Node|null
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode($node)
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             return null;

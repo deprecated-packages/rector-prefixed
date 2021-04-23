@@ -9,7 +9,10 @@ use PhpParser\Node\Name;
 use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 final class IdentifierNodeNameResolver implements \RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function match($node) : bool
     {
         if ($node instanceof \PhpParser\Node\Identifier) {
             return \true;
@@ -20,7 +23,7 @@ final class IdentifierNodeNameResolver implements \RectorPrefix20210423\Symplify
      * @param Identifier|Name $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve($node)
     {
         return (string) $node;
     }

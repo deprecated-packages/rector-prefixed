@@ -142,8 +142,9 @@ class PrototypedArrayNode extends \RectorPrefix20210423\Symfony\Component\Config
      * Disable adding concrete children for prototyped nodes.
      *
      * @throws Exception
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
-    public function addChild(\RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $node)
+    public function addChild($node)
     {
         throw new \RectorPrefix20210423\Symfony\Component\Config\Definition\Exception\Exception('A prototyped array node can not have concrete children.');
     }

@@ -35,9 +35,9 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return \PHPStan\Type\CallableType::class;
     }
     /**
-     * @param CallableType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $returnTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType());
         return new \Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('callable'), [], $returnTypeNode);
@@ -47,7 +47,7 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode($type, $kind = null)
     {
         if ($kind === 'property') {
             return null;

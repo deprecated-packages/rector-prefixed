@@ -1988,6 +1988,8 @@ return array(
     'Rector\\DowngradePhp72\\NodeAnalyzer\\ClassLikeParentResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/ClassLikeParentResolver.php',
     'Rector\\DowngradePhp72\\NodeAnalyzer\\ClassLikeWithTraitsClassMethodResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/ClassLikeWithTraitsClassMethodResolver.php',
     'Rector\\DowngradePhp72\\NodeAnalyzer\\NativeTypeClassTreeResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/NativeTypeClassTreeResolver.php',
+    'Rector\\DowngradePhp72\\NodeAnalyzer\\ParentChildClassMethodTypeResolver' => $baseDir . '/rules/DowngradePhp72/NodeAnalyzer/ParentChildClassMethodTypeResolver.php',
+    'Rector\\DowngradePhp72\\PhpDoc\\NativeParamToPhpDocDecorator' => $baseDir . '/rules/DowngradePhp72/PhpDoc/NativeParamToPhpDocDecorator.php',
     'Rector\\DowngradePhp72\\Rector\\Class_\\DowngradeParameterTypeWideningRector' => $baseDir . '/rules/DowngradePhp72/Rector/Class_/DowngradeParameterTypeWideningRector.php',
     'Rector\\DowngradePhp72\\Rector\\FuncCall\\DowngradePregUnmatchedAsNullConstantRector' => $baseDir . '/rules/DowngradePhp72/Rector/FuncCall/DowngradePregUnmatchedAsNullConstantRector.php',
     'Rector\\DowngradePhp72\\Rector\\FunctionLike\\DowngradeObjectTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp72/Rector/FunctionLike/DowngradeObjectTypeDeclarationRector.php',

@@ -43,7 +43,10 @@ class SQLiteStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \Rec
 			PRAGMA synchronous = OFF;
 		');
     }
-    public function read(string $key)
+    /**
+     * @param string $key
+     */
+    public function read($key)
     {
         $stmt = $this->pdo->prepare('SELECT data, slide FROM cache WHERE key=? AND (expire IS NULL OR expire >= ?)');
         $stmt->execute([$key, \time()]);
@@ -55,7 +58,10 @@ class SQLiteStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \Rec
         }
         return \unserialize($row['data']);
     }
-    public function bulkRead(array $keys) : array
+    /**
+     * @param mixed[] $keys
+     */
+    public function bulkRead($keys) : array
     {
         $stmt = $this->pdo->prepare('SELECT key, data, slide FROM cache WHERE key IN (?' . \str_repeat(',?', \count($keys) - 1) . ') AND (expire IS NULL OR expire >= ?)');
         $stmt->execute(\array_merge($keys, [\time()]));
@@ -74,15 +80,18 @@ class SQLiteStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \Rec
         return $result;
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function lock(string $key)
+    public function lock($key)
     {
     }
     /**
+     * @param string $key
+     * @param mixed[] $dependencies
      * @return void
      */
-    public function write(string $key, $data, array $dependencies)
+    public function write($key, $data, $dependencies)
     {
         $expire = isset($dependencies[\RectorPrefix20210423\Nette\Caching\Cache::EXPIRATION]) ? $dependencies[\RectorPrefix20210423\Nette\Caching\Cache::EXPIRATION] + \time() : null;
         $slide = isset($dependencies[\RectorPrefix20210423\Nette\Caching\Cache::SLIDING]) ? $dependencies[\RectorPrefix20210423\Nette\Caching\Cache::EXPIRATION] : null;
@@ -98,16 +107,18 @@ class SQLiteStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \Rec
         $this->pdo->exec('COMMIT');
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function remove(string $key)
+    public function remove($key)
     {
         $this->pdo->prepare('DELETE FROM cache WHERE key=?')->execute([$key]);
     }
     /**
+     * @param mixed[] $conditions
      * @return void
      */
-    public function clean(array $conditions)
+    public function clean($conditions)
     {
         if (!empty($conditions[\RectorPrefix20210423\Nette\Caching\Cache::ALL])) {
             $this->pdo->prepare('DELETE FROM cache')->execute();

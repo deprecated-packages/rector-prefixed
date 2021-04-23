@@ -8,6 +8,7 @@ interface PHPStanStaticTypeMapperAwareInterface
 {
     /**
      * @return void
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      */
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper);
+    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper);
 }

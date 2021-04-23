@@ -28,8 +28,10 @@ class MarkdownDescriptor extends \RectorPrefix20210423\Symfony\Component\Console
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param mixed[] $options
      */
-    public function describe(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, $object, array $options = [])
+    public function describe($output, $object, $options = [])
     {
         $decorated = $output->isDecorated();
         $output->setDecorated(\false);
@@ -38,22 +40,28 @@ class MarkdownDescriptor extends \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param string $content
+     * @param bool $decorated
      */
-    protected function write(string $content, bool $decorated = \true)
+    protected function write($content, $decorated = \true)
     {
         parent::write($content, $decorated);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
+     * @param mixed[] $options
      */
-    protected function describeInputArgument(\RectorPrefix20210423\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument($argument, $options = [])
     {
         $this->write('#### `' . ($argument->getName() ?: '<none>') . "`\n\n" . ($argument->getDescription() ? \preg_replace('/\\s*[\\r\\n]\\s*/', "\n", $argument->getDescription()) . "\n\n" : '') . '* Is required: ' . ($argument->isRequired() ? 'yes' : 'no') . "\n" . '* Is array: ' . ($argument->isArray() ? 'yes' : 'no') . "\n" . '* Default: `' . \str_replace("\n", '', \var_export($argument->getDefault(), \true)) . '`');
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputOption $option
+     * @param mixed[] $options
      */
-    protected function describeInputOption(\RectorPrefix20210423\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption($option, $options = [])
     {
         $name = '--' . $option->getName();
         if ($option->getShortcut()) {
@@ -63,8 +71,10 @@ class MarkdownDescriptor extends \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     * @param mixed[] $options
      */
-    protected function describeInputDefinition(\RectorPrefix20210423\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition($definition, $options = [])
     {
         if ($showArguments = \count($definition->getArguments()) > 0) {
             $this->write('### Arguments');
@@ -90,8 +100,10 @@ class MarkdownDescriptor extends \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param mixed[] $options
      */
-    protected function describeCommand(\RectorPrefix20210423\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand($command, $options = [])
     {
         $command->mergeApplicationDefinition(\false);
         $this->write('`' . $command->getName() . "`\n" . \str_repeat('-', \RectorPrefix20210423\Symfony\Component\Console\Helper\Helper::strlen($command->getName()) + 2) . "\n\n" . ($command->getDescription() ? $command->getDescription() . "\n\n" : '') . '### Usage' . "\n\n" . \array_reduce(\array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()), function ($carry, $usage) {
@@ -109,8 +121,10 @@ class MarkdownDescriptor extends \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Application $application
+     * @param mixed[] $options
      */
-    protected function describeApplication(\RectorPrefix20210423\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication($application, $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
         $description = new \RectorPrefix20210423\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);

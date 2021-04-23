@@ -13,16 +13,18 @@ final class ChangedPhpDocNodeVisitor extends \RectorPrefix20210423\Symplify\Simp
      */
     private $hasChanged = \false;
     /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return void
      */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse($node)
     {
         $this->hasChanged = \false;
     }
     /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode($node)
     {
         $origNode = $node->getAttribute(\Rector\BetterPhpDocParser\ValueObject\PhpDocAttributeKey::ORIG_NODE);
         if ($origNode === null) {

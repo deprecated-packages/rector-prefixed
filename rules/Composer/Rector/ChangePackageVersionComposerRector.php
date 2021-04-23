@@ -31,9 +31,10 @@ final class ChangePackageVersionComposerRector implements \Rector\Composer\Contr
         $this->versionGuard = $versionGuard;
     }
     /**
+     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
      * @return void
      */
-    public function refactor(\RectorPrefix20210423\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson)
+    public function refactor($composerJson)
     {
         foreach ($this->packagesAndVersions as $packageAndVersion) {
             $composerJson->changePackageVersion($packageAndVersion->getPackageName(), $packageAndVersion->getVersion());

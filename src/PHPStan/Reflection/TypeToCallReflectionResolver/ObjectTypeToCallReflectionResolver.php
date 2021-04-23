@@ -22,15 +22,19 @@ final class ObjectTypeToCallReflectionResolver implements \Rector\Core\Contract\
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function supports(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    public function supports($type) : bool
     {
         return $type instanceof \PHPStan\Type\ObjectType;
     }
     /**
-     * @param ObjectType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer
      * @return \PHPStan\Reflection\MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve($type, $classMemberAccessAnswerer)
     {
         $className = $type->getClassName();
         if (!$this->reflectionProvider->hasClass($className)) {

@@ -29,8 +29,9 @@ final class ThisVariableInAnotherMethodFormControlTypeResolver implements \Recto
     }
     /**
      * @return array<string, string>
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve($node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
@@ -54,9 +55,10 @@ final class ThisVariableInAnotherMethodFormControlTypeResolver implements \Recto
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
     /**
+     * @param \Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver
      * @return void
      */
-    public function setResolver(\Rector\Nette\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver)
+    public function setResolver($methodNamesByInputNamesResolver)
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

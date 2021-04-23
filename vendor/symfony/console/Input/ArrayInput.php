@@ -44,8 +44,9 @@ class ArrayInput extends \RectorPrefix20210423\Symfony\Component\Console\Input\I
     }
     /**
      * {@inheritdoc}
+     * @param bool $onlyParams
      */
-    public function hasParameterOption($values, bool $onlyParams = \false)
+    public function hasParameterOption($values, $onlyParams = \false)
     {
         $values = (array) $values;
         foreach ($this->parameters as $k => $v) {
@@ -63,8 +64,9 @@ class ArrayInput extends \RectorPrefix20210423\Symfony\Component\Console\Input\I
     }
     /**
      * {@inheritdoc}
+     * @param bool $onlyParams
      */
-    public function getParameterOption($values, $default = \false, bool $onlyParams = \false)
+    public function getParameterOption($values, $default = \false, $onlyParams = \false)
     {
         $values = (array) $values;
         foreach ($this->parameters as $k => $v) {

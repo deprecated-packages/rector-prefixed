@@ -27,18 +27,18 @@ final class TypeWithClassNameTypeMapper implements \Rector\PHPStanStaticTypeMapp
         return \PHPStan\Type\TypeWithClassName::class;
     }
     /**
-     * @param TypeWithClassName $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('string-class');
     }
     /**
-     * @param TypeWithClassName $type
+     * @param \PHPStan\Type\Type $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode($type, $kind = null)
     {
         return $this->stringTypeMapper->mapToPhpParserNode($type, $kind);
     }

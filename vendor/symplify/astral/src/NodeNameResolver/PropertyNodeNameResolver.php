@@ -8,15 +8,18 @@ use PhpParser\Node\Stmt\Property;
 use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 final class PropertyNodeNameResolver implements \RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function match($node) : bool
     {
         return $node instanceof \PhpParser\Node\Stmt\Property;
     }
     /**
-     * @param Property $node
+     * @param \PhpParser\Node $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve($node)
     {
         $propertyProperty = $node->props[0];
         return (string) $propertyProperty->name;

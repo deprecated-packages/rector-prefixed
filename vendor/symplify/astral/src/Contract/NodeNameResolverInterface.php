@@ -6,9 +6,13 @@ namespace RectorPrefix20210423\Symplify\Astral\Contract;
 use PhpParser\Node;
 interface NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool;
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function match($node) : bool;
     /**
      * @return string|null
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node);
+    public function resolve($node);
 }

@@ -53,8 +53,9 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * Tries to lock the cache for a given Request, without blocking.
      *
      * @return bool|string true if the lock is acquired, the path to the current lock otherwise
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function lock(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function lock($request)
     {
         $key = $this->getCacheKey($request);
         if (!isset($this->locks[$key])) {
@@ -75,8 +76,9 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * Releases the lock for the given Request.
      *
      * @return bool False if the lock file does not exist or cannot be unlocked, true otherwise
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function unlock(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function unlock($request)
     {
         $key = $this->getCacheKey($request);
         if (isset($this->locks[$key])) {
@@ -87,7 +89,10 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
         }
         return \false;
     }
-    public function isLocked(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function isLocked($request)
     {
         $key = $this->getCacheKey($request);
         if (isset($this->locks[$key])) {
@@ -108,8 +113,9 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * Locates a cached Response for the Request provided.
      *
      * @return Response|null A Response instance, or null if no cache entry was found
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function lookup(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function lookup($request)
     {
         $key = $this->getCacheKey($request);
         if (!($entries = $this->getMetadata($key))) {
@@ -144,8 +150,10 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * @return string The key under which the response is stored
      *
      * @throws \RuntimeException
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function write(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Response $response)
+    public function write($request, $response)
     {
         $key = $this->getCacheKey($request);
         $storedEnv = $this->persistRequest($request);
@@ -201,8 +209,9 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * Invalidates all cache entries that match the request.
      *
      * @throws \RuntimeException
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function invalidate(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function invalidate($request)
     {
         $modified = \false;
         $key = $this->getCacheKey($request);
@@ -262,8 +271,9 @@ class Store implements \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCa
      * This method purges both the HTTP and the HTTPS version of the cache entry.
      *
      * @return bool true if the URL exists with either HTTP or HTTPS scheme and has been purged, false otherwise
+     * @param string $url
      */
-    public function purge(string $url)
+    public function purge($url)
     {
         $http = \preg_replace('#^https:#', 'http:', $url);
         $https = \preg_replace('#^http:#', 'https:', $url);

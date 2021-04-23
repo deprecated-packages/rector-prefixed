@@ -34,7 +34,10 @@ final class FunctionLikeDocParamTypeInferer implements \Rector\TypeDeclaration\C
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+    /**
+     * @param \PhpParser\Node\Param $param
+     */
+    public function inferParam($param) : \PHPStan\Type\Type
     {
         $functionLike = $this->resolveScopeNode($param);
         if (!$functionLike instanceof \PhpParser\Node\FunctionLike) {

@@ -41,7 +41,7 @@ class ParameterBag implements \RectorPrefix20210423\Symfony\Component\Dependency
      *
      * @param array $parameters An array of parameters
      */
-    public function add(array $parameters)
+    public function add($parameters)
     {
         foreach ($parameters as $key => $value) {
             $this->set($key, $value);
@@ -95,7 +95,7 @@ class ParameterBag implements \RectorPrefix20210423\Symfony\Component\Dependency
      * @param string $name  The parameter name
      * @param mixed  $value The parameter value
      */
-    public function set(string $name, $value)
+    public function set($name, $value)
     {
         $this->parameters[$name] = $value;
     }
@@ -112,7 +112,7 @@ class ParameterBag implements \RectorPrefix20210423\Symfony\Component\Dependency
      *
      * @param string $name The parameter name
      */
-    public function remove(string $name)
+    public function remove($name)
     {
         unset($this->parameters[$name]);
     }

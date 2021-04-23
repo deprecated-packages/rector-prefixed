@@ -249,8 +249,10 @@ class Response
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
      * @param string|null $content
+     * @param int $status
+     * @param mixed[] $headers
      */
-    public static function create($content = '', int $status = 200, array $headers = [])
+    public static function create($content = '', $status = 200, $headers = [])
     {
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($content, $status, $headers);
@@ -285,8 +287,9 @@ class Response
      * the Request that is "associated" with this Response.
      *
      * @return $this
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare($request)
     {
         $headers = $this->headers;
         if ($this->isInformational() || $this->isEmpty()) {

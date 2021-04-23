@@ -27,7 +27,10 @@ class ResolveDecoratorStackPass implements \RectorPrefix20210423\Symfony\Compone
     {
         $this->tag = $tag;
     }
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    public function process($container)
     {
         $stacks = [];
         foreach ($container->findTaggedServiceIds($this->tag) as $id => $tags) {

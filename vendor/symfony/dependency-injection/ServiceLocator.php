@@ -69,7 +69,10 @@ class ServiceLocator implements \RectorPrefix20210423\Symfony\Contracts\Service\
         $locator->container = $container;
         return $locator;
     }
-    private function createNotFoundException(string $id) : \RectorPrefix20210423\Psr\Container\NotFoundExceptionInterface
+    /**
+     * @param string $id
+     */
+    private function createNotFoundException($id) : \RectorPrefix20210423\Psr\Container\NotFoundExceptionInterface
     {
         if ($this->loading) {
             $msg = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', \end($this->loading), $id, $this->formatAlternatives());
@@ -110,7 +113,11 @@ class ServiceLocator implements \RectorPrefix20210423\Symfony\Contracts\Service\
         }
         return new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], \implode(' ', $msg));
     }
-    private function createCircularReferenceException(string $id, array $path) : \RectorPrefix20210423\Psr\Container\ContainerExceptionInterface
+    /**
+     * @param string $id
+     * @param mixed[] $path
+     */
+    private function createCircularReferenceException($id, $path) : \RectorPrefix20210423\Psr\Container\ContainerExceptionInterface
     {
         return new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $path);
     }

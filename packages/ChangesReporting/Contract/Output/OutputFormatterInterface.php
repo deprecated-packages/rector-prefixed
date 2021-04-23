@@ -9,6 +9,7 @@ interface OutputFormatterInterface
     public function getName() : string;
     /**
      * @return void
+     * @param \Rector\Core\ValueObject\ProcessResult $processResult
      */
-    public function report(\Rector\Core\ValueObject\ProcessResult $processResult);
+    public function report($processResult);
 }

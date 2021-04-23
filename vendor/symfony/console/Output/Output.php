@@ -42,8 +42,9 @@ abstract class Output implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
-    public function setFormatter(\RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter($formatter)
     {
         $this->formatter = $formatter;
     }
@@ -56,8 +57,9 @@ abstract class Output implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param bool $decorated
      */
-    public function setDecorated(bool $decorated)
+    public function setDecorated($decorated)
     {
         $this->formatter->setDecorated($decorated);
     }
@@ -70,8 +72,9 @@ abstract class Output implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param int $level
      */
-    public function setVerbosity(int $level)
+    public function setVerbosity($level)
     {
         $this->verbosity = $level;
     }
@@ -112,15 +115,18 @@ abstract class Output implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param int $options
      */
-    public function writeln($messages, int $options = self::OUTPUT_NORMAL)
+    public function writeln($messages, $options = self::OUTPUT_NORMAL)
     {
         $this->write($messages, \true, $options);
     }
     /**
      * {@inheritdoc}
+     * @param bool $newline
+     * @param int $options
      */
-    public function write($messages, bool $newline = \false, int $options = self::OUTPUT_NORMAL)
+    public function write($messages, $newline = \false, $options = self::OUTPUT_NORMAL)
     {
         if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];

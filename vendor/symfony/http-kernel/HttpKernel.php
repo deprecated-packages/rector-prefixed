@@ -64,8 +64,11 @@ class HttpKernel implements \RectorPrefix20210423\Symfony\Component\HttpKernel\H
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param int $type
+     * @param bool $catch
      */
-    public function handle(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
+    public function handle($request, $type = \RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
@@ -83,8 +86,10 @@ class HttpKernel implements \RectorPrefix20210423\Symfony\Component\HttpKernel\H
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Response $response)
+    public function terminate($request, $response)
     {
         $this->dispatcher->dispatch(new \RectorPrefix20210423\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \RectorPrefix20210423\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
     }

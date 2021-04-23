@@ -24,8 +24,9 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \RectorPrefix20210423
     private $serviceLocatorContextIds = [];
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->serviceLocatorContextIds = [];
         foreach ($container->findTaggedServiceIds('container.service_locator_context') as $id => $tags) {

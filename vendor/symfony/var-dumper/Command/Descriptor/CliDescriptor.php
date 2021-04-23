@@ -34,9 +34,13 @@ class CliDescriptor implements \RectorPrefix20210423\Symfony\Component\VarDumper
         $this->supportsHref = \method_exists(\RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterStyle::class, 'setHref');
     }
     /**
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
+     * @param mixed[] $context
+     * @param int $clientId
      * @return void
      */
-    public function describe(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210423\Symfony\Component\VarDumper\Cloner\Data $data, array $context, int $clientId)
+    public function describe($output, $data, $context, $clientId)
     {
         $io = $output instanceof \RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle ? $output : new \RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle(new \RectorPrefix20210423\Symfony\Component\Console\Input\ArrayInput([]), $output);
         $this->dumper->setColors($output->isDecorated());

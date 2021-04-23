@@ -30,9 +30,10 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210423\Symp
         $this->staticTypeMapper = $staticTypeMapper;
     }
     /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return void
      */
-    public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function beforeTraverse($node)
     {
         if ($this->pseudoNamespaceToNamespace === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('Set PseudoNamespaceToNamespace first');
@@ -42,9 +43,10 @@ final class UnderscoreRenamePhpDocNodeVisitor extends \RectorPrefix20210423\Symp
         }
     }
     /**
+     * @param \PHPStan\PhpDocParser\Ast\Node $node
      * @return \PHPStan\PhpDocParser\Ast\Node|null
      */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node)
+    public function enterNode($node)
     {
         if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;

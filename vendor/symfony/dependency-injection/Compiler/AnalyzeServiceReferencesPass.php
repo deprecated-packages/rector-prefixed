@@ -48,8 +48,9 @@ class AnalyzeServiceReferencesPass extends \RectorPrefix20210423\Symfony\Compone
     }
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->container = $container;
         $this->graph = $container->getCompiler()->getServiceReferenceGraph();

@@ -164,8 +164,8 @@ class Process implements \IteratorAggregate
      *   $process->run(null, ['MY_VAR' => $theValue]);
      *
      * @param string         $command The command line to pass to the shell of the OS
-     * @param string|null    $cwd     The working directory or null to use the working dir of the current PHP process
-     * @param array|null     $env     The environment variables or null to use the same environment as the current PHP process
+     * @param string $cwd The working directory or null to use the working dir of the current PHP process
+     * @param mixed[] $env The environment variables or null to use the same environment as the current PHP process
      * @param mixed|null     $input   The input as stream resource, scalar or \Traversable, or null for no input
      * @param float|null $timeout The timeout in seconds or null to disable
      *
@@ -173,7 +173,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline($command, $cwd = null, $env = null, $input = null, $timeout = 60)
     {
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
@@ -247,25 +247,26 @@ class Process implements \IteratorAggregate
         return $this;
     }
     /**
-     * Starts the process and returns after writing the input to STDIN.
-     *
-     * This method blocks until all STDIN data is sent to the process then it
-     * returns while the process runs in the background.
-     *
-     * The termination of the process can be awaited with wait().
-     *
-     * The callback receives the type of output (out or err) and some bytes from
-     * the output in real-time while writing the standard input to the process.
-     * It allows to have feedback from the independent process during execution.
-     *
-     * @param callable|null $callback A PHP callback to run whenever there is some
-     *                                output available on STDOUT or STDERR
-     *
-     * @throws RuntimeException When process can't be launched
-     * @throws RuntimeException When process is already running
-     * @throws LogicException   In case a callback is provided and output has been disabled
-     */
-    public function start(callable $callback = null, array $env = [])
+    * Starts the process and returns after writing the input to STDIN.
+    *
+    * This method blocks until all STDIN data is sent to the process then it
+    * returns while the process runs in the background.
+    *
+    * The termination of the process can be awaited with wait().
+    *
+    * The callback receives the type of output (out or err) and some bytes from
+    * the output in real-time while writing the standard input to the process.
+    * It allows to have feedback from the independent process during execution.
+    *
+     * @param callable $callback A PHP callback to run whenever there is some
+                              output available on STDOUT or STDERR
+    *
+    * @throws RuntimeException When process can't be launched
+    * @throws RuntimeException When process is already running
+    * @throws LogicException   In case a callback is provided and output has been disabled
+     * @param mixed[] $env
+    */
+    public function start($callback = null, $env = [])
     {
         if ($this->isRunning()) {
             throw new \RectorPrefix20210423\Symfony\Component\Process\Exception\RuntimeException('Process is already running.');
@@ -545,7 +546,7 @@ class Process implements \IteratorAggregate
      *
      * @return \Generator
      */
-    public function getIterator($flags = 0)
+    public function getIterator(int $flags = 0)
     {
         $this->readPipesForOutput(__FUNCTION__, \false);
         $clearOutput = !(self::ITER_KEEP_OUTPUT & $flags);

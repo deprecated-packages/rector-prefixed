@@ -23,9 +23,10 @@ class TraceableEventDispatcher extends \RectorPrefix20210423\Symfony\Component\E
 {
     /**
      * {@inheritdoc}
+     * @param string $eventName
      * @param object $event
      */
-    protected function beforeDispatch(string $eventName, $event)
+    protected function beforeDispatch($eventName, $event)
     {
         switch ($eventName) {
             case \RectorPrefix20210423\Symfony\Component\HttpKernel\KernelEvents::REQUEST:
@@ -57,9 +58,10 @@ class TraceableEventDispatcher extends \RectorPrefix20210423\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
+     * @param string $eventName
      * @param object $event
      */
-    protected function afterDispatch(string $eventName, $event)
+    protected function afterDispatch($eventName, $event)
     {
         switch ($eventName) {
             case \RectorPrefix20210423\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS:

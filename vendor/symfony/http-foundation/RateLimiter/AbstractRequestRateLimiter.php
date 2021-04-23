@@ -24,7 +24,10 @@ use RectorPrefix20210423\Symfony\Component\RateLimiter\RateLimit;
  */
 abstract class AbstractRequestRateLimiter implements \RectorPrefix20210423\Symfony\Component\HttpFoundation\RateLimiter\RequestRateLimiterInterface
 {
-    public function consume(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request) : \RectorPrefix20210423\Symfony\Component\RateLimiter\RateLimit
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function consume($request) : \RectorPrefix20210423\Symfony\Component\RateLimiter\RateLimit
     {
         $limiters = $this->getLimiters($request);
         if (0 === \count($limiters)) {
@@ -40,9 +43,10 @@ abstract class AbstractRequestRateLimiter implements \RectorPrefix20210423\Symfo
         return $minimalRateLimit;
     }
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return void
      */
-    public function reset(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function reset($request)
     {
         foreach ($this->getLimiters($request) as $limiter) {
             $limiter->reset();

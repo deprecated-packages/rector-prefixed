@@ -6,12 +6,15 @@ namespace Rector\Core\Contract\Processor;
 use Rector\Core\ValueObject\Application\File;
 interface FileProcessorInterface
 {
-    public function supports(\Rector\Core\ValueObject\Application\File $file) : bool;
+    /**
+     * @param \Rector\Core\ValueObject\Application\File $file
+     */
+    public function supports($file) : bool;
     /**
      * @param File[] $files
      * @return void
      */
-    public function process(array $files);
+    public function process($files);
     /**
      * @return string[]
      */

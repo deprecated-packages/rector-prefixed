@@ -40,8 +40,9 @@ class YamlDumper extends \RectorPrefix20210423\Symfony\Component\DependencyInjec
      * Dumps the service container as an YAML string.
      *
      * @return string A YAML string representing of the service container
+     * @param mixed[] $options
      */
-    public function dump(array $options = [])
+    public function dump($options = [])
     {
         if (!\class_exists(\RectorPrefix20210423\Symfony\Component\Yaml\Dumper::class)) {
             throw new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to dump the container as the Symfony Yaml Component is not installed.');

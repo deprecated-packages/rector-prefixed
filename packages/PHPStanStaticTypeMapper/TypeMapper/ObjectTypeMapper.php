@@ -36,9 +36,9 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return \PHPStan\Type\ObjectType::class;
     }
     /**
-     * @param ObjectType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
             return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getClassName());
@@ -52,11 +52,11 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('\\' . $type->getClassName());
     }
     /**
-     * @param ObjectType $type
+     * @param \PHPStan\Type\Type $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode($type, $kind = null)
     {
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType) {
             return new \PhpParser\Node\Name('self');
@@ -85,9 +85,10 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         return new \PhpParser\Node\Name('object');
     }
     /**
+     * @param \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper
      * @return void
      */
-    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper)
+    public function setPHPStanStaticTypeMapper($phpStanStaticTypeMapper)
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

@@ -28,8 +28,9 @@ class Uuid extends \RectorPrefix20210423\Symfony\Component\Uid\AbstractUid
     }
     /**
      * @return mixed
+     * @param string $uuid
      */
-    public static function fromString(string $uuid)
+    public static function fromString($uuid)
     {
         if (22 === \strlen($uuid) && 22 === \strspn($uuid, \RectorPrefix20210423\Symfony\Component\Uid\BinaryUtil::BASE58[''])) {
             $uuid = \RectorPrefix20210423\Symfony\Component\Uid\BinaryUtil::fromBase($uuid, \RectorPrefix20210423\Symfony\Component\Uid\BinaryUtil::BASE58);
@@ -96,7 +97,10 @@ class Uuid extends \RectorPrefix20210423\Symfony\Component\Uid\AbstractUid
     {
         return new \RectorPrefix20210423\Symfony\Component\Uid\UuidV6();
     }
-    public static function isValid(string $uuid) : bool
+    /**
+     * @param string $uuid
+     */
+    public static function isValid($uuid) : bool
     {
         if (__CLASS__ === static::class) {
             return \uuid_is_valid($uuid);

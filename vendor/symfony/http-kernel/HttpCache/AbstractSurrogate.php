@@ -42,8 +42,9 @@ abstract class AbstractSurrogate implements \RectorPrefix20210423\Symfony\Compon
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function hasSurrogateCapability(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function hasSurrogateCapability($request)
     {
         if (null === ($value = $request->headers->get('Surrogate-Capability'))) {
             return \false;
@@ -52,8 +53,9 @@ abstract class AbstractSurrogate implements \RectorPrefix20210423\Symfony\Compon
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function addSurrogateCapability(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function addSurrogateCapability($request)
     {
         $current = $request->headers->get('Surrogate-Capability');
         $new = \sprintf('symfony="%s/1.0"', \strtoupper($this->getName()));
@@ -61,8 +63,9 @@ abstract class AbstractSurrogate implements \RectorPrefix20210423\Symfony\Compon
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function needsParsing(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Response $response)
+    public function needsParsing($response)
     {
         if (!($control = $response->headers->get('Surrogate-Control'))) {
             return \false;
@@ -72,8 +75,12 @@ abstract class AbstractSurrogate implements \RectorPrefix20210423\Symfony\Compon
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpKernel\HttpCache\HttpCache $cache
+     * @param string $uri
+     * @param string $alt
+     * @param bool $ignoreErrors
      */
-    public function handle(\RectorPrefix20210423\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, string $uri, string $alt, bool $ignoreErrors)
+    public function handle($cache, $uri, $alt, $ignoreErrors)
     {
         $subRequest = \RectorPrefix20210423\Symfony\Component\HttpFoundation\Request::create($uri, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Request::METHOD_GET, [], $cache->getRequest()->cookies->all(), [], $cache->getRequest()->server->all());
         try {

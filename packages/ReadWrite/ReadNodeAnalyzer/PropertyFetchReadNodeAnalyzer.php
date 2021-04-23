@@ -22,14 +22,17 @@ final class PropertyFetchReadNodeAnalyzer implements \Rector\ReadWrite\Contract\
         $this->readExprAnalyzer = $readExprAnalyzer;
         $this->nodeUsageFinder = $nodeUsageFinder;
     }
-    public function supports(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function supports($node) : bool
     {
         return $node instanceof \PhpParser\Node\Expr\PropertyFetch;
     }
     /**
-     * @param PropertyFetch $node
+     * @param \PhpParser\Node $node
      */
-    public function isRead(\PhpParser\Node $node) : bool
+    public function isRead($node) : bool
     {
         $propertyFetchUsages = $this->nodeUsageFinder->findPropertyFetchUsages($node);
         foreach ($propertyFetchUsages as $propertyFetchUsage) {

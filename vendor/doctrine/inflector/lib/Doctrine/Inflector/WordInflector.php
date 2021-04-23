@@ -5,5 +5,8 @@ namespace RectorPrefix20210423\Doctrine\Inflector;
 
 interface WordInflector
 {
-    public function inflect(string $word) : string;
+    /**
+     * @param string $word
+     */
+    public function inflect($word) : string;
 }

@@ -45,8 +45,9 @@ class ArrayNodeDefinition extends \RectorPrefix20210423\Symfony\Component\Config
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
      */
-    public function setBuilder(\RectorPrefix20210423\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder)
+    public function setBuilder($builder)
     {
         $this->nodeBuilder = $builder;
     }
@@ -300,8 +301,9 @@ class ArrayNodeDefinition extends \RectorPrefix20210423\Symfony\Component\Config
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
-    public function append(\RectorPrefix20210423\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function append($node)
     {
         $this->children[$node->name] = $node->setParent($this);
         return $this;

@@ -25,7 +25,10 @@ class ExpressionRequestMatcher extends \RectorPrefix20210423\Symfony\Component\H
         $this->language = $language;
         $this->expression = $expression;
     }
-    public function matches(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function matches($request)
     {
         if (!$this->language) {
             throw new \LogicException('Unable to match the request as the expression language is not available.');

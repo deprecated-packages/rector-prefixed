@@ -57,7 +57,10 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
     {
         return $this->memcached;
     }
-    public function read(string $key)
+    /**
+     * @param string $key
+     */
+    public function read($key)
     {
         $key = \urlencode($this->prefix . $key);
         $meta = $this->memcached->get($key);
@@ -80,7 +83,10 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
         }
         return $meta[self::META_DATA];
     }
-    public function bulkRead(array $keys) : array
+    /**
+     * @param mixed[] $keys
+     */
+    public function bulkRead($keys) : array
     {
         $prefixedKeys = \array_map(function ($key) {
             return \urlencode($this->prefix . $key);
@@ -105,15 +111,18 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
         return $result;
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function lock(string $key)
+    public function lock($key)
     {
     }
     /**
+     * @param string $key
+     * @param mixed[] $dp
      * @return void
      */
-    public function write(string $key, $data, array $dp)
+    public function write($key, $data, $dp)
     {
         if (isset($dp[\RectorPrefix20210423\Nette\Caching\Cache::ITEMS])) {
             throw new \RectorPrefix20210423\Nette\NotSupportedException('Dependent items are not supported by MemcachedStorage.');
@@ -140,16 +149,18 @@ class MemcachedStorage implements \RectorPrefix20210423\Nette\Caching\Storage, \
         $this->memcached->set($key, $meta, $expire);
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function remove(string $key)
+    public function remove($key)
     {
         $this->memcached->delete(\urlencode($this->prefix . $key), 0);
     }
     /**
+     * @param mixed[] $conditions
      * @return void
      */
-    public function clean(array $conditions)
+    public function clean($conditions)
     {
         if (!empty($conditions[\RectorPrefix20210423\Nette\Caching\Cache::ALL])) {
             $this->memcached->flush();

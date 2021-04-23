@@ -15,8 +15,9 @@ final class FunctionLikeParamArgPositionNodeVisitor extends \PhpParser\NodeVisit
 {
     /**
      * @return \PhpParser\Node|null
+     * @param \PhpParser\Node $node
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode($node)
     {
         if ($node instanceof \PhpParser\Node\FunctionLike) {
             foreach ($node->getParams() as $position => $param) {

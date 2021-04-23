@@ -45,8 +45,9 @@ class GraphvizDumper extends \RectorPrefix20210423\Symfony\Component\DependencyI
      *  * node.missing: The default options for missing services
      *
      * @return string The dot representation of the service container
+     * @param mixed[] $options
      */
-    public function dump(array $options = [])
+    public function dump($options = [])
     {
         foreach (['graph', 'node', 'edge', 'node.instance', 'node.definition', 'node.missing'] as $key) {
             if (isset($options[$key])) {

@@ -36,7 +36,7 @@ trait ReferenceSetArgumentTrait
     /**
      * @param Reference[] $values The service references to put in the set
      */
-    public function setValues(array $values)
+    public function setValues($values)
     {
         foreach ($values as $k => $v) {
             if (null !== $v && !$v instanceof \RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference) {

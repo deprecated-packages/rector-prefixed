@@ -16,6 +16,7 @@ interface SetProviderInterface
     public function provideSetNames() : array;
     /**
      * @return \Symplify\SetConfigResolver\ValueObject\Set|null
+     * @param string $setName
      */
-    public function provideByName(string $setName);
+    public function provideByName($setName);
 }

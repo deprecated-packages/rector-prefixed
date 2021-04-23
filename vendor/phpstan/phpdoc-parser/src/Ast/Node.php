@@ -11,11 +11,14 @@ interface Node
      * @param mixed $value
      * @return void
      */
-    public function setAttribute(string $key, $value);
-    public function hasAttribute(string $key) : bool;
+    public function setAttribute($key, $value);
+    /**
+     * @param string $key
+     */
+    public function hasAttribute($key) : bool;
     /**
      * @param string $key
      * @return mixed
      */
-    public function getAttribute(string $key);
+    public function getAttribute($key);
 }

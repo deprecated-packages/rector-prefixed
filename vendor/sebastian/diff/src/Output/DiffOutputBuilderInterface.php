@@ -17,5 +17,8 @@ namespace RectorPrefix20210423\SebastianBergmann\Diff\Output;
  */
 interface DiffOutputBuilderInterface
 {
-    public function getDiff(array $diff) : string;
+    /**
+     * @param mixed[] $diff
+     */
+    public function getDiff($diff) : string;
 }

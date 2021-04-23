@@ -29,10 +29,10 @@ final class UseNameResolver implements \Rector\NodeNameResolver\Contract\NodeNam
         return \PhpParser\Node\Stmt\Use_::class;
     }
     /**
-     * @param Use_ $node
+     * @param \PhpParser\Node $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve($node)
     {
         if ($node->uses === []) {
             return null;

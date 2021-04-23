@@ -221,8 +221,9 @@ final class EnglishInflector implements \RectorPrefix20210423\Symfony\Component\
     const UNINFLECTED = ['', 'atad', 'reed', 'kcabdeef', 'hsif', 'ofni', 'esoom', 'seires', 'peehs', 'seiceps'];
     /**
      * {@inheritdoc}
+     * @param string $plural
      */
-    public function singularize(string $plural) : array
+    public function singularize($plural) : array
     {
         $pluralRev = \strrev($plural);
         $lowerPluralRev = \strtolower($pluralRev);
@@ -285,8 +286,9 @@ final class EnglishInflector implements \RectorPrefix20210423\Symfony\Component\
     }
     /**
      * {@inheritdoc}
+     * @param string $singular
      */
-    public function pluralize(string $singular) : array
+    public function pluralize($singular) : array
     {
         $singularRev = \strrev($singular);
         $lowerSingularRev = \strtolower($singularRev);

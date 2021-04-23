@@ -42,13 +42,15 @@ class FileProfilerStorage implements \RectorPrefix20210423\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param string $statusCode
      * @param string|null $ip
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
+     * @param int $start
+     * @param int $end
+     * @param string $statusCode
      */
-    public function find($ip, $url, $limit, $method, int $start = null, int $end = null, $statusCode = null) : array
+    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -93,9 +95,10 @@ class FileProfilerStorage implements \RectorPrefix20210423\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
+     * @param string $token
      * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      */
-    public function read(string $token)
+    public function read($token)
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
@@ -109,8 +112,9 @@ class FileProfilerStorage implements \RectorPrefix20210423\Symfony\Component\Htt
      * {@inheritdoc}
      *
      * @throws \RuntimeException
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
-    public function write(\RectorPrefix20210423\Symfony\Component\HttpKernel\Profiler\Profile $profile) : bool
+    public function write($profile) : bool
     {
         $file = $this->getFilename($profile->getToken());
         $profileIndexed = \is_file($file);

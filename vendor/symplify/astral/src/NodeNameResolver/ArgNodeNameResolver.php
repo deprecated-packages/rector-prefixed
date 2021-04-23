@@ -8,15 +8,18 @@ use PhpParser\Node\Arg;
 use RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface;
 final class ArgNodeNameResolver implements \RectorPrefix20210423\Symplify\Astral\Contract\NodeNameResolverInterface
 {
-    public function match(\PhpParser\Node $node) : bool
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function match($node) : bool
     {
         return $node instanceof \PhpParser\Node\Arg;
     }
     /**
-     * @param Arg $node
+     * @param \PhpParser\Node $node
      * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve($node)
     {
         if ($node->name === null) {
             return null;

@@ -35,13 +35,16 @@ final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileP
      * @param File[] $files
      * @return void
      */
-    public function process(array $files)
+    public function process($files)
     {
         foreach ($files as $file) {
             $this->processFile($file);
         }
     }
-    public function supports(\Rector\Core\ValueObject\Application\File $file) : bool
+    /**
+     * @param \Rector\Core\ValueObject\Application\File $file
+     */
+    public function supports($file) : bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
         return $smartFileInfo->hasSuffixes($this->getSupportedFileExtensions());

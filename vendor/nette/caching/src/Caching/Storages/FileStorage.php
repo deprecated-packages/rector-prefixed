@@ -51,7 +51,10 @@ class FileStorage implements \RectorPrefix20210423\Nette\Caching\Storage
             $this->clean([]);
         }
     }
-    public function read(string $key)
+    /**
+     * @param string $key
+     */
+    public function read($key)
     {
         $meta = $this->readMetaAndLock($this->getCacheFile($key), \LOCK_SH);
         return $meta && $this->verify($meta) ? $this->readData($meta) : null;
@@ -89,9 +92,10 @@ class FileStorage implements \RectorPrefix20210423\Nette\Caching\Storage
         return \false;
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function lock(string $key)
+    public function lock($key)
     {
         $cacheFile = $this->getCacheFile($key);
         if (!\is_dir($dir = \dirname($cacheFile))) {
@@ -106,9 +110,11 @@ class FileStorage implements \RectorPrefix20210423\Nette\Caching\Storage
         \flock($handle, \LOCK_EX);
     }
     /**
+     * @param string $key
+     * @param mixed[] $dp
      * @return void
      */
-    public function write(string $key, $data, array $dp)
+    public function write($key, $data, $dp)
     {
         $meta = [self::META_TIME => \microtime()];
         if (isset($dp[\RectorPrefix20210423\Nette\Caching\Cache::EXPIRATION])) {
@@ -172,17 +178,19 @@ class FileStorage implements \RectorPrefix20210423\Nette\Caching\Storage
         $this->delete($cacheFile, $handle);
     }
     /**
+     * @param string $key
      * @return void
      */
-    public function remove(string $key)
+    public function remove($key)
     {
         unset($this->locks[$key]);
         $this->delete($this->getCacheFile($key));
     }
     /**
+     * @param mixed[] $conditions
      * @return void
      */
-    public function clean(array $conditions)
+    public function clean($conditions)
     {
         $all = !empty($conditions[\RectorPrefix20210423\Nette\Caching\Cache::ALL]);
         $collector = empty($conditions);

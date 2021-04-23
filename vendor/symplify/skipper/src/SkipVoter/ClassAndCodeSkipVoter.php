@@ -37,8 +37,9 @@ final class ClassAndCodeSkipVoter implements \RectorPrefix20210423\Symplify\Skip
     }
     /**
      * @param string $element
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function shouldSkip($element, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, $smartFileInfo) : bool
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

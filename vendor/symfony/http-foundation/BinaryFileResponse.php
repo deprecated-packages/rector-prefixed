@@ -61,7 +61,7 @@ class BinaryFileResponse extends \RectorPrefix20210423\Symfony\Component\HttpFou
      *
      * @deprecated since Symfony 5.2, use __construct() instead.
      */
-    public static function create($file = null, int $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public static function create($file = null, $status = 200, $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
@@ -155,8 +155,9 @@ class BinaryFileResponse extends \RectorPrefix20210423\Symfony\Component\HttpFou
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare($request)
     {
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');

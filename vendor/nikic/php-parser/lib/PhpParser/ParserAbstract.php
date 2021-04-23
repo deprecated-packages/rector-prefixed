@@ -123,19 +123,19 @@ abstract class ParserAbstract implements \PhpParser\Parser
         $this->initReduceCallbacks();
     }
     /**
-     * Parses PHP code into a node tree.
-     *
-     * If a non-throwing error handler is used, the parser will continue parsing after an error
-     * occurred and attempt to build a partial AST.
-     *
-     * @param string $code The source code to parse
-     * @param ErrorHandler|null $errorHandler Error handler to use for lexer/parser errors, defaults
-     *                                        to ErrorHandler\Throwing.
-     *
-     * @return Node\Stmt[]|null Array of statements (or null non-throwing error handler is used and
-     *                          the parser was unable to recover from an error).
-     */
-    public function parse(string $code, \PhpParser\ErrorHandler $errorHandler = null)
+    * Parses PHP code into a node tree.
+    *
+    * If a non-throwing error handler is used, the parser will continue parsing after an error
+    * occurred and attempt to build a partial AST.
+    *
+    * @param string $code The source code to parse
+     * @param \PhpParser\ErrorHandler $errorHandler Error handler to use for lexer/parser errors, defaults
+                                      to ErrorHandler\Throwing.
+    *
+    * @return Node\Stmt[]|null Array of statements (or null non-throwing error handler is used and
+    *                          the parser was unable to recover from an error).
+    */
+    public function parse($code, $errorHandler = null)
     {
         $this->errorHandler = $errorHandler ?: new \PhpParser\ErrorHandler\Throwing();
         $this->lexer->startLexing($code, $this->errorHandler);

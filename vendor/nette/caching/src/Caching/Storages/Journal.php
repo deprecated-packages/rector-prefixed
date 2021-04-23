@@ -15,12 +15,15 @@ interface Journal
     /**
      * Writes entry information into the journal.
      * @return void
+     * @param string $key
+     * @param mixed[] $dependencies
      */
-    function write(string $key, array $dependencies);
+    function write($key, $dependencies);
     /**
      * Cleans entries from journal.
      * @return array|null of removed items or null when performing a full cleanup
+     * @param mixed[] $conditions
      */
-    function clean(array $conditions);
+    function clean($conditions);
 }
 \class_exists(\RectorPrefix20210423\Nette\Caching\Storages\IJournal::class);

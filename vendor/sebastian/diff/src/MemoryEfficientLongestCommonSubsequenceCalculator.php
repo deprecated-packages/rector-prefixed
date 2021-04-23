@@ -22,8 +22,10 @@ final class MemoryEfficientLongestCommonSubsequenceCalculator implements \Rector
 {
     /**
      * {@inheritdoc}
+     * @param mixed[] $from
+     * @param mixed[] $to
      */
-    public function calculate(array $from, array $to) : array
+    public function calculate($from, $to) : array
     {
         $cFrom = \count($from);
         $cTo = \count($to);

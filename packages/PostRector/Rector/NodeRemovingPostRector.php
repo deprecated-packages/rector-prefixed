@@ -38,9 +38,10 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
         return 800;
     }
     /**
+     * @param \PhpParser\Node $node
      * @return \PhpParser\Node|null
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode($node)
     {
         if (!$this->nodesToRemoveCollector->isActive()) {
             return null;
@@ -71,8 +72,9 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     }
     /**
      * @return int|Node
+     * @param \PhpParser\Node $node
      */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode($node)
     {
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {
             $nodeToRemoveParent = $nodeToRemove->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

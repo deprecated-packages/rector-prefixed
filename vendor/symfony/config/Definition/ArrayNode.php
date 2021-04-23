@@ -126,8 +126,9 @@ class ArrayNode extends \RectorPrefix20210423\Symfony\Component\Config\Definitio
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -159,8 +160,9 @@ class ArrayNode extends \RectorPrefix20210423\Symfony\Component\Config\Definitio
      *
      * @throws \InvalidArgumentException when the child node has no name
      * @throws \InvalidArgumentException when the child node's name is not unique
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
-    public function addChild(\RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $node)
+    public function addChild($node)
     {
         $name = $node->getName();
         if (!\strlen($name)) {

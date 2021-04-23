@@ -22,16 +22,20 @@ final class VariadicValueResolver implements \RectorPrefix20210423\Symfony\Compo
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
-    public function supports(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument) : bool
+    public function supports($request, $argument) : bool
     {
         return $argument->isVariadic() && $request->attributes->has($argument->getName());
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      * @return mixed[]
      */
-    public function resolve(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210423\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve($request, $argument)
     {
         $values = $request->attributes->get($argument->getName());
         if (!\is_array($values)) {

@@ -31,9 +31,9 @@ final class ReturnTypeResolver implements \Rector\NodeTypeResolver\Contract\Node
         return [\PhpParser\Node\Stmt\Return_::class];
     }
     /**
-     * @param Return_ $node
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function resolve($node) : \PHPStan\Type\Type
     {
         if ($node->expr === null) {
             return new \PHPStan\Type\VoidType();

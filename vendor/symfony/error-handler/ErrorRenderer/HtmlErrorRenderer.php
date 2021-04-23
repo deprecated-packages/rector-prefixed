@@ -54,8 +54,9 @@ class HtmlErrorRenderer implements \RectorPrefix20210423\Symfony\Component\Error
     }
     /**
      * {@inheritdoc}
+     * @param \Throwable $exception
      */
-    public function render(\Throwable $exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
+    public function render($exception) : \RectorPrefix20210423\Symfony\Component\ErrorHandler\Exception\FlattenException
     {
         $headers = ['Content-Type' => 'text/html; charset=' . $this->charset];
         if (\is_bool($this->debug) ? $this->debug : ($this->debug)($exception)) {

@@ -20,18 +20,18 @@ final class ThisTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\T
         return \PHPStan\Type\ThisType::class;
     }
     /**
-     * @param ThisType $type
+     * @param \PHPStan\Type\Type $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode($type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         return new \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
     }
     /**
-     * @param ThisType $type
+     * @param \PHPStan\Type\Type $type
      * @param string|null $kind
      * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode($type, $kind = null)
     {
         return new \PhpParser\Node\Name('self');
     }

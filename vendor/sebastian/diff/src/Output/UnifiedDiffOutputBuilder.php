@@ -52,7 +52,10 @@ final class UnifiedDiffOutputBuilder extends \RectorPrefix20210423\SebastianBerg
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
     }
-    public function getDiff(array $diff) : string
+    /**
+     * @param mixed[] $diff
+     */
+    public function getDiff($diff) : string
     {
         $buffer = \fopen('php://memory', 'r+b');
         if ('' !== $this->header) {

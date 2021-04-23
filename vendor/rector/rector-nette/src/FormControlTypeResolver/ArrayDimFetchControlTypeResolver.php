@@ -45,8 +45,9 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\Nette\Contract\F
     }
     /**
      * @return array<string, string>
+     * @param \PhpParser\Node $node
      */
-    public function resolve(\PhpParser\Node $node) : array
+    public function resolve($node) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];

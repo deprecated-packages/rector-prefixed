@@ -12,11 +12,14 @@ trait NodeAttributes
      * @param mixed $value
      * @return void
      */
-    public function setAttribute(string $key, $value)
+    public function setAttribute($key, $value)
     {
         $this->attributes[$key] = $value;
     }
-    public function hasAttribute(string $key) : bool
+    /**
+     * @param string $key
+     */
+    public function hasAttribute($key) : bool
     {
         return \array_key_exists($key, $this->attributes);
     }
@@ -24,7 +27,7 @@ trait NodeAttributes
      * @param string $key
      * @return mixed
      */
-    public function getAttribute(string $key)
+    public function getAttribute($key)
     {
         if ($this->hasAttribute($key)) {
             return $this->attributes[$key];

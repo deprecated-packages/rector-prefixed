@@ -5,7 +5,10 @@ namespace RectorPrefix20210423\Doctrine\Inflector;
 
 class NoopWordInflector implements \RectorPrefix20210423\Doctrine\Inflector\WordInflector
 {
-    public function inflect(string $word) : string
+    /**
+     * @param string $word
+     */
+    public function inflect($word) : string
     {
         return $word;
     }

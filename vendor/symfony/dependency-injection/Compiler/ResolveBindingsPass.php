@@ -30,8 +30,9 @@ class ResolveBindingsPass extends \RectorPrefix20210423\Symfony\Component\Depend
     private $errorMessages = [];
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->usedBindings = $container->getRemovedBindingIds();
         try {

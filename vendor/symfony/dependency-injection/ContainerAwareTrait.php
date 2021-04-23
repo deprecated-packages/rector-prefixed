@@ -21,7 +21,10 @@ trait ContainerAwareTrait
      * @var ContainerInterface
      */
     protected $container;
-    public function setContainer(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function setContainer($container = null)
     {
         $this->container = $container;
     }

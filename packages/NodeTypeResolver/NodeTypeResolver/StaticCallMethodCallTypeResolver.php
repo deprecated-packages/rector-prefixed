@@ -52,7 +52,7 @@ final class StaticCallMethodCallTypeResolver implements \Rector\NodeTypeResolver
     /**
      * @param StaticCall|MethodCall $node
      */
-    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
+    public function resolve($node) : \PHPStan\Type\Type
     {
         $methodName = $this->nodeNameResolver->getName($node->name);
         // no specific method found, return class types, e.g. <ClassType>::$method()

@@ -70,8 +70,10 @@ abstract class Extension implements \RectorPrefix20210423\Symfony\Component\Depe
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function getConfiguration(array $config, \RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function getConfiguration($config, $container)
     {
         $class = static::class;
         if (\false !== \strpos($class, "\0")) {

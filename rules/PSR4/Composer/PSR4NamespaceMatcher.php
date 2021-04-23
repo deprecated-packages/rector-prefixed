@@ -19,9 +19,11 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
         $this->psr4AutoloadPathsProvider = $psr4AutoloadPathsProvider;
     }
     /**
+     * @param \Rector\Core\ValueObject\Application\File $file
+     * @param \PhpParser\Node $node
      * @return string|null
      */
-    public function getExpectedNamespace(\Rector\Core\ValueObject\Application\File $file, \PhpParser\Node $node)
+    public function getExpectedNamespace($file, $node)
     {
         $smartFileInfo = $file->getSmartFileInfo();
         $psr4Autoloads = $this->psr4AutoloadPathsProvider->provide();

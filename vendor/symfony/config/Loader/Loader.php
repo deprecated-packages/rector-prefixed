@@ -28,8 +28,9 @@ abstract class Loader implements \RectorPrefix20210423\Symfony\Component\Config\
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
-    public function setResolver(\RectorPrefix20210423\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
+    public function setResolver($resolver)
     {
         $this->resolver = $resolver;
     }

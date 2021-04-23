@@ -62,7 +62,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
     /**
      * @param ClassMethod|Closure|Function_ $functionLike
      */
-    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
+    public function inferFunctionLike($functionLike) : \PHPStan\Type\Type
     {
         /** @var Class_|Trait_|Interface_|null $classLike */
         $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

@@ -11,14 +11,18 @@ use PHPStan\Type\Type;
 use Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
 final class ClosureTypeToCallReflectionResolver implements \Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
 {
-    public function supports(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    public function supports($type) : bool
     {
         return $type instanceof \PHPStan\Type\ClosureType;
     }
     /**
-     * @param ClosureType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : \PHPStan\Reflection\Native\NativeFunctionReflection
+    public function resolve($type, $classMemberAccessAnswerer) : \PHPStan\Reflection\Native\NativeFunctionReflection
     {
         return new \PHPStan\Reflection\Native\NativeFunctionReflection('{closure}', $type->getCallableParametersAcceptors($classMemberAccessAnswerer), null, \PHPStan\TrinaryLogic::createMaybe());
     }

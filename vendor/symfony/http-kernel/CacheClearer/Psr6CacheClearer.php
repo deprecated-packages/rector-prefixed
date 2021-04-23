@@ -40,8 +40,9 @@ class Psr6CacheClearer implements \RectorPrefix20210423\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
+     * @param string $cacheDir
      */
-    public function clear(string $cacheDir)
+    public function clear($cacheDir)
     {
         foreach ($this->pools as $pool) {
             $pool->clear();

@@ -159,8 +159,10 @@ class QuestionHelper extends \RectorPrefix20210423\Symfony\Component\Console\Hel
     }
     /**
      * Outputs the question prompt.
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
-    protected function writePrompt(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \RectorPrefix20210423\Symfony\Component\Console\Question\Question $question)
+    protected function writePrompt($output, $question)
     {
         $message = $question->getQuestion();
         if ($question instanceof \RectorPrefix20210423\Symfony\Component\Console\Question\ChoiceQuestion) {
@@ -184,8 +186,10 @@ class QuestionHelper extends \RectorPrefix20210423\Symfony\Component\Console\Hel
     }
     /**
      * Outputs an error message.
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Exception $error
      */
-    protected function writeError(\RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output, \Exception $error)
+    protected function writeError($output, $error)
     {
         if (null !== $this->getHelperSet() && $this->getHelperSet()->has('formatter')) {
             $message = $this->getHelperSet()->get('formatter')->formatBlock($error->getMessage(), 'error');

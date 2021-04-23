@@ -26,36 +26,46 @@ class JsonDescriptor extends \RectorPrefix20210423\Symfony\Component\Console\Des
 {
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
+     * @param mixed[] $options
      */
-    protected function describeInputArgument(\RectorPrefix20210423\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument($argument, $options = [])
     {
         $this->writeData($this->getInputArgumentData($argument), $options);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputOption $option
+     * @param mixed[] $options
      */
-    protected function describeInputOption(\RectorPrefix20210423\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption($option, $options = [])
     {
         $this->writeData($this->getInputOptionData($option), $options);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     * @param mixed[] $options
      */
-    protected function describeInputDefinition(\RectorPrefix20210423\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition($definition, $options = [])
     {
         $this->writeData($this->getInputDefinitionData($definition), $options);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param mixed[] $options
      */
-    protected function describeCommand(\RectorPrefix20210423\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand($command, $options = [])
     {
         $this->writeData($this->getCommandData($command), $options);
     }
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\Console\Application $application
+     * @param mixed[] $options
      */
-    protected function describeApplication(\RectorPrefix20210423\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication($application, $options = [])
     {
         $describedNamespace = $options['namespace'] ?? null;
         $description = new \RectorPrefix20210423\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace, \true);

@@ -73,8 +73,9 @@ class OutputFormatter implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param bool $decorated
      */
-    public function setDecorated(bool $decorated)
+    public function setDecorated($decorated)
     {
         $this->decorated = $decorated;
     }
@@ -87,22 +88,26 @@ class OutputFormatter implements \RectorPrefix20210423\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
+     * @param string $name
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function setStyle(string $name, \RectorPrefix20210423\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
+    public function setStyle($name, $style)
     {
         $this->styles[\strtolower($name)] = $style;
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function hasStyle(string $name)
+    public function hasStyle($name)
     {
         return isset($this->styles[\strtolower($name)]);
     }
     /**
      * {@inheritdoc}
+     * @param string $name
      */
-    public function getStyle(string $name)
+    public function getStyle($name)
     {
         if (!$this->hasStyle($name)) {
             throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
@@ -120,8 +125,9 @@ class OutputFormatter implements \RectorPrefix20210423\Symfony\Component\Console
     /**
      * {@inheritdoc}
      * @param string|null $message
+     * @param int $width
      */
-    public function formatAndWrap($message, int $width)
+    public function formatAndWrap($message, $width)
     {
         $offset = 0;
         $output = '';

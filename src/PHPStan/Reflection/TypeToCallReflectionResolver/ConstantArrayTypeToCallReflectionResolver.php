@@ -27,15 +27,19 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function supports(\PHPStan\Type\Type $type) : bool
+    /**
+     * @param \PHPStan\Type\Type $type
+     */
+    public function supports($type) : bool
     {
         return $type instanceof \PHPStan\Type\Constant\ConstantArrayType;
     }
     /**
-     * @param ConstantArrayType $type
+     * @param \PHPStan\Type\Type $type
+     * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer
      * @return \PHPStan\Reflection\MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve($type, $classMemberAccessAnswerer)
     {
         $constantArrayTypeAndMethod = $this->findTypeAndMethodName($type);
         if (!$constantArrayTypeAndMethod instanceof \PHPStan\Type\Constant\ConstantArrayTypeAndMethod) {

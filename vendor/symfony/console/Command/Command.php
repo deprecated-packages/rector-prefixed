@@ -142,8 +142,10 @@ class Command
      * @throws LogicException When this abstract method is not implemented
      *
      * @see setCode()
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function execute(\RectorPrefix20210423\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210423\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute($input, $output)
     {
         throw new \RectorPrefix20210423\Symfony\Component\Console\Exception\LogicException('You must override the execute() method in the concrete command class.');
     }

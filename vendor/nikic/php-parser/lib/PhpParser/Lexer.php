@@ -52,16 +52,16 @@ class Lexer
         $this->attributeCommentsUsed = isset($usedAttributes['comments']);
     }
     /**
-     * Initializes the lexer for lexing the provided source code.
-     *
-     * This function does not throw if lexing errors occur. Instead, errors may be retrieved using
-     * the getErrors() method.
-     *
-     * @param string $code The source code to lex
-     * @param ErrorHandler|null $errorHandler Error handler to use for lexing errors. Defaults to
-     *                                        ErrorHandler\Throwing
-     */
-    public function startLexing(string $code, \PhpParser\ErrorHandler $errorHandler = null)
+    * Initializes the lexer for lexing the provided source code.
+    *
+    * This function does not throw if lexing errors occur. Instead, errors may be retrieved using
+    * the getErrors() method.
+    *
+    * @param string $code The source code to lex
+     * @param \PhpParser\ErrorHandler $errorHandler Error handler to use for lexing errors. Defaults to
+                                      ErrorHandler\Throwing
+    */
+    public function startLexing($code, $errorHandler = null)
     {
         if (null === $errorHandler) {
             $errorHandler = new \PhpParser\ErrorHandler\Throwing();

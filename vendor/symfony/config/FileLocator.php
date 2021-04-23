@@ -28,8 +28,11 @@ class FileLocator implements \RectorPrefix20210423\Symfony\Component\Config\File
     }
     /**
      * {@inheritdoc}
+     * @param string $name
+     * @param string $currentPath
+     * @param bool $first
      */
-    public function locate(string $name, string $currentPath = null, bool $first = \true)
+    public function locate($name, $currentPath = null, $first = \true)
     {
         if ('' === $name) {
             throw new \InvalidArgumentException('An empty file name is not valid to be located.');
