@@ -64,9 +64,8 @@ CODE_SAMPLE
     }
     /**
      * @param Encapsed $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->sprintfFormat = '';
         $this->argumentVariables = [];
@@ -106,9 +105,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $argumentVariables
-     * @return \PhpParser\Node|null
+     * @return Concat|FuncCall|null
      */
-    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables)
+    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : ?\PhpParser\Node
     {
         // special case for variable with PHP_EOL
         if ($string === '%s%s' && \count($argumentVariables) === 2 && $this->hasEndOfLine($argumentVariables)) {

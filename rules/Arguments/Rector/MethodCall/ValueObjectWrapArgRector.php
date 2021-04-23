@@ -62,9 +62,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->valueObjectWrapArgs as $valueObjectWrapArg) {
             $desiredArg = $this->matchArg($node, $valueObjectWrapArg);
@@ -99,10 +98,7 @@ CODE_SAMPLE
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified($newObjectType->getClassName());
         return new \PhpParser\Node\Expr\New_($fullyQualified, [new \PhpParser\Node\Arg($expr)]);
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function refactorArray(\PhpParser\Node\Arg $desiredArg, \PHPStan\Type\ObjectType $newObjectType, \PhpParser\Node\Expr\MethodCall $methodCall)
+    private function refactorArray(\PhpParser\Node\Arg $desiredArg, \PHPStan\Type\ObjectType $newObjectType, \PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($desiredArg->value instanceof \PhpParser\Node\Expr\Array_) {
             foreach ($desiredArg->value->items as $arrayItem) {
@@ -115,10 +111,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Arg|null
-     */
-    private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Arguments\ValueObject\ValueObjectWrapArg $valueObjectWrapArg)
+    private function matchArg(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\Arguments\ValueObject\ValueObjectWrapArg $valueObjectWrapArg) : ?\PhpParser\Node\Arg
     {
         if (!$this->isObjectType($methodCall->var, $valueObjectWrapArg->getObjectType())) {
             return null;

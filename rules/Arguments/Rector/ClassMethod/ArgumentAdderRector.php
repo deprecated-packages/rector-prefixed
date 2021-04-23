@@ -84,9 +84,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->addedArguments as $addedArgument) {
             if (!$this->isObjectTypeMatch($node, $addedArgument->getObjectType())) {
@@ -183,10 +182,9 @@ CODE_SAMPLE
     }
     /**
      * @param mixed $defaultValue
-     * @param string|null $type
      * @return void
      */
-    private function addClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder, $defaultValue, $type, int $position)
+    private function addClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Arguments\ValueObject\ArgumentAdder $argumentAdder, $defaultValue, ?string $type, int $position)
     {
         $argumentName = $argumentAdder->getArgumentName();
         if ($argumentName === null) {

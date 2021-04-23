@@ -228,9 +228,8 @@ class Response
     ];
     /**
      * @throws \InvalidArgumentException When the HTTP status code is not valid
-     * @param string|null $content
      */
-    public function __construct($content = '', int $status = 200, array $headers = [])
+    public function __construct(?string $content = '', int $status = 200, array $headers = [])
     {
         $this->headers = new \RectorPrefix20210423\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
@@ -401,9 +400,8 @@ class Response
      * @return $this
      *
      * @throws \UnexpectedValueException
-     * @param string|null $content
      */
-    public function setContent($content)
+    public function setContent(?string $content)
     {
         $this->content = $content ?? '';
         return $this;
@@ -492,9 +490,8 @@ class Response
      * Retrieves the response charset.
      *
      * @final
-     * @return string|null
      */
-    public function getCharset()
+    public function getCharset() : ?string
     {
         return $this->charset;
     }
@@ -623,9 +620,8 @@ class Response
      * @throws \RuntimeException When the header is not parseable
      *
      * @final
-     * @return \DateTimeInterface|null
      */
-    public function getDate()
+    public function getDate() : ?\DateTimeInterface
     {
         return $this->headers->getDate('Date');
     }
@@ -674,9 +670,8 @@ class Response
      * Returns the value of the Expires header as a DateTime instance.
      *
      * @final
-     * @return \DateTimeInterface|null
      */
-    public function getExpires()
+    public function getExpires() : ?\DateTimeInterface
     {
         try {
             return $this->headers->getDate('Expires');
@@ -715,9 +710,8 @@ class Response
      * back on an expires header. It returns null when no maximum age can be established.
      *
      * @final
-     * @return int|null
      */
-    public function getMaxAge()
+    public function getMaxAge() : ?int
     {
         if ($this->headers->hasCacheControlDirective('s-maxage')) {
             return (int) $this->headers->getCacheControlDirective('s-maxage');
@@ -768,9 +762,8 @@ class Response
      * revalidating with the origin.
      *
      * @final
-     * @return int|null
      */
-    public function getTtl()
+    public function getTtl() : ?int
     {
         $maxAge = $this->getMaxAge();
         return null !== $maxAge ? $maxAge - $this->getAge() : null;
@@ -809,9 +802,8 @@ class Response
      * @throws \RuntimeException When the HTTP header is not parseable
      *
      * @final
-     * @return \DateTimeInterface|null
      */
-    public function getLastModified()
+    public function getLastModified() : ?\DateTimeInterface
     {
         return $this->headers->getDate('Last-Modified');
     }
@@ -841,9 +833,8 @@ class Response
      * Returns the literal value of the ETag HTTP header.
      *
      * @final
-     * @return string|null
      */
-    public function getEtag()
+    public function getEtag() : ?string
     {
         return $this->headers->get('ETag');
     }

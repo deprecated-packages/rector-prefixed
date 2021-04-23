@@ -36,9 +36,8 @@ abstract class AbstractServiceConfigurator extends \RectorPrefix20210423\Symfony
     }
     /**
      * Registers a service.
-     * @param string|null $id
      */
-    public final function set($id, string $class = null) : \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+    public final function set(?string $id, string $class = null) : \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $this->__destruct();
         return $this->parent->set($id, $class);

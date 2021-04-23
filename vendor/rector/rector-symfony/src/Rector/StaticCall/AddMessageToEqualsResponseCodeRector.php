@@ -63,9 +63,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'assertEquals')) {
             return null;
@@ -96,9 +95,9 @@ CODE_SAMPLE
         return $this->isObjectType($expr->class, new \PHPStan\Type\ObjectType('Symfony\\Component\\HttpFoundation\\Response'));
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Variable|MethodCall|Expr|null
      */
-    private function getParentOfGetStatusCode(\PhpParser\Node\Expr $expr)
+    private function getParentOfGetStatusCode(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
         $currentNode = $expr;
         while ($currentNode instanceof \PhpParser\Node\Expr\MethodCall) {

@@ -18,10 +18,7 @@ final class VersionCompareCondition implements \Rector\DeadCode\Contract\Conditi
      * @var string|null
      */
     private $compareSign;
-    /**
-     * @param string|null $compareSign
-     */
-    public function __construct(int $firstVersion, int $secondVersion, $compareSign)
+    public function __construct(int $firstVersion, int $secondVersion, ?string $compareSign)
     {
         $this->firstVersion = $firstVersion;
         $this->secondVersion = $secondVersion;
@@ -35,10 +32,7 @@ final class VersionCompareCondition implements \Rector\DeadCode\Contract\Conditi
     {
         return $this->secondVersion;
     }
-    /**
-     * @return string|null
-     */
-    public function getCompareSign()
+    public function getCompareSign() : ?string
     {
         return $this->compareSign;
     }

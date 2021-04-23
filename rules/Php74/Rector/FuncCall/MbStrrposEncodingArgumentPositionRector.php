@@ -31,9 +31,8 @@ final class MbStrrposEncodingArgumentPositionRector extends \Rector\Core\Rector\
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'mb_strrpos')) {
             return null;

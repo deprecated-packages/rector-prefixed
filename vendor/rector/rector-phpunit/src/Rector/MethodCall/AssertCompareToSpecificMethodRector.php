@@ -53,9 +53,8 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($node, ['assertSame', 'assertNotSame', 'assertEquals', 'assertNotEquals'])) {
             return null;
@@ -78,9 +77,9 @@ final class AssertCompareToSpecificMethodRector extends \Rector\Core\Rector\Abst
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
+     * @return MethodCall|StaticCall|null
      */
-    private function processFuncCallArgumentValue(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg)
+    private function processFuncCallArgumentValue(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Arg $requiredArg) : ?\PhpParser\Node
     {
         foreach ($this->functionNamesWithAssertMethods as $functionNameWithAssertMethod) {
             if (!$this->isName($funcCall, $functionNameWithAssertMethod->getFunctionName())) {

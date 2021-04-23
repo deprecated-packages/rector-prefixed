@@ -97,9 +97,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->formAddMethodCallAnalyzer->isMatching($node)) {
             return null;
@@ -113,10 +112,7 @@ CODE_SAMPLE
         }
         return $this->processChangeToConstant($optionsArray, $node);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processChangeToConstant(\PhpParser\Node\Expr\Array_ $optionsArray, \PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processChangeToConstant(\PhpParser\Node\Expr\Array_ $optionsArray, \PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         foreach ($optionsArray->items as $optionsArrayItem) {
             if ($optionsArrayItem === null) {

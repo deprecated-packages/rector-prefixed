@@ -61,10 +61,7 @@ final class ContributeEventClassResolver
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeComparator = $nodeComparator;
     }
-    /**
-     * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
-     */
-    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \PhpParser\Node\Param $param, $eventAndListenerTree) : string
+    public function resolveGetterMethodByEventClassAndParam(string $eventClass, \PhpParser\Node\Param $param, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree) : string
     {
         $getterMethodsWithType = self::CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE[$eventClass] ?? null;
         $paramType = $param->type;

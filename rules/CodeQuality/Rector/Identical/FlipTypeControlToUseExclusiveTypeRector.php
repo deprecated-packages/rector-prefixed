@@ -74,9 +74,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->valueResolver->isNull($node->left) && !$this->valueResolver->isNull($node->right)) {
             return null;
@@ -105,10 +104,7 @@ CODE_SAMPLE
         }
         return $this->processConvertToExclusiveType($types, $variable, $phpDocInfo);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr)
+    private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findFirstPrevious($identical, function (\PhpParser\Node $node) use($expr) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
@@ -146,9 +142,8 @@ CODE_SAMPLE
     }
     /**
      * @param Type[] $types
-     * @return \PhpParser\Node\Expr\BooleanNot|null
      */
-    private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo)
+    private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
     {
         $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
         if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {

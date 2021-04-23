@@ -63,9 +63,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->php4ConstructorClassMethodAnalyzer->detect($node)) {
             return null;
@@ -146,10 +145,7 @@ CODE_SAMPLE
         }
         $staticCall->name = new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
-    /**
-     * @return string|null
-     */
-    private function resolveParentClassName(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function resolveParentClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
     {
         $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

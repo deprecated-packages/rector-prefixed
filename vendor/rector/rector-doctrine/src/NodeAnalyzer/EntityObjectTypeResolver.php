@@ -130,10 +130,7 @@ final class EntityObjectTypeResolver
         }
         return new \PHPStan\Type\MixedType();
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function resolveParentConstructSecondArgument(\PhpParser\Node\Expr $expr)
+    private function resolveParentConstructSecondArgument(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
         if (!$expr instanceof \PhpParser\Node\Expr\StaticCall) {
             return null;

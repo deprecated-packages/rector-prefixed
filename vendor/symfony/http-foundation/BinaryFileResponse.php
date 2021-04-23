@@ -233,10 +233,7 @@ class BinaryFileResponse extends \RectorPrefix20210423\Symfony\Component\HttpFou
         }
         return $this;
     }
-    /**
-     * @param string|null $header
-     */
-    private function hasValidIfRangeHeader($header) : bool
+    private function hasValidIfRangeHeader(?string $header) : bool
     {
         if ($this->getEtag() === $header) {
             return \true;
@@ -273,9 +270,8 @@ class BinaryFileResponse extends \RectorPrefix20210423\Symfony\Component\HttpFou
      * {@inheritdoc}
      *
      * @throws \LogicException when the content is not null
-     * @param string|null $content
      */
-    public function setContent($content)
+    public function setContent(?string $content)
     {
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a BinaryFileResponse instance.');

@@ -76,10 +76,7 @@ final class NodeNameResolver
         }
         return \false;
     }
-    /**
-     * @return string|null
-     */
-    public function getName(\PhpParser\Node $node)
+    public function getName(\PhpParser\Node $node) : ?string
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
             if ($this->isCallOrIdentifier($node->name)) {
@@ -161,9 +158,8 @@ final class NodeNameResolver
     }
     /**
      * @param array<string, string> $renameMap
-     * @return string|null
      */
-    public function matchNameFromMap(\PhpParser\Node $node, array $renameMap)
+    public function matchNameFromMap(\PhpParser\Node $node, array $renameMap) : ?string
     {
         $name = $this->getName($node);
         return $renameMap[$name] ?? null;

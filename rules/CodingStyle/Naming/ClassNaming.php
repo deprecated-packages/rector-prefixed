@@ -43,10 +43,7 @@ final class ClassNaming
         $name = \trim($name, '\\');
         return \RectorPrefix20210423\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
     }
-    /**
-     * @return string|null
-     */
-    public function getNamespace(string $fullyQualifiedName)
+    public function getNamespace(string $fullyQualifiedName) : ?string
     {
         $fullyQualifiedName = \trim($fullyQualifiedName, '\\');
         return \RectorPrefix20210423\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;

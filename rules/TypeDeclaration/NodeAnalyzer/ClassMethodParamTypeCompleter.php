@@ -28,9 +28,8 @@ final class ClassMethodParamTypeCompleter
     }
     /**
      * @param array<int, Type> $classParameterTypes
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    public function complete(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $classParameterTypes)
+    public function complete(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $classParameterTypes) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $hasChanged = \false;
         foreach ($classParameterTypes as $position => $argumentStaticType) {

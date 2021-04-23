@@ -158,9 +158,8 @@ abstract class AbstractDumper implements \RectorPrefix20210423\Symfony\Component
      * Converts a non-UTF-8 string to UTF-8.
      *
      * @return string|null The string converted to UTF-8
-     * @param string|null $s
      */
-    protected function utf8Encode($s)
+    protected function utf8Encode(?string $s)
     {
         if (null === $s || \preg_match('//u', $s)) {
             return $s;

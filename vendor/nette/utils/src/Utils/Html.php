@@ -554,9 +554,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefi
      * Inserts child node.
      * @param  HtmlStringable|string $child Html node or raw HTML string
      * @return static
-     * @param int|null $index
      */
-    public function insert($index, $child, bool $replace = \false)
+    public function insert(?int $index, $child, bool $replace = \false)
     {
         $child = $child instanceof self ? $child : (string) $child;
         if ($index === null) {

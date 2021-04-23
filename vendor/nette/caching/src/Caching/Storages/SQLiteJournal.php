@@ -76,10 +76,7 @@ class SQLiteJournal implements \RectorPrefix20210423\Nette\Caching\Storages\Jour
         }
         $this->pdo->exec('COMMIT');
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function clean(array $conditions)
+    public function clean(array $conditions) : ?array
     {
         if (!$this->pdo) {
             $this->open();

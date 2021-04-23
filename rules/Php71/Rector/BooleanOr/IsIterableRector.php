@@ -43,9 +43,8 @@ final class IsIterableRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param BooleanOr $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip()) {
             return null;

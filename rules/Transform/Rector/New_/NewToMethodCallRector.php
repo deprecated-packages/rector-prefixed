@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->newsToMethodCalls as $newsToMethodCall) {
             if (!$this->isObjectType($node, $newsToMethodCall->getNewObjectType())) {
@@ -110,10 +109,7 @@ CODE_SAMPLE
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
         $this->newsToMethodCalls = $newsToMethodCalls;
     }
-    /**
-     * @return string|null
-     */
-    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType)
+    private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $factoryObjectType) : ?string
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isObjectType($property, $factoryObjectType)) {

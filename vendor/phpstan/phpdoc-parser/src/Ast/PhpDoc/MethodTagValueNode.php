@@ -18,10 +18,7 @@ class MethodTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagVa
     public $parameters;
     /** @var string (may be empty) */
     public $description;
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode|null $returnType
-     */
-    public function __construct(bool $isStatic, $returnType, string $methodName, array $parameters, string $description)
+    public function __construct(bool $isStatic, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $returnType, string $methodName, array $parameters, string $description)
     {
         $this->isStatic = $isStatic;
         $this->returnType = $returnType;

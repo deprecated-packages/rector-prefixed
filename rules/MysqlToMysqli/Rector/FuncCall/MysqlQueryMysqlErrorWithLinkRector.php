@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach (self::FUNCTION_RENAME_MAP as $oldFunction => $newFunction) {
             if (!$this->isName($node, $oldFunction)) {
@@ -112,10 +111,7 @@ CODE_SAMPLE
         }
         return $this->isMysqliConnect($expr);
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function findConnectionVariable(\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function findConnectionVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $connectionAssign = $this->betterNodeFinder->findFirstPrevious($funcCall, function (\PhpParser\Node $node) : ?bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {

@@ -58,10 +58,7 @@ final class DoctrineDocBlockResolver
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    /**
-     * @return string|null
-     */
-    public function getTargetEntity(\PhpParser\Node\Stmt\Property $property)
+    public function getTargetEntity(\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineAnnotationTagValueNode = $phpDocInfo->getByAnnotationClasses(['Doctrine\\ORM\\Mapping\\OneToMany', 'Doctrine\\ORM\\Mapping\\ManyToMany', 'Doctrine\\ORM\\Mapping\\OneToOne', 'Doctrine\\ORM\\Mapping\\ManyToOne']);

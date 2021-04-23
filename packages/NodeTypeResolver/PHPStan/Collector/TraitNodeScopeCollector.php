@@ -36,10 +36,7 @@ final class TraitNodeScopeCollector
         }
         $this->scopeByTraitNodeHash[$traitNodeHash] = $scope;
     }
-    /**
-     * @return \PHPStan\Analyser\Scope|null
-     */
-    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node)
+    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node) : ?\PHPStan\Analyser\Scope
     {
         $traitNodeHash = $this->createHash($traitName, $node);
         return $this->scopeByTraitNodeHash[$traitNodeHash] ?? null;

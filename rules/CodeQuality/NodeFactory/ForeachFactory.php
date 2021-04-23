@@ -10,11 +10,7 @@ use PhpParser\Node\Stmt\Foreach_;
 use Rector\Core\Exception\ShouldNotHappenException;
 final class ForeachFactory
 {
-    /**
-     * @param \PhpParser\Node\Expr|null $iteratedExpr
-     * @param string|null $keyValueName
-     */
-    public function createFromFor(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableName, $iteratedExpr, $keyValueName) : \PhpParser\Node\Stmt\Foreach_
+    public function createFromFor(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableName, ?\PhpParser\Node\Expr $iteratedExpr, ?string $keyValueName) : \PhpParser\Node\Stmt\Foreach_
     {
         if ($iteratedExpr === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

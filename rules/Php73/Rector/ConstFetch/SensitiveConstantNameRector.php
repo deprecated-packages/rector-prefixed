@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param ConstFetch $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $constantName = $this->getName($node);
         if ($constantName === null) {

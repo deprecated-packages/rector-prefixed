@@ -96,9 +96,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
@@ -150,10 +149,7 @@ CODE_SAMPLE
         }
         $this->addConstructorDependencyToClass($classLike, $type, $propertyName, $property->flags);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Property|null
-     */
-    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property)
+    private function refactorNetteInjectProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $injectTagNode = $phpDocInfo->getByName('inject');
         if ($injectTagNode instanceof \PHPStan\PhpDocParser\Ast\Node) {

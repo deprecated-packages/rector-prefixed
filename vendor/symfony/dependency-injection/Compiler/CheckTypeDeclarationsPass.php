@@ -115,10 +115,9 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210423\Symfony\Comp
     }
     /**
      * @throws InvalidParameterTypeException When a parameter is not compatible with the declared type
-     * @param string|null $envPlaceholderUniquePrefix
      * @return void
      */
-    private function checkType(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null)
+    private function checkType(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, ?string $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null)
     {
         $reflectionType = $reflectionType ?? $parameter->getType();
         if ($reflectionType instanceof \ReflectionUnionType) {

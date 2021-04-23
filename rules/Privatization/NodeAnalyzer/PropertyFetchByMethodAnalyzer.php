@@ -109,10 +109,7 @@ final class PropertyFetchByMethodAnalyzer
         }
         return \false;
     }
-    /**
-     * @return bool|null
-     */
-    private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName)
+    private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName) : ?bool
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($if->cond, function (\PhpParser\Node $node) use($privatePropertyName, &$isPropertyReadInIf) : ?int {
             if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$privatePropertyName])) {

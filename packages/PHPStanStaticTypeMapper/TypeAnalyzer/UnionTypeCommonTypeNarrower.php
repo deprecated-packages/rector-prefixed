@@ -40,10 +40,7 @@ final class UnionTypeCommonTypeNarrower
         $this->genericClassStringTypeCorrector = $genericClassStringTypeCorrector;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @return \PHPStan\Type\ObjectType|null
-     */
-    public function narrowToSharedObjectType(\PHPStan\Type\UnionType $unionType)
+    public function narrowToSharedObjectType(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\ObjectType
     {
         $sharedTypes = $this->narrowToSharedTypes($unionType);
         if ($sharedTypes !== []) {
@@ -138,9 +135,8 @@ final class UnionTypeCommonTypeNarrower
     }
     /**
      * @param string[][] $availableTypes
-     * @return \PHPStan\Type\Generic\GenericClassStringType|null
      */
-    private function createGenericClassStringType(array $availableTypes)
+    private function createGenericClassStringType(array $availableTypes) : ?\PHPStan\Type\Generic\GenericClassStringType
     {
         $sharedTypes = $this->narrowAvailableTypes($availableTypes);
         if ($sharedTypes !== []) {

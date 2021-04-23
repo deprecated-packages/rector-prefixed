@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $defaultCases = [];
         foreach ($node->cases as $case) {

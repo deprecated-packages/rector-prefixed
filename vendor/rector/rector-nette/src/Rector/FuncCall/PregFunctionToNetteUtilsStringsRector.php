@@ -66,9 +66,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $this->refactorIdentical($node);
@@ -82,10 +81,7 @@ CODE_SAMPLE
     {
         return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
     }
-    /**
-     * @return \PhpParser\Node\Expr\Cast\Bool_|null
-     */
-    public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
     {
         $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -103,9 +99,9 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @return \PhpParser\Node\Expr|null
+     * @return FuncCall|StaticCall|Assign|null
      */
-    public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall)
+    public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $methodName = $this->nodeNameResolver->matchNameFromMap($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
         if ($methodName === null) {
@@ -132,9 +128,8 @@ CODE_SAMPLE
     }
     /**
      * @param Expr $expr
-     * @param \PhpParser\Node|null $node
      */
-    private function createBoolCast($node, \PhpParser\Node $expr) : \PhpParser\Node\Expr\Cast\Bool_
+    private function createBoolCast(?\PhpParser\Node $node, \PhpParser\Node $expr) : \PhpParser\Node\Expr\Cast\Bool_
     {
         if ($node instanceof \PhpParser\Node\Stmt\Return_ && $expr instanceof \PhpParser\Node\Expr\Assign) {
             $expr = $expr->expr;

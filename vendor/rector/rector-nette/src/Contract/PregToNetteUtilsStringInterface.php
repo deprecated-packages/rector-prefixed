@@ -11,12 +11,9 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
 interface PregToNetteUtilsStringInterface
 {
+    public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_;
     /**
-     * @return \PhpParser\Node\Expr\Cast\Bool_|null
+     * @return FuncCall|StaticCall|Assign|null
      */
-    public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical);
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall);
+    public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr;
 }

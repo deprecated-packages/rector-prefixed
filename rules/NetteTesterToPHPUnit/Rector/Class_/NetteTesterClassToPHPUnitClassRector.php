@@ -69,9 +69,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Include_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\Include_) {
             $this->processAboveTestInclude($node);

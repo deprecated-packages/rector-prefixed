@@ -28,10 +28,8 @@ final class SelfObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Cont
     }
     /**
      * @param SelfObjectType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('self');
     }

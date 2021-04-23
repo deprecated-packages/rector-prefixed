@@ -62,10 +62,7 @@ final class ConstructorAssignDetector
         });
         return $isAssignedInConstructor;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName)
+    private function matchAssignExprToPropertyName(\PhpParser\Node $node, string $propertyName) : ?\PhpParser\Node\Expr
     {
         if (!$node instanceof \PhpParser\Node\Expr\Assign) {
             return null;

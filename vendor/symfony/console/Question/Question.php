@@ -157,9 +157,8 @@ class Question
     }
     /**
      * Gets the callback function used for the autocompleter.
-     * @return callable|null
      */
-    public function getAutocompleterCallback()
+    public function getAutocompleterCallback() : ?callable
     {
         return $this->autocompleterCallback;
     }
@@ -205,9 +204,8 @@ class Question
      * @return $this
      *
      * @throws InvalidArgumentException in case the number of attempts is invalid
-     * @param int|null $attempts
      */
-    public function setMaxAttempts($attempts)
+    public function setMaxAttempts(?int $attempts)
     {
         if (null !== $attempts) {
             $attempts = (int) $attempts;

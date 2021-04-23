@@ -62,7 +62,7 @@ class ServicesConfigurator extends \RectorPrefix20210423\Symfony\Component\Depen
      * @param string|null $id    The service id, or null to create an anonymous service
      * @param string|null $class The class of the service, or null when $id is also the class name
      */
-    public final function set($id, string $class = null) : \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+    public final function set(?string $id, string $class = null) : \RectorPrefix20210423\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
         $defaults = $this->defaults;
         $definition = new \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition();

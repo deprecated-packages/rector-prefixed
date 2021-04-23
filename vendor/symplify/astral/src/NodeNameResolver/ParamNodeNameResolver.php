@@ -15,9 +15,8 @@ final class ParamNodeNameResolver implements \RectorPrefix20210423\Symplify\Astr
     }
     /**
      * @param Param $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         $paramName = $node->var->name;
         if ($paramName instanceof \PhpParser\Node\Expr) {

@@ -165,10 +165,7 @@ final class ShortNameResolver
         });
         return $shortNamesToFullyQualifiedNames;
     }
-    /**
-     * @return string|null
-     */
-    private function resolveShortTagNameFromPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode)
+    private function resolveShortTagNameFromPhpDocChildNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : ?string
     {
         if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
             return null;
@@ -196,9 +193,8 @@ final class ShortNameResolver
     }
     /**
      * @param Node[] $stmts
-     * @return \ReflectionClass|null
      */
-    private function resolveNativeClassReflection(array $stmts)
+    private function resolveNativeClassReflection(array $stmts) : ?\ReflectionClass
     {
         $firstClassLike = $this->nodeFinder->findFirstInstanceOf($stmts, \PhpParser\Node\Stmt\ClassLike::class);
         if (!$firstClassLike instanceof \PhpParser\Node\Stmt\ClassLike) {

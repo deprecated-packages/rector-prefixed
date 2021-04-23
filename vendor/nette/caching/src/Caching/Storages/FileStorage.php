@@ -240,9 +240,8 @@ class FileStorage implements \RectorPrefix20210423\Nette\Caching\Storage
     }
     /**
      * Reads cache data from disk.
-     * @return mixed[]|null
      */
-    protected function readMetaAndLock(string $file, int $lock)
+    protected function readMetaAndLock(string $file, int $lock) : ?array
     {
         $handle = @\fopen($file, 'r+b');
         // @ - file may not exist

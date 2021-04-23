@@ -92,9 +92,8 @@ final class ClassRenamer
     }
     /**
      * @param array<string, string> $oldToNewClasses
-     * @return \PhpParser\Node|null
      */
-    public function renameNode(\PhpParser\Node $node, array $oldToNewClasses)
+    public function renameNode(\PhpParser\Node $node, array $oldToNewClasses) : ?\PhpParser\Node
     {
         $oldToNewTypes = [];
         foreach ($oldToNewClasses as $oldClass => $newClass) {
@@ -128,9 +127,8 @@ final class ClassRenamer
     }
     /**
      * @param array<string, string> $oldToNewClasses
-     * @return \PhpParser\Node\Name|null
      */
-    private function refactorName(\PhpParser\Node\Name $name, array $oldToNewClasses)
+    private function refactorName(\PhpParser\Node\Name $name, array $oldToNewClasses) : ?\PhpParser\Node\Name
     {
         $stringName = $this->nodeNameResolver->getName($name);
         $newName = $oldToNewClasses[$stringName] ?? null;
@@ -180,9 +178,8 @@ final class ClassRenamer
     }
     /**
      * @param array<string, string> $oldToNewClasses
-     * @return \PhpParser\Node|null
      */
-    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, array $oldToNewClasses)
+    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, array $oldToNewClasses) : ?\PhpParser\Node
     {
         $name = $this->nodeNameResolver->getName($namespace);
         if ($name === null) {
@@ -208,9 +205,8 @@ final class ClassRenamer
     }
     /**
      * @param array<string, string> $oldToNewClasses
-     * @return \PhpParser\Node|null
      */
-    private function refactorClassLike(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewClasses)
+    private function refactorClassLike(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewClasses) : ?\PhpParser\Node
     {
         // rename interfaces
         $this->renameClassImplements($classLike, $oldToNewClasses);
@@ -277,9 +273,8 @@ final class ClassRenamer
     }
     /**
      * @param array<string, string> $oldToNewClasses
-     * @return \PhpParser\Node\Stmt\ClassLike|null
      */
-    private function getClassOfNamespaceToRefactor(\PhpParser\Node\Stmt\Namespace_ $namespace, array $oldToNewClasses)
+    private function getClassOfNamespaceToRefactor(\PhpParser\Node\Stmt\Namespace_ $namespace, array $oldToNewClasses) : ?\PhpParser\Node\Stmt\ClassLike
     {
         $foundClass = $this->betterNodeFinder->findFirst($namespace, function (\PhpParser\Node $node) use($oldToNewClasses) : bool {
             if (!$node instanceof \PhpParser\Node\Stmt\ClassLike) {

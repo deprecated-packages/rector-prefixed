@@ -35,9 +35,8 @@ CODE_SAMPLE
     }
     /**
      * @param AssignRef $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\New_) {
             return null;

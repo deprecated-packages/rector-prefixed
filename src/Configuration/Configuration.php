@@ -114,10 +114,7 @@ final class Configuration
         }
         return $this->showProgressBar;
     }
-    /**
-     * @return string|null
-     */
-    public function getOutputFile()
+    public function getOutputFile() : ?string
     {
         return $this->outputFile;
     }
@@ -181,10 +178,7 @@ final class Configuration
     {
         $this->bootstrapConfigs = $bootstrapConfigs;
     }
-    /**
-     * @return string|null
-     */
-    public function getMainConfigFilePath()
+    public function getMainConfigFilePath() : ?string
     {
         if ($this->bootstrapConfigs === null) {
             return null;
@@ -204,11 +198,7 @@ final class Configuration
         $optionOutputFormat = $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
         return $optionOutputFormat === \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
-    /**
-     * @param string|null $outputFileOption
-     * @return string|null
-     */
-    private function sanitizeOutputFileValue($outputFileOption)
+    private function sanitizeOutputFileValue(?string $outputFileOption) : ?string
     {
         if ($outputFileOption === '') {
             return null;

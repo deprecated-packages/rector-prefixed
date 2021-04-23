@@ -114,10 +114,7 @@ final class ChildAndParentClassManipulator
         $staticCall = $this->nodeFactory->createParentConstructWithParams($firstParentConstructMethodNode->params);
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($staticCall);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function findFirstParentConstructor(\PhpParser\Node\Stmt\Class_ $class)
+    private function findFirstParentConstructor(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         while ($class !== null) {
             $constructMethodNode = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);

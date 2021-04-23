@@ -72,9 +72,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $varType = $this->nodeTypeResolver->resolve($node->var);
         if (!$varType instanceof \PHPStan\Type\TypeWithClassName) {

@@ -69,9 +69,8 @@ CODE_SAMPLE
     }
     /**
      * @param Name $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $fullyQualifiedName = $this->resolveFullyQualifiedName($node);
         if (!$this->reflectionProvider->hasClass($fullyQualifiedName)) {

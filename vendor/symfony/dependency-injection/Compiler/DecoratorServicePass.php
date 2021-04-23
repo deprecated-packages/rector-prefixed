@@ -25,10 +25,7 @@ use RectorPrefix20210423\Symfony\Component\DependencyInjection\Reference;
 class DecoratorServicePass extends \RectorPrefix20210423\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $innerId = '.inner';
-    /**
-     * @param string|null $innerId
-     */
-    public function __construct($innerId = '.inner')
+    public function __construct(?string $innerId = '.inner')
     {
         $this->innerId = $innerId;
     }

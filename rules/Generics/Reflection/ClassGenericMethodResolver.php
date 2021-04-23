@@ -50,9 +50,8 @@ final class ClassGenericMethodResolver
     }
     /**
      * @param string[] $templateNames
-     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode|null
      */
-    private function resolveMethodTagValueNode(\RectorPrefix20210423\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode $simplePhpDocNode, array $templateNames, \PHPStan\Reflection\MethodReflection $methodReflection, \Rector\Generics\ValueObject\ChildParentClassReflections $genericChildParentClassReflections)
+    private function resolveMethodTagValueNode(\RectorPrefix20210423\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode $simplePhpDocNode, array $templateNames, \PHPStan\Reflection\MethodReflection $methodReflection, \Rector\Generics\ValueObject\ChildParentClassReflections $genericChildParentClassReflections) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode
     {
         foreach ($simplePhpDocNode->getReturnTagValues() as $returnTagValueNode) {
             foreach ($templateNames as $templateName) {

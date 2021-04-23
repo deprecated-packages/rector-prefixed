@@ -100,9 +100,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -139,10 +138,7 @@ CODE_SAMPLE
         }
         return \true;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function refactorForSingleRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $renderMethodCall)
+    private function refactorForSingleRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $renderMethodCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $templateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
         $array = $this->renderParameterArrayFactory->createArray($templateParametersAssigns);
@@ -159,9 +155,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall[] $renderMethodCalls
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function refactorForMultipleRenderMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $renderMethodCalls)
+    private function refactorForMultipleRenderMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $renderMethodCalls) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $magicTemplateParametersAssigns = $this->templatePropertyAssignCollector->collect($classMethod);
         if ($magicTemplateParametersAssigns->getTemplateParameterAssigns() === []) {

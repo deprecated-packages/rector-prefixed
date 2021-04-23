@@ -41,9 +41,8 @@ CODE_SAMPLE
     }
     /**
      * @param LogicalOr|LogicalAnd $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalOr) {
             return new \PhpParser\Node\Expr\BinaryOp\BooleanOr($node->left, $node->right);

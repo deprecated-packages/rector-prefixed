@@ -30,10 +30,7 @@ final class PrepareConsoleApplicationCompilerPass implements \RectorPrefix202104
         // resolve name
         // resolve version
     }
-    /**
-     * @return string|null
-     */
-    private function resolveConsoleApplicationClass(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    private function resolveConsoleApplicationClass(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : ?string
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             if (!\is_a((string) $definition->getClass(), \RectorPrefix20210423\Symfony\Component\Console\Application::class, \true)) {

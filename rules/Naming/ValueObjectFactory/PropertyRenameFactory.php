@@ -21,10 +21,7 @@ final class PropertyRenameFactory
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @return \Rector\Naming\ValueObject\PropertyRename|null
-     */
-    public function createFromExpectedName(\PhpParser\Node\Stmt\Property $property, string $expectedName)
+    public function createFromExpectedName(\PhpParser\Node\Stmt\Property $property, string $expectedName) : ?\Rector\Naming\ValueObject\PropertyRename
     {
         $currentName = $this->nodeNameResolver->getName($property);
         $propertyClassLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

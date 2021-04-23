@@ -59,10 +59,7 @@ final class HttpClientKernel implements \RectorPrefix20210423\Symfony\Component\
         };
         return $response;
     }
-    /**
-     * @return \Symfony\Component\Mime\Part\AbstractPart|null
-     */
-    private function getBody(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request)
+    private function getBody(\RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request) : ?\RectorPrefix20210423\Symfony\Component\Mime\Part\AbstractPart
     {
         if (\in_array($request->getMethod(), ['GET', 'HEAD'])) {
             return null;

@@ -91,9 +91,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'withConsecutive')) {
             return null;
@@ -144,10 +143,7 @@ CODE_SAMPLE
         }
         return \true;
     }
-    /**
-     * @return string|null
-     */
-    private function inferMockedClassName(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function inferMockedClassName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         $variable = $this->findRootVariableOfChainCall($methodCall);
         if (!$variable instanceof \PhpParser\Node\Expr\Variable) {
@@ -183,10 +179,7 @@ CODE_SAMPLE
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    /**
-     * @return \PhpParser\Node\Expr\Variable|null
-     */
-    private function findRootVariableOfChainCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function findRootVariableOfChainCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\Variable
     {
         $currentMethodCallee = $methodCall->var;
         while (!$currentMethodCallee instanceof \PhpParser\Node\Expr\Variable) {

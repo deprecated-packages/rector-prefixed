@@ -88,10 +88,7 @@ class Profile
     {
         return $this->ip;
     }
-    /**
-     * @param string|null $ip
-     */
-    public function setIp($ip)
+    public function setIp(?string $ip)
     {
         $this->ip = $ip;
     }
@@ -117,10 +114,7 @@ class Profile
     {
         return $this->url;
     }
-    /**
-     * @param string|null $url
-     */
-    public function setUrl($url)
+    public function setUrl(?string $url)
     {
         $this->url = $url;
     }

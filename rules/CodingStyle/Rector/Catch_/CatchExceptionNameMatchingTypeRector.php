@@ -59,9 +59,8 @@ CODE_SAMPLE
     }
     /**
      * @param Catch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->types) !== 1) {
             return null;

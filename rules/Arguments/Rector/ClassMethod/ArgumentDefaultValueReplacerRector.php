@@ -51,9 +51,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->replacedArguments as $replacedArgument) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getObjectType())) {
@@ -77,9 +76,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    private function processReplaces(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
+    private function processReplaces(\PhpParser\Node $node, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!isset($node->params[$argumentDefaultValueReplacer->getPosition()])) {
@@ -122,9 +120,9 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $argumentNodes
-     * @return mixed[]|null
+     * @return Arg[]|null
      */
-    private function processArrayReplacement(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer)
+    private function processArrayReplacement(array $argumentNodes, \Rector\Arguments\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?array
     {
         $argumentValues = $this->resolveArgumentValuesToBeforeRecipe($argumentNodes, $argumentDefaultValueReplacer);
         if ($argumentValues !== $argumentDefaultValueReplacer->getValueBefore()) {

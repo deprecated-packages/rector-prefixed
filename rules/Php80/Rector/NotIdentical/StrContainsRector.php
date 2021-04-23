@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $funcCall = $this->matchIdenticalOrNotIdenticalToFalse($node);
         if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -71,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical|NotIdentical $expr
-     * @return \PhpParser\Node\Expr\FuncCall|null
      */
-    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr)
+    private function matchIdenticalOrNotIdenticalToFalse(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\FuncCall
     {
         if ($this->valueResolver->isFalse($expr->left)) {
             if (!$expr->right instanceof \PhpParser\Node\Expr\FuncCall) {

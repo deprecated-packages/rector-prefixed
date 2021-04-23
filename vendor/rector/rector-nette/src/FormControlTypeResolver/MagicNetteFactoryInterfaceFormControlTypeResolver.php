@@ -101,10 +101,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName)
+    private function resolveReflectionClassMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classReflection = $this->resolveClassReflectionByMethodCall($methodCall);
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
@@ -113,10 +110,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName)
+    private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->reflectionProvider->hasClass($className)) {
             return null;
@@ -125,10 +119,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         $methodReflection = $classReflection->getNativeMethod($methodName);
         return $this->functionLikeParser->parseMethodReflection($methodReflection);
     }
-    /**
-     * @return \PHPStan\Reflection\ClassReflection|null
-     */
-    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\ClassReflection
     {
         $callerClassName = $this->nodeRepository->resolveCallerClassName($methodCall);
         if ($callerClassName === null) {

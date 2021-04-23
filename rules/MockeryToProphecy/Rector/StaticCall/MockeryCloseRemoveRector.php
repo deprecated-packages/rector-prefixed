@@ -32,9 +32,8 @@ final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;

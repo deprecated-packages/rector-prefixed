@@ -21,6 +21,6 @@ interface Journal
      * Cleans entries from journal.
      * @return array|null of removed items or null when performing a full cleanup
      */
-    function clean(array $conditions);
+    function clean(array $conditions) : ?array;
 }
 \class_exists(\RectorPrefix20210423\Nette\Caching\Storages\IJournal::class);

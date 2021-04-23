@@ -120,10 +120,9 @@ final class FileSystem
     /**
      * Writes the string to a file.
      * @throws Nette\IOException  on error occurred
-     * @param int|null $mode
      * @return void
      */
-    public static function write(string $file, string $content, $mode = 0666)
+    public static function write(string $file, string $content, ?int $mode = 0666)
     {
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {

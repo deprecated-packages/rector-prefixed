@@ -53,9 +53,8 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * @param ClassMethod|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -90,10 +89,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         $classMethod->params = [];
         $classMethod->stmts = \array_merge($assigns, (array) $classMethod->stmts);
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($this->isName($methodCall->name, 'shouldBeCalled')) {
             if (!$methodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -118,9 +114,8 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     /**
      * Variable or property fetch, based on number of present params in whole class
-     * @return \PhpParser\Node\Stmt\Expression|null
      */
-    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name)
+    private function createCreateMockCall(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : ?\PhpParser\Node\Stmt\Expression
     {
         /** @var Class_ $classLike */
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

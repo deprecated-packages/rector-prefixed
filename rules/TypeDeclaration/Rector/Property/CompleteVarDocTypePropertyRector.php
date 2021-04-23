@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $propertyType = $this->propertyTypeInferer->inferProperty($node);
         if ($propertyType instanceof \PHPStan\Type\MixedType) {

@@ -15,9 +15,8 @@ final class FuncCallNodeNameResolver implements \RectorPrefix20210423\Symplify\A
     }
     /**
      * @param FuncCall $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;

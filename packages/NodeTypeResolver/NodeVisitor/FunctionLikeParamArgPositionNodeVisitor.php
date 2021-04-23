@@ -14,9 +14,9 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class FunctionLikeParamArgPositionNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
-     * @return \PhpParser\Node|null
+     * @return Node
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\FunctionLike) {
             foreach ($node->getParams() as $position => $param) {

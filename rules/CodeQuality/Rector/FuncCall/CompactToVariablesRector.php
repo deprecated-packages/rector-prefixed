@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'compact')) {
             return null;
@@ -100,10 +99,7 @@ CODE_SAMPLE
         }
         return $this->refactorAssignArray($firstValue, $node);
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function refactorAssignedArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr)
+    private function refactorAssignedArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\Array_) {
             return null;
@@ -133,10 +129,7 @@ CODE_SAMPLE
         $this->addNodeBeforeNode($preAssign, $currentStatement);
         return $expr;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function refactorAssignArray(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall)
+    private function refactorAssignArray(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $previousAssign = $this->betterNodeFinder->findPreviousAssignToExpr($expr);
         if (!$previousAssign instanceof \PhpParser\Node\Expr\Assign) {

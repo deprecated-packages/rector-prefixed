@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param NotIdentical|Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $funcCall = $this->matchStrposInComparisonToFalse($node);
         if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -73,10 +72,7 @@ CODE_SAMPLE
         }
         return $containsStaticCall;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function matchStrposInComparisonToFalse(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    private function matchStrposInComparisonToFalse(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
     {
         if ($this->valueResolver->isFalse($binaryOp->left)) {
             $rightExpr = $binaryOp->right;

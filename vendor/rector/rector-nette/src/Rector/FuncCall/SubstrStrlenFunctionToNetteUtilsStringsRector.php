@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach (self::FUNCTION_TO_STATIC_METHOD as $function => $staticMethod) {
             if (!$this->isName($node, $function)) {

@@ -73,15 +73,14 @@ class Arrays
      * @param  string|int  $key
      * @return int|null offset if it is found, null otherwise
      */
-    public static function getKeyOffset(array $array, $key)
+    public static function getKeyOffset(array $array, $key) : ?int
     {
         return \RectorPrefix20210423\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
     }
     /**
      * @deprecated  use  getKeyOffset()
-     * @return int|null
      */
-    public static function searchKey(array $array, $key)
+    public static function searchKey(array $array, $key) : ?int
     {
         return self::getKeyOffset($array, $key);
     }

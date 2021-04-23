@@ -93,19 +93,15 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             return $this->addAbstractControllerParentClassIfMissing($node);
         }
         return $this->replaceTemplateAnnotation($node);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class)
+    private function addAbstractControllerParentClassIfMissing(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($class->extends !== null) {
             return null;
@@ -116,10 +112,7 @@ CODE_SAMPLE
         $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         return $class;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function replaceTemplateAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node
     {
         if (!$classMethod->isPublic()) {
             return null;

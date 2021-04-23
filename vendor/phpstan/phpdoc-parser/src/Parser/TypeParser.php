@@ -9,10 +9,7 @@ class TypeParser
 {
     /** @var ConstExprParser|null */
     private $constExprParser;
-    /**
-     * @param \PHPStan\PhpDocParser\Parser\ConstExprParser|null $constExprParser
-     */
-    public function __construct($constExprParser = null)
+    public function __construct(?\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser = null)
     {
         $this->constExprParser = $constExprParser;
     }

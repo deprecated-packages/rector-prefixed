@@ -71,9 +71,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_|Trait_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentMethodsOrder = $this->stmtOrder->getStmtsOfTypeOrder($node, \PhpParser\Node\Stmt\ClassMethod::class);
         $methodsInDesiredOrder = $this->getMethodsInDesiredOrder($node);

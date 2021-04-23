@@ -48,10 +48,8 @@ final class IterableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param IterableType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return new \PhpParser\Node\Name('iterable');
     }

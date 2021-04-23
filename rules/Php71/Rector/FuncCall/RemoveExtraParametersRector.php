@@ -45,9 +45,8 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
     }
     /**
      * @param FuncCall|MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;

@@ -350,9 +350,8 @@ class Request
      * This is mainly useful when you need to override the Request class
      * to keep BC with an existing system. It should not be used for any
      * other purpose.
-     * @param callable|null $callable
      */
-    public static function setFactory($callable)
+    public static function setFactory(?callable $callable)
     {
         self::$requestFactory = $callable;
     }
@@ -544,9 +543,8 @@ class Request
      * have consistent escaping and unneeded delimiters are removed.
      *
      * @return string A normalized query string for the Request
-     * @param string|null $qs
      */
-    public static function normalizeQueryString($qs)
+    public static function normalizeQueryString(?string $qs)
     {
         if ('' === ($qs ?? '')) {
             return '';
@@ -1132,9 +1130,8 @@ class Request
      * Gets the format associated with the mime type.
      *
      * @return string|null The format (null if not found)
-     * @param string|null $mimeType
      */
-    public function getFormat($mimeType)
+    public function getFormat(?string $mimeType)
     {
         $canonicalMimeType = null;
         if (\false !== ($pos = \strpos($mimeType, ';'))) {
@@ -1157,9 +1154,8 @@ class Request
      * Associates a format with mime types.
      *
      * @param string|array $mimeTypes The associated mime types (the preferred one must be the first as it will be used as the content type)
-     * @param string|null $format
      */
-    public function setFormat($format, $mimeTypes)
+    public function setFormat(?string $format, $mimeTypes)
     {
         if (null === static::$formats) {
             static::initializeFormats();
@@ -1178,9 +1174,8 @@ class Request
      * @see getPreferredFormat
      *
      * @return string|null The request format
-     * @param string|null $default
      */
-    public function getRequestFormat($default = 'html')
+    public function getRequestFormat(?string $default = 'html')
     {
         if (null === $this->format) {
             $this->format = $this->attributes->get('_format');
@@ -1189,9 +1184,8 @@ class Request
     }
     /**
      * Sets the request format.
-     * @param string|null $format
      */
-    public function setRequestFormat($format)
+    public function setRequestFormat(?string $format)
     {
         $this->format = $format;
     }
@@ -1384,10 +1378,8 @@ class Request
      *
      * Note that if you use this method, you should send the "Vary: Accept" header
      * in the response to prevent any issues with intermediary HTTP caches.
-     * @param string|null $default
-     * @return string|null
      */
-    public function getPreferredFormat($default = 'html')
+    public function getPreferredFormat(?string $default = 'html') : ?string
     {
         if (null !== $this->preferredFormat || null !== ($this->preferredFormat = $this->getRequestFormat(null))) {
             return $this->preferredFormat;
@@ -1712,9 +1704,8 @@ class Request
     /**
      * Returns the prefix as encoded in the string when the string starts with
      * the given prefix, null otherwise.
-     * @return string|null
      */
-    private function getUrlencodedPrefix(string $string, string $prefix)
+    private function getUrlencodedPrefix(string $string, string $prefix) : ?string
     {
         if (0 !== \strpos(\rawurldecode($string), $prefix)) {
             return null;

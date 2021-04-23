@@ -23,10 +23,7 @@ final class ReturnAnalyzer
         $this->betterNodeFinder = $betterNodeFinder;
         $this->scopeNestingComparator = $scopeNestingComparator;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Return_|null
-     */
-    public function findLastClassMethodReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function findLastClassMethodReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Return_
     {
         /** @var Return_[] $returns */
         $returns = $this->betterNodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);
@@ -39,10 +36,7 @@ final class ReturnAnalyzer
         }
         return null;
     }
-    /**
-     * @param \PhpParser\Node\Stmt\Return_|null $lastReturn
-     */
-    public function isBeforeLastReturn(\PhpParser\Node\Expr\Assign $assign, $lastReturn) : bool
+    public function isBeforeLastReturn(\PhpParser\Node\Expr\Assign $assign, ?\PhpParser\Node\Stmt\Return_ $lastReturn) : bool
     {
         if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
             return \true;

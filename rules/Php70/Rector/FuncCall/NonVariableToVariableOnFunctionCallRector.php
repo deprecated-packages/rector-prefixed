@@ -67,9 +67,8 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
     }
     /**
      * @param FuncCall|MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $arguments = $this->getNonVariableArguments($node);
         if ($arguments === []) {

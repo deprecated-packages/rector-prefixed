@@ -37,10 +37,7 @@ final class TypeNormalizer
         $this->typeFactory = $typeFactory;
         $this->unionTypeFactory = $unionTypeFactory;
     }
-    /**
-     * @return \PHPStan\Type\ArrayType|null
-     */
-    public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType)
+    public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\PHPStan\Type\ArrayType
     {
         $nonConstantValueTypes = [];
         if ($constantArrayType->getItemType() instanceof \PHPStan\Type\UnionType) {

@@ -15,10 +15,7 @@ class Version
     /** @var bool */
     private $versionIsTagged;
     const NO_REFERENCE_TEXT = '{no reference}';
-    /**
-     * @param string|null $reference
-     */
-    public function __construct(string $packageName, string $prettyVersion, $reference = null)
+    public function __construct(string $packageName, string $prettyVersion, ?string $reference = null)
     {
         $this->packageName = $packageName;
         $this->prettyVersion = $prettyVersion;

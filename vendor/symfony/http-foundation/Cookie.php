@@ -54,10 +54,8 @@ class Cookie
     }
     /**
      * @return $this
-     * @param string|null $path
-     * @param string|null $sameSite
      */
-    public static function create(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = self::SAMESITE_LAX)
+    public static function create(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = self::SAMESITE_LAX)
     {
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
@@ -74,7 +72,7 @@ class Cookie
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = 'lax')
+    public function __construct(string $name, string $value = null, $expire = 0, ?string $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, ?string $sameSite = 'lax')
     {
         // from PHP source code
         if ($raw && \false !== \strpbrk($name, self::$reservedCharsList)) {
@@ -97,9 +95,8 @@ class Cookie
      * Creates a cookie copy with a new value.
      *
      * @return static
-     * @param string|null $value
      */
-    public function withValue($value)
+    public function withValue(?string $value)
     {
         $cookie = clone $this;
         $cookie->value = $value;
@@ -109,9 +106,8 @@ class Cookie
      * Creates a cookie copy with a new domain that the cookie is available to.
      *
      * @return static
-     * @param string|null $domain
      */
-    public function withDomain($domain)
+    public function withDomain(?string $domain)
     {
         $cookie = clone $this;
         $cookie->domain = $domain;
@@ -201,9 +197,8 @@ class Cookie
      * Creates a cookie copy with SameSite attribute.
      *
      * @return static
-     * @param string|null $sameSite
      */
-    public function withSameSite($sameSite)
+    public function withSameSite(?string $sameSite)
     {
         if ('' === $sameSite) {
             $sameSite = null;

@@ -28,10 +28,7 @@ final class ControllerArgumentsEvent extends \RectorPrefix20210423\Symfony\Compo
 {
     private $controller;
     private $arguments;
-    /**
-     * @param int|null $requestType
-     */
-    public function __construct(\RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(\RectorPrefix20210423\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \RectorPrefix20210423\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->controller = $controller;

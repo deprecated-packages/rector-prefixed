@@ -76,9 +76,8 @@ CODE_SAMPLE
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->newNamespace = null;
         if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
@@ -131,9 +130,9 @@ CODE_SAMPLE
     }
     /**
      * @param Name|Identifier $node
-     * @return \PhpParser\Node|null
+     * @return Name|Identifier
      */
-    private function processNameOrIdentifier(\PhpParser\Node $node)
+    private function processNameOrIdentifier(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // no name → skip
         if ($node->toString() === '') {
@@ -162,10 +161,7 @@ CODE_SAMPLE
         }
         return $name;
     }
-    /**
-     * @return \PhpParser\Node\Identifier|null
-     */
-    private function processIdentifier(\PhpParser\Node\Identifier $identifier)
+    private function processIdentifier(\PhpParser\Node\Identifier $identifier) : ?\PhpParser\Node\Identifier
     {
         $parentNode = $identifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\Stmt\Class_) {

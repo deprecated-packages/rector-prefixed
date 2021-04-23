@@ -44,10 +44,8 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
     }
     /**
      * @param CallableType|ClosureType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         if ($kind === 'property') {
             return null;

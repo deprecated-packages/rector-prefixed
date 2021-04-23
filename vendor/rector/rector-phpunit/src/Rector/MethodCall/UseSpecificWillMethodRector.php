@@ -70,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -109,9 +108,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
+     * @return MethodCall|StaticCall|null
      */
-    private function processWillCall(\PhpParser\Node $node)
+    private function processWillCall(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->args[0]->value instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

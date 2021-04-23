@@ -64,9 +64,8 @@ final class IfManipulator
      * if (<$value> !== null) {
      *     return $value;
      * }
-     * @return \PhpParser\Node\Expr|null
      */
-    public function matchIfNotNullReturnValue(\PhpParser\Node\Stmt\If_ $if)
+    public function matchIfNotNullReturnValue(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Expr
     {
         $stmts = $if->stmts;
         if (\count($stmts) !== 1) {
@@ -87,9 +86,8 @@ final class IfManipulator
      * if (<$value> !== null) {
      *     $anotherValue = $value;
      * }
-     * @return \PhpParser\Node\Expr\Assign|null
      */
-    public function matchIfNotNullNextAssignment(\PhpParser\Node\Stmt\If_ $if)
+    public function matchIfNotNullNextAssignment(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Expr\Assign
     {
         if ($if->stmts === []) {
             return null;
@@ -120,9 +118,8 @@ final class IfManipulator
      * if (<$value> === 53;) {
      *     return 53;
      * }
-     * @return \PhpParser\Node\Expr|null
      */
-    public function matchIfValueReturnValue(\PhpParser\Node\Stmt\If_ $if)
+    public function matchIfValueReturnValue(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Expr
     {
         $stmts = $if->stmts;
         if (\count($stmts) !== 1) {
@@ -292,10 +289,7 @@ final class IfManipulator
     {
         return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [$stmt]]);
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return)
+    private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {
         if ($this->nodeComparator->areNodesEqual($notIdentical->left, $return->expr) && $this->valueResolver->isNull($notIdentical->right)) {
             return $notIdentical->left;

@@ -63,9 +63,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToPreference as $type => $preference) {
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType($type))) {
@@ -93,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node\Expr\StaticCall|null
      */
-    private function processToSelf(\PhpParser\Node $node)
+    private function processToSelf(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall && !$this->isNames($node->class, [self::SELF, 'static'])) {
             return null;
@@ -111,9 +109,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function processToThis(\PhpParser\Node $node)
+    private function processToThis(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\MethodCall
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

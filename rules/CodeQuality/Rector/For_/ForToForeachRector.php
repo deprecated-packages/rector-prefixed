@@ -105,9 +105,8 @@ CODE_SAMPLE
     }
     /**
      * @param For_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->reset();
         $this->matchInit($node->init);
@@ -142,10 +141,7 @@ CODE_SAMPLE
         }
         return $this->processForToForeach($node, $iteratedVariable);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Foreach_|null
-     */
-    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable)
+    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
     {
         $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
         $iteratedVariableSingle = $originalVariableSingle;

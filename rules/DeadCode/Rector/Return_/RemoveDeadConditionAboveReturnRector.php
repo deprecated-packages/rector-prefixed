@@ -51,9 +51,8 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $previousNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$previousNode instanceof \PhpParser\Node\Stmt\If_) {

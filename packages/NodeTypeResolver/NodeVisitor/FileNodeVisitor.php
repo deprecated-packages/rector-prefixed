@@ -21,9 +21,9 @@ final class FileNodeVisitor extends \PhpParser\NodeVisitorAbstract
         $this->file = $file;
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Node
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE, $this->file);
         return $node;

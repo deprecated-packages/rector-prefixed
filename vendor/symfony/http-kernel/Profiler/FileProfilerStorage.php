@@ -42,12 +42,8 @@ class FileProfilerStorage implements \RectorPrefix20210423\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param string|null $ip
-     * @param string|null $url
-     * @param int|null $limit
-     * @param string|null $method
      */
-    public function find($ip, $url, $limit, $method, int $start = null, int $end = null, string $statusCode = null) : array
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null, string $statusCode = null) : array
     {
         $file = $this->getIndexFilename();
         if (!\file_exists($file)) {
@@ -92,9 +88,8 @@ class FileProfilerStorage implements \RectorPrefix20210423\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      */
-    public function read(string $token)
+    public function read(string $token) : ?\RectorPrefix20210423\Symfony\Component\HttpKernel\Profiler\Profile
     {
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;

@@ -379,9 +379,8 @@ class Container implements \RectorPrefix20210423\Symfony\Component\DependencyInj
      * @return mixed
      *
      * @internal
-     * @param string|null $method
      */
-    protected final function getService($registry, string $id, $method, $load)
+    protected final function getService($registry, string $id, ?string $method, $load)
     {
         if ('service_container' === $id) {
             return $this;

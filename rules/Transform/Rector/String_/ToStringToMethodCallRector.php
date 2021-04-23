@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param String_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
             return $this->processStringNode($node);
@@ -66,10 +65,7 @@ CODE_SAMPLE
     {
         $this->methodNamesByType = $configuration[self::METHOD_NAMES_BY_TYPE] ?? [];
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string)
+    private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($string->expr, new \PHPStan\Type\ObjectType($type))) {
@@ -79,10 +75,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($methodCall->var, new \PHPStan\Type\ObjectType($type))) {

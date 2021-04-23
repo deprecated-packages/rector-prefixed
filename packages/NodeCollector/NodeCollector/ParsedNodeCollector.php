@@ -96,33 +96,23 @@ final class ParsedNodeCollector
     {
         return $this->classes;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    public function findClass(string $name)
+    public function findClass(string $name) : ?\PhpParser\Node\Stmt\Class_
     {
         return $this->classes[$name] ?? null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Interface_|null
-     */
-    public function findInterface(string $name)
+    public function findInterface(string $name) : ?\PhpParser\Node\Stmt\Interface_
     {
         return $this->interfaces[$name] ?? null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Trait_|null
-     */
-    public function findTrait(string $name)
+    public function findTrait(string $name) : ?\PhpParser\Node\Stmt\Trait_
     {
         return $this->traits[$name] ?? null;
     }
     /**
      * Guessing the nearest neighboor.
      * Used e.g. for "XController"
-     * @return \PhpParser\Node\Stmt\Class_|null
      */
-    public function findByShortName(string $shortName)
+    public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classes as $className => $classNode) {
             if (\RectorPrefix20210423\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
@@ -131,10 +121,7 @@ final class ParsedNodeCollector
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassConst|null
-     */
-    public function findClassConstant(string $className, string $constantName)
+    public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
         if (\RectorPrefix20210423\Nette\Utils\Strings::contains($constantName, '\\')) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
@@ -173,10 +160,7 @@ final class ParsedNodeCollector
             return;
         }
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassConst|null
-     */
-    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
+    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\PhpParser\Node\Stmt\ClassConst
     {
         $className = $this->nodeNameResolver->getName($classConstFetch->class);
         if ($className === null) {
@@ -240,10 +224,7 @@ final class ParsedNodeCollector
         $constantName = $this->nodeNameResolver->getName($classConst);
         $this->constantsByType[$className][$constantName] = $classConst;
     }
-    /**
-     * @return string|null
-     */
-    private function resolveClassConstant(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $className)
+    private function resolveClassConstant(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $className) : ?string
     {
         if ($className === 'self') {
             return $classConstFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

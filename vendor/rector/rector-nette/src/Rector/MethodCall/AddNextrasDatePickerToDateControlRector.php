@@ -59,9 +59,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // 1. chain call
         if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -91,10 +90,7 @@ CODE_SAMPLE
         }
         return $this->createAssign($node);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function createAssign(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function createAssign(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         $key = $methodCall->args[0]->value;
         if (!$key instanceof \PhpParser\Node\Scalar\String_) {

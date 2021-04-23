@@ -35,10 +35,7 @@ final class MethodCallToClassMethodParser
         $this->reflectionProvider = $reflectionProvider;
         $this->functionLikeReflectionParser = $functionLikeReflectionParser;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    public function parseMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function parseMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $callerStaticType = $this->nodeTypeResolver->getStaticType($methodCall->var);
         if (!$callerStaticType instanceof \PHPStan\Type\TypeWithClassName) {

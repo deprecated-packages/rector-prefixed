@@ -17,10 +17,7 @@ final class CurrentFileProvider
     {
         $this->file = $file;
     }
-    /**
-     * @return \Rector\Core\ValueObject\Application\File|null
-     */
-    public function getFile()
+    public function getFile() : ?\Rector\Core\ValueObject\Application\File
     {
         return $this->file;
     }

@@ -28,10 +28,7 @@ final class ParamRenameFactory
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    /**
-     * @return \Rector\Naming\ValueObject\ParamRename|null
-     */
-    public function createFromResolvedExpectedName(\PhpParser\Node\Param $param, string $expectedName)
+    public function createFromResolvedExpectedName(\PhpParser\Node\Param $param, string $expectedName) : ?\Rector\Naming\ValueObject\ParamRename
     {
         /** @var ClassMethod|Function_|Closure|ArrowFunction|null $functionLike */
         $functionLike = $this->betterNodeFinder->findParentType($param, \PhpParser\Node\FunctionLike::class);

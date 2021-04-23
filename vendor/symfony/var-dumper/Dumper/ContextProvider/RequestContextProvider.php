@@ -29,10 +29,7 @@ final class RequestContextProvider implements \RectorPrefix20210423\Symfony\Comp
         $this->cloner->setMaxItems(0);
         $this->cloner->addCasters(\RectorPrefix20210423\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function getContext()
+    public function getContext() : ?array
     {
         if (null === ($request = $this->requestStack->getCurrentRequest())) {
             return null;

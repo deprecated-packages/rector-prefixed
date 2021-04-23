@@ -39,9 +39,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassLike $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $className = $this->getName($node);
         if ($className === null) {

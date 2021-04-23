@@ -31,10 +31,7 @@ class RequestDataCollector extends \RectorPrefix20210423\Symfony\Component\HttpK
     protected $controllers;
     private $sessionUsages = [];
     private $requestStack;
-    /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack|null $requestStack
-     */
-    public function __construct($requestStack = null)
+    public function __construct(?\RectorPrefix20210423\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         $this->controllers = new \SplObjectStorage();
         $this->requestStack = $requestStack;

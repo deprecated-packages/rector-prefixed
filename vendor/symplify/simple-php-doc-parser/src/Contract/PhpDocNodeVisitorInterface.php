@@ -13,10 +13,7 @@ interface PhpDocNodeVisitorInterface
      * @return void
      */
     public function beforeTraverse(\PHPStan\PhpDocParser\Ast\Node $node);
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\Node|null
-     */
-    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node);
+    public function enterNode(\PHPStan\PhpDocParser\Ast\Node $node) : ?\PHPStan\PhpDocParser\Ast\Node;
     /**
      * @return void
      */

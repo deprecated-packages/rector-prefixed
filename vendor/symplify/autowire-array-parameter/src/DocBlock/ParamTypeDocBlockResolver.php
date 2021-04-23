@@ -34,10 +34,7 @@ final class ParamTypeDocBlockResolver
      * @var string[]
      */
     const ARRAY_REGEXES = [self::NORMAL_REGEX, self::SHAPE_REGEX];
-    /**
-     * @return string|null
-     */
-    public function resolve(string $docBlock, string $parameterName)
+    public function resolve(string $docBlock, string $parameterName) : ?string
     {
         foreach (self::ARRAY_REGEXES as $arrayRegexWithPlaceholder) {
             $arrayRegex = \str_replace(self::NAME_PLACEHOLDER, $parameterName, $arrayRegexWithPlaceholder);

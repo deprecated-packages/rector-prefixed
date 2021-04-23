@@ -99,9 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->expr instanceof \PhpParser\Node\Scalar\String_) {
             $stringValue = $node->expr->value;
@@ -180,9 +179,8 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodesToRemove
      * @param Expr[] $placeholderNodes
-     * @return \PhpParser\Node\Expr\Assign|null
      */
-    private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign)
+    private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
     {
         $stringValue = \RectorPrefix20210423\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
@@ -197,9 +195,8 @@ CODE_SAMPLE
     }
     /**
      * @param Assign|ConcatAssign $currentNode
-     * @return \Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem|null
      */
-    private function matchNextExprAssignConcatToSameVariable(\PhpParser\Node\Expr $expr, \PhpParser\Node $currentNode)
+    private function matchNextExprAssignConcatToSameVariable(\PhpParser\Node\Expr $expr, \PhpParser\Node $currentNode) : ?\Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem
     {
         $nextExpression = $this->getNextExpression($currentNode);
         if (!$nextExpression instanceof \PhpParser\Node\Stmt\Expression) {
@@ -233,10 +230,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function getNextExpression(\PhpParser\Node $node)
+    private function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $currentExpression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         if (!$currentExpression instanceof \PhpParser\Node\Stmt\Expression) {

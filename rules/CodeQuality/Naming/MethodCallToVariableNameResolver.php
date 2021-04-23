@@ -49,9 +49,8 @@ final class MethodCallToVariableNameResolver
     }
     /**
      * @todo decouple to collector by arg type
-     * @return string|null
      */
-    public function resolveVariableName(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function resolveVariableName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         $methodCallVarName = $this->nodeNameResolver->getName($methodCall->var);
         $methodCallName = $this->nodeNameResolver->getName($methodCall->name);

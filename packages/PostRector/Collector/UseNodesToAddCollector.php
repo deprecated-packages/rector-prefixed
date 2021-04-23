@@ -164,10 +164,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     {
         return $this->removedShortUsesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
-    /**
-     * @return string|null
-     */
-    private function getRealPathFromNode()
+    private function getRealPathFromNode() : ?string
     {
         $file = $this->currentFileProvider->getFile();
         if (!$file instanceof \Rector\Core\ValueObject\Application\File) {

@@ -102,10 +102,8 @@ class PriorityTaggedServiceUtil
 {
     /**
      * Gets the index defined by the default index method.
-     * @param string|null $indexAttribute
-     * @return string|null
      */
-    public static function getDefaultIndex(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultIndexMethod, string $tagName, $indexAttribute)
+    public static function getDefaultIndex(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultIndexMethod, string $tagName, ?string $indexAttribute) : ?string
     {
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultIndexMethod)) {
             return null;
@@ -130,9 +128,8 @@ class PriorityTaggedServiceUtil
     }
     /**
      * Gets the priority defined by the default priority method.
-     * @return int|null
      */
-    public static function getDefaultPriority(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultPriorityMethod, string $tagName)
+    public static function getDefaultPriority(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $serviceId, string $class, string $defaultPriorityMethod, string $tagName) : ?int
     {
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultPriorityMethod)) {
             return null;

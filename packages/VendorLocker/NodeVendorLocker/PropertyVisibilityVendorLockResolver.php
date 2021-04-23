@@ -64,10 +64,7 @@ final class PropertyVisibilityVendorLockResolver
         }
         return \false;
     }
-    /**
-     * @return \PHPStan\Reflection\ClassReflection|null
-     */
-    private function resolveClassReflection(\PhpParser\Node $node)
+    private function resolveClassReflection(\PhpParser\Node $node) : ?\PHPStan\Reflection\ClassReflection
     {
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {

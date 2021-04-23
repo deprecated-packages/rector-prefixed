@@ -21,10 +21,7 @@ final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPo
     {
         return 1100;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function leaveNode(\PhpParser\Node $node)
+    public function leaveNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->nodesToReplaceCollector->getNodes() as list($nodeToFind, $replacement)) {
             if ($node === $nodeToFind) {

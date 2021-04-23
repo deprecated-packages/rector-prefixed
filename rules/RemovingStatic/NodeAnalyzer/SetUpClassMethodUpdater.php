@@ -32,10 +32,7 @@ final class SetUpClassMethodUpdater
             \array_splice($setupClassMethod->stmts, $parentSetUpStaticCallPosition + 1, 0, [$assign]);
         }
     }
-    /**
-     * @return int|null
-     */
-    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod)
+    private function getParentSetUpStaticCallPosition(\PhpParser\Node\Stmt\ClassMethod $setupClassMethod) : ?int
     {
         foreach ((array) $setupClassMethod->stmts as $position => $methodStmt) {
             if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {

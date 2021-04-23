@@ -53,10 +53,7 @@ final class InvertedIfFactory
         }
         return $ifs;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function getNextReturnExpr(\PhpParser\Node\Stmt\If_ $if)
+    private function getNextReturnExpr(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node
     {
         $closure = $this->betterNodeFinder->findParentType($if, \PhpParser\Node\Expr\Closure::class);
         if ($closure instanceof \PhpParser\Node\Expr\Closure) {
@@ -66,10 +63,7 @@ final class InvertedIfFactory
             return $node instanceof \PhpParser\Node\Stmt\Return_ && $node->expr instanceof \PhpParser\Node\Expr;
         });
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Return_|null
-     */
-    private function getIfNextReturn(\PhpParser\Node\Stmt\If_ $if)
+    private function getIfNextReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\Return_
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {

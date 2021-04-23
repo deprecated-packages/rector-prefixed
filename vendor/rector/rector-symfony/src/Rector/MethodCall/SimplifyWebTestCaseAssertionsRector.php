@@ -89,9 +89,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInWebTestCase($node)) {
             return null;
@@ -130,10 +129,7 @@ CODE_SAMPLE
         }
         return $classReflection->isSubclassOf('Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isName($methodCall->name, self::ASSERT_SAME)) {
             return null;
@@ -149,9 +145,9 @@ CODE_SAMPLE
         return $this->nodeFactory->createLocalMethodCall('assertResponseStatusCodeSame', [$methodCall->args[0]]);
     }
     /**
-     * @return mixed[]|null
+     * @return Arg[]|null
      */
-    private function matchAssertContainsCrawlerArg(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function matchAssertContainsCrawlerArg(\PhpParser\Node\Expr\MethodCall $methodCall) : ?array
     {
         if (!$this->isName($methodCall->name, 'assertContains')) {
             return null;
@@ -178,10 +174,7 @@ CODE_SAMPLE
         $args[] = $methodCall->args[0];
         return $args;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processAssertResponseRedirects(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processAssertResponseRedirects(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         /** @var Expression|null $previousStatement */
         $previousStatement = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);

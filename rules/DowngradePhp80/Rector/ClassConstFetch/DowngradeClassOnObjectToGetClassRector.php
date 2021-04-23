@@ -49,9 +49,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConstFetch $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node->name, 'class')) {
             return null;

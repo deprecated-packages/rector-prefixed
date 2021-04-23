@@ -115,9 +115,8 @@ abstract class Kernel implements \RectorPrefix20210423\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param string|null $warmupDir
      */
-    public function reboot($warmupDir)
+    public function reboot(?string $warmupDir)
     {
         $this->shutdown();
         $this->warmupDir = $warmupDir;

@@ -148,9 +148,8 @@ class ResponseCacheStrategy implements \RectorPrefix20210423\Symfony\Component\H
      *
      * If the value is lower than the currently stored value, we update the value, to keep a rolling
      * minimal value of each instruction. If the value is NULL, the directive will not be set on the final response.
-     * @param int|null $value
      */
-    private function storeRelativeAgeDirective(string $directive, $value, int $age)
+    private function storeRelativeAgeDirective(string $directive, ?int $value, int $age)
     {
         if (null === $value) {
             $this->ageDirectives[$directive] = \false;

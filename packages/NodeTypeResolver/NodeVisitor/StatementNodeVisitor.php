@@ -15,17 +15,14 @@ final class StatementNodeVisitor extends \PhpParser\NodeVisitorAbstract
     private $previousStmt;
     /**
      * @param Node[] $nodes
-     * @return mixed[]|null
+     * @return Node[]|null
      */
-    public function beforeTraverse(array $nodes)
+    public function beforeTraverse(array $nodes) : ?array
     {
         $this->previousStmt = null;
         return null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node) {

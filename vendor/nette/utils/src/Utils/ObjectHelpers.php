@@ -90,9 +90,8 @@ final class ObjectHelpers
      * Finds the best suggestion (for 8-bit encoding).
      * @param  (\ReflectionFunctionAbstract|\ReflectionParameter|\ReflectionClass|\ReflectionProperty|string)[]  $possibilities
      * @internal
-     * @return string|null
      */
-    public static function getSuggestion(array $possibilities, string $value)
+    public static function getSuggestion(array $possibilities, string $value) : ?string
     {
         $norm = \preg_replace($re = '#^(get|set|has|is|add)(?=[A-Z])#', '+', $value);
         $best = null;

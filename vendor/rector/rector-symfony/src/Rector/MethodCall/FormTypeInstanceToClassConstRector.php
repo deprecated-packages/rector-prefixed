@@ -108,9 +108,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->nodeTypeResolver->isObjectTypes($node->var, $this->controllerObjectTypes) && $this->isName($node->name, 'createForm')) {
             return $this->processNewInstance($node, 0, 2);
@@ -124,10 +123,7 @@ CODE_SAMPLE
         }
         return $this->processNewInstance($node, 1, 2);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function processNewInstance(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition)
+    private function processNewInstance(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition) : ?\PhpParser\Node
     {
         if (!isset($methodCall->args[$position])) {
             return null;
@@ -180,9 +176,8 @@ CODE_SAMPLE
     }
     /**
      * @param Arg[] $argNodes
-     * @return \PhpParser\Node\Expr\MethodCall|null
      */
-    private function moveArgumentsToOptions(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition, string $className, array $argNodes)
+    private function moveArgumentsToOptions(\PhpParser\Node\Expr\MethodCall $methodCall, int $position, int $optionsPosition, string $className, array $argNodes) : ?\PhpParser\Node\Expr\MethodCall
     {
         $namesToArgs = $this->resolveNamesToArgs($className, $argNodes);
         // set default data in between

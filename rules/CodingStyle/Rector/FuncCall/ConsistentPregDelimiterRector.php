@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->refactorFuncCall($node);
@@ -106,10 +105,7 @@ CODE_SAMPLE
     {
         $this->delimiter = $configuration[self::DELIMITER] ?? '#';
     }
-    /**
-     * @return \PhpParser\Node\Expr\FuncCall|null
-     */
-    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         foreach (self::FUNCTIONS_WITH_REGEX_PATTERN as $function => $position) {
             if (!$this->isName($funcCall, $function)) {

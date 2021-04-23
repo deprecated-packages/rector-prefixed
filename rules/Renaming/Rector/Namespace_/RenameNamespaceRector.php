@@ -51,9 +51,8 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     }
     /**
      * @param Namespace_|Use_|Name $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $name = $this->getName($node);
         if ($name === null) {

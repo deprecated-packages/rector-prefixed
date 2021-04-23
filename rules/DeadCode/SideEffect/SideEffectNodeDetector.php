@@ -57,10 +57,7 @@ final class SideEffectNodeDetector
         }
         return \true;
     }
-    /**
-     * @return \PhpParser\Node\Expr\Variable|null
-     */
-    private function resolveVariable(\PhpParser\Node\Expr $expr)
+    private function resolveVariable(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\Variable
     {
         while ($expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             $expr = $expr->var;

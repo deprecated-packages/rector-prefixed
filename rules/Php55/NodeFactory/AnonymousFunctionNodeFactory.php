@@ -37,10 +37,7 @@ final class AnonymousFunctionNodeFactory
         $this->parser = $parser;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
-    /**
-     * @return \PhpParser\Node\Expr\Closure|null
-     */
-    public function createAnonymousFunctionFromString(\PhpParser\Node\Expr $expr)
+    public function createAnonymousFunctionFromString(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\Closure
     {
         if (!$expr instanceof \PhpParser\Node\Scalar\String_) {
             // not supported yet

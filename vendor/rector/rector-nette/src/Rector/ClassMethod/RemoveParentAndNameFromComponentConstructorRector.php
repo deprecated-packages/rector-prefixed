@@ -96,9 +96,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|StaticCall|New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->refactorClassMethod($node);
@@ -112,10 +111,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->isInsideNetteComponentClass($classMethod)) {
             return null;
@@ -126,10 +122,7 @@ CODE_SAMPLE
         $this->removeClassMethodParams($classMethod);
         return $classMethod;
     }
-    /**
-     * @return \PhpParser\Node\Expr\StaticCall|null
-     */
-    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\StaticCall
     {
         if (!$this->isInsideNetteComponentClass($staticCall)) {
             return null;

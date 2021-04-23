@@ -7,8 +7,5 @@ use PhpParser\Node;
 interface NodeNameResolverInterface
 {
     public function match(\PhpParser\Node $node) : bool;
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node $node);
+    public function resolve(\PhpParser\Node $node) : ?string;
 }

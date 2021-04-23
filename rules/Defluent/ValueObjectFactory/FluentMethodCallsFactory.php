@@ -22,10 +22,7 @@ final class FluentMethodCallsFactory
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
     }
-    /**
-     * @return \Rector\Defluent\ValueObject\FluentMethodCalls|null
-     */
-    public function createFromLastMethodCall(\PhpParser\Node\Expr\MethodCall $lastMethodCall)
+    public function createFromLastMethodCall(\PhpParser\Node\Expr\MethodCall $lastMethodCall) : ?\Rector\Defluent\ValueObject\FluentMethodCalls
     {
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($lastMethodCall);
         if (!$this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {

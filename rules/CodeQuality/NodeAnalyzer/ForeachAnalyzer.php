@@ -50,9 +50,8 @@ final class ForeachAnalyzer
      * foreach ($values as $value) {
      *      <$assigns[]> = $value;
      * }
-     * @return \PhpParser\Node\Expr|null
      */
-    public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach)
+    public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node\Expr
     {
         if (\count($foreach->stmts) !== 1) {
             return null;

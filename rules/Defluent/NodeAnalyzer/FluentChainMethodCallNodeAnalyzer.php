@@ -179,10 +179,7 @@ final class FluentChainMethodCallNodeAnalyzer
         }
         return $callerNode;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    public function resolveRootMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    public function resolveRootMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $callerNode = $methodCall->var;
         while ($callerNode instanceof \PhpParser\Node\Expr\MethodCall && $callerNode->var instanceof \PhpParser\Node\Expr\MethodCall) {

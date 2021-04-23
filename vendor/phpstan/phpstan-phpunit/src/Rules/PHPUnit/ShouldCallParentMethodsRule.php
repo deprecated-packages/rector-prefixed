@@ -52,7 +52,7 @@ class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
      *
      * @return bool
      */
-    private function hasParentClassCall($stmts, string $methodName) : bool
+    private function hasParentClassCall(?array $stmts, string $methodName) : bool
     {
         if ($stmts === null) {
             return \false;

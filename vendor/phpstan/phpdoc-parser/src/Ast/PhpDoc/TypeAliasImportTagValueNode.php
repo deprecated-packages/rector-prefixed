@@ -14,10 +14,7 @@ class TypeAliasImportTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\Ph
     public $importedFrom;
     /** @var string|null */
     public $importedAs;
-    /**
-     * @param string|null $importedAs
-     */
-    public function __construct(string $importedAlias, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $importedFrom, $importedAs)
+    public function __construct(string $importedAlias, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $importedFrom, ?string $importedAs)
     {
         $this->importedAlias = $importedAlias;
         $this->importedFrom = $importedFrom;

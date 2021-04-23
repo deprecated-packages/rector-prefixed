@@ -33,11 +33,8 @@ interface ProfilerStorageInterface
      * @param int|null $end   The end date to search to
      *
      * @return array An array of tokens
-     * @param string|null $ip
-     * @param string|null $url
-     * @param string|null $method
      */
-    public function find($ip, $url, $limit, $method, int $start = null, int $end = null) : array;
+    public function find(?string $ip, ?string $url, ?int $limit, ?string $method, int $start = null, int $end = null) : array;
     /**
      * Reads data associated with the given token.
      *
@@ -45,7 +42,7 @@ interface ProfilerStorageInterface
      *
      * @return Profile|null The profile associated with token
      */
-    public function read(string $token);
+    public function read(string $token) : ?\RectorPrefix20210423\Symfony\Component\HttpKernel\Profiler\Profile;
     /**
      * Saves a Profile.
      *

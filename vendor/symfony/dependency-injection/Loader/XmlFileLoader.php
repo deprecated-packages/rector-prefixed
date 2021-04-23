@@ -152,9 +152,8 @@ class XmlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyIn
     }
     /**
      * Parses an individual Definition.
-     * @return \Symfony\Component\DependencyInjection\Definition|null
      */
-    private function parseDefinition(\DOMElement $service, string $file, \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $defaults)
+    private function parseDefinition(\DOMElement $service, string $file, \RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $defaults) : ?\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition
     {
         if ($alias = $service->getAttribute('alias')) {
             $this->validateAlias($service, $file);

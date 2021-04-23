@@ -78,9 +78,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -126,10 +125,7 @@ CODE_SAMPLE
         }
         $this->removeNode($global);
     }
-    /**
-     * @return \PhpParser\Node\Expr\PropertyFetch|null
-     */
-    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable)
+    private function refactorGlobalVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         if (!$this->isNames($variable, $this->globalVariableNames)) {
             return null;

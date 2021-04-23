@@ -91,9 +91,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|Closure $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->stmts === null) {
             return null;
@@ -190,9 +189,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt[] $stmts
-     * @return \PHPStan\Type\Type|null
      */
-    private function resolveAssignedTypeInStmtsByPropertyName(array $stmts, string $propertyName)
+    private function resolveAssignedTypeInStmtsByPropertyName(array $stmts, string $propertyName) : ?\PHPStan\Type\Type
     {
         $resolvedTypes = [];
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($propertyName, &$resolvedTypes) : ?int {

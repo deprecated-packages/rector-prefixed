@@ -31,9 +31,8 @@ final class CallUserMethodRector extends \Rector\Core\Rector\AbstractRector
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldFunctionNames = \array_keys(self::OLD_TO_NEW_FUNCTIONS);
         if (!$this->isNames($node, $oldFunctionNames)) {

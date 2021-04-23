@@ -17,10 +17,7 @@ final class CurrentNodeProvider
     {
         $this->node = $node;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function getNode()
+    public function getNode() : ?\PhpParser\Node
     {
         return $this->node;
     }

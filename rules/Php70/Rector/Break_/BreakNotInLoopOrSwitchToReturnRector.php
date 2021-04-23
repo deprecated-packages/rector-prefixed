@@ -65,9 +65,8 @@ CODE_SAMPLE
     }
     /**
      * @param Break_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->contextAnalyzer->isInLoop($node)) {
             return null;

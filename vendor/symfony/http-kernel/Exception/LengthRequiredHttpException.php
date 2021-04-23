@@ -20,7 +20,7 @@ class LengthRequiredHttpException extends \RectorPrefix20210423\Symfony\Componen
      * @param \Throwable|null $previous The previous exception
      * @param int             $code     The internal exception code
      */
-    public function __construct($message = '', \Throwable $previous = null, int $code = 0, array $headers = [])
+    public function __construct(?string $message = '', \Throwable $previous = null, int $code = 0, array $headers = [])
     {
         parent::__construct(411, $message, $previous, $headers, $code);
     }

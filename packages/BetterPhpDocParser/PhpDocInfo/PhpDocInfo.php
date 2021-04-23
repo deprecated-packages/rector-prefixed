@@ -121,10 +121,7 @@ final class PhpDocInfo
     {
         return $this->betterTokenIterator->count();
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode|null
-     */
-    public function getVarTagValueNode()
+    public function getVarTagValueNode() : ?\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode
     {
         return $this->phpDocNode->getVarTagValues()[0] ?? null;
     }
@@ -153,10 +150,7 @@ final class PhpDocInfo
     {
         return $this->phpDocNode->getParamTagValues();
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode|null
-     */
-    public function getParamTagValueNodeByName(string $parameterName)
+    public function getParamTagValueNodeByName(string $parameterName) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
     {
         foreach ($this->phpDocNode->getParamTagValues() as $paramTagValueNode) {
             if ($paramTagValueNode->parameterName !== '$' . $parameterName) {
@@ -209,18 +203,14 @@ final class PhpDocInfo
     {
         return (bool) $this->getTagsByName($name);
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\Node|null
-     */
-    public function getByName(string $name)
+    public function getByName(string $name) : ?\PHPStan\PhpDocParser\Ast\Node
     {
         return $this->getTagsByName($name)[0] ?? null;
     }
     /**
      * @param string[] $classes
-     * @return \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode|null
      */
-    public function getByAnnotationClasses(array $classes)
+    public function getByAnnotationClasses(array $classes) : ?\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode
     {
         foreach ($classes as $class) {
             $tagValueNode = $this->getByAnnotationClass($class);
@@ -241,10 +231,7 @@ final class PhpDocInfo
     {
         return $this->getByAnnotationClasses($annotationsClasses) !== null;
     }
-    /**
-     * @return \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode|null
-     */
-    public function getByAnnotationClass(string $desiredClass)
+    public function getByAnnotationClass(string $desiredClass) : ?\Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode
     {
         foreach ($this->phpDocNode->children as $phpDocChildNode) {
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
@@ -369,18 +356,12 @@ final class PhpDocInfo
         }
         return \false;
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode|null
-     */
-    public function getReturnTagValue()
+    public function getReturnTagValue() : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode
     {
         $returnTagValueNodes = $this->phpDocNode->getReturnTagValues();
         return $returnTagValueNodes[0] ?? null;
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode|null
-     */
-    public function getParamTagValueByName(string $name)
+    public function getParamTagValueByName(string $name) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode
     {
         $desiredParamNameWithDollar = '$' . \ltrim($name, '$');
         foreach ($this->getParamTagValueNodes() as $paramTagValueNode) {
@@ -449,10 +430,7 @@ final class PhpDocInfo
     {
         $this->isSingleLine = \false;
     }
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode|null $phpDocTagValueNode
-     */
-    private function getTypeOrMixed($phpDocTagValueNode) : \PHPStan\Type\Type
+    private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
         if ($phpDocTagValueNode === null) {
             return new \PHPStan\Type\MixedType();

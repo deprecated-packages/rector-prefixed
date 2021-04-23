@@ -87,10 +87,9 @@ final class ClassMethodAssignManipulator
         return $this->variableManipulator->filterOutChangedVariables($readOnlyVariableAssigns, $classMethod);
     }
     /**
-     * @param \PHPStan\Type\Type|null $type
      * @return void
      */
-    public function addParameterAndAssignToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, $type, \PhpParser\Node\Expr\Assign $assign)
+    public function addParameterAndAssignToMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign)
     {
         if ($this->hasMethodParameter($classMethod, $name)) {
             return;
@@ -228,10 +227,7 @@ final class ClassMethodAssignManipulator
         });
         return $referencedVariables;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Foreach_|null
-     */
-    private function findParentForeach(\PhpParser\Node\Expr\Assign $assign)
+    private function findParentForeach(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Stmt\Foreach_
     {
         /** @var Foreach_|FunctionLike|null $foundNode */
         $foundNode = $this->betterNodeFinder->findFirstPreviousOfTypes($assign, [\PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\FunctionLike::class]);

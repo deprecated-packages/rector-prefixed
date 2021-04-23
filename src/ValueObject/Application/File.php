@@ -93,10 +93,7 @@ final class File
     {
         $this->fileDiff = $fileDiff;
     }
-    /**
-     * @return \Rector\Core\ValueObject\Reporting\FileDiff|null
-     */
-    public function getFileDiff()
+    public function getFileDiff() : ?\Rector\Core\ValueObject\Reporting\FileDiff
     {
         return $this->fileDiff;
     }

@@ -40,10 +40,7 @@ final class RouteInfoFactory
         $this->nodeRepository = $nodeRepository;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
-     */
-    public function createFromNode(\PhpParser\Node $node)
+    public function createFromNode(\PhpParser\Node $node) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         if ($node instanceof \PhpParser\Node\Expr\New_) {
             if ($this->hasNoArg($node)) {
@@ -83,9 +80,8 @@ final class RouteInfoFactory
     /**
      * @param New_|StaticCall $node
      * @param string[] $methods
-     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
      */
-    private function createRouteInfoFromArgs(\PhpParser\Node $node, array $methods = [])
+    private function createRouteInfoFromArgs(\PhpParser\Node $node, array $methods = []) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $pathArgument = $node->args[0]->value;
         $routePath = $this->valueResolver->getValue($pathArgument);
@@ -113,9 +109,8 @@ final class RouteInfoFactory
     /**
      * @param New_|StaticCall $node
      * @param string[] $methods
-     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
      */
-    private function createForClassConstFetch(\PhpParser\Node $node, array $methods, string $routePath)
+    private function createForClassConstFetch(\PhpParser\Node $node, array $methods, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         /** @var ClassConstFetch $controllerMethodNode */
         $controllerMethodNode = $node->args[1]->value;
@@ -135,10 +130,7 @@ final class RouteInfoFactory
         }
         return null;
     }
-    /**
-     * @return \Rector\NetteToSymfony\ValueObject\RouteInfo|null
-     */
-    private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath)
+    private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $targetValue = $string->value;
         if (!\RectorPrefix20210423\Nette\Utils\Strings::contains($targetValue, ':')) {

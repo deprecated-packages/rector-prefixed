@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod|MethodCall|StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $methodName = $this->getName($node->name);
         if ($methodName === null) {

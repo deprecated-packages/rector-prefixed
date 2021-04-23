@@ -82,9 +82,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipNew($node)) {
             return null;
@@ -120,10 +119,7 @@ CODE_SAMPLE
         }
         return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
     }
-    /**
-     * @return \ReflectionMethod|null
-     */
-    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new)
+    private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
     {
         $className = $this->getName($new->class);
         if ($className === null) {
@@ -136,10 +132,7 @@ CODE_SAMPLE
         $reflectionClass = $classReflection->getNativeReflection();
         return $reflectionClass->getConstructor();
     }
-    /**
-     * @return string|null
-     */
-    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter)
+    private function resolveClassToInstantiateByParameterReflection(\ReflectionParameter $reflectionParameter) : ?string
     {
         $reflectionType = $reflectionParameter->getType();
         if (!$reflectionType instanceof \ReflectionType) {

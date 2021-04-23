@@ -14,9 +14,8 @@ final class ConstFetchNodeNameResolver implements \RectorPrefix20210423\Symplify
     }
     /**
      * @param ConstFetch $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         // convention to save uppercase and lowercase functions for each name
         return $node->name->toLowerString();

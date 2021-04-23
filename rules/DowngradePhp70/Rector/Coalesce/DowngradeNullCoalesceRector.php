@@ -34,9 +34,8 @@ CODE_SAMPLE
     }
     /**
      * @param Coalesce $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $if = $node->left;
         $else = $node->right;

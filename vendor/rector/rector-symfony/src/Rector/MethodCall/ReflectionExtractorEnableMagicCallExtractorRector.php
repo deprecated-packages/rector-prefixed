@@ -72,9 +72,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -103,10 +102,7 @@ CODE_SAMPLE
         $contextOptions = $methodCall->args[2]->value;
         return $contextOptions->items === [];
     }
-    /**
-     * @return bool|null
-     */
-    private function getContextOptionValue(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function getContextOptionValue(\PhpParser\Node\Expr\MethodCall $methodCall) : ?bool
     {
         /** @var Array_ $contextOptions */
         $contextOptions = $methodCall->args[2]->value;

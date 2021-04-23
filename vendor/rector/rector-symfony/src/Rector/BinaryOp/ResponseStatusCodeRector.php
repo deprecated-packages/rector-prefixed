@@ -68,19 +68,15 @@ CODE_SAMPLE
     }
     /**
      * @param BinaryOp|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->processMethodCall($node);
         }
         return $this->processBinaryOp($node);
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isObjectType($methodCall->var, $this->responseObjectType)) {
             return null;
@@ -99,10 +95,7 @@ CODE_SAMPLE
         $methodCall->args[0] = new \PhpParser\Node\Arg($classConstFetch);
         return $methodCall;
     }
-    /**
-     * @return \PhpParser\Node\Expr\BinaryOp|null
-     */
-    private function processBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    private function processBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\BinaryOp
     {
         if (!$this->isGetStatusMethod($binaryOp->left) && !$this->isGetStatusMethod($binaryOp->right)) {
             return null;

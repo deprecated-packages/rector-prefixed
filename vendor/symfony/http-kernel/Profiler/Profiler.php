@@ -108,11 +108,8 @@ class Profiler implements \RectorPrefix20210423\Symfony\Contracts\Service\ResetI
      * @return array An array of tokens
      *
      * @see https://php.net/datetime.formats for the supported date/time formats
-     * @param string|null $ip
-     * @param string|null $url
-     * @param string|null $method
      */
-    public function find($ip, $url, $limit, $method, $start, $end, string $statusCode = null)
+    public function find(?string $ip, ?string $url, ?string $limit, ?string $method, ?string $start, ?string $end, string $statusCode = null)
     {
         return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
@@ -209,11 +206,7 @@ class Profiler implements \RectorPrefix20210423\Symfony\Contracts\Service\ResetI
         }
         return $this->collectors[$name];
     }
-    /**
-     * @param string|null $value
-     * @return int|null
-     */
-    private function getTimestamp($value)
+    private function getTimestamp(?string $value) : ?int
     {
         if (null === $value || '' === $value) {
             return null;

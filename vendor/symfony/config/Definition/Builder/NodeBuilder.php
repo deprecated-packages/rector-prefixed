@@ -112,9 +112,8 @@ class NodeBuilder implements \RectorPrefix20210423\Symfony\Component\Config\Defi
      *
      * @throws \RuntimeException When the node type is not registered
      * @throws \RuntimeException When the node class is not found
-     * @param string|null $name
      */
-    public function node($name, string $type)
+    public function node(?string $name, string $type)
     {
         $class = $this->getNodeClass($type);
         $node = new $class($name);

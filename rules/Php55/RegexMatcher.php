@@ -29,10 +29,7 @@ final class RegexMatcher
     {
         $this->valueResolver = $valueResolver;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    public function resolvePatternExpressionWithoutEIfFound(\PhpParser\Node\Expr $expr)
+    public function resolvePatternExpressionWithoutEIfFound(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
         if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             $pattern = $this->valueResolver->getValue($expr);
@@ -61,10 +58,7 @@ final class RegexMatcher
         $modifiersWithoutE = \RectorPrefix20210423\Nette\Utils\Strings::replace($modifiers, '#e#', '');
         return \RectorPrefix20210423\Nette\Utils\Strings::before($pattern, $delimiter, -1) . $delimiter . $modifiersWithoutE;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function matchConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat)
+    private function matchConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : ?\PhpParser\Node\Expr
     {
         $lastItem = $concat->right;
         if (!$lastItem instanceof \PhpParser\Node\Scalar\String_) {

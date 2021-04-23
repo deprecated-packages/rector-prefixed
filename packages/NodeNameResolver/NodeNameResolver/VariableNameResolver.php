@@ -21,9 +21,8 @@ final class VariableNameResolver implements \Rector\NodeNameResolver\Contract\No
     }
     /**
      * @param Variable $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // skip $some->$dynamicMethodName()

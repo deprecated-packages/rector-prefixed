@@ -82,10 +82,7 @@ final class AssignToPropertyTypeInferer
         }
         return $this->typeFactory->createMixedPassedOrUnionType($assignedExprTypes);
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function resolveExprStaticTypeIncludingDimFetch(\PhpParser\Node\Expr\Assign $assign)
+    private function resolveExprStaticTypeIncludingDimFetch(\PhpParser\Node\Expr\Assign $assign) : ?\PHPStan\Type\Type
     {
         $exprStaticType = $this->nodeTypeResolver->getStaticType($assign->expr);
         if ($exprStaticType instanceof \PHPStan\Type\MixedType) {

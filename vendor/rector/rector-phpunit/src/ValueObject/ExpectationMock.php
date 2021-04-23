@@ -38,10 +38,8 @@ final class ExpectationMock
      * @param Variable|PropertyFetch $expectationVariable
      * @param Arg[] $methodArguments
      * @param array<int, null|Expr> $withArguments
-     * @param \PhpParser\Node\Expr|null $expr
-     * @param \PhpParser\Node\Stmt\Expression|null $originalExpression
      */
-    public function __construct(\PhpParser\Node\Expr $expectationVariable, array $methodArguments, int $index, $expr, array $withArguments, $originalExpression)
+    public function __construct(\PhpParser\Node\Expr $expectationVariable, array $methodArguments, int $index, ?\PhpParser\Node\Expr $expr, array $withArguments, ?\PhpParser\Node\Stmt\Expression $originalExpression)
     {
         $this->expectationVariable = $expectationVariable;
         $this->methodArguments = $methodArguments;
@@ -68,10 +66,7 @@ final class ExpectationMock
     {
         return $this->index;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    public function getReturn()
+    public function getReturn() : ?\PhpParser\Node\Expr
     {
         return $this->expr;
     }
@@ -82,10 +77,7 @@ final class ExpectationMock
     {
         return $this->withArguments;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Expression|null
-     */
-    public function getOriginalExpression()
+    public function getOriginalExpression() : ?\PhpParser\Node\Stmt\Expression
     {
         return $this->originalExpression;
     }

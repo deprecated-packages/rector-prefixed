@@ -62,9 +62,8 @@ trait DirectoryAssertableTrait
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath)
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fileInfos as $fileInfo) {
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($directory);

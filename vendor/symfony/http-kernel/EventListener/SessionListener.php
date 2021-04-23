@@ -41,10 +41,7 @@ class SessionListener extends \RectorPrefix20210423\Symfony\Component\HttpKernel
             $storage->setOptions(['cookie_secure' => \true]);
         }
     }
-    /**
-     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
-     */
-    protected function getSession()
+    protected function getSession() : ?\RectorPrefix20210423\Symfony\Component\HttpFoundation\Session\SessionInterface
     {
         if (!$this->container->has('session')) {
             return null;

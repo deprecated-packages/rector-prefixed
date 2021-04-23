@@ -48,9 +48,9 @@ final class FunctionLikeDocParamTypeInferer implements \Rector\TypeDeclaration\C
         return $this->matchParamNodeFromDoc($paramTypesByName, $param);
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return ClassMethod|Function_|null
      */
-    private function resolveScopeNode(\PhpParser\Node\Param $param)
+    private function resolveScopeNode(\PhpParser\Node\Param $param) : ?\PhpParser\Node
     {
         return $this->betterNodeFinder->findParentTypes($param, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
     }

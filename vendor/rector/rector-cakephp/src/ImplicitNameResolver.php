@@ -48,9 +48,8 @@ final class ImplicitNameResolver
     ];
     /**
      * This value used to be directory So "/" in path should be "\" in namespace
-     * @return string|null
      */
-    public function resolve(string $shortClass)
+    public function resolve(string $shortClass) : ?string
     {
         return self::IMPLICIT_MAP[$shortClass] ?? null;
     }

@@ -20,10 +20,7 @@ class NumericNode extends \RectorPrefix20210423\Symfony\Component\Config\Definit
 {
     protected $min;
     protected $max;
-    /**
-     * @param string|null $name
-     */
-    public function __construct($name, \RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, string $pathSeparator = \RectorPrefix20210423\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
+    public function __construct(?string $name, \RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, string $pathSeparator = \RectorPrefix20210423\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
     {
         parent::__construct($name, $parent, $pathSeparator);
         $this->min = $min;

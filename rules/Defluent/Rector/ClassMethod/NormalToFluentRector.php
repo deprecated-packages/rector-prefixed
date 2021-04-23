@@ -55,9 +55,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // process only existing statements
         if ($node->stmts === null) {
@@ -164,10 +163,7 @@ CODE_SAMPLE
             $fluentMethodCall->var = new \PhpParser\Node\Expr\MethodCall($fluentMethodCall->var, $methodCallToAdd->name, $methodCallToAdd->args);
         }
     }
-    /**
-     * @return \PHPStan\Type\ObjectType|null
-     */
-    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function matchMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\ObjectType
     {
         foreach ($this->callsToFluent as $callToFluent) {
             if (!$this->isObjectType($methodCall->var, $callToFluent->getObjectType())) {

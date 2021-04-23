@@ -180,9 +180,8 @@ class Image
     }
     /**
      * Returns the type of image from file.
-     * @return int|null
      */
-    public static function detectTypeFromFile(string $file)
+    public static function detectTypeFromFile(string $file) : ?int
     {
         $type = @\getimagesize($file)[2];
         // @ - files smaller than 12 bytes causes read error
@@ -190,9 +189,8 @@ class Image
     }
     /**
      * Returns the type of image from string.
-     * @return int|null
      */
-    public static function detectTypeFromString(string $s)
+    public static function detectTypeFromString(string $s) : ?int
     {
         $type = @\getimagesizefromstring($s)[2];
         // @ - strings smaller than 12 bytes causes read error
@@ -507,10 +505,9 @@ class Image
     /**
      * Outputs image to browser or file.
      * @throws ImageException
-     * @param int|null $quality
      * @return void
      */
-    private function output(int $type, $quality, string $file = null)
+    private function output(int $type, ?int $quality, string $file = null)
     {
         switch ($type) {
             case self::JPEG:

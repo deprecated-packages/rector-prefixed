@@ -43,9 +43,8 @@ class AcceptHeader
      * Builds an AcceptHeader instance from a string.
      *
      * @return self
-     * @param string|null $headerValue
      */
-    public static function fromString($headerValue)
+    public static function fromString(?string $headerValue)
     {
         $index = 0;
         $parts = \RectorPrefix20210423\Symfony\Component\HttpFoundation\HeaderUtils::split($headerValue ?? '', ',;=');

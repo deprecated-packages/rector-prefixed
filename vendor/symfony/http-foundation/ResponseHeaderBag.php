@@ -150,9 +150,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * Removes a cookie from the array, but does not unset it in the browser.
-     * @param string|null $path
      */
-    public function removeCookie(string $name, $path = '/', string $domain = null)
+    public function removeCookie(string $name, ?string $path = '/', string $domain = null)
     {
         if (null === $path) {
             $path = '/';
@@ -195,9 +194,8 @@ class ResponseHeaderBag extends \RectorPrefix20210423\Symfony\Component\HttpFoun
     }
     /**
      * Clears a cookie in the browser.
-     * @param string|null $path
      */
-    public function clearCookie(string $name, $path = '/', string $domain = null, bool $secure = \false, bool $httpOnly = \true, string $sameSite = null)
+    public function clearCookie(string $name, ?string $path = '/', string $domain = null, bool $secure = \false, bool $httpOnly = \true, string $sameSite = null)
     {
         $this->setCookie(new \RectorPrefix20210423\Symfony\Component\HttpFoundation\Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, \false, $sameSite));
     }

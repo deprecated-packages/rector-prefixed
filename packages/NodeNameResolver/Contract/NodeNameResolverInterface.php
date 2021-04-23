@@ -10,8 +10,5 @@ interface NodeNameResolverInterface
      * @return class-string<Node>
      */
     public function getNode() : string;
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node $node);
+    public function resolve(\PhpParser\Node $node) : ?string;
 }

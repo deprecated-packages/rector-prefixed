@@ -38,9 +38,8 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
     private $handlingPlaceholder;
     /**
      * @throws \InvalidArgumentException if the name contains a period
-     * @param string|null $name
      */
-    public function __construct($name, \RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
+    public function __construct(?string $name, \RectorPrefix20210423\Symfony\Component\Config\Definition\NodeInterface $parent = null, string $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
@@ -185,7 +184,7 @@ abstract class BaseNode implements \RectorPrefix20210423\Symfony\Component\Confi
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path
      */
-    public function setDeprecated($package)
+    public function setDeprecated(?string $package)
     {
         $args = \func_get_args();
         if (\func_num_args() < 2) {

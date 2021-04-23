@@ -59,9 +59,8 @@ final class IdentifierManipulator
     }
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
-     * @return string|null
      */
-    private function resolveOldMethodName(\PhpParser\Node $node)
+    private function resolveOldMethodName(\PhpParser\Node $node) : ?string
     {
         if ($node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->nodeNameResolver->getName($node->name);

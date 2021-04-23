@@ -112,10 +112,7 @@ final class GetSubscribedEventsClassMethodFactory
         $this->visibilityManipulator->makeStatic($classMethod);
         return $classMethod;
     }
-    /**
-     * @param int|null $priority
-     */
-    private function createArrayItemFromMethodAndPriority($priority, string $methodName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\ArrayItem
+    private function createArrayItemFromMethodAndPriority(?int $priority, string $methodName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\ArrayItem
     {
         if ($priority !== null && $priority !== 0) {
             $methodNameWithPriorityArray = new \PhpParser\Node\Expr\Array_();
@@ -175,10 +172,7 @@ final class GetSubscribedEventsClassMethodFactory
         $multipleMethodsArray = new \PhpParser\Node\Expr\Array_($eventItems);
         $eventsToMethodsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multipleMethodsArray, $expr);
     }
-    /**
-     * @return string|null
-     */
-    private function resolveMethodName(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName)
+    private function resolveMethodName(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName) : ?string
     {
         /** @var EventListenerTag[]|Tag[] $eventTags */
         $eventTags = $serviceDefinition->getTags();
@@ -193,10 +187,7 @@ final class GetSubscribedEventsClassMethodFactory
         }
         return null;
     }
-    /**
-     * @return int|null
-     */
-    private function resolvePriority(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName)
+    private function resolvePriority(\Rector\Symfony\ValueObject\ServiceDefinition $serviceDefinition, string $eventName) : ?int
     {
         /** @var EventListenerTag[]|Tag[] $eventTags */
         $eventTags = $serviceDefinition->getTags();

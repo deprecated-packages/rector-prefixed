@@ -22,10 +22,7 @@ final class MatchParamTypeExpectedNameResolver
         $this->staticTypeMapper = $staticTypeMapper;
         $this->propertyNaming = $propertyNaming;
     }
-    /**
-     * @return string|null
-     */
-    public function resolve(\PhpParser\Node\Param $param)
+    public function resolve(\PhpParser\Node\Param $param) : ?string
     {
         // nothing to verify
         if ($param->type === null) {

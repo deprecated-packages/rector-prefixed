@@ -35,9 +35,8 @@ final class SimpleNameResolver
     }
     /**
      * @param Node|string $node
-     * @return string|null
      */
-    public function getName($node)
+    public function getName($node) : ?string
     {
         if (\is_string($node)) {
             return $node;
@@ -94,10 +93,7 @@ final class SimpleNameResolver
         }
         return $this->isName($secondNode, $firstName);
     }
-    /**
-     * @return string|null
-     */
-    public function resolveShortNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike)
+    public function resolveShortNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike) : ?string
     {
         $className = $this->getName($classLike);
         if ($className === null) {
@@ -109,10 +105,7 @@ final class SimpleNameResolver
         }
         return $this->resolveShortName($className);
     }
-    /**
-     * @return string|null
-     */
-    public function resolveShortNameFromScope(\PHPStan\Analyser\Scope $scope)
+    public function resolveShortNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
     {
         $className = $this->getClassNameFromScope($scope);
         if ($className === null) {
@@ -120,10 +113,7 @@ final class SimpleNameResolver
         }
         return $this->resolveShortName($className);
     }
-    /**
-     * @return string|null
-     */
-    public function getClassNameFromScope(\PHPStan\Analyser\Scope $scope)
+    public function getClassNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
     {
         if ($scope->isInTrait()) {
             $traitReflection = $scope->getTraitReflection();

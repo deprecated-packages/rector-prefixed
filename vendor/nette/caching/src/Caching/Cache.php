@@ -148,10 +148,7 @@ class Cache
             return $data;
         }
     }
-    /**
-     * @param mixed[]|null $dp
-     */
-    private function completeDependencies($dp) : array
+    private function completeDependencies(?array $dp) : array
     {
         // convert expire into relative amount of seconds
         if (isset($dp[self::EXPIRATION])) {
@@ -247,9 +244,8 @@ class Cache
     /**
      * Starts the output cache.
      * @param  mixed  $key
-     * @return \Nette\Caching\OutputHelper|null
      */
-    public function capture($key)
+    public function capture($key) : ?\RectorPrefix20210423\Nette\Caching\OutputHelper
     {
         $data = $this->load($key);
         if ($data === null) {
@@ -260,9 +256,8 @@ class Cache
     }
     /**
      * @deprecated  use capture()
-     * @return \Nette\Caching\OutputHelper|null
      */
-    public function start($key)
+    public function start($key) : ?\RectorPrefix20210423\Nette\Caching\OutputHelper
     {
         return $this->capture($key);
     }
@@ -295,9 +290,8 @@ class Cache
     }
     /**
      * Checks FILES dependency.
-     * @param int|null $time
      */
-    private static function checkFile(string $file, $time) : bool
+    private static function checkFile(string $file, ?int $time) : bool
     {
         return @\filemtime($file) == $time;
         // @ - stat may fail

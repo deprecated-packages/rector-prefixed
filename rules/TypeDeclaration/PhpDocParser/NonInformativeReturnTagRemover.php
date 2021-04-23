@@ -155,10 +155,7 @@ final class NonInformativeReturnTagRemover
         }
         return \in_array($typeNode->name, $values, \true);
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function matchNullabledType(\PHPStan\Type\Type $returnType)
+    private function matchNullabledType(\PHPStan\Type\Type $returnType) : ?\PHPStan\Type\Type
     {
         if (!$returnType instanceof \PHPStan\Type\UnionType) {
             return null;
@@ -177,10 +174,7 @@ final class NonInformativeReturnTagRemover
         }
         return null;
     }
-    /**
-     * @return \PHPStan\PhpDocParser\Ast\Type\TypeNode|null
-     */
-    private function matchNullabledReturnTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode)
+    private function matchNullabledReturnTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode) : ?\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         if (!$returnTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;

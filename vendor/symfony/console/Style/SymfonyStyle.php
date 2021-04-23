@@ -52,10 +52,8 @@ class SymfonyStyle extends \RectorPrefix20210423\Symfony\Component\Console\Style
      * Formats a message as a block of text.
      *
      * @param string|array $messages The message to write in the block
-     * @param string|null $type
-     * @param string|null $style
      */
-    public function block($messages, $type = null, $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \true)
+    public function block($messages, ?string $type = null, ?string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \true)
     {
         $messages = \is_array($messages) ? \array_values($messages) : [$messages];
         $this->autoPrependBlock();
@@ -228,9 +226,8 @@ class SymfonyStyle extends \RectorPrefix20210423\Symfony\Component\Console\Style
     }
     /**
      * {@inheritdoc}
-     * @param string|null $default
      */
-    public function ask(string $question, $default = null, $validator = null)
+    public function ask(string $question, ?string $default = null, $validator = null)
     {
         $question = new \RectorPrefix20210423\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);

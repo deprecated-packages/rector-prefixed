@@ -234,9 +234,8 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
     }
     /**
      * Returns a reference to the service matching the given type, if any.
-     * @return \Symfony\Component\DependencyInjection\TypedReference|null
      */
-    private function getAutowiredReference(\RectorPrefix20210423\Symfony\Component\DependencyInjection\TypedReference $reference)
+    private function getAutowiredReference(\RectorPrefix20210423\Symfony\Component\DependencyInjection\TypedReference $reference) : ?\RectorPrefix20210423\Symfony\Component\DependencyInjection\TypedReference
     {
         $this->lastFailure = null;
         $type = $reference->getType();
@@ -374,10 +373,7 @@ class AutowirePass extends \RectorPrefix20210423\Symfony\Component\DependencyInj
         }
         return \sprintf(' You should maybe alias this %s to %s.', \class_exists($type, \false) ? 'class' : 'interface', $message);
     }
-    /**
-     * @return string|null
-     */
-    private function getAliasesSuggestionForType(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type)
+    private function getAliasesSuggestionForType(\RectorPrefix20210423\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $type) : ?string
     {
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {

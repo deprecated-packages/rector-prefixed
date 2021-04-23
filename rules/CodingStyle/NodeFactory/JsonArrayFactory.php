@@ -72,9 +72,8 @@ final class JsonArrayFactory
     }
     /**
      * @param Expr[] $placeholderNodes
-     * @return \PhpParser\Node\Expr|null
      */
-    private function matchPlaceholderNode(\PhpParser\Node $node, array $placeholderNodes)
+    private function matchPlaceholderNode(\PhpParser\Node $node, array $placeholderNodes) : ?\PhpParser\Node\Expr
     {
         if (!$node instanceof \PhpParser\Node\Scalar\String_) {
             return null;

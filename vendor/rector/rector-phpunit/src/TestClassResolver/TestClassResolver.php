@@ -34,10 +34,7 @@ final class TestClassResolver
         $this->phpUnitTestCaseClassesProvider = $phpUnitTestCaseClassesProvider;
         $this->reflectionProvider = $reflectionProvider;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveFromClassName(string $className)
+    public function resolveFromClassName(string $className) : ?string
     {
         // fallback for unit tests that only have extra "Test" suffix
         if ($this->reflectionProvider->hasClass($className . self::TEST)) {
@@ -68,10 +65,7 @@ final class TestClassResolver
         }
         return null;
     }
-    /**
-     * @return string|null
-     */
-    public function resolveFromClass(\PhpParser\Node\Stmt\Class_ $class)
+    public function resolveFromClass(\PhpParser\Node\Stmt\Class_ $class) : ?string
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -79,10 +73,7 @@ final class TestClassResolver
         }
         return $this->resolveFromClassName($className);
     }
-    /**
-     * @return string|null
-     */
-    private function resolveShortClassName(string $className)
+    private function resolveShortClassName(string $className) : ?string
     {
         return \RectorPrefix20210423\Nette\Utils\Strings::after($className, '\\', -1);
     }

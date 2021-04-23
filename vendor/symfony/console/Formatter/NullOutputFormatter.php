@@ -18,10 +18,9 @@ final class NullOutputFormatter implements \RectorPrefix20210423\Symfony\Compone
     private $style;
     /**
      * {@inheritdoc}
-     * @param string|null $message
      * @return void
      */
-    public function format($message)
+    public function format(?string $message)
     {
         // do nothing
     }

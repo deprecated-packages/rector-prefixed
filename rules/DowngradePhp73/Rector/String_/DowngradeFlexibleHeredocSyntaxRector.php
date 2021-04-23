@@ -46,9 +46,8 @@ CODE_SAMPLE
     }
     /**
      * @param Encapsed|String_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $stringKind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if (!\in_array($stringKind, self::HERENOW_DOC_KINDS, \true)) {

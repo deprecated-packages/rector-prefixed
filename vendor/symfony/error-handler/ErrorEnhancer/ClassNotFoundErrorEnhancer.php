@@ -21,9 +21,8 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210423\Symfony\Compon
 {
     /**
      * {@inheritdoc}
-     * @return \Throwable|null
      */
-    public function enhance(\Throwable $error)
+    public function enhance(\Throwable $error) : ?\Throwable
     {
         // Some specific versions of PHP produce a fatal error when extending a not found class.
         $message = !$error instanceof \RectorPrefix20210423\Symfony\Component\ErrorHandler\Error\FatalError ? $error->getMessage() : $error->getError()['message'];
@@ -110,10 +109,7 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210423\Symfony\Compon
         }
         return $classes;
     }
-    /**
-     * @return string|null
-     */
-    private function convertFileToClass(string $path, string $file, string $prefix)
+    private function convertFileToClass(string $path, string $file, string $prefix) : ?string
     {
         $candidates = [
             // namespaced class

@@ -309,10 +309,7 @@ final class NodeTypeResolver
         }
         return $this->isObjectType($classLike, $objectType);
     }
-    /**
-     * @return \PHPStan\Type\ObjectType|null
-     */
-    public function resolveObjectTypeFromScope(\PHPStan\Analyser\Scope $scope)
+    public function resolveObjectTypeFromScope(\PHPStan\Analyser\Scope $scope) : ?\PHPStan\Type\ObjectType
     {
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
@@ -354,10 +351,7 @@ final class NodeTypeResolver
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
     }
-    /**
-     * @return \PHPStan\Type\Type|null
-     */
-    private function resolveByNodeTypeResolvers(\PhpParser\Node $node)
+    private function resolveByNodeTypeResolvers(\PhpParser\Node $node) : ?\PHPStan\Type\Type
     {
         foreach ($this->nodeTypeResolvers as $nodeClass => $nodeTypeResolver) {
             if (!\is_a($node, $nodeClass)) {

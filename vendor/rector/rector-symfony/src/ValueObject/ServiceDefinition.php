@@ -32,10 +32,8 @@ final class ServiceDefinition
     private $alias;
     /**
      * @param TagInterface[] $tags
-     * @param string|null $class
-     * @param string|null $alias
      */
-    public function __construct(string $id, $class, bool $public, bool $synthetic, $alias, array $tags)
+    public function __construct(string $id, ?string $class, bool $public, bool $synthetic, ?string $alias, array $tags)
     {
         $this->id = $id;
         $this->class = $class;
@@ -48,10 +46,7 @@ final class ServiceDefinition
     {
         return $this->id;
     }
-    /**
-     * @return string|null
-     */
-    public function getClass()
+    public function getClass() : ?string
     {
         return $this->class;
     }
@@ -63,10 +58,7 @@ final class ServiceDefinition
     {
         return $this->isSynthetic;
     }
-    /**
-     * @return string|null
-     */
-    public function getAlias()
+    public function getAlias() : ?string
     {
         return $this->alias;
     }
@@ -77,10 +69,7 @@ final class ServiceDefinition
     {
         return $this->tags;
     }
-    /**
-     * @return \Rector\Symfony\Contract\Tag\TagInterface|null
-     */
-    public function getTag(string $name)
+    public function getTag(string $name) : ?\Rector\Symfony\Contract\Tag\TagInterface
     {
         foreach ($this->tags as $tag) {
             if ($tag->getName() !== $name) {

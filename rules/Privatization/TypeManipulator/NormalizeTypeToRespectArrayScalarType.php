@@ -19,10 +19,7 @@ final class NormalizeTypeToRespectArrayScalarType
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    /**
-     * @param \PhpParser\Node|null $returnNode
-     */
-    public function normalizeToArray(\PHPStan\Type\Type $type, $returnNode) : \PHPStan\Type\Type
+    public function normalizeToArray(\PHPStan\Type\Type $type, ?\PhpParser\Node $returnNode) : \PHPStan\Type\Type
     {
         if ($returnNode === null) {
             return $type;

@@ -337,9 +337,8 @@ class Strings
     /**
      * Returns part of $haystack before $nth occurence of $needle or returns null if the needle was not found.
      * Negative value means searching from the end.
-     * @return string|null
      */
-    public static function before(string $haystack, string $needle, int $nth = 1)
+    public static function before(string $haystack, string $needle, int $nth = 1) : ?string
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, 0, $pos);
@@ -347,9 +346,8 @@ class Strings
     /**
      * Returns part of $haystack after $nth occurence of $needle or returns null if the needle was not found.
      * Negative value means searching from the end.
-     * @return string|null
      */
-    public static function after(string $haystack, string $needle, int $nth = 1)
+    public static function after(string $haystack, string $needle, int $nth = 1) : ?string
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, $pos + \strlen($needle));
@@ -357,18 +355,16 @@ class Strings
     /**
      * Returns position in bytes of $nth occurence of $needle in $haystack or null if the $needle was not found.
      * Negative value of `$nth` means searching from the end.
-     * @return int|null
      */
-    public static function indexOf(string $haystack, string $needle, int $nth = 1)
+    public static function indexOf(string $haystack, string $needle, int $nth = 1) : ?int
     {
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : self::length(\substr($haystack, 0, $pos));
     }
     /**
      * Returns position in bytes of $nth occurence of $needle in $haystack or null if the needle was not found.
-     * @return int|null
      */
-    private static function pos(string $haystack, string $needle, int $nth = 1)
+    private static function pos(string $haystack, string $needle, int $nth = 1) : ?int
     {
         if (!$nth) {
             return null;
@@ -403,9 +399,8 @@ class Strings
     /**
      * Checks if given string matches a regular expression pattern and returns an array with first found match and each subpattern.
      * Argument $flag takes same arguments as function preg_match().
-     * @return mixed[]|null
      */
-    public static function match(string $subject, string $pattern, int $flags = 0, int $offset = 0)
+    public static function match(string $subject, string $pattern, int $flags = 0, int $offset = 0) : ?array
     {
         if ($offset > \strlen($subject)) {
             return null;

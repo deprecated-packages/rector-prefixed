@@ -48,9 +48,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $callerType = $this->nodeTypeResolver->resolve($node->class);
         if (!$callerType->isSuperTypeOf(new \PHPStan\Type\ObjectType('PHPExcel_Cell_DataType'))->yes()) {

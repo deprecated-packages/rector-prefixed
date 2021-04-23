@@ -75,9 +75,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->classAnalyzer->isAnonymousClass($node->class)) {
             return null;
@@ -108,10 +107,7 @@ CODE_SAMPLE
         }
         return \ucfirst($className);
     }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInClass(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Class_ $class)
+    private function processMoveAnonymousClassInClass(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Expr\New_
     {
         $namespacedClassName = $this->getName($class->namespacedName);
         /** @var Identifier $shortClassName */
@@ -121,10 +117,7 @@ CODE_SAMPLE
         $className = $this->getClassName($namespace, $shortClassName);
         return $this->processMove($new, $className, $class);
     }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInFunction(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Function_ $function)
+    private function processMoveAnonymousClassInFunction(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt\Function_ $function) : ?\PhpParser\Node\Expr\New_
     {
         $namespacedFunctionName = (string) $this->getName($function);
         $shortFunctionName = (string) $this->getName($function->name);
@@ -132,10 +125,7 @@ CODE_SAMPLE
         $className = $this->getClassName($namespace, $shortFunctionName);
         return $this->processMove($new, $className, $function);
     }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMoveAnonymousClassInDirectCall(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt $stmt)
+    private function processMoveAnonymousClassInDirectCall(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Stmt $stmt) : ?\PhpParser\Node\Expr\New_
     {
         $parent = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parent instanceof \PhpParser\Node && !$parent instanceof \PhpParser\Node\Stmt\Namespace_) {
@@ -146,10 +136,7 @@ CODE_SAMPLE
         $className = $this->getClassName($namespace, $suffix);
         return $this->processMove($new, $className, $stmt);
     }
-    /**
-     * @return \PhpParser\Node\Expr\New_|null
-     */
-    private function processMove(\PhpParser\Node\Expr\New_ $new, string $className, \PhpParser\Node $node)
+    private function processMove(\PhpParser\Node\Expr\New_ $new, string $className, \PhpParser\Node $node) : ?\PhpParser\Node\Expr\New_
     {
         if (!$new->class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;

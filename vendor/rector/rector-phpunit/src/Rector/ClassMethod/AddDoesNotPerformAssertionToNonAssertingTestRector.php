@@ -99,9 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->classMethodNestingLevel = 0;
         if ($this->shouldSkipClassMethod($node)) {
@@ -199,9 +198,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function findClassMethod(\PhpParser\Node $node)
+    private function findClassMethod(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
@@ -219,9 +217,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall|StaticCall $node
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
      */
-    private function findClassMethodByParsingReflection(\PhpParser\Node $node)
+    private function findClassMethodByParsingReflection(\PhpParser\Node $node) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $this->getName($node->name);
         if ($methodName === null) {
@@ -246,10 +243,7 @@ CODE_SAMPLE
         }
         return $this->findClassMethodInFile($fileName, $methodName);
     }
-    /**
-     * @return \PhpParser\Node\Stmt\ClassMethod|null
-     */
-    private function findClassMethodInFile(string $fileName, string $methodName)
+    private function findClassMethodInFile(string $fileName, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         // skip already anayzed method to prevent cycling
         if (isset($this->analyzedMethodsInFileName[$fileName][$methodName])) {

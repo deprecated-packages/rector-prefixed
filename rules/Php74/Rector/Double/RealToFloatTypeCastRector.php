@@ -50,9 +50,8 @@ CODE_SAMPLE
     }
     /**
      * @param Double $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
         if ($kind !== \PhpParser\Node\Expr\Cast\Double::KIND_REAL) {

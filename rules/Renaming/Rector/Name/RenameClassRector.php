@@ -80,9 +80,8 @@ CODE_SAMPLE
     }
     /**
      * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }

@@ -92,9 +92,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isKernelOrExtensionClass($node)) {
             return null;
@@ -143,10 +142,7 @@ CODE_SAMPLE
             throw new \Rector\Symfony\Exception\InvalidConfigurationException($message);
         }
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function refactorLoadMethodCall(\PhpParser\Node $node)
+    private function refactorLoadMethodCall(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;

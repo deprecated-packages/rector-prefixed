@@ -80,10 +80,7 @@ class XmlDumper extends \RectorPrefix20210423\Symfony\Component\DependencyInject
             $parent->appendChild($call);
         }
     }
-    /**
-     * @param string|null $id
-     */
-    private function addService(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, $id, \DOMElement $parent)
+    private function addService(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, ?string $id, \DOMElement $parent)
     {
         $service = $this->document->createElement('service');
         if (null !== $id) {

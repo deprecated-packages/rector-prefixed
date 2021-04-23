@@ -20,11 +20,7 @@ class MethodTagValueParameterNode implements \PHPStan\PhpDocParser\Ast\Node
     public $parameterName;
     /** @var ConstExprNode|null */
     public $defaultValue;
-    /**
-     * @param \PHPStan\PhpDocParser\Ast\Type\TypeNode|null $type
-     * @param \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode|null $defaultValue
-     */
-    public function __construct($type, bool $isReference, bool $isVariadic, string $parameterName, $defaultValue)
+    public function __construct(?\PHPStan\PhpDocParser\Ast\Type\TypeNode $type, bool $isReference, bool $isVariadic, string $parameterName, ?\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $defaultValue)
     {
         $this->type = $type;
         $this->isReference = $isReference;

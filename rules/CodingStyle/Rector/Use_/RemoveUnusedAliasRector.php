@@ -85,9 +85,8 @@ CODE_SAMPLE
     }
     /**
      * @param Use_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipUse($node)) {
             return null;
@@ -132,10 +131,7 @@ CODE_SAMPLE
         }
         return !$this->hasUseAlias($use);
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function resolveSearchNode(\PhpParser\Node\Stmt\Use_ $use)
+    private function resolveSearchNode(\PhpParser\Node\Stmt\Use_ $use) : ?\PhpParser\Node
     {
         $searchNode = $use->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($searchNode !== null) {

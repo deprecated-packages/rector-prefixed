@@ -47,10 +47,7 @@ final class AddedFileWithNodesFactory
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
-    /**
-     * @return \Rector\FileSystemRector\ValueObject\AddedFileWithNodes|null
-     */
-    public function createWithDesiredGroup(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName)
+    public function createWithDesiredGroup(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
     {
         $fileNodes = $file->getNewStmts();
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileNodes, \PhpParser\Node\Stmt\Namespace_::class);

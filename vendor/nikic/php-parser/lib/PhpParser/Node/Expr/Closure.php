@@ -63,8 +63,8 @@ class Closure extends \PhpParser\Node\Expr implements \PhpParser\Node\FunctionLi
     {
         return $this->returnType;
     }
-    /** @return mixed[]|null */
-    public function getStmts()
+    /** @return Node\Stmt[] */
+    public function getStmts() : ?array
     {
         return $this->stmts;
     }

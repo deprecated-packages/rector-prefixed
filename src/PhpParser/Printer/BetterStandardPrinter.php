@@ -168,9 +168,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      * @param mixed[] $nodes
      * @param mixed[] $origNodes
      * @param int|null $fixup
-     * @return string|null
      */
-    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup)
+    protected function pArray(array $nodes, array $origNodes, int &$pos, int $indentAdjustment, string $parentNodeType, string $subNodeName, $fixup) : ?string
     {
         // reindex positions for printer
         $nodes = \array_values($nodes);

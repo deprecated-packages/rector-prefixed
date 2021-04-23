@@ -25,10 +25,7 @@ final class MissingRectorRulesReporter
         $this->symfonyStyle = $symfonyStyle;
         $this->rectors = $rectors;
     }
-    /**
-     * @return int|null
-     */
-    public function reportIfMissing()
+    public function reportIfMissing() : ?int
     {
         $activeRectors = \array_filter($this->rectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) : bool {
             return !$rector instanceof \Rector\PostRector\Contract\Rector\PostRectorInterface;

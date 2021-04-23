@@ -101,10 +101,9 @@ final class Preloader
         }
     }
     /**
-     * @param \ReflectionType|null $t
      * @return void
      */
-    private static function preloadType($t, array &$preloaded)
+    private static function preloadType(?\ReflectionType $t, array &$preloaded)
     {
         if (!$t) {
             return;

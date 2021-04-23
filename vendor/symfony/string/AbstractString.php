@@ -287,9 +287,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     }
     /**
      * @param string|string[] $needle
-     * @return int|null
      */
-    public function indexOf($needle, int $offset = 0)
+    public function indexOf($needle, int $offset = 0) : ?int
     {
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));
@@ -305,9 +304,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     }
     /**
      * @param string|string[] $needle
-     * @return int|null
      */
-    public function indexOfLast($needle, int $offset = 0)
+    public function indexOfLast($needle, int $offset = 0) : ?int
     {
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));

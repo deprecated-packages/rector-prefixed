@@ -56,10 +56,9 @@ final class ListeningClassMethodArgumentManipulator
     }
     /**
      * @param EventClassAndClassMethod[] $classMethodsByEventClass
-     * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
      * @return void
      */
-    public function change(array $classMethodsByEventClass, $eventAndListenerTree = null)
+    public function change(array $classMethodsByEventClass, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null)
     {
         foreach ($classMethodsByEventClass as $classMethods) {
             // are attributes already replaced
@@ -93,10 +92,7 @@ final class ListeningClassMethodArgumentManipulator
         $param = new \PhpParser\Node\Param($eventVariable, null, new \PhpParser\Node\Name\FullyQualified($eventClass));
         $classMethod->params = [$param];
     }
-    /**
-     * @param \Rector\Nette\Kdyby\ValueObject\EventAndListenerTree|null $eventAndListenerTree
-     */
-    private function createEventGetterToVariableMethodCall(string $eventClass, \PhpParser\Node\Param $param, $eventAndListenerTree) : \PhpParser\Node\Expr\Assign
+    private function createEventGetterToVariableMethodCall(string $eventClass, \PhpParser\Node\Param $param, ?\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree) : \PhpParser\Node\Expr\Assign
     {
         $paramName = $this->classNaming->getVariableName($eventClass);
         $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);

@@ -5,10 +5,7 @@ namespace Rector\Doctrine\Contract\PhpDoc\Node;
 
 interface MappedByNodeInterface
 {
-    /**
-     * @return string|null
-     */
-    public function getMappedBy();
+    public function getMappedBy() : ?string;
     /**
      * @return void
      */

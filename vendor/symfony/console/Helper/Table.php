@@ -247,18 +247,16 @@ class Table
     }
     /**
      * @return $this
-     * @param string|null $title
      */
-    public function setHeaderTitle($title)
+    public function setHeaderTitle(?string $title)
     {
         $this->headerTitle = $title;
         return $this;
     }
     /**
      * @return $this
-     * @param string|null $title
      */
-    public function setFooterTitle($title)
+    public function setFooterTitle(?string $title)
     {
         $this->footerTitle = $title;
         return $this;

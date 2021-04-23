@@ -270,10 +270,8 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      * @throws \ReflectionException when a parent class/interface/trait is not found and $throw is true
      *
      * @final
-     * @param string|null $class
-     * @return \ReflectionClass|null
      */
-    public function getReflectionClass($class, bool $throw = \true)
+    public function getReflectionClass(?string $class, bool $throw = \true) : ?\ReflectionClass
     {
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
@@ -1345,9 +1343,8 @@ class ContainerBuilder extends \RectorPrefix20210423\Symfony\Component\Dependenc
      * Shares a given service in the container.
      *
      * @param mixed $service
-     * @param string|null $id
      */
-    private function shareService(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, $service, $id, array &$inlineServices)
+    private function shareService(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, $service, ?string $id, array &$inlineServices)
     {
         $inlineServices[null !== $id ? $id : \spl_object_hash($definition)] = $service;
         if (null !== $id && $definition->isShared()) {

@@ -96,7 +96,7 @@ final class ProgressBar
      *
      * @return callable|null A PHP callable
      */
-    public static function getPlaceholderFormatterDefinition(string $name)
+    public static function getPlaceholderFormatterDefinition(string $name) : ?callable
     {
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
@@ -126,7 +126,7 @@ final class ProgressBar
      *
      * @return string|null A format string
      */
-    public static function getFormatDefinition(string $name)
+    public static function getFormatDefinition(string $name) : ?string
     {
         if (!self::$formats) {
             self::$formats = self::initFormats();
@@ -232,9 +232,9 @@ final class ProgressBar
     /**
      * Sets the redraw frequency.
      *
-     * @param int|null $freq The frequency in steps
+     * @param int|float $freq The frequency in steps
      */
-    public function setRedrawFrequency($freq)
+    public function setRedrawFrequency(?int $freq)
     {
         $this->redrawFreq = null !== $freq ? \max(1, $freq) : null;
     }

@@ -77,9 +77,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $factoryMethod = $this->matchTypeAndMethodName($node);
         if (!$factoryMethod instanceof \Rector\CakePHP\ValueObject\FactoryMethod) {
@@ -105,10 +104,7 @@ CODE_SAMPLE
         \RectorPrefix20210423\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \Rector\CakePHP\ValueObject\FactoryMethod::class);
         $this->factoryMethods = $factoryMethods;
     }
-    /**
-     * @return \Rector\CakePHP\ValueObject\FactoryMethod|null
-     */
-    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\FactoryMethod
     {
         foreach ($this->factoryMethods as $factoryMethod) {
             if (!$this->isObjectType($methodCall->var, $factoryMethod->getObjectType())) {
@@ -121,10 +117,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function replaceArrayToFluentMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall)
+    private function replaceArrayToFluentMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (\count($methodCall->args) !== $argumentPosition) {
             return null;

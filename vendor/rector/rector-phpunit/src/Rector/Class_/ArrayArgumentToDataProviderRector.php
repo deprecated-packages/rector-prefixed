@@ -113,9 +113,8 @@ CODE_SAMPLE
     }
     /**
      * @param Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
@@ -203,10 +202,7 @@ CODE_SAMPLE
         }
         return $this->isName($methodCall->name, $arrayArgumentToDataProvider->getOldMethod());
     }
-    /**
-     * @return string|null
-     */
-    private function createDataProviderMethodName(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function createDataProviderMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
     {
         $methodNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
         if (!$methodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {

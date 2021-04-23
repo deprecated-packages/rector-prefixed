@@ -49,10 +49,7 @@ class TableCellStyle
     {
         return $this->alignMap[$this->getOptions()['align']];
     }
-    /**
-     * @return string|null
-     */
-    public function getCellFormat()
+    public function getCellFormat() : ?string
     {
         return $this->getOptions()['cellFormat'];
     }

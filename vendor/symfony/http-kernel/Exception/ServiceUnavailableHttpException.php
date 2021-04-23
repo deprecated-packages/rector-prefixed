@@ -21,7 +21,7 @@ class ServiceUnavailableHttpException extends \RectorPrefix20210423\Symfony\Comp
      * @param \Throwable|null $previous   The previous exception
      * @param int|null        $code       The internal exception code
      */
-    public function __construct($retryAfter = null, $message = '', \Throwable $previous = null, $code = 0, array $headers = [])
+    public function __construct($retryAfter = null, ?string $message = '', \Throwable $previous = null, ?int $code = 0, array $headers = [])
     {
         if ($retryAfter) {
             $headers['Retry-After'] = $retryAfter;

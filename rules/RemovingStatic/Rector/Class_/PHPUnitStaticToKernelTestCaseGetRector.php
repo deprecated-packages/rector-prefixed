@@ -127,9 +127,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall|Class_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip yourself
         $this->newPropertyObjectTypes = [];
@@ -152,10 +151,7 @@ CODE_SAMPLE
             $this->staticObjectTypes[] = new \PHPStan\Type\ObjectType($staticClassType);
         }
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    private function processClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function processClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($this->isObjectType($class, new \PHPStan\Type\ObjectType('PHPUnit\\Framework\\TestCase'))) {
             return $this->processPHPUnitClass($class);
@@ -172,10 +168,7 @@ CODE_SAMPLE
         }
         return $class;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall)
+    private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classLike = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
@@ -189,10 +182,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Stmt\Class_|null
-     */
-    private function processPHPUnitClass(\PhpParser\Node\Stmt\Class_ $class)
+    private function processPHPUnitClass(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
         // add property with the object
         $newPropertyTypes = $this->collectNewPropertyObjectTypes($class);

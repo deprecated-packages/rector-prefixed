@@ -90,9 +90,8 @@ final class UseImportsAdder
      * @param AliasedObjectType[]|FullyQualifiedObjectType[] $useImportTypes
      * @param FullyQualifiedObjectType[] $functionUseImportTypes
      * @return Use_[]
-     * @param string|null $namespaceName
      */
-    private function createUses(array $useImportTypes, array $functionUseImportTypes, $namespaceName) : array
+    private function createUses(array $useImportTypes, array $functionUseImportTypes, ?string $namespaceName) : array
     {
         $newUses = [];
         foreach ($useImportTypes as $useImportType) {
@@ -111,10 +110,7 @@ final class UseImportsAdder
         }
         return $newUses;
     }
-    /**
-     * @return string|null
-     */
-    private function getNamespaceName(\PhpParser\Node\Stmt\Namespace_ $namespace)
+    private function getNamespaceName(\PhpParser\Node\Stmt\Namespace_ $namespace) : ?string
     {
         if ($namespace->name === null) {
             return null;

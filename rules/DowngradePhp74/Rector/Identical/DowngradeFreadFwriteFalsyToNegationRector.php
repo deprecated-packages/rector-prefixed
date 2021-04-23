@@ -41,9 +41,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $compareValue = $this->getCompareValue($node);
         if (!$compareValue instanceof \PhpParser\Node\Expr) {
@@ -54,10 +53,7 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\BooleanNot($this->getFunction($node));
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    private function getCompareValue(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr
     {
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall && $this->isNames($identical->left, self::FUNC_FREAD_FWRITE)) {
             return $identical->right;

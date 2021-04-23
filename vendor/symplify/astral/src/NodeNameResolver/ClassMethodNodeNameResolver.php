@@ -14,9 +14,8 @@ final class ClassMethodNodeNameResolver implements \RectorPrefix20210423\Symplif
     }
     /**
      * @param ClassMethod $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         return $node->name->toString();
     }

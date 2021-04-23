@@ -155,10 +155,7 @@ final class ComposerJson
     {
         $this->require = $this->sortPackagesIfNeeded($require);
     }
-    /**
-     * @return string|null
-     */
-    public function getVersion()
+    public function getVersion() : ?string
     {
         return $this->version;
     }
@@ -176,10 +173,7 @@ final class ComposerJson
     {
         return $this->require;
     }
-    /**
-     * @return string|null
-     */
-    public function getRequirePhpVersion()
+    public function getRequirePhpVersion() : ?string
     {
         return $this->require[self::PHP] ?? null;
     }
@@ -301,17 +295,11 @@ final class ComposerJson
     {
         $this->minimumStability = null;
     }
-    /**
-     * @return string|null
-     */
-    public function getMinimumStability()
+    public function getMinimumStability() : ?string
     {
         return $this->minimumStability;
     }
-    /**
-     * @return bool|null
-     */
-    public function getPreferStable()
+    public function getPreferStable() : ?bool
     {
         return $this->preferStable;
     }
@@ -344,17 +332,11 @@ final class ComposerJson
     {
         $this->extra = $extra;
     }
-    /**
-     * @return string|null
-     */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
-    /**
-     * @return string|null
-     */
-    public function getVendorName()
+    public function getVendorName() : ?string
     {
         if ($this->name === null) {
             return null;
@@ -362,10 +344,7 @@ final class ComposerJson
         list($vendor) = \explode('/', $this->name);
         return $vendor;
     }
-    /**
-     * @return string|null
-     */
-    public function getShortName()
+    public function getShortName() : ?string
     {
         if ($this->name === null) {
             return null;
@@ -445,10 +424,7 @@ final class ComposerJson
     {
         $this->description = $description;
     }
-    /**
-     * @return string|null
-     */
-    public function getDescription()
+    public function getDescription() : ?string
     {
         return $this->description;
     }
@@ -600,10 +576,7 @@ final class ComposerJson
             $this->addRequiredDevPackage($newPackageName, $targetVersion);
         }
     }
-    /**
-     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
-     */
-    public function getFileInfo()
+    public function getFileInfo() : ?\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }
@@ -671,9 +644,8 @@ final class ComposerJson
     }
     /**
      * @api
-     * @return string|null
      */
-    public function getType()
+    public function getType() : ?string
     {
         return $this->type;
     }

@@ -34,10 +34,8 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
     protected $originalContent;
     /**
      * @param mixed[] $values
-     * @param string|null $originalContent
-     * @param string|null $silentKey
      */
-    public function __construct(array $values = [], $originalContent = null, $silentKey = null)
+    public function __construct(array $values = [], ?string $originalContent = null, ?string $silentKey = null)
     {
         $this->values = $values;
         $this->originalContent = $originalContent;

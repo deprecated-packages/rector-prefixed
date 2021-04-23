@@ -173,10 +173,7 @@ class DebugClassLoader
         }
         return \true;
     }
-    /**
-     * @return string|null
-     */
-    public function findFile(string $class)
+    public function findFile(string $class) : ?string
     {
         return $this->isFinder ? $this->classLoader[0]->findFile($class) ?: null : null;
     }
@@ -473,10 +470,7 @@ class DebugClassLoader
         }
         return $deprecations;
     }
-    /**
-     * @return mixed[]|null
-     */
-    public function checkCase(\ReflectionClass $refl, string $file, string $class)
+    public function checkCase(\ReflectionClass $refl, string $file, string $class) : ?array
     {
         $real = \explode('\\', $class . \strrchr($file, '.'));
         $tail = \explode(\DIRECTORY_SEPARATOR, \str_replace('/', \DIRECTORY_SEPARATOR, $file));
@@ -563,9 +557,8 @@ class DebugClassLoader
      * `class_implements` includes interfaces from the parents so we have to manually exclude them.
      *
      * @return string[]
-     * @param string|null $parent
      */
-    private function getOwnInterfaces(string $class, $parent) : array
+    private function getOwnInterfaces(string $class, ?string $parent) : array
     {
         $ownInterfaces = \class_implements($class, \false);
         if ($parent) {
@@ -581,10 +574,9 @@ class DebugClassLoader
         return $ownInterfaces;
     }
     /**
-     * @param string|null $parent
      * @return void
      */
-    private function setReturnType(string $types, \ReflectionMethod $method, $parent)
+    private function setReturnType(string $types, \ReflectionMethod $method, ?string $parent)
     {
         $nullable = \false;
         $typesMap = [];
@@ -643,10 +635,7 @@ class DebugClassLoader
         }
         self::$returnTypes[$method->class][$method->name] = [$normalizedType, $returnType, $method->class, $method->getFileName()];
     }
-    /**
-     * @param string|null $parent
-     */
-    private function normalizeType(string $type, string $class, $parent) : string
+    private function normalizeType(string $type, string $class, ?string $parent) : string
     {
         if (isset(self::SPECIAL_RETURN_TYPES[$lcType = \strtolower($type)])) {
             if ('parent' === ($lcType = self::SPECIAL_RETURN_TYPES[$lcType])) {

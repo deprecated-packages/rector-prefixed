@@ -57,9 +57,8 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->else === null) {
             return null;
@@ -100,9 +99,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt[] $stmts
-     * @return \PhpParser\Node\Expr|null
      */
-    private function resolveOnlyStmtAssignVar(array $stmts)
+    private function resolveOnlyStmtAssignVar(array $stmts) : ?\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;
@@ -115,9 +113,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt[] $stmts
-     * @return \PhpParser\Node\Expr|null
      */
-    private function resolveOnlyStmtAssignExpr(array $stmts)
+    private function resolveOnlyStmtAssignExpr(array $stmts) : ?\PhpParser\Node\Expr
     {
         if (\count($stmts) !== 1) {
             return null;

@@ -52,9 +52,8 @@ CODE_SAMPLE
     }
     /**
      * @param StaticCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectType($node->class, new \PHPStan\Type\ObjectType('PHPExcel_Cell'))) {
             return null;

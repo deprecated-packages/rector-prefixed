@@ -62,10 +62,7 @@ final class AssignAndBinaryMap
     {
         $this->binaryOpToAssignClasses = \array_flip(self::ASSIGN_OP_TO_BINARY_OP_CLASSES);
     }
-    /**
-     * @return string|null
-     */
-    public function getAlternative(\PhpParser\Node $node)
+    public function getAlternative(\PhpParser\Node $node) : ?string
     {
         $nodeClass = \get_class($node);
         if ($node instanceof \PhpParser\Node\Expr\AssignOp) {
@@ -76,10 +73,7 @@ final class AssignAndBinaryMap
         }
         return null;
     }
-    /**
-     * @return string|null
-     */
-    public function getInversed(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    public function getInversed(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?string
     {
         $nodeClass = \get_class($binaryOp);
         return self::BINARY_OP_TO_INVERSE_CLASSES[$nodeClass] ?? null;

@@ -61,9 +61,9 @@ final class InvalidNameNodeReporter
     }
     /**
      * @param mixed[] $backtrace
-     * @return mixed[]|null
+     * @return string[]|null
      */
-    private function matchRectorBacktraceCall(array $backtrace)
+    private function matchRectorBacktraceCall(array $backtrace) : ?array
     {
         foreach ($backtrace as $singleBacktrace) {
             if (!isset($singleBacktrace['object'])) {

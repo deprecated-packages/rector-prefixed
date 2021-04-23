@@ -90,9 +90,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $inferredType = $this->propertyTypeInferer->inferProperty($node);
         if ($inferredType instanceof \PHPStan\Type\UnionType) {

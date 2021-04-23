@@ -30,9 +30,8 @@ class IpUtils
      * @param string|array $ips List of IPs or subnets (can be a string if only a single one)
      *
      * @return bool Whether the IP is valid
-     * @param string|null $requestIp
      */
-    public static function checkIp($requestIp, $ips)
+    public static function checkIp(?string $requestIp, $ips)
     {
         if (!\is_array($ips)) {
             $ips = [$ips];
@@ -52,9 +51,8 @@ class IpUtils
      * @param string $ip IPv4 address or subnet in CIDR notation
      *
      * @return bool Whether the request IP matches the IP, or whether the request IP is within the CIDR subnet
-     * @param string|null $requestIp
      */
-    public static function checkIp4($requestIp, string $ip)
+    public static function checkIp4(?string $requestIp, string $ip)
     {
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
@@ -93,9 +91,8 @@ class IpUtils
      * @return bool Whether the IP is valid
      *
      * @throws \RuntimeException When IPV6 support is not enabled
-     * @param string|null $requestIp
      */
-    public static function checkIp6($requestIp, string $ip)
+    public static function checkIp6(?string $requestIp, string $ip)
     {
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {

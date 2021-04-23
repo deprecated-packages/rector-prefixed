@@ -66,9 +66,8 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->cases) !== 1) {
             return null;

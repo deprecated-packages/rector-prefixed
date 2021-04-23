@@ -47,9 +47,8 @@ CODE_SAMPLE
     }
     /**
      * @param Identical $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $variable = null;
         if ($node->left instanceof \PhpParser\Node\Expr\FuncCall) {

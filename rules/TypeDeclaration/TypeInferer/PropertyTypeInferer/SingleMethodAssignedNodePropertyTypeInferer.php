@@ -60,10 +60,7 @@ final class SingleMethodAssignedNodePropertyTypeInferer implements \Rector\TypeD
     {
         return 750;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function resolveAssignedNodeToProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName)
+    private function resolveAssignedNodeToProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName) : ?\PhpParser\Node\Expr
     {
         $assignedNode = null;
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedNode) : ?int {

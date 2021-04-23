@@ -115,9 +115,8 @@ class Finder implements \IteratorAggregate, \Countable
     }
     /**
      * Converts Finder pattern to regular expression.
-     * @return string|null
      */
-    private static function buildPattern(array $masks)
+    private static function buildPattern(array $masks) : ?string
     {
         $pattern = [];
         foreach ($masks as $mask) {

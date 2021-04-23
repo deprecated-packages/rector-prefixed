@@ -21,11 +21,7 @@ final class ArgumentFuncCallToMethodCall
      * @var string|null
      */
     private $methodIfArgs;
-    /**
-     * @param string|null $methodIfArgs
-     * @param string|null $methodIfNoArgs
-     */
-    public function __construct(string $function, string $class, $methodIfArgs = null, $methodIfNoArgs = null)
+    public function __construct(string $function, string $class, ?string $methodIfArgs = null, ?string $methodIfNoArgs = null)
     {
         $this->function = $function;
         $this->class = $class;
@@ -40,17 +36,11 @@ final class ArgumentFuncCallToMethodCall
     {
         return $this->class;
     }
-    /**
-     * @return string|null
-     */
-    public function getMethodIfNoArgs()
+    public function getMethodIfNoArgs() : ?string
     {
         return $this->methodIfNoArgs;
     }
-    /**
-     * @return string|null
-     */
-    public function getMethodIfArgs()
+    public function getMethodIfArgs() : ?string
     {
         return $this->methodIfArgs;
     }

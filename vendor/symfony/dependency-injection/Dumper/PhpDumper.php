@@ -616,10 +616,7 @@ EOF;
         }
         return \true;
     }
-    /**
-     * @param string|null $sharedNonLazyId
-     */
-    private function addServiceMethodCalls(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, string $variableName, $sharedNonLazyId) : string
+    private function addServiceMethodCalls(\RectorPrefix20210423\Symfony\Component\DependencyInjection\Definition $definition, string $variableName, ?string $sharedNonLazyId) : string
     {
         $lastWitherIndex = null;
         foreach ($definition->getMethodCalls() as $k => $call) {
@@ -1849,10 +1846,7 @@ EOF;
         }
         return $export;
     }
-    /**
-     * @return string|null
-     */
-    private function getAutoloadFile()
+    private function getAutoloadFile() : ?string
     {
         $file = null;
         foreach (\spl_autoload_functions() as $autoloader) {

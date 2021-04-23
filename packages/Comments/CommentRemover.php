@@ -23,9 +23,9 @@ final class CommentRemover
     }
     /**
      * @param Node[]|Node|null $node
-     * @return mixed[]|null
+     * @return Node[]|null
      */
-    public function removeFromNode($node)
+    public function removeFromNode($node) : ?array
     {
         if ($node === null) {
             return null;

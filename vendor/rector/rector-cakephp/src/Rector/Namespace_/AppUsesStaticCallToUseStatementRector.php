@@ -53,9 +53,8 @@ CODE_SAMPLE
     }
     /**
      * @param FileWithoutNamespace|Namespace_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $appUsesStaticCalls = $this->collectAppUseStaticCalls($node);
         if ($appUsesStaticCalls === []) {
@@ -102,9 +101,8 @@ CODE_SAMPLE
     }
     /**
      * @param Use_[] $uses
-     * @return \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace|null
      */
-    private function refactorFile(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses)
+    private function refactorFile(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace, array $uses) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         $hasNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileWithoutNamespace, \PhpParser\Node\Stmt\Namespace_::class);
         // already handled above

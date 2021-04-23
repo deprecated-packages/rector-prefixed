@@ -14,9 +14,8 @@ final class NamespaceNodeNameResolver implements \RectorPrefix20210423\Symplify\
     }
     /**
      * @param Namespace_ $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if ($node->name === null) {
             return null;

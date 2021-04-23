@@ -33,10 +33,7 @@ final class ExpectExceptionMessageRegExpFactory
         $this->nodeComparator = $nodeComparator;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable)
+    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertContains')) {
             return null;

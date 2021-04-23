@@ -90,9 +90,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
@@ -116,10 +115,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    private function processNew(\PhpParser\Node\Expr\New_ $new)
+    private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;

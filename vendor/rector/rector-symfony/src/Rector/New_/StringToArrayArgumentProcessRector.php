@@ -56,9 +56,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
         if ($this->isObjectType($expr, new \PHPStan\Type\ObjectType('Symfony\\Component\\Process\\Process'))) {
@@ -71,9 +70,8 @@ CODE_SAMPLE
     }
     /**
      * @param New_|MethodCall $node
-     * @return \PhpParser\Node|null
      */
-    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition)
+    private function processArgumentPosition(\PhpParser\Node $node, int $argumentPosition) : ?\PhpParser\Node
     {
         if (!isset($node->args[$argumentPosition])) {
             return null;
@@ -141,10 +139,7 @@ CODE_SAMPLE
             $assign->expr = $arrayNode;
         }
     }
-    /**
-     * @return \PhpParser\Node\Expr\Assign|null
-     */
-    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr)
+    private function findPreviousNodeAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : ?\PhpParser\Node\Expr\Assign
     {
         /** @var Assign|null $assign */
         $assign = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $checkedNode) use($firstArgumentExpr) : ?Assign {

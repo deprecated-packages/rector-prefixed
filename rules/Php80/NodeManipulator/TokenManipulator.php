@@ -232,10 +232,7 @@ final class TokenManipulator
         }
         return $this->valueResolver->isValue($arrayDimFetch->dim, $value);
     }
-    /**
-     * @return \Rector\Php80\ValueObject\ArrayDimFetchAndConstFetch|null
-     */
-    private function matchArrayDimFetchAndConstFetch(\PhpParser\Node\Expr\BinaryOp\Identical $identical)
+    private function matchArrayDimFetchAndConstFetch(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\Rector\Php80\ValueObject\ArrayDimFetchAndConstFetch
     {
         if ($identical->left instanceof \PhpParser\Node\Expr\ArrayDimFetch && $identical->right instanceof \PhpParser\Node\Expr\ConstFetch) {
             return new \Rector\Php80\ValueObject\ArrayDimFetchAndConstFetch($identical->left, $identical->right);

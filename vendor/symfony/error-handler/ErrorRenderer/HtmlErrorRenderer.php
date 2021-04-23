@@ -154,10 +154,7 @@ class HtmlErrorRenderer implements \RectorPrefix20210423\Symfony\Component\Error
         $short = \array_pop($parts);
         return \sprintf('<abbr title="%s">%s</abbr>', $class, $short);
     }
-    /**
-     * @return string|null
-     */
-    private function getFileRelative(string $file)
+    private function getFileRelative(string $file) : ?string
     {
         $file = \str_replace('\\', '/', $file);
         if (null !== $this->projectDir && 0 === \strpos($file, $this->projectDir)) {

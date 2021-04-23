@@ -320,9 +320,8 @@ class FlattenException
     }
     /**
      * @return $this
-     * @param string|null $asString
      */
-    public function setAsString($asString)
+    public function setAsString(?string $asString)
     {
         $this->asString = $asString;
         return $this;

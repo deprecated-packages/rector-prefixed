@@ -18,10 +18,7 @@ final class AffectedFilesCollector
         $smartFileInfo = $file->getSmartFileInfo();
         $this->affectedFiles[$smartFileInfo->getRealPath()] = $file;
     }
-    /**
-     * @return \Rector\Core\ValueObject\Application\File|null
-     */
-    public function getNext()
+    public function getNext() : ?\Rector\Core\ValueObject\Application\File
     {
         if ($this->affectedFiles !== []) {
             return \current($this->affectedFiles);

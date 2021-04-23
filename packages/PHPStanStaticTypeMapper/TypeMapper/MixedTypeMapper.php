@@ -27,10 +27,8 @@ final class MixedTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     }
     /**
      * @param MixedType $type
-     * @param string|null $kind
-     * @return \PhpParser\Node|null
      */
-    public function mapToPhpParserNode(\PHPStan\Type\Type $type, $kind = null)
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         return null;
     }

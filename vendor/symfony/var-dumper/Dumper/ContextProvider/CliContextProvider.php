@@ -17,10 +17,7 @@ namespace RectorPrefix20210423\Symfony\Component\VarDumper\Dumper\ContextProvide
  */
 final class CliContextProvider implements \RectorPrefix20210423\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
-    /**
-     * @return mixed[]|null
-     */
-    public function getContext()
+    public function getContext() : ?array
     {
         if ('cli' !== \PHP_SAPI) {
             return null;

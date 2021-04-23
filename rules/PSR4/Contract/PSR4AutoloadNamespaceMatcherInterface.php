@@ -7,8 +7,5 @@ use PhpParser\Node;
 use Rector\Core\ValueObject\Application\File;
 interface PSR4AutoloadNamespaceMatcherInterface
 {
-    /**
-     * @return string|null
-     */
-    public function getExpectedNamespace(\Rector\Core\ValueObject\Application\File $file, \PhpParser\Node $node);
+    public function getExpectedNamespace(\Rector\Core\ValueObject\Application\File $file, \PhpParser\Node $node) : ?string;
 }

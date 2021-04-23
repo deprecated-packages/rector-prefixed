@@ -18,9 +18,8 @@ final class IdentifierNodeNameResolver implements \RectorPrefix20210423\Symplify
     }
     /**
      * @param Identifier|Name $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         return (string) $node;
     }

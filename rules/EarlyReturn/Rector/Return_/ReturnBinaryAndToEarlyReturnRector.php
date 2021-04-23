@@ -71,9 +71,8 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;

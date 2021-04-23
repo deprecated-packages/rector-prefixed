@@ -50,10 +50,9 @@ final class VariableRenamer
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike
-     * @param \PhpParser\Node\Expr\Assign|null $assign
      * @return void
      */
-    public function renameVariableInFunctionLike(\PhpParser\Node\FunctionLike $functionLike, $assign = null, string $oldName, string $expectedName)
+    public function renameVariableInFunctionLike(\PhpParser\Node\FunctionLike $functionLike, ?\PhpParser\Node\Expr\Assign $assign = null, string $oldName, string $expectedName)
     {
         $isRenamingActive = \false;
         if ($assign === null) {
@@ -100,10 +99,7 @@ final class VariableRenamer
         }
         return \false;
     }
-    /**
-     * @return \PhpParser\Node\Expr\Variable|null
-     */
-    private function renameVariableIfMatchesName(\PhpParser\Node\Expr\Variable $variable, string $oldName, string $expectedName)
+    private function renameVariableIfMatchesName(\PhpParser\Node\Expr\Variable $variable, string $oldName, string $expectedName) : ?\PhpParser\Node\Expr\Variable
     {
         if (!$this->nodeNameResolver->isName($variable, $oldName)) {
             return null;

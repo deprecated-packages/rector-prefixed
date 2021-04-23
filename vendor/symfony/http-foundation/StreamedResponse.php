@@ -103,9 +103,8 @@ class StreamedResponse extends \RectorPrefix20210423\Symfony\Component\HttpFound
      * @throws \LogicException when the content is not null
      *
      * @return $this
-     * @param string|null $content
      */
-    public function setContent($content)
+    public function setContent(?string $content)
     {
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a StreamedResponse instance.');

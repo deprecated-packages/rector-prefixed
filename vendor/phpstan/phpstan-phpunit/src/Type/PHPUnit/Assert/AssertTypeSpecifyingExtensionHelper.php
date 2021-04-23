@@ -68,7 +68,7 @@ class AssertTypeSpecifyingExtensionHelper
      * @param \PhpParser\Node\Arg[] $args
      * @return \PhpParser\Node\Expr|null
      */
-    private static function createExpression(\PHPStan\Analyser\Scope $scope, string $name, array $args)
+    private static function createExpression(\PHPStan\Analyser\Scope $scope, string $name, array $args) : ?\PhpParser\Node\Expr
     {
         $trimmedName = self::trimName($name);
         $resolvers = self::getExpressionResolvers();

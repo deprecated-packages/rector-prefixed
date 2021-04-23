@@ -76,10 +76,7 @@ final class PhpDocInfoFactory
         }
         return $this->createEmpty($node);
     }
-    /**
-     * @return \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo|null
-     */
-    public function createFromNode(\PhpParser\Node $node)
+    public function createFromNode(\PhpParser\Node $node) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         $objectHash = \spl_object_hash($node);
         if (isset($this->phpDocInfosByObjectHash[$objectHash])) {

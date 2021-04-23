@@ -28,10 +28,7 @@ final class IsArrayAndDualCheckToAble
         $this->nodeNameResolver = $nodeNameResolver;
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-    /**
-     * @return \PhpParser\Node\Expr\FuncCall|null
-     */
-    public function processBooleanOr(\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, string $type, string $newMethodName)
+    public function processBooleanOr(\PhpParser\Node\Expr\BinaryOp\BooleanOr $booleanOr, string $type, string $newMethodName) : ?\PhpParser\Node\Expr\FuncCall
     {
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($booleanOr, \PhpParser\Node\Expr\Instanceof_::class, \PhpParser\Node\Expr\FuncCall::class);
         if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {

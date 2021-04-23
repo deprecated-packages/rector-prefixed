@@ -57,9 +57,8 @@ final class DowngradePregUnmatchedAsNullConstantRector extends \Rector\Core\Rect
     }
     /**
      * @param FuncCall|ClassConst $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             return $this->processsClassConst($node);
@@ -164,10 +163,9 @@ CODE_SAMPLE
         return \in_array($expr->if->value, self::REGEX_FUNCTION_NAMES, \true) && \in_array($expr->else->value, self::REGEX_FUNCTION_NAMES, \true);
     }
     /**
-     * @param \PhpParser\Node\Expr|null $expr
      * @return void
      */
-    private function cleanBitWiseOrFlags(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr, $expr = null)
+    private function cleanBitWiseOrFlags(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\BinaryOp\BitwiseOr $bitwiseOr, ?\PhpParser\Node\Expr $expr = null)
     {
         if ($bitwiseOr->left instanceof \PhpParser\Node\Expr\BinaryOp\BitwiseOr) {
             /** @var BitwiseOr $leftLeft */

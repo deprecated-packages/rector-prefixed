@@ -21,10 +21,7 @@ final class ComposerNamespaceMatcher
         $this->smartFileSystem = $smartFileSystem;
         $this->composerJsonFactory = $composerJsonFactory;
     }
-    /**
-     * @return string|null
-     */
-    public function matchNamespaceForLocation(string $path)
+    public function matchNamespaceForLocation(string $path) : ?string
     {
         $composerJsonFilePath = \getcwd() . '/composer.json';
         if (!$this->smartFileSystem->exists($composerJsonFilePath)) {

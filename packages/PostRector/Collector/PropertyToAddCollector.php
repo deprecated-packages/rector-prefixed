@@ -48,10 +48,9 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         return $this->constantsByClass !== [];
     }
     /**
-     * @param \PHPStan\Type\Type|null $propertyType
      * @return void
      */
-    public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $propertyName, $propertyType, int $propertyFlags)
+    public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $propertyName, ?\PHPStan\Type\Type $propertyType, int $propertyFlags)
     {
         $uniqueHash = \spl_object_hash($class);
         $this->propertiesByClass[$uniqueHash][] = new \Rector\PostRector\ValueObject\PropertyMetadata($propertyName, $propertyType, $propertyFlags);
@@ -66,10 +65,9 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
     /**
-     * @param \PHPStan\Type\Type|null $propertyType
      * @return void
      */
-    public function addPropertyWithoutConstructorToClass(string $propertyName, $propertyType, \PhpParser\Node\Stmt\Class_ $class)
+    public function addPropertyWithoutConstructorToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class)
     {
         $this->propertiesWithoutConstructorByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
         $this->rectorChangeCollector->notifyNodeFileInfo($class);

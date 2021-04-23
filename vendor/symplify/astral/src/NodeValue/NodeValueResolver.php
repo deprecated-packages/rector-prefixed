@@ -94,10 +94,7 @@ final class NodeValueResolver
         $reflectionClassConstant = new \ReflectionClassConstant($className, $constantName);
         return $reflectionClassConstant->getValue();
     }
-    /**
-     * @return string|null
-     */
-    private function resolveMagicConst(\PhpParser\Node\Scalar\MagicConst $magicConst)
+    private function resolveMagicConst(\PhpParser\Node\Scalar\MagicConst $magicConst) : ?string
     {
         if ($magicConst instanceof \PhpParser\Node\Scalar\MagicConst\Dir) {
             return \dirname($this->currentFilePath);

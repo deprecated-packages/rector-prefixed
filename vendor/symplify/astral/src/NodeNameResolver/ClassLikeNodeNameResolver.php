@@ -14,9 +14,8 @@ final class ClassLikeNodeNameResolver implements \RectorPrefix20210423\Symplify\
     }
     /**
      * @param ClassLike $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if (\property_exists($node, 'namespacedName')) {
             return (string) $node->namespacedName;

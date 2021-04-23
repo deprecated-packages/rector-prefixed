@@ -22,10 +22,7 @@ final class ExpectExceptionFactory
         $this->nodeNameResolver = $nodeNameResolver;
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
-    /**
-     * @return \PhpParser\Node\Expr\MethodCall|null
-     */
-    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable)
+    public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\MethodCall
     {
         if (!$this->testsNodeAnalyzer->isInPHPUnitMethodCallName($methodCall, 'assertInstanceOf')) {
             return null;

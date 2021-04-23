@@ -37,10 +37,7 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     {
         return 800;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    public function enterNode(\PhpParser\Node $node)
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->nodesToRemoveCollector->isActive()) {
             return null;
@@ -121,10 +118,7 @@ CODE_SAMPLE
         $methodName = $this->nodeNameResolver->getName($mainMethodCall->name);
         return $methodName !== null;
     }
-    /**
-     * @return \PhpParser\Node|null
-     */
-    private function removePartOfBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp)
+    private function removePartOfBinaryOp(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node
     {
         // handle left/right binary remove, e.g. "true && false" → remove false → "true"
         foreach ($this->nodesToRemoveCollector->getNodesToRemove() as $key => $nodeToRemove) {

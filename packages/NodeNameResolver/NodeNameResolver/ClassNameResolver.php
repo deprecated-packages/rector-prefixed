@@ -31,9 +31,8 @@ final class ClassNameResolver implements \Rector\NodeNameResolver\Contract\NodeN
     }
     /**
      * @param Class_ $node
-     * @return string|null
      */
-    public function resolve(\PhpParser\Node $node)
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         if (\property_exists($node, 'namespacedName')) {
             return $node->namespacedName->toString();

@@ -18,10 +18,7 @@ final class ConstantNameAndValueMatcher
     {
         $this->valueResolver = $valueResolver;
     }
-    /**
-     * @return \Rector\Symfony\ValueObject\ConstantNameAndValue|null
-     */
-    public function matchFromArg(\PhpParser\Node\Arg $arg, string $prefixForNumeric)
+    public function matchFromArg(\PhpParser\Node\Arg $arg, string $prefixForNumeric) : ?\Rector\Symfony\ValueObject\ConstantNameAndValue
     {
         if ($arg->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return null;

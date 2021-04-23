@@ -60,9 +60,8 @@ CODE_SAMPLE
     }
     /**
      * @param Property $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipProperty($node)) {
             return null;
@@ -141,9 +140,8 @@ CODE_SAMPLE
      * Matches:
      * $this-><someProprety> === null
      * null === $this-><someProprety>
-     * @return string|null
      */
-    private function matchPropertyFetchNameComparedToNull(\PhpParser\Node $node)
+    private function matchPropertyFetchNameComparedToNull(\PhpParser\Node $node) : ?string
     {
         if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && !$node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return null;

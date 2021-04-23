@@ -56,10 +56,7 @@ final class ArrayManipulator
         }
         $array->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Array_([$newArrayItem]), new \PhpParser\Node\Scalar\String_($key));
     }
-    /**
-     * @return \PhpParser\Node\Expr\ArrayItem|null
-     */
-    public function findItemInInArrayByKeyAndUnset(\PhpParser\Node\Expr\Array_ $array, string $keyName)
+    public function findItemInInArrayByKeyAndUnset(\PhpParser\Node\Expr\Array_ $array, string $keyName) : ?\PhpParser\Node\Expr\ArrayItem
     {
         foreach ($array->items as $i => $item) {
             if ($item === null) {

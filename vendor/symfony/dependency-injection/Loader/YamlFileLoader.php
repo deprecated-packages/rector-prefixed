@@ -555,9 +555,8 @@ class YamlFileLoader extends \RectorPrefix20210423\Symfony\Component\DependencyI
      * Validates a YAML file.
      *
      * @throws InvalidArgumentException When service file is not valid
-     * @return mixed[]|null
      */
-    private function validate($content, string $file)
+    private function validate($content, string $file) : ?array
     {
         if (null === $content) {
             return $content;

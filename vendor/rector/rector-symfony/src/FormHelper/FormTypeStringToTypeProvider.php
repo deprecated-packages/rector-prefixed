@@ -24,10 +24,7 @@ final class FormTypeStringToTypeProvider
     {
         $this->serviceMapProvider = $serviceMapProvider;
     }
-    /**
-     * @return string|null
-     */
-    public function matchClassForNameWithPrefix(string $name)
+    public function matchClassForNameWithPrefix(string $name) : ?string
     {
         $nameToTypeMap = $this->getNameToTypeMap();
         if (\RectorPrefix20210423\Nette\Utils\Strings::startsWith($name, 'form.type.')) {

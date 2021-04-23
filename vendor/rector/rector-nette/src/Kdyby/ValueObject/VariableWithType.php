@@ -26,7 +26,7 @@ final class VariableWithType
     /**
      * @param Identifier|Name|NullableType|UnionType|null $phpParserTypeNode
      */
-    public function __construct(string $name, \PHPStan\Type\Type $staticType, $phpParserTypeNode)
+    public function __construct(string $name, \PHPStan\Type\Type $staticType, ?\PhpParser\Node $phpParserTypeNode)
     {
         $this->name = $name;
         $this->type = $staticType;
@@ -41,9 +41,9 @@ final class VariableWithType
         return $this->type;
     }
     /**
-     * @return \PhpParser\Node|null
+     * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getPhpParserTypeNode()
+    public function getPhpParserTypeNode() : ?\PhpParser\Node
     {
         return $this->phpParserTypeNode;
     }

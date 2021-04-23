@@ -85,10 +85,9 @@ final class ClassDependencyManipulator
         }
     }
     /**
-     * @param \PHPStan\Type\Type|null $type
      * @return void
      */
-    public function addConstructorDependencyWithCustomAssign(\PhpParser\Node\Stmt\Class_ $class, string $name, $type, \PhpParser\Node\Expr\Assign $assign)
+    public function addConstructorDependencyWithCustomAssign(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign)
     {
         /** @var ClassMethod|null $constructorMethod */
         $constructorMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);

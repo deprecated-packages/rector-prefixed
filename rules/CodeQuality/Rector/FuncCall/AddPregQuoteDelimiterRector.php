@@ -42,9 +42,8 @@ CODE_SAMPLE
     }
     /**
      * @param FuncCall $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'preg_quote')) {
             return null;
@@ -60,10 +59,7 @@ CODE_SAMPLE
         $node->args[1] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($delimiter));
         return $node;
     }
-    /**
-     * @return string|null
-     */
-    private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall) : ?string
     {
         $concat = $this->getUppermostConcat($funcCall);
         if (!$concat instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
@@ -90,10 +86,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    /**
-     * @return \PhpParser\Node\Expr\BinaryOp\Concat|null
-     */
-    private function getUppermostConcat(\PhpParser\Node\Expr\FuncCall $funcCall)
+    private function getUppermostConcat(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\BinaryOp\Concat
     {
         $upperMostConcat = null;
         $parent = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

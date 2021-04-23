@@ -20,10 +20,7 @@ abstract class GenericLanguageInflectorFactory implements \RectorPrefix20210423\
     {
         return new \RectorPrefix20210423\Doctrine\Inflector\Inflector(new \RectorPrefix20210423\Doctrine\Inflector\CachedWordInflector(new \RectorPrefix20210423\Doctrine\Inflector\RulesetInflector(...$this->singularRulesets)), new \RectorPrefix20210423\Doctrine\Inflector\CachedWordInflector(new \RectorPrefix20210423\Doctrine\Inflector\RulesetInflector(...$this->pluralRulesets)));
     }
-    /**
-     * @param \Doctrine\Inflector\Rules\Ruleset|null $singularRules
-     */
-    public final function withSingularRules($singularRules, bool $reset = \false) : self
+    public final function withSingularRules(?\RectorPrefix20210423\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : self
     {
         if ($reset) {
             $this->singularRulesets = [];
@@ -33,10 +30,7 @@ abstract class GenericLanguageInflectorFactory implements \RectorPrefix20210423\
         }
         return $this;
     }
-    /**
-     * @param \Doctrine\Inflector\Rules\Ruleset|null $pluralRules
-     */
-    public final function withPluralRules($pluralRules, bool $reset = \false) : self
+    public final function withPluralRules(?\RectorPrefix20210423\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : self
     {
         if ($reset) {
             $this->pluralRulesets = [];

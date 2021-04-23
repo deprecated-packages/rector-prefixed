@@ -32,9 +32,8 @@ class AcceptHeaderItem
      * Builds an AcceptHeaderInstance instance from a string.
      *
      * @return self
-     * @param string|null $itemValue
      */
-    public static function fromString($itemValue)
+    public static function fromString(?string $itemValue)
     {
         $parts = \RectorPrefix20210423\Symfony\Component\HttpFoundation\HeaderUtils::split($itemValue ?? '', ';=');
         $part = \array_shift($parts);

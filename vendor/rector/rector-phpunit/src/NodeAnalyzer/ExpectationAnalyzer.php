@@ -95,10 +95,7 @@ final class ExpectationAnalyzer
         }
         return $methodCall;
     }
-    /**
-     * @return \PhpParser\Node\Expr|null
-     */
-    private function getWill(\PhpParser\Node\Expr\MethodCall $methodCall)
+    private function getWill(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
     {
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodCallNames($methodCall, self::PROCESSABLE_WILL_STATEMENTS)) {
             return null;

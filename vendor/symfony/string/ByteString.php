@@ -142,10 +142,7 @@ class ByteString extends \RectorPrefix20210423\Symfony\Component\String\Abstract
         $str->string = \strtolower($str->string);
         return $str;
     }
-    /**
-     * @return int|null
-     */
-    public function indexOf($needle, int $offset = 0)
+    public function indexOf($needle, int $offset = 0) : ?int
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;
@@ -160,10 +157,7 @@ class ByteString extends \RectorPrefix20210423\Symfony\Component\String\Abstract
         $i = $this->ignoreCase ? \stripos($this->string, $needle, $offset) : \strpos($this->string, $needle, $offset);
         return \false === $i ? null : $i;
     }
-    /**
-     * @return int|null
-     */
-    public function indexOfLast($needle, int $offset = 0)
+    public function indexOfLast($needle, int $offset = 0) : ?int
     {
         if ($needle instanceof parent) {
             $needle = $needle->string;

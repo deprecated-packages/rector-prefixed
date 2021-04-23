@@ -124,11 +124,11 @@ class Process implements \IteratorAggregate
      * @param string|null    $cwd     The working directory or null to use the working dir of the current PHP process
      * @param array|null     $env     The environment variables or null to use the same environment as the current PHP process
      * @param mixed|null     $input   The input as stream resource, scalar or \Traversable, or null for no input
-     * @param float|null $timeout The timeout in seconds or null to disable
+     * @param int|float|null $timeout The timeout in seconds or null to disable
      *
      * @throws LogicException When proc_open is not installed
      */
-    public function __construct(array $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public function __construct(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
     {
         if (!\function_exists('proc_open')) {
             throw new \RectorPrefix20210423\Symfony\Component\Process\Exception\LogicException('The Process class relies on proc_open, which is not available on your PHP installation.');
@@ -167,13 +167,13 @@ class Process implements \IteratorAggregate
      * @param string|null    $cwd     The working directory or null to use the working dir of the current PHP process
      * @param array|null     $env     The environment variables or null to use the same environment as the current PHP process
      * @param mixed|null     $input   The input as stream resource, scalar or \Traversable, or null for no input
-     * @param float|null $timeout The timeout in seconds or null to disable
+     * @param int|float|null $timeout The timeout in seconds or null to disable
      *
      * @return static
      *
      * @throws LogicException When proc_open is not installed
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
     {
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
@@ -846,7 +846,7 @@ class Process implements \IteratorAggregate
      *
      * @return float|null The last output time in seconds or null if it isn't started
      */
-    public function getLastOutputTime()
+    public function getLastOutputTime() : ?float
     {
         return $this->lastOutputTime;
     }
@@ -885,9 +885,8 @@ class Process implements \IteratorAggregate
      * @return $this
      *
      * @throws InvalidArgumentException if the timeout is negative
-     * @param float|null $timeout
      */
-    public function setTimeout($timeout)
+    public function setTimeout(?float $timeout)
     {
         $this->timeout = $this->validateTimeout($timeout);
         return $this;
@@ -901,9 +900,8 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException           if the output is disabled
      * @throws InvalidArgumentException if the timeout is negative
-     * @param float|null $timeout
      */
-    public function setIdleTimeout($timeout)
+    public function setIdleTimeout(?float $timeout)
     {
         if (null !== $timeout && $this->outputDisabled) {
             throw new \RectorPrefix20210423\Symfony\Component\Process\Exception\LogicException('Idle timeout can not be set while the output is disabled.');
@@ -1223,10 +1221,8 @@ class Process implements \IteratorAggregate
      * Validates and returns the filtered timeout.
      *
      * @throws InvalidArgumentException if the given timeout is a negative number
-     * @param float|null $timeout
-     * @return float|null
      */
-    private function validateTimeout($timeout)
+    private function validateTimeout(?float $timeout) : ?float
     {
         $timeout = (float) $timeout;
         if (0.0 === $timeout) {
@@ -1409,9 +1405,8 @@ class Process implements \IteratorAggregate
     }
     /**
      * Escapes a string to be used as a shell argument.
-     * @param string|null $argument
      */
-    private function escapeArgument($argument) : string
+    private function escapeArgument(?string $argument) : string
     {
         if ('' === $argument || null === $argument) {
             return '""';

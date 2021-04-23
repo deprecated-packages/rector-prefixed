@@ -211,9 +211,9 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $this->changedNodeAnalyzer = $changedNodeAnalyzer;
     }
     /**
-     * @return mixed[]|null
+     * @return Node[]|null
      */
-    public function beforeTraverse(array $nodes)
+    public function beforeTraverse(array $nodes) : ?array
     {
         $this->previousAppliedClass = null;
         // workaround for file around refactor()
@@ -273,10 +273,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     {
         return $this->nodeNameResolver->isNames($node, $names);
     }
-    /**
-     * @return string|null
-     */
-    protected function getName(\PhpParser\Node $node)
+    protected function getName(\PhpParser\Node $node) : ?string
     {
         return $this->nodeNameResolver->getName($node);
     }

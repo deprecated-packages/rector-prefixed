@@ -28,9 +28,8 @@ final class ObjectTypeToCallReflectionResolver implements \Rector\Core\Contract\
     }
     /**
      * @param ObjectType $type
-     * @return \PHPStan\Reflection\MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : ?\PHPStan\Reflection\MethodReflection
     {
         $className = $type->getClassName();
         if (!$this->reflectionProvider->hasClass($className)) {

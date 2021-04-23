@@ -54,9 +54,8 @@ CODE_SAMPLE
     }
     /**
      * @param ClassMethod $node
-     * @return \PhpParser\Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isObjectMethodNameMatch($node)) {
             return null;
@@ -95,9 +94,8 @@ CODE_SAMPLE
     }
     /**
      * return <$thisValue>;
-     * @return \PhpParser\Node\Expr|null
      */
-    private function resolveOnlyStmtReturnExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    private function resolveOnlyStmtReturnExpr(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
     {
         if (\count((array) $classMethod->stmts) !== 1) {
             return null;
