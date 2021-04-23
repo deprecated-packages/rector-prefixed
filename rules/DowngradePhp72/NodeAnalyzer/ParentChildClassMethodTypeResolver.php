@@ -53,7 +53,6 @@ final class ParentChildClassMethodTypeResolver
             $parameterTypesByClassName[$ancestorClassReflection->getName()] = $parameterType;
             // collect other children
             if ($ancestorClassReflection->isInterface()) {
-                // @otdo fix
                 $interfaceParameterTypesByClassName = $this->collectInterfaceImplenters($ancestorClassReflection, $methodName, $paramPosition);
                 $parameterTypesByClassName = \array_merge($parameterTypesByClassName, $interfaceParameterTypesByClassName);
             }

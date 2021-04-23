@@ -6,6 +6,7 @@ namespace Rector\DowngradePhp72\NodeAnalyzer;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
@@ -21,11 +22,12 @@ final class ClassLikeWithTraitsClassMethodResolver
         $this->nodeRepository = $nodeRepository;
     }
     /**
+     * @param Class_|Interface_ $classLike
      * @return ClassMethod[]
      */
-    public function resolve(\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolve(\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
-        $scope = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $classLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return [];
         }
@@ -35,11 +37,11 @@ final class ClassLikeWithTraitsClassMethodResolver
         }
         $classMethods = [];
         foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
-            $classLike = $this->nodeRepository->findClassLike($ancestorClassReflection->getName());
-            if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+            $ancestorClassLike = $this->nodeRepository->findClassLike($ancestorClassReflection->getName());
+            if (!$ancestorClassLike instanceof \PhpParser\Node\Stmt\ClassLike) {
                 continue;
             }
-            $classMethods = \array_merge($classMethods, $classLike->getMethods());
+            $classMethods = \array_merge($classMethods, $ancestorClassLike->getMethods());
         }
         return $classMethods;
     }

@@ -7,9 +7,9 @@ use PhpParser\Node;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp72\NodeAnalyzer\ClassLikeWithTraitsClassMethodResolver;
 use Rector\DowngradePhp72\NodeAnalyzer\ParamContravariantDetector;
@@ -93,10 +93,10 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Interface_::class];
     }
     /**
-     * @param Class_ $node
+     * @param Class_|Interface_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
@@ -114,8 +114,9 @@ CODE_SAMPLE
                 continue;
             }
             // refactor here
-            $this->refactorClassMethod($classMethod, $scope);
-            $hasChanged = \true;
+            if ($this->refactorClassMethod($classMethod, $scope) !== null) {
+                $hasChanged = \true;
+            }
         }
         if ($hasChanged) {
             return $node;
@@ -175,7 +176,9 @@ CODE_SAMPLE
         if ($classMethod->params === []) {
             return \true;
         }
-        // @todo - check for children too, maybe the type differts there
+        if ($this->paramContravariantDetector->hasChildMethod($classMethod, $classScope)) {
+            return \false;
+        }
         return !$this->paramContravariantDetector->hasParentMethod($classMethod, $classScope);
     }
     private function isEmptyClassReflection(\PHPStan\Analyser\Scope $scope) : bool
@@ -183,6 +186,9 @@ CODE_SAMPLE
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return \true;
+        }
+        if ($classReflection->isInterface()) {
+            return \false;
         }
         return \count($classReflection->getAncestors()) === 1;
     }

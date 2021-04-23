@@ -15,6 +15,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover;
 use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
+use Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,10 +31,15 @@ final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover)
+    /**
+     * @var ClassMethodParamVendorLockResolver
+     */
+    private $classMethodParamVendorLockResolver;
+    public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver)
     {
         $this->returnTagRemover = $returnTagRemover;
         $this->paramTagRemover = $paramTagRemover;
+        $this->classMethodParamVendorLockResolver = $classMethodParamVendorLockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -83,6 +89,9 @@ CODE_SAMPLE
      */
     private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
+        if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod && $this->classMethodParamVendorLockResolver->isVendorLocked($functionLike)) {
+            return;
+        }
         foreach ($functionLike->getParams() as $param) {
             if ($param->type !== null) {
                 continue;

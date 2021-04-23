@@ -144,7 +144,6 @@ final class ValueResolver
             if (!$this->isValue($node, $expectedValues[$i])) {
                 return \false;
             }
-            continue;
         }
         return \true;
     }

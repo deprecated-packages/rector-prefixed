@@ -17,6 +17,7 @@ use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\PostRector\Application\PostFileProcessor;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210423\Symfony\Component\Console\Helper\ProgressBar;
 use RectorPrefix20210423\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210423\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
@@ -190,7 +191,7 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             $error = $this->errorFactory->createAutoloadError($analysedCodeException);
             $file->addRectorError($error);
         } catch (\Throwable $throwable) {
-            if ($this->symfonyStyle->isVerbose()) {
+            if ($this->symfonyStyle->isVerbose() || \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
                 throw $throwable;
             }
             $rectorError = new \Rector\Core\ValueObject\Application\RectorError($throwable->getMessage(), $throwable->getLine());

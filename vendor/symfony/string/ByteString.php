@@ -346,14 +346,14 @@ class ByteString extends \RectorPrefix20210423\Symfony\Component\String\Abstract
         return $str;
     }
     /**
-     * @param string $fromEncoding
+     * @param string|null $fromEncoding
      */
     public function toUnicodeString($fromEncoding = null) : \RectorPrefix20210423\Symfony\Component\String\UnicodeString
     {
         return new \RectorPrefix20210423\Symfony\Component\String\UnicodeString($this->toCodePointString($fromEncoding)->string);
     }
     /**
-     * @param string $fromEncoding
+     * @param string|null $fromEncoding
      */
     public function toCodePointString($fromEncoding = null) : \RectorPrefix20210423\Symfony\Component\String\CodePointString
     {
