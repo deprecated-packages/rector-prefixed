@@ -29,7 +29,6 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Scalar\String_;
@@ -40,7 +39,6 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
-use PhpParser\Node\UnionType;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\Generic\GenericObjectType;
@@ -331,10 +329,7 @@ final class NodeFactory
     {
         return $this->createClassConstant($name, $value, \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC);
     }
-    /**
-     * @param Identifier|Name|NullableType|UnionType|null $typeNode
-     */
-    public function createGetterClassMethodFromNameAndType(string $propertyName, $typeNode) : \PhpParser\Node\Stmt\ClassMethod
+    public function createGetterClassMethod(string $propertyName, \PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\ClassMethod
     {
         $getterMethod = 'get' . \ucfirst($propertyName);
         $methodBuilder = new \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
@@ -342,8 +337,24 @@ final class NodeFactory
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
         $return = new \PhpParser\Node\Stmt\Return_($propertyFetch);
         $methodBuilder->addStmt($return);
+        $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
         if ($typeNode !== null) {
             $methodBuilder->setReturnType($typeNode);
+        }
+        return $methodBuilder->getNode();
+    }
+    public function createSetterClassMethod(string $propertyName, \PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\ClassMethod
+    {
+        $getterMethod = 'set' . \ucfirst($propertyName);
+        $variable = new \PhpParser\Node\Expr\Variable($propertyName);
+        $methodBuilder = new \RectorPrefix20210423\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
+        $methodBuilder->makePublic();
+        $methodBuilder->addParam(new \PhpParser\Node\Param($variable));
+        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
+        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $variable);
+        $methodBuilder->addStmt($assign);
+        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
+            $methodBuilder->setReturnType(new \PhpParser\Node\Name('void'));
         }
         return $methodBuilder->getNode();
     }
