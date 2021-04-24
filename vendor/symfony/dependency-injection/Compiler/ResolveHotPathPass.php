@@ -41,8 +41,9 @@ class ResolveHotPathPass extends \RectorPrefix20210424\Symfony\Component\Depende
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210424\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             return $value;
