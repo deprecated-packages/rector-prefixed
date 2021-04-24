@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
+class ComposerStaticInitfebb1830c6a616d1cb95dc99c86c8fcd
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -16,7 +16,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
     );
@@ -52,7 +51,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
             'RectorPrefix20210424\\Symplify\\ComposerJsonManipulator\\' => 54,
             'RectorPrefix20210424\\Symplify\\AutowireArrayParameter\\' => 53,
             'RectorPrefix20210424\\Symplify\\Astral\\' => 37,
-            'RectorPrefix20210424\\Symfony\\Polyfill\\Uuid\\' => 43,
             'RectorPrefix20210424\\Symfony\\Polyfill\\Php80\\' => 44,
             'RectorPrefix20210424\\Symfony\\Polyfill\\Php73\\' => 44,
             'RectorPrefix20210424\\Symfony\\Polyfill\\Mbstring\\' => 47,
@@ -63,7 +61,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
             'RectorPrefix20210424\\Symfony\\Contracts\\HttpClient\\' => 50,
             'RectorPrefix20210424\\Symfony\\Contracts\\EventDispatcher\\' => 55,
             'RectorPrefix20210424\\Symfony\\Component\\VarDumper\\' => 49,
-            'RectorPrefix20210424\\Symfony\\Component\\Uid\\' => 43,
             'RectorPrefix20210424\\Symfony\\Component\\String\\' => 46,
             'RectorPrefix20210424\\Symfony\\Component\\Process\\' => 47,
             'RectorPrefix20210424\\Symfony\\Component\\HttpKernel\\' => 50,
@@ -194,10 +191,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
         array (
             0 => __DIR__ . '/..' . '/symplify/astral/src',
         ),
-        'RectorPrefix20210424\\Symfony\\Polyfill\\Uuid\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-uuid',
-        ),
         'RectorPrefix20210424\\Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -237,10 +230,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
         'RectorPrefix20210424\\Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
-        ),
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/uid',
         ),
         'RectorPrefix20210424\\Symfony\\Component\\String\\' => 
         array (
@@ -1441,16 +1430,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
         'RectorPrefix20210424\\Symfony\\Component\\String\\Slugger\\AsciiSlugger' => __DIR__ . '/..' . '/symfony/string/Slugger/AsciiSlugger.php',
         'RectorPrefix20210424\\Symfony\\Component\\String\\Slugger\\SluggerInterface' => __DIR__ . '/..' . '/symfony/string/Slugger/SluggerInterface.php',
         'RectorPrefix20210424\\Symfony\\Component\\String\\UnicodeString' => __DIR__ . '/..' . '/symfony/string/UnicodeString.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\AbstractUid' => __DIR__ . '/..' . '/symfony/uid/AbstractUid.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\BinaryUtil' => __DIR__ . '/..' . '/symfony/uid/BinaryUtil.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\NilUuid' => __DIR__ . '/..' . '/symfony/uid/NilUuid.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\Ulid' => __DIR__ . '/..' . '/symfony/uid/Ulid.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\Uuid' => __DIR__ . '/..' . '/symfony/uid/Uuid.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\UuidV1' => __DIR__ . '/..' . '/symfony/uid/UuidV1.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\UuidV3' => __DIR__ . '/..' . '/symfony/uid/UuidV3.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\UuidV4' => __DIR__ . '/..' . '/symfony/uid/UuidV4.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\UuidV5' => __DIR__ . '/..' . '/symfony/uid/UuidV5.php',
-        'RectorPrefix20210424\\Symfony\\Component\\Uid\\UuidV6' => __DIR__ . '/..' . '/symfony/uid/UuidV6.php',
         'RectorPrefix20210424\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster' => __DIR__ . '/..' . '/symfony/var-dumper/Caster/AmqpCaster.php',
         'RectorPrefix20210424\\Symfony\\Component\\VarDumper\\Caster\\ArgsStub' => __DIR__ . '/..' . '/symfony/var-dumper/Caster/ArgsStub.php',
         'RectorPrefix20210424\\Symfony\\Component\\VarDumper\\Caster\\Caster' => __DIR__ . '/..' . '/symfony/var-dumper/Caster/Caster.php',
@@ -1541,7 +1520,6 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
         'RectorPrefix20210424\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'RectorPrefix20210424\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
         'RectorPrefix20210424\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
-        'RectorPrefix20210424\\Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
         'RectorPrefix20210424\\Symplify\\Astral\\Bundle\\AstralBundle' => __DIR__ . '/..' . '/symplify/astral/src/Bundle/AstralBundle.php',
         'RectorPrefix20210424\\Symplify\\Astral\\Contract\\NodeNameResolverInterface' => __DIR__ . '/..' . '/symplify/astral/src/Contract/NodeNameResolverInterface.php',
         'RectorPrefix20210424\\Symplify\\Astral\\DependencyInjection\\Extension\\AstralExtension' => __DIR__ . '/..' . '/symplify/astral/src/DependencyInjection/Extension/AstralExtension.php',
@@ -3402,9 +3380,9 @@ class ComposerStaticInita92a28c967239fdb56e7a47ba17c541e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita92a28c967239fdb56e7a47ba17c541e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita92a28c967239fdb56e7a47ba17c541e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita92a28c967239fdb56e7a47ba17c541e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfebb1830c6a616d1cb95dc99c86c8fcd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfebb1830c6a616d1cb95dc99c86c8fcd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfebb1830c6a616d1cb95dc99c86c8fcd::$classMap;
 
         }, null, ClassLoader::class);
     }
