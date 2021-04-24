@@ -37,8 +37,9 @@ class XmlFileLoader extends \RectorPrefix20210424\Symfony\Component\DependencyIn
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         $path = $this->locator->locate($resource);
         $xml = $this->parseFileToDOM($path);

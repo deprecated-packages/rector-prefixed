@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp72\NodeAnalyzer\ClassLikeWithTraitsClassMethodResolver;
 use Rector\DowngradePhp72\NodeAnalyzer\ParamContravariantDetector;
@@ -135,12 +136,14 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $hasChanged = \false;
-        foreach ($classMethod->params as $param) {
-            $paramPosition = (int) $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
+        foreach ($classMethod->params as $position => $param) {
+            if (!\is_int($position)) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            }
             // Resolve the types in:
             // - all ancestors + their descendant classes
             // @todo - all implemented interfaces + their implementing classes
-            $parameterTypesByParentClassLikes = $this->parentChildClassMethodTypeResolver->resolve($classReflection, $methodName, $paramPosition, $scope);
+            $parameterTypesByParentClassLikes = $this->parentChildClassMethodTypeResolver->resolve($classReflection, $methodName, $position, $scope);
             $uniqueTypes = $this->typeFactory->uniquateTypes($parameterTypesByParentClassLikes);
             if (\count($uniqueTypes) <= 1) {
                 continue;

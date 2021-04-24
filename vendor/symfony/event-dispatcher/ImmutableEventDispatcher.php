@@ -24,10 +24,11 @@ class ImmutableEventDispatcher implements \RectorPrefix20210424\Symfony\Componen
     }
     /**
      * {@inheritdoc}
+     * @param string|null $eventName
      * @param object $event
      * @return object
      */
-    public function dispatch($event, string $eventName = null)
+    public function dispatch($event, $eventName = null)
     {
         return $this->dispatcher->dispatch($event, $eventName);
     }

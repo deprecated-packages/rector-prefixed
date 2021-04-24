@@ -19,8 +19,9 @@ class GlobFileLoader extends \RectorPrefix20210424\Symfony\Component\DependencyI
 {
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         foreach ($this->glob($resource, \false, $globResource) as $path => $info) {
             $this->import($path);

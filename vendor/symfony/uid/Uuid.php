@@ -72,9 +72,8 @@ class Uuid extends \RectorPrefix20210424\Symfony\Component\Uid\AbstractUid
     }
     /**
      * @param $this $namespace
-     * @param string $name
      */
-    public static final function v3($namespace, $name) : \RectorPrefix20210424\Symfony\Component\Uid\UuidV3
+    public static final function v3($namespace, string $name) : \RectorPrefix20210424\Symfony\Component\Uid\UuidV3
     {
         // don't use uuid_generate_md5(), some versions are buggy
         $uuid = \md5(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true);
@@ -86,9 +85,8 @@ class Uuid extends \RectorPrefix20210424\Symfony\Component\Uid\AbstractUid
     }
     /**
      * @param $this $namespace
-     * @param string $name
      */
-    public static final function v5($namespace, $name) : \RectorPrefix20210424\Symfony\Component\Uid\UuidV5
+    public static final function v5($namespace, string $name) : \RectorPrefix20210424\Symfony\Component\Uid\UuidV5
     {
         // don't use uuid_generate_sha1(), some versions are buggy
         $uuid = \substr(\sha1(\hex2bin(\str_replace('-', '', $namespace->uid)) . $name, \true), 0, 16);

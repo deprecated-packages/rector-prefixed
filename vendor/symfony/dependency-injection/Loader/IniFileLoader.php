@@ -21,8 +21,9 @@ class IniFileLoader extends \RectorPrefix20210424\Symfony\Component\DependencyIn
 {
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         $path = $this->locator->locate($resource);
         $this->container->fileExists($path);

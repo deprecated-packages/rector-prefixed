@@ -45,10 +45,8 @@ class StreamedResponse extends \RectorPrefix20210424\Symfony\Component\HttpFound
      * @return static
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
-     * @param int $status
-     * @param mixed[] $headers
      */
-    public static function create($callback = null, $status = 200, $headers = [])
+    public static function create($callback = null, int $status = 200, array $headers = [])
     {
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($callback, $status, $headers);

@@ -1054,8 +1054,9 @@ class ContainerBuilder extends \RectorPrefix20210424\Symfony\Component\Dependenc
      *     }
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
+     * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds(string $name, bool $throwOnAbstract = \false)
+    public function findTaggedServiceIds(string $name, $throwOnAbstract = \false)
     {
         $this->usedTags[] = $name;
         $tags = [];

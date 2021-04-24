@@ -149,7 +149,7 @@ class ParameterBag implements \RectorPrefix20210424\Symfony\Component\Dependency
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
      */
-    public function resolveValue($value, array $resolving = [])
+    public function resolveValue($value, $resolving = [])
     {
         if (\is_array($value)) {
             $args = [];

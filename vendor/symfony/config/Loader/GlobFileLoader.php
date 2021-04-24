@@ -19,8 +19,9 @@ class GlobFileLoader extends \RectorPrefix20210424\Symfony\Component\Config\Load
 {
     /**
      * {@inheritdoc}
+     * @param string|null $type
      */
-    public function load($resource, string $type = null)
+    public function load($resource, $type = null)
     {
         return $this->import($resource);
     }

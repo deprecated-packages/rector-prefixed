@@ -62,7 +62,7 @@ class JsonResponse extends \RectorPrefix20210424\Symfony\Component\HttpFoundatio
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
      */
-    public static function create($data = null, $status = 200, $headers = [])
+    public static function create($data = null, int $status = 200, array $headers = [])
     {
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($data, $status, $headers);
