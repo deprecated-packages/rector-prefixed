@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
-use RectorPrefix20210423\Symfony\Component\Console\Input\ArgvInput;
-use RectorPrefix20210423\Symplify\SetConfigResolver\ConfigResolver;
-use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210424\Symfony\Component\Console\Input\ArgvInput;
+use RectorPrefix20210424\Symplify\SetConfigResolver\ConfigResolver;
+use RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorConfigsResolver
 {
     /**
@@ -24,12 +24,12 @@ final class RectorConfigsResolver
     public function __construct()
     {
         $this->setConfigResolver = new \Rector\Core\Bootstrap\SetConfigResolver();
-        $this->configResolver = new \RectorPrefix20210423\Symplify\SetConfigResolver\ConfigResolver();
+        $this->configResolver = new \RectorPrefix20210424\Symplify\SetConfigResolver\ConfigResolver();
     }
     /**
      * @return SmartFileInfo[]
      */
-    public function resolveFromConfigFileInfo(\RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    public function resolveFromConfigFileInfo(\RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         $hash = \sha1_file($configFileInfo->getRealPath());
         if ($hash === \false) {
@@ -45,9 +45,9 @@ final class RectorConfigsResolver
     }
     public function provide() : \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs
     {
-        $argvInput = new \RectorPrefix20210423\Symfony\Component\Console\Input\ArgvInput();
+        $argvInput = new \RectorPrefix20210424\Symfony\Component\Console\Input\ArgvInput();
         $mainConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
-        $configFileInfos = $mainConfigFileInfo instanceof \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo ? $this->resolveFromConfigFileInfo($mainConfigFileInfo) : [];
+        $configFileInfos = $mainConfigFileInfo instanceof \RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo ? $this->resolveFromConfigFileInfo($mainConfigFileInfo) : [];
         $configFileInfos = $this->appendRectorRecipeConfig($argvInput, $configFileInfos);
         return new \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
@@ -55,7 +55,7 @@ final class RectorConfigsResolver
      * @param SmartFileInfo[] $configFileInfos
      * @return SmartFileInfo[]
      */
-    private function appendRectorRecipeConfig(\RectorPrefix20210423\Symfony\Component\Console\Input\ArgvInput $argvInput, array $configFileInfos) : array
+    private function appendRectorRecipeConfig(\RectorPrefix20210424\Symfony\Component\Console\Input\ArgvInput $argvInput, array $configFileInfos) : array
     {
         if ($argvInput->getFirstArgument() !== 'generate') {
             return $configFileInfos;
@@ -63,7 +63,7 @@ final class RectorConfigsResolver
         // autoload rector recipe file if present, just for \Rector\RectorGenerator\Command\GenerateCommand
         $rectorRecipeFilePath = \getcwd() . '/rector-recipe.php';
         if (\file_exists($rectorRecipeFilePath)) {
-            $configFileInfos[] = new \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
+            $configFileInfos[] = new \RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
         }
         return $configFileInfos;
     }

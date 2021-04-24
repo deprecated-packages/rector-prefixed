@@ -14,7 +14,7 @@ use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\NodeManipulator\NamespaceManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\PSR4\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\MultipleClassFileToPsr4ClassesRectorTest
  */
@@ -161,7 +161,7 @@ CODE_SAMPLE
         $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($fileDestination, $nodesToPrint);
         $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
     }
-    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210423\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210424\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $currentDirectory = \dirname($smartFileInfo->getRealPath());
         return $currentDirectory . \DIRECTORY_SEPARATOR . $classLike->name . '.php';
