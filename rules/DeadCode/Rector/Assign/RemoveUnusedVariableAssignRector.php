@@ -45,11 +45,11 @@ final class RemoveUnusedVariableAssignRector extends \Rector\Core\Rector\Abstrac
      * @var UsedVariableNameAnalyzer
      */
     private $usedVariableNameAnalyzer;
-    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer $compactFuncCallAnalyzer, \Rector\DeadCode\NodeAnalyzer\UsedVariableNameAnalyzer $usedVariableNameAnalyzer)
+    public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer $compactFuncCallAnalyzer, \Rector\Core\PhpParser\Comparing\ConditionSearcher $conditionSearcher, \Rector\DeadCode\NodeAnalyzer\UsedVariableNameAnalyzer $usedVariableNameAnalyzer)
     {
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
         $this->compactFuncCallAnalyzer = $compactFuncCallAnalyzer;
-        $this->conditionSearcher = new \Rector\Core\PhpParser\Comparing\ConditionSearcher();
+        $this->conditionSearcher = $conditionSearcher;
         $this->usedVariableNameAnalyzer = $usedVariableNameAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
