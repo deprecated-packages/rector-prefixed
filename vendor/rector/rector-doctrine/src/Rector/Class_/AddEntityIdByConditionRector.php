@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\NodeFactory\EntityIdNodeFactory;
@@ -37,11 +38,16 @@ final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRec
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    /**
+     * @var ClassAnalyzer
+     */
+    private $classAnalyzer;
+    public function __construct(\Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)
     {
         $this->entityIdNodeFactory = $entityIdNodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
         $this->reflectionProvider = $reflectionProvider;
+        $this->classAnalyzer = $classAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

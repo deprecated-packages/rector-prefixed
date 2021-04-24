@@ -1195,22 +1195,22 @@
         },
         {
             "name": "rector\/rector-doctrine",
-            "version": "0.10.4",
-            "version_normalized": "0.10.4.0",
+            "version": "0.10.6",
+            "version_normalized": "0.10.6.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-doctrine.git",
-                "reference": "6cc2556827a5d2369947891e8884bb2c62bcb093"
+                "reference": "52dbdf1d60c522c1c40142a194960610db451f91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-doctrine\/zipball\/6cc2556827a5d2369947891e8884bb2c62bcb093",
-                "reference": "6cc2556827a5d2369947891e8884bb2c62bcb093",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-doctrine\/zipball\/52dbdf1d60c522c1c40142a194960610db451f91",
+                "reference": "52dbdf1d60c522c1c40142a194960610db451f91",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.3",
-                "rector\/rector": "^0.10.5"
+                "rector\/rector": "^0.10.10"
             },
             "conflict": {
                 "rector\/rector": "<=0.10.3"
@@ -1223,7 +1223,7 @@
                 "symplify\/rule-doc-generator": "^9.2",
                 "tracy\/tracy": "^2.8"
             },
-            "time": "2021-04-15T22:17:24+00:00",
+            "time": "2021-04-24T12:17:00+00:00",
             "type": "rector-extension",
             "extra": {
                 "branch-alias": {
@@ -1248,7 +1248,7 @@
             "description": "Rector upgrades rules for Doctrine",
             "support": {
                 "issues": "https:\/\/github.com\/rectorphp\/rector-doctrine\/issues",
-                "source": "https:\/\/github.com\/rectorphp\/rector-doctrine\/tree\/0.10.4"
+                "source": "https:\/\/github.com\/rectorphp\/rector-doctrine\/tree\/0.10.6"
             },
             "install-path": "..\/rector\/rector-doctrine"
         },
@@ -1360,23 +1360,23 @@
         },
         {
             "name": "rector\/rector-nette",
-            "version": "0.10.6",
-            "version_normalized": "0.10.6.0",
+            "version": "0.10.7",
+            "version_normalized": "0.10.7.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-nette.git",
-                "reference": "66389c9869a0129ae15c1be215fcdc631d2dc695"
+                "reference": "42fcedc17bb1695c01e7720aa182f2ac27dcf265"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-nette\/zipball\/66389c9869a0129ae15c1be215fcdc631d2dc695",
-                "reference": "66389c9869a0129ae15c1be215fcdc631d2dc695",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-nette\/zipball\/42fcedc17bb1695c01e7720aa182f2ac27dcf265",
+                "reference": "42fcedc17bb1695c01e7720aa182f2ac27dcf265",
                 "shasum": ""
             },
             "require": {
                 "ext-xml": "*",
                 "php": ">=7.3",
-                "rector\/rector": "^0.10.5"
+                "rector\/rector": "^0.10.10"
             },
             "conflict": {
                 "rector\/rector": "<=0.10.3"
@@ -1393,7 +1393,7 @@
                 "symplify\/rule-doc-generator": "^9.2",
                 "tracy\/tracy": "^2.8"
             },
-            "time": "2021-04-15T22:21:14+00:00",
+            "time": "2021-04-24T12:20:22+00:00",
             "type": "rector-extension",
             "extra": {
                 "branch-alias": {
@@ -1418,28 +1418,28 @@
             "description": "Rector upgrades rules for Nette Framework",
             "support": {
                 "issues": "https:\/\/github.com\/rectorphp\/rector-nette\/issues",
-                "source": "https:\/\/github.com\/rectorphp\/rector-nette\/tree\/0.10.6"
+                "source": "https:\/\/github.com\/rectorphp\/rector-nette\/tree\/0.10.7"
             },
             "install-path": "..\/rector\/rector-nette"
         },
         {
             "name": "rector\/rector-phpunit",
-            "version": "0.10.7",
-            "version_normalized": "0.10.7.0",
+            "version": "0.10.8",
+            "version_normalized": "0.10.8.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/rectorphp\/rector-phpunit.git",
-                "reference": "af626762ab86cc03419940271d7d9d6d93f79b17"
+                "reference": "2b272b61cacf29bf0e448719165c8376cd41872e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-phpunit\/zipball\/af626762ab86cc03419940271d7d9d6d93f79b17",
-                "reference": "af626762ab86cc03419940271d7d9d6d93f79b17",
+                "url": "https:\/\/api.github.com\/repos\/rectorphp\/rector-phpunit\/zipball\/2b272b61cacf29bf0e448719165c8376cd41872e",
+                "reference": "2b272b61cacf29bf0e448719165c8376cd41872e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.3",
-                "rector\/rector": "^0.10.5"
+                "rector\/rector": "^0.10.10"
             },
             "conflict": {
                 "rector\/rector": "<=0.10.3"
@@ -1452,7 +1452,7 @@
                 "symplify\/rule-doc-generator": "^9.2",
                 "tracy\/tracy": "^2.8"
             },
-            "time": "2021-04-19T10:16:10+00:00",
+            "time": "2021-04-24T12:18:06+00:00",
             "type": "rector-extension",
             "extra": {
                 "branch-alias": {
@@ -1477,7 +1477,7 @@
             "description": "Rector upgrades rules for PHPUnit",
             "support": {
                 "issues": "https:\/\/github.com\/rectorphp\/rector-phpunit\/issues",
-                "source": "https:\/\/github.com\/rectorphp\/rector-phpunit\/tree\/0.10.7"
+                "source": "https:\/\/github.com\/rectorphp\/rector-phpunit\/tree\/0.10.8"
             },
             "install-path": "..\/rector\/rector-phpunit"
         },
