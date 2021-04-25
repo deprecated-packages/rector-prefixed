@@ -125,7 +125,8 @@ final class ProcessCommand extends \RectorPrefix20210425\Symfony\Component\Conso
         $phpFileInfos = $this->phpFilesFinder->findInPaths($paths);
         // register autoloaded and included files
         $this->bootstrapFilesIncluder->includeBootstrapFiles();
-        $this->additionalAutoloader->autoloadWithInputAndSource($input);
+        $this->additionalAutoloader->autoloadInput($input);
+        $this->additionalAutoloader->autoloadPaths();
         // PHPStan has to know about all files!
         $this->configurePHPStanNodeScopeResolver($phpFileInfos);
         // 0. add files and directories to static locator

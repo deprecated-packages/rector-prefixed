@@ -10,6 +10,8 @@ use RectorPrefix20210425\PHPUnit\Framework\ExpectationFailedException;
 use RectorPrefix20210425\Psr\Container\ContainerInterface;
 use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use Rector\Core\Autoloading\AdditionalAutoloader;
+use Rector\Core\Autoloading\BootstrapFilesIncluder;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
@@ -62,6 +64,12 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTe
         $this->dynamicSourceLocatorProvider = $this->getService(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
+        /** @var AdditionalAutoloader $additionalAutoloader */
+        $additionalAutoloader = $this->getService(\Rector\Core\Autoloading\AdditionalAutoloader::class);
+        $additionalAutoloader->autoloadPaths();
+        /** @var BootstrapFilesIncluder $bootstrapFilesIncluder */
+        $bootstrapFilesIncluder = $this->getService(\Rector\Core\Autoloading\BootstrapFilesIncluder::class);
+        $bootstrapFilesIncluder->includeBootstrapFiles();
         /** @var Configuration $configuration */
         $configuration = $this->getService(\Rector\Core\Configuration\Configuration::class);
         $configuration->setIsDryRun(\true);
