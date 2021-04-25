@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e
+class ComposerStaticInit25d690c4566f188dfd8360d4624ad9a6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1740,7 +1740,6 @@ class ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTypeChanger' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocManipulator/PhpDocTypeChanger.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PropertyDocBlockManipulator' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocManipulator/PropertyDocBlockManipulator.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\VarAnnotationManipulator' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocManipulator/VarAnnotationManipulator.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\AbstractPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeFactory/AbstractPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeMapper' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeMapper.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\ArrayTypePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/ArrayTypePhpDocNodeVisitor.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeVisitor\\CallableTypePhpDocNodeVisitor' => __DIR__ . '/../..' . '/packages/BetterPhpDocParser/PhpDocNodeVisitor/CallableTypePhpDocNodeVisitor.php',
@@ -2082,7 +2081,6 @@ class ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e
         'Rector\\Core\\PhpParser\\Node\\CustomNode\\FileWithoutNamespace' => __DIR__ . '/../..' . '/src/PhpParser/Node/CustomNode/FileWithoutNamespace.php',
         'Rector\\Core\\PhpParser\\Node\\NodeFactory' => __DIR__ . '/../..' . '/src/PhpParser/Node/NodeFactory.php',
         'Rector\\Core\\PhpParser\\Node\\Value\\ValueResolver' => __DIR__ . '/../..' . '/src/PhpParser/Node/Value/ValueResolver.php',
-        'Rector\\Core\\PhpParser\\Parser\\FunctionLikeParser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/FunctionLikeParser.php',
         'Rector\\Core\\PhpParser\\Parser\\InlineCodeParser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/InlineCodeParser.php',
         'Rector\\Core\\PhpParser\\Parser\\NikicPhpParserFactory' => __DIR__ . '/../..' . '/src/PhpParser/Parser/NikicPhpParserFactory.php',
         'Rector\\Core\\PhpParser\\Parser\\Parser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/Parser.php',
@@ -3404,9 +3402,9 @@ class ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita833c406dc2e0ca8fc4dcee2579a779e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit25d690c4566f188dfd8360d4624ad9a6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit25d690c4566f188dfd8360d4624ad9a6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit25d690c4566f188dfd8360d4624ad9a6::$classMap;
 
         }, null, ClassLoader::class);
     }

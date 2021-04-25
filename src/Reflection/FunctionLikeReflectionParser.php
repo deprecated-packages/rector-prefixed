@@ -12,7 +12,7 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use RectorPrefix20210425\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210425\Symplify\SmartFileSystem\SmartFileSystem;
-class FunctionLikeReflectionParser
+final class FunctionLikeReflectionParser
 {
     /**
      * @var Parser

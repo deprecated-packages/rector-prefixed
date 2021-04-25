@@ -100,6 +100,9 @@ final class MethodCallManipulator
             return [];
         }
         $variableName = $this->nodeNameResolver->getName($variable);
+        if ($variableName === null) {
+            return [];
+        }
         return $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) use($variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return \false;

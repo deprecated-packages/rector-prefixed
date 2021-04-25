@@ -160,7 +160,8 @@ CODE_SAMPLE
         if (!$varStaticType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        return \is_a($varStaticType->getClassName(), 'Nette\\Application\\UI\\Control', \true);
+        $controlObjecType = new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Control');
+        return $controlObjecType->isSuperTypeOf($varStaticType)->yes();
     }
     private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {

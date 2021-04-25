@@ -162,7 +162,7 @@ final class PropertyNaming
     private function resolveShortClassName(string $className) : string
     {
         if (\RectorPrefix20210425\Nette\Utils\Strings::contains($className, '\\')) {
-            return \RectorPrefix20210425\Nette\Utils\Strings::after($className, '\\', -1);
+            return (string) \RectorPrefix20210425\Nette\Utils\Strings::after($className, '\\', -1);
         }
         return $className;
     }

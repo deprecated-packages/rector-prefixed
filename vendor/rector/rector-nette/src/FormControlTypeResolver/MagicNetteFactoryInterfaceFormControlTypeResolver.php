@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypeWithClassName;
-use Rector\Core\PhpParser\Parser\FunctionLikeParser;
+use Rector\Core\Reflection\FunctionLikeReflectionParser;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\Contract\FormControlTypeResolverInterface;
 use Rector\Nette\Contract\MethodNamesByInputNamesResolverAwareInterface;
@@ -36,19 +36,19 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
      */
     private $nodeRepository;
     /**
-     * @var FunctionLikeParser
+     * @var FunctionLikeReflectionParser
      */
-    private $functionLikeParser;
+    private $functionLikeReflectionParser;
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\Reflection\FunctionLikeReflectionParser $functionLikeReflectionParser, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
-        $this->functionLikeParser = $functionLikeParser;
+        $this->functionLikeReflectionParser = $functionLikeReflectionParser;
         $this->reflectionProvider = $reflectionProvider;
     }
     /**
@@ -105,7 +105,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
             return null;
         }
         $methodReflection = $classReflection->getNativeMethod($methodName);
-        return $this->functionLikeParser->parseMethodReflection($methodReflection);
+        return $this->functionLikeReflectionParser->parseMethodReflection($methodReflection);
     }
     private function resolveReflectionClassMethodFromClassNameAndMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
@@ -114,7 +114,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
         }
         $classReflection = $this->reflectionProvider->getClass($className);
         $methodReflection = $classReflection->getNativeMethod($methodName);
-        return $this->functionLikeParser->parseMethodReflection($methodReflection);
+        return $this->functionLikeReflectionParser->parseMethodReflection($methodReflection);
     }
     private function resolveClassReflectionByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Reflection\ClassReflection
     {

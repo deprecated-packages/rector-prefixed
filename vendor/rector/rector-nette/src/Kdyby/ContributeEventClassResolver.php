@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Kdyby;
 
+use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
@@ -70,23 +71,13 @@ final class ContributeEventClassResolver
             $paramType = $paramType->type;
         }
         if ($eventAndListenerTree !== null) {
-            $getterMethodBlueprints = $eventAndListenerTree->getGetterMethodBlueprints();
-            foreach ($getterMethodBlueprints as $getterMethodBlueprint) {
-                if (!$getterMethodBlueprint->getReturnTypeNode() instanceof \PhpParser\Node\Name) {
-                    continue;
-                }
-                if ($this->nodeComparator->areNodesEqual($getterMethodBlueprint->getReturnTypeNode(), $paramType)) {
-                    return $getterMethodBlueprint->getMethodName();
-                }
+            $methodName = $this->matchGetterMethodBlueprintMethodName($eventAndListenerTree, $paramType);
+            if ($methodName !== null) {
+                return $methodName;
             }
         }
         if ($paramType === null || $paramType instanceof \PhpParser\Node\Identifier) {
-            if ($paramType === null) {
-                $staticType = new \PHPStan\Type\MixedType();
-            } else {
-                $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($paramType);
-            }
-            return $this->createGetterFromParamAndStaticType($param, $staticType);
+            return $this->resolveParamType($paramType, $param);
         }
         $type = $this->nodeNameResolver->getName($paramType);
         if ($type === null) {
@@ -98,11 +89,9 @@ final class ContributeEventClassResolver
         }
         $paramName = $this->nodeNameResolver->getName($param->var);
         if ($eventAndListenerTree !== null) {
-            $getterMethodBlueprints = $eventAndListenerTree->getGetterMethodBlueprints();
-            foreach ($getterMethodBlueprints as $getterMethodBlueprint) {
-                if ($getterMethodBlueprint->getVariableName() === $paramName) {
-                    return $getterMethodBlueprint->getMethodName();
-                }
+            $methodName = $this->matchByParamName($eventAndListenerTree, $paramName);
+            if ($methodName !== null) {
+                return $methodName;
             }
         }
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($paramType);
@@ -115,5 +104,37 @@ final class ContributeEventClassResolver
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return 'get' . \ucfirst($variableName);
+    }
+    private function resolveParamType(?\PhpParser\Node\Identifier $identifier, \PhpParser\Node\Param $param) : string
+    {
+        if ($identifier === null) {
+            $staticType = new \PHPStan\Type\MixedType();
+        } else {
+            $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($identifier);
+        }
+        return $this->createGetterFromParamAndStaticType($param, $staticType);
+    }
+    private function matchGetterMethodBlueprintMethodName(\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, ?\PhpParser\Node $paramTypeNode) : ?string
+    {
+        $getterMethodBlueprints = $eventAndListenerTree->getGetterMethodBlueprints();
+        foreach ($getterMethodBlueprints as $getterMethodBlueprint) {
+            if (!$getterMethodBlueprint->getReturnTypeNode() instanceof \PhpParser\Node\Name) {
+                continue;
+            }
+            if ($this->nodeComparator->areNodesEqual($getterMethodBlueprint->getReturnTypeNode(), $paramTypeNode)) {
+                return $getterMethodBlueprint->getMethodName();
+            }
+        }
+        return null;
+    }
+    private function matchByParamName(\Rector\Nette\Kdyby\ValueObject\EventAndListenerTree $eventAndListenerTree, ?string $paramName) : ?string
+    {
+        $getterMethodBlueprints = $eventAndListenerTree->getGetterMethodBlueprints();
+        foreach ($getterMethodBlueprints as $getterMethodBlueprint) {
+            if ($getterMethodBlueprint->getVariableName() === $paramName) {
+                return $getterMethodBlueprint->getMethodName();
+            }
+        }
+        return null;
     }
 }

@@ -77,7 +77,7 @@ final class FluentChainMethodCallRootExtractor
                 if ($kind === \Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS) {
                     return $this->resolveKindInArgs($methodCall);
                 }
-                return $this->matchMethodCallOnNew($methodCall);
+                return $this->matchMethodCallOnNew($methodCall->var);
             }
         }
         return null;
@@ -130,15 +130,15 @@ final class FluentChainMethodCallRootExtractor
         $silentVariable = new \PhpParser\Node\Expr\Variable($variableName);
         return new \Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $silentVariable);
     }
-    private function matchMethodCallOnNew(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function matchMethodCallOnNew(\PhpParser\Node\Expr\New_ $new) : ?\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         // we need assigned left variable here
-        $previousAssignOrReturn = $this->betterNodeFinder->findFirstPreviousOfTypes($methodCall->var, [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Stmt\Return_::class]);
+        $previousAssignOrReturn = $this->betterNodeFinder->findFirstPreviousOfTypes($new, [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Stmt\Return_::class]);
         if ($previousAssignOrReturn instanceof \PhpParser\Node\Expr\Assign) {
-            return new \Rector\Defluent\ValueObject\AssignAndRootExpr($previousAssignOrReturn->var, $methodCall->var);
+            return new \Rector\Defluent\ValueObject\AssignAndRootExpr($previousAssignOrReturn->var, $new);
         }
         if ($previousAssignOrReturn instanceof \PhpParser\Node\Stmt\Return_) {
-            $className = $this->nodeNameResolver->getName($methodCall->var->class);
+            $className = $this->nodeNameResolver->getName($new->class);
             if ($className === null) {
                 return null;
             }
@@ -148,7 +148,7 @@ final class FluentChainMethodCallRootExtractor
                 return null;
             }
             $variable = new \PhpParser\Node\Expr\Variable($expectedName->getName());
-            return new \Rector\Defluent\ValueObject\AssignAndRootExpr($methodCall->var, $methodCall->var, $variable);
+            return new \Rector\Defluent\ValueObject\AssignAndRootExpr($new, $new, $variable);
         }
         // no assign, just standalone call
         return null;

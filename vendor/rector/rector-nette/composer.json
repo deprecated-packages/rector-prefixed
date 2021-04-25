@@ -18,7 +18,8 @@
         "nette\/di": "^3.0",
         "nette\/forms": "3.0.*",
         "symplify\/rule-doc-generator": "^9.2",
-        "tracy\/tracy": "^2.8"
+        "phpstan\/extension-installer": "^1.1",
+        "rector\/rector-phpstan-rules": "^0.1"
     },
     "autoload": {
         "psr-4": {

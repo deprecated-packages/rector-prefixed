@@ -50,6 +50,9 @@ final class NodeUsageFinder
     public function findVariableUsages(array $nodes, \PhpParser\Node\Expr\Variable $variable) : array
     {
         $variableName = $this->nodeNameResolver->getName($variable);
+        if ($variableName === null) {
+            return [];
+        }
         return $this->betterNodeFinder->find($nodes, function (\PhpParser\Node $node) use($variable, $variableName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;

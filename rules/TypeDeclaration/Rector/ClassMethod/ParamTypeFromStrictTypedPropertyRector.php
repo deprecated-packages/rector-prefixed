@@ -116,6 +116,9 @@ CODE_SAMPLE
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
     }
+    /**
+     * @return Node\Identifier|Node\Name|UnionType|NullableType|null
+     */
     private function matchPropertySingleTypeNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
     {
         $property = $this->nodeRepository->findPropertyByPropertyFetch($propertyFetch);
