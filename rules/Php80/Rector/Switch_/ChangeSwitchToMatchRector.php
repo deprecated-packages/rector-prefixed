@@ -8,10 +8,12 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Match_;
 use PhpParser\Node\MatchArm;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Switch_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php80\NodeAnalyzer\SwitchAnalyzer;
 use Rector\Php80\NodeResolver\SwitchExprsResolver;
 use Rector\Php80\ValueObject\CondAndExpr;
@@ -116,9 +118,28 @@ CODE_SAMPLE
             return new \PhpParser\Node\Stmt\Return_($match);
         }
         if ($this->assignExpr) {
-            return new \PhpParser\Node\Expr\Assign($this->assignExpr, $match);
+            /** @var Expr $assignExpr */
+            $assignExpr = $this->assignExpr;
+            return $this->changeToAssign($node, $match, $assignExpr);
         }
         return $match;
+    }
+    private function changeToAssign(\PhpParser\Node\Stmt\Switch_ $switch, \PhpParser\Node\Expr\Match_ $match, \PhpParser\Node\Expr $assignExpr) : \PhpParser\Node\Expr\Assign
+    {
+        $prevInitializedAssign = $this->betterNodeFinder->findFirstPreviousOfNode($switch, function (\PhpParser\Node $node) use($assignExpr) : bool {
+            return $node instanceof \PhpParser\Node\Expr\Assign && $this->nodeComparator->areNodesEqual($node->var, $assignExpr);
+        });
+        $assign = new \PhpParser\Node\Expr\Assign($assignExpr, $match);
+        if ($prevInitializedAssign instanceof \PhpParser\Node\Expr\Assign) {
+            /** @var Match_ $expr */
+            $expr = $assign->expr;
+            $expr->arms[] = new \PhpParser\Node\MatchArm(null, $prevInitializedAssign->expr);
+            $parentAssign = $prevInitializedAssign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentAssign instanceof \PhpParser\Node\Stmt\Expression) {
+                $this->removeNode($parentAssign);
+            }
+        }
+        return $assign;
     }
     private function shouldSkipSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
