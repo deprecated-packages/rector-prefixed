@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210424;
+namespace RectorPrefix20210425;
 
-use RectorPrefix20210424\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210424\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
-use RectorPrefix20210424\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
-use RectorPrefix20210424\Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20210424\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210425\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210425\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
+use RectorPrefix20210425\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
+use RectorPrefix20210425\Symplify\Skipper\ValueObject\Option;
+return static function (\RectorPrefix20210425\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\RectorPrefix20210424\Symplify\Skipper\ValueObject\Option::SKIP, [
+    $parameters->set(\RectorPrefix20210425\Symplify\Skipper\ValueObject\Option::SKIP, [
         // windows like path
         '*\\SomeSkipped\\*',
         // elements
-        \RectorPrefix20210424\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement::class,
-        \RectorPrefix20210424\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class,
+        \RectorPrefix20210425\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement::class,
+        \RectorPrefix20210425\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class,
     ]);
 };

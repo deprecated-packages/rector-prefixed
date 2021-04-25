@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210424\Symplify\PackageBuilder\Exception\Yaml;
+namespace RectorPrefix20210425\Symplify\PackageBuilder\Exception\Yaml;
 
 use Exception;
 final class InvalidParametersValueException extends \Exception

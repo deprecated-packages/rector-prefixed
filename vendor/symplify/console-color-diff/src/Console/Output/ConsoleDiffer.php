@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210424\Symplify\ConsoleColorDiff\Console\Output;
+namespace RectorPrefix20210425\Symplify\ConsoleColorDiff\Console\Output;
 
-use RectorPrefix20210424\SebastianBergmann\Diff\Differ;
-use RectorPrefix20210424\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210424\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
+use RectorPrefix20210425\SebastianBergmann\Diff\Differ;
+use RectorPrefix20210425\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210425\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
 final class ConsoleDiffer
 {
     /**
@@ -20,7 +20,7 @@ final class ConsoleDiffer
      * @var ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\RectorPrefix20210424\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210424\SebastianBergmann\Diff\Differ $differ, \RectorPrefix20210424\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(\RectorPrefix20210425\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210425\SebastianBergmann\Diff\Differ $differ, \RectorPrefix20210425\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->differ = $differ;

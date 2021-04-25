@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210424\Symfony\Component\HttpFoundation\File\Exception;
+namespace RectorPrefix20210425\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when the access on a file was denied.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class AccessDeniedException extends \RectorPrefix20210424\Symfony\Component\HttpFoundation\File\Exception\FileException
+class AccessDeniedException extends \RectorPrefix20210425\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
     public function __construct(string $path)
     {

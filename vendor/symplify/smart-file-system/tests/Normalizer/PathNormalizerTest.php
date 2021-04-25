@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210424\Symplify\SmartFileSystem\Tests\Normalizer;
+namespace RectorPrefix20210425\Symplify\SmartFileSystem\Tests\Normalizer;
 
 use Iterator;
-use RectorPrefix20210424\PHPUnit\Framework\TestCase;
-use RectorPrefix20210424\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-final class PathNormalizerTest extends \RectorPrefix20210424\PHPUnit\Framework\TestCase
+use RectorPrefix20210425\PHPUnit\Framework\TestCase;
+use RectorPrefix20210425\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+final class PathNormalizerTest extends \RectorPrefix20210425\PHPUnit\Framework\TestCase
 {
     /**
      * @var PathNormalizer
@@ -14,7 +14,7 @@ final class PathNormalizerTest extends \RectorPrefix20210424\PHPUnit\Framework\T
     private $pathNormalizer;
     protected function setUp() : void
     {
-        $this->pathNormalizer = new \RectorPrefix20210424\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
+        $this->pathNormalizer = new \RectorPrefix20210425\Symplify\SmartFileSystem\Normalizer\PathNormalizer();
     }
     /**
      * @dataProvider provideData()
@@ -31,6 +31,6 @@ final class PathNormalizerTest extends \RectorPrefix20210424\PHPUnit\Framework\T
     {
         // based on Linux
         (yield ['/any/path', '/any/path']);
-        (yield ['RectorPrefix20210424\\any\\path', '/any/path']);
+        (yield ['RectorPrefix20210425\\any\\path', '/any/path']);
     }
 }

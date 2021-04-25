@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210424\Doctrine\Inflector\Rules\French;
+namespace RectorPrefix20210425\Doctrine\Inflector\Rules\French;
 
-use RectorPrefix20210424\Doctrine\Inflector\Rules\Pattern;
+use RectorPrefix20210425\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,6 +25,6 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \RectorPrefix20210424\Doctrine\Inflector\Rules\Pattern(''));
+        (yield new \RectorPrefix20210425\Doctrine\Inflector\Rules\Pattern(''));
     }
 }

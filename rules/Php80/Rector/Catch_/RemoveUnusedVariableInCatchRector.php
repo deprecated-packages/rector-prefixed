@@ -58,7 +58,10 @@ CODE_SAMPLE
         if (!$caughtVar instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if ($this->isVariableUsed($node->stmts, $caughtVar)) {
+        if ($this->isVariableUsedInStmts($node->stmts, $caughtVar)) {
+            return null;
+        }
+        if ($this->isVariableUsedNext($node, $caughtVar)) {
             return null;
         }
         $node->var = null;
@@ -67,12 +70,18 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function isVariableUsed(array $nodes, \PhpParser\Node\Expr\Variable $variable) : bool
+    private function isVariableUsedInStmts(array $nodes, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($nodes, function (\PhpParser\Node $node) use($variable) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;
             }
+            return $this->nodeComparator->areNodesEqual($node, $variable);
+        });
+    }
+    private function isVariableUsedNext(\PhpParser\Node\Stmt\Catch_ $catch, \PhpParser\Node\Expr\Variable $variable) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirstNext($catch, function (\PhpParser\Node $node) use($variable) : bool {
             return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
