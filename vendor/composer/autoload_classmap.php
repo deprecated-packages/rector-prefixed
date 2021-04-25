@@ -1659,7 +1659,6 @@ return array(
     'Rector\\Composer\\Contract\\Rector\\ComposerRectorInterface' => $baseDir . '/rules/Composer/Contract/Rector/ComposerRectorInterface.php',
     'Rector\\Composer\\Contract\\VersionAwareInterface' => $baseDir . '/rules/Composer/Contract/VersionAwareInterface.php',
     'Rector\\Composer\\Guard\\VersionGuard' => $baseDir . '/rules/Composer/Guard/VersionGuard.php',
-    'Rector\\Composer\\Modifier\\ComposerModifier' => $baseDir . '/rules/Composer/Modifier/ComposerModifier.php',
     'Rector\\Composer\\Rector\\AddPackageToRequireComposerRector' => $baseDir . '/rules/Composer/Rector/AddPackageToRequireComposerRector.php',
     'Rector\\Composer\\Rector\\AddPackageToRequireDevComposerRector' => $baseDir . '/rules/Composer/Rector/AddPackageToRequireDevComposerRector.php',
     'Rector\\Composer\\Rector\\ChangePackageVersionComposerRector' => $baseDir . '/rules/Composer/Rector/ChangePackageVersionComposerRector.php',
