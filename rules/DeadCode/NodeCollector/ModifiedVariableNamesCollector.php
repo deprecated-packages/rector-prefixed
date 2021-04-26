@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210425\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210426\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ModifiedVariableNamesCollector
 {
     /**
@@ -22,7 +22,7 @@ final class ModifiedVariableNamesCollector
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\RectorPrefix20210425\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20210426\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210425\Jean85\Exception;
+namespace RectorPrefix20210426\Jean85\Exception;
 
 interface VersionMissingExceptionInterface extends \Throwable
 {

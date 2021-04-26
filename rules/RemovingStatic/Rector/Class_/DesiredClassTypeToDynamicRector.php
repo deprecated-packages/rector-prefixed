@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer;
-use RectorPrefix20210425\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210426\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -35,7 +35,7 @@ final class DesiredClassTypeToDynamicRector extends \Rector\Core\Rector\Abstract
      * @var StaticCallPresenceAnalyzer
      */
     private $staticCallPresenceAnalyzer;
-    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210425\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\NodeAnalyzer\StaticCallPresenceAnalyzer $staticCallPresenceAnalyzer, \RectorPrefix20210426\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $typesToRemoveStaticFrom = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
         foreach ($typesToRemoveStaticFrom as $typeToRemoveStaticFrom) {

@@ -7,14 +7,18 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Name;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\UnionType as PhpParserUnionType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover;
 use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,6 +28,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
+     * @var ClassMethodParamVendorLockResolver
+     */
+    private $classMethodParamVendorLockResolver;
+    /**
      * @var ReturnTagRemover
      */
     private $returnTagRemover;
@@ -31,10 +39,6 @@ final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
      * @var ParamTagRemover
      */
     private $paramTagRemover;
-    /**
-     * @var ClassMethodParamVendorLockResolver
-     */
-    private $classMethodParamVendorLockResolver;
     public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver)
     {
         $this->returnTagRemover = $returnTagRemover;
@@ -84,12 +88,16 @@ CODE_SAMPLE
         $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);
         return $node;
     }
+    private function isVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        return $this->classMethodParamVendorLockResolver->isVendorLocked($classMethod);
+    }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
      */
     private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod && $this->classMethodParamVendorLockResolver->isVendorLocked($functionLike)) {
+        if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod && $this->isVendorLocked($functionLike)) {
             return;
         }
         foreach ($functionLike->getParams() as $param) {
@@ -102,12 +110,46 @@ CODE_SAMPLE
             if (!$paramType instanceof \PHPStan\Type\UnionType) {
                 continue;
             }
+            if ($this->hasObjectWithoutClassType($paramType)) {
+                $this->changeObjectWithoutClassType($param, $paramType);
+                continue;
+            }
             $phpParserUnionType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($paramType);
             if (!$phpParserUnionType instanceof \PhpParser\Node\UnionType) {
                 continue;
             }
             $param->type = $phpParserUnionType;
         }
+    }
+    private function changeObjectWithoutClassType(\PhpParser\Node\Param $param, \PHPStan\Type\UnionType $unionType) : void
+    {
+        if (!$this->hasObjectWithoutClassTypeWithOnlyFullyQualifiedObjectType($unionType)) {
+            return;
+        }
+        $param->type = new \PhpParser\Node\Name('object');
+    }
+    private function hasObjectWithoutClassType(\PHPStan\Type\UnionType $unionType) : bool
+    {
+        $types = $unionType->getTypes();
+        foreach ($types as $type) {
+            if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    private function hasObjectWithoutClassTypeWithOnlyFullyQualifiedObjectType(\PHPStan\Type\UnionType $unionType) : bool
+    {
+        $types = $unionType->getTypes();
+        foreach ($types as $type) {
+            if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
+                continue;
+            }
+            if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
+                return \false;
+            }
+        }
+        return \true;
     }
     /**
      * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
