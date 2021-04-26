@@ -11,13 +11,13 @@ use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 final class Plugin implements \Composer\Plugin\PluginInterface, \Composer\EventDispatcher\EventSubscriberInterface
 {
-    public function activate(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
+    public function activate(\Composer\Composer $composer, \Composer\IO\IOInterface $io) : void
     {
     }
-    public function deactivate(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
+    public function deactivate(\Composer\Composer $composer, \Composer\IO\IOInterface $io) : void
     {
     }
-    public function uninstall(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
+    public function uninstall(\Composer\Composer $composer, \Composer\IO\IOInterface $io) : void
     {
     }
     public function process(\Composer\Script\Event $event) : void

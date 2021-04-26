@@ -8,6 +8,9 @@ use RectorPrefix20210426\Composer\IO\IOInterface;
 use RectorPrefix20210426\Composer\Package\PackageInterface;
 use RectorPrefix20210426\Composer\Repository\InstalledRepositoryInterface;
 use RectorPrefix20210426\Composer\Util\Filesystem as ComposerFilesystem;
+/**
+ * @see \Rector\RectorInstaller\Tests\PluginInstallerTest
+ */
 final class PluginInstaller
 {
     /**
@@ -70,7 +73,7 @@ CODE_SAMPLE;
         $this->configurationFile = $configurationFile;
         $this->composerFilesystem = $composerFilesystem;
     }
-    public function install()
+    public function install() : void
     {
         $oldGeneratedConfigFileHash = null;
         if ($this->filesystem->isFile($this->configurationFile)) {
