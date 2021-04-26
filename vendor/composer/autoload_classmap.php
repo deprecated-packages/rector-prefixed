@@ -1929,8 +1929,6 @@ return array(
     'Rector\\DependencyInjection\\Rector\\Class_\\MultiParentingToAbstractDependencyRector' => $baseDir . '/rules/DependencyInjection/Rector/Class_/MultiParentingToAbstractDependencyRector.php',
     'Rector\\DependencyInjection\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => $baseDir . '/rules/DependencyInjection/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
     'Rector\\DependencyInjection\\Rector\\Variable\\ReplaceVariableByPropertyFetchRector' => $baseDir . '/rules/DependencyInjection/Rector/Variable/ReplaceVariableByPropertyFetchRector.php',
-    'Rector\\DependencyInjection\\TypeAnalyzer\\InjectTagValueNodeToServiceTypeResolver' => $baseDir . '/rules/DependencyInjection/TypeAnalyzer/InjectTagValueNodeToServiceTypeResolver.php',
-    'Rector\\DependencyInjection\\TypeAnalyzer\\JMSDITypeResolver' => $baseDir . '/rules/DependencyInjection/TypeAnalyzer/JMSDITypeResolver.php',
     'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\DoctrineTagNodeInterface' => $vendorDir . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/DoctrineTagNodeInterface.php',
     'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\InversedByNodeInterface' => $vendorDir . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/InversedByNodeInterface.php',
     'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\MappedByNodeInterface' => $vendorDir . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/MappedByNodeInterface.php',

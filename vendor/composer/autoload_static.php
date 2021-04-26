@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8
+class ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2247,8 +2247,6 @@ class ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8
         'Rector\\DependencyInjection\\Rector\\Class_\\MultiParentingToAbstractDependencyRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Class_/MultiParentingToAbstractDependencyRector.php',
         'Rector\\DependencyInjection\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\DependencyInjection\\Rector\\Variable\\ReplaceVariableByPropertyFetchRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Variable/ReplaceVariableByPropertyFetchRector.php',
-        'Rector\\DependencyInjection\\TypeAnalyzer\\InjectTagValueNodeToServiceTypeResolver' => __DIR__ . '/../..' . '/rules/DependencyInjection/TypeAnalyzer/InjectTagValueNodeToServiceTypeResolver.php',
-        'Rector\\DependencyInjection\\TypeAnalyzer\\JMSDITypeResolver' => __DIR__ . '/../..' . '/rules/DependencyInjection/TypeAnalyzer/JMSDITypeResolver.php',
         'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\DoctrineTagNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/DoctrineTagNodeInterface.php',
         'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\InversedByNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/InversedByNodeInterface.php',
         'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\MappedByNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/MappedByNodeInterface.php',
@@ -3402,9 +3400,9 @@ class ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit31a562ff84e3943f4c8c3aeb22f8d9c8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$classMap;
 
         }, null, ClassLoader::class);
     }
