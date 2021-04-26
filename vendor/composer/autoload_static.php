@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6
+class ComposerStaticInitebeda928e6682a76959e7baca7f61281
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2239,14 +2239,12 @@ class ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6
         'Rector\\Defluent\\ValueObject\\FluentMethodCalls' => __DIR__ . '/../..' . '/rules/Defluent/ValueObject/FluentMethodCalls.php',
         'Rector\\Defluent\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/Defluent/ValueObject/NormalToFluent.php',
         'Rector\\DependencyInjection\\Collector\\VariablesToPropertyFetchCollection' => __DIR__ . '/../..' . '/rules/DependencyInjection/Collector/VariablesToPropertyFetchCollection.php',
-        'Rector\\DependencyInjection\\NodeAnalyzer\\NetteInjectPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeAnalyzer/NetteInjectPropertyAnalyzer.php',
         'Rector\\DependencyInjection\\NodeFactory\\InjectMethodFactory' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeFactory/InjectMethodFactory.php',
         'Rector\\DependencyInjection\\NodeManipulator\\PropertyConstructorInjectionManipulator' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeManipulator/PropertyConstructorInjectionManipulator.php',
         'Rector\\DependencyInjection\\NodeRemover\\ClassMethodNodeRemover' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeRemover/ClassMethodNodeRemover.php',
         'Rector\\DependencyInjection\\Rector\\ClassMethod\\AddMethodParentCallRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/ClassMethod/AddMethodParentCallRector.php',
         'Rector\\DependencyInjection\\Rector\\Class_\\ActionInjectionToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Class_/ActionInjectionToConstructorInjectionRector.php',
         'Rector\\DependencyInjection\\Rector\\Class_\\MultiParentingToAbstractDependencyRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Class_/MultiParentingToAbstractDependencyRector.php',
-        'Rector\\DependencyInjection\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\DependencyInjection\\Rector\\Variable\\ReplaceVariableByPropertyFetchRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Variable/ReplaceVariableByPropertyFetchRector.php',
         'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\DoctrineTagNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/DoctrineTagNodeInterface.php',
         'Rector\\Doctrine\\Contract\\PhpDoc\\Node\\InversedByNodeInterface' => __DIR__ . '/..' . '/rector/rector-doctrine/src/Contract/PhpDoc/Node/InversedByNodeInterface.php',
@@ -3401,9 +3399,9 @@ class ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb591703ed40ec5e7c3328bb32ce802f6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitebeda928e6682a76959e7baca7f61281::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitebeda928e6682a76959e7baca7f61281::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitebeda928e6682a76959e7baca7f61281::$classMap;
 
         }, null, ClassLoader::class);
     }
