@@ -92,13 +92,9 @@ final class ThisRenderFactory
             return $return->expr;
         }
         if ($return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
-            $returnStaticType = $this->nodeTypeResolver->getStaticType($return->expr);
-            if ($returnStaticType instanceof \PHPStan\Type\ArrayType) {
-                return $return->expr;
-            }
+            return $this->resolveMethodCall($return->expr);
         }
         if ($return->expr instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($return->expr, 'compact')) {
-            /** @var FuncCall $compactFunCall */
             $compactFunCall = $return->expr;
             return $this->arrayFromCompactFactory->createArrayFromCompactFuncCall($compactFunCall);
         }
@@ -114,5 +110,13 @@ final class ThisRenderFactory
             $arrayItems[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Variable($var), new \PhpParser\Node\Scalar\String_($var));
         }
         return new \PhpParser\Node\Expr\Array_($arrayItems);
+    }
+    private function resolveMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr
+    {
+        $returnStaticType = $this->nodeTypeResolver->getStaticType($methodCall);
+        if ($returnStaticType instanceof \PHPStan\Type\ArrayType) {
+            return $methodCall;
+        }
+        return null;
     }
 }

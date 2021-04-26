@@ -9,6 +9,10 @@ final class NetteSetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
+    public const NETTE_REMOVE_INJECT = __DIR__ . '/../../config/sets/nette-remove-inject.php';
+    /**
+     * @var string
+     */
     public const NETTE_24 = __DIR__ . '/../../config/sets/nette-24.php';
     /**
      * @var string

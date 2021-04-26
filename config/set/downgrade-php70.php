@@ -9,6 +9,7 @@ use Rector\DowngradePhp70\Rector\Coalesce\DowngradeNullCoalesceRector;
 use Rector\DowngradePhp70\Rector\Declare_\DowngradeStrictTypeDeclarationRector;
 use Rector\DowngradePhp70\Rector\FunctionLike\DowngradeTypeDeclarationRector;
 use Rector\DowngradePhp70\Rector\New_\DowngradeAnonymousClassRector;
+use Rector\DowngradePhp70\Rector\Spaceship\DowngradeSpaceshipRector;
 use RectorPrefix20210426\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\RectorPrefix20210426\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
@@ -18,4 +19,5 @@ return static function (\RectorPrefix20210426\Symfony\Component\DependencyInject
     $services->set(\Rector\DowngradePhp70\Rector\Declare_\DowngradeStrictTypeDeclarationRector::class);
     $services->set(\Rector\DowngradePhp70\Rector\New_\DowngradeAnonymousClassRector::class);
     $services->set(\Rector\DowngradePhp70\Rector\Coalesce\DowngradeNullCoalesceRector::class);
+    $services->set(\Rector\DowngradePhp70\Rector\Spaceship\DowngradeSpaceshipRector::class);
 };

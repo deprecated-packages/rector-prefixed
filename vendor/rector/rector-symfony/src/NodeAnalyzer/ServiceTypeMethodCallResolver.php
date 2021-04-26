@@ -39,9 +39,6 @@ final class ServiceTypeMethodCallResolver
         }
         if ($argument instanceof \PhpParser\Node\Expr\ClassConstFetch && $argument->class instanceof \PhpParser\Node\Name) {
             $className = $this->nodeNameResolver->getName($argument->class);
-            if ($className === null) {
-                return new \PHPStan\Type\MixedType();
-            }
             return new \PHPStan\Type\ObjectType($className);
         }
         return new \PHPStan\Type\MixedType();

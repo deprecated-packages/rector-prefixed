@@ -4,11 +4,15 @@ declare (strict_types=1);
 namespace Rector\Symfony\TypeAnalyzer;
 
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 final class ArrayUnionResponseTypeAnalyzer
 {
+    /**
+     * @param class-string $className
+     */
     public function isArrayUnionResponseType(\PHPStan\Type\Type $type, string $className) : bool
     {
         if (!$type instanceof \PHPStan\Type\UnionType) {
@@ -32,11 +36,15 @@ final class ArrayUnionResponseTypeAnalyzer
         }
         return $hasResponseType;
     }
+    /**
+     * @param class-string $className
+     */
     private function isTypeOfClassName(\PHPStan\Type\Type $type, string $className) : bool
     {
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        return \is_a($type->getClassName(), $className, \true);
+        $objectType = new \PHPStan\Type\ObjectType($className);
+        return $objectType->isSuperTypeOf($type)->yes();
     }
 }
