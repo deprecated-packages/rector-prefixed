@@ -1923,6 +1923,7 @@ return array(
     'Rector\\DependencyInjection\\Collector\\VariablesToPropertyFetchCollection' => $baseDir . '/rules/DependencyInjection/Collector/VariablesToPropertyFetchCollection.php',
     'Rector\\DependencyInjection\\NodeAnalyzer\\NetteInjectPropertyAnalyzer' => $baseDir . '/rules/DependencyInjection/NodeAnalyzer/NetteInjectPropertyAnalyzer.php',
     'Rector\\DependencyInjection\\NodeFactory\\InjectMethodFactory' => $baseDir . '/rules/DependencyInjection/NodeFactory/InjectMethodFactory.php',
+    'Rector\\DependencyInjection\\NodeManipulator\\PropertyConstructorInjectionManipulator' => $baseDir . '/rules/DependencyInjection/NodeManipulator/PropertyConstructorInjectionManipulator.php',
     'Rector\\DependencyInjection\\NodeRemover\\ClassMethodNodeRemover' => $baseDir . '/rules/DependencyInjection/NodeRemover/ClassMethodNodeRemover.php',
     'Rector\\DependencyInjection\\Rector\\ClassMethod\\AddMethodParentCallRector' => $baseDir . '/rules/DependencyInjection/Rector/ClassMethod/AddMethodParentCallRector.php',
     'Rector\\DependencyInjection\\Rector\\Class_\\ActionInjectionToConstructorInjectionRector' => $baseDir . '/rules/DependencyInjection/Rector/Class_/ActionInjectionToConstructorInjectionRector.php',

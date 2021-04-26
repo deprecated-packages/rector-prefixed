@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c
+class ComposerStaticInit76e68af286bbdcf5a9ee3705ef16da4b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2241,6 +2241,7 @@ class ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c
         'Rector\\DependencyInjection\\Collector\\VariablesToPropertyFetchCollection' => __DIR__ . '/../..' . '/rules/DependencyInjection/Collector/VariablesToPropertyFetchCollection.php',
         'Rector\\DependencyInjection\\NodeAnalyzer\\NetteInjectPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeAnalyzer/NetteInjectPropertyAnalyzer.php',
         'Rector\\DependencyInjection\\NodeFactory\\InjectMethodFactory' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeFactory/InjectMethodFactory.php',
+        'Rector\\DependencyInjection\\NodeManipulator\\PropertyConstructorInjectionManipulator' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeManipulator/PropertyConstructorInjectionManipulator.php',
         'Rector\\DependencyInjection\\NodeRemover\\ClassMethodNodeRemover' => __DIR__ . '/../..' . '/rules/DependencyInjection/NodeRemover/ClassMethodNodeRemover.php',
         'Rector\\DependencyInjection\\Rector\\ClassMethod\\AddMethodParentCallRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/ClassMethod/AddMethodParentCallRector.php',
         'Rector\\DependencyInjection\\Rector\\Class_\\ActionInjectionToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/DependencyInjection/Rector/Class_/ActionInjectionToConstructorInjectionRector.php',
@@ -3400,9 +3401,9 @@ class ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb2db618a62c5c5eebd4f11ec6fc9d42c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit76e68af286bbdcf5a9ee3705ef16da4b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit76e68af286bbdcf5a9ee3705ef16da4b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit76e68af286bbdcf5a9ee3705ef16da4b::$classMap;
 
         }, null, ClassLoader::class);
     }
