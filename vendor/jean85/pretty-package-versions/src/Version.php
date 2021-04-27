@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210426\Jean85;
+namespace RectorPrefix20210427\Jean85;
 
 class Version
 {

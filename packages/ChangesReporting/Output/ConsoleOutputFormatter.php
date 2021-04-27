@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
-use RectorPrefix20210426\Nette\Utils\Strings;
+use RectorPrefix20210427\Nette\Utils\Strings;
 use Rector\ChangesReporting\Annotation\RectorsChangelogResolver;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -11,7 +11,7 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\ProcessResult;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use RectorPrefix20210426\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210427\Symfony\Component\Console\Style\SymfonyStyle;
 final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
@@ -35,7 +35,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      * @var RectorsChangelogResolver
      */
     private $rectorsChangelogResolver;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210426\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210427\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
@@ -119,8 +119,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
         $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
-        $errorMessage = \RectorPrefix20210426\Nette\Utils\Strings::replace($errorMessage, $regex, '');
-        return \RectorPrefix20210426\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        $errorMessage = \RectorPrefix20210427\Nette\Utils\Strings::replace($errorMessage, $regex, '');
+        return \RectorPrefix20210427\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     private function reportRemovedNodes(\Rector\Core\ValueObject\ProcessResult $processResult) : void
     {
@@ -146,7 +146,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
         $rectorsChangelogs = $this->rectorsChangelogResolver->resolveIncludingMissing($fileDiff->getRectorClasses());
         $rectorsChangelogsLines = [];
         foreach ($rectorsChangelogs as $rectorClass => $changelog) {
-            $rectorShortClass = (string) \RectorPrefix20210426\Nette\Utils\Strings::after($rectorClass, '\\', -1);
+            $rectorShortClass = (string) \RectorPrefix20210427\Nette\Utils\Strings::after($rectorClass, '\\', -1);
             $rectorsChangelogsLines[] = $changelog === null ? $rectorShortClass : $rectorShortClass . ' (' . $changelog . ')';
         }
         return $rectorsChangelogsLines;

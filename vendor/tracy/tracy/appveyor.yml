@@ -1,9 +1,9 @@
 build: off
 cache:
     - c:\php -> appveyor.yml
-    - '%LOCALAPPDATA%\RectorPrefix20210426\Composer\files -> appveyor.yml'
+    - '%LOCALAPPDATA%\RectorPrefix20210427\Composer\files -> appveyor.yml'
 
-clone_folder: c:\RectorPrefix20210426\projects\tracy
+clone_folder: c:\RectorPrefix20210427\projects\tracy
 
 init:
     - SET PATH=c:\php;%PATH%
@@ -19,14 +19,14 @@ install:
     - IF %PHP%==1 echo extension_dir=ext >> php.ini
     - IF %PHP%==1 echo extension=php_openssl.dll >> php.ini
     - IF %PHP%==1 del /Q *.zip
-    - cd c:\RectorPrefix20210426\projects\tracy
+    - cd c:\RectorPrefix20210427\projects\tracy
 
     # Install Nette Tester
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - php composer.phar install --prefer-dist --no-interaction --no-progress
 
 test_script:
-    - RectorPrefix20210426\vendor\bin\tester tests -s
+    - RectorPrefix20210427\vendor\bin\tester tests -s
 
 on_failure:
     # Print *.actual content
