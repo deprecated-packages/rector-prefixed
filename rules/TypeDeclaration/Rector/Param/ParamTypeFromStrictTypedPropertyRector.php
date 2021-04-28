@@ -11,6 +11,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -83,6 +84,9 @@ CODE_SAMPLE
         if ($param->type !== null) {
             return null;
         }
+        $scope = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $paramName = $this->getName($param);
+        $originalParamType = $scope->getVariableType($paramName);
         /** @var Assign[] $assigns */
         $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->getStmts(), \PhpParser\Node\Expr\Assign::class);
         foreach ($assigns as $assign) {
@@ -91,6 +95,9 @@ CODE_SAMPLE
             }
             if (!$assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 continue;
+            }
+            if ($this->hasTypeChangedBeforeAssign($assign, $paramName, $originalParamType)) {
+                return null;
             }
             $singlePropertyTypeNode = $this->matchPropertySingleTypeNode($assign->var);
             if (!$singlePropertyTypeNode instanceof \PhpParser\Node) {
@@ -129,5 +136,14 @@ CODE_SAMPLE
         $typeNode = clone $property->type;
         $typeNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
         return $typeNode;
+    }
+    private function hasTypeChangedBeforeAssign(\PhpParser\Node\Expr\Assign $assign, string $paramName, \PHPStan\Type\Type $originalType) : bool
+    {
+        $scope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return \false;
+        }
+        $currentParamType = $scope->getVariableType($paramName);
+        return !$currentParamType->equals($originalType);
     }
 }
