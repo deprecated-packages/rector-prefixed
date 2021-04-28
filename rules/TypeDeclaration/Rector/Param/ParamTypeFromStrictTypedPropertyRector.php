@@ -1,45 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Rector\ClassMethod;
+namespace Rector\TypeDeclaration\Rector\Param;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType;
-use PhpParser\NodeTraverser;
 use PHPStan\Type\Type;
-use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\Reflection\ReflectionTypeResolver;
-use RectorPrefix20210428\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\TypeDeclaration\Rector\ClassMethod\ParamTypeFromStrictTypedPropertyRector\ParamTypeFromStrictTypedPropertyRectorTest
+ * @see \Rector\Tests\TypeDeclaration\Rector\Param\ParamTypeFromStrictTypedPropertyRector\ParamTypeFromStrictTypedPropertyRectorTest
  */
 final class ParamTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var SimpleCallableNodeTraverser
-     */
-    private $simpleCallableNodeTraverser;
-    /**
      * @var ReflectionTypeResolver
      */
     private $reflectionTypeResolver;
-    public function __construct(\RectorPrefix20210428\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
+    public function __construct(\Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
     {
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->reflectionTypeResolver = $reflectionTypeResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -73,48 +62,44 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Expr\ArrowFunction::class];
+        return [\PhpParser\Node\Param::class];
     }
     /**
-     * @param ClassMethod|Function_|Closure|ArrowFunction $node
+     * @param Param $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
         }
-        foreach ($node->getParams() as $param) {
-            $this->decorateParamWithType($node, $param);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\FunctionLike) {
+            return null;
         }
-        return $node;
+        return $this->decorateParamWithType($parent, $node);
     }
-    /**
-     * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
-     */
-    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
+    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : ?\PhpParser\Node\Param
     {
         if ($param->type !== null) {
-            return;
+            return null;
         }
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use($param) : ?int {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return null;
+        /** @var Assign[] $assigns */
+        $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->getStmts(), \PhpParser\Node\Expr\Assign::class);
+        foreach ($assigns as $assign) {
+            if (!$this->nodeComparator->areNodesEqual($assign->expr, $param->var)) {
+                continue;
             }
-            if (!$this->nodeComparator->areNodesEqual($node->expr, $param)) {
-                return null;
+            if (!$assign->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
+                continue;
             }
-            if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
-                return null;
-            }
-            $singlePropertyTypeNode = $this->matchPropertySingleTypeNode($node->var);
+            $singlePropertyTypeNode = $this->matchPropertySingleTypeNode($assign->var);
             if (!$singlePropertyTypeNode instanceof \PhpParser\Node) {
                 return null;
             }
-            $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine());
-            $this->file->addRectorClassWithLine($rectorWithLineChange);
             $param->type = $singlePropertyTypeNode;
-            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
-        });
+            return $param;
+        }
+        return null;
     }
     /**
      * @return Node\Identifier|Node\Name|UnionType|NullableType|null
@@ -140,6 +125,9 @@ CODE_SAMPLE
         if ($property->type instanceof \PhpParser\Node\NullableType) {
             return null;
         }
-        return $property->type;
+        // needed to avoid reprinting original tokens bug
+        $typeNode = clone $property->type;
+        $typeNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
+        return $typeNode;
     }
 }
