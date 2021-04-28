@@ -16,6 +16,7 @@ use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode;
 use Rector\Php80\ValueObject\AnnotationToAttribute;
 final class PhpAttributeGroupFactory
 {
@@ -45,18 +46,10 @@ final class PhpAttributeGroupFactory
             $args[] = new \PhpParser\Node\Arg($silentValue);
             unset($items[$silentKey]);
         }
-        if ($this->isArrayArguments($items)) {
-            foreach ($items as $key => $value) {
-                $argumentName = new \PhpParser\Node\Identifier($key);
-                $value = $this->normalizeNodeValue($value);
-                $value = \PhpParser\BuilderHelpers::normalizeValue($value);
-                $args[] = new \PhpParser\Node\Arg($value, \false, \false, [], $argumentName);
-            }
-        } else {
-            foreach ($items as $item) {
-                $item = \PhpParser\BuilderHelpers::normalizeValue($item);
-                $args[] = new \PhpParser\Node\Arg($item);
-            }
+        foreach ($items as $key => $value) {
+            $value = $this->normalizeNodeValue($value);
+            $value = \PhpParser\BuilderHelpers::normalizeValue($value);
+            $args[] = $this->isArrayArguments($items) ? new \PhpParser\Node\Arg($value, \false, \false, [], new \PhpParser\Node\Identifier($key)) : new \PhpParser\Node\Arg($value);
         }
         return $args;
     }
@@ -74,7 +67,7 @@ final class PhpAttributeGroupFactory
     }
     /**
      * @param mixed $value
-     * @return bool|float|int|string
+     * @return bool|float|int|string|array<mixed>
      */
     private function normalizeNodeValue($value)
     {
@@ -92,6 +85,11 @@ final class PhpAttributeGroupFactory
         }
         if ($value instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode) {
             return \false;
+        }
+        if ($value instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode) {
+            return \array_map(function ($node) {
+                return $this->normalizeNodeValue($node);
+            }, $value->getValuesWithExplicitSilentAndWithoutQuotes());
         }
         if ($value instanceof \PHPStan\PhpDocParser\Ast\Node) {
             return (string) $value;
