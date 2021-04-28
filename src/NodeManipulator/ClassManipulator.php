@@ -10,7 +10,6 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Trait_;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -29,7 +28,7 @@ final class ClassManipulator
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
@@ -58,10 +57,11 @@ final class ClassManipulator
             return \false;
         }
         $classReflection = $this->reflectionProvider->getClass($objectType->getClassName());
-        /** @var ClassReflection[] $parentClassReflections */
-        $parentClassReflections = \array_merge($classReflection->getParents(), $classReflection->getInterfaces());
-        foreach ($parentClassReflections as $parentClassReflection) {
-            if ($parentClassReflection->hasMethod($methodName)) {
+        foreach ($classReflection->getAncestors() as $ancestorClassReflection) {
+            if ($classReflection === $ancestorClassReflection) {
+                continue;
+            }
+            if ($ancestorClassReflection->hasMethod($methodName)) {
                 return \true;
             }
         }
@@ -76,23 +76,6 @@ final class ClassManipulator
             return $property->isPrivate();
         });
         return $this->nodeNameResolver->getNames($privateProperties);
-    }
-    /**
-     * @return string[]
-     */
-    public function getPublicMethodNames(\PhpParser\Node\Stmt\Class_ $class) : array
-    {
-        $publicMethodNames = [];
-        foreach ($class->getMethods() as $classMethod) {
-            if ($classMethod->isAbstract()) {
-                continue;
-            }
-            if ($classMethod->isAbstract()) {
-                continue;
-            }
-            $publicMethodNames[] = $this->nodeNameResolver->getName($classMethod);
-        }
-        return $publicMethodNames;
     }
     /**
      * @return string[]

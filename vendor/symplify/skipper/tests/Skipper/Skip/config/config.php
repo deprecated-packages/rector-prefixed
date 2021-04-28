@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210427;
+namespace RectorPrefix20210428;
 
-use RectorPrefix20210427\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
-use RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
-use RectorPrefix20210427\Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20210427\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210428\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
+use RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
+use RectorPrefix20210428\Symplify\Skipper\ValueObject\Option;
+return static function (\RectorPrefix20210428\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\RectorPrefix20210427\Symplify\Skipper\ValueObject\Option::SKIP, [
+    $parameters->set(\RectorPrefix20210428\Symplify\Skipper\ValueObject\Option::SKIP, [
         // classes
-        \RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class,
-        \RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
+        \RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class,
+        \RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
         // code
-        \RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode' => null,
-        \RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
-        \RectorPrefix20210427\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
+        \RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode' => null,
+        \RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
+        \RectorPrefix20210428\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
         // file paths
         __DIR__ . '/../Fixture/AlwaysSkippedPath',
         '*\\PathSkippedWithMask\\*',

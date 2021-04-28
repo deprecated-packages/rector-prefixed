@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210427\Symfony\Component\DependencyInjection\Compiler;
+namespace RectorPrefix20210428\Symfony\Component\DependencyInjection\Compiler;
 
-use RectorPrefix20210427\Psr\Container\ContainerInterface;
-use RectorPrefix20210427\Symfony\Component\DependencyInjection\Definition;
-use RectorPrefix20210427\Symfony\Component\DependencyInjection\Reference;
-use RectorPrefix20210427\Symfony\Contracts\Service\ServiceProviderInterface;
+use RectorPrefix20210428\Psr\Container\ContainerInterface;
+use RectorPrefix20210428\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20210428\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix20210428\Symfony\Contracts\Service\ServiceProviderInterface;
 /**
  * Compiler pass to inject their service locator to service subscribers.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveServiceSubscribersPass extends \RectorPrefix20210427\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveServiceSubscribersPass extends \RectorPrefix20210428\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocator;
     /**
@@ -27,10 +27,10 @@ class ResolveServiceSubscribersPass extends \RectorPrefix20210427\Symfony\Compon
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \RectorPrefix20210427\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\RectorPrefix20210427\Psr\Container\ContainerInterface::class, \RectorPrefix20210427\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
-            return new \RectorPrefix20210427\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
+        if ($value instanceof \RectorPrefix20210428\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\RectorPrefix20210428\Psr\Container\ContainerInterface::class, \RectorPrefix20210428\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
+            return new \RectorPrefix20210428\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
         }
-        if (!$value instanceof \RectorPrefix20210427\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof \RectorPrefix20210428\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
         $serviceLocator = $this->serviceLocator;

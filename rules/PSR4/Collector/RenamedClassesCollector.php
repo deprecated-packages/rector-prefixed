@@ -4,6 +4,9 @@ declare (strict_types=1);
 namespace Rector\PSR4\Collector;
 
 use Rector\Core\Configuration\RenamedClassesDataCollector;
+/**
+ * @deprecated Merge with RenamedClassesDataCollector
+ */
 final class RenamedClassesCollector
 {
     /**

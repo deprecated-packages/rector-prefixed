@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
+use PHPStan\Type\ObjectType;
 final class RenamedClassesDataCollector
 {
     /**
@@ -22,5 +23,14 @@ final class RenamedClassesDataCollector
     public function getOldToNewClasses() : array
     {
         return $this->oldToNewClasses;
+    }
+    public function matchClassName(\PHPStan\Type\ObjectType $objectType) : ?\PHPStan\Type\ObjectType
+    {
+        $className = $objectType->getClassName();
+        $renamedClassName = $this->oldToNewClasses[$className] ?? null;
+        if ($renamedClassName === null) {
+            return null;
+        }
+        return new \PHPStan\Type\ObjectType($renamedClassName);
     }
 }

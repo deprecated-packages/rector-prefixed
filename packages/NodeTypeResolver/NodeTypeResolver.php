@@ -37,6 +37,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
+use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
@@ -82,9 +83,13 @@ final class NodeTypeResolver
      */
     private $identifierTypeResolver;
     /**
+     * @var RenamedClassesDataCollector
+     */
+    private $renamedClassesDataCollector;
+    /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector $hasOffsetTypeCorrector, \Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver $identifierTypeResolver, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\NodeTypeCorrector\HasOffsetTypeCorrector $hasOffsetTypeCorrector, \Rector\NodeTypeResolver\NodeTypeResolver\IdentifierTypeResolver $identifierTypeResolver, \Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
@@ -95,6 +100,7 @@ final class NodeTypeResolver
         $this->reflectionProvider = $reflectionProvider;
         $this->hasOffsetTypeCorrector = $hasOffsetTypeCorrector;
         $this->identifierTypeResolver = $identifierTypeResolver;
+        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
     /**
      * Prevents circular dependency
@@ -130,7 +136,7 @@ final class NodeTypeResolver
             $resolvedType = $resolvedType->getStaticObjectType();
         }
         if ($resolvedType instanceof \PHPStan\Type\ObjectType) {
-            return $this->isObjectTypeOfObjectType($resolvedType, $requiredObjectType);
+            return $this->resolveObjectType($resolvedType, $requiredObjectType);
         }
         return $this->isMatchingUnionType($resolvedType, $requiredObjectType);
     }
@@ -350,7 +356,7 @@ final class NodeTypeResolver
     private function resolveByNodeTypeResolvers(\PhpParser\Node $node) : ?\PHPStan\Type\Type
     {
         foreach ($this->nodeTypeResolvers as $nodeClass => $nodeTypeResolver) {
-            if (!\is_a($node, $nodeClass)) {
+            if (!\is_a($node, $nodeClass, \true)) {
                 continue;
             }
             return $nodeTypeResolver->resolve($node);
@@ -399,5 +405,16 @@ final class NodeTypeResolver
             }
         }
         return $classReflection->isSubclassOf($requiredObjectType->getClassName());
+    }
+    private function resolveObjectType(\PHPStan\Type\ObjectType $resolvedObjectType, \PHPStan\Type\ObjectType $requiredObjectType) : bool
+    {
+        $renamedObjectType = $this->renamedClassesDataCollector->matchClassName($resolvedObjectType);
+        if (!$renamedObjectType instanceof \PHPStan\Type\ObjectType) {
+            return $this->isObjectTypeOfObjectType($resolvedObjectType, $requiredObjectType);
+        }
+        if (!$this->isObjectTypeOfObjectType($renamedObjectType, $requiredObjectType)) {
+            return $this->isObjectTypeOfObjectType($resolvedObjectType, $requiredObjectType);
+        }
+        return \true;
     }
 }

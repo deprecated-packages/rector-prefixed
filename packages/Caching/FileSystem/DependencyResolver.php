@@ -8,7 +8,7 @@ use PHPStan\Analyser\MutatingScope;
 use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
 use PHPStan\File\FileHelper;
-use RectorPrefix20210427\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210428\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class DependencyResolver
 {
     /**
@@ -27,7 +27,7 @@ final class DependencyResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper, \RectorPrefix20210427\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper, \RectorPrefix20210428\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->fileHelper = $fileHelper;
         $this->phpStanDependencyResolver = $phpStanDependencyResolver;

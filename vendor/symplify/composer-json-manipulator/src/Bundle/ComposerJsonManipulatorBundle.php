@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210427\Symplify\ComposerJsonManipulator\Bundle;
+namespace RectorPrefix20210428\Symplify\ComposerJsonManipulator\Bundle;
 
-use RectorPrefix20210427\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210427\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
-final class ComposerJsonManipulatorBundle extends \RectorPrefix20210427\Symfony\Component\HttpKernel\Bundle\Bundle
+use RectorPrefix20210428\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210428\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
+final class ComposerJsonManipulatorBundle extends \RectorPrefix20210428\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    protected function createContainerExtension() : ?\RectorPrefix20210427\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : ?\RectorPrefix20210428\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
-        return new \RectorPrefix20210427\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
+        return new \RectorPrefix20210428\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
     }
 }
