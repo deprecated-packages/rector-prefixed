@@ -110,6 +110,10 @@ CODE_SAMPLE
                 $isReturn = \true;
                 break;
             }
+            $expr = $condAndExpr->getExpr();
+            if (!$expr instanceof \PhpParser\Node\Expr\Assign) {
+                return null;
+            }
         }
         $matchArms = $this->createMatchArmsFromCases($condAndExprs);
         $match = new \PhpParser\Node\Expr\Match_($node->cond, $matchArms);
