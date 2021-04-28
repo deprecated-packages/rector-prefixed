@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
+use Rector\Core\Reflection\FunctionLikeReflectionParser;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\Guard\VariableToConstantGuard;
@@ -62,7 +63,11 @@ final class PropertyManipulator
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210428\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var FunctionLikeReflectionParser
+     */
+    private $functionLikeReflectionParser;
+    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210428\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\Reflection\FunctionLikeReflectionParser $functionLikeReflectionParser)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->assignManipulator = $assignManipulator;
@@ -72,6 +77,7 @@ final class PropertyManipulator
         $this->typeChecker = $typeChecker;
         $this->propertyFetchFinder = $propertyFetchFinder;
         $this->nodeRepository = $nodeRepository;
+        $this->functionLikeReflectionParser = $functionLikeReflectionParser;
     }
     public function isPropertyUsedInReadContext(\PhpParser\Node\Stmt\Property $property) : bool
     {
@@ -141,6 +147,9 @@ final class PropertyManipulator
     private function isFoundByRefParam(\PhpParser\Node $node) : bool
     {
         $classMethod = $node instanceof \PhpParser\Node\Expr\MethodCall ? $this->nodeRepository->findClassMethodByMethodCall($node) : $this->nodeRepository->findClassMethodByStaticCall($node);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            $classMethod = $this->functionLikeReflectionParser->parseCaller($node);
+        }
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
