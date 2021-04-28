@@ -4,18 +4,23 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\RenamingPhpDocNodeVisitorFactory;
 use Rector\NodeTypeResolver\PhpDocNodeVisitor\ClassRenamePhpDocNodeVisitor;
 use Rector\NodeTypeResolver\ValueObject\OldToNewType;
-use RectorPrefix20210428\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
     /**
      * @var ClassRenamePhpDocNodeVisitor
      */
     private $classRenamePhpDocNodeVisitor;
-    public function __construct(\Rector\NodeTypeResolver\PhpDocNodeVisitor\ClassRenamePhpDocNodeVisitor $classRenamePhpDocNodeVisitor)
+    /**
+     * @var RenamingPhpDocNodeVisitorFactory
+     */
+    private $renamingPhpDocNodeVisitorFactory;
+    public function __construct(\Rector\NodeTypeResolver\PhpDocNodeVisitor\ClassRenamePhpDocNodeVisitor $classRenamePhpDocNodeVisitor, \Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\RenamingPhpDocNodeVisitorFactory $renamingPhpDocNodeVisitorFactory)
     {
         $this->classRenamePhpDocNodeVisitor = $classRenamePhpDocNodeVisitor;
+        $this->renamingPhpDocNodeVisitorFactory = $renamingPhpDocNodeVisitorFactory;
     }
     /**
      * @param OldToNewType[] $oldToNewTypes
@@ -25,9 +30,8 @@ final class DocBlockClassRenamer
         if ($oldToNewTypes === []) {
             return;
         }
-        $phpDocNodeTraverser = new \RectorPrefix20210428\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
+        $phpDocNodeTraverser = $this->renamingPhpDocNodeVisitorFactory->create();
         $this->classRenamePhpDocNodeVisitor->setOldToNewTypes($oldToNewTypes);
-        $phpDocNodeTraverser->addPhpDocNodeVisitor($this->classRenamePhpDocNodeVisitor);
         $phpDocNodeTraverser->traverse($phpDocInfo->getPhpDocNode());
     }
 }

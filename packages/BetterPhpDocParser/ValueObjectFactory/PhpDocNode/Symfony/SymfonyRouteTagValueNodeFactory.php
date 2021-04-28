@@ -6,10 +6,6 @@ namespace Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 final class SymfonyRouteTagValueNodeFactory
 {
-    public function create() : \Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode
-    {
-        return $this->createFromItems([]);
-    }
     /**
      * @param array<string, mixed> $items
      */

@@ -5,26 +5,30 @@ namespace Rector\NodeTypeResolver\PhpDoc;
 
 use PhpParser\Node;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\UnderscorePhpDocNodeTraverserFactory;
 use Rector\NodeTypeResolver\PhpDocNodeVisitor\UnderscoreRenamePhpDocNodeVisitor;
 use Rector\Renaming\ValueObject\PseudoNamespaceToNamespace;
-use RectorPrefix20210428\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class PhpDocTypeRenamer
 {
     /**
      * @var UnderscoreRenamePhpDocNodeVisitor
      */
     private $underscoreRenamePhpDocNodeVisitor;
-    public function __construct(\Rector\NodeTypeResolver\PhpDocNodeVisitor\UnderscoreRenamePhpDocNodeVisitor $underscoreRenamePhpDocNodeVisitor)
+    /**
+     * @var UnderscorePhpDocNodeTraverserFactory
+     */
+    private $underscorePhpDocNodeTraverserFactory;
+    public function __construct(\Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\UnderscorePhpDocNodeTraverserFactory $underscorePhpDocNodeTraverserFactory, \Rector\NodeTypeResolver\PhpDocNodeVisitor\UnderscoreRenamePhpDocNodeVisitor $underscoreRenamePhpDocNodeVisitor)
     {
         $this->underscoreRenamePhpDocNodeVisitor = $underscoreRenamePhpDocNodeVisitor;
+        $this->underscorePhpDocNodeTraverserFactory = $underscorePhpDocNodeTraverserFactory;
     }
     public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
     {
         $phpDocNode = $phpDocInfo->getPhpDocNode();
-        $phpDocNodeTraverser = new \RectorPrefix20210428\Symplify\SimplePhpDocParser\PhpDocNodeTraverser();
         $this->underscoreRenamePhpDocNodeVisitor->setPseudoNamespaceToNamespace($pseudoNamespaceToNamespace);
         $this->underscoreRenamePhpDocNodeVisitor->setCurrentPhpParserNode($node);
-        $phpDocNodeTraverser->addPhpDocNodeVisitor($this->underscoreRenamePhpDocNodeVisitor);
+        $phpDocNodeTraverser = $this->underscorePhpDocNodeTraverserFactory->create();
         $phpDocNodeTraverser->traverse($phpDocNode);
     }
 }

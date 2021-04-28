@@ -145,9 +145,7 @@ CODE_SAMPLE
      */
     private function lowercaseArray(array $values) : array
     {
-        return \array_map(function (string $value) : string {
-            return \strtolower($value);
-        }, $values);
+        return \array_map('strtolower', $values);
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Use_ $use, \PhpParser\Node\Name $name, string $lastName, string $aliasName) : bool
     {

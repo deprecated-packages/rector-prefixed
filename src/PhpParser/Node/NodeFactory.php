@@ -518,7 +518,8 @@ final class NodeFactory
             $this->decoreateArrayItemWithKey($key, $arrayItem);
             return $arrayItem;
         }
-        throw new \Rector\Core\Exception\NotImplementedYetException(\sprintf('Not implemented yet. Go to "%s()" and add check for "%s" node.', __METHOD__, \is_object($item) ? \get_class($item) : $item));
+        $nodeClass = \is_object($item) ? \get_class($item) : $item;
+        throw new \Rector\Core\Exception\NotImplementedYetException(\sprintf('Not implemented yet. Go to "%s()" and add check for "%s" node.', __METHOD__, $nodeClass));
     }
     /**
      * @param mixed $value

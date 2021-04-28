@@ -637,8 +637,8 @@ final class ComposerJson
     private function sortItemsByOrderedListOfKeys(array $contentItems, array $orderedVisibleItems) : array
     {
         \uksort($contentItems, function ($firstContentItem, $secondContentItem) use($orderedVisibleItems) : int {
-            $firstItemPosition = \array_search($firstContentItem, $orderedVisibleItems, \true);
-            $secondItemPosition = \array_search($secondContentItem, $orderedVisibleItems, \true);
+            $firstItemPosition = $this->findPosition($firstContentItem, $orderedVisibleItems);
+            $secondItemPosition = $this->findPosition($secondContentItem, $orderedVisibleItems);
             if ($firstItemPosition === \false) {
                 // new item, put in the back
                 return -1;
@@ -678,5 +678,12 @@ final class ComposerJson
             return $this->composerPackageSorter->sortPackages($packages);
         }
         return $packages;
+    }
+    /**
+     * @return int|string|bool
+     */
+    private function findPosition(string $key, array $items)
+    {
+        return \array_search($key, $items, \true);
     }
 }
