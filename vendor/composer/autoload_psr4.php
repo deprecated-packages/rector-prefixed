@@ -56,6 +56,7 @@ return array(
     'RectorPrefix20210429\\Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'RectorPrefix20210429\\Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
     'RectorPrefix20210429\\Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'RectorPrefix20210429\\PackageVersions\\' => array($vendorDir . '/composer/package-versions-deprecated/src/PackageVersions'),
     'RectorPrefix20210429\\Jean85\\' => array($vendorDir . '/jean85/pretty-package-versions/src'),
     'RectorPrefix20210429\\Doctrine\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Inflector'),
     'RectorPrefix20210429\\Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),

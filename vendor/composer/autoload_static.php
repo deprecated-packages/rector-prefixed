@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
+class ComposerStaticInitbc69be8890ea790c2c3db950e82d0e35
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -78,6 +78,7 @@ class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
             'RectorPrefix20210429\\Psr\\Log\\' => 29,
             'RectorPrefix20210429\\Psr\\EventDispatcher\\' => 41,
             'RectorPrefix20210429\\Psr\\Container\\' => 35,
+            'RectorPrefix20210429\\PackageVersions\\' => 37,
             'RectorPrefix20210429\\Jean85\\' => 28,
             'RectorPrefix20210429\\Doctrine\\Inflector\\' => 40,
             'RectorPrefix20210429\\Composer\\XdebugHandler\\' => 44,
@@ -292,6 +293,10 @@ class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
         'RectorPrefix20210429\\Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'RectorPrefix20210429\\PackageVersions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
         ),
         'RectorPrefix20210429\\Jean85\\' => 
         array (
@@ -688,9 +693,6 @@ class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
         'RectorPrefix20210429\\Doctrine\\Inflector\\Rules\\Word' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Rules/Word.php',
         'RectorPrefix20210429\\Doctrine\\Inflector\\RulesetInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/RulesetInflector.php',
         'RectorPrefix20210429\\Doctrine\\Inflector\\WordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/WordInflector.php',
-        'RectorPrefix20210429\\Jean85\\Exception\\ProvidedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ProvidedPackageException.php',
-        'RectorPrefix20210429\\Jean85\\Exception\\ReplacedPackageException' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/ReplacedPackageException.php',
-        'RectorPrefix20210429\\Jean85\\Exception\\VersionMissingExceptionInterface' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/VersionMissingExceptionInterface.php',
         'RectorPrefix20210429\\Jean85\\PrettyVersions' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/PrettyVersions.php',
         'RectorPrefix20210429\\Jean85\\Version' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Version.php',
         'RectorPrefix20210429\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -761,6 +763,9 @@ class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
         'RectorPrefix20210429\\Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'RectorPrefix20210429\\Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
         'RectorPrefix20210429\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'RectorPrefix20210429\\PackageVersions\\FallbackVersions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/FallbackVersions.php',
+        'RectorPrefix20210429\\PackageVersions\\Installer' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Installer.php',
+        'RectorPrefix20210429\\PackageVersions\\Versions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Versions.php',
         'RectorPrefix20210429\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'RectorPrefix20210429\\Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'RectorPrefix20210429\\Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -3409,9 +3414,9 @@ class ComposerStaticInitfb522106ebd15a56f10a18493fb278b6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfb522106ebd15a56f10a18493fb278b6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfb522106ebd15a56f10a18493fb278b6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfb522106ebd15a56f10a18493fb278b6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbc69be8890ea790c2c3db950e82d0e35::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbc69be8890ea790c2c3db950e82d0e35::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbc69be8890ea790c2c3db950e82d0e35::$classMap;
 
         }, null, ClassLoader::class);
     }
