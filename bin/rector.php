@@ -24,6 +24,8 @@ $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
+// make local php-parser a priority to avoid conflict
+require_once __DIR__ . '/../preload.php';
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210429\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
