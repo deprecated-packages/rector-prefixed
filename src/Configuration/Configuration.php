@@ -91,7 +91,7 @@ final class Configuration
     }
     public function getPrettyVersion() : string
     {
-        $version = \RectorPrefix20210429\Jean85\PrettyVersions::getVersion('rector/rector');
+        $version = \RectorPrefix20210429\Jean85\PrettyVersions::getVersion('rector/rector-prefixed');
         return $version->getPrettyVersion();
     }
     /**
