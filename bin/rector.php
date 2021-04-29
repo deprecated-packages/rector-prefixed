@@ -21,11 +21,11 @@ use RectorPrefix20210429\Tracy\Debugger;
 // Require Composer autoload.php
 $autoloadIncluder = new \RectorPrefix20210429\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
+// make local php-parser a priority to avoid conflict
+require_once __DIR__ . '/../preload.php';
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
-// make local php-parser a priority to avoid conflict
-require_once __DIR__ . '/../preload.php';
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210429\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
