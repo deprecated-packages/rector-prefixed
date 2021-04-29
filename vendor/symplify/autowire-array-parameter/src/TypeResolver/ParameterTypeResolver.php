@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210428\Symplify\AutowireArrayParameter\TypeResolver;
+namespace RectorPrefix20210429\Symplify\AutowireArrayParameter\TypeResolver;
 
-use RectorPrefix20210428\Nette\Utils\Reflection;
+use RectorPrefix20210429\Nette\Utils\Reflection;
 use ReflectionMethod;
-use RectorPrefix20210428\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use RectorPrefix20210429\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 final class ParameterTypeResolver
 {
     /**
@@ -16,7 +16,7 @@ final class ParameterTypeResolver
      * @var array<string, string>
      */
     private $resolvedParameterTypesCached = [];
-    public function __construct(\RectorPrefix20210428\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
+    public function __construct(\RectorPrefix20210429\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
     {
         $this->paramTypeDocBlockResolver = $paramTypeDocBlockResolver;
     }
@@ -39,7 +39,7 @@ final class ParameterTypeResolver
         if (\ctype_lower($resolvedType[0])) {
             return null;
         }
-        $resolvedClass = \RectorPrefix20210428\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringReflectionClass);
+        $resolvedClass = \RectorPrefix20210429\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringReflectionClass);
         $this->resolvedParameterTypesCached[$uniqueKey] = $resolvedClass;
         return $resolvedClass;
     }
