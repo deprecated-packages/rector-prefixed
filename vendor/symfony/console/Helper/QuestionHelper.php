@@ -398,6 +398,13 @@ class QuestionHelper extends \RectorPrefix20210429\Symfony\Component\Console\Hel
             return self::$stdinIsInteractive;
         }
         if (\function_exists('stream_isatty')) {
+            $streamIsatty = function ($stream) {
+                if ('\\' === \DIRECTORY_SEPARATOR) {
+                    $stat = @\fstat($stream);
+                    return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
+                }
+                return @\posix_isatty($stream);
+            };
             return self::$stdinIsInteractive = $streamIsatty(\fopen('php://stdin', 'r'));
         }
         if (\function_exists('posix_isatty')) {

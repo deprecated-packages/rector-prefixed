@@ -110,7 +110,8 @@ class HttpCache implements \RectorPrefix20210429\Symfony\Component\HttpKernel\Ht
         if ('full' === $this->options['trace_level']) {
             $traceString = $this->getLog();
         }
-        if ('short' === $this->options['trace_level'] && ($masterId = \array_key_first($this->traces))) {
+        \reset($this->traces);
+        if ('short' === $this->options['trace_level'] && ($masterId = \key($this->traces))) {
             $traceString = \implode('/', $this->traces[$masterId]);
         }
         if (null !== $traceString) {

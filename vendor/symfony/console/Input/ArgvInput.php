@@ -147,7 +147,8 @@ class ArgvInput extends \RectorPrefix20210429\Symfony\Component\Console\Input\In
         } else {
             $all = $this->definition->getArguments();
             $symfonyCommandName = null;
-            if (($inputArgument = $all[$key = \array_key_first($all)] ?? null) && 'command' === $inputArgument->getName()) {
+            \reset($all);
+            if (($inputArgument = $all[$key = \key($all)] ?? null) && 'command' === $inputArgument->getName()) {
                 $symfonyCommandName = $this->arguments['command'] ?? null;
                 unset($all[$key]);
             }

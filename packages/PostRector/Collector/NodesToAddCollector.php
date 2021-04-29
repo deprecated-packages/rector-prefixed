@@ -114,8 +114,8 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
             return \spl_object_hash($parent);
         }
-        $foundNode = $this->betterNodeFinder->findParentType($node, \PhpParser\Node\Stmt\Expression::class);
-        if (!$foundNode instanceof \PhpParser\Node\Stmt\Expression) {
+        $foundNode = $this->betterNodeFinder->findParentTypes($node, [\PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt::class]);
+        if ($foundNode === null) {
             $foundNode = $node;
         }
         return \spl_object_hash($foundNode);
