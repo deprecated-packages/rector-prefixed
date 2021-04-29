@@ -130,4 +130,3 @@ class InstalledVersions
         return $installed;
     }
 }
-\class_alias('RectorPrefix20210429\\Composer\\InstalledVersions', 'Composer\\InstalledVersions', \false);

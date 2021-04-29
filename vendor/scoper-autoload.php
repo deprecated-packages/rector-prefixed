@@ -24,11 +24,8 @@ if (!class_exists('SomeTestCase', false) && !interface_exists('SomeTestCase', fa
 if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('CheckoutEntityFactory', false) && !trait_exists('CheckoutEntityFactory', false)) {
     spl_autoload_call('RectorPrefix20210429\CheckoutEntityFactory');
 }
-if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
-    spl_autoload_call('RectorPrefix20210429\Composer\InstalledVersions');
-}
-if (!class_exists('ComposerAutoloaderInit0344024f7a50f6689fb78a4a35df43cc', false) && !interface_exists('ComposerAutoloaderInit0344024f7a50f6689fb78a4a35df43cc', false) && !trait_exists('ComposerAutoloaderInit0344024f7a50f6689fb78a4a35df43cc', false)) {
-    spl_autoload_call('RectorPrefix20210429\ComposerAutoloaderInit0344024f7a50f6689fb78a4a35df43cc');
+if (!class_exists('ComposerAutoloaderInit8e05dde773f8e3eea123a1b4b7aaa314', false) && !interface_exists('ComposerAutoloaderInit8e05dde773f8e3eea123a1b4b7aaa314', false) && !trait_exists('ComposerAutoloaderInit8e05dde773f8e3eea123a1b4b7aaa314', false)) {
+    spl_autoload_call('RectorPrefix20210429\ComposerAutoloaderInit8e05dde773f8e3eea123a1b4b7aaa314');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210429\Doctrine\Inflector\Inflector');
@@ -85,9 +82,9 @@ if (!function_exists('print_node')) {
         return \RectorPrefix20210429\print_node(...func_get_args());
     }
 }
-if (!function_exists('composerRequire0344024f7a50f6689fb78a4a35df43cc')) {
-    function composerRequire0344024f7a50f6689fb78a4a35df43cc() {
-        return \RectorPrefix20210429\composerRequire0344024f7a50f6689fb78a4a35df43cc(...func_get_args());
+if (!function_exists('composerRequire8e05dde773f8e3eea123a1b4b7aaa314')) {
+    function composerRequire8e05dde773f8e3eea123a1b4b7aaa314() {
+        return \RectorPrefix20210429\composerRequire8e05dde773f8e3eea123a1b4b7aaa314(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {
