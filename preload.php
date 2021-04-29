@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types = 1);
-
 require_once __DIR__ . 'xed-downgraded/vendor/nikic/php-parser/lib/PhpParser/NodeVisitorAbstract.php';
 require_once __DIR__ . 'xed-downgraded/vendor/nikic/php-parser/lib/PhpParser/ErrorHandler.php';
 require_once __DIR__ . 'xed-downgraded/vendor/nikic/php-parser/lib/PhpParser/NodeTraverser.php';
