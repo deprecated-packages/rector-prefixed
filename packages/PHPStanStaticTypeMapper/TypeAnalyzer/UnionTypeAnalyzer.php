@@ -80,6 +80,9 @@ final class UnionTypeAnalyzer
     public function isScalar(\PHPStan\Type\UnionType $unionType) : bool
     {
         $types = $unionType->getTypes();
+        if (\count($types) !== 4) {
+            return \false;
+        }
         foreach ($types as $type) {
             if ($type instanceof \PHPStan\Type\StringType) {
                 continue;

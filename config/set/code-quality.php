@@ -12,6 +12,7 @@ use Rector\CodeQuality\Rector\BooleanNot\SimplifyDeMorganBinaryRector;
 use Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector;
 use Rector\CodeQuality\Rector\Class_\CompleteDynamicPropertiesRector;
 use Rector\CodeQuality\Rector\ClassMethod\DateTimeToDateTimeInterfaceRector;
+use Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector;
 use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
 use Rector\CodeQuality\Rector\Equal\UseIdenticalOverEqualWithSameTypeRector;
 use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
@@ -166,4 +167,5 @@ return static function (\RectorPrefix20210430\Symfony\Component\DependencyInject
     $services->set(\Rector\CodeQuality\Rector\Ternary\SwitchNegatedTernaryRector::class);
     $services->set(\Rector\CodeQuality\Rector\Switch_\SingularSwitchToIfRector::class);
     $services->set(\Rector\CodeQuality\Rector\If_\SimplifyIfNullableReturnRector::class);
+    $services->set(\Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class);
 };
