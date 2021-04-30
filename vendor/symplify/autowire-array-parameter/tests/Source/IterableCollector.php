@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210429\Symplify\AutowireArrayParameter\Tests\Source;
+namespace RectorPrefix20210430\Symplify\AutowireArrayParameter\Tests\Source;
 
-use RectorPrefix20210429\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-use RectorPrefix20210429\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
+use RectorPrefix20210430\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+use RectorPrefix20210430\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
 final class IterableCollector
 {
     /**
