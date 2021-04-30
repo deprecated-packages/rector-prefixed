@@ -26,7 +26,6 @@ use RectorPrefix20210430\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210430\Symfony\Component\Console\Input\InputOption;
 use RectorPrefix20210430\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210430\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20210430\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210430\Symplify\SmartFileSystem\SmartFileInfo;
 final class ProcessCommand extends \RectorPrefix20210430\Symfony\Component\Console\Command\Command
 {
@@ -54,10 +53,6 @@ final class ProcessCommand extends \RectorPrefix20210430\Symfony\Component\Conso
      * @var MissingRectorRulesReporter
      */
     private $missingRectorRulesReporter;
-    //    /**
-    //     * @var ParameterProvider
-    //     */
-    //    private $parameterProvider;
     /**
      * @var ApplicationFileProcessor
      */
