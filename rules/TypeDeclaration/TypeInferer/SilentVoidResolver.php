@@ -92,18 +92,18 @@ final class SilentVoidResolver
     }
     private function isSwitchWithAlwaysReturn(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
-        $casesWithReturn = 0;
+        $hasDefault = \false;
         foreach ($switch->cases as $case) {
-            foreach ($case->stmts as $caseStmt) {
-                if (!$caseStmt instanceof \PhpParser\Node\Stmt\Return_) {
-                    continue;
-                }
-                ++$casesWithReturn;
-                break;
+            if ($case->cond === null) {
+                $hasDefault = \true;
             }
         }
+        if (!$hasDefault) {
+            return \false;
+        }
+        $casesWithReturnCount = $this->resolveReturnCount($switch);
         // has same amount of returns as switches
-        return \count($switch->cases) === $casesWithReturn;
+        return \count($switch->cases) === $casesWithReturnCount;
     }
     private function isTryCatchAlwaysReturn(\PhpParser\Node\Stmt\TryCatch $tryCatch) : bool
     {
@@ -122,5 +122,19 @@ final class SilentVoidResolver
     private function hasNeverType(\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         return $this->betterNodeFinder->hasInstancesOf($functionLike, [\PhpParser\Node\Stmt\Throw_::class]);
+    }
+    private function resolveReturnCount(\PhpParser\Node\Stmt\Switch_ $switch) : int
+    {
+        $casesWithReturnCount = 0;
+        foreach ($switch->cases as $case) {
+            foreach ($case->stmts as $caseStmt) {
+                if (!$caseStmt instanceof \PhpParser\Node\Stmt\Return_) {
+                    continue;
+                }
+                ++$casesWithReturnCount;
+                break;
+            }
+        }
+        return $casesWithReturnCount;
     }
 }
