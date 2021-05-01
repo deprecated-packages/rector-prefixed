@@ -21,8 +21,8 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210430\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210430\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210501\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210501\Symplify\SmartFileSystem\SmartFileSystem;
 final class FunctionLikeReflectionParser
 {
     /**
@@ -53,7 +53,7 @@ final class FunctionLikeReflectionParser
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210430\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210501\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
@@ -75,7 +75,7 @@ final class FunctionLikeReflectionParser
             return null;
         }
         $nodes = (array) $this->parser->parse($fileContent);
-        $smartFileInfo = new \RectorPrefix20210430\Symplify\SmartFileSystem\SmartFileInfo($fileName);
+        $smartFileInfo = new \RectorPrefix20210501\Symplify\SmartFileSystem\SmartFileInfo($fileName);
         $file = new \Rector\Core\ValueObject\Application\File($smartFileInfo, $smartFileInfo->getContents());
         $nodes = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $nodes, $smartFileInfo);
         $class = $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Class_::class);
