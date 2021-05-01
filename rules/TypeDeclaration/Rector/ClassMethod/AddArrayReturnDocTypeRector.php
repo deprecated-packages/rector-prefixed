@@ -19,6 +19,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\TypeManipulator\NormalizeTypeToRespectArrayScalarType;
 use Rector\TypeDeclaration\NodeTypeAnalyzer\DetailedTypeAnalyzer;
 use Rector\TypeDeclaration\TypeAnalyzer\AdvancedArrayAnalyzer;
@@ -123,25 +124,20 @@ CODE_SAMPLE
         }
         $inferredReturnType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
         $inferredReturnType = $this->normalizeTypeToRespectArrayScalarType->normalizeToArray($inferredReturnType, $node->returnType);
-        if ($this->detailedTypeAnalyzer->isTooDetailed($inferredReturnType)) {
-            return null;
-        }
         $currentReturnType = $phpDocInfo->getReturnType();
         if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethodOldTypeWithNewType($currentReturnType, $inferredReturnType)) {
             return null;
         }
-        if ($this->shouldSkipType($inferredReturnType, $node, $phpDocInfo)) {
+        if ($this->shouldSkipType($inferredReturnType, $currentReturnType, $node, $phpDocInfo)) {
             return null;
         }
-        if ($inferredReturnType instanceof \PHPStan\Type\Generic\GenericObjectType && $currentReturnType instanceof \PHPStan\Type\MixedType) {
-            $types = $inferredReturnType->getTypes();
-            if ($types[0] instanceof \PHPStan\Type\MixedType && $types[1] instanceof \PHPStan\Type\ArrayType) {
-                return null;
-            }
-        }
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $inferredReturnType);
-        $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);
-        return $node;
+        if ($phpDocInfo->hasChanged()) {
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::HAS_PHP_DOC_INFO_JUST_CHANGED, \true);
+            $this->returnTagRemover->removeReturnTagIfUseless($phpDocInfo, $node);
+            return $node;
+        }
+        return null;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
@@ -165,7 +161,7 @@ CODE_SAMPLE
      * @todo merge to
      * @see \Rector\TypeDeclaration\TypeAlreadyAddedChecker\ReturnTypeAlreadyAddedChecker
      */
-    private function shouldSkipType(\PHPStan\Type\Type $newType, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
+    private function shouldSkipType(\PHPStan\Type\Type $newType, \PHPStan\Type\Type $currentType, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : bool
     {
         if ($newType instanceof \PHPStan\Type\ArrayType && $this->shouldSkipArrayType($newType, $classMethod, $phpDocInfo)) {
             return \true;
@@ -178,6 +174,9 @@ CODE_SAMPLE
             return \true;
         }
         if ($this->advancedArrayAnalyzer->isMoreSpecificArrayTypeOverride($newType, $classMethod, $phpDocInfo)) {
+            return \true;
+        }
+        if ($this->isGenericTypeToMixedTypeOverride($newType, $currentType)) {
             return \true;
         }
         return $this->detailedTypeAnalyzer->isTooDetailed($newType);
@@ -224,5 +223,15 @@ CODE_SAMPLE
             return \true;
         }
         return $this->advancedArrayAnalyzer->isMixedOfSpecificOverride($arrayType, $phpDocInfo);
+    }
+    private function isGenericTypeToMixedTypeOverride(\PHPStan\Type\Type $newType, \PHPStan\Type\Type $currentType) : bool
+    {
+        if ($newType instanceof \PHPStan\Type\Generic\GenericObjectType && $currentType instanceof \PHPStan\Type\MixedType) {
+            $types = $newType->getTypes();
+            if ($types[0] instanceof \PHPStan\Type\MixedType && $types[1] instanceof \PHPStan\Type\ArrayType) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

@@ -32,6 +32,11 @@ final class ChangedNodeAnalyzer
                 }
             }
         }
+        // php-parser has no idea about changed docblocks, so to report it correctly, we have to set up this attribute
+        if ($node->hasAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::HAS_PHP_DOC_INFO_JUST_CHANGED)) {
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::HAS_PHP_DOC_INFO_JUST_CHANGED, null);
+            return \true;
+        }
         return !$this->nodeComparator->areNodesEqual($originalNode, $node);
     }
     private function isNameIdentical(\PhpParser\Node $node, \PhpParser\Node $originalNode) : bool
