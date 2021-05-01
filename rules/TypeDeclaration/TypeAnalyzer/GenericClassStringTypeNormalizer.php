@@ -25,6 +25,10 @@ final class GenericClassStringTypeNormalizer
             if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType) {
                 return $callback($type);
             }
+            // skip string that look like classe
+            if ($type->getValue() === 'error') {
+                return $callback($type);
+            }
             if (!$this->reflectionProvider->hasClass($type->getValue())) {
                 return $callback($type);
             }
