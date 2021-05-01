@@ -110,7 +110,9 @@ abstract class NodeDefinition implements \RectorPrefix20210501\Symfony\Component
             $this->validation->rules = \RectorPrefix20210501\Symfony\Component\Config\Definition\Builder\ExprBuilder::buildExpressions($this->validation->rules);
         }
         $node = $this->createNode();
-        $node->setAttributes($this->attributes);
+        if ($node instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode) {
+            $node->setAttributes($this->attributes);
+        }
         return $node;
     }
     /**

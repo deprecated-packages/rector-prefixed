@@ -11,6 +11,7 @@
 namespace RectorPrefix20210501\Symfony\Component\Config\Definition\Dumper;
 
 use RectorPrefix20210501\Symfony\Component\Config\Definition\ArrayNode;
+use RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\ConfigurationInterface;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\EnumNode;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\NodeInterface;
@@ -63,7 +64,10 @@ class YamlReferenceDumper
         $default = '';
         $defaultArray = null;
         $children = null;
-        $example = $node->getExample();
+        $example = null;
+        if ($node instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode) {
+            $example = $node->getExample();
+        }
         // defaults
         if ($node instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\ArrayNode) {
             $children = $node->getChildren();
@@ -103,7 +107,7 @@ class YamlReferenceDumper
             $comments[] = 'Required';
         }
         // deprecated?
-        if ($node->isDeprecated()) {
+        if ($node instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode && $node->isDeprecated()) {
             $deprecation = $node->getDeprecation($node->getName(), $parentNode ? $parentNode->getPath() : $node->getPath());
             $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '') . $deprecation['message']);
         }
@@ -115,7 +119,7 @@ class YamlReferenceDumper
         $comments = \count($comments) ? '# ' . \implode(', ', $comments) : '';
         $key = $prototypedArray ? '-' : $node->getName() . ':';
         $text = \rtrim(\sprintf('%-21s%s %s', $key, $default, $comments), ' ');
-        if ($info = $node->getInfo()) {
+        if ($node instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode && ($info = $node->getInfo())) {
             $this->writeLine('');
             // indenting multi-line info
             $info = \str_replace("\n", \sprintf("\n%" . $depth * 4 . 's# ', ' '), $info);

@@ -34,12 +34,12 @@ class Session implements \RectorPrefix20210501\Symfony\Component\HttpFoundation\
     private $usageReporter;
     public function __construct(\RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
     {
-        $this->storage = $storage ?: new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
+        $this->storage = $storage ?? new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
         $this->usageReporter = $usageReporter;
-        $attributes = $attributes ?: new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
+        $attributes = $attributes ?? new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
         $this->attributeName = $attributes->getName();
         $this->registerBag($attributes);
-        $flashes = $flashes ?: new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
+        $flashes = $flashes ?? new \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
         $this->flashName = $flashes->getName();
         $this->registerBag($flashes);
     }

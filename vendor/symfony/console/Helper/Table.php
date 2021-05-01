@@ -440,7 +440,7 @@ class Table
         if ($cell instanceof \RectorPrefix20210501\Symfony\Component\Console\Helper\TableSeparator) {
             return \sprintf($style->getBorderFormat(), \str_repeat($style->getBorderChars()[2], $width));
         }
-        $width += \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::strlen($cell) - \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->output->getFormatter(), $cell);
+        $width += \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::length($cell) - \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::length(\RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::removeDecoration($this->output->getFormatter(), $cell));
         $content = \sprintf($style->getCellRowContentFormat(), $cell);
         $padType = $style->getPadType();
         if ($cell instanceof \RectorPrefix20210501\Symfony\Component\Console\Helper\TableCell && $cell->getStyle() instanceof \RectorPrefix20210501\Symfony\Component\Console\Helper\TableCellStyle) {

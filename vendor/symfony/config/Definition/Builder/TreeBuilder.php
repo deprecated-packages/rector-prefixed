@@ -22,7 +22,7 @@ class TreeBuilder implements \RectorPrefix20210501\Symfony\Component\Config\Defi
     protected $root;
     public function __construct(string $name, string $type = 'array', \RectorPrefix20210501\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
-        $builder = $builder ?: new \RectorPrefix20210501\Symfony\Component\Config\Definition\Builder\NodeBuilder();
+        $builder = $builder ?? new \RectorPrefix20210501\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
     /**

@@ -435,7 +435,7 @@ final class ProgressBar
             $completeBars = $bar->getBarOffset();
             $display = \str_repeat($bar->getBarCharacter(), $completeBars);
             if ($completeBars < $bar->getBarWidth()) {
-                $emptyBars = $bar->getBarWidth() - $completeBars - \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($output->getFormatter(), $bar->getProgressCharacter());
+                $emptyBars = $bar->getBarWidth() - $completeBars - \RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::length(\RectorPrefix20210501\Symfony\Component\Console\Helper\Helper::removeDecoration($output->getFormatter(), $bar->getProgressCharacter()));
                 $display .= $bar->getProgressCharacter() . \str_repeat($bar->getEmptyBarCharacter(), $emptyBars);
             }
             return $display;

@@ -60,7 +60,7 @@ class ArrayNode extends \RectorPrefix20210501\Symfony\Component\Config\Definitio
     /**
      * Retrieves the children of this node.
      *
-     * @return array The children
+     * @return array<string, NodeInterface>
      */
     public function getChildren()
     {

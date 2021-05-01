@@ -143,7 +143,11 @@ class RequestMatcher implements \RectorPrefix20210501\Symfony\Component\HttpFoun
             return \false;
         }
         foreach ($this->attributes as $key => $pattern) {
-            if (!\preg_match('{' . $pattern . '}', $request->attributes->get($key))) {
+            $requestAttribute = $request->attributes->get($key);
+            if (!\is_string($requestAttribute)) {
+                return \false;
+            }
+            if (!\preg_match('{' . $pattern . '}', $requestAttribute)) {
                 return \false;
             }
         }

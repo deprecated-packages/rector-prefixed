@@ -296,7 +296,7 @@ class ContainerBuilder extends \RectorPrefix20210501\Symfony\Component\Dependenc
         }
         if ($this->trackResources) {
             if (!$classReflector) {
-                $this->addResource($resource ?: new \RectorPrefix20210501\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false));
+                $this->addResource($resource ?? new \RectorPrefix20210501\Symfony\Component\Config\Resource\ClassExistenceResource($class, \false));
             } elseif (!$classReflector->isInternal()) {
                 $path = $classReflector->getFileName();
                 if (!$this->inVendors($path)) {

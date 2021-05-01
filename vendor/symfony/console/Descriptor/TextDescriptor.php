@@ -250,7 +250,7 @@ class TextDescriptor extends \RectorPrefix20210501\Symfony\Component\Console\Des
         return \str_replace('\\\\', '\\', \json_encode($default, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE));
     }
     /**
-     * @param (Command|string)[] $commands
+     * @param array<Command|string> $commands
      */
     private function getColumnWidth(array $commands) : int
     {

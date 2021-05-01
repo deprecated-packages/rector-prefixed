@@ -11,6 +11,7 @@
 namespace RectorPrefix20210501\Symfony\Component\Config\Definition\Dumper;
 
 use RectorPrefix20210501\Symfony\Component\Config\Definition\ArrayNode;
+use RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\ConfigurationInterface;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\EnumNode;
 use RectorPrefix20210501\Symfony\Component\Config\Definition\NodeInterface;
@@ -105,43 +106,43 @@ class XmlReferenceDumper
             }
             // get attributes and elements
             foreach ($children as $child) {
-                if (!$child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\ArrayNode) {
-                    // get attributes
-                    // metadata
-                    $name = \str_replace('_', '-', $child->getName());
-                    $value = '%%%%not_defined%%%%';
-                    // use a string which isn't used in the normal world
-                    // comments
-                    $comments = [];
-                    if ($info = $child->getInfo()) {
-                        $comments[] = $info;
-                    }
-                    if ($example = $child->getExample()) {
-                        $comments[] = 'Example: ' . $example;
-                    }
-                    if ($child->isRequired()) {
-                        $comments[] = 'Required';
-                    }
-                    if ($child->isDeprecated()) {
-                        $deprecation = $child->getDeprecation($child->getName(), $node->getPath());
-                        $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '') . $deprecation['message']);
-                    }
-                    if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\EnumNode) {
-                        $comments[] = 'One of ' . \implode('; ', \array_map('json_encode', $child->getValues()));
-                    }
-                    if (\count($comments)) {
-                        $rootAttributeComments[$name] = \implode(";\n", $comments);
-                    }
-                    // default values
-                    if ($child->hasDefaultValue()) {
-                        $value = $child->getDefaultValue();
-                    }
-                    // append attribute
-                    $rootAttributes[$name] = $value;
-                } else {
+                if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\ArrayNode) {
                     // get elements
                     $rootChildren[] = $child;
+                    continue;
                 }
+                // get attributes
+                // metadata
+                $name = \str_replace('_', '-', $child->getName());
+                $value = '%%%%not_defined%%%%';
+                // use a string which isn't used in the normal world
+                // comments
+                $comments = [];
+                if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode && ($info = $child->getInfo())) {
+                    $comments[] = $info;
+                }
+                if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode && ($example = $child->getExample())) {
+                    $comments[] = 'Example: ' . $example;
+                }
+                if ($child->isRequired()) {
+                    $comments[] = 'Required';
+                }
+                if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\BaseNode && $child->isDeprecated()) {
+                    $deprecation = $child->getDeprecation($child->getName(), $node->getPath());
+                    $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '') . $deprecation['message']);
+                }
+                if ($child instanceof \RectorPrefix20210501\Symfony\Component\Config\Definition\EnumNode) {
+                    $comments[] = 'One of ' . \implode('; ', \array_map('json_encode', $child->getValues()));
+                }
+                if (\count($comments)) {
+                    $rootAttributeComments[$name] = \implode(";\n", $comments);
+                }
+                // default values
+                if ($child->hasDefaultValue()) {
+                    $value = $child->getDefaultValue();
+                }
+                // append attribute
+                $rootAttributes[$name] = $value;
             }
         }
         // render comments

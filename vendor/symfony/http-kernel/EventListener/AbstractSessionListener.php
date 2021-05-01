@@ -50,7 +50,6 @@ abstract class AbstractSessionListener implements \RectorPrefix20210501\Symfony\
         if (!$event->isMasterRequest()) {
             return;
         }
-        $session = null;
         $request = $event->getRequest();
         if (!$request->hasSession()) {
             $sess = null;
@@ -58,7 +57,7 @@ abstract class AbstractSessionListener implements \RectorPrefix20210501\Symfony\
                 return $sess ?? ($sess = $this->getSession());
             });
         }
-        $session = $session ?? ($this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null);
+        $session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
         $this->sessionUsageStack[] = $session instanceof \RectorPrefix20210501\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
     }
     public function onKernelResponse(\RectorPrefix20210501\Symfony\Component\HttpKernel\Event\ResponseEvent $event)

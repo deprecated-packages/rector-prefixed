@@ -95,9 +95,8 @@ class MockFileSessionStorage extends \RectorPrefix20210501\Symfony\Component\Htt
         } finally {
             $this->data = $data;
         }
-        // this is needed for Silex, where the session object is re-used across requests
-        // in functional tests. In Symfony, the container is rebooted, so we don't have
-        // this issue
+        // this is needed when the session object is re-used across multiple requests
+        // in functional tests.
         $this->started = \false;
     }
     /**

@@ -23,9 +23,8 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210501\Symf
     }
     /**
      * {@inheritdoc}
-     * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if ($value instanceof \RectorPrefix20210501\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \RectorPrefix20210501\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
@@ -46,7 +45,7 @@ final class AliasDeprecatedPublicServicesPass extends \RectorPrefix20210501\Symf
             }
             $definition = $container->getDefinition($id);
             if (!$definition->isPublic() || $definition->isPrivate()) {
-                throw new \RectorPrefix20210501\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The "%s" service is private: it cannot have the "%s" tag.', $id, $this->tagName));
+                continue;
             }
             $container->setAlias($id, $aliasId = '.' . $this->tagName . '.' . $id)->setPublic(\true)->setDeprecated($package, $version, 'Accessing the "%alias_id%" service directly from the container is deprecated, use dependency injection instead.');
             $container->setDefinition($aliasId, $definition);

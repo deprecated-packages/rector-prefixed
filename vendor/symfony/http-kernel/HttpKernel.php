@@ -56,7 +56,7 @@ class HttpKernel implements \RectorPrefix20210501\Symfony\Component\HttpKernel\H
     {
         $this->dispatcher = $dispatcher;
         $this->resolver = $resolver;
-        $this->requestStack = $requestStack ?: new \RectorPrefix20210501\Symfony\Component\HttpFoundation\RequestStack();
+        $this->requestStack = $requestStack ?? new \RectorPrefix20210501\Symfony\Component\HttpFoundation\RequestStack();
         $this->argumentResolver = $argumentResolver;
         if (null === $this->argumentResolver) {
             $this->argumentResolver = new \RectorPrefix20210501\Symfony\Component\HttpKernel\Controller\ArgumentResolver();

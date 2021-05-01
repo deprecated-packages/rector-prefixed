@@ -37,7 +37,7 @@ abstract class Output implements \RectorPrefix20210501\Symfony\Component\Console
     public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
-        $this->formatter = $formatter ?: new \RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatter();
+        $this->formatter = $formatter ?? new \RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatter();
         $this->formatter->setDecorated($decorated);
     }
     /**

@@ -63,32 +63,22 @@ abstract class Descriptor implements \RectorPrefix20210501\Symfony\Component\Con
     }
     /**
      * Describes an InputArgument instance.
-     *
-     * @return string|mixed
      */
     protected abstract function describeInputArgument(\RectorPrefix20210501\Symfony\Component\Console\Input\InputArgument $argument, array $options = []);
     /**
      * Describes an InputOption instance.
-     *
-     * @return string|mixed
      */
     protected abstract function describeInputOption(\RectorPrefix20210501\Symfony\Component\Console\Input\InputOption $option, array $options = []);
     /**
      * Describes an InputDefinition instance.
-     *
-     * @return string|mixed
      */
     protected abstract function describeInputDefinition(\RectorPrefix20210501\Symfony\Component\Console\Input\InputDefinition $definition, array $options = []);
     /**
      * Describes a Command instance.
-     *
-     * @return string|mixed
      */
     protected abstract function describeCommand(\RectorPrefix20210501\Symfony\Component\Console\Command\Command $command, array $options = []);
     /**
      * Describes an Application instance.
-     *
-     * @return string|mixed
      */
     protected abstract function describeApplication(\RectorPrefix20210501\Symfony\Component\Console\Application $application, array $options = []);
 }

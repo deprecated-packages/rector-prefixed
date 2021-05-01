@@ -41,6 +41,16 @@ abstract class Helper implements \RectorPrefix20210501\Symfony\Component\Console
      */
     public static function strlen(?string $string)
     {
+        return self::width($string);
+    }
+    /**
+     * Returns the width of a string, using mb_strwidth if it is available.
+     * The width is how many characters positions the string will use.
+     *
+     * @internal in Symfony 5.2
+     */
+    public static function width(?string $string) : int
+    {
         $string ?? ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \RectorPrefix20210501\Symfony\Component\String\UnicodeString($string))->width(\false);
@@ -49,6 +59,23 @@ abstract class Helper implements \RectorPrefix20210501\Symfony\Component\Console
             return \strlen($string);
         }
         return \mb_strwidth($string, $encoding);
+    }
+    /**
+     * Returns the length of a string, using mb_strlen if it is available.
+     * The length is related to how many bytes the string will use.
+     *
+     * @internal in Symfony 5.2
+     */
+    public static function length(?string $string) : int
+    {
+        $string ?? ($string = '');
+        if (\preg_match('//u', $string)) {
+            return (new \RectorPrefix20210501\Symfony\Component\String\UnicodeString($string))->length();
+        }
+        if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
+            return \strlen($string);
+        }
+        return \mb_strlen($string, $encoding);
     }
     /**
      * Returns the subset of a string, using mb_substr if it is available.
@@ -92,11 +119,7 @@ abstract class Helper implements \RectorPrefix20210501\Symfony\Component\Console
     }
     public static function strlenWithoutDecoration(\RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
     {
-        $string = self::removeDecoration($formatter, $string);
-        if (\preg_match('//u', $string)) {
-            return (new \RectorPrefix20210501\Symfony\Component\String\UnicodeString($string))->width(\true);
-        }
-        return self::strlen($string);
+        return self::width(self::removeDecoration($formatter, $string));
     }
     public static function removeDecoration(\RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter, ?string $string)
     {

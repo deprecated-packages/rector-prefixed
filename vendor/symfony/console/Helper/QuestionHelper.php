@@ -86,7 +86,7 @@ class QuestionHelper extends \RectorPrefix20210501\Symfony\Component\Console\Hel
     /**
      * Asks the question to the user.
      *
-     * @return bool|mixed|string|null
+     * @return mixed
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
      */

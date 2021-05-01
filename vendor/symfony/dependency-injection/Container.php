@@ -59,7 +59,7 @@ class Container implements \RectorPrefix20210501\Symfony\Component\DependencyInj
     private $getEnv;
     public function __construct(\RectorPrefix20210501\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
-        $this->parameterBag = $parameterBag ?: new \RectorPrefix20210501\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag();
+        $this->parameterBag = $parameterBag ?? new \RectorPrefix20210501\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag();
     }
     /**
      * Compiles the container.

@@ -38,10 +38,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \RectorPrefix20210501
             $this->serviceLocatorContextIds = [];
         }
     }
-    /**
-     * @param bool $isRoot
-     */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (!$value instanceof \RectorPrefix20210501\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);

@@ -57,7 +57,7 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210501\Symfony\Comp
     /**
      * {@inheritdoc}
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, bool $isRoot = \false)
     {
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;

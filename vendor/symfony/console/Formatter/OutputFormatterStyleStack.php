@@ -24,7 +24,7 @@ class OutputFormatterStyleStack implements \RectorPrefix20210501\Symfony\Contrac
     private $emptyStyle;
     public function __construct(\RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle = null)
     {
-        $this->emptyStyle = $emptyStyle ?: new \RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterStyle();
+        $this->emptyStyle = $emptyStyle ?? new \RectorPrefix20210501\Symfony\Component\Console\Formatter\OutputFormatterStyle();
         $this->reset();
     }
     /**

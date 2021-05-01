@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Trait_;
 use PhpParser\NodeTraverser;
+use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
@@ -81,9 +82,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         foreach ($localReturnNodes as $localReturnNode) {
             $returnedExprType = $this->nodeTypeResolver->getStaticType($localReturnNode);
-            if ($returnedExprType instanceof \PHPStan\Type\MixedType) {
-                $returnedExprType = $this->inferFromReturnedMethodCall($localReturnNode);
-            }
+            $returnedExprType = $this->correctWithNestedType($returnedExprType, $localReturnNode, $functionLike);
             $types[] = $this->splArrayFixedTypeNarrower->narrow($returnedExprType);
         }
         if ($this->silentVoidResolver->hasSilentVoid($functionLike)) {
@@ -132,7 +131,7 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         }
         return $classLike->isAbstract();
     }
-    private function inferFromReturnedMethodCall(\PhpParser\Node\Stmt\Return_ $return) : \PHPStan\Type\Type
+    private function inferFromReturnedMethodCall(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\FunctionLike $originalFunctionLike) : \PHPStan\Type\Type
     {
         if (!$return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return new \PHPStan\Type\MixedType();
@@ -141,6 +140,31 @@ final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Co
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return new \PHPStan\Type\MixedType();
         }
+        // avoid infinite looping over self call
+        if ($classMethod === $originalFunctionLike) {
+            return new \PHPStan\Type\MixedType();
+        }
         return $this->inferFunctionLike($classMethod);
+    }
+    private function isArrayTypeMixed(\PHPStan\Type\Type $type) : bool
+    {
+        if (!$type instanceof \PHPStan\Type\ArrayType) {
+            return \false;
+        }
+        if (!$type->getItemType() instanceof \PHPStan\Type\MixedType) {
+            return \false;
+        }
+        return $type->getKeyType() instanceof \PHPStan\Type\MixedType;
+    }
+    private function correctWithNestedType(\PHPStan\Type\Type $resolvedType, \PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
+    {
+        if ($resolvedType instanceof \PHPStan\Type\MixedType || $this->isArrayTypeMixed($resolvedType)) {
+            $correctedType = $this->inferFromReturnedMethodCall($return, $functionLike);
+            // override only if has some extra value
+            if (!$correctedType instanceof \PHPStan\Type\MixedType) {
+                return $correctedType;
+            }
+        }
+        return $resolvedType;
     }
 }
