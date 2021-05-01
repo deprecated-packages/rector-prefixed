@@ -1981,6 +1981,7 @@ return array(
     'Rector\\Downgrade73\\Rector\\FuncCall\\DowngradeArrayKeyFirstLastRector' => $baseDir . '/rules/Downgrade73/Rector/FuncCall/DowngradeArrayKeyFirstLastRector.php',
     'Rector\\DowngradePhp70\\Rector\\Coalesce\\DowngradeNullCoalesceRector' => $baseDir . '/rules/DowngradePhp70/Rector/Coalesce/DowngradeNullCoalesceRector.php',
     'Rector\\DowngradePhp70\\Rector\\Declare_\\DowngradeStrictTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/Declare_/DowngradeStrictTypeDeclarationRector.php',
+    'Rector\\DowngradePhp70\\Rector\\Expression\\DowngradeDefineArrayConstantRector' => $baseDir . '/rules/DowngradePhp70/Rector/Expression/DowngradeDefineArrayConstantRector.php',
     'Rector\\DowngradePhp70\\Rector\\FunctionLike\\DowngradeTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/FunctionLike/DowngradeTypeDeclarationRector.php',
     'Rector\\DowngradePhp70\\Rector\\New_\\DowngradeAnonymousClassRector' => $baseDir . '/rules/DowngradePhp70/Rector/New_/DowngradeAnonymousClassRector.php',
     'Rector\\DowngradePhp70\\Rector\\Spaceship\\DowngradeSpaceshipRector' => $baseDir . '/rules/DowngradePhp70/Rector/Spaceship/DowngradeSpaceshipRector.php',
