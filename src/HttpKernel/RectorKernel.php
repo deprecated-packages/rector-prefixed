@@ -7,6 +7,7 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass;
+use Rector\Core\DependencyInjection\CompilerPass\RemoveSkippedRectorsCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\VerifyRectorServiceExistsCompilerPass;
 use Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader;
 use RectorPrefix20210502\Symfony\Component\Config\Loader\DelegatingLoader;
@@ -81,6 +82,8 @@ final class RectorKernel extends \RectorPrefix20210502\Symfony\Component\HttpKer
         $containerBuilder->setParameter('container.dumper.inline_factories', \true);
         // to fix reincluding files again
         $containerBuilder->setParameter('container.dumper.inline_class_loader', \false);
+        // must run before AutowireArrayParameterCompilerPass, as the autowired array cannot contain removed services
+        $containerBuilder->addCompilerPass(new \Rector\Core\DependencyInjection\CompilerPass\RemoveSkippedRectorsCompilerPass());
         $containerBuilder->addCompilerPass(new \RectorPrefix20210502\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
         // autowire Rectors by default (mainly for tests)
         $containerBuilder->addCompilerPass(new \RectorPrefix20210502\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass([\Rector\Core\Contract\Rector\RectorInterface::class]));

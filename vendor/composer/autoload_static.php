@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit595ded670eff3e369f934d8e390132a4
+class ComposerStaticInit52fc7581cec29adb308ee29f3dcf305b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1990,7 +1990,6 @@ class ComposerStaticInit595ded670eff3e369f934d8e390132a4
         'Rector\\Composer\\Rector\\ReplacePackageAndVersionComposerRector' => __DIR__ . '/../..' . '/rules/Composer/Rector/ReplacePackageAndVersionComposerRector.php',
         'Rector\\Composer\\ValueObject\\PackageAndVersion' => __DIR__ . '/../..' . '/rules/Composer/ValueObject/PackageAndVersion.php',
         'Rector\\Composer\\ValueObject\\ReplacePackageAndVersion' => __DIR__ . '/../..' . '/rules/Composer/ValueObject/ReplacePackageAndVersion.php',
-        'Rector\\Core\\Application\\ActiveRectorsProvider' => __DIR__ . '/../..' . '/src/Application/ActiveRectorsProvider.php',
         'Rector\\Core\\Application\\ApplicationFileProcessor' => __DIR__ . '/../..' . '/src/Application/ApplicationFileProcessor.php',
         'Rector\\Core\\Application\\FileDecorator\\FileDiffFileDecorator' => __DIR__ . '/../..' . '/src/Application/FileDecorator/FileDiffFileDecorator.php',
         'Rector\\Core\\Application\\FileProcessor' => __DIR__ . '/../..' . '/src/Application/FileProcessor.php',
@@ -2023,6 +2022,7 @@ class ComposerStaticInit595ded670eff3e369f934d8e390132a4
         'Rector\\Core\\DependencyInjection\\Collector\\ConfigureCallValuesCollector' => __DIR__ . '/../..' . '/src/DependencyInjection/Collector/ConfigureCallValuesCollector.php',
         'Rector\\Core\\DependencyInjection\\CompilerPass\\MakeRectorsPublicCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/MakeRectorsPublicCompilerPass.php',
         'Rector\\Core\\DependencyInjection\\CompilerPass\\MergeImportedRectorConfigureCallValuesCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/MergeImportedRectorConfigureCallValuesCompilerPass.php',
+        'Rector\\Core\\DependencyInjection\\CompilerPass\\RemoveSkippedRectorsCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/RemoveSkippedRectorsCompilerPass.php',
         'Rector\\Core\\DependencyInjection\\CompilerPass\\VerifyRectorServiceExistsCompilerPass' => __DIR__ . '/../..' . '/src/DependencyInjection/CompilerPass/VerifyRectorServiceExistsCompilerPass.php',
         'Rector\\Core\\DependencyInjection\\Loader\\ConfigurableCallValuesCollectingPhpFileLoader' => __DIR__ . '/../..' . '/src/DependencyInjection/Loader/ConfigurableCallValuesCollectingPhpFileLoader.php',
         'Rector\\Core\\DependencyInjection\\RectorContainerFactory' => __DIR__ . '/../..' . '/src/DependencyInjection/RectorContainerFactory.php',
@@ -3419,9 +3419,9 @@ class ComposerStaticInit595ded670eff3e369f934d8e390132a4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit595ded670eff3e369f934d8e390132a4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit595ded670eff3e369f934d8e390132a4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit595ded670eff3e369f934d8e390132a4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit52fc7581cec29adb308ee29f3dcf305b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit52fc7581cec29adb308ee29f3dcf305b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit52fc7581cec29adb308ee29f3dcf305b::$classMap;
 
         }, null, ClassLoader::class);
     }

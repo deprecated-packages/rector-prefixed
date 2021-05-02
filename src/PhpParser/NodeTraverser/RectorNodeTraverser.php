@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
-use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 final class RectorNodeTraverser extends \PhpParser\NodeTraverser
@@ -24,10 +23,11 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * @var bool
      */
     private $areNodeVisitorsPrepared = \false;
-    public function __construct(\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder)
+    /**
+     * @param PhpRectorInterface[] $phpRectors
+     */
+    public function __construct(array $phpRectors, \PhpParser\NodeFinder $nodeFinder)
     {
-        /** @var PhpRectorInterface[] $phpRectors */
-        $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->phpRectors = $phpRectors;
         $this->nodeFinder = $nodeFinder;
     }

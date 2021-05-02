@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
+use Rector\Core\Contract\Rector\RectorInterface;
 use RectorPrefix20210502\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210502\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210502\Symfony\Component\Console\Output\OutputInterface;
@@ -19,18 +19,21 @@ final class ShowCommand extends \RectorPrefix20210502\Symfony\Component\Console\
      */
     private $symfonyStyle;
     /**
-     * @var ActiveRectorsProvider
-     */
-    private $activeRectorsProvider;
-    /**
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\RectorPrefix20210502\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \RectorPrefix20210502\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    /**
+     * @var RectorInterface[]
+     */
+    private $rectors = [];
+    /**
+     * @param RectorInterface[] $rectors
+     */
+    public function __construct(\RectorPrefix20210502\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210502\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, array $rectors)
     {
         $this->symfonyStyle = $symfonyStyle;
-        $this->activeRectorsProvider = $activeRectorsProvider;
         $this->parameterProvider = $parameterProvider;
+        $this->rectors = $rectors;
         parent::__construct();
     }
     protected function configure() : void
@@ -45,12 +48,11 @@ final class ShowCommand extends \RectorPrefix20210502\Symfony\Component\Console\
     }
     private function reportLoadedRectors() : void
     {
-        $activeRectors = $this->activeRectorsProvider->provide();
-        $rectorCount = \count($activeRectors);
+        $rectorCount = \count($this->rectors);
         if ($rectorCount > 0) {
             $this->symfonyStyle->title('Loaded Rector rules');
-            foreach ($activeRectors as $activeRector) {
-                $this->symfonyStyle->writeln(' * ' . \get_class($activeRector));
+            foreach ($this->rectors as $rector) {
+                $this->symfonyStyle->writeln(' * ' . \get_class($rector));
             }
             $message = \sprintf('%d loaded Rectors', $rectorCount);
             $this->symfonyStyle->success($message);
