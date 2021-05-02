@@ -6,7 +6,7 @@ namespace RectorPrefix20210502\Symplify\Skipper\SkipVoter;
 use RectorPrefix20210502\Symplify\Skipper\Contract\SkipVoterInterface;
 use RectorPrefix20210502\Symplify\Skipper\Matcher\FileInfoMatcher;
 use RectorPrefix20210502\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class MessageSkipVoter implements \RectorPrefix20210502\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
@@ -35,7 +35,7 @@ final class MessageSkipVoter implements \RectorPrefix20210502\Symplify\Skipper\C
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedMessages = $this->skippedMessagesResolver->resolve();
         if (!\array_key_exists($element, $skippedMessages)) {

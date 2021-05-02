@@ -16,7 +16,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\FileRelocationResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class AddedFileWithNodesFactory
 {
     /**
@@ -47,7 +47,7 @@ final class AddedFileWithNodesFactory
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
-    public function createWithDesiredGroup(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
+    public function createWithDesiredGroup(\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\AddedFileWithNodes
     {
         $fileNodes = $file->getNewStmts();
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($fileNodes, \PhpParser\Node\Stmt\Namespace_::class);
@@ -93,7 +93,7 @@ final class AddedFileWithNodesFactory
     {
         return $this->fileRelocationResolver->resolveNewNamespaceName($currentNamespace, $desiredGroupName, $this->categoryNamespaceProvider->provide());
     }
-    private function createNewClassName(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
+    private function createNewClassName(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
     {
         $basename = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($smartFileInfo->getBasenameWithoutSuffix());
         return $newNamespaceName . '\\' . $basename;

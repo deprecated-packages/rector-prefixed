@@ -6,7 +6,7 @@ namespace RectorPrefix20210502\Symplify\EasyTesting;
 use RectorPrefix20210502\Nette\Utils\Strings;
 use RectorPrefix20210502\Symplify\EasyTesting\ValueObject\Prefix;
 use RectorPrefix20210502\Symplify\EasyTesting\ValueObject\SplitLine;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyTesting\Tests\MissingSkipPrefixResolver\MissingSkipPrefixResolverTest
  */
@@ -34,7 +34,7 @@ final class MissplacedSkipPrefixResolver
         }
         return $invalidFileInfos;
     }
-    private function hasNameSkipStart(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
+    private function hasNameSkipStart(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
     {
         return (bool) \RectorPrefix20210502\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \RectorPrefix20210502\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
     }

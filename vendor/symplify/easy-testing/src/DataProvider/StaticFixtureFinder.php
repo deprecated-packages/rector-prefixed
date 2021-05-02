@@ -8,7 +8,7 @@ use RectorPrefix20210502\Nette\Utils\Strings;
 use RectorPrefix20210502\Symfony\Component\Finder\Finder;
 use RectorPrefix20210502\Symfony\Component\Finder\SplFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder\StaticFixtureFinderTest
@@ -55,7 +55,7 @@ final class StaticFixtureFinder
     {
         foreach ($fileInfos as $fileInfo) {
             try {
-                $smartFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
+                $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield [$smartFileInfo]);
             } catch (\RectorPrefix20210502\Symplify\SmartFileSystem\Exception\FileNotFoundException $fileNotFoundException) {
             }
@@ -69,7 +69,7 @@ final class StaticFixtureFinder
     {
         foreach ($fileInfos as $fileInfo) {
             try {
-                $smartFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
+                $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield $fileInfo->getRelativePathname() => [$smartFileInfo]);
             } catch (\RectorPrefix20210502\Symplify\SmartFileSystem\Exception\FileNotFoundException $e) {
             }

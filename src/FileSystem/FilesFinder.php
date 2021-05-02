@@ -9,7 +9,7 @@ use RectorPrefix20210502\Symfony\Component\Finder\SplFileInfo;
 use RectorPrefix20210502\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use RectorPrefix20210502\Symplify\SmartFileSystem\FileSystemFilter;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\FileSystem\FilesFinder\FilesFinderTest
  */
@@ -67,7 +67,7 @@ final class FilesFinder
         $directories = $this->fileSystemFilter->filterDirectories($source);
         $smartFileInfos = [];
         foreach ($files as $file) {
-            $smartFileInfos[] = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($file);
+            $smartFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         $smartFileInfos = \array_merge($smartFileInfos, $this->findInDirectories($directories, $suffixes));
         return $this->fileInfosBySourceAndSuffixes[$cacheKey] = $smartFileInfos;

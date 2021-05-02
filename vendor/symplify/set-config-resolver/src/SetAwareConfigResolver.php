@@ -5,7 +5,7 @@ namespace RectorPrefix20210502\Symplify\SetConfigResolver;
 
 use RectorPrefix20210502\Symplify\SetConfigResolver\Config\SetsParameterResolver;
 use RectorPrefix20210502\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\SetAwareConfigResolverTest
  */

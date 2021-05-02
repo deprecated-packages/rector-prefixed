@@ -8,7 +8,7 @@ use RectorPrefix20210502\Symplify\ComposerJsonManipulator\Json\JsonCleaner;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\Json\JsonInliner;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use RectorPrefix20210502\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\MonorepoBuilder\Tests\FileSystem\JsonFileManager\JsonFileManagerTest
@@ -40,7 +40,7 @@ final class JsonFileManager
     /**
      * @return mixed[]
      */
-    public function loadFromFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function loadFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $realPath = $smartFileInfo->getRealPath();
         if (!isset($this->cachedJSONFiles[$realPath])) {
@@ -59,7 +59,7 @@ final class JsonFileManager
     /**
      * @param mixed[] $json
      */
-    public function printJsonToFileInfo(array $json, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printJsonToFileInfo(array $json, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $jsonString = $this->encodeJsonToFileContent($json);
         $this->smartFileSystem->dumpFile($smartFileInfo->getPathname(), $jsonString);

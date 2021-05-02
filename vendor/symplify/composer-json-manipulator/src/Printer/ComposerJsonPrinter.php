@@ -5,7 +5,7 @@ namespace RectorPrefix20210502\Symplify\ComposerJsonManipulator\Printer;
 
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerJsonPrinter
 {
     /**

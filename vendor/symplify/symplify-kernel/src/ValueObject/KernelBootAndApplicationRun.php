@@ -9,7 +9,7 @@ use RectorPrefix20210502\Symplify\PackageBuilder\Console\Input\StaticInputDetect
 use RectorPrefix20210502\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210502\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use RectorPrefix20210502\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Exception\BootException;
 use Throwable;
 final class KernelBootAndApplicationRun

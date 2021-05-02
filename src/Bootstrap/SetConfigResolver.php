@@ -6,7 +6,7 @@ namespace Rector\Core\Bootstrap;
 use RectorPrefix20210502\Symfony\Component\Config\FileLocator;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SetConfigResolver
 {
     /**
@@ -16,7 +16,7 @@ final class SetConfigResolver
     /**
      * @return SmartFileInfo[]
      */
-    public function resolve(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function resolve(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $containerBuilder = new \RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder();
         $phpFileLoader = new \RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210502\Symfony\Component\Config\FileLocator());
@@ -35,7 +35,7 @@ final class SetConfigResolver
     {
         $setFileInfos = [];
         foreach ($sets as $set) {
-            $setFileInfos[] = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($set);
         }
         return $setFileInfos;
     }

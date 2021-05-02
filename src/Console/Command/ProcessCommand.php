@@ -26,7 +26,7 @@ use RectorPrefix20210502\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210502\Symfony\Component\Console\Input\InputOption;
 use RectorPrefix20210502\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210502\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class ProcessCommand extends \RectorPrefix20210502\Symfony\Component\Console\Command\Command
 {
     /**

@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\Skipper\Skipper;
 
 use RectorPrefix20210502\Symplify\Skipper\Matcher\FileInfoMatcher;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Only\OnlySkipperTest
  */
@@ -22,7 +22,7 @@ final class OnlySkipper
      * @param object|string $checker
      * @param mixed[] $only
      */
-    public function doesMatchOnly($checker, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only) : ?bool
+    public function doesMatchOnly($checker, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only) : ?bool
     {
         foreach ($only as $onlyClass => $onlyFiles) {
             if (\is_int($onlyClass)) {

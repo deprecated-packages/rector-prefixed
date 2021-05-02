@@ -5,7 +5,7 @@ namespace Rector\Core\PhpParser\Parser;
 
 use PhpParser\Node\Stmt;
 use PhpParser\Parser as NikicParser;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem;
 final class Parser
 {
@@ -29,7 +29,7 @@ final class Parser
     /**
      * @return Stmt[]
      */
-    public function parseFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function parseFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $fileRealPath = $smartFileInfo->getRealPath();
         if (isset($this->nodesByFile[$fileRealPath])) {

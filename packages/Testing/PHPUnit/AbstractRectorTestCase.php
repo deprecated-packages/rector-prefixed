@@ -23,7 +23,7 @@ use RectorPrefix20210502\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210502\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210502\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210502\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTestCase implements \Rector\Testing\Contract\RectorTestInterface
 {
     use MovingFilesTrait;
@@ -55,7 +55,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTe
     {
         // speed up
         @\ini_set('memory_limit', '-1');
-        $configFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
+        $configFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
         $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
         $configFileInfos = $rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
         $this->bootFromConfigFileInfos($configFileInfos);
@@ -86,7 +86,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTe
     {
         return \RectorPrefix20210502\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively($directory, $suffix);
     }
-    protected function doTestFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    protected function doTestFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210502\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
@@ -98,7 +98,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTe
     {
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
-    private function doTestFileMatchesExpectedContent(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    private function doTestFileMatchesExpectedContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         $changedContent = $this->processFileInfo($originalFileInfo);
@@ -122,7 +122,7 @@ abstract class AbstractRectorTestCase extends \Rector\Testing\PHPUnit\AbstractTe
     {
         return \RectorPrefix20210502\Nette\Utils\Strings::replace($string, '#\\r\\n|\\r|\\n#', "\n");
     }
-    private function processFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
+    private function processFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
         $this->dynamicSourceLocatorProvider->setFileInfo($fileInfo);
         // needed for PHPStan, because the analyzed file is just created in /temp - need for trait and similar deps

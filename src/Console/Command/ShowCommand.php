@@ -11,7 +11,7 @@ use RectorPrefix20210502\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210502\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210502\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210502\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class ShowCommand extends \RectorPrefix20210502\Symfony\Component\Console\Command\Command
 {
     /**
@@ -72,7 +72,7 @@ final class ShowCommand extends \RectorPrefix20210502\Symfony\Component\Console\
         \sort($sets);
         $setFilePaths = [];
         foreach ($sets as $set) {
-            $setFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($set);
             $setFilePaths[] = $setFileInfo->getRelativeFilePathFromCwd();
         }
         $this->symfonyStyle->listing($setFilePaths);

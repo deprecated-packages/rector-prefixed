@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\EasyTesting\DataProvider;
 
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
-    public static function updateFixtureContent(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    public static function updateFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -15,7 +15,7 @@ final class StaticFixtureUpdater
         $newOriginalContent = self::resolveNewFixtureContent($originalFileInfo, $changedContent);
         self::getSmartFileSystem()->dumpFile($fixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    public static function updateExpectedFixtureContent(string $newOriginalContent, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
+    public static function updateExpectedFixtureContent(string $newOriginalContent, \Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -26,7 +26,7 @@ final class StaticFixtureUpdater
     {
         return new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem();
     }
-    private static function resolveNewFixtureContent(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
+    private static function resolveNewFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
     {
         if ($originalFileInfo->getContents() === $changedContent) {
             return $originalFileInfo->getContents();

@@ -25,7 +25,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
 use Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor;
 use RectorPrefix20210502\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @inspired by https://github.com/silverstripe/silverstripe-upgrader/blob/532182b23e854d02e0b27e68ebc394f436de0682/src/UpgradeRule/PHP/Visitor/PHPStanScopeVisitor.php
  * - https://github.com/silverstripe/silverstripe-upgrader/pull/57/commits/e5c7cfa166ad940d9d4ff69537d9f7608e992359#diff-5e0807bb3dc03d6a8d8b6ad049abd774
@@ -93,7 +93,7 @@ final class PHPStanNodeScopeResolver
      * @param Node[] $nodes
      * @return Node[]
      */
-    public function processNodes(array $nodes, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function processNodes(array $nodes, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $this->removeDeepChainMethodCallNodes($nodes);
         $scope = $this->scopeFactory->createFromFile($smartFileInfo);
@@ -174,7 +174,7 @@ final class PHPStanNodeScopeResolver
     /**
      * @param string[] $dependentFiles
      */
-    private function reportCacheDebugAndSaveDependentFiles(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebugAndSaveDependentFiles(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         if (!$this->configuration->isCacheEnabled()) {
             return;
@@ -199,7 +199,7 @@ final class PHPStanNodeScopeResolver
     /**
      * @param string[] $dependentFiles
      */
-    private function reportCacheDebug(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebug(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         if (!$this->configuration->isCacheDebug()) {
             return;

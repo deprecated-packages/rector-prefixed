@@ -21,7 +21,7 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem;
 final class FunctionLikeReflectionParser
 {
@@ -75,7 +75,7 @@ final class FunctionLikeReflectionParser
             return null;
         }
         $nodes = (array) $this->parser->parse($fileContent);
-        $smartFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($fileName);
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($fileName);
         $file = new \Rector\Core\ValueObject\Application\File($smartFileInfo, $smartFileInfo->getContents());
         $nodes = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file, $nodes, $smartFileInfo);
         $class = $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Class_::class);

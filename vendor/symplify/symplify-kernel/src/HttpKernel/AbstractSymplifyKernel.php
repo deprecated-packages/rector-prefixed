@@ -7,7 +7,7 @@ use RectorPrefix20210502\Symfony\Component\Config\Loader\LoaderInterface;
 use RectorPrefix20210502\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use RectorPrefix20210502\Symfony\Component\HttpKernel\Kernel;
 use RectorPrefix20210502\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Strings\KernelUniqueHasher;
 abstract class AbstractSymplifyKernel extends \RectorPrefix20210502\Symfony\Component\HttpKernel\Kernel implements \RectorPrefix20210502\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
@@ -37,7 +37,7 @@ abstract class AbstractSymplifyKernel extends \RectorPrefix20210502\Symfony\Comp
     public function setConfigs(array $configs) : void
     {
         foreach ($configs as $config) {
-            if ($config instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo) {
+            if ($config instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
                 $config = $config->getRealPath();
             }
             $this->configs[] = $config;

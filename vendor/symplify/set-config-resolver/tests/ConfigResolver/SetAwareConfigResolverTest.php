@@ -10,7 +10,7 @@ use RectorPrefix20210502\Symplify\SetConfigResolver\Exception\SetNotFoundExcepti
 use RectorPrefix20210502\Symplify\SetConfigResolver\SetAwareConfigResolver;
 use RectorPrefix20210502\Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SetAwareConfigResolverTest extends \RectorPrefix20210502\PHPUnit\Framework\TestCase
 {
     /**
@@ -56,16 +56,16 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210502\PHPUnit\Fra
     public function testSetsNotFound() : void
     {
         $this->expectException(\RectorPrefix20210502\Symplify\SetConfigResolver\Exception\SetNotFoundException::class);
-        $basicConfigFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
+        $basicConfigFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
         $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$basicConfigFileInfo]);
     }
     public function testPhpSetsFileInfos() : void
     {
-        $basicConfigFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/php_config_with_sets.php');
+        $basicConfigFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/php_config_with_sets.php');
         $setFileInfos = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$basicConfigFileInfo]);
         $this->assertCount(1, $setFileInfos);
         $setFileInfo = $setFileInfos[0];
-        $expectedSetFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/some_php_set.php');
+        $expectedSetFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/some_php_set.php');
         $this->assertEquals($expectedSetFileInfo, $setFileInfo);
     }
     public function testMissingFileInInput() : void

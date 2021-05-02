@@ -6,7 +6,7 @@ namespace Rector\Caching\Detector;
 use RectorPrefix20210502\Nette\Caching\Cache;
 use RectorPrefix20210502\Nette\Utils\Strings;
 use Rector\Caching\Config\FileHashComputer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/symplify/pull/90/files#diff-72041b2e1029a08930e13d79d298ef11
  * @see \Rector\Caching\Tests\Detector\ChangedFilesDetectorTest
@@ -33,21 +33,21 @@ final class ChangedFilesDetector
     /**
      * @param string[] $dependentFiles
      */
-    public function addFileWithDependencies(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    public function addFileWithDependencies(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
         $hash = $this->hashFile($smartFileInfo);
         $this->cache->save($fileInfoCacheKey, $hash);
         $this->cache->save($fileInfoCacheKey . '_files', $dependentFiles);
     }
-    public function hasFileChanged(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function hasFileChanged(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $currentFileHash = $this->hashFile($smartFileInfo);
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
         $cachedValue = $this->cache->load($fileInfoCacheKey);
         return $currentFileHash !== $cachedValue;
     }
-    public function invalidateFile(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function invalidateFile(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
         $this->cache->remove($fileInfoCacheKey);
@@ -59,7 +59,7 @@ final class ChangedFilesDetector
     /**
      * @return SmartFileInfo[]
      */
-    public function getDependentFileInfos(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function getDependentFileInfos(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($fileInfo);
         $cacheValue = $this->cache->load($fileInfoCacheKey . '_files');
@@ -72,28 +72,28 @@ final class ChangedFilesDetector
             if (!\file_exists($dependentFile)) {
                 continue;
             }
-            $dependentFileInfos[] = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($dependentFile);
+            $dependentFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($dependentFile);
         }
         return $dependentFileInfos;
     }
     /**
      * @api
      */
-    public function setFirstResolvedConfigFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setFirstResolvedConfigFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // the first config is core to all → if it was changed, just invalidate it
         $configHash = $this->fileHashComputer->compute($fileInfo);
         $this->storeConfigurationDataHash($fileInfo, $configHash);
     }
-    private function getFileInfoCacheKey(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function getFileInfoCacheKey(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return \sha1($smartFileInfo->getRealPath());
     }
-    private function hashFile(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function hashFile(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return (string) \sha1_file($smartFileInfo->getRealPath());
     }
-    private function storeConfigurationDataHash(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $configurationHash) : void
+    private function storeConfigurationDataHash(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $configurationHash) : void
     {
         $key = self::CONFIGURATION_HASH_KEY . '_' . \RectorPrefix20210502\Nette\Utils\Strings::webalize($fileInfo->getRealPath());
         $this->invalidateCacheIfConfigurationChanged($key, $configurationHash);

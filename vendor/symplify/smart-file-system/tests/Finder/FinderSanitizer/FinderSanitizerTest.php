@@ -10,7 +10,7 @@ use SplFileInfo;
 use RectorPrefix20210502\Symfony\Component\Finder\Finder as SymfonyFinder;
 use RectorPrefix20210502\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class FinderSanitizerTest extends \RectorPrefix20210502\PHPUnit\Framework\TestCase
 {
     /**
@@ -49,14 +49,14 @@ final class FinderSanitizerTest extends \RectorPrefix20210502\PHPUnit\Framework\
      * On different OS the order of the two files can differ, only symfony finder would have a sort function, nette
      * finder does not. so we test if the correct files are there but ignore the order.
      */
-    private function assertFilesEqualFixtureFiles(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $firstSmartFileInfo, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $secondSmartFileInfo) : void
+    private function assertFilesEqualFixtureFiles(\Symplify\SmartFileSystem\SmartFileInfo $firstSmartFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $secondSmartFileInfo) : void
     {
         $this->assertFileIsFromFixtureDirAndHasCorrectClass($firstSmartFileInfo);
         $this->assertFileIsFromFixtureDirAndHasCorrectClass($secondSmartFileInfo);
         // order agnostic file check
         $this->assertTrue(\RectorPrefix20210502\Nette\Utils\Strings::endsWith($firstSmartFileInfo->getRelativeFilePath(), 'NestedDirectory/FileWithClass.php') && \RectorPrefix20210502\Nette\Utils\Strings::endsWith($secondSmartFileInfo->getRelativeFilePath(), 'NestedDirectory/EmptyFile.php') || \RectorPrefix20210502\Nette\Utils\Strings::endsWith($firstSmartFileInfo->getRelativeFilePath(), 'NestedDirectory/EmptyFile.php') && \RectorPrefix20210502\Nette\Utils\Strings::endsWith($secondSmartFileInfo->getRelativeFilePath(), 'NestedDirectory/FileWithClass.php'));
     }
-    private function assertFileIsFromFixtureDirAndHasCorrectClass(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    private function assertFileIsFromFixtureDirAndHasCorrectClass(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->assertInstanceOf(\RectorPrefix20210502\Symfony\Component\Finder\SplFileInfo::class, $smartFileInfo);
         $this->assertStringEndsWith('NestedDirectory', $smartFileInfo->getRelativeDirectoryPath());

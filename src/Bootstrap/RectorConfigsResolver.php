@@ -6,7 +6,7 @@ namespace Rector\Core\Bootstrap;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use RectorPrefix20210502\Symfony\Component\Console\Input\ArgvInput;
 use RectorPrefix20210502\Symplify\SetConfigResolver\ConfigResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorConfigsResolver
 {
     /**
@@ -29,7 +29,7 @@ final class RectorConfigsResolver
     /**
      * @return SmartFileInfo[]
      */
-    public function resolveFromConfigFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    public function resolveFromConfigFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         $hash = \sha1_file($configFileInfo->getRealPath());
         if ($hash === \false) {
@@ -47,7 +47,7 @@ final class RectorConfigsResolver
     {
         $argvInput = new \RectorPrefix20210502\Symfony\Component\Console\Input\ArgvInput();
         $mainConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
-        $configFileInfos = $mainConfigFileInfo instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo ? $this->resolveFromConfigFileInfo($mainConfigFileInfo) : [];
+        $configFileInfos = $mainConfigFileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo ? $this->resolveFromConfigFileInfo($mainConfigFileInfo) : [];
         $configFileInfos = $this->appendRectorRecipeConfig($argvInput, $configFileInfos);
         return new \Rector\Core\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
@@ -63,7 +63,7 @@ final class RectorConfigsResolver
         // autoload rector recipe file if present, just for \Rector\RectorGenerator\Command\GenerateCommand
         $rectorRecipeFilePath = \getcwd() . '/rector-recipe.php';
         if (\file_exists($rectorRecipeFilePath)) {
-            $configFileInfos[] = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
+            $configFileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($rectorRecipeFilePath);
         }
         return $configFileInfos;
     }

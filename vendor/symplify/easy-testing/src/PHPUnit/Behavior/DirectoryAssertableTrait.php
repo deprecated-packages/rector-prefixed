@@ -6,7 +6,7 @@ namespace RectorPrefix20210502\Symplify\EasyTesting\PHPUnit\Behavior;
 use RectorPrefix20210502\Symfony\Component\Finder\Finder;
 use RectorPrefix20210502\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *
@@ -60,7 +60,7 @@ trait DirectoryAssertableTrait
     /**
      * @param SmartFileInfo[] $fileInfos
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fileInfos as $fileInfo) {
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($directory);

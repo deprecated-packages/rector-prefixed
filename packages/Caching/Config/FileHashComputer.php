@@ -10,14 +10,14 @@ use RectorPrefix20210502\Symfony\Component\Config\Loader\LoaderResolver;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/easy-coding-standard/blob/e598ab54686e416788f28fcfe007fd08e0f371d9/packages/changed-files-detector/src/FileHashComputer.php
  * @see \Rector\Caching\Tests\Config\FileHashComputerTest
  */
 final class FileHashComputer
 {
-    public function compute(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
+    public function compute(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
         $this->ensureIsPhp($fileInfo);
         $containerBuilder = new \RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder();
@@ -26,7 +26,7 @@ final class FileHashComputer
         $parameterBag = $containerBuilder->getParameterBag();
         return $this->arrayToHash($containerBuilder->getDefinitions()) . $this->arrayToHash($parameterBag->all());
     }
-    private function ensureIsPhp(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    private function ensureIsPhp(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         if ($fileInfo->hasSuffixes(['php'])) {
             return;
@@ -37,7 +37,7 @@ final class FileHashComputer
             $fileInfo->getRelativeFilePath()
         ));
     }
-    private function createFileLoader(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \RectorPrefix20210502\Symfony\Component\Config\Loader\LoaderInterface
+    private function createFileLoader(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \RectorPrefix20210502\Symfony\Component\Config\Loader\LoaderInterface
     {
         $fileLocator = new \RectorPrefix20210502\Symfony\Component\Config\FileLocator([$fileInfo->getPath()]);
         $fileLoaders = [new \RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, $fileLocator)];

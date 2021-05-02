@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\SmartFileSystem\Tests\SmartFileSystem;
 
 use RectorPrefix20210502\PHPUnit\Framework\TestCase;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileSystem;
 final class SmartFileSystemTest extends \RectorPrefix20210502\PHPUnit\Framework\TestCase
 {
@@ -19,6 +19,6 @@ final class SmartFileSystemTest extends \RectorPrefix20210502\PHPUnit\Framework\
     public function testReadFileToSmartFileInfo() : void
     {
         $readFileToSmartFileInfo = $this->smartFileSystem->readFileToSmartFileInfo(__DIR__ . '/Source/file.txt');
-        $this->assertInstanceof(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo::class, $readFileToSmartFileInfo);
+        $this->assertInstanceof(\Symplify\SmartFileSystem\SmartFileInfo::class, $readFileToSmartFileInfo);
     }
 }

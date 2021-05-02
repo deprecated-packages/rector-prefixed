@@ -6,7 +6,7 @@ namespace RectorPrefix20210502\Symplify\Skipper\SkipVoter;
 use RectorPrefix20210502\Symplify\Skipper\Contract\SkipVoterInterface;
 use RectorPrefix20210502\Symplify\Skipper\Matcher\FileInfoMatcher;
 use RectorPrefix20210502\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
@@ -38,7 +38,7 @@ final class ClassAndCodeSkipVoter implements \RectorPrefix20210502\Symplify\Skip
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

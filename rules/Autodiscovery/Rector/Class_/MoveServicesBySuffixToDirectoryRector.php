@@ -14,7 +14,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Webmozart\Assert\Assert;
 /**
  * Inspiration @see https://github.com/rectorphp/rector/pull/1865/files#diff-0d18e660cdb626958662641b491623f8
@@ -99,7 +99,7 @@ CODE_SAMPLE
      *
      * @param string[] $groupNamesBySuffix
      */
-    private function processGroupNamesBySuffix(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix) : void
+    private function processGroupNamesBySuffix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, \Rector\Core\ValueObject\Application\File $file, array $groupNamesBySuffix) : void
     {
         foreach ($groupNamesBySuffix as $groupNames) {
             // has class suffix
@@ -118,12 +118,12 @@ CODE_SAMPLE
             return;
         }
     }
-    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
         return (bool) \RectorPrefix20210502\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
-    private function moveFileToGroupName(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : void
+    private function moveFileToGroupName(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\ValueObject\Application\File $file, string $desiredGroupName) : void
     {
         $addedFileWithNodes = $this->addedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $this->file, $desiredGroupName);
         if (!$addedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\AddedFileWithNodes) {

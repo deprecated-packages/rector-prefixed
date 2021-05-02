@@ -7,7 +7,7 @@ use RectorPrefix20210502\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210502\Symplify\SimplePhpDocParser\SimplePhpDocParser;
 use RectorPrefix20210502\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
 use RectorPrefix20210502\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SimplePhpDocParserTest extends \RectorPrefix20210502\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
@@ -21,7 +21,7 @@ final class SimplePhpDocParserTest extends \RectorPrefix20210502\Symplify\Packag
     }
     public function testVar() : void
     {
-        $smartFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
         $this->assertInstanceOf(\RectorPrefix20210502\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         $varTagValues = $phpDocNode->getVarTagValues();
@@ -29,7 +29,7 @@ final class SimplePhpDocParserTest extends \RectorPrefix20210502\Symplify\Packag
     }
     public function testParam() : void
     {
-        $smartFileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
         $this->assertInstanceOf(\RectorPrefix20210502\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         // DX friendly

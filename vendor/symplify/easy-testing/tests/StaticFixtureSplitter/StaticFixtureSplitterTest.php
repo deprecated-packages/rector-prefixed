@@ -5,19 +5,19 @@ namespace RectorPrefix20210502\Symplify\EasyTesting\Tests\StaticFixtureSplitter;
 
 use RectorPrefix20210502\PHPUnit\Framework\TestCase;
 use RectorPrefix20210502\Symplify\EasyTesting\StaticFixtureSplitter;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class StaticFixtureSplitterTest extends \RectorPrefix20210502\PHPUnit\Framework\TestCase
 {
     public function test() : void
     {
-        $fileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/simple_fixture.php.inc');
+        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/simple_fixture.php.inc');
         $inputAndExpected = \RectorPrefix20210502\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToInputAndExpected($fileInfo);
         $this->assertSame('a' . \PHP_EOL, $inputAndExpected->getInput());
         $this->assertSame('b' . \PHP_EOL, $inputAndExpected->getExpected());
     }
     public function testSplitFileInfoToLocalInputAndExpected() : void
     {
-        $fileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file_and_value.php.inc');
+        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file_and_value.php.inc');
         $inputFileInfoAndExpected = \RectorPrefix20210502\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($fileInfo);
         $inputFileRealPath = $inputFileInfoAndExpected->getInputFileRealPath();
         $this->assertFileExists($inputFileRealPath);

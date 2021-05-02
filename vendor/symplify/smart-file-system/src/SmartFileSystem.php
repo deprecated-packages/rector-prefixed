@@ -28,9 +28,9 @@ final class SmartFileSystem extends \RectorPrefix20210502\Symfony\Component\File
         }
         return $source;
     }
-    public function readFileToSmartFileInfo(string $filename) : \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo
+    public function readFileToSmartFileInfo(string $filename) : \Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($filename);
+        return new \Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
      * Converts given HTML code to plain text

@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Function_;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210502\Stringy\Stringy;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassNaming
 {
     /**
@@ -48,7 +48,7 @@ final class ClassNaming
         $fullyQualifiedName = \trim($fullyQualifiedName, '\\');
         return \RectorPrefix20210502\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;
     }
-    public function getNameFromFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function getNameFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $basenameWithoutSuffix = $smartFileInfo->getBasenameWithoutSuffix();
         // remove PHPUnit fixture file prefix

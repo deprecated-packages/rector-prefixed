@@ -10,7 +10,7 @@ use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use RectorPrefix20210502\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210502\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
 {
     /**
@@ -176,7 +176,7 @@ final class Configuration
             return null;
         }
         $mainConfigFileInfo = $this->bootstrapConfigs->getMainConfigFileInfo();
-        if (!$mainConfigFileInfo instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$mainConfigFileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
             return null;
         }
         return $mainConfigFileInfo->getRelativeFilePathFromCwd();

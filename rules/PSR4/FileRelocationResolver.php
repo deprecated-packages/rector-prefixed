@@ -7,7 +7,7 @@ use RectorPrefix20210502\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Tests\PSR4\FileRelocationResolverTest
  */
@@ -28,7 +28,7 @@ final class FileRelocationResolver
     /**
      * @param string[] $groupNames
      */
-    public function createNewFileDestination(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
+    public function createNewFileDestination(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
         $newDirectory = $this->resolveRootDirectory($smartFileInfo, $suffixName, $groupNames);
         $filename = $this->fileInfoDeletionAnalyzer->clearNameFromTestingPrefix($smartFileInfo->getFilename());
@@ -44,7 +44,7 @@ final class FileRelocationResolver
         $currentNamespaceParts = $name->parts;
         return $this->resolveNearestRootWithCategory($currentNamespaceParts, $suffixName, self::NAMESPACE_SEPARATOR, $groupNames);
     }
-    public function resolveNewFileLocationFromOldClassToNewClass(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $oldClass, string $newClass) : string
+    public function resolveNewFileLocationFromOldClassToNewClass(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $oldClass, string $newClass) : string
     {
         $beforeToAfterPart = $this->resolveBeforeToAfterPartBetweenClassNames($oldClass, $newClass);
         return $this->replaceRelativeFilePathsWithBeforeAfter($smartFileInfo, $beforeToAfterPart);
@@ -52,7 +52,7 @@ final class FileRelocationResolver
     /**
      * @param string[] $groupNames
      */
-    private function resolveRootDirectory(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
+    private function resolveRootDirectory(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $suffixName, array $groupNames) : string
     {
         if (\RectorPrefix20210502\Nette\Utils\Strings::startsWith($smartFileInfo->getRealPathDirectory(), '/tmp')) {
             $currentTraversePath = $smartFileInfo->getRealPathDirectory();
@@ -114,7 +114,7 @@ final class FileRelocationResolver
     /**
      * @param string[] $beforeToAfterPart
      */
-    private function replaceRelativeFilePathsWithBeforeAfter(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
+    private function replaceRelativeFilePathsWithBeforeAfter(\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
     {
         // A. first "dir has changed" dummy detection
         $relativeFilePathParts = \RectorPrefix20210502\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');

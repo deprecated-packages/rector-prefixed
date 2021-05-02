@@ -11,7 +11,7 @@ use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerInterface;
 use RectorPrefix20210502\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorContainerFactory
 {
     /**

@@ -7,7 +7,7 @@ use RectorPrefix20210502\Nette\Utils\Json;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\ComposerJsonManipulator\Tests\ComposerJsonFactory\ComposerJsonFactoryTest
  */
@@ -26,7 +26,7 @@ final class ComposerJsonFactory
         $jsonArray = \RectorPrefix20210502\Nette\Utils\Json::decode($jsonString, \RectorPrefix20210502\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createFromArray($jsonArray);
     }
-    public function createFromFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function createFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $jsonArray = $this->jsonFileManager->loadFromFilePath($smartFileInfo->getRealPath());
         $composerJson = $this->createFromArray($jsonArray);
@@ -37,7 +37,7 @@ final class ComposerJsonFactory
     {
         $jsonArray = $this->jsonFileManager->loadFromFilePath($filePath);
         $composerJson = $this->createFromArray($jsonArray);
-        $fileInfo = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($filePath);
+        $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $composerJson->setOriginalFileInfo($fileInfo);
         return $composerJson;
     }

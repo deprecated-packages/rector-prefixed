@@ -13,7 +13,7 @@ use RectorPrefix20210502\Symfony\Component\HttpKernel\KernelInterface;
 use RectorPrefix20210502\Symfony\Contracts\Service\ResetInterface;
 use RectorPrefix20210502\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use RectorPrefix20210502\Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * Inspiration
@@ -131,7 +131,7 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210502\PHPUnit\Fram
     {
         $configFilePaths = [];
         foreach ($configs as $config) {
-            $configFilePaths[] = $config instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
+            $configFilePaths[] = $config instanceof \Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
         }
         return $configFilePaths;
     }

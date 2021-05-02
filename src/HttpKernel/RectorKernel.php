@@ -25,7 +25,7 @@ use RectorPrefix20210502\Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle
 use RectorPrefix20210502\Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use RectorPrefix20210502\Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
 use RectorPrefix20210502\Symplify\Skipper\Bundle\SkipperBundle;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @todo possibly remove symfony/http-kernel and use the container build only
  */

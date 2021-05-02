@@ -10,7 +10,7 @@ use RectorPrefix20210502\Symplify\Skipper\Skipper\Skipper;
 use RectorPrefix20210502\Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
 use RectorPrefix20210502\Symplify\Skipper\Tests\Skipper\Skip\Source\NotSkippedClass;
 use RectorPrefix20210502\Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SkipSkipperTest extends \RectorPrefix20210502\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
@@ -30,7 +30,7 @@ final class SkipSkipperTest extends \RectorPrefix20210502\Symplify\PackageBuilde
      */
     public function test(string $element, string $filePath, bool $expectedSkip) : void
     {
-        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($element, new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($filePath));
+        $resolvedSkip = $this->skipper->shouldSkipElementAndFileInfo($element, new \Symplify\SmartFileSystem\SmartFileInfo($filePath));
         $this->assertSame($expectedSkip, $resolvedSkip);
     }
     public function provideCheckerAndFile() : \Iterator

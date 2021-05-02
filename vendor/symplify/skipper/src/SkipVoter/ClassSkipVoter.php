@@ -10,7 +10,7 @@ use RectorPrefix20210502\Symplify\Skipper\SkipCriteriaResolver\SkippedClassResol
 use RectorPrefix20210502\Symplify\Skipper\Skipper\OnlySkipper;
 use RectorPrefix20210502\Symplify\Skipper\Skipper\SkipSkipper;
 use RectorPrefix20210502\Symplify\Skipper\ValueObject\Option;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassSkipVoter implements \RectorPrefix20210502\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
@@ -54,7 +54,7 @@ final class ClassSkipVoter implements \RectorPrefix20210502\Symplify\Skipper\Con
     /**
      * @param string|object $element
      */
-    public function shouldSkip($element, \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $only = $this->parameterProvider->provideArrayParameter(\RectorPrefix20210502\Symplify\Skipper\ValueObject\Option::ONLY);
         $doesMatchOnly = $this->onlySkipper->doesMatchOnly($element, $smartFileInfo, $only);

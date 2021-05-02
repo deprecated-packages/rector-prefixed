@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\EasyTesting\ValueObject;
 
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ExpectedAndOutputFileInfoPair
 {
@@ -15,7 +15,7 @@ final class ExpectedAndOutputFileInfoPair
      * @var SmartFileInfo|null
      */
     private $outputFileInfo;
-    public function __construct(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
     {
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;
@@ -32,7 +32,7 @@ final class ExpectedAndOutputFileInfoPair
      */
     public function getOutputFileContent() : string
     {
-        if (!$this->outputFileInfo instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$this->outputFileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \RectorPrefix20210502\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->outputFileInfo->getContents();

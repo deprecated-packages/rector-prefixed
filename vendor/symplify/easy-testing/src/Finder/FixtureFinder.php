@@ -5,7 +5,7 @@ namespace RectorPrefix20210502\Symplify\EasyTesting\Finder;
 
 use RectorPrefix20210502\Symfony\Component\Finder\Finder;
 use RectorPrefix20210502\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class FixtureFinder
 {
     /**

@@ -5,7 +5,7 @@ namespace RectorPrefix20210502\Symplify\SmartFileSystem\Finder;
 
 use RectorPrefix20210502\Symfony\Component\Finder\Finder;
 use RectorPrefix20210502\Symplify\SmartFileSystem\FileSystemFilter;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\SmartFinder\SmartFinderTest
  */
@@ -58,7 +58,7 @@ final class SmartFinder
         }
         $files = $this->fileSystemFilter->filterFiles($directoriesOrFiles);
         foreach ($files as $file) {
-            $fileInfos[] = new \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo($file);
+            $fileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         return $fileInfos;
     }

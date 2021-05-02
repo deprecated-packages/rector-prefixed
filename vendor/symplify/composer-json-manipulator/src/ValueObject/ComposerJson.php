@@ -6,7 +6,7 @@ namespace RectorPrefix20210502\Symplify\ComposerJsonManipulator\ValueObject;
 use RectorPrefix20210502\Nette\Utils\Arrays;
 use RectorPrefix20210502\Nette\Utils\Strings;
 use RectorPrefix20210502\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210502\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @api
@@ -126,7 +126,7 @@ final class ComposerJson
     {
         $this->composerPackageSorter = new \RectorPrefix20210502\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
     }
-    public function setOriginalFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setOriginalFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->fileInfo = $fileInfo;
     }
@@ -507,7 +507,7 @@ final class ComposerJson
             $this->addRequiredDevPackage($newPackageName, $targetVersion);
         }
     }
-    public function getFileInfo() : ?\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }

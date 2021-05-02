@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\SetConfigResolver\ValueObject\Bootstrap;
 
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**
@@ -17,12 +17,12 @@ final class BootstrapConfigs
     /**
      * @param SmartFileInfo[] $setConfigFileInfos
      */
-    public function __construct(?\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo, array $setConfigFileInfos)
+    public function __construct(?\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo, array $setConfigFileInfos)
     {
         $this->mainConfigFileInfo = $mainConfigFileInfo;
         $this->setConfigFileInfos = $setConfigFileInfos;
     }
-    public function getMainConfigFileInfo() : ?\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo
+    public function getMainConfigFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->mainConfigFileInfo;
     }
@@ -31,7 +31,7 @@ final class BootstrapConfigs
      */
     public function getConfigFileInfos() : array
     {
-        if (!$this->mainConfigFileInfo instanceof \RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$this->mainConfigFileInfo instanceof \Symplify\SmartFileSystem\SmartFileInfo) {
             return $this->setConfigFileInfos;
         }
         return \array_merge($this->setConfigFileInfos, [$this->mainConfigFileInfo]);

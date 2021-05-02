@@ -8,7 +8,7 @@ use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use RectorPrefix20210502\Symplify\Astral\Exception\ShouldNotHappenException;
 use RectorPrefix20210502\Symplify\SetConfigResolver\SetResolver;
-use RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SetsParameterResolver
 {
     /**
@@ -41,7 +41,7 @@ final class SetsParameterResolver
     /**
      * @return string[]
      */
-    private function resolveSetsFromFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         if ($configFileInfo->hasSuffixes(['yml', 'yaml'])) {
             throw new \RectorPrefix20210502\Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
@@ -51,7 +51,7 @@ final class SetsParameterResolver
     /**
      * @return string[]
      */
-    private function resolveSetsParameterFromPhpFileInfo(\RectorPrefix20210502\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsParameterFromPhpFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         // php file loader
         $containerBuilder = new \RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder();
