@@ -11,7 +11,7 @@ use RectorPrefix20210502\Composer\Package\AliasPackage;
 use RectorPrefix20210502\Composer\Package\Locker;
 use RectorPrefix20210502\Composer\Package\PackageInterface;
 use RectorPrefix20210502\Composer\Package\RootPackageInterface;
-use RectorPrefix20210502\Composer\Plugin\PluginInterface;
+use Composer\Plugin\PluginInterface;
 use RectorPrefix20210502\Composer\Script\Event;
 use RectorPrefix20210502\Composer\Script\ScriptEvents;
 use Generator;
@@ -28,7 +28,7 @@ use function rename;
 use function sprintf;
 use function uniqid;
 use function var_export;
-final class Installer implements \RectorPrefix20210502\Composer\Plugin\PluginInterface, \RectorPrefix20210502\Composer\EventDispatcher\EventSubscriberInterface
+final class Installer implements \Composer\Plugin\PluginInterface, \RectorPrefix20210502\Composer\EventDispatcher\EventSubscriberInterface
 {
     private static $generatedClassTemplate = <<<'PHP'
 <?php
