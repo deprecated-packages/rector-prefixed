@@ -10,7 +10,7 @@
  */
 namespace RectorPrefix20210502\Symfony\Component\HttpKernel\DependencyInjection;
 
-use Composer\Autoload\ClassLoader;
+use RectorPrefix20210502\Composer\Autoload\ClassLoader;
 use RectorPrefix20210502\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -79,7 +79,7 @@ class AddAnnotatedClassesToCachePass implements \RectorPrefix20210502\Symfony\Co
             if ($function[0] instanceof \RectorPrefix20210502\Symfony\Component\ErrorHandler\DebugClassLoader || $function[0] instanceof \RectorPrefix20210502\Symfony\Component\Debug\DebugClassLoader) {
                 $function = $function[0]->getClassLoader();
             }
-            if (\is_array($function) && $function[0] instanceof \Composer\Autoload\ClassLoader) {
+            if (\is_array($function) && $function[0] instanceof \RectorPrefix20210502\Composer\Autoload\ClassLoader) {
                 $classes += \array_filter($function[0]->getClassMap());
             }
         }

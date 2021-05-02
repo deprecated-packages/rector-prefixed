@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace Composer\Semver\Constraint;
+namespace RectorPrefix20210502\Composer\Semver\Constraint;
 
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements \Composer\Semver\Constraint\ConstraintInterface
+class MatchNoneConstraint implements \RectorPrefix20210502\Composer\Semver\Constraint\ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
@@ -22,7 +22,7 @@ class MatchNoneConstraint implements \Composer\Semver\Constraint\ConstraintInter
      *
      * @return bool
      */
-    public function matches(\Composer\Semver\Constraint\ConstraintInterface $provider)
+    public function matches(\RectorPrefix20210502\Composer\Semver\Constraint\ConstraintInterface $provider)
     {
         return \false;
     }
@@ -59,13 +59,13 @@ class MatchNoneConstraint implements \Composer\Semver\Constraint\ConstraintInter
      */
     public function getUpperBound()
     {
-        return new \Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new \RectorPrefix20210502\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return new \Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new \RectorPrefix20210502\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
 }

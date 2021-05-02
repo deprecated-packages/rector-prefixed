@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\RectorInstaller\Tests;
 
-use Composer\Installer\InstallationManager;
-use Composer\IO\IOInterface;
-use Composer\Package\PackageInterface;
-use Composer\Repository\InstalledRepositoryInterface;
+use RectorPrefix20210502\Composer\Installer\InstallationManager;
+use RectorPrefix20210502\Composer\IO\IOInterface;
+use RectorPrefix20210502\Composer\Package\PackageInterface;
+use RectorPrefix20210502\Composer\Repository\InstalledRepositoryInterface;
 use RectorPrefix20210502\PHPUnit\Framework\TestCase;
 use RectorPrefix20210502\Prophecy\Argument;
 use RectorPrefix20210502\Prophecy\PhpUnit\ProphecyTrait;
@@ -54,13 +54,13 @@ final class PluginInstallerTest extends \RectorPrefix20210502\PHPUnit\Framework\
     protected function setUp() : void
     {
         $this->configurationFile = __FILE__;
-        $this->composerFilesystem = $this->prophesize(\Composer\Util\Filesystem::class);
+        $this->composerFilesystem = $this->prophesize(\RectorPrefix20210502\Composer\Util\Filesystem::class);
         $this->filesystem = $this->prophesize(\Rector\RectorInstaller\Filesystem::class);
         $this->filesystem->isFile($this->configurationFile)->shouldBeCalledOnce()->willReturn(\true);
         $this->filesystem->hashFile($this->configurationFile)->willReturn(self::FILE_HASH);
-        $this->localRepository = $this->prophesize(\Composer\Repository\InstalledRepositoryInterface::class);
-        $this->io = $this->prophesize(\Composer\IO\IOInterface::class);
-        $this->installationManager = $this->prophesize(\Composer\Installer\InstallationManager::class);
+        $this->localRepository = $this->prophesize(\RectorPrefix20210502\Composer\Repository\InstalledRepositoryInterface::class);
+        $this->io = $this->prophesize(\RectorPrefix20210502\Composer\IO\IOInterface::class);
+        $this->installationManager = $this->prophesize(\RectorPrefix20210502\Composer\Installer\InstallationManager::class);
         $this->pluginInstaller = new \Rector\RectorInstaller\PluginInstaller($this->filesystem->reveal(), $this->localRepository->reveal(), $this->io->reveal(), $this->installationManager->reveal(), $this->composerFilesystem->reveal(), $this->configurationFile);
     }
     public function testNoRectorPackagesInstalled() : void
@@ -72,13 +72,13 @@ final class PluginInstallerTest extends \RectorPrefix20210502\PHPUnit\Framework\
     }
     public function testPackagesInstalled() : void
     {
-        $rectorExtensionPackage = $this->prophesize(\Composer\Package\PackageInterface::class);
+        $rectorExtensionPackage = $this->prophesize(\RectorPrefix20210502\Composer\Package\PackageInterface::class);
         $rectorExtensionPackage->getType()->willReturn(\Rector\RectorInstaller\PluginInstaller::RECTOR_EXTENSION_TYPE);
         $rectorExtensionPackage->getName()->willReturn('rector/doctrine');
         $rectorExtensionPackage->getFullPrettyVersion()->willReturn('rector/doctrine');
         $rectorExtensionPackage->getExtra()->willReturn([\Rector\RectorInstaller\PluginInstaller::RECTOR_EXTRA_KEY => ['includes' => ['config/config.php']]]);
-        $nonRectorExtensionPackage = $this->prophesize(\Composer\Package\PackageInterface::class);
-        $nonRectorExtensionPackageWithExtra = $this->prophesize(\Composer\Package\PackageInterface::class);
+        $nonRectorExtensionPackage = $this->prophesize(\RectorPrefix20210502\Composer\Package\PackageInterface::class);
+        $nonRectorExtensionPackageWithExtra = $this->prophesize(\RectorPrefix20210502\Composer\Package\PackageInterface::class);
         $nonRectorExtensionPackageWithExtra->getType()->willReturn(null);
         $nonRectorExtensionPackageWithExtra->getName()->willReturn('rector/foo');
         $nonRectorExtensionPackageWithExtra->getFullPrettyVersion()->willReturn('rector/foo');

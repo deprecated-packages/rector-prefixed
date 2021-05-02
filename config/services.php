@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502;
 
-use Composer\Semver\VersionParser;
+use RectorPrefix20210502\Composer\Semver\VersionParser;
 use RectorPrefix20210502\Doctrine\Inflector\Inflector;
 use RectorPrefix20210502\Doctrine\Inflector\Rules\English\InflectorFactory;
 use RectorPrefix20210502\Nette\Caching\Cache;
@@ -77,7 +77,7 @@ return static function (\RectorPrefix20210502\Symfony\Component\DependencyInject
     $services->set(\PhpParser\NodeVisitor\NodeConnectingVisitor::class);
     $services->set(\RectorPrefix20210502\Doctrine\Inflector\Rules\English\InflectorFactory::class);
     $services->set(\RectorPrefix20210502\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210502\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
-    $services->set(\Composer\Semver\VersionParser::class);
+    $services->set(\RectorPrefix20210502\Composer\Semver\VersionParser::class);
     $services->set(\RectorPrefix20210502\Symplify\PackageBuilder\Php\TypeChecker::class);
     // phpdoc parser
     $services->set(\PHPStan\PhpDocParser\Lexer\Lexer::class);
