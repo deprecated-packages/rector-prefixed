@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Console;
 
-use RectorPrefix20210502\Composer\XdebugHandler\XdebugHandler;
+use Composer\XdebugHandler\XdebugHandler;
 use OutOfBoundsException;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Configuration\Configuration;
@@ -46,7 +46,7 @@ final class ConsoleApplication extends \RectorPrefix20210502\Symfony\Component\C
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (!$isXdebugAllowed) {
-            $xdebugHandler = new \RectorPrefix20210502\Composer\XdebugHandler\XdebugHandler('rector', '--ansi');
+            $xdebugHandler = new \Composer\XdebugHandler\XdebugHandler('rector', '--ansi');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }

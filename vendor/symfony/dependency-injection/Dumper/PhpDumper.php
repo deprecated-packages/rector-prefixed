@@ -10,7 +10,7 @@
  */
 namespace RectorPrefix20210502\Symfony\Component\DependencyInjection\Dumper;
 
-use RectorPrefix20210502\Composer\Autoload\ClassLoader;
+use Composer\Autoload\ClassLoader;
 use RectorPrefix20210502\Symfony\Component\Debug\DebugClassLoader as LegacyDebugClassLoader;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use RectorPrefix20210502\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
@@ -1850,7 +1850,7 @@ EOF;
             if ($autoloader[0] instanceof \RectorPrefix20210502\Symfony\Component\ErrorHandler\DebugClassLoader || $autoloader[0] instanceof \RectorPrefix20210502\Symfony\Component\Debug\DebugClassLoader) {
                 $autoloader = $autoloader[0]->getClassLoader();
             }
-            if (!\is_array($autoloader) || !$autoloader[0] instanceof \RectorPrefix20210502\Composer\Autoload\ClassLoader || !$autoloader[0]->findFile(__CLASS__)) {
+            if (!\is_array($autoloader) || !$autoloader[0] instanceof \Composer\Autoload\ClassLoader || !$autoloader[0]->findFile(__CLASS__)) {
                 continue;
             }
             foreach (\get_declared_classes() as $class) {

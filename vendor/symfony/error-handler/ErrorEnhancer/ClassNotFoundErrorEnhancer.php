@@ -10,7 +10,7 @@
  */
 namespace RectorPrefix20210502\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-use RectorPrefix20210502\Composer\Autoload\ClassLoader;
+use Composer\Autoload\ClassLoader;
 use RectorPrefix20210502\Symfony\Component\ErrorHandler\DebugClassLoader;
 use RectorPrefix20210502\Symfony\Component\ErrorHandler\Error\ClassNotFoundError;
 use RectorPrefix20210502\Symfony\Component\ErrorHandler\Error\FatalError;
@@ -80,7 +80,7 @@ class ClassNotFoundErrorEnhancer implements \RectorPrefix20210502\Symfony\Compon
                     continue;
                 }
             }
-            if ($function[0] instanceof \RectorPrefix20210502\Composer\Autoload\ClassLoader) {
+            if ($function[0] instanceof \Composer\Autoload\ClassLoader) {
                 foreach ($function[0]->getPrefixes() as $prefix => $paths) {
                     foreach ($paths as $path) {
                         $classes = \array_merge($classes, $this->findClassInPath($path, $class, $prefix));

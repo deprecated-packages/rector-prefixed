@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502\Symplify\PackageBuilder\Composer;
 
-use RectorPrefix20210502\Composer\Autoload\ClassLoader;
+use Composer\Autoload\ClassLoader;
 use RectorPrefix20210502\Nette\Utils\Strings;
 use ReflectionClass;
 /**
@@ -25,7 +25,7 @@ final class VendorDirProvider
     }
     private function reflectionFallback() : string
     {
-        $reflectionClass = new \ReflectionClass(\RectorPrefix20210502\Composer\Autoload\ClassLoader::class);
+        $reflectionClass = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
         return \dirname($reflectionClass->getFileName(), 2);
     }
 }

@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace RectorPrefix20210502\PackageVersions;
 
-use RectorPrefix20210502\Composer\Composer;
-use RectorPrefix20210502\Composer\Config;
+use Composer\Composer;
+use Composer\Config;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use RectorPrefix20210502\Composer\IO\IOInterface;
-use RectorPrefix20210502\Composer\Package\AliasPackage;
-use RectorPrefix20210502\Composer\Package\Locker;
-use RectorPrefix20210502\Composer\Package\PackageInterface;
-use RectorPrefix20210502\Composer\Package\RootPackageInterface;
+use Composer\IO\IOInterface;
+use Composer\Package\AliasPackage;
+use Composer\Package\Locker;
+use Composer\Package\PackageInterface;
+use Composer\Package\RootPackageInterface;
 use Composer\Plugin\PluginInterface;
-use RectorPrefix20210502\Composer\Script\Event;
-use RectorPrefix20210502\Composer\Script\ScriptEvents;
+use Composer\Script\Event;
+use Composer\Script\ScriptEvents;
 use Generator;
 use RuntimeException;
 use function array_key_exists;
@@ -113,15 +113,15 @@ class_exists(InstalledVersions::class);
 }
 
 PHP;
-    public function activate(\RectorPrefix20210502\Composer\Composer $composer, \RectorPrefix20210502\Composer\IO\IOInterface $io)
+    public function activate(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function deactivate(\RectorPrefix20210502\Composer\Composer $composer, \RectorPrefix20210502\Composer\IO\IOInterface $io)
+    public function deactivate(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function uninstall(\RectorPrefix20210502\Composer\Composer $composer, \RectorPrefix20210502\Composer\IO\IOInterface $io)
+    public function uninstall(\Composer\Composer $composer, \Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
@@ -130,12 +130,12 @@ PHP;
      */
     public static function getSubscribedEvents() : array
     {
-        return [\RectorPrefix20210502\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
+        return [\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
     }
     /**
      * @throws RuntimeException
      */
-    public static function dumpVersionsClass(\RectorPrefix20210502\Composer\Script\Event $composerEvent)
+    public static function dumpVersionsClass(\Composer\Script\Event $composerEvent)
     {
         $composer = $composerEvent->getComposer();
         $rootPackage = $composer->getPackage();
@@ -164,7 +164,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function writeVersionClassToFile(string $versionClassSource, \RectorPrefix20210502\Composer\Composer $composer, \RectorPrefix20210502\Composer\IO\IOInterface $io)
+    private static function writeVersionClassToFile(string $versionClassSource, \Composer\Composer $composer, \Composer\IO\IOInterface $io)
     {
         $installPath = self::locateRootPackageInstallPath($composer->getConfig(), $composer->getPackage()) . '/src/PackageVersions/Versions.php';
         $installDir = \dirname($installPath);
@@ -186,17 +186,17 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function locateRootPackageInstallPath(\RectorPrefix20210502\Composer\Config $composerConfig, \RectorPrefix20210502\Composer\Package\RootPackageInterface $rootPackage) : string
+    private static function locateRootPackageInstallPath(\Composer\Config $composerConfig, \Composer\Package\RootPackageInterface $rootPackage) : string
     {
         if (self::getRootPackageAlias($rootPackage)->getName() === 'composer/package-versions-deprecated') {
             return \dirname($composerConfig->get('vendor-dir'));
         }
         return $composerConfig->get('vendor-dir') . '/composer/package-versions-deprecated';
     }
-    private static function getRootPackageAlias(\RectorPrefix20210502\Composer\Package\RootPackageInterface $rootPackage) : \RectorPrefix20210502\Composer\Package\PackageInterface
+    private static function getRootPackageAlias(\Composer\Package\RootPackageInterface $rootPackage) : \Composer\Package\PackageInterface
     {
         $package = $rootPackage;
-        while ($package instanceof \RectorPrefix20210502\Composer\Package\AliasPackage) {
+        while ($package instanceof \Composer\Package\AliasPackage) {
             $package = $package->getAliasOf();
         }
         return $package;
@@ -206,7 +206,7 @@ PHP;
      *
      * @psalm-return Generator<string, string>
      */
-    private static function getVersions(\RectorPrefix20210502\Composer\Package\Locker $locker, \RectorPrefix20210502\Composer\Package\RootPackageInterface $rootPackage) : \Generator
+    private static function getVersions(\Composer\Package\Locker $locker, \Composer\Package\RootPackageInterface $rootPackage) : \Generator
     {
         $lockData = $locker->getLockData();
         $lockData['packages-dev'] = $lockData['packages-dev'] ?? [];

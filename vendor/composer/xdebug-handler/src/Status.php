@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210502\Composer\XdebugHandler;
+namespace Composer\XdebugHandler;
 
 use RectorPrefix20210502\Psr\Log\LoggerInterface;
 use RectorPrefix20210502\Psr\Log\LogLevel;
@@ -40,7 +40,7 @@ class Status
     public function __construct($envAllowXdebug, $debug)
     {
         $start = \getenv(self::ENV_RESTART);
-        \RectorPrefix20210502\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
+        \Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
         $this->time = $start ? \round((\microtime(\true) - $start) * 1000) : 0;
         $this->envAllowXdebug = $envAllowXdebug;
         $this->debug = $debug && \defined('STDERR');
@@ -106,7 +106,7 @@ class Status
     private function reportRestart()
     {
         $this->output($this->getLoadedMessage());
-        \RectorPrefix20210502\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
+        \Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART, (string) \microtime(\true));
     }
     private function reportRestarted()
     {
