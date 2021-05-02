@@ -24,7 +24,7 @@ final class ReservedObjectRector extends \Rector\Core\Rector\AbstractRector impl
      */
     public const RESERVED_KEYWORDS_TO_REPLACEMENTS = 'reserved_keywords_to_replacements';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $reservedKeywordsToReplacements = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -58,6 +58,9 @@ CODE_SAMPLE
         }
         return $this->processName($node);
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->reservedKeywordsToReplacements = $configuration[self::RESERVED_KEYWORDS_TO_REPLACEMENTS] ?? [];

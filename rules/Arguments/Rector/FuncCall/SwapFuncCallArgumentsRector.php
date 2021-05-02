@@ -78,6 +78,9 @@ CODE_SAMPLE
         }
         return $node;
     }
+    /**
+     * @param array<string, SwapFuncCallArguments[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $functionArgumentSwaps = $configuration[self::FUNCTION_ARGUMENT_SWAPS] ?? [];

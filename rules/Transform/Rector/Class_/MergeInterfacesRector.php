@@ -25,7 +25,7 @@ final class MergeInterfacesRector extends \Rector\Core\Rector\AbstractRector imp
      */
     public const OLD_TO_NEW_INTERFACES = 'old_to_new_interfaces';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $oldToNewInterfaces = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -68,6 +68,9 @@ CODE_SAMPLE
         $this->makeImplementsUnique($node);
         return $node;
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->oldToNewInterfaces = $configuration[self::OLD_TO_NEW_INTERFACES] ?? [];

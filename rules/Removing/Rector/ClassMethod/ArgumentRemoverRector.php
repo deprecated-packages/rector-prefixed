@@ -62,6 +62,9 @@ CODE_SAMPLE
         }
         return $node;
     }
+    /**
+     * @param array<string, ArgumentRemover[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];

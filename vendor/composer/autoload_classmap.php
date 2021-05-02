@@ -3007,6 +3007,7 @@ return array(
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddParamTypeFromCallersRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/AddParamTypeFromCallersRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddReturnTypeDeclarationRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/AddReturnTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddVoidReturnTypeWhereNoReturnRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/AddVoidReturnTypeWhereNoReturnRector.php',
+    'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnNeverTypeRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/ReturnNeverTypeRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromReturnNewRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromReturnNewRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedCallRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictTypedCallRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedPropertyRector' => $baseDir . '/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictTypedPropertyRector.php',

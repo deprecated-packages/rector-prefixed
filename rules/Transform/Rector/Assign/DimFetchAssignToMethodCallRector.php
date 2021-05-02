@@ -85,6 +85,9 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, $dimFetchAssignToMethodCall->getAddMethod(), $node->expr->args);
     }
+    /**
+     * @param array<string, DimFetchAssignToMethodCall[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];

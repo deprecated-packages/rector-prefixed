@@ -48,6 +48,9 @@ final class FuncCallToStaticCallRector extends \Rector\Core\Rector\AbstractRecto
         }
         return null;
     }
+    /**
+     * @param array<string, FuncCallToStaticCall[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $funcCallsToStaticCalls = $configuration[self::FUNC_CALLS_TO_STATIC_CALLS] ?? [];

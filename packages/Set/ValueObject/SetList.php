@@ -483,6 +483,10 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
+    public const PHP_81 = __DIR__ . '/../../../config/set/php81.php';
+    /**
+     * @var string
+     */
     public const PRIVATIZATION = __DIR__ . '/../../../config/set/privatization.php';
     /**
      * @var string

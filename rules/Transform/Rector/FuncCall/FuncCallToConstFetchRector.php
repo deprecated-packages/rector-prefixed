@@ -67,6 +67,9 @@ CODE_SAMPLE
         }
         return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($this->functionsToConstants[$functionName]));
     }
+    /**
+     * @param array<string, string[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->functionsToConstants = $configuration[self::FUNCTIONS_TO_CONSTANTS] ?? [];

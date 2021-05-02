@@ -53,6 +53,9 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
         }
         return null;
     }
+    /**
+     * @param array<string, RenameProperty[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];

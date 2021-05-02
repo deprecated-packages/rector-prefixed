@@ -77,6 +77,9 @@ CODE_SAMPLE
         $methodCall = $node->expr;
         return $this->refactorMethodCall($methodCall);
     }
+    /**
+     * @param array<string, MethodCallToReturn[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];

@@ -116,7 +116,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->parentClassMethodTypeOverrideGuard->isReturnTypeChangeAllowed($classMethod)) {
+        if ($this->parentClassMethodTypeOverrideGuard->hasParentMethodOutsideVendor($classMethod)) {
             return \true;
         }
         if ($return->expr === null) {

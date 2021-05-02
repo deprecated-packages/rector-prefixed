@@ -322,8 +322,7 @@ final class NodeFactory
     }
     public function createGetterClassMethod(string $propertyName, \PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $getterMethod = 'get' . \ucfirst($propertyName);
-        $methodBuilder = new \RectorPrefix20210502\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
+        $methodBuilder = new \RectorPrefix20210502\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('get' . \ucfirst($propertyName));
         $methodBuilder->makePublic();
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
         $return = new \PhpParser\Node\Stmt\Return_($propertyFetch);
@@ -336,11 +335,11 @@ final class NodeFactory
     }
     public function createSetterClassMethod(string $propertyName, \PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $getterMethod = 'set' . \ucfirst($propertyName);
-        $variable = new \PhpParser\Node\Expr\Variable($propertyName);
-        $methodBuilder = new \RectorPrefix20210502\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($getterMethod);
+        $methodBuilder = new \RectorPrefix20210502\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('set' . \ucfirst($propertyName));
         $methodBuilder->makePublic();
-        $methodBuilder->addParam(new \PhpParser\Node\Param($variable));
+        $variable = new \PhpParser\Node\Expr\Variable($propertyName);
+        $param = $this->createParamWithType($variable, $type);
+        $methodBuilder->addParam($param);
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable(self::THIS), $propertyName);
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $variable);
         $methodBuilder->addStmt($assign);
@@ -595,5 +594,12 @@ final class NodeFactory
         }
         /** @var BooleanAnd $booleanAnd */
         return $booleanAnd;
+    }
+    private function createParamWithType(\PhpParser\Node\Expr\Variable $variable, \PHPStan\Type\Type $type) : \PhpParser\Node\Param
+    {
+        $param = new \PhpParser\Node\Param($variable);
+        $phpParserTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($type);
+        $param->type = $phpParserTypeNode;
+        return $param;
     }
 }

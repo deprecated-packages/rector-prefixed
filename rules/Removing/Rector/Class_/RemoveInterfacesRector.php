@@ -19,7 +19,7 @@ final class RemoveInterfacesRector extends \Rector\Core\Rector\AbstractRector im
      */
     public const INTERFACES_TO_REMOVE = 'interfaces_to_remove';
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private $interfacesToRemove = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -58,6 +58,9 @@ CODE_SAMPLE
         }
         return $node;
     }
+    /**
+     * @param array<string, class-string[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
         $this->interfacesToRemove = $configuration[self::INTERFACES_TO_REMOVE] ?? [];

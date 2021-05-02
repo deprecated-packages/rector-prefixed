@@ -27,7 +27,7 @@ final class AddMethodParentCallRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var array<string, string>
      */
-    private $methodsByParentTypes = [];
+    private $methodByParentTypes = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add method parent call, in case new parent method is added', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -70,7 +70,7 @@ CODE_SAMPLE
         }
         /** @var string $className */
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        foreach ($this->methodsByParentTypes as $type => $method) {
+        foreach ($this->methodByParentTypes as $type => $method) {
             if (!$this->isObjectType($classLike, new \PHPStan\Type\ObjectType($type))) {
                 continue;
             }
@@ -86,9 +86,12 @@ CODE_SAMPLE
         }
         return null;
     }
+    /**
+     * @param array<string, array<string, string>> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->methodsByParentTypes = $configuration[self::METHODS_BY_PARENT_TYPES] ?? [];
+        $this->methodByParentTypes = $configuration[self::METHODS_BY_PARENT_TYPES] ?? [];
     }
     private function shouldSkipMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $method) : bool
     {
