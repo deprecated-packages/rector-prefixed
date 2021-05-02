@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210501\Symfony\Component\HttpFoundation\File\Exception;
+namespace RectorPrefix20210502\Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when an UPLOAD_ERR_CANT_WRITE error occurred with UploadedFile.
  *
  * @author Florent Mata <florentmata@gmail.com>
  */
-class CannotWriteFileException extends \RectorPrefix20210501\Symfony\Component\HttpFoundation\File\Exception\FileException
+class CannotWriteFileException extends \RectorPrefix20210502\Symfony\Component\HttpFoundation\File\Exception\FileException
 {
 }

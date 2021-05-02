@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210501\Symplify\ConsolePackageBuilder\Bundle;
+namespace RectorPrefix20210502\Symplify\ConsolePackageBuilder\Bundle;
 
-use RectorPrefix20210501\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210501\Symfony\Component\HttpKernel\Bundle\Bundle;
-use RectorPrefix20210501\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
-final class NamelessConsoleCommandBundle extends \RectorPrefix20210501\Symfony\Component\HttpKernel\Bundle\Bundle
+use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210502\Symfony\Component\HttpKernel\Bundle\Bundle;
+use RectorPrefix20210502\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
+final class NamelessConsoleCommandBundle extends \RectorPrefix20210502\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    public function build(\RectorPrefix20210501\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function build(\RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $containerBuilder->addCompilerPass(new \RectorPrefix20210501\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
+        $containerBuilder->addCompilerPass(new \RectorPrefix20210502\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
     }
 }

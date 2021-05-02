@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210501\Symfony\Component\DependencyInjection\Extension;
+namespace RectorPrefix20210502\Symfony\Component\DependencyInjection\Extension;
 
-use RectorPrefix20210501\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder;
 interface PrependExtensionInterface
 {
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(\RectorPrefix20210501\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    public function prepend(\RectorPrefix20210502\Symfony\Component\DependencyInjection\ContainerBuilder $container);
 }
