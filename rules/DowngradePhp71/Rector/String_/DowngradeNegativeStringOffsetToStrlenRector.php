@@ -4,10 +4,14 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp71\Rector\String_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Minus;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\UnaryMinus;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -37,21 +41,24 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Scalar\String_::class, \PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Scalar\String_::class, \PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class];
     }
     /**
-     * @param String_|FuncCall $node
+     * @param FuncCall|String_|Variable|PropertyFetch|StaticPropertyFetch $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Scalar\String_) {
-            return $this->processForString($node);
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return $this->processForFuncCall($node);
         }
-        return $this->processForFuncCall($node);
+        return $this->processForStringOrVariableOrProperty($node);
     }
-    private function processForString(\PhpParser\Node\Scalar\String_ $string) : ?\PhpParser\Node\Scalar\String_
+    /**
+     * @param String_|Variable|PropertyFetch|StaticPropertyFetch $expr
+     */
+    private function processForStringOrVariableOrProperty(\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
-        $nextNode = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
@@ -64,9 +71,9 @@ CODE_SAMPLE
         }
         /** @var UnaryMinus $dim */
         $dim = $parentOfNextNode->dim;
-        $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$string]);
+        $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$expr]);
         $parentOfNextNode->dim = new \PhpParser\Node\Expr\BinaryOp\Minus($strlenFuncCall, $dim->expr);
-        return $string;
+        return $expr;
     }
     private function processForFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
