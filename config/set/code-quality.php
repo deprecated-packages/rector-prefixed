@@ -168,4 +168,5 @@ return static function (\RectorPrefix20210503\Symfony\Component\DependencyInject
     $services->set(\Rector\CodeQuality\Rector\Switch_\SingularSwitchToIfRector::class);
     $services->set(\Rector\CodeQuality\Rector\If_\SimplifyIfNullableReturnRector::class);
     $services->set(\Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\FuncGetArgsToVariadicParamRector::class);
 };

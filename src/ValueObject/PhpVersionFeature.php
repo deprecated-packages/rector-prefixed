@@ -162,4 +162,9 @@ final class PhpVersionFeature
      * @var int
      */
     public const NEVER_TYPE = \Rector\Core\ValueObject\PhpVersion::PHP_81;
+    /**
+     * @see https://wiki.php.net/rfc/variadics
+     * @var int
+     */
+    public const VARIADIC_PARAM = \Rector\Core\ValueObject\PhpVersion::PHP_56;
 }

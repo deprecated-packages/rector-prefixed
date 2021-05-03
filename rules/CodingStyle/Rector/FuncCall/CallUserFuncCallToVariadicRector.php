@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -57,6 +58,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARRAY_SPREAD)) {
+            return null;
+        }
         if (!$this->isName($node, 'call_user_func_array')) {
             return null;
         }
@@ -75,7 +79,7 @@ CODE_SAMPLE
     private function createFuncCall(\PhpParser\Node\Expr $expr, string $functionName) : \PhpParser\Node\Expr\FuncCall
     {
         $args = [];
-        $args[] = new \PhpParser\Node\Arg($expr, \false, \true);
+        $args[] = $this->createUnpackedArg($expr);
         return $this->nodeFactory->createFuncCall($functionName, $args);
     }
     private function createMethodCall(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr $secondExpr) : ?\PhpParser\Node\Expr\MethodCall
@@ -97,8 +101,13 @@ CODE_SAMPLE
             }
             $string = $secondItem->value;
             $methodName = $string->value;
-            return new \PhpParser\Node\Expr\MethodCall($firstItem->value, $methodName, [new \PhpParser\Node\Arg($secondExpr, \false, \true)]);
+            $arg = $this->createUnpackedArg($secondExpr);
+            return new \PhpParser\Node\Expr\MethodCall($firstItem->value, $methodName, [$arg]);
         }
         return null;
+    }
+    private function createUnpackedArg(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Arg
+    {
+        return new \PhpParser\Node\Arg($expr, \false, \true);
     }
 }
