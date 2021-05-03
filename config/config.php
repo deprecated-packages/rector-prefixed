@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210502;
+namespace RectorPrefix20210503;
 
 use Rector\Core\Bootstrap\ExtensionConfigResolver;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210502\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210503\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/services.php');
     $containerConfigurator->import(__DIR__ . '/services-rules.php');
     $containerConfigurator->import(__DIR__ . '/services-packages.php');
