@@ -12,6 +12,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -84,9 +85,8 @@ CODE_SAMPLE
         if ($param->type !== null) {
             return null;
         }
-        $scope = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $originalParamType = $this->resolveParamOriginalType($param);
         $paramName = $this->getName($param);
-        $originalParamType = $scope->getVariableType($paramName);
         /** @var Assign[] $assigns */
         $assigns = $this->betterNodeFinder->findInstanceOf((array) $functionLike->getStmts(), \PhpParser\Node\Expr\Assign::class);
         foreach ($assigns as $assign) {
@@ -143,7 +143,22 @@ CODE_SAMPLE
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
+        if (!$scope->hasVariableType($paramName)->yes()) {
+            return \false;
+        }
         $currentParamType = $scope->getVariableType($paramName);
         return !$currentParamType->equals($originalType);
+    }
+    private function resolveParamOriginalType(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
+    {
+        $scope = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return new \PHPStan\Type\MixedType();
+        }
+        $paramName = $this->getName($param);
+        if (!$scope->hasVariableType($paramName)->yes()) {
+            return new \PHPStan\Type\MixedType();
+        }
+        return $scope->getVariableType($paramName);
     }
 }
