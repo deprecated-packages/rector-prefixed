@@ -14,8 +14,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
     /**
      * System is unusable.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -29,8 +29,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -43,8 +43,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
      *
      * Example: Application component unavailable, unexpected exception.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -56,8 +56,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -71,8 +71,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -83,8 +83,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
     /**
      * Normal but significant events.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -97,8 +97,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
      *
      * Example: User logs in, SQL logs.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
@@ -109,8 +109,8 @@ abstract class AbstractLogger implements \RectorPrefix20210503\Psr\Log\LoggerInt
     /**
      * Detailed debug information.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void
      */
