@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<title>{{ title }} | PHPStan</title>
+	<meta property="og:title" content="{{ title }}" />
+	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+	<link rel="stylesheet" href="/app.pcss">
+
+	{% if ogImage %}
+		<meta property="og:image" content="{{ ogImage }}" />
+		<meta name="twitter:image" content="{{ ogImage }}" />
+	{% else %}
+		<meta property="og:image" content="/images/logo-big.png" />
+		<meta name="twitter:image" content="/images/logo-big.png" />
+	{% endif %}
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@phpstan" />
+</head>
+<body>
+
+<div class="bg-white flex flex-col main-area">
+	<nav class="bg-white border-b border-gray-200 flex-shrink z-10 nav-header">
+		<!-- ko with: mainMenu -->
+			<div class="max-w-5xl mx-auto px-4 md:px-6">
+				<div class="flex justify-between h-16">
+					<div class="flex flex-grow">
+						<div class="w-64 flex flex-none items-center">
+							<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
+							<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
+								<a href="/">PHPStan</a>
+							</h2>
+						</div>
+						<div class="flex flex-grow justify-between">
+							<div class="hidden md:-my-px md:flex px-4 flex-grow">
+								<div class="flex flex-shrink md:-my-px">
+									{% for item in mainMenu %}
+										{% if item.pageType === pageType %}
+											<a href="{{ item.link }}" class="mr-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+												<span>{{ item.title }}</span>
+
+												{% if item.pageType === 'support' %}
+													<span class="inline-block bg-indigo-500 rounded text-white ml-2 text-xs px-2 py-1">New!</span>
+												{% endif %}
+											</a>
+										{% else %}
+											<a href="{{ item.link }}" class="mr-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+												<span>{{ item.title }}</span>
+
+												{% if item.pageType === 'support' %}															<span class="inline-block bg-indigo-500 rounded text-white ml-2 text-xs px-2 py-1">New!</span>
+												{% endif %}
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="-mr-2 flex items-center md:hidden">
+						<button data-bind="click: toggleMainMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+							<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+								<path data-bind="css: {hidden: mainMenuOpen, 'inline-flex': !mainMenuOpen()}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+								<path data-bind="css: {hidden: !mainMenuOpen(), 'inline-flex': mainMenuOpen}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden md:hidden">
+				<div class="pt-2 pb-3">
+					{% for item in mainMenu %}
+						{% if item.pageType === pageType %}
+							<a href="{{ item.link }}" class="algolia-active mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">
+								{{ item.title }}
+							</a>
+						{% else %}
+							<a href="{{ item.link }}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+								{{ item.title }}
+							</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		<!-- /ko -->
+	</nav>
+	<div>
+		<main>
+			<div class="max-w-5xl mx-auto md:px-6">
+				{% block content %}{% endblock %}
+			</div>
+		</main>
+	</div>
+</div>
+
+{% block scripts %}{% endblock %}
+
+<script>
+	(function(f, a, t, h, o, m){
+		a[h]=a[h]||function(){
+			(a[h].q=a[h].q||[]).push(arguments)
+		};
+		o=f.createElement('script'),
+			m=f.getElementsByTagName('script')[0];
+		o.async=1; o.src=t; o.id='fathom-script';
+		m.parentNode.insertBefore(o,m)
+	})(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
+	fathom('set', 'siteId', 'UDESFNRN');
+	fathom('trackPageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+#index:
+#    path: /
+#    controller: RectorPrefix20210504\App\Controller\DefaultController::index

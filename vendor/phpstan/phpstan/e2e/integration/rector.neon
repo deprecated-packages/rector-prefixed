@@ -1,0 +1,12 @@
+includes:
+	- repo/phpstan.neon
+	- rector-baseline.neon
+
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot cast PhpParser\\Node\\Expr\|PhpParser\\Node\\Name to string\.$#'
+			path: repo/rules/php71/src/IsArrayAndDualCheckToAble.php
+		-
+			message: '#^Cannot cast \(array<string>&nonEmpty\)\|string\|true to string\.$#'
+			path: repo/src/Configuration/Configuration.php

@@ -1,0 +1,6 @@
+<?php
+
+namespace RectorPrefix20210504;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/src/PharAutoloaderWorks.php';

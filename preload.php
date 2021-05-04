@@ -130,6 +130,7 @@ require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/TraitUs
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Else_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Expression.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Const_.php';
+require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/EnumCase.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Interface_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/HaltCompiler.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Do_.php';
@@ -165,6 +166,7 @@ require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Finally
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Throw_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Class_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Switch_.php';
+require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Enum_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Declare_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/Stmt/Foreach_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node/AttributeGroup.php';
@@ -207,6 +209,7 @@ require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Comment/Doc.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReverseEmulator.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NullsafeTokenEmulator.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/MatchTokenEmulator.php';
+require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/EnumTokenEmulator.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/AttributeEmulator.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/TokenEmulator.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/KeywordEmulator.php';
@@ -223,6 +226,7 @@ require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Parser/Tokens.php
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Parser/Php5.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Parser/Php7.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Parser/Multiple.php';
+require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Builder/ClassConst.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Builder/Param.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Builder/Interface_.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Builder/TraitUseAdaptation.php';
