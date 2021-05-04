@@ -21,8 +21,10 @@ use RectorPrefix20210504\Tracy\Debugger;
 // Require Composer autoload.php
 $autoloadIncluder = new \RectorPrefix20210504\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
-// make local php-parser a priority to avoid conflict
-require_once __DIR__ . '/../preload.php';
+if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
+    // make local php-parser a priority to avoid conflict
+    require_once __DIR__ . '/../preload.php';
+}
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
