@@ -62,7 +62,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210504\
             if ($this->shouldSkipDefinition($containerBuilder, $definition)) {
                 continue;
             }
-            /** @var ReflectionClass $reflectionClass */
+            /** @var ReflectionClass<object> $reflectionClass */
             $reflectionClass = $containerBuilder->getReflectionClass($definition->getClass());
             /** @var ReflectionMethod $constructorReflectionMethod */
             $constructorReflectionMethod = $reflectionClass->getConstructor();

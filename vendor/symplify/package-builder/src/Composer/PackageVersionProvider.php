@@ -17,7 +17,7 @@ final class PackageVersionProvider
     {
         try {
             $version = $this->getVersion($packageName, 'symplify/symplify');
-            return $version->getPrettyVersion();
+            return $version->getPrettyVersion() ?: 'Unknown';
         } catch (\OutOfBoundsException|\RectorPrefix20210504\PharIo\Version\InvalidVersionException $exceptoin) {
             return 'Unknown';
         }

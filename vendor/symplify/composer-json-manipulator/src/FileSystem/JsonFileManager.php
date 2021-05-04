@@ -49,7 +49,7 @@ final class JsonFileManager
         return $this->cachedJSONFiles[$realPath];
     }
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function loadFromFilePath(string $filePath) : array
     {

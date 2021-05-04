@@ -1,5 +1,0 @@
-includes:
-	- php80-baseline.neon
-
-parameters:
-	phpVersion: 80000

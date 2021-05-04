@@ -1,6 +1,0 @@
-parameters:
-    level: max
-    bootstrapFiles:
-        - vendor/squizlabs/php_codesniffer/autoload.php
-    paths:
-        - src

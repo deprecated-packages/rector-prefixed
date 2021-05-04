@@ -1,7 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Anonymous function should return string but returns array\\<int, int\\|string\\>\\|int\\|string\\.$#"
-			count: 1
-			path: repo/SlevomatCodingStandard/Helpers/YodaHelper.php
-
