@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210503\Symplify\Skipper\Contract;
+namespace RectorPrefix20210504\Symplify\Skipper\Contract;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
 interface SkipVoterInterface
