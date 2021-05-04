@@ -1,7 +1,0 @@
-{
-    "autoload": {
-        "files": [
-            "function.php"
-        ]
-    }
-}

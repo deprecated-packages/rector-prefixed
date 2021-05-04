@@ -172,4 +172,5 @@ return static function (\RectorPrefix20210504\Symfony\Component\DependencyInject
     $services->set(\Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class);
     $services->set(\Rector\CodingStyle\Rector\ClassMethod\FuncGetArgsToVariadicParamRector::class);
     $services->set(\Rector\CodingStyle\Rector\FuncCall\CallUserFuncToMethodCallRector::class);
+    $services->set(\Rector\CodeQuality\Rector\FuncCall\CallUserFuncWithArrowFunctionToInlineRector::class);
 };

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
+class ComposerStaticInit67c160585f970d7f396a68122c34cf96
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -403,7 +403,6 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
         'PhpParser\\Builder' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder.php',
         'PhpParser\\BuilderFactory' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderFactory.php',
         'PhpParser\\BuilderHelpers' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/BuilderHelpers.php',
-        'PhpParser\\Builder\\ClassConst' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/ClassConst.php',
         'PhpParser\\Builder\\Class_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/Class_.php',
         'PhpParser\\Builder\\Declaration' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/Declaration.php',
         'PhpParser\\Builder\\FunctionLike' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Builder/FunctionLike.php',
@@ -434,7 +433,6 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
         'PhpParser\\Lexer\\Emulative' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/Emulative.php',
         'PhpParser\\Lexer\\TokenEmulator\\AttributeEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/AttributeEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\CoaleseEqualTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/CoaleseEqualTokenEmulator.php',
-        'PhpParser\\Lexer\\TokenEmulator\\EnumTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/EnumTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\FlexibleDocStringEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FlexibleDocStringEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\FnTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/FnTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\KeywordEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/KeywordEmulator.php',
@@ -596,8 +594,6 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
         'PhpParser\\Node\\Stmt\\Echo_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Echo_.php',
         'PhpParser\\Node\\Stmt\\ElseIf_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/ElseIf_.php',
         'PhpParser\\Node\\Stmt\\Else_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Else_.php',
-        'PhpParser\\Node\\Stmt\\EnumCase' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/EnumCase.php',
-        'PhpParser\\Node\\Stmt\\Enum_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Enum_.php',
         'PhpParser\\Node\\Stmt\\Expression' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Expression.php',
         'PhpParser\\Node\\Stmt\\Finally_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/Finally_.php',
         'PhpParser\\Node\\Stmt\\For_' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Stmt/For_.php',
@@ -1866,6 +1862,7 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
         'Rector\\CodeQuality\\Rector\\FuncCall\\AddPregQuoteDelimiterRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/AddPregQuoteDelimiterRector.php',
         'Rector\\CodeQuality\\Rector\\FuncCall\\ArrayKeysAndInArrayToArrayKeyExistsRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/ArrayKeysAndInArrayToArrayKeyExistsRector.php',
         'Rector\\CodeQuality\\Rector\\FuncCall\\ArrayMergeOfNonArraysToSimpleArrayRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/ArrayMergeOfNonArraysToSimpleArrayRector.php',
+        'Rector\\CodeQuality\\Rector\\FuncCall\\CallUserFuncWithArrowFunctionToInlineRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/CallUserFuncWithArrowFunctionToInlineRector.php',
         'Rector\\CodeQuality\\Rector\\FuncCall\\ChangeArrayPushToArrayAssignRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/ChangeArrayPushToArrayAssignRector.php',
         'Rector\\CodeQuality\\Rector\\FuncCall\\CompactToVariablesRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/CompactToVariablesRector.php',
         'Rector\\CodeQuality\\Rector\\FuncCall\\InArrayAndArrayKeysToArrayKeyExistsRector' => __DIR__ . '/../..' . '/rules/CodeQuality/Rector/FuncCall/InArrayAndArrayKeysToArrayKeyExistsRector.php',
@@ -2911,6 +2908,7 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
         'Rector\\Php73\\Rector\\FuncCall\\SetCookieRector' => __DIR__ . '/../..' . '/rules/Php73/Rector/FuncCall/SetCookieRector.php',
         'Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector' => __DIR__ . '/../..' . '/rules/Php73/Rector/FuncCall/StringifyStrNeedlesRector.php',
         'Rector\\Php73\\Rector\\String_\\SensitiveHereNowDocRector' => __DIR__ . '/../..' . '/rules/Php73/Rector/String_/SensitiveHereNowDocRector.php',
+        'Rector\\Php74\\NodeAnalyzer\\ClosureArrowFunctionAnalyzer' => __DIR__ . '/../..' . '/rules/Php74/NodeAnalyzer/ClosureArrowFunctionAnalyzer.php',
         'Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector' => __DIR__ . '/../..' . '/rules/Php74/Rector/Assign/NullCoalescingOperatorRector.php',
         'Rector\\Php74\\Rector\\Closure\\ClosureToArrowFunctionRector' => __DIR__ . '/../..' . '/rules/Php74/Rector/Closure/ClosureToArrowFunctionRector.php',
         'Rector\\Php74\\Rector\\Double\\RealToFloatTypeCastRector' => __DIR__ . '/../..' . '/rules/Php74/Rector/Double/RealToFloatTypeCastRector.php',
@@ -3427,9 +3425,9 @@ class ComposerStaticInit4d639670c76fa30b03db24cf28eebdec
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4d639670c76fa30b03db24cf28eebdec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4d639670c76fa30b03db24cf28eebdec::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4d639670c76fa30b03db24cf28eebdec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit67c160585f970d7f396a68122c34cf96::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit67c160585f970d7f396a68122c34cf96::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit67c160585f970d7f396a68122c34cf96::$classMap;
 
         }, null, ClassLoader::class);
     }

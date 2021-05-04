@@ -6,6 +6,10 @@ namespace RectorPrefix20210504;
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
 use RectorPrefix20210504\Tracy\Dumper;
+function dn(\PhpParser\Node $node, int $depth = 2) : void
+{
+    \RectorPrefix20210504\dump_node($node, $depth);
+}
 function dump_node(\PhpParser\Node $node, int $depth = 2) : void
 {
     \RectorPrefix20210504\Tracy\Dumper::dump($node, [\RectorPrefix20210504\Tracy\Dumper::DEPTH => $depth]);
