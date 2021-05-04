@@ -1,0 +1,45 @@
+{
+	"name": "phpstan-website",
+	"version": "1.0.0",
+	"license": "MIT",
+	"dependencies": {
+		"@tailwindcss/ui": "^0.7.2",
+		"codemirror": "^5.61.0",
+		"docsearch.js": "2",
+		"jquery": "^3.6.0",
+		"knockout": "^3.5.1",
+		"littlefoot": "^3.4.1",
+		"prism-themes": "^1.5.0"
+	},
+	"devDependencies": {
+		"@11ty/eleventy": "^0.10.0",
+		"@11ty/eleventy-plugin-rss": "^1.0.7",
+		"@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+		"@tailwindcss/custom-forms": "^0.2.1",
+		"@types/jquery": "^3.5.5",
+		"autoprefixer": "^9.8.6",
+		"luxon": "^1.25.0",
+		"markdown-it-abbr": "^1.0.4",
+		"markdown-it-anchor": "^6.0.1",
+		"markdown-it-footnote": "^3.0.2",
+		"npm-run-all": "^4.1.5",
+		"parcel-bundler": "^1.12.5",
+		"parcel-plugin-clean-dist": "^0.0.6",
+		"postcss-modules": "^3.2.2",
+		"posthtml": "^0.15.2",
+		"posthtml-noopener": "^1.0.5",
+		"reading-time": "^1.3.0",
+		"tailwindcss": "^1.9.6",
+		"tslint": "^6.1.3",
+		"typescript": "^4.2.4"
+	},
+	"scripts": {
+		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
+		"watch:parcel": "parcel tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt",
+		"watch:11ty": "eleventy --watch",
+		"build:parcel": "parcel build tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --no-source-maps --public-url https://phpstan.org/",
+		"build:11ty": "eleventy",
+		"watch": "run-p watch:*",
+		"build": "yarn run build:11ty && yarn run build:parcel"
+	}
+}

@@ -46,7 +46,7 @@ final class ConsoleApplication extends \RectorPrefix20210504\Symfony\Component\C
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (!$isXdebugAllowed) {
-            $xdebugHandler = new \RectorPrefix20210504\Composer\XdebugHandler\XdebugHandler('rector', '--ansi');
+            $xdebugHandler = new \RectorPrefix20210504\Composer\XdebugHandler\XdebugHandler('rector');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }

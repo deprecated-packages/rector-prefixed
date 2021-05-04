@@ -30,6 +30,7 @@ class Status
     private $envAllowXdebug;
     private $loaded;
     private $logger;
+    private $modeOff;
     private $time;
     /**
      * Constructor
@@ -81,7 +82,11 @@ class Status
     }
     private function reportCheck($loaded)
     {
-        $this->loaded = $loaded;
+        list($version, $mode) = \explode('|', $loaded);
+        if ($version) {
+            $this->loaded = '(' . $version . ')' . ($mode ? ' mode=' . $mode : '');
+        }
+        $this->modeOff = $mode === 'off';
         $this->output('Checking ' . $this->envAllowXdebug);
     }
     private function reportError($error)
@@ -98,7 +103,7 @@ class Status
         if ($this->loaded) {
             $text = \sprintf('No restart (%s)', $this->getEnvAllow());
             if (!\getenv($this->envAllowXdebug)) {
-                $text .= ' Allowed by application';
+                $text .= ' Allowed by ' . ($this->modeOff ? 'mode' : 'application');
             }
             $this->output($text);
         }
@@ -138,7 +143,7 @@ class Status
      */
     private function getLoadedMessage()
     {
-        $loaded = $this->loaded ? \sprintf('loaded (%s)', $this->loaded) : 'not loaded';
+        $loaded = $this->loaded ? \sprintf('loaded %s', $this->loaded) : 'not loaded';
         return 'The Xdebug extension is ' . $loaded;
     }
 }

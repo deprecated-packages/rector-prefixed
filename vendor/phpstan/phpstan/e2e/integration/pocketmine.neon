@@ -1,0 +1,9 @@
+includes:
+	- repo/phpstan.neon.dist
+	- pocketmine-baseline.neon
+
+parameters:
+	featureToggles:
+		disableRuntimeReflectionProvider: true
+	ignoreErrors:
+		- "#^Parameter \\#1 \\$string of function substr expects string#"

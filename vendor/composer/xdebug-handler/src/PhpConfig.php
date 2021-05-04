@@ -45,8 +45,8 @@ class PhpConfig
     public function usePersistent()
     {
         if ($data = $this->getDataAndReset()) {
-            \RectorPrefix20210504\Composer\XdebugHandler\Process::setEnv('PHPRC', $data['tmpIni']);
-            \RectorPrefix20210504\Composer\XdebugHandler\Process::setEnv('PHP_INI_SCAN_DIR', '');
+            $this->updateEnv('PHPRC', $data['tmpIni']);
+            $this->updateEnv('PHP_INI_SCAN_DIR', '');
         }
         return array();
     }
@@ -58,9 +58,19 @@ class PhpConfig
     private function getDataAndReset()
     {
         if ($data = \RectorPrefix20210504\Composer\XdebugHandler\XdebugHandler::getRestartSettings()) {
-            \RectorPrefix20210504\Composer\XdebugHandler\Process::setEnv('PHPRC', $data['phprc']);
-            \RectorPrefix20210504\Composer\XdebugHandler\Process::setEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
+            $this->updateEnv('PHPRC', $data['phprc']);
+            $this->updateEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
         }
         return $data;
+    }
+    /**
+     * Updates a restart settings value in the environment
+     *
+     * @param string $name
+     * @param string|false $value
+     */
+    private function updateEnv($name, $value)
+    {
+        \RectorPrefix20210504\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
     }
 }

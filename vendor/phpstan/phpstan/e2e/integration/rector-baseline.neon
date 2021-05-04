@@ -1,0 +1,47 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/packages/ReadWrite/NodeAnalyzer/ReadWritePropertyAnalyzer.php
+
+		-
+			message: "#^Offset mixed does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/FunctionLike/RemoveCodeAfterReturnRector.php
+
+		-
+			message: "#^Offset int\\<0, max\\> does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			count: 1
+			path: repo/rules/Defluent/Rector/ClassMethod/NormalToFluentRector.php
+
+		-
+			message: "#^Offset int does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			count: 1
+			path: repo/rules/Defluent/Rector/ClassMethod/NormalToFluentRector.php
+
+		-
+			message: "#^Cannot access property \\$right on PhpParser\\\\Node\\\\Expr\\|null\\.$#"
+			count: 1
+			path: repo/rules/EarlyReturn/Rector/Return_/ReturnBinaryAndToEarlyReturnRector.php
+
+		-
+			message: "#^Cannot access property \\$right on PhpParser\\\\Node\\\\Expr\\|null\\.$#"
+			count: 1
+			path: repo/rules/EarlyReturn/Rector/Return_/ReturnBinaryOrToEarlyReturnRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$binaryOp of method Rector\\\\Php70\\\\Rector\\\\If_\\\\IfToSpaceshipRector\\:\\:areVariablesEqual\\(\\) expects PhpParser\\\\Node\\\\Expr\\\\BinaryOp, PhpParser\\\\Node\\\\Expr given\\.$#"
+			count: 1
+			path: repo/rules/Php70/Rector/If_/IfToSpaceshipRector.php
+
+		-
+			message: "#^Parameter 1 should use \"PhpParser\\\\Node\\\\Expr\" type as the only type passed to this method$#"
+			count: 1
+			path: repo/rules/Php70/Rector/If_/IfToSpaceshipRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/ClassManipulator.php
+

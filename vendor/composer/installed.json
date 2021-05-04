@@ -162,17 +162,17 @@
         },
         {
             "name": "composer\/xdebug-handler",
-            "version": "1.4.6",
-            "version_normalized": "1.4.6.0",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/composer\/xdebug-handler.git",
-                "reference": "f27e06cd9675801df441b3656569b328e04aa37c"
+                "reference": "31d57697eb1971712a08031cfaff5a846d10bdf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/composer\/xdebug-handler\/zipball\/f27e06cd9675801df441b3656569b328e04aa37c",
-                "reference": "f27e06cd9675801df441b3656569b328e04aa37c",
+                "url": "https:\/\/api.github.com\/repos\/composer\/xdebug-handler\/zipball\/31d57697eb1971712a08031cfaff5a846d10bdf5",
+                "reference": "31d57697eb1971712a08031cfaff5a846d10bdf5",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
                 "phpstan\/phpstan": "^0.12.55",
                 "symfony\/phpunit-bridge": "^4.2 || ^5"
             },
-            "time": "2021-03-25T17:01:18+00:00",
+            "time": "2021-04-09T19:40:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -209,7 +209,7 @@
             "support": {
                 "irc": "irc:\/\/irc.freenode.org\/composer",
                 "issues": "https:\/\/github.com\/composer\/xdebug-handler\/issues",
-                "source": "https:\/\/github.com\/composer\/xdebug-handler\/tree\/1.4.6"
+                "source": "https:\/\/github.com\/composer\/xdebug-handler\/tree\/2.0.0"
             },
             "funding": [
                 {
@@ -930,17 +930,17 @@
         },
         {
             "name": "phpstan\/phpstan",
-            "version": "0.12.85",
-            "version_normalized": "0.12.85.0",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/phpstan\/phpstan.git",
-                "reference": "20e6333c0067875ad7697cd8acdf245c6ef69d03"
+                "reference": "7a8ebc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpstan\/zipball\/20e6333c0067875ad7697cd8acdf245c6ef69d03",
-                "reference": "20e6333c0067875ad7697cd8acdf245c6ef69d03",
+                "url": "https:\/\/api.github.com\/repos\/phpstan\/phpstan\/zipball\/7a8ebc3",
+                "reference": "7a8ebc3",
                 "shasum": ""
             },
             "require": {
@@ -949,7 +949,8 @@
             "conflict": {
                 "phpstan\/phpstan-shim": "*"
             },
-            "time": "2021-04-27T14:13:16+00:00",
+            "time": "2021-05-04T11:14:29+00:00",
+            "default-branch": true,
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -960,7 +961,7 @@
                     "dev-master": "0.12-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -973,7 +974,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https:\/\/github.com\/phpstan\/phpstan\/issues",
-                "source": "https:\/\/github.com\/phpstan\/phpstan\/tree\/0.12.85"
+                "source": "https:\/\/github.com\/phpstan\/phpstan\/tree\/master"
             },
             "funding": [
                 {
