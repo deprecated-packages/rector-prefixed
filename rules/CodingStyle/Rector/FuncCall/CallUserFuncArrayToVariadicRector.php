@@ -7,11 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Scalar\String_;
+use Rector\CodingStyle\NodeFactory\ArrayCallableToMethodCallFactory;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -20,13 +19,21 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://www.php.net/manual/en/function.call-user-func-array.php#117655
  * @changelog https://3v4l.org/CBWt9
  *
- * @see \Rector\Tests\CodingStyle\Rector\FuncCall\CallUserFuncCallToVariadicRector\CallUserFuncCallToVariadicRectorTest
+ * @see \Rector\Tests\CodingStyle\Rector\FuncCall\CallUserFuncArrayToVariadicRector\CallUserFuncArrayToVariadicRectorTest
  */
-final class CallUserFuncCallToVariadicRector extends \Rector\Core\Rector\AbstractRector
+final class CallUserFuncArrayToVariadicRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ArrayCallableToMethodCallFactory
+     */
+    private $arrayCallableToMethodCallFactory;
+    public function __construct(\Rector\CodingStyle\NodeFactory\ArrayCallableToMethodCallFactory $arrayCallableToMethodCallFactory)
+    {
+        $this->arrayCallableToMethodCallFactory = $arrayCallableToMethodCallFactory;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace call_user_func_call with variadic', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace call_user_func_array() with variadic', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -84,27 +91,12 @@ CODE_SAMPLE
     }
     private function createMethodCall(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr $secondExpr) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (\count($array->items) !== 2) {
+        $methodCall = $this->arrayCallableToMethodCallFactory->create($array);
+        if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        $firstItem = $array->items[0];
-        $secondItem = $array->items[1];
-        if (!$firstItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-            return null;
-        }
-        if (!$secondItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-            return null;
-        }
-        if ($firstItem->value instanceof \PhpParser\Node\Expr\PropertyFetch) {
-            if (!$secondItem->value instanceof \PhpParser\Node\Scalar\String_) {
-                return null;
-            }
-            $string = $secondItem->value;
-            $methodName = $string->value;
-            $arg = $this->createUnpackedArg($secondExpr);
-            return new \PhpParser\Node\Expr\MethodCall($firstItem->value, $methodName, [$arg]);
-        }
-        return null;
+        $methodCall->args[] = $this->createUnpackedArg($secondExpr);
+        return $methodCall;
     }
     private function createUnpackedArg(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Arg
     {

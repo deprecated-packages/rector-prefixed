@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974
+class ComposerStaticInitd881c29b1fcdbf2ae3fcaa770da70954
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1928,6 +1928,7 @@ class ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974
         'Rector\\CodingStyle\\Naming\\NameRenamer' => __DIR__ . '/../..' . '/rules/CodingStyle/Naming/NameRenamer.php',
         'Rector\\CodingStyle\\NodeAnalyzer\\ImplodeAnalyzer' => __DIR__ . '/../..' . '/rules/CodingStyle/NodeAnalyzer/ImplodeAnalyzer.php',
         'Rector\\CodingStyle\\NodeAnalyzer\\SpreadVariablesCollector' => __DIR__ . '/../..' . '/rules/CodingStyle/NodeAnalyzer/SpreadVariablesCollector.php',
+        'Rector\\CodingStyle\\NodeFactory\\ArrayCallableToMethodCallFactory' => __DIR__ . '/../..' . '/rules/CodingStyle/NodeFactory/ArrayCallableToMethodCallFactory.php',
         'Rector\\CodingStyle\\NodeFactory\\JsonArrayFactory' => __DIR__ . '/../..' . '/rules/CodingStyle/NodeFactory/JsonArrayFactory.php',
         'Rector\\CodingStyle\\NodeFactory\\JsonEncodeStaticCallFactory' => __DIR__ . '/../..' . '/rules/CodingStyle/NodeFactory/JsonEncodeStaticCallFactory.php',
         'Rector\\CodingStyle\\Node\\ConcatJoiner' => __DIR__ . '/../..' . '/rules/CodingStyle/Node/ConcatJoiner.php',
@@ -1952,7 +1953,8 @@ class ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974
         'Rector\\CodingStyle\\Rector\\Class_\\AddArrayDefaultToArrayPropertyRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Class_/AddArrayDefaultToArrayPropertyRector.php',
         'Rector\\CodingStyle\\Rector\\Encapsed\\EncapsedStringsToSprintfRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Encapsed/EncapsedStringsToSprintfRector.php',
         'Rector\\CodingStyle\\Rector\\Encapsed\\WrapEncapsedVariableInCurlyBracesRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Encapsed/WrapEncapsedVariableInCurlyBracesRector.php',
-        'Rector\\CodingStyle\\Rector\\FuncCall\\CallUserFuncCallToVariadicRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/CallUserFuncCallToVariadicRector.php',
+        'Rector\\CodingStyle\\Rector\\FuncCall\\CallUserFuncArrayToVariadicRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/CallUserFuncArrayToVariadicRector.php',
+        'Rector\\CodingStyle\\Rector\\FuncCall\\CallUserFuncToMethodCallRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/CallUserFuncToMethodCallRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\ConsistentImplodeRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/ConsistentImplodeRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\ConsistentPregDelimiterRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/ConsistentPregDelimiterRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\CountArrayToEmptyArrayComparisonRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/FuncCall/CountArrayToEmptyArrayComparisonRector.php',
@@ -3425,9 +3427,9 @@ class ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf20f344ca9ec7732da5ee528bffe1974::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd881c29b1fcdbf2ae3fcaa770da70954::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd881c29b1fcdbf2ae3fcaa770da70954::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd881c29b1fcdbf2ae3fcaa770da70954::$classMap;
 
         }, null, ClassLoader::class);
     }
