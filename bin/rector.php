@@ -10,7 +10,6 @@ use Rector\Core\DependencyInjection\RectorContainerFactory;
 use Rector\Core\HttpKernel\RectorKernel;
 use RectorPrefix20210504\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use RectorPrefix20210504\Tracy\Debugger;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
 // Performance boost
@@ -21,20 +20,16 @@ use RectorPrefix20210504\Tracy\Debugger;
 // Require Composer autoload.php
 $autoloadIncluder = new \RectorPrefix20210504\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
-if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
-    // make local php-parser a priority to avoid conflict
+if (\RectorPrefix20210504\should_include_preload()) {
     require_once __DIR__ . '/../preload.php';
 }
+require_once __DIR__ . '/../src/constants.php';
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
-// for simpler debugging output
-if (\class_exists(\RectorPrefix20210504\Tracy\Debugger::class)) {
-    \RectorPrefix20210504\Tracy\Debugger::$maxDepth = 2;
-}
 try {
     $bootstrapConfigs = $rectorConfigsResolver->provide();
     $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();
@@ -101,3 +96,15 @@ final class AutoloadIncluder
     }
 }
 \class_alias('RectorPrefix20210504\\AutoloadIncluder', 'AutoloadIncluder', \false);
+// load local php-parser only in prefixed version or development repository
+function should_include_preload() : bool
+{
+    if (\file_exists(__DIR__ . '/../vendor/scoper-autoload.php')) {
+        return \true;
+    }
+    if (!\file_exists(__DIR__ . '/../composer.json')) {
+        return \false;
+    }
+    $composerJsonFileContent = \file_get_contents(__DIR__ . '/../composer.json');
+    return \strpos($composerJsonFileContent, '"name": "rector/rector"') !== \false;
+}
