@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
+class ComposerStaticInit95c9b83e9a98fa3c6295eaf0dddeea39
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -65,7 +65,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
             'RectorPrefix20210505\\Symfony\\Contracts\\EventDispatcher\\' => 55,
             'RectorPrefix20210505\\Symfony\\Component\\VarDumper\\' => 49,
             'RectorPrefix20210505\\Symfony\\Component\\String\\' => 46,
-            'RectorPrefix20210505\\Symfony\\Component\\Process\\' => 47,
             'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\' => 50,
             'RectorPrefix20210505\\Symfony\\Component\\HttpFoundation\\' => 54,
             'RectorPrefix20210505\\Symfony\\Component\\Finder\\' => 46,
@@ -238,10 +237,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
         'RectorPrefix20210505\\Symfony\\Component\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
-        ),
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -723,7 +718,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
         'RectorPrefix20210505\\Nette\\InvalidStateException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'RectorPrefix20210505\\Nette\\Iterators\\CachingIterator' => __DIR__ . '/..' . '/nette/utils/src/Iterators/CachingIterator.php',
         'RectorPrefix20210505\\Nette\\Iterators\\Mapper' => __DIR__ . '/..' . '/nette/utils/src/Iterators/Mapper.php',
-        'RectorPrefix20210505\\Nette\\Loaders\\RobotLoader' => __DIR__ . '/..' . '/nette/robot-loader/src/RobotLoader/RobotLoader.php',
         'RectorPrefix20210505\\Nette\\Localization\\ITranslator' => __DIR__ . '/..' . '/nette/utils/src/compatibility.php',
         'RectorPrefix20210505\\Nette\\Localization\\Translator' => __DIR__ . '/..' . '/nette/utils/src/Translator.php',
         'RectorPrefix20210505\\Nette\\MemberAccessException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -1407,23 +1401,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
         'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\RebootableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/RebootableInterface.php',
         'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\TerminableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/TerminableInterface.php',
         'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\UriSigner' => __DIR__ . '/..' . '/symfony/http-kernel/UriSigner.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/process/Exception/ExceptionInterface.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/process/Exception/InvalidArgumentException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessFailedException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\ProcessSignaledException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessSignaledException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\ProcessTimedOutException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessTimedOutException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/process/Exception/RuntimeException.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\ExecutableFinder' => __DIR__ . '/..' . '/symfony/process/ExecutableFinder.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\InputStream' => __DIR__ . '/..' . '/symfony/process/InputStream.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\PhpExecutableFinder' => __DIR__ . '/..' . '/symfony/process/PhpExecutableFinder.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\PhpProcess' => __DIR__ . '/..' . '/symfony/process/PhpProcess.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Pipes\\AbstractPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/AbstractPipes.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Pipes\\PipesInterface' => __DIR__ . '/..' . '/symfony/process/Pipes/PipesInterface.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Pipes\\UnixPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/UnixPipes.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Pipes\\WindowsPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/WindowsPipes.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\Process' => __DIR__ . '/..' . '/symfony/process/Process.php',
-        'RectorPrefix20210505\\Symfony\\Component\\Process\\ProcessUtils' => __DIR__ . '/..' . '/symfony/process/ProcessUtils.php',
         'RectorPrefix20210505\\Symfony\\Component\\String\\AbstractString' => __DIR__ . '/..' . '/symfony/string/AbstractString.php',
         'RectorPrefix20210505\\Symfony\\Component\\String\\AbstractUnicodeString' => __DIR__ . '/..' . '/symfony/string/AbstractUnicodeString.php',
         'RectorPrefix20210505\\Symfony\\Component\\String\\ByteString' => __DIR__ . '/..' . '/symfony/string/ByteString.php',
@@ -3084,10 +3061,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
         'Rector\\Renaming\\ValueObject\\RenameProperty' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenameProperty.php',
         'Rector\\Renaming\\ValueObject\\RenameStaticMethod' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenameStaticMethod.php',
         'Rector\\Renaming\\ValueObject\\RenamedNamespace' => __DIR__ . '/../..' . '/rules/Renaming/ValueObject/RenamedNamespace.php',
-        'Rector\\Restoration\\ClassMap\\ExistingClassesProvider' => __DIR__ . '/../..' . '/rules/Restoration/ClassMap/ExistingClassesProvider.php',
-        'Rector\\Restoration\\NameMatcher\\FullyQualifiedNameMatcher' => __DIR__ . '/../..' . '/rules/Restoration/NameMatcher/FullyQualifiedNameMatcher.php',
-        'Rector\\Restoration\\NameMatcher\\NameMatcher' => __DIR__ . '/../..' . '/rules/Restoration/NameMatcher/NameMatcher.php',
-        'Rector\\Restoration\\NameMatcher\\PhpDocTypeNodeNameMatcher' => __DIR__ . '/../..' . '/rules/Restoration/NameMatcher/PhpDocTypeNodeNameMatcher.php',
         'Rector\\Restoration\\Rector\\ClassConstFetch\\MissingClassConstantReferenceToStringRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/ClassConstFetch/MissingClassConstantReferenceToStringRector.php',
         'Rector\\Restoration\\Rector\\ClassLike\\UpdateFileNameByClassNameFileSystemRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/ClassLike/UpdateFileNameByClassNameFileSystemRector.php',
         'Rector\\Restoration\\Rector\\ClassMethod\\InferParamFromClassMethodReturnRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/ClassMethod/InferParamFromClassMethodReturnRector.php',
@@ -3095,7 +3068,6 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
         'Rector\\Restoration\\Rector\\Namespace_\\CompleteImportForPartialAnnotationRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/Namespace_/CompleteImportForPartialAnnotationRector.php',
         'Rector\\Restoration\\Rector\\New_\\CompleteMissingDependencyInNewRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/New_/CompleteMissingDependencyInNewRector.php',
         'Rector\\Restoration\\Rector\\Property\\MakeTypedPropertyNullableIfCheckedRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/Property/MakeTypedPropertyNullableIfCheckedRector.php',
-        'Rector\\Restoration\\Rector\\Use_\\RestoreFullyQualifiedNameRector' => __DIR__ . '/../..' . '/rules/Restoration/Rector/Use_/RestoreFullyQualifiedNameRector.php',
         'Rector\\Restoration\\Type\\ConstantReturnToParamTypeConverter' => __DIR__ . '/../..' . '/rules/Restoration/Type/ConstantReturnToParamTypeConverter.php',
         'Rector\\Restoration\\ValueObject\\CompleteImportForPartialAnnotation' => __DIR__ . '/../..' . '/rules/Restoration/ValueObject/CompleteImportForPartialAnnotation.php',
         'Rector\\Restoration\\ValueObject\\InferParamFromClassMethodReturn' => __DIR__ . '/../..' . '/rules/Restoration/ValueObject/InferParamFromClassMethodReturn.php',
@@ -3425,9 +3397,9 @@ class ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitea6f40cb66eb03428ee91a0a2c76d01f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit95c9b83e9a98fa3c6295eaf0dddeea39::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit95c9b83e9a98fa3c6295eaf0dddeea39::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit95c9b83e9a98fa3c6295eaf0dddeea39::$classMap;
 
         }, null, ClassLoader::class);
     }

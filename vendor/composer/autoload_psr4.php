@@ -42,7 +42,6 @@ return array(
     'RectorPrefix20210505\\Symfony\\Contracts\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher-contracts'),
     'RectorPrefix20210505\\Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'RectorPrefix20210505\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
-    'RectorPrefix20210505\\Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'RectorPrefix20210505\\Symfony\\Component\\HttpKernel\\' => array($vendorDir . '/symfony/http-kernel'),
     'RectorPrefix20210505\\Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
     'RectorPrefix20210505\\Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
