@@ -492,6 +492,13 @@ class XdebugHandler
                 return \false;
             }
         }
+        $workingDir = \getcwd();
+        if (0 === \strpos($workingDir, '\\\\')) {
+            if (\defined('PHP_WINDOWS_VERSION_BUILD') && \PHP_VERSION_ID < 70400) {
+                $info = 'cmd.exe does not support UNC paths: ' . $workingDir;
+                return \false;
+            }
+        }
         return \true;
     }
     /**
