@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210504\Symplify\SetConfigResolver\ValueObject;
+namespace RectorPrefix20210505\Symplify\SetConfigResolver\ValueObject;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class Set

@@ -7,7 +7,7 @@ use Rector\Core\Application\FileDecorator\FileDiffFileDecorator;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use RectorPrefix20210504\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210505\Symplify\SmartFileSystem\SmartFileSystem;
 final class ApplicationFileProcessor
 {
     /**
@@ -29,7 +29,7 @@ final class ApplicationFileProcessor
     /**
      * @param FileProcessorInterface[] $fileProcessors
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210504\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, array $fileProcessors = [])
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210505\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, array $fileProcessors = [])
     {
         $this->fileProcessors = $fileProcessors;
         $this->smartFileSystem = $smartFileSystem;

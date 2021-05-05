@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210504\Symplify\SymplifyKernel\Console;
+namespace RectorPrefix20210505\Symplify\SymplifyKernel\Console;
 
-use RectorPrefix20210504\Symfony\Component\Console\Application;
-use RectorPrefix20210504\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210504\Symplify\PackageBuilder\Console\Command\CommandNaming;
-abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210504\Symfony\Component\Console\Application
+use RectorPrefix20210505\Symfony\Component\Console\Application;
+use RectorPrefix20210505\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210505\Symplify\PackageBuilder\Console\Command\CommandNaming;
+abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210505\Symfony\Component\Console\Application
 {
     /**
      * @var CommandNaming
@@ -17,7 +17,7 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20210504\
      */
     public function __construct(array $commands, string $name = 'UNKNOWN', string $version = 'UNKNOWN')
     {
-        $this->commandNaming = new \RectorPrefix20210504\Symplify\PackageBuilder\Console\Command\CommandNaming();
+        $this->commandNaming = new \RectorPrefix20210505\Symplify\PackageBuilder\Console\Command\CommandNaming();
         $this->addCommands($commands);
         parent::__construct($name, $version);
     }

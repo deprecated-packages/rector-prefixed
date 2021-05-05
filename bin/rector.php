@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210504;
+namespace RectorPrefix20210505;
 
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Rector\Core\DependencyInjection\RectorContainerFactory;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210504\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210505\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210505\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
 // Performance boost
@@ -18,16 +18,16 @@ use RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \RectorPrefix20210504\AutoloadIncluder();
+$autoloadIncluder = new \RectorPrefix20210505\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
-if (\RectorPrefix20210504\should_include_preload()) {
+if (\RectorPrefix20210505\should_include_preload()) {
     require_once __DIR__ . '/../preload.php';
 }
 require_once __DIR__ . '/../src/constants.php';
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
-$symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210504\Symplify\PackageBuilder\Reflection\PrivatesCaller());
+$symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210505\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
 try {
@@ -36,7 +36,7 @@ try {
     $container = $rectorContainerFactory->createFromBootstrapConfigs($bootstrapConfigs);
 } catch (\Throwable $throwable) {
     $symfonyStyle->error($throwable->getMessage());
-    exit(\RectorPrefix20210504\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\RectorPrefix20210505\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
 // preload local InstalledVersions.php - to fix incorrect version by same-named class in phpstan
 $currentlyInstalledVersions = __DIR__ . '/../../../../vendor/composer/InstalledVersions.php';
@@ -95,7 +95,7 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('RectorPrefix20210504\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('RectorPrefix20210505\\AutoloadIncluder', 'AutoloadIncluder', \false);
 // load local php-parser only in prefixed version or development repository
 function should_include_preload() : bool
 {
