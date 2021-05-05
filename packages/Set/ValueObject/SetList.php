@@ -98,10 +98,6 @@ final class SetList implements \Rector\Set\Contract\SetListInterface
     /**
      * @var string
      */
-    public const CONTRIBUTTE_TO_SYMFONY = __DIR__ . '/../../../config/set/contributte-to-symfony.php';
-    /**
-     * @var string
-     */
     public const DEAD_CODE = __DIR__ . '/../../../config/set/dead-code.php';
     /**
      * @deprecated
