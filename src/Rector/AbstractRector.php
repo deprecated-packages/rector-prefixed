@@ -177,6 +177,10 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     private $changedNodeAnalyzer;
     /**
+     * @var array<string, Node[]>
+     */
+    private $nodesToReturn = [];
+    /**
      * @required
      */
     public function autowireAbstractRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210505\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210505\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210505\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210505\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\NodeAnalyzer\ChangedNodeAnalyzer $changedNodeAnalyzer) : void
@@ -224,7 +228,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         return parent::beforeTraverse($nodes);
     }
     /**
-     * @return Expression|Node|null
+     * @return Expression|Node|Node[]|null
      */
     public final function enterNode(\PhpParser\Node $node)
     {
@@ -243,13 +247,19 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $originalAttributes = $node->getAttributes();
         $originalNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE) ?? clone $node;
         $node = $this->refactor($node);
+        if (\is_array($node)) {
+            $originalNodeHash = \spl_object_hash($originalNode);
+            $this->nodesToReturn[$originalNodeHash] = $node;
+            // will be replaced in leaveNode() the original node must be passed
+            return $originalNode;
+        }
         // nothing to change → continue
         if (!$node instanceof \PhpParser\Node) {
             return null;
         }
         // changed!
         if ($this->changedNodeAnalyzer->hasNodeChanged($originalNode, $node)) {
-            $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $node->getLine());
+            $rectorWithLineChange = new \Rector\ChangesReporting\ValueObject\RectorWithLineChange($this, $originalNode->getLine());
             $this->file->addRectorClassWithLine($rectorWithLineChange);
             // update parents relations
             $this->connectParentNodes($node);
@@ -260,6 +270,12 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             return new \PhpParser\Node\Stmt\Expression($node);
         }
         return $node;
+    }
+    public function leaveNode(\PhpParser\Node $node)
+    {
+        $objectHash = \spl_object_hash($node);
+        // update parents relations
+        return $this->nodesToReturn[$objectHash] ?? null;
     }
     protected function isName(\PhpParser\Node $node, string $name) : bool
     {
@@ -450,10 +466,14 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             $newNode->setAttribute($attributeName, $oldAttributeValue);
         }
     }
-    private function connectParentNodes(\PhpParser\Node $node) : void
+    /**
+     * @param Node|Node[] $node
+     */
+    private function connectParentNodes($node) : void
     {
+        $nodes = \is_array($node) ? $node : [$node];
         $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\ParentConnectingVisitor());
-        $nodeTraverser->traverse([$node]);
+        $nodeTraverser->traverse($nodes);
     }
 }

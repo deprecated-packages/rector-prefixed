@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit092b987dcbab89837268c0dd783336c1
+class ComposerStaticInit3e537032bf50c30b820feef865ab568d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -1953,7 +1953,7 @@ class ComposerStaticInit092b987dcbab89837268c0dd783336c1
         'Rector\\CodingStyle\\Rector\\Switch_\\BinarySwitchToIfElseRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Switch_/BinarySwitchToIfElseRector.php',
         'Rector\\CodingStyle\\Rector\\Ternary\\TernaryConditionVariableAssignmentRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Ternary/TernaryConditionVariableAssignmentRector.php',
         'Rector\\CodingStyle\\Rector\\Use_\\RemoveUnusedAliasRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Use_/RemoveUnusedAliasRector.php',
-        'Rector\\CodingStyle\\Rector\\Use_\\SplitGroupedUseImportsRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Use_/SplitGroupedUseImportsRector.php',
+        'Rector\\CodingStyle\\Rector\\Use_\\SeparateMultiUseImportsRector' => __DIR__ . '/../..' . '/rules/CodingStyle/Rector/Use_/SeparateMultiUseImportsRector.php',
         'Rector\\CodingStyle\\TypeAnalyzer\\IterableTypeAnalyzer' => __DIR__ . '/../..' . '/rules/CodingStyle/TypeAnalyzer/IterableTypeAnalyzer.php',
         'Rector\\CodingStyle\\ValueObject\\ConcatExpressionJoinData' => __DIR__ . '/../..' . '/rules/CodingStyle/ValueObject/ConcatExpressionJoinData.php',
         'Rector\\CodingStyle\\ValueObject\\ConcatStringAndPlaceholders' => __DIR__ . '/../..' . '/rules/CodingStyle/ValueObject/ConcatStringAndPlaceholders.php',
@@ -2294,6 +2294,7 @@ class ComposerStaticInit092b987dcbab89837268c0dd783336c1
         'Rector\\DowngradePhp70\\Rector\\Expression\\DowngradeDefineArrayConstantRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/Expression/DowngradeDefineArrayConstantRector.php',
         'Rector\\DowngradePhp70\\Rector\\FuncCall\\DowngradeSessionStartArrayOptionsRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/FuncCall/DowngradeSessionStartArrayOptionsRector.php',
         'Rector\\DowngradePhp70\\Rector\\FunctionLike\\DowngradeTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/FunctionLike/DowngradeTypeDeclarationRector.php',
+        'Rector\\DowngradePhp70\\Rector\\GroupUse\\SplitGroupedUseImportsRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/GroupUse/SplitGroupedUseImportsRector.php',
         'Rector\\DowngradePhp70\\Rector\\New_\\DowngradeAnonymousClassRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/New_/DowngradeAnonymousClassRector.php',
         'Rector\\DowngradePhp70\\Rector\\Spaceship\\DowngradeSpaceshipRector' => __DIR__ . '/../..' . '/rules/DowngradePhp70/Rector/Spaceship/DowngradeSpaceshipRector.php',
         'Rector\\DowngradePhp71\\Rector\\Array_\\SymmetricArrayDestructuringToListRector' => __DIR__ . '/../..' . '/rules/DowngradePhp71/Rector/Array_/SymmetricArrayDestructuringToListRector.php',
@@ -3405,9 +3406,9 @@ class ComposerStaticInit092b987dcbab89837268c0dd783336c1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit092b987dcbab89837268c0dd783336c1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit092b987dcbab89837268c0dd783336c1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit092b987dcbab89837268c0dd783336c1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3e537032bf50c30b820feef865ab568d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3e537032bf50c30b820feef865ab568d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3e537032bf50c30b820feef865ab568d::$classMap;
 
         }, null, ClassLoader::class);
     }

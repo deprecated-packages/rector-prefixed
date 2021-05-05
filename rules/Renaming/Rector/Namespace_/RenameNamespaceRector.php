@@ -10,6 +10,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
+use PhpParser\Node\Stmt\UseUse;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\NamespaceMatcher;
@@ -25,9 +26,9 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     /**
      * @var string
      */
-    public const OLD_TO_NEW_NAMESPACES = '$oldToNewNamespaces';
+    public const OLD_TO_NEW_NAMESPACES = 'old_to_new_namespaces';
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $oldToNewNamespaces = [];
     /**
@@ -75,11 +76,19 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
             $node->uses[0]->name = new \PhpParser\Node\Name($newName);
             return $node;
         }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        // already resolved above
+        if ($parent instanceof \PhpParser\Node\Stmt\Namespace_) {
+            return null;
+        }
+        if ($parent instanceof \PhpParser\Node\Stmt\UseUse && $parent->type === \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
+            return null;
+        }
         $newName = $this->isPartialNamespace($node) ? $this->resolvePartialNewName($node, $renamedNamespaceValueObject) : $renamedNamespaceValueObject->getNameInNewNamespace();
         return new \PhpParser\Node\Name\FullyQualified($newName);
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, array<string, string>> $configuration
      */
     public function configure(array $configuration) : void
     {
