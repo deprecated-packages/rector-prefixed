@@ -9,9 +9,6 @@ $loader = require_once __DIR__.'/autoload.php';
 if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadIncluder', false) && !trait_exists('AutoloadIncluder', false)) {
     spl_autoload_call('RectorPrefix20210505\AutoloadIncluder');
 }
-if (!class_exists('SomeFormType', false) && !interface_exists('SomeFormType', false) && !trait_exists('SomeFormType', false)) {
-    spl_autoload_call('RectorPrefix20210505\SomeFormType');
-}
 if (!class_exists('SomeClass', false) && !interface_exists('SomeClass', false) && !trait_exists('SomeClass', false)) {
     spl_autoload_call('RectorPrefix20210505\SomeClass');
 }
@@ -24,11 +21,14 @@ if (!class_exists('SomeTestCase', false) && !interface_exists('SomeTestCase', fa
 if (!class_exists('CheckoutEntityFactory', false) && !interface_exists('CheckoutEntityFactory', false) && !trait_exists('CheckoutEntityFactory', false)) {
     spl_autoload_call('RectorPrefix20210505\CheckoutEntityFactory');
 }
-if (!class_exists('ComposerAutoloaderInitf58657de6ef3742cb0d2d639680f0575', false) && !interface_exists('ComposerAutoloaderInitf58657de6ef3742cb0d2d639680f0575', false) && !trait_exists('ComposerAutoloaderInitf58657de6ef3742cb0d2d639680f0575', false)) {
-    spl_autoload_call('RectorPrefix20210505\ComposerAutoloaderInitf58657de6ef3742cb0d2d639680f0575');
+if (!class_exists('ComposerAutoloaderInitab86f1a5fc8e7a255cf8d71a3d0783fb', false) && !interface_exists('ComposerAutoloaderInitab86f1a5fc8e7a255cf8d71a3d0783fb', false) && !trait_exists('ComposerAutoloaderInitab86f1a5fc8e7a255cf8d71a3d0783fb', false)) {
+    spl_autoload_call('RectorPrefix20210505\ComposerAutoloaderInitab86f1a5fc8e7a255cf8d71a3d0783fb');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210505\Doctrine\Inflector\Inflector');
+}
+if (!class_exists('SomeFormType', false) && !interface_exists('SomeFormType', false) && !trait_exists('SomeFormType', false)) {
+    spl_autoload_call('RectorPrefix20210505\SomeFormType');
 }
 if (!class_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !interface_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !trait_exists('Symfony\Component\Console\Style\SymfonyStyle', false)) {
     spl_autoload_call('RectorPrefix20210505\Symfony\Component\Console\Style\SymfonyStyle');
@@ -92,9 +92,9 @@ if (!function_exists('print_node')) {
         return \RectorPrefix20210505\print_node(...func_get_args());
     }
 }
-if (!function_exists('composerRequiref58657de6ef3742cb0d2d639680f0575')) {
-    function composerRequiref58657de6ef3742cb0d2d639680f0575() {
-        return \RectorPrefix20210505\composerRequiref58657de6ef3742cb0d2d639680f0575(...func_get_args());
+if (!function_exists('composerRequireab86f1a5fc8e7a255cf8d71a3d0783fb')) {
+    function composerRequireab86f1a5fc8e7a255cf8d71a3d0783fb() {
+        return \RectorPrefix20210505\composerRequireab86f1a5fc8e7a255cf8d71a3d0783fb(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

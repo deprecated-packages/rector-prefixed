@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf58657de6ef3742cb0d2d639680f0575
+class ComposerStaticInitab86f1a5fc8e7a255cf8d71a3d0783fb
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -35,6 +35,7 @@ class ComposerStaticInitf58657de6ef3742cb0d2d639680f0575
             'Rector\\RectorInstaller\\' => 23,
             'Rector\\PHPUnit\\' => 15,
             'Rector\\Nette\\' => 13,
+            'Rector\\NetteToSymfony\\' => 22,
             'Rector\\Laravel\\' => 15,
             'Rector\\Doctrine\\' => 16,
             'Rector\\Core\\' => 12,
@@ -116,6 +117,10 @@ class ComposerStaticInitf58657de6ef3742cb0d2d639680f0575
         'Rector\\Nette\\' => 
         array (
             0 => __DIR__ . '/..' . '/rector/rector-nette/src',
+        ),
+        'Rector\\NetteToSymfony\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src',
         ),
         'Rector\\Laravel\\' => 
         array (
@@ -2447,33 +2452,35 @@ class ComposerStaticInitf58657de6ef3742cb0d2d639680f0575
         'Rector\\Naming\\ValueObject\\VariableAndCallAssign' => __DIR__ . '/../..' . '/rules/Naming/ValueObject/VariableAndCallAssign.php',
         'Rector\\Naming\\ValueObject\\VariableAndCallForeach' => __DIR__ . '/../..' . '/rules/Naming/ValueObject/VariableAndCallForeach.php',
         'Rector\\Naming\\VariableRenamer' => __DIR__ . '/../..' . '/rules/Naming/VariableRenamer.php',
-        'Rector\\NetteTesterToPHPUnit\\AssertManipulator' => __DIR__ . '/../..' . '/rules/NetteTesterToPHPUnit/AssertManipulator.php',
-        'Rector\\NetteTesterToPHPUnit\\Rector\\Class_\\NetteTesterClassToPHPUnitClassRector' => __DIR__ . '/../..' . '/rules/NetteTesterToPHPUnit/Rector/Class_/NetteTesterClassToPHPUnitClassRector.php',
-        'Rector\\NetteTesterToPHPUnit\\Rector\\Class_\\RenameTesterTestToPHPUnitToTestFileRector' => __DIR__ . '/../..' . '/rules/NetteTesterToPHPUnit/Rector/Class_/RenameTesterTestToPHPUnitToTestFileRector.php',
-        'Rector\\NetteTesterToPHPUnit\\Rector\\StaticCall\\NetteAssertToPHPUnitAssertRector' => __DIR__ . '/../..' . '/rules/NetteTesterToPHPUnit/Rector/StaticCall/NetteAssertToPHPUnitAssertRector.php',
-        'Rector\\NetteToSymfony\\Collector\\OnFormVariableMethodCallsCollector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Collector/OnFormVariableMethodCallsCollector.php',
-        'Rector\\NetteToSymfony\\NodeAnalyzer\\ClassMethodRenderAnalyzer' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeAnalyzer/ClassMethodRenderAnalyzer.php',
-        'Rector\\NetteToSymfony\\NodeAnalyzer\\NetteControlFactoryInterfaceAnalyzer' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeAnalyzer/NetteControlFactoryInterfaceAnalyzer.php',
-        'Rector\\NetteToSymfony\\NodeFactory\\ActionWithFormProcessClassMethodFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeFactory/ActionWithFormProcessClassMethodFactory.php',
-        'Rector\\NetteToSymfony\\NodeFactory\\BuildFormClassMethodFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeFactory/BuildFormClassMethodFactory.php',
-        'Rector\\NetteToSymfony\\NodeFactory\\SymfonyControllerFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeFactory/SymfonyControllerFactory.php',
-        'Rector\\NetteToSymfony\\NodeFactory\\SymfonyMethodCallsFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/NodeFactory/SymfonyMethodCallsFactory.php',
-        'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RenameEventNamesInEventSubscriberRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/ClassMethod/RenameEventNamesInEventSubscriberRector.php',
-        'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RouterListToControllerAnnotationsRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/ClassMethod/RouterListToControllerAnnotationsRector.php',
-        'Rector\\NetteToSymfony\\Rector\\Class_\\FormControlToControllerAndFormTypeRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/Class_/FormControlToControllerAndFormTypeRector.php',
-        'Rector\\NetteToSymfony\\Rector\\Class_\\NetteControlToSymfonyControllerRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/Class_/NetteControlToSymfonyControllerRector.php',
-        'Rector\\NetteToSymfony\\Rector\\Interface_\\DeleteFactoryInterfaceRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/Interface_/DeleteFactoryInterfaceRector.php',
-        'Rector\\NetteToSymfony\\Rector\\MethodCall\\FromHttpRequestGetHeaderToHeadersGetRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/MethodCall/FromHttpRequestGetHeaderToHeadersGetRector.php',
-        'Rector\\NetteToSymfony\\Rector\\MethodCall\\FromRequestGetParameterToAttributesGetRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/MethodCall/FromRequestGetParameterToAttributesGetRector.php',
-        'Rector\\NetteToSymfony\\Rector\\MethodCall\\NetteFormToSymfonyFormRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/MethodCall/NetteFormToSymfonyFormRector.php',
-        'Rector\\NetteToSymfony\\Rector\\MethodCall\\WrapTransParameterNameRector' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Rector/MethodCall/WrapTransParameterNameRector.php',
-        'Rector\\NetteToSymfony\\Route\\RouteInfoFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Route/RouteInfoFactory.php',
-        'Rector\\NetteToSymfony\\Routing\\ExplicitRouteAnnotationDecorator' => __DIR__ . '/../..' . '/rules/NetteToSymfony/Routing/ExplicitRouteAnnotationDecorator.php',
-        'Rector\\NetteToSymfony\\SymfonyFormAbstractTypeFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/SymfonyFormAbstractTypeFactory.php',
-        'Rector\\NetteToSymfony\\ValueObjectFactory\\EventInfosFactory' => __DIR__ . '/../..' . '/rules/NetteToSymfony/ValueObjectFactory/EventInfosFactory.php',
-        'Rector\\NetteToSymfony\\ValueObject\\ClassMethodRender' => __DIR__ . '/../..' . '/rules/NetteToSymfony/ValueObject/ClassMethodRender.php',
-        'Rector\\NetteToSymfony\\ValueObject\\EventInfo' => __DIR__ . '/../..' . '/rules/NetteToSymfony/ValueObject/EventInfo.php',
-        'Rector\\NetteToSymfony\\ValueObject\\RouteInfo' => __DIR__ . '/../..' . '/rules/NetteToSymfony/ValueObject/RouteInfo.php',
+        'Rector\\NetteToSymfony\\AssertManipulator' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/AssertManipulator.php',
+        'Rector\\NetteToSymfony\\Collector\\OnFormVariableMethodCallsCollector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Collector/OnFormVariableMethodCallsCollector.php',
+        'Rector\\NetteToSymfony\\NodeAnalyzer\\ClassMethodRenderAnalyzer' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeAnalyzer/ClassMethodRenderAnalyzer.php',
+        'Rector\\NetteToSymfony\\NodeAnalyzer\\NetteControlFactoryInterfaceAnalyzer' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeAnalyzer/NetteControlFactoryInterfaceAnalyzer.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\ActionWithFormProcessClassMethodFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeFactory/ActionWithFormProcessClassMethodFactory.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\BuildFormClassMethodFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeFactory/BuildFormClassMethodFactory.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\SymfonyControllerFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeFactory/SymfonyControllerFactory.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\SymfonyMethodCallsFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/NodeFactory/SymfonyMethodCallsFactory.php',
+        'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RenameEventNamesInEventSubscriberRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/ClassMethod/RenameEventNamesInEventSubscriberRector.php',
+        'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RouterListToControllerAnnotationsRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/ClassMethod/RouterListToControllerAnnotationsRector.php',
+        'Rector\\NetteToSymfony\\Rector\\Class_\\FormControlToControllerAndFormTypeRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/Class_/FormControlToControllerAndFormTypeRector.php',
+        'Rector\\NetteToSymfony\\Rector\\Class_\\NetteControlToSymfonyControllerRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/Class_/NetteControlToSymfonyControllerRector.php',
+        'Rector\\NetteToSymfony\\Rector\\Class_\\NetteTesterClassToPHPUnitClassRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/Class_/NetteTesterClassToPHPUnitClassRector.php',
+        'Rector\\NetteToSymfony\\Rector\\Class_\\RenameTesterTestToPHPUnitToTestFileRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/Class_/RenameTesterTestToPHPUnitToTestFileRector.php',
+        'Rector\\NetteToSymfony\\Rector\\Interface_\\DeleteFactoryInterfaceRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/Interface_/DeleteFactoryInterfaceRector.php',
+        'Rector\\NetteToSymfony\\Rector\\MethodCall\\FromHttpRequestGetHeaderToHeadersGetRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/MethodCall/FromHttpRequestGetHeaderToHeadersGetRector.php',
+        'Rector\\NetteToSymfony\\Rector\\MethodCall\\FromRequestGetParameterToAttributesGetRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/MethodCall/FromRequestGetParameterToAttributesGetRector.php',
+        'Rector\\NetteToSymfony\\Rector\\MethodCall\\NetteFormToSymfonyFormRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/MethodCall/NetteFormToSymfonyFormRector.php',
+        'Rector\\NetteToSymfony\\Rector\\MethodCall\\WrapTransParameterNameRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/MethodCall/WrapTransParameterNameRector.php',
+        'Rector\\NetteToSymfony\\Rector\\StaticCall\\NetteAssertToPHPUnitAssertRector' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Rector/StaticCall/NetteAssertToPHPUnitAssertRector.php',
+        'Rector\\NetteToSymfony\\Route\\RouteInfoFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Route/RouteInfoFactory.php',
+        'Rector\\NetteToSymfony\\Routing\\ExplicitRouteAnnotationDecorator' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Routing/ExplicitRouteAnnotationDecorator.php',
+        'Rector\\NetteToSymfony\\Set\\NetteToSymfonySetList' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/Set/NetteToSymfonySetList.php',
+        'Rector\\NetteToSymfony\\SymfonyFormAbstractTypeFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/SymfonyFormAbstractTypeFactory.php',
+        'Rector\\NetteToSymfony\\ValueObjectFactory\\EventInfosFactory' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/ValueObjectFactory/EventInfosFactory.php',
+        'Rector\\NetteToSymfony\\ValueObject\\ClassMethodRender' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/ValueObject/ClassMethodRender.php',
+        'Rector\\NetteToSymfony\\ValueObject\\EventInfo' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/ValueObject/EventInfo.php',
+        'Rector\\NetteToSymfony\\ValueObject\\NetteFormMethodToSymfonyTypeClass' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/ValueObject/NetteFormMethodToSymfonyTypeClass.php',
+        'Rector\\NetteToSymfony\\ValueObject\\RouteInfo' => __DIR__ . '/..' . '/rector/rector-nette-to-symfony/src/ValueObject/RouteInfo.php',
         'Rector\\Nette\\Contract\\FormControlTypeResolverInterface' => __DIR__ . '/..' . '/rector/rector-nette/src/Contract/FormControlTypeResolverInterface.php',
         'Rector\\Nette\\Contract\\MethodNamesByInputNamesResolverAwareInterface' => __DIR__ . '/..' . '/rector/rector-nette/src/Contract/MethodNamesByInputNamesResolverAwareInterface.php',
         'Rector\\Nette\\Contract\\PregToNetteUtilsStringInterface' => __DIR__ . '/..' . '/rector/rector-nette/src/Contract/PregToNetteUtilsStringInterface.php',
@@ -3397,9 +3404,9 @@ class ComposerStaticInitf58657de6ef3742cb0d2d639680f0575
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf58657de6ef3742cb0d2d639680f0575::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf58657de6ef3742cb0d2d639680f0575::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf58657de6ef3742cb0d2d639680f0575::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitab86f1a5fc8e7a255cf8d71a3d0783fb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitab86f1a5fc8e7a255cf8d71a3d0783fb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitab86f1a5fc8e7a255cf8d71a3d0783fb::$classMap;
 
         }, null, ClassLoader::class);
     }

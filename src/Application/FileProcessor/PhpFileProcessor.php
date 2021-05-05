@@ -187,6 +187,10 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
             }
             $callback($file);
         } catch (\PHPStan\AnalysedCodeException $analysedCodeException) {
+            // inform about missing classes in tests
+            if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+                throw $analysedCodeException;
+            }
             $this->notParsedFiles[] = $file;
             $error = $this->errorFactory->createAutoloadError($analysedCodeException);
             $file->addRectorError($error);
