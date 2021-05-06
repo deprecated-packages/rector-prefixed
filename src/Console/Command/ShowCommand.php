@@ -5,6 +5,8 @@ namespace Rector\Core\Console\Command;
 
 use Rector\Core\Configuration\Option;
 use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\PostRector\Application\PostFileProcessor;
+use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use RectorPrefix20210506\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210506\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210506\Symfony\Component\Console\Output\OutputInterface;
@@ -48,10 +50,13 @@ final class ShowCommand extends \RectorPrefix20210506\Symfony\Component\Console\
     }
     private function reportLoadedRectors() : void
     {
-        $rectorCount = \count($this->rectors);
+        $rectors = \array_filter($this->rectors, function (\Rector\Core\Contract\Rector\RectorInterface $rector) {
+            return !$rector instanceof \Rector\PostRector\Contract\Rector\PostRectorInterface;
+        });
+        $rectorCount = \count($rectors);
         if ($rectorCount > 0) {
             $this->symfonyStyle->title('Loaded Rector rules');
-            foreach ($this->rectors as $rector) {
+            foreach ($rectors as $rector) {
                 $this->symfonyStyle->writeln(' * ' . \get_class($rector));
             }
             $message = \sprintf('%d loaded Rectors', $rectorCount);
