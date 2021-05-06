@@ -5,7 +5,6 @@ namespace Rector\Core\Console\Command;
 
 use Rector\Core\Configuration\Option;
 use Rector\Core\Contract\Rector\RectorInterface;
-use Rector\PostRector\Application\PostFileProcessor;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use RectorPrefix20210506\Symfony\Component\Console\Command\Command;
 use RectorPrefix20210506\Symfony\Component\Console\Input\InputInterface;
