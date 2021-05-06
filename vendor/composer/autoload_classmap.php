@@ -1695,7 +1695,6 @@ return array(
     'Rector\\Core\\Console\\Output\\OutputFormatterCollector' => $baseDir . '/src/Console/Output/OutputFormatterCollector.php',
     'Rector\\Core\\Console\\Style\\SymfonyStyleFactory' => $baseDir . '/src/Console/Style/SymfonyStyleFactory.php',
     'Rector\\Core\\Contract\\Application\\FileDecoratorInterface' => $baseDir . '/src/Contract/Application/FileDecoratorInterface.php',
-    'Rector\\Core\\Contract\\Formatter\\FileFormatterInterface' => $baseDir . '/src/Contract/Formatter/FileFormatterInterface.php',
     'Rector\\Core\\Contract\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverInterface' => $baseDir . '/src/Contract/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverInterface.php',
     'Rector\\Core\\Contract\\Processor\\FileProcessorInterface' => $baseDir . '/src/Contract/Processor/FileProcessorInterface.php',
     'Rector\\Core\\Contract\\Rector\\ConfigurableRectorInterface' => $baseDir . '/src/Contract/Rector/ConfigurableRectorInterface.php',
