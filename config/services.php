@@ -30,7 +30,6 @@ use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterTypeParser;
 use Rector\Caching\Cache\NetteCacheFactory;
 use Rector\Core\Console\ConsoleApplication;
-use Rector\Core\NonPhpFile\Rector\RenameClassNonPhpRector;
 use Rector\Core\PhpParser\Parser\NikicPhpParserFactory;
 use Rector\Core\PhpParser\Parser\PhpParserLexerFactory;
 use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
@@ -95,8 +94,6 @@ return static function (\RectorPrefix20210506\Symfony\Component\DependencyInject
     // type resolving
     $services->set(\Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator::class);
     $services->alias(\PHPStan\PhpDocParser\Parser\TypeParser::class, \Rector\BetterPhpDocParser\PhpDocParser\BetterTypeParser::class);
-    // non php changes
-    $services->set(\Rector\Core\NonPhpFile\Rector\RenameClassNonPhpRector::class);
     // PHPStan services
     $services->set(\PHPStan\Reflection\ReflectionProvider::class)->factory([\RectorPrefix20210506\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
     $services->set(\PHPStan\Analyser\NodeScopeResolver::class)->factory([\RectorPrefix20210506\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
