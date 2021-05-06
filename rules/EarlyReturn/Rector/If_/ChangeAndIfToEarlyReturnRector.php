@@ -90,8 +90,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return Node|Node[]|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -125,8 +126,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $conditions
+     * @return If_|Node[]
      */
-    private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone) : \PhpParser\Node\Stmt\If_
+    private function processReplaceIfs(\PhpParser\Node\Stmt\If_ $node, array $conditions, \PhpParser\Node\Stmt\Return_ $ifNextReturnClone)
     {
         $ifs = $this->invertedIfFactory->createFromConditions($node, $conditions, $ifNextReturnClone);
         $this->mirrorComments($ifs[0], $node);
@@ -135,7 +137,7 @@ CODE_SAMPLE
         }
         $this->removeNode($node);
         if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Return_ && $ifNextReturnClone->expr instanceof \PhpParser\Node\Expr) {
-            $this->addNodeAfterNode($ifNextReturnClone, $node);
+            return [$node, $ifNextReturnClone];
         }
         return $node;
     }

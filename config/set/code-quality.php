@@ -26,6 +26,7 @@ use Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
 use Rector\CodeQuality\Rector\FuncCall\AddPregQuoteDelimiterRector;
 use Rector\CodeQuality\Rector\FuncCall\ArrayKeysAndInArrayToArrayKeyExistsRector;
 use Rector\CodeQuality\Rector\FuncCall\ArrayMergeOfNonArraysToSimpleArrayRector;
+use Rector\CodeQuality\Rector\FuncCall\CallUserFuncWithArrowFunctionToInlineRector;
 use Rector\CodeQuality\Rector\FuncCall\ChangeArrayPushToArrayAssignRector;
 use Rector\CodeQuality\Rector\FuncCall\CompactToVariablesRector;
 use Rector\CodeQuality\Rector\FuncCall\InArrayAndArrayKeysToArrayKeyExistsRector;
