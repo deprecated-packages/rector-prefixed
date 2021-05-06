@@ -44,9 +44,8 @@ CODE_SAMPLE
     }
     /**
      * @param Expression $node
-     * @return Node[]|Node|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -54,12 +53,11 @@ CODE_SAMPLE
         }
         $firstExpr = \array_shift($livingCode);
         $node->expr = $firstExpr;
-        $newNodes = [];
         foreach ($livingCode as $singleLivingCode) {
-            $newNodes[] = new \PhpParser\Node\Stmt\Expression($singleLivingCode);
+            $newNode = new \PhpParser\Node\Stmt\Expression($singleLivingCode);
+            $this->addNodeAfterNode($newNode, $node);
         }
-        $newNodes[] = $node;
-        return $newNodes;
+        return null;
     }
     private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {

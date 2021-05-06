@@ -66,9 +66,8 @@ CODE_SAMPLE
     }
     /**
      * @param Switch_ $node
-     * @return Node\Stmt[]|If_|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (\count($node->cases) !== 1) {
             return null;
@@ -76,7 +75,9 @@ CODE_SAMPLE
         $onlyCase = $node->cases[0];
         // only default → basically unwrap
         if ($onlyCase->cond === null) {
-            return $onlyCase->stmts;
+            $this->addNodesAfterNode($onlyCase->stmts, $node);
+            $this->removeNode($node);
+            return null;
         }
         $if = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BinaryOp\Identical($node->cond, $onlyCase->cond));
         $if->stmts = $this->switchManipulator->removeBreakNodes($onlyCase->stmts);

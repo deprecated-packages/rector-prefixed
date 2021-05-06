@@ -6,7 +6,6 @@ namespace Rector\Defluent\Rector\Return_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
@@ -47,9 +46,8 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
-     * @return null|Expression[]|Return_[]
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
@@ -62,6 +60,8 @@ CODE_SAMPLE
             return null;
         }
         $variableReturn = new \PhpParser\Node\Stmt\Return_($methodCall->var);
-        return [new \PhpParser\Node\Stmt\Expression($methodCall), $variableReturn];
+        $this->addNodesAfterNode([$methodCall, $variableReturn], $node);
+        $this->removeNode($node);
+        return null;
     }
 }

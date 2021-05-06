@@ -68,9 +68,8 @@ CODE_SAMPLE
     }
     /**
      * @param Stmt $node
-     * @return Node|Node[]|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip properties
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
@@ -140,10 +139,7 @@ CODE_SAMPLE
         $this->addNodeBeforeNode($assertFuncCall, $stmt);
         return $stmt;
     }
-    /**
-     * @return Node[]|null
-     */
-    private function refactorAlreadyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?array
+    private function refactorAlreadyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
         $varTagValue = $phpDocInfo->getVarTagValueNode();
         if (!$varTagValue instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
@@ -154,7 +150,8 @@ CODE_SAMPLE
         if (!$assertFuncCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
-        return [$stmt, new \PhpParser\Node\Stmt\Expression($assertFuncCall)];
+        $this->addNodeAfterNode($assertFuncCall, $stmt);
+        return $stmt;
     }
     private function createFuncCallBasedOnType(\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\FuncCall
     {

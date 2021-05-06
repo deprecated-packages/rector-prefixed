@@ -73,9 +73,8 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
-     * @return Node|Node[]|null
      */
-    public function refactor(\PhpParser\Node $node)
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->callableInMethodCallToVariable as $singleCallableInMethodCallToVariable) {
             if (!$this->isObjectType($node->var, $singleCallableInMethodCallToVariable->getObjectType())) {
@@ -98,7 +97,7 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param array<string, CallableInMethodCallToVariable[]> $configuration
+     * @param mixed[] $configuration
      */
     public function configure(array $configuration) : void
     {
