@@ -15,7 +15,7 @@ use Rector\Php71\ValueObject\TwoNodeMatch;
 final class BinaryOpManipulator
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\AssignAndBinaryMap
+     * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
     public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)

@@ -10,7 +10,7 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class StringTypeAnalyzer
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)

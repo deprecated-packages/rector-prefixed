@@ -17,23 +17,23 @@ use Rector\PostRector\DependencyInjection\PropertyAdder;
 final class PropertyConstructorInjectionManipulator
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
+     * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
     /**
-     * @var \Rector\PostRector\DependencyInjection\PropertyAdder
+     * @var PropertyAdder
      */
     private $propertyAdder;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder)

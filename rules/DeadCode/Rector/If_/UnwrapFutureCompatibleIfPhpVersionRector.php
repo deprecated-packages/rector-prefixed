@@ -19,11 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnwrapFutureCompatibleIfPhpVersionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\ConditionEvaluator
+     * @var ConditionEvaluator
      */
     private $conditionEvaluator;
     /**
-     * @var \Rector\DeadCode\ConditionResolver
+     * @var ConditionResolver
      */
     private $conditionResolver;
     public function __construct(\Rector\DeadCode\ConditionEvaluator $conditionEvaluator, \Rector\DeadCode\ConditionResolver $conditionResolver)

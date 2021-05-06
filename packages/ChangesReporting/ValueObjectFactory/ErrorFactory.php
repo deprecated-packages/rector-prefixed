@@ -9,7 +9,7 @@ use Rector\Core\ValueObject\Application\RectorError;
 final class ErrorFactory
 {
     /**
-     * @var \Rector\Core\Error\ExceptionCorrector
+     * @var ExceptionCorrector
      */
     private $exceptionCorrector;
     public function __construct(\Rector\Core\Error\ExceptionCorrector $exceptionCorrector)

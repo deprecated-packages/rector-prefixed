@@ -12,11 +12,11 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class NetteCacheFactory
 {
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
     public function __construct(\RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)

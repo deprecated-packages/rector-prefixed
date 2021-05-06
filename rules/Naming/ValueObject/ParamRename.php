@@ -15,29 +15,32 @@ final class ParamRename implements \Rector\Naming\Contract\RenameParamValueObjec
     /**
      * @var string
      */
-    private $currentName;
+    private $expectedName;
     /**
      * @var string
      */
-    private $expectedName;
+    private $currentName;
     /**
-     * @var \PhpParser\Node\Param
+     * @var Param
      */
     private $param;
     /**
-     * @var \PhpParser\Node\Expr\Variable
+     * @var Variable
      */
     private $variable;
     /**
-     * @var \PhpParser\Node\FunctionLike
+     * @var ClassMethod|Function_|Closure
      */
     private $functionLike;
+    /**
+     * @param ClassMethod|Function_|Closure $functionLike
+     */
     public function __construct(string $currentName, string $expectedName, \PhpParser\Node\Param $param, \PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\FunctionLike $functionLike)
     {
-        $this->currentName = $currentName;
-        $this->expectedName = $expectedName;
         $this->param = $param;
         $this->variable = $variable;
+        $this->expectedName = $expectedName;
+        $this->currentName = $currentName;
         $this->functionLike = $functionLike;
     }
     public function getCurrentName() : string

@@ -21,17 +21,17 @@ final class SideEffectNodeDetector
      */
     private const SIDE_EFFECT_NODE_TYPES = [\PhpParser\Node\Scalar\Encapsed::class, \PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\PropertyFetch::class];
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    /**
-     * @var \Rector\DeadCode\SideEffect\PureFunctionDetector
+     * @var PureFunctionDetector
      */
     private $pureFunctionDetector;
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\DeadCode\SideEffect\PureFunctionDetector $pureFunctionDetector)
     {
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->pureFunctionDetector = $pureFunctionDetector;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function detect(\PhpParser\Node\Expr $expr) : bool
     {

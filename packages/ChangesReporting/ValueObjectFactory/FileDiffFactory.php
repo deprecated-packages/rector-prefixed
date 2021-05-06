@@ -10,11 +10,11 @@ use RectorPrefix20210506\Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer;
 final class FileDiffFactory
 {
     /**
-     * @var \Rector\Core\Differ\DefaultDiffer
+     * @var DefaultDiffer
      */
     private $defaultDiffer;
     /**
-     * @var \Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer
+     * @var ConsoleDiffer
      */
     private $consoleDiffer;
     public function __construct(\Rector\Core\Differ\DefaultDiffer $defaultDiffer, \RectorPrefix20210506\Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer $consoleDiffer)

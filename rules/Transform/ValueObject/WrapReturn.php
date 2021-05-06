@@ -17,7 +17,7 @@ final class WrapReturn
     /**
      * @var bool
      */
-    private $isArrayWrap;
+    private $isArrayWrap = \false;
     public function __construct(string $type, string $method, bool $isArrayWrap)
     {
         $this->type = $type;

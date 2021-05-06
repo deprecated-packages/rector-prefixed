@@ -9,7 +9,7 @@ use Rector\Core\ValueObject\Application\File;
 final class FileDiffFileDecorator implements \Rector\Core\Contract\Application\FileDecoratorInterface
 {
     /**
-     * @var \Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory
+     * @var FileDiffFactory
      */
     private $fileDiffFactory;
     public function __construct(\Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory $fileDiffFactory)

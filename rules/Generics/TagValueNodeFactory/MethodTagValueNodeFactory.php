@@ -20,17 +20,17 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class MethodTagValueNodeFactory
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
-     */
-    private $staticTypeMapper;
-    /**
-     * @var \Rector\Generics\TagValueNodeFactory\MethodTagValueParameterNodeFactory
+     * @var MethodTagValueParameterNodeFactory
      */
     private $methodTagValueParameterNodeFactory;
+    /**
+     * @var StaticTypeMapper
+     */
+    private $staticTypeMapper;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Generics\TagValueNodeFactory\MethodTagValueParameterNodeFactory $methodTagValueParameterNodeFactory)
     {
-        $this->staticTypeMapper = $staticTypeMapper;
         $this->methodTagValueParameterNodeFactory = $methodTagValueParameterNodeFactory;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
     public function createFromMethodReflectionAndReturnTagValueNode(\PHPStan\Reflection\MethodReflection $methodReflection, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode, \Rector\Generics\ValueObject\ChildParentClassReflections $childParentClassReflections) : \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode
     {

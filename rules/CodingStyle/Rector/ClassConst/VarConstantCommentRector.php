@@ -24,11 +24,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeTypeResolver\TypeComparator\TypeComparator
+     * @var TypeComparator
      */
     private $typeComparator;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)

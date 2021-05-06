@@ -8,7 +8,7 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard;
 final class FilesystemTweaker
 {
     /**
-     * @var \Symplify\SmartFileSystem\FileSystemGuard
+     * @var FileSystemGuard
      */
     private $fileSystemGuard;
     public function __construct(\RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)

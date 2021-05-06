@@ -17,11 +17,11 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class UselessIfCondBeforeForeachDetector
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)

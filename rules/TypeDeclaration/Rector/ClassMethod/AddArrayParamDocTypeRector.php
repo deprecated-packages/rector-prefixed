@@ -23,15 +23,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer
+     * @var ParamTypeInferer
      */
     private $paramTypeInferer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover
+     * @var ParamTagRemover
      */
     private $paramTagRemover;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover)

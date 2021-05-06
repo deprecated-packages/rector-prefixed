@@ -23,15 +23,15 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class AnonymousFunctionFactory
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)

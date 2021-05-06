@@ -15,15 +15,15 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyFetchFinder
 {
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

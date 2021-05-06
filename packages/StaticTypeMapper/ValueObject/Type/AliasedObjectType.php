@@ -15,8 +15,8 @@ final class AliasedObjectType extends \PHPStan\Type\ObjectType
     private $fullyQualifiedClass;
     public function __construct(string $alias, string $fullyQualifiedClass)
     {
-        $this->fullyQualifiedClass = $fullyQualifiedClass;
         parent::__construct($alias);
+        $this->fullyQualifiedClass = $fullyQualifiedClass;
     }
     public function getFullyQualifiedClass() : string
     {

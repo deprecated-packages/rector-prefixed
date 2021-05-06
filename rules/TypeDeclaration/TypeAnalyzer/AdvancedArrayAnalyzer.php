@@ -18,11 +18,11 @@ use Rector\TypeDeclaration\TypeNormalizer;
 final class AdvancedArrayAnalyzer
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeNormalizer
+     * @var TypeNormalizer
      */
     private $typeNormalizer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     public function __construct(\Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)

@@ -16,27 +16,27 @@ use Rector\NodeNameResolver\NodeNameResolver;
 final class ChildAndParentClassManipulator
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\Core\NodeAnalyzer\PromotedPropertyParamCleaner
+     * @var PromotedPropertyParamCleaner
      */
     private $promotedPropertyParamCleaner;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver
+     * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\NodeAnalyzer\PromotedPropertyParamCleaner $promotedPropertyParamCleaner, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)

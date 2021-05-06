@@ -13,7 +13,7 @@ final class ScopeAwareNodeFinder
      */
     private $isBreakingNodeFoundFirst = \false;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

@@ -24,27 +24,27 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
+     * @var AffectedFilesCollector
+     */
+    private $affectedFilesCollector;
+    /**
+     * @var BreakingRemovalGuard
+     */
+    private $breakingRemovalGuard;
+    /**
      * @var Stmt[]|Node[]
      */
     private $nodesToRemove = [];
     /**
-     * @var \Rector\ChangesReporting\Collector\AffectedFilesCollector
-     */
-    private $affectedFilesCollector;
-    /**
-     * @var \Rector\NodeRemoval\BreakingRemovalGuard
-     */
-    private $breakingRemovalGuard;
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
+     * @var CurrentFileProvider
      */
     private $currentFileProvider;
     public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)

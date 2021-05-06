@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NarrowUnionTypeDocRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer
+     * @var UnionTypeAnalyzer
      */
     private $unionTypeAnalyzer;
     public function __construct(\Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer)

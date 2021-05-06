@@ -21,15 +21,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReturnBinaryOrToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\Core\PhpParser\Node\AssignAndBinaryMap
+     * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
     /**
-     * @var \Rector\Core\NodeAnalyzer\CallAnalyzer
+     * @var CallAnalyzer
      */
     private $callAnalyzer;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap, \Rector\Core\NodeAnalyzer\CallAnalyzer $callAnalyzer)

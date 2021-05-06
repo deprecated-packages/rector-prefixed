@@ -10,11 +10,11 @@ use Rector\NodeTypeResolver\PhpDocNodeVisitor\NameImportingPhpDocNodeVisitor;
 final class DocBlockNameImporter
 {
     /**
-     * @var \Rector\NodeTypeResolver\PhpDocNodeVisitor\NameImportingPhpDocNodeVisitor
+     * @var NameImportingPhpDocNodeVisitor
      */
     private $nameImportingPhpDocNodeVisitor;
     /**
-     * @var \Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\ImportingPhpDocNodeTraverserFactory
+     * @var ImportingPhpDocNodeTraverserFactory
      */
     private $importingPhpDocNodeTraverserFactory;
     public function __construct(\Rector\NodeTypeResolver\PhpDocNodeVisitor\NameImportingPhpDocNodeVisitor $nameImportingPhpDocNodeVisitor, \Rector\NodeTypeResolver\PhpDoc\PhpDocNodeTraverser\ImportingPhpDocNodeTraverserFactory $importingPhpDocNodeTraverserFactory)

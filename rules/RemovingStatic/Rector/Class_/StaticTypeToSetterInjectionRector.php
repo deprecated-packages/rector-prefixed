@@ -33,11 +33,11 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
      */
     private $staticTypes = [];
     /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)

@@ -18,11 +18,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class IsCountableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php71\IsArrayAndDualCheckToAble
+     * @var IsArrayAndDualCheckToAble
      */
     private $isArrayAndDualCheckToAble;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

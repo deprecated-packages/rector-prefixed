@@ -10,13 +10,13 @@ use Rector\Naming\ValueObject\PropertyRename;
 final class PropertyRenamer
 {
     /**
-     * @var \Rector\Naming\RenameGuard\PropertyRenameGuard
-     */
-    private $propertyRenameGuard;
-    /**
-     * @var \Rector\Naming\PropertyRenamer\PropertyFetchRenamer
+     * @var PropertyFetchRenamer
      */
     private $propertyFetchRenamer;
+    /**
+     * @var PropertyRenameGuard
+     */
+    private $propertyRenameGuard;
     public function __construct(\Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer)
     {
         $this->propertyRenameGuard = $propertyRenameGuard;

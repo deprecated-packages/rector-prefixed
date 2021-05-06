@@ -19,11 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MoveInterfacesToContractNamespaceDirectoryRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer
+     * @var NetteControlFactoryInterfaceAnalyzer
      */
     private $netteControlFactoryInterfaceAnalyzer;
     /**
-     * @var \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory
+     * @var AddedFileWithNodesFactory
      */
     private $addedFileWithNodesFactory;
     public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory $addedFileWithNodesFactory)

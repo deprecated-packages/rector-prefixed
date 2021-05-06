@@ -17,19 +17,19 @@ use Rector\Php80\ValueObject\StrStartsWith;
 final class SubstrMatchAndRefactor implements \Rector\Php80\Contract\StrStartWithMatchAndRefactorInterface
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
     /**
-     * @var \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory
+     * @var StrStartsWithFuncCallFactory
      */
     private $strStartsWithFuncCallFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory)

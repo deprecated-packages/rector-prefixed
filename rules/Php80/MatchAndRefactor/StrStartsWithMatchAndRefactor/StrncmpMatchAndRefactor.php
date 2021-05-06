@@ -21,25 +21,25 @@ final class StrncmpMatchAndRefactor implements \Rector\Php80\Contract\StrStartWi
      */
     private const FUNCTION_NAME = 'strncmp';
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\Php80\ValueObjectFactory\StrStartsWithFactory
+     * @var StrStartsWithFactory
      */
     private $strStartsWithFactory;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var NodeComparator
      */
     private $nodeComparator;
     /**
-     * @var \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory
+     * @var StrStartsWithFuncCallFactory
      */
     private $strStartsWithFuncCallFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Php80\ValueObjectFactory\StrStartsWithFactory $strStartsWithFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->strStartsWithFactory = $strStartsWithFactory;
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeComparator = $nodeComparator;
         $this->strStartsWithFuncCallFactory = $strStartsWithFuncCallFactory;
     }

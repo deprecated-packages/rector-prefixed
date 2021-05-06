@@ -14,15 +14,15 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard;
 final class AdditionalAutoloader
 {
     /**
-     * @var \Symplify\SmartFileSystem\FileSystemGuard
+     * @var FileSystemGuard
      */
     private $fileSystemGuard;
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var \Rector\Core\StaticReflection\DynamicSourceLocatorDecorator
+     * @var DynamicSourceLocatorDecorator
      */
     private $dynamicSourceLocatorDecorator;
     public function __construct(\RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\StaticReflection\DynamicSourceLocatorDecorator $dynamicSourceLocatorDecorator)

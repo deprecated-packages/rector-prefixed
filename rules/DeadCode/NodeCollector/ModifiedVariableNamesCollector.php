@@ -15,11 +15,11 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class ModifiedVariableNamesCollector
 {
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

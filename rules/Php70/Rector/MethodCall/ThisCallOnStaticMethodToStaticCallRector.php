@@ -22,11 +22,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ThisCallOnStaticMethodToStaticCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeCollector\StaticAnalyzer
+     * @var StaticAnalyzer
      */
     private $staticAnalyzer;
     /**
-     * @var \Rector\NodeCollector\Reflection\MethodReflectionProvider
+     * @var MethodReflectionProvider
      */
     private $methodReflectionProvider;
     public function __construct(\Rector\NodeCollector\StaticAnalyzer $staticAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)

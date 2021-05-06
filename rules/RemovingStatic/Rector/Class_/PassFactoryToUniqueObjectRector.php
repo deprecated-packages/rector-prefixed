@@ -34,32 +34,32 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
      */
     private $serviceObjectTypes = [];
     /**
-     * @var \Rector\RemovingStatic\StaticTypesInClassResolver
-     */
-    private $staticTypesInClassResolver;
-    /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var \Rector\RemovingStatic\UniqueObjectOrServiceDetector
+     * @var UniqueObjectOrServiceDetector
      */
     private $uniqueObjectOrServiceDetector;
     /**
-     * @var \Rector\RemovingStatic\UniqueObjectFactoryFactory
+     * @var UniqueObjectFactoryFactory
      */
     private $uniqueObjectFactoryFactory;
     /**
-     * @var \Rector\RemovingStatic\Printer\FactoryClassPrinter
+     * @var FactoryClassPrinter
      */
     private $factoryClassPrinter;
+    /**
+     * @var StaticTypesInClassResolver
+     */
+    private $staticTypesInClassResolver;
     public function __construct(\Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\UniqueObjectOrServiceDetector $uniqueObjectOrServiceDetector, \Rector\RemovingStatic\UniqueObjectFactoryFactory $uniqueObjectFactoryFactory, \Rector\RemovingStatic\Printer\FactoryClassPrinter $factoryClassPrinter)
     {
-        $this->staticTypesInClassResolver = $staticTypesInClassResolver;
         $this->propertyNaming = $propertyNaming;
         $this->uniqueObjectOrServiceDetector = $uniqueObjectOrServiceDetector;
         $this->uniqueObjectFactoryFactory = $uniqueObjectFactoryFactory;
         $this->factoryClassPrinter = $factoryClassPrinter;
+        $this->staticTypesInClassResolver = $staticTypesInClassResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

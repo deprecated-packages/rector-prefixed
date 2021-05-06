@@ -14,11 +14,11 @@ use Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver;
 final class ClassMethodParamTypeCompleter
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver
+     * @var ClassMethodParamVendorLockResolver
      */
     private $classMethodParamVendorLockResolver;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver)

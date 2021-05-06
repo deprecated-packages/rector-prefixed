@@ -21,19 +21,11 @@ final class MethodCallToAnotherMethodCallWithArguments
     /**
      * @var mixed[]
      */
-    private $newArguments;
+    private $newArguments = [];
     /**
      * @param mixed[] $newArguments
      */
-    public function __construct(
-        string $type,
-        string $oldMethod,
-        string $newMethod,
-        /**
-         * @var mixed[]
-         */
-        array $newArguments
-    )
+    public function __construct(string $type, string $oldMethod, string $newMethod, array $newArguments)
     {
         $this->type = $type;
         $this->oldMethod = $oldMethod;

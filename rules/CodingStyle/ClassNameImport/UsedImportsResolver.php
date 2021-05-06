@@ -14,15 +14,15 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class UsedImportsResolver
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\CodingStyle\ClassNameImport\UseImportsTraverser
+     * @var UseImportsTraverser
      */
     private $useImportsTraverser;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\CodingStyle\ClassNameImport\UseImportsTraverser $useImportsTraverser)

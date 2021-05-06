@@ -30,7 +30,7 @@ final class CallableInMethodCallToVariableRector extends \Rector\Core\Rector\Abs
      */
     private $callableInMethodCallToVariable = [];
     /**
-     * @var \Rector\Transform\NodeFactory\UnwrapClosureFactory
+     * @var UnwrapClosureFactory
      */
     private $unwrapClosureFactory;
     public function __construct(\Rector\Transform\NodeFactory\UnwrapClosureFactory $unwrapClosureFactory)
@@ -73,8 +73,9 @@ CODE_SAMPLE
     }
     /**
      * @param MethodCall $node
+     * @return Node|Node[]|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         foreach ($this->callableInMethodCallToVariable as $singleCallableInMethodCallToVariable) {
             if (!$this->isObjectType($node->var, $singleCallableInMethodCallToVariable->getObjectType())) {
@@ -97,7 +98,7 @@ CODE_SAMPLE
         return null;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, CallableInMethodCallToVariable[]> $configuration
      */
     public function configure(array $configuration) : void
     {

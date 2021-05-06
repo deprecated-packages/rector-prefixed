@@ -14,6 +14,9 @@ final class VariableMethodCallToServiceCall
      * @var string
      */
     private $methodName;
+    /**
+     * @var mixed
+     */
     private $argumentValue;
     /**
      * @var string
@@ -23,16 +26,10 @@ final class VariableMethodCallToServiceCall
      * @var string
      */
     private $serviceMethodName;
-    public function __construct(
-        string $variableType,
-        string $methodName,
-        /**
-         * @var mixed
-         */
-        $argumentValue,
-        string $serviceType,
-        string $serviceMethodName
-    )
+    /**
+     * @param mixed $argumentValue
+     */
+    public function __construct(string $variableType, string $methodName, $argumentValue, string $serviceType, string $serviceMethodName)
     {
         $this->variableType = $variableType;
         $this->methodName = $methodName;

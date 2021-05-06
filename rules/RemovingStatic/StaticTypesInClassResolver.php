@@ -12,11 +12,11 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class StaticTypesInClassResolver
 {
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     public function __construct(\RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)

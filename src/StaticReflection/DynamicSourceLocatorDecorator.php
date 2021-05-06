@@ -13,15 +13,15 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemFilter;
 final class DynamicSourceLocatorDecorator
 {
     /**
-     * @var \Symplify\SmartFileSystem\FileSystemFilter
+     * @var FileSystemFilter
      */
     private $fileSystemFilter;
     /**
-     * @var \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider
+     * @var DynamicSourceLocatorProvider
      */
     private $dynamicSourceLocatorProvider;
     /**
-     * @var \Rector\Core\FileSystem\PhpFilesFinder
+     * @var PhpFilesFinder
      */
     private $phpFilesFinder;
     public function __construct(\RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocatorProvider\DynamicSourceLocatorProvider $dynamicSourceLocatorProvider, \Rector\Core\FileSystem\PhpFilesFinder $phpFilesFinder)

@@ -18,15 +18,15 @@ use Rector\Php80\ValueObject\StrStartsWith;
 final class StrposMatchAndRefactor implements \Rector\Php80\Contract\StrStartWithMatchAndRefactorInterface
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     /**
-     * @var \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory
+     * @var StrStartsWithFuncCallFactory
      */
     private $strStartsWithFuncCallFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Php80\NodeFactory\StrStartsWithFuncCallFactory $strStartsWithFuncCallFactory)

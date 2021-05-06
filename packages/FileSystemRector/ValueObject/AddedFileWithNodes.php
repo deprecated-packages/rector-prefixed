@@ -13,19 +13,13 @@ final class AddedFileWithNodes implements \Rector\FileSystemRector\Contract\Adde
      */
     private $filePath;
     /**
-     * @var mixed[]
+     * @var Node[]
      */
-    private $nodes;
+    private $nodes = [];
     /**
      * @param Node[] $nodes
      */
-    public function __construct(
-        string $filePath,
-        /**
-         * @var Node[]
-         */
-        array $nodes
-    )
+    public function __construct(string $filePath, array $nodes)
     {
         $this->filePath = $filePath;
         $this->nodes = $nodes;

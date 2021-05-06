@@ -30,27 +30,27 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class ReturnedNodesReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\SilentVoidResolver
+     * @var SilentVoidResolver
      */
     private $silentVoidResolver;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var TypeFactory
      */
     private $typeFactory;
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower
+     * @var SplArrayFixedTypeNarrower
      */
     private $splArrayFixedTypeNarrower;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\SilentVoidResolver $silentVoidResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\TypeDeclaration\TypeInferer\SplArrayFixedTypeNarrower $splArrayFixedTypeNarrower, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)

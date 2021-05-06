@@ -12,11 +12,11 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyTypeVendorLockResolver
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer
+     * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer)

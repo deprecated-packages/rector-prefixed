@@ -24,21 +24,21 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class MagicPropertyFetchAnalyzer
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->reflectionProvider = $reflectionProvider;
     }
     /**

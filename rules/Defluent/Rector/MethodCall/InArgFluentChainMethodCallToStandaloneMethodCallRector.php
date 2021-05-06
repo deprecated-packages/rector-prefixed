@@ -25,27 +25,27 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class InArgFluentChainMethodCallToStandaloneMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer
+     * @var NewFluentChainMethodCallNodeAnalyzer
      */
     private $newFluentChainMethodCallNodeAnalyzer;
     /**
-     * @var \Rector\Defluent\NodeFactory\VariableFromNewFactory
+     * @var VariableFromNewFactory
      */
     private $variableFromNewFactory;
     /**
-     * @var \Rector\Defluent\NodeFactory\FluentMethodCallAsArgFactory
+     * @var FluentMethodCallAsArgFactory
      */
     private $fluentMethodCallAsArgFactory;
     /**
-     * @var \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher
+     * @var AssignAndRootExprAndNodesToAddMatcher
      */
     private $assignAndRootExprAndNodesToAddMatcher;
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer
+     * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
     /**
-     * @var \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory
+     * @var NonFluentChainMethodCallFactory
      */
     private $nonFluentChainMethodCallFactory;
     public function __construct(\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory, \Rector\Defluent\NodeFactory\FluentMethodCallAsArgFactory $fluentMethodCallAsArgFactory, \Rector\Defluent\Matcher\AssignAndRootExprAndNodesToAddMatcher $assignAndRootExprAndNodesToAddMatcher, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory)

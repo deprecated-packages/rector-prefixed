@@ -13,11 +13,11 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParentClassMethodTypeOverrideGuard
 {
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

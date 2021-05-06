@@ -19,22 +19,22 @@ final class OverridenExistingNamesResolver
      */
     private $overridenExistingVariableNamesByClassMethod = [];
     /**
-     * @var \Rector\Naming\PhpArray\ArrayFilter
+     * @var NodeNameResolver
      */
-    private $arrayFilter;
+    private $nodeNameResolver;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var ArrayFilter
      */
-    private $nodeNameResolver;
+    private $arrayFilter;
     public function __construct(\Rector\Naming\PhpArray\ArrayFilter $arrayFilter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->arrayFilter = $arrayFilter;
-        $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->betterNodeFinder = $betterNodeFinder;
+        $this->arrayFilter = $arrayFilter;
     }
     /**
      * @param ClassMethod|Function_|Closure $functionLike

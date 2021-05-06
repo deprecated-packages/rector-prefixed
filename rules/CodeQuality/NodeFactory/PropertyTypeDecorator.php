@@ -17,19 +17,19 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class PropertyTypeDecorator
 {
     /**
-     * @var \Rector\Core\Php\PhpVersionProvider
+     * @var PhpVersionProvider
      */
     private $phpVersionProvider;
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)

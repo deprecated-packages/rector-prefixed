@@ -13,27 +13,27 @@ use Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver;
 final class VendorLockResolver
 {
     /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver
-     */
-    private $classMethodParamVendorLockResolver;
-    /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver
+     * @var ClassMethodReturnVendorLockResolver
      */
     private $classMethodReturnVendorLockResolver;
     /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver
+     * @var ClassMethodParamVendorLockResolver
      */
-    private $classMethodVendorLockResolver;
+    private $classMethodParamVendorLockResolver;
     /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver
+     * @var PropertyTypeVendorLockResolver
      */
     private $propertyTypeVendorLockResolver;
+    /**
+     * @var ClassMethodVendorLockResolver
+     */
+    private $classMethodVendorLockResolver;
     public function __construct(\Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver $classMethodReturnVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver $classMethodVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver $propertyTypeVendorLockResolver)
     {
-        $this->classMethodParamVendorLockResolver = $classMethodParamVendorLockResolver;
         $this->classMethodReturnVendorLockResolver = $classMethodReturnVendorLockResolver;
-        $this->classMethodVendorLockResolver = $classMethodVendorLockResolver;
+        $this->classMethodParamVendorLockResolver = $classMethodParamVendorLockResolver;
         $this->propertyTypeVendorLockResolver = $propertyTypeVendorLockResolver;
+        $this->classMethodVendorLockResolver = $classMethodVendorLockResolver;
     }
     public function isClassMethodParamLockedIn(\PhpParser\Node $node) : bool
     {

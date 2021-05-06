@@ -20,32 +20,32 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RenameForeachValueVariableToMatchMethodCallReturnTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Naming\Guard\BreakingVariableRenameGuard
-     */
-    private $breakingVariableRenameGuard;
-    /**
-     * @var \Rector\Naming\Naming\ExpectedNameResolver
+     * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
     /**
-     * @var \Rector\Naming\NamingConvention\NamingConventionAnalyzer
-     */
-    private $namingConventionAnalyzer;
-    /**
-     * @var \Rector\Naming\VariableRenamer
+     * @var VariableRenamer
      */
     private $variableRenamer;
     /**
-     * @var \Rector\Naming\Matcher\ForeachMatcher
+     * @var ForeachMatcher
      */
     private $varValueAndCallForeachMatcher;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\Naming\Matcher\ForeachMatcher $varValueAndCallForeachMatcher)
+    /**
+     * @var BreakingVariableRenameGuard
+     */
+    private $breakingVariableRenameGuard;
+    /**
+     * @var NamingConventionAnalyzer
+     */
+    private $namingConventionAnalyzer;
+    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\Naming\Matcher\ForeachMatcher $foreachMatcher)
     {
-        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->expectedNameResolver = $expectedNameResolver;
-        $this->namingConventionAnalyzer = $namingConventionAnalyzer;
         $this->variableRenamer = $variableRenamer;
-        $this->varValueAndCallForeachMatcher = $varValueAndCallForeachMatcher;
+        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
+        $this->namingConventionAnalyzer = $namingConventionAnalyzer;
+        $this->varValueAndCallForeachMatcher = $foreachMatcher;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

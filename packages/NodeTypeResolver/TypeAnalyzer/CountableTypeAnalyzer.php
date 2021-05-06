@@ -10,26 +10,26 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class CountableTypeAnalyzer
 {
     /**
-     * @var ObjectType[]
-     */
-    private $countableObjectTypes = [];
-    /**
-     * @var \Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer
+     * @var ArrayTypeAnalyzer
      */
     private $arrayTypeAnalyzer;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var PregMatchTypeCorrector
+     */
+    private $pregMatchTypeCorrector;
+    /**
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector
+     * @var ObjectType[]
      */
-    private $pregMatchTypeCorrector;
+    private $countableObjectTypes = [];
     public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector $pregMatchTypeCorrector)
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->pregMatchTypeCorrector = $pregMatchTypeCorrector;
+        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->countableObjectTypes = [new \PHPStan\Type\ObjectType('Countable'), new \PHPStan\Type\ObjectType('SimpleXMLElement'), new \PHPStan\Type\ObjectType('ResourceBundle')];
     }
     public function isCountableType(\PhpParser\Node $node) : bool

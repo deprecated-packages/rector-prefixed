@@ -18,17 +18,17 @@ final class RenameClassAndConstFetch implements \Rector\Renaming\Contract\Rename
     /**
      * @var string
      */
-    private $newClass;
+    private $newConstant;
     /**
      * @var string
      */
-    private $newConstant;
+    private $newClass;
     public function __construct(string $oldClass, string $oldConstant, string $newClass, string $newConstant)
     {
         $this->oldClass = $oldClass;
         $this->oldConstant = $oldConstant;
-        $this->newClass = $newClass;
         $this->newConstant = $newConstant;
+        $this->newClass = $newClass;
     }
     public function getOldObjectType() : \PHPStan\Type\ObjectType
     {

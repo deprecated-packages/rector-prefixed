@@ -8,15 +8,15 @@ final class UnionTypeAnalysis
     /**
      * @var bool
      */
-    private $isNullableType;
+    private $isNullableType = \false;
     /**
      * @var bool
      */
-    private $hasIterable;
+    private $hasIterable = \false;
     /**
      * @var bool
      */
-    private $hasArray;
+    private $hasArray = \false;
     public function __construct(bool $isNullableType, bool $hasIterable, bool $hasArray)
     {
         $this->isNullableType = $isNullableType;

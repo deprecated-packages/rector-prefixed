@@ -14,7 +14,7 @@ final class RenamedClassesCollector
      */
     private $oldToNewClass = [];
     /**
-     * @var \Rector\Core\Configuration\RenamedClassesDataCollector
+     * @var RenamedClassesDataCollector
      */
     private $renamedClassesDataCollector;
     public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)

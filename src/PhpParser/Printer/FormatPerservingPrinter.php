@@ -15,13 +15,13 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class FormatPerservingPrinter
 {
     /**
-     * @var \Rector\Core\PhpParser\Printer\BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;

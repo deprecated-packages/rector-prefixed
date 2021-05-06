@@ -19,7 +19,7 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class ClassLikeNameClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
-     * @var \Rector\CodingStyle\ClassNameImport\ShortNameResolver
+     * @var ShortNameResolver
      */
     private $shortNameResolver;
     public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)

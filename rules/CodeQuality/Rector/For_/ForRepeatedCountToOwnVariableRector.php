@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ForRepeatedCountToOwnVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php70\NodeAnalyzer\VariableNaming
+     * @var VariableNaming
      */
     private $variableNaming;
     public function __construct(\Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming)

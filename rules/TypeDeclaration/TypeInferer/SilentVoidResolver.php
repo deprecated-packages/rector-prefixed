@@ -20,7 +20,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class SilentVoidResolver
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

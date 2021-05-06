@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CallUserFuncToMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodingStyle\NodeFactory\ArrayCallableToMethodCallFactory
+     * @var ArrayCallableToMethodCallFactory
      */
     private $arrayCallableToMethodCallFactory;
     public function __construct(\Rector\CodingStyle\NodeFactory\ArrayCallableToMethodCallFactory $arrayCallableToMethodCallFactory)

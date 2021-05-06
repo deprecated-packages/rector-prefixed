@@ -28,19 +28,19 @@ final class ClassMethodReturnTypeOverrideGuard
      */
     private const CHAOTIC_CLASS_METHOD_NAMES = ['PhpParser\\NodeVisitor' => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer
+     * @var FamilyRelationsAnalyzer
      */
     private $familyRelationsAnalyzer;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

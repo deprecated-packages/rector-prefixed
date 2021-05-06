@@ -35,35 +35,35 @@ final class BreakingVariableRenameGuard
      */
     private const AT_NAMING_REGEX = '#[\\w+]At$#';
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\Naming\Naming\ConflictingNameResolver
+     * @var ConflictingNameResolver
      */
     private $conflictingNameResolver;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    /**
-     * @var \Rector\Naming\Naming\OverridenExistingNamesResolver
+     * @var OverridenExistingNamesResolver
      */
     private $overridenExistingNamesResolver;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    /**
+     * @var TypeUnwrapper
      */
     private $typeUnwrapper;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Naming\Naming\ConflictingNameResolver $conflictingNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Naming\Naming\OverridenExistingNamesResolver $overridenExistingNamesResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->conflictingNameResolver = $conflictingNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->overridenExistingNamesResolver = $overridenExistingNamesResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeUnwrapper = $typeUnwrapper;
         $this->nodeNameResolver = $nodeNameResolver;
     }

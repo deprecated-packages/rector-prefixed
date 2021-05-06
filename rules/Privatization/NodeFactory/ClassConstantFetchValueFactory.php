@@ -11,15 +11,15 @@ use Rector\Privatization\Reflection\ClassConstantsResolver;
 final class ClassConstantFetchValueFactory
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var \Rector\Privatization\Reflection\ClassConstantsResolver
+     * @var ClassConstantsResolver
      */
     private $classConstantsResolver;
     public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Privatization\Reflection\ClassConstantsResolver $classConstantsResolver)

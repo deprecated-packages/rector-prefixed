@@ -32,11 +32,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveAlwaysTrueConditionSetInConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer
+     * @var StaticTypeAnalyzer
      */
     private $staticTypeAnalyzer;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var TypeFactory
      */
     private $typeFactory;
     public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)

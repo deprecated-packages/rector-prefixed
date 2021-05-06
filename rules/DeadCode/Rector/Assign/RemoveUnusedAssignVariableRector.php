@@ -21,27 +21,27 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveUnusedAssignVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder
+     * @var SideEffectNodeDetector
      */
-    private $nextVariableUsageNodeFinder;
+    private $sideEffectNodeDetector;
     /**
-     * @var \Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder
+     * @var PreviousVariableAssignNodeFinder
      */
     private $previousVariableAssignNodeFinder;
     /**
-     * @var \Rector\NodeNestingScope\ScopeNestingComparator
+     * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
     /**
-     * @var \Rector\DeadCode\SideEffect\SideEffectNodeDetector
+     * @var NextVariableUsageNodeFinder
      */
-    private $sideEffectNodeDetector;
+    private $nextVariableUsageNodeFinder;
     public function __construct(\Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder $nextVariableUsageNodeFinder, \Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder $previousVariableAssignNodeFinder, \Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\DeadCode\SideEffect\SideEffectNodeDetector $sideEffectNodeDetector)
     {
-        $this->nextVariableUsageNodeFinder = $nextVariableUsageNodeFinder;
+        $this->sideEffectNodeDetector = $sideEffectNodeDetector;
         $this->previousVariableAssignNodeFinder = $previousVariableAssignNodeFinder;
         $this->scopeNestingComparator = $scopeNestingComparator;
-        $this->sideEffectNodeDetector = $sideEffectNodeDetector;
+        $this->nextVariableUsageNodeFinder = $nextVariableUsageNodeFinder;
     }
     /**
      * @return array<class-string<Node>>

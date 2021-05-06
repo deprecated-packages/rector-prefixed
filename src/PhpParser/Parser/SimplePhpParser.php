@@ -11,11 +11,11 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class SimplePhpParser
 {
     /**
-     * @var \PhpParser\Parser
+     * @var Parser
      */
     private $parser;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
     public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)

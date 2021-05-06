@@ -6,6 +6,7 @@ namespace Rector\Defluent\Rector\Return_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DefluentReturnMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer
+     * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
     public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer)
@@ -46,8 +47,9 @@ CODE_SAMPLE
     }
     /**
      * @param Return_ $node
+     * @return null|Expression[]|Return_[]
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
@@ -60,8 +62,6 @@ CODE_SAMPLE
             return null;
         }
         $variableReturn = new \PhpParser\Node\Stmt\Return_($methodCall->var);
-        $this->addNodesAfterNode([$methodCall, $variableReturn], $node);
-        $this->removeNode($node);
-        return null;
+        return [new \PhpParser\Node\Stmt\Expression($methodCall), $variableReturn];
     }
 }

@@ -24,23 +24,23 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Reflection\ClassLikeExistenceCh
 final class VarTagRemover
 {
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer
+     * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
+     * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
     /**
-     * @var \Rector\DeadCode\PhpDoc\DeadVarTagValueNodeAnalyzer
+     * @var DeadVarTagValueNodeAnalyzer
      */
     private $deadVarTagValueNodeAnalyzer;
     public function __construct(\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \Rector\DeadCode\PhpDoc\DeadVarTagValueNodeAnalyzer $deadVarTagValueNodeAnalyzer)

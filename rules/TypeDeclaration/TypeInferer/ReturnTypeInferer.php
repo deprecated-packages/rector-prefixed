@@ -18,11 +18,11 @@ final class ReturnTypeInferer
      */
     private $returnTypeInferers = [];
     /**
-     * @var \Rector\TypeDeclaration\TypeNormalizer
+     * @var TypeNormalizer
      */
     private $typeNormalizer;
     /**
-     * @var \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer
+     * @var GenericClassStringTypeNormalizer
      */
     private $genericClassStringTypeNormalizer;
     /**
@@ -30,9 +30,9 @@ final class ReturnTypeInferer
      */
     public function __construct(array $returnTypeInferers, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter, \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer $genericClassStringTypeNormalizer)
     {
+        $this->returnTypeInferers = $typeInfererSorter->sort($returnTypeInferers);
         $this->typeNormalizer = $typeNormalizer;
         $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
-        $this->returnTypeInferers = $typeInfererSorter->sort($returnTypeInferers);
     }
     public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {

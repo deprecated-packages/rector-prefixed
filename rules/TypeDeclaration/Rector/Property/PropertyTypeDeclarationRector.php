@@ -18,11 +18,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class PropertyTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer
+     * @var PropertyTypeInferer
      */
     private $propertyTypeInferer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)

@@ -30,19 +30,19 @@ final class FilesFinder
      */
     private $fileInfosBySourceAndSuffixes = [];
     /**
-     * @var \Rector\Core\FileSystem\FilesystemTweaker
+     * @var FilesystemTweaker
      */
     private $filesystemTweaker;
     /**
-     * @var \Symplify\SmartFileSystem\Finder\FinderSanitizer
+     * @var FinderSanitizer
      */
     private $finderSanitizer;
     /**
-     * @var \Symplify\SmartFileSystem\FileSystemFilter
+     * @var FileSystemFilter
      */
     private $fileSystemFilter;
     /**
-     * @var \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver
+     * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
     public function __construct(\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \RectorPrefix20210506\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210506\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)

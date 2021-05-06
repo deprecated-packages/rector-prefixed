@@ -11,7 +11,7 @@ use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
 final class ArrayParser
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser\PlainValueParser
+     * @var PlainValueParser
      */
     private $plainValueParser;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser\PlainValueParser $plainValueParser)

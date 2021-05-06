@@ -14,21 +14,21 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class MethodReflectionToAstResolver
 {
     /**
-     * @var array<string, array<string, ClassMethod>>
-     */
-    private $analyzedMethodsInFileName = [];
-    /**
-     * @var \Rector\FileSystemRector\Parser\FileInfoParser
+     * @var FileInfoParser
      */
     private $fileInfoParser;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
+    /**
+     * @var array<string, array<string, ClassMethod>>
+     */
+    private $analyzedMethodsInFileName = [];
     public function __construct(\Rector\FileSystemRector\Parser\FileInfoParser $fileInfoParser, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->fileInfoParser = $fileInfoParser;

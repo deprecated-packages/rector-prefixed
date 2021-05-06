@@ -14,15 +14,14 @@ final class ClassConstFetchToValue
      * @var string
      */
     private $constant;
+    /**
+     * @var mixed
+     */
     private $value;
-    public function __construct(
-        string $class,
-        string $constant,
-        /**
-         * @var mixed
-         */
-        $value
-    )
+    /**
+     * @param mixed $value
+     */
+    public function __construct(string $class, string $constant, $value)
     {
         $this->class = $class;
         $this->constant = $constant;

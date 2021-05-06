@@ -25,11 +25,11 @@ final class TypeNormalizer
      */
     private $collectedNestedArrayTypes = [];
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var TypeFactory
      */
     private $typeFactory;
     /**
-     * @var \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory
+     * @var UnionTypeFactory
      */
     private $unionTypeFactory;
     public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory)

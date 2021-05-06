@@ -25,23 +25,23 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CompleteDynamicPropertiesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodeQuality\NodeFactory\MissingPropertiesFactory
+     * @var MissingPropertiesFactory
      */
     private $missingPropertiesFactory;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer
+     * @var LocalPropertyAnalyzer
      */
     private $localPropertyAnalyzer;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer
+     * @var ClassLikeAnalyzer
      */
     private $classLikeAnalyzer;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
+     * @var ClassAnalyzer
      */
     private $classAnalyzer;
     public function __construct(\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)

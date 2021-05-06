@@ -28,11 +28,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ForeachToInArrayRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\BinaryOpManipulator
+     * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
     /**
-     * @var \Rector\BetterPhpDocParser\Comment\CommentsMerger
+     * @var CommentsMerger
      */
     private $commentsMerger;
     public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator, \Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger)

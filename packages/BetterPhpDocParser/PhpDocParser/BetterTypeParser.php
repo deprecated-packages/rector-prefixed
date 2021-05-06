@@ -13,13 +13,13 @@ use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 final class BetterTypeParser extends \PHPStan\PhpDocParser\Parser\TypeParser
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory
+     * @var TokenIteratorFactory
      */
     private $tokenIteratorFactory;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, ?\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser = null)
     {
-        $this->tokenIteratorFactory = $tokenIteratorFactory;
         parent::__construct($constExprParser);
+        $this->tokenIteratorFactory = $tokenIteratorFactory;
     }
     public function parse(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {

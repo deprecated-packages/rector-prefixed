@@ -12,7 +12,7 @@ final class InputFilePathWithExpectedFile
      */
     private $inputFilePath;
     /**
-     * @var \Rector\FileSystemRector\ValueObject\AddedFileWithContent
+     * @var AddedFileWithContent
      */
     private $addedFileWithContent;
     public function __construct(string $inputFilePath, \Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent)

@@ -11,19 +11,13 @@ final class ConcatStringAndPlaceholders
      */
     private $content;
     /**
-     * @var mixed[]
+     * @var Expr[]
      */
-    private $placeholderNodes;
+    private $placeholderNodes = [];
     /**
      * @param Expr[] $placeholderNodes
      */
-    public function __construct(
-        string $content,
-        /**
-         * @var Expr[]
-         */
-        array $placeholderNodes
-    )
+    public function __construct(string $content, array $placeholderNodes)
     {
         $this->content = $content;
         $this->placeholderNodes = $placeholderNodes;

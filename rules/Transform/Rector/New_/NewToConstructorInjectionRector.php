@@ -32,11 +32,11 @@ final class NewToConstructorInjectionRector extends \Rector\Core\Rector\Abstract
      */
     private $constructorInjectionObjectTypes = [];
     /**
-     * @var \Rector\Transform\NodeFactory\PropertyFetchFactory
+     * @var PropertyFetchFactory
      */
     private $propertyFetchFactory;
     /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     public function __construct(\Rector\Transform\NodeFactory\PropertyFetchFactory $propertyFetchFactory, \Rector\Naming\Naming\PropertyNaming $propertyNaming)

@@ -11,38 +11,30 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class ApplicationFileProcessor
 {
     /**
-     * @var \Rector\Core\Configuration\Configuration
+     * @var FileProcessorInterface[]
      */
-    private $configuration;
+    private $fileProcessors = [];
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var \Rector\Core\Application\FileDecorator\FileDiffFileDecorator
+     * @var Configuration
+     */
+    private $configuration;
+    /**
+     * @var FileDiffFileDecorator
      */
     private $fileDiffFileDecorator;
     /**
-     * @var mixed[]
-     */
-    private $fileProcessors;
-    /**
      * @param FileProcessorInterface[] $fileProcessors
      */
-    public function __construct(
-        \Rector\Core\Configuration\Configuration $configuration,
-        \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem,
-        \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator,
-        /**
-         * @var FileProcessorInterface[]
-         */
-        array $fileProcessors = []
-    )
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, array $fileProcessors = [])
     {
-        $this->configuration = $configuration;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->fileDiffFileDecorator = $fileDiffFileDecorator;
         $this->fileProcessors = $fileProcessors;
+        $this->smartFileSystem = $smartFileSystem;
+        $this->configuration = $configuration;
+        $this->fileDiffFileDecorator = $fileDiffFileDecorator;
     }
     /**
      * @param File[] $files

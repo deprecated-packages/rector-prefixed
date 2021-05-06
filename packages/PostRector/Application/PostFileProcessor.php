@@ -18,26 +18,26 @@ final class PostFileProcessor
      */
     private $postRectors = [];
     /**
-     * @var \Symplify\Skipper\Skipper\Skipper
+     * @var Skipper
      */
     private $skipper;
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
-     */
-    private $currentFileProvider;
-    /**
-     * @var \Rector\Core\Logging\CurrentRectorProvider
+     * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
     /**
      * @param PostRectorInterface[] $postRectors
      */
     public function __construct(\RectorPrefix20210506\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, array $postRectors)
     {
-        $this->skipper = $skipper;
-        $this->currentFileProvider = $currentFileProvider;
-        $this->currentRectorProvider = $currentRectorProvider;
         $this->postRectors = $this->sortByPriority($postRectors);
+        $this->skipper = $skipper;
+        $this->currentRectorProvider = $currentRectorProvider;
+        $this->currentFileProvider = $currentFileProvider;
     }
     /**
      * @param Stmt[] $nodes

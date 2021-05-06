@@ -11,11 +11,11 @@ use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 final class ExprStringTypeResolver
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper
+     * @var TypeUnwrapper
      */
     private $typeUnwrapper;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)

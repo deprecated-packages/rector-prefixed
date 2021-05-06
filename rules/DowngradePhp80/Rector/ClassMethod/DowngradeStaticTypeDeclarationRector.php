@@ -19,11 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeStaticTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator
+     * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

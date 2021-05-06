@@ -46,21 +46,13 @@ final class PhpDocInfo
     /**
      * @var PhpDocNode
      */
-    private $originalPhpDocNode;
-    /**
-     * @var bool
-     */
-    private $hasChanged = \false;
-    /**
-     * @var \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
-     */
     private $phpDocNode;
     /**
-     * @var \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator
+     * @var PhpDocNode
      */
-    private $betterTokenIterator;
+    private $originalPhpDocNode;
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
@@ -68,30 +60,38 @@ final class PhpDocInfo
      */
     private $node;
     /**
-     * @var \Rector\BetterPhpDocParser\Annotation\AnnotationNaming
+     * @var bool
+     */
+    private $hasChanged = \false;
+    /**
+     * @var AnnotationNaming
      */
     private $annotationNaming;
     /**
-     * @var \Rector\Core\Configuration\CurrentNodeProvider
+     * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
     /**
-     * @var \Rector\ChangesReporting\Collector\RectorChangeCollector
+     * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
+    /**
+     * @var BetterTokenIterator
+     */
+    private $betterTokenIterator;
     public function __construct(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->phpDocNode = $phpDocNode;
         $this->betterTokenIterator = $betterTokenIterator;
+        $this->originalPhpDocNode = clone $phpDocNode;
+        if (!$betterTokenIterator->containsTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL)) {
+            $this->isSingleLine = \true;
+        }
         $this->staticTypeMapper = $staticTypeMapper;
         $this->node = $node;
         $this->annotationNaming = $annotationNaming;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->rectorChangeCollector = $rectorChangeCollector;
-        $this->originalPhpDocNode = clone $phpDocNode;
-        if (!$betterTokenIterator->containsTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL)) {
-            $this->isSingleLine = \true;
-        }
     }
     public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : void
     {

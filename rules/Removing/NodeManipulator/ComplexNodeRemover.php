@@ -25,37 +25,37 @@ use Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ComplexNodeRemover
 {
     /**
-     * @var \Rector\NodeRemoval\ClassMethodRemover
+     * @var NodeComparator
+     */
+    private $nodeComparator;
+    /**
+     * @var ClassMethodRemover
      */
     private $classMethodRemover;
     /**
-     * @var \Rector\NodeRemoval\AssignRemover
+     * @var AssignRemover
      */
     private $assignRemover;
     /**
-     * @var \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder
+     * @var PropertyFetchFinder
      */
     private $propertyFetchFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeRemoval\NodeRemover
+     * @var NodeRemover
      */
     private $nodeRemover;
     /**
-     * @var \Rector\PostRector\Collector\NodesToRemoveCollector
+     * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-    /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
-     */
-    private $nodeComparator;
     public function __construct(\Rector\NodeRemoval\ClassMethodRemover $classMethodRemover, \Rector\NodeRemoval\AssignRemover $assignRemover, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->classMethodRemover = $classMethodRemover;

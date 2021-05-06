@@ -27,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class Php4ConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php70\NodeAnalyzer\Php4ConstructorClassMethodAnalyzer
+     * @var Php4ConstructorClassMethodAnalyzer
      */
     private $php4ConstructorClassMethodAnalyzer;
     public function __construct(\Rector\Php70\NodeAnalyzer\Php4ConstructorClassMethodAnalyzer $php4ConstructorClassMethodAnalyzer)

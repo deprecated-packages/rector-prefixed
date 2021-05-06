@@ -5,6 +5,7 @@ namespace Rector\EarlyReturn\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
@@ -23,11 +24,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeIfElseValueAssignToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\Core\NodeManipulator\StmtsManipulator
+     * @var StmtsManipulator
      */
     private $stmtsManipulator;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator)
@@ -75,8 +76,9 @@ CODE_SAMPLE
     }
     /**
      * @param If_ $node
+     * @return Stmt[]|Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
@@ -108,8 +110,7 @@ CODE_SAMPLE
         $this->mirrorComments($return, $assign);
         $elseStmts[$lastElseStmtKey] = $return;
         $node->else = null;
-        $this->addNodesAfterNode($elseStmts, $node);
         $this->removeNode($nextNode);
-        return $node;
+        return \array_merge([$node], $elseStmts);
     }
 }

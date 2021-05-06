@@ -30,15 +30,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SimplifyIfNullableReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\CodeQuality\TypeResolver\AssignVariableTypeResolver
+     * @var AssignVariableTypeResolver
      */
     private $assignVariableTypeResolver;
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover
+     * @var VarTagRemover
      */
     private $varTagRemover;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\CodeQuality\TypeResolver\AssignVariableTypeResolver $assignVariableTypeResolver, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover)

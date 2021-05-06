@@ -21,39 +21,39 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class VariableManipulator
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ArrayManipulator
-     */
-    private $arrayManipulator;
-    /**
-     * @var \Rector\Core\NodeManipulator\AssignManipulator
-     */
-    private $assignManipulator;
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var AssignManipulator
+     */
+    private $assignManipulator;
+    /**
+     * @var NodeComparator
+     */
+    private $nodeComparator;
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var ArrayManipulator
+     */
+    private $arrayManipulator;
+    /**
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\ReadWrite\Guard\VariableToConstantGuard
+     * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
-    /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
-     */
-    private $nodeComparator;
     public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
-        $this->arrayManipulator = $arrayManipulator;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->assignManipulator = $assignManipulator;
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->arrayManipulator = $arrayManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->nodeComparator = $nodeComparator;

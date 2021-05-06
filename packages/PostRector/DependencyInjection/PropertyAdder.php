@@ -17,23 +17,23 @@ use Rector\PostRector\Collector\PropertyToAddCollector;
 final class PropertyAdder
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\PostRector\Collector\PropertyToAddCollector
+     * @var PropertyToAddCollector
      */
     private $propertyToAddCollector;
     /**
-     * @var \Rector\ChangesReporting\Collector\RectorChangeCollector
+     * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
     /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Naming\Naming\PropertyNaming $propertyNaming)

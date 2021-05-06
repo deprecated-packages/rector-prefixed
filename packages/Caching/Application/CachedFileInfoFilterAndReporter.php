@@ -10,15 +10,15 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class CachedFileInfoFilterAndReporter
 {
     /**
-     * @var \Rector\Core\Configuration\Configuration
+     * @var Configuration
      */
     private $configuration;
     /**
-     * @var \Rector\Caching\Detector\ChangedFilesDetector
+     * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
     /**
-     * @var \Rector\Caching\UnchangedFilesFilter
+     * @var UnchangedFilesFilter
      */
     private $unchangedFilesFilter;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)

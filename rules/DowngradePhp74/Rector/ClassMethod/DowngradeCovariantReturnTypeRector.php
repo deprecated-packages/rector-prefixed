@@ -28,15 +28,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeCovariantReturnTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesCaller
+     * @var PrivatesCaller
      */
     private $privatesCaller;
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover
+     * @var ReturnTagRemover
      */
     private $returnTagRemover;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover)

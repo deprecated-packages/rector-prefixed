@@ -21,15 +21,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveParentCallWithoutParentRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ClassMethodManipulator
+     * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
     /**
-     * @var \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver
+     * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
     /**
-     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
+     * @var ClassAnalyzer
      */
     private $classAnalyzer;
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)

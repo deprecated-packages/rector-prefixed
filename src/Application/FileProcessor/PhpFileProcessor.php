@@ -36,67 +36,67 @@ final class PhpFileProcessor implements \Rector\Core\Contract\Processor\FileProc
      */
     private const PROGRESS_BAR_STEP_MULTIPLIER = 4;
     /**
+     * @var Configuration
+     */
+    private $configuration;
+    /**
      * @var File[]
      */
     private $notParsedFiles = [];
     /**
-     * @var \Rector\Core\Configuration\Configuration
-     */
-    private $configuration;
-    /**
-     * @var \Rector\Core\PhpParser\Printer\FormatPerservingPrinter
-     */
-    private $formatPerservingPrinter;
-    /**
-     * @var \Rector\Core\Application\FileProcessor
-     */
-    private $fileProcessor;
-    /**
-     * @var \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-    /**
-     * @var \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor
-     */
-    private $removedAndAddedFilesProcessor;
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     * @var FileProcessor
+     */
+    private $fileProcessor;
+    /**
+     * @var RemovedAndAddedFilesCollector
+     */
+    private $removedAndAddedFilesCollector;
+    /**
+     * @var RemovedAndAddedFilesProcessor
+     */
+    private $removedAndAddedFilesProcessor;
+    /**
+     * @var PrivatesAccessor
      */
     private $privatesAccessor;
     /**
-     * @var \Rector\Core\Application\FileDecorator\FileDiffFileDecorator
+     * @var FileDiffFileDecorator
      */
     private $fileDiffFileDecorator;
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
+     * @var CurrentFileProvider
      */
     private $currentFileProvider;
     /**
-     * @var \Rector\PostRector\Application\PostFileProcessor
+     * @var FormatPerservingPrinter
+     */
+    private $formatPerservingPrinter;
+    /**
+     * @var PostFileProcessor
      */
     private $postFileProcessor;
     /**
-     * @var \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory
+     * @var ErrorFactory
      */
     private $errorFactory;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Core\PhpParser\Printer\FormatPerservingPrinter $formatPerservingPrinter, \Rector\Core\Application\FileProcessor $fileProcessor, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\Core\Application\FileDecorator\FileDiffFileDecorator $fileDiffFileDecorator, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor, \Rector\ChangesReporting\ValueObjectFactory\ErrorFactory $errorFactory)
     {
+        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
-        $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->fileProcessor = $fileProcessor;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->removedAndAddedFilesProcessor = $removedAndAddedFilesProcessor;
-        $this->symfonyStyle = $symfonyStyle;
         $this->privatesAccessor = $privatesAccessor;
         $this->fileDiffFileDecorator = $fileDiffFileDecorator;
+        $this->configuration = $configuration;
         $this->currentFileProvider = $currentFileProvider;
+        $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->postFileProcessor = $postFileProcessor;
         $this->errorFactory = $errorFactory;
-        $this->configuration = $configuration;
     }
     /**
      * @param File[] $files

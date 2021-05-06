@@ -24,11 +24,11 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
      */
     private $nodesToAddBefore = [];
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\ChangesReporting\Collector\RectorChangeCollector
+     * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)

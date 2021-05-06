@@ -21,7 +21,7 @@ final class StringifyStrNeedlesRector extends \Rector\Core\Rector\AbstractRector
      */
     private const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
     /**
-     * @var \Rector\Php73\NodeTypeAnalyzer\NodeTypeAnalyzer
+     * @var NodeTypeAnalyzer
      */
     private $nodeTypeAnalyzer;
     public function __construct(\Rector\Php73\NodeTypeAnalyzer\NodeTypeAnalyzer $nodeTypeAnalyzer)

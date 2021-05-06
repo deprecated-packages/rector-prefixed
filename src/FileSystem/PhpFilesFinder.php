@@ -10,15 +10,15 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class PhpFilesFinder
 {
     /**
-     * @var \Rector\Core\FileSystem\FilesFinder
+     * @var FilesFinder
      */
     private $filesFinder;
     /**
-     * @var \Rector\Core\Configuration\Configuration
+     * @var Configuration
      */
     private $configuration;
     /**
-     * @var \Rector\Caching\Application\CachedFileInfoFilterAndReporter
+     * @var CachedFileInfoFilterAndReporter
      */
     private $cachedFileInfoFilterAndReporter;
     public function __construct(\Rector\Core\FileSystem\FilesFinder $filesFinder, \Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Application\CachedFileInfoFilterAndReporter $cachedFileInfoFilterAndReporter)

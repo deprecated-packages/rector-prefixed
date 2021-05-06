@@ -17,11 +17,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveUselessParamTagRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\PhpDoc\DeadParamTagValueNodeAnalyzer
+     * @var DeadParamTagValueNodeAnalyzer
      */
     private $deadParamTagValueNodeAnalyzer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
+     * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
     public function __construct(\Rector\DeadCode\PhpDoc\DeadParamTagValueNodeAnalyzer $deadParamTagValueNodeAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)

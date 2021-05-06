@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeStreamIsattyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\PhpParser\Parser\InlineCodeParser
+     * @var InlineCodeParser
      */
     private $inlineCodeParser;
     public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)

@@ -22,31 +22,31 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class AssignToPropertyTypeInferer
 {
     /**
-     * @var \Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector
+     * @var ConstructorAssignDetector
      */
     private $constructorAssignDetector;
     /**
-     * @var \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher
+     * @var PropertyAssignMatcher
      */
     private $propertyAssignMatcher;
     /**
-     * @var \Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector
+     * @var PropertyDefaultAssignDetector
      */
     private $propertyDefaultAssignDetector;
     /**
-     * @var \Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector
+     * @var NullTypeAssignDetector
      */
     private $nullTypeAssignDetector;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var TypeFactory
      */
     private $typeFactory;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     public function __construct(\Rector\TypeDeclaration\AlreadyAssignDetector\ConstructorAssignDetector $constructorAssignDetector, \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \Rector\TypeDeclaration\AlreadyAssignDetector\PropertyDefaultAssignDetector $propertyDefaultAssignDetector, \Rector\TypeDeclaration\AlreadyAssignDetector\NullTypeAssignDetector $nullTypeAssignDetector, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)

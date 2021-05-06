@@ -9,11 +9,11 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class FamilyRelationsAnalyzer
 {
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     * @var PrivatesAccessor
      */
     private $privatesAccessor;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)

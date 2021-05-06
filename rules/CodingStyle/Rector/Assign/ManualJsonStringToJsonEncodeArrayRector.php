@@ -40,19 +40,19 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      */
     private const JSON_STRING_REGEX = '#{(.*?\\:.*?)}#s';
     /**
-     * @var \Rector\CodingStyle\Node\ConcatJoiner
+     * @var ConcatJoiner
      */
     private $concatJoiner;
     /**
-     * @var \Rector\CodingStyle\Node\ConcatManipulator
+     * @var ConcatManipulator
      */
     private $concatManipulator;
     /**
-     * @var \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory
+     * @var JsonEncodeStaticCallFactory
      */
     private $jsonEncodeStaticCallFactory;
     /**
-     * @var \Rector\CodingStyle\NodeFactory\JsonArrayFactory
+     * @var JsonArrayFactory
      */
     private $jsonArrayFactory;
     public function __construct(\Rector\CodingStyle\Node\ConcatJoiner $concatJoiner, \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator, \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory $jsonEncodeStaticCallFactory, \Rector\CodingStyle\NodeFactory\JsonArrayFactory $jsonArrayFactory)

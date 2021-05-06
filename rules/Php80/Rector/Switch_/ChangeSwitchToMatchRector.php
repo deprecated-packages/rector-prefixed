@@ -27,17 +27,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeSwitchToMatchRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var Expr|null
-     */
-    private $assignExpr;
-    /**
-     * @var \Rector\Php80\NodeResolver\SwitchExprsResolver
+     * @var SwitchExprsResolver
      */
     private $switchExprsResolver;
     /**
-     * @var \Rector\Php80\NodeAnalyzer\SwitchAnalyzer
+     * @var SwitchAnalyzer
      */
     private $switchAnalyzer;
+    /**
+     * @var Expr|null
+     */
+    private $assignExpr;
     public function __construct(\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
     {
         $this->switchExprsResolver = $switchExprsResolver;

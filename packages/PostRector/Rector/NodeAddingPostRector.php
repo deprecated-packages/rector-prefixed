@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
-     * @var \Rector\PostRector\Collector\NodesToAddCollector
+     * @var NodesToAddCollector
      */
     private $nodesToAddCollector;
     public function __construct(\Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector)

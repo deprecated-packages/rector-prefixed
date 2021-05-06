@@ -15,17 +15,21 @@ use PhpParser\Node\Expr\Variable;
 final class VariableAssignPair
 {
     /**
-     * @var \PhpParser\Node
+     * @var Variable|ArrayDimFetch|PropertyFetch|StaticPropertyFetch
      */
     private $variable;
     /**
-     * @var \PhpParser\Node
+     * @var Assign|AssignOp|AssignRef
      */
     private $assign;
-    public function __construct(\PhpParser\Node $variable, \PhpParser\Node $assign)
+    /**
+     * @param Variable|ArrayDimFetch|PropertyFetch|StaticPropertyFetch $variable
+     * @param Assign|AssignOp|AssignRef $node
+     */
+    public function __construct(\PhpParser\Node $variable, \PhpParser\Node $node)
     {
         $this->variable = $variable;
-        $this->assign = $assign;
+        $this->assign = $node;
     }
     /**
      * @return Variable|ArrayDimFetch|PropertyFetch|StaticPropertyFetch

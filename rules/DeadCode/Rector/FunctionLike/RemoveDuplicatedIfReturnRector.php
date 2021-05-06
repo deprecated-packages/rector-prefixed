@@ -24,11 +24,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDuplicatedIfReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector
+     * @var ModifiedVariableNamesCollector
      */
     private $modifiedVariableNamesCollector;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\DeadCode\NodeCollector\ModifiedVariableNamesCollector $modifiedVariableNamesCollector, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)

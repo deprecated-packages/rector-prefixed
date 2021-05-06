@@ -23,36 +23,36 @@ final class PropertyTypeInferer
      */
     private $propertyTypeInferers = [];
     /**
-     * @var \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer
-     */
-    private $genericClassStringTypeNormalizer;
-    /**
-     * @var \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer
+     * @var DefaultValuePropertyTypeInferer
      */
     private $defaultValuePropertyTypeInferer;
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer
-     */
-    private $varDocPropertyTypeInferer;
-    /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var TypeFactory
      */
     private $typeFactory;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer
+     * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
+    /**
+     * @var VarDocPropertyTypeInferer
+     */
+    private $varDocPropertyTypeInferer;
+    /**
+     * @var GenericClassStringTypeNormalizer
+     */
+    private $genericClassStringTypeNormalizer;
     /**
      * @param PropertyTypeInfererInterface[] $propertyTypeInferers
      */
     public function __construct(\Rector\TypeDeclaration\Sorter\TypeInfererSorter $typeInfererSorter, \Rector\TypeDeclaration\TypeAnalyzer\GenericClassStringTypeNormalizer $genericClassStringTypeNormalizer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\DefaultValuePropertyTypeInferer $defaultValuePropertyTypeInferer, \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\VarDocPropertyTypeInferer $varDocPropertyTypeInferer, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, array $propertyTypeInferers)
     {
-        $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
+        $this->propertyTypeInferers = $typeInfererSorter->sort($propertyTypeInferers);
         $this->defaultValuePropertyTypeInferer = $defaultValuePropertyTypeInferer;
-        $this->varDocPropertyTypeInferer = $varDocPropertyTypeInferer;
         $this->typeFactory = $typeFactory;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
-        $this->propertyTypeInferers = $typeInfererSorter->sort($propertyTypeInferers);
+        $this->varDocPropertyTypeInferer = $varDocPropertyTypeInferer;
+        $this->genericClassStringTypeNormalizer = $genericClassStringTypeNormalizer;
     }
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {

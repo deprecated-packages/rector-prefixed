@@ -19,23 +19,23 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class NullTypeAssignDetector
 {
     /**
-     * @var \Rector\NodeNestingScope\ScopeNestingComparator
+     * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer
+     * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher
+     * @var PropertyAssignMatcher
      */
     private $propertyAssignMatcher;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)

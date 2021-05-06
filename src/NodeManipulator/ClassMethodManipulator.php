@@ -23,30 +23,30 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodManipulator
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var NodeComparator
      */
     private $nodeComparator;
     /**
-     * @var \Rector\Core\NodeManipulator\FuncCallManipulator
+     * @var FuncCallManipulator
      */
     private $funcCallManipulator;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\NodeManipulator\FuncCallManipulator $funcCallManipulator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeComparator = $nodeComparator;
         $this->funcCallManipulator = $funcCallManipulator;
     }

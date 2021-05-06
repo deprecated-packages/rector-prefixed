@@ -15,17 +15,17 @@ use Rector\NodeNestingScope\ValueObject\ControlStructure;
 final class ScopeNestingComparator
 {
     /**
-     * @var Expr[]
-     */
-    private $doubleIfBranchExprs = [];
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
+    /**
+     * @var Expr[]
+     */
+    private $doubleIfBranchExprs = [];
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;

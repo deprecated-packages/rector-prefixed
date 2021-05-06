@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class StringifyDefineRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer
+     * @var StringTypeAnalyzer
      */
     private $stringTypeAnalyzer;
     public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer)

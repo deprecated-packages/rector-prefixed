@@ -20,21 +20,21 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RenameVariableToMatchNewTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Naming\Guard\BreakingVariableRenameGuard
-     */
-    private $breakingVariableRenameGuard;
-    /**
-     * @var \Rector\Naming\Naming\ExpectedNameResolver
+     * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
     /**
-     * @var \Rector\Naming\VariableRenamer
+     * @var BreakingVariableRenameGuard
+     */
+    private $breakingVariableRenameGuard;
+    /**
+     * @var VariableRenamer
      */
     private $variableRenamer;
     public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\VariableRenamer $variableRenamer)
     {
-        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->expectedNameResolver = $expectedNameResolver;
+        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->variableRenamer = $variableRenamer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition

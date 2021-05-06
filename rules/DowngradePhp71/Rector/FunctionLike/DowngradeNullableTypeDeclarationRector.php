@@ -22,11 +22,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeNullableTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator
+     * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)

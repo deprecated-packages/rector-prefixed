@@ -25,7 +25,7 @@ final class StringableForToStringRector extends \Rector\Core\Rector\AbstractRect
      */
     private const STRINGABLE = 'Stringable';
     /**
-     * @var \Rector\Core\NodeManipulator\ClassManipulator
+     * @var ClassManipulator
      */
     private $classManipulator;
     public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)

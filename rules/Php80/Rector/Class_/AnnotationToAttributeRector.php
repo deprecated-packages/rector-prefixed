@@ -37,11 +37,11 @@ final class AnnotationToAttributeRector extends \Rector\Core\Rector\AbstractRect
      */
     private $annotationsToAttributes = [];
     /**
-     * @var \Rector\PhpAttribute\Printer\PhpAttributeGroupFactory
+     * @var PhpAttributeGroupFactory
      */
     private $phpAttributeGroupFactory;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
+     * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
     public function __construct(\Rector\PhpAttribute\Printer\PhpAttributeGroupFactory $phpAttributeGroupFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)

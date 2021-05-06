@@ -17,7 +17,7 @@ use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 final class TraitTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)

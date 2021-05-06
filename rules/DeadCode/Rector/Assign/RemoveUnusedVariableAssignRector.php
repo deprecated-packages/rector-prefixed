@@ -30,19 +30,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveUnusedVariableAssignRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\Php\ReservedKeywordAnalyzer
+     * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
     /**
-     * @var \Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer
+     * @var CompactFuncCallAnalyzer
      */
     private $compactFuncCallAnalyzer;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\ConditionSearcher
+     * @var ConditionSearcher
      */
     private $conditionSearcher;
     /**
-     * @var \Rector\DeadCode\NodeAnalyzer\UsedVariableNameAnalyzer
+     * @var UsedVariableNameAnalyzer
      */
     private $usedVariableNameAnalyzer;
     public function __construct(\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\Core\NodeAnalyzer\CompactFuncCallAnalyzer $compactFuncCallAnalyzer, \Rector\Core\PhpParser\Comparing\ConditionSearcher $conditionSearcher, \Rector\DeadCode\NodeAnalyzer\UsedVariableNameAnalyzer $usedVariableNameAnalyzer)

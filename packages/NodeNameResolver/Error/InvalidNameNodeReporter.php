@@ -19,11 +19,11 @@ final class InvalidNameNodeReporter
      */
     private const FILE = 'file';
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
+     * @var CurrentFileProvider
      */
     private $currentFileProvider;
     /**
-     * @var \Rector\Core\PhpParser\Printer\BetterStandardPrinter
+     * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
     public function __construct(\Rector\Core\Provider\CurrentFileProvider $currentFileProvider, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)

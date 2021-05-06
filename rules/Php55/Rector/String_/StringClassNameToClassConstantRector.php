@@ -39,7 +39,7 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
         'Exception',
     ];
     /**
-     * @var \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker
+     * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
     public function __construct(\RectorPrefix20210506\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)

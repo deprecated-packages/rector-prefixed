@@ -16,7 +16,7 @@ use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 final class ChildTypeResolver
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)

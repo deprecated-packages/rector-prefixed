@@ -16,7 +16,7 @@ use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 final class BooleanTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
     /**
-     * @var \Rector\Core\Php\PhpVersionProvider
+     * @var PhpVersionProvider
      */
     private $phpVersionProvider;
     public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)

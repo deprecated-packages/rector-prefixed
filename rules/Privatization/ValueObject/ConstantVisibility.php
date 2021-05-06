@@ -8,15 +8,15 @@ final class ConstantVisibility
     /**
      * @var bool
      */
-    private $isPublic;
+    private $isPublic = \false;
     /**
      * @var bool
      */
-    private $isProtected;
+    private $isProtected = \false;
     /**
      * @var bool
      */
-    private $isPrivate;
+    private $isPrivate = \false;
     public function __construct(bool $isPublic, bool $isProtected, bool $isPrivate)
     {
         $this->isPublic = $isPublic;

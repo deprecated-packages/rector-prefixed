@@ -12,11 +12,11 @@ use Rector\TypeDeclaration\FunctionLikeReturnTypeResolver;
 final class ReturnTypeDeclarationReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
-     * @var \Rector\TypeDeclaration\FunctionLikeReturnTypeResolver
+     * @var FunctionLikeReturnTypeResolver
      */
     private $functionLikeReturnTypeResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\TypeDeclaration\FunctionLikeReturnTypeResolver $functionLikeReturnTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

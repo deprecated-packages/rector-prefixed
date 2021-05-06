@@ -37,15 +37,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\PHPStan\Reflection\CallReflectionResolver
+     * @var CallReflectionResolver
      */
     private $callReflectionResolver;
     /**
-     * @var \Rector\Php70\NodeAnalyzer\VariableNaming
+     * @var VariableNaming
      */
     private $variableNaming;
     /**
-     * @var \Rector\NodeNestingScope\ParentScopeFinder
+     * @var ParentScopeFinder
      */
     private $parentScopeFinder;
     public function __construct(\Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver, \Rector\Php70\NodeAnalyzer\VariableNaming $variableNaming, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)

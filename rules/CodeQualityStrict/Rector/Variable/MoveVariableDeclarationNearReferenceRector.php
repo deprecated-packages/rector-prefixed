@@ -37,11 +37,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MoveVariableDeclarationNearReferenceRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder
+     * @var ScopeAwareNodeFinder
      */
     private $scopeAwareNodeFinder;
     /**
-     * @var \Rector\DeadCode\SideEffect\PureFunctionDetector
+     * @var PureFunctionDetector
      */
     private $pureFunctionDetector;
     public function __construct(\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder, \Rector\DeadCode\SideEffect\PureFunctionDetector $pureFunctionDetector)

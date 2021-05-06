@@ -28,11 +28,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CallableThisArrayToAnonymousFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\CallableClassMethodMatcher
+     * @var CallableClassMethodMatcher
      */
     private $callableClassMethodMatcher;
     /**
-     * @var \Rector\CodeQuality\NodeFactory\AnonymousFunctionFactory
+     * @var AnonymousFunctionFactory
      */
     private $anonymousFunctionFactory;
     public function __construct(\Rector\CodeQuality\NodeAnalyzer\CallableClassMethodMatcher $callableClassMethodMatcher, \Rector\CodeQuality\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory)

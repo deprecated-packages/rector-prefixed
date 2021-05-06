@@ -29,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class FlipTypeControlToUseExclusiveTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover
+     * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)

@@ -36,7 +36,7 @@ final class AssignArrayToStringRector extends \Rector\Core\Rector\AbstractRector
      */
     private $emptyStringProperties = [];
     /**
-     * @var \Rector\Php71\NodeFinder\EmptyStringDefaultPropertyFinder
+     * @var EmptyStringDefaultPropertyFinder
      */
     private $emptyStringDefaultPropertyFinder;
     public function __construct(\Rector\Php71\NodeFinder\EmptyStringDefaultPropertyFinder $emptyStringDefaultPropertyFinder)

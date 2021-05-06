@@ -22,11 +22,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ParamTypeToAssertTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodeQualityStrict\NodeFactory\ClassConstFetchFactory
+     * @var ClassConstFetchFactory
      */
     private $classConstFetchFactory;
     /**
-     * @var \Rector\CodeQualityStrict\TypeAnalyzer\SubTypeAnalyzer
+     * @var SubTypeAnalyzer
      */
     private $subTypeAnalyzer;
     public function __construct(\Rector\CodeQualityStrict\NodeFactory\ClassConstFetchFactory $classConstFetchFactory, \Rector\CodeQualityStrict\TypeAnalyzer\SubTypeAnalyzer $subTypeAnalyzer)

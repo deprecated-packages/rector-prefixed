@@ -21,15 +21,15 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class NewTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
+     * @var ClassAnalyzer
      */
     private $classAnalyzer;
     /**
-     * @var \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory
+     * @var UnionTypeFactory
      */
     private $unionTypeFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory $unionTypeFactory)

@@ -20,11 +20,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveUnusedPrivatePropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\PropertyManipulator
+     * @var PropertyManipulator
      */
     private $propertyManipulator;
     /**
-     * @var \Rector\Removing\NodeManipulator\ComplexNodeRemover
+     * @var ComplexNodeRemover
      */
     private $complexNodeRemover;
     public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover)

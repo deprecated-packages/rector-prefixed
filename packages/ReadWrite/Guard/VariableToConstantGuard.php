@@ -21,15 +21,15 @@ final class VariableToConstantGuard
      */
     private $referencePositionsByFunctionName = [];
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     * @var PrivatesAccessor
      */
     private $privatesAccessor;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)

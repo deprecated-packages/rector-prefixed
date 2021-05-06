@@ -36,15 +36,15 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
      */
     private $inferParamFromClassMethodReturn = [];
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer
+     * @var ReturnTypeInferer
      */
     private $returnTypeInferer;
     /**
-     * @var \Rector\Restoration\Type\ConstantReturnToParamTypeConverter
+     * @var ConstantReturnToParamTypeConverter
      */
     private $constantReturnToParamTypeConverter;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)

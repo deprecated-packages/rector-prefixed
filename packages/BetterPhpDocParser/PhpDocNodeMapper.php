@@ -7,6 +7,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use Rector\BetterPhpDocParser\Contract\BasePhpDocNodeVisitorInterface;
 use Rector\BetterPhpDocParser\DataProvider\CurrentTokenIteratorProvider;
 use Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator;
+use RectorPrefix20210506\Symplify\SimplePhpDocParser\Contract\PhpDocNodeVisitorInterface;
 use RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 use RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CloningPhpDocNodeVisitor;
 use RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitor;
@@ -16,30 +17,30 @@ use RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentCon
 final class PhpDocNodeMapper
 {
     /**
-     * @var \Rector\BetterPhpDocParser\DataProvider\CurrentTokenIteratorProvider
+     * @var PhpDocNodeVisitorInterface[]
+     */
+    private $phpDocNodeVisitors = [];
+    /**
+     * @var CurrentTokenIteratorProvider
      */
     private $currentTokenIteratorProvider;
     /**
-     * @var \Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitor
+     * @var ParentConnectingPhpDocNodeVisitor
      */
     private $parentConnectingPhpDocNodeVisitor;
     /**
-     * @var \Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CloningPhpDocNodeVisitor
+     * @var CloningPhpDocNodeVisitor
      */
     private $cloningPhpDocNodeVisitor;
     /**
-     * @var mixed[]
-     */
-    private $phpDocNodeVisitors;
-    /**
      * @param BasePhpDocNodeVisitorInterface[] $phpDocNodeVisitors
      */
-    public function __construct(\Rector\BetterPhpDocParser\DataProvider\CurrentTokenIteratorProvider $currentTokenIteratorProvider, \RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitor $parentConnectingPhpDocNodeVisitor, \RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CloningPhpDocNodeVisitor $cloningPhpDocNodeVisitor, array $phpDocNodeVisitors = [])
+    public function __construct(\Rector\BetterPhpDocParser\DataProvider\CurrentTokenIteratorProvider $currentTokenIteratorProvider, \RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\ParentConnectingPhpDocNodeVisitor $parentConnectingPhpDocNodeVisitor, \RectorPrefix20210506\Symplify\SimplePhpDocParser\PhpDocNodeVisitor\CloningPhpDocNodeVisitor $cloningPhpDocNodeVisitor, array $phpDocNodeVisitors)
     {
+        $this->phpDocNodeVisitors = $phpDocNodeVisitors;
         $this->currentTokenIteratorProvider = $currentTokenIteratorProvider;
         $this->parentConnectingPhpDocNodeVisitor = $parentConnectingPhpDocNodeVisitor;
         $this->cloningPhpDocNodeVisitor = $cloningPhpDocNodeVisitor;
-        $this->phpDocNodeVisitors = $phpDocNodeVisitors;
     }
     public function transform(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, \Rector\BetterPhpDocParser\ValueObject\Parser\BetterTokenIterator $betterTokenIterator) : void
     {

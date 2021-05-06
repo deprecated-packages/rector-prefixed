@@ -9,7 +9,7 @@ use Rector\NodeNameResolver\NodeNameResolver;
 final class ClassMethodVisibilityGuard
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

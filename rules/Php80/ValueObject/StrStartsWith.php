@@ -8,27 +8,27 @@ use PhpParser\Node\Expr\FuncCall;
 final class StrStartsWith
 {
     /**
-     * @var \PhpParser\Node\Expr\FuncCall
+     * @var bool
+     */
+    private $isPositive = \false;
+    /**
+     * @var FuncCall
      */
     private $funcCall;
     /**
-     * @var \PhpParser\Node\Expr
+     * @var Expr
      */
     private $haystackExpr;
     /**
-     * @var \PhpParser\Node\Expr
+     * @var Expr
      */
     private $needleExpr;
-    /**
-     * @var bool
-     */
-    private $isPositive;
     public function __construct(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $haystackExpr, \PhpParser\Node\Expr $needleExpr, bool $isPositive)
     {
         $this->funcCall = $funcCall;
         $this->haystackExpr = $haystackExpr;
-        $this->needleExpr = $needleExpr;
         $this->isPositive = $isPositive;
+        $this->needleExpr = $needleExpr;
     }
     public function getFuncCall() : \PhpParser\Node\Expr\FuncCall
     {

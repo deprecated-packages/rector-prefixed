@@ -17,15 +17,15 @@ use Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ClassManipulator
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\PostRector\Collector\NodesToRemoveCollector
+     * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

@@ -20,7 +20,7 @@ final class ClassAnnotationMatcher
      */
     private $fullyQualifiedNameByHash = [];
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)

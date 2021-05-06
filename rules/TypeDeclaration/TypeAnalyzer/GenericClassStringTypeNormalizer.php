@@ -12,7 +12,7 @@ use PHPStan\Type\TypeTraverser;
 final class GenericClassStringTypeNormalizer
 {
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)

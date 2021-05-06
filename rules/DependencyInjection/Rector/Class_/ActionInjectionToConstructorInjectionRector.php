@@ -19,17 +19,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ActionInjectionToConstructorInjectionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Symfony\DataProvider\ServiceMapProvider
-     */
-    private $applicationServiceMapProvider;
-    /**
-     * @var \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection
+     * @var VariablesToPropertyFetchCollection
      */
     private $variablesToPropertyFetchCollection;
+    /**
+     * @var ServiceMapProvider
+     */
+    private $applicationServiceMapProvider;
     public function __construct(\Rector\Symfony\DataProvider\ServiceMapProvider $applicationServiceMapProvider, \Rector\DependencyInjection\Collector\VariablesToPropertyFetchCollection $variablesToPropertyFetchCollection)
     {
-        $this->applicationServiceMapProvider = $applicationServiceMapProvider;
         $this->variablesToPropertyFetchCollection = $variablesToPropertyFetchCollection;
+        $this->applicationServiceMapProvider = $applicationServiceMapProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

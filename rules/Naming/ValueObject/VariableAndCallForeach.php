@@ -15,25 +15,29 @@ use PhpParser\Node\Stmt\Function_;
 final class VariableAndCallForeach
 {
     /**
-     * @var \PhpParser\Node\Expr\Variable
-     */
-    private $variable;
-    /**
-     * @var \PhpParser\Node\Expr
-     */
-    private $call;
-    /**
      * @var string
      */
     private $variableName;
     /**
-     * @var \PhpParser\Node\FunctionLike
+     * @var Variable
+     */
+    private $variable;
+    /**
+     * @var FuncCall|MethodCall|StaticCall
+     */
+    private $call;
+    /**
+     * @var ClassMethod|Function_|Closure
      */
     private $functionLike;
-    public function __construct(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $call, string $variableName, \PhpParser\Node\FunctionLike $functionLike)
+    /**
+     * @param FuncCall|StaticCall|MethodCall $expr
+     * @param ClassMethod|Function_|Closure $functionLike
+     */
+    public function __construct(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Expr $expr, string $variableName, \PhpParser\Node\FunctionLike $functionLike)
     {
         $this->variable = $variable;
-        $this->call = $call;
+        $this->call = $expr;
         $this->variableName = $variableName;
         $this->functionLike = $functionLike;
     }

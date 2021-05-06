@@ -14,19 +14,19 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class ClassReflectionToAstResolver
 {
     /**
-     * @var \PhpParser\Parser
+     * @var Parser
      */
     private $parser;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

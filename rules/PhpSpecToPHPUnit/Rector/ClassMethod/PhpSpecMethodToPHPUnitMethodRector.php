@@ -17,17 +17,17 @@ use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 final class PhpSpecMethodToPHPUnitMethodRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
-     * @var \Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator
-     */
-    private $phpUnitTypeDeclarationDecorator;
-    /**
-     * @var \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming
+     * @var PhpSpecRenaming
      */
     private $phpSpecRenaming;
+    /**
+     * @var PHPUnitTypeDeclarationDecorator
+     */
+    private $phpUnitTypeDeclarationDecorator;
     public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
     {
-        $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
         $this->phpSpecRenaming = $phpSpecRenaming;
+        $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
     }
     /**
      * @return array<class-string<Node>>

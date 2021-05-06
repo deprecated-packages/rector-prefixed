@@ -20,26 +20,26 @@ use Rector\NodeNameResolver\NodeNameResolver;
 final class ConditionResolver
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\Php\PhpVersionProvider
-     */
-    private $phpVersionProvider;
-    /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     /**
-     * @var \Rector\Core\Util\PhpVersionFactory
+     * @var PhpVersionProvider
+     */
+    private $phpVersionProvider;
+    /**
+     * @var PhpVersionFactory
      */
     private $phpVersionFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->phpVersionProvider = $phpVersionProvider;
         $this->valueResolver = $valueResolver;
+        $this->phpVersionProvider = $phpVersionProvider;
         $this->phpVersionFactory = $phpVersionFactory;
     }
     public function resolveFromExpr(\PhpParser\Node\Expr $expr) : ?\Rector\DeadCode\Contract\ConditionInterface

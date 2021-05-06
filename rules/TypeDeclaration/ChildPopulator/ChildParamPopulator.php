@@ -18,19 +18,19 @@ use Rector\TypeDeclaration\ValueObject\NewType;
 final class ChildParamPopulator
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\ChangesReporting\Collector\RectorChangeCollector
+     * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver
+     * @var ChildTypeResolver
      */
     private $childTypeResolver;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver $childTypeResolver)

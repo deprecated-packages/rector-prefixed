@@ -19,11 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ForeachItemsAssignToEmptyArrayToAssignRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\ReadWrite\NodeFinder\NodeUsageFinder
+     * @var NodeUsageFinder
      */
     private $nodeUsageFinder;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer
+     * @var ForeachAnalyzer
      */
     private $foreachAnalyzer;
     public function __construct(\Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)

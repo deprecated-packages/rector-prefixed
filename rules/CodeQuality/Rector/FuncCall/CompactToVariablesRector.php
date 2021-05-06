@@ -26,15 +26,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CompactToVariablesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodeQuality\CompactConverter
+     * @var CompactConverter
      */
     private $compactConverter;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\ArrayItemsAnalyzer
+     * @var ArrayItemsAnalyzer
      */
     private $arrayItemsAnalyzer;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\ArrayCompacter
+     * @var ArrayCompacter
      */
     private $arrayCompacter;
     public function __construct(\Rector\CodeQuality\CompactConverter $compactConverter, \Rector\CodeQuality\NodeAnalyzer\ArrayItemsAnalyzer $arrayItemsAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ArrayCompacter $arrayCompacter)

@@ -11,19 +11,13 @@ final class NormalToFluent
      */
     private $class;
     /**
-     * @var mixed[]
+     * @var string[]
      */
-    private $methodNames;
+    private $methodNames = [];
     /**
      * @param string[] $methodNames
      */
-    public function __construct(
-        string $class,
-        /**
-         * @var string[]
-         */
-        array $methodNames
-    )
+    public function __construct(string $class, array $methodNames)
     {
         $this->class = $class;
         $this->methodNames = $methodNames;

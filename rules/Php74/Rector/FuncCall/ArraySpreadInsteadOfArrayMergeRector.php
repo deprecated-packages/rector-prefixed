@@ -28,7 +28,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ArraySpreadInsteadOfArrayMergeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer
+     * @var ArrayTypeAnalyzer
      */
     private $arrayTypeAnalyzer;
     public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer)

@@ -20,7 +20,7 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class AliasClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
-     * @var \Rector\CodingStyle\ClassNameImport\AliasUsesResolver
+     * @var AliasUsesResolver
      */
     private $aliasUsesResolver;
     public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver)

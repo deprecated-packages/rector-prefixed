@@ -30,11 +30,11 @@ final class NullsafeOperatorRector extends \Rector\Core\Rector\AbstractRector
      */
     private const NAME = 'name';
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\Core\NodeManipulator\NullsafeManipulator
+     * @var NullsafeManipulator
      */
     private $nullsafeManipulator;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\NullsafeManipulator $nullsafeManipulator)

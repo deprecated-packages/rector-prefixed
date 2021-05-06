@@ -32,7 +32,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
      */
     private $oldToNewNamespaces = [];
     /**
-     * @var \Rector\Naming\NamespaceMatcher
+     * @var NamespaceMatcher
      */
     private $namespaceMatcher;
     public function __construct(\Rector\Naming\NamespaceMatcher $namespaceMatcher)

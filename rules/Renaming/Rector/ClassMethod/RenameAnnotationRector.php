@@ -29,7 +29,7 @@ final class RenameAnnotationRector extends \Rector\Core\Rector\AbstractRector im
      */
     private $renamedAnnotations = [];
     /**
-     * @var \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer
+     * @var DocBlockTagReplacer
      */
     private $docBlockTagReplacer;
     public function __construct(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer $docBlockTagReplacer)

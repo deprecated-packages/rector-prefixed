@@ -54,27 +54,27 @@ final class PropertyNaming
      */
     private const GET_PREFIX_REGEX = '#^get(?<root_name>[A-Z].+)#';
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper
+     * @var TypeUnwrapper
      */
     private $typeUnwrapper;
     /**
-     * @var \Rector\Naming\RectorNamingInflector
+     * @var RectorNamingInflector
      */
     private $rectorNamingInflector;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Naming\RectorNamingInflector $rectorNamingInflector, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

@@ -22,18 +22,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class StrStartsWithRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var mixed[]
+     * @var StrStartWithMatchAndRefactorInterface[]
      */
-    private $strStartWithMatchAndRefactors;
+    private $strStartWithMatchAndRefactors = [];
     /**
      * @param StrStartWithMatchAndRefactorInterface[] $strStartWithMatchAndRefactors
      */
-    public function __construct(
-        /**
-         * @var StrStartWithMatchAndRefactorInterface[]
-         */
-        array $strStartWithMatchAndRefactors
-    )
+    public function __construct(array $strStartWithMatchAndRefactors)
     {
         $this->strStartWithMatchAndRefactors = $strStartWithMatchAndRefactors;
     }

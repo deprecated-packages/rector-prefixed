@@ -21,29 +21,29 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class GetterNodeParamTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
-     * @var \Rector\Core\NodeManipulator\PropertyFetchAssignManipulator
-     */
-    private $propertyFetchAssignManipulator;
-    /**
-     * @var \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer
+     * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PropertyFetchAssignManipulator
+     */
+    private $propertyFetchAssignManipulator;
+    /**
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     public function __construct(\Rector\Core\NodeManipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
-        $this->propertyFetchAssignManipulator = $propertyFetchAssignManipulator;
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
+        $this->propertyFetchAssignManipulator = $propertyFetchAssignManipulator;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;

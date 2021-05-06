@@ -24,7 +24,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDoubleAssignRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeNestingScope\ScopeNestingComparator
+     * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
     public function __construct(\Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator)

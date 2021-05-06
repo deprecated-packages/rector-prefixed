@@ -12,15 +12,15 @@ use ReflectionProperty;
 final class PropertyPresenceChecker
 {
     /**
-     * @var \Rector\Php80\NodeAnalyzer\PromotedPropertyResolver
+     * @var PromotedPropertyResolver
      */
     private $promotedPropertyResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\Php80\NodeAnalyzer\PromotedPropertyResolver $promotedPropertyResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

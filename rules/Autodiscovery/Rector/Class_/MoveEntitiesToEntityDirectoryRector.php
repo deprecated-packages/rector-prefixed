@@ -25,11 +25,11 @@ final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\Abst
      */
     private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
     /**
-     * @var \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver
+     * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
     /**
-     * @var \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory
+     * @var AddedFileWithNodesFactory
      */
     private $addedFileWithNodesFactory;
     public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory $addedFileWithNodesFactory)

@@ -31,17 +31,17 @@ final class RenameClassRector extends \Rector\Core\Rector\AbstractRector impleme
      */
     private $oldToNewClasses = [];
     /**
-     * @var \Rector\Core\Configuration\RenamedClassesDataCollector
-     */
-    private $renamedClassesDataCollector;
-    /**
-     * @var \Rector\Renaming\NodeManipulator\ClassRenamer
+     * @var ClassRenamer
      */
     private $classRenamer;
+    /**
+     * @var RenamedClassesDataCollector
+     */
+    private $renamedClassesDataCollector;
     public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer)
     {
-        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
         $this->classRenamer = $classRenamer;
+        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

@@ -34,7 +34,7 @@ final class AddParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRe
      */
     private $parameterTypehints = [];
     /**
-     * @var \Rector\NodeTypeResolver\TypeComparator\TypeComparator
+     * @var TypeComparator
      */
     private $typeComparator;
     public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)

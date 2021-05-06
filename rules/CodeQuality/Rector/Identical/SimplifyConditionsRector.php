@@ -21,11 +21,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\AssignAndBinaryMap
+     * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
     /**
-     * @var \Rector\Core\NodeManipulator\BinaryOpManipulator
+     * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
     public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap, \Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)

@@ -17,23 +17,23 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class PropertyFetchWithConstFetchReplacer
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer
+     * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
     /**
-     * @var \Rector\Privatization\Naming\ConstantNaming
+     * @var ConstantNaming
      */
     private $constantNaming;
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\Privatization\Naming\ConstantNaming $constantNaming, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)

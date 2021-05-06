@@ -18,22 +18,22 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveUnusedNonEmptyArrayBeforeForeachRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\NodeManipulator\CountManipulator
-     */
-    private $countManipulator;
-    /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     /**
-     * @var \Rector\DeadCode\UselessIfCondBeforeForeachDetector
+     * @var UselessIfCondBeforeForeachDetector
      */
     private $uselessIfCondBeforeForeachDetector;
+    /**
+     * @var CountManipulator
+     */
+    private $countManipulator;
     public function __construct(\Rector\DeadCode\NodeManipulator\CountManipulator $countManipulator, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\DeadCode\UselessIfCondBeforeForeachDetector $uselessIfCondBeforeForeachDetector)
     {
-        $this->countManipulator = $countManipulator;
         $this->ifManipulator = $ifManipulator;
         $this->uselessIfCondBeforeForeachDetector = $uselessIfCondBeforeForeachDetector;
+        $this->countManipulator = $countManipulator;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDeadConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ClassMethodManipulator
+     * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator)

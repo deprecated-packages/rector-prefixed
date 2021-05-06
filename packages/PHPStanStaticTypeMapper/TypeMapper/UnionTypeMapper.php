@@ -38,30 +38,30 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
      */
     private $phpStanStaticTypeMapper;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer
-     */
-    private $doctrineTypeAnalyzer;
-    /**
-     * @var \Rector\Core\Php\PhpVersionProvider
+     * @var PhpVersionProvider
      */
     private $phpVersionProvider;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer
+     * @var UnionTypeAnalyzer
      */
     private $unionTypeAnalyzer;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer
+     * @var DoctrineTypeAnalyzer
+     */
+    private $doctrineTypeAnalyzer;
+    /**
+     * @var BoolUnionTypeAnalyzer
      */
     private $boolUnionTypeAnalyzer;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower
+     * @var UnionTypeCommonTypeNarrower
      */
     private $unionTypeCommonTypeNarrower;
     public function __construct(\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer $boolUnionTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower)
     {
-        $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->unionTypeAnalyzer = $unionTypeAnalyzer;
+        $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->boolUnionTypeAnalyzer = $boolUnionTypeAnalyzer;
         $this->unionTypeCommonTypeNarrower = $unionTypeCommonTypeNarrower;
     }

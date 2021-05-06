@@ -7,7 +7,7 @@ use PHPStan\Type\ObjectType;
 final class GetAndSetToMethodCall
 {
     /**
-     * @var string
+     * @var class-string
      */
     private $classType;
     /**
@@ -18,6 +18,9 @@ final class GetAndSetToMethodCall
      * @var string
      */
     private $setMethod;
+    /**
+     * @param class-string $classType
+     */
     public function __construct(string $classType, string $getMethod, string $setMethod)
     {
         $this->classType = $classType;

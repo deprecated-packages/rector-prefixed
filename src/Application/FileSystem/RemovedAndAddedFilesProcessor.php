@@ -13,32 +13,32 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class RemovedAndAddedFilesProcessor
 {
     /**
-     * @var \Rector\Core\Configuration\Configuration
-     */
-    private $configuration;
-    /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
-     */
-    private $smartFileSystem;
-    /**
-     * @var \Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter
-     */
-    private $nodesWithFileDestinationPrinter;
-    /**
-     * @var \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector
+     * @var RemovedAndAddedFilesCollector
      */
     private $removedAndAddedFilesCollector;
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var Configuration
+     */
+    private $configuration;
+    /**
+     * @var SymfonyStyle
      */
     private $symfonyStyle;
+    /**
+     * @var NodesWithFileDestinationPrinter
+     */
+    private $nodesWithFileDestinationPrinter;
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
-        $this->configuration = $configuration;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->configuration = $configuration;
         $this->symfonyStyle = $symfonyStyle;
+        $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
+        $this->smartFileSystem = $smartFileSystem;
     }
     public function run() : void
     {

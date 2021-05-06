@@ -14,19 +14,19 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class TestingParser
 {
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var \Rector\Core\PhpParser\Parser\Parser
+     * @var Parser
      */
     private $parser;
     /**
-     * @var \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator
+     * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\PhpParser\Parser\Parser $parser, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

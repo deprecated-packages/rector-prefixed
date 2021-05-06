@@ -18,31 +18,31 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var \Rector\CodingStyle\Node\NameImporter
+     * @var NameImporter
      */
     private $nameImporter;
     /**
-     * @var \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter
+     * @var DocBlockNameImporter
      */
     private $docBlockNameImporter;
     /**
-     * @var \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper
+     * @var ClassNameImportSkipper
      */
     private $classNameImportSkipper;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

@@ -27,19 +27,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class StaticCallOnNonStaticToInstanceCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ClassMethodManipulator
+     * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
     /**
-     * @var \Rector\NodeCollector\StaticAnalyzer
+     * @var StaticAnalyzer
      */
     private $staticAnalyzer;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver
+     * @var ParentClassScopeResolver
      */
     private $parentClassScopeResolver;
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeCollector\ScopeResolver\ParentClassScopeResolver $parentClassScopeResolver)

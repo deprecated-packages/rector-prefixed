@@ -19,17 +19,17 @@ final class CondAndExpr
      */
     public const TYPE_RETURN = 'return';
     /**
-     * @var \PhpParser\Node\Expr|null
-     */
-    private $condExpr;
-    /**
-     * @var \PhpParser\Node\Expr
-     */
-    private $expr;
-    /**
      * @var string
      */
     private $kind;
+    /**
+     * @var Expr
+     */
+    private $expr;
+    /**
+     * @var Expr|null
+     */
+    private $condExpr;
     public function __construct(?\PhpParser\Node\Expr $condExpr, \PhpParser\Node\Expr $expr, string $kind)
     {
         $this->condExpr = $condExpr;

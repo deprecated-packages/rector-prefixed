@@ -16,11 +16,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddMethodCallBasedStrictParamTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver
+     * @var CallTypesResolver
      */
     private $callTypesResolver;
     /**
-     * @var \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter
+     * @var ClassMethodParamTypeCompleter
      */
     private $classMethodParamTypeCompleter;
     public function __construct(\Rector\TypeDeclaration\NodeAnalyzer\CallTypesResolver $callTypesResolver, \Rector\TypeDeclaration\NodeAnalyzer\ClassMethodParamTypeCompleter $classMethodParamTypeCompleter)

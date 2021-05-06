@@ -19,31 +19,31 @@ final class ConflictingNameResolver
      */
     private $conflictingVariableNamesByClassMethod = [];
     /**
-     * @var \Rector\Naming\PhpArray\ArrayFilter
-     */
-    private $arrayFilter;
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var \Rector\Naming\Naming\ExpectedNameResolver
+     * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var ArrayFilter
+     */
+    private $arrayFilter;
+    /**
+     * @var MatchParamTypeExpectedNameResolver
      */
     private $matchParamTypeExpectedNameResolver;
     public function __construct(\Rector\Naming\PhpArray\ArrayFilter $arrayFilter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver)
     {
-        $this->arrayFilter = $arrayFilter;
-        $this->betterNodeFinder = $betterNodeFinder;
         $this->expectedNameResolver = $expectedNameResolver;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->betterNodeFinder = $betterNodeFinder;
+        $this->arrayFilter = $arrayFilter;
         $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
     }
     /**

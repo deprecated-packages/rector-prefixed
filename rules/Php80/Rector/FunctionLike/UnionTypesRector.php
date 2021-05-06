@@ -27,19 +27,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover
-     */
-    private $returnTagRemover;
-    /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover
-     */
-    private $paramTagRemover;
-    /**
-     * @var \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver
+     * @var ClassMethodParamVendorLockResolver
      */
     private $classMethodParamVendorLockResolver;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer
+     * @var ReturnTagRemover
+     */
+    private $returnTagRemover;
+    /**
+     * @var ParamTagRemover
+     */
+    private $paramTagRemover;
+    /**
+     * @var UnionTypeAnalyzer
      */
     private $unionTypeAnalyzer;
     public function __construct(\Rector\DeadCode\PhpDoc\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadCode\PhpDoc\TagRemover\ParamTagRemover $paramTagRemover, \Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer)

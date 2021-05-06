@@ -19,11 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class TypedPropertyFromStrictConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\ConstructorPropertyTypeInferer
+     * @var ConstructorPropertyTypeInferer
      */
     private $constructorPropertyTypeInferer;
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover
+     * @var VarTagRemover
      */
     private $varTagRemover;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\ConstructorPropertyTypeInferer $constructorPropertyTypeInferer, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover)

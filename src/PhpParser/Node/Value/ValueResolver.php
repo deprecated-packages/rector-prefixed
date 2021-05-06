@@ -27,27 +27,27 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ValueResolver
 {
     /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
      * @var ConstExprEvaluator
      */
     private $constExprEvaluator;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer
+     * @var ConstFetchAnalyzer
      */
     private $constFetchAnalyzer;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
+     * @var CurrentFileProvider
      */
     private $currentFileProvider;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)

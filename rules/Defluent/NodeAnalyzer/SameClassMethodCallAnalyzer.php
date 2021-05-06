@@ -11,7 +11,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class SameClassMethodCallAnalyzer
 {
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)

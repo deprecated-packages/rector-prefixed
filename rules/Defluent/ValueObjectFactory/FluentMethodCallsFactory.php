@@ -10,11 +10,11 @@ use Rector\Defluent\ValueObject\FluentMethodCalls;
 final class FluentMethodCallsFactory
 {
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer
+     * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer
+     * @var SameClassMethodCallAnalyzer
      */
     private $sameClassMethodCallAnalyzer;
     public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer)

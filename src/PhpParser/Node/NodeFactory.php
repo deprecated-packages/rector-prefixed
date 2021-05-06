@@ -84,39 +84,39 @@ final class NodeFactory
      */
     private const REFERENCES = [self::REFERENCE_STATIC, self::REFERENCE_PARENT, self::REFERENCE_SELF];
     /**
-     * @var \PhpParser\BuilderFactory
+     * @var BuilderFactory
      */
     private $builderFactory;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-    /**
-     * @var \Rector\Core\Php\PhpVersionProvider
-     */
-    private $phpVersionProvider;
-    /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    /**
+     * @var PhpVersionProvider
+     */
+    private $phpVersionProvider;
+    /**
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger
+     * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
     /**
-     * @var \Rector\Core\Configuration\CurrentNodeProvider
+     * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
     public function __construct(\PhpParser\BuilderFactory $builderFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
     {
         $this->builderFactory = $builderFactory;
+        $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->phpVersionProvider = $phpVersionProvider;
-        $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->currentNodeProvider = $currentNodeProvider;

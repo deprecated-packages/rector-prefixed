@@ -30,29 +30,29 @@ final class RenamePropertyToMatchTypeRector extends \Rector\Core\Rector\Abstract
      */
     private $hasChanged = \false;
     /**
-     * @var \Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer
-     */
-    private $matchTypePropertyRenamer;
-    /**
-     * @var \Rector\Naming\ValueObjectFactory\PropertyRenameFactory
+     * @var PropertyRenameFactory
      */
     private $propertyRenameFactory;
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver
+     * @var MatchTypePropertyRenamer
+     */
+    private $matchTypePropertyRenamer;
+    /**
+     * @var MatchPropertyTypeExpectedNameResolver
      */
     private $matchPropertyTypeExpectedNameResolver;
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver
+     * @var MatchParamTypeExpectedNameResolver
      */
     private $matchParamTypeExpectedNameResolver;
     /**
-     * @var \Rector\Naming\PropertyRenamer\PropertyFetchRenamer
+     * @var PropertyFetchRenamer
      */
     private $propertyFetchRenamer;
     public function __construct(\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer)
     {
-        $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
         $this->propertyRenameFactory = $propertyRenameFactory;
+        $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
         $this->matchPropertyTypeExpectedNameResolver = $matchPropertyTypeExpectedNameResolver;
         $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
         $this->propertyFetchRenamer = $propertyFetchRenamer;

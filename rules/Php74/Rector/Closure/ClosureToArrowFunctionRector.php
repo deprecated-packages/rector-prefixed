@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ClosureToArrowFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php74\NodeAnalyzer\ClosureArrowFunctionAnalyzer
+     * @var ClosureArrowFunctionAnalyzer
      */
     private $closureArrowFunctionAnalyzer;
     public function __construct(\Rector\Php74\NodeAnalyzer\ClosureArrowFunctionAnalyzer $closureArrowFunctionAnalyzer)

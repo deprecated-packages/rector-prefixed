@@ -57,8 +57,9 @@ CODE_SAMPLE
     }
     /**
      * @param ClassConst|Property $node
+     * @return Node|Node[]|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             if (\count($node->consts) < 2) {
@@ -70,8 +71,7 @@ CODE_SAMPLE
             $firstConst = \array_shift($allConsts);
             $node->consts = [$firstConst];
             $nextClassConsts = $this->createNextClassConsts($allConsts, $node);
-            $this->addNodesAfterNode($nextClassConsts, $node);
-            return $node;
+            return \array_merge([$node], $nextClassConsts);
         }
         if (\count($node->props) < 2) {
             return null;
@@ -80,11 +80,11 @@ CODE_SAMPLE
         /** @var PropertyProperty $firstPropertyProperty */
         $firstPropertyProperty = \array_shift($allProperties);
         $node->props = [$firstPropertyProperty];
+        $nextProperties = [];
         foreach ($allProperties as $allProperty) {
-            $nextProperty = new \PhpParser\Node\Stmt\Property($node->flags, [$allProperty], $node->getAttributes());
-            $this->addNodeAfterNode($nextProperty, $node);
+            $nextProperties[] = new \PhpParser\Node\Stmt\Property($node->flags, [$allProperty], $node->getAttributes());
         }
-        return $node;
+        return \array_merge([$node], $nextProperties);
     }
     /**
      * @param Const_[] $consts

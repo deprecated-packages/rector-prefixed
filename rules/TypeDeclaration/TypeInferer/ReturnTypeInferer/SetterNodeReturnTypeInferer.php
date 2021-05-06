@@ -15,21 +15,21 @@ use Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer;
 final class SetterNodeReturnTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer
-     */
-    private $assignToPropertyTypeInferer;
-    /**
-     * @var \Rector\Core\NodeManipulator\FunctionLikeManipulator
+     * @var FunctionLikeManipulator
      */
     private $functionLikeManipulator;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory
+     * @var AssignToPropertyTypeInferer
+     */
+    private $assignToPropertyTypeInferer;
+    /**
+     * @var TypeFactory
      */
     private $typeFactory;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \Rector\Core\NodeManipulator\FunctionLikeManipulator $functionLikeManipulator, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
-        $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
         $this->functionLikeManipulator = $functionLikeManipulator;
+        $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
         $this->typeFactory = $typeFactory;
     }
     public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type

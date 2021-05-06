@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDelegatingParentCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\Comparator\CurrentAndParentClassMethodComparator
+     * @var CurrentAndParentClassMethodComparator
      */
     private $currentAndParentClassMethodComparator;
     public function __construct(\Rector\DeadCode\Comparator\CurrentAndParentClassMethodComparator $currentAndParentClassMethodComparator)

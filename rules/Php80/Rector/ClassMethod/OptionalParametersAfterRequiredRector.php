@@ -24,15 +24,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class OptionalParametersAfterRequiredRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php80\NodeResolver\RequireOptionalParamResolver
+     * @var RequireOptionalParamResolver
      */
     private $requireOptionalParamResolver;
     /**
-     * @var \Rector\Php80\NodeResolver\ArgumentSorter
+     * @var ArgumentSorter
      */
     private $argumentSorter;
     /**
-     * @var \Rector\Php80\Reflection\MethodReflectionClassMethodResolver
+     * @var MethodReflectionClassMethodResolver
      */
     private $methodReflectionClassMethodResolver;
     public function __construct(\Rector\Php80\NodeResolver\RequireOptionalParamResolver $requireOptionalParamResolver, \Rector\Php80\NodeResolver\ArgumentSorter $argumentSorter, \Rector\Php80\Reflection\MethodReflectionClassMethodResolver $methodReflectionClassMethodResolver)

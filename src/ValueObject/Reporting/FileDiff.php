@@ -9,10 +9,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileInfo
-     */
-    private $smartFileInfo;
-    /**
      * @var string
      */
     private $diff;
@@ -21,26 +17,22 @@ final class FileDiff
      */
     private $diffConsoleFormatted;
     /**
-     * @var mixed[]
+     * @var RectorWithLineChange[]
      */
-    private $rectorWithLineChanges;
+    private $rectorWithLineChanges = [];
+    /**
+     * @var SmartFileInfo
+     */
+    private $smartFileInfo;
     /**
      * @param RectorWithLineChange[] $rectorWithLineChanges
      */
-    public function __construct(
-        \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo,
-        string $diff,
-        string $diffConsoleFormatted,
-        /**
-         * @var RectorWithLineChange[]
-         */
-        array $rectorWithLineChanges = []
-    )
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $diff, string $diffConsoleFormatted, array $rectorWithLineChanges = [])
     {
         $this->smartFileInfo = $smartFileInfo;
         $this->diff = $diff;
-        $this->diffConsoleFormatted = $diffConsoleFormatted;
         $this->rectorWithLineChanges = $rectorWithLineChanges;
+        $this->diffConsoleFormatted = $diffConsoleFormatted;
     }
     public function getDiff() : string
     {

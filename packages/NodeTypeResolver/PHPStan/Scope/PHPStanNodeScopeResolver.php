@@ -42,52 +42,52 @@ final class PHPStanNodeScopeResolver
      */
     private $dependentFiles = [];
     /**
-     * @var \Rector\Caching\Detector\ChangedFilesDetector
-     */
-    private $changedFilesDetector;
-    /**
-     * @var \Rector\Core\Configuration\Configuration
-     */
-    private $configuration;
-    /**
-     * @var \Rector\Caching\FileSystem\DependencyResolver
-     */
-    private $dependencyResolver;
-    /**
-     * @var \PHPStan\Analyser\NodeScopeResolver
+     * @var NodeScopeResolver
      */
     private $nodeScopeResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
-     */
-    private $reflectionProvider;
-    /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor
-     */
-    private $removeDeepChainMethodCallNodeVisitor;
-    /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Scope\ScopeFactory
+     * @var ScopeFactory
      */
     private $scopeFactory;
     /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     * @var ReflectionProvider
      */
-    private $symfonyStyle;
+    private $reflectionProvider;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector
+     * @var RemoveDeepChainMethodCallNodeVisitor
+     */
+    private $removeDeepChainMethodCallNodeVisitor;
+    /**
+     * @var TraitNodeScopeCollector
      */
     private $traitNodeScopeCollector;
+    /**
+     * @var DependencyResolver
+     */
+    private $dependencyResolver;
+    /**
+     * @var ChangedFilesDetector
+     */
+    private $changedFilesDetector;
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+    /**
+     * @var SymfonyStyle
+     */
+    private $symfonyStyle;
     public function __construct(\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\FileSystem\DependencyResolver $dependencyResolver, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor $removeDeepChainMethodCallNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\ScopeFactory $scopeFactory, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
     {
-        $this->changedFilesDetector = $changedFilesDetector;
-        $this->configuration = $configuration;
-        $this->dependencyResolver = $dependencyResolver;
+        $this->scopeFactory = $scopeFactory;
         $this->nodeScopeResolver = $nodeScopeResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->removeDeepChainMethodCallNodeVisitor = $removeDeepChainMethodCallNodeVisitor;
-        $this->scopeFactory = $scopeFactory;
-        $this->symfonyStyle = $symfonyStyle;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
+        $this->dependencyResolver = $dependencyResolver;
+        $this->changedFilesDetector = $changedFilesDetector;
+        $this->configuration = $configuration;
+        $this->symfonyStyle = $symfonyStyle;
     }
     /**
      * @param Node[] $nodes

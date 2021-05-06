@@ -39,23 +39,23 @@ final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector
      */
     private $injectObjectTypes = [];
     /**
-     * @var \Rector\DependencyInjection\NodeRemover\ClassMethodNodeRemover
+     * @var ClassMethodNodeRemover
      */
     private $classMethodNodeRemover;
     /**
-     * @var \Rector\DependencyInjection\NodeFactory\InjectMethodFactory
+     * @var InjectMethodFactory
      */
     private $injectMethodFactory;
     /**
-     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
+     * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
     public function __construct(\Rector\DependencyInjection\NodeRemover\ClassMethodNodeRemover $classMethodNodeRemover, \Rector\DependencyInjection\NodeFactory\InjectMethodFactory $injectMethodFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator)
     {
-        $this->classMethodNodeRemover = $classMethodNodeRemover;
         $this->injectMethodFactory = $injectMethodFactory;
-        $this->classInsertManipulator = $classInsertManipulator;
+        $this->classMethodNodeRemover = $classMethodNodeRemover;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->classInsertManipulator = $classInsertManipulator;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

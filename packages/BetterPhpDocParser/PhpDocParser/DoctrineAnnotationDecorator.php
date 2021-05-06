@@ -21,23 +21,23 @@ use Rector\Core\Exception\ShouldNotHappenException;
 final class DoctrineAnnotationDecorator
 {
     /**
-     * @var \Rector\Core\Configuration\CurrentNodeProvider
+     * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher
+     * @var ClassAnnotationMatcher
      */
     private $classAnnotationMatcher;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser
+     * @var StaticDoctrineAnnotationParser
      */
     private $staticDoctrineAnnotationParser;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory
+     * @var TokenIteratorFactory
      */
     private $tokenIteratorFactory;
     /**
-     * @var \Rector\BetterPhpDocParser\Attributes\AttributeMirrorer
+     * @var AttributeMirrorer
      */
     private $attributeMirrorer;
     public function __construct(\Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \Rector\BetterPhpDocParser\PhpDocParser\StaticDoctrineAnnotationParser $staticDoctrineAnnotationParser, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory, \Rector\BetterPhpDocParser\Attributes\AttributeMirrorer $attributeMirrorer)

@@ -32,45 +32,45 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Php\TypeChecker;
 final class PropertyManipulator
 {
     /**
-     * @var \Rector\Core\NodeManipulator\AssignManipulator
-     */
-    private $assignManipulator;
-    /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\ReadWrite\Guard\VariableToConstantGuard
+     * @var AssignManipulator
+     */
+    private $assignManipulator;
+    /**
+     * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
     /**
-     * @var \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer
+     * @var ReadWritePropertyAnalyzer
      */
     private $readWritePropertyAnalyzer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Symplify\PackageBuilder\Php\TypeChecker
+     * @var TypeChecker
      */
     private $typeChecker;
     /**
-     * @var \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder
+     * @var PropertyFetchFinder
      */
     private $propertyFetchFinder;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\Core\Reflection\FunctionLikeReflectionParser
+     * @var FunctionLikeReflectionParser
      */
     private $functionLikeReflectionParser;
     public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210506\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\Reflection\FunctionLikeReflectionParser $functionLikeReflectionParser)
     {
-        $this->assignManipulator = $assignManipulator;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->assignManipulator = $assignManipulator;
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->readWritePropertyAnalyzer = $readWritePropertyAnalyzer;
         $this->phpDocInfoFactory = $phpDocInfoFactory;

@@ -25,22 +25,22 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ArrayTypeAnalyzer
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector
+     * @var PregMatchTypeCorrector
      */
     private $pregMatchTypeCorrector;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\NodeTypeCorrector\PregMatchTypeCorrector $pregMatchTypeCorrector)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->pregMatchTypeCorrector = $pregMatchTypeCorrector;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
     public function isArrayType(\PhpParser\Node $node) : bool
     {

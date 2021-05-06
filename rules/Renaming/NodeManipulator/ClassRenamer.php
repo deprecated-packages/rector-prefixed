@@ -38,52 +38,52 @@ final class ClassRenamer
      */
     private $alreadyProcessedClasses = [];
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
-     */
-    private $simpleCallableNodeTraverser;
-    /**
-     * @var \Rector\CodingStyle\Naming\ClassNaming
-     */
-    private $classNaming;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer
+     * @var SimpleCallableNodeTraverser
+     */
+    private $simpleCallableNodeTraverser;
+    /**
+     * @var PhpDocClassRenamer
      */
     private $phpDocClassRenamer;
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var ClassNaming
+     */
+    private $classNaming;
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer
+     * @var DocBlockClassRenamer
      */
     private $docBlockClassRenamer;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\NodeRemoval\NodeRemover
+     * @var NodeRemover
      */
     private $nodeRemover;
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer $docBlockClassRenamer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeRemoval\NodeRemover $nodeRemover, \RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
-        $this->betterNodeFinder = $betterNodeFinder;
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->classNaming = $classNaming;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->phpDocClassRenamer = $phpDocClassRenamer;
+        $this->classNaming = $classNaming;
+        $this->betterNodeFinder = $betterNodeFinder;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->docBlockClassRenamer = $docBlockClassRenamer;
         $this->reflectionProvider = $reflectionProvider;

@@ -15,11 +15,11 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class NativeTypeClassTreeResolver
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     * @var PrivatesAccessor
      */
     private $privatesAccessor;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)

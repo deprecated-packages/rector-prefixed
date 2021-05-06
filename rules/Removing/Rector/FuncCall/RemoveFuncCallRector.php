@@ -27,7 +27,7 @@ final class RemoveFuncCallRector extends \Rector\Core\Rector\AbstractRector impl
      */
     private $removeFuncCalls = [];
     /**
-     * @var \Rector\NodeRemoval\BreakingRemovalGuard
+     * @var BreakingRemovalGuard
      */
     private $breakingRemovalGuard;
     public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)

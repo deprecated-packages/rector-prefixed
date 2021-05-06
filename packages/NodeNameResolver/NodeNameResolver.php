@@ -20,38 +20,30 @@ use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 final class NodeNameResolver
 {
     /**
-     * @var \Rector\NodeNameResolver\Regex\RegexPatternDetector
+     * @var NodeNameResolverInterface[]
+     */
+    private $nodeNameResolvers = [];
+    /**
+     * @var RegexPatternDetector
      */
     private $regexPatternDetector;
     /**
-     * @var \Rector\CodingStyle\Naming\ClassNaming
+     * @var ClassNaming
      */
     private $classNaming;
     /**
-     * @var \Rector\NodeNameResolver\Error\InvalidNameNodeReporter
+     * @var InvalidNameNodeReporter
      */
     private $invalidNameNodeReporter;
     /**
-     * @var mixed[]
-     */
-    private $nodeNameResolvers;
-    /**
      * @param NodeNameResolverInterface[] $nodeNameResolvers
      */
-    public function __construct(
-        \Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector,
-        \Rector\CodingStyle\Naming\ClassNaming $classNaming,
-        \Rector\NodeNameResolver\Error\InvalidNameNodeReporter $invalidNameNodeReporter,
-        /**
-         * @var NodeNameResolverInterface[]
-         */
-        array $nodeNameResolvers = []
-    )
+    public function __construct(\Rector\NodeNameResolver\Regex\RegexPatternDetector $regexPatternDetector, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\Error\InvalidNameNodeReporter $invalidNameNodeReporter, array $nodeNameResolvers = [])
     {
         $this->regexPatternDetector = $regexPatternDetector;
+        $this->nodeNameResolvers = $nodeNameResolvers;
         $this->classNaming = $classNaming;
         $this->invalidNameNodeReporter = $invalidNameNodeReporter;
-        $this->nodeNameResolvers = $nodeNameResolvers;
     }
     /**
      * @param string[] $names

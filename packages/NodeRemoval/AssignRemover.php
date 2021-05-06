@@ -12,19 +12,19 @@ use Rector\PostRector\Collector\NodesToReplaceCollector;
 final class AssignRemover
 {
     /**
-     * @var \Rector\PostRector\Collector\NodesToReplaceCollector
+     * @var NodesToReplaceCollector
      */
     private $nodesToReplaceCollector;
     /**
-     * @var \Rector\ChangesReporting\Collector\RectorChangeCollector
+     * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
     /**
-     * @var \Rector\NodeRemoval\NodeRemover
+     * @var NodeRemover
      */
     private $nodeRemover;
     /**
-     * @var \Rector\DeadCode\NodeManipulator\LivingCodeManipulator
+     * @var LivingCodeManipulator
      */
     private $livingCodeManipulator;
     public function __construct(\Rector\PostRector\Collector\NodesToReplaceCollector $nodesToReplaceCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator)

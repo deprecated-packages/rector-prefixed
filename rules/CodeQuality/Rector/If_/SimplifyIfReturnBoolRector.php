@@ -23,11 +23,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SimplifyIfReturnBoolRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\BetterPhpDocParser\Comment\CommentsMerger
+     * @var CommentsMerger
      */
     private $commentsMerger;
     /**
-     * @var \Rector\CodeQuality\NodeManipulator\ExprBoolCaster
+     * @var ExprBoolCaster
      */
     private $exprBoolCaster;
     public function __construct(\Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger, \Rector\CodeQuality\NodeManipulator\ExprBoolCaster $exprBoolCaster)

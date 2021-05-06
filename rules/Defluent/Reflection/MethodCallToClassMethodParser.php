@@ -13,19 +13,19 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class MethodCallToClassMethodParser
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\Core\Reflection\FunctionLikeReflectionParser
+     * @var FunctionLikeReflectionParser
      */
     private $functionLikeReflectionParser;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Reflection\FunctionLikeReflectionParser $functionLikeReflectionParser)

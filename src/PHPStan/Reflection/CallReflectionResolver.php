@@ -27,26 +27,26 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class CallReflectionResolver
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-    /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var TypeToCallReflectionResolverRegistry
      */
     private $typeToCallReflectionResolverRegistry;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry $typeToCallReflectionResolverRegistry)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;
+        $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->typeToCallReflectionResolverRegistry = $typeToCallReflectionResolverRegistry;
     }
     public function resolveConstructor(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection

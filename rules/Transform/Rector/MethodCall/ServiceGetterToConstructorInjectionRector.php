@@ -34,11 +34,11 @@ final class ServiceGetterToConstructorInjectionRector extends \Rector\Core\Recto
      */
     private $methodCallToServices = [];
     /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
+     * @var ClassAnalyzer
      */
     private $classAnalyzer;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)

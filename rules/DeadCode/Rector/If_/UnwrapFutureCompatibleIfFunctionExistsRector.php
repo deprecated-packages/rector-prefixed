@@ -20,17 +20,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\FeatureSupport\FunctionSupportResolver
-     */
-    private $functionSupportResolver;
-    /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
+    /**
+     * @var FunctionSupportResolver
+     */
+    private $functionSupportResolver;
     public function __construct(\Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
-        $this->functionSupportResolver = $functionSupportResolver;
         $this->ifManipulator = $ifManipulator;
+        $this->functionSupportResolver = $functionSupportResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

@@ -31,32 +31,32 @@ final class AssignManipulator
      */
     private const MODIFYING_NODE_TYPES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     /**
-     * @var \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer
+     * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
     /**
-     * @var \Symplify\PackageBuilder\Php\TypeChecker
+     * @var TypeChecker
      */
     private $typeChecker;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \RectorPrefix20210506\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeComparator = $nodeComparator;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->typeChecker = $typeChecker;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * Matches:

@@ -28,7 +28,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
      */
     private const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
     /**
-     * @var \Rector\Core\NodeManipulator\BinaryOpManipulator
+     * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
     public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)

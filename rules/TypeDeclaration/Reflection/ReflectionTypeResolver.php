@@ -22,19 +22,19 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class ReflectionTypeResolver
 {
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesCaller
+     * @var PrivatesCaller
      */
     private $privatesCaller;
     public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)

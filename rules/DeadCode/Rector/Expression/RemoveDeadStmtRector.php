@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveDeadStmtRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\DeadCode\NodeManipulator\LivingCodeManipulator
+     * @var LivingCodeManipulator
      */
     private $livingCodeManipulator;
     public function __construct(\Rector\DeadCode\NodeManipulator\LivingCodeManipulator $livingCodeManipulator)
@@ -44,8 +44,9 @@ CODE_SAMPLE
     }
     /**
      * @param Expression $node
+     * @return Node[]|Node|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node)
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -53,11 +54,12 @@ CODE_SAMPLE
         }
         $firstExpr = \array_shift($livingCode);
         $node->expr = $firstExpr;
+        $newNodes = [];
         foreach ($livingCode as $singleLivingCode) {
-            $newNode = new \PhpParser\Node\Stmt\Expression($singleLivingCode);
-            $this->addNodeAfterNode($newNode, $node);
+            $newNodes[] = new \PhpParser\Node\Stmt\Expression($singleLivingCode);
         }
-        return null;
+        $newNodes[] = $node;
+        return $newNodes;
     }
     private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {

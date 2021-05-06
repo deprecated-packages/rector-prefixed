@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ArrowFunctionToAnonymousFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Php72\NodeFactory\AnonymousFunctionFactory
+     * @var AnonymousFunctionFactory
      */
     private $anonymousFunctionFactory;
     public function __construct(\Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory)

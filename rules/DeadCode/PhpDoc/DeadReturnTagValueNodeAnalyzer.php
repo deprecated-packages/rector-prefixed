@@ -10,7 +10,7 @@ use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 final class DeadReturnTagValueNodeAnalyzer
 {
     /**
-     * @var \Rector\NodeTypeResolver\TypeComparator\TypeComparator
+     * @var TypeComparator
      */
     private $typeComparator;
     public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)

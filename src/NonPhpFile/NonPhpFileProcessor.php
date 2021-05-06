@@ -14,18 +14,13 @@ use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 final class NonPhpFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
     /**
-     * @var mixed[]
+     * @var NonPhpRectorInterface[]
      */
-    private $nonPhpRectors;
+    private $nonPhpRectors = [];
     /**
      * @param NonPhpRectorInterface[] $nonPhpRectors
      */
-    public function __construct(
-        /**
-         * @var NonPhpRectorInterface[]
-         */
-        array $nonPhpRectors
-    )
+    public function __construct(array $nonPhpRectors)
     {
         $this->nonPhpRectors = $nonPhpRectors;
     }

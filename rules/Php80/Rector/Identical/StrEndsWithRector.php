@@ -23,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class StrEndsWithRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer
+     * @var BinaryOpAnalyzer
      */
     private $binaryOpAnalyzer;
     public function __construct(\Rector\Nette\NodeAnalyzer\BinaryOpAnalyzer $binaryOpAnalyzer)

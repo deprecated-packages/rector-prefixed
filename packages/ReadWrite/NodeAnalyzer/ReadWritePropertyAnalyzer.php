@@ -23,19 +23,19 @@ use RectorPrefix20210506\Webmozart\Assert\Assert;
 final class ReadWritePropertyAnalyzer
 {
     /**
-     * @var \Rector\ReadWrite\Guard\VariableToConstantGuard
+     * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
     /**
-     * @var \Rector\Core\NodeManipulator\AssignManipulator
+     * @var AssignManipulator
      */
     private $assignManipulator;
     /**
-     * @var \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer
+     * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

@@ -20,11 +20,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\InflectorSingularResolver
+     * @var InflectorSingularResolver
      */
     private $inflectorSingularResolver;
     /**
-     * @var \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer
+     * @var ForeachAnalyzer
      */
     private $foreachAnalyzer;
     public function __construct(\Rector\Naming\ExpectedNameResolver\InflectorSingularResolver $inflectorSingularResolver, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)

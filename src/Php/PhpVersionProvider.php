@@ -13,11 +13,11 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class PhpVersionProvider
 {
     /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
+     * @var ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver
+     * @var ProjectComposerJsonPhpVersionResolver
      */
     private $projectComposerJsonPhpVersionResolver;
     public function __construct(\RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver $projectComposerJsonPhpVersionResolver)

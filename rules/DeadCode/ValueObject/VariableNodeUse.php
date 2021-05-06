@@ -30,7 +30,7 @@ final class VariableNodeUse
      */
     private $type;
     /**
-     * @var \PhpParser\Node\Expr\Variable
+     * @var Variable
      */
     private $variable;
     /**

@@ -28,11 +28,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddArrayDefaultToArrayPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer
+     * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
     /**
-     * @var \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer
+     * @var IterableTypeAnalyzer
      */
     private $iterableTypeAnalyzer;
     public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)

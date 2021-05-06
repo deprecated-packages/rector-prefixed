@@ -12,11 +12,11 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class GenericTypeSpecifier
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\Generics\NodeType\ExtendsTemplateTypeMapFallbackFactory
+     * @var ExtendsTemplateTypeMapFallbackFactory
      */
     private $extendsTemplateTypeMapFallbackFactory;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Generics\NodeType\ExtendsTemplateTypeMapFallbackFactory $extendsTemplateTypeMapFallbackFactory)

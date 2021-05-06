@@ -12,11 +12,11 @@ use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 final class DeadParamTagValueNodeAnalyzer
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeTypeResolver\TypeComparator\TypeComparator
+     * @var TypeComparator
      */
     private $typeComparator;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)

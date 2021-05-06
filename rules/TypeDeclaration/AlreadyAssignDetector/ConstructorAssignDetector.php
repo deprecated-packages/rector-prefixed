@@ -20,11 +20,11 @@ final class ConstructorAssignDetector
      */
     private const IS_FIRST_LEVEL_STATEMENT = 'first_level_stmt';
     /**
-     * @var \Rector\TypeDeclaration\Matcher\PropertyAssignMatcher
+     * @var PropertyAssignMatcher
      */
     private $propertyAssignMatcher;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     public function __construct(\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)

@@ -27,15 +27,15 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector
+     * @var TraitNodeScopeCollector
      */
     private $traitNodeScopeCollector;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

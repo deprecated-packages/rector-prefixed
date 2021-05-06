@@ -13,7 +13,7 @@ use Rector\Defluent\ValueObject\FluentMethodCalls;
 final class SeparateReturnMethodCallFactory
 {
     /**
-     * @var \Rector\Defluent\NodeResolver\FirstMethodCallVarResolver
+     * @var FirstMethodCallVarResolver
      */
     private $firstMethodCallVarResolver;
     public function __construct(\Rector\Defluent\NodeResolver\FirstMethodCallVarResolver $firstMethodCallVarResolver)

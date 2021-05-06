@@ -21,15 +21,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeReadOnlyPropertyWithDefaultValueToConstantRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\NodeManipulator\PropertyManipulator
+     * @var PropertyManipulator
      */
     private $propertyManipulator;
     /**
-     * @var \Rector\Privatization\NodeFactory\ClassConstantFactory
+     * @var ClassConstantFactory
      */
     private $classConstantFactory;
     /**
-     * @var \Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer
+     * @var PropertyFetchWithConstFetchReplacer
      */
     private $propertyFetchWithConstFetchReplacer;
     public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Privatization\NodeFactory\ClassConstantFactory $classConstantFactory, \Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer $propertyFetchWithConstFetchReplacer)

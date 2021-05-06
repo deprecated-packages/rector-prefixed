@@ -8,18 +8,13 @@ use Rector\Naming\Contract\RenameValueObjectInterface;
 final class PropertyRenameGuard
 {
     /**
-     * @var mixed[]
+     * @var ConflictingNameGuardInterface[]
      */
-    private $conflictingNameGuards;
+    private $conflictingNameGuards = [];
     /**
      * @param ConflictingNameGuardInterface[] $conflictingNameGuards
      */
-    public function __construct(
-        /**
-         * @var ConflictingNameGuardInterface[]
-         */
-        array $conflictingNameGuards
-    )
+    public function __construct(array $conflictingNameGuards)
     {
         $this->conflictingNameGuards = $conflictingNameGuards;
     }

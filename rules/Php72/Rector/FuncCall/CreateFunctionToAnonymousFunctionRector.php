@@ -31,15 +31,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CreateFunctionToAnonymousFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Core\PhpParser\Parser\InlineCodeParser
+     * @var InlineCodeParser
      */
     private $inlineCodeParser;
     /**
-     * @var \Rector\Php72\NodeFactory\AnonymousFunctionFactory
+     * @var AnonymousFunctionFactory
      */
     private $anonymousFunctionFactory;
     /**
-     * @var \Rector\Core\Php\ReservedKeywordAnalyzer
+     * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
     public function __construct(\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser, \Rector\Php72\NodeFactory\AnonymousFunctionFactory $anonymousFunctionFactory, \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer)

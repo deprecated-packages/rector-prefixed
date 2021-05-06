@@ -21,17 +21,17 @@ final class ClassInsertManipulator
      */
     private const BEFORE_TRAIT_TYPES = [\PhpParser\Node\Stmt\TraitUse::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassMethod::class];
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
-     */
-    private $nodeFactory;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
+    /**
+     * @var NodeFactory
+     */
+    private $nodeFactory;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeFactory = $nodeFactory;
     }
     /**
      * @param ClassMethod|Property|ClassConst|ClassMethod $stmt

@@ -13,18 +13,13 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class ClassNameImportSkipper
 {
     /**
-     * @var mixed[]
+     * @var ClassNameImportSkipVoterInterface[]
      */
-    private $classNameImportSkipVoters;
+    private $classNameImportSkipVoters = [];
     /**
      * @param ClassNameImportSkipVoterInterface[] $classNameImportSkipVoters
      */
-    public function __construct(
-        /**
-         * @var ClassNameImportSkipVoterInterface[]
-         */
-        array $classNameImportSkipVoters = []
-    )
+    public function __construct(array $classNameImportSkipVoters)
     {
         $this->classNameImportSkipVoters = $classNameImportSkipVoters;
     }

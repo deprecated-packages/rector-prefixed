@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UnSpreadOperatorRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\CodingStyle\NodeAnalyzer\SpreadVariablesCollector
+     * @var SpreadVariablesCollector
      */
     private $spreadVariablesCollector;
     public function __construct(\Rector\CodingStyle\NodeAnalyzer\SpreadVariablesCollector $spreadVariablesCollector)

@@ -13,11 +13,11 @@ use Rector\Core\ValueObject\Application\File;
 final class RectorChangeCollector
 {
     /**
-     * @var \Rector\Core\Logging\CurrentRectorProvider
+     * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
     /**
-     * @var \Rector\Core\Provider\CurrentFileProvider
+     * @var CurrentFileProvider
      */
     private $currentFileProvider;
     public function __construct(\Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\Provider\CurrentFileProvider $currentFileProvider)

@@ -17,15 +17,15 @@ use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
 final class FunctionLikeDocParamTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory
+     * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

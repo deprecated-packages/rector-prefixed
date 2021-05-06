@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReturnThisRemoveRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard
+     * @var ParentClassMethodTypeOverrideGuard
      */
     private $parentClassMethodTypeOverrideGuard;
     public function __construct(\Rector\Defluent\ConflictGuard\ParentClassMethodTypeOverrideGuard $parentClassMethodTypeOverrideGuard)

@@ -10,19 +10,13 @@ final class SwapFuncCallArguments
      */
     private $function;
     /**
-     * @var mixed[]
+     * @var array<int, int>
      */
-    private $order;
+    private $order = [];
     /**
-     * @param int[] $order
+     * @param array<int, int> $order
      */
-    public function __construct(
-        string $function,
-        /**
-         * @var array<int, int>
-         */
-        array $order
-    )
+    public function __construct(string $function, array $order)
     {
         $this->function = $function;
         $this->order = $order;

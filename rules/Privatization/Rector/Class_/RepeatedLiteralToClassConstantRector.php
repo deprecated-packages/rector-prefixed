@@ -43,22 +43,22 @@ final class RepeatedLiteralToClassConstantRector extends \Rector\Core\Rector\Abs
      */
     private const SLASH_AND_DASH_REGEX = '#[-\\\\/]#';
     /**
-     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
+     * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
     /**
-     * @var \Rector\Core\Php\ReservedKeywordAnalyzer
-     */
-    private $reservedKeywordAnalyzer;
-    /**
-     * @var \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder
+     * @var ScopeAwareNodeFinder
      */
     private $scopeAwareNodeFinder;
+    /**
+     * @var ReservedKeywordAnalyzer
+     */
+    private $reservedKeywordAnalyzer;
     public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
     {
         $this->classInsertManipulator = $classInsertManipulator;
-        $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
+        $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

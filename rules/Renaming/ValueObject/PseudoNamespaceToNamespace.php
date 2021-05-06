@@ -10,19 +10,13 @@ final class PseudoNamespaceToNamespace
      */
     private $namespacePrefix;
     /**
-     * @var mixed[]
+     * @var string[]
      */
-    private $excludedClasses;
+    private $excludedClasses = [];
     /**
      * @param string[] $excludedClasses
      */
-    public function __construct(
-        string $namespacePrefix,
-        /**
-         * @var string[]
-         */
-        array $excludedClasses = []
-    )
+    public function __construct(string $namespacePrefix, array $excludedClasses = [])
     {
         $this->namespacePrefix = $namespacePrefix;
         $this->excludedClasses = $excludedClasses;

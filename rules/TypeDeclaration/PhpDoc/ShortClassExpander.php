@@ -19,11 +19,11 @@ final class ShortClassExpander
      */
     private const CLASS_CONST_REGEX = '#::class#';
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier
+     * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier)

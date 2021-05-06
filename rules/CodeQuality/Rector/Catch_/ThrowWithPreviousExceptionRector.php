@@ -33,7 +33,7 @@ final class ThrowWithPreviousExceptionRector extends \Rector\Core\Rector\Abstrac
      */
     private const DEFAULT_EXCEPTION_ARGUMENT_POSITION = 2;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)

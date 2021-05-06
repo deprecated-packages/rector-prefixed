@@ -17,26 +17,26 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyUsageAnalyzer
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer
-     */
-    private $familyRelationsAnalyzer;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var FamilyRelationsAnalyzer
+     */
+    private $familyRelationsAnalyzer;
+    /**
+     * @var NodeRepository
      */
     private $nodeRepository;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
     }
     public function isPropertyFetchedInChildClass(\PhpParser\Node\Stmt\Property $property) : bool

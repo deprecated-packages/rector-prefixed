@@ -10,11 +10,11 @@ use Rector\Core\Reflection\MethodReflectionToAstResolver;
 final class MethodReflectionClassMethodResolver
 {
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     /**
-     * @var \Rector\Core\Reflection\MethodReflectionToAstResolver
+     * @var MethodReflectionToAstResolver
      */
     private $methodReflectionToAstResolver;
     public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\Reflection\MethodReflectionToAstResolver $methodReflectionToAstResolver)

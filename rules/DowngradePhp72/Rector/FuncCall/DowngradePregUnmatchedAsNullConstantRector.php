@@ -41,7 +41,7 @@ final class DowngradePregUnmatchedAsNullConstantRector extends \Rector\Core\Rect
      */
     private const FLAG = 'PREG_UNMATCHED_AS_NULL';
     /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
     public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)

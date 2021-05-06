@@ -8,7 +8,7 @@ use Rector\Core\PhpParser\Node\Value\ValueResolver;
 final class FuncCallManipulator
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)

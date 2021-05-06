@@ -16,30 +16,30 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassConstManipulator
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
-     */
-    private $betterNodeFinder;
-    /**
-     * @var \Rector\Core\NodeManipulator\ClassManipulator
-     */
-    private $classManipulator;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var BetterNodeFinder
      */
-    private $nodeRepository;
+    private $betterNodeFinder;
     /**
-     * @var \Rector\Core\PhpParser\Comparing\NodeComparator
+     * @var NodeComparator
      */
     private $nodeComparator;
+    /**
+     * @var ClassManipulator
+     */
+    private $classManipulator;
+    /**
+     * @var NodeRepository
+     */
+    private $nodeRepository;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
+        $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->classManipulator = $classManipulator;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeRepository = $nodeRepository;
         $this->nodeComparator = $nodeComparator;
     }

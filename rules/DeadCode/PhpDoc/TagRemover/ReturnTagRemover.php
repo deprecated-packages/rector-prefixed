@@ -11,7 +11,7 @@ use Rector\DeadCode\PhpDoc\DeadReturnTagValueNodeAnalyzer;
 final class ReturnTagRemover
 {
     /**
-     * @var \Rector\DeadCode\PhpDoc\DeadReturnTagValueNodeAnalyzer
+     * @var DeadReturnTagValueNodeAnalyzer
      */
     private $deadReturnTagValueNodeAnalyzer;
     public function __construct(\Rector\DeadCode\PhpDoc\DeadReturnTagValueNodeAnalyzer $deadReturnTagValueNodeAnalyzer)

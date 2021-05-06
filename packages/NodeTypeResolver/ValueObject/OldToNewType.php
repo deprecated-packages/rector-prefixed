@@ -7,11 +7,11 @@ use PHPStan\Type\Type;
 final class OldToNewType
 {
     /**
-     * @var \PHPStan\Type\Type
+     * @var Type
      */
     private $oldType;
     /**
-     * @var \PHPStan\Type\Type
+     * @var Type
      */
     private $newType;
     public function __construct(\PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType)

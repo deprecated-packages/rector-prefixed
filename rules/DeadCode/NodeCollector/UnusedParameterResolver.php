@@ -11,11 +11,11 @@ use Rector\NodeNameResolver\NodeNameResolver;
 final class UnusedParameterResolver
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ClassMethodManipulator
+     * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)

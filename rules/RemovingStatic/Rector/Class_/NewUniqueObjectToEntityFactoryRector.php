@@ -47,11 +47,11 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      */
     private $classesUsingTypes = [];
     /**
-     * @var \Rector\Naming\Naming\PropertyNaming
+     * @var PropertyNaming
      */
     private $propertyNaming;
     /**
-     * @var \Rector\RemovingStatic\StaticTypesInClassResolver
+     * @var StaticTypesInClassResolver
      */
     private $staticTypesInClassResolver;
     public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\RemovingStatic\StaticTypesInClassResolver $staticTypesInClassResolver)

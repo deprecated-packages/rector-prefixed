@@ -10,22 +10,22 @@ use Rector\PostRector\Application\PostFileProcessor;
 final class NodesWithFileDestinationPrinter
 {
     /**
-     * @var \Rector\Core\PhpParser\Printer\BetterStandardPrinter
+     * @var PostFileProcessor
      */
-    private $betterStandardPrinter;
+    private $postFileProcessor;
     /**
-     * @var \PhpParser\Lexer
+     * @var Lexer
      */
     private $lexer;
     /**
-     * @var \Rector\PostRector\Application\PostFileProcessor
+     * @var BetterStandardPrinter
      */
-    private $postFileProcessor;
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \PhpParser\Lexer $lexer, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor)
     {
-        $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->lexer = $lexer;
         $this->postFileProcessor = $postFileProcessor;
+        $this->lexer = $lexer;
+        $this->betterStandardPrinter = $betterStandardPrinter;
     }
     public function printNodesWithFileDestination(\Rector\FileSystemRector\Contract\FileWithNodesInterface $fileWithNodes) : string
     {

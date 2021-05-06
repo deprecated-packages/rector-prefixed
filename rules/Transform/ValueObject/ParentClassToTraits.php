@@ -11,19 +11,13 @@ final class ParentClassToTraits
      */
     private $parentType;
     /**
-     * @var mixed[]
+     * @var string[]
      */
-    private $traitNames;
+    private $traitNames = [];
     /**
      * @param string[] $traitNames
      */
-    public function __construct(
-        string $parentType,
-        /**
-         * @var string[]
-         */
-        array $traitNames
-    )
+    public function __construct(string $parentType, array $traitNames)
     {
         $this->parentType = $parentType;
         $this->traitNames = $traitNames;

@@ -26,31 +26,31 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class FunctionLikeReflectionParser
 {
     /**
-     * @var \PhpParser\Parser
+     * @var Parser
      */
     private $parser;
     /**
-     * @var \Symplify\SmartFileSystem\SmartFileSystem
+     * @var SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var \PhpParser\NodeFinder
+     * @var NodeFinder
      */
     private $nodeFinder;
     /**
-     * @var \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator
+     * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
     /**
-     * @var \Rector\NodeTypeResolver\NodeTypeResolver
+     * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

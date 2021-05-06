@@ -16,7 +16,7 @@ final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
      */
     private $useNodes = [];
     /**
-     * @var \Rector\Core\PhpParser\Node\BetterNodeFinder
+     * @var BetterNodeFinder
      */
     private $betterNodeFinder;
     public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)

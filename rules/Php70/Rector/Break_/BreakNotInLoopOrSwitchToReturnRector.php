@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class BreakNotInLoopOrSwitchToReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeNestingScope\ContextAnalyzer
+     * @var ContextAnalyzer
      */
     private $contextAnalyzer;
     public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer)

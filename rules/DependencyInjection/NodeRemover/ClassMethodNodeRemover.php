@@ -17,22 +17,22 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class ClassMethodNodeRemover
 {
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var NodesToRemoveCollector
      */
-    private $simpleCallableNodeTraverser;
+    private $nodesToRemoveCollector;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\PostRector\Collector\NodesToRemoveCollector
+     * @var SimpleCallableNodeTraverser
      */
-    private $nodesToRemoveCollector;
+    private $simpleCallableNodeTraverser;
     public function __construct(\RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
     {
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     public function removeClassMethodIfUseless(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

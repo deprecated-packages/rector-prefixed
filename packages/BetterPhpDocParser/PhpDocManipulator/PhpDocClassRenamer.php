@@ -11,7 +11,7 @@ use Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher;
 final class PhpDocClassRenamer
 {
     /**
-     * @var \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher
+     * @var ClassAnnotationMatcher
      */
     private $classAnnotationMatcher;
     public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher)

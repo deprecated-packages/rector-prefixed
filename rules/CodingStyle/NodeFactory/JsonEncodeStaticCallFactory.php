@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 final class JsonEncodeStaticCallFactory
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)

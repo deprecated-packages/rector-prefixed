@@ -18,7 +18,7 @@ final class FileRelocationResolver
      */
     private const NAMESPACE_SEPARATOR = '\\';
     /**
-     * @var \Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer
+     * @var FileInfoDeletionAnalyzer
      */
     private $fileInfoDeletionAnalyzer;
     public function __construct(\Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)

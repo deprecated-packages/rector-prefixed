@@ -14,25 +14,25 @@ use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 final class AssignAndRootExprAndNodesToAddMatcher
 {
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer
+     * @var FluentChainMethodCallNodeAnalyzer
      */
     private $fluentChainMethodCallNodeAnalyzer;
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor
-     */
-    private $fluentChainMethodCallRootExtractor;
-    /**
-     * @var \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory
+     * @var NonFluentChainMethodCallFactory
      */
     private $nonFluentChainMethodCallFactory;
     /**
-     * @var \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer
-     */
-    private $sameClassMethodCallAnalyzer;
-    /**
-     * @var \Rector\Defluent\Skipper\FluentMethodCallSkipper
+     * @var FluentMethodCallSkipper
      */
     private $fluentMethodCallSkipper;
+    /**
+     * @var FluentChainMethodCallRootExtractor
+     */
+    private $fluentChainMethodCallRootExtractor;
+    /**
+     * @var SameClassMethodCallAnalyzer
+     */
+    private $sameClassMethodCallAnalyzer;
     public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor $fluentChainMethodCallRootExtractor, \Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory $nonFluentChainMethodCallFactory, \Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer, \Rector\Defluent\Skipper\FluentMethodCallSkipper $fluentMethodCallSkipper)
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;

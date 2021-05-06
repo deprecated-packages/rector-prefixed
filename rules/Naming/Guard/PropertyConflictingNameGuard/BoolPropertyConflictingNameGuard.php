@@ -11,17 +11,17 @@ use Rector\NodeNameResolver\NodeNameResolver;
 final class BoolPropertyConflictingNameGuard
 {
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver
-     */
-    private $boolPropertyExpectedNameResolver;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\Naming\PhpArray\ArrayFilter
+     * @var ArrayFilter
      */
     private $arrayFilter;
+    /**
+     * @var BoolPropertyExpectedNameResolver
+     */
+    private $boolPropertyExpectedNameResolver;
     public function __construct(\Rector\Naming\ExpectedNameResolver\BoolPropertyExpectedNameResolver $boolPropertyExpectedNameResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\PhpArray\ArrayFilter $arrayFilter)
     {
         $this->boolPropertyExpectedNameResolver = $boolPropertyExpectedNameResolver;

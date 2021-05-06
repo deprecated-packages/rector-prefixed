@@ -45,37 +45,41 @@ CODE_SAMPLE
     }
     /**
      * @param Use_|TraitUse $node
+     * @return Use_[]|TraitUse[]|null
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?array
     {
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
-            $this->refactorUseImport($node);
+            return $this->refactorUseImport($node);
         }
-        if ($node instanceof \PhpParser\Node\Stmt\TraitUse) {
-            $this->refactorTraitUse($node);
-        }
-        return null;
+        return $this->refactorTraitUse($node);
     }
-    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use) : void
+    /**
+     * @return Use_[]|null $use
+     */
+    private function refactorUseImport(\PhpParser\Node\Stmt\Use_ $use) : ?array
     {
         if (\count($use->uses) < 2) {
-            return;
+            return null;
         }
+        $uses = [];
         foreach ($use->uses as $singleUse) {
-            $separatedUse = new \PhpParser\Node\Stmt\Use_([$singleUse]);
-            $this->addNodeAfterNode($separatedUse, $use);
+            $uses[] = new \PhpParser\Node\Stmt\Use_([$singleUse]);
         }
-        $this->removeNode($use);
+        return $uses;
     }
-    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse) : void
+    /**
+     * @return TraitUse[]|null
+     */
+    private function refactorTraitUse(\PhpParser\Node\Stmt\TraitUse $traitUse) : ?array
     {
         if (\count($traitUse->traits) < 2) {
-            return;
+            return null;
         }
+        $traitUses = [];
         foreach ($traitUse->traits as $singleTraitUse) {
-            $separatedTraitUse = new \PhpParser\Node\Stmt\TraitUse([$singleTraitUse]);
-            $this->addNodeAfterNode($separatedTraitUse, $traitUse);
+            $traitUses[] = new \PhpParser\Node\Stmt\TraitUse([$singleTraitUse]);
         }
-        $this->removeNode($traitUse);
+        return $traitUses;
     }
 }

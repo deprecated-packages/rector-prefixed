@@ -27,40 +27,40 @@ final class NameImporter
      */
     private $aliasedUses = [];
     /**
-     * @var \Rector\CodingStyle\ClassNameImport\AliasUsesResolver
-     */
-    private $aliasUsesResolver;
-    /**
-     * @var \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper
-     */
-    private $classNameImportSkipper;
-    /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
-     */
-    private $nodeNameResolver;
-    /**
-     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
-     */
-    private $parameterProvider;
-    /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     /**
-     * @var \Rector\PostRector\Collector\UseNodesToAddCollector
+     * @var AliasUsesResolver
+     */
+    private $aliasUsesResolver;
+    /**
+     * @var ClassNameImportSkipper
+     */
+    private $classNameImportSkipper;
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    /**
+     * @var ParameterProvider
+     */
+    private $parameterProvider;
+    /**
+     * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
+        $this->staticTypeMapper = $staticTypeMapper;
         $this->aliasUsesResolver = $aliasUsesResolver;
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->parameterProvider = $parameterProvider;
-        $this->staticTypeMapper = $staticTypeMapper;
         $this->useNodesToAddCollector = $useNodesToAddCollector;
         $this->reflectionProvider = $reflectionProvider;
     }

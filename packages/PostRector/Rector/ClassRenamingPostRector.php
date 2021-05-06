@@ -11,17 +11,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
-     * @var \Rector\Renaming\NodeManipulator\ClassRenamer
-     */
-    private $classRenamer;
-    /**
-     * @var \Rector\PSR4\Collector\RenamedClassesCollector
+     * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
+    /**
+     * @var ClassRenamer
+     */
+    private $classRenamer;
     public function __construct(\Rector\Renaming\NodeManipulator\ClassRenamer $classRenamer, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector)
     {
-        $this->classRenamer = $classRenamer;
         $this->renamedClassesCollector = $renamedClassesCollector;
+        $this->classRenamer = $classRenamer;
     }
     public function getPriority() : int
     {

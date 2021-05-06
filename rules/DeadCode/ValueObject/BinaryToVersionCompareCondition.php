@@ -7,22 +7,21 @@ use Rector\DeadCode\Contract\ConditionInterface;
 final class BinaryToVersionCompareCondition implements \Rector\DeadCode\Contract\ConditionInterface
 {
     /**
-     * @var \Rector\DeadCode\ValueObject\VersionCompareCondition
-     */
-    private $versionCompareCondition;
-    /**
      * @var string
      */
     private $binaryClass;
+    /**
+     * @var VersionCompareCondition
+     */
+    private $versionCompareCondition;
+    /**
+     * @var mixed
+     */
     private $expectedValue;
-    public function __construct(
-        \Rector\DeadCode\ValueObject\VersionCompareCondition $versionCompareCondition,
-        string $binaryClass,
-        /**
-         * @var mixed
-         */
-        $expectedValue
-    )
+    /**
+     * @param mixed $expectedValue
+     */
+    public function __construct(\Rector\DeadCode\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
     {
         $this->versionCompareCondition = $versionCompareCondition;
         $this->binaryClass = $binaryClass;

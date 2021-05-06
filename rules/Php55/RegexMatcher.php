@@ -22,7 +22,7 @@ final class RegexMatcher
      */
     private const LETTER_SUFFIX_REGEX = '#(?<modifiers>\\w+)$#';
     /**
-     * @var \Rector\Core\PhpParser\Node\Value\ValueResolver
+     * @var ValueResolver
      */
     private $valueResolver;
     public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)

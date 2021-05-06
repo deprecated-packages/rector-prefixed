@@ -10,7 +10,7 @@ use Rector\NodeCollector\NodeCollector\NodeRepository;
 final class MethodCallRenamer
 {
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)

@@ -44,23 +44,23 @@ final class TypedPropertyRector extends \Rector\Core\Rector\AbstractRector imple
      */
     private $classLikeTypeOnly = \false;
     /**
-     * @var \Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer
+     * @var PropertyTypeInferer
      */
     private $propertyTypeInferer;
     /**
-     * @var \Rector\VendorLocker\VendorLockResolver
+     * @var VendorLockResolver
      */
     private $vendorLockResolver;
     /**
-     * @var \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer
+     * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
     /**
-     * @var \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover
+     * @var VarTagRemover
      */
     private $varTagRemover;
     /**
-     * @var \PHPStan\Reflection\ReflectionProvider
+     * @var ReflectionProvider
      */
     private $reflectionProvider;
     public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\DeadCode\PhpDoc\TagRemover\VarTagRemover $varTagRemover, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)

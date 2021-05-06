@@ -90,29 +90,29 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      */
     private $testedObjectPropertyFetch;
     /**
-     * @var \Rector\PhpSpecToPHPUnit\MatchersManipulator
-     */
-    private $matchersManipulator;
-    /**
-     * @var \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming
+     * @var PhpSpecRenaming
      */
     private $phpSpecRenaming;
     /**
-     * @var \Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory
+     * @var MatchersManipulator
+     */
+    private $matchersManipulator;
+    /**
+     * @var AssertMethodCallFactory
      */
     private $assertMethodCallFactory;
     /**
-     * @var \Rector\PhpSpecToPHPUnit\NodeFactory\BeConstructedWithAssignFactory
+     * @var BeConstructedWithAssignFactory
      */
     private $beConstructedWithAssignFactory;
     /**
-     * @var \Rector\PhpSpecToPHPUnit\NodeFactory\DuringMethodCallFactory
+     * @var DuringMethodCallFactory
      */
     private $duringMethodCallFactory;
     public function __construct(\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory $assertMethodCallFactory, \Rector\PhpSpecToPHPUnit\NodeFactory\BeConstructedWithAssignFactory $beConstructedWithAssignFactory, \Rector\PhpSpecToPHPUnit\NodeFactory\DuringMethodCallFactory $duringMethodCallFactory)
     {
-        $this->matchersManipulator = $matchersManipulator;
         $this->phpSpecRenaming = $phpSpecRenaming;
+        $this->matchersManipulator = $matchersManipulator;
         $this->assertMethodCallFactory = $assertMethodCallFactory;
         $this->beConstructedWithAssignFactory = $beConstructedWithAssignFactory;
         $this->duringMethodCallFactory = $duringMethodCallFactory;

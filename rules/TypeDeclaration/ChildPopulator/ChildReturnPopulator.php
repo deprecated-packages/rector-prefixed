@@ -14,15 +14,15 @@ use Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver;
 final class ChildReturnPopulator
 {
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     /**
-     * @var \Rector\NodeCollector\NodeCollector\NodeRepository
+     * @var NodeRepository
      */
     private $nodeRepository;
     /**
-     * @var \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver
+     * @var ChildTypeResolver
      */
     private $childTypeResolver;
     public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\TypeDeclaration\NodeTypeAnalyzer\ChildTypeResolver $childTypeResolver)

@@ -10,11 +10,11 @@ use Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\Intermedia
 final class RectorBetterReflectionSourceLocatorFactory
 {
     /**
-     * @var \PHPStan\Reflection\BetterReflection\BetterReflectionSourceLocatorFactory
+     * @var BetterReflectionSourceLocatorFactory
      */
     private $betterReflectionSourceLocatorFactory;
     /**
-     * @var \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator
+     * @var IntermediateSourceLocator
      */
     private $intermediateSourceLocator;
     public function __construct(\PHPStan\Reflection\BetterReflection\BetterReflectionSourceLocatorFactory $betterReflectionSourceLocatorFactory, \Rector\NodeTypeResolver\Reflection\BetterReflection\SourceLocator\IntermediateSourceLocator $intermediateSourceLocator)

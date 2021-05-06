@@ -21,15 +21,15 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveOverriddenValuesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\NodeNestingScope\ContextAnalyzer
+     * @var ContextAnalyzer
      */
     private $contextAnalyzer;
     /**
-     * @var \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector
+     * @var NodeByTypeAndPositionCollector
      */
     private $nodeByTypeAndPositionCollector;
     /**
-     * @var \Rector\DeadCode\NodeFinder\VariableUseFinder
+     * @var VariableUseFinder
      */
     private $variableUseFinder;
     public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer, \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector $nodeByTypeAndPositionCollector, \Rector\DeadCode\NodeFinder\VariableUseFinder $variableUseFinder)

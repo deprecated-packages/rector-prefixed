@@ -26,32 +26,32 @@ final class RenameParamToMatchTypeRector extends \Rector\Core\Rector\AbstractRec
      */
     private $hasChanged = \false;
     /**
-     * @var \Rector\Naming\Guard\BreakingVariableRenameGuard
-     */
-    private $breakingVariableRenameGuard;
-    /**
-     * @var \Rector\Naming\Naming\ExpectedNameResolver
+     * @var ExpectedNameResolver
      */
     private $expectedNameResolver;
     /**
-     * @var \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver
+     * @var BreakingVariableRenameGuard
      */
-    private $matchParamTypeExpectedNameResolver;
+    private $breakingVariableRenameGuard;
     /**
-     * @var \Rector\Naming\ValueObjectFactory\ParamRenameFactory
+     * @var ParamRenamer
+     */
+    private $paramRenamer;
+    /**
+     * @var ParamRenameFactory
      */
     private $paramRenameFactory;
     /**
-     * @var \Rector\Naming\ParamRenamer\ParamRenamer
+     * @var MatchParamTypeExpectedNameResolver
      */
-    private $paramRenamer;
+    private $matchParamTypeExpectedNameResolver;
     public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver $matchParamTypeExpectedNameResolver, \Rector\Naming\ValueObjectFactory\ParamRenameFactory $paramRenameFactory, \Rector\Naming\ParamRenamer\ParamRenamer $paramRenamer)
     {
-        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->expectedNameResolver = $expectedNameResolver;
-        $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
+        $this->breakingVariableRenameGuard = $breakingVariableRenameGuard;
         $this->paramRenameFactory = $paramRenameFactory;
         $this->paramRenamer = $paramRenamer;
+        $this->matchParamTypeExpectedNameResolver = $matchParamTypeExpectedNameResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

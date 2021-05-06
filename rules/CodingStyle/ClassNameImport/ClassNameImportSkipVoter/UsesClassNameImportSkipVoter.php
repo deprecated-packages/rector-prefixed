@@ -17,7 +17,7 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class UsesClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
-     * @var \Rector\PostRector\Collector\UseNodesToAddCollector
+     * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
     public function __construct(\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)

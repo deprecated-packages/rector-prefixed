@@ -11,15 +11,15 @@ use Rector\ReadWrite\NodeFinder\NodeUsageFinder;
 final class VariableReadNodeAnalyzer implements \Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface
 {
     /**
-     * @var \Rector\NodeNestingScope\ParentScopeFinder
+     * @var ParentScopeFinder
      */
     private $parentScopeFinder;
     /**
-     * @var \Rector\ReadWrite\NodeFinder\NodeUsageFinder
+     * @var NodeUsageFinder
      */
     private $nodeUsageFinder;
     /**
-     * @var \Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer
+     * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
     public function __construct(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\ReadWrite\ReadNodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)

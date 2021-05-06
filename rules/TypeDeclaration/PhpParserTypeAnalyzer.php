@@ -12,7 +12,7 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 final class PhpParserTypeAnalyzer
 {
     /**
-     * @var \Rector\StaticTypeMapper\StaticTypeMapper
+     * @var StaticTypeMapper
      */
     private $staticTypeMapper;
     public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)

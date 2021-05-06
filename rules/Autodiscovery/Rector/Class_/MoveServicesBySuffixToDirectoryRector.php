@@ -32,11 +32,11 @@ final class MoveServicesBySuffixToDirectoryRector extends \Rector\Core\Rector\Ab
      */
     private $groupNamesBySuffix = [];
     /**
-     * @var \Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver
+     * @var ExpectedFileLocationResolver
      */
     private $expectedFileLocationResolver;
     /**
-     * @var \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory
+     * @var AddedFileWithNodesFactory
      */
     private $addedFileWithNodesFactory;
     public function __construct(\Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver $expectedFileLocationResolver, \Rector\FileSystemRector\ValueObjectFactory\AddedFileWithNodesFactory $addedFileWithNodesFactory)

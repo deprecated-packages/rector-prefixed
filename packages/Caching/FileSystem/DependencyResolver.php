@@ -12,26 +12,26 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class DependencyResolver
 {
     /**
-     * @var \PHPStan\Analyser\NodeScopeResolver
+     * @var FileHelper
      */
-    private $nodeScopeResolver;
+    private $fileHelper;
     /**
      * @var PHPStanDependencyResolver
      */
     private $phpStanDependencyResolver;
     /**
-     * @var \PHPStan\File\FileHelper
+     * @var NodeScopeResolver
      */
-    private $fileHelper;
+    private $nodeScopeResolver;
     /**
-     * @var \Symplify\PackageBuilder\Reflection\PrivatesAccessor
+     * @var PrivatesAccessor
      */
     private $privatesAccessor;
     public function __construct(\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper, \RectorPrefix20210506\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
-        $this->nodeScopeResolver = $nodeScopeResolver;
-        $this->phpStanDependencyResolver = $phpStanDependencyResolver;
         $this->fileHelper = $fileHelper;
+        $this->phpStanDependencyResolver = $phpStanDependencyResolver;
+        $this->nodeScopeResolver = $nodeScopeResolver;
         $this->privatesAccessor = $privatesAccessor;
     }
     /**

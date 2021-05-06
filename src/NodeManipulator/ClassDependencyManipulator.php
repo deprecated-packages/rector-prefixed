@@ -24,44 +24,44 @@ use Rector\PostRector\ValueObject\PropertyMetadata;
 final class ClassDependencyManipulator
 {
     /**
-     * @var \Rector\Core\NodeManipulator\ChildAndParentClassManipulator
-     */
-    private $childAndParentClassManipulator;
-    /**
-     * @var \Rector\Core\NodeManipulator\ClassInsertManipulator
-     */
-    private $classInsertManipulator;
-    /**
-     * @var \Rector\Core\NodeManipulator\ClassMethodAssignManipulator
+     * @var ClassMethodAssignManipulator
      */
     private $classMethodAssignManipulator;
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var \Rector\Core\NodeManipulator\StmtsManipulator
+     * @var ChildAndParentClassManipulator
+     */
+    private $childAndParentClassManipulator;
+    /**
+     * @var StmtsManipulator
      */
     private $stmtsManipulator;
     /**
-     * @var \Rector\Core\Php\PhpVersionProvider
+     * @var ClassInsertManipulator
+     */
+    private $classInsertManipulator;
+    /**
+     * @var PhpVersionProvider
      */
     private $phpVersionProvider;
     /**
-     * @var \Rector\Core\NodeAnalyzer\PropertyPresenceChecker
+     * @var PropertyPresenceChecker
      */
     private $propertyPresenceChecker;
     /**
-     * @var \Rector\NodeNameResolver\NodeNameResolver
+     * @var NodeNameResolver
      */
     private $nodeNameResolver;
     public function __construct(\Rector\Core\NodeManipulator\ChildAndParentClassManipulator $childAndParentClassManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\NodeAnalyzer\PropertyPresenceChecker $propertyPresenceChecker, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->childAndParentClassManipulator = $childAndParentClassManipulator;
-        $this->classInsertManipulator = $classInsertManipulator;
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->nodeFactory = $nodeFactory;
+        $this->childAndParentClassManipulator = $childAndParentClassManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
+        $this->classInsertManipulator = $classInsertManipulator;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->propertyPresenceChecker = $propertyPresenceChecker;
         $this->nodeNameResolver = $nodeNameResolver;

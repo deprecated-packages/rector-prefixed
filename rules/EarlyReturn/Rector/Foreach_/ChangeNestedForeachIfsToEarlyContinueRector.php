@@ -25,17 +25,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ChangeNestedForeachIfsToEarlyContinueRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var \Rector\EarlyReturn\NodeTransformer\ConditionInverter
-     */
-    private $conditionInverter;
-    /**
-     * @var \Rector\Core\NodeManipulator\IfManipulator
+     * @var IfManipulator
      */
     private $ifManipulator;
+    /**
+     * @var ConditionInverter
+     */
+    private $conditionInverter;
     public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
-        $this->conditionInverter = $conditionInverter;
         $this->ifManipulator = $ifManipulator;
+        $this->conditionInverter = $conditionInverter;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {

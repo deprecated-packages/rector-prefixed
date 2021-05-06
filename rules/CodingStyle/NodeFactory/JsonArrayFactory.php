@@ -17,15 +17,15 @@ use RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTravers
 final class JsonArrayFactory
 {
     /**
-     * @var \Rector\Core\PhpParser\Node\NodeFactory
+     * @var NodeFactory
      */
     private $nodeFactory;
     /**
-     * @var \Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer
+     * @var ImplodeAnalyzer
      */
     private $implodeAnalyzer;
     /**
-     * @var \Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
     public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer $implodeAnalyzer, \RectorPrefix20210506\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
