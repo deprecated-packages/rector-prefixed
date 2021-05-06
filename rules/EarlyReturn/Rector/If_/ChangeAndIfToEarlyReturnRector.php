@@ -208,6 +208,6 @@ CODE_SAMPLE
         if ($parent instanceof \PhpParser\Node\Stmt\If_) {
             return $this->isLastIfOrBeforeLastReturn($parent);
         }
-        return \true;
+        return !$this->contextAnalyzer->isHasAssignWithIndirectReturn($parent, $if);
     }
 }

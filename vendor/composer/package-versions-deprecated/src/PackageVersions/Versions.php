@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210505\PackageVersions;
+namespace RectorPrefix20210506\PackageVersions;
 
 use Composer\InstalledVersions;
 use OutOfBoundsException;
