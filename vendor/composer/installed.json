@@ -389,6 +389,124 @@
             "install-path": "..\/doctrine\/inflector"
         },
         {
+            "name": "ergebnis\/json-printer",
+            "version": "3.1.1",
+            "version_normalized": "3.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/ergebnis\/json-printer.git",
+                "reference": "e4190dadd9937a77d8afcaf2b6c42a528ab367d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/ergebnis\/json-printer\/zipball\/e4190dadd9937a77d8afcaf2b6c42a528ab367d6",
+                "reference": "e4190dadd9937a77d8afcaf2b6c42a528ab367d6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "ergebnis\/license": "^1.0.0",
+                "ergebnis\/php-cs-fixer-config": "^2.2.1",
+                "ergebnis\/phpstan-rules": "~0.15.2",
+                "ergebnis\/test-util": "^1.1.0",
+                "infection\/infection": "~0.15.3",
+                "phpstan\/extension-installer": "^1.0.4",
+                "phpstan\/phpstan": "~0.12.40",
+                "phpstan\/phpstan-deprecation-rules": "~0.12.5",
+                "phpstan\/phpstan-phpunit": "~0.12.16",
+                "phpstan\/phpstan-strict-rules": "~0.12.4",
+                "phpunit\/phpunit": "^8.5.8",
+                "psalm\/plugin-phpunit": "~0.11.0",
+                "vimeo\/psalm": "^3.14.2"
+            },
+            "time": "2020-08-30T12:17:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "RectorPrefix20210506\\Ergebnis\\Json\\Printer\\": "src\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas M\u00f6ller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a JSON printer, allowing for flexible indentation.",
+            "homepage": "https:\/\/github.com\/ergebnis\/json-printer",
+            "keywords": [
+                "formatter",
+                "json",
+                "printer"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/ergebnis\/json-printer\/issues",
+                "source": "https:\/\/github.com\/ergebnis\/json-printer"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/github.com\/localheinz",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/ergebnis\/json-printer"
+        },
+        {
+            "name": "idiosyncratic\/editorconfig",
+            "version": "0.1.1",
+            "version_normalized": "0.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/idiosyncratic-code\/editorconfig-php.git",
+                "reference": "50f742daee8b7a632b795f5927d8d88c43dd3a4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/idiosyncratic-code\/editorconfig-php\/zipball\/50f742daee8b7a632b795f5927d8d88c43dd3a4f",
+                "reference": "50f742daee8b7a632b795f5927d8d88c43dd3a4f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "idiosyncratic\/devtools": "^0.2"
+            },
+            "time": "2021-05-03T15:39:40+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "RectorPrefix20210506\\Idiosyncratic\\EditorConfig\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Silkey",
+                    "email": "jason@jasonsilkey.com"
+                }
+            ],
+            "description": "PHP implementation of EditorConfig",
+            "support": {
+                "issues": "https:\/\/github.com\/idiosyncratic-code\/editorconfig-php\/issues",
+                "source": "https:\/\/github.com\/idiosyncratic-code\/editorconfig-php\/tree\/0.1.1"
+            },
+            "install-path": "..\/idiosyncratic\/editorconfig"
+        },
+        {
             "name": "jean85\/pretty-package-versions",
             "version": "1.6.0",
             "version_normalized": "1.6.0.0",
@@ -1685,6 +1803,56 @@
                 }
             ],
             "install-path": "..\/sebastian\/diff"
+        },
+        {
+            "name": "shanethehat\/pretty-xml",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/shanethehat\/pretty-xml.git",
+                "reference": "2b063c6544c8dc9563c53cb72eb06d1d74c9e75f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/shanethehat\/pretty-xml\/zipball\/2b063c6544c8dc9563c53cb72eb06d1d74c9e75f",
+                "reference": "2b063c6544c8dc9563c53cb72eb06d1d74c9e75f",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat\/behat": "~3.0",
+                "bossa\/phpspec2-expect": "*",
+                "phpspec\/phpspec": "~2.0"
+            },
+            "time": "2015-08-10T14:22:54+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "RectorPrefix20210506\\PrettyXml\\": "src\/PrettyXml\/"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shane Auckland",
+                    "email": "shane.auckland@gmail.com",
+                    "homepage": "http:\/\/shaneauckland.co.uk"
+                }
+            ],
+            "description": "Library for pretty-printing XML",
+            "keywords": [
+                "pretty",
+                "xml"
+            ],
+            "support": {
+                "issues": "https:\/\/github.com\/shanethehat\/pretty-xml\/issues",
+                "source": "https:\/\/github.com\/shanethehat\/pretty-xml\/tree\/master"
+            },
+            "install-path": "..\/shanethehat\/pretty-xml"
         },
         {
             "name": "symfony\/config",

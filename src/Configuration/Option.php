@@ -130,4 +130,8 @@ final class Option
      * @var string
      */
     public const TEMPLATE_TYPE = 'template-type';
+    /**
+     * @var string
+     */
+    public const ENABLE_EDITORCONFIG = 'enable_editorconfig';
 }
