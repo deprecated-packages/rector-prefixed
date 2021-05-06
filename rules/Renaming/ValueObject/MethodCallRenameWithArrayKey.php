@@ -19,14 +19,16 @@ final class MethodCallRenameWithArrayKey implements \Rector\Renaming\Contract\Me
      * @var string
      */
     private $newMethod;
-    /**
-     * @var mixed
-     */
     private $arrayKey;
-    /**
-     * @param mixed $arrayKey
-     */
-    public function __construct(string $oldClass, string $oldMethod, string $newMethod, $arrayKey)
+    public function __construct(
+        string $oldClass,
+        string $oldMethod,
+        string $newMethod,
+        /**
+         * @var mixed
+         */
+        $arrayKey
+    )
     {
         $this->oldClass = $oldClass;
         $this->oldMethod = $oldMethod;

@@ -11,11 +11,11 @@ use RectorPrefix20210506\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
 final class StaticMethodClassFactory
 {
     /**
-     * @var ClassMethodFactory
+     * @var \Rector\Transform\NodeFactory\ClassMethodFactory
      */
     private $classMethodFactory;
     /**
-     * @var ClassNaming
+     * @var \Rector\CodingStyle\Naming\ClassNaming
      */
     private $classNaming;
     public function __construct(\Rector\Transform\NodeFactory\ClassMethodFactory $classMethodFactory, \Rector\CodingStyle\Naming\ClassNaming $classNaming)

@@ -27,7 +27,7 @@ final class DowngradeAnonymousClassRector extends \Rector\Core\Rector\AbstractRe
      */
     private const CLASS_NAME = 'AnonymousFor_';
     /**
-     * @var ClassAnalyzer
+     * @var \Rector\Core\NodeAnalyzer\ClassAnalyzer
      */
     private $classAnalyzer;
     public function __construct(\Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer)

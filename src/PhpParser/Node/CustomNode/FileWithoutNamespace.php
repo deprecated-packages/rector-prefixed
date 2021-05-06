@@ -11,13 +11,18 @@ use PhpParser\NodeAbstract;
 final class FileWithoutNamespace extends \PhpParser\NodeAbstract
 {
     /**
-     * @var Stmt[]
+     * @var mixed[]
      */
-    public $stmts = [];
+    public $stmts;
     /**
      * @param Stmt[] $stmts
      */
-    public function __construct(array $stmts)
+    public function __construct(
+        /**
+         * @var Stmt[]
+         */
+        array $stmts
+    )
     {
         $this->stmts = $stmts;
         parent::__construct();

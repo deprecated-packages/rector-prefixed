@@ -7,17 +7,23 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**
-     * @var SmartFileInfo|null
+     * @var \Symplify\SmartFileSystem\SmartFileInfo|null
      */
     private $mainConfigFileInfo;
     /**
-     * @var SmartFileInfo[]
+     * @var mixed[]
      */
-    private $setConfigFileInfos = [];
+    private $setConfigFileInfos;
     /**
      * @param SmartFileInfo[] $setConfigFileInfos
      */
-    public function __construct(?\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo, array $setConfigFileInfos)
+    public function __construct(
+        ?\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo,
+        /**
+         * @var SmartFileInfo[]
+         */
+        array $setConfigFileInfos
+    )
     {
         $this->mainConfigFileInfo = $mainConfigFileInfo;
         $this->setConfigFileInfos = $setConfigFileInfos;

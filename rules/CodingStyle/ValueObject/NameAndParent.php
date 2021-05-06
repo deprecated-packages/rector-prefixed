@@ -9,16 +9,13 @@ use PhpParser\Node\Name;
 final class NameAndParent
 {
     /**
-     * @var Node
-     */
-    private $parentNode;
-    /**
-     * @var Name|Identifier
+     * @var \PhpParser\Node
      */
     private $nameNode;
     /**
-     * @param Name|Identifier $nameNode
+     * @var \PhpParser\Node
      */
+    private $parentNode;
     public function __construct(\PhpParser\Node $nameNode, \PhpParser\Node $parentNode)
     {
         $this->nameNode = $nameNode;

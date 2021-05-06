@@ -13,21 +13,28 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ComposerFileProcessor implements \Rector\Core\Contract\Processor\FileProcessorInterface
 {
     /**
-     * @var ComposerJsonFactory
+     * @var \Symplify\ComposerJsonManipulator\ComposerJsonFactory
      */
     private $composerJsonFactory;
     /**
-     * @var ComposerJsonPrinter
+     * @var \Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter
      */
     private $composerJsonPrinter;
     /**
-     * @var ComposerRectorInterface[]
+     * @var mixed[]
      */
-    private $composerRectors = [];
+    private $composerRectors;
     /**
      * @param ComposerRectorInterface[] $composerRectors
      */
-    public function __construct(\RectorPrefix20210506\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210506\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, array $composerRectors)
+    public function __construct(
+        \RectorPrefix20210506\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory,
+        \RectorPrefix20210506\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter,
+        /**
+         * @var ComposerRectorInterface[]
+         */
+        array $composerRectors
+    )
     {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;

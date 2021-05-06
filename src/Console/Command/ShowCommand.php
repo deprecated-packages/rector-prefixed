@@ -15,21 +15,28 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ShowCommand extends \RectorPrefix20210506\Symfony\Component\Console\Command\Command
 {
     /**
-     * @var SymfonyStyle
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var ParameterProvider
+     * @var \Symplify\PackageBuilder\Parameter\ParameterProvider
      */
     private $parameterProvider;
     /**
-     * @var RectorInterface[]
+     * @var mixed[]
      */
-    private $rectors = [];
+    private $rectors;
     /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(\RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, array $rectors)
+    public function __construct(
+        \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle,
+        \RectorPrefix20210506\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider,
+        /**
+         * @var RectorInterface[]
+         */
+        array $rectors
+    )
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->parameterProvider = $parameterProvider;

@@ -10,18 +10,19 @@ final class NewArgToMethodCall
      * @var string
      */
     private $type;
-    /**
-     * @var mixed
-     */
     private $value;
     /**
      * @var string
      */
     private $methodCall;
-    /**
-     * @param mixed $value
-     */
-    public function __construct(string $type, $value, string $methodCall)
+    public function __construct(
+        string $type,
+        /**
+         * @var mixed
+         */
+        $value,
+        string $methodCall
+    )
     {
         $this->type = $type;
         $this->value = $value;

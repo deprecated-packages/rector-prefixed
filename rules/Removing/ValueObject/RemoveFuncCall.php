@@ -10,13 +10,19 @@ final class RemoveFuncCall
      */
     private $funcCall;
     /**
-     * @var array<int, mixed[]>
+     * @var mixed[]
      */
-    private $argumentPositionAndValues = [];
+    private $argumentPositionAndValues;
     /**
      * @param array<int, mixed[]> $argumentPositionAndValues
      */
-    public function __construct(string $funcCall, array $argumentPositionAndValues = [])
+    public function __construct(
+        string $funcCall,
+        /**
+         * @var array<int, mixed[]>
+         */
+        array $argumentPositionAndValues = []
+    )
     {
         $this->funcCall = $funcCall;
         $this->argumentPositionAndValues = $argumentPositionAndValues;

@@ -32,20 +32,27 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorKernel extends \RectorPrefix20210506\Symfony\Component\HttpKernel\Kernel
 {
     /**
-     * @var SmartFileInfo[]
-     */
-    private $configFileInfos = [];
-    /**
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
     /**
+     * @var mixed[]
+     */
+    private $configFileInfos;
+    /**
      * @param SmartFileInfo[] $configFileInfos
      */
-    public function __construct(string $environment, bool $debug, array $configFileInfos)
+    public function __construct(
+        string $environment,
+        bool $debug,
+        /**
+         * @var SmartFileInfo[]
+         */
+        array $configFileInfos
+    )
     {
-        $this->configureCallValuesCollector = new \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector();
         $this->configFileInfos = $configFileInfos;
+        $this->configureCallValuesCollector = new \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector();
         parent::__construct($environment, $debug);
     }
     public function getCacheDir() : string

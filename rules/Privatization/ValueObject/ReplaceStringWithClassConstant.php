@@ -15,22 +15,19 @@ final class ReplaceStringWithClassConstant
      */
     private $method;
     /**
-     * @var class-string
-     */
-    private $classWithConstants;
-    /**
      * @var int
      */
     private $argPosition;
     /**
-     * @param class-string $classWithConstants
+     * @var string
      */
+    private $classWithConstants;
     public function __construct(string $class, string $method, int $argPosition, string $classWithConstants)
     {
         $this->class = $class;
         $this->method = $method;
-        $this->classWithConstants = $classWithConstants;
         $this->argPosition = $argPosition;
+        $this->classWithConstants = $classWithConstants;
     }
     public function getObjectType() : \PHPStan\Type\ObjectType
     {

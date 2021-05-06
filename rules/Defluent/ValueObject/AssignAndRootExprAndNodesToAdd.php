@@ -8,17 +8,23 @@ use PhpParser\Node\Stmt\Return_;
 final class AssignAndRootExprAndNodesToAdd
 {
     /**
-     * @var array<Expr|Return_>
-     */
-    private $nodesToAdd = [];
-    /**
-     * @var AssignAndRootExpr
+     * @var \Rector\Defluent\ValueObject\AssignAndRootExpr
      */
     private $assignAndRootExpr;
     /**
-     * @param array<Expr|Return_> $nodesToAdd
+     * @var mixed[]
      */
-    public function __construct(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $nodesToAdd)
+    private $nodesToAdd;
+    /**
+     * @param Expr[]|Return_[] $nodesToAdd
+     */
+    public function __construct(
+        \Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr,
+        /**
+         * @var array<Expr|Return_>
+         */
+        array $nodesToAdd
+    )
     {
         $this->assignAndRootExpr = $assignAndRootExpr;
         $this->nodesToAdd = $nodesToAdd;

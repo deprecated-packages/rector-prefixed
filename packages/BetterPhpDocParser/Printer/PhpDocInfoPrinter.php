@@ -80,25 +80,25 @@ final class PhpDocInfoPrinter
      */
     private $phpDocInfo;
     /**
-     * @var EmptyPhpDocDetector
-     */
-    private $emptyPhpDocDetector;
-    /**
-     * @var DocBlockInliner
-     */
-    private $docBlockInliner;
-    /**
-     * @var RemoveNodesStartAndEndResolver
-     */
-    private $removeNodesStartAndEndResolver;
-    /**
-     * @var ChangedPhpDocNodeVisitor
-     */
-    private $changedPhpDocNodeVisitor;
-    /**
      * @var PhpDocNodeTraverser
      */
     private $changedPhpDocNodeTraverser;
+    /**
+     * @var \Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector
+     */
+    private $emptyPhpDocDetector;
+    /**
+     * @var \Rector\BetterPhpDocParser\Printer\DocBlockInliner
+     */
+    private $docBlockInliner;
+    /**
+     * @var \Rector\BetterPhpDocParser\Printer\RemoveNodesStartAndEndResolver
+     */
+    private $removeNodesStartAndEndResolver;
+    /**
+     * @var \Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor
+     */
+    private $changedPhpDocNodeVisitor;
     public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner, \Rector\BetterPhpDocParser\Printer\RemoveNodesStartAndEndResolver $removeNodesStartAndEndResolver, \Rector\BetterPhpDocParser\PhpDocNodeVisitor\ChangedPhpDocNodeVisitor $changedPhpDocNodeVisitor, \Rector\BetterPhpDocParser\PhpDocNodeTraverser\ChangedPhpDocNodeTraverserFactory $changedPhpDocNodeTraverserFactory)
     {
         $this->emptyPhpDocDetector = $emptyPhpDocDetector;

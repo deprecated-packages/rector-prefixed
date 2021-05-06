@@ -6,17 +6,13 @@ namespace Rector\Php80\ValueObject;
 final class AnnotationToAttribute
 {
     /**
-     * @var class-string|string
+     * @var string
      */
     private $tag;
     /**
-     * @var class-string
+     * @var string
      */
     private $attributeClass;
-    /**
-     * @param class-string|string $tag
-     * @param class-string $attributeClass
-     */
     public function __construct(string $tag, string $attributeClass)
     {
         $this->tag = $tag;

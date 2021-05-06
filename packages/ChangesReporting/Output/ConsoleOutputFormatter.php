@@ -24,21 +24,21 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      */
     private const ON_LINE_REGEX = '# on line #';
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
-     * @var Configuration
+     * @var \Rector\Core\Configuration\Configuration
      */
     private $configuration;
     /**
-     * @var RectorsChangelogResolver
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    private $symfonyStyle;
+    /**
+     * @var \Rector\ChangesReporting\Annotation\RectorsChangelogResolver
      */
     private $rectorsChangelogResolver;
     public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\ChangesReporting\Annotation\RectorsChangelogResolver $rectorsChangelogResolver)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
+        $this->symfonyStyle = $symfonyStyle;
         $this->rectorsChangelogResolver = $rectorsChangelogResolver;
     }
     public function report(\Rector\Core\ValueObject\ProcessResult $processResult) : void

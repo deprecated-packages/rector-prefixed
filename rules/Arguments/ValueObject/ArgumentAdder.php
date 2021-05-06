@@ -22,9 +22,6 @@ final class ArgumentAdder
      * @var string|null
      */
     private $argumentName;
-    /**
-     * @var mixed|null
-     */
     private $argumentDefaultValue;
     /**
      * @var string|null
@@ -34,10 +31,18 @@ final class ArgumentAdder
      * @var string|null
      */
     private $scope;
-    /**
-     * @param mixed|null $argumentDefaultValue
-     */
-    public function __construct(string $class, string $method, int $position, ?string $argumentName = null, $argumentDefaultValue = null, ?string $argumentType = null, ?string $scope = null)
+    public function __construct(
+        string $class,
+        string $method,
+        int $position,
+        ?string $argumentName = null,
+        /**
+         * @var mixed|null
+         */
+        $argumentDefaultValue = null,
+        ?string $argumentType = null,
+        ?string $scope = null
+    )
     {
         $this->class = $class;
         $this->method = $method;

@@ -18,19 +18,21 @@ final class ArgumentDefaultValueReplacer
      * @var int
      */
     private $position;
-    /**
-     * @var mixed
-     */
     private $valueBefore;
-    /**
-     * @var mixed
-     */
     private $valueAfter;
-    /**
-     * @param mixed $valueBefore
-     * @param mixed $valueAfter
-     */
-    public function __construct(string $class, string $method, int $position, $valueBefore, $valueAfter)
+    public function __construct(
+        string $class,
+        string $method,
+        int $position,
+        /**
+         * @var mixed
+         */
+        $valueBefore,
+        /**
+         * @var mixed
+         */
+        $valueAfter
+    )
     {
         $this->class = $class;
         $this->method = $method;

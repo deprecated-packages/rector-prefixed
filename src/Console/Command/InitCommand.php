@@ -17,25 +17,33 @@ use RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem;
 final class InitCommand extends \RectorPrefix20210506\Symfony\Component\Console\Command\Command
 {
     /**
-     * @var FileSystemGuard
+     * @var \Symplify\SmartFileSystem\FileSystemGuard
      */
     private $fileSystemGuard;
     /**
-     * @var SmartFileSystem
+     * @var \Symplify\SmartFileSystem\SmartFileSystem
      */
     private $smartFileSystem;
     /**
-     * @var SymfonyStyle
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var TemplateResolverInterface[]
+     * @var mixed[]
      */
-    private $templateResolvers = [];
+    private $templateResolvers;
     /**
      * @param TemplateResolverInterface[] $templateResolvers
      */
-    public function __construct(\RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, array $templateResolvers)
+    public function __construct(
+        \RectorPrefix20210506\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard,
+        \RectorPrefix20210506\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem,
+        \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle,
+        /**
+         * @var TemplateResolverInterface[]
+         */
+        array $templateResolvers
+    )
     {
         $this->fileSystemGuard = $fileSystemGuard;
         $this->smartFileSystem = $smartFileSystem;

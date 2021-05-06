@@ -10,20 +10,26 @@ use RectorPrefix20210506\Symplify\PackageBuilder\Console\ShellCode;
 final class MissingRectorRulesReporter
 {
     /**
-     * @var SymfonyStyle
+     * @var mixed[]
+     */
+    private $rectors;
+    /**
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
     private $symfonyStyle;
     /**
-     * @var RectorInterface[]
-     */
-    private $rectors = [];
-    /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(array $rectors, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(
+        /**
+         * @var RectorInterface[]
+         */
+        array $rectors,
+        \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+    )
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->rectors = $rectors;
+        $this->symfonyStyle = $symfonyStyle;
     }
     public function reportIfMissing() : ?int
     {

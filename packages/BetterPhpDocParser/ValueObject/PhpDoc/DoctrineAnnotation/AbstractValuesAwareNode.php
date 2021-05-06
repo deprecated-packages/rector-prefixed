@@ -17,25 +17,32 @@ abstract class AbstractValuesAwareNode implements \PHPStan\PhpDocParser\Ast\PhpD
      */
     private const UNQUOTED_VALUE_REGEX = '#"(?<content>.*?)"#';
     /**
-     * @var mixed[]
-     */
-    protected $values = [];
-    /**
      * @var bool
      */
     protected $hasChanged = \false;
     /**
-     * @var string|null
+     * @var mixed[]
      */
-    protected $silentKey;
+    protected $values;
     /**
      * @var string|null
      */
     protected $originalContent;
     /**
+     * @var string|null
+     */
+    protected $silentKey;
+    /**
      * @param mixed[] $values
      */
-    public function __construct(array $values = [], ?string $originalContent = null, ?string $silentKey = null)
+    public function __construct(
+        /**
+         * @var mixed[]
+         */
+        array $values = [],
+        ?string $originalContent = null,
+        ?string $silentKey = null
+    )
     {
         $this->values = $values;
         $this->originalContent = $originalContent;

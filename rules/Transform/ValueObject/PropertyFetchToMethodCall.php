@@ -19,17 +19,26 @@ final class PropertyFetchToMethodCall
      */
     private $newGetMethod;
     /**
-     * @var mixed[]
-     */
-    private $newGetArguments = [];
-    /**
      * @var string|null
      */
     private $newSetMethod;
     /**
+     * @var mixed[]
+     */
+    private $newGetArguments;
+    /**
      * @param mixed[] $newGetArguments
      */
-    public function __construct(string $oldType, string $oldProperty, string $newGetMethod, ?string $newSetMethod = null, array $newGetArguments = [])
+    public function __construct(
+        string $oldType,
+        string $oldProperty,
+        string $newGetMethod,
+        ?string $newSetMethod = null,
+        /**
+         * @var mixed[]
+         */
+        array $newGetArguments = []
+    )
     {
         $this->oldType = $oldType;
         $this->oldProperty = $oldProperty;

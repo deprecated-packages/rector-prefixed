@@ -18,14 +18,16 @@ final class ArgumentRemover
      * @var int
      */
     private $position;
-    /**
-     * @var mixed
-     */
     private $value;
-    /**
-     * @param mixed $value
-     */
-    public function __construct(string $class, string $method, int $position, $value)
+    public function __construct(
+        string $class,
+        string $method,
+        int $position,
+        /**
+         * @var mixed
+         */
+        $value
+    )
     {
         $this->class = $class;
         $this->method = $method;
