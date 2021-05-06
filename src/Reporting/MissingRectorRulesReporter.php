@@ -44,8 +44,7 @@ final class MissingRectorRulesReporter
         $this->symfonyStyle->writeln('  $services->set(...);');
         $this->symfonyStyle->newLine(1);
         $this->symfonyStyle->title('2. Add set of rules to "rector.php"');
-        $this->symfonyStyle->writeln('  $parameters = $containerConfigurator->parameters();');
-        $this->symfonyStyle->writeln('  $parameters->set(Option::SETS, [...]);');
+        $this->symfonyStyle->writeln('  $containerConfigurator->import(SetList::...);');
         $this->symfonyStyle->newLine(1);
         $this->symfonyStyle->title('Missing "rector.php" in your project? Let Rector create it for you');
         $this->symfonyStyle->writeln('  vendor/bin/rector init');
