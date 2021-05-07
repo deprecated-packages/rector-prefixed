@@ -66,7 +66,7 @@ CODE_SAMPLE
 )]);
     }
     /**
-     * @param ClassMethod|Function_ $node
+     * @param ClassMethod|Function_|Closure $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
