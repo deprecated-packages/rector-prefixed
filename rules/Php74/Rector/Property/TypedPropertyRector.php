@@ -9,6 +9,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType as PhpParserUnionType;
 use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
@@ -117,19 +118,15 @@ CODE_SAMPLE
         if ($varType instanceof \PHPStan\Type\MixedType) {
             return null;
         }
+        if ($varType instanceof \PHPStan\Type\UnionType) {
+            $types = $varType->getTypes();
+            if (\count($types) === 2 && $types[0] instanceof \PHPStan\Type\Generic\TemplateType) {
+                $node->type = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($types[0]->getBound(), \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_PROPERTY);
+                return $node;
+            }
+        }
         $propertyTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($varType, \Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind::KIND_PROPERTY);
-        if (!$propertyTypeNode instanceof \PhpParser\Node) {
-            return null;
-        }
-        // is not class-type and should be skipped
-        if ($this->shouldSkipNonClassLikeType($propertyTypeNode)) {
-            return null;
-        }
-        // false positive
-        if ($propertyTypeNode instanceof \PhpParser\Node\Name && $this->isName($propertyTypeNode, 'mixed')) {
-            return null;
-        }
-        if ($this->vendorLockResolver->isPropertyTypeChangeVendorLockedIn($node)) {
+        if ($this->isNullOrNonClassLikeTypeOrMixedOrVendorLockedIn($propertyTypeNode, $node)) {
             return null;
         }
         $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($node, $varType);
@@ -141,6 +138,27 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $this->classLikeTypeOnly = $configuration[self::CLASS_LIKE_TYPE_ONLY] ?? \false;
+    }
+    /**
+     * @param Name|NullableType|PhpParserUnionType|null $node
+     */
+    private function isNullOrNonClassLikeTypeOrMixedOrVendorLockedIn(?\PhpParser\Node $node, \PhpParser\Node\Stmt\Property $property) : bool
+    {
+        if (!$node instanceof \PhpParser\Node) {
+            return \true;
+        }
+        // is not class-type and should be skipped
+        if ($this->shouldSkipNonClassLikeType($node)) {
+            return \true;
+        }
+        // false positive
+        if (!$node instanceof \PhpParser\Node\Name) {
+            return $this->vendorLockResolver->isPropertyTypeChangeVendorLockedIn($property);
+        }
+        if (!$this->isName($node, 'mixed')) {
+            return $this->vendorLockResolver->isPropertyTypeChangeVendorLockedIn($property);
+        }
+        return \true;
     }
     /**
      * @param Name|NullableType|PhpParserUnionType $node
