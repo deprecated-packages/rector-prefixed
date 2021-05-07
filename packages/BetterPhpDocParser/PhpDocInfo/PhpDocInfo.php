@@ -98,6 +98,7 @@ final class PhpDocInfo
         $this->phpDocNode->children[] = $phpDocChildNode;
         // to give node more space
         $this->makeMultiLined();
+        $this->markAsChanged();
     }
     public function getPhpDocNode() : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {

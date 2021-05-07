@@ -8,14 +8,17 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Tests\DowngradePhp70\Rector\FunctionLike\DowngradeTypeDeclarationRector\DowngradeTypeDeclarationRectorTest
+ * @changelog https://wiki.php.net/rfc/scalar_type_hints
+ *
+ * @see \Rector\Tests\DowngradePhp70\Rector\FunctionLike\DowngradeScalarTypeDeclarationRector\DowngradeScalarTypeDeclarationRectorTest
  */
-final class DowngradeTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
+final class DowngradeScalarTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PhpDocFromTypeDeclarationDecorator
@@ -62,7 +65,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->params as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class]);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class, \PHPStan\Type\TypeWithClassName::class]);
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
             return null;
