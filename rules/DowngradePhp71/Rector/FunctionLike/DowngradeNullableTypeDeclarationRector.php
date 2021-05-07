@@ -96,7 +96,7 @@ CODE_SAMPLE
         return $param->type instanceof \PhpParser\Node\NullableType;
     }
     /**
-     * @param ClassMethod|Function_ $functionLike
+     * @param ClassMethod|Function_|Closure $functionLike
      */
     private function refactorParamType(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
@@ -108,7 +108,7 @@ CODE_SAMPLE
         return \true;
     }
     /**
-     * @param ClassMethod|Function_ $functionLike
+     * @param ClassMethod|Function_|Closure $functionLike
      */
     private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
