@@ -1,4 +1,4 @@
-# 33 Rules Overview
+# 35 Rules Overview
 
 ## AddNextrasDatePickerToDateControlRector
 
@@ -355,7 +355,7 @@ Add doc type for magic `$control->getComponent(...)` assign
 
 ## MergeDefaultsInGetConfigCompilerExtensionRector
 
-Change `$this->getConfig($defaults)` to `array_merge`
+Change `$this->getConfig($defaults)` to array_merge
 
 - class: [`Rector\Nette\Rector\MethodCall\MergeDefaultsInGetConfigCompilerExtensionRector`](../src/Rector/MethodCall/MergeDefaultsInGetConfigCompilerExtensionRector.php)
 
@@ -458,6 +458,28 @@ Move `@inject` properties to constructor, if there already is one
 
 <br>
 
+## NetteInjectToConstructorInjectionRector
+
+Turns properties with `@inject` to private properties and constructor injection
+
+- class: [`Rector\Nette\Rector\Property\NetteInjectToConstructorInjectionRector`](../src/Rector/Property/NetteInjectToConstructorInjectionRector.php)
+
+```diff
+ /**
+  * @var SomeService
+- * @inject
+  */
+-public $someService;
++private $someService;
++
++public function __construct(SomeService $someService)
++{
++    $this->someService = $someService;
++}
+```
+
+<br>
+
 ## PregFunctionToNetteUtilsStringsRector
 
 Use `Nette\Utils\Strings` over bare `preg_split()` and `preg_replace()` functions
@@ -520,6 +542,45 @@ Remove `$parent` and `$name` in control constructor
          $this->value = $value;
      }
  }
+```
+
+<br>
+
+## RenameMethodNeonRector
+
+Renames method calls in NEON configs
+
+:wrench: **configure it!**
+
+- class: [`Rector\Nette\Rector\Neon\RenameMethodNeonRector`](../src/Rector/Neon/RenameMethodNeonRector.php)
+
+```php
+use Rector\Nette\Rector\Neon\RenameMethodNeonRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(RenameMethodNeonRector::class)
+        ->call('configure', [[
+            RenameMethodNeonRector::RENAME_METHODS => ValueObjectInliner::inline([
+                new MethodCallRename('SomeClass', 'oldCall', 'newCall'),
+            ]),
+        ]]);
+};
+```
+
+↓
+
+```diff
+ services:
+     -
+         class: SomeClass
+         setup:
+-            - oldCall
++            - newCall
 ```
 
 <br>
@@ -616,7 +677,7 @@ Change `getSubscribedEvents()` from on magic property, to Event class
 
 ## ReplaceTimeNumberWithDateTimeConstantRector
 
-Replace `time` numbers with `Nette\Utils\DateTime` constants
+Replace time numbers with `Nette\Utils\DateTime` constants
 
 - class: [`Rector\Nette\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector`](../src/Rector/LNumber/ReplaceTimeNumberWithDateTimeConstantRector.php)
 
@@ -720,7 +781,7 @@ Use `Nette\Utils\Strings` over bare string-functions
 
 ## SubstrMinusToStringEndsWithRector
 
-Change `substr` function with minus to `Strings::endsWith()`
+Change substr function with minus to `Strings::endsWith()`
 
 - class: [`Rector\Nette\Rector\Identical\SubstrMinusToStringEndsWithRector`](../src/Rector/Identical/SubstrMinusToStringEndsWithRector.php)
 

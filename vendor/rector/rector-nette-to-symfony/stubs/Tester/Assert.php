@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210506\Tester;
+namespace RectorPrefix20210507\Tester;
 
 if (\class_exists('Tester\\Assert')) {
     return;

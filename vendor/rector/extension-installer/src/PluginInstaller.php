@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\RectorInstaller;
 
-use RectorPrefix20210506\Composer\Installer\InstallationManager;
-use RectorPrefix20210506\Composer\IO\IOInterface;
-use RectorPrefix20210506\Composer\Package\PackageInterface;
-use RectorPrefix20210506\Composer\Repository\InstalledRepositoryInterface;
-use RectorPrefix20210506\Composer\Util\Filesystem as ComposerFilesystem;
+use RectorPrefix20210507\Composer\Installer\InstallationManager;
+use RectorPrefix20210507\Composer\IO\IOInterface;
+use RectorPrefix20210507\Composer\Package\PackageInterface;
+use RectorPrefix20210507\Composer\Repository\InstalledRepositoryInterface;
+use RectorPrefix20210507\Composer\Util\Filesystem as ComposerFilesystem;
 /**
  * @see \Rector\RectorInstaller\Tests\PluginInstallerTest
  */
@@ -64,7 +64,7 @@ CODE_SAMPLE;
      * @var ComposerFilesystem
      */
     private $composerFilesystem;
-    public function __construct(\Rector\RectorInstaller\Filesystem $filesystem, \RectorPrefix20210506\Composer\Repository\InstalledRepositoryInterface $localRepository, \RectorPrefix20210506\Composer\IO\IOInterface $io, \RectorPrefix20210506\Composer\Installer\InstallationManager $installationManager, \RectorPrefix20210506\Composer\Util\Filesystem $composerFilesystem, string $configurationFile)
+    public function __construct(\Rector\RectorInstaller\Filesystem $filesystem, \RectorPrefix20210507\Composer\Repository\InstalledRepositoryInterface $localRepository, \RectorPrefix20210507\Composer\IO\IOInterface $io, \RectorPrefix20210507\Composer\Installer\InstallationManager $installationManager, \RectorPrefix20210507\Composer\Util\Filesystem $composerFilesystem, string $configurationFile)
     {
         $this->filesystem = $filesystem;
         $this->localRepository = $localRepository;
@@ -96,12 +96,12 @@ CODE_SAMPLE;
             return;
         }
         $this->filesystem->writeFile($this->configurationFile, $generatedConfigFileContents);
-        $this->io->write('<info>ssch/rector-extension-installer:</info> Extensions installed');
+        $this->io->write('<info>rector/rector-installer:</info> Extensions installed');
         foreach (\array_keys($installedPackages) as $name) {
             $this->io->write(\sprintf('> <info>%s:</info> installed', $name));
         }
     }
-    private function shouldSkip(\RectorPrefix20210506\Composer\Package\PackageInterface $package) : bool
+    private function shouldSkip(\RectorPrefix20210507\Composer\Package\PackageInterface $package) : bool
     {
         if ($package->getType() === self::RECTOR_EXTENSION_TYPE) {
             return \false;

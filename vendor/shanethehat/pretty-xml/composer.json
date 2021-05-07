@@ -21,7 +21,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210506\\PrettyXml\\": "src\/PrettyXml\/"
+            "RectorPrefix20210507\\PrettyXml\\": "src\/PrettyXml\/"
         }
     },
     "config": {

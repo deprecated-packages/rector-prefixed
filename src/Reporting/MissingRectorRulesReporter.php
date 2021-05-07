@@ -5,8 +5,8 @@ namespace Rector\Core\Reporting;
 
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210506\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210507\Symplify\PackageBuilder\Console\ShellCode;
 final class MissingRectorRulesReporter
 {
     /**
@@ -20,7 +20,7 @@ final class MissingRectorRulesReporter
     /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(array $rectors, \RectorPrefix20210506\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(array $rectors, \RectorPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->rectors = $rectors;
@@ -34,7 +34,7 @@ final class MissingRectorRulesReporter
             return null;
         }
         $this->report();
-        return \RectorPrefix20210506\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return \RectorPrefix20210507\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     public function report() : void
     {
