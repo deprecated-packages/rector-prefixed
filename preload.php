@@ -239,3 +239,6 @@ require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/NodeVisitor/Cloni
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/NodeVisitor/FindingVisitor.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/NodeVisitor/NameResolver.php';
 require_once __DIR__ . '/vendor/nikic/php-parser/lib/PhpParser/Node.php';
+require_once __DIR__ . '/vendor/symplify/symfony-php-config/src/Exception/ValueObjectException.php';
+require_once __DIR__ . '/vendor/symplify/symfony-php-config/src/Reflection/ArgumentAndParameterFactory.php';
+require_once __DIR__ . '/vendor/symplify/symfony-php-config/src/ValueObjectInliner.php';
