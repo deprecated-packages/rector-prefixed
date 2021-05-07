@@ -1986,6 +1986,7 @@ return array(
     'Rector\\Doctrine\\TypeAnalyzer\\TypeFinder' => $vendorDir . '/rector/rector-doctrine/src/TypeAnalyzer/TypeFinder.php',
     'Rector\\Doctrine\\Type\\RepositoryTypeFactory' => $vendorDir . '/rector/rector-doctrine/src/Type/RepositoryTypeFactory.php',
     'Rector\\DowngradePhp53\\Rector\\Dir\\DirConstToFileConstRector' => $baseDir . '/rules/DowngradePhp53/Rector/Dir/DirConstToFileConstRector.php',
+    'Rector\\DowngradePhp70\\NodeFactory\\ClassFromAnonymousFactory' => $baseDir . '/rules/DowngradePhp70/NodeFactory/ClassFromAnonymousFactory.php',
     'Rector\\DowngradePhp70\\Rector\\Coalesce\\DowngradeNullCoalesceRector' => $baseDir . '/rules/DowngradePhp70/Rector/Coalesce/DowngradeNullCoalesceRector.php',
     'Rector\\DowngradePhp70\\Rector\\Declare_\\DowngradeStrictTypeDeclarationRector' => $baseDir . '/rules/DowngradePhp70/Rector/Declare_/DowngradeStrictTypeDeclarationRector.php',
     'Rector\\DowngradePhp70\\Rector\\Expression\\DowngradeDefineArrayConstantRector' => $baseDir . '/rules/DowngradePhp70/Rector/Expression/DowngradeDefineArrayConstantRector.php',
