@@ -73,7 +73,7 @@ CODE_SAMPLE
         if (!$node->returnType instanceof \PhpParser\Node\UnionType) {
             return null;
         }
-        if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+        if (!$this->phpDocFromTypeDeclarationDecorator->decorate($node)) {
             return null;
         }
         return $node;

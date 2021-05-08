@@ -436,9 +436,3 @@ class SymfonyStyle extends \RectorPrefix20210508\Symfony\Component\Console\Style
         return $lines;
     }
 }
-/**
- * Output decorator helpers for the Symfony Style Guide.
- *
- * @author Kevin Bond <kevinbond@gmail.com>
- */
-\class_alias('RectorPrefix20210508\\Symfony\\Component\\Console\\Style\\SymfonyStyle', 'Symfony\\Component\\Console\\Style\\SymfonyStyle', \false);

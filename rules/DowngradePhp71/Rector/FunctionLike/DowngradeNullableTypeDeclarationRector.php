@@ -76,7 +76,7 @@ CODE_SAMPLE
                 $hasChanged = \true;
             }
         }
-        if ($node->returnType instanceof \PhpParser\Node\NullableType && $this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
+        if ($node->returnType instanceof \PhpParser\Node\NullableType && $this->phpDocFromTypeDeclarationDecorator->decorate($node)) {
             $hasChanged = \true;
         }
         if ($hasChanged) {
