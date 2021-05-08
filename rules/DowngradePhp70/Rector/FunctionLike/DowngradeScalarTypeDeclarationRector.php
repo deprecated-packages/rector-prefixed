@@ -4,20 +4,16 @@ declare (strict_types=1);
 namespace Rector\DowngradePhp70\Rector\FunctionLike;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Cast\String_;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DowngradePhp70\NodeFactory\StringifyIfFactory;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -32,9 +28,14 @@ final class DowngradeScalarTypeDeclarationRector extends \Rector\Core\Rector\Abs
      * @var PhpDocFromTypeDeclarationDecorator
      */
     private $phpDocFromTypeDeclarationDecorator;
-    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator)
+    /**
+     * @var StringifyIfFactory
+     */
+    private $stringifyIfFactory;
+    public function __construct(\Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator $phpDocFromTypeDeclarationDecorator, \Rector\DowngradePhp70\NodeFactory\StringifyIfFactory $stringifyIfFactory)
     {
         $this->phpDocFromTypeDeclarationDecorator = $phpDocFromTypeDeclarationDecorator;
+        $this->stringifyIfFactory = $stringifyIfFactory;
     }
     /**
      * @return array<class-string<Node>>
@@ -84,15 +85,6 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function createObjetVariableStringCast(string $variableName) : \PhpParser\Node\Stmt\If_
-    {
-        $variable = new \PhpParser\Node\Expr\Variable($variableName);
-        $isObjectFuncCall = $this->nodeFactory->createFuncCall('is_object', [$variable]);
-        $if = new \PhpParser\Node\Stmt\If_($isObjectFuncCall);
-        $assign = new \PhpParser\Node\Expr\Assign($variable, new \PhpParser\Node\Expr\Cast\String_($variable));
-        $if->stmts[] = new \PhpParser\Node\Stmt\Expression($assign);
-        return $if;
-    }
     /**
      * @param Function_|ClassMethod $functionLike
      * @return Function_|ClassMethod
@@ -109,7 +101,7 @@ CODE_SAMPLE
         // @see https://twitter.com/VotrubaT/status/1390974218108538887
         /** @var string $variableName */
         $variableName = $this->getName($param->var);
-        $if = $this->createObjetVariableStringCast($variableName);
+        $if = $this->stringifyIfFactory->createObjetVariableStringCast($variableName);
         $functionLike->stmts = \array_merge([$if], (array) $functionLike->stmts);
         return $functionLike;
     }
