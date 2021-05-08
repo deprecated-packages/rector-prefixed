@@ -5,7 +5,6 @@ namespace Rector\Caching\Cache;
 
 use RectorPrefix20210508\Nette\Caching\Cache;
 use RectorPrefix20210508\Nette\Caching\Storages\FileStorage;
-use RectorPrefix20210508\Nette\Utils\Strings;
 use Rector\Core\Configuration\Option;
 use RectorPrefix20210508\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210508\Symplify\SmartFileSystem\SmartFileSystem;
@@ -33,7 +32,6 @@ final class NetteCacheFactory
         }
         $fileStorage = new \RectorPrefix20210508\Nette\Caching\Storages\FileStorage($cacheDirectory);
         // namespace is unique per project
-        $namespace = \RectorPrefix20210508\Nette\Utils\Strings::webalize(\getcwd());
-        return new \RectorPrefix20210508\Nette\Caching\Cache($fileStorage, $namespace);
+        return new \RectorPrefix20210508\Nette\Caching\Cache($fileStorage, \getcwd());
     }
 }
