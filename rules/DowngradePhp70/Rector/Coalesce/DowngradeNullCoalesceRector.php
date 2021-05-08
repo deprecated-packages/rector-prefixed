@@ -14,6 +14,8 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
+ * @changelog https://wiki.php.net/rfc/isset_ternary
+ *
  * @see \Rector\Tests\DowngradePhp70\Rector\Coalesce\DowngradeNullCoalesceRector\DowngradeNullCoalesceRectorTest
  */
 final class DowngradeNullCoalesceRector extends \Rector\Core\Rector\AbstractRector

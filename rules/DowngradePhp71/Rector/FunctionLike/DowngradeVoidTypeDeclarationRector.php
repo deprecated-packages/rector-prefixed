@@ -13,6 +13,8 @@ use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
+ * @changelog https://wiki.php.net/rfc/void_return_type
+ *
  * @see \Rector\Tests\DowngradePhp71\Rector\FunctionLike\DowngradeVoidTypeDeclarationRector\DowngradeVoidTypeDeclarationRectorTest
  */
 final class DowngradeVoidTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
