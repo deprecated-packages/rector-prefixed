@@ -78,6 +78,9 @@ CODE_SAMPLE
     {
         $recastAssigns = [];
         foreach ($node->params as $param) {
+            if ($param->type === null) {
+                continue;
+            }
             $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\StringType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\BooleanType::class, \PHPStan\Type\FloatType::class]);
             $recastAssign = $this->resolveRecastAssign($param, $node);
             if ($recastAssign instanceof \PhpParser\Node\Stmt\Expression) {
