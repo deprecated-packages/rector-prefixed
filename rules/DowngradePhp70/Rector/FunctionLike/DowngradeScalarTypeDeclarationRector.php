@@ -6,9 +6,10 @@ namespace Rector\DowngradePhp70\Rector\FunctionLike;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\CallableType;
-use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp71\TypeDeclaration\PhpDocFromTypeDeclarationDecorator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -65,7 +66,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($node->params as $param) {
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\ArrayType::class, \PHPStan\Type\CallableType::class, \PHPStan\Type\TypeWithClassName::class]);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\StringType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\BooleanType::class, \PHPStan\Type\FloatType::class]);
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
             return null;

@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210507\PrettyXml;
+namespace RectorPrefix20210508\PrettyXml;
 
 class Formatter
 {

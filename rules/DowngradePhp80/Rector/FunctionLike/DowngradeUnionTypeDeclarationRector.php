@@ -68,7 +68,7 @@ CODE_SAMPLE
             if (!$param->type instanceof \PhpParser\Node\UnionType) {
                 continue;
             }
-            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node);
+            $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\UnionType::class]);
         }
         if (!$node->returnType instanceof \PhpParser\Node\UnionType) {
             return null;
