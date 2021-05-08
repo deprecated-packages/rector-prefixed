@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea
+class ComposerStaticInit1ccd41d53105c73780953b511c2535e6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2032,8 +2032,10 @@ class ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea
         'Rector\\Core\\Console\\Command\\ShowCommand' => __DIR__ . '/../..' . '/src/Console/Command/ShowCommand.php',
         'Rector\\Core\\Console\\ConsoleApplication' => __DIR__ . '/../..' . '/src/Console/ConsoleApplication.php',
         'Rector\\Core\\Console\\Output\\OutputFormatterCollector' => __DIR__ . '/../..' . '/src/Console/Output/OutputFormatterCollector.php',
+        'Rector\\Core\\Console\\Output\\RectorOutputStyle' => __DIR__ . '/../..' . '/src/Console/Output/RectorOutputStyle.php',
         'Rector\\Core\\Console\\Style\\SymfonyStyleFactory' => __DIR__ . '/../..' . '/src/Console/Style/SymfonyStyleFactory.php',
         'Rector\\Core\\Contract\\Application\\FileDecoratorInterface' => __DIR__ . '/../..' . '/src/Contract/Application/FileDecoratorInterface.php',
+        'Rector\\Core\\Contract\\Console\\OutputStyleInterface' => __DIR__ . '/../..' . '/src/Contract/Console/OutputStyleInterface.php',
         'Rector\\Core\\Contract\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverInterface' => __DIR__ . '/../..' . '/src/Contract/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverInterface.php',
         'Rector\\Core\\Contract\\Processor\\FileProcessorInterface' => __DIR__ . '/../..' . '/src/Contract/Processor/FileProcessorInterface.php',
         'Rector\\Core\\Contract\\Rector\\ConfigurableRectorInterface' => __DIR__ . '/../..' . '/src/Contract/Rector/ConfigurableRectorInterface.php',
@@ -3463,9 +3465,9 @@ class ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9e6d9e65d4872891ac73b37de84a93ea::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1ccd41d53105c73780953b511c2535e6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1ccd41d53105c73780953b511c2535e6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1ccd41d53105c73780953b511c2535e6::$classMap;
 
         }, null, ClassLoader::class);
     }
