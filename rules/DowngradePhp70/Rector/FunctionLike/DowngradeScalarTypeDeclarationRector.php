@@ -77,7 +77,7 @@ CODE_SAMPLE
             $this->phpDocFromTypeDeclarationDecorator->decorateParam($param, $node, [\PHPStan\Type\StringType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\BooleanType::class, \PHPStan\Type\FloatType::class]);
             $paramType = $this->getStaticType($param);
             if ($paramType instanceof \PHPStan\Type\StringType) {
-                return $this->decorateWithObjectType($param, $node);
+                $this->decorateWithObjectType($param, $node);
             }
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturn($node)) {
