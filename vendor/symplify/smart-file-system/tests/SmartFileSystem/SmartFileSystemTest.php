@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210508\Symplify\SmartFileSystem\Tests\SmartFileSystem;
+namespace RectorPrefix20210509\Symplify\SmartFileSystem\Tests\SmartFileSystem;
 
-use RectorPrefix20210508\PHPUnit\Framework\TestCase;
+use RectorPrefix20210509\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210508\Symplify\SmartFileSystem\SmartFileSystem;
-final class SmartFileSystemTest extends \RectorPrefix20210508\PHPUnit\Framework\TestCase
+use RectorPrefix20210509\Symplify\SmartFileSystem\SmartFileSystem;
+final class SmartFileSystemTest extends \RectorPrefix20210509\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFileSystem
@@ -14,7 +14,7 @@ final class SmartFileSystemTest extends \RectorPrefix20210508\PHPUnit\Framework\
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->smartFileSystem = new \RectorPrefix20210508\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->smartFileSystem = new \RectorPrefix20210509\Symplify\SmartFileSystem\SmartFileSystem();
     }
     public function testReadFileToSmartFileInfo() : void
     {
