@@ -1,25 +1,15 @@
 # Prefixed Rector
 
-[![Build Status Github Actions](https://img.shields.io/github/workflow/status/rectorphp/rector-prefixed/Code_Checks?style=flat-square)](https://github.com/rectorphp/rector-prefixed/actions)
-[![Downloads](https://img.shields.io/packagist/dt/rector/rector-prefixed.svg?style=flat-square)](https://packagist.org/packages/rector/rector-prefixed)
+Since Rector 0.11, the prefixed version is now released in `rector/rector` by default. It works the same way as this package.
 
-Do you have conflicts on Rector install? You're in the right place. Prefixed Rector can [be installed even on very old Symfony](https://getrector.org/blog/2020/01/20/how-to-install-rector-despite-composer-conflicts).
+See [Prefixed Rector by Default](https://getrector.org/blog/prefixed-rector-by-default).
 
-Do you have older PHP? Rector prefixed goes down to PHP 7.1, so you can install it even on older projects.
 
-## Install
+## How to Upgrade?
 
 ```bash
-composer require rector/rector-prefixed --dev
+composer remove rector/rector-prefixed
+composer require rector/rector:^0.11 --dev
 ```
 
-```bash
-# generate "rector.php" config
-vendor/bin/rector init
-
-# dry run
-vendor/bin/rector process src --dry-run
-
-# changing run
-vendor/bin/rector process src
-```
+If you have any problem upgrading, let us know at: https://github.com/rectorphp/rector/issues/new
